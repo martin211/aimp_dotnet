@@ -1,0 +1,172 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+
+namespace AIMP.SDK.Logger
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public class Logger : IDisposable, ILogger
+    {
+        internal class Log
+        {
+            /// <summary>
+            /// Gets or sets the message.
+            /// </summary>
+            /// <value>
+            /// The message.
+            /// </value>
+            public string Message { get; set; }
+
+            /// <summary>
+            /// Gets or sets the log time.
+            /// </summary>
+            /// <value>
+            /// The log time.
+            /// </value>
+            public string LogTime { get; set; }
+
+            /// <summary>
+            /// Gets or sets the log date.
+            /// </summary>
+            /// <value>
+            /// The log date.
+            /// </value>
+            public string LogDate { get; set; }
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Log"/> class.
+            /// </summary>
+            /// <param name="message">The message.</param>
+            public Log(string message)
+            {
+                Message = message;
+                LogDate = DateTime.Now.ToString("yyyy-MM-dd");
+                LogTime = DateTime.Now.ToString("hh:mm:ss.fff tt");
+            }
+        }
+
+        private static Queue<Log> _logQueue;
+        private string _logDir;
+        private string _fileName;
+        private static int _maxLogAge = 10;
+        private static int _queueSize = 10;
+        private static DateTime lastFlushed = DateTime.Now;
+        private bool _initialized;
+        private bool _disposed;
+
+        /// <summary>
+        /// Finalizes an instance of the <see cref="Logger"/> class.
+        /// </summary>
+        ~Logger()
+        {
+            if (!_disposed)
+            {
+                FlushLog();
+            }
+        }
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            FlushLog();
+            _disposed = true;
+        }
+
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
+        public void Close()
+        {
+            Dispose();
+        }
+
+        /// <summary>
+        /// Initializes the specified log dir.
+        /// </summary>
+        /// <param name="logDir">The log dir.</param>
+        /// <param name="fileName">Name of the file.</param>
+        public void Initialize(string logDir, string fileName)
+        {
+            _logDir = logDir;
+            _fileName = fileName;
+            _logQueue = new Queue<Log>(_queueSize);
+            _initialized = true;
+        }
+
+        /// <summary>
+        /// Writes to log.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public void Write(string message)
+        {
+            WriteToLog(message);
+        }
+
+        /// <summary>
+        /// Writes the specified exception.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        public void Write(Exception exception)
+        {
+            WriteToLog(exception.ToString());
+        }
+
+        private void WriteToLog(string message)
+        {
+            if (!_initialized)
+            {
+                throw new ApplicationException("Logger has not been initialized.");
+            }
+
+            // Lock the queue while writing to prevent contention for the log file
+            lock (_logQueue)
+            {
+                // Create the entry and push to the Queue
+                Log logEntry = new Log(message);
+                _logQueue.Enqueue(logEntry);
+
+                // If we have reached the Queue Size then flush the Queue
+                if (_logQueue.Count >= _queueSize || DoPeriodicFlush())
+                {
+                    FlushLog();
+                }
+            }   
+        }
+
+        private bool DoPeriodicFlush()
+        {
+            TimeSpan logAge = DateTime.Now - lastFlushed;
+            if (logAge.TotalMinutes >= _maxLogAge)
+            {
+                lastFlushed = DateTime.Now;
+                return true;
+            }
+            return false;
+        }
+
+        private void FlushLog()
+        {
+            while (_logQueue.Count > 0)
+            {
+                Log entry = _logQueue.Dequeue();
+                string logPath = _logDir + entry.LogDate + "_" + _fileName;
+
+                if (!File.Exists(logPath))
+                {
+                    File.Create(logPath);
+                }
+
+                // This could be optimised to prevent opening and closing the file for each write
+                using (var log = File.AppendText(logPath))
+                {
+                    log.WriteLine("{0}\t{1}", entry.LogTime, entry.Message);
+                }
+                
+            }
+        }
+    }
+}

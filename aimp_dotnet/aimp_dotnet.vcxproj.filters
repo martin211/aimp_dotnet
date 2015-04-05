@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="ManagedAimpCore.cpp" />
+    <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="Stdafx.cpp" />
+    <ClCompile Include="DotNetPlugin.cpp">
+      <Filter>Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="Services\ActionManager\ActionManager.cpp">
+      <Filter>Services\ActionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Services\MenuManager\ServiceMenuManager.cpp">
+      <Filter>Services\MenuManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Services\PlayListManager\AimpPlayListGroup.cpp">
+      <Filter>Services\PlayListManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Services\PlayListManager\AimpPlayListItem.cpp">
+      <Filter>Services\PlayListManager</Filter>
+    </ClCompile>
+    <ClCompile Include="AimpDotnetPlugin.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AIMPPlugin.h" />
+    <ClInclude Include="AimpPlayer.h" />
+    <ClInclude Include="DataConversion.h" />
+    <ClInclude Include="ManagedAimpCore.h" />
+    <ClInclude Include="EventHelper.h" />
+    <ClInclude Include="AIMP_SDK\IUnknownInterfaceImpl.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Stdafx.h" />
+    <ClInclude Include="AIMP_SDK\AIMP360\apiActions.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiVisuals.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiAlbumArt.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiCore.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiDecoders.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiFileManager.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiInternet.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiMenu.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiMessages.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiMUI.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiObjects.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiOptions.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiPlayer.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiPlaylists.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiPlugin.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiRemote.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiScheduler.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiSkins.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiTagEditor.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\AIMP360\apiThreading.h">
+      <Filter>AIMP_SDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMP_SDK\aimp3_60_sdk.h">
+      <Filter>AIMP_SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DotNetPlugin.h">
+      <Filter>Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionsWindow.h">
+      <Filter>Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\AlbumArtManager\AlbumArtManager.h">
+      <Filter>Services\AlbumArtManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\ConfigurationManager\ConfigurationManager.h">
+      <Filter>Services\ConfigurationManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\MenuManager\ICallBackHeader.h">
+      <Filter>Services\MenuManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\MenuManager\MenuItemEvent.h">
+      <Filter>Services\MenuManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\ActionManager\ActionManager.h">
+      <Filter>Services\ActionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\MenuManager\ServiceMenuManager.h">
+      <Filter>Services\MenuManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\MUIManager\MUIManager.h">
+      <Filter>Services\MUIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\PlayListManager\AimpFileInfo.h">
+      <Filter>Services\PlayListManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\PlayListManager\AimpPlayListGroup.h">
+      <Filter>Services\PlayListManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\PlayListManager\AimpPlayListItem.h">
+      <Filter>Services\PlayListManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\PlayListManager\AimpPlaybackQueueItem.h">
+      <Filter>Services\PlayListManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\Win32Manager\Win32Manager.h">
+      <Filter>Services\Win32Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\BaseManager.h">
+      <Filter>Services</Filter>
+    </ClInclude>
+    <ClInclude Include="InternalLogger.h">
+      <Filter>Services\LoggerManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\PlayListManager\VirtualFileInfoh.h">
+      <Filter>Services\PlayListManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectHelper.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="app.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AIMP_Exports.def" />
+    <None Include="app.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Plugin">
+      <UniqueIdentifier>{c6185279-ed4a-41fa-814c-78236d619bfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AIMP_SDK">
+      <UniqueIdentifier>{0bfbfed7-a60b-4f42-ab39-dfa349bb185e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AIMP_SDK\AIMP360">
+      <UniqueIdentifier>{1b1bc2d1-7788-4155-bd18-f4c5609248a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services">
+      <UniqueIdentifier>{f441f2fc-0916-43b5-9c82-3210422d35d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\ActionManager">
+      <UniqueIdentifier>{458ae5c6-40af-4883-bf0f-73a6c6f298d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\AlbumArtManager">
+      <UniqueIdentifier>{a780c144-10d0-4e75-95b0-048083912de7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\ConfigurationManager">
+      <UniqueIdentifier>{278efc26-c4d4-4dd5-858f-573b1ec6b1be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\MenuManager">
+      <UniqueIdentifier>{c9ad2ca6-ccce-4157-b8be-47c6c203beb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\MUIManager">
+      <UniqueIdentifier>{d508e27d-2a6e-4890-82a1-bf3f83cc88cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\PlayListManager">
+      <UniqueIdentifier>{633d3678-45d7-472c-b03f-485416ec6df5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Win32Manager">
+      <UniqueIdentifier>{c4318cb7-24aa-4d7d-a193-0bceeec961f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\LoggerManager">
+      <UniqueIdentifier>{cecdacb2-c0b7-4c0b-b512-567e17b559bb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

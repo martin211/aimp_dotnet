@@ -7,6 +7,7 @@
 # Precompiled Headers
 *.gch
 *.pch
+ipch
 
 # Compiled Dynamic libraries
 *.so
@@ -26,3 +27,14 @@
 *.exe
 *.out
 *.app
+
+# Visual Studio Files
+*.suo
+*.opensdf
+*.sdf
+obj
+bin
+Debug
+CSDebug
+
+/Aimp/AIMP3.60
