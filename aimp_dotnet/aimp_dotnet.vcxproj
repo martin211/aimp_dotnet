@@ -100,7 +100,7 @@
       </AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-      <Command>xcopy $(ProjectDir)Langs $(TargetDir)Langs /I /Y</Command>
+      <Command>xcopy "$(ProjectDir)Langs" "$(TargetDir)Langs" /I /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
