@@ -25,10 +25,6 @@
     <build-triggers />
     <artifact-dependencies>
       <dependency sourceBuildTypeId="AimpDotnet_BetaDebug" cleanDestination="true">
-        <revisionRule name="sameChainOrLastFinished" revision="latest.sameChainOrLastFinished" />
-        <artifact sourcePath="Aimp\AIMP3.60\Plugins\aimp_dotnet\=&gt;debug.zip" />
-      </dependency>
-      <dependency sourceBuildTypeId="AimpDotnet_BetaDebug" cleanDestination="true">
         <revisionRule name="lastSuccessful" revision="latest.lastSuccessful" />
         <artifact sourcePath="Aimp\AIMP3.60\Plugins\aimp_dotnet\=&gt;debug.zip" />
       </dependency>
