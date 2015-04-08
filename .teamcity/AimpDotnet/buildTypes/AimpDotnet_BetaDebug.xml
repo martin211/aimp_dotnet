@@ -23,6 +23,12 @@
     </vcs-settings>
     <requirements />
     <build-triggers />
+    <artifact-dependencies>
+      <dependency sourceBuildTypeId="AimpDotnet_BetaDebug" cleanDestination="true">
+        <revisionRule name="sameChainOrLastFinished" revision="latest.sameChainOrLastFinished" />
+        <artifact sourcePath="Aimp\AIMP3.60\Plugins\aimp_dotnet\=&gt;debug.zip" />
+      </dependency>
+    </artifact-dependencies>
     <cleanup />
   </settings>
 </build-type>
