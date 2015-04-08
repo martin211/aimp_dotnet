@@ -79,7 +79,7 @@
       </AdditionalDocumentFile>
     </Xdcmake>
     <PostBuildEvent>
-      <Command>xcopy $(ProjectDir)Langs $(TargetDir)Langs /I /Y</Command>
+      <Command>xcopy "$(ProjectDir)Langs" "$(TargetDir)Langs" /I /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
