@@ -50,8 +50,11 @@
     <TargetName>aimp_dotnet</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-    <OutDir>Release\</OutDir>
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\Aimp\AIMP3.60\Plugins\aimp_dotnet\</OutDir>
+    <IncludePath>z:\Libraries\boost;$(IncludePath)</IncludePath>
+    <LibraryPath>z:\Libraries\boost\lib32-msvc-12.0;$(LibraryPath)</LibraryPath>
+    <TargetName>aimp_dotnet</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -82,21 +85,23 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>
-      </AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>AIMP_Exports.def</ModuleDefinitionFile>
-      <AdditionalOptions>/LTCG "$(ProjectDir)\CSRelease\CSharpMixingLibrary.netmodule" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/LTCG "$(ProjectDir)\CSRelease\AIMPDotNet.netmodule" %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>
       </AdditionalManifestFiles>
     </Manifest>
+    <PostBuildEvent>
+      <Command>xcopy $(ProjectDir)Langs $(TargetDir)Langs /I /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -184,6 +189,11 @@
   <ItemGroup>
     <ProjectReference Include="..\AIMPDotNet\AIMPDotNet.csproj">
       <Project>{154c60cf-2dae-4227-ad2c-cce7c63cde5a}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
   </ItemGroup>
   <!-- <Import Project="$(MSBuildExtensionsPath)\Ilmerge.Cpp.targets" /> -->
