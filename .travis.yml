@@ -1,0 +1,3 @@
+language: csharp
+script:
+  - xbuild /p:Configuration=Debug aimp_dotnet.sln
