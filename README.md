@@ -1,7 +1,7 @@
 # AIMP DotNet Sdk plugin
  Microsoft .Net SDK for AIMP v3.60 media player (wwww.aimp.ru)
  
- Issue tracker: http://uginsoft.myjetbrains.com/youtrack/issues
+ Issue tracker: http://uginsoft.myjetbrains.com/youtrack/issues?q=project%3A+aimp_dotnet
 
 # About the Plugin
  This plug-in adds support for DotNet plugins at the AIMP media player.
