@@ -42,6 +42,8 @@ namespace AIMP
 					str->Release();
 					str = NULL;
 				}
+
+				return String::Empty;
 			}
 
 			virtual String^ GetValue(String^ key)
@@ -62,6 +64,8 @@ namespace AIMP
 					str->Release();
 					str = NULL;
 				}
+
+				return String::Empty;
 			}
 
 			virtual String^ GetValuePart(String^ key, int index)
@@ -83,6 +87,8 @@ namespace AIMP
 					str->Release();
 					str = NULL;
 				}
+
+				return String::Empty;
 			}
 
 		private:

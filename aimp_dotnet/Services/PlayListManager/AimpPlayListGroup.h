@@ -6,59 +6,62 @@
 
 namespace AIMP
 {
-	namespace PlayList
+	namespace SDK
 	{
-		using namespace AIMP36SDK;
-		using namespace AIMP::SDK::Services::PlayListManager;
-
-		public ref class AimpPlayListGroup : public AimpObject<AIMP36SDK::IAIMPPlaylistGroup>, public IAimpPlayListGroup
+		namespace PlayList
 		{
-		private:
-			IAimpPlayListItem ^_item;
+			using namespace AIMP36SDK;
+			using namespace AIMP::SDK::Services::PlayListManager;
 
-		public:
-			~AimpPlayListGroup()
+			public ref class AimpPlayListGroup : public AimpObject<AIMP36SDK::IAIMPPlaylistGroup>, public IAimpPlayListGroup
 			{
-				_item = nullptr;
-			}
+			private:
+				IAimpPlayListItem ^_item;
 
-			AimpPlayListGroup(AIMP36SDK::IAIMPPlaylistGroup *item) : AimpObject(item)
-			{}
+			public:
+				~AimpPlayListGroup()
+				{
+					_item = nullptr;
+				}
 
-			virtual property System::String^ Name
-			{
-				System::String^ get();
-			}
+				AimpPlayListGroup(AIMP36SDK::IAIMPPlaylistGroup *item) : AimpObject(item)
+				{}
 
-			virtual property bool Expanded
-			{
-				bool get();
-				void set(bool value);
-			}
+				virtual property System::String^ Name
+				{
+					System::String^ get();
+				}
 
-			virtual property double Duration
-			{
-				double get();
-				void set(double value);
-			}
+				virtual property bool Expanded
+				{
+					bool get();
+					void set(bool value);
+				}
 
-			virtual property int Index
-			{
-				int get();
-			}
+				virtual property double Duration
+				{
+					double get();
+					void set(double value);
+				}
 
-			virtual property bool Selected
-			{
-				bool get();
-				void set(bool value);
-			}
+				virtual property int Index
+				{
+					int get();
+				}
 
-			virtual property int Count
-			{
-				int get();
-			}
+				virtual property bool Selected
+				{
+					bool get();
+					void set(bool value);
+				}
 
-			virtual IAimpPlayListItem ^GetItem(int index);
-		};
+				virtual property int Count
+				{
+					int get();
+				}
+
+				virtual IAimpPlayListItem ^GetItem(int index);
+			};
+		}
 	}
 }
