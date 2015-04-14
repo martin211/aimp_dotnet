@@ -15,6 +15,9 @@
 #include "Services\ConfigurationManager\ConfigurationManager.h"
 #include "Services\PlayListManager\AimpFileInfo.h"
 #include "Services\Win32Manager\Win32Manager.h"
+#include "Services\PlayListManager\AimpPlaybackQueueItem.h"
+#include "Services\PlayListManager\AimpPlayListItem.h"
+//#include "Services\PlayListManager\PlayList.h"
 //#include "Services\PlayListManager\PlayListManager.h"
 
 
@@ -243,7 +246,7 @@ namespace AIMP
 					return nullptr;
 				}
 
-				return gcnew AIMP::PlayList::AimpPlayListItem(item);
+				return gcnew AIMP::SDK::PlayList::AimpPlayListItem(item);
 			}
 		}
 
@@ -371,6 +374,21 @@ namespace AIMP
 		virtual void GoToPrev()
 		{
 			_player->GoToPrev();
+		}
+
+		virtual void Play(IAimpPlaybackQueueItem ^queueItem)
+		{
+			_player->Play(((AimpPlaybackQueueItem^)queueItem)->InternalAimpObject);
+		}
+
+		virtual void Play(IAimpPlayListItem ^playListItem)
+		{
+			_player->Play2(((AIMP::SDK::PlayList::AimpPlayListItem^)playListItem)->InternalAimpObject);
+		}
+
+		virtual void Play(IAimpPlayList^ playList)
+		{
+			//_player->Play3(((AIMP::SDK::PlayList::PlayList)playList)->InternalAimpObject);
 		}
 
 	private:

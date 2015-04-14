@@ -170,8 +170,7 @@ public:
 	{
 		_main->SavePluginOptions();
 		_settingForm->Close();
-		_settingForm = NULL;
-		delete _settingForm;		
+		_settingForm = NULL;		
 	}
 
 	virtual void WINAPI Notification(int ID)
