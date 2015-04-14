@@ -57,7 +57,7 @@ namespace AIMP.SDK.Services.PlayListManager
         
     }
 
-    public interface IAimpPlayList : IList<IAimpPlayListItem>
+    public interface IAimpPlayList
     {
         event EventHandler Activated;
 
@@ -81,6 +81,9 @@ namespace AIMP.SDK.Services.PlayListManager
         /// </value>
         string Name { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [read only].
+        /// </summary>
         bool ReadOnly { get; set; }
 
         object FocusedObject { get; set; }
