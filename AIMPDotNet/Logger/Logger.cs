@@ -150,22 +150,24 @@ namespace AIMP.SDK.Logger
 
         private void FlushLog()
         {
-            while (_logQueue.Count > 0)
+            string logPath = string.Format("{0}{1}_{2}", _logDir, DateTime.Now.ToString("yyyy-MM-dd"), _fileName);
+
+            if (!File.Exists(logPath))
             {
-                Log entry = _logQueue.Dequeue();
-                string logPath = _logDir + entry.LogDate + "_" + _fileName;
+                File.Create(logPath);
+            }
 
-                if (!File.Exists(logPath))
+            using (var stream = new FileStream(logPath, FileMode.OpenOrCreate))
+            {
+                stream.Seek(stream.Length, SeekOrigin.Begin);
+                using (var sw = new StreamWriter(stream))
                 {
-                    File.Create(logPath);
+                    while (_logQueue.Count > 0)
+                    {
+                        var entry = _logQueue.Dequeue();
+                        sw.WriteLine("{0}\t{1}", entry.LogTime, entry.Message);
+                    }
                 }
-
-                // This could be optimised to prevent opening and closing the file for each write
-                using (var log = File.AppendText(logPath))
-                {
-                    log.WriteLine("{0}\t{1}", entry.LogTime, entry.Message);
-                }
-                
             }
         }
     }
