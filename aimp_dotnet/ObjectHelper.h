@@ -208,11 +208,11 @@ namespace AIMP
 			}
 			finally
 			{
-				if (str != NULL)
-				{
-					str->Release();
-					str = NULL;
-				}
+				//if (str != NULL)
+				//{
+				//	str->Release();
+				//	str = NULL;
+				//}
 			}
 
 			return nullptr;
