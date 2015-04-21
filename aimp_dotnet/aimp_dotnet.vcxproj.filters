@@ -20,9 +20,9 @@
       <Filter>Services\PlayListManager</Filter>
     </ClCompile>
     <ClCompile Include="AimpDotnetPlugin.cpp" />
+    <ClCompile Include="Services\PlayListManager\AimpPlayList.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AIMPPlugin.h" />
     <ClInclude Include="AimpPlayer.h" />
     <ClInclude Include="DataConversion.h" />
     <ClInclude Include="ManagedAimpCore.h" />
@@ -145,6 +145,12 @@
       <Filter>Services\PlayListManager</Filter>
     </ClInclude>
     <ClInclude Include="ObjectHelper.h" />
+    <ClInclude Include="Services\PlayListManager\AimpPlayList.h">
+      <Filter>Services\PlayListManager</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPPlugin.h">
+      <Filter>Services\PlayListManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
