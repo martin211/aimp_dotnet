@@ -17,7 +17,7 @@
 #include "Services\Win32Manager\Win32Manager.h"
 #include "Services\PlayListManager\AimpPlaybackQueueItem.h"
 #include "Services\PlayListManager\AimpPlayListItem.h"
-//#include "Services\PlayListManager\PlayList.h"
+#include "Services\PlayListManager\AimpPlayList.h"
 //#include "Services\PlayListManager\PlayListManager.h"
 
 
@@ -388,7 +388,7 @@ namespace AIMP
 
 		virtual void Play(IAimpPlayList^ playList)
 		{
-			//_player->Play3(((AIMP::SDK::PlayList::PlayList)playList)->InternalAimpObject);
+			_player->Play3(((AIMP::SDK::PlayList::AimpPlayList^)playList)->InternalAimpObject);
 		}
 
 	private:
