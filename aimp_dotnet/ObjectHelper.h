@@ -184,11 +184,12 @@ namespace AIMP
 		/// Gets the string.
 		/// </summary>
 		/// <param name="propertyList">The property list.</param>
-		/// <param name="propertyId">The property identifier.</param>
-		/// <returns></returns>
+		/// <param name="propertyId">The property identifier.</param>		
+		[System::Runtime::ExceptionServices::HandleProcessCorruptedStateExceptions]
 		static String^ GetString(IAIMPPropertyList *propertyList, int propertyId)
 		{
 			IAIMPString* str = nullptr;
+			
 			try
 			{
 				if (!CheckResult(propertyList->GetValueAsObject(propertyId, IID_IAIMPString, (void**) &str)))
@@ -201,18 +202,19 @@ namespace AIMP
 					return gcnew String(str->GetData());
 				}
 			}
-			catch (...)
+			catch (System::Exception ^ex)
 			{
 				System::Diagnostics::Debugger::Break();
-				InternalLogger::Instance->Write("System error");
+				InternalLogger::Instance->Write(ex);
+				return nullptr;
 			}
 			finally
 			{
-				//if (str != NULL)
-				//{
-				//	str->Release();
-				//	str = NULL;
-				//}
+				if (str != NULL)
+				{
+					str->Release();
+					str = NULL;
+				}
 			}
 
 			return nullptr;
