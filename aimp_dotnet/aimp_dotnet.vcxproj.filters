@@ -150,7 +150,8 @@
     <ClInclude Include="Services\PlayListManager\AimpPlayList.h">
       <Filter>Services\PlayListManager</Filter>
     </ClInclude>
-    <ClInclude Include="AIMPPlugin.h">
+    <ClInclude Include="AIMPPlugin.h" />
+    <ClInclude Include="Services\PlayListManager\AimpPlayListQueue.h">
       <Filter>Services\PlayListManager</Filter>
     </ClInclude>
   </ItemGroup>
