@@ -20,7 +20,9 @@
       <Filter>Services\PlayListManager</Filter>
     </ClCompile>
     <ClCompile Include="AimpDotnetPlugin.cpp" />
-    <ClCompile Include="Services\PlayListManager\AimpPlayList.cpp" />
+    <ClCompile Include="Services\PlayListManager\AimpPlayList.cpp">
+      <Filter>Services\PlayListManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimpPlayer.h" />

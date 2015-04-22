@@ -55,6 +55,8 @@ namespace AIMP.SDK.Logger
         private static DateTime lastFlushed = DateTime.Now;
         private bool _initialized;
         private bool _disposed;
+        private string _fileLogPath;
+
 
         /// <summary>
         /// Finalizes an instance of the <see cref="Logger"/> class.
@@ -95,6 +97,13 @@ namespace AIMP.SDK.Logger
             _fileName = fileName;
             _logQueue = new Queue<Log>(_queueSize);
             _initialized = true;
+
+            _fileLogPath = string.Format("{0}{1}_{2}", _logDir, DateTime.Now.ToString("yyyy-MM-dd"), _fileName);
+
+            if (!File.Exists(_fileLogPath))
+            {
+                File.Create(_fileLogPath);
+            }
         }
 
         /// <summary>
@@ -121,7 +130,7 @@ namespace AIMP.SDK.Logger
             {
                 throw new ApplicationException("Logger has not been initialized.");
             }
-
+            
             // Lock the queue while writing to prevent contention for the log file
             lock (_logQueue)
             {
@@ -150,14 +159,7 @@ namespace AIMP.SDK.Logger
 
         private void FlushLog()
         {
-            string logPath = string.Format("{0}{1}_{2}", _logDir, DateTime.Now.ToString("yyyy-MM-dd"), _fileName);
-
-            if (!File.Exists(logPath))
-            {
-                File.Create(logPath);
-            }
-
-            using (var stream = new FileStream(logPath, FileMode.OpenOrCreate))
+            using (var stream = new FileStream(_fileLogPath, FileMode.OpenOrCreate))
             {
                 stream.Seek(stream.Length, SeekOrigin.Begin);
                 using (var sw = new StreamWriter(stream))
