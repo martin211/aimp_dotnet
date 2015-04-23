@@ -126,6 +126,7 @@
     <ClInclude Include="Services\BaseManager.h" />
     <ClInclude Include="Services\ConfigurationManager\ConfigurationManager.h" />
     <ClInclude Include="Services\PlayListManager\AimpPlaybackQueueItem.h" />
+    <ClInclude Include="Services\PlayListManager\AimpPlayList.h" />
     <ClInclude Include="Services\PlayListManager\AimpPlayListGroup.h" />
     <ClInclude Include="Services\PlayListManager\AimpPlayListItem.h" />
     <ClInclude Include="AIMP_SDK\AIMP360\apiActions.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="ManagedAimpCore.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="AimpDotnetPlugin.cpp" />
+    <ClCompile Include="Services\PlayListManager\AimpPlayList.cpp" />
     <ClCompile Include="Services\PlayListManager\AimpPlayListGroup.cpp" />
     <ClCompile Include="Services\PlayListManager\AimpPlayListItem.cpp" />
     <ClCompile Include="Stdafx.cpp">

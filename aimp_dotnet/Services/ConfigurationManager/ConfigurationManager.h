@@ -80,6 +80,8 @@ namespace AIMP
 					val->Release();
 					val = NULL;
 				}
+
+				return String::Empty;
 			}
 
 			virtual void SetValueAsFloat(String^ key, double value)
