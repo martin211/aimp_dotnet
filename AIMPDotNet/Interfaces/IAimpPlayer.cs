@@ -66,6 +66,8 @@ namespace AIMP.SDK.Interfaces
         /// </summary>
         IConfigurationManager ConfigurationManager { get; }
 
+        IPlayListManager PlayListManager { get; }
+
         /// <summary>
         /// Gets or sets a value indicating whether the volume is mute.
         /// </summary>

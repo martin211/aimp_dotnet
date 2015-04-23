@@ -23,6 +23,14 @@ namespace AIMP
 				AIMP36SDK::IAIMPPropertyList *_properties;
 
 			public:
+				explicit AimpPlayList(AIMP36SDK::IAIMPPlaylist *aimpPlayList) : AimpObject(aimpPlayList)
+				{	
+					// TODO: CheckResult!
+					AIMP36SDK::IAIMPPropertyList *properties;
+					aimpPlayList->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
+					_properties = properties;
+				}
+
 				virtual property String ^Id
 				{
 					String ^get();					
@@ -227,12 +235,6 @@ namespace AIMP
 					void remove(EventHandler<AimpPlayListChangedArgs^> ^onEvent);
 					void raise(Object ^sender, AimpPlayListChangedArgs ^args);
 				}
-
-				internal:
-					virtual property IAIMPPropertyList *PropertyList
-					{
-						IAIMPPropertyList *get();
-					}
 			};
 		}
 	}

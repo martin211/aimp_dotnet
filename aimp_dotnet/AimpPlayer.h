@@ -18,7 +18,7 @@
 #include "Services\PlayListManager\AimpPlaybackQueueItem.h"
 #include "Services\PlayListManager\AimpPlayListItem.h"
 #include "Services\PlayListManager\AimpPlayList.h"
-//#include "Services\PlayListManager\PlayListManager.h"
+#include "Services\PlayListManager\PlayListManager.h"
 
 
 
@@ -143,6 +143,14 @@ namespace AIMP
 			}
 		}
 				
+		virtual property IPlayListManager ^PlayListManager
+		{
+			IPlayListManager ^get()
+			{
+				return gcnew AIMP::SDK::PlayListManager((ManagedAimpCore^) _managerCore);
+			}
+		}
+
 		virtual property AIMP36SDK::IAIMPServicePlayer* ServicePlayer
 		{
 			AIMP36SDK::IAIMPServicePlayer* get()
