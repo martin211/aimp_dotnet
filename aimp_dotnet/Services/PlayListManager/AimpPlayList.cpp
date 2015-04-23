@@ -7,41 +7,29 @@ namespace AIMP
 	{
 		namespace PlayList
 		{
-			IAIMPPropertyList *AimpPlayList::PropertyList::get()
-			{
-				if (_properties == NULL)
-				{
-					AIMP36SDK::IAIMPPropertyList *playList;
-					_aimpObject->QueryInterface(AIMP36SDK::IID_IAIMPPropertyList, (void**) &playList);
-					_properties = playList;
-				}
-
-				return _properties;
-			}
-
 			String ^AimpPlayList::Id::get()
 			{				
-				return ObjectHelper::GetString(PropertyList, AIMP_PLAYLIST_PROPID_ID);
+				return ObjectHelper::GetString(_properties, AIMP_PLAYLIST_PROPID_ID);
 			}
 
 			String ^AimpPlayList::Name::get()
 			{
-				return ObjectHelper::GetString(PropertyList, AIMP_PLAYLIST_PROPID_NAME);
+				return ObjectHelper::GetString(_properties, AIMP_PLAYLIST_PROPID_NAME);
 			}
 
 			void AimpPlayList::Name::set(String ^value)
 			{
-				ObjectHelper::SetString(PropertyList, AIMP_PLAYLIST_PROPID_NAME, value);
+				ObjectHelper::SetString(_properties, AIMP_PLAYLIST_PROPID_NAME, value);
 			}
 
 			bool AimpPlayList::ReadOnly::get()
 			{
-				return ObjectHelper::GetBool(PropertyList, AIMP_PLAYLIST_PROPID_READONLY);
+				return ObjectHelper::GetBool(_properties, AIMP_PLAYLIST_PROPID_READONLY);
 			}
 
 			void AimpPlayList::ReadOnly::set(bool value)
 			{
-				ObjectHelper::SetBool(PropertyList, AIMP_PLAYLIST_PROPID_READONLY, value);
+				ObjectHelper::SetBool(_properties, AIMP_PLAYLIST_PROPID_READONLY, value);
 			}
 
 			Object ^AimpPlayList::FocusedObject::get()
@@ -55,222 +43,222 @@ namespace AIMP
 
 			bool AimpPlayList::GrouppingOvveriden::get()
 			{
-				return ObjectHelper::GetBool(PropertyList, AIMP_PLAYLIST_PROPID_GROUPPING_OVERRIDEN);
+				return ObjectHelper::GetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_OVERRIDEN);
 			}
 
 			void AimpPlayList::GrouppingOvveriden::set(bool value)
 			{
-				ObjectHelper::SetBool(PropertyList, AIMP_PLAYLIST_PROPID_GROUPPING_OVERRIDEN, value);
+				ObjectHelper::SetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_OVERRIDEN, value);
 			}
 
 
 			bool AimpPlayList::Groupping::get()
 			{
-				return ObjectHelper::GetBool(PropertyList, AIMP_PLAYLIST_PROPID_GROUPPING);
+				return ObjectHelper::GetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING);
 			}
 
 			void AimpPlayList::Groupping::set(bool value)
 			{
-				ObjectHelper::SetBool(PropertyList, AIMP_PLAYLIST_PROPID_GROUPPING, value);
+				ObjectHelper::SetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING, value);
 			}
 
 
 			String ^AimpPlayList::GrouppingTemplate::get()
 			{
-				return ObjectHelper::GetString(PropertyList, AIMP_PLAYLIST_PROPID_GROUPPING_TEMPLATE);
+				return ObjectHelper::GetString(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_TEMPLATE);
 			}
 
 			void AimpPlayList::GrouppingTemplate::set(String ^value)
 			{
-				ObjectHelper::SetString(PropertyList, AIMP_PLAYLIST_PROPID_GROUPPING_TEMPLATE, value);
+				ObjectHelper::SetString(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_TEMPLATE, value);
 			}
 
 
 			bool AimpPlayList::GrouppingAutomerging::get()
 			{
-				return ObjectHelper::GetBool(PropertyList, AIMP_PLAYLIST_PROPID_GROUPPING_AUTOMERGING);
+				return ObjectHelper::GetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_AUTOMERGING);
 			}
 
 			void AimpPlayList::GrouppingAutomerging::set(bool value)
 			{
-				ObjectHelper::SetBool(PropertyList, AIMP_PLAYLIST_PROPID_GROUPPING_AUTOMERGING, value);
+				ObjectHelper::SetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_AUTOMERGING, value);
 			}
 
 
 			bool AimpPlayList::FormatingOverride::get()
 			{
-				return ObjectHelper::GetBool(PropertyList, AIMP_PLAYLIST_PROPID_FORMATING_OVERRIDEN);
+				return ObjectHelper::GetBool(_properties, AIMP_PLAYLIST_PROPID_FORMATING_OVERRIDEN);
 			}
 
 			void AimpPlayList::FormatingOverride::set(bool value)
 			{
-				ObjectHelper::SetBool(PropertyList, AIMP_PLAYLIST_PROPID_FORMATING_OVERRIDEN, value);
+				ObjectHelper::SetBool(_properties, AIMP_PLAYLIST_PROPID_FORMATING_OVERRIDEN, value);
 			}
 
 
 			String ^AimpPlayList::FirstLineTemplate::get()
 			{
-				return ObjectHelper::GetString(PropertyList, AIMP_PLAYLIST_PROPID_FORMATING_LINE1_TEMPLATE);
+				return ObjectHelper::GetString(_properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE1_TEMPLATE);
 			}
 
 			void AimpPlayList::FirstLineTemplate::set(String ^value)
 			{
-				ObjectHelper::SetString(PropertyList, AIMP_PLAYLIST_PROPID_FORMATING_LINE1_TEMPLATE, value);
+				ObjectHelper::SetString(_properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE1_TEMPLATE, value);
 			}
 
 
 			String ^AimpPlayList::SecondLineTemplate::get()
 			{
-				return ObjectHelper::GetString(PropertyList, AIMP_PLAYLIST_PROPID_FORMATING_LINE2_TEMPLATE);
+				return ObjectHelper::GetString(_properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE2_TEMPLATE);
 			}
 
 			void AimpPlayList::SecondLineTemplate::set(String ^value)
 			{
-				ObjectHelper::SetString(PropertyList, AIMP_PLAYLIST_PROPID_FORMATING_LINE2_TEMPLATE, value);
+				ObjectHelper::SetString(_properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE2_TEMPLATE, value);
 			}
 
 
 			bool AimpPlayList::ViewOverride::get()
 			{
-				return ObjectHelper::GetBool(PropertyList, AIMP_PLAYLIST_PROPID_VIEW_OVERRIDEN);
+				return ObjectHelper::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_OVERRIDEN);
 			}
 
 			void AimpPlayList::ViewOverride::set(bool value)
 			{
-				ObjectHelper::SetBool(PropertyList, AIMP_PLAYLIST_PROPID_VIEW_OVERRIDEN, value);
+				ObjectHelper::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_OVERRIDEN, value);
 			}
 
 
 			bool AimpPlayList::ShowDuration::get()
 			{
-				return ObjectHelper::GetBool(PropertyList, AIMP_PLAYLIST_PROPID_VIEW_DURATION);
+				return ObjectHelper::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_DURATION);
 			}
 
 			void AimpPlayList::ShowDuration::set(bool value)
 			{
-				ObjectHelper::SetBool(PropertyList, AIMP_PLAYLIST_PROPID_VIEW_DURATION, value);
+				ObjectHelper::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_DURATION, value);
 			}
 
 
 			bool AimpPlayList::ShowExpandButtons::get()
 			{
-				return ObjectHelper::GetBool(PropertyList, AIMP_PLAYLIST_PROPID_VIEW_EXPAND_BUTTONS);
+				return ObjectHelper::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_EXPAND_BUTTONS);
 			}
 
 			void AimpPlayList::ShowExpandButtons::set(bool value)
 			{
-				ObjectHelper::SetBool(PropertyList, AIMP_PLAYLIST_PROPID_VIEW_EXPAND_BUTTONS, value);
+				ObjectHelper::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_EXPAND_BUTTONS, value);
 			}
 
 
 			bool AimpPlayList::ShowMarks::get()
 			{
-				return ObjectHelper::GetBool(PropertyList, AIMP_PLAYLIST_PROPID_VIEW_MARKS);
+				return ObjectHelper::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_MARKS);
 			}
 
 			void AimpPlayList::ShowMarks::set(bool value)
 			{
-				ObjectHelper::SetBool(PropertyList, AIMP_PLAYLIST_PROPID_VIEW_MARKS, value);
+				ObjectHelper::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_MARKS, value);
 			}
 
 
 			bool AimpPlayList::ShowNumbers::get()
 			{
-				return ObjectHelper::GetBool(PropertyList, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS);
+				return ObjectHelper::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS);
 			}
 
 			void AimpPlayList::ShowNumbers::set(bool value)
 			{
-				ObjectHelper::SetBool(PropertyList, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS, value);
+				ObjectHelper::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS, value);
 			}
 
 
 			bool AimpPlayList::ShowAbsoluteNumbers::get()
 			{
-				return ObjectHelper::GetBool(PropertyList, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS_ABSOLUTE);
+				return ObjectHelper::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS_ABSOLUTE);
 			}
 
 			void AimpPlayList::ShowAbsoluteNumbers::set(bool value)
 			{
-				ObjectHelper::SetBool(PropertyList, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS_ABSOLUTE, value);
+				ObjectHelper::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS_ABSOLUTE, value);
 			}
 
 
 			bool AimpPlayList::ShowSecondLine::get()
 			{
-				return ObjectHelper::GetBool(PropertyList, AIMP_PLAYLIST_PROPID_VIEW_SECOND_LINE);
+				return ObjectHelper::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_SECOND_LINE);
 			}
 
 			void AimpPlayList::ShowSecondLine::set(bool value)
 			{
-				ObjectHelper::SetBool(PropertyList, AIMP_PLAYLIST_PROPID_VIEW_SECOND_LINE, value);
+				ObjectHelper::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_SECOND_LINE, value);
 			}
 
 
 			bool AimpPlayList::ShowSwitches::get()
 			{
-				return ObjectHelper::GetBool(PropertyList, AIMP_PLAYLIST_PROPID_VIEW_SWITCHES);
+				return ObjectHelper::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_SWITCHES);
 			}
 
 			void AimpPlayList::ShowSwitches::set(bool value)
 			{
-				ObjectHelper::SetBool(PropertyList, AIMP_PLAYLIST_PROPID_VIEW_SWITCHES, value);
+				ObjectHelper::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_SWITCHES, value);
 			}
 
 
 			int AimpPlayList::SelectedIndex::get()
 			{
-				return ObjectHelper::GetInt32(PropertyList, AIMP_PLAYLIST_PROPID_FOCUSINDEX);
+				return ObjectHelper::GetInt32(_properties, AIMP_PLAYLIST_PROPID_FOCUSINDEX);
 			}
 
 			void AimpPlayList::SelectedIndex::set(int value)
 			{
-				ObjectHelper::SetInt32(PropertyList, AIMP_PLAYLIST_PROPID_FOCUSINDEX, value);
+				ObjectHelper::SetInt32(_properties, AIMP_PLAYLIST_PROPID_FOCUSINDEX, value);
 			}
 
 
 			int AimpPlayList::PlaybackCursor::get()
 			{
-				return ObjectHelper::GetInt32(PropertyList, AIMP_PLAYLIST_PROPID_PLAYBACKCURSOR);
+				return ObjectHelper::GetInt32(_properties, AIMP_PLAYLIST_PROPID_PLAYBACKCURSOR);
 			}
 
 			void AimpPlayList::PlaybackCursor::set(int value)
 			{
-				ObjectHelper::SetInt32(PropertyList, AIMP_PLAYLIST_PROPID_PLAYBACKCURSOR, value);
+				ObjectHelper::SetInt32(_properties, AIMP_PLAYLIST_PROPID_PLAYBACKCURSOR, value);
 			}
 
 
 			int AimpPlayList::PlayingIndex::get()
 			{
-				return ObjectHelper::GetInt32(PropertyList, AIMP_PLAYLIST_PROPID_PLAYINGINDEX);
+				return ObjectHelper::GetInt32(_properties, AIMP_PLAYLIST_PROPID_PLAYINGINDEX);
 			}
 
 			void AimpPlayList::PlayingIndex::set(int value)
 			{
-				ObjectHelper::SetInt32(PropertyList, AIMP_PLAYLIST_PROPID_PLAYINGINDEX, value);
+				ObjectHelper::SetInt32(_properties, AIMP_PLAYLIST_PROPID_PLAYINGINDEX, value);
 			}
 
 
 			double AimpPlayList::Duration::get()
 			{
-				return ObjectHelper::GetFloat(PropertyList, AIMP_PLAYLIST_PROPID_DURATION);
+				return ObjectHelper::GetFloat(_properties, AIMP_PLAYLIST_PROPID_DURATION);
 			}
 
 
 			double AimpPlayList::Size::get()
 			{
-				return ObjectHelper::GetFloat(PropertyList, AIMP_PLAYLIST_PROPID_SIZE);
+				return ObjectHelper::GetFloat(_properties, AIMP_PLAYLIST_PROPID_SIZE);
 			}
 
 
 			String ^AimpPlayList::PreImage::get()
 			{
-				return ObjectHelper::GetString(PropertyList, AIMP_PLAYLIST_PROPID_PREIMAGE);
+				return ObjectHelper::GetString(_properties, AIMP_PLAYLIST_PROPID_PREIMAGE);
 			}
 
 			void AimpPlayList::PreImage::set(String ^value)
 			{
-				ObjectHelper::SetString(PropertyList, AIMP_PLAYLIST_PROPID_PREIMAGE, value);
+				ObjectHelper::SetString(_properties, AIMP_PLAYLIST_PROPID_PREIMAGE, value);
 			}
 
 

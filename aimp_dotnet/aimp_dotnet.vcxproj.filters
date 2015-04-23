@@ -154,6 +154,7 @@
     <ClInclude Include="Services\PlayListManager\AimpPlayListQueue.h">
       <Filter>Services\PlayListManager</Filter>
     </ClInclude>
+    <ClInclude Include="Services\PlayListManager\PlayListManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
