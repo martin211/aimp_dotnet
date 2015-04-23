@@ -137,5 +137,23 @@ namespace AIMP.SDK.Interfaces
         void GoToNext();
 
         void GoToPrev();
+
+        /// <summary>
+        /// Plays the specified queue item.
+        /// </summary>
+        /// <param name="queueItem">The queue item.</param>
+        void Play(IAimpPlaybackQueueItem queueItem);
+
+        /// <summary>
+        /// Plays the specified play list item.
+        /// </summary>
+        /// <param name="playListItem">The play list item.</param>
+        void Play(IAimpPlayListItem playListItem);
+
+        /// <summary>
+        /// Plays the specified play list.
+        /// </summary>
+        /// <param name="playList">The play list.</param>
+        void Play(IAimpPlayList playList);
     }
 }

@@ -70,8 +70,6 @@ HRESULT WINAPI DotNetPlugin::Finalize()
 	_pluginSettings->PluginsCollection->PluginLoadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
 	_pluginSettings->PluginsCollection->PluginUnloadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
 
-	delete _pluginSettings;
-	delete _managedExtension;
 	_optionsLoaded = false;
 
 	AIMP::SDK::CustomAssemblyResolver::Deinitialize();

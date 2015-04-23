@@ -1,10 +1,10 @@
 #include "..\..\AIMP_SDK\aimp3_60_sdk.h"
-#include "..\..\AimpObjectExtension.h"
+#include "..\..\ObjectHelper.h"
 #include "..\PlayListManager\AimpPlayListItem.h"
 
 namespace AIMP
 {
-	namespace PlayList
+	namespace SDK
 	{
 		using namespace System;
 		using namespace AIMP36SDK;
@@ -31,11 +31,11 @@ namespace AIMP
 				{
 					IAIMPPlaylistItem *item;
 					_aimpObject->GetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, IID_IAIMPPlaylistItem, (void**) &item);
-					return gcnew AIMP::PlayList::AimpPlayListItem(item);
+					return gcnew PlayList::AimpPlayListItem(item);
 				}
 				void set(IAimpPlayListItem^ value)
 				{
-					_aimpObject->SetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, ((AimpPlayListItem^)value)->InternalAimpObject);
+					_aimpObject->SetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, ((PlayList::AimpPlayListItem^)value)->InternalAimpObject);
 				}
 			}
 		};
