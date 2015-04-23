@@ -2,7 +2,7 @@
 
 namespace AIMP.SDK.Services.PlayListManager
 {
-    public interface IPlayListManager : ICollection<IAimpPlayList>
+    public interface IPlayListManager
     {
         IAimpPlayList CreatePlaylist(string name, bool isActive);
 
@@ -16,7 +16,10 @@ namespace AIMP.SDK.Services.PlayListManager
 
         IAimpPlayList GetLoadedPlaylist(int index);
 
-        IAimpPlayList this[int index];
+        IAimpPlayList GetLoadedPlaylistById(string id);
 
+        IAimpPlayList GetLoadedPlaylistByName(string name);
+
+        int GetLoadedPlaylistCount();
     }
 }
