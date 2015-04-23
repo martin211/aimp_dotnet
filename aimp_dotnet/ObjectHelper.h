@@ -103,7 +103,7 @@ namespace AIMP
 		/// <param name="propertyId">The property identifier.</param>
 		/// <param name="value">The value.</param>
 		/// <returns></returns>
-		static bool SetObject(IAIMPPropertyList *propertyList, int propertyId, IUnknown *value)
+		static bool SetObject(AIMP36SDK::IAIMPPropertyList *propertyList, int propertyId, IUnknown *value)
 		{
 			if (!CheckResult(propertyList->SetValueAsObject(propertyId, value)))
 			{
@@ -184,24 +184,29 @@ namespace AIMP
 		/// Gets the string.
 		/// </summary>
 		/// <param name="propertyList">The property list.</param>
-		/// <param name="propertyId">The property identifier.</param>
-		/// <returns></returns>
+		/// <param name="propertyId">The property identifier.</param>		
+		[System::Runtime::ExceptionServices::HandleProcessCorruptedStateExceptions]
 		static String^ GetString(IAIMPPropertyList *propertyList, int propertyId)
 		{
-			IAIMPString* str;
+			IAIMPString* str = nullptr;
+			
 			try
 			{
-				if (!CheckResult(propertyList->GetValueAsObject(propertyId, IID_IAIMPString, (void**)&str)))
+				if (!CheckResult(propertyList->GetValueAsObject(propertyId, IID_IAIMPString, (void**) &str)))
 				{
 					InternalLogger::Instance->Write("Unable get String with id " + propertyId);
 					return nullptr;
 				}
-				return gcnew String(str->GetData());
+				if (str != NULL)
+				{
+					return gcnew String(str->GetData());
+				}
 			}
-			catch (...)
+			catch (System::Exception ^ex)
 			{
 				System::Diagnostics::Debugger::Break();
-				InternalLogger::Instance->Write("System error");
+				InternalLogger::Instance->Write(ex);
+				return nullptr;
 			}
 			finally
 			{
@@ -301,8 +306,8 @@ namespace AIMP
 
 		static MenuItem ^ConvertToMenu(IAIMPPropertyList *aimpMenuItem)
 		{
-			MenuItem^ result;
-
+			MenuItem^ result = nullptr;
+			
 			int menuType;
 			if (CheckResult(aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, &menuType)))
 			{
@@ -311,11 +316,6 @@ namespace AIMP
 
 				AIMP36SDK::IAIMPString* idString;
 				AIMP36SDK::IAIMPString* nameString;
-
-				if (CheckResult(aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_ID, AIMP36SDK::IID_IAIMPString, (void**) &idString)))
-				{
-					result->Id = gcnew String(idString->GetData());
-				}
 
 				CheckResult(aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_NAME, AIMP36SDK::IID_IAIMPString, (void**) &nameString));
 
@@ -332,6 +332,14 @@ namespace AIMP
 				else if (menuType == AIMP_MENUITEM_STYLE_NORMAL)
 				{
 					result = gcnew StandartMenuItem(gcnew String(nameString->GetData()));
+				}
+
+				if (CheckResult(aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_ID, AIMP36SDK::IID_IAIMPString, (void**) &idString)))
+				{
+					if (idString != NULL)
+					{
+						result->Id = gcnew String(idString->GetData());
+					}
 				}
 
 				int visible;
@@ -393,7 +401,7 @@ namespace AIMP
 						strm->Close();
 						strm = nullptr;
 
-						delete buf;
+						delete [] buf;
 						stream->Release();
 						image->Release();
 					}

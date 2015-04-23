@@ -20,10 +20,8 @@ public:
 
 	virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject) 
 	{
-		ppvObject = NULL;
 		if (riid == IID_IUnknown)
 		{
-			*ppvObject = this;
 			return S_OK;
 		}
 		return E_NOTIMPL;
