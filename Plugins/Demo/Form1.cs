@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AIMP.SDK.Interfaces;
+using AIMP.SDK.Services.PlayListManager;
 
 namespace TestPlugin
 {
@@ -25,6 +26,49 @@ namespace TestPlugin
                 {
                     this.pictureBox1.Image = _aimpPlayer.CurrentFileInfo.AlbumArt;
                 };
+
+            Load += OnActivated;
+        }
+
+        private void AddPlayListTab(string id, string name, IAimpPlayList playList)
+        {
+            var tab = new TabPage(id)
+            {
+                Text = name
+            };
+
+            var tracks = new ListView()
+            {
+                Dock = DockStyle.Fill
+            };
+
+            tracks.Columns.Add("trackId", "#");
+            tracks.Columns.Add("track", "Name");
+            tracks.MultiSelect = false;
+            tracks.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            tracks.View = View.Details;
+
+            tab.Controls.Add(tracks);
+
+            for (var i = 0; i < playList.GetItemCount(); i++)
+            {
+                var item = playList.GetItem(i);
+                var trackItem = new ListViewItem {Text = item.Index.ToString()};
+                trackItem.SubItems.Add(item.DisplayText);
+                tracks.Items.Add(trackItem);
+            }
+
+            tabPlayLists.TabPages.Add(tab);
+        }
+
+        private void OnActivated(object sender, EventArgs eventArgs)
+        {
+            var playlistCount = _aimpPlayer.PlayListManager.GetLoadedPlaylistCount();
+            for (var i = 0; i < playlistCount; i++)
+            {
+                var playList = _aimpPlayer.PlayListManager.GetLoadedPlaylist(i);
+                AddPlayListTab(playList.Id, playList.Name, playList);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

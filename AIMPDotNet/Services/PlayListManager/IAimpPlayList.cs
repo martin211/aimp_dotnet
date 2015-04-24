@@ -37,19 +37,23 @@ namespace AIMP.SDK.Services.PlayListManager
     [Flags]
     public enum PlayListCloseFlag
     {
-        ForceRemove,
+        None = 0,
 
-        ForceUnload
+        ForceRemove = 1,
+
+        ForceUnload = 2
     }
 
     [Flags]
     public enum PlayListGetFilesFlag
     {
-        SelectedOnly,
+        All = 0,
 
-        VisibleOnly,
+        SelectedOnly = 0x1,
 
-        CollapseVirtual
+        VisibleOnly = 0x2,
+
+        CollapseVirtual = 0x4
     }
 
     public class AimpPlayListChangedArgs : EventArgs
@@ -158,7 +162,7 @@ namespace AIMP.SDK.Services.PlayListManager
 
         void Close(PlayListCloseFlag closeFlag);
 
-        IList<IAimpFileInfo> GetFiles(PlayListGetFilesFlag filesFlag);
+        IList<string> GetFiles(PlayListGetFilesFlag filesFlag);
 
         // TODO: Add MergeGroup
 

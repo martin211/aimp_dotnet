@@ -147,7 +147,12 @@ namespace AIMP
 		IUnknown* ManagedAimpCore::QueryInterface(REFIID iid)
 		{
 			IUnknown* service;
-			_core->QueryInterface(iid, (void**)&service);
+			HRESULT result = _core->QueryInterface(iid, (void**)&service);
+			if (result != S_OK)
+			{
+				return NULL;
+			}
+
 			return service;
 		}
 			

@@ -3,6 +3,8 @@
 
 namespace AIMP
 {
+	namespace SDK
+	{
 	namespace PlayList
 	{
 		using namespace System;
@@ -488,5 +490,4 @@ namespace AIMP
 		};
 	}
 }
-
-
+}
