@@ -55,7 +55,7 @@ namespace AIMP
 
 			HRESULT GetService(REFIID iid, void** service);
 
-			IUnknown* QueryInterface(REFIID iid);
+			static IUnknown *QueryInterface(REFIID iid);
 
 			bool RegisterExtension(GUID iid, IUnknown* extension);
 

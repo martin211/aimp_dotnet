@@ -1,5 +1,8 @@
 ﻿#include "Stdafx.h"
 #include "AimpPlayList.h"
+#include "AimpPlayListGroup.h"
+#include "AimpFileInfo.h"
+#include "..\..\ManagedAimpCore.h"
 
 namespace AIMP
 {
@@ -7,6 +10,17 @@ namespace AIMP
 	{
 		namespace PlayList
 		{
+			AimpPlayList::AimpPlayList(AIMP36SDK::IAIMPPlaylist *aimpPlayList) : AimpObject(aimpPlayList)
+			{
+				GetPropertyList();
+			}
+
+			AimpPlayList::AimpPlayList()
+			{
+				AIMP36SDK::IAIMPPlaylist *playList = (AIMP36SDK::IAIMPPlaylist*)AIMP::SDK360::ManagedAimpCore::QueryInterface(AIMP36SDK::IID_IAIMPPlaylist);
+				GetPropertyList();
+			}
+
 			String ^AimpPlayList::Id::get()
 			{				
 				return ObjectHelper::GetString(_properties, AIMP_PLAYLIST_PROPID_ID);
@@ -264,7 +278,10 @@ namespace AIMP
 
 			void AimpPlayList::Add(AIMP::SDK::Services::PlayListManager::IAimpFileInfo^ fileInfo, AIMP::SDK::Services::PlayListManager::PlayListFlags flags, AIMP::SDK::Services::PlayListManager::PlayListFilePosition filePosition)
 			{
-				throw gcnew NotImplementedException();
+				if (InternalAimpObject->Add(((AimpFileInfo^)fileInfo)->InternalAimpObject, (DWORD)flags, (int)filePosition) != S_OK)
+				{
+					throw gcnew ApplicationException("Unable to add new file to play list");
+				}
 			}
 
 			void AimpPlayList::Add(System::String^ fileUrl, AIMP::SDK::Services::PlayListManager::PlayListFlags flags, AIMP::SDK::Services::PlayListManager::PlayListFilePosition filePosition)
@@ -284,7 +301,7 @@ namespace AIMP
 
 			void AimpPlayList::Delete(IAimpPlayListItem ^item)
 			{
-				throw gcnew NotImplementedException();
+				InternalAimpObject->Delete(((AimpPlayListItem^)item)->InternalAimpObject);
 			}
 
 			void AimpPlayList::Delete(int index)
@@ -304,52 +321,83 @@ namespace AIMP
 
 			void AimpPlayList::BeginUpdate()
 			{
-				throw gcnew NotImplementedException();
+				InternalAimpObject->BeginUpdate();
 			}
 
 			void AimpPlayList::EndUpdate()
 			{
-				throw gcnew NotImplementedException();
+				InternalAimpObject->EndUpdate();
 			}
 
 			void AimpPlayList::Close(AIMP::SDK::Services::PlayListManager::PlayListCloseFlag closeFlag)
 			{
-				throw gcnew NotImplementedException();
+				InternalAimpObject->Close((DWORD)closeFlag);
 			}
 
-			System::Collections::Generic::IList<AIMP::SDK::Services::PlayListManager::IAimpFileInfo^>^ AimpPlayList::GetFiles(AIMP::SDK::Services::PlayListManager::PlayListGetFilesFlag filesFlag)
+			System::Collections::Generic::IList<String^> ^AimpPlayList::GetFiles(PlayListGetFilesFlag filesFlag)
 			{
-				throw gcnew NotImplementedException();
+				AIMP36SDK::IAIMPObjectList *collection;
+				InternalAimpObject->GetFiles((DWORD)filesFlag, &collection);
+				
+				System::Collections::Generic::IList<String^> ^result = gcnew System::Collections::Generic::List<String^>();
+
+				for (int i = 0; i < collection->GetCount(); i++)
+				{
+					IAIMPString *str;
+					if (collection->GetObject(i, IID_IAIMPString, (void**)&str) == S_OK)
+					{
+						result->Add(ObjectHelper::GetString(str));
+						str->Release();
+					}					
+				}
+
+				return result;
 			}
 
 			void AimpPlayList::ReloadFromPreimage()
 			{
-				throw gcnew NotImplementedException();
+				InternalAimpObject->ReloadFromPreimage();				
 			}
 
 			void AimpPlayList::ReloadInfo(bool fullReload)
 			{
-				throw gcnew NotImplementedException();
+				InternalAimpObject->ReloadInfo(fullReload);
 			}
 
 			IAimpPlayListItem ^AimpPlayList::GetItem(int index)
 			{
-				throw gcnew NotImplementedException();
+				IAimpPlayListItem ^result = nullptr;
+				IAIMPPlaylistItem *item;
+
+				if (InternalAimpObject->GetItem(index, IID_IAIMPPlaylistItem, (void**) &item) == S_OK)
+				{
+					 result = gcnew AimpPlayListItem(item);
+				}
+
+				return result;
 			}
 
 			int AimpPlayList::GetItemCount()
 			{
-				throw gcnew NotImplementedException();
+				return InternalAimpObject->GetItemCount();
 			}
 
 			IAimpPlayListGroup ^AimpPlayList::GetGroup(int index)
 			{
-				throw gcnew NotImplementedException();
+				IAimpPlayListGroup ^result = nullptr;
+				IAIMPPlaylistGroup *group;
+
+				if (InternalAimpObject->GetGroup(index, IID_IAIMPPlaylistGroup, (void**)&group))
+				{
+					result = gcnew AimpPlayListGroup(group);
+				}
+
+				return result;
 			}
 
 			int AimpPlayList::GetGroupCount()
 			{
-				throw gcnew NotImplementedException();
+				return InternalAimpObject->GetGroupCount();
 			}
 
 
@@ -400,6 +448,14 @@ namespace AIMP
 			void AimpPlayList::Changed::raise(Object ^sender, AimpPlayListChangedArgs ^args)
 			{
 				throw gcnew NotImplementedException();
+			}
+
+
+			void AimpPlayList::GetPropertyList()
+			{
+				AIMP36SDK::IAIMPPropertyList *properties;
+				InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
+				_properties = properties;
 			}
 		}
 	}

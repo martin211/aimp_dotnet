@@ -199,7 +199,7 @@ namespace AIMP
 				}
 				if (str != NULL)
 				{
-					return gcnew String(str->GetData());
+					return GetString(str);
 				}
 			}
 			catch (System::Exception ^ex)
@@ -220,6 +220,11 @@ namespace AIMP
 			return nullptr;
 		}
 		
+		static String^ GetString(IAIMPString *aimpString)
+		{
+			return gcnew String(aimpString->GetData());
+		}
+
 		/// <summary>
 		/// Gets the object.
 		/// </summary>
