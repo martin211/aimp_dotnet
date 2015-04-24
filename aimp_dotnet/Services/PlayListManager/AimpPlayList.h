@@ -23,13 +23,9 @@ namespace AIMP
 				AIMP36SDK::IAIMPPropertyList *_properties;
 
 			public:
-				explicit AimpPlayList(AIMP36SDK::IAIMPPlaylist *aimpPlayList) : AimpObject(aimpPlayList)
-				{	
-					// TODO: CheckResult!
-					AIMP36SDK::IAIMPPropertyList *properties;
-					aimpPlayList->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
-					_properties = properties;
-				}
+				explicit AimpPlayList(AIMP36SDK::IAIMPPlaylist *aimpPlayList);
+				
+				AimpPlayList();				
 
 				virtual property String ^Id
 				{
@@ -201,7 +197,7 @@ namespace AIMP
 
 				virtual void Close(AIMP::SDK::Services::PlayListManager::PlayListCloseFlag closeFlag);
 
-				virtual System::Collections::Generic::IList<AIMP::SDK::Services::PlayListManager::IAimpFileInfo^>^ GetFiles(AIMP::SDK::Services::PlayListManager::PlayListGetFilesFlag filesFlag);
+				virtual System::Collections::Generic::IList<String^>^ GetFiles(PlayListGetFilesFlag filesFlag);
 
 				virtual void ReloadFromPreimage();
 
@@ -235,6 +231,9 @@ namespace AIMP
 					void remove(EventHandler<AimpPlayListChangedArgs^> ^onEvent);
 					void raise(Object ^sender, AimpPlayListChangedArgs ^args);
 				}
+
+			private:
+				void GetPropertyList();
 			};
 		}
 	}

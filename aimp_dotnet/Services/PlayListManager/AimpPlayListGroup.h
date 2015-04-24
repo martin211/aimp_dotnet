@@ -23,9 +23,9 @@ namespace AIMP
 				{
 					_item = nullptr;
 				}
+				AimpPlayListGroup();
 
-				AimpPlayListGroup(AIMP36SDK::IAIMPPlaylistGroup *item) : AimpObject(item)
-				{}
+				explicit AimpPlayListGroup(AIMP36SDK::IAIMPPlaylistGroup *item);
 
 				virtual property System::String^ Name
 				{
