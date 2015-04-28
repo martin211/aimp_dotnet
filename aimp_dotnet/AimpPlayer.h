@@ -19,6 +19,7 @@
 #include "Services\PlayListManager\AimpPlayListItem.h"
 #include "Services\PlayListManager\AimpPlayList.h"
 #include "Services\PlayListManager\PlayListManager.h"
+#include "Services\PlayListManager\ServicePlaybackQueue.h"
 
 
 
@@ -147,7 +148,25 @@ namespace AIMP
 		{
 			IPlayListManager ^get()
 			{
-				return gcnew AIMP::SDK::PlayListManager((ManagedAimpCore^) _managerCore);
+				if (_playListManager == nullptr)
+				{
+					_playListManager = gcnew AIMP::SDK::PlayListManager((ManagedAimpCore^) _managerCore);
+				}
+
+				return _playListManager;
+			}
+		}
+
+		virtual property IServicePlaybackQueue ^PlaybackQueueManager
+		{
+			IServicePlaybackQueue ^get()
+			{
+				if (_playbackQueueManager == nullptr)
+				{
+					_playbackQueueManager = gcnew AIMP::SDK::ServicePlaybackQueue((ManagedAimpCore^) _managerCore);
+				}
+
+				return _playbackQueueManager;
 			}
 		}
 
@@ -433,7 +452,10 @@ namespace AIMP
 		IAlbumArtManager^ _artManager;
 		IConfigurationManager^ _configManager;
 		IWin32Manager ^_win32Manager;
+		IPlayListManager ^_playListManager;
+		IServicePlaybackQueue ^_playbackQueueManager;
 		AIMP::SDK::PlayerState _state;
+		
 		AimpStateChanged ^_onStateChanged;
 		EventHandler ^_onLanguageChanged;
 		EventHandler ^_onTrackChanged;

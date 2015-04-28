@@ -1,3 +1,4 @@
+#pragma once
 #include "..\..\AIMP_SDK\aimp3_60_sdk.h"
 #include "..\..\ObjectHelper.h"
 #include "..\PlayListManager\AimpPlayListItem.h"
@@ -13,14 +14,20 @@ namespace AIMP
 		public ref class AimpPlaybackQueueItem : public AimpObject<AIMP36SDK::IAIMPPlaybackQueueItem>, public IAimpPlaybackQueueItem
 		{
 		public:
-			virtual property Object^ UserData
+			explicit AimpPlaybackQueueItem(AIMP36SDK::IAIMPPlaybackQueueItem *aimpItem) : AimpObject(aimpItem)
+			{ }
+
+			virtual property Object ^UserData
 			{
-				Object^ get()
+				Object ^get()
 				{
-					throw gcnew System::NotImplementedException("Not implemented");
+					IUnknown *item;
+					InternalAimpObject->GetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_CUSTOM, IID_IUnknown, (void**) &item);
+					return System::Runtime::InteropServices::Marshal::GetObjectForIUnknown(IntPtr(item));					
 				}
 				void set(Object^ value)
 				{
+					//InternalAimpObject->SetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_CUSTOM, value);
 					throw gcnew System::NotImplementedException("Not implemented");
 				}
 			}
@@ -30,12 +37,12 @@ namespace AIMP
 				IAimpPlayListItem^ get()
 				{
 					IAIMPPlaylistItem *item;
-					_aimpObject->GetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, IID_IAIMPPlaylistItem, (void**) &item);
+					InternalAimpObject->GetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, IID_IAIMPPlaylistItem, (void**) &item);
 					return gcnew PlayList::AimpPlayListItem(item);
 				}
 				void set(IAimpPlayListItem^ value)
 				{
-					_aimpObject->SetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, ((PlayList::AimpPlayListItem^)value)->InternalAimpObject);
+					InternalAimpObject->SetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, ((PlayList::AimpPlayListItem^)value)->InternalAimpObject);
 				}
 			}
 		};

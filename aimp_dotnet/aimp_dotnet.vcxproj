@@ -164,6 +164,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Services\MUIManager\MUIManager.h" />
     <ClInclude Include="Services\PlayListManager\AimpFileInfo.h" />
+    <ClInclude Include="Services\PlayListManager\ServicePlaybackQueue.h" />
     <ClInclude Include="Services\Win32Manager\Win32Manager.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Services\PlayListManager\VirtualFileInfoh.h" />

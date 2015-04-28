@@ -54,6 +54,7 @@
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\PlayListManager\IAimpPlaylistQueue.cs" />
+    <Compile Include="Services\PlayListManager\IServicePlaybackQueue.cs" />
     <Compile Include="UI\AimpUIItem.cs" />
     <Compile Include="AIMPPluginAttribute.cs" />
     <Compile Include="Enums.cs" />

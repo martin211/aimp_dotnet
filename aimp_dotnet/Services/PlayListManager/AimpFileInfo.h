@@ -474,7 +474,7 @@ namespace AIMP
 			virtual IAimpFileInfo^ Clone()
 			{
 				IAIMPFileInfo* clone;
-				ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPFileInfo, (void**)&clone);
+				AIMP::SDK360::ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPFileInfo, (void**)&clone);
 				_aimpObject->Clone(&clone);
 				return gcnew AimpFileInfo(clone);
 			}
