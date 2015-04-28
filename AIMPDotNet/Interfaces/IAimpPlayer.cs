@@ -66,7 +66,15 @@ namespace AIMP.SDK.Interfaces
         /// </summary>
         IConfigurationManager ConfigurationManager { get; }
 
+        /// <summary>
+        /// Gets the play list manager.
+        /// </summary>
         IPlayListManager PlayListManager { get; }
+
+        /// <summary>
+        /// Gets the playback queue manager.
+        /// </summary>
+        IServicePlaybackQueue PlaybackQueueManager { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the volume is mute.
@@ -136,8 +144,14 @@ namespace AIMP.SDK.Interfaces
         /// </summary>
         void StopAfterTrack();
 
+        /// <summary>
+        /// Goes to next track.
+        /// </summary>
         void GoToNext();
 
+        /// <summary>
+        /// Goes to previous track.
+        /// </summary>
         void GoToPrev();
 
         /// <summary>

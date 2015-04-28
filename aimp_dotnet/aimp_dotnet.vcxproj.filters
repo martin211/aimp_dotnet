@@ -155,6 +155,7 @@
       <Filter>Services\PlayListManager</Filter>
     </ClInclude>
     <ClInclude Include="Services\PlayListManager\PlayListManager.h" />
+    <ClInclude Include="Services\PlayListManager\ServicePlaybackQueue.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
