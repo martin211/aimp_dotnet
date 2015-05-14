@@ -255,8 +255,6 @@ namespace AIMP
 				}
 
 				AIMP::PlayList::AimpFileInfo^ fileInfo = gcnew AIMP::PlayList::AimpFileInfo(fi);
-				fi->Release();
-
 				return fileInfo;
 			}
 		}
