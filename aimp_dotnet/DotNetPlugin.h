@@ -139,11 +139,11 @@ public:
 		return _main->Release();
 	}
 
-	virtual HRESULT WINAPI GetName(AIMP36SDK::IAIMPString &S)
+	virtual HRESULT WINAPI GetName(AIMP36SDK::IAIMPString **S)
 	{	
-		// TODO: BUG: https://github.com/martin211/aimp_dotnet/issues/3
+		AIMP36SDK::IAIMPString **strObject = NULL;
 		AIMP36SDK::IAIMPString *Str = AIMP::ObjectHelper::MakeAimpString(_core->GetAimpCore(), "DotNet Plugins");
-		S = *Str;		
+		S = (AIMP36SDK::IAIMPString **)Str;
 		return S_OK;
 	}
 
