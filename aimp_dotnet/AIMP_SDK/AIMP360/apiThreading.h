@@ -4,7 +4,7 @@
 /*               v3.60 build 1401               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2014                 */
+/*                (C) 2006-2015                 */
 /*                 www.aimp.ru                  */
 /*              ICQ: 345-908-513                */
 /*            Mail: support@aimp.ru             */

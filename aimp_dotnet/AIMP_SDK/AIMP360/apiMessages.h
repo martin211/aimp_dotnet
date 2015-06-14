@@ -4,7 +4,7 @@
 /*               v3.60 build 1455               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2014                 */
+/*                (C) 2006-2015                 */
 /*                 www.aimp.ru                  */
 /*              ICQ: 345-908-513                */
 /*            Mail: support@aimp.ru             */
@@ -218,20 +218,13 @@ const int AIMP_MSG_CMD_QTE_PLAYABLE_TRACK = AIMP_MSG_CMD_BASE + 51;
 const int AIMP_MSG_CMD_SEARCH = AIMP_MSG_CMD_BASE + 52;
 
 // Show DSP Manager Dialog
-// AParam1, AParam2: unused
+// AParam1: Active tab sheet index [0..3]
+// AParam2: unused
 const int AIMP_MSG_CMD_DSPMANAGER = AIMP_MSG_CMD_BASE + 53;
-
-// Show DSP Manager Dialog with active "Equalizer" page
-// AParam1, AParam2: unused
-const int AIMP_MSG_CMD_DSPMANAGER_EQ = AIMP_MSG_CMD_BASE + 54;
 
 // Sync active playlist with preimage
 // AParam1, AParam2: unused
 const int AIMP_MSG_CMD_PLS_RELOAD_FROM_PREIMAGE = AIMP_MSG_CMD_BASE + 55;
-
-// Show DSP Manager Dialog with active "Cross Mixing" page
-// AParam1, AParam2: unused
-const int AIMP_MSG_CMD_DSPMANAGER_CROSSMIXING = AIMP_MSG_CMD_BASE + 56;
 
 // Starts first visualization
 // AParam1, AParam2: unused
