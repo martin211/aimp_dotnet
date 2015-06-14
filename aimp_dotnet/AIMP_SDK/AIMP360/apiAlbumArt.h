@@ -1,10 +1,10 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v3.60 build 1455               */
+/*               v3.60 build 1473               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2014                 */
+/*                (C) 2006-2015                 */
 /*                 www.aimp.ru                  */
 /*              ICQ: 345-908-513                */
 /*            Mail: support@aimp.ru             */
@@ -20,8 +20,10 @@
 #include "apiCore.h"
 #include "apiFileManager.h"
 
-static const GUID IID_IAIMPExtensionAlbumArtCatalog = {0x41494D50, 0x4578, 0x7441, 0x6C, 0x62, 0x41, 0x72, 0x74, 0x43, 0x61, 0x74};
-static const GUID IID_IAIMPExtensionAlbumArtProvider = {0x41494D50, 0x4578, 0x7441, 0x6C, 0x62, 0x41, 0x72, 0x74, 0x50, 0x72, 0x76};
+static const GUID IID_IAIMPExtensionAlbumArtCatalog   = {0x41494D50, 0x4578, 0x7441, 0x6C, 0x62, 0x41, 0x72, 0x74, 0x43, 0x61, 0x74};
+static const GUID IID_IAIMPExtensionAlbumArtCatalog2  = {0x41494D50, 0x4578, 0x416C, 0x62, 0x41, 0x72, 0x74, 0x43, 0x61, 0x74, 0x32};
+static const GUID IID_IAIMPExtensionAlbumArtProvider  = {0x41494D50, 0x4578, 0x7441, 0x6C, 0x62, 0x41, 0x72, 0x74, 0x50, 0x72, 0x76};
+static const GUID IID_IAIMPExtensionAlbumArtProvider2 = {0x41494D50, 0x4578, 0x416C, 0x62, 0x41, 0x72, 0x74, 0x50, 0x72, 0x76, 0x32};
 static const GUID IID_IAIMPServiceAlbumArt = {0x41494D50, 0x5372, 0x7641, 0x6C, 0x62, 0x41, 0x72, 0x74, 0x00, 0x00, 0x00};
 static const GUID IID_IAIMPServiceAlbumArtCache = {0x4941494D, 0x5053, 0x7276, 0x41, 0x6C, 0x62, 0x41, 0x72, 0x74, 0x43, 0x68};
 
@@ -55,6 +57,14 @@ class IAIMPExtensionAlbumArtCatalog: public IUnknown
 		virtual HRESULT WINAPI Show(IAIMPString *FileURI, IAIMPString *Artist, IAIMPString *Album, IAIMPImageContainer **Image) = 0;
 };
 
+/* IAIMPExtensionAlbumArtCatalog2 */
+
+class IAIMPExtensionAlbumArtCatalog2: public IAIMPExtensionAlbumArtCatalog
+{
+	public:
+		virtual HRESULT WINAPI Show2(IAIMPFileInfo *FileInfo, IAIMPImageContainer **Image) = 0;
+};
+
 /* IAIMPExtensionAlbumArtProvider */
 
 class IAIMPExtensionAlbumArtProvider: public IUnknown
@@ -62,6 +72,14 @@ class IAIMPExtensionAlbumArtProvider: public IUnknown
 	public:
 		virtual HRESULT WINAPI Get(IAIMPString *FileURI, IAIMPString *Artist, IAIMPString *Album, IAIMPPropertyList *Options, IAIMPImageContainer **Image) = 0;
 		virtual DWORD WINAPI GetCategory() = 0;
+};
+
+/* IAIMPExtensionAlbumArtProvider2 */
+
+class IAIMPExtensionAlbumArtProvider2: public IAIMPExtensionAlbumArtProvider
+{
+	public:
+		virtual HRESULT WINAPI Get2(IAIMPFileInfo *FileInfo, IAIMPPropertyList *Options, IAIMPImageContainer **Image) = 0;
 };
 
 /* IAIMPServiceAlbumArt */
