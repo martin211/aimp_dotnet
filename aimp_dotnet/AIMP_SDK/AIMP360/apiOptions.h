@@ -4,7 +4,7 @@
 /*               v3.60 build 1455               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2014                 */
+/*                (C) 2006-2015                 */
 /*                 www.aimp.ru                  */
 /*              ICQ: 345-908-513                */
 /*            Mail: support@aimp.ru             */
@@ -31,7 +31,7 @@ const int AIMP_SERVICE_OPTIONSDIALOG_NOTIFICATION_SAVE = 0x3;
 class IAIMPOptionsDialogFrame: public IUnknown
 {
 	public:
-		virtual HRESULT WINAPI GetName(IAIMPString &S) = 0;
+		virtual HRESULT WINAPI GetName(IAIMPString **S) = 0;
 		virtual HWND WINAPI CreateFrame(HWND ParentWnd) = 0;
 		virtual void WINAPI DestroyFrame() = 0;
 		virtual void WINAPI Notification(int ID) = 0;
