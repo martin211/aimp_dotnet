@@ -32,8 +32,8 @@ HRESULT WINAPI DotNetPlugin::Initialize(AIMP36SDK::IAIMPCore* core)
 {
 	System::Diagnostics::Debug::WriteLine("BEGIN: Initialize DotNet plugin");
 
-	_managedExtension = gcnew ManagedFunctionality(core);
-	_managedCore = gcnew AIMP::SDK360::ManagedAimpCore(core);
+	_managedCore = gcnew AIMP::SDK360::ManagedAimpCore(core, this);
+	_managedExtension = gcnew ManagedFunctionality(_managedCore);
 	_configurationManager = gcnew AIMP::ConfigurationManager(_managedCore);
 
 	if (_configurationManager->GetValueAsInt32("AimpDotNet\\Settings\\DebugMode") == 1)
@@ -55,27 +55,7 @@ HRESULT WINAPI DotNetPlugin::Initialize(AIMP36SDK::IAIMPCore* core)
 	//AIMP36SDK::IAIMPExtensionPlaylistManagerListener *listner = new PlaylistManagerListener(this);
 	//_listner = listner;
 	//r = core->RegisterExtension(AIMP36SDK::IID_IAIMPServicePlaylistManager, (AIMP36SDK::IAIMPExtensionPlaylistManagerListener*)listner);
-	// TODO: Debug
-	//if (r == E_NOINTERFACE)
-	//{
-	//	System::Diagnostics::Debug::WriteLine("E_NOINTERFACE");
-	//}
-	//else if (r == E_ACCESSDENIED)
-	//{
-	//	System::Diagnostics::Debug::WriteLine("E_ACCESSDENIED");
-	//}
-	//else if (r == E_INVALIDARG)
-	//{
-	//	System::Diagnostics::Debug::WriteLine("E_INVALIDARG");
-	//}
-	//else if (r == E_NOTIMPL)
-	//{
-	//	System::Diagnostics::Debug::WriteLine("E_NOTIMPL");
-	//}
-	//else if (r == E_UNEXPECTED)
-	//{
-	//	System::Diagnostics::Debug::WriteLine("E_UNEXPECTED");
-	//}
+
 
 	AIMP::SDK::InternalLogger::Instance->Write("Initialized");
 	System::Diagnostics::Debug::WriteLine("END: Initialize DotNet plugin");
@@ -107,7 +87,8 @@ void WINAPI DotNetPlugin::SystemNotification(int NotifyID, IUnknown* Data)
 
 }
 
-HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj) {
+HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj) 
+{
 	if (!ppvObj) {
 		return E_POINTER;
 	}

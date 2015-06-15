@@ -158,7 +158,6 @@
     <ClInclude Include="Services\PlayListManager\PlayListManager.h">
       <Filter>Services\PlayListManager</Filter>
     </ClInclude>
-    <ClInclude Include="AIMP_SDK\IUnknownReferencesManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
