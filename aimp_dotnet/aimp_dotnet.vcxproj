@@ -117,6 +117,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AIMP_SDK\IUnknownReferencesManager.h" />
     <ClInclude Include="Services\PlayListManager\PlayListManager.h" />
     <ClInclude Include="Services\PlayListManager\AimpPlayListQueue.h" />
     <ClInclude Include="AIMPPlugin.h" />
