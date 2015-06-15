@@ -73,7 +73,14 @@ namespace AIMP
 		/// <returns></returns>
 		bool ManagedAimpCore::RegisterExtension(GUID extensionId, IUnknown* extension)
 		{
-			return _core->RegisterExtension(extensionId, extension) == S_OK;
+			HRESULT result = _core->RegisterExtension(extensionId, extension);
+			return result == S_OK;
+		}
+
+		HRESULT ManagedAimpCore::RegisterExtensionPlaylistManagerListener(AIMP36SDK::IAIMPExtensionPlaylistManagerListener *listner)
+		{
+			HRESULT result = _core->RegisterExtension(AIMP36SDK::IID_IAIMPServicePlaylistManager, (AIMP36SDK::IAIMPExtensionPlaylistManagerListener*) listner);
+			return result;
 		}
 
 		void ManagedAimpCore::UnregisterExtension(IUnknown* extension)
