@@ -54,10 +54,11 @@ namespace AIMP
 		/// <param name="pluginId">The plugin identifier.</param>
 		/// <param name="applicationDomainId">The application domain identifier.</param>
 		/// <param name="isCrossDomain">The is cross domain.</param>
-		AimpPlayer(AIMP36SDK::IAIMPCore* core, int pluginId, int applicationDomainId, bool isCrossDomain)
+		AimpPlayer(AIMP::SDK360::ManagedAimpCore ^core, int pluginId, int applicationDomainId, bool isCrossDomain)
 		{
-			_aimpCore = core;
-			_managerCore = gcnew AIMP::SDK360::ManagedAimpCore(core);
+			//_aimpCore = core;
+			//_managerCore = gcnew AIMP::SDK360::ManagedAimpCore(core, nullptr);
+			_managerCore = core;
 			AIMP36SDK::IAIMPServicePlayer* ps;
 			((ManagedAimpCore^) _managerCore)->GetService(AIMP36SDK::IID_IAIMPServicePlayer, reinterpret_cast<void**>(&ps));
 			_player = ps;
@@ -441,7 +442,7 @@ namespace AIMP
 
 		AIMP36SDK::IAIMPMessageHook* aimp_message_hook_;
 		AIMP36SDK::IAIMPServicePlayer* _player;
-		AIMP36SDK::IAIMPCore* _aimpCore;		 
+		//AIMP36SDK::IAIMPCore* _aimpCore;		 
 		IAimpCore^ _managerCore;		
 		AimpEventsDelegate^ _coreMessage;
 		IMenuManager^ _menuManager;
@@ -464,7 +465,7 @@ namespace AIMP
 	public:
 		static String^ TypeName = "";
 
-		AimpPlayer<StaticSingleThreadAllocator>^ CreateWithStaticAllocator(AIMP36SDK::IAIMPCore* Ctrl, int PlgUID, int AppDomainID, bool CrossDmn/*, CentralizedEventController^ evCtrl*/)
+		AimpPlayer<StaticSingleThreadAllocator>^ CreateWithStaticAllocator(AIMP::SDK360::ManagedAimpCore^ Ctrl, int PlgUID, int AppDomainID, bool CrossDmn/*, CentralizedEventController^ evCtrl*/)
 		{
 			return gcnew AimpPlayer<StaticSingleThreadAllocator>(Ctrl, PlgUID, AppDomainID, CrossDmn/*, evCtrl*/);
 		}

@@ -11,22 +11,30 @@ namespace AIMP
 		using namespace AIMP36SDK;
 		using namespace AIMP::SDK;
 
-		class PlaylistManagerListener2 : public AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPExtensionPlaylistManagerListener>
+		class PlaylistManagerListener : public AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPExtensionPlaylistManagerListener>
 		{
+		private:
+			AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlugin> *_aimpPlugin;
+
 		public:
+			PlaylistManagerListener(AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlugin> *aimpPlugin)
+			{
+				_aimpPlugin = aimpPlugin;
+			}
+
 			virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
 			{
-				return S_OK;
+				return _aimpPlugin->QueryInterface(riid, ppvObject);
 			}
 
 			virtual ULONG WINAPI AddRef(void)
 			{
-				return 1;
+				return _aimpPlugin->AddRef();
 			}
 
 			virtual ULONG WINAPI Release(void)
 			{
-				return 0;
+				return _aimpPlugin->Release();
 			}
 
 			virtual void WINAPI PlaylistActivated(AIMP36SDK::IAIMPPlaylist* Playlist)
@@ -42,7 +50,7 @@ namespace AIMP
 			virtual void WINAPI PlaylistRemoved(AIMP36SDK::IAIMPPlaylist* Playlist)
 			{
 				System::Diagnostics::Debug::WriteLine("PlaylistRemoved");
-			}
+			}			
 		};
 
 		public ref class PlayListManager : public AimpBaseManager, public AIMP::SDK::Services::PlayListManager::IPlayListManager 
@@ -61,7 +69,7 @@ namespace AIMP
 
 				_service = service;
 
-				AIMP36SDK::IAIMPExtensionPlaylistManagerListener* eventExtension = new PlaylistManagerListener2();
+				AIMP36SDK::IAIMPExtensionPlaylistManagerListener* eventExtension = new PlaylistManagerListener(core->AimpNativePlugin());
 				core->RegisterExtensionPlaylistManagerListener(eventExtension);			
 			}
 
@@ -72,6 +80,8 @@ namespace AIMP
 				{
 					return gcnew AIMP::SDK::PlayList::AimpPlayList(playList);
 				}
+
+				return nullptr;
 			}
 
 			virtual IAimpPlayList^ CreatePlaylistFromFile(System::String^ fileName, bool isActive)
@@ -81,6 +91,8 @@ namespace AIMP
 				{
 					return gcnew AIMP::SDK::PlayList::AimpPlayList(playList);
 				}
+
+				return nullptr;
 			}
 
 			virtual IAimpPlayList^ GetActivePlaylist()
@@ -90,6 +102,8 @@ namespace AIMP
 				{
 					return gcnew AIMP::SDK::PlayList::AimpPlayList(playList);
 				}
+
+				return nullptr;
 			}
 
 			virtual IAimpPlayList^ GetLoadedPlaylist(int index)
@@ -99,6 +113,8 @@ namespace AIMP
 				{
 					return gcnew AIMP::SDK::PlayList::AimpPlayList(playList);
 				}
+
+				return nullptr;
 			}
 
 			virtual IAimpPlayList^ GetPlayablePlaylist()
@@ -108,6 +124,8 @@ namespace AIMP
 				{
 					return gcnew AIMP::SDK::PlayList::AimpPlayList(playList);
 				}
+
+				return nullptr;
 			}
 
 			virtual IAimpPlayList^ GetLoadedPlaylistById(System::String^ id)
@@ -117,6 +135,8 @@ namespace AIMP
 				{
 					return gcnew AIMP::SDK::PlayList::AimpPlayList(playList);
 				}
+
+				return nullptr;
 			}
 
 			virtual IAimpPlayList^ GetLoadedPlaylistByName(System::String^ name)
@@ -126,6 +146,8 @@ namespace AIMP
 				{
 					return gcnew AIMP::SDK::PlayList::AimpPlayList(playList);
 				}
+
+				return nullptr;
 			}
 
 			virtual int GetLoadedPlaylistCount()
