@@ -2,10 +2,11 @@
 #include "AIMP_SDK\aimp3_60_sdk.h"
 #include "EventHelper.h"
 #include <Unknwnbase.h>
+#include "AIMP_SDK\IUnknownInterfaceImpl.h"
 
 namespace AIMP36SDK
 {
-	#include "AIMP_SDK\AIMP360\apiMenu.h"
+	#include "AIMP_SDK\AIMP360\apiMenu.h"	
 }
 
 namespace AIMP
@@ -30,7 +31,7 @@ namespace AIMP
 			/// Initializes a new instance of the <see cref="ManagedAimpCore"/> class.
 			/// </summary>
 			/// <param name="core">The core.</param>
-			ManagedAimpCore(AIMP36SDK::IAIMPCore* core);
+			ManagedAimpCore(AIMP36SDK::IAIMPCore* core, AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlugin> *aimpPlugin);
 			
 			/// <summary>
 			/// Finalizes an instance of the <see cref="ManagedAimpCore"/> class.
@@ -70,6 +71,12 @@ namespace AIMP
 			int Send(int message, int value);
 
 			AIMP36SDK::IAIMPStream* CreateStream();
+
+			AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlugin> *AimpNativePlugin()
+			{
+				return _aimpPlugin;
+			}
+
 		private:
 			static IAIMPCore* _core;
 			AimpEventsDelegate^ _coreMessage;
@@ -77,6 +84,7 @@ namespace AIMP
 			Callback* _coreMessageCallback;
 			AIMP36SDK::IAIMPServiceMessageDispatcher* _messageDispatcher;
 			IAIMPMessageHook* _hook;
+			AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlugin> *_aimpPlugin;
 		};
 	}
 }

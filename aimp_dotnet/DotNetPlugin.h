@@ -17,7 +17,7 @@ namespace AIMP36SDK
 private ref class ManagedFunctionality
 {
 public:
-	ManagedFunctionality(AIMP36SDK::IAIMPCore* core)
+	ManagedFunctionality(AIMP::SDK360::ManagedAimpCore ^core)
 	{
 		_core = core;
 	}
@@ -52,10 +52,10 @@ public:
 		//}
 	}
 private:
-	AIMP36SDK::IAIMPCore* _core;
+	AIMP::SDK360::ManagedAimpCore ^_core;
 };
 
-class DotNetPlugin : public AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlugin>//, public AIMP36SDK::IAIMPOptionsDialogFrame//, public AIMP36SDK::IAIMPExternalSettingsDialog
+class DotNetPlugin : public AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlugin>
 {
 public:
 	DotNetPlugin();
@@ -212,7 +212,7 @@ public:
 
 	virtual ULONG WINAPI AddRef(void)
 	{
-		return _main->AddRef();
+		return _main->AddRef();		
 	}
 
 	virtual ULONG WINAPI Release(void)

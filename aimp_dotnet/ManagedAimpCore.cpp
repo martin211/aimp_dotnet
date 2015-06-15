@@ -31,7 +31,7 @@ namespace AIMP
 			gcroot<ManagedAimpCore^> aimp36_manager_;
 		};
 
-		ManagedAimpCore::ManagedAimpCore(AIMP36SDK::IAIMPCore* core)
+		ManagedAimpCore::ManagedAimpCore(AIMP36SDK::IAIMPCore* core, AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlugin> *aimpPlugin)
 		{
 			_core = core;
 			_nativeEventHelper = new EventHelper();
@@ -41,6 +41,7 @@ namespace AIMP
 			_hook = new AIMPMessageHook(this);			
 			aimp_service_message_dispatcher->Hook(_hook);
 			_messageDispatcher = aimp_service_message_dispatcher;
+			_aimpPlugin = aimpPlugin;
 		}
 
 		ManagedAimpCore::~ManagedAimpCore()
