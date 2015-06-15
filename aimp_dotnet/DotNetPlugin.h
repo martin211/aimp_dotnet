@@ -143,7 +143,7 @@ public:
 	{	
 		AIMP36SDK::IAIMPString **strObject = NULL;
 		AIMP36SDK::IAIMPString *Str = AIMP::ObjectHelper::MakeAimpString(_core->GetAimpCore(), "DotNet Plugins");
-		S = (AIMP36SDK::IAIMPString **)Str;
+		S = &Str;
 		return S_OK;
 	}
 
