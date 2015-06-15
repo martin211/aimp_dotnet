@@ -49,6 +49,8 @@ namespace AIMP
 			}
 
 			void OnCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2);
+
+			virtual HRESULT RegisterExtensionPlaylistManagerListener(AIMP36SDK::IAIMPExtensionPlaylistManagerListener *listner);
 		
 		internal:
 			IAIMPActionEvent* CreateActionEvent();

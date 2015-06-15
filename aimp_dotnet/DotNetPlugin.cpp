@@ -52,8 +52,32 @@ HRESULT WINAPI DotNetPlugin::Initialize(AIMP36SDK::IAIMPCore* core)
 	_frame = frame;
 	HRESULT r = core->RegisterExtension(AIMP36SDK::IID_IAIMPServiceOptionsDialog, (AIMP36SDK::IAIMPOptionsDialogFrame*)frame);
 
-	AIMP::SDK::InternalLogger::Instance->Write("Initialized");
+	//AIMP36SDK::IAIMPExtensionPlaylistManagerListener *listner = new PlaylistManagerListener(this);
+	//_listner = listner;
+	//r = core->RegisterExtension(AIMP36SDK::IID_IAIMPServicePlaylistManager, (AIMP36SDK::IAIMPExtensionPlaylistManagerListener*)listner);
+	// TODO: Debug
+	//if (r == E_NOINTERFACE)
+	//{
+	//	System::Diagnostics::Debug::WriteLine("E_NOINTERFACE");
+	//}
+	//else if (r == E_ACCESSDENIED)
+	//{
+	//	System::Diagnostics::Debug::WriteLine("E_ACCESSDENIED");
+	//}
+	//else if (r == E_INVALIDARG)
+	//{
+	//	System::Diagnostics::Debug::WriteLine("E_INVALIDARG");
+	//}
+	//else if (r == E_NOTIMPL)
+	//{
+	//	System::Diagnostics::Debug::WriteLine("E_NOTIMPL");
+	//}
+	//else if (r == E_UNEXPECTED)
+	//{
+	//	System::Diagnostics::Debug::WriteLine("E_UNEXPECTED");
+	//}
 
+	AIMP::SDK::InternalLogger::Instance->Write("Initialized");
 	System::Diagnostics::Debug::WriteLine("END: Initialize DotNet plugin");
 
 	return S_OK;
@@ -99,6 +123,13 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj) {
 		*ppvObj = _frame;
 		AddRef();
 		_optionsLoaded = true;
+		return S_OK;
+	}
+
+	if (riid == AIMP36SDK::IID_IAIMPExtensionPlaylistManagerListener)
+	{
+		*ppvObj = _listner;
+		AddRef();
 		return S_OK;
 	}
 
