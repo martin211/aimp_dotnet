@@ -83,6 +83,9 @@ public:
 
 	virtual void SavePluginOptions();
 private:
+	HRESULT LoadExtensions(AIMP36SDK::IAIMPCore* core);
+
+private:
 	bool inSetFormIntited;	
 	bool _optionsLoaded;
 
