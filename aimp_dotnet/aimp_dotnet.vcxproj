@@ -23,7 +23,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -46,7 +46,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Aimp\AIMP3.60\Plugins\aimp_dotnet\</OutDir>
     <IncludePath>z:\Libraries\boost;$(IncludePath)</IncludePath>
-    <LibraryPath>z:\Libraries\boost\lib32-msvc-12.0;$(LibraryPath)</LibraryPath>
+    <LibraryPath>z:\Libraries\boost\lib32-msvc-11.0;$(LibraryPath)</LibraryPath>
     <TargetName>aimp_dotnet</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
