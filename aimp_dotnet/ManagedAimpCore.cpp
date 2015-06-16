@@ -31,7 +31,7 @@ namespace AIMP
 			gcroot<ManagedAimpCore^> aimp36_manager_;
 		};
 
-		ManagedAimpCore::ManagedAimpCore(AIMP36SDK::IAIMPCore* core, AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlugin> *aimpPlugin)
+		ManagedAimpCore::ManagedAimpCore(AIMP36SDK::IAIMPCore* core)
 		{
 			_core = core;
 			_nativeEventHelper = new EventHelper();
@@ -41,7 +41,6 @@ namespace AIMP
 			_hook = new AIMPMessageHook(this);			
 			aimp_service_message_dispatcher->Hook(_hook);
 			_messageDispatcher = aimp_service_message_dispatcher;
-			_aimpPlugin = aimpPlugin;
 		}
 
 		ManagedAimpCore::~ManagedAimpCore()
@@ -78,12 +77,6 @@ namespace AIMP
 			return result == S_OK;
 		}
 
-		HRESULT ManagedAimpCore::RegisterExtensionPlaylistManagerListener(AIMP36SDK::IAIMPExtensionPlaylistManagerListener *listner)
-		{
-			HRESULT result = _core->RegisterExtension(AIMP36SDK::IID_IAIMPServicePlaylistManager, (AIMP36SDK::IAIMPExtensionPlaylistManagerListener*) listner);
-			return result;
-		}
-
 		void ManagedAimpCore::UnregisterExtension(IUnknown* extension)
 		{
 			_core->UnregisterExtension(extension);
@@ -99,6 +92,11 @@ namespace AIMP
 			CoreMessage(param1, param2);			
 		}
 
+		void ManagedAimpCore::OnPlaylistActivated(Object ^sender, EventArgs ^args)
+		{
+			PlaylistActivated(sender, args);
+		}
+
 		/// <summary>
 		/// Somes the event proxy.
 		/// </summary>
@@ -110,36 +108,9 @@ namespace AIMP
 			This->OnCoreMessage((AIMP::SDK::AimpMessages::AimpCoreMessageType)param, param1);
 		}
 
-		void ManagedAimpCore::CoreMessage::add(AimpEventsDelegate^ onCoreMessage)
+		void PlaylistActivatedEventProxy(gcroot<ManagedAimpCore^> This)
 		{
-			bool tmp = this->_coreMessage == nullptr;
-			this->_coreMessage = (AimpEventsDelegate^) Delegate::Combine(this->_coreMessage, onCoreMessage);
-			if (tmp && this->_coreMessage != nullptr)
-			{				
-				_coreMessageCallback = new AIMP::Callback;
-				*_coreMessageCallback = _nativeEventHelper->RegisterCallback(boost::bind(SomeEventProxy, gcroot<ManagedAimpCore^>(this), _1, _2));				
-			}
 		}
-		
-		void ManagedAimpCore::CoreMessage::remove(AimpEventsDelegate^ onCoreMessage)
-		{
-			bool tmp = this->_coreMessage == nullptr;
-			this->_coreMessage = (AimpEventsDelegate^) Delegate::Combine(this->_coreMessage, onCoreMessage);
-			if (tmp && this->_coreMessage != nullptr)
-			{
-				_nativeEventHelper->UnregisterCallback(*_coreMessageCallback);
-			}
-		}
-
-		void ManagedAimpCore::CoreMessage::raise(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2)
-		{			
-			AimpEventsDelegate^ tmp = this->_coreMessage;
-			if (tmp != nullptr)
-			{
-				tmp(param1, param2);
-			}			
-		}
-
 
 		/// <summary>
 		/// Gets the service.
@@ -207,6 +178,83 @@ namespace AIMP
 		AIMP36SDK::IAIMPCore* ManagedAimpCore::GetAimpCore()
 		{
 			return _core;
+		}
+
+
+		void ManagedAimpCore::CoreMessage::add(AimpEventsDelegate^ onCoreMessage)
+		{
+			bool tmp = this->_coreMessage == nullptr;
+			this->_coreMessage = (AimpEventsDelegate^) Delegate::Combine(this->_coreMessage, onCoreMessage);
+			if (tmp && this->_coreMessage != nullptr)
+			{				
+				_coreMessageCallback = new AIMP::Callback;
+				*_coreMessageCallback = _nativeEventHelper->RegisterCallback(boost::bind(SomeEventProxy, gcroot<ManagedAimpCore^>(this), _1, _2));				
+			}
+		}
+		
+		void ManagedAimpCore::CoreMessage::remove(AimpEventsDelegate^ onCoreMessage)
+		{
+			bool tmp = this->_coreMessage == nullptr;
+			this->_coreMessage = (AimpEventsDelegate^) Delegate::Combine(this->_coreMessage, onCoreMessage);
+			if (tmp && this->_coreMessage != nullptr)
+			{
+				_nativeEventHelper->UnregisterCallback(*_coreMessageCallback);
+			}
+		}
+
+		void ManagedAimpCore::CoreMessage::raise(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2)
+		{			
+			AimpEventsDelegate^ tmp = this->_coreMessage;
+			if (tmp != nullptr)
+			{
+				tmp(param1, param2);
+			}			
+		}
+
+
+		void ManagedAimpCore::PlaylistActivated::add(EventHandler ^onEvent)
+		{
+			bool tmp = this->_playlistActivated == nullptr;
+			this->_playlistActivated = (EventHandler^) Delegate::Combine(this->_playlistActivated, onEvent);
+			if (tmp && this->_playlistActivated != nullptr)
+			{
+				_playListActivatedCallback = new AIMP::Callback;
+				*_playListActivatedCallback = _nativeEventHelper->RegisterCallback(boost::bind(PlaylistActivatedEventProxy, gcroot<ManagedAimpCore^>(this), _1));
+			}
+		}
+
+		void ManagedAimpCore::PlaylistActivated::remove(EventHandler ^onCoreMessage)
+		{
+		}
+
+		void ManagedAimpCore::PlaylistActivated::raise(Object ^object, EventArgs ^args)
+		{
+		}
+
+
+		void ManagedAimpCore::PlaylistAdded::add(EventHandler ^onCoreMessage)
+		{
+		}
+
+		void ManagedAimpCore::PlaylistAdded::remove(EventHandler ^onCoreMessage)
+		{
+		}
+
+		void ManagedAimpCore::PlaylistAdded::raise(Object ^object, EventArgs ^args)
+		{
+		}
+
+
+		void ManagedAimpCore::PlaylistRemoved::add(EventHandler ^onCoreMessage)
+		{
+		}
+
+		void ManagedAimpCore::PlaylistRemoved::remove(EventHandler ^onCoreMessage)
+		{
+		}
+
+		void ManagedAimpCore::PlaylistRemoved::raise(Object ^object, EventArgs ^args)
+		{
 		}
 	}
 }

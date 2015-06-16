@@ -32,9 +32,11 @@ HRESULT WINAPI DotNetPlugin::Initialize(AIMP36SDK::IAIMPCore* core)
 {
 	System::Diagnostics::Debug::WriteLine("BEGIN: Initialize DotNet plugin");
 
-	_managedCore = gcnew AIMP::SDK360::ManagedAimpCore(core, this);
+	_managedCore = gcnew AIMP::SDK360::ManagedAimpCore(core);
 	_managedExtension = gcnew ManagedFunctionality(_managedCore);
 	_configurationManager = gcnew AIMP::ConfigurationManager(_managedCore);
+
+	LoadExtensions(core);
 
 	if (_configurationManager->GetValueAsInt32("AimpDotNet\\Settings\\DebugMode") == 1)
 	{
@@ -47,15 +49,6 @@ HRESULT WINAPI DotNetPlugin::Initialize(AIMP36SDK::IAIMPCore* core)
 	_pluginSettings->PluginsCollection->PluginLoadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
 	_pluginSettings->PluginsCollection->PluginUnloadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
 	_pluginState->Load(_pluginSettings);
-
-	AIMP36SDK::IAIMPOptionsDialogFrame *frame = new OptionFrame(_managedCore, this);
-	_frame = frame;
-	HRESULT r = core->RegisterExtension(AIMP36SDK::IID_IAIMPServiceOptionsDialog, (AIMP36SDK::IAIMPOptionsDialogFrame*)frame);
-
-	//AIMP36SDK::IAIMPExtensionPlaylistManagerListener *listner = new PlaylistManagerListener(this);
-	//_listner = listner;
-	//r = core->RegisterExtension(AIMP36SDK::IID_IAIMPServicePlaylistManager, (AIMP36SDK::IAIMPExtensionPlaylistManagerListener*)listner);
-
 
 	AIMP::SDK::InternalLogger::Instance->Write("Initialized");
 	System::Diagnostics::Debug::WriteLine("END: Initialize DotNet plugin");
@@ -149,4 +142,19 @@ AIMP::SDK::PluginSettings ^DotNetPlugin::GetPluginSettings()
 void DotNetPlugin::SavePluginOptions()
 {
 	_pluginState->Save(_pluginSettings);
+}
+
+HRESULT DotNetPlugin::LoadExtensions(AIMP36SDK::IAIMPCore* core)
+{
+	HRESULT r = S_OK;
+
+	AIMP36SDK::IAIMPOptionsDialogFrame *frame = new OptionFrame(_managedCore, this);
+	_frame = frame;
+	r = core->RegisterExtension(AIMP36SDK::IID_IAIMPServiceOptionsDialog, (AIMP36SDK::IAIMPOptionsDialogFrame*)frame);
+
+	AIMP36SDK::IAIMPExtensionPlaylistManagerListener *listner = new PlaylistManagerListener(this);
+	_listner = listner;
+	r = core->RegisterExtension(AIMP36SDK::IID_IAIMPServicePlaylistManager, (AIMP36SDK::IAIMPExtensionPlaylistManagerListener*)listner);
+
+	return r;
 }

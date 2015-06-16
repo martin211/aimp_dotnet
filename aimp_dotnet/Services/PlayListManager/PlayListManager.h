@@ -11,48 +11,6 @@ namespace AIMP
 		using namespace AIMP36SDK;
 		using namespace AIMP::SDK;
 
-		class PlaylistManagerListener : public AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPExtensionPlaylistManagerListener>
-		{
-		private:
-			AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlugin> *_aimpPlugin;
-
-		public:
-			PlaylistManagerListener(AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlugin> *aimpPlugin)
-			{
-				_aimpPlugin = aimpPlugin;
-			}
-
-			virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
-			{
-				return _aimpPlugin->QueryInterface(riid, ppvObject);
-			}
-
-			virtual ULONG WINAPI AddRef(void)
-			{
-				return _aimpPlugin->AddRef();
-			}
-
-			virtual ULONG WINAPI Release(void)
-			{
-				return _aimpPlugin->Release();
-			}
-
-			virtual void WINAPI PlaylistActivated(AIMP36SDK::IAIMPPlaylist* Playlist)
-			{
-				System::Diagnostics::Debug::WriteLine("PlaylistActivated");
-			}
-
-			virtual void WINAPI PlaylistAdded(AIMP36SDK::IAIMPPlaylist* Playlist)
-			{
-				System::Diagnostics::Debug::WriteLine("PlaylistAdded");
-			}
-
-			virtual void WINAPI PlaylistRemoved(AIMP36SDK::IAIMPPlaylist* Playlist)
-			{
-				System::Diagnostics::Debug::WriteLine("PlaylistRemoved");
-			}			
-		};
-
 		public ref class PlayListManager : public AimpBaseManager, public AIMP::SDK::Services::PlayListManager::IPlayListManager 
 		{
 		private:
@@ -68,9 +26,6 @@ namespace AIMP
 				}
 
 				_service = service;
-
-				AIMP36SDK::IAIMPExtensionPlaylistManagerListener* eventExtension = new PlaylistManagerListener(core->AimpNativePlugin());
-				core->RegisterExtensionPlaylistManagerListener(eventExtension);			
 			}
 
 			virtual IAimpPlayList^ CreatePlaylist(System::String^ name, bool isActive)

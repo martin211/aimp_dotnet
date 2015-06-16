@@ -54,7 +54,7 @@
     <Compile Include="Interfaces\IAimpExtensionPlayerHook.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Services\PlayListManager\IExtensionPlaylistManagerListener.cs" />
+    <Compile Include="Extensions\IExtensionPlaylistManagerListener.cs" />
     <Compile Include="Services\PlayListManager\IAimpPlaylistQueue.cs" />
     <Compile Include="Services\PlayListManager\IServicePlaybackQueue.cs" />
     <Compile Include="Services\PlayListManager\PlayListEventArgs.cs" />
