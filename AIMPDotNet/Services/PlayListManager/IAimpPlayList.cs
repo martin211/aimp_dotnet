@@ -63,11 +63,11 @@ namespace AIMP.SDK.Services.PlayListManager
 
     public interface IAimpPlayList
     {
-        event EventHandler Activated;
+        //event EventHandler Activated;
 
-        event EventHandler Removed;
+        //event EventHandler Removed;
 
-        event EventHandler<AimpPlayListChangedArgs> Changed;
+        //event EventHandler<AimpPlayListChangedArgs> Changed;
 
         /// <summary>
         /// Gets the identifier.
