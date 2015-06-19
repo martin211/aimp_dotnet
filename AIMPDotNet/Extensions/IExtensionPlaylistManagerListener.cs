@@ -1,13 +1,13 @@
-﻿using System;
-
-namespace AIMP.SDK.Extensions
+﻿namespace AIMP.SDK.Extensions
 {
+    public delegate void PlayListHandler(string playListName, string playListId);
+
     public interface IExtensionPlaylistManagerListener
     {
-        event EventHandler PlaylistActivated;
+        event PlayListHandler PlaylistActivated;
 
-        event EventHandler PlaylistAdded;
-
-        event EventHandler PlaylistRemoved;
+        event PlayListHandler PlaylistAdded;
+        
+        event PlayListHandler PlaylistRemoved;
     }
 }

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using AIMP.SDK.Extensions;
 
 namespace AIMP.SDK.Services.PlayListManager
 {
-    public interface IPlayListManager
+    public interface IPlayListManager : IExtensionPlaylistManagerListener
     {
         IAimpPlayList CreatePlaylist(string name, bool isActive);
 

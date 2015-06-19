@@ -85,12 +85,15 @@ public:
 private:
 	HRESULT LoadExtensions(AIMP36SDK::IAIMPCore* core);
 
+public:
+	gcroot<AIMP::SDK360::ManagedAimpCore^> _managedCore;
+
 private:
 	bool inSetFormIntited;	
 	bool _optionsLoaded;
 
 	gcroot<ManagedFunctionality^> _managedExtension;
-	gcroot<AIMP::SDK360::ManagedAimpCore^> _managedCore;	
+		
 	//gcroot<AIMP::SDK::PluginInfoCollection^> inPluginCollection;
 	gcroot<AIMP::SDK::PluginStateSaver^> _pluginState;
 	gcroot<AIMP::SDK::PluginSettings^> _pluginSettings;
@@ -223,18 +226,18 @@ public:
 		return _main->Release();
 	}
 
-	virtual void WINAPI PlaylistActivated(AIMP36SDK::IAIMPPlaylist* Playlist)
-	{
-		System::Diagnostics::Debug::WriteLine("PlaylistActivated");
+	virtual void WINAPI PlaylistActivated(AIMP36SDK::IAIMPPlaylist *playlist)
+	{		
+		_main->_managedCore->OnPlaylistActivated(playlist);
 	}
 
-	virtual void WINAPI PlaylistAdded(AIMP36SDK::IAIMPPlaylist* Playlist)
+	virtual void WINAPI PlaylistAdded(AIMP36SDK::IAIMPPlaylist *playlist)
 	{
-		System::Diagnostics::Debug::WriteLine("PlaylistAdded");
+		_main->_managedCore->OnPlayListAdded(playlist);
 	}
 
-	virtual void WINAPI PlaylistRemoved(AIMP36SDK::IAIMPPlaylist* Playlist)
+	virtual void WINAPI PlaylistRemoved(AIMP36SDK::IAIMPPlaylist *playlist)
 	{
-		System::Diagnostics::Debug::WriteLine("PlaylistRemoved");
+		_main->_managedCore->OnPlayListRemoved(playlist);
 	}
 };
