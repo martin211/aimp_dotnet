@@ -7,7 +7,6 @@
 #include <windows.h>
 
 #include <boost/intrusive_ptr.hpp>
-#include <boost/log/exceptions.hpp>
 
 #include <boost/bind.hpp>
 #include <boost/signal.hpp>
