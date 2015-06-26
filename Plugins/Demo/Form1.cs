@@ -1,19 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using AIMP.SDK.Interfaces;
 using AIMP.SDK.Services.PlayListManager;
 
 namespace TestPlugin
 {
-    using AIMP.SDK.Services.AlbumArtManager;
-
     public partial class Form1 : Form
     {
         private readonly IAimpPlayer _aimpPlayer;
@@ -24,17 +15,42 @@ namespace TestPlugin
             InitializeComponent();
             _aimpPlayer.TrackChanged += (sender, args) =>
                 {
-                    this.pictureBox1.Image = _aimpPlayer.CurrentFileInfo.AlbumArt;
+                    pictureBox1.Image = _aimpPlayer.CurrentFileInfo.AlbumArt;
                 };
 
             Load += OnActivated;
+
+            _aimpPlayer.PlayListManager.PlaylistActivated += (name, id) =>
+            {
+
+            };
+
+            _aimpPlayer.PlayListManager.PlaylistAdded += (name, id) =>
+            {
+                var pl = _aimpPlayer.PlayListManager.GetLoadedPlaylistById(id);
+                AddPlayListTab(id, name, pl);
+            };
+
+            _aimpPlayer.PlayListManager.PlaylistRemoved += (name, id) =>
+            {
+                foreach (var tabPage in tabPlayLists.TabPages)
+                {
+                    var tp = tabPage as TabPage;
+                    if (tp != null && tp.Tag.Equals(id))
+                    {
+                        tabPlayLists.TabPages.Remove(tp);
+                        break;
+                    }
+                }
+            };
         }
 
         private void AddPlayListTab(string id, string name, IAimpPlayList playList)
         {
             var tab = new TabPage(id)
             {
-                Text = name
+                Text = name,
+                Tag = id
             };
 
             var tracks = new ListView()

@@ -402,53 +402,53 @@ namespace AIMP
 
 
 
-			void AimpPlayList::Activated::add(EventHandler ^onEvent)
-			{
-				throw gcnew NotImplementedException();
-			}
+			//void AimpPlayList::Activated::add(EventHandler ^onEvent)
+			//{
+			//	throw gcnew NotImplementedException();
+			//}
 
-			void AimpPlayList::Activated::remove(EventHandler ^onEvent)
-			{
-				throw gcnew NotImplementedException();
-			}
+			//void AimpPlayList::Activated::remove(EventHandler ^onEvent)
+			//{
+			//	throw gcnew NotImplementedException();
+			//}
 
-			void AimpPlayList::Activated::raise(Object ^sender, EventArgs ^args)
-			{
-				throw gcnew NotImplementedException();
-			}
-
-
-			void AimpPlayList::Removed::add(EventHandler ^onEvent)
-			{
-				throw gcnew NotImplementedException();
-			}
-
-			void AimpPlayList::Removed::remove(EventHandler ^onEvent)
-			{
-				throw gcnew NotImplementedException();
-			}
-
-			void AimpPlayList::Removed::raise(Object ^sender, EventArgs ^args)
-			{
-				throw gcnew NotImplementedException();
-			}
+			//void AimpPlayList::Activated::raise(Object ^sender, EventArgs ^args)
+			//{
+			//	throw gcnew NotImplementedException();
+			//}
 
 
+			//void AimpPlayList::Removed::add(EventHandler ^onEvent)
+			//{
+			//	throw gcnew NotImplementedException();
+			//}
 
-			void AimpPlayList::Changed::add(EventHandler<AimpPlayListChangedArgs^> ^onEvent)
-			{
-				throw gcnew NotImplementedException();
-			}
+			//void AimpPlayList::Removed::remove(EventHandler ^onEvent)
+			//{
+			//	throw gcnew NotImplementedException();
+			//}
 
-			void AimpPlayList::Changed::remove(EventHandler<AimpPlayListChangedArgs^> ^onEvent)
-			{
-				throw gcnew NotImplementedException();
-			}
+			//void AimpPlayList::Removed::raise(Object ^sender, EventArgs ^args)
+			//{
+			//	throw gcnew NotImplementedException();
+			//}
 
-			void AimpPlayList::Changed::raise(Object ^sender, AimpPlayListChangedArgs ^args)
-			{
-				throw gcnew NotImplementedException();
-			}
+
+
+			//void AimpPlayList::Changed::add(EventHandler<AimpPlayListChangedArgs^> ^onEvent)
+			//{
+			//	throw gcnew NotImplementedException();
+			//}
+
+			//void AimpPlayList::Changed::remove(EventHandler<AimpPlayListChangedArgs^> ^onEvent)
+			//{
+			//	throw gcnew NotImplementedException();
+			//}
+
+			//void AimpPlayList::Changed::raise(Object ^sender, AimpPlayListChangedArgs ^args)
+			//{
+			//	throw gcnew NotImplementedException();
+			//}
 
 
 			void AimpPlayList::GetPropertyList()

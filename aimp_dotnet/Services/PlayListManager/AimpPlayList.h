@@ -211,26 +211,26 @@ namespace AIMP
 
 				virtual int GetGroupCount();
 
-				virtual event EventHandler ^Activated
-				{
-					void add(EventHandler ^onEvent);
-					void remove(EventHandler ^onEvent);
-					void raise(Object ^sender, EventArgs ^args);
-				}
+				//virtual event EventHandler ^Activated
+				//{
+				//	void add(EventHandler ^onEvent);
+				//	void remove(EventHandler ^onEvent);
+				//	void raise(Object ^sender, EventArgs ^args);
+				//}
 
-				virtual event EventHandler ^Removed
-				{
-					void add(EventHandler ^onEvent);
-					void remove(EventHandler ^onEvent);
-					void raise(Object ^sender, EventArgs ^args);
-				}
+				//virtual event EventHandler ^Removed
+				//{
+				//	void add(EventHandler ^onEvent);
+				//	void remove(EventHandler ^onEvent);
+				//	void raise(Object ^sender, EventArgs ^args);
+				//}
 
-				virtual event EventHandler<AimpPlayListChangedArgs^> ^Changed
-				{
-					void add(EventHandler<AimpPlayListChangedArgs^> ^onEvent);
-					void remove(EventHandler<AimpPlayListChangedArgs^> ^onEvent);
-					void raise(Object ^sender, AimpPlayListChangedArgs ^args);
-				}
+				//virtual event EventHandler<AimpPlayListChangedArgs^> ^Changed
+				//{
+				//	void add(EventHandler<AimpPlayListChangedArgs^> ^onEvent);
+				//	void remove(EventHandler<AimpPlayListChangedArgs^> ^onEvent);
+				//	void raise(Object ^sender, AimpPlayListChangedArgs ^args);
+				//}
 
 			private:
 				void GetPropertyList();
