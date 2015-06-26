@@ -11,10 +11,13 @@ namespace AIMP
 		using namespace AIMP36SDK;
 		using namespace AIMP::SDK;
 
-		public ref class PlayListManager : public AimpBaseManager, public AIMP::SDK::Services::PlayListManager::IPlayListManager 
+		public ref class PlayListManager : public AimpBaseManager, public AIMP::SDK::Services::PlayListManager::IPlayListManager, public IExtensionPlaylistManagerListener
 		{
 		private:
 			IAIMPServicePlaylistManager *_service;
+			PlayListHandler ^_onPlaylistActivated;
+			PlayListHandler ^_onPlaylistAdded;
+			PlayListHandler ^_onPlaylistRemoved;
 
 		public:
 			explicit PlayListManager(ManagedAimpCore ^core) : AimpBaseManager(core)
@@ -26,6 +29,67 @@ namespace AIMP
 				}
 
 				_service = service;
+
+				core->PlaylistActivated += gcnew PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistActivated);
+				core->PlaylistAdded += gcnew PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistAdded);
+				core->PlaylistRemoved += gcnew PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistRemoved);
+			}
+
+			virtual event PlayListHandler ^PlaylistActivated
+			{
+				virtual void add(PlayListHandler ^onEvent)
+				{
+					_onPlaylistActivated = onEvent;
+				}
+				virtual void remove(PlayListHandler ^onEvent)
+				{
+					_onPlaylistActivated = nullptr;
+				}
+				void raise(String ^playListName, String ^playListId)
+				{
+					if (_onPlaylistActivated != nullptr)
+					{
+						_onPlaylistActivated(playListName, playListId);
+					}
+				}
+			}
+
+			virtual event PlayListHandler ^PlaylistAdded
+			{
+				virtual void add(PlayListHandler ^onEvent)
+				{
+					_onPlaylistAdded = onEvent;
+				}
+				virtual void remove(PlayListHandler ^onEvent)
+				{
+					_onPlaylistAdded = nullptr;
+				}
+				void raise(String ^playListName, String ^playListId)
+				{
+					if (_onPlaylistAdded != nullptr)
+					{
+						_onPlaylistAdded(playListName, playListId);
+					}
+				}
+			}
+
+			virtual event PlayListHandler ^PlaylistRemoved
+			{
+				virtual void add(PlayListHandler ^onEvent)
+				{
+					_onPlaylistRemoved = onEvent;
+				}
+				virtual void remove(PlayListHandler ^onEvent)
+				{
+					_onPlaylistRemoved = nullptr;
+				}
+				void raise(String ^playListName, String ^playListId)
+				{
+					if (_onPlaylistRemoved != nullptr)
+					{
+						_onPlaylistRemoved(playListName, playListId);
+					}
+				}
 			}
 
 			virtual IAimpPlayList^ CreatePlaylist(System::String^ name, bool isActive)
@@ -114,6 +178,22 @@ namespace AIMP
 			{
 				
 			}
+
+			private:
+				virtual void onPlaylistActivated(String ^playListName, String ^playListId)
+				{
+					PlaylistActivated(playListName, playListId);
+				}
+
+				virtual void onPlaylistAdded(String ^playListName, String ^playListId)
+				{
+					PlaylistAdded(playListName, playListId);
+				}
+
+				virtual void onPlaylistRemoved(String ^playListName, String ^playListId)
+				{
+					PlaylistRemoved(playListName, playListId);
+				}
 		};
 	}
 }
