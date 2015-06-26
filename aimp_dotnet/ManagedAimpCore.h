@@ -18,13 +18,14 @@ namespace AIMP
 		using namespace AIMP::SDK::Interfaces;
 		using namespace AIMP::SDK::Extensions;
 		using namespace AIMP36SDK;		
+		using namespace AIMP::SDK::Services::PlayListManager;
 
 		delegate void ChangeHandler(AimpMessages::AimpCoreMessageType, int);
 
 		/// <summary>
 		/// Managed Core class.
 		/// </summary>
-		public ref class ManagedAimpCore : public IAimpCore, public IExtensionPlaylistManagerListener
+		public ref class ManagedAimpCore : public IAimpCore
 		{		
 			
 		public:			
@@ -50,30 +51,27 @@ namespace AIMP
 				void raise(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2);
 			}
 
-			virtual event EventHandler ^PlaylistActivated
+			virtual event PlayListHandler ^PlaylistActivated
 			{
-				virtual void add(EventHandler ^onCoreMessage);
-				virtual void remove(EventHandler ^onCoreMessage);
-				void raise(Object ^object, EventArgs ^args);
+				virtual void add(PlayListHandler ^onEvent);
+				virtual void remove(PlayListHandler ^onEvent);
 			}
 
-			virtual event EventHandler ^PlaylistAdded
+			virtual event PlayListHandler ^PlaylistAdded
 			{
-				virtual void add(EventHandler ^onCoreMessage);
-				virtual void remove(EventHandler ^onCoreMessage);
-				void raise(Object ^object, EventArgs ^args);
+				virtual void add(PlayListHandler ^onEvent);
+				virtual void remove(PlayListHandler ^onEvent);
 			}
 
-			virtual event EventHandler ^PlaylistRemoved
+			virtual event PlayListHandler ^PlaylistRemoved
 			{
-				virtual void add(EventHandler ^onCoreMessage);
-				virtual void remove(EventHandler ^onCoreMessage);
-				void raise(Object ^object, EventArgs ^args);
+				virtual void add(PlayListHandler ^onEvent);
+				virtual void remove(PlayListHandler ^onEvent);				
 			}
 
 			void OnCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2);
 			
-			void OnPlaylistActivated(Object ^sender, EventArgs ^args);
+			
 
 		internal:
 			IAIMPActionEvent* CreateActionEvent();
@@ -94,6 +92,11 @@ namespace AIMP
 
 			AIMP36SDK::IAIMPStream* CreateStream();
 
+			void OnPlaylistActivated(AIMP36SDK::IAIMPPlaylist *playlist);
+
+			void OnPlayListAdded(AIMP36SDK::IAIMPPlaylist *playlist);
+
+			void OnPlayListRemoved(AIMP36SDK::IAIMPPlaylist *playlist);
 
 		private:
 			static IAIMPCore* _core;			
@@ -105,9 +108,9 @@ namespace AIMP
 			IAIMPMessageHook* _hook;			
 
 			AimpEventsDelegate ^_coreMessage;
-			EventHandler ^_playlistActivated;
-			EventHandler ^_playlistAdded;
-			EventHandler ^_playlistRemoved;
+			PlayListHandler ^_playlistActivated;
+			PlayListHandler ^_playlistAdded;
+			PlayListHandler ^_playlistRemoved;
 		};
 	}
 }
