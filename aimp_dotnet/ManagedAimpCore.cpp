@@ -183,11 +183,22 @@ namespace AIMP
 			}
 		}
 
-		int ManagedAimpCore::Send(int message, int value)
+		void ManagedAimpCore::SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj)
+		{	
+			if (message == AIMP::SDK::AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION)
+			{
+				ShowNotification(value == 0, (String^)obj);
+			}
+			else
+			{
+				_messageDispatcher->Send((DWORD)message, value, (void*)&obj);
+			}
+		}
+
+		void ManagedAimpCore::ShowNotification(bool autoHide, String ^notification)
 		{
-			void* val;
-			_messageDispatcher->Send((DWORD)message, value, &val);
-			return (int) val;
+			IAIMPString *str = ObjectHelper::MakeAimpString(_core, notification);
+			_messageDispatcher->Send((DWORD)AIMP::SDK::AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION, autoHide ? 0 : 1, str->GetData());
 		}
 		
 		/// <summary>

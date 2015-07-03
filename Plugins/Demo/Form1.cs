@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using AIMP.SDK;
 using AIMP.SDK.Interfaces;
 using AIMP.SDK.Services.PlayListManager;
 
@@ -100,7 +101,7 @@ namespace TestPlugin
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            _aimpPlayer.Core.SendMessage(AimpMessages.AimpCoreMessageType.AIMP_MSG_CMD_SHOW_NOTIFICATION, 0, "Play Play Play");
         }
 
         private void button2_Click(object sender, EventArgs e)
