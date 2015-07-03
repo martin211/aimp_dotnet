@@ -454,7 +454,7 @@ namespace AIMP
 		{
 			if (result != S_OK)
 			{
-				System::Diagnostics::Debugger::Break();
+				//System::Diagnostics::Debugger::Break();
 				InternalLogger::Instance->Write(String::Format(L"Invalid operation: result {0}", result));
 			}
 
