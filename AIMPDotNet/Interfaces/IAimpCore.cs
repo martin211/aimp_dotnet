@@ -11,11 +11,13 @@
     public interface IAimpCore
     {
         /// <summary>
-        /// Gets the path.
+        /// Gets the specified path.
         /// </summary>
         /// <param name="aimpCorePath">The aimp core path <seealso cref="AimpMessages.AimpCorePathType"/> type.</param>
         /// <returns></returns>
         string GetPath(AimpMessages.AimpCorePathType aimpCorePath);
+
+        void SendMessage(AimpMessages.AimpCoreMessageType message, int param, object objectParameter);
 
         /// <summary>
         /// Occurs when [core message].

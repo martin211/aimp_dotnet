@@ -42,6 +42,8 @@ namespace AIMP
 			
 			virtual String^ GetPath(AimpMessages::AimpCorePathType pathType);
 
+			virtual void SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj);			
+			
 			//virtual bool RegisterExtension(Guid extensionId, IUnknown* extension);
 			
 			virtual event AimpEventsDelegate^ CoreMessage
@@ -69,9 +71,7 @@ namespace AIMP
 				virtual void remove(PlayListHandler ^onEvent);				
 			}
 
-			void OnCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2);
-			
-			
+			void OnCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2);			
 
 		internal:
 			IAIMPActionEvent* CreateActionEvent();
@@ -88,7 +88,7 @@ namespace AIMP
 
 			static AIMP36SDK::IAIMPCore* GetAimpCore();
 
-			int Send(int message, int value);
+			void ShowNotification(bool autoHide, String ^notification);
 
 			AIMP36SDK::IAIMPStream* CreateStream();
 
