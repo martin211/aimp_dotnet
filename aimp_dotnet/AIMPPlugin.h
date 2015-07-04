@@ -21,7 +21,7 @@ namespace AIMP
 			{
 				IAimpCore^ get()
 				{
-					return _aimpCore;
+					return Player->Core;
 				}
 			}
 
@@ -42,7 +42,6 @@ namespace AIMP
 			}
 
 		private:
-			IAimpCore^ _aimpCore;
 			ServiceMenuManager^ _menuManager;
 		};
 	}
