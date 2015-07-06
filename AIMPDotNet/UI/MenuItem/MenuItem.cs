@@ -18,6 +18,7 @@ namespace AIMP.SDK.UI.MenuItem
         protected MenuItem(string text) : base(text)
         {
             _visible = true;
+            ChildItems = new MenuItemCollection();
         }
 
         /// <summary>
