@@ -11,6 +11,7 @@ namespace AIMP.SDK.UI
     /// </summary>
     public class MBRCollection<T> : MarshalByRefObject, ICollection<T>
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuItemCollection"/> class.
         /// </summary>
@@ -51,11 +52,16 @@ namespace AIMP.SDK.UI
             return GetEnumerator();
         }
 
+        internal void AddItem(T item)
+        {
+            ((ICollection<T>)this).Add(item);
+        }
+
         /// <summary>
         /// Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1"/>.
         /// </summary>
         /// <param name="item">The object to add to the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param><exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</exception>
-        public void Add(T item)
+        void ICollection<T>.Add(T item)
         {
             Items.Add(item);
         }
@@ -166,5 +172,6 @@ namespace AIMP.SDK.UI
                 return Items[index];
             }
         }
+
     }
 }
