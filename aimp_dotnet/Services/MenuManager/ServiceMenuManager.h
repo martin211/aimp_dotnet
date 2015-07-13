@@ -52,6 +52,10 @@ namespace AIMP
 			void FillMenuData(IAIMPMenuItem* aimpMenuItem, MenuItem^ menuItem);
 
 			void OnPropertyChanged(System::Object ^sender, System::ComponentModel::PropertyChangedEventArgs ^e);
+
+			void OnSubitemAdded(MenuItem ^parent, MenuItem ^item);
+
+			void OnSubItemDeleted(System::Object ^item);
 		};
 	}
 }
