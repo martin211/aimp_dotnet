@@ -71,7 +71,7 @@ namespace AIMP
 			{
 				return;
 			}
-
+			
 			RegisterMenu(parentMenu, item);
 		}
 
@@ -227,16 +227,24 @@ namespace AIMP
 				newItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, AIMP_MENUITEM_STYLE_NORMAL);
 			}
 
-			MenuItemEvent* itemEvent = new MenuItemEvent();
-			HRESULT r = newItem->SetValueAsObject(AIMP_MENUITEM_PROPID_EVENT, itemEvent);
-			EventCallback *callback = new EventCallback;
-			*callback = itemEvent->RegisterCallback(boost::bind(SomeCallbackProxy, gcroot<MenuItem^>(menuItem)));
+			MenuItemEvent* itemEvent = new MenuItemEvent();			
+			if (newItem->SetValueAsObject(AIMP_MENUITEM_PROPID_EVENT, itemEvent) == S_OK)
+			{
+				EventCallback *callback = new EventCallback;
+				*callback = itemEvent->RegisterCallback(boost::bind(SomeCallbackProxy, gcroot<MenuItem^>(menuItem)));
 
+				menuItem->AimpMenuItemHeader = IntPtr::IntPtr(newItem);// System::Runtime::InteropServices::Marshal::GetIUnknownForObject(newItem);
+
+				// register on subitems evnts.				
+				menuItem->ChildItems->ItemAdded += gcnew AIMP::SDK::UI::MenuItem::ItemAddedHandler(this, &AIMP::SDK::ServiceMenuManager::OnSubitemAdded);
+			}
 
 			MenuItemEvent* beforeShowEvent = new MenuItemEvent();
-			r = newItem->SetValueAsObject(AIMP_MENUITEM_PROPID_EVENT_ONSHOW, beforeShowEvent);
-			EventCallback *callbackBeforeShow = new EventCallback;
-			*callbackBeforeShow = beforeShowEvent->RegisterCallback(boost::bind(BeforeShowCallback, gcroot<MenuItem^>(menuItem)));
+			if (newItem->SetValueAsObject(AIMP_MENUITEM_PROPID_EVENT_ONSHOW, beforeShowEvent) == S_OK)
+			{
+				EventCallback *callbackBeforeShow = new EventCallback;
+				*callbackBeforeShow = beforeShowEvent->RegisterCallback(boost::bind(BeforeShowCallback, gcroot<MenuItem^>(menuItem)));
+			}
 
 			FillMenuData(newItem, menuItem);
 
@@ -320,6 +328,17 @@ namespace AIMP
 		void ServiceMenuManager::OnPropertyChanged(System::Object ^sender, System::ComponentModel::PropertyChangedEventArgs ^e)
 		{
 			UpdateMenuItem((MenuItem^) sender);
+		}
+
+
+		void ServiceMenuManager::OnSubitemAdded(MenuItem ^parent, MenuItem ^item)
+		{
+			RegisterMenu((IAIMPMenuItem*)parent->AimpMenuItemHeader.ToPointer(), item);
+		}
+
+		void ServiceMenuManager::OnSubItemDeleted(System::Object ^item)
+		{
+			UpdateMenuItem((MenuItem^) item);
 		}
 	}
 }
