@@ -5,6 +5,8 @@ namespace AIMP.SDK.UI.MenuItem
 {
     using System.Drawing;
 
+    internal delegate void SubMenuAdded(MenuItem item);
+
     /// <summary>
     /// Base menu item class.
     /// </summary>
@@ -103,6 +105,13 @@ namespace AIMP.SDK.UI.MenuItem
         public event EventHandler BeforeShow;
 
         public Bitmap Glyph { get; set; }
+
+        public void AddSubItem(MenuItem item)
+        {
+            ChildItems.Add(this, item);
+        }
+
+        public IntPtr AimpMenuItemHeader { get; set; }
 
         /// <summary>
         /// Called when [click].
