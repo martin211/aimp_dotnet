@@ -176,7 +176,7 @@ namespace AIMP
 
 			virtual void SetActivePlaylist(AIMP::SDK::Services::PlayListManager::IAimpPlayList^ playList)
 			{
-				
+				CheckResult(_service->SetActivePlaylist(((AIMP::SDK::PlayList::AimpPlayList^)playList)->InternalAimpObject));
 			}
 
 			private:
