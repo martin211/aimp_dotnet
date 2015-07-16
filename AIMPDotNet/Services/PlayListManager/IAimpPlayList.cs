@@ -56,6 +56,13 @@ namespace AIMP.SDK.Services.PlayListManager
         CollapseVirtual = 0x4
     }
 
+    public enum PlayListSortComapreResult
+    {
+        TheSame = 0,
+        LessThen = -1,
+        GrantThen = 1
+    }
+
     public class AimpPlayListChangedArgs : EventArgs
     {
         
@@ -152,6 +159,8 @@ namespace AIMP.SDK.Services.PlayListManager
         void DeleteAll();
 
         void Sort(PlayListSort sort);
+
+        void Sort(Func<IAimpPlayListItem, IAimpPlayListItem, String, PlayListSortComapreResult> compareFunc, String userData);
 
         //TODO: implement Sort2, Sort3
         //void Sort();
