@@ -286,7 +286,8 @@ namespace AIMP
 
 			void AimpPlayList::Add(System::String^ fileUrl, AIMP::SDK::Services::PlayListManager::PlayListFlags flags, AIMP::SDK::Services::PlayListManager::PlayListFilePosition filePosition)
 			{
-				throw gcnew NotImplementedException();
+				AIMP36SDK::IAIMPString *url = ObjectHelper::MakeAimpString(AIMP::SDK360::ManagedAimpCore::GetAimpCore(), fileUrl);
+				CheckResult(InternalAimpObject->Add(url, (DWORD)flags, (int)filePosition));
 			}
 
 			void AimpPlayList::AddList(System::Collections::Generic::IList<AIMP::SDK::Services::PlayListManager::IAimpFileInfo^>^ fileUrlList, AIMP::SDK::Services::PlayListManager::PlayListFlags flags, AIMP::SDK::Services::PlayListManager::PlayListFilePosition filePosition)
@@ -301,22 +302,32 @@ namespace AIMP
 
 			void AimpPlayList::Delete(IAimpPlayListItem ^item)
 			{
-				InternalAimpObject->Delete(((AimpPlayListItem^)item)->InternalAimpObject);
+				CheckResult(InternalAimpObject->Delete(((AimpPlayListItem^)item)->InternalAimpObject));
 			}
 
 			void AimpPlayList::Delete(int index)
 			{
-				throw gcnew NotImplementedException();
+				CheckResult(InternalAimpObject->Delete2(index));
 			}
 
 			void AimpPlayList::DeleteAll()
 			{
-				throw gcnew NotImplementedException();
+				CheckResult(InternalAimpObject->DeleteAll());				
 			}
 
 			void AimpPlayList::Sort(AIMP::SDK::Services::PlayListManager::PlayListSort sort)
 			{
-				throw gcnew NotImplementedException();
+				CheckResult(InternalAimpObject->Sort((int)sort));
+			}
+
+			void AimpPlayList::Sort(Func<IAimpPlayListItem^, IAimpPlayListItem^, String^, PlayListSortComapreResult>^ compareFunc, String ^userData)
+			{
+				_compareFunc = compareFunc;
+				_sortCallback = gcnew OnSortCallback(this, &AIMP::SDK::PlayList::AimpPlayList::OnSortReceive);
+				IntPtr functionHandle = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_sortCallback);
+				pin_ptr<const WCHAR> strData = PtrToStringChars(userData);
+				PWCHAR s = (PWCHAR)strData;
+				InternalAimpObject->Sort3((AIMP36SDK::TAIMPPlaylistCompareProc(_stdcall*))functionHandle.ToPointer(), reinterpret_cast<void*>(&s));
 			}
 
 			void AimpPlayList::BeginUpdate()
@@ -456,6 +467,23 @@ namespace AIMP
 				AIMP36SDK::IAIMPPropertyList *properties;
 				InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
 				_properties = properties;
+			}
+
+			void AimpPlayList::CheckResult(HRESULT result)
+			{
+				switch (result)
+				{
+					case E_ACCESSDENIED:
+						throw gcnew System::InvalidOperationException("Cross-thread operation not valid");
+					case E_HANDLE:
+						throw gcnew System::InvalidOperationException("Object already disposed");
+					case E_INVALIDARG:
+						throw gcnew System::ArgumentException("Invalid argument");
+					case E_NOTIMPL:
+						throw gcnew System::NotImplementedException();
+					case E_UNEXPECTED:
+						throw gcnew System::ApplicationException("Unexpected error");
+				}
 			}
 		}
 	}

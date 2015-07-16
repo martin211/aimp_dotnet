@@ -139,5 +139,14 @@ namespace TestPlugin
         {
             _aimpPlayer.GoToNext();
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            var pl = _aimpPlayer.PlayListManager.GetActivePlaylist();
+            pl.Sort((item1, item2, userData) =>
+            {
+                return PlayListSortComapreResult.TheSame;
+            }, "testdata");
+        }
     }
 }
