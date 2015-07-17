@@ -284,20 +284,40 @@ namespace AIMP
 				}
 			}
 
-			void AimpPlayList::Add(System::String^ fileUrl, AIMP::SDK::Services::PlayListManager::PlayListFlags flags, AIMP::SDK::Services::PlayListManager::PlayListFilePosition filePosition)
+			void AimpPlayList::Add(String^ fileUrl, PlayListFlags flags, PlayListFilePosition filePosition)
 			{
 				AIMP36SDK::IAIMPString *url = ObjectHelper::MakeAimpString(AIMP::SDK360::ManagedAimpCore::GetAimpCore(), fileUrl);
 				CheckResult(InternalAimpObject->Add(url, (DWORD)flags, (int)filePosition));
 			}
 
-			void AimpPlayList::AddList(System::Collections::Generic::IList<AIMP::SDK::Services::PlayListManager::IAimpFileInfo^>^ fileUrlList, AIMP::SDK::Services::PlayListManager::PlayListFlags flags, AIMP::SDK::Services::PlayListManager::PlayListFilePosition filePosition)
+			void AimpPlayList::AddList(System::Collections::Generic::IList<IAimpFileInfo^>^ fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition)
 			{
-				throw gcnew NotImplementedException();
+				if (fileUrlList->Count > 0)
+				{
+					AIMP36SDK::IAIMPObjectList *list;
+					AIMP::SDK360::ManagedAimpCore::GetAimpCore()->CreateObject(AIMP36SDK::IID_IAIMPObjectList, (void**)&list);
+					for each (AimpFileInfo ^file in fileUrlList)
+					{
+						list->Add(file->InternalAimpObject);
+					}
+
+					CheckResult(InternalAimpObject->AddList(list, (DWORD) flags, (int) filePosition));
+				}
 			}
 
-			void AimpPlayList::AddList(System::Collections::Generic::IList<System::String^>^ fileUrlList, AIMP::SDK::Services::PlayListManager::PlayListFlags flags, AIMP::SDK::Services::PlayListManager::PlayListFilePosition filePosition)
+			void AimpPlayList::AddList(IList<String^>^ fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition)
 			{
-				throw gcnew NotImplementedException();
+				if (fileUrlList->Count > 0)
+				{
+					AIMP36SDK::IAIMPObjectList *list;
+					AIMP::SDK360::ManagedAimpCore::GetAimpCore()->CreateObject(AIMP36SDK::IID_IAIMPObjectList, (void**) &list);
+					for each (String ^file in fileUrlList)
+					{						
+						list->Add(ObjectHelper::MakeAimpString(AIMP::SDK360::ManagedAimpCore::GetAimpCore(), file));
+					}
+
+					CheckResult(InternalAimpObject->AddList(list, (DWORD) flags, (int) filePosition));
+				}
 			}
 
 			void AimpPlayList::Delete(IAimpPlayListItem ^item)
@@ -320,14 +340,12 @@ namespace AIMP
 				CheckResult(InternalAimpObject->Sort((int)sort));
 			}
 
-			void AimpPlayList::Sort(Func<IAimpPlayListItem^, IAimpPlayListItem^, String^, PlayListSortComapreResult>^ compareFunc, String ^userData)
+			void AimpPlayList::Sort(Func<IAimpPlayListItem^, IAimpPlayListItem^, PlayListSortComapreResult>^ compareFunc)
 			{
 				_compareFunc = compareFunc;
 				_sortCallback = gcnew OnSortCallback(this, &AIMP::SDK::PlayList::AimpPlayList::OnSortReceive);
 				IntPtr functionHandle = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_sortCallback);
-				pin_ptr<const WCHAR> strData = PtrToStringChars(userData);
-				PWCHAR s = (PWCHAR)strData;
-				InternalAimpObject->Sort3((AIMP36SDK::TAIMPPlaylistCompareProc(_stdcall*))functionHandle.ToPointer(), reinterpret_cast<void*>(&s));
+				InternalAimpObject->Sort3((AIMP36SDK::TAIMPPlaylistCompareProc(_stdcall*))functionHandle.ToPointer(), NULL);
 			}
 
 			void AimpPlayList::BeginUpdate()
