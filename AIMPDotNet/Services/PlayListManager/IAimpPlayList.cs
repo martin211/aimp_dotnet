@@ -160,7 +160,7 @@ namespace AIMP.SDK.Services.PlayListManager
 
         void Sort(PlayListSort sort);
 
-        void Sort(Func<IAimpPlayListItem, IAimpPlayListItem, String, PlayListSortComapreResult> compareFunc, String userData);
+        void Sort(Func<IAimpPlayListItem, IAimpPlayListItem, PlayListSortComapreResult> compareFunc);
 
         //TODO: implement Sort2, Sort3
         //void Sort();
