@@ -21,7 +21,7 @@ namespace AIMP
 			{
 			private:
 				AIMP36SDK::IAIMPPropertyList *_properties;
-				Func<IAimpPlayListItem^, IAimpPlayListItem^, String^, PlayListSortComapreResult>^ _compareFunc;
+				Func<IAimpPlayListItem^, IAimpPlayListItem^, PlayListSortComapreResult>^ _compareFunc;
 
 			public:
 				explicit AimpPlayList(AIMP36SDK::IAIMPPlaylist *aimpPlayList);
@@ -192,7 +192,7 @@ namespace AIMP
 
 				virtual void Sort(AIMP::SDK::Services::PlayListManager::PlayListSort sort);
 
-				virtual void Sort(System::Func<IAimpPlayListItem^, IAimpPlayListItem^, String^, PlayListSortComapreResult>^ compareFunc, String ^userData);
+				virtual void Sort(System::Func<IAimpPlayListItem^, IAimpPlayListItem^, PlayListSortComapreResult>^ compareFunc);
 
 				virtual void BeginUpdate();
 
@@ -238,16 +238,16 @@ namespace AIMP
 			private:
 				void GetPropertyList();
 				void CheckResult(HRESULT result);
-				delegate void OnSortCallback(AIMP36SDK::IAIMPPlaylistItem* item1, AIMP36SDK::IAIMPPlaylistItem* item2, void* userData);
+				delegate int OnSortCallback(AIMP36SDK::IAIMPPlaylistItem* item1, AIMP36SDK::IAIMPPlaylistItem* item2, void* userData);
 				OnSortCallback^ _sortCallback;
 
 				// TODO: Move it to the cpp file
-				void OnSortReceive(AIMP36SDK::IAIMPPlaylistItem* item1, AIMP36SDK::IAIMPPlaylistItem* item2, void* userData)
+				int OnSortReceive(AIMP36SDK::IAIMPPlaylistItem* item1, AIMP36SDK::IAIMPPlaylistItem* item2, void* userData)
 				{
 					System::Diagnostics::Debugger::Break();
 					PWCHAR sp = (PWCHAR)userData;
 					//delete sp;
-					_compareFunc(gcnew AimpPlayListItem(item1), gcnew AimpPlayListItem(item2), "");
+					return (int)_compareFunc(gcnew AimpPlayListItem(item1), gcnew AimpPlayListItem(item2));
 				}
 			};
 		}
