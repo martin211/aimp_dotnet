@@ -8,6 +8,7 @@ namespace AIMP
 	typedef boost::signal<void(DWORD, int)>::slot_function_type ChangedSignalCB;
 
 	using namespace System;
+	using namespace AIMP::SDK;
 	using namespace msclr::interop;
 
 	//delegate void ChangeHandler(void);

@@ -38,7 +38,7 @@ namespace AIMP
 		static IAIMPString *MakeAimpString(IAIMPCore *aimpCore, String ^value)
 		{
 			IAIMPString *strObject = NULL;
-			pin_ptr<const WCHAR>  strDate = PtrToStringChars(value);
+			pin_ptr<const WCHAR> strDate = PtrToStringChars(value);
 			if (!CheckResult(aimpCore->CreateObject(IID_IAIMPString, (void**)&strObject)))
 			{
 				InternalLogger::Instance->Write("Unable create IAIMPString object");

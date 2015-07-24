@@ -6,6 +6,8 @@ using AIMP.SDK.Services.PlayListManager;
 
 namespace TestPlugin
 {
+    using System.Collections.Generic;
+
     public partial class Form1 : Form
     {
         private readonly IAimpPlayer _aimpPlayer;
@@ -138,6 +140,35 @@ namespace TestPlugin
         private void button6_Click(object sender, EventArgs e)
         {
             _aimpPlayer.GoToNext();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            var pl = _aimpPlayer.PlayListManager.GetActivePlaylist();
+            pl.Sort((item1, item2) =>
+            {
+                return PlayListSortComapreResult.TheSame;
+            });
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            var playList = _aimpPlayer.PlayListManager.CreatePlaylist("Test play list", true);
+            playList.Add("http://xstream1.somafm.com:2800", PlayListFlags.NOEXPAND, PlayListFilePosition.EndPosition);
+            playList.AddList(new List<string>()
+                                 {
+                                    "http://xstream1.somafm.com:2800",
+                                    "http://xstream1.somafm.com:2800"
+                                 }, PlayListFlags.NOEXPAND, PlayListFilePosition.EndPosition);
+            playList.Activated += (o) =>
+                {
+                    System.Diagnostics.Debug.WriteLine("Activated {0}", o.Name); 
+                };
+
+            playList.Changed += (list, type) =>
+                {
+                    System.Diagnostics.Debug.WriteLine(type);
+                };
         }
     }
 }
