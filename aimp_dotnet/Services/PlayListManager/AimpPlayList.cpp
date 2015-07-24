@@ -21,6 +21,13 @@ namespace AIMP
 				GetPropertyList();
 			}
 
+			AimpPlayList::~AimpPlayList()
+			{
+				InternalAimpObject->ListenerRemove(_listner);
+				_listner->Release();
+				delete _listner;
+			}
+
 			String ^AimpPlayList::Id::get()
 			{				
 				return ObjectHelper::GetString(_properties, AIMP_PLAYLIST_PROPID_ID);
@@ -430,54 +437,98 @@ namespace AIMP
 			}
 
 
+			void ActivatedCallback(gcroot<AimpPlayList^> This)
+			{
+				This->Activated(This);
+			}
 
-			//void AimpPlayList::Activated::add(EventHandler ^onEvent)
-			//{
-			//	throw gcnew NotImplementedException();
-			//}
+			void AimpPlayList::Activated::add(AIMP::Services::PlayListManager::PlayListHandler ^onEvent)
+			{
+				RegisterListner();
+				if (_onActivated == nullptr)
+				{
+					_activatedCallback = new AIMP::ConnectionCallback;
+					*_activatedCallback = _listner->RegisterActivatedCallback(boost::bind(ActivatedCallback, gcroot<AimpPlayList^>(this)));
+					_onActivated = onEvent;
+				}
+			}
 
-			//void AimpPlayList::Activated::remove(EventHandler ^onEvent)
-			//{
-			//	throw gcnew NotImplementedException();
-			//}
+			void AimpPlayList::Activated::remove(AIMP::Services::PlayListManager::PlayListHandler ^onEvent)
+			{
+				_onActivated == nullptr;
+				_listner->UregisterActivatedCallback(_activatedCallback);
+			}
 
-			//void AimpPlayList::Activated::raise(Object ^sender, EventArgs ^args)
-			//{
-			//	throw gcnew NotImplementedException();
-			//}
+			void AimpPlayList::Activated::raise(IAimpPlayList ^sender)
+			{
+				AIMP::Services::PlayListManager::PlayListHandler ^tmp = this->_onActivated;
+				if (tmp != nullptr)
+				{
+					_onActivated(sender);
+				}
+			}
+
+			void RemovedCallback(gcroot<AimpPlayList^> This)
+			{
+				This->Activated(This);
+			}
+
+			void AimpPlayList::Removed::add(AIMP::Services::PlayListManager::PlayListHandler ^onEvent)
+			{
+				RegisterListner();
+				if (_onRemoved == nullptr)
+				{
+					_removedCallBack = new AIMP::ConnectionCallback;
+					*_removedCallBack = _listner->RegisterRemovedCallback(boost::bind(RemovedCallback, gcroot<AimpPlayList^>(this)));
+					_onRemoved = onEvent;
+				}
+			}
+
+			void AimpPlayList::Removed::remove(AIMP::Services::PlayListManager::PlayListHandler ^onEvent)
+			{
+				_onRemoved == nullptr;
+				_listner->UnregisterRemoveCallback(_removedCallBack);
+			}
+
+			void AimpPlayList::Removed::raise(IAimpPlayList ^sender)
+			{
+				AIMP::Services::PlayListManager::PlayListHandler ^tmp = this->_onRemoved;
+				if (tmp != nullptr)
+				{
+					_onRemoved(sender);
+				}
+			}
 
 
-			//void AimpPlayList::Removed::add(EventHandler ^onEvent)
-			//{
-			//	throw gcnew NotImplementedException();
-			//}
+			void ChangedCallback(gcroot<AimpPlayList^> This, int notifyType)
+			{
+				This->Changed(This, (PlayListNotifyType)notifyType);
+			}
 
-			//void AimpPlayList::Removed::remove(EventHandler ^onEvent)
-			//{
-			//	throw gcnew NotImplementedException();
-			//}
+			void AimpPlayList::Changed::add(PlayListChangedHandler ^onEvent)
+			{
+				RegisterListner();
+				if (_onChanged == nullptr)
+				{
+					_changedCallBack = new AIMP::ConnectionCallback;
+					*_changedCallBack = _listner->RegisterChangedCallback(boost::bind(ChangedCallback, gcroot<AimpPlayList^>(this), _1));
+					_onChanged = onEvent;
+				}
+			}
 
-			//void AimpPlayList::Removed::raise(Object ^sender, EventArgs ^args)
-			//{
-			//	throw gcnew NotImplementedException();
-			//}
+			void AimpPlayList::Changed::remove(PlayListChangedHandler ^onEvent)
+			{
+				throw gcnew NotImplementedException();
+			}
 
-
-
-			//void AimpPlayList::Changed::add(EventHandler<AimpPlayListChangedArgs^> ^onEvent)
-			//{
-			//	throw gcnew NotImplementedException();
-			//}
-
-			//void AimpPlayList::Changed::remove(EventHandler<AimpPlayListChangedArgs^> ^onEvent)
-			//{
-			//	throw gcnew NotImplementedException();
-			//}
-
-			//void AimpPlayList::Changed::raise(Object ^sender, AimpPlayListChangedArgs ^args)
-			//{
-			//	throw gcnew NotImplementedException();
-			//}
+			void AimpPlayList::Changed::raise(IAimpPlayList^ sender, PlayListNotifyType notifyType)
+			{
+				AIMP::Services::PlayListManager::PlayListChangedHandler ^tmp = this->_onChanged;
+				if (tmp != nullptr)
+				{
+					_onChanged(sender, notifyType);
+				}
+			}
 
 
 			void AimpPlayList::GetPropertyList()
@@ -501,6 +552,16 @@ namespace AIMP
 						throw gcnew System::NotImplementedException();
 					case E_UNEXPECTED:
 						throw gcnew System::ApplicationException("Unexpected error");
+				}
+			}
+
+			void AimpPlayList::RegisterListner()
+			{
+				if (_listner == nullptr)
+				{
+					_listner = new AimpPlaylistListener();
+					InternalAimpObject->ListenerAdd(_listner);
+					_listner->AddRef();
 				}
 			}
 		}
