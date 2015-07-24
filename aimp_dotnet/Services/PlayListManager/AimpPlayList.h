@@ -4,6 +4,12 @@
 
 namespace AIMP
 {
+	typedef boost::signals::connection ConnectionCallback;
+	typedef boost::signal<void(void)> VoidSignal;
+	typedef boost::signal<void(int)> IntSignal;
+	typedef boost::signal<void(void)>::slot_function_type VoidSignalCB;
+	typedef boost::signal<void(int)>::slot_function_type DwordSignalCB;
+
 	namespace SDK
 	{
 		namespace PlayList
@@ -13,6 +19,71 @@ namespace AIMP
 
 			using namespace AIMP::SDK::Services::PlayListManager;
 			
+			class AimpPlaylistListener : public IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlaylistListener>
+			{
+			private:
+				IntSignal _changed;
+				VoidSignal _activated;
+				VoidSignal _removed;
+
+			public:
+				ConnectionCallback RegisterActivatedCallback(VoidSignalCB subscriber)
+				{
+					return _activated.connect(subscriber);
+				}
+
+				ConnectionCallback RegisterRemovedCallback(VoidSignalCB subscriber)
+				{
+					return _removed.connect(subscriber);
+				}
+
+				ConnectionCallback RegisterChangedCallback(DwordSignalCB subscriber)
+				{
+					return _changed.connect(subscriber);
+				}
+
+				void UregisterActivatedCallback(ConnectionCallback *activatedCallback)
+				{
+					_activated.disconnect(activatedCallback);
+				}
+
+				void UnregisterRemoveCallback(ConnectionCallback *removedCallback)
+				{
+					_removed.disconnect(removedCallback);					
+				}
+
+				void UnregisterChangedCallback(ConnectionCallback *changedCallback)
+				{
+					_changed.disconnect(changedCallback);					
+				}
+
+				virtual void WINAPI Activated()
+				{
+					_activated();
+				}
+
+				virtual void WINAPI Changed(DWORD flags)
+				{
+					_changed(flags);
+				}
+
+				virtual void WINAPI Removed()
+				{
+					_removed();
+				}
+
+				virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
+				{
+					if (riid == AIMP36SDK::IID_IAIMPPlaylistListener)
+					{
+						*ppvObject = this;
+						return S_OK;
+					}
+
+					ppvObject = NULL;
+					return E_NOTIMPL;
+				}
+			};
 
 			/// <summary>
 			/// 
@@ -22,11 +93,21 @@ namespace AIMP
 			private:
 				AIMP36SDK::IAIMPPropertyList *_properties;
 				Func<IAimpPlayListItem^, IAimpPlayListItem^, PlayListSortComapreResult>^ _compareFunc;
+				PlayListChangedHandler ^_onChanged;
+				AIMP::Services::PlayListManager::PlayListHandler ^_onActivated;
+				AIMP::Services::PlayListManager::PlayListHandler ^_onRemoved;
+
+				AimpPlaylistListener *_listner;
+				ConnectionCallback *_activatedCallback;
+				ConnectionCallback *_removedCallBack;
+				ConnectionCallback *_changedCallBack;
 
 			public:
 				explicit AimpPlayList(AIMP36SDK::IAIMPPlaylist *aimpPlayList);
 				
-				AimpPlayList();				
+				AimpPlayList();
+
+				~AimpPlayList();
 
 				virtual property String ^Id
 				{
@@ -214,30 +295,32 @@ namespace AIMP
 
 				virtual int GetGroupCount();
 
-				//virtual event EventHandler ^Activated
-				//{
-				//	void add(EventHandler ^onEvent);
-				//	void remove(EventHandler ^onEvent);
-				//	void raise(Object ^sender, EventArgs ^args);
-				//}
+				virtual event AIMP::Services::PlayListManager::PlayListHandler ^Activated
+				{
+					void add(AIMP::Services::PlayListManager::PlayListHandler ^onEvent);
+					void remove(AIMP::Services::PlayListManager::PlayListHandler ^onEvent);
+					void raise(IAimpPlayList ^sender);
+				}
 
-				//virtual event EventHandler ^Removed
-				//{
-				//	void add(EventHandler ^onEvent);
-				//	void remove(EventHandler ^onEvent);
-				//	void raise(Object ^sender, EventArgs ^args);
-				//}
+				virtual event AIMP::Services::PlayListManager::PlayListHandler ^Removed
+				{
+					void add(AIMP::Services::PlayListManager::PlayListHandler ^onEvent);
+					void remove(AIMP::Services::PlayListManager::PlayListHandler ^onEvent);
+					void raise(IAimpPlayList ^sender);
+				}
 
-				//virtual event EventHandler<AimpPlayListChangedArgs^> ^Changed
-				//{
-				//	void add(EventHandler<AimpPlayListChangedArgs^> ^onEvent);
-				//	void remove(EventHandler<AimpPlayListChangedArgs^> ^onEvent);
-				//	void raise(Object ^sender, AimpPlayListChangedArgs ^args);
-				//}
+				virtual event PlayListChangedHandler ^Changed
+				{
+					void add(PlayListChangedHandler ^onEvent);
+					void remove(PlayListChangedHandler ^onEvent);
+					void raise(IAimpPlayList ^esnder, PlayListNotifyType notifyType);
+				}
 
 			private:
 				void GetPropertyList();
 				void CheckResult(HRESULT result);
+				void RegisterListner();
+
 				delegate int OnSortCallback(AIMP36SDK::IAIMPPlaylistItem* item1, AIMP36SDK::IAIMPPlaylistItem* item2, void* userData);
 				OnSortCallback^ _sortCallback;
 

@@ -95,18 +95,18 @@ namespace AIMP
 
 		void ManagedAimpCore::OnPlaylistActivated(AIMP36SDK::IAIMPPlaylist *playlist)
 		{
-			PlayListHandler^ tmp = this->_playlistActivated;
+			AIMP::SDK::Extensions::PlayListHandler^ tmp = this->_playlistActivated;
 			if (tmp != nullptr)
 			{
 				AIMP::SDK::PlayList::AimpPlayList ^pl = gcnew AIMP::SDK::PlayList::AimpPlayList(playlist);
-				tmp(pl->Name, pl->Id);
+				tmp(pl->Name, pl->Id);				
 				pl = nullptr;
 			}			
 		}
 
 		void ManagedAimpCore::OnPlayListAdded(AIMP36SDK::IAIMPPlaylist *playlist)
 		{
-			PlayListHandler^ tmp = this->_playlistAdded;
+			AIMP::SDK::Extensions::PlayListHandler^ tmp = this->_playlistAdded;
 			if (tmp != nullptr)
 			{
 				AIMP::SDK::PlayList::AimpPlayList ^pl = gcnew AIMP::SDK::PlayList::AimpPlayList(playlist);
@@ -117,7 +117,7 @@ namespace AIMP
 
 		void ManagedAimpCore::OnPlayListRemoved(AIMP36SDK::IAIMPPlaylist *playlist)
 		{
-			PlayListHandler^ tmp = this->_playlistRemoved;
+			AIMP::SDK::Extensions::PlayListHandler^ tmp = this->_playlistRemoved;
 			if (tmp != nullptr)
 			{
 				AIMP::SDK::PlayList::AimpPlayList ^pl = gcnew AIMP::SDK::PlayList::AimpPlayList(playlist);
@@ -248,33 +248,33 @@ namespace AIMP
 		}
 
 
-		void ManagedAimpCore::PlaylistActivated::add(PlayListHandler ^onEvent)
+		void ManagedAimpCore::PlaylistActivated::add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 		{
-			_playlistActivated = (PlayListHandler^) Delegate::Combine(_playlistActivated, onEvent);			
+			_playlistActivated = (AIMP::SDK::Extensions::PlayListHandler^) Delegate::Combine(_playlistActivated, onEvent);
 		}
 
-		void ManagedAimpCore::PlaylistActivated::remove(PlayListHandler ^onEvent)
+		void ManagedAimpCore::PlaylistActivated::remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 		{
 			_playlistActivated = nullptr;	
 		}
 
-		void ManagedAimpCore::PlaylistAdded::add(PlayListHandler ^onEvent)
+		void ManagedAimpCore::PlaylistAdded::add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 		{
-			_playlistAdded = (PlayListHandler^) Delegate::Combine(_playlistActivated, onEvent);
+			_playlistAdded = (AIMP::SDK::Extensions::PlayListHandler^) Delegate::Combine(_playlistActivated, onEvent);
 		}
 
-		void ManagedAimpCore::PlaylistAdded::remove(PlayListHandler ^onEvent)
+		void ManagedAimpCore::PlaylistAdded::remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 		{
 			_playlistActivated = nullptr;
 		}
 
 
-		void ManagedAimpCore::PlaylistRemoved::add(PlayListHandler ^onEvent)
+		void ManagedAimpCore::PlaylistRemoved::add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 		{
-			_playlistRemoved = (PlayListHandler^) Delegate::Combine(_playlistRemoved, onEvent);
+			_playlistRemoved = (AIMP::SDK::Extensions::PlayListHandler^) Delegate::Combine(_playlistRemoved, onEvent);
 		}
 
-		void ManagedAimpCore::PlaylistRemoved::remove(PlayListHandler ^onEvent)
+		void ManagedAimpCore::PlaylistRemoved::remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 		{
 			_playlistRemoved = nullptr;
 		}

@@ -53,22 +53,22 @@ namespace AIMP
 				void raise(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2);
 			}
 
-			virtual event PlayListHandler ^PlaylistActivated
+			virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistActivated
 			{
-				virtual void add(PlayListHandler ^onEvent);
-				virtual void remove(PlayListHandler ^onEvent);
+				virtual void add(AIMP::SDK::Extensions::PlayListHandler ^onEvent);
+				virtual void remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent);
 			}
 
-			virtual event PlayListHandler ^PlaylistAdded
+			virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistAdded
 			{
-				virtual void add(PlayListHandler ^onEvent);
-				virtual void remove(PlayListHandler ^onEvent);
+				virtual void add(AIMP::SDK::Extensions::PlayListHandler ^onEvent);
+				virtual void remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent);
 			}
 
-			virtual event PlayListHandler ^PlaylistRemoved
+			virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistRemoved
 			{
-				virtual void add(PlayListHandler ^onEvent);
-				virtual void remove(PlayListHandler ^onEvent);				
+				virtual void add(AIMP::SDK::Extensions::PlayListHandler ^onEvent);
+				virtual void remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent);
 			}
 
 			void OnCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2);			
@@ -108,9 +108,9 @@ namespace AIMP
 			IAIMPMessageHook* _hook;			
 
 			AimpEventsDelegate ^_coreMessage;
-			PlayListHandler ^_playlistActivated;
-			PlayListHandler ^_playlistAdded;
-			PlayListHandler ^_playlistRemoved;
+			AIMP::SDK::Extensions::PlayListHandler ^_playlistActivated;
+			AIMP::SDK::Extensions::PlayListHandler ^_playlistAdded;
+			AIMP::SDK::Extensions::PlayListHandler ^_playlistRemoved;
 		};
 	}
 }
