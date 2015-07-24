@@ -38,6 +38,9 @@
             this.button6 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabPlayLists = new System.Windows.Forms.TabControl();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -134,14 +137,45 @@
             this.tabPlayLists.Location = new System.Drawing.Point(296, 8);
             this.tabPlayLists.Name = "tabPlayLists";
             this.tabPlayLists.SelectedIndex = 0;
-            this.tabPlayLists.Size = new System.Drawing.Size(400, 368);
+            this.tabPlayLists.Size = new System.Drawing.Size(305, 294);
             this.tabPlayLists.TabIndex = 9;
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(296, 350);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.TabIndex = 10;
+            this.button7.Text = "Sort";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(377, 350);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(75, 23);
+            this.button8.TabIndex = 11;
+            this.button8.Text = "Add PL";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(607, 8);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(396, 294);
+            this.listView1.TabIndex = 12;
+            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 381);
+            this.ClientSize = new System.Drawing.Size(1015, 414);
+            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.button7);
             this.Controls.Add(this.tabPlayLists);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button6);
@@ -174,6 +208,9 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TabControl tabPlayLists;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.ListView listView1;
     }
 }
 

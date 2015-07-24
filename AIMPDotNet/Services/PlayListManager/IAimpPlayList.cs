@@ -56,18 +56,79 @@ namespace AIMP.SDK.Services.PlayListManager
         CollapseVirtual = 0x4
     }
 
-    public class AimpPlayListChangedArgs : EventArgs
+    public enum PlayListSortComapreResult
     {
-        
+        TheSame = 0,
+        LessThen = -1,
+        GrantThen = 1
     }
+
+    [Flags]
+    public enum PlayListNotifyType
+    {
+        /// <summary>
+        /// Play list name has been changed.
+        /// </summary>
+        AIMP_PLAYLIST_NOTIFY_NAME = 1,
+
+        /// <summary>
+        /// Selected items has been changed.
+        /// </summary>
+        AIMP_PLAYLIST_NOTIFY_SELECTION      = 2,
+
+        /// <summary>
+        /// Playback focus has been changed.
+        /// </summary>
+        AIMP_PLAYLIST_NOTIFY_PLAYBACKCURSOR = 4,
+
+        /// <summary>
+        /// Read only flag has been changed.
+        /// </summary>
+        AIMP_PLAYLIST_NOTIFY_READONLY       = 8,
+
+        /// <summary>
+        /// Record focus hass benn changed.
+        /// </summary>
+        AIMP_PLAYLIST_NOTIFY_FOCUSINDEX     = 16,
+
+        /// <summary>
+        /// Changed records order.
+        /// </summary>
+        AIMP_PLAYLIST_NOTIFY_CONTENT        = 32,
+
+        /// <summary>
+        /// Information obout one or more files has been changed.
+        /// </summary>
+        AIMP_PLAYLIST_NOTIFY_FILEINFO       = 64,
+
+        /// <summary>
+        /// Statistic for one or more files has been changed.
+        /// </summary>
+        AIMP_PLAYLIST_NOTIFY_STATISTICS     = 128,
+
+        /// <summary>
+        /// Changed auto play switch.
+        /// </summary>
+        AIMP_PLAYLIST_NOTIFY_PLAYINGSWITCHS = 256,
+
+        /// <summary>
+        /// Path to pre image has been changed.
+        /// </summary>
+        AIMP_PLAYLIST_NOTIFY_PREIMAGE       = 512
+    }
+
+
+    public delegate void PlayListChangedHandler(IAimpPlayList sender, PlayListNotifyType notifType);
+
+    public delegate void PlayListHandler(IAimpPlayList sender);
 
     public interface IAimpPlayList
     {
-        //event EventHandler Activated;
+        event PlayListHandler Activated;
 
-        //event EventHandler Removed;
+        event PlayListHandler Removed;
 
-        //event EventHandler<AimpPlayListChangedArgs> Changed;
+        event PlayListChangedHandler Changed;
 
         /// <summary>
         /// Gets the identifier.
@@ -152,6 +213,8 @@ namespace AIMP.SDK.Services.PlayListManager
         void DeleteAll();
 
         void Sort(PlayListSort sort);
+
+        void Sort(Func<IAimpPlayListItem, IAimpPlayListItem, PlayListSortComapreResult> compareFunc);
 
         //TODO: implement Sort2, Sort3
         //void Sort();
