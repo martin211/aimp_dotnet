@@ -15,9 +15,9 @@ namespace AIMP
 		{
 		private:
 			IAIMPServicePlaylistManager *_service;
-			PlayListHandler ^_onPlaylistActivated;
-			PlayListHandler ^_onPlaylistAdded;
-			PlayListHandler ^_onPlaylistRemoved;
+			AIMP::SDK::Extensions::PlayListHandler ^_onPlaylistActivated;
+			AIMP::SDK::Extensions::PlayListHandler ^_onPlaylistAdded;
+			AIMP::SDK::Extensions::PlayListHandler ^_onPlaylistRemoved;
 
 		public:
 			explicit PlayListManager(ManagedAimpCore ^core) : AimpBaseManager(core)
@@ -30,18 +30,18 @@ namespace AIMP
 
 				_service = service;
 
-				core->PlaylistActivated += gcnew PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistActivated);
-				core->PlaylistAdded += gcnew PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistAdded);
-				core->PlaylistRemoved += gcnew PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistRemoved);
+				core->PlaylistActivated += gcnew AIMP::SDK::Extensions::PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistActivated);
+				core->PlaylistAdded += gcnew AIMP::SDK::Extensions::PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistAdded);
+				core->PlaylistRemoved += gcnew AIMP::SDK::Extensions::PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistRemoved);
 			}
 
-			virtual event PlayListHandler ^PlaylistActivated
+			virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistActivated
 			{
-				virtual void add(PlayListHandler ^onEvent)
+				virtual void add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 				{
 					_onPlaylistActivated = onEvent;
 				}
-				virtual void remove(PlayListHandler ^onEvent)
+				virtual void remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 				{
 					_onPlaylistActivated = nullptr;
 				}
@@ -54,13 +54,13 @@ namespace AIMP
 				}
 			}
 
-			virtual event PlayListHandler ^PlaylistAdded
+			virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistAdded
 			{
-				virtual void add(PlayListHandler ^onEvent)
+				virtual void add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 				{
 					_onPlaylistAdded = onEvent;
 				}
-				virtual void remove(PlayListHandler ^onEvent)
+				virtual void remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 				{
 					_onPlaylistAdded = nullptr;
 				}
@@ -73,13 +73,13 @@ namespace AIMP
 				}
 			}
 
-			virtual event PlayListHandler ^PlaylistRemoved
+			virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistRemoved
 			{
-				virtual void add(PlayListHandler ^onEvent)
+				virtual void add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 				{
 					_onPlaylistRemoved = onEvent;
 				}
-				virtual void remove(PlayListHandler ^onEvent)
+				virtual void remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 				{
 					_onPlaylistRemoved = nullptr;
 				}
