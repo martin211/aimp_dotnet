@@ -27,6 +27,27 @@ namespace AIMP.SDK
 
     internal class AssemblyScanPluginLoadStrategy : PluginLoadingStrategy
     {
+        /// <summary>
+        /// Path to the plugin folder where additional dependencies will be searched for.
+        /// </summary>
+        private string _probePath;
+        
+        /// <summary>
+        /// In case one of plugin dependencies is required during its load and cannot be found in GAC,
+        /// this event handler gets executes by the .NET Framework.
+        /// Then we try to look in the plugin's folder for the requeseted dll and load it manually.
+        /// </summary>
+        private Assembly AssemblyResolveOverride(object sender, ResolveEventArgs args)
+        {
+            string dllFileName = new AssemblyName(args.Name).Name + ".dll";
+
+            string assemblyPath = Directory
+                .EnumerateFiles(_probePath, dllFileName, SearchOption.TopDirectoryOnly)
+                .FirstOrDefault();
+
+            return assemblyPath != null ? Assembly.LoadFrom(assemblyPath) : null;
+        }
+
         private IEnumerable<FileInfo> ScanFiles(DirectoryInfo di, int depth)
         {
             foreach (FileInfo fileInfo in di.GetFiles("*.dll"))
@@ -46,39 +67,48 @@ namespace AIMP.SDK
 
         public override PluginShortInfoForLoad[] Load(string path)
         {
-            List<PluginShortInfoForLoad> resPlugInfolst = new List<PluginShortInfoForLoad>();
             DirectoryInfo dir = new DirectoryInfo(path);
+            if (!dir.Exists)
+            {
+                return new PluginShortInfoForLoad[0];
+            }
+            
+            List<PluginShortInfoForLoad> resPlugInfolst = new List<PluginShortInfoForLoad>();
             Type pluginDeriveType = typeof(IAimpPlugin);
             Type attribForPlugin = typeof(AimpPluginAttribute);
-
-            if (dir.Exists)
+            try
             {
-                foreach (var di in dir.GetDirectories())
+                AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolveOverride;
+
+                foreach (DirectoryInfo di in dir.GetDirectories())
                 {
-                    foreach (var fileInfo in ScanFiles(di, 0))
+                    _probePath = di.FullName;
+
+                    foreach (FileInfo fileInfo in ScanFiles(di, 0))
                     {
                         try
                         {
                             var curAsmbl = Assembly.LoadFrom(fileInfo.FullName);
-                            if (curAsmbl.FullName != Assembly.GetExecutingAssembly().FullName && !curAsmbl.FullName.Equals("aimp_dotnet"))
+                            if (curAsmbl.FullName == Assembly.GetExecutingAssembly().FullName
+                                || curAsmbl.FullName.Equals("aimp_dotnet"))
                             {
-                                foreach (var plgType in curAsmbl.GetTypes()
-                                            .Where(
-                                                o =>
-                                                    pluginDeriveType.IsAssignableFrom(o) &&
-                                                    o.GetCustomAttributes(attribForPlugin, false).Length == 1)
-                                                    )
+                                continue;
+                            }
+
+                            foreach (var plgType in curAsmbl
+                                .GetTypes()
+                                .Where(o => pluginDeriveType.IsAssignableFrom(o)
+                                    && o.GetCustomAttributes(attribForPlugin, false).Length == 1))
+                            {
+                                var curAttr = (AimpPluginAttribute)plgType.GetCustomAttributes(attribForPlugin, false)[0];
+                                System.Diagnostics.Debug.WriteLine("Load plugin: " + curAsmbl.FullName);
+                                resPlugInfolst.Add(new PluginShortInfoForLoad
                                 {
-                                    var curAttr = (AimpPluginAttribute)plgType.GetCustomAttributes(attribForPlugin, false)[0];
-                                    System.Diagnostics.Debug.WriteLine("Load plugin: " + curAsmbl.FullName);
-                                    resPlugInfolst.Add(new PluginShortInfoForLoad
-                                    {
-                                        AssemblyFileName = fileInfo.FullName,
-                                        AssemblyFullName = curAsmbl.FullName,
-                                        ClassName = plgType.FullName,
-                                        PluginLocInfo = curAttr
-                                    });
-                                }
+                                    AssemblyFileName = fileInfo.FullName,
+                                    AssemblyFullName = curAsmbl.FullName,
+                                    ClassName = plgType.FullName,
+                                    PluginLocInfo = curAttr
+                                });
                             }
                         }
                         catch
@@ -88,6 +118,10 @@ namespace AIMP.SDK
                         }
                     }
                 }
+            }
+            finally
+            {
+                AppDomain.CurrentDomain.AssemblyResolve -= AssemblyResolveOverride;
             }
 
             return resPlugInfolst.ToArray();
