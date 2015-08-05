@@ -17,7 +17,7 @@ namespace AIMP36SDK
 private ref class ManagedFunctionality
 {
 public:
-	ManagedFunctionality(AIMP::SDK360::ManagedAimpCore ^core)
+	ManagedFunctionality(AIMP36SDK::IAIMPCore* core)
 	{
 		_core = core;
 	}
@@ -28,31 +28,26 @@ public:
 	/// <param name="sender">The sender.</param>
 	void PluginLoadEventReaction(AIMP::SDK::PluginInformation^ sender)
 	{
+		// Each plugin should has his own managed core instance
+		AIMP::SDK360::ManagedAimpCore ^managedCore = gcnew AIMP::SDK360::ManagedAimpCore(_core);
 		AIMP::AimpPlayer<StaticSingleThreadAllocator>^ instance = nullptr;
 		if (sender->PluginAppDomainInfo != nullptr)
 		{
 			AIMP::AIMPControllerInitializer^ controllerInitializer = (AIMP::AIMPControllerInitializer^)sender->PluginAppDomainInfo->CreateInstanceFromAndUnwrap(System::Reflection::Assembly::GetExecutingAssembly()->Location, AIMP::AIMPControllerInitializer::TypeName);
-			instance = controllerInitializer->CreateWithStaticAllocator(_core, sender->LoadedPlugin->PluginId, sender->PluginAppDomainInfo->Id, true);
+			instance = controllerInitializer->CreateWithStaticAllocator(managedCore, sender->LoadedPlugin->PluginId, sender->PluginAppDomainInfo->Id, true);
 		}
 		else
-			instance = gcnew AIMP::AimpPlayer<StaticSingleThreadAllocator>(_core, sender->LoadedPlugin->PluginId, System::AppDomain::CurrentDomain->Id, false);
+			instance = gcnew AIMP::AimpPlayer<StaticSingleThreadAllocator>(managedCore, sender->LoadedPlugin->PluginId, System::AppDomain::CurrentDomain->Id, false);
 
 		sender->Initialize(instance);
 	}
 
 	void PluginUnloadEventReaction(AIMP::SDK::PluginInformation^ sender)
 	{
-		//if (sender->LoadedPlugin != nullptr && sender->LoadedPlugin->PlayerFLvl != nullptr)
-		//{
-		//    ::PluginDev::AIMP3Controller^ srv = dynamic_cast<::PluginDev::AIMP3Controller^>(sender->LoadedPlugin->PlayerFLvl);
-		//    if (srv != nullptr)
-		//    {
-		//        //srv->SafetyUnsubscribeFromEvents();
-		//    }
-		//}
+		
 	}
 private:
-	AIMP::SDK360::ManagedAimpCore ^_core;
+	AIMP36SDK::IAIMPCore* _core;
 };
 
 class DotNetPlugin : public AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlugin>

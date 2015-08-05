@@ -68,7 +68,10 @@ namespace AIMP
 
 		~AimpPlayer()
 		{
-
+			_managerCore->CoreMessage -= gcnew AimpEventsDelegate(this, &AIMP::AimpPlayer<TConvAlloc>::OnCoreMessage);
+			_managerCore = nullptr;
+			_player->Release();
+			_player = nullptr;
 		}
 
 		virtual property IAimpCore^ Core
