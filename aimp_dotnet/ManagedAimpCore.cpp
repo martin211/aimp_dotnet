@@ -230,11 +230,12 @@ namespace AIMP
 		
 		void ManagedAimpCore::CoreMessage::remove(AimpEventsDelegate^ onCoreMessage)
 		{
-			bool tmp = this->_coreMessage == nullptr;
-			this->_coreMessage = (AimpEventsDelegate^) Delegate::Combine(this->_coreMessage, onCoreMessage);
-			if (tmp && this->_coreMessage != nullptr)
+			bool tmp = this->_coreMessage != nullptr;
+			this->_coreMessage = (AimpEventsDelegate^) Delegate::Remove(this->_coreMessage, onCoreMessage);
+			if (tmp)
 			{
 				_nativeEventHelper->UnregisterCallback(*_coreMessageCallback);
+				_nativeEventHelper = nullptr;
 			}
 		}
 
@@ -255,7 +256,7 @@ namespace AIMP
 
 		void ManagedAimpCore::PlaylistActivated::remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 		{
-			_playlistActivated = nullptr;	
+			this->_playlistActivated = (AIMP::SDK::Extensions::PlayListHandler^)Delegate::Remove(this->_playlistActivated, onEvent);			
 		}
 
 		void ManagedAimpCore::PlaylistAdded::add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
@@ -265,7 +266,7 @@ namespace AIMP
 
 		void ManagedAimpCore::PlaylistAdded::remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 		{
-			_playlistActivated = nullptr;
+			this->_playlistAdded = (AIMP::SDK::Extensions::PlayListHandler^)Delegate::Remove(this->_playlistAdded, onEvent);
 		}
 
 
@@ -276,7 +277,7 @@ namespace AIMP
 
 		void ManagedAimpCore::PlaylistRemoved::remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 		{
-			_playlistRemoved = nullptr;
+			this->_playlistRemoved = (AIMP::SDK::Extensions::PlayListHandler^)Delegate::Remove(this->_playlistRemoved, onEvent);
 		}
 	}
 }

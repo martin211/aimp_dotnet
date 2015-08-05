@@ -33,7 +33,7 @@ HRESULT WINAPI DotNetPlugin::Initialize(AIMP36SDK::IAIMPCore* core)
 	System::Diagnostics::Debug::WriteLine("BEGIN: Initialize DotNet plugin");
 
 	_managedCore = gcnew AIMP::SDK360::ManagedAimpCore(core);
-	_managedExtension = gcnew ManagedFunctionality(_managedCore);
+	_managedExtension = gcnew ManagedFunctionality(core);
 	_configurationManager = gcnew AIMP::ConfigurationManager(_managedCore);
 
 	LoadExtensions(core);
