@@ -232,7 +232,7 @@ namespace AIMP
 		{
 			bool tmp = this->_coreMessage != nullptr;
 			this->_coreMessage = (AimpEventsDelegate^) Delegate::Remove(this->_coreMessage, onCoreMessage);
-			if (tmp)
+			if (tmp && _nativeEventHelper != nullptr)
 			{
 				_nativeEventHelper->UnregisterCallback(*_coreMessageCallback);
 				_nativeEventHelper = nullptr;
