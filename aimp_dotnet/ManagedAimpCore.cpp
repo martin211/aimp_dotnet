@@ -219,22 +219,22 @@ namespace AIMP
 
 		void ManagedAimpCore::CoreMessage::add(AimpEventsDelegate^ onCoreMessage)
 		{
-			bool tmp = this->_coreMessage == nullptr;
-			this->_coreMessage = (AimpEventsDelegate^) Delegate::Combine(this->_coreMessage, onCoreMessage);
-			if (tmp && this->_coreMessage != nullptr)
-			{				
+			bool tmp = this->_coreMessage == nullptr;			
+			if (tmp)
+			{	
+				this->_coreMessage = (AimpEventsDelegate^) Delegate::Combine(this->_coreMessage, onCoreMessage);
 				_coreMessageCallback = new AIMP::Callback;
-				*_coreMessageCallback = _nativeEventHelper->RegisterCallback(boost::bind(SomeEventProxy, gcroot<ManagedAimpCore^>(this), _1, _2));				
+				*_coreMessageCallback = _nativeEventHelper->RegisterCallback(boost::bind(SomeEventProxy, gcroot<ManagedAimpCore^>(this), _1, _2));
 			}
 		}
 		
 		void ManagedAimpCore::CoreMessage::remove(AimpEventsDelegate^ onCoreMessage)
 		{
-			bool tmp = this->_coreMessage != nullptr;
-			this->_coreMessage = (AimpEventsDelegate^) Delegate::Remove(this->_coreMessage, onCoreMessage);
-			if (tmp && _nativeEventHelper != nullptr)
+			bool tmp = this->_coreMessage != nullptr;			
+			if (tmp)
 			{
-				_nativeEventHelper->UnregisterCallback(*_coreMessageCallback);
+				this->_coreMessage = (AimpEventsDelegate^) Delegate::Remove(this->_coreMessage, onCoreMessage);
+				_nativeEventHelper->UnregisterCallback(*_coreMessageCallback);				
 				_nativeEventHelper = nullptr;
 			}
 		}
@@ -251,33 +251,57 @@ namespace AIMP
 
 		void ManagedAimpCore::PlaylistActivated::add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 		{
-			_playlistActivated = (AIMP::SDK::Extensions::PlayListHandler^) Delegate::Combine(_playlistActivated, onEvent);
+			bool tmp = _playlistActivated == nullptr;
+			if (tmp)
+			{
+				_playlistActivated = (AIMP::SDK::Extensions::PlayListHandler^) Delegate::Combine(_playlistActivated, onEvent);
+			}
 		}
 
 		void ManagedAimpCore::PlaylistActivated::remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 		{
-			this->_playlistActivated = (AIMP::SDK::Extensions::PlayListHandler^)Delegate::Remove(this->_playlistActivated, onEvent);			
+			bool tmp = _playlistActivated != nullptr;
+			if (tmp)
+			{
+				_playlistActivated = (AIMP::SDK::Extensions::PlayListHandler^)Delegate::Remove(this->_playlistActivated, onEvent);
+			}
 		}
 
 		void ManagedAimpCore::PlaylistAdded::add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 		{
-			_playlistAdded = (AIMP::SDK::Extensions::PlayListHandler^) Delegate::Combine(_playlistActivated, onEvent);
+			bool tmp = _playlistAdded == nullptr;
+			if (tmp)
+			{
+				_playlistAdded = (AIMP::SDK::Extensions::PlayListHandler^) Delegate::Combine(_playlistAdded, onEvent);
+			}
 		}
 
 		void ManagedAimpCore::PlaylistAdded::remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 		{
-			this->_playlistAdded = (AIMP::SDK::Extensions::PlayListHandler^)Delegate::Remove(this->_playlistAdded, onEvent);
+			bool tmp = _playlistAdded != nullptr;
+			if (tmp)
+			{
+				_playlistAdded = (AIMP::SDK::Extensions::PlayListHandler^)Delegate::Remove(this->_playlistAdded, onEvent);
+			}
 		}
 
 
 		void ManagedAimpCore::PlaylistRemoved::add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 		{
-			_playlistRemoved = (AIMP::SDK::Extensions::PlayListHandler^) Delegate::Combine(_playlistRemoved, onEvent);
+			bool tmp = _playlistRemoved == nullptr;
+			if (tmp)
+			{
+				_playlistRemoved = (AIMP::SDK::Extensions::PlayListHandler^) Delegate::Combine(_playlistRemoved, onEvent);
+			}
 		}
 
 		void ManagedAimpCore::PlaylistRemoved::remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
 		{
-			this->_playlistRemoved = (AIMP::SDK::Extensions::PlayListHandler^)Delegate::Remove(this->_playlistRemoved, onEvent);
+			bool tmp = _playlistRemoved != nullptr;
+			if (tmp)
+			{
+				_playlistRemoved = (AIMP::SDK::Extensions::PlayListHandler^)Delegate::Remove(this->_playlistRemoved, onEvent);
+			}
 		}
 	}
 }

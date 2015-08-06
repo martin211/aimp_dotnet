@@ -298,14 +298,15 @@ namespace AIMP
 			{
 				if (this->_onStateChanged == nullptr)
 				{
-					_onStateChanged = onAction;
+					_onStateChanged = (AimpStateChanged^)Delegate::Combine(_onStateChanged, onAction);
 				}
 			}
 			void remove(AimpStateChanged^ onAction)
 			{
-				if (this->_onStateChanged != nullptr)
+				bool tmp = this->_onStateChanged != nullptr;
+				if (tmp)
 				{
-					_onStateChanged = nullptr;
+					_onStateChanged = (AimpStateChanged^)Delegate::Remove(_onStateChanged, onAction);					 
 				}
 			}
 			void raise(AIMP::SDK::PlayerState state)
@@ -321,20 +322,18 @@ namespace AIMP
 		{
 			void add(EventHandler ^onAction)
 			{
-				bool tmp = _onLanguageChanged == nullptr;
-				_onLanguageChanged = (EventHandler^)Delegate::Combine(_onLanguageChanged, onAction);
-				if (tmp && _onLanguageChanged == nullptr)
+				bool tmp = _onLanguageChanged == nullptr;				
+				if (tmp)
 				{
-					_onLanguageChanged = onAction;
+					_onLanguageChanged = (EventHandler^)Delegate::Combine(_onLanguageChanged, onAction);					
 				}
 			}
 			void remove(EventHandler ^onAction)
 			{
-				bool tmp = _onLanguageChanged == nullptr;
-				_onLanguageChanged = (EventHandler^)Delegate::Combine(_onLanguageChanged, onAction);
-				if (tmp && _onLanguageChanged != nullptr)
+				bool tmp = _onLanguageChanged == nullptr;				
+				if (tmp)
 				{
-					_onLanguageChanged = nullptr;
+					_onLanguageChanged = (EventHandler^)Delegate::Remove(_onLanguageChanged, onAction);					
 				}
 			}
 			void raise(Object ^sender, EventArgs ^e)
@@ -350,20 +349,18 @@ namespace AIMP
 		{
 			void add(EventHandler ^onAction)
 			{
-				bool tmp = _onTrackChanged == nullptr;
-				_onLanguageChanged = (EventHandler^) Delegate::Combine(_onTrackChanged, onAction);
-				if (tmp && _onTrackChanged == nullptr)
+				bool tmp = _onTrackChanged == nullptr;				
+				if (tmp)
 				{
-					_onTrackChanged = onAction;
+					_onTrackChanged = (EventHandler^) Delegate::Combine(_onTrackChanged, onAction);
 				}
 			}
 			void remove(EventHandler ^onAction)
 			{
-				bool tmp = _onTrackChanged == nullptr;
-				_onTrackChanged = (EventHandler^) Delegate::Combine(_onTrackChanged, onAction);
-				if (tmp && _onTrackChanged != nullptr)
+				bool tmp = _onTrackChanged == nullptr;				
+				if (tmp)
 				{
-					_onTrackChanged = nullptr;
+					_onTrackChanged = (EventHandler^) Delegate::Remove(_onTrackChanged, onAction);					
 				}
 			}
 			void raise(Object ^sender, EventArgs ^e)
