@@ -330,7 +330,7 @@ namespace AIMP
 			}
 			void remove(EventHandler ^onAction)
 			{
-				bool tmp = _onLanguageChanged == nullptr;				
+				bool tmp = _onLanguageChanged != nullptr;				
 				if (tmp)
 				{
 					_onLanguageChanged = (EventHandler^)Delegate::Remove(_onLanguageChanged, onAction);					
@@ -357,7 +357,7 @@ namespace AIMP
 			}
 			void remove(EventHandler ^onAction)
 			{
-				bool tmp = _onTrackChanged == nullptr;				
+				bool tmp = _onTrackChanged != nullptr;				
 				if (tmp)
 				{
 					_onTrackChanged = (EventHandler^) Delegate::Remove(_onTrackChanged, onAction);					
