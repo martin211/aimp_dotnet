@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace AIMP.SDK
@@ -43,6 +44,12 @@ namespace AIMP.SDK
                 return result;
             }
             
+            var assemblyPath = Directory.EnumerateFiles(projectDir, shortAssemblyName + ".dll", SearchOption.AllDirectories).FirstOrDefault();
+            if (assemblyPath != null)
+            {
+                return Assembly.LoadFrom(assemblyPath);
+            }
+
             return Assembly.GetExecutingAssembly().FullName == args.Name ? Assembly.GetExecutingAssembly() : null;
         }
     }
