@@ -165,7 +165,6 @@
   <ItemGroup>
     <None Include="AIMP_Exports.def" />
     <None Include="app.ico" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Plugin">

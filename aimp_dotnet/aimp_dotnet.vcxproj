@@ -16,6 +16,7 @@
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>AimpDotnetPlugin</RootNamespace>
     <ProjectName>AimpDotnetPlugin</ProjectName>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -23,14 +24,14 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -46,14 +47,14 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Aimp\AIMP3.60\Plugins\aimp_dotnet\</OutDir>
     <IncludePath>z:\Libraries\boost;$(IncludePath)</IncludePath>
-    <LibraryPath>z:\Libraries\boost\lib32-msvc-12.0;$(LibraryPath)</LibraryPath>
+    <LibraryPath>z:\Libraries\boost\lib32-msvc-14.0;$(LibraryPath)</LibraryPath>
     <TargetName>aimp_dotnet</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Aimp\AIMP3.60\Plugins\aimp_dotnet\</OutDir>
     <IncludePath>z:\Libraries\boost;$(IncludePath)</IncludePath>
-    <LibraryPath>z:\Libraries\boost\lib32-msvc-12.0;$(LibraryPath)</LibraryPath>
+    <LibraryPath>z:\Libraries\boost\lib32-msvc-11.0;$(LibraryPath)</LibraryPath>
     <TargetName>aimp_dotnet</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
