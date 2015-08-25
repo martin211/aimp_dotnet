@@ -14,6 +14,13 @@ namespace AIMP
 		public ref class AimpFileInfo : public AimpObject<AIMP36SDK::IAIMPFileInfo>, public IAimpFileInfo
 		{
 		public:
+			AimpFileInfo()
+			{
+				AIMP36SDK::IAIMPFileInfo *fileInfo;
+				 (AIMP36SDK::IAIMPFileInfo*)AIMP::SDK360::ManagedAimpCore::GetAimpCore()->CreateObject(AIMP36SDK::IID_IAIMPFileInfo, (void**)&fileInfo);
+				_aimpObject = fileInfo;
+			}
+
 			AimpFileInfo(AIMP36SDK::IAIMPFileInfo *aimpItem) : AimpObject(aimpItem)
 			{
 			}

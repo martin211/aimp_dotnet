@@ -1,6 +1,8 @@
 #include "Stdafx.h"
 #include "AimpPlayListItem.h"
 #include "AimpPlayListGroup.h"
+#include "AimpFileInfo.h"
+#include "AimpPlayList.h"
 #include "..\..\ManagedAimpCore.h"
 
 namespace AIMP
@@ -86,8 +88,11 @@ namespace AIMP
 
 			IAimpFileInfo^ AimpPlayListItem::FileInfo::get()
 			{
-				// TODO: complete it
-				return nullptr;
+				AIMP36SDK::IAIMPFileInfo *fileInfo;
+				_aimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_FILEINFO, AIMP36SDK::IID_IAIMPFileInfo, (void**)&fileInfo);
+
+				//ObjectHelper::GetObject(_aimpObject, AIMP_PLAYLISTITEM_PROPID_FILEINFO, AIMP36SDK::IID_IAIMPFileInfo, (void**) &fileInfo);
+				return gcnew AimpFileInfo(fileInfo);
 			}
 
 			IAimpPlayListGroup^ AimpPlayListItem::Group::get()
@@ -104,8 +109,9 @@ namespace AIMP
 
 			IAimpPlayList^ AimpPlayListItem::PlayList::get()
 			{
-				// TODO: complete it
-				return nullptr;
+				IAIMPPlaylist *obj;
+				_aimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_PLAYLIST, AIMP36SDK::IID_IAIMPPlaylist, (void**)&obj);
+				return gcnew AimpPlayList(obj);
 			}
 
 			void AimpPlayListItem::PlayList::set(IAimpPlayList^ val)
