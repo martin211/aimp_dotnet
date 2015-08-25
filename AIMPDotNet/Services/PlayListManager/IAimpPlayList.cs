@@ -6,13 +6,13 @@ namespace AIMP.SDK.Services.PlayListManager
     [Flags]
     public enum PlayListFlags
     {
-        NOCHECKFORMAT,
+        NOCHECKFORMAT = 1,
 
-        NOEXPAND,
+        NOEXPAND = 2,
 
-        NOASYNC,
+        NOASYNC = 4,
 
-        FILEINFO
+        FILEINFO = 8
     }
 
     public enum PlayListFilePosition
