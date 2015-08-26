@@ -69,7 +69,7 @@ namespace AIMP.SDK.Interfaces
         /// <summary>
         /// Gets the play list manager.
         /// </summary>
-        IPlayListManager PlayListManager { get; }
+        IAimpPlayListManager PlayListManager { get; }
 
         /// <summary>
         /// Gets the playback queue manager.

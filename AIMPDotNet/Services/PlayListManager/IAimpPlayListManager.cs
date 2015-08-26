@@ -2,7 +2,7 @@
 
 namespace AIMP.SDK.Services.PlayListManager
 {
-    public interface IPlayListManager : IExtensionPlaylistManagerListener
+    public interface IAimpPlayListManager : IExtensionPlaylistManagerListener
     {
         IAimpPlayList CreatePlaylist(string name, bool isActive);
 

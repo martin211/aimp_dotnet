@@ -55,6 +55,7 @@
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Extensions\IExtensionPlaylistManagerListener.cs" />
+    <Compile Include="Services\ActionResult.cs" />
     <Compile Include="Services\PlayListManager\IAimpPlaylistQueue.cs" />
     <Compile Include="Services\PlayListManager\IServicePlaybackQueue.cs" />
     <Compile Include="Services\PlayListManager\PlayListEventArgs.cs" />
@@ -96,7 +97,7 @@
     <Compile Include="Services\PlayListManager\IAimpPlayList.cs" />
     <Compile Include="Services\PlayListManager\IAimpPlayListGroup.cs" />
     <Compile Include="Services\PlayListManager\IAimpPlayListItem.cs" />
-    <Compile Include="Services\PlayListManager\IPlayListManager.cs" />
+    <Compile Include="Services\PlayListManager\IAimpPlayListManager.cs" />
     <Compile Include="Services\Win32Manager\IWin32Manager.cs" />
     <Compile Include="PluginSettings.cs" />
     <Compile Include="UI\SettingsForm.cs">
