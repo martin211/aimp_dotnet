@@ -23,6 +23,6 @@ namespace AIMP.SDK.Services.PlayListManager
 
         bool Selected { get; set; }
 
-        void ReloadInfo();
+        ActionResult ReloadInfo();
     }
 }

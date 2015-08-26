@@ -148,9 +148,9 @@ namespace AIMP
 			}
 		}
 				
-		virtual property IPlayListManager ^PlayListManager
+		virtual property IAimpPlayListManager ^PlayListManager
 		{
-			IPlayListManager ^get()
+			IAimpPlayListManager ^get()
 			{
 				if (_playListManager == nullptr)
 				{
@@ -451,7 +451,7 @@ namespace AIMP
 		IAlbumArtManager^ _artManager;
 		IConfigurationManager^ _configManager;
 		IWin32Manager ^_win32Manager;
-		IPlayListManager ^_playListManager;
+		IAimpPlayListManager ^_playListManager;
 		IServicePlaybackQueue ^_playbackQueueManager;
 		AIMP::SDK::PlayerState _state;
 		

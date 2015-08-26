@@ -195,43 +195,43 @@ namespace AIMP.SDK.Services.PlayListManager
 
         string PreImage { get; set; }
 
-        void Add(string fileUrl, PlayListFlags flags, PlayListFilePosition filePosition);
+        ActionResult Add(string fileUrl, PlayListFlags flags, PlayListFilePosition filePosition);
 
-        void Add(IAimpFileInfo fileInfo, PlayListFlags flags, PlayListFilePosition filePosition);
+        ActionResult Add(IAimpFileInfo fileInfo, PlayListFlags flags, PlayListFilePosition filePosition);
 
-        void AddList(IList<string> fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition);
+        ActionResult AddList(IList<string> fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition);
 
-        void AddList(IList<IAimpFileInfo> fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition);
+        ActionResult AddList(IList<IAimpFileInfo> fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition);
 
-        void Delete(IAimpPlayListItem item);
+        ActionResult Delete(IAimpPlayListItem item);
 
-        void Delete(int index);
+        ActionResult Delete(int index);
 
         // TODO: implement Delete3
         //void Delete(bool physically);
 
-        void DeleteAll();
+        ActionResult DeleteAll();
 
-        void Sort(PlayListSort sort);
+        ActionResult Sort(PlayListSort sort);
 
-        void Sort(Func<IAimpPlayListItem, IAimpPlayListItem, PlayListSortComapreResult> compareFunc);
+        ActionResult Sort(Func<IAimpPlayListItem, IAimpPlayListItem, PlayListSortComapreResult> compareFunc);
 
         //TODO: implement Sort2, Sort3
         //void Sort();
 
-        void BeginUpdate();
+        ActionResult BeginUpdate();
 
-        void EndUpdate();
+        ActionResult EndUpdate();
 
-        void Close(PlayListCloseFlag closeFlag);
+        ActionResult Close(PlayListCloseFlag closeFlag);
 
         IList<string> GetFiles(PlayListGetFilesFlag filesFlag);
 
         // TODO: Add MergeGroup
 
-        void ReloadFromPreimage();
+        ActionResult ReloadFromPreimage();
 
-        void ReloadInfo(bool fullReload);
+        ActionResult ReloadInfo(bool fullReload);
 
         IAimpPlayListItem GetItem(int index);
 

@@ -89,7 +89,10 @@ namespace AIMP
 			IAimpFileInfo^ AimpPlayListItem::FileInfo::get()
 			{
 				AIMP36SDK::IAIMPFileInfo *fileInfo;
-				_aimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_FILEINFO, AIMP36SDK::IID_IAIMPFileInfo, (void**)&fileInfo);
+				if (CheckResult(_aimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_FILEINFO, AIMP36SDK::IID_IAIMPFileInfo, (void**)&fileInfo)) != ActionResult::Ok)
+				{
+					return nullptr;
+				}
 
 				//ObjectHelper::GetObject(_aimpObject, AIMP_PLAYLISTITEM_PROPID_FILEINFO, AIMP36SDK::IID_IAIMPFileInfo, (void**) &fileInfo);
 				return gcnew AimpFileInfo(fileInfo);
@@ -100,7 +103,11 @@ namespace AIMP
 				if (_group == nullptr)
 				{
 					IAIMPPlaylistGroup *group;
-					ObjectHelper::GetObject(_aimpObject, AIMP_PLAYLISTITEM_PROPID_GROUP, IID_IAIMPPlaylistGroup, (void**) &group);
+					if (CheckResult(ObjectHelper::GetObject(_aimpObject, AIMP_PLAYLISTITEM_PROPID_GROUP, IID_IAIMPPlaylistGroup, (void**) &group)) != ActionResult::Ok)
+					{
+						return nullptr;
+					}
+
 					_group = gcnew AimpPlayListGroup(group);
 				}
 
@@ -110,7 +117,11 @@ namespace AIMP
 			IAimpPlayList^ AimpPlayListItem::PlayList::get()
 			{
 				IAIMPPlaylist *obj;
-				_aimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_PLAYLIST, AIMP36SDK::IID_IAIMPPlaylist, (void**)&obj);
+				if (CheckResult(_aimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_PLAYLIST, AIMP36SDK::IID_IAIMPPlaylist, (void**)&obj)) != ActionResult::Ok)
+				{
+					return nullptr;
+				}
+
 				return gcnew AimpPlayList(obj);
 			}
 
@@ -119,9 +130,9 @@ namespace AIMP
 				// TODO: complete it
 			}
 
-			void AimpPlayListItem::ReloadInfo()
+			ActionResult AimpPlayListItem::ReloadInfo()
 			{
-				_aimpObject->ReloadInfo();
+				return CheckResult(_aimpObject->ReloadInfo());
 			}
 		}
 	}

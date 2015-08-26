@@ -11,7 +11,7 @@ namespace AIMP
 		using namespace AIMP36SDK;
 		using namespace AIMP::SDK;
 
-		public ref class PlayListManager : public AimpBaseManager, public AIMP::SDK::Services::PlayListManager::IPlayListManager, public IExtensionPlaylistManagerListener
+		public ref class PlayListManager : public AimpBaseManager, public AIMP::SDK::Services::PlayListManager::IAimpPlayListManager, public IExtensionPlaylistManagerListener
 		{
 		private:
 			IAIMPServicePlaylistManager *_service;
