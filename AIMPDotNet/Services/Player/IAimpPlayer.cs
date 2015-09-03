@@ -1,16 +1,15 @@
 ﻿using System;
+using AIMP.SDK.Interfaces;
+using AIMP.SDK.Services.ActionManager;
 using AIMP.SDK.Services.AlbumArtManager;
+using AIMP.SDK.Services.ConfigurationManager;
 using AIMP.SDK.Services.MenuManager;
+using AIMP.SDK.Services.MUIManager;
 using AIMP.SDK.Services.PlayListManager;
+using AIMP.SDK.Services.Win32Manager;
 
-namespace AIMP.SDK.Interfaces
+namespace AIMP.SDK.Services.Player
 {
-    using Services.Win32Manager;
-
-    using Services.ActionManager;
-    using Services.ConfigurationManager;
-    using Services.MUIManager;
-
     /// <summary>
     /// 
     /// </summary>
@@ -20,13 +19,13 @@ namespace AIMP.SDK.Interfaces
     /// <summary>
     /// Interface IAIMPPlayer
     /// </summary>
-    public interface IAimpPlayer : IDisposable
+    public interface IAimpPlayer : IDisposable, IExtensionPlayerHook
     {
         /// <summary>
         /// Occurs when player state has been changed.
         /// </summary>
         event AimpStateChanged StateChanged;
-
+        
         /// <summary>
         /// Occurs when AIMP language has been changed.
         /// </summary>
@@ -74,7 +73,7 @@ namespace AIMP.SDK.Interfaces
         /// <summary>
         /// Gets the playback queue manager.
         /// </summary>
-        IServicePlaybackQueue PlaybackQueueManager { get; }
+        IPlaybackQueueService PlaybackQueueManager { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the volume is mute.
@@ -158,7 +157,7 @@ namespace AIMP.SDK.Interfaces
         /// Plays the specified queue item.
         /// </summary>
         /// <param name="queueItem">The queue item.</param>
-        void Play(IAimpPlaybackQueueItem queueItem);
+        void Play(IPlaybackQueueItem queueItem);
 
         /// <summary>
         /// Plays the specified play list item.

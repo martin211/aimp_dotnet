@@ -31,6 +31,7 @@ namespace AIMP
 	using namespace System;
 	using namespace System::Runtime::InteropServices;
 	using namespace AIMP::SDK;
+	using namespace AIMP::SDK::Services::Player;
 	using namespace AIMP::SDK::Interfaces;
 	using namespace AIMP::SDK::Services::ActionManager;
 	using namespace AIMP::SDK::Services::AlbumArtManager;
@@ -161,9 +162,9 @@ namespace AIMP
 			}
 		}
 
-		virtual property IServicePlaybackQueue ^PlaybackQueueManager
+		virtual property IPlaybackQueueService ^PlaybackQueueManager
 		{
-			IServicePlaybackQueue ^get()
+			IPlaybackQueueService ^get()
 			{
 				if (_playbackQueueManager == nullptr)
 				{
@@ -352,7 +353,7 @@ namespace AIMP
 				bool tmp = _onTrackChanged == nullptr;				
 				if (tmp)
 				{
-					_onTrackChanged = (EventHandler^) Delegate::Combine(_onTrackChanged, onAction);
+					_onTrackChanged = (EventHandler^)Delegate::Combine(_onTrackChanged, onAction);
 				}
 			}
 			void remove(EventHandler ^onAction)
@@ -368,6 +369,34 @@ namespace AIMP
 				if (_onTrackChanged != nullptr)
 				{
 					_onTrackChanged(sender, e);
+				}
+			}
+		}
+
+		virtual event AIMP::SDK::Services::Player::CheckUrl ^OnCheckURL
+		{
+			void add(AIMP::SDK::Services::Player::CheckUrl ^onEvent)
+			{
+				bool tmp = _onCheckURL == nullptr;
+				if (tmp)
+				{
+					_onCheckURL = (AIMP::SDK::Services::Player::CheckUrl^)Delegate::Combine(_onCheckURL, onEvent);
+				}
+			}
+			void remove(AIMP::SDK::Services::Player::CheckUrl ^onEvent)
+			{
+				bool tmp = _onCheckURL == nullptr;
+				if (tmp)
+				{
+					_onCheckURL = (AIMP::SDK::Services::Player::CheckUrl^)Delegate::Remove(_onCheckURL, onEvent);
+				}
+			}
+			bool raise(String ^url)
+			{
+				bool tmp = _onCheckURL == nullptr;
+				if (tmp)
+				{
+					return _onCheckURL(url);
 				}
 			}
 		}
@@ -402,7 +431,7 @@ namespace AIMP
 			_player->GoToPrev();
 		}
 
-		virtual void Play(IAimpPlaybackQueueItem ^queueItem)
+		virtual void Play(IPlaybackQueueItem ^queueItem)
 		{
 			_player->Play(((AimpPlaybackQueueItem^)queueItem)->InternalAimpObject);
 		}
@@ -452,12 +481,13 @@ namespace AIMP
 		IConfigurationManager^ _configManager;
 		IWin32Manager ^_win32Manager;
 		IAimpPlayListManager ^_playListManager;
-		IServicePlaybackQueue ^_playbackQueueManager;
+		IPlaybackQueueService ^_playbackQueueManager;
 		AIMP::SDK::PlayerState _state;
 		
 		AimpStateChanged ^_onStateChanged;
 		EventHandler ^_onLanguageChanged;
 		EventHandler ^_onTrackChanged;
+		AIMP::SDK::Services::Player::CheckUrl ^_onCheckURL;
 	};
 
 	private ref class AIMPControllerInitializer : public System::MarshalByRefObject

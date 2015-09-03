@@ -12,7 +12,7 @@ namespace AIMP
 
 		using namespace AIMP::SDK::Services::PlayListManager;
 
-		public ref class ServicePlaybackQueue : public AimpBaseManager,  public AIMP::SDK::Services::PlayListManager::IServicePlaybackQueue
+		public ref class ServicePlaybackQueue : public AimpBaseManager,  public AIMP::SDK::Services::Player::IPlaybackQueueService
 		{
 		private:
 			IAIMPServicePlaybackQueue *_service;
@@ -29,7 +29,7 @@ namespace AIMP
 				_service = service;
 			}
 
-			virtual IAimpPlaybackQueueItem^ GetNextTrack()
+			virtual IPlaybackQueueItem^ GetNextTrack()
 			{
 				IAIMPPlaybackQueueItem *item;
 				if (!CheckResult(_service->GetNextTrack(&item)))
@@ -40,7 +40,7 @@ namespace AIMP
 				return nullptr;
 			}
 
-			virtual IAimpPlaybackQueueItem^ GetPrevTrack()
+			virtual IPlaybackQueueItem^ GetPrevTrack()
 			{
 				IAIMPPlaybackQueueItem *item;
 				if (!CheckResult(_service->GetPrevTrack(&item)))

@@ -156,5 +156,9 @@ HRESULT DotNetPlugin::LoadExtensions(AIMP36SDK::IAIMPCore* core)
 	_listner = listner;
 	r = core->RegisterExtension(AIMP36SDK::IID_IAIMPServicePlaylistManager, (AIMP36SDK::IAIMPExtensionPlaylistManagerListener*)listner);
 
+	AIMP36SDK::IAIMPExtensionPlayerHook *playerHook = new AimpExtensionPlayerHook(this);
+	_playerHook = playerHook;
+	r = core->RegisterExtension(AIMP36SDK::IID_IAIMPExtensionPlayerHook, (AIMP36SDK::IAIMPExtensionPlayerHook*)playerHook);
+
 	return r;
 }
