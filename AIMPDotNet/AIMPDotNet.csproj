@@ -51,13 +51,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IAimpExtensionPlayerHook.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Extensions\IExtensionPlaylistManagerListener.cs" />
     <Compile Include="Services\ActionResult.cs" />
+    <Compile Include="Services\Player\IExtensionPlayerHook.cs" />
+    <Compile Include="Services\Player\IPlaybackQueueItem.cs" />
+    <Compile Include="Services\Player\IPlaybackQueueService.cs" />
     <Compile Include="Services\PlayListManager\IAimpPlaylistQueue.cs" />
-    <Compile Include="Services\PlayListManager\IServicePlaybackQueue.cs" />
     <Compile Include="Services\PlayListManager\PlayListEventArgs.cs" />
     <Compile Include="UI\AimpUIItem.cs" />
     <Compile Include="AIMPPluginAttribute.cs" />
@@ -65,7 +66,7 @@
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Interfaces\IAimpCore.cs" />
     <Compile Include="Interfaces\IAimpOptionsDialogFrame.cs" />
-    <Compile Include="Interfaces\IAimpPlayer.cs" />
+    <Compile Include="Services\Player\IAimpPlayer.cs" />
     <Compile Include="AimpPluginBase.cs" />
     <Compile Include="PluginStateSaver.cs" />
     <Compile Include="CustomAssemblyResolver.cs" />
@@ -93,7 +94,6 @@
     <Compile Include="Services\MenuManager\IMenuManager.cs" />
     <Compile Include="Services\MUIManager\IMUIManager.cs" />
     <Compile Include="Services\PlayListManager\IAimpFileInfo.cs" />
-    <Compile Include="Services\PlayListManager\IAimpPlaybackQueueItem.cs" />
     <Compile Include="Services\PlayListManager\IAimpPlayList.cs" />
     <Compile Include="Services\PlayListManager\IAimpPlayListGroup.cs" />
     <Compile Include="Services\PlayListManager\IAimpPlayListItem.cs" />

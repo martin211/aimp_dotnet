@@ -16,6 +16,7 @@
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>AimpDotnetPlugin</RootNamespace>
     <ProjectName>AimpDotnetPlugin</ProjectName>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -44,7 +45,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\Aimp\AIMP3.60\Plugins\aimp_dotnet\</OutDir>
+    <OutDir>..\..\..\Aimp\AIMP3.60\Plugins\aimp_dotnet</OutDir>
     <IncludePath>z:\Libraries\boost;$(IncludePath)</IncludePath>
     <LibraryPath>z:\Libraries\boost\lib32-msvc-14.0;$(LibraryPath)</LibraryPath>
     <TargetName>aimp_dotnet</TargetName>

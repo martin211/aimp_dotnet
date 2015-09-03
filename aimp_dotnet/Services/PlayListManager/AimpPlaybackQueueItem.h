@@ -11,7 +11,7 @@ namespace AIMP
 		using namespace AIMP36SDK;
 		using namespace AIMP::SDK::Services::PlayListManager;
 
-		public ref class AimpPlaybackQueueItem : public AimpObject<AIMP36SDK::IAIMPPlaybackQueueItem>, public IAimpPlaybackQueueItem
+		public ref class AimpPlaybackQueueItem : public AimpObject<AIMP36SDK::IAIMPPlaybackQueueItem>, public IPlaybackQueueItem
 		{
 		public:
 			explicit AimpPlaybackQueueItem(AIMP36SDK::IAIMPPlaybackQueueItem *aimpItem) : AimpObject(aimpItem)

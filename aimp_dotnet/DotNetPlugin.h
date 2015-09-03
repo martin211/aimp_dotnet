@@ -97,6 +97,7 @@ private:
 	IAIMPServiceConfig *_configService;
 	AIMP36SDK::IAIMPOptionsDialogFrame *_frame;
 	AIMP36SDK::IAIMPExtensionPlaylistManagerListener *_listner;
+	AIMP36SDK::IAIMPExtensionPlayerHook *_playerHook;
 
 	typedef IUnknownInterfaceImpl<IAIMPPlugin> Base;
 };
@@ -234,5 +235,37 @@ public:
 	virtual void WINAPI PlaylistRemoved(AIMP36SDK::IAIMPPlaylist *playlist)
 	{
 		_main->_managedCore->OnPlayListRemoved(playlist);
+	}
+};
+
+class AimpExtensionPlayerHook : public AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPExtensionPlayerHook>
+{
+private:
+	DotNetPlugin *_plugin;
+public:
+	AimpExtensionPlayerHook(DotNetPlugin *plugin)
+	{
+		_plugin = plugin;
+	}
+
+	virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
+	{
+		return _plugin->QueryInterface(riid, ppvObject);
+	}
+
+	virtual ULONG WINAPI AddRef(void)
+	{
+		return _plugin->AddRef();
+	}
+
+	virtual ULONG WINAPI Release(void)
+	{
+		return _plugin->Release();
+	}
+
+	virtual HRESULT WINAPI OnCheckURL(IAIMPString* URL, BOOL **Handled)
+	{
+		 _plugin->_managedCore->OnCheckUrl(String::Empty);
+		 return S_OK;
 	}
 };

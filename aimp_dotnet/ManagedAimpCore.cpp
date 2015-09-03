@@ -126,6 +126,15 @@ namespace AIMP
 			}			
 		}
 
+		bool ManagedAimpCore::OnCheckUrl(String ^url)
+		{
+			AIMP::SDK::Services::Player::CheckUrl ^tmp = this->_checkUrl;
+			if (tmp != nullptr)
+			{
+				return tmp(url);
+			}
+		}
+
 		/// <summary>
 		/// Somes the event proxy.
 		/// </summary>
@@ -301,6 +310,25 @@ namespace AIMP
 			if (tmp)
 			{
 				_playlistRemoved = (AIMP::SDK::Extensions::PlayListHandler^)Delegate::Remove(this->_playlistRemoved, onEvent);
+			}
+		}
+
+
+		void ManagedAimpCore::CheckUrl::add(AIMP::SDK::Services::Player::CheckUrl ^onEvent)
+		{
+			bool tmp = _checkUrl == nullptr;
+			if (tmp)
+			{
+				_checkUrl = (AIMP::SDK::Services::Player::CheckUrl^) Delegate::Combine(_checkUrl, onEvent);
+			}
+		}
+
+		void ManagedAimpCore::CheckUrl::remove(AIMP::SDK::Services::Player::CheckUrl ^onEvent)
+		{
+			bool tmp = _checkUrl == nullptr;
+			if (tmp)
+			{
+				_checkUrl = (AIMP::SDK::Services::Player::CheckUrl^) Delegate::Remove(_checkUrl, onEvent);
 			}
 		}
 	}

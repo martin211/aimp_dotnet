@@ -7,6 +7,7 @@ namespace AIMP
 	namespace SDK
 	{
 		using namespace System;
+		using namespace AIMP::SDK::Services::Player;
 		using namespace AIMP::SDK::Interfaces;
 
 		public ref class AimpPlugin abstract : public AimpPluginBase
@@ -30,7 +31,7 @@ namespace AIMP
 				IAimpPlayer^ get()
 				{
 					return (IAimpPlayer^) AimpPlayer;
-				}
+				} 
 			}
 
 			property AIMP::SDK::Logger::ILogger ^LoggerManager
