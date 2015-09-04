@@ -7,21 +7,21 @@
     <ClCompile Include="DotNetPlugin.cpp">
       <Filter>Plugin</Filter>
     </ClCompile>
-    <ClCompile Include="Services\ActionManager\ActionManager.cpp">
+    <ClCompile Include="AimpDotnetPlugin.cpp" />
+    <ClCompile Include="Services\PlayList\AimpPlayList.cpp">
+      <Filter>Services\PlayListManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Services\PlayList\AimpPlayListGroup.cpp">
+      <Filter>Services\PlayListManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Services\PlayList\AimpPlayListItem.cpp">
+      <Filter>Services\PlayListManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Services\Action\ActionManager.cpp">
       <Filter>Services\ActionManager</Filter>
     </ClCompile>
-    <ClCompile Include="Services\MenuManager\ServiceMenuManager.cpp">
+    <ClCompile Include="Services\Menu\ServiceMenuManager.cpp">
       <Filter>Services\MenuManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Services\PlayListManager\AimpPlayListGroup.cpp">
-      <Filter>Services\PlayListManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Services\PlayListManager\AimpPlayListItem.cpp">
-      <Filter>Services\PlayListManager</Filter>
-    </ClCompile>
-    <ClCompile Include="AimpDotnetPlugin.cpp" />
-    <ClCompile Include="Services\PlayListManager\AimpPlayList.cpp">
-      <Filter>Services\PlayListManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,62 +101,64 @@
     <ClInclude Include="OptionsWindow.h">
       <Filter>Plugin</Filter>
     </ClInclude>
-    <ClInclude Include="Services\AlbumArtManager\AlbumArtManager.h">
-      <Filter>Services\AlbumArtManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Services\ConfigurationManager\ConfigurationManager.h">
-      <Filter>Services\ConfigurationManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Services\MenuManager\ICallBackHeader.h">
-      <Filter>Services\MenuManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Services\MenuManager\MenuItemEvent.h">
-      <Filter>Services\MenuManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Services\ActionManager\ActionManager.h">
-      <Filter>Services\ActionManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Services\MenuManager\ServiceMenuManager.h">
-      <Filter>Services\MenuManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Services\MUIManager\MUIManager.h">
-      <Filter>Services\MUIManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Services\PlayListManager\AimpFileInfo.h">
-      <Filter>Services\PlayListManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Services\PlayListManager\AimpPlayListGroup.h">
-      <Filter>Services\PlayListManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Services\PlayListManager\AimpPlayListItem.h">
-      <Filter>Services\PlayListManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Services\PlayListManager\AimpPlaybackQueueItem.h">
-      <Filter>Services\PlayListManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Services\Win32Manager\Win32Manager.h">
-      <Filter>Services\Win32Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Services\BaseManager.h">
       <Filter>Services</Filter>
     </ClInclude>
     <ClInclude Include="InternalLogger.h">
       <Filter>Services\LoggerManager</Filter>
     </ClInclude>
-    <ClInclude Include="Services\PlayListManager\VirtualFileInfoh.h">
-      <Filter>Services\PlayListManager</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectHelper.h" />
-    <ClInclude Include="Services\PlayListManager\AimpPlayList.h">
-      <Filter>Services\PlayListManager</Filter>
-    </ClInclude>
     <ClInclude Include="AIMPPlugin.h" />
-    <ClInclude Include="Services\PlayListManager\AimpPlayListQueue.h">
+    <ClInclude Include="Services\Playback\PlaybackManager.h" />
+    <ClInclude Include="Services\Playback\PlaybackQueueItem.h" />
+    <ClInclude Include="Services\PlayList\AimpFileInfo.h">
       <Filter>Services\PlayListManager</Filter>
     </ClInclude>
-    <ClInclude Include="Services\PlayListManager\ServicePlaybackQueue.h" />
-    <ClInclude Include="Services\PlayListManager\PlayListManager.h">
+    <ClInclude Include="Services\PlayList\AimpPlaybackQueueItem.h">
       <Filter>Services\PlayListManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\PlayList\AimpPlayList.h">
+      <Filter>Services\PlayListManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\PlayList\AimpPlayListGroup.h">
+      <Filter>Services\PlayListManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\PlayList\AimpPlayListItem.h">
+      <Filter>Services\PlayListManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\PlayList\AimpPlayListQueue.h">
+      <Filter>Services\PlayListManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\PlayList\PlayListManager.h">
+      <Filter>Services\PlayListManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\PlayList\ServicePlaybackQueue.h" />
+    <ClInclude Include="Services\PlayList\VirtualFileInfoh.h">
+      <Filter>Services\PlayListManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\Action\ActionManager.h">
+      <Filter>Services\ActionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\AlbumArt\AlbumArtManager.h">
+      <Filter>Services\AlbumArtManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\Configuration\ConfigurationManager.h">
+      <Filter>Services\ConfigurationManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\Menu\ICallBackHeader.h">
+      <Filter>Services\MenuManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\Menu\MenuItemEvent.h">
+      <Filter>Services\MenuManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\Menu\ServiceMenuManager.h">
+      <Filter>Services\MenuManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\MUI\MUIManager.h">
+      <Filter>Services\MUIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\Win32\Win32Manager.h">
+      <Filter>Services\Win32Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +204,9 @@
     </Filter>
     <Filter Include="Services\LoggerManager">
       <UniqueIdentifier>{cecdacb2-c0b7-4c0b-b512-567e17b559bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Player">
+      <UniqueIdentifier>{4ca24899-f191-4fa1-b3f3-45b295a8d39f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

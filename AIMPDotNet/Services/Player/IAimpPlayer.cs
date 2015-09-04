@@ -5,6 +5,7 @@ using AIMP.SDK.Services.AlbumArtManager;
 using AIMP.SDK.Services.ConfigurationManager;
 using AIMP.SDK.Services.MenuManager;
 using AIMP.SDK.Services.MUIManager;
+using AIMP.SDK.Services.Playback;
 using AIMP.SDK.Services.PlayListManager;
 using AIMP.SDK.Services.Win32Manager;
 
@@ -19,7 +20,7 @@ namespace AIMP.SDK.Services.Player
     /// <summary>
     /// Interface IAIMPPlayer
     /// </summary>
-    public interface IAimpPlayer : IDisposable, IExtensionPlayerHook
+    public interface IAimpPlayer : IDisposable
     {
         /// <summary>
         /// Occurs when player state has been changed.

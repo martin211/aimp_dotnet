@@ -1,6 +1,6 @@
 ﻿using AIMP.SDK.Services.PlayListManager;
 
-namespace AIMP.SDK.Services.Player
+namespace AIMP.SDK.Services.Playback
 {
     public interface IPlaybackQueueItem
     {

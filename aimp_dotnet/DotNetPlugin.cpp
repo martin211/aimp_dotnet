@@ -82,6 +82,7 @@ void WINAPI DotNetPlugin::SystemNotification(int NotifyID, IUnknown* Data)
 
 HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj) 
 {
+	System::Diagnostics::Debug::WriteLine("DotNetPlugin: QueryInterface");
 	if (!ppvObj) {
 		return E_POINTER;
 	}
@@ -89,6 +90,7 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
 	if (IID_IUnknown == riid) {
 		*ppvObj = this;
 		AddRef();
+		System::Diagnostics::Debug::WriteLine("DotNetPlugin: QueryInterface: S_OK");
 		return S_OK;
 	}
 
@@ -97,6 +99,7 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
 		*ppvObj = _frame;
 		AddRef();
 		_optionsLoaded = true;
+		System::Diagnostics::Debug::WriteLine("DotNetPlugin: QueryInterface: S_OK");
 		return S_OK;
 	}
 
@@ -104,9 +107,19 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
 	{
 		*ppvObj = _listner;
 		AddRef();
+		System::Diagnostics::Debug::WriteLine("DotNetPlugin: QueryInterface: S_OK");
 		return S_OK;
 	}
 
+	if (riid == AIMP36SDK::IID_IAIMPExtensionPlayerHook)
+	{
+		*ppvObj = this->_playerHook;
+		AddRef();
+		System::Diagnostics::Debug::WriteLine("DotNetPlugin: QueryInterface: S_OK");
+		return S_OK;
+	}
+
+	System::Diagnostics::Debug::WriteLine("DotNetPlugin: QueryInterface: E_NOINTERFACE");
 	return E_NOINTERFACE;
 }
 
@@ -147,18 +160,17 @@ void DotNetPlugin::SavePluginOptions()
 HRESULT DotNetPlugin::LoadExtensions(AIMP36SDK::IAIMPCore* core)
 {
 	HRESULT r = S_OK;
-
+	
 	AIMP36SDK::IAIMPOptionsDialogFrame *frame = new OptionFrame(_managedCore, this);
 	_frame = frame;
-	r = core->RegisterExtension(AIMP36SDK::IID_IAIMPServiceOptionsDialog, (AIMP36SDK::IAIMPOptionsDialogFrame*)frame);
+	r = core->RegisterExtension(AIMP36SDK::IID_IAIMPServiceOptionsDialog, frame);
 
 	AIMP36SDK::IAIMPExtensionPlaylistManagerListener *listner = new PlaylistManagerListener(this);
 	_listner = listner;
-	r = core->RegisterExtension(AIMP36SDK::IID_IAIMPServicePlaylistManager, (AIMP36SDK::IAIMPExtensionPlaylistManagerListener*)listner);
+	r = core->RegisterExtension(AIMP36SDK::IID_IAIMPServicePlaylistManager, listner);
 
-	AIMP36SDK::IAIMPExtensionPlayerHook *playerHook = new AimpExtensionPlayerHook(this);
-	_playerHook = playerHook;
-	r = core->RegisterExtension(AIMP36SDK::IID_IAIMPExtensionPlayerHook, (AIMP36SDK::IAIMPExtensionPlayerHook*)playerHook);
+	_playerHook = new AimpExtensionPlayerHook(this);	
+	r = core->RegisterExtension(AIMP36SDK::IID_IAIMPServicePlayer, _playerHook);
 
 	return r;
 }

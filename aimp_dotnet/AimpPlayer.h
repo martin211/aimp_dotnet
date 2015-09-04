@@ -31,7 +31,7 @@ namespace AIMP
 	using namespace System;
 	using namespace System::Runtime::InteropServices;
 	using namespace AIMP::SDK;
-	using namespace AIMP::SDK::Services::Player;
+	using namespace AIMP::SDK::Services::PlaybackManager;
 	using namespace AIMP::SDK::Interfaces;
 	using namespace AIMP::SDK::Services::ActionManager;
 	using namespace AIMP::SDK::Services::AlbumArtManager;
@@ -65,6 +65,7 @@ namespace AIMP
 			_player = ps;
 
 			_managerCore->CoreMessage += gcnew AimpEventsDelegate(this, &AIMP::AimpPlayer<TConvAlloc>::OnCoreMessage);
+			//_managerCore->CheckUrlEvent += gcnew AIMP::SDK::Services::Player::AimpCheckUrl(this, &AIMP::AimpPlayer<TConvAlloc>::onCheckUrl);
 		}
 
 		~AimpPlayer()
@@ -373,34 +374,6 @@ namespace AIMP
 			}
 		}
 
-		virtual event AIMP::SDK::Services::Player::CheckUrl ^OnCheckURL
-		{
-			void add(AIMP::SDK::Services::Player::CheckUrl ^onEvent)
-			{
-				bool tmp = _onCheckURL == nullptr;
-				if (tmp)
-				{
-					_onCheckURL = (AIMP::SDK::Services::Player::CheckUrl^)Delegate::Combine(_onCheckURL, onEvent);
-				}
-			}
-			void remove(AIMP::SDK::Services::Player::CheckUrl ^onEvent)
-			{
-				bool tmp = _onCheckURL == nullptr;
-				if (tmp)
-				{
-					_onCheckURL = (AIMP::SDK::Services::Player::CheckUrl^)Delegate::Remove(_onCheckURL, onEvent);
-				}
-			}
-			bool raise(String ^url)
-			{
-				bool tmp = _onCheckURL == nullptr;
-				if (tmp)
-				{
-					return _onCheckURL(url);
-				}
-			}
-		}
-
 		virtual void Pause()
 		{
 			_player->Pause();
@@ -469,6 +442,8 @@ namespace AIMP
 			}			
 		}
 
+		bool onCheckUrl(String ^url);
+
 		AIMP36SDK::IAIMPMessageHook* aimp_message_hook_;
 		AIMP36SDK::IAIMPServicePlayer* _player;
 		//AIMP36SDK::IAIMPCore* _aimpCore;		 
@@ -487,7 +462,6 @@ namespace AIMP
 		AimpStateChanged ^_onStateChanged;
 		EventHandler ^_onLanguageChanged;
 		EventHandler ^_onTrackChanged;
-		AIMP::SDK::Services::Player::CheckUrl ^_onCheckURL;
 	};
 
 	private ref class AIMPControllerInitializer : public System::MarshalByRefObject
