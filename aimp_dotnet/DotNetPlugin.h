@@ -241,31 +241,40 @@ public:
 class AimpExtensionPlayerHook : public AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPExtensionPlayerHook>
 {
 private:
-	DotNetPlugin *_plugin;
+	DotNetPlugin* _main;
 public:
-	AimpExtensionPlayerHook(DotNetPlugin *plugin)
+	AimpExtensionPlayerHook(DotNetPlugin* main)
 	{
-		_plugin = plugin;
+		_main = main;
 	}
 
 	virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
 	{
-		return _plugin->QueryInterface(riid, ppvObject);
+		System::Diagnostics::Debug::WriteLine("PlaylistManagerListener2: QueryInterface");
+		return _main->QueryInterface(riid, ppvObject);
 	}
 
 	virtual ULONG WINAPI AddRef(void)
 	{
-		return _plugin->AddRef();
+		return _main->AddRef();
 	}
 
 	virtual ULONG WINAPI Release(void)
 	{
-		return _plugin->Release();
+		return _main->Release();
 	}
 
 	virtual HRESULT WINAPI OnCheckURL(IAIMPString* URL, BOOL **Handled)
 	{
-		 _plugin->_managedCore->OnCheckUrl(String::Empty);
-		 return S_OK;
+		if (_main->_managedCore->OnCheckUrl(AIMP::ObjectHelper::GetString(URL)))
+		{
+			Handled = (BOOL**)true;
+		}
+		else
+		{
+			Handled = (BOOL**)false;
+		}
+
+		return S_OK;
 	}
 };

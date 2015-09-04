@@ -55,9 +55,9 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Extensions\IExtensionPlaylistManagerListener.cs" />
     <Compile Include="Services\ActionResult.cs" />
-    <Compile Include="Services\Player\IExtensionPlayerHook.cs" />
-    <Compile Include="Services\Player\IPlaybackQueueItem.cs" />
-    <Compile Include="Services\Player\IPlaybackQueueService.cs" />
+    <Compile Include="Services\Playback\IPlaybackQueueService.cs" />
+    <Compile Include="Services\Playback\IExtensionPlayerHook.cs" />
+    <Compile Include="Services\Playback\IPlaybackQueueItem.cs" />
     <Compile Include="Services\PlayListManager\IAimpPlaylistQueue.cs" />
     <Compile Include="Services\PlayListManager\PlayListEventArgs.cs" />
     <Compile Include="UI\AimpUIItem.cs" />

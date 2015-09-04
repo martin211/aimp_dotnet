@@ -23,7 +23,7 @@ namespace AIMP
 			explicit PlayListManager(ManagedAimpCore ^core) : AimpBaseManager(core)
 			{
 				IAIMPServicePlaylistManager *service;
-				if (!CheckResult(core->GetService(IID_IAIMPServicePlaylistManager, (void**) &service)))
+				if (!CheckResult(core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service)))
 				{
 					throw gcnew System::ApplicationException("Unable create AIMP service");
 				}
@@ -179,21 +179,21 @@ namespace AIMP
 				CheckResult(_service->SetActivePlaylist(((AIMP::SDK::PlayList::AimpPlayList^)playList)->InternalAimpObject));
 			}
 
-			private:
-				virtual void onPlaylistActivated(String ^playListName, String ^playListId)
-				{
-					PlaylistActivated(playListName, playListId);
-				}
+		private:
+			virtual void onPlaylistActivated(String ^playListName, String ^playListId)
+			{
+				PlaylistActivated(playListName, playListId);
+			}
 
-				virtual void onPlaylistAdded(String ^playListName, String ^playListId)
-				{
-					PlaylistAdded(playListName, playListId);
-				}
+			virtual void onPlaylistAdded(String ^playListName, String ^playListId)
+			{
+				PlaylistAdded(playListName, playListId);
+			}
 
-				virtual void onPlaylistRemoved(String ^playListName, String ^playListId)
-				{
-					PlaylistRemoved(playListName, playListId);
-				}
+			virtual void onPlaylistRemoved(String ^playListName, String ^playListId)
+			{
+				PlaylistRemoved(playListName, playListId);
+			}
 		};
 	}
 }

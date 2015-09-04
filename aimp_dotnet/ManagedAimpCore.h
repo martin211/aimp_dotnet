@@ -71,12 +71,6 @@ namespace AIMP
 				virtual void remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent);
 			}
 
-			virtual event AIMP::SDK::Services::Player::CheckUrl ^CheckUrl
-			{
-				virtual void add(AIMP::SDK::Services::Player::CheckUrl ^onEvent);
-				virtual void remove(AIMP::SDK::Services::Player::CheckUrl ^onEvent);
-			}
-
 			void OnCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2);			
 
 		internal:
@@ -119,7 +113,7 @@ namespace AIMP
 			AIMP::SDK::Extensions::PlayListHandler ^_playlistActivated;
 			AIMP::SDK::Extensions::PlayListHandler ^_playlistAdded;
 			AIMP::SDK::Extensions::PlayListHandler ^_playlistRemoved;
-			AIMP::SDK::Services::Player::CheckUrl ^_checkUrl;
+			/*AIMP::SDK::Services::Player::AimpCheckUrl ^_checkUrl;*/
 		};
 	}
 }

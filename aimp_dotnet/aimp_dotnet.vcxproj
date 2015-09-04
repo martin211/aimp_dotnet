@@ -118,20 +118,22 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Services\PlayListManager\PlayListManager.h" />
-    <ClInclude Include="Services\PlayListManager\AimpPlayListQueue.h" />
+    <ClInclude Include="Services\Playback\PlaybackManager.h" />
+    <ClInclude Include="Services\Playback\PlaybackQueueItem.h" />
+    <ClInclude Include="Services\PlayList\PlayListManager.h" />
+    <ClInclude Include="Services\PlayList\AimpPlayListQueue.h" />
     <ClInclude Include="AIMPPlugin.h" />
     <ClInclude Include="ObjectHelper.h" />
     <ClInclude Include="InternalLogger.h" />
     <ClInclude Include="OptionsWindow.h" />
-    <ClInclude Include="Services\ActionManager\ActionManager.h" />
+    <ClInclude Include="Services\Action\ActionManager.h" />
     <ClInclude Include="AimpPlayer.h" />
     <ClInclude Include="Services\BaseManager.h" />
-    <ClInclude Include="Services\ConfigurationManager\ConfigurationManager.h" />
-    <ClInclude Include="Services\PlayListManager\AimpPlaybackQueueItem.h" />
-    <ClInclude Include="Services\PlayListManager\AimpPlayList.h" />
-    <ClInclude Include="Services\PlayListManager\AimpPlayListGroup.h" />
-    <ClInclude Include="Services\PlayListManager\AimpPlayListItem.h" />
+    <ClInclude Include="Services\Configuration\ConfigurationManager.h" />
+    <ClInclude Include="Services\PlayList\AimpPlaybackQueueItem.h" />
+    <ClInclude Include="Services\PlayList\AimpPlayList.h" />
+    <ClInclude Include="Services\PlayList\AimpPlayListGroup.h" />
+    <ClInclude Include="Services\PlayList\AimpPlayListItem.h" />
     <ClInclude Include="AIMP_SDK\AIMP360\apiActions.h" />
     <ClInclude Include="AIMP_SDK\AIMP360\apiAlbumArt.h" />
     <ClInclude Include="AIMP_SDK\AIMP360\apiCore.h" />
@@ -154,32 +156,32 @@
     <ClInclude Include="AIMP_SDK\AIMP360\apiVisuals.h" />
     <ClInclude Include="AIMP_SDK\aimp3_60_sdk.h" />
     <ClInclude Include="DataConversion.h" />
-    <ClInclude Include="Services\AlbumArtManager\AlbumArtManager.h" />
-    <ClInclude Include="Services\MenuManager\ICallBackHeader.h" />
+    <ClInclude Include="Services\AlbumArt\AlbumArtManager.h" />
+    <ClInclude Include="Services\Menu\ICallBackHeader.h" />
     <ClInclude Include="ManagedAimpCore.h" />
-    <ClInclude Include="Services\MenuManager\ServiceMenuManager.h" />
+    <ClInclude Include="Services\Menu\ServiceMenuManager.h" />
     <ClInclude Include="EventHelper.h" />
     <ClInclude Include="DotNetPlugin.h" />
     <ClInclude Include="AIMP_SDK\IUnknownInterfaceImpl.h" />
-    <ClInclude Include="Services\MenuManager\MenuItemEvent.h" />
+    <ClInclude Include="Services\Menu\MenuItemEvent.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Services\MUIManager\MUIManager.h" />
-    <ClInclude Include="Services\PlayListManager\AimpFileInfo.h" />
-    <ClInclude Include="Services\PlayListManager\ServicePlaybackQueue.h" />
-    <ClInclude Include="Services\Win32Manager\Win32Manager.h" />
+    <ClInclude Include="Services\MUI\MUIManager.h" />
+    <ClInclude Include="Services\PlayList\AimpFileInfo.h" />
+    <ClInclude Include="Services\PlayList\ServicePlaybackQueue.h" />
+    <ClInclude Include="Services\Win32\Win32Manager.h" />
     <ClInclude Include="Stdafx.h" />
-    <ClInclude Include="Services\PlayListManager\VirtualFileInfoh.h" />
+    <ClInclude Include="Services\PlayList\VirtualFileInfoh.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DotNetPlugin.cpp" />
-    <ClCompile Include="Services\ActionManager\ActionManager.cpp" />
-    <ClCompile Include="Services\MenuManager\ServiceMenuManager.cpp" />
+    <ClCompile Include="Services\Action\ActionManager.cpp" />
+    <ClCompile Include="Services\Menu\ServiceMenuManager.cpp" />
     <ClCompile Include="ManagedAimpCore.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="AimpDotnetPlugin.cpp" />
-    <ClCompile Include="Services\PlayListManager\AimpPlayList.cpp" />
-    <ClCompile Include="Services\PlayListManager\AimpPlayListGroup.cpp" />
-    <ClCompile Include="Services\PlayListManager\AimpPlayListItem.cpp" />
+    <ClCompile Include="Services\PlayList\AimpPlayList.cpp" />
+    <ClCompile Include="Services\PlayList\AimpPlayListGroup.cpp" />
+    <ClCompile Include="Services\PlayList\AimpPlayListItem.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
