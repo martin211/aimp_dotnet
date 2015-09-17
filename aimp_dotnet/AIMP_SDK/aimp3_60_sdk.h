@@ -24,7 +24,30 @@ namespace AIMP36SDK
 
 }
 
+public ref class Utils
+{
+internal:
+	static AIMP::SDK::Services::ActionResult CheckResult(HRESULT result)
+	{
+		switch (result)
+		{
+		case E_ACCESSDENIED:
+			return AIMP::SDK::Services::ActionResult::AccessDenied;
+		case E_HANDLE:
+			return AIMP::SDK::Services::ActionResult::Handle;
+		case E_INVALIDARG:
+			return AIMP::SDK::Services::ActionResult::InvalidArguments;
+		case E_NOTIMPL:
+			return AIMP::SDK::Services::ActionResult::NotImplemented;
+		case E_UNEXPECTED:
+			return AIMP::SDK::Services::ActionResult::Unexpected;
+		case E_FAIL:
+			return AIMP::SDK::Services::ActionResult::Fail;
+		}
 
+		return AIMP::SDK::Services::ActionResult::Ok;
+	}
+};
 
 template<class TAimpObject>
 public ref class AimpObject
@@ -45,23 +68,7 @@ public:
 protected:
 	AIMP::SDK::Services::ActionResult CheckResult(HRESULT result)
 	{		
-		switch (result)
-		{
-		case E_ACCESSDENIED:
-			return AIMP::SDK::Services::ActionResult::AccessDenied;
-		case E_HANDLE:
-			return AIMP::SDK::Services::ActionResult::Handle;
-		case E_INVALIDARG:
-			return AIMP::SDK::Services::ActionResult::InvalidArguments;
-		case E_NOTIMPL:
-			return AIMP::SDK::Services::ActionResult::NotImplemented;
-		case E_UNEXPECTED:
-			return AIMP::SDK::Services::ActionResult::Unexpected;
-		case E_FAIL:
-			return AIMP::SDK::Services::ActionResult::Fail;
-		}
-
-		return AIMP::SDK::Services::ActionResult::Ok;
+		return Utils::CheckResult(result);
 	}
 internal:
 	property TAimpObject *InternalAimpObject

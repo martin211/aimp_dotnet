@@ -8,6 +8,8 @@ namespace TestPlugin
 {
     using System.Collections.Generic;
 
+    using AIMP.SDK.Services.Player;
+
     public partial class Form1 : Form
     {
         private readonly IAimpPlayer _aimpPlayer;

@@ -2,7 +2,7 @@
 #include "ManagedAimpCore.h"
 #include "AIMP_SDK\aimp3_60_sdk.h"
 #include "AIMP_SDK\IUnknownInterfaceImpl.h"
-#include "Services\PlayListManager\AimpPlayList.h"
+#include "Services\PlayList\AimpPlayList.h"
 
 namespace AIMP
 {
@@ -52,18 +52,20 @@ namespace AIMP
 		}
 
 		/// <summary>
-		/// Gets the specified path.
+		/// Gets the specified AIMP path.
 		/// </summary>
-		/// <param name="pathType">Type of the path.</param>
+		/// <param name="pathType">Path type.</param>
+		/// <param name="pathResult"></param>
 		/// <returns></returns>
-		String^ ManagedAimpCore::GetPath(AIMP::SDK::AimpMessages::AimpCorePathType pathType)
+		AIMP::SDK::Services::ActionResult ManagedAimpCore::GetPath(AIMP::SDK::AimpMessages::AimpCorePathType pathType, String ^%pathResult)
 		{
 			AIMP36SDK::IAIMPString* res;
 
 			_core->GetPath((int) pathType, &res);
 			AIMP36SDK::IAIMPString_ptr path(res, false);
 
-			return gcnew System::String(std::wstring(path->GetData(), path->GetLength()).c_str());			
+			pathResult = gcnew System::String(std::wstring(path->GetData(), path->GetLength()).c_str());
+			return AIMP::SDK::Services::ActionResult::Ok;
 		}
 		
 		/// <summary>
@@ -94,47 +96,29 @@ namespace AIMP
 		}
 
 		void ManagedAimpCore::OnPlaylistActivated(AIMP36SDK::IAIMPPlaylist *playlist)
-		{
-			AIMP::SDK::Extensions::PlayListHandler^ tmp = this->_playlistActivated;
-			if (tmp != nullptr)
-			{
-				AIMP::SDK::PlayList::AimpPlayList ^pl = gcnew AIMP::SDK::PlayList::AimpPlayList(playlist);
-				tmp(pl->Name, pl->Id);				
-				pl = nullptr;
-			}			
+		{			
+			AIMP::SDK::PlayList::AimpPlayList ^pl = gcnew AIMP::SDK::PlayList::AimpPlayList(playlist);
+			this->PlaylistActivated(pl->Name, pl->Id);
+			pl = nullptr;
 		}
 
 		void ManagedAimpCore::OnPlayListAdded(AIMP36SDK::IAIMPPlaylist *playlist)
 		{
-			AIMP::SDK::Extensions::PlayListHandler^ tmp = this->_playlistAdded;
-			if (tmp != nullptr)
-			{
-				AIMP::SDK::PlayList::AimpPlayList ^pl = gcnew AIMP::SDK::PlayList::AimpPlayList(playlist);
-				tmp(pl->Name, pl->Id);
-				pl = nullptr;
-			}			
+			AIMP::SDK::PlayList::AimpPlayList ^pl = gcnew AIMP::SDK::PlayList::AimpPlayList(playlist);
+			this->PlaylistAdded(pl->Name, pl->Id);
+			pl = nullptr;
 		}
 
 		void ManagedAimpCore::OnPlayListRemoved(AIMP36SDK::IAIMPPlaylist *playlist)
 		{
-			AIMP::SDK::Extensions::PlayListHandler^ tmp = this->_playlistRemoved;
-			if (tmp != nullptr)
-			{
-				AIMP::SDK::PlayList::AimpPlayList ^pl = gcnew AIMP::SDK::PlayList::AimpPlayList(playlist);
-				tmp(pl->Name, pl->Id);
-				pl = nullptr;
-			}			
+			AIMP::SDK::PlayList::AimpPlayList ^pl = gcnew AIMP::SDK::PlayList::AimpPlayList(playlist);
+			this->PlaylistRemoved(pl->Name, pl->Id);
+			pl = nullptr;
 		}
 
 		bool ManagedAimpCore::OnCheckUrl(String ^url)
 		{
-			/*AIMP::SDK::Services::Player::AimpCheckUrl ^tmp = this->_checkUrl;
-			if (tmp != nullptr)
-			{
-				return tmp(url);
-			}*/
-
-			return false;
+			return this->CheckUrl(url);
 		}
 
 		/// <summary>
@@ -143,7 +127,7 @@ namespace AIMP
 		/// <param name="This">The this.</param>
 		/// <param name="param">The parameter.</param>
 		/// <param name="param1">The param1.</param>
-		void SomeEventProxy(gcroot<ManagedAimpCore^> This, DWORD param, int param1)
+		void CoreMessageEventProxy(gcroot<ManagedAimpCore^> This, DWORD param, int param1)
 		{
 			This->OnCoreMessage((AIMP::SDK::AimpMessages::AimpCoreMessageType)param, param1);
 		}
@@ -194,22 +178,26 @@ namespace AIMP
 			}
 		}
 
-		void ManagedAimpCore::SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj)
+		HRESULT ManagedAimpCore::SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj)
 		{	
+			HRESULT r;
+
 			if (message == AIMP::SDK::AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION)
 			{
-				ShowNotification(value == 0, (String^)obj);
+				r = ShowNotification(value == 0, (String^)obj);
 			}
 			else
 			{
-				_messageDispatcher->Send((DWORD)message, value, (void*)&obj);
+				r = _messageDispatcher->Send((DWORD)message, value, (void*)&obj);
 			}
+
+			return r;
 		}
 
-		void ManagedAimpCore::ShowNotification(bool autoHide, String ^notification)
+		HRESULT ManagedAimpCore::ShowNotification(bool autoHide, String ^notification)
 		{
 			IAIMPString *str = ObjectHelper::MakeAimpString(_core, notification);
-			_messageDispatcher->Send((DWORD)AIMP::SDK::AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION, autoHide ? 0 : 1, str->GetData());
+			return _messageDispatcher->Send((DWORD)AIMP::SDK::AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION, autoHide ? 0 : 1, str->GetData());
 		}
 		
 		/// <summary>
@@ -228,91 +216,128 @@ namespace AIMP
 		}
 
 
-		void ManagedAimpCore::CoreMessage::add(AimpEventsDelegate^ onCoreMessage)
-		{
-			bool tmp = this->_coreMessage == nullptr;			
-			if (tmp)
-			{	
-				this->_coreMessage = (AimpEventsDelegate^) Delegate::Combine(this->_coreMessage, onCoreMessage);
-				_coreMessageCallback = new AIMP::Callback;
-				*_coreMessageCallback = _nativeEventHelper->RegisterCallback(boost::bind(SomeEventProxy, gcroot<ManagedAimpCore^>(this), _1, _2));
-			}
-		}
-		
-		void ManagedAimpCore::CoreMessage::remove(AimpEventsDelegate^ onCoreMessage)
-		{
-			bool tmp = this->_coreMessage != nullptr;			
-			if (tmp)
-			{
-				this->_coreMessage = (AimpEventsDelegate^) Delegate::Remove(this->_coreMessage, onCoreMessage);
-				_nativeEventHelper->UnregisterCallback(*_coreMessageCallback);				
-				_nativeEventHelper = nullptr;
-			}
-		}
+		//void ManagedAimpCore::CoreMessage::add(AimpEventsDelegate^ onCoreMessage)
+		//{
+		//	if (_coreMessage == nullptr)
+		//	{
+		//		_coreMessageCallback = new AIMP::Callback;
+		//		*_coreMessageCallback = _nativeEventHelper->RegisterCallback(boost::bind(CoreMessageEventProxy, gcroot<ManagedAimpCore^>(this), _1, _2));
+		//		_coreMessage = gcnew System::Collections::Generic::List<AimpEventsDelegate^>(2);
+		//	}
 
-		void ManagedAimpCore::CoreMessage::raise(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2)
-		{			
-			AimpEventsDelegate^ tmp = this->_coreMessage;
-			if (tmp != nullptr)
-			{
-				tmp(param1, param2);
-			}			
-		}
+		//	_coreMessage->Add(onCoreMessage);			
+		//}
+	
+		//void ManagedAimpCore::CoreMessage::remove(AimpEventsDelegate^ onCoreMessage)
+		//{
+		//	if (_coreMessage != nullptr)
+		//	{				
+		//		System::Threading::Monitor::Enter(_coreMessage);
+		//		if (_coreMessage->Contains(onCoreMessage))
+		//		{
+		//			_coreMessage->Remove(onCoreMessage);
+		//		}
+		//		System::Threading::Monitor::Exit(_coreMessage);
+		//	}
+		//}
 
+		//void ManagedAimpCore::CoreMessage::raise(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2)
+		//{
+		//	if (_coreMessage == nullptr || _coreMessage->Count == 0)
+		//	{
+		//		return;
+		//	}
 
-		void ManagedAimpCore::PlaylistActivated::add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
-		{
-			bool tmp = _playlistActivated == nullptr;
-			if (tmp)
-			{
-				_playlistActivated = (AIMP::SDK::Extensions::PlayListHandler^) Delegate::Combine(_playlistActivated, onEvent);
-			}
-		}
-
-		void ManagedAimpCore::PlaylistActivated::remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
-		{
-			bool tmp = _playlistActivated != nullptr;
-			if (tmp)
-			{
-				_playlistActivated = (AIMP::SDK::Extensions::PlayListHandler^)Delegate::Remove(this->_playlistActivated, onEvent);
-			}
-		}
-
-		void ManagedAimpCore::PlaylistAdded::add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
-		{
-			bool tmp = _playlistAdded == nullptr;
-			if (tmp)
-			{
-				_playlistAdded = (AIMP::SDK::Extensions::PlayListHandler^) Delegate::Combine(_playlistAdded, onEvent);
-			}
-		}
-
-		void ManagedAimpCore::PlaylistAdded::remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
-		{
-			bool tmp = _playlistAdded != nullptr;
-			if (tmp)
-			{
-				_playlistAdded = (AIMP::SDK::Extensions::PlayListHandler^)Delegate::Remove(this->_playlistAdded, onEvent);
-			}
-		}
+		//	System::Threading::Monitor::Enter(_coreMessage);			
+		//	for each (AimpEventsDelegate^ item in _coreMessage)
+		//	{
+		//		item(param1, param2);
+		//	}
+		//	System::Threading::Monitor::Exit(_coreMessage);
+		//}
 
 
-		void ManagedAimpCore::PlaylistRemoved::add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
-		{
-			bool tmp = _playlistRemoved == nullptr;
-			if (tmp)
-			{
-				_playlistRemoved = (AIMP::SDK::Extensions::PlayListHandler^) Delegate::Combine(_playlistRemoved, onEvent);
-			}
-		}
+		//void ManagedAimpCore::PlaylistActivated::add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
+		//{
+		//	bool tmp = _playListActivatedHandlers == nullptr;
+		//	if (tmp)
+		//	{
+		//		_playListActivatedHandlers = gcnew List<AIMP::SDK::Extensions::PlayListHandler^>(2);
+		//		//_playlistActivated = (AIMP::SDK::Extensions::PlayListHandler^) Delegate::Combine(_playlistActivated, onEvent);
+		//	}
 
-		void ManagedAimpCore::PlaylistRemoved::remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
-		{
-			bool tmp = _playlistRemoved != nullptr;
-			if (tmp)
-			{
-				_playlistRemoved = (AIMP::SDK::Extensions::PlayListHandler^)Delegate::Remove(this->_playlistRemoved, onEvent);
-			}
-		}
+		//	_playListActivatedHandlers->Add(onEvent);
+		//}
+
+		//void ManagedAimpCore::PlaylistActivated::remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
+		//{
+		//	bool tmp = _playListActivatedHandlers != nullptr;
+		//	if (tmp)
+		//	{
+		//		System::Threading::Monitor::Enter(_playListActivatedHandlers);
+		//		if (_playListActivatedHandlers->Contains(onEvent))
+		//		{
+		//			_playListActivatedHandlers->Remove(onEvent);
+		//		}
+		//		System::Threading::Monitor::Exit(_playListActivatedHandlers);
+		//	}
+		//}
+
+
+		//void ManagedAimpCore::PlaylistAdded::add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
+		//{
+		//	bool tmp = _playlistAdded == nullptr;
+		//	if (tmp)
+		//	{
+		//		_playlistAdded = (AIMP::SDK::Extensions::PlayListHandler^) Delegate::Combine(_playlistAdded, onEvent);
+		//	}
+		//}
+
+		//void ManagedAimpCore::PlaylistAdded::remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
+		//{
+		//	bool tmp = _playlistAdded != nullptr;
+		//	if (tmp)
+		//	{
+		//		_playlistAdded = (AIMP::SDK::Extensions::PlayListHandler^)Delegate::Remove(this->_playlistAdded, onEvent);
+		//	}
+		//}
+
+
+		//void ManagedAimpCore::PlaylistRemoved::add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
+		//{
+		//	bool tmp = _playlistRemoved == nullptr;
+		//	if (tmp)
+		//	{
+		//		_playlistRemoved = (AIMP::SDK::Extensions::PlayListHandler^) Delegate::Combine(_playlistRemoved, onEvent);
+		//	}
+		//}
+
+		//void ManagedAimpCore::PlaylistRemoved::remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
+		//{
+		//	bool tmp = _playlistRemoved != nullptr;
+		//	if (tmp)
+		//	{
+		//		_playlistRemoved = (AIMP::SDK::Extensions::PlayListHandler^)Delegate::Remove(this->_playlistRemoved, onEvent);
+		//	}
+		//}
+
+
+		//void ManagedAimpCore::CheckUrl::add(AIMP::SDK::Services::Playback::AimpCheckUrl ^onEvent)
+		//{
+		//	bool tmp = _checkUrl == nullptr;
+		//	if (tmp)
+		//	{
+		//		_checkUrl = (AIMP::SDK::Services::Playback::AimpCheckUrl^) Delegate::Combine(_checkUrl, onEvent);
+		//	}
+		//}
+
+		//void ManagedAimpCore::CheckUrl::remove(AIMP::SDK::Services::Playback::AimpCheckUrl ^onEvent)
+		//{
+		//	bool tmp = _checkUrl != nullptr;
+		//	if (tmp)
+		//	{
+		//		_checkUrl = (AIMP::SDK::Services::Playback::AimpCheckUrl^) Delegate::Remove(_checkUrl, onEvent);
+		//	}
+		//}
 	}
 }

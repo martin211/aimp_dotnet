@@ -1,5 +1,5 @@
 #pragma once
-#include ".\Services\PlayListManager\AimpPlayListItem.h"
+#include ".\Services\PlayList\AimpPlayListItem.h"
 #include ".\AIMP_SDK\aimp3_60_sdk.h"
 #include "ManagedAimpCore.h"
 

@@ -14,6 +14,8 @@ namespace AIMP
 	namespace SDK360
 	{
 		using namespace System;
+		using namespace System::Collections::Generic;
+
 		using namespace AIMP::SDK;
 		using namespace AIMP::SDK::Interfaces;
 		using namespace AIMP::SDK::Extensions;
@@ -23,9 +25,9 @@ namespace AIMP
 		delegate void ChangeHandler(AimpMessages::AimpCoreMessageType, int);
 
 		/// <summary>
-		/// Managed Core class.
+		/// Wrapper on IAIMPCore interface.
 		/// </summary>
-		public ref class ManagedAimpCore : public IAimpCore
+		public ref class ManagedAimpCore
 		{		
 			
 		public:			
@@ -40,38 +42,23 @@ namespace AIMP
 			/// </summary>
 			~ManagedAimpCore();
 			
-			virtual String^ GetPath(AimpMessages::AimpCorePathType pathType);
+			virtual AIMP::SDK::Services::ActionResult GetPath(AimpMessages::AimpCorePathType pathType, String ^%path);
 
-			virtual void SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj);			
+			virtual HRESULT SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj);			
 			
 			//virtual bool RegisterExtension(Guid extensionId, IUnknown* extension);
 			
-			virtual event AimpEventsDelegate^ CoreMessage
-			{
-				virtual void add(AimpEventsDelegate^ onCoreMessage);
-				virtual void remove(AimpEventsDelegate^ onCoreMessage);
-				void raise(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2);
-			}
+			virtual event AimpEventsDelegate^ CoreMessage;
 
-			virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistActivated
-			{
-				virtual void add(AIMP::SDK::Extensions::PlayListHandler ^onEvent);
-				virtual void remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent);
-			}
+			virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistActivated;
 
-			virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistAdded
-			{
-				virtual void add(AIMP::SDK::Extensions::PlayListHandler ^onEvent);
-				virtual void remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent);
-			}
+			virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistAdded;
 
-			virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistRemoved
-			{
-				virtual void add(AIMP::SDK::Extensions::PlayListHandler ^onEvent);
-				virtual void remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent);
-			}
+			virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistRemoved;
 
-			void OnCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2);			
+			virtual event AIMP::SDK::Services::Playback::AimpCheckUrl ^CheckUrl;
+
+			void OnCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2);
 
 		internal:
 			IAIMPActionEvent* CreateActionEvent();
@@ -88,7 +75,7 @@ namespace AIMP
 
 			static AIMP36SDK::IAIMPCore* GetAimpCore();
 
-			void ShowNotification(bool autoHide, String ^notification);
+			HRESULT ShowNotification(bool autoHide, String ^notification);
 
 			AIMP36SDK::IAIMPStream* CreateStream();
 
@@ -109,11 +96,13 @@ namespace AIMP
 			AIMP36SDK::IAIMPServiceMessageDispatcher* _messageDispatcher;
 			IAIMPMessageHook* _hook;			
 
-			AimpEventsDelegate ^_coreMessage;
-			AIMP::SDK::Extensions::PlayListHandler ^_playlistActivated;
+			List<AimpEventsDelegate^> ^_coreMessage;
+			List<AIMP::SDK::Extensions::PlayListHandler^> ^_playListActivatedHandlers;
+
+			
 			AIMP::SDK::Extensions::PlayListHandler ^_playlistAdded;
 			AIMP::SDK::Extensions::PlayListHandler ^_playlistRemoved;
-			/*AIMP::SDK::Services::Player::AimpCheckUrl ^_checkUrl;*/
+			AIMP::SDK::Services::Playback::AimpCheckUrl ^_checkUrl;
 		};
 	}
 }

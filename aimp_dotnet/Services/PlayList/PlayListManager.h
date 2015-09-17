@@ -30,9 +30,20 @@ namespace AIMP
 
 				_service = service;
 
-				core->PlaylistActivated += gcnew AIMP::SDK::Extensions::PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistActivated);
-				core->PlaylistAdded += gcnew AIMP::SDK::Extensions::PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistAdded);
-				core->PlaylistRemoved += gcnew AIMP::SDK::Extensions::PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistRemoved);
+				_core->PlaylistActivated += gcnew AIMP::SDK::Extensions::PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistActivated);
+				_core->PlaylistAdded += gcnew AIMP::SDK::Extensions::PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistAdded);
+				_core->PlaylistRemoved += gcnew AIMP::SDK::Extensions::PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistRemoved);
+			}
+
+			~PlayListManager()
+			{
+				System::Diagnostics::Trace::TraceInformation("Dispose PlayListManager");
+				System::Diagnostics::Trace::Flush();
+				
+				_service->Release();
+				_core->PlaylistActivated -= gcnew AIMP::SDK::Extensions::PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistActivated);
+				_core->PlaylistAdded -= gcnew AIMP::SDK::Extensions::PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistAdded);
+				_core->PlaylistRemoved -= gcnew AIMP::SDK::Extensions::PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistRemoved);
 			}
 
 			virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistActivated

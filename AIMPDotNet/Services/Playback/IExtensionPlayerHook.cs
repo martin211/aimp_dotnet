@@ -1,4 +1,4 @@
-﻿namespace AIMP.SDK.Services.PlaybackManager
+﻿namespace AIMP.SDK.Services.Playback
 {
     public delegate bool AimpCheckUrl(string url);
 

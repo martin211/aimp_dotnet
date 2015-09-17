@@ -1,5 +1,9 @@
 ﻿namespace AIMP.SDK.Interfaces
 {
+    using System;
+
+    using AIMP.SDK.Services;
+
     /// <summary>
     /// 
     /// </summary>
@@ -17,7 +21,7 @@
         /// <returns></returns>
         string GetPath(AimpMessages.AimpCorePathType aimpCorePath);
 
-        void SendMessage(AimpMessages.AimpCoreMessageType message, int param, object objectParameter);
+        ActionResult SendMessage(AimpMessages.AimpCoreMessageType message, int param, object objectParameter);
 
         /// <summary>
         /// Occurs when [core message].

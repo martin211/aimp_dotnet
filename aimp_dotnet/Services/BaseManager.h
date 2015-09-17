@@ -19,12 +19,11 @@ namespace AIMP
 		protected:
 			bool CheckResult(HRESULT result)
 			{
-				if (result == S_OK)
+				if (Utils::CheckResult(result) == AIMP::SDK::Services::ActionResult::Ok)
 				{
 					return true;
 				}
 
-				//System::Diagnostics::Debugger::Break();
 				AIMP::SDK::InternalLogger::Instance->Write("Invalid operation: result " + result);
 				return false;
 			}

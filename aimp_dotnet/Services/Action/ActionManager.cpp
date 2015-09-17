@@ -9,9 +9,6 @@ namespace AIMP
 {
 	namespace SDK
 	{
-
-
-
 		ActionManager::ActionManager(ManagedAimpCore^ core) : AimpBaseManager(core)
 		{
 			AIMP36SDK::IAIMPServiceActionManager *manager;
@@ -63,10 +60,7 @@ namespace AIMP
 			newAction->SetValueAsObject(AIMP36SDK::AIMP_ACTION_PROPID_NAME, actionNameString);
 			newAction->SetValueAsObject(AIMP36SDK::AIMP_ACTION_PROPID_GROUPNAME, actionGroupString);
 
-
 			_core->GetAimpCore()->RegisterExtension(AIMP36SDK::IID_IAIMPServiceMenuManager, newAction);
-
-
 		}
 
 		void ActionManager::UpdateItem(AimpActionItem^ menuItem)
@@ -79,6 +73,5 @@ namespace AIMP
 		{
 			UpdateItem((AimpActionItem^) sender);
 		}
-
 	}
 }

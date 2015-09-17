@@ -17,9 +17,10 @@ namespace AIMP36SDK
 private ref class ManagedFunctionality
 {
 public:
-	ManagedFunctionality(AIMP36SDK::IAIMPCore* core)
+	ManagedFunctionality(AIMP36SDK::IAIMPCore* core, ManagedAimpCore ^managedCore)
 	{
 		_core = core;
+		_managedCore = managedCore;
 	}
 
 	/// <summary>
@@ -29,15 +30,15 @@ public:
 	void PluginLoadEventReaction(AIMP::SDK::PluginInformation^ sender)
 	{
 		// Each plugin should has his own managed core instance
-		AIMP::SDK360::ManagedAimpCore ^managedCore = gcnew AIMP::SDK360::ManagedAimpCore(_core);
+		//AIMP::SDK360::ManagedAimpCore ^managedCore = gcnew AIMP::SDK360::ManagedAimpCore(_core);
 		AIMP::AimpPlayer<StaticSingleThreadAllocator>^ instance = nullptr;
 		if (sender->PluginAppDomainInfo != nullptr)
 		{
 			AIMP::AIMPControllerInitializer^ controllerInitializer = (AIMP::AIMPControllerInitializer^)sender->PluginAppDomainInfo->CreateInstanceFromAndUnwrap(System::Reflection::Assembly::GetExecutingAssembly()->Location, AIMP::AIMPControllerInitializer::TypeName);
-			instance = controllerInitializer->CreateWithStaticAllocator(managedCore, sender->LoadedPlugin->PluginId, sender->PluginAppDomainInfo->Id, true);
+			instance = controllerInitializer->CreateWithStaticAllocator(_managedCore, sender->LoadedPlugin->PluginId, sender->PluginAppDomainInfo->Id, true);
 		}
 		else
-			instance = gcnew AIMP::AimpPlayer<StaticSingleThreadAllocator>(managedCore, sender->LoadedPlugin->PluginId, System::AppDomain::CurrentDomain->Id, false);
+			instance = gcnew AIMP::AimpPlayer<StaticSingleThreadAllocator>(_managedCore, sender->LoadedPlugin->PluginId, System::AppDomain::CurrentDomain->Id, false);
 
 		sender->Initialize(instance);
 	}
@@ -48,6 +49,7 @@ public:
 	}
 private:
 	AIMP36SDK::IAIMPCore* _core;
+	ManagedAimpCore ^_managedCore;
 };
 
 class DotNetPlugin : public AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlugin>

@@ -23,9 +23,13 @@ namespace AIMP
 
 			AimpPlayList::~AimpPlayList()
 			{
-				InternalAimpObject->ListenerRemove(_listner);
-				_listner->Release();
-				delete _listner;
+				if (_listner != nullptr)
+				{
+					InternalAimpObject->ListenerRemove(_listner);
+					_listner->Release();					
+				}
+
+				_properties->Release();
 			}
 
 			String ^AimpPlayList::Id::get()
