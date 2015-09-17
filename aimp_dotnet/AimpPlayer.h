@@ -8,18 +8,18 @@
 #include "DataConversion.h"
 
 
-#include "Services\MenuManager\ServiceMenuManager.h"
-#include "Services\ActionManager\ActionManager.h"
-#include "Services\MUIManager\MUIManager.h"
-#include "Services\AlbumArtManager\AlbumArtManager.h"
-#include "Services\ConfigurationManager\ConfigurationManager.h"
-#include "Services\PlayListManager\AimpFileInfo.h"
-#include "Services\Win32Manager\Win32Manager.h"
-#include "Services\PlayListManager\AimpPlaybackQueueItem.h"
-#include "Services\PlayListManager\AimpPlayListItem.h"
-#include "Services\PlayListManager\AimpPlayList.h"
-#include "Services\PlayListManager\PlayListManager.h"
-#include "Services\PlayListManager\ServicePlaybackQueue.h"
+#include "Services\Menu\ServiceMenuManager.h"
+#include "Services\Action\ActionManager.h"
+#include "Services\MUI\MUIManager.h"
+#include "Services\AlbumArt\AlbumArtManager.h"
+#include "Services\Configuration\ConfigurationManager.h"
+#include "Services\PlayList\AimpFileInfo.h"
+#include "Services\Win32\Win32Manager.h"
+#include "Services\PlayList\AimpPlayListItem.h"
+#include "Services\PlayList\AimpPlayList.h"
+#include "Services\PlayList\PlayListManager.h"
+#include "Services\Playback\ServicePlaybackQueue.h"
+#include "AimpCore.h"
 
 
 
@@ -30,14 +30,14 @@ namespace AIMP
 {
 	using namespace System;
 	using namespace System::Runtime::InteropServices;
-	using namespace AIMP::SDK;
-	using namespace AIMP::SDK::Services::PlaybackManager;
+	using namespace AIMP::SDK;	
 	using namespace AIMP::SDK::Interfaces;
 	using namespace AIMP::SDK::Services::ActionManager;
 	using namespace AIMP::SDK::Services::AlbumArtManager;
 	using namespace AIMP::SDK::Services::ConfigurationManager;
 	using namespace AIMP::SDK::Services::PlayListManager;
 	using namespace AIMP::SDK::Services::Win32Manager;
+	using namespace AIMP::SDK::Services::Playback;
 
 	template<class TConvAlloc>
 	private ref class AimpPlayer :
@@ -46,6 +46,25 @@ namespace AIMP
 	{
 	private:
 		typedef DataConverter Converter;
+		AIMP36SDK::IAIMPMessageHook* aimp_message_hook_;
+		AIMP36SDK::IAIMPServicePlayer* _player;
+		
+		ManagedAimpCore ^_managedAimpCore;
+		IAimpCore ^_aimpCore;
+		AimpEventsDelegate^ _coreMessage;
+		IMenuManager^ _menuManager;
+		IActionManager^ _actionManager;
+		IMUIManager^ _muiManager;
+		IAlbumArtManager^ _artManager;
+		IConfigurationManager^ _configManager;
+		IWin32Manager ^_win32Manager;
+		IAimpPlayListManager ^_playListManager;
+		IPlaybackQueueService ^_playbackQueueManager;
+		AIMP::SDK::PlayerState _state;
+
+		AimpStateChanged ^_onStateChanged;
+		EventHandler ^_onLanguageChanged;
+		EventHandler ^_onTrackChanged;
 
 	public:
 		/// <summary>
@@ -55,34 +74,41 @@ namespace AIMP
 		/// <param name="pluginId">The plugin identifier.</param>
 		/// <param name="applicationDomainId">The application domain identifier.</param>
 		/// <param name="isCrossDomain">The is cross domain.</param>
-		AimpPlayer(AIMP::SDK360::ManagedAimpCore ^core, int pluginId, int applicationDomainId, bool isCrossDomain)
+		AimpPlayer(ManagedAimpCore ^core, int pluginId, int applicationDomainId, bool isCrossDomain)
 		{
 			//_aimpCore = core;
 			//_managerCore = gcnew AIMP::SDK360::ManagedAimpCore(core, nullptr);
-			_managerCore = core;
+			_managedAimpCore = core;
 			AIMP36SDK::IAIMPServicePlayer* ps;
-			((ManagedAimpCore^) _managerCore)->GetService(AIMP36SDK::IID_IAIMPServicePlayer, reinterpret_cast<void**>(&ps));
+			((ManagedAimpCore^) _managedAimpCore)->GetService(AIMP36SDK::IID_IAIMPServicePlayer, reinterpret_cast<void**>(&ps));
 			_player = ps;
-
-			_managerCore->CoreMessage += gcnew AimpEventsDelegate(this, &AIMP::AimpPlayer<TConvAlloc>::OnCoreMessage);
-			//_managerCore->CheckUrlEvent += gcnew AIMP::SDK::Services::Player::AimpCheckUrl(this, &AIMP::AimpPlayer<TConvAlloc>::onCheckUrl);
 		}
 
 		~AimpPlayer()
 		{
-			_managerCore->CoreMessage -= gcnew AimpEventsDelegate(this, &AIMP::AimpPlayer<TConvAlloc>::OnCoreMessage);
-			_managerCore = nullptr;
-			_player->Release();
-			_player = nullptr;
+			_player->Release();			
+			delete _aimpCore;
+			delete _menuManager;
+			delete _actionManager;
+			delete _muiManager;
+			delete _artManager;
+			delete _configManager;
+			delete _playListManager;
+			delete _playbackQueueManager;
 		}
 
 		virtual property IAimpCore^ Core
 		{
 			IAimpCore^ get()
 			{
-				return _managerCore;
-			}
+				if (_aimpCore == nullptr)
+				{
+					_aimpCore = gcnew AimpCore(_managedAimpCore);
+					//_aimpCore->CoreMessage += gcnew AimpEventsDelegate(this, &AIMP::AimpPlayer<TConvAlloc>::OnCoreMessage);
+				}
 
+				return _aimpCore;
+			}
 		}
 
 		virtual property IMenuManager^ MenuManager
@@ -91,7 +117,7 @@ namespace AIMP
 			{
 				if (_menuManager == nullptr)
 				{
-					_menuManager = gcnew ServiceMenuManager((ManagedAimpCore^) _managerCore);
+					_menuManager = gcnew ServiceMenuManager(_managedAimpCore);
 				}
 
 				return _menuManager;
@@ -104,7 +130,7 @@ namespace AIMP
 			{
 				if (_actionManager == nullptr)
 				{
-					_actionManager = gcnew AIMP::ActionManager((ManagedAimpCore^) _managerCore);
+					_actionManager = gcnew AIMP::ActionManager((ManagedAimpCore^) _managedAimpCore);
 				}
 
 				return _actionManager;
@@ -117,7 +143,7 @@ namespace AIMP
 			{
 				if (_muiManager == nullptr)
 				{
-					_muiManager = gcnew AIMP::MIUManager((ManagedAimpCore^) _managerCore);
+					_muiManager = gcnew AIMP::MIUManager((ManagedAimpCore^) _managedAimpCore);
 				}
 
 				return _muiManager;
@@ -130,7 +156,7 @@ namespace AIMP
 			{
 				if (_artManager == nullptr)
 				{
-					_artManager = gcnew AIMP::AlbumArtManager((ManagedAimpCore^) _managerCore);
+					_artManager = gcnew AIMP::AlbumArtManager((ManagedAimpCore^) _managedAimpCore);
 				}
 
 				return _artManager;
@@ -143,7 +169,7 @@ namespace AIMP
 			{
 				if (_configManager == nullptr)
 				{
-					_configManager = gcnew AIMP::ConfigurationManager((ManagedAimpCore^) _managerCore);
+					_configManager = gcnew AIMP::ConfigurationManager((ManagedAimpCore^) _managedAimpCore);
 				}
 
 				return _configManager;
@@ -156,7 +182,7 @@ namespace AIMP
 			{
 				if (_playListManager == nullptr)
 				{
-					_playListManager = gcnew AIMP::SDK::PlayListManager((ManagedAimpCore^) _managerCore);
+					_playListManager = gcnew AIMP::SDK::PlayListManager((ManagedAimpCore^) _managedAimpCore);
 				}
 
 				return _playListManager;
@@ -169,11 +195,24 @@ namespace AIMP
 			{
 				if (_playbackQueueManager == nullptr)
 				{
-					_playbackQueueManager = gcnew AIMP::SDK::ServicePlaybackQueue((ManagedAimpCore^) _managerCore);
+					_playbackQueueManager = gcnew AIMP::SDK::ServicePlaybackQueue((ManagedAimpCore^) _managedAimpCore);
+					((ManagedAimpCore^)_managedAimpCore)->CheckUrl +=  gcnew AIMP::SDK::Services::Playback::AimpCheckUrl(this, &AIMP::AimpPlayer<TConvAlloc>::OnCheckUrl);
 				}
 
 				return _playbackQueueManager;
 			}
+		}
+
+		bool OnCheckUrl(String ^url)
+		{
+			System::Diagnostics::Debug::WriteLine("OnCheckUrl: " + url);
+			//AIMP::SDK::Services::Playback::AimpCheckUrl ^tmp = this->_checkUrl;
+			//if (tmp != nullptr)
+			//{
+			//	return tmp(url);
+			//}
+
+			return false;
 		}
 
 		virtual property AIMP36SDK::IAIMPServicePlayer* ServicePlayer
@@ -189,13 +228,13 @@ namespace AIMP
 			bool get()
 			{
 				bool value;
-				CheckResult(_player->GetMute(&value));
+				Utils::CheckResult(_player->GetMute(&value));
 				return value;
 			}
 
 			void set(bool value)
 			{
-				CheckResult(_player->SetMute(value));
+				Utils::CheckResult(_player->SetMute(value));
 			}
 		}
 
@@ -204,13 +243,13 @@ namespace AIMP
 			float get()
 			{
 				float value;
-				CheckResult(_player->GetVolume(&value));
+				Utils::CheckResult(_player->GetVolume(&value));
 				return value;
 			}
 
 			void set(float value)
 			{
-				CheckResult(_player->SetVolume(value));
+				Utils::CheckResult(_player->SetVolume(value));
 			}
 		}
 
@@ -229,13 +268,13 @@ namespace AIMP
 			double get()
 			{
 				double value;
-				CheckResult(_player->GetPosition(&value));
+				Utils::CheckResult(_player->GetPosition(&value));
 				return value;
 			}
 
 			void set(double value)
 			{
-				CheckResult(_player->SetPosition(value));
+				Utils::CheckResult(_player->SetPosition(value));
 			}
 		}
 
@@ -420,11 +459,6 @@ namespace AIMP
 		}
 
 	private:
-		void CheckResult(HRESULT result)
-		{
-			((ManagedAimpCore^)_managerCore)->CheckResult(result);
-		}
-
 		void OnCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2)
 		{
 			if (param1 == AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_PLAYER_STATE && _state != this->State)
@@ -443,25 +477,6 @@ namespace AIMP
 		}
 
 		bool onCheckUrl(String ^url);
-
-		AIMP36SDK::IAIMPMessageHook* aimp_message_hook_;
-		AIMP36SDK::IAIMPServicePlayer* _player;
-		//AIMP36SDK::IAIMPCore* _aimpCore;		 
-		IAimpCore^ _managerCore;		
-		AimpEventsDelegate^ _coreMessage;
-		IMenuManager^ _menuManager;
-		IActionManager^ _actionManager;
-		IMUIManager^ _muiManager;
-		IAlbumArtManager^ _artManager;
-		IConfigurationManager^ _configManager;
-		IWin32Manager ^_win32Manager;
-		IAimpPlayListManager ^_playListManager;
-		IPlaybackQueueService ^_playbackQueueManager;
-		AIMP::SDK::PlayerState _state;
-		
-		AimpStateChanged ^_onStateChanged;
-		EventHandler ^_onLanguageChanged;
-		EventHandler ^_onTrackChanged;
 	};
 
 	private ref class AIMPControllerInitializer : public System::MarshalByRefObject

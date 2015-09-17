@@ -115,11 +115,11 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Linq" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Services\Playback\PlaybackManager.h" />
-    <ClInclude Include="Services\Playback\PlaybackQueueItem.h" />
+    <ClInclude Include="AimpCore.h" />
     <ClInclude Include="Services\PlayList\PlayListManager.h" />
     <ClInclude Include="Services\PlayList\AimpPlayListQueue.h" />
     <ClInclude Include="AIMPPlugin.h" />
@@ -130,7 +130,7 @@
     <ClInclude Include="AimpPlayer.h" />
     <ClInclude Include="Services\BaseManager.h" />
     <ClInclude Include="Services\Configuration\ConfigurationManager.h" />
-    <ClInclude Include="Services\PlayList\AimpPlaybackQueueItem.h" />
+    <ClInclude Include="Services\Playback\AimpPlaybackQueueItem.h" />
     <ClInclude Include="Services\PlayList\AimpPlayList.h" />
     <ClInclude Include="Services\PlayList\AimpPlayListGroup.h" />
     <ClInclude Include="Services\PlayList\AimpPlayListItem.h" />
@@ -167,7 +167,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Services\MUI\MUIManager.h" />
     <ClInclude Include="Services\PlayList\AimpFileInfo.h" />
-    <ClInclude Include="Services\PlayList\ServicePlaybackQueue.h" />
+    <ClInclude Include="Services\Playback\ServicePlaybackQueue.h" />
     <ClInclude Include="Services\Win32\Win32Manager.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Services\PlayList\VirtualFileInfoh.h" />
@@ -189,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AIMP_Exports.def" />
+    <None Include="app.config" />
     <None Include="app.ico" />
   </ItemGroup>
   <ItemGroup>

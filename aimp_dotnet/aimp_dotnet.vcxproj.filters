@@ -109,12 +109,7 @@
     </ClInclude>
     <ClInclude Include="ObjectHelper.h" />
     <ClInclude Include="AIMPPlugin.h" />
-    <ClInclude Include="Services\Playback\PlaybackManager.h" />
-    <ClInclude Include="Services\Playback\PlaybackQueueItem.h" />
     <ClInclude Include="Services\PlayList\AimpFileInfo.h">
-      <Filter>Services\PlayListManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Services\PlayList\AimpPlaybackQueueItem.h">
       <Filter>Services\PlayListManager</Filter>
     </ClInclude>
     <ClInclude Include="Services\PlayList\AimpPlayList.h">
@@ -132,7 +127,6 @@
     <ClInclude Include="Services\PlayList\PlayListManager.h">
       <Filter>Services\PlayListManager</Filter>
     </ClInclude>
-    <ClInclude Include="Services\PlayList\ServicePlaybackQueue.h" />
     <ClInclude Include="Services\PlayList\VirtualFileInfoh.h">
       <Filter>Services\PlayListManager</Filter>
     </ClInclude>
@@ -160,6 +154,11 @@
     <ClInclude Include="Services\Win32\Win32Manager.h">
       <Filter>Services\Win32Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Services\Playback\ServicePlaybackQueue.h" />
+    <ClInclude Include="Services\Playback\AimpPlaybackQueueItem.h">
+      <Filter>Services\PlayListManager</Filter>
+    </ClInclude>
+    <ClInclude Include="AimpCore.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
@@ -167,6 +166,7 @@
   <ItemGroup>
     <None Include="AIMP_Exports.def" />
     <None Include="app.ico" />
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Plugin">

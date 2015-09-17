@@ -11,11 +11,13 @@ namespace AIMP
 		using namespace AIMP::SDK;
 
 		using namespace AIMP::SDK::Services::PlayListManager;
+		using namespace AIMP::SDK::Services::Playback;
 
-		public ref class ServicePlaybackQueue : public AimpBaseManager,  public AIMP::SDK::Services::Player::IPlaybackQueueService
+		public ref class ServicePlaybackQueue : public AimpBaseManager,  public IPlaybackQueueService
 		{
 		private:
 			IAIMPServicePlaybackQueue *_service;
+			AimpCheckUrl ^_checkUrlHandler;
 
 		public:
 			explicit ServicePlaybackQueue(ManagedAimpCore ^core) : AimpBaseManager(core)
@@ -34,7 +36,7 @@ namespace AIMP
 				IAIMPPlaybackQueueItem *item;
 				if (!CheckResult(_service->GetNextTrack(&item)))
 				{
-					return gcnew AimpPlaybackQueueItem(item);
+		//			return gcnew AimpPlaybackQueueItem(item);
 				}
 
 				return nullptr;
@@ -45,10 +47,31 @@ namespace AIMP
 				IAIMPPlaybackQueueItem *item;
 				if (!CheckResult(_service->GetPrevTrack(&item)))
 				{
-					return gcnew AimpPlaybackQueueItem(item);
+//					return gcnew AimpPlaybackQueueItem(item);
 				}
 
 				return nullptr;
+			}
+
+			virtual event AimpCheckUrl ^OnCheckURL
+			{
+				void add(AimpCheckUrl ^onEvent)
+				{
+					bool tmp = _checkUrlHandler == nullptr;
+					if (tmp)
+					{
+						_checkUrlHandler = (AimpCheckUrl^)System::Delegate::Combine(_checkUrlHandler, onEvent);
+					}
+				}
+
+				void remove(AimpCheckUrl ^onEvent)
+				{
+					bool tmp = _checkUrlHandler != nullptr;
+					if (tmp)
+					{
+						_checkUrlHandler = (AimpCheckUrl^)System::Delegate::Remove(_checkUrlHandler, onEvent);
+					}
+				}
 			}
 		};
 	}

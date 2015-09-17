@@ -35,8 +35,8 @@ namespace AIMP
 
 			~AlbumArtManager()
 			{
-				delete this->_service;
-				delete this->_properties;
+				_service->Release();
+				_properties->Release();
 				delete this->_findCallback;
 			}
 

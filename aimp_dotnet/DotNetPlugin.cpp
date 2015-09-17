@@ -33,14 +33,16 @@ HRESULT WINAPI DotNetPlugin::Initialize(AIMP36SDK::IAIMPCore* core)
 	System::Diagnostics::Debug::WriteLine("BEGIN: Initialize DotNet plugin");
 
 	_managedCore = gcnew AIMP::SDK360::ManagedAimpCore(core);
-	_managedExtension = gcnew ManagedFunctionality(core);
+	_managedExtension = gcnew ManagedFunctionality(core, _managedCore);
 	_configurationManager = gcnew AIMP::ConfigurationManager(_managedCore);
 
 	LoadExtensions(core);
 
 	if (_configurationManager->GetValueAsInt32("AimpDotNet\\Settings\\DebugMode") == 1)
 	{
-		AIMP::SDK::InternalLogger::Instance->Initialize(_managedCore->GetPath(AIMP::SDK::AimpMessages::AimpCorePathType::AIMP_CORE_PATH_PROFILE), "aimp_dotnet.log");
+		String ^path;
+		_managedCore->GetPath(AIMP::SDK::AimpMessages::AimpCorePathType::AIMP_CORE_PATH_PROFILE, path);
+		AIMP::SDK::InternalLogger::Instance->Initialize(path, "aimp_dotnet.log");
 	}
 
 	_pluginState = gcnew AIMP::SDK::PluginStateSaver(_configurationManager);

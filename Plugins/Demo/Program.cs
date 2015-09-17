@@ -25,6 +25,10 @@ namespace TestPlugin
 
         public override void Initialize()
         {
+            Player.Core.CoreMessage += (param1, param2) =>
+                {
+                    System.Diagnostics.Debug.WriteLine("Demo plugin: Player.Core.CoreMessage");
+                };
             _demoForm = new Form1(Player);
             
             var menuItem = new StandartMenuItem("Demo plugin");

@@ -1,6 +1,4 @@
-﻿using AIMP.SDK.Services.PlaybackManager;
-
-namespace AIMP.SDK.Services.Playback
+﻿namespace AIMP.SDK.Services.Playback
 {
     public interface IPlaybackQueueService : IExtensionPlayerHook
     {

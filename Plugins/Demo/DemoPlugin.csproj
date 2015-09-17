@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Aimp\AIMP3.60\Plugins\aimp_dotnet\demo\</OutputPath>
+    <OutputPath>..\..\..\..\Aimp\AIMP3.60\Plugins\aimp_dotnet\demo\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
