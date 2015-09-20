@@ -71,8 +71,6 @@ namespace AIMP
 
 			void UnregisterExtension(IUnknown* extension);
 
-			void CheckResult(HRESULT result);
-
 			static AIMP36SDK::IAIMPCore* GetAimpCore();
 
 			HRESULT ShowNotification(bool autoHide, String ^notification);

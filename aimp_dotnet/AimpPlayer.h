@@ -193,6 +193,7 @@ namespace AIMP
 		{
 			IPlaybackQueueService ^get()
 			{
+				System::Diagnostics::Debug::WriteLine("Get PlaybackQueueManager");
 				if (_playbackQueueManager == nullptr)
 				{
 					_playbackQueueManager = gcnew AIMP::SDK::ServicePlaybackQueue((ManagedAimpCore^) _managedAimpCore);
@@ -206,13 +207,7 @@ namespace AIMP
 		bool OnCheckUrl(String ^url)
 		{
 			System::Diagnostics::Debug::WriteLine("OnCheckUrl: " + url);
-			//AIMP::SDK::Services::Playback::AimpCheckUrl ^tmp = this->_checkUrl;
-			//if (tmp != nullptr)
-			//{
-			//	return tmp(url);
-			//}
-
-			return false;
+			return ((AIMP::SDK::ServicePlaybackQueue^)this->_playbackQueueManager)->RaiseCheckUrl(url);
 		}
 
 		virtual property AIMP36SDK::IAIMPServicePlayer* ServicePlayer
