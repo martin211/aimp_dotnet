@@ -73,6 +73,15 @@ namespace AIMP
 					}
 				}
 			}
+		internal:
+			bool RaiseCheckUrl(String^ url)
+			{
+				bool tmp = this->_checkUrlHandler != nullptr;
+				if (tmp)
+				{
+					return _checkUrlHandler(url);
+				}
+			}
 		};
 	}
 }
