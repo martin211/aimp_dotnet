@@ -51,7 +51,7 @@ class IAIMPPlaybackQueueItem: public IAIMPPropertyList
 class IAIMPExtensionPlayerHook: public IUnknown
 {
 	public:
-		virtual HRESULT WINAPI OnCheckURL(IAIMPString* URL, BOOL **Handled) = 0;
+		virtual HRESULT WINAPI OnCheckURL(IAIMPString* URL, BOOL *Handled) = 0;
 };
 
 /* IAIMPExtensionPlaybackQueue */

@@ -266,15 +266,18 @@ public:
 		return _main->Release();
 	}
 
-	virtual HRESULT WINAPI OnCheckURL(IAIMPString* URL, BOOL **Handled)
+	virtual HRESULT WINAPI OnCheckURL(IAIMPString* URL, BOOL *Handled)
 	{
-		if (_main->_managedCore->OnCheckUrl(AIMP::ObjectHelper::GetString(URL)))
+		String ^url = AIMP::ObjectHelper::GetString(URL);
+		if (_main->_managedCore->OnCheckUrl(url))
 		{
-			Handled = (BOOL**)true;
+			pin_ptr<const WCHAR> strData = PtrToStringChars(url);
+			URL->SetData((PWCHAR)strData, url->Length);
+			*Handled = TRUE;
 		}
 		else
 		{
-			Handled = (BOOL**)false;
+			*Handled = FALSE;
 		}
 
 		return S_OK;

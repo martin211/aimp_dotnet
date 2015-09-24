@@ -13,9 +13,8 @@ namespace AIMP
 	{
 		using namespace System;
 		using namespace System::Runtime::InteropServices;
-
 		using namespace AIMP36SDK;
-		
+
 		class AIMPMessageHook : public AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPMessageHook>
 		{
 		public:
@@ -67,7 +66,7 @@ namespace AIMP
 			pathResult = gcnew System::String(std::wstring(path->GetData(), path->GetLength()).c_str());
 			return AIMP::SDK::Services::ActionResult::Ok;
 		}
-		
+
 		/// <summary>
 		/// Registers the extension.
 		/// </summary>
@@ -92,7 +91,7 @@ namespace AIMP
 		/// <param name="param2">The param2.</param>
 		void ManagedAimpCore::OnCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2)
 		{			
-			CoreMessage(param1, param2);			
+			CoreMessage(param1, param2);
 		}
 
 		void ManagedAimpCore::OnPlaylistActivated(AIMP36SDK::IAIMPPlaylist *playlist)
@@ -116,7 +115,7 @@ namespace AIMP
 			pl = nullptr;
 		}
 
-		bool ManagedAimpCore::OnCheckUrl(String ^url)
+		bool ManagedAimpCore::OnCheckUrl(String^ %url)
 		{
 			return this->CheckUrl(url);
 		}
@@ -140,8 +139,8 @@ namespace AIMP
 		/// <returns></returns>
 		HRESULT ManagedAimpCore::GetService(REFIID iid, void** service)
 		{
-			return _core->QueryInterface(iid, service);			
-		}			
+			return _core->QueryInterface(iid, service);
+		}
 
 		IUnknown* ManagedAimpCore::QueryInterface(REFIID iid)
 		{
@@ -154,7 +153,7 @@ namespace AIMP
 
 			return service;
 		}
-			
+
 		/// <summary>
 		/// Creates the action event.
 		/// </summary>
@@ -187,7 +186,7 @@ namespace AIMP
 			IAIMPString *str = ObjectHelper::MakeAimpString(_core, notification);
 			return _messageDispatcher->Send((DWORD)AIMP::SDK::AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION, autoHide ? 0 : 1, str->GetData());
 		}
-		
+
 		/// <summary>
 		/// Creates the new AIMP stream.
 		/// </summary>
