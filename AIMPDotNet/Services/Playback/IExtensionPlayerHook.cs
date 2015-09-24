@@ -1,6 +1,6 @@
 ﻿namespace AIMP.SDK.Services.Playback
 {
-    public delegate bool AimpCheckUrl(string url);
+    public delegate bool AimpCheckUrl(ref string url);
 
     public interface IExtensionPlayerHook
     {

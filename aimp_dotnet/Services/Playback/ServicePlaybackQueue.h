@@ -74,7 +74,7 @@ namespace AIMP
 				}
 			}
 		internal:
-			bool RaiseCheckUrl(String^ url)
+			bool RaiseCheckUrl(String^ %url)
 			{
 				bool tmp = this->_checkUrlHandler != nullptr;
 				if (tmp)

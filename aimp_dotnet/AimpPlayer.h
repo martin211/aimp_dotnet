@@ -204,9 +204,8 @@ namespace AIMP
 			}
 		}
 
-		bool OnCheckUrl(String ^url)
+		bool OnCheckUrl(String^ %url)
 		{
-			System::Diagnostics::Debug::WriteLine("OnCheckUrl: " + url);
 			return ((AIMP::SDK::ServicePlaybackQueue^)this->_playbackQueueManager)->RaiseCheckUrl(url);
 		}
 
@@ -471,7 +470,7 @@ namespace AIMP
 			}			
 		}
 
-		bool onCheckUrl(String ^url);
+		//bool onCheckUrl([Runtime::InteropServices::Out] String^ %url);
 	};
 
 	private ref class AIMPControllerInitializer : public System::MarshalByRefObject

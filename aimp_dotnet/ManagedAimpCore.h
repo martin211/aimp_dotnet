@@ -28,9 +28,9 @@ namespace AIMP
 		/// Wrapper on IAIMPCore interface.
 		/// </summary>
 		public ref class ManagedAimpCore
-		{		
-			
-		public:			
+		{
+
+		public:
 			/// <summary>
 			/// Initializes a new instance of the <see cref="ManagedAimpCore"/> class.
 			/// </summary>
@@ -44,7 +44,7 @@ namespace AIMP
 			
 			virtual AIMP::SDK::Services::ActionResult GetPath(AimpMessages::AimpCorePathType pathType, String ^%path);
 
-			virtual HRESULT SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj);			
+			virtual HRESULT SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj);
 			
 			//virtual bool RegisterExtension(Guid extensionId, IUnknown* extension);
 			
@@ -83,20 +83,17 @@ namespace AIMP
 
 			void OnPlayListRemoved(AIMP36SDK::IAIMPPlaylist *playlist);
 
-			bool OnCheckUrl(String ^url);
+			bool OnCheckUrl(String^ %url);
 
 		private:
-			static IAIMPCore* _core;			
+			static IAIMPCore* _core;
 			EventHelper* _nativeEventHelper;
 			Callback* _coreMessageCallback;
 			Callback* _playListActivatedCallback;
-
 			AIMP36SDK::IAIMPServiceMessageDispatcher* _messageDispatcher;
-			IAIMPMessageHook* _hook;			
-
+			IAIMPMessageHook* _hook;
 			List<AimpEventsDelegate^> ^_coreMessage;
 			List<AIMP::SDK::Extensions::PlayListHandler^> ^_playListActivatedHandlers;
-
 			
 			AIMP::SDK::Extensions::PlayListHandler ^_playlistAdded;
 			AIMP::SDK::Extensions::PlayListHandler ^_playlistRemoved;
