@@ -144,10 +144,9 @@ public:
 	}
 
 	virtual HRESULT WINAPI GetName(AIMP36SDK::IAIMPString **S)
-	{	
-		AIMP36SDK::IAIMPString **strObject = NULL;
+	{
 		AIMP36SDK::IAIMPString *Str = AIMP::ObjectHelper::MakeAimpString(_core->GetAimpCore(), "DotNet Plugins");
-		S = &Str;
+		*S = Str;
 		return S_OK;
 	}
 
@@ -161,8 +160,6 @@ public:
 
 		gcroot<AIMP::SDK::PluginSettings^> settings = _main->GetPluginSettings();
 
-		
-
 		_settingForm->Settings = settings;
 		_settingForm->ReloadSettings();
 		_settingForm->Show();
@@ -174,7 +171,7 @@ public:
 	{
 		_main->SavePluginOptions();
 		_settingForm->Close();
-		_settingForm = NULL;		
+		_settingForm = NULL;
 	}
 
 	virtual void WINAPI Notification(int ID)
@@ -216,7 +213,7 @@ public:
 
 	virtual ULONG WINAPI AddRef(void)
 	{
-		return _main->AddRef();		
+		return _main->AddRef();
 	}
 
 	virtual ULONG WINAPI Release(void)
@@ -225,7 +222,7 @@ public:
 	}
 
 	virtual void WINAPI PlaylistActivated(AIMP36SDK::IAIMPPlaylist *playlist)
-	{		
+	{
 		_main->_managedCore->OnPlaylistActivated(playlist);
 	}
 
