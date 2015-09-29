@@ -19,10 +19,10 @@ namespace AIMP
 		using namespace AIMP36SDK::Core;
 		using namespace AIMP::SDK::Services::ConfigurationManager;
 
-		public ref class ConfigurationManager : public AimpBaseManager, public IConfigurationManager
+		public ref class AimpConfigurationManager : public AimpBaseManager, public IAimpConfigurationManager
 		{
 		public:
-			explicit ConfigurationManager(ManagedAimpCore^ core) : AimpBaseManager(core)
+			explicit AimpConfigurationManager(ManagedAimpCore^ core) : AimpBaseManager(core)
 			{
 				IAIMPServiceConfig* service;
 				core->GetService(IID_IAIMPServiceConfig, (void**) &service);

@@ -10,7 +10,7 @@ namespace AIMP
 		using namespace System;
 		using namespace AIMP36SDK;
 		
-		public ref class AimpPlaybackQueueItem : public AimpObject<AIMP36SDK::IAIMPPlaybackQueueItem>, public AIMP::SDK::Services::Playback::IPlaybackQueueItem
+		public ref class AimpPlaybackQueueItem : public AimpObject<AIMP36SDK::IAIMPPlaybackQueueItem>, public AIMP::SDK::Services::Playback::IAimpPlaybackQueueItem
 		{
 		public:
 			explicit AimpPlaybackQueueItem(AIMP36SDK::IAIMPPlaybackQueueItem *aimpItem) : AimpObject(aimpItem)
@@ -22,7 +22,7 @@ namespace AIMP
 				{
 					IUnknown *item;
 					InternalAimpObject->GetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_CUSTOM, IID_IUnknown, (void**) &item);
-					return System::Runtime::InteropServices::Marshal::GetObjectForIUnknown(IntPtr(item));					
+					return System::Runtime::InteropServices::Marshal::GetObjectForIUnknown(IntPtr(item));
 				}
 				void set(Object^ value)
 				{

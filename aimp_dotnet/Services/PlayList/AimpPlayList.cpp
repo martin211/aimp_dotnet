@@ -26,14 +26,14 @@ namespace AIMP
 				if (_listner != nullptr)
 				{
 					InternalAimpObject->ListenerRemove(_listner);
-					_listner->Release();					
+					_listner->Release();
 				}
 
 				_properties->Release();
 			}
 
 			String ^AimpPlayList::Id::get()
-			{				
+			{
 				return ObjectHelper::GetString(_properties, AIMP_PLAYLIST_PROPID_ID);
 			}
 
@@ -287,19 +287,19 @@ namespace AIMP
 			}
 
 
-			ActionResult AimpPlayList::Add(AIMP::SDK::Services::PlayListManager::IAimpFileInfo^ fileInfo, AIMP::SDK::Services::PlayListManager::PlayListFlags flags, AIMP::SDK::Services::PlayListManager::PlayListFilePosition filePosition)
+			AimpActionResult AimpPlayList::Add(IAimpFileInfo^ fileInfo, PlayListFlags flags, PlayListFilePosition filePosition)
 			{
 				return CheckResult(InternalAimpObject->Add(((AimpFileInfo^)fileInfo)->InternalAimpObject, (DWORD)((int)flags), (int)filePosition));
 				//CheckResult(InternalAimpObject->Add(((AimpFileInfo^)fileInfo)->InternalAimpObject, AIMP36SDK::AIMP_PLAYLIST_ADD_FLAGS_FILEINFO, 0));
 			}
 
-			ActionResult AimpPlayList::Add(String^ fileUrl, PlayListFlags flags, PlayListFilePosition filePosition)
+			AimpActionResult AimpPlayList::Add(String^ fileUrl, PlayListFlags flags, PlayListFilePosition filePosition)
 			{
 				AIMP36SDK::IAIMPString *url = ObjectHelper::MakeAimpString(AIMP::SDK360::ManagedAimpCore::GetAimpCore(), fileUrl);
 				return CheckResult(InternalAimpObject->Add(url, (DWORD)flags, (int)filePosition));
 			}
 
-			ActionResult AimpPlayList::AddList(System::Collections::Generic::IList<IAimpFileInfo^>^ fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition)
+			AimpActionResult AimpPlayList::AddList(System::Collections::Generic::IList<IAimpFileInfo^>^ fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition)
 			{
 				if (fileUrlList->Count > 0)
 				{
@@ -313,47 +313,47 @@ namespace AIMP
 					return CheckResult(InternalAimpObject->AddList(list, (DWORD) flags, (int) filePosition));
 				}
 
-				return ActionResult::Ok;
+				return AimpActionResult::Ok;
 			}
 
-			ActionResult AimpPlayList::AddList(IList<String^>^ fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition)
+			AimpActionResult AimpPlayList::AddList(IList<String^>^ fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition)
 			{
 				if (fileUrlList->Count > 0)
 				{
 					AIMP36SDK::IAIMPObjectList *list;
 					AIMP::SDK360::ManagedAimpCore::GetAimpCore()->CreateObject(AIMP36SDK::IID_IAIMPObjectList, (void**) &list);
 					for each (String ^file in fileUrlList)
-					{						
+					{
 						list->Add(ObjectHelper::MakeAimpString(AIMP::SDK360::ManagedAimpCore::GetAimpCore(), file));
 					}
 
 					return CheckResult(InternalAimpObject->AddList(list, (DWORD) flags, (int) filePosition));
 				}
 
-				return ActionResult::Ok;
+				return AimpActionResult::Ok;
 			}
 
-			ActionResult AimpPlayList::Delete(IAimpPlayListItem ^item)
+			AimpActionResult AimpPlayList::Delete(IAimpPlayListItem ^item)
 			{
 				return CheckResult(InternalAimpObject->Delete(((AimpPlayListItem^)item)->InternalAimpObject));
 			}
 
-			ActionResult AimpPlayList::Delete(int index)
+			AimpActionResult AimpPlayList::Delete(int index)
 			{
 				return CheckResult(InternalAimpObject->Delete2(index));
 			}
 
-			ActionResult AimpPlayList::DeleteAll()
+			AimpActionResult AimpPlayList::DeleteAll()
 			{
-				return CheckResult(InternalAimpObject->DeleteAll());				
+				return CheckResult(InternalAimpObject->DeleteAll());
 			}
 
-			ActionResult AimpPlayList::Sort(AIMP::SDK::Services::PlayListManager::PlayListSort sort)
+			AimpActionResult AimpPlayList::Sort(PlayListSort sort)
 			{
 				return CheckResult(InternalAimpObject->Sort((int)sort));
 			}
 
-			ActionResult AimpPlayList::Sort(Func<IAimpPlayListItem^, IAimpPlayListItem^, PlayListSortComapreResult>^ compareFunc)
+			AimpActionResult AimpPlayList::Sort(Func<IAimpPlayListItem^, IAimpPlayListItem^, PlayListSortComapreResult>^ compareFunc)
 			{
 				_compareFunc = compareFunc;
 				_sortCallback = gcnew OnSortCallback(this, &AIMP::SDK::PlayList::AimpPlayList::OnSortReceive);
@@ -361,17 +361,17 @@ namespace AIMP
 				return CheckResult(InternalAimpObject->Sort3((AIMP36SDK::TAIMPPlaylistCompareProc(_stdcall*))functionHandle.ToPointer(), NULL));
 			}
 
-			ActionResult AimpPlayList::BeginUpdate()
+			AimpActionResult AimpPlayList::BeginUpdate()
 			{
 				return CheckResult(InternalAimpObject->BeginUpdate());
 			}
 
-			ActionResult AimpPlayList::EndUpdate()
+			AimpActionResult AimpPlayList::EndUpdate()
 			{
 				return CheckResult(InternalAimpObject->EndUpdate());
 			}
 
-			ActionResult AimpPlayList::Close(AIMP::SDK::Services::PlayListManager::PlayListCloseFlag closeFlag)
+			AimpActionResult AimpPlayList::Close(PlayListCloseFlag closeFlag)
 			{
 				return CheckResult(InternalAimpObject->Close((DWORD)closeFlag));
 			}
@@ -390,18 +390,18 @@ namespace AIMP
 					{
 						result->Add(ObjectHelper::GetString(str));
 						str->Release();
-					}					
+					}
 				}
 
 				return result;
 			}
 
-			ActionResult AimpPlayList::ReloadFromPreimage()
+			AimpActionResult AimpPlayList::ReloadFromPreimage()
 			{
 				return CheckResult(InternalAimpObject->ReloadFromPreimage());
 			}
 
-			ActionResult AimpPlayList::ReloadInfo(bool fullReload)
+			AimpActionResult AimpPlayList::ReloadInfo(bool fullReload)
 			{
 				return CheckResult(InternalAimpObject->ReloadInfo(fullReload));
 			}
@@ -448,7 +448,7 @@ namespace AIMP
 				This->Activated(This);
 			}
 
-			void AimpPlayList::Activated::add(AIMP::Services::PlayListManager::PlayListHandler ^onEvent)
+			void AimpPlayList::Activated::add(AimpPlayListHandler ^onEvent)
 			{
 				RegisterListner();
 				bool tmp = _onActivated != nullptr;
@@ -456,36 +456,35 @@ namespace AIMP
 				{
 					_activatedCallback = new AIMP::ConnectionCallback;
 					*_activatedCallback = _listner->RegisterActivatedCallback(boost::bind(ActivatedCallback, gcroot<AimpPlayList^>(this)));
-					_onActivated = (AIMP::Services::PlayListManager::PlayListHandler^)Delegate::Combine(_onActivated, onEvent);
+					_onActivated = (AimpPlayListHandler^)Delegate::Combine(_onActivated, onEvent);
 				}
 			}
 
-			void AimpPlayList::Activated::remove(AIMP::Services::PlayListManager::PlayListHandler ^onEvent)
+			void AimpPlayList::Activated::remove(AimpPlayListHandler ^onEvent)
 			{
 				bool tmp = _onActivated != nullptr;
 				if (tmp)
 				{
-					_onActivated = (AIMP::Services::PlayListManager::PlayListHandler^)Delegate::Remove(_onActivated, onEvent);
+					_onActivated = (AimpPlayListHandler^)Delegate::Remove(_onActivated, onEvent);
 					_listner->UregisterActivatedCallback(_activatedCallback);
-				}				
+				}
 			}
 
 			void AimpPlayList::Activated::raise(IAimpPlayList ^sender)
 			{
-				AIMP::Services::PlayListManager::PlayListHandler ^tmp = this->_onActivated;
+				AimpPlayListHandler ^tmp = this->_onActivated;
 				if (tmp != nullptr)
 				{
 					_onActivated(sender);
 				}
 			}
 
-
 			void RemovedCallback(gcroot<AimpPlayList^> This)
 			{
 				This->Activated(This);
 			}
 
-			void AimpPlayList::Removed::add(AIMP::Services::PlayListManager::PlayListHandler ^onEvent)
+			void AimpPlayList::Removed::add(AimpPlayListHandler ^onEvent)
 			{
 				RegisterListner();
 				bool tmp = _onRemoved != nullptr;
@@ -493,29 +492,28 @@ namespace AIMP
 				{
 					_removedCallBack = new AIMP::ConnectionCallback;
 					*_removedCallBack = _listner->RegisterRemovedCallback(boost::bind(RemovedCallback, gcroot<AimpPlayList^>(this)));
-					_onRemoved = (AIMP::Services::PlayListManager::PlayListHandler^)Delegate::Combine(_onRemoved, onEvent);
+					_onRemoved = (AimpPlayListHandler^)Delegate::Combine(_onRemoved, onEvent);
 				}
 			}
 
-			void AimpPlayList::Removed::remove(AIMP::Services::PlayListManager::PlayListHandler ^onEvent)
+			void AimpPlayList::Removed::remove(AimpPlayListHandler ^onEvent)
 			{
 				bool tmp = _onRemoved != nullptr;
 				if (tmp)
 				{
-					_onRemoved = (AIMP::Services::PlayListManager::PlayListHandler^)Delegate::Remove(_onRemoved, onEvent);
+					_onRemoved = (AimpPlayListHandler^)Delegate::Remove(_onRemoved, onEvent);
 					_listner->UnregisterRemoveCallback(_removedCallBack);
 				}
 			}
 
 			void AimpPlayList::Removed::raise(IAimpPlayList ^sender)
 			{
-				AIMP::Services::PlayListManager::PlayListHandler ^tmp = this->_onRemoved;
+				AimpPlayListHandler ^tmp = this->_onRemoved;
 				if (tmp != nullptr)
 				{
 					_onRemoved(sender);
 				}
 			}
-
 
 			void ChangedCallback(gcroot<AimpPlayList^> This, int notifyType)
 			{
@@ -540,18 +538,17 @@ namespace AIMP
 				{
 					_onChanged = (PlayListChangedHandler^)Delegate::Remove(_onChanged, onEvent);
 					_listner->UnregisterChangedCallback(_changedCallBack);
-				}				
+				}
 			}
 
 			void AimpPlayList::Changed::raise(IAimpPlayList^ sender, PlayListNotifyType notifyType)
 			{
-				AIMP::Services::PlayListManager::PlayListChangedHandler ^tmp = this->_onChanged;
+				AIMP::Services::PlayList::PlayListChangedHandler ^tmp = this->_onChanged;
 				if (tmp != nullptr)
 				{
 					_onChanged(sender, notifyType);
 				}
 			}
-
 
 			void AimpPlayList::GetPropertyList()
 			{

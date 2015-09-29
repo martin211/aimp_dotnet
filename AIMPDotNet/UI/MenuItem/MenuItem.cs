@@ -111,6 +111,16 @@ namespace AIMP.SDK.UI.MenuItem
             ChildItems.Add(this, item);
         }
 
+        public void InsertSubItem(MenuItem item, int index)
+        {
+            if (index < 0 || index > ChildItems.Count)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            
+            ChildItems.InsertItem(index, item);
+        }
+
         public IntPtr AimpMenuItemHeader { get; set; }
 
         /// <summary>

@@ -57,6 +57,11 @@ namespace AIMP.SDK.UI
             ((ICollection<T>)this).Add(item);
         }
 
+        internal void InsertItem(int index, T item)
+        {
+            Insert(index, item);
+        }
+
         /// <summary>
         /// Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1"/>.
         /// </summary>
@@ -64,6 +69,11 @@ namespace AIMP.SDK.UI
         void ICollection<T>.Add(T item)
         {
             Items.Add(item);
+        }
+
+        void Insert(int index, T item)
+        {
+            Items.Insert(index, item);
         }
 
         /// <summary>

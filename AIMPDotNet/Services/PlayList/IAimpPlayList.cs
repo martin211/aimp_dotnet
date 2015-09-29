@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace AIMP.SDK.Services.PlayListManager
+﻿namespace AIMP.SDK.Services.PlayList
 {
+    using System;
+    using System.Collections.Generic;
+
     [Flags]
     public enum PlayListFlags
     {
@@ -120,13 +120,13 @@ namespace AIMP.SDK.Services.PlayListManager
 
     public delegate void PlayListChangedHandler(IAimpPlayList sender, PlayListNotifyType notifType);
 
-    public delegate void PlayListHandler(IAimpPlayList sender);
+    public delegate void AimpPlayListHandler(IAimpPlayList sender);
 
     public interface IAimpPlayList
     {
-        event PlayListHandler Activated;
+        event AimpPlayListHandler Activated;
 
-        event PlayListHandler Removed;
+        event AimpPlayListHandler Removed;
 
         event PlayListChangedHandler Changed;
 
@@ -195,43 +195,43 @@ namespace AIMP.SDK.Services.PlayListManager
 
         string PreImage { get; set; }
 
-        ActionResult Add(string fileUrl, PlayListFlags flags, PlayListFilePosition filePosition);
+        AimpActionResult Add(string fileUrl, PlayListFlags flags, PlayListFilePosition filePosition);
 
-        ActionResult Add(IAimpFileInfo fileInfo, PlayListFlags flags, PlayListFilePosition filePosition);
+        AimpActionResult Add(IAimpFileInfo fileInfo, PlayListFlags flags, PlayListFilePosition filePosition);
 
-        ActionResult AddList(IList<string> fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition);
+        AimpActionResult AddList(IList<string> fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition);
 
-        ActionResult AddList(IList<IAimpFileInfo> fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition);
+        AimpActionResult AddList(IList<IAimpFileInfo> fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition);
 
-        ActionResult Delete(IAimpPlayListItem item);
+        AimpActionResult Delete(IAimpPlayListItem item);
 
-        ActionResult Delete(int index);
+        AimpActionResult Delete(int index);
 
         // TODO: implement Delete3
         //void Delete(bool physically);
 
-        ActionResult DeleteAll();
+        AimpActionResult DeleteAll();
 
-        ActionResult Sort(PlayListSort sort);
+        AimpActionResult Sort(PlayListSort sort);
 
-        ActionResult Sort(Func<IAimpPlayListItem, IAimpPlayListItem, PlayListSortComapreResult> compareFunc);
+        AimpActionResult Sort(Func<IAimpPlayListItem, IAimpPlayListItem, PlayListSortComapreResult> compareFunc);
 
         //TODO: implement Sort2, Sort3
         //void Sort();
 
-        ActionResult BeginUpdate();
+        AimpActionResult BeginUpdate();
 
-        ActionResult EndUpdate();
+        AimpActionResult EndUpdate();
 
-        ActionResult Close(PlayListCloseFlag closeFlag);
+        AimpActionResult Close(PlayListCloseFlag closeFlag);
 
         IList<string> GetFiles(PlayListGetFilesFlag filesFlag);
 
         // TODO: Add MergeGroup
 
-        ActionResult ReloadFromPreimage();
+        AimpActionResult ReloadFromPreimage();
 
-        ActionResult ReloadInfo(bool fullReload);
+        AimpActionResult ReloadInfo(bool fullReload);
 
         IAimpPlayListItem GetItem(int index);
 

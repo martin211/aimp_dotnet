@@ -11,10 +11,10 @@ namespace AIMP
 		using namespace AIMP::SDK::Services::ActionManager;
 		using namespace AIMP::SDK360;
 
-		public ref class ActionManager : public AimpBaseManager, public IActionManager
+		public ref class AimpActionManager : public AimpBaseManager, public IAimpActionManager
 		{
 		public:
-			explicit ActionManager(ManagedAimpCore^ core);
+			explicit AimpActionManager(ManagedAimpCore^ core);
 
 			virtual void Add(AimpActionItem^ action);
 

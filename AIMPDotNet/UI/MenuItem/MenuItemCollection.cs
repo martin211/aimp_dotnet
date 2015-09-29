@@ -18,22 +18,22 @@ namespace AIMP.SDK.UI.MenuItem
             OnItemAdded(parent, item);
         }
 
+        internal void Insert(int index, MenuItem parent, MenuItem item)
+        {
+            InsertItem(index, item);
+            OnItemAdded(parent, item);
+        }
+
         internal void OnItemAdded(MenuItem parent, MenuItem item)
         {
             var tmp = Interlocked.CompareExchange(ref ItemAdded, null, null);
-            if (tmp != null)
-            {
-                tmp(parent, item);
-            }
+            tmp?.Invoke(parent, item);
         }
 
         internal void OnItemDeleted(MenuItem item)
         {
             var tmp = Interlocked.CompareExchange(ref ItemDeleted, null, null);
-            if (tmp != null)
-            {
-                tmp(item);
-            }
+            tmp?.Invoke(item);
         }
     }
 }

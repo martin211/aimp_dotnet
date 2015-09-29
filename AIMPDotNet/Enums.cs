@@ -325,7 +325,7 @@
         }
     }
 
-    public enum PlayerState
+    public enum AimpPlayerState
     {
         Stopped,
 

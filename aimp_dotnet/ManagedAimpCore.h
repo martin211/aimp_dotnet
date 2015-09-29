@@ -16,11 +16,11 @@ namespace AIMP
 		using namespace System;
 		using namespace System::Collections::Generic;
 
+		using namespace AIMP36SDK;
 		using namespace AIMP::SDK;
 		using namespace AIMP::SDK::Interfaces;
 		using namespace AIMP::SDK::Extensions;
-		using namespace AIMP36SDK;		
-		using namespace AIMP::SDK::Services::PlayListManager;
+		using namespace AIMP::SDK::Services::PlayList;
 
 		delegate void ChangeHandler(AimpMessages::AimpCoreMessageType, int);
 
@@ -42,7 +42,7 @@ namespace AIMP
 			/// </summary>
 			~ManagedAimpCore();
 			
-			virtual AIMP::SDK::Services::ActionResult GetPath(AimpMessages::AimpCorePathType pathType, String ^%path);
+			virtual AIMP::SDK::Services::AimpActionResult GetPath(AimpMessages::AimpCorePathType pathType, String ^%path);
 
 			virtual HRESULT SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj);
 			

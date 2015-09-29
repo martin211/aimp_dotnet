@@ -6,7 +6,7 @@
     /// <summary>
     /// Configuration manager.
     /// </summary>
-    public interface IConfigurationManager
+    public interface IAimpConfigurationManager
     {
         /// <summary>
         /// Deletes value or section from configuration file.

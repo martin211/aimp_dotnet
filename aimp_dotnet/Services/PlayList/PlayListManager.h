@@ -10,8 +10,9 @@ namespace AIMP
 
 		using namespace AIMP36SDK;
 		using namespace AIMP::SDK;
+		using namespace AIMP::SDK::Services::PlayList;
 
-		public ref class PlayListManager : public AimpBaseManager, public AIMP::SDK::Services::PlayListManager::IAimpPlayListManager, public IExtensionPlaylistManagerListener
+		public ref class PlayListManager : public AimpBaseManager, public IAimpPlayListManager, public IExtensionPlaylistManagerListener
 		{
 		private:
 			IAIMPServicePlaylistManager *_service;
@@ -185,7 +186,7 @@ namespace AIMP
 				return _service->GetLoadedPlaylistCount();
 			}
 
-			virtual void SetActivePlaylist(AIMP::SDK::Services::PlayListManager::IAimpPlayList^ playList)
+			virtual void SetActivePlaylist(IAimpPlayList^ playList)
 			{
 				CheckResult(_service->SetActivePlaylist(((AIMP::SDK::PlayList::AimpPlayList^)playList)->InternalAimpObject));
 			}

@@ -6,16 +6,17 @@ using AIMP.SDK.Services.ConfigurationManager;
 using AIMP.SDK.Services.MenuManager;
 using AIMP.SDK.Services.MUIManager;
 using AIMP.SDK.Services.Playback;
-using AIMP.SDK.Services.PlayListManager;
 using AIMP.SDK.Services.Win32Manager;
 
 namespace AIMP.SDK.Services.Player
 {
+    using AIMP.SDK.Services.PlayList;
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="state"></param>
-    public delegate void AimpStateChanged(PlayerState state);
+    public delegate void AimpStateChanged(AimpPlayerState state);
 
     /// <summary>
     /// Interface IAIMPPlayer
@@ -42,29 +43,29 @@ namespace AIMP.SDK.Services.Player
         /// <summary>
         /// Gets player menu manager.
         /// </summary>
-        IMenuManager MenuManager { get; }
+        IAimpMenuManager MenuManager { get; }
 
         /// <summary>
         /// Gets player action manager.
         /// </summary>
-        IActionManager ActionManager { get; }
+        IAimpActionManager ActionManager { get; }
 
         /// <summary>
         /// Gets the MUI manager.
         /// </summary>
         // ReSharper disable InconsistentNaming
-        IMUIManager MUIManager { get; }
+        IAimpMUIManager MUIManager { get; }
         // ReSharper restore InconsistentNaming
 
         /// <summary>
         /// Gets the album art manager.
         /// </summary>
-        IAlbumArtManager AlbumArtManager { get; }
+        IAimpAlbumArtManager AlbumArtManager { get; }
 
         /// <summary>
         /// Gets the configuration manager.
         /// </summary>
-        IConfigurationManager ConfigurationManager { get; }
+        IAimpConfigurationManager ConfigurationManager { get; }
 
         /// <summary>
         /// Gets the play list manager.
@@ -74,7 +75,7 @@ namespace AIMP.SDK.Services.Player
         /// <summary>
         /// Gets the playback queue manager.
         /// </summary>
-        IPlaybackQueueService PlaybackQueueManager { get; }
+        IAimpPlaybackQueueService PlaybackQueueManager { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the volume is mute.
@@ -101,10 +102,10 @@ namespace AIMP.SDK.Services.Player
         double Position { get; set; }
 
         /// <summary>
-        /// Gets the current player state <see cref="PlayerState"/>.
+        /// Gets the current player state <see cref="AimpPlayerState"/>.
         /// </summary>
         /// <value>The state.</value>
-        PlayerState State { get; }
+        AimpPlayerState State { get; }
 
         /// <summary>
         /// Gets the current playing file.
@@ -158,7 +159,7 @@ namespace AIMP.SDK.Services.Player
         /// Plays the specified queue item.
         /// </summary>
         /// <param name="queueItem">The queue item.</param>
-        void Play(IPlaybackQueueItem queueItem);
+        void Play(IAimpPlaybackQueueItem queueItem);
 
         /// <summary>
         /// Plays the specified play list item.

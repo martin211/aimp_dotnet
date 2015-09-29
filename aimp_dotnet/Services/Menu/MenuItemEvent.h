@@ -1,6 +1,6 @@
 #pragma once
 #include "..\..\AIMP_SDK\IUnknownInterfaceImpl.h"
-#include "ServiceMenuManager.h"
+#include "AimpMenuManager.h"
 
 namespace AIMP
 {

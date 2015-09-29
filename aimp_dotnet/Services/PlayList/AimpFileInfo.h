@@ -9,7 +9,7 @@ namespace AIMP
 	{
 		using namespace System;
 		using namespace AIMP36SDK;
-		using namespace AIMP::SDK::Services::PlayListManager;
+		using namespace AIMP::SDK::Services::PlayList;
 
 		public ref class AimpFileInfo : public AimpObject<AIMP36SDK::IAIMPFileInfo>, public IAimpFileInfo
 		{

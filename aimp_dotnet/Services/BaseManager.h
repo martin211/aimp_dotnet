@@ -19,7 +19,7 @@ namespace AIMP
 		protected:
 			bool CheckResult(HRESULT result)
 			{
-				if (Utils::CheckResult(result) == AIMP::SDK::Services::ActionResult::Ok)
+				if (Utils::CheckResult(result) == AIMP::SDK::Services::AimpActionResult::Ok)
 				{
 					return true;
 				}

@@ -1,6 +1,6 @@
 ﻿namespace AIMP.SDK.Services
 {
-    public enum ActionResult
+    public enum AimpActionResult
     {
         /// <summary>
         /// Operation completed.

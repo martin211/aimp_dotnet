@@ -18,7 +18,7 @@ namespace AIMP
 			using namespace System::Collections::Generic;
 
 			using namespace AIMP::SDK::Services;
-			using namespace AIMP::SDK::Services::PlayListManager;
+			using namespace AIMP::SDK::Services::PlayList;
 			
 			class AimpPlaylistListener : public IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlaylistListener>
 			{
@@ -50,12 +50,12 @@ namespace AIMP
 
 				void UnregisterRemoveCallback(ConnectionCallback *removedCallback)
 				{
-					_removed.disconnect(removedCallback);					
+					_removed.disconnect(removedCallback);
 				}
 
 				void UnregisterChangedCallback(ConnectionCallback *changedCallback)
 				{
-					_changed.disconnect(changedCallback);					
+					_changed.disconnect(changedCallback);
 				}
 
 				virtual void WINAPI Activated()
@@ -95,8 +95,8 @@ namespace AIMP
 				AIMP36SDK::IAIMPPropertyList *_properties;
 				Func<IAimpPlayListItem^, IAimpPlayListItem^, PlayListSortComapreResult>^ _compareFunc;
 				PlayListChangedHandler ^_onChanged;
-				AIMP::Services::PlayListManager::PlayListHandler ^_onActivated;
-				AIMP::Services::PlayListManager::PlayListHandler ^_onRemoved;
+				AimpPlayListHandler ^_onActivated;
+				AimpPlayListHandler ^_onRemoved;
 
 				AimpPlaylistListener *_listner;
 				ConnectionCallback *_activatedCallback;
@@ -112,7 +112,7 @@ namespace AIMP
 
 				virtual property String ^Id
 				{
-					String ^get();					
+					String ^get();
 				}
 
 				virtual property String ^Name
@@ -258,35 +258,35 @@ namespace AIMP
 				}
 
 			public:
-				virtual ActionResult Add(AIMP::SDK::Services::PlayListManager::IAimpFileInfo^ fileInfo, AIMP::SDK::Services::PlayListManager::PlayListFlags flags, AIMP::SDK::Services::PlayListManager::PlayListFilePosition filePosition);
+				virtual AimpActionResult Add(IAimpFileInfo^ fileInfo, PlayListFlags flags, PlayListFilePosition filePosition);
 
-				virtual ActionResult Add(System::String^ fileUrl, AIMP::SDK::Services::PlayListManager::PlayListFlags flags, AIMP::SDK::Services::PlayListManager::PlayListFilePosition filePosition);
+				virtual AimpActionResult Add(System::String^ fileUrl, PlayListFlags flags, PlayListFilePosition filePosition);
 				
-				virtual ActionResult AddList(System::Collections::Generic::IList<AIMP::SDK::Services::PlayListManager::IAimpFileInfo^>^ fileUrlList, AIMP::SDK::Services::PlayListManager::PlayListFlags flags, AIMP::SDK::Services::PlayListManager::PlayListFilePosition filePosition);
+				virtual AimpActionResult AddList(System::Collections::Generic::IList<IAimpFileInfo^>^ fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition);
 
-				virtual ActionResult AddList(System::Collections::Generic::IList<System::String^>^ fileUrlList, AIMP::SDK::Services::PlayListManager::PlayListFlags flags, AIMP::SDK::Services::PlayListManager::PlayListFilePosition filePosition);
+				virtual AimpActionResult AddList(System::Collections::Generic::IList<System::String^>^ fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition);
 
-				virtual ActionResult Delete(IAimpPlayListItem ^item);
+				virtual AimpActionResult Delete(IAimpPlayListItem ^item);
 
-				virtual ActionResult Delete(int index);
+				virtual AimpActionResult Delete(int index);
 
-				virtual ActionResult DeleteAll();
+				virtual AimpActionResult DeleteAll();
 
-				virtual ActionResult Sort(AIMP::SDK::Services::PlayListManager::PlayListSort sort);
+				virtual AimpActionResult Sort(PlayListSort sort);
 
-				virtual ActionResult Sort(System::Func<IAimpPlayListItem^, IAimpPlayListItem^, PlayListSortComapreResult>^ compareFunc);
+				virtual AimpActionResult Sort(System::Func<IAimpPlayListItem^, IAimpPlayListItem^, PlayListSortComapreResult>^ compareFunc);
 
-				virtual ActionResult BeginUpdate();
+				virtual AimpActionResult BeginUpdate();
 
-				virtual ActionResult EndUpdate();
+				virtual AimpActionResult EndUpdate();
 
-				virtual ActionResult Close(AIMP::SDK::Services::PlayListManager::PlayListCloseFlag closeFlag);
+				virtual AimpActionResult Close(PlayListCloseFlag closeFlag);
 
 				virtual System::Collections::Generic::IList<String^>^ GetFiles(PlayListGetFilesFlag filesFlag);
 
-				virtual ActionResult ReloadFromPreimage();
+				virtual AimpActionResult ReloadFromPreimage();
 
-				virtual ActionResult ReloadInfo(bool fullReload);
+				virtual AimpActionResult ReloadInfo(bool fullReload);
 
 				virtual IAimpPlayListItem ^GetItem(int index);
 
@@ -296,17 +296,17 @@ namespace AIMP
 
 				virtual int GetGroupCount();
 
-				virtual event AIMP::Services::PlayListManager::PlayListHandler ^Activated
+				virtual event AimpPlayListHandler ^Activated
 				{
-					void add(AIMP::Services::PlayListManager::PlayListHandler ^onEvent);
-					void remove(AIMP::Services::PlayListManager::PlayListHandler ^onEvent);
+					void add(AimpPlayListHandler ^onEvent);
+					void remove(AimpPlayListHandler ^onEvent);
 					void raise(IAimpPlayList ^sender);
 				}
 
-				virtual event AIMP::Services::PlayListManager::PlayListHandler ^Removed
+				virtual event AimpPlayListHandler ^Removed
 				{
-					void add(AIMP::Services::PlayListManager::PlayListHandler ^onEvent);
-					void remove(AIMP::Services::PlayListManager::PlayListHandler ^onEvent);
+					void add(AimpPlayListHandler ^onEvent);
+					void remove(AimpPlayListHandler ^onEvent);
 					void raise(IAimpPlayList ^sender);
 				}
 
@@ -318,7 +318,7 @@ namespace AIMP
 				}
 
 			private:
-				void GetPropertyList();				
+				void GetPropertyList();
 				void RegisterListner();
 
 				delegate int OnSortCallback(AIMP36SDK::IAIMPPlaylistItem* item1, AIMP36SDK::IAIMPPlaylistItem* item2, void* userData);

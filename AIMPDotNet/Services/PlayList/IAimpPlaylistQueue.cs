@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace AIMP.SDK.Services.PlayListManager
+﻿namespace AIMP.SDK.Services.PlayList
 {
+    using System.Collections.Generic;
+
     public interface IAimpPlayListQueue
     {
         bool IsSuspended { get; set; }

@@ -45,7 +45,7 @@ namespace AIMP
 			virtual String^ GetPath(AimpMessages::AimpCorePathType pathType)
 			{
 				String ^path;
-				if (_aimpCore->GetPath(pathType, path) == AIMP::SDK::Services::ActionResult::Ok)
+				if (_aimpCore->GetPath(pathType, path) == AIMP::SDK::Services::AimpActionResult::Ok)
 				{
 					return path;
 				}
@@ -53,7 +53,7 @@ namespace AIMP
 				return String::Empty;
 			}
 
-			virtual AIMP::SDK::Services::ActionResult SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj)
+			virtual AIMP::SDK::Services::AimpActionResult SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj)
 			{
 				return Utils::CheckResult(_aimpCore->SendMessage(message, value, obj));
 			}

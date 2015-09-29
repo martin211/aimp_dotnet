@@ -1,5 +1,5 @@
 #include "Stdafx.h"
-#include "ServiceMenuManager.h"
+#include "AimpMenuManager.h"
 #include "..\..\ObjectHelper.h"
 
 namespace AIMP
@@ -24,7 +24,7 @@ namespace AIMP
 		/// Initializes a new instance of the <see cref="ServiceMenuManager"/> class.
 		/// </summary>
 		/// <param name="core">The core.</param>
-		ServiceMenuManager::ServiceMenuManager(ManagedAimpCore^ core) : AimpBaseManager(core)
+		AimpMenuManager::AimpMenuManager(ManagedAimpCore^ core) : AimpBaseManager(core)
 		{
 			AIMP36SDK::IAIMPServiceMenuManager* menuManager;
 			ManagedAimpCore::GetAimpCore()->QueryInterface(AIMP36SDK::IID_IAIMPServiceMenuManager, (void**) &menuManager);
@@ -39,7 +39,7 @@ namespace AIMP
 		/// </summary>
 		/// <param name="parentMenuType">Type of the parent menu.</param>
 		/// <param name="items">The items.</param>
-		void ServiceMenuManager::AddRange(ParentMenuType parentMenuType, MenuItemCollection^ items)
+		void AimpMenuManager::AddRange(ParentMenuType parentMenuType, MenuItemCollection^ items)
 		{
 			// gets the parent menu item. 
 			IAIMPMenuItem* parentMenu;
@@ -61,7 +61,7 @@ namespace AIMP
 		/// </summary>
 		/// <param name="parentMenuType">Type of the parent menu.</param>
 		/// <param name="item">The item.</param>
-		void ServiceMenuManager::Add(ParentMenuType parentMenuType, MenuItem^ item)
+		void AimpMenuManager::Add(ParentMenuType parentMenuType, MenuItem^ item)
 		{
 			// gets the parent menu item. 
 			IAIMPMenuItem* parentMenu;
@@ -79,7 +79,7 @@ namespace AIMP
 		/// Deletes the menu item.
 		/// </summary>
 		/// <param name="item">The item.</param>
-		void ServiceMenuManager::Delete(MenuItem^ item)
+		void AimpMenuManager::Delete(MenuItem^ item)
 		{
 			if (String::IsNullOrWhiteSpace(item->Id))
 			{
@@ -93,7 +93,7 @@ namespace AIMP
 		/// Deletes the menu item.
 		/// </summary>
 		/// <param name="id">The identifier.</param>
-		void ServiceMenuManager::Delete(String^ id)
+		void AimpMenuManager::Delete(String^ id)
 		{
 			if (String::IsNullOrWhiteSpace(id))
 			{
@@ -116,7 +116,7 @@ namespace AIMP
 		/// Deletes the specified items.
 		/// </summary>
 		/// <param name="items">The items.</param>
-		void ServiceMenuManager::Delete(MenuItemCollection^ items)
+		void AimpMenuManager::Delete(MenuItemCollection^ items)
 		{
 			if (items != nullptr)
 			{
@@ -127,7 +127,7 @@ namespace AIMP
 			}
 		}
 
-		MenuItem^ ServiceMenuManager::GetById(String^ id)
+		MenuItem^ AimpMenuManager::GetById(String^ id)
 		{
 			if (String::IsNullOrWhiteSpace(id))
 			{
@@ -181,7 +181,7 @@ namespace AIMP
 			return result;
 		}
 
-		MenuItem ^ServiceMenuManager::GetBuiltIn(ParentMenuType parentMenuType)
+		MenuItem ^AimpMenuManager::GetBuiltIn(ParentMenuType parentMenuType)
 		{
 			IAIMPMenuItem *aimpMenuItem = nullptr;
 			if (CheckResult(_aimpMenuManager->GetBuiltIn((int) parentMenuType, &aimpMenuItem)))
@@ -198,14 +198,14 @@ namespace AIMP
 		/// </summary>
 		/// <param name="parentMenuItem">The parent menu item.</param>
 		/// <param name="menuItem">The menu item.</param>
-		void ServiceMenuManager::RegisterMenu(IAIMPMenuItem* parentMenuItem, MenuItem^ menuItem)
+		void AimpMenuManager::RegisterMenu(IAIMPMenuItem* parentMenuItem, MenuItem^ menuItem)
 		{
 			AIMP36SDK::IAIMPMenuItem *newItem = ObjectHelper::CreateMenuItem(_core->GetAimpCore());
 
 			if (newItem == NULL)
 				return;
 
-			menuItem->PropertyChanged += gcnew System::ComponentModel::PropertyChangedEventHandler(this, &AIMP::ServiceMenuManager::OnPropertyChanged);
+			menuItem->PropertyChanged += gcnew System::ComponentModel::PropertyChangedEventHandler(this, &AIMP::AimpMenuManager::OnPropertyChanged);
 
 			IAIMPString* idString = ObjectHelper::MakeAimpString(_core->GetAimpCore(), menuItem->Id);
 
@@ -236,7 +236,7 @@ namespace AIMP
 				menuItem->AimpMenuItemHeader = IntPtr::IntPtr(newItem);// System::Runtime::InteropServices::Marshal::GetIUnknownForObject(newItem);
 
 				// register on subitems evnts.				
-				menuItem->ChildItems->ItemAdded += gcnew AIMP::SDK::UI::MenuItem::ItemAddedHandler(this, &AIMP::SDK::ServiceMenuManager::OnSubitemAdded);
+				menuItem->ChildItems->ItemAdded += gcnew AIMP::SDK::UI::MenuItem::ItemAddedHandler(this, &AIMP::SDK::AimpMenuManager::OnSubitemAdded);
 			}
 
 			MenuItemEvent* beforeShowEvent = new MenuItemEvent();
@@ -264,7 +264,7 @@ namespace AIMP
 		/// </summary>
 		/// <param name="aimpMenuItem">The aimp menu item.</param>
 		/// <param name="menuItem">The menu item.</param>
-		void ServiceMenuManager::FillMenuData(IAIMPMenuItem* aimpMenuItem, MenuItem^ menuItem)
+		void AimpMenuManager::FillMenuData(IAIMPMenuItem* aimpMenuItem, MenuItem^ menuItem)
 		{
 			aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_NAME, ObjectHelper::MakeAimpString(_core->GetAimpCore(), menuItem->Text));
 			aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_VISIBLE, menuItem->Visible ? 1 : 0);
@@ -292,7 +292,7 @@ namespace AIMP
 		/// Updates the menu item.
 		/// </summary>
 		/// <param name="menuItem">The menu item.</param>
-		void ServiceMenuManager::UpdateMenuItem(MenuItem^ menuItem)
+		void AimpMenuManager::UpdateMenuItem(MenuItem^ menuItem)
 		{
 			if (String::IsNullOrWhiteSpace(menuItem->Id))
 			{
@@ -315,7 +315,7 @@ namespace AIMP
 		/// Unregisters the menu.
 		/// </summary>
 		/// <param name="menuItem">The menu item.</param>
-		void ServiceMenuManager::UnregisterMenu(IAIMPMenuItem* menuItem)
+		void AimpMenuManager::UnregisterMenu(IAIMPMenuItem* menuItem)
 		{
 			_core->UnregisterExtension(menuItem);
 		}
@@ -325,18 +325,18 @@ namespace AIMP
 		/// </summary>
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The e.</param>
-		void ServiceMenuManager::OnPropertyChanged(System::Object ^sender, System::ComponentModel::PropertyChangedEventArgs ^e)
+		void AimpMenuManager::OnPropertyChanged(System::Object ^sender, System::ComponentModel::PropertyChangedEventArgs ^e)
 		{
 			UpdateMenuItem((MenuItem^) sender);
 		}
 
 
-		void ServiceMenuManager::OnSubitemAdded(MenuItem ^parent, MenuItem ^item)
+		void AimpMenuManager::OnSubitemAdded(MenuItem ^parent, MenuItem ^item)
 		{
 			RegisterMenu((IAIMPMenuItem*)parent->AimpMenuItemHeader.ToPointer(), item);
 		}
 
-		void ServiceMenuManager::OnSubItemDeleted(System::Object ^item)
+		void AimpMenuManager::OnSubItemDeleted(System::Object ^item)
 		{
 			UpdateMenuItem((MenuItem^) item);
 		}

@@ -63,7 +63,7 @@ namespace AIMP.SDK.UI
 
         public static string _settingButtonText = "Options";
 
-        public SettingsForm(IntPtr parent, IMUIManager player)
+        public SettingsForm(IntPtr parent, IAimpMUIManager player)
             : this()
         {
             SetParent(Handle, parent);
@@ -124,7 +124,7 @@ namespace AIMP.SDK.UI
             dataGridView1.RowsAdded += dataGridView1_RowsAdded;
         }
 
-        private void SetLocaleText(IMUIManager muiManager)
+        private void SetLocaleText(IAimpMUIManager muiManager)
         {
             lCaption.Text = muiManager.GetValue("DotNet.Plugins\\Caption");
             tabPlugins.Text = muiManager.GetValue("DotNet.Plugins\\Plugins");

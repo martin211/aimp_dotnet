@@ -2,12 +2,12 @@
 {
     using System;
 
-    using AIMP.SDK.Services.PlayListManager;
+    using AIMP.SDK.Services.PlayList;
 
     /// <summary>
     /// Album art manager.
     /// </summary>
-    public interface IAlbumArtManager
+    public interface IAimpAlbumArtManager
     {
         /// <summary>
         /// Gets or sets a value indicating whether [find in files].
@@ -52,7 +52,7 @@
         /// <summary>
         /// Occurs when [completed].
         /// </summary>
-        event EventHandler<GetAlbumArtEventArgs> Completed;
+        event EventHandler<AimpGetAlbumArtEventArgs> Completed;
 
         /// <summary>
         /// Gets the image.
@@ -63,7 +63,7 @@
         /// <param name="flags">The flags.</param>
         /// <param name="userData">The user data.</param>
         /// <returns></returns>
-        IntPtr GetImage(string fileUrl, string artist, string album, FingCovertArtType flags, object userData);
+        IntPtr GetImage(string fileUrl, string artist, string album, AimpFingCovertArtType flags, object userData);
 
         /// <summary>
         /// Gets the image.
@@ -72,13 +72,13 @@
         /// <param name="flags">The flags.</param>
         /// <param name="userData">The user data.</param>
         /// <returns></returns>
-        IntPtr GetImage(IAimpFileInfo fileInfo, FingCovertArtType flags, object userData);
+        IntPtr GetImage(IAimpFileInfo fileInfo, AimpFingCovertArtType flags, object userData);
 
         /// <summary>
         /// Cancels the get cover art request by specified task identifier.
         /// </summary>
         /// <param name="taskId">The task identifier.</param>
         /// <param name="flags">The flags.</param>
-        void Cancel(IntPtr taskId, FingCovertArtType flags);
+        void Cancel(IntPtr taskId, AimpFingCovertArtType flags);
     }
 }

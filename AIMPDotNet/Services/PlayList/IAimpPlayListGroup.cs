@@ -1,4 +1,4 @@
-﻿namespace AIMP.SDK.Services.PlayListManager
+﻿namespace AIMP.SDK.Services.PlayList
 {
     /// <summary>
     /// 
