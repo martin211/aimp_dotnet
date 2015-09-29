@@ -20,10 +20,10 @@ namespace AIMP
 		using namespace AIMP::SDK::Services::AlbumArtManager;
 		using namespace System::IO;
 
-		public ref class AlbumArtManager : public AimpBaseManager, public IAlbumArtManager
+		public ref class AimpAlbumArtManager : public AimpBaseManager, public IAimpAlbumArtManager
 		{
 		public:
-			explicit AlbumArtManager(ManagedAimpCore^ core) : AimpBaseManager(core)
+			explicit AimpAlbumArtManager(ManagedAimpCore^ core) : AimpBaseManager(core)
 			{
 				IAIMPServiceAlbumArt* service;
 				core->GetService(IID_IAIMPServiceAlbumArt, (void**) &service);
@@ -33,28 +33,28 @@ namespace AIMP
 				_properties = prop;
 			}
 
-			~AlbumArtManager()
+			~AimpAlbumArtManager()
 			{
 				_service->Release();
 				_properties->Release();
 				delete this->_findCallback;
 			}
 
-			event EventHandler<GetAlbumArtEventArgs^>^ Completed
+			event EventHandler<AimpGetAlbumArtEventArgs^>^ Completed
 			{
-				virtual void add(EventHandler<GetAlbumArtEventArgs^>^ onCompleted)
+				virtual void add(EventHandler<AimpGetAlbumArtEventArgs^>^ onCompleted)
 				{
 					if (this->_onComplete == nullptr)
 					{
-						this->_onComplete = (EventHandler<GetAlbumArtEventArgs^>^)Delegate::Combine(this->_onComplete, onCompleted);
+						this->_onComplete = (EventHandler<AimpGetAlbumArtEventArgs^>^)Delegate::Combine(this->_onComplete, onCompleted);
 					}
 				}
-				virtual void remove(EventHandler<GetAlbumArtEventArgs^>^ onCompleted)
+				virtual void remove(EventHandler<AimpGetAlbumArtEventArgs^>^ onCompleted)
 				{
 					delete _onComplete;
 					_onComplete = nullptr;
 				}
-				void raise(Object^ sender, GetAlbumArtEventArgs^ args)
+				void raise(Object^ sender, AimpGetAlbumArtEventArgs^ args)
 				{
 					if (_onComplete != nullptr)
 					{
@@ -144,7 +144,7 @@ namespace AIMP
 
 			void OnAlbumArtReceive(IAIMPImage* image, IAIMPImageContainer* image_container, void* user_data)
 			{
-				GetAlbumArtEventArgs^ args = gcnew GetAlbumArtEventArgs();
+				AimpGetAlbumArtEventArgs^ args = gcnew AimpGetAlbumArtEventArgs();
 
 				if (image == NULL && image_container == NULL)
 				{
@@ -164,27 +164,27 @@ namespace AIMP
 				Completed(this, args);
 			}
 
-			virtual IntPtr GetImage(String^ fileUrl, String^ artist, String^ album, FingCovertArtType flags, Object^ userData)
+			virtual IntPtr GetImage(String^ fileUrl, String^ artist, String^ album, AimpFingCovertArtType flags, Object^ userData)
 			{
 				void* taskId;
-				_findCallback = gcnew OnFindCoverCallback(this, &AIMP::AlbumArtManager::OnAlbumArtReceive);
+				_findCallback = gcnew OnFindCoverCallback(this, &AIMP::AimpAlbumArtManager::OnAlbumArtReceive);
 				//TAIMPServiceAlbumArtReceiveProc *f = &test;
 				IntPtr thunk = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_findCallback);
 				_service->Get(ObjectHelper::MakeAimpString(_core->GetAimpCore(), fileUrl), ObjectHelper::MakeAimpString(_core->GetAimpCore(), artist), ObjectHelper::MakeAimpString(_core->GetAimpCore(), album), (DWORD) flags, (AIMP36SDK::TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(), reinterpret_cast<void*>(&userData), &taskId);
 				return (IntPtr) taskId;
 			}
 
-			virtual IntPtr GetImage(AIMP::SDK::Services::PlayListManager::IAimpFileInfo^ fileInfo, FingCovertArtType flags, Object^ userData)
+			virtual IntPtr GetImage(AIMP::SDK::Services::PlayList::IAimpFileInfo^ fileInfo, AimpFingCovertArtType flags, Object^ userData)
 			{
 				void* taskId = nullptr;
-				_findCallback = gcnew OnFindCoverCallback(this, &AIMP::AlbumArtManager::OnAlbumArtReceive);
+				_findCallback = gcnew OnFindCoverCallback(this, &AIMP::AimpAlbumArtManager::OnAlbumArtReceive);
 				IntPtr thunk = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_findCallback);
 
 				//_service->Get2(((AIMP::PlayList::AimpFileInfo^) fileInfo)->SourceFileInfo, (DWORD) flags, (AIMP36SDK::TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(), reinterpret_cast<void*>(&userData), &taskId);
 				return (IntPtr) taskId;
 			}
 
-			virtual void Cancel(IntPtr taskId, FingCovertArtType flags)
+			virtual void Cancel(IntPtr taskId, AimpFingCovertArtType flags)
 			{
 				if (taskId != IntPtr::Zero)
 				{
@@ -197,7 +197,7 @@ namespace AIMP
 
 			IAIMPServiceAlbumArt* _service;
 			IAIMPPropertyList *_properties;
-			EventHandler<GetAlbumArtEventArgs^>^ _onComplete;
+			EventHandler<AimpGetAlbumArtEventArgs^>^ _onComplete;
 		};
 	}
 }

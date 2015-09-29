@@ -34,7 +34,7 @@ HRESULT WINAPI DotNetPlugin::Initialize(AIMP36SDK::IAIMPCore* core)
 
 	_managedCore = gcnew AIMP::SDK360::ManagedAimpCore(core);
 	_managedExtension = gcnew ManagedFunctionality(core, _managedCore);
-	_configurationManager = gcnew AIMP::ConfigurationManager(_managedCore);
+	_configurationManager = gcnew AIMP::AimpConfigurationManager(_managedCore);
 
 	LoadExtensions(core);
 
@@ -148,7 +148,7 @@ AIMP::SDK::PluginSettings ^DotNetPlugin::GetPluginSettings()
 	{
 		_pluginSettings = gcnew AIMP::SDK::PluginSettings();
 		_pluginSettings->PluginsCollection = GetAvailablePlugins();
-		_pluginSettings->IsDebugMode = _configurationManager->GetValueAsInt32("AimpDotNet\\Settings\\DebugMode") == 1;		
+		_pluginSettings->IsDebugMode = _configurationManager->GetValueAsInt32("AimpDotNet\\Settings\\DebugMode") == 1;
 	}
 
 	return _pluginSettings;

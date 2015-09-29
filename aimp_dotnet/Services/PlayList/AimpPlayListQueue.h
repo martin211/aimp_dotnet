@@ -12,7 +12,7 @@ namespace AIMP
 			using namespace AIMP36SDK;
 			using namespace AIMP::SDK;
 
-			public ref class AimpPlaylistQueue : public AimpObject<AIMP36SDK::IAIMPPlaylistQueue>, public AIMP::SDK::SDKServices::PlayListManager::IAimpPlayListQueue
+			public ref class AimpPlaylistQueue : public AimpObject<AIMP36SDK::IAIMPPlaylistQueue>, public IAimpPlayListQueue
 			{
 			public:
 				virtual property bool IsSuspended

@@ -5,7 +5,7 @@ namespace AIMP.SDK.Services.ActionManager
     /// <summary>
     /// Action manager interface.
     /// </summary>
-    public interface IActionManager
+    public interface IAimpActionManager
     {
         /// <summary>
         /// Adds the specified action.

@@ -1,5 +1,5 @@
 ﻿
-namespace AIMP.SDK.Services.PlayListManager
+namespace AIMP.SDK.Services.PlayList
 {
     public interface IAimpPlayListItem
     {
@@ -23,6 +23,6 @@ namespace AIMP.SDK.Services.PlayListManager
 
         bool Selected { get; set; }
 
-        ActionResult ReloadInfo();
+        AimpActionResult ReloadInfo();
     }
 }

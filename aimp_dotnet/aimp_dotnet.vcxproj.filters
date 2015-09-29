@@ -17,10 +17,10 @@
     <ClCompile Include="Services\PlayList\AimpPlayListItem.cpp">
       <Filter>Services\PlayListManager</Filter>
     </ClCompile>
-    <ClCompile Include="Services\Action\ActionManager.cpp">
+    <ClCompile Include="Services\Action\AimpActionManager.cpp">
       <Filter>Services\ActionManager</Filter>
     </ClCompile>
-    <ClCompile Include="Services\Menu\ServiceMenuManager.cpp">
+    <ClCompile Include="Services\Menu\AimpMenuManager.cpp">
       <Filter>Services\MenuManager</Filter>
     </ClCompile>
   </ItemGroup>
@@ -130,22 +130,10 @@
     <ClInclude Include="Services\PlayList\VirtualFileInfoh.h">
       <Filter>Services\PlayListManager</Filter>
     </ClInclude>
-    <ClInclude Include="Services\Action\ActionManager.h">
-      <Filter>Services\ActionManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Services\AlbumArt\AlbumArtManager.h">
-      <Filter>Services\AlbumArtManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Services\Configuration\ConfigurationManager.h">
-      <Filter>Services\ConfigurationManager</Filter>
-    </ClInclude>
     <ClInclude Include="Services\Menu\ICallBackHeader.h">
       <Filter>Services\MenuManager</Filter>
     </ClInclude>
     <ClInclude Include="Services\Menu\MenuItemEvent.h">
-      <Filter>Services\MenuManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Services\Menu\ServiceMenuManager.h">
       <Filter>Services\MenuManager</Filter>
     </ClInclude>
     <ClInclude Include="Services\MUI\MUIManager.h">
@@ -154,11 +142,23 @@
     <ClInclude Include="Services\Win32\Win32Manager.h">
       <Filter>Services\Win32Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Services\Playback\ServicePlaybackQueue.h" />
     <ClInclude Include="Services\Playback\AimpPlaybackQueueItem.h">
       <Filter>Services\PlayListManager</Filter>
     </ClInclude>
     <ClInclude Include="AimpCore.h" />
+    <ClInclude Include="Services\Action\AimpActionManager.h">
+      <Filter>Services\ActionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\AlbumArt\AimpAlbumArtManager.h">
+      <Filter>Services\AlbumArtManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\Configuration\AimpConfigurationManager.h">
+      <Filter>Services\ConfigurationManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\Menu\AimpMenuManager.h">
+      <Filter>Services\MenuManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\Playback\AimpServicePlaybackQueue.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

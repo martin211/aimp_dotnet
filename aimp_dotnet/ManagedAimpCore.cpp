@@ -56,7 +56,7 @@ namespace AIMP
 		/// <param name="pathType">Path type.</param>
 		/// <param name="pathResult"></param>
 		/// <returns></returns>
-		AIMP::SDK::Services::ActionResult ManagedAimpCore::GetPath(AIMP::SDK::AimpMessages::AimpCorePathType pathType, String ^%pathResult)
+		AIMP::SDK::Services::AimpActionResult ManagedAimpCore::GetPath(AIMP::SDK::AimpMessages::AimpCorePathType pathType, String ^%pathResult)
 		{
 			AIMP36SDK::IAIMPString* res;
 
@@ -64,7 +64,7 @@ namespace AIMP
 			AIMP36SDK::IAIMPString_ptr path(res, false);
 
 			pathResult = gcnew System::String(std::wstring(path->GetData(), path->GetLength()).c_str());
-			return AIMP::SDK::Services::ActionResult::Ok;
+			return AIMP::SDK::Services::AimpActionResult::Ok;
 		}
 
 		/// <summary>
@@ -121,7 +121,7 @@ namespace AIMP
 		}
 
 		/// <summary>
-		/// Somes the event proxy.
+		/// Core message event proxy.
 		/// </summary>
 		/// <param name="This">The this.</param>
 		/// <param name="param">The parameter.</param>

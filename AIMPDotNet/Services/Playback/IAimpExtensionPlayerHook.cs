@@ -2,7 +2,7 @@
 {
     public delegate bool AimpCheckUrl(ref string url);
 
-    public interface IExtensionPlayerHook
+    public interface IAimpExtensionPlayerHook
     {
          event AimpCheckUrl OnCheckURL;
     }

@@ -86,21 +86,17 @@ public:
 	gcroot<AIMP::SDK360::ManagedAimpCore^> _managedCore;
 
 private:
-	bool inSetFormIntited;	
+	bool inSetFormIntited;
 	bool _optionsLoaded;
-
 	gcroot<ManagedFunctionality^> _managedExtension;
-		
 	//gcroot<AIMP::SDK::PluginInfoCollection^> inPluginCollection;
 	gcroot<AIMP::SDK::PluginStateSaver^> _pluginState;
 	gcroot<AIMP::SDK::PluginSettings^> _pluginSettings;
-	gcroot<AIMP::ConfigurationManager^> _configurationManager;
-
+	gcroot<AIMP::AimpConfigurationManager^> _configurationManager;
 	IAIMPServiceConfig *_configService;
 	AIMP36SDK::IAIMPOptionsDialogFrame *_frame;
 	AIMP36SDK::IAIMPExtensionPlaylistManagerListener *_listner;
 	AIMP36SDK::IAIMPExtensionPlayerHook *_playerHook;
-
 	typedef IUnknownInterfaceImpl<IAIMPPlugin> Base;
 };
 
@@ -152,7 +148,7 @@ public:
 
 	virtual HWND WINAPI CreateFrame(HWND ParentWnd)
 	{
-		AIMP::SDK::Services::MUIManager::IMUIManager ^manager = gcnew AIMP::MIUManager(_core);
+		AIMP::SDK::Services::MUIManager::IAimpMUIManager ^manager = gcnew AIMP::AimpMIUManager(_core);
 		_settingForm = gcnew AIMP::SDK::UI::SettingsForm(System::IntPtr(ParentWnd), manager);
 		_serviceOptionsDialog = (AIMP36SDK::IAIMPServiceOptionsDialog*)_core->QueryInterface(IID_IAIMPServiceOptionsDialog);
 

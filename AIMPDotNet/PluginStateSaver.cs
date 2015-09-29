@@ -11,12 +11,12 @@
     {
         public const string ConfigSectionName = "AimpDotNet";
 
-        private readonly IConfigurationManager _configurationManager;
+        private readonly IAimpConfigurationManager _configurationManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
         /// </summary>
-        public PluginStateSaver(IConfigurationManager configurationManager)
+        public PluginStateSaver(IAimpConfigurationManager configurationManager)
         {
             _configurationManager = configurationManager;
         }

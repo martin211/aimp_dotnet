@@ -15,7 +15,7 @@ namespace AIMP
 
 			using namespace AIMP36SDK;
 			using namespace AIMP::SDK::Services;
-			using namespace AIMP::SDK::Services::PlayListManager;
+			using namespace AIMP::SDK::Services::PlayList;
 
 			public ref class AimpPlayListItem : public AimpObject<AIMP36SDK::IAIMPPlaylistItem>, public IAimpPlayListItem
 			{
@@ -91,7 +91,7 @@ namespace AIMP
 					void set(IAimpPlayList^ val);
 				}
 
-				virtual ActionResult ReloadInfo();
+				virtual AimpActionResult ReloadInfo();
 			};
 		}
 	}

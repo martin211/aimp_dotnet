@@ -6,7 +6,7 @@ namespace AIMP.SDK.Services.AlbumArtManager
     /// 
     /// </summary>
     [Flags]
-    public enum FingCovertArtType
+    public enum AimpFingCovertArtType
     {
         None,
         AIMP_SERVICE_ALBUMART_FLAGS_IGNORECACHE = 1,

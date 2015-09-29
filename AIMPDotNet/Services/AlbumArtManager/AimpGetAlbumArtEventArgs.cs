@@ -6,7 +6,7 @@ namespace AIMP.SDK.Services.AlbumArtManager
     /// <summary>
     /// Get album event arguments.
     /// </summary>
-    public class GetAlbumArtEventArgs : EventArgs
+    public class AimpGetAlbumArtEventArgs : EventArgs
     {
         /// <summary>
         /// Gets or sets the cover image.

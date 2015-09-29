@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Stdafx.h"
-#include "ActionManager.h"
+#include "AimpActionManager.h"
 #include "..\..\DataConversion.h"
 
 
@@ -9,19 +9,19 @@ namespace AIMP
 {
 	namespace SDK
 	{
-		ActionManager::ActionManager(ManagedAimpCore^ core) : AimpBaseManager(core)
+		AimpActionManager::AimpActionManager(ManagedAimpCore^ core) : AimpBaseManager(core)
 		{
 			AIMP36SDK::IAIMPServiceActionManager *manager;
 			ManagedAimpCore::GetAimpCore()->QueryInterface(AIMP36SDK::IID_IAIMPServiceActionManager, (void**) &manager);
 			_manager = manager;
 		}
 
-		void ActionManager::Add(AimpActionItem^ action)
+		void AimpActionManager::Add(AimpActionItem^ action)
 		{
 			RegisterAction(action);
 		}
 
-		void ActionManager::AddRange(ActionItemCollection^ actions)
+		void AimpActionManager::AddRange(ActionItemCollection^ actions)
 		{
 			for each(AimpActionItem^ item in actions)
 			{
@@ -29,7 +29,7 @@ namespace AIMP
 			}
 		}
 
-		void ActionManager::RegisterAction(AimpActionItem ^menuItem)
+		void AimpActionManager::RegisterAction(AimpActionItem ^menuItem)
 		{
 			//IAIMPAction* newAction = AimpObjectExtension::CreateActionItem(ManagedAimpCore::GetAimpCore());
 			//IAIMPString* idString = AimpObjectExtension::MakeAimpString(_core->GetAimpCore(), menuItem->Id);
@@ -63,13 +63,13 @@ namespace AIMP
 			_core->GetAimpCore()->RegisterExtension(AIMP36SDK::IID_IAIMPServiceMenuManager, newAction);
 		}
 
-		void ActionManager::UpdateItem(AimpActionItem^ menuItem)
+		void AimpActionManager::UpdateItem(AimpActionItem^ menuItem)
 		{
 			// todo: complete it.
 			throw gcnew System::NotImplementedException("Not implemented");
 		}
 
-		void ActionManager::OnPropertyChanged(System::Object ^sender, System::ComponentModel::PropertyChangedEventArgs ^e)
+		void AimpActionManager::OnPropertyChanged(System::Object ^sender, System::ComponentModel::PropertyChangedEventArgs ^e)
 		{
 			UpdateItem((AimpActionItem^) sender);
 		}

@@ -19,10 +19,10 @@ namespace AIMP
 		using namespace AIMP::SDK::Services::MenuManager;
 		using namespace AIMP::SDK360;
 
-		public ref class ServiceMenuManager : public AimpBaseManager, public IMenuManager
+		public ref class AimpMenuManager : public AimpBaseManager, public IAimpMenuManager
 		{
 		public:
-			explicit ServiceMenuManager(ManagedAimpCore^ core);
+			explicit AimpMenuManager(ManagedAimpCore^ core);
 
 			virtual void AddRange(ParentMenuType parentMenuType, MenuItemCollection^ items);
 

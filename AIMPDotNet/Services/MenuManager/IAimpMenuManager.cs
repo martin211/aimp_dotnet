@@ -56,7 +56,7 @@ namespace AIMP.SDK.Services.MenuManager
     /// <summary>
     /// Menu manager interface.
     /// </summary>
-    public interface IMenuManager
+    public interface IAimpMenuManager
     {
         /// <summary>
         /// Adds the menu item.

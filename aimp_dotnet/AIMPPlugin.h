@@ -1,5 +1,5 @@
 #pragma once
-#include "Services\Menu\ServiceMenuManager.h"
+#include "Services\Menu\AimpMenuManager.h"
 #include "InternalLogger.h"
 
 namespace AIMP
@@ -43,7 +43,7 @@ namespace AIMP
 			}
 
 		private:
-			ServiceMenuManager^ _menuManager;
+			AimpMenuManager^ _menuManager;
 		};
 	}
 }

@@ -4,7 +4,7 @@
     /// MUI manager.
     /// </summary>
     // ReSharper disable InconsistentNaming
-    public interface IMUIManager
+    public interface IAimpMUIManager
         // ReSharper restore InconsistentNaming
     {
         /// <summary>

@@ -21,7 +21,7 @@
         /// <returns></returns>
         string GetPath(AimpMessages.AimpCorePathType aimpCorePath);
 
-        ActionResult SendMessage(AimpMessages.AimpCoreMessageType message, int param, object objectParameter);
+        AimpActionResult SendMessage(AimpMessages.AimpCoreMessageType message, int param, object objectParameter);
 
         /// <summary>
         /// Occurs when [core message].

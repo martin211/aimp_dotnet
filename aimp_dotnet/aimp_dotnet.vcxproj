@@ -126,10 +126,10 @@
     <ClInclude Include="ObjectHelper.h" />
     <ClInclude Include="InternalLogger.h" />
     <ClInclude Include="OptionsWindow.h" />
-    <ClInclude Include="Services\Action\ActionManager.h" />
+    <ClInclude Include="Services\Action\AimpActionManager.h" />
     <ClInclude Include="AimpPlayer.h" />
     <ClInclude Include="Services\BaseManager.h" />
-    <ClInclude Include="Services\Configuration\ConfigurationManager.h" />
+    <ClInclude Include="Services\Configuration\AimpConfigurationManager.h" />
     <ClInclude Include="Services\Playback\AimpPlaybackQueueItem.h" />
     <ClInclude Include="Services\PlayList\AimpPlayList.h" />
     <ClInclude Include="Services\PlayList\AimpPlayListGroup.h" />
@@ -156,10 +156,10 @@
     <ClInclude Include="AIMP_SDK\AIMP360\apiVisuals.h" />
     <ClInclude Include="AIMP_SDK\aimp3_60_sdk.h" />
     <ClInclude Include="DataConversion.h" />
-    <ClInclude Include="Services\AlbumArt\AlbumArtManager.h" />
+    <ClInclude Include="Services\AlbumArt\AimpAlbumArtManager.h" />
     <ClInclude Include="Services\Menu\ICallBackHeader.h" />
     <ClInclude Include="ManagedAimpCore.h" />
-    <ClInclude Include="Services\Menu\ServiceMenuManager.h" />
+    <ClInclude Include="Services\Menu\AimpMenuManager.h" />
     <ClInclude Include="EventHelper.h" />
     <ClInclude Include="DotNetPlugin.h" />
     <ClInclude Include="AIMP_SDK\IUnknownInterfaceImpl.h" />
@@ -167,15 +167,15 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Services\MUI\MUIManager.h" />
     <ClInclude Include="Services\PlayList\AimpFileInfo.h" />
-    <ClInclude Include="Services\Playback\ServicePlaybackQueue.h" />
+    <ClInclude Include="Services\Playback\AimpServicePlaybackQueue.h" />
     <ClInclude Include="Services\Win32\Win32Manager.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Services\PlayList\VirtualFileInfoh.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DotNetPlugin.cpp" />
-    <ClCompile Include="Services\Action\ActionManager.cpp" />
-    <ClCompile Include="Services\Menu\ServiceMenuManager.cpp" />
+    <ClCompile Include="Services\Action\AimpActionManager.cpp" />
+    <ClCompile Include="Services\Menu\AimpMenuManager.cpp" />
     <ClCompile Include="ManagedAimpCore.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="AimpDotnetPlugin.cpp" />

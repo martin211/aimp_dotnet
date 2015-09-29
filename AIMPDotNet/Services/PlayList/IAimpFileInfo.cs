@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace AIMP.SDK.Services.PlayListManager
+﻿namespace AIMP.SDK.Services.PlayList
 {
+    using System;
     using System.Drawing;
 
     /// <summary>

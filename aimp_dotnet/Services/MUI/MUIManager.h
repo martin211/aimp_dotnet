@@ -18,10 +18,10 @@ namespace AIMP
 		using namespace System;
 		using namespace AIMP::SDK::Services::MUIManager;
 
-		public ref class MIUManager : public AimpBaseManager, public IMUIManager
+		public ref class AimpMIUManager : public AimpBaseManager, public IAimpMUIManager
 		{
 		public:
-			explicit MIUManager(ManagedAimpCore^ core) : AimpBaseManager(core)
+			explicit AimpMIUManager(ManagedAimpCore^ core) : AimpBaseManager(core)
 			{
 				// TODO: Add logging.
 				AIMP36SDK::MUI::IAIMPServiceMUI* service;

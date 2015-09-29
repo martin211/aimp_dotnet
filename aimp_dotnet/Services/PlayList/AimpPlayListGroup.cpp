@@ -9,7 +9,7 @@ namespace AIMP
 		namespace PlayList
 		{
 			using namespace AIMP36SDK;
-			using namespace AIMP::SDK::Services::PlayListManager;
+			using namespace AIMP::SDK::Services::PlayList;
 
 			AimpPlayListGroup::AimpPlayListGroup()
 			{
