@@ -219,17 +219,26 @@ public:
 
 	virtual void WINAPI PlaylistActivated(AIMP36SDK::IAIMPPlaylist *playlist)
 	{
-		_main->_managedCore->OnPlaylistActivated(playlist);
+		if (playlist != nullptr)
+		{
+			_main->_managedCore->OnPlaylistActivated(playlist);
+		}
 	}
 
 	virtual void WINAPI PlaylistAdded(AIMP36SDK::IAIMPPlaylist *playlist)
 	{
-		_main->_managedCore->OnPlayListAdded(playlist);
+		if (playlist != nullptr)
+		{
+			_main->_managedCore->OnPlayListAdded(playlist);
+		}
 	}
 
 	virtual void WINAPI PlaylistRemoved(AIMP36SDK::IAIMPPlaylist *playlist)
 	{
-		_main->_managedCore->OnPlayListRemoved(playlist);
+		if (playlist != nullptr)
+		{
+			_main->_managedCore->OnPlayListRemoved(playlist);
+		}
 	}
 };
 
