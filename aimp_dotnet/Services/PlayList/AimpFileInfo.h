@@ -25,6 +25,18 @@ namespace AIMP
 			{
 			}
 
+			virtual property String^ CustomData
+			{
+				String^ get()
+				{
+					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_CUSTOM);
+				}
+				void set(String^ value)
+				{
+					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_CUSTOM, value);
+				}
+			}
+
 			virtual property System::Drawing::Bitmap^ AlbumArt
 			{
 				System::Drawing::Bitmap^ get()
