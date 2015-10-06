@@ -1,22 +1,18 @@
 #pragma once
-#include "AIMP_SDK\aimp3_60_sdk.h"
+#include "AIMP_SDK\AimpSDK.h"
 #include "EventHelper.h"
 #include <Unknwnbase.h>
 #include "AIMP_SDK\IUnknownInterfaceImpl.h"
 
-namespace AIMP36SDK
-{
-	#include "AIMP_SDK\AIMP360\apiMenu.h"	
-}
 
 namespace AIMP
-{	
-	namespace SDK360
+{
+	namespace SDK
 	{
 		using namespace System;
 		using namespace System::Collections::Generic;
 
-		using namespace AIMP36SDK;
+		using namespace AIMPSDK;
 		using namespace AIMP::SDK;
 		using namespace AIMP::SDK::Interfaces;
 		using namespace AIMP::SDK::Extensions;
@@ -35,7 +31,7 @@ namespace AIMP
 			/// Initializes a new instance of the <see cref="ManagedAimpCore"/> class.
 			/// </summary>
 			/// <param name="core">The core.</param>
-			ManagedAimpCore(AIMP36SDK::IAIMPCore* core);
+			ManagedAimpCore(IAIMPCore* core);
 			
 			/// <summary>
 			/// Finalizes an instance of the <see cref="ManagedAimpCore"/> class.
@@ -71,17 +67,17 @@ namespace AIMP
 
 			void UnregisterExtension(IUnknown* extension);
 
-			static AIMP36SDK::IAIMPCore* GetAimpCore();
+			static IAIMPCore* GetAimpCore();
 
 			HRESULT ShowNotification(bool autoHide, String ^notification);
 
-			AIMP36SDK::IAIMPStream* CreateStream();
+			IAIMPStream* CreateStream();
 
-			void OnPlaylistActivated(AIMP36SDK::IAIMPPlaylist *playlist);
+			void OnPlaylistActivated(IAIMPPlaylist *playlist);
 
-			void OnPlayListAdded(AIMP36SDK::IAIMPPlaylist *playlist);
+			void OnPlayListAdded(IAIMPPlaylist *playlist);
 
-			void OnPlayListRemoved(AIMP36SDK::IAIMPPlaylist *playlist);
+			void OnPlayListRemoved(IAIMPPlaylist *playlist);
 
 			bool OnCheckUrl(String^ %url);
 
@@ -90,7 +86,7 @@ namespace AIMP
 			EventHelper* _nativeEventHelper;
 			Callback* _coreMessageCallback;
 			Callback* _playListActivatedCallback;
-			AIMP36SDK::IAIMPServiceMessageDispatcher* _messageDispatcher;
+			IAIMPServiceMessageDispatcher* _messageDispatcher;
 			IAIMPMessageHook* _hook;
 			List<AimpEventsDelegate^> ^_coreMessage;
 			List<AIMP::SDK::Extensions::PlayListHandler^> ^_playListActivatedHandlers;

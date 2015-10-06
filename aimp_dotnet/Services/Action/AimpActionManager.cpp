@@ -3,7 +3,7 @@
 #include "Stdafx.h"
 #include "AimpActionManager.h"
 #include "..\..\DataConversion.h"
-
+#include "..\..\ObjectHelper.h"
 
 namespace AIMP
 {
@@ -11,8 +11,8 @@ namespace AIMP
 	{
 		AimpActionManager::AimpActionManager(ManagedAimpCore^ core) : AimpBaseManager(core)
 		{
-			AIMP36SDK::IAIMPServiceActionManager *manager;
-			ManagedAimpCore::GetAimpCore()->QueryInterface(AIMP36SDK::IID_IAIMPServiceActionManager, (void**) &manager);
+			IAIMPServiceActionManager *manager;
+			ManagedAimpCore::GetAimpCore()->QueryInterface(IID_IAIMPServiceActionManager, (void**) &manager);
 			_manager = manager;
 		}
 
@@ -49,18 +49,18 @@ namespace AIMP
 
 			//_core->GetAimpCore()->RegisterExtension(AIMP36SDK::IID_IAIMPServiceMenuManager, newAction);
 
-			AIMP36SDK::IAIMPAction* newAction;
-			AIMP36SDK::IAIMPString* actionIdString = ObjectHelper::MakeAimpString(_core->GetAimpCore(), menuItem->Id);
-			AIMP36SDK::IAIMPString* actionNameString = ObjectHelper::MakeAimpString(_core->GetAimpCore(), menuItem->Text);
-			AIMP36SDK::IAIMPString* actionGroupString = ObjectHelper::MakeAimpString(_core->GetAimpCore(), menuItem->GroupName);
+			IAIMPAction* newAction;
+			IAIMPString* actionIdString = ObjectHelper::MakeAimpString(_core->GetAimpCore(), menuItem->Id);
+			IAIMPString* actionNameString = ObjectHelper::MakeAimpString(_core->GetAimpCore(), menuItem->Text);
+			IAIMPString* actionGroupString = ObjectHelper::MakeAimpString(_core->GetAimpCore(), menuItem->GroupName);
 
-			_core->GetAimpCore()->CreateObject(AIMP36SDK::IID_IAIMPAction, (void**) &newAction);
+			_core->GetAimpCore()->CreateObject(IID_IAIMPAction, (void**) &newAction);
 
-			newAction->SetValueAsObject(AIMP36SDK::AIMP_ACTION_PROPID_ID, actionIdString);
-			newAction->SetValueAsObject(AIMP36SDK::AIMP_ACTION_PROPID_NAME, actionNameString);
-			newAction->SetValueAsObject(AIMP36SDK::AIMP_ACTION_PROPID_GROUPNAME, actionGroupString);
+			newAction->SetValueAsObject(AIMP_ACTION_PROPID_ID, actionIdString);
+			newAction->SetValueAsObject(AIMP_ACTION_PROPID_NAME, actionNameString);
+			newAction->SetValueAsObject(AIMP_ACTION_PROPID_GROUPNAME, actionGroupString);
 
-			_core->GetAimpCore()->RegisterExtension(AIMP36SDK::IID_IAIMPServiceMenuManager, newAction);
+			_core->GetAimpCore()->RegisterExtension(IID_IAIMPServiceMenuManager, newAction);
 		}
 
 		void AimpActionManager::UpdateItem(AimpActionItem^ menuItem)

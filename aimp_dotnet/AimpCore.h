@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "AIMP_SDK\aimp3_60_sdk.h"
 #include "ManagedAimpCore.h"
 
 namespace AIMP
@@ -14,12 +13,12 @@ namespace AIMP
 		public ref class AimpCore : public IAimpCore
 		{
 		private:
-			AIMP::SDK360::ManagedAimpCore ^_aimpCore;
+			ManagedAimpCore ^_aimpCore;
 			AimpEventsDelegate ^_coreMessageHandler;
 			bool _disposed;
 
 		public:
-			AimpCore(AIMP::SDK360::ManagedAimpCore ^core)
+			AimpCore(ManagedAimpCore ^core)
 			{
 				_aimpCore = core;
 			}

@@ -1,23 +1,16 @@
 #pragma once
 
 #include <gcroot.h>
-#include "AIMP_SDK\aimp3_60_sdk.h"
 #include "AIMP_SDK\IUnknownInterfaceImpl.h"
 #include "AimpPlayer.h"
 #include "DataConversion.h"
 #include "ObjectHelper.h"
 #include "InternalLogger.h"
 
-namespace AIMP36SDK
-{
-	#include "AIMP_SDK\AIMP360\apiOptions.h"
-}
-
-
 private ref class ManagedFunctionality
 {
 public:
-	ManagedFunctionality(AIMP36SDK::IAIMPCore* core, ManagedAimpCore ^managedCore)
+	ManagedFunctionality(IAIMPCore* core, ManagedAimpCore ^managedCore)
 	{
 		_core = core;
 		_managedCore = managedCore;
@@ -48,11 +41,11 @@ public:
 		
 	}
 private:
-	AIMP36SDK::IAIMPCore* _core;
+	IAIMPCore* _core;
 	ManagedAimpCore ^_managedCore;
 };
 
-class DotNetPlugin : public AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlugin>
+class DotNetPlugin : public IUnknownInterfaceImpl<IAIMPPlugin>
 {
 public:
 	DotNetPlugin();
@@ -62,7 +55,7 @@ public:
 	virtual DWORD WINAPI InfoGetCategories();
 
 	// Initialization / Finalization
-	virtual HRESULT WINAPI Initialize(AIMP36SDK::IAIMPCore* core);
+	virtual HRESULT WINAPI Initialize(IAIMPCore* core);
 
 	virtual HRESULT WINAPI Finalize();
 
@@ -80,10 +73,10 @@ public:
 
 	virtual void SavePluginOptions();
 private:
-	HRESULT LoadExtensions(AIMP36SDK::IAIMPCore* core);
+	HRESULT LoadExtensions(IAIMPCore* core);
 
 public:
-	gcroot<AIMP::SDK360::ManagedAimpCore^> _managedCore;
+	gcroot<ManagedAimpCore^> _managedCore;
 
 private:
 	bool inSetFormIntited;
@@ -94,20 +87,20 @@ private:
 	gcroot<AIMP::SDK::PluginSettings^> _pluginSettings;
 	gcroot<AIMP::AimpConfigurationManager^> _configurationManager;
 	IAIMPServiceConfig *_configService;
-	AIMP36SDK::IAIMPOptionsDialogFrame *_frame;
-	AIMP36SDK::IAIMPExtensionPlaylistManagerListener *_listner;
-	AIMP36SDK::IAIMPExtensionPlayerHook *_playerHook;
+	IAIMPOptionsDialogFrame *_frame;
+	IAIMPExtensionPlaylistManagerListener *_listner;
+	IAIMPExtensionPlayerHook *_playerHook;
 	typedef IUnknownInterfaceImpl<IAIMPPlugin> Base;
 };
 
 
 
-class OptionFrame : public AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPOptionsDialogFrame>
+class OptionFrame : public IUnknownInterfaceImpl<IAIMPOptionsDialogFrame>
 {
 private:
-	gcroot<AIMP::SDK360::ManagedAimpCore^> _core;	
+	gcroot<ManagedAimpCore^> _core;	
 	gcroot<AIMP::SDK::UI::SettingsForm^> _settingForm;
-	AIMP36SDK::IAIMPServiceOptionsDialog *_serviceOptionsDialog;
+	IAIMPServiceOptionsDialog *_serviceOptionsDialog;
 
 	HWND _optionsPage;
 	ULONG _LinkCounter;
@@ -117,7 +110,7 @@ private:
 	boost::signals::connection _eventCallback;
 	boost::signal<void(void)>::slot_function_type _eventChangedSignalCB;
 public:
-	OptionFrame(AIMP::SDK360::ManagedAimpCore^ core, DotNetPlugin* main)
+	OptionFrame(ManagedAimpCore^ core, DotNetPlugin* main)
 	{
 		_core = core;
 		_LinkCounter = 1;
@@ -139,9 +132,9 @@ public:
 		return _main->Release();
 	}
 
-	virtual HRESULT WINAPI GetName(AIMP36SDK::IAIMPString **S)
+	virtual HRESULT WINAPI GetName(IAIMPString **S)
 	{
-		AIMP36SDK::IAIMPString *Str = AIMP::ObjectHelper::MakeAimpString(_core->GetAimpCore(), "DotNet Plugins");
+		IAIMPString *Str = AIMP::ObjectHelper::MakeAimpString(_core->GetAimpCore(), "DotNet Plugins");
 		*S = Str;
 		return S_OK;
 	}
@@ -150,7 +143,7 @@ public:
 	{
 		AIMP::SDK::Services::MUIManager::IAimpMUIManager ^manager = gcnew AIMP::AimpMIUManager(_core);
 		_settingForm = gcnew AIMP::SDK::UI::SettingsForm(System::IntPtr(ParentWnd), manager);
-		_serviceOptionsDialog = (AIMP36SDK::IAIMPServiceOptionsDialog*)_core->QueryInterface(IID_IAIMPServiceOptionsDialog);
+		_serviceOptionsDialog = (IAIMPServiceOptionsDialog*)_core->QueryInterface(IID_IAIMPServiceOptionsDialog);
 
 		System::IntPtr Handle = _settingForm->Handle;
 
@@ -174,12 +167,12 @@ public:
 	{
 		if (_optionsPage != NULL)
 		{
-			if (ID == AIMP36SDK::AIMP_SERVICE_OPTIONSDIALOG_NOTIFICATION_LOCALIZATION)
+			if (ID == AIMP_SERVICE_OPTIONSDIALOG_NOTIFICATION_LOCALIZATION)
 			{
 				// TODO: Notify about new language.
 				return;
 			}
-			else if (ID == AIMP36SDK::AIMP_SERVICE_OPTIONSDIALOG_NOTIFICATION_SAVE)
+			else if (ID == AIMP_SERVICE_OPTIONSDIALOG_NOTIFICATION_SAVE)
 			{
 				_main->SavePluginOptions();
 			}
@@ -192,7 +185,7 @@ public:
 	}
 };
 
-class PlaylistManagerListener : public AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPExtensionPlaylistManagerListener>
+class PlaylistManagerListener : public IUnknownInterfaceImpl<IAIMPExtensionPlaylistManagerListener>
 {
 private:
 		DotNetPlugin* _main;
@@ -217,7 +210,7 @@ public:
 		return _main->Release();
 	}
 
-	virtual void WINAPI PlaylistActivated(AIMP36SDK::IAIMPPlaylist *playlist)
+	virtual void WINAPI PlaylistActivated(IAIMPPlaylist *playlist)
 	{
 		if (playlist != nullptr)
 		{
@@ -225,7 +218,7 @@ public:
 		}
 	}
 
-	virtual void WINAPI PlaylistAdded(AIMP36SDK::IAIMPPlaylist *playlist)
+	virtual void WINAPI PlaylistAdded(IAIMPPlaylist *playlist)
 	{
 		if (playlist != nullptr)
 		{
@@ -233,7 +226,7 @@ public:
 		}
 	}
 
-	virtual void WINAPI PlaylistRemoved(AIMP36SDK::IAIMPPlaylist *playlist)
+	virtual void WINAPI PlaylistRemoved(IAIMPPlaylist *playlist)
 	{
 		if (playlist != nullptr)
 		{
@@ -242,7 +235,7 @@ public:
 	}
 };
 
-class AimpExtensionPlayerHook : public AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPExtensionPlayerHook>
+class AimpExtensionPlayerHook : public IUnknownInterfaceImpl<IAIMPExtensionPlayerHook>
 {
 private:
 	DotNetPlugin* _main;

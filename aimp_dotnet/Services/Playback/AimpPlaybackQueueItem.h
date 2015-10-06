@@ -1,5 +1,5 @@
 #pragma once
-#include "..\..\AIMP_SDK\aimp3_60_sdk.h"
+
 #include "..\..\ObjectHelper.h"
 #include "..\PlayList\AimpPlayListItem.h"
 
@@ -8,12 +8,11 @@ namespace AIMP
 	namespace SDK
 	{
 		using namespace System;
-		using namespace AIMP36SDK;
 		
-		public ref class AimpPlaybackQueueItem : public AimpObject<AIMP36SDK::IAIMPPlaybackQueueItem>, public AIMP::SDK::Services::Playback::IAimpPlaybackQueueItem
+		public ref class AimpPlaybackQueueItem : public AimpObject<IAIMPPlaybackQueueItem>, public AIMP::SDK::Services::Playback::IAimpPlaybackQueueItem
 		{
 		public:
-			explicit AimpPlaybackQueueItem(AIMP36SDK::IAIMPPlaybackQueueItem *aimpItem) : AimpObject(aimpItem)
+			explicit AimpPlaybackQueueItem(IAIMPPlaybackQueueItem *aimpItem) : AimpObject(aimpItem)
 			{ }
 
 			virtual property Object ^UserData

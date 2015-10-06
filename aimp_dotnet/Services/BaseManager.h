@@ -7,8 +7,6 @@ namespace AIMP
 {
 	namespace SDK
 	{
-		using namespace AIMP::SDK360;
-
 		public ref class AimpBaseManager abstract
 		{
 		public:

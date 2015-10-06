@@ -10,14 +10,14 @@ namespace AIMP
 	{
 		namespace PlayList
 		{
-			AimpPlayList::AimpPlayList(AIMP36SDK::IAIMPPlaylist *aimpPlayList) : AimpObject(aimpPlayList)
+			AimpPlayList::AimpPlayList(IAIMPPlaylist *aimpPlayList) : AimpObject(aimpPlayList)
 			{
 				GetPropertyList();
 			}
 
 			AimpPlayList::AimpPlayList()
 			{
-				AIMP36SDK::IAIMPPlaylist *playList = (AIMP36SDK::IAIMPPlaylist*)AIMP::SDK360::ManagedAimpCore::QueryInterface(AIMP36SDK::IID_IAIMPPlaylist);
+				IAIMPPlaylist *playList = (IAIMPPlaylist*)ManagedAimpCore::QueryInterface(IID_IAIMPPlaylist);
 				GetPropertyList();
 			}
 
@@ -295,7 +295,7 @@ namespace AIMP
 
 			AimpActionResult AimpPlayList::Add(String^ fileUrl, PlayListFlags flags, PlayListFilePosition filePosition)
 			{
-				AIMP36SDK::IAIMPString *url = ObjectHelper::MakeAimpString(AIMP::SDK360::ManagedAimpCore::GetAimpCore(), fileUrl);
+				IAIMPString *url = ObjectHelper::MakeAimpString(ManagedAimpCore::GetAimpCore(), fileUrl);
 				return CheckResult(InternalAimpObject->Add(url, (DWORD)flags, (int)filePosition));
 			}
 
@@ -303,8 +303,8 @@ namespace AIMP
 			{
 				if (fileUrlList->Count > 0)
 				{
-					AIMP36SDK::IAIMPObjectList *list;
-					AIMP::SDK360::ManagedAimpCore::GetAimpCore()->CreateObject(AIMP36SDK::IID_IAIMPObjectList, (void**)&list);
+					IAIMPObjectList *list;
+					ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPObjectList, (void**)&list);
 					for each (AimpFileInfo ^file in fileUrlList)
 					{
 						list->Add(file->InternalAimpObject);
@@ -320,11 +320,11 @@ namespace AIMP
 			{
 				if (fileUrlList->Count > 0)
 				{
-					AIMP36SDK::IAIMPObjectList *list;
-					AIMP::SDK360::ManagedAimpCore::GetAimpCore()->CreateObject(AIMP36SDK::IID_IAIMPObjectList, (void**) &list);
+					IAIMPObjectList *list;
+					ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPObjectList, (void**) &list);
 					for each (String ^file in fileUrlList)
 					{
-						list->Add(ObjectHelper::MakeAimpString(AIMP::SDK360::ManagedAimpCore::GetAimpCore(), file));
+						list->Add(ObjectHelper::MakeAimpString(ManagedAimpCore::GetAimpCore(), file));
 					}
 
 					return CheckResult(InternalAimpObject->AddList(list, (DWORD) flags, (int) filePosition));
@@ -358,7 +358,7 @@ namespace AIMP
 				_compareFunc = compareFunc;
 				_sortCallback = gcnew OnSortCallback(this, &AIMP::SDK::PlayList::AimpPlayList::OnSortReceive);
 				IntPtr functionHandle = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_sortCallback);
-				return CheckResult(InternalAimpObject->Sort3((AIMP36SDK::TAIMPPlaylistCompareProc(_stdcall*))functionHandle.ToPointer(), NULL));
+				return CheckResult(InternalAimpObject->Sort3((TAIMPPlaylistCompareProc(_stdcall*))functionHandle.ToPointer(), NULL));
 			}
 
 			AimpActionResult AimpPlayList::BeginUpdate()
@@ -378,7 +378,7 @@ namespace AIMP
 
 			System::Collections::Generic::IList<String^> ^AimpPlayList::GetFiles(PlayListGetFilesFlag filesFlag)
 			{
-				AIMP36SDK::IAIMPObjectList *collection;
+				IAIMPObjectList *collection;
 				InternalAimpObject->GetFiles((DWORD)filesFlag, &collection);
 				
 				System::Collections::Generic::IList<String^> ^result = gcnew System::Collections::Generic::List<String^>();
@@ -552,7 +552,7 @@ namespace AIMP
 
 			void AimpPlayList::GetPropertyList()
 			{
-				AIMP36SDK::IAIMPPropertyList *properties;
+				IAIMPPropertyList *properties;
 				InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
 				_properties = properties;
 			}

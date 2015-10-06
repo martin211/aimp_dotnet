@@ -1,9 +1,6 @@
 #pragma once
 #include ".\Services\PlayList\AimpPlayListItem.h"
-#include ".\AIMP_SDK\aimp3_60_sdk.h"
-#include "ManagedAimpCore.h"
 
-using namespace AIMP36SDK;
 using namespace AIMP::SDK;
 
 public class StaticSingleThreadAllocator 
@@ -75,26 +72,3 @@ private:
 	static T^ _self;
 	static int _refCount;
 };
-
-namespace AIMP
-{	
-	public ref class DataConverter
-	{
-	private:
-		IAIMPCore* _aimpCore;
-	public:
-		void Initialize(IAIMPCore* aimpCore)
-		{
-			_aimpCore = aimpCore;
-		}
-
-		IAIMPString* GetAimpString(System::String^ stringValue)
-		{
-			IAIMPString* strObject = NULL;
-			pin_ptr<const WCHAR>  strDate = PtrToStringChars(stringValue);
-			_aimpCore->CreateObject(IID_IAIMPString, (void**)&strObject);
-			strObject->SetData((PWCHAR)strDate, stringValue->Length);
-			return strObject;
-		}
-	};
-}

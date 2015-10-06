@@ -120,6 +120,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimpCore.h" />
+    <ClInclude Include="AIMP_SDK\AimpObject.h" />
+    <ClInclude Include="AIMP_SDK\AimpSDK.h" />
+    <ClInclude Include="AIMP_SDK\Utils.h" />
     <ClInclude Include="Services\PlayList\PlayListManager.h" />
     <ClInclude Include="Services\PlayList\AimpPlayListQueue.h" />
     <ClInclude Include="AIMPPlugin.h" />

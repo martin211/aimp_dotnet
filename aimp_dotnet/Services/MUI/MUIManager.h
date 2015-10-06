@@ -2,14 +2,7 @@
 
 #include "..\..\ManagedAimpCore.h"
 #include "..\BaseManager.h"
-
-namespace AIMP36SDK
-{
-	namespace MUI
-	{
-		#include "..\..\AIMP_SDK\AIMP360\apiMUI.h"
-	}
-}
+#include "ObjectHelper.h"
 
 namespace AIMP
 {
@@ -24,14 +17,14 @@ namespace AIMP
 			explicit AimpMIUManager(ManagedAimpCore^ core) : AimpBaseManager(core)
 			{
 				// TODO: Add logging.
-				AIMP36SDK::MUI::IAIMPServiceMUI* service;
-				core->GetService(AIMP36SDK::MUI::IID_IAIMPServiceMUI, (void**) &service);
+				IAIMPServiceMUI* service;
+				core->GetService(IID_IAIMPServiceMUI, (void**) &service);
 				_muiService = service;
 			}
 
 			virtual String^ GetName()
 			{
-				AIMP36SDK::IAIMPString *str;
+				IAIMPString *str;
 				try
 				{
 					_muiService->GetName(&str);
@@ -48,7 +41,7 @@ namespace AIMP
 
 			virtual String^ GetValue(String^ key)
 			{
-				AIMP36SDK::IAIMPString *str;
+				IAIMPString *str;
 				try
 				{
 					_muiService->GetValue(ObjectHelper::MakeAimpString(_core->GetAimpCore(), key), &str);
@@ -70,7 +63,7 @@ namespace AIMP
 
 			virtual String^ GetValuePart(String^ key, int index)
 			{
-				AIMP36SDK::IAIMPString *str;
+				IAIMPString *str;
 				try
 				{
 					_muiService->GetValuePart(ObjectHelper::MakeAimpString(_core->GetAimpCore(), key), index, &str);
@@ -92,7 +85,7 @@ namespace AIMP
 			}
 
 		private:
-			AIMP36SDK::MUI::IAIMPServiceMUI* _muiService;
+			IAIMPServiceMUI* _muiService;
 		};
 	}
 }

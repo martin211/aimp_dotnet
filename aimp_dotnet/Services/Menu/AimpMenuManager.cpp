@@ -26,11 +26,11 @@ namespace AIMP
 		/// <param name="core">The core.</param>
 		AimpMenuManager::AimpMenuManager(ManagedAimpCore^ core) : AimpBaseManager(core)
 		{
-			AIMP36SDK::IAIMPServiceMenuManager* menuManager;
-			ManagedAimpCore::GetAimpCore()->QueryInterface(AIMP36SDK::IID_IAIMPServiceMenuManager, (void**) &menuManager);
+			IAIMPServiceMenuManager* menuManager;
+			ManagedAimpCore::GetAimpCore()->QueryInterface(IID_IAIMPServiceMenuManager, (void**) &menuManager);
 			_aimpMenuManager = menuManager;
 
-			_aimpActionManager = (IAIMPServiceActionManager*) core->QueryInterface(AIMP36SDK::IID_IAIMPServiceActionManager);
+			_aimpActionManager = (IAIMPServiceActionManager*) core->QueryInterface(IID_IAIMPServiceActionManager);
 			//this->_core = AimpBaseManager::_core;
 		}
 
@@ -134,7 +134,7 @@ namespace AIMP
 				return nullptr;
 			}
 
-			AIMP36SDK::IAIMPString* menuId = ObjectHelper::MakeAimpString(_core->GetAimpCore(), id);
+			IAIMPString* menuId = ObjectHelper::MakeAimpString(_core->GetAimpCore(), id);
 			IAIMPMenuItem *aimpMenuItem;
 			_aimpMenuManager->GetByID(menuId, &aimpMenuItem);
 
@@ -151,10 +151,10 @@ namespace AIMP
 			int checked;
 			aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_CHECKED, &checked);
 
-			AIMP36SDK::IAIMPString* idString;
-			AIMP36SDK::IAIMPString* nameString;
-			aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_ID, AIMP36SDK::IID_IAIMPString, (void**) &idString);
-			aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_NAME, AIMP36SDK::IID_IAIMPString, (void**) &nameString);
+			IAIMPString* idString;
+			IAIMPString* nameString;
+			aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_ID, IID_IAIMPString, (void**) &idString);
+			aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_NAME, IID_IAIMPString, (void**) &nameString);
 
 			if (menuType == AIMP_MENUITEM_STYLE_CHECKBOX)
 			{
@@ -200,10 +200,12 @@ namespace AIMP
 		/// <param name="menuItem">The menu item.</param>
 		void AimpMenuManager::RegisterMenu(IAIMPMenuItem* parentMenuItem, MenuItem^ menuItem)
 		{
-			AIMP36SDK::IAIMPMenuItem *newItem = ObjectHelper::CreateMenuItem(_core->GetAimpCore());
+			IAIMPMenuItem *newItem = ObjectHelper::CreateMenuItem(_core->GetAimpCore());
 
 			if (newItem == NULL)
+			{
 				return;
+			}
 
 			menuItem->PropertyChanged += gcnew System::ComponentModel::PropertyChangedEventHandler(this, &AIMP::AimpMenuManager::OnPropertyChanged);
 

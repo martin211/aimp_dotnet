@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include "..\..\AIMP_SDK\aimp3_60_sdk.h"
-#include "..\..\ObjectHelper.h"
+//#include "..\..\ObjectHelper.h"
 
 namespace AIMP
 {
@@ -20,7 +19,7 @@ namespace AIMP
 			using namespace AIMP::SDK::Services;
 			using namespace AIMP::SDK::Services::PlayList;
 			
-			class AimpPlaylistListener : public IUnknownInterfaceImpl<AIMP36SDK::IAIMPPlaylistListener>
+			class AimpPlaylistListener : public IUnknownInterfaceImpl<IAIMPPlaylistListener>
 			{
 			private:
 				IntSignal _changed;
@@ -75,7 +74,7 @@ namespace AIMP
 
 				virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
 				{
-					if (riid == AIMP36SDK::IID_IAIMPPlaylistListener)
+					if (riid == IID_IAIMPPlaylistListener)
 					{
 						*ppvObject = this;
 						return S_OK;
@@ -89,10 +88,10 @@ namespace AIMP
 			/// <summary>
 			/// 
 			/// </summary>
-			public ref class AimpPlayList : public AimpObject<AIMP36SDK::IAIMPPlaylist>, public IAimpPlayList
+			public ref class AimpPlayList : public AimpObject<IAIMPPlaylist>, public IAimpPlayList
 			{
 			private:
-				AIMP36SDK::IAIMPPropertyList *_properties;
+				IAIMPPropertyList *_properties;
 				Func<IAimpPlayListItem^, IAimpPlayListItem^, PlayListSortComapreResult>^ _compareFunc;
 				PlayListChangedHandler ^_onChanged;
 				AimpPlayListHandler ^_onActivated;
@@ -104,7 +103,7 @@ namespace AIMP
 				ConnectionCallback *_changedCallBack;
 
 			public:
-				explicit AimpPlayList(AIMP36SDK::IAIMPPlaylist *aimpPlayList);
+				explicit AimpPlayList(IAIMPPlaylist *aimpPlayList);
 				
 				AimpPlayList();
 
@@ -321,11 +320,10 @@ namespace AIMP
 				void GetPropertyList();
 				void RegisterListner();
 
-				delegate int OnSortCallback(AIMP36SDK::IAIMPPlaylistItem* item1, AIMP36SDK::IAIMPPlaylistItem* item2, void* userData);
+				delegate int OnSortCallback(IAIMPPlaylistItem* item1, IAIMPPlaylistItem* item2, void* userData);
 				OnSortCallback^ _sortCallback;
 
-				// TODO: Move it to the cpp file
-				int OnSortReceive(AIMP36SDK::IAIMPPlaylistItem* item1, AIMP36SDK::IAIMPPlaylistItem* item2, void* userData)
+				int OnSortReceive(IAIMPPlaylistItem* item1, IAIMPPlaylistItem* item2, void* userData)
 				{
 					System::Diagnostics::Debugger::Break();
 					PWCHAR sp = (PWCHAR)userData;

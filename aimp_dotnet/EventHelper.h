@@ -1,6 +1,3 @@
-#using <mscorlib.dll>
-#include <msclr/marshal.h>
-
 namespace AIMP
 {
 	typedef boost::signals::connection Callback;
@@ -9,9 +6,6 @@ namespace AIMP
 
 	using namespace System;
 	using namespace AIMP::SDK;
-	using namespace msclr::interop;
-
-	//delegate void ChangeHandler(void);
 
 	class EventHelper
 	{
