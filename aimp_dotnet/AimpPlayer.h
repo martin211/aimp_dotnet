@@ -1,23 +1,20 @@
 #pragma once
 
-#include "DataConversion.h"
 #include <vcclr.h>
 #include "AIMPPlugin.h"
 #include "ManagedAimpCore.h"
-#include "DataConversion.h"
 
-
-#include "Services\Menu\AimpMenuManager.h"
-#include "Services\Action\AimpActionManager.h"
-#include "Services\MUI\MUIManager.h"
-#include "Services\AlbumArt\AimpAlbumArtManager.h"
-#include "Services\Configuration\AimpConfigurationManager.h"
-#include "Services\PlayList\AimpFileInfo.h"
-#include "Services\Win32\Win32Manager.h"
-#include "Services\PlayList\AimpPlayListItem.h"
-#include "Services\PlayList\AimpPlayList.h"
-#include "Services\PlayList\PlayListManager.h"
-#include "Services\Playback\AimpServicePlaybackQueue.h"
+#include "SDK\Menu\AimpMenuManager.h"
+#include "SDK\Action\AimpActionManager.h"
+#include "SDK\MUI\MUIManager.h"
+#include "SDK\AlbumArt\AimpAlbumArtManager.h"
+#include "SDK\Configuration\AimpConfigurationManager.h"
+#include "SDK\PlayList\AimpFileInfo.h"
+#include "SDK\Win32\Win32Manager.h"
+#include "SDK\PlayList\AimpPlayListItem.h"
+#include "SDK\PlayList\AimpPlayList.h"
+#include "SDK\PlayList\PlayListManager.h"
+#include "SDK\Playback\AimpServicePlaybackQueue.h"
 #include "AimpCore.h"
 
 
@@ -291,7 +288,7 @@ namespace AIMP
 					return nullptr;
 				}
 
-				AIMP::PlayList::AimpFileInfo^ fileInfo = gcnew AIMP::PlayList::AimpFileInfo(fi);
+				AimpFileInfo^ fileInfo = gcnew AimpFileInfo(fi);
 				return fileInfo;
 			}
 		}
@@ -308,7 +305,7 @@ namespace AIMP
 					return nullptr;
 				}
 
-				return gcnew AIMP::SDK::PlayList::AimpPlayListItem(item);
+				return gcnew AimpPlayListItem(item);
 			}
 		}
 
@@ -442,12 +439,12 @@ namespace AIMP
 
 		virtual void Play(IAimpPlayListItem ^playListItem)
 		{
-			_player->Play2(((AIMP::SDK::PlayList::AimpPlayListItem^)playListItem)->InternalAimpObject);
+			_player->Play2(((AimpPlayListItem^)playListItem)->InternalAimpObject);
 		}
 
 		virtual void Play(IAimpPlayList^ playList)
 		{
-			_player->Play3(((AIMP::SDK::PlayList::AimpPlayList^)playList)->InternalAimpObject);
+			_player->Play3(((AimpPlayList^)playList)->InternalAimpObject);
 		}
 
 	private:

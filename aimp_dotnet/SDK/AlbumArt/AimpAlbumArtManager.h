@@ -7,7 +7,7 @@ namespace AIMP
 {
 	namespace SDK
 	{
-		using namespace System;		
+		using namespace System;
 		using namespace AIMP::SDK::Services::AlbumArtManager;
 		using namespace System::IO;
 

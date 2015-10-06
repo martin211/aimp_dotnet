@@ -2,7 +2,6 @@
 
 #include "Stdafx.h"
 #include "AimpActionManager.h"
-#include "..\..\DataConversion.h"
 #include "..\..\ObjectHelper.h"
 
 namespace AIMP
