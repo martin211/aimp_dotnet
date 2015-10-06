@@ -1,9 +1,7 @@
 #pragma once
 
 #include <gcroot.h>
-#include "AIMP_SDK\IUnknownInterfaceImpl.h"
 #include "AimpPlayer.h"
-#include "DataConversion.h"
 #include "ObjectHelper.h"
 #include "InternalLogger.h"
 

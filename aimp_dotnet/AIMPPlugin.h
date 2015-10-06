@@ -1,5 +1,5 @@
 #pragma once
-#include "Services\Menu\AimpMenuManager.h"
+#include "SDK\Menu\AimpMenuManager.h"
 #include "InternalLogger.h"
 
 namespace AIMP

@@ -90,7 +90,7 @@ namespace AIMP
 		private:
 			void OnCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2)
 			{
-				CoreMessage(param1, param2);				
+				CoreMessage(param1, param2);
 			}
 			
 			void OnTest(System::Object ^sender, System::EventArgs ^e)

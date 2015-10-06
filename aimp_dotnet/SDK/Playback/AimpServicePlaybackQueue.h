@@ -6,9 +6,7 @@
 namespace AIMP
 {
 	namespace SDK
-	{		
-		using namespace AIMP::SDK;
-
+	{
 		using namespace AIMP::SDK::Services::PlayList;
 		using namespace AIMP::SDK::Services::Playback;
 

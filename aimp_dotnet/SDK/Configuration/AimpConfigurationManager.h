@@ -7,7 +7,7 @@ namespace AIMP
 {
 	namespace SDK
 	{
-		using namespace System;		
+		using namespace System;
 		using namespace AIMP::SDK::Services::ConfigurationManager;
 
 		public ref class AimpConfigurationManager : public AimpBaseManager, public IAimpConfigurationManager

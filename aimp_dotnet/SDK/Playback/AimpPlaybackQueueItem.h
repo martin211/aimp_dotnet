@@ -36,11 +36,11 @@ namespace AIMP
 				{
 					IAIMPPlaylistItem *item;
 					InternalAimpObject->GetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, IID_IAIMPPlaylistItem, (void**) &item);
-					return gcnew PlayList::AimpPlayListItem(item);
+					return gcnew AimpPlayListItem(item);
 				}
 				void set(IAimpPlayListItem^ value)
 				{
-					InternalAimpObject->SetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, ((PlayList::AimpPlayListItem^)value)->InternalAimpObject);
+					InternalAimpObject->SetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, ((AimpPlayListItem^)value)->InternalAimpObject);
 				}
 			}
 		};

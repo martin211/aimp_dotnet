@@ -1,7 +1,7 @@
 #include "Stdafx.h"
 #include "ManagedAimpCore.h"
 #include "AIMP_SDK\IUnknownInterfaceImpl.h"
-#include "Services\PlayList\AimpPlayList.h"
+#include "SDK\PlayList\AimpPlayList.h"
 #include "ObjectHelper.h"
 
 namespace AIMP
@@ -96,21 +96,21 @@ namespace AIMP
 
 		void ManagedAimpCore::OnPlaylistActivated(IAIMPPlaylist *playlist)
 		{
-			AIMP::SDK::PlayList::AimpPlayList ^pl = gcnew AIMP::SDK::PlayList::AimpPlayList(playlist);
+			AimpPlayList ^pl = gcnew AimpPlayList(playlist);
 			this->PlaylistActivated(pl->Name, pl->Id);
 			pl = nullptr;
 		}
 
 		void ManagedAimpCore::OnPlayListAdded(IAIMPPlaylist *playlist)
 		{
-			AIMP::SDK::PlayList::AimpPlayList ^pl = gcnew AIMP::SDK::PlayList::AimpPlayList(playlist);
+			AimpPlayList ^pl = gcnew AimpPlayList(playlist);
 			this->PlaylistAdded(pl->Name, pl->Id);
 			pl = nullptr;
 		}
 
 		void ManagedAimpCore::OnPlayListRemoved(IAIMPPlaylist *playlist)
 		{
-			AIMP::SDK::PlayList::AimpPlayList ^pl = gcnew AIMP::SDK::PlayList::AimpPlayList(playlist);
+			AimpPlayList ^pl = gcnew AimpPlayList(playlist);
 			this->PlaylistRemoved(pl->Name, pl->Id);
 			pl = nullptr;
 		}

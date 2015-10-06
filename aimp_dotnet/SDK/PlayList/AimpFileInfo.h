@@ -4,10 +4,7 @@ namespace AIMP
 {
 	namespace SDK
 	{
-	namespace PlayList
-	{
 		using namespace System;
-		using namespace AIMP::SDK::Services::PlayList;
 
 		public ref class AimpFileInfo : public AimpObject<IAIMPFileInfo>, public IAimpFileInfo
 		{
@@ -506,5 +503,4 @@ namespace AIMP
 				}
 		};
 	}
-}
 }

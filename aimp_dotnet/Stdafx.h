@@ -12,6 +12,7 @@
 #include <boost/signal.hpp>
 #include <iostream>
 #include ".\DataConversion.h"
+#include "AIMP_SDK\AimpSDK.h"
 
 // required for boost::intrusive_ptr support
 inline void intrusive_ptr_add_ref(IUnknown* po)

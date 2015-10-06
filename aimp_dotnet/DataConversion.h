@@ -1,6 +1,4 @@
 #pragma once
-#include ".\Services\PlayList\AimpPlayListItem.h"
-
 using namespace AIMP::SDK;
 
 public class StaticSingleThreadAllocator 
