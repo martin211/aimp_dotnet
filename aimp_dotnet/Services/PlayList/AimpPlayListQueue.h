@@ -1,6 +1,5 @@
 #pragma once
 
-#include "..\..\AIMP_SDK\aimp3_60_sdk.h"
 #include "..\..\ObjectHelper.h"
 
 namespace AIMP
@@ -9,10 +8,9 @@ namespace AIMP
 	{
 		namespace PlayList
 		{
-			using namespace AIMP36SDK;
 			using namespace AIMP::SDK;
 
-			public ref class AimpPlaylistQueue : public AimpObject<AIMP36SDK::IAIMPPlaylistQueue>, public IAimpPlayListQueue
+			public ref class AimpPlaylistQueue : public AimpObject<IAIMPPlaylistQueue>, public IAimpPlayListQueue
 			{
 			public:
 				virtual property bool IsSuspended

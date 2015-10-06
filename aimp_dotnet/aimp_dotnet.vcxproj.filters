@@ -107,7 +107,6 @@
     <ClInclude Include="InternalLogger.h">
       <Filter>Services\LoggerManager</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectHelper.h" />
     <ClInclude Include="AIMPPlugin.h" />
     <ClInclude Include="Services\PlayList\AimpFileInfo.h">
       <Filter>Services\PlayListManager</Filter>
@@ -159,6 +158,10 @@
       <Filter>Services\MenuManager</Filter>
     </ClInclude>
     <ClInclude Include="Services\Playback\AimpServicePlaybackQueue.h" />
+    <ClInclude Include="AIMP_SDK\AimpSDK.h" />
+    <ClInclude Include="AIMP_SDK\Utils.h" />
+    <ClInclude Include="AIMP_SDK\AimpObject.h" />
+    <ClInclude Include="ObjectHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

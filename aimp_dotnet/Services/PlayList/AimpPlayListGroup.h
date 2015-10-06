@@ -1,6 +1,5 @@
 #pragma once
 
-#include "..\..\AIMP_SDK\aimp3_60_sdk.h"
 #include "..\..\ObjectHelper.h"
 
 
@@ -10,10 +9,9 @@ namespace AIMP
 	{
 		namespace PlayList
 		{
-			using namespace AIMP36SDK;
 			using namespace AIMP::SDK::Services::PlayList;
 
-			public ref class AimpPlayListGroup : public AimpObject<AIMP36SDK::IAIMPPlaylistGroup>, public IAimpPlayListGroup
+			public ref class AimpPlayListGroup : public AimpObject<IAIMPPlaylistGroup>, public IAimpPlayListGroup
 			{
 			private:
 				IAimpPlayListItem ^_item;
@@ -25,7 +23,7 @@ namespace AIMP
 				}
 				AimpPlayListGroup();
 
-				explicit AimpPlayListGroup(AIMP36SDK::IAIMPPlaylistGroup *item);
+				explicit AimpPlayListGroup(IAIMPPlaylistGroup *item);
 
 				virtual property System::String^ Name
 				{

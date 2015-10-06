@@ -1,21 +1,21 @@
 #include "Stdafx.h"
 #include "ManagedAimpCore.h"
-#include "AIMP_SDK\aimp3_60_sdk.h"
 #include "AIMP_SDK\IUnknownInterfaceImpl.h"
 #include "Services\PlayList\AimpPlayList.h"
+#include "ObjectHelper.h"
 
 namespace AIMP
 {
 	/// <summary>
 	/// 
 	/// </summary>
-	namespace SDK360
+	namespace SDK
 	{
 		using namespace System;
 		using namespace System::Runtime::InteropServices;
-		using namespace AIMP36SDK;
+		using namespace AIMPSDK;
 
-		class AIMPMessageHook : public AIMP36SDK::IUnknownInterfaceImpl<AIMP36SDK::IAIMPMessageHook>
+		class AIMPMessageHook : public IUnknownInterfaceImpl<IAIMPMessageHook>
 		{
 		public:
 			explicit AIMPMessageHook(gcroot<ManagedAimpCore^> aimp36_manager)
@@ -31,14 +31,14 @@ namespace AIMP
 			gcroot<ManagedAimpCore^> aimp36_manager_;
 		};
 
-		ManagedAimpCore::ManagedAimpCore(AIMP36SDK::IAIMPCore* core)
+		ManagedAimpCore::ManagedAimpCore(IAIMPCore* core)
 		{
 			_core = core;
 			_nativeEventHelper = new EventHelper();
 
-			AIMP36SDK::IAIMPServiceMessageDispatcher* aimp_service_message_dispatcher;
-			core->QueryInterface(AIMP36SDK::IID_IAIMPServiceMessageDispatcher, reinterpret_cast<void**>(&aimp_service_message_dispatcher));
-			_hook = new AIMPMessageHook(this);			
+			IAIMPServiceMessageDispatcher* aimp_service_message_dispatcher;
+			core->QueryInterface(IID_IAIMPServiceMessageDispatcher, reinterpret_cast<void**>(&aimp_service_message_dispatcher));
+			_hook = new AIMPMessageHook(this);
 			aimp_service_message_dispatcher->Hook(_hook);
 			_messageDispatcher = aimp_service_message_dispatcher;
 		}
@@ -58,10 +58,10 @@ namespace AIMP
 		/// <returns></returns>
 		AIMP::SDK::Services::AimpActionResult ManagedAimpCore::GetPath(AIMP::SDK::AimpMessages::AimpCorePathType pathType, String ^%pathResult)
 		{
-			AIMP36SDK::IAIMPString* res;
+			IAIMPString* res;
 
 			_core->GetPath((int) pathType, &res);
-			AIMP36SDK::IAIMPString_ptr path(res, false);
+			IAIMPString_ptr path(res, false);
 
 			pathResult = gcnew System::String(std::wstring(path->GetData(), path->GetLength()).c_str());
 			return AIMP::SDK::Services::AimpActionResult::Ok;
@@ -90,25 +90,25 @@ namespace AIMP
 		/// <param name="param1">The param1.</param>
 		/// <param name="param2">The param2.</param>
 		void ManagedAimpCore::OnCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2)
-		{			
+		{
 			CoreMessage(param1, param2);
 		}
 
-		void ManagedAimpCore::OnPlaylistActivated(AIMP36SDK::IAIMPPlaylist *playlist)
-		{			
+		void ManagedAimpCore::OnPlaylistActivated(IAIMPPlaylist *playlist)
+		{
 			AIMP::SDK::PlayList::AimpPlayList ^pl = gcnew AIMP::SDK::PlayList::AimpPlayList(playlist);
 			this->PlaylistActivated(pl->Name, pl->Id);
 			pl = nullptr;
 		}
 
-		void ManagedAimpCore::OnPlayListAdded(AIMP36SDK::IAIMPPlaylist *playlist)
+		void ManagedAimpCore::OnPlayListAdded(IAIMPPlaylist *playlist)
 		{
 			AIMP::SDK::PlayList::AimpPlayList ^pl = gcnew AIMP::SDK::PlayList::AimpPlayList(playlist);
 			this->PlaylistAdded(pl->Name, pl->Id);
 			pl = nullptr;
 		}
 
-		void ManagedAimpCore::OnPlayListRemoved(AIMP36SDK::IAIMPPlaylist *playlist)
+		void ManagedAimpCore::OnPlayListRemoved(IAIMPPlaylist *playlist)
 		{
 			AIMP::SDK::PlayList::AimpPlayList ^pl = gcnew AIMP::SDK::PlayList::AimpPlayList(playlist);
 			this->PlaylistRemoved(pl->Name, pl->Id);
@@ -190,14 +190,14 @@ namespace AIMP
 		/// <summary>
 		/// Creates the new AIMP stream.
 		/// </summary>
-		AIMP36SDK::IAIMPStream* ManagedAimpCore::CreateStream()
+		IAIMPStream* ManagedAimpCore::CreateStream()
 		{
-			AIMP36SDK::IAIMPStream* stream;
-			_core->CreateObject(AIMP36SDK::IID_IAIMPMemoryStream, (void**)&stream);
+			IAIMPStream* stream;
+			_core->CreateObject(IID_IAIMPMemoryStream, (void**)&stream);
 			return stream;
 		}
 
-		AIMP36SDK::IAIMPCore* ManagedAimpCore::GetAimpCore()
+		IAIMPCore* ManagedAimpCore::GetAimpCore()
 		{
 			return _core;
 		}

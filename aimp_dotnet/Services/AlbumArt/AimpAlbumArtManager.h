@@ -3,20 +3,11 @@
 #include "..\..\ManagedAimpCore.h"
 #include "..\BaseManager.h"
 
-namespace AIMP36SDK
-{
-	namespace AlbumArt
-	{
-		#include "..\..\AIMP_SDK\AIMP360\apiAlbumArt.h"
-	}
-}
-
 namespace AIMP
 {
 	namespace SDK
 	{
-		using namespace System;
-		using namespace AIMP36SDK::AlbumArt;
+		using namespace System;		
 		using namespace AIMP::SDK::Services::AlbumArtManager;
 		using namespace System::IO;
 
@@ -95,7 +86,7 @@ namespace AIMP
 			{
 				array<System::String^>^ get()
 				{
-					AIMP36SDK::IAIMPString *str;
+					IAIMPString *str;
 					_properties->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, IID_IAIMPString, (void**) &str);
 					String^ result = gcnew String(str->GetData());
 					return result->Split(gcnew array < WCHAR > {';'});
@@ -115,7 +106,7 @@ namespace AIMP
 			{
 				array<System::String^>^ get()
 				{
-					AIMP36SDK::IAIMPString *str;
+					IAIMPString *str;
 					_properties->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, IID_IAIMPString, (void**) &str);
 					String^ result = gcnew String(str->GetData());
 					return result->Split(gcnew array < WCHAR > {';'});
@@ -170,7 +161,7 @@ namespace AIMP
 				_findCallback = gcnew OnFindCoverCallback(this, &AIMP::AimpAlbumArtManager::OnAlbumArtReceive);
 				//TAIMPServiceAlbumArtReceiveProc *f = &test;
 				IntPtr thunk = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_findCallback);
-				_service->Get(ObjectHelper::MakeAimpString(_core->GetAimpCore(), fileUrl), ObjectHelper::MakeAimpString(_core->GetAimpCore(), artist), ObjectHelper::MakeAimpString(_core->GetAimpCore(), album), (DWORD) flags, (AIMP36SDK::TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(), reinterpret_cast<void*>(&userData), &taskId);
+				_service->Get(ObjectHelper::MakeAimpString(_core->GetAimpCore(), fileUrl), ObjectHelper::MakeAimpString(_core->GetAimpCore(), artist), ObjectHelper::MakeAimpString(_core->GetAimpCore(), album), (DWORD) flags, (TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(), reinterpret_cast<void*>(&userData), &taskId);
 				return (IntPtr) taskId;
 			}
 

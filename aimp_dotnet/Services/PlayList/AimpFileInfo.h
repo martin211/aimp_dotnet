@@ -1,4 +1,3 @@
-#include "..\..\AIMP_SDK\aimp3_60_sdk.h"
 #include "..\..\ObjectHelper.h"
 
 namespace AIMP
@@ -8,20 +7,19 @@ namespace AIMP
 	namespace PlayList
 	{
 		using namespace System;
-		using namespace AIMP36SDK;
 		using namespace AIMP::SDK::Services::PlayList;
 
-		public ref class AimpFileInfo : public AimpObject<AIMP36SDK::IAIMPFileInfo>, public IAimpFileInfo
+		public ref class AimpFileInfo : public AimpObject<IAIMPFileInfo>, public IAimpFileInfo
 		{
 		public:
 			AimpFileInfo()
 			{
-				AIMP36SDK::IAIMPFileInfo *fileInfo;
-				 (AIMP36SDK::IAIMPFileInfo*)AIMP::SDK360::ManagedAimpCore::GetAimpCore()->CreateObject(AIMP36SDK::IID_IAIMPFileInfo, (void**)&fileInfo);
+				IAIMPFileInfo *fileInfo;
+				(IAIMPFileInfo*)ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPFileInfo, (void**)&fileInfo);
 				_aimpObject = fileInfo;
 			}
 
-			AimpFileInfo(AIMP36SDK::IAIMPFileInfo *aimpItem) : AimpObject(aimpItem)
+			AimpFileInfo(IAIMPFileInfo *aimpItem) : AimpObject(aimpItem)
 			{
 			}
 
@@ -44,7 +42,7 @@ namespace AIMP
 					System::Drawing::Bitmap^ bmp = nullptr;
 
 					IAIMPImageContainer *container;
-					AIMP::SDK360::ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImageContainer, (void**) &container);
+					ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImageContainer, (void**) &container);
 					_aimpObject->GetValueAsObject(AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImageContainer, (void**) &container);
 
 					if (container != NULL)
@@ -55,7 +53,7 @@ namespace AIMP
 					else
 					{
 						IAIMPImage *image;
-						AIMP::SDK360::ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**) &image);
+						ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**) &image);
 						_aimpObject->GetValueAsObject(AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImage, (void**) &image);
 						if (image != NULL)
 						{
@@ -493,7 +491,7 @@ namespace AIMP
 			virtual IAimpFileInfo^ Clone()
 			{
 				IAIMPFileInfo* clone;
-				AIMP::SDK360::ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPFileInfo, (void**)&clone);
+				ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPFileInfo, (void**)&clone);
 				_aimpObject->Clone(&clone);
 				return gcnew AimpFileInfo(clone);
 			}

@@ -1,8 +1,7 @@
 #pragma once
 
-#include "..\..\AIMP_SDK\aimp3_60_sdk.h"
+#include "..\..\AIMP_SDK\AimpSDK.h"
 #include "..\..\ObjectHelper.h"
-//#include "PlayListManager.h"
 
 namespace AIMP
 {
@@ -13,17 +12,17 @@ namespace AIMP
 
 			using namespace System;
 
-			using namespace AIMP36SDK;
+			using namespace AIMPSDK;
 			using namespace AIMP::SDK::Services;
 			using namespace AIMP::SDK::Services::PlayList;
 
-			public ref class AimpPlayListItem : public AimpObject<AIMP36SDK::IAIMPPlaylistItem>, public IAimpPlayListItem
+			public ref class AimpPlayListItem : public AimpObject<IAIMPPlaylistItem>, public IAimpPlayListItem
 			{
 			private:
 				IAimpPlayListGroup^ _group;
 
 			internal:
-				AimpPlayListItem(AIMP36SDK::IAIMPPlaylistItem *aimpItem) : AimpObject(aimpItem)
+				AimpPlayListItem(IAIMPPlaylistItem *aimpItem) : AimpObject(aimpItem)
 				{
 				}
 			public:

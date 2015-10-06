@@ -1,4 +1,3 @@
-#include "..\..\AIMP_SDK\aimp3_60_sdk.h"
 #include "..\BaseManager.h"
 
 namespace AIMP
@@ -8,7 +7,6 @@ namespace AIMP
 		using namespace System::Collections;
 		using namespace System::Collections::Generic;
 
-		using namespace AIMP36SDK;
 		using namespace AIMP::SDK;
 		using namespace AIMP::SDK::Services::PlayList;
 

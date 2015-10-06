@@ -3,20 +3,11 @@
 #include "..\..\ManagedAimpCore.h"
 #include "..\BaseManager.h"
 
-namespace AIMP36SDK
-{
-	namespace Core
-	{
-		#include "..\..\AIMP_SDK\AIMP360\apiCore.h"
-	}
-}
-
 namespace AIMP
 {
 	namespace SDK
 	{
-		using namespace System;
-		using namespace AIMP36SDK::Core;
+		using namespace System;		
 		using namespace AIMP::SDK::Services::ConfigurationManager;
 
 		public ref class AimpConfigurationManager : public AimpBaseManager, public IAimpConfigurationManager
@@ -68,7 +59,7 @@ namespace AIMP
 
 			virtual String^ GetValueAsString(String^ key)
 			{
-				AIMP36SDK::IAIMPString* val = NULL;
+				IAIMPString* val = NULL;
 
 				try
 				{

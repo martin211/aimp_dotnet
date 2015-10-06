@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using AIMP.SDK;
 using AIMP.SDK.Interfaces;
-using AIMP.SDK.Services.PlayListManager;
+using AIMP.SDK.Services.PlayList;
 
 namespace TestPlugin
 {

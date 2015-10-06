@@ -10,13 +10,13 @@ PWCHAR WINAPI DotNetPlugin::InfoGet(int index)
 {
 	switch (index)
 	{
-	case AIMP36SDK::AIMP_PLUGIN_INFO_NAME:
+	case AIMP_PLUGIN_INFO_NAME:
 		return L"AIMP DotNet Plugin";
-	case AIMP36SDK::AIMP_PLUGIN_INFO_AUTHOR:
+	case AIMP_PLUGIN_INFO_AUTHOR:
 		return L"Evgeniy Bogdan";
-	case AIMP36SDK::AIMP_PLUGIN_INFO_SHORT_DESCRIPTION:
+	case AIMP_PLUGIN_INFO_SHORT_DESCRIPTION:
 		return L".NET Interop plugin";
-	case AIMP36SDK::AIMP_PLUGIN_INFO_FULL_DESCRIPTION:
+	case AIMP_PLUGIN_INFO_FULL_DESCRIPTION:
 		return L".NET Interop plugin";
 	}
 
@@ -25,14 +25,14 @@ PWCHAR WINAPI DotNetPlugin::InfoGet(int index)
 
 DWORD WINAPI DotNetPlugin::InfoGetCategories()
 {
-	return AIMP36SDK::AIMP_PLUGIN_CATEGORY_ADDONS;
+	return AIMP_PLUGIN_CATEGORY_ADDONS;
 }
 
-HRESULT WINAPI DotNetPlugin::Initialize(AIMP36SDK::IAIMPCore* core)
+HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
 {
 	System::Diagnostics::Debug::WriteLine("BEGIN: Initialize DotNet plugin");
 
-	_managedCore = gcnew AIMP::SDK360::ManagedAimpCore(core);
+	_managedCore = gcnew ManagedAimpCore(core);
 	_managedExtension = gcnew ManagedFunctionality(core, _managedCore);
 	_configurationManager = gcnew AIMP::AimpConfigurationManager(_managedCore);
 
@@ -41,7 +41,7 @@ HRESULT WINAPI DotNetPlugin::Initialize(AIMP36SDK::IAIMPCore* core)
 	if (_configurationManager->GetValueAsInt32("AimpDotNet\\Settings\\DebugMode") == 1)
 	{
 		String ^path;
-		_managedCore->GetPath(AIMP::SDK::AimpMessages::AimpCorePathType::AIMP_CORE_PATH_PROFILE, path);
+		_managedCore->GetPath(AimpMessages::AimpCorePathType::AIMP_CORE_PATH_PROFILE, path);
 		AIMP::SDK::InternalLogger::Instance->Initialize(path, "aimp_dotnet.log");
 	}
 
@@ -60,7 +60,7 @@ HRESULT WINAPI DotNetPlugin::Initialize(AIMP36SDK::IAIMPCore* core)
 
 HRESULT WINAPI DotNetPlugin::Finalize()
 {
-	AIMP::SDK360::ManagedAimpCore::GetAimpCore()->UnregisterExtension((AIMP36SDK::IAIMPOptionsDialogFrame*)_frame);
+	ManagedAimpCore::GetAimpCore()->UnregisterExtension((IAIMPOptionsDialogFrame*)_frame);
 
 	delete _frame;
 	_frame = nullptr;
@@ -96,7 +96,7 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
 		return S_OK;
 	}
 
-	if (riid == AIMP36SDK::IID_IAIMPOptionsDialogFrame)
+	if (riid == IID_IAIMPOptionsDialogFrame)
 	{
 		*ppvObj = _frame;
 		AddRef();
@@ -105,7 +105,7 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
 		return S_OK;
 	}
 
-	if (riid == AIMP36SDK::IID_IAIMPExtensionPlaylistManagerListener)
+	if (riid == IID_IAIMPExtensionPlaylistManagerListener)
 	{
 		*ppvObj = _listner;
 		AddRef();
@@ -113,7 +113,7 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
 		return S_OK;
 	}
 
-	if (riid == AIMP36SDK::IID_IAIMPExtensionPlayerHook)
+	if (riid == IID_IAIMPExtensionPlayerHook)
 	{
 		*ppvObj = this->_playerHook;
 		AddRef();
@@ -159,20 +159,20 @@ void DotNetPlugin::SavePluginOptions()
 	_pluginState->Save(_pluginSettings);
 }
 
-HRESULT DotNetPlugin::LoadExtensions(AIMP36SDK::IAIMPCore* core)
+HRESULT DotNetPlugin::LoadExtensions(IAIMPCore* core)
 {
 	HRESULT r = S_OK;
 	
-	AIMP36SDK::IAIMPOptionsDialogFrame *frame = new OptionFrame(_managedCore, this);
+	IAIMPOptionsDialogFrame *frame = new OptionFrame(_managedCore, this);
 	_frame = frame;
-	r = core->RegisterExtension(AIMP36SDK::IID_IAIMPServiceOptionsDialog, frame);
+	r = core->RegisterExtension(IID_IAIMPServiceOptionsDialog, frame);
 
-	AIMP36SDK::IAIMPExtensionPlaylistManagerListener *listner = new PlaylistManagerListener(this);
+	IAIMPExtensionPlaylistManagerListener *listner = new PlaylistManagerListener(this);
 	_listner = listner;
-	r = core->RegisterExtension(AIMP36SDK::IID_IAIMPServicePlaylistManager, listner);
+	r = core->RegisterExtension(IID_IAIMPServicePlaylistManager, listner);
 
 	_playerHook = new AimpExtensionPlayerHook(this);	
-	r = core->RegisterExtension(AIMP36SDK::IID_IAIMPServicePlayer, _playerHook);
+	r = core->RegisterExtension(IID_IAIMPServicePlayer, _playerHook);
 
 	return r;
 }
