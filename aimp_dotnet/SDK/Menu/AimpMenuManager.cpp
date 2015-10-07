@@ -31,7 +31,6 @@ namespace AIMP
 			_aimpMenuManager = menuManager;
 
 			_aimpActionManager = (IAIMPServiceActionManager*) core->QueryInterface(IID_IAIMPServiceActionManager);
-			//this->_core = AimpBaseManager::_core;
 		}
 
 		/// <summary>
@@ -270,6 +269,7 @@ namespace AIMP
 		{
 			aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_NAME, ObjectHelper::MakeAimpString(_core->GetAimpCore(), menuItem->Text));
 			aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_VISIBLE, menuItem->Visible ? 1 : 0);
+			aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_ENABLED, menuItem->Enabled ? 1 : 0);
 			if (menuItem->GetType() == CheckBoxMenuItem::typeid)
 			{
 				aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_CHECKED, ((CheckedMenuItem^) menuItem)->Checked ? 1 : 0);
