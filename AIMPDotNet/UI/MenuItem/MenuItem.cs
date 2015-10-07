@@ -20,6 +20,7 @@ namespace AIMP.SDK.UI.MenuItem
         protected MenuItem(string text) : base(text)
         {
             _visible = true;
+            _enabled = true;
             ChildItems = new MenuItemCollection();
         }
 
@@ -93,6 +94,21 @@ namespace AIMP.SDK.UI.MenuItem
         }
 
         public Bitmap Image { get; set; }
+
+        private bool _enabled;
+
+        public bool Enabled
+        {
+            get
+            {
+                return _enabled;
+            }
+            set
+            {
+                _enabled = value;
+                OnPropertyChanged("Enabled");
+            }
+        }
 
         /// <summary>
         /// Occurs when button was clicked.
