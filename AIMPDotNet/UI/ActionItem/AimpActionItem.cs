@@ -1,11 +1,13 @@
-﻿namespace AIMP.SDK.UI.ActionItem
+﻿using System;
+
+namespace AIMP.SDK.UI.ActionItem
 {
     /// <summary>
     /// Action item.
     /// </summary>
     public class AimpActionItem : AimpUIItem
     {
-        private object _customData;
+        private string _customData;
 
         private string _groupName;
 
@@ -28,19 +30,18 @@
         /// <value>
         /// The data.
         /// </value>
-        public object Data
+        public string CustomData
         {
             get
             {
                 return _customData;
-                
             }
             set
             {
                 if (_customData == null || _customData != value)
                 {
                     _customData = value;
-                    OnPropertyChanged("Data");
+                    OnPropertyChanged("CustomData");
                 }
             }
         }
@@ -67,13 +68,33 @@
             }
         }
 
-        /// <summary>
-        /// Gets or sets the global hot key.
-        /// </summary>
-        /// <value>
-        /// The global hot key.
-        /// </value>
-        public int GlobalHotKey { get; set; }
+        private int _defaultLocalHotKey;
+        public int DefaultLocalHotKey
+        {
+            get
+            {
+                return _defaultLocalHotKey;
+            }
+            set
+            {
+                _defaultLocalHotKey = value;
+                OnPropertyChanged("DefaultLocalHotKey");
+            }
+        }
+
+        private int _defaultGlobalHotKey;
+
+        public int DefaultGlobalHotKey
+        {
+            get { return _defaultGlobalHotKey; }
+            set
+            {
+                _defaultGlobalHotKey = value;
+                OnPropertyChanged("DefaultGlobalHotKey");
+            }
+        }
+
+        private int _defaultGlobalHotKey2;
 
         /// <summary>
         /// Gets or sets the second global hot key.
@@ -81,15 +102,17 @@
         /// <value>
         /// The global hot key2.
         /// </value>
-        public int GlobalHotKey2 { get; set; }
+        public int DefaultGlobalHotKey2
+        {
+            get { return _defaultGlobalHotKey2; }
+            set
+            {
+                _defaultGlobalHotKey2 = value;
+                OnPropertyChanged("DefaultGlobalHotKey2");
+            }
+        }
 
-        /// <summary>
-        /// Gets or sets the local hot key.
-        /// </summary>
-        /// <value>
-        /// The local hot key.
-        /// </value>
-        public int LocalHotKey { get; set; }
+        public event EventHandler OnExecute;
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="AimpActionItem"/> is enabled.
