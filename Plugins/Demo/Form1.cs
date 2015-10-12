@@ -48,14 +48,29 @@ namespace TestPlugin
                     }
                 }
             };
+
+            _aimpPlayer.StateChanged += state =>
+            {
+                switch (state)
+                {
+                    case AimpPlayerState.Stopped:
+                        toolStripStatusLabel1.Text = "State: stopped";
+                        break;
+                    case AimpPlayerState.Pause:
+                        toolStripStatusLabel1.Text = "State: pause";
+                        break;
+                    case AimpPlayerState.Playing:
+                        toolStripStatusLabel1.Text = "State: playing";
+                        break;
+                }
+            };
         }
 
         private void AddPlayListTab(string id, string name, IAimpPlayList playList)
         {
             var tab = new TabPage(id)
             {
-                Text = name,
-                Tag = id
+                Text = name, Tag = id
             };
 
             var tracks = new ListView()
@@ -121,7 +136,7 @@ namespace TestPlugin
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
             int v = trackBar2.Value;
-            _aimpPlayer.Volume =  (float) v/10;
+            _aimpPlayer.Volume = (float)v/10;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -147,10 +162,7 @@ namespace TestPlugin
         private void button7_Click(object sender, EventArgs e)
         {
             var pl = _aimpPlayer.PlayListManager.GetActivePlaylist();
-            pl.Sort((item1, item2) =>
-            {
-                return PlayListSortComapreResult.TheSame;
-            });
+            pl.Sort((item1, item2) => { return PlayListSortComapreResult.TheSame; });
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -158,19 +170,12 @@ namespace TestPlugin
             var playList = _aimpPlayer.PlayListManager.CreatePlaylist("Test play list", true);
             playList.Add("http://xstream1.somafm.com:2800", PlayListFlags.NOEXPAND, PlayListFilePosition.EndPosition);
             playList.AddList(new List<string>()
-                                 {
-                                    "http://xstream1.somafm.com:2800",
-                                    "http://xstream1.somafm.com:2800"
-                                 }, PlayListFlags.NOEXPAND, PlayListFilePosition.EndPosition);
-            playList.Activated += (o) =>
-                {
-                    System.Diagnostics.Debug.WriteLine("Activated {0}", o.Name); 
-                };
+            {
+                "http://xstream1.somafm.com:2800", "http://xstream1.somafm.com:2800"
+            }, PlayListFlags.NOEXPAND, PlayListFilePosition.EndPosition);
+            playList.Activated += (o) => { System.Diagnostics.Debug.WriteLine("Activated {0}", o.Name); };
 
-            playList.Changed += (list, type) =>
-                {
-                    System.Diagnostics.Debug.WriteLine(type);
-                };
+            playList.Changed += (list, type) => { System.Diagnostics.Debug.WriteLine(type); };
         }
     }
 }
