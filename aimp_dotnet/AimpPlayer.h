@@ -99,7 +99,7 @@ namespace AIMP
 				if (_aimpCore == nullptr)
 				{
 					_aimpCore = gcnew AimpCore(_managedAimpCore);
-					//_aimpCore->CoreMessage += gcnew AimpEventsDelegate(this, &AIMP::AimpPlayer<TConvAlloc>::OnCoreMessage);
+					_aimpCore->CoreMessage += gcnew AimpEventsDelegate(this, &AIMP::AimpPlayer<TConvAlloc>::OnCoreMessage);
 				}
 
 				return _aimpCore;
