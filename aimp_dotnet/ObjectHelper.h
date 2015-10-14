@@ -421,28 +421,38 @@ namespace AIMP
 
 			static IAIMPImage *CreateImage(System::Drawing::Bitmap ^image)
 			{
-				//IAIMPImageContainer *container = NULL;
-				//IAIMPStream *aimpStream = NULL;
-				//if (CheckResult(AIMP::SDK360::ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImageContainer, (void**) &container)))
-				//{
-				//	System::IO::MemoryStream ^stream;
-				//	try
-				//	{
-				//		stream = gcnew System::IO::MemoryStream();
-				//		image->Save(stream, System::Drawing::Imaging::ImageFormat::Png);
-				//		array<Byte> ^buffer = gcnew array<byte>(stream->Length);
-				//		buffer = stream->ToArray();					
-				//		CheckResult(container->SetDataSize(stream->Length));
-				//		CheckResult(container->CreateImage())
-				//	}
-				//	finally
-				//	{
-				//		if (stream != nullptr)
-				//		{
-				//			stream->Close();
-				//		}
-				//	}
-				//}
+				System::IO::MemoryStream ^stream;
+				try
+				{
+					stream = gcnew System::IO::MemoryStream();
+					image->Save(stream, System::Drawing::Imaging::ImageFormat::Png);
+					array<Byte> ^buffer = gcnew array<byte>(stream->Length);
+					buffer = stream->ToArray();
+
+					IAIMPStream *aimpStream = NULL;
+					IAIMPImage *img;
+					if (CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&aimpStream))
+						&& CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**)&img)))
+					{
+						aimpStream->SetSize(stream->Length);
+						pin_ptr<System::Byte> p = &buffer[0];
+						unsigned char* pby = p;
+						if (CheckResult(aimpStream->Write(pby, stream->Length, nullptr)))
+						{
+							img->LoadFromStream(aimpStream);
+						}
+
+						return img;
+					}
+				}
+				finally
+				{
+					if (stream != nullptr)
+					{
+						stream->Close();
+					}
+				}
+
 				return NULL;
 			}
 
