@@ -286,7 +286,7 @@ namespace AIMP
 
 			if (menuItem->Image != nullptr)
 			{
-
+				aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_GLYPH, ObjectHelper::CreateImage(menuItem->Image));
 			}
 		}
 
