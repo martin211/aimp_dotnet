@@ -16,7 +16,6 @@
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>AimpDotnetPlugin</RootNamespace>
     <ProjectName>AimpDotnetPlugin</ProjectName>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -171,6 +170,8 @@
     <ClInclude Include="SDK\MUI\MUIManager.h" />
     <ClInclude Include="SDK\PlayList\AimpFileInfo.h" />
     <ClInclude Include="SDK\Playback\AimpServicePlaybackQueue.h" />
+    <ClInclude Include="SDK\Threading\AimpAsyncTask.h" />
+    <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h" />
     <ClInclude Include="SDK\Win32\Win32Manager.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="SDK\PlayList\VirtualFileInfoh.h" />

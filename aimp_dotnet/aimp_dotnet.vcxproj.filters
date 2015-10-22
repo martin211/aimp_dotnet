@@ -180,6 +180,8 @@
     <ClInclude Include="SDK\BaseManager.h">
       <Filter>SDK</Filter>
     </ClInclude>
+    <ClInclude Include="SDK\Threading\AimpAsyncTask.h" />
+    <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

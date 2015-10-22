@@ -20,4 +20,5 @@ namespace AIMPSDK36
 	#include "AIMP360\apiOptions.h"
 	#include "AIMP360\apiAlbumArt.h"
 	#include "AIMP360\apiCore.h"
+	#include "AIMP360\apiThreading.h"
 }

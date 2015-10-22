@@ -15,6 +15,7 @@
 #include "SDK\PlayList\AimpPlayList.h"
 #include "SDK\PlayList\PlayListManager.h"
 #include "SDK\Playback\AimpServicePlaybackQueue.h"
+#include "SDK\Threading\AimpServiceSynchronizer.h"
 #include "AimpCore.h"
 
 
