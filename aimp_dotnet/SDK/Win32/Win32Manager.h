@@ -16,6 +16,23 @@ namespace AIMP
 			{
 				SetParent((HWND)child.ToPointer(), (HWND)parent.ToPointer());
 			}
+
+			virtual System::Drawing::Point GetWindowPosition(IntPtr handle)
+			{
+				RECT rc;
+				HWND hndl = FindWindow(L"TAIMPMainForm", 0);
+				
+				if (GetWindowRect(hndl, &rc))
+				{
+					return System::Drawing::Point(rc.left, rc.top);
+				}
+			}
+
+			virtual IntPtr GetAimpHandle()
+			{
+				HWND hndl = FindWindow(L"TAIMPMainForm", 0);
+				return IntPtr(hndl);
+			}
 		};
 	}
 }
