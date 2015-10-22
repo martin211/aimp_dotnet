@@ -60,6 +60,11 @@
     <Compile Include="Services\Playback\IAimpPlaybackQueueItem.cs" />
     <Compile Include="Services\PlayList\IAimpPlaylistQueue.cs" />
     <Compile Include="Services\PlayList\AimpPlayListEventArgs.cs" />
+    <Compile Include="Services\Threading\IAimpAsyncTask.cs" />
+    <Compile Include="Services\Threading\IAimpAsyncTaskOwner.cs" />
+    <Compile Include="Services\Threading\IAimpServiceSynchronizer.cs" />
+    <Compile Include="Services\Threading\IAimpServiceThreadPool.cs" />
+    <Compile Include="Services\Threading\IAimpTaskPriority.cs" />
     <Compile Include="UI\AimpUIItem.cs" />
     <Compile Include="AIMPPluginAttribute.cs" />
     <Compile Include="Enums.cs" />

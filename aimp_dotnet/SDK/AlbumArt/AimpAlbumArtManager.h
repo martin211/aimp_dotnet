@@ -89,14 +89,14 @@ namespace AIMP
 					IAIMPString *str;
 					_properties->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, IID_IAIMPString, (void**) &str);
 					String^ result = gcnew String(str->GetData());
-					return result->Split(gcnew array < WCHAR > {';'});
+					return result->Split(gcnew array<WCHAR>{';'});
 				}
 				void set(array<System::String^>^ val)
 				{
 					String^ str;
 					for (int i = 0; i < val->Length; i++)
 					{
-						str += val[i];
+						str += val[i] + ";";
 					}
 					_properties->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, ObjectHelper::MakeAimpString(_core->GetAimpCore(), str));
 				}
@@ -109,14 +109,14 @@ namespace AIMP
 					IAIMPString *str;
 					_properties->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, IID_IAIMPString, (void**) &str);
 					String^ result = gcnew String(str->GetData());
-					return result->Split(gcnew array < WCHAR > {';'});
+					return result->Split(gcnew array<WCHAR>{';'});
 				}
 				void set(array<System::String^>^ val)
 				{
 					String^ str;
 					for (int i = 0; i < val->Length; i++)
 					{
-						str += val[i];
+						str += val[i] + ";";
 					}
 					_properties->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, ObjectHelper::MakeAimpString(_core->GetAimpCore(), str));
 				}
