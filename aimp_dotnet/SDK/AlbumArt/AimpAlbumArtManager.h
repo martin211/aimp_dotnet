@@ -2,14 +2,17 @@
 
 #include "..\..\ManagedAimpCore.h"
 #include "..\BaseManager.h"
+#include "..\PlayList\AimpFileInfo.h"
 
 namespace AIMP
 {
 	namespace SDK
 	{
 		using namespace System;
-		using namespace AIMP::SDK::Services::AlbumArtManager;
 		using namespace System::IO;
+
+		using namespace AIMP::SDK;
+		using namespace AIMP::SDK::Services::AlbumArtManager;
 
 		public ref class AimpAlbumArtManager : public AimpBaseManager, public IAimpAlbumArtManager
 		{
@@ -161,7 +164,14 @@ namespace AIMP
 				_findCallback = gcnew OnFindCoverCallback(this, &AIMP::AimpAlbumArtManager::OnAlbumArtReceive);
 				//TAIMPServiceAlbumArtReceiveProc *f = &test;
 				IntPtr thunk = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_findCallback);
-				_service->Get(ObjectHelper::MakeAimpString(_core->GetAimpCore(), fileUrl), ObjectHelper::MakeAimpString(_core->GetAimpCore(), artist), ObjectHelper::MakeAimpString(_core->GetAimpCore(), album), (DWORD) flags, (TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(), reinterpret_cast<void*>(&userData), &taskId);
+				_service->Get(
+					ObjectHelper::MakeAimpString(_core->GetAimpCore(), fileUrl), 
+					ObjectHelper::MakeAimpString(_core->GetAimpCore(), artist), 
+					ObjectHelper::MakeAimpString(_core->GetAimpCore(), album), 
+					(DWORD) flags, 
+					(TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(), 
+					reinterpret_cast<void*>(&userData), &taskId);
+
 				return (IntPtr) taskId;
 			}
 
@@ -170,8 +180,14 @@ namespace AIMP
 				void* taskId = nullptr;
 				_findCallback = gcnew OnFindCoverCallback(this, &AIMP::AimpAlbumArtManager::OnAlbumArtReceive);
 				IntPtr thunk = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_findCallback);
+				AimpFileInfo^ fi = (AimpFileInfo^)fileInfo;
+				_service->Get2(
+					((AIMP::SDK::AimpFileInfo^) fileInfo)->InternalAimpObject, 
+					(DWORD) flags, 
+					(AIMPSDK::TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(), 
+					reinterpret_cast<void*>(&userData), 
+					&taskId);
 
-				//_service->Get2(((AIMP::PlayList::AimpFileInfo^) fileInfo)->SourceFileInfo, (DWORD) flags, (AIMP36SDK::TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(), reinterpret_cast<void*>(&userData), &taskId);
 				return (IntPtr) taskId;
 			}
 

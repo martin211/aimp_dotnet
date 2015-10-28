@@ -1,3 +1,4 @@
+#pragma once
 #include "..\..\ObjectHelper.h"
 
 namespace AIMP
@@ -17,8 +18,7 @@ namespace AIMP
 			}
 
 			AimpFileInfo(IAIMPFileInfo *aimpItem) : AimpObject(aimpItem)
-			{
-			}
+			{}
 
 			virtual property String^ CustomData
 			{
@@ -138,7 +138,7 @@ namespace AIMP
 			virtual property String^ CopyRight
 			{
 				String^ get()
-				{					
+				{
 					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_COPYRIGHT);
 				}
 				void set(String^ value)
@@ -482,7 +482,7 @@ namespace AIMP
 
 			virtual void Assign(IAimpFileInfo^ source)
 			{
-				_aimpObject->Assign(((AimpFileInfo^) source)->SourceFileInfo);
+				_aimpObject->Assign(((AimpFileInfo^) source)->InternalAimpObject);
 			}
 
 			virtual IAimpFileInfo^ Clone()
@@ -492,15 +492,6 @@ namespace AIMP
 				_aimpObject->Clone(&clone);
 				return gcnew AimpFileInfo(clone);
 			}
-
-			internal:
-				property IAIMPFileInfo* SourceFileInfo
-				{
-					IAIMPFileInfo* get()
-					{
-						return _aimpObject;
-					}
-				}
 		};
 	}
 }
