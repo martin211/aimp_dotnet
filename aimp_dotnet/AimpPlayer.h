@@ -463,7 +463,7 @@ namespace AIMP
 			else if (param1 == AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_STREAM_START || param1 == AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_STREAM_START_SUBTRACK)
 			{
 				TrackChanged(this, EventArgs::Empty);
-			}			
+			}
 		}
 
 		//bool onCheckUrl([Runtime::InteropServices::Out] String^ %url);
