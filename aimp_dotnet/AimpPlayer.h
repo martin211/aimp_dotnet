@@ -58,7 +58,7 @@ namespace AIMP
 		IAimpPlaybackQueueService ^_playbackQueueManager;
 		AimpPlayerState _state;
 
-		AimpStateChanged ^_onStateChanged;
+		EventHandler<StateChangedEventArgs^> ^_onStateChanged;
 		EventHandler ^_onLanguageChanged;
 		EventHandler ^_onTrackChanged;
 
@@ -323,28 +323,28 @@ namespace AIMP
 			}
 		}
 		
-		virtual event AimpStateChanged^ StateChanged
+		virtual event EventHandler<StateChangedEventArgs^>^ StateChanged
 		{
-			void add(AimpStateChanged^ onAction)
+			void add(EventHandler<StateChangedEventArgs^>^ onAction)
 			{
 				if (this->_onStateChanged == nullptr)
 				{
-					_onStateChanged = (AimpStateChanged^)Delegate::Combine(_onStateChanged, onAction);
+					_onStateChanged = (EventHandler<StateChangedEventArgs^>^)Delegate::Combine(_onStateChanged, onAction);
 				}
 			}
-			void remove(AimpStateChanged^ onAction)
+			void remove(EventHandler<StateChangedEventArgs^>^ onAction)
 			{
 				bool tmp = this->_onStateChanged != nullptr;
 				if (tmp)
 				{
-					_onStateChanged = (AimpStateChanged^)Delegate::Remove(_onStateChanged, onAction);
+					_onStateChanged = (EventHandler<StateChangedEventArgs^>^)Delegate::Remove(_onStateChanged, onAction);
 				}
 			}
-			void raise(AIMP::SDK::AimpPlayerState state)
+			void raise(Object ^sender, StateChangedEventArgs^ state)
 			{
 				if (this->_onStateChanged != nullptr)
 				{
-					_onStateChanged(state);
+					_onStateChanged(sender, state);
 				}
 			}
 		}
@@ -454,7 +454,7 @@ namespace AIMP
 			if (param1 == AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_PLAYER_STATE && _state != this->State)
 			{
 				_state = this->State;
-				StateChanged(_state);
+				StateChanged(this, gcnew StateChangedEventArgs(_state));
 			}
 			else if (param1 == AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_LANGUAGE)
 			{

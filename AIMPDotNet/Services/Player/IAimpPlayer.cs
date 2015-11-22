@@ -10,13 +10,26 @@ using AIMP.SDK.Services.Win32Manager;
 
 namespace AIMP.SDK.Services.Player
 {
-    using AIMP.SDK.Services.PlayList;
+    using PlayList;
 
     /// <summary>
-    /// 
+    /// Player state changed event.
     /// </summary>
-    /// <param name="state"></param>
-    public delegate void AimpStateChanged(AimpPlayerState state);
+    public class StateChangedEventArgs : EventArgs
+    {
+        /// <summary>
+        /// Gets the state of the player.
+        /// </summary>
+        public AimpPlayerState PlayerState { get; private set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:System.EventArgs"/> class.
+        /// </summary>
+        public StateChangedEventArgs(AimpPlayerState playerState)
+        {
+            PlayerState = playerState;
+        }
+    }
 
     /// <summary>
     /// Interface IAIMPPlayer
@@ -26,8 +39,8 @@ namespace AIMP.SDK.Services.Player
         /// <summary>
         /// Occurs when player state has been changed.
         /// </summary>
-        event AimpStateChanged StateChanged;
-        
+        event EventHandler<StateChangedEventArgs> StateChanged;
+
         /// <summary>
         /// Occurs when AIMP language has been changed.
         /// </summary>
