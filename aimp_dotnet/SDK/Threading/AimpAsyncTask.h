@@ -17,7 +17,7 @@ namespace AIMP
 
 			virtual AimpActionResult Execute(IAimpAsyncTaskOwner ^owner)
 			{
-				
+				return AimpActionResult::Fail;
 			}
 		private:
 			//IAIMPAsyncTask
