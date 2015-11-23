@@ -20,7 +20,7 @@ namespace AIMP
 			explicit AimpServicePlaybackQueue(ManagedAimpCore ^core) : AimpBaseManager(core)
 			{
 				IAIMPServicePlaybackQueue *service;
-				if (!CheckResult(core->GetService(IID_IAIMPServicePlaybackQueue, (void**) &service)))
+				if (CheckResult(core->GetService(IID_IAIMPServicePlaybackQueue, (void**) &service)) != AimpActionResult::Ok)
 				{
 					throw gcnew System::ApplicationException("Unable create AIMP service");
 				}
@@ -31,7 +31,7 @@ namespace AIMP
 			virtual IAimpPlaybackQueueItem^ GetNextTrack()
 			{
 				IAIMPPlaybackQueueItem *item;
-				if (!CheckResult(_service->GetNextTrack(&item)))
+				if (CheckResult(_service->GetNextTrack(&item)) != AimpActionResult::Ok)
 				{
 		//			return gcnew AimpPlaybackQueueItem(item);
 				}
@@ -42,7 +42,7 @@ namespace AIMP
 			virtual IAimpPlaybackQueueItem^ GetPrevTrack()
 			{
 				IAIMPPlaybackQueueItem *item;
-				if (!CheckResult(_service->GetPrevTrack(&item)))
+				if (CheckResult(_service->GetPrevTrack(&item)) != AimpActionResult::Ok)
 				{
 //					return gcnew AimpPlaybackQueueItem(item);
 				}
