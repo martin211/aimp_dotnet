@@ -7,6 +7,8 @@ namespace AIMP
 {
 	namespace SDK
 	{
+		using namespace AIMP::SDK::Services;
+
 		public ref class AimpBaseManager abstract
 		{
 		public:
@@ -15,15 +17,15 @@ namespace AIMP
 				_core = core;
 			}
 		protected:
-			bool CheckResult(HRESULT result)
+			AimpActionResult CheckResult(HRESULT result)
 			{
-				if (Utils::CheckResult(result) == AIMP::SDK::Services::AimpActionResult::Ok)
+				AimpActionResult res = Utils::CheckResult(result);
+				if (res != AIMP::SDK::Services::AimpActionResult::Ok)
 				{
-					return true;
+					AIMP::SDK::InternalLogger::Instance->Write("Invalid operation: result " + result);
 				}
 
-				AIMP::SDK::InternalLogger::Instance->Write("Invalid operation: result " + result);
-				return false;
+				return res;
 			}
 
 			ManagedAimpCore^ _core;

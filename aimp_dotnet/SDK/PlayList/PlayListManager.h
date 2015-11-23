@@ -22,7 +22,7 @@ namespace AIMP
 			explicit PlayListManager(ManagedAimpCore ^core) : AimpBaseManager(core)
 			{
 				IAIMPServicePlaylistManager *service;
-				if (!CheckResult(core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service)))
+				if (CheckResult(core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service)) != AimpActionResult::Ok)
 				{
 					throw gcnew System::ApplicationException("Unable create AIMP service");
 				}
@@ -105,7 +105,7 @@ namespace AIMP
 			virtual IAimpPlayList^ CreatePlaylist(System::String^ name, bool isActive)
 			{
 				IAIMPPlaylist *playList;
-				if (CheckResult(_service->CreatePlaylist(ObjectHelper::MakeAimpString(_core->GetAimpCore(), name), (BOOL)isActive, &playList)))
+				if (CheckResult(_service->CreatePlaylist(ObjectHelper::MakeAimpString(_core->GetAimpCore(), name), (BOOL)isActive, &playList)) == AimpActionResult::Ok)
 				{
 					return gcnew AimpPlayList(playList);
 				}
@@ -116,7 +116,7 @@ namespace AIMP
 			virtual IAimpPlayList^ CreatePlaylistFromFile(System::String^ fileName, bool isActive)
 			{
 				IAIMPPlaylist *playList;
-				if (CheckResult(_service->CreatePlaylistFromFile(ObjectHelper::MakeAimpString(_core->GetAimpCore(), fileName), (BOOL)isActive, &playList)))
+				if (CheckResult(_service->CreatePlaylistFromFile(ObjectHelper::MakeAimpString(_core->GetAimpCore(), fileName), (BOOL)isActive, &playList)) == AimpActionResult::Ok)
 				{
 					return gcnew AimpPlayList(playList);
 				}
@@ -127,7 +127,7 @@ namespace AIMP
 			virtual IAimpPlayList^ GetActivePlaylist()
 			{
 				IAIMPPlaylist *playList;
-				if (CheckResult(_service->GetActivePlaylist(&playList)))
+				if (CheckResult(_service->GetActivePlaylist(&playList)) == AimpActionResult::Ok)
 				{
 					return gcnew AimpPlayList(playList);
 				}
@@ -138,7 +138,7 @@ namespace AIMP
 			virtual IAimpPlayList^ GetLoadedPlaylist(int index)
 			{
 				IAIMPPlaylist *playList;
-				if (CheckResult(_service->GetLoadedPlaylist(index, &playList)))
+				if (CheckResult(_service->GetLoadedPlaylist(index, &playList)) == AimpActionResult::Ok)
 				{
 					return gcnew AimpPlayList(playList);
 				}
@@ -149,7 +149,7 @@ namespace AIMP
 			virtual IAimpPlayList^ GetPlayablePlaylist()
 			{
 				IAIMPPlaylist *playList;
-				if (CheckResult(_service->GetPlayablePlaylist(&playList)))
+				if (CheckResult(_service->GetPlayablePlaylist(&playList)) == AimpActionResult::Ok)
 				{
 					return gcnew AimpPlayList(playList);
 				}
@@ -160,7 +160,7 @@ namespace AIMP
 			virtual IAimpPlayList^ GetLoadedPlaylistById(System::String^ id)
 			{
 				IAIMPPlaylist *playList;
-				if (CheckResult(_service->GetLoadedPlaylistByID(ObjectHelper::MakeAimpString(_core->GetAimpCore(), id), &playList)))
+				if (CheckResult(_service->GetLoadedPlaylistByID(ObjectHelper::MakeAimpString(_core->GetAimpCore(), id), &playList)) == AimpActionResult::Ok)
 				{
 					return gcnew AimpPlayList(playList);
 				}
@@ -171,7 +171,7 @@ namespace AIMP
 			virtual IAimpPlayList^ GetLoadedPlaylistByName(System::String^ name)
 			{
 				IAIMPPlaylist *playList;
-				if (CheckResult(_service->GetLoadedPlaylistByName(ObjectHelper::MakeAimpString(_core->GetAimpCore(), name), &playList)))
+				if (CheckResult(_service->GetLoadedPlaylistByName(ObjectHelper::MakeAimpString(_core->GetAimpCore(), name), &playList)) == AimpActionResult::Ok)
 				{
 					return gcnew AimpPlayList(playList);
 				}
