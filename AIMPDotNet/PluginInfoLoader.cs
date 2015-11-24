@@ -9,20 +9,30 @@ namespace AIMP.SDK
     [Serializable]
     internal struct PluginShortInfoForLoad
     {
-        public string AssemblyFileName;
-        public string AssemblyFullName;
-        public string ClassName;
-        public AimpPluginAttribute PluginLocInfo;
+        /// <summary>
+        /// Gets or sets the name of the assembly file.
+        /// </summary>
+        public string AssemblyFileName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the full name of the assembly.
+        /// </summary>
+        public string AssemblyFullName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the class.
+        /// </summary>
+        public string ClassName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the plugin loc information.
+        /// </summary>
+        public AimpPluginAttribute PluginLocInfo { get; set; }
     }
 
-    interface IPluginLoadingStrategy
+    internal abstract class PluginLoadingStrategy : MarshalByRefObject
     {
-        PluginShortInfoForLoad[] Load(string path);
-    }
-
-    internal abstract class PluginLoadingStrategy : MarshalByRefObject//, IPluginLoadingStrategy
-    {
-        public abstract PluginShortInfoForLoad[] Load(string path);
+        public abstract PluginShortInfoForLoad Load(string path);
     }
 
     internal class AssemblyScanPluginLoadStrategy : PluginLoadingStrategy
@@ -65,57 +75,48 @@ namespace AIMP.SDK
             }
         }
 
-        public override PluginShortInfoForLoad[] Load(string path)
+        public override PluginShortInfoForLoad Load(string path)
         {
             DirectoryInfo dir = new DirectoryInfo(path);
-            if (!dir.Exists)
-            {
-                return new PluginShortInfoForLoad[0];
-            }
-            
-            List<PluginShortInfoForLoad> resPlugInfolst = new List<PluginShortInfoForLoad>();
+            PluginShortInfoForLoad resPlugInfolst = new PluginShortInfoForLoad();
             Type pluginDeriveType = typeof(IAimpPlugin);
             Type attribForPlugin = typeof(AimpPluginAttribute);
+
             try
             {
                 AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolveOverride;
 
-                foreach (DirectoryInfo di in dir.GetDirectories())
+                foreach (FileInfo fileInfo in ScanFiles(dir, 0))
                 {
-                    _probePath = di.FullName;
-
-                    foreach (FileInfo fileInfo in ScanFiles(di, 0))
+                    try
                     {
-                        try
+                        var curAsmbl = Assembly.LoadFrom(fileInfo.FullName);
+                        if (curAsmbl.FullName == Assembly.GetExecutingAssembly().FullName
+                            || curAsmbl.FullName.Equals("aimp_dotnet"))
                         {
-                            var curAsmbl = Assembly.LoadFrom(fileInfo.FullName);
-                            if (curAsmbl.FullName == Assembly.GetExecutingAssembly().FullName
-                                || curAsmbl.FullName.Equals("aimp_dotnet"))
-                            {
-                                continue;
-                            }
+                            continue;
+                        }
 
-                            foreach (var plgType in curAsmbl
-                                .GetTypes()
-                                .Where(o => pluginDeriveType.IsAssignableFrom(o)
-                                    && o.GetCustomAttributes(attribForPlugin, false).Length == 1))
-                            {
-                                var curAttr = (AimpPluginAttribute)plgType.GetCustomAttributes(attribForPlugin, false)[0];
-                                System.Diagnostics.Debug.WriteLine("Load plugin: " + curAsmbl.FullName);
-                                resPlugInfolst.Add(new PluginShortInfoForLoad
-                                {
-                                    AssemblyFileName = fileInfo.FullName,
-                                    AssemblyFullName = curAsmbl.FullName,
-                                    ClassName = plgType.FullName,
-                                    PluginLocInfo = curAttr
-                                });
-                            }
-                        }
-                        catch
+                        foreach (var plgType in curAsmbl
+                            .GetTypes()
+                            .Where(o => pluginDeriveType.IsAssignableFrom(o)
+                                        && o.GetCustomAttributes(attribForPlugin, false).Length == 1))
                         {
-                            System.Diagnostics.Debugger.Break();
-                            // ignored
+                            var curAttr = (AimpPluginAttribute)plgType.GetCustomAttributes(attribForPlugin, false)[0];
+                            System.Diagnostics.Debug.WriteLine("Load plugin: " + curAsmbl.FullName);
+
+                            resPlugInfolst = new PluginShortInfoForLoad
+                            {
+                                AssemblyFileName = fileInfo.FullName,
+                                AssemblyFullName = curAsmbl.FullName,
+                                ClassName = plgType.FullName,
+                                PluginLocInfo = curAttr
+                            };
                         }
+                    }
+                    catch
+                    {
+                        
                     }
                 }
             }
@@ -124,7 +125,7 @@ namespace AIMP.SDK
                 AppDomain.CurrentDomain.AssemblyResolve -= AssemblyResolveOverride;
             }
 
-            return resPlugInfolst.ToArray();
+            return resPlugInfolst;
         }
     }
     
@@ -132,7 +133,7 @@ namespace AIMP.SDK
     {
         public static Type LoadStrategyType = typeof(AssemblyScanPluginLoadStrategy);
 
-        public static void LoadPlugins(string path, PluginInfoCollection plgCol)
+        public static AimpDotNetPlugin LoadPlugin(string path)
         {
             AppDomain loadDomain = null;
 
@@ -143,11 +144,16 @@ namespace AIMP.SDK
 
                 PluginLoadingStrategy strat = (PluginLoadingStrategy)loadDomain.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName, LoadStrategyType.FullName);
 
-                PluginShortInfoForLoad[] res = strat.Load(path);
-                foreach (PluginShortInfoForLoad cInf in res)
+                var plugin = strat.Load(path);
+                return new AimpDotNetPlugin
                 {
-                    plgCol.Add(new PluginInformation(cInf.AssemblyFileName, cInf.AssemblyFullName, cInf.ClassName, cInf.PluginLocInfo));
-                }
+                    PluginInformation = new PluginInformation(plugin.AssemblyFileName, plugin.AssemblyFullName, plugin.ClassName, plugin.PluginLocInfo),
+                    Author = plugin.PluginLocInfo.Author,
+                    Description = plugin.PluginLocInfo.Description,
+                    FullDescription = plugin.PluginLocInfo.FullDescription,
+                    Name = plugin.PluginLocInfo.Name,
+                    Version = plugin.PluginLocInfo.Version
+                };
             }
 #if DEBUG
             catch(Exception e)
@@ -160,15 +166,8 @@ namespace AIMP.SDK
                 if (loadDomain != null)
                     AppDomain.Unload(loadDomain);
             }
+
+            return null;
         }
-
-        public static PluginInfoCollection LoadPlugins(string path)
-        {
-            PluginInfoCollection plgCol = new PluginInfoCollection();
-            LoadPlugins(path, plgCol);
-            return plgCol;
-        }
-
-
     }
 }

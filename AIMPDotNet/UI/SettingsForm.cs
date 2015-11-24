@@ -12,7 +12,7 @@ namespace AIMP.SDK.UI
 
     internal partial class SettingsForm : Form
     {
-        public PluginSettings Settings { get; set; }
+        //public PluginSettings Settings { get; set; }
 
         [DllImport("user32.dll", SetLastError = true)]
         private static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
@@ -110,7 +110,7 @@ namespace AIMP.SDK.UI
 
         private void CbDebugModeOnCheckedChanged(object sender, EventArgs eventArgs)
         {
-            Settings.IsDebugMode = cbDebugMode.Checked;
+            //Settings.IsDebugMode = cbDebugMode.Checked;
         }
 
         public SettingsForm()
@@ -142,17 +142,17 @@ namespace AIMP.SDK.UI
         {
             dataGridView1.Rows.Clear();
 
-            if (Settings != null && Settings.PluginsCollection != null)
-            {
-                foreach (var plugin in Settings.PluginsCollection)
-                {
-                    dataGridView1.Rows.Add(plugin.IsLoaded, new DisplayableForPlugins(plugin));
-                }
+            //if (Settings != null && Settings.AimpPlugin != null)
+            //{
+            //    foreach (var plugin in Settings.AimpPlugin)
+            //    {
+            //        dataGridView1.Rows.Add(plugin.IsLoaded, new DisplayableForPlugins(plugin));
+            //    }
 
-                dataGridView1.Sort(dataGridView1.Columns[1], ListSortDirection.Ascending);
+            //    dataGridView1.Sort(dataGridView1.Columns[1], ListSortDirection.Ascending);
 
-                cbDebugMode.Checked = Settings.IsDebugMode;
-            }
+            //    cbDebugMode.Checked = Settings.IsDebugMode;
+            //}
         }
 
         internal class DisplayableForPlugins

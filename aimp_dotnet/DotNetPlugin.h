@@ -65,9 +65,7 @@ public:
 
 	virtual ULONG WINAPI Release(void);
 
-	virtual AIMP::SDK::PluginInfoCollection^ GetAvailablePlugins();
-
-	virtual AIMP::SDK::PluginSettings ^GetPluginSettings();
+	virtual AIMP::SDK::AimpDotNetPlugin^ LoadDotNetPlugin();
 
 	virtual void SavePluginOptions();
 private:
@@ -81,8 +79,8 @@ private:
 	bool _optionsLoaded;
 	gcroot<ManagedFunctionality^> _managedExtension;
 	//gcroot<AIMP::SDK::PluginInfoCollection^> inPluginCollection;
-	gcroot<AIMP::SDK::PluginStateSaver^> _pluginState;
-	gcroot<AIMP::SDK::PluginSettings^> _pluginSettings;
+	//gcroot<AIMP::SDK::PluginStateSaver^> _pluginState;
+	gcroot<AIMP::SDK::AimpDotNetPlugin^> _pluginSettings;
 	gcroot<AIMP::AimpConfigurationManager^> _configurationManager;
 	IAIMPServiceConfig *_configService;
 	IAIMPOptionsDialogFrame *_frame;
@@ -96,8 +94,8 @@ private:
 class OptionFrame : public IUnknownInterfaceImpl<IAIMPOptionsDialogFrame>
 {
 private:
-	gcroot<ManagedAimpCore^> _core;	
-	gcroot<AIMP::SDK::UI::SettingsForm^> _settingForm;
+	gcroot<ManagedAimpCore^> _core;
+//	gcroot<AIMP::SDK::UI::SettingsForm^> _settingForm;
 	IAIMPServiceOptionsDialog *_serviceOptionsDialog;
 
 	HWND _optionsPage;
@@ -139,26 +137,27 @@ public:
 
 	virtual HWND WINAPI CreateFrame(HWND ParentWnd)
 	{
-		AIMP::SDK::Services::MUIManager::IAimpMUIManager ^manager = gcnew AIMP::AimpMIUManager(_core);
-		_settingForm = gcnew AIMP::SDK::UI::SettingsForm(System::IntPtr(ParentWnd), manager);
-		_serviceOptionsDialog = (IAIMPServiceOptionsDialog*)_core->QueryInterface(IID_IAIMPServiceOptionsDialog);
+		//AIMP::SDK::Services::MUIManager::IAimpMUIManager ^manager = gcnew AIMP::AimpMIUManager(_core);
+		//_settingForm = gcnew AIMP::SDK::UI::SettingsForm(System::IntPtr(ParentWnd), manager);
+		//_serviceOptionsDialog = (IAIMPServiceOptionsDialog*)_core->QueryInterface(IID_IAIMPServiceOptionsDialog);
 
-		System::IntPtr Handle = _settingForm->Handle;
+		//System::IntPtr Handle = _settingForm->Handle;
 
-		gcroot<AIMP::SDK::PluginSettings^> settings = _main->GetPluginSettings();
+		//gcroot<AIMP::SDK::PluginSettings^> settings = _main->GetPluginSettings();
 
-		_settingForm->Settings = settings;
-		_settingForm->ReloadSettings();
-		_settingForm->Show();
+		//_settingForm->Settings = settings;
+		//_settingForm->ReloadSettings();
+		//_settingForm->Show();
 
-		return static_cast<HWND>(Handle.ToPointer());
+		//return static_cast<HWND>(Handle.ToPointer());
+        return 0;
 	}
 
 	virtual void WINAPI DestroyFrame()
 	{
 		_main->SavePluginOptions();
-		_settingForm->Close();
-		_settingForm = NULL;
+//		_settingForm->Close();
+//		_settingForm = NULL;
 	}
 
 	virtual void WINAPI Notification(int ID)

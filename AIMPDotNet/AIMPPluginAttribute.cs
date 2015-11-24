@@ -20,49 +20,33 @@ namespace AIMP.SDK
             Name = name;
             Author = author;
             Version = version;
-            RequireAppDomain = false;
-            Description = "";
         }
+
         /// <summary>
         /// Plugin's author
         /// </summary>
-        public string Author
-        {
-            get; 
-            set;
-        }
+        public string Author { get;  set; }
+
         /// <summary>
         /// Plugin's name
         /// </summary>
-        public string Name
-        {
-            get;
-            set;
-        }
+        public string Name { get; set; }
+
         /// <summary>
         /// Short description
         /// </summary>
-        public string Description
-        {
-            get;
-            set;
-        }
+        public string Description { get; set; }
+
         /// <summary>
         /// Defined if plugin should run in separate AppDomain.
         /// </summary>
-        public bool RequireAppDomain
-        {
-            get;
-            set;
-        }
+        public bool RequireAppDomain { get; set; }
 
         ///<summary>
         /// Version of plugin (format: x.xx)
         ///</summary>
-        public string Version
-        {
-            get;
-            set;
-        }
+        public string Version { get; set; }
+
+        public string FullDescription { get; set; }
     }
 }
