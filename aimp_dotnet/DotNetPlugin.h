@@ -95,7 +95,6 @@ class OptionFrame : public IUnknownInterfaceImpl<IAIMPOptionsDialogFrame>
 {
 private:
 	gcroot<ManagedAimpCore^> _core;
-//	gcroot<AIMP::SDK::UI::SettingsForm^> _settingForm;
 	IAIMPServiceOptionsDialog *_serviceOptionsDialog;
 
 	HWND _optionsPage;

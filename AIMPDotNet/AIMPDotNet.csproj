@@ -55,6 +55,7 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Extensions\IExtensionPlaylistManagerListener.cs" />
     <Compile Include="Services\AimpActionResult.cs" />
+    <Compile Include="Services\IAimpExtension.cs" />
     <Compile Include="Services\Playback\IAimpPlaybackQueueService.cs" />
     <Compile Include="Services\Playback\IAimpExtensionPlayerHook.cs" />
     <Compile Include="Services\Playback\IAimpPlaybackQueueItem.cs" />
@@ -70,7 +71,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Interfaces\IAimpCore.cs" />
-    <Compile Include="Interfaces\IAimpOptionsDialogFrame.cs" />
+    <Compile Include="Services\Options\IAimpOptionsDialogFrame.cs" />
     <Compile Include="Services\Player\IAimpPlayer.cs" />
     <Compile Include="AimpPluginBase.cs" />
     <Compile Include="CustomAssemblyResolver.cs" />
