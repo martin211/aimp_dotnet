@@ -73,10 +73,9 @@
     <Compile Include="Interfaces\IAimpOptionsDialogFrame.cs" />
     <Compile Include="Services\Player\IAimpPlayer.cs" />
     <Compile Include="AimpPluginBase.cs" />
-    <Compile Include="PluginStateSaver.cs" />
     <Compile Include="CustomAssemblyResolver.cs" />
     <Compile Include="PluginInfo.cs" />
-    <Compile Include="PluginInfoCollection.cs" />
+    <Compile Include="DotNetPluginInfo.cs" />
     <Compile Include="PluginInfoLoader.cs" />
     <Compile Include="UI\ActionItem\ActionItemCollection.cs" />
     <Compile Include="UI\ActionItem\AimpActionItem.cs" />
@@ -104,18 +103,7 @@
     <Compile Include="Services\PlayList\IAimpPlayListItem.cs" />
     <Compile Include="Services\PlayList\IAimpPlayListManager.cs" />
     <Compile Include="Services\Win32Manager\IWin32Manager.cs" />
-    <Compile Include="PluginSettings.cs" />
-    <Compile Include="UI\SettingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\SettingsForm.Designer.cs">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="UI\SettingsForm.resx">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="AimpDotNetPlugin.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\options.ico" />

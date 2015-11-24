@@ -49,21 +49,21 @@ namespace TestPlugin
                 }
             };
 
-            _aimpPlayer.StateChanged += state =>
-            {
-                switch (state)
-                {
-                    case AimpPlayerState.Stopped:
-                        toolStripStatusLabel1.Text = "State: stopped";
-                        break;
-                    case AimpPlayerState.Pause:
-                        toolStripStatusLabel1.Text = "State: pause";
-                        break;
-                    case AimpPlayerState.Playing:
-                        toolStripStatusLabel1.Text = "State: playing";
-                        break;
-                }
-            };
+            //_aimpPlayer.StateChanged += state =>
+            //{
+            //    switch (state)
+            //    {
+            //        case AimpPlayerState.Stopped:
+            //            toolStripStatusLabel1.Text = "State: stopped";
+            //            break;
+            //        case AimpPlayerState.Pause:
+            //            toolStripStatusLabel1.Text = "State: pause";
+            //            break;
+            //        case AimpPlayerState.Playing:
+            //            toolStripStatusLabel1.Text = "State: playing";
+            //            break;
+            //    }
+            //};
         }
 
         private void AddPlayListTab(string id, string name, IAimpPlayList playList)

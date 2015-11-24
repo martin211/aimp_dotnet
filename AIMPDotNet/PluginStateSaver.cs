@@ -1,4 +1,6 @@
-﻿namespace AIMP.SDK
+﻿using System;
+
+namespace AIMP.SDK
 {
     using System.Linq;
 
@@ -25,35 +27,37 @@
         /// Saves the specified settings.
         /// </summary>
         /// <param name="settings">The settings.</param>
-        public void Save(PluginSettings settings)
+        [Obsolete]
+        public void Save()
         {
-            _configurationManager.Delete(ConfigSectionName);
+            //_configurationManager.Delete(ConfigSectionName);
 
-            foreach (PluginInformation plugin in settings.PluginsCollection.Where(plugin => plugin.IsLoaded))
-            {
-                _configurationManager.SetValueAsInt32(GetKey(GetPluginNameID(plugin)), 1);
-            }
+            //foreach (PluginInformation plugin in settings.AimpPlugin.Where(plugin => plugin.IsLoaded))
+            //{
+            //    _configurationManager.SetValueAsInt32(GetKey(GetPluginNameID(plugin)), 1);
+            //}
 
-            _configurationManager.SetValueAsInt32(GetKey("Settings\\DebugMode"), settings.IsDebugMode ? 1 : 0);
+            //_configurationManager.SetValueAsInt32(GetKey("Settings\\DebugMode"), settings.IsDebugMode ? 1 : 0);
         }
 
         /// <summary>
         /// Loads the specified settings.
         /// </summary>
         /// <param name="settings">The settings.</param>
-        public void Load(PluginSettings settings)
+        [Obsolete]
+        public void Load()
         {
-            foreach (var plugin in settings.PluginsCollection)
-            {
-                if (_configurationManager.GetValueAsInt32(GetKey(GetPluginNameID(plugin))) == 1)
-                {
-                    plugin.Load();
-                }
-                else
-                {
-                    plugin.Unload();
-                }
-            }
+            //foreach (var plugin in settings.AimpPlugin)
+            //{
+            //    if (_configurationManager.GetValueAsInt32(GetKey(GetPluginNameID(plugin))) == 1)
+            //    {
+            //        plugin.Load();
+            //    }
+            //    else
+            //    {
+            //        plugin.Unload();
+            //    }
+            //}
         }
 
         /// <summary>
