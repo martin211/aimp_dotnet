@@ -46,6 +46,8 @@ namespace TestPlugin
             Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, menuItem);
             var action = new AimpActionItem("Teset action", "test Group");
             Player.ActionManager.Add(action);
+
+            
         }
 
         public override void Dispose()

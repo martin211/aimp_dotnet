@@ -56,7 +56,13 @@ namespace AIMP
 			{
 				return Utils::CheckResult(_aimpCore->SendMessage(message, value, obj));
 			}
-		
+
+            generic<class TExtension>
+            virtual AimpActionResult RegisterExtension(TExtension extension)
+			{
+                return AimpActionResult::Fail;
+			}
+
 			virtual event AimpEventsDelegate^ CoreMessage
 			{
 				virtual void add(AimpEventsDelegate^ onEvent)
@@ -100,5 +106,3 @@ namespace AIMP
 		};
 	}
 }
-
-
