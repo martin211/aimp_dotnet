@@ -23,7 +23,7 @@
 
         AimpActionResult SendMessage(AimpMessages.AimpCoreMessageType message, int param, object objectParameter);
 
-        AimpActionResult RegisterExtension<TExtension>(TExtension extension);
+        AimpActionResult RegisterExtension(IAimpExtension extension);
 
         /// <summary>
         /// Occurs when [core message].

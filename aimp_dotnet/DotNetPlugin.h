@@ -4,6 +4,7 @@
 #include "AimpPlayer.h"
 #include "ObjectHelper.h"
 #include "InternalLogger.h"
+#include "Proxies\ProxyManager.h"
 
 private ref class ManagedFunctionality
 {
@@ -86,101 +87,15 @@ private:
 	IAIMPOptionsDialogFrame *_frame;
 	IAIMPExtensionPlaylistManagerListener *_listner;
 	IAIMPExtensionPlayerHook *_playerHook;
+    ProxyManager *_proxyManager;
 	typedef IUnknownInterfaceImpl<IAIMPPlugin> Base;
 };
 
 
 
-class OptionFrame : public IUnknownInterfaceImpl<IAIMPOptionsDialogFrame>
-{
-private:
-	gcroot<ManagedAimpCore^> _core;
-	IAIMPServiceOptionsDialog *_serviceOptionsDialog;
-
-	HWND _optionsPage;
-	ULONG _LinkCounter;
-	DotNetPlugin* _main;
-
-	boost::signal<void(void)> _eventChangedSignal;
-	boost::signals::connection _eventCallback;
-	boost::signal<void(void)>::slot_function_type _eventChangedSignalCB;
-public:
-	OptionFrame(ManagedAimpCore^ core, DotNetPlugin* main)
-	{
-		_core = core;
-		_LinkCounter = 1;
-		_main = main;
-	}
-
-	virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
-	{
-		return _main->QueryInterface(riid, ppvObject);
-	}
-
-	virtual ULONG WINAPI AddRef(void)
-	{
-		return _main->AddRef();
-	}
-
-	virtual ULONG WINAPI Release(void)
-	{
-		return _main->Release();
-	}
-
-	virtual HRESULT WINAPI GetName(IAIMPString **S)
-	{
-		IAIMPString *Str = AIMP::ObjectHelper::MakeAimpString(_core->GetAimpCore(), "DotNet Plugins");
-		*S = Str;
-		return S_OK;
-	}
-
-	virtual HWND WINAPI CreateFrame(HWND ParentWnd)
-	{
-		//AIMP::SDK::Services::MUIManager::IAimpMUIManager ^manager = gcnew AIMP::AimpMIUManager(_core);
-		//_settingForm = gcnew AIMP::SDK::UI::SettingsForm(System::IntPtr(ParentWnd), manager);
-		//_serviceOptionsDialog = (IAIMPServiceOptionsDialog*)_core->QueryInterface(IID_IAIMPServiceOptionsDialog);
-
-		//System::IntPtr Handle = _settingForm->Handle;
-
-		//gcroot<AIMP::SDK::PluginSettings^> settings = _main->GetPluginSettings();
-
-		//_settingForm->Settings = settings;
-		//_settingForm->ReloadSettings();
-		//_settingForm->Show();
-
-		//return static_cast<HWND>(Handle.ToPointer());
-        return 0;
-	}
-
-	virtual void WINAPI DestroyFrame()
-	{
-		_main->SavePluginOptions();
-//		_settingForm->Close();
-//		_settingForm = NULL;
-	}
-
-	virtual void WINAPI Notification(int ID)
-	{
-		if (_optionsPage != NULL)
-		{
-			if (ID == AIMP_SERVICE_OPTIONSDIALOG_NOTIFICATION_LOCALIZATION)
-			{
-				// TODO: Notify about new language.
-				return;
-			}
-			else if (ID == AIMP_SERVICE_OPTIONSDIALOG_NOTIFICATION_SAVE)
-			{
-				_main->SavePluginOptions();
-			}
-		}
-	}
-
-	void NotifyPlayer()
-	{
-
-	}
-};
-
+/// <summary>
+/// Proxy class for options dialog frame.
+/// </summary>
 class PlaylistManagerListener : public IUnknownInterfaceImpl<IAIMPExtensionPlaylistManagerListener>
 {
 private:

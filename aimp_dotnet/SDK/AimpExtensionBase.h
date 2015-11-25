@@ -19,6 +19,12 @@ namespace AIMP
             {
                 virtual String ^get() abstract;
             }
+
+            property IUnknown *InternalProxyExtension
+            {
+                virtual IUnknown *get() abstract;
+                virtual void set(IUnknown *value) abstract;
+            }
         };
     }
 }

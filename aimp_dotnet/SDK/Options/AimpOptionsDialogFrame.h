@@ -7,7 +7,7 @@ namespace AIMP
     {
         using namespace AIMPSDK;
 
-        ref class AimpOptionsDialogFrame : public AimpExtensionBase
+        public ref class AimpOptionsDialogFrame : public AimpExtensionBase
         {
         internal:
             property GUID ExtensionId
@@ -15,6 +15,27 @@ namespace AIMP
                 virtual GUID get() override
                 {
                     return IID_IAIMPServiceOptionsDialog;
+                }
+            }
+
+            property String ^Name
+            {
+                virtual String ^get() override
+                {
+                    return "Options dialog frame";
+                }
+            }
+
+            property IUnknown *InternalProxyExtension
+            {
+                virtual IUnknown *get() override
+                {
+                    return nullptr;
+                }
+
+                virtual void set(IUnknown *value) override
+                {
+
                 }
             }
         };

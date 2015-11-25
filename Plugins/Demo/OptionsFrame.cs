@@ -1,10 +1,11 @@
 ﻿using System;
+using AIMP.SDK;
 using AIMP.SDK.Services;
 using AIMP.SDK.Services.Options;
 
 namespace TestPlugin
 {
-    public class OptionsFrame : IAimpOptionsDialogFrame
+    public class OptionsFrame : AimpOptionsDialogFrame, IAimpExtension
     {
         public string GetName()
         {
