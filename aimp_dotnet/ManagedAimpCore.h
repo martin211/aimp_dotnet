@@ -2,7 +2,7 @@
 #include "AIMP_SDK\AimpSDK.h"
 #include "EventHelper.h"
 #include <Unknwnbase.h>
-#include "AIMP_SDK\IUnknownInterfaceImpl.h"
+
 
 
 namespace AIMP

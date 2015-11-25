@@ -82,7 +82,7 @@ namespace AIMP.SDK
             PluginShortInfoForLoad resPlugInfolst = new PluginShortInfoForLoad();
             Type pluginDeriveType = typeof(IAimpPlugin);
             Type attribForPlugin = typeof(AimpPluginAttribute);
-            var extensionType = typeof(IAimpExtension);
+            //var extensionType = typeof(IAimpExtension);
 
             try
             {
@@ -116,8 +116,7 @@ namespace AIMP.SDK
                                 PluginLocInfo = curAttr
                             };
                         }
-
-                        var pluginExtensions = assemblyTypes.Where(o => extensionType.IsAssignableFrom(o)).ToList();
+                        //var pluginExtensions = assemblyTypes.Where(o => extensionType.IsAssignableFrom(o)).ToList();
                     }
                     catch
                     {

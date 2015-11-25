@@ -4,8 +4,11 @@
 DotNetPlugin::DotNetPlugin()
 {
     _optionsLoaded = false;
+    _proxyManager = new ProxyManager(this);
     _pluginSettings = LoadDotNetPlugin();
 }
+
+// TODO: Add finalizer.
 
 PWCHAR WINAPI DotNetPlugin::InfoGet(int index)
 {
@@ -60,6 +63,7 @@ HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
 
     _pluginSettings->PluginInformation->PluginLoadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
     _pluginSettings->PluginInformation->PluginUnloadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
+    _pluginSettings->PluginInformation->Load();
 
     AIMP::SDK::InternalLogger::Instance->Write("Initialized");
     System::Diagnostics::Debug::WriteLine("END: Initialize DotNet plugin");
@@ -74,7 +78,7 @@ HRESULT WINAPI DotNetPlugin::Finalize()
     delete _frame;
     _frame = nullptr;
 
-    _pluginSettings->AimpPlugin->UnloadAll();
+    _pluginSettings->PluginInformation->Unload();
     _pluginSettings->AimpPlugin->PluginLoadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
     _pluginSettings->AimpPlugin->PluginUnloadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
 
@@ -107,10 +111,14 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
 
     if (riid == IID_IAIMPOptionsDialogFrame)
     {
-        *ppvObj = _frame;
-        AddRef();
-        _optionsLoaded = true;
-        System::Diagnostics::Debug::WriteLine("DotNetPlugin: QueryInterface: S_OK");
+        IAIMPOptionsDialogFrame *frame = _proxyManager->GetOptionsDialogFrameProxy();
+        if (frame != NULL)
+        {
+            *ppvObj = frame;
+            AddRef();
+            System::Diagnostics::Debug::WriteLine("DotNetPlugin: QueryInterface: S_OK");
+        }
+
         return S_OK;
     }
 
@@ -160,9 +168,9 @@ HRESULT DotNetPlugin::LoadExtensions(IAIMPCore* core)
 {
     HRESULT r = S_OK;
 
-    IAIMPOptionsDialogFrame *frame = new OptionFrame(_managedCore, this);
-    _frame = frame;
-    r = core->RegisterExtension(IID_IAIMPServiceOptionsDialog, frame);
+    //IAIMPOptionsDialogFrame *frame = new OptionFrame(_managedCore, this);
+    //_frame = frame;
+    //r = core->RegisterExtension(IID_IAIMPServiceOptionsDialog, frame);
 
     IAIMPExtensionPlaylistManagerListener *listner = new PlaylistManagerListener(this);
     _listner = listner;

@@ -2,6 +2,7 @@
 
 #include <vcclr.h>
 #include "AIMPPlugin.h"
+#include "SDK\Options\AimpOptionsDialogFrame.h"
 #include "ManagedAimpCore.h"
 
 #include "SDK\Menu\AimpMenuManager.h"

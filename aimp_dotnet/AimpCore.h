@@ -1,10 +1,17 @@
 ﻿#pragma once
 #include "ManagedAimpCore.h"
+#include "SDK\AimpExtensionBase.h"
 
 namespace AIMP
 {
 	namespace SDK
 	{
+        template <class T, class U>
+        Boolean IsInst(U u)
+        {
+            return dynamic_cast<T>(u) != nullptr;
+        }
+
 		using namespace System;
 		using namespace AIMP::SDK;
 		using namespace AIMP::SDK::Interfaces;
@@ -57,10 +64,14 @@ namespace AIMP
 				return Utils::CheckResult(_aimpCore->SendMessage(message, value, obj));
 			}
 
-            generic<class TExtension>
-            virtual AimpActionResult RegisterExtension(TExtension extension)
+            virtual AimpActionResult RegisterExtension(AIMP::Services::IAimpExtension ^extension)
 			{
-                return AimpActionResult::Fail;
+                if (((AimpExtensionBase^)extension)->ExtensionId == IID_IAIMPOptionsDialogFrame)
+                {
+                    OptionFrameProxy *frameProxy = new OptionFrameProxy();
+                    _aimpCore->RegisterExtension(((AimpExtensionBase^)extension)->ExtensionId, ((AimpExtensionBase^)extension)->InternalProxyExtension);
+                }
+                return AimpActionResult::Ok;
 			}
 
 			virtual event AimpEventsDelegate^ CoreMessage
@@ -97,11 +108,6 @@ namespace AIMP
 			void OnCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2)
 			{
 				CoreMessage(param1, param2);
-			}
-			
-			void OnTest(System::Object ^sender, System::EventArgs ^e)
-			{
-				throw gcnew System::NotImplementedException();
 			}
 		};
 	}
