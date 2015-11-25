@@ -4,7 +4,6 @@
 DotNetPlugin::DotNetPlugin()
 {
     _optionsLoaded = false;
-    _proxyManager = new ProxyManager(this);
     _pluginSettings = LoadDotNetPlugin();
 }
 
@@ -51,6 +50,7 @@ HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
     _managedCore = gcnew ManagedAimpCore(core);
     _managedExtension = gcnew ManagedFunctionality(core, _managedCore);
     _configurationManager = gcnew AIMP::AimpConfigurationManager(_managedCore);
+//    _proxyManager = new AIMP::Proxy::ProxyManager(this, _managedCore);
 
     LoadExtensions(core);
 
@@ -111,13 +111,13 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
 
     if (riid == IID_IAIMPOptionsDialogFrame)
     {
-        IAIMPOptionsDialogFrame *frame = _proxyManager->GetOptionsDialogFrameProxy();
-        if (frame != NULL)
-        {
-            *ppvObj = frame;
-            AddRef();
-            System::Diagnostics::Debug::WriteLine("DotNetPlugin: QueryInterface: S_OK");
-        }
+//        IAIMPOptionsDialogFrame *frame = _proxyManager->GetOptionsDialogFrameProxy();
+        //if (frame != NULL)
+        //{
+        //    *ppvObj = frame;
+        //    AddRef();
+        //    System::Diagnostics::Debug::WriteLine("DotNetPlugin: QueryInterface: S_OK");
+        //}
 
         return S_OK;
     }

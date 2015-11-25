@@ -123,9 +123,8 @@
     <ClInclude Include="AIMP_SDK\AimpObject.h" />
     <ClInclude Include="AIMP_SDK\AimpSDK.h" />
     <ClInclude Include="AIMP_SDK\Utils.h" />
-    <ClInclude Include="InternalProxy.h" />
-    <ClInclude Include="Proxies\OptionFrameProxy.h" />
-    <ClInclude Include="Proxies\ProxyManager.h" />
+    <ClInclude Include="Proxy\OptionFrameProxy.h" />
+    <ClInclude Include="Proxy\ProxyManager.h" />
     <ClInclude Include="SDK\AimpExtensionBase.h" />
     <ClInclude Include="SDK\Options\AimpOptionsDialogFrame.h" />
     <ClInclude Include="SDK\PlayList\PlayListManager.h" />

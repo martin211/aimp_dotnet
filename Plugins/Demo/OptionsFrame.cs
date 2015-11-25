@@ -5,7 +5,7 @@ using AIMP.SDK.Services.Options;
 
 namespace TestPlugin
 {
-    public class OptionsFrame : AimpOptionsDialogFrame, IAimpExtension
+    public class OptionsFrame : IAimpOptionsDialogFrame
     {
         public string GetName()
         {

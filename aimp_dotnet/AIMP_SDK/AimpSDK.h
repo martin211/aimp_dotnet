@@ -4,13 +4,13 @@
 
 namespace AIMPSDK
 {
-	#include "aimp3_60_sdk.h"
-	
-	#include "IUnknownInterfaceImpl.h"
-	#include "Utils.h"
-	#include "AimpObject.h"
+#include "aimp3_60_sdk.h"
 
-	using namespace AIMPSDK36;
+#include "IUnknownInterfaceImpl.h"
+#include "Utils.h"
+#include "AimpObject.h"
 
-	typedef boost::intrusive_ptr<AIMPSDK36::IAIMPString> IAIMPString_ptr;
+    using namespace AIMPSDK36;
+
+    typedef boost::intrusive_ptr<AIMPSDK36::IAIMPString> IAIMPString_ptr;
 }
