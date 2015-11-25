@@ -184,9 +184,8 @@
     <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h" />
     <ClInclude Include="SDK\Options\AimpOptionsDialogFrame.h" />
     <ClInclude Include="SDK\AimpExtensionBase.h" />
-    <ClInclude Include="InternalProxy.h" />
-    <ClInclude Include="Proxies\OptionFrameProxy.h" />
-    <ClInclude Include="Proxies\ProxyManager.h" />
+    <ClInclude Include="Proxy\OptionFrameProxy.h" />
+    <ClInclude Include="Proxy\ProxyManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

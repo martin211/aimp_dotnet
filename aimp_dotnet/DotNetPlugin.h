@@ -4,7 +4,7 @@
 #include "AimpPlayer.h"
 #include "ObjectHelper.h"
 #include "InternalLogger.h"
-#include "Proxies\ProxyManager.h"
+#include "Proxy/ProxyManager.h"
 
 private ref class ManagedFunctionality
 {
