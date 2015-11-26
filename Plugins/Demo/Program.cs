@@ -48,7 +48,7 @@ namespace TestPlugin
             var action = new AimpActionItem("Teset action", "test Group");
             Player.ActionManager.Add(action);
 
-            _optionsFrame = new OptionsFrame();
+            _optionsFrame = new OptionsFrame(Player);
 
             Player.Core.RegisterExtension(_optionsFrame);
         }

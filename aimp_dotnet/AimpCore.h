@@ -6,12 +6,6 @@ namespace AIMP
 {
     namespace SDK
     {
-        template <class T, class U>
-        Boolean IsInst(U u)
-        {
-            return dynamic_cast<T>(u) != nullptr;
-        }
-
         using namespace System;
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::Interfaces;
@@ -66,12 +60,7 @@ namespace AIMP
 
             virtual AimpActionResult RegisterExtension(AIMP::Services::IAimpExtension ^extension)
             {
-                if (IsInst<AIMP::Services::Options::IAimpOptionsDialogFrame^>(extension))
-                {
-                    //OptionFrameProxy *frameProxy = new OptionFrameProxy();
-                    _aimpCore->RegisterExtension(IID_IAIMPOptionsDialogFrame, ((AimpExtensionBase^)extension)->InternalProxyExtension);
-                }
-
+                _aimpCore->RegisterExtension(IID_IAIMPOptionsDialogFrame, extension);
                 return AimpActionResult::Ok;
             }
 

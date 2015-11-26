@@ -1,43 +1,44 @@
-#pragma once
-#include "..\AimpExtensionBase.h"
+﻿#pragma once
 
 namespace AIMP
 {
     namespace SDK
     {
-        using namespace AIMPSDK;
+        using namespace System;
+        using namespace AIMP::SDK::Services::Options;
 
-        public ref class AimpOptionsDialogFrame : public AimpExtensionBase
+        public ref class AimpOptionsDialogFrame : public IAimpOptionsDialogFrame, public IAimpOptionsDialogFrameKeyboardHelper
         {
+        private:
+            IAIMPOptionsDialogFrame *_aimpObject;
         internal:
-            property GUID ExtensionId
+            virtual property IAIMPOptionsDialogFrame *AimpObject
             {
-                virtual GUID get() override
+                IAIMPOptionsDialogFrame *get()
                 {
-                    return IID_IAIMPServiceOptionsDialog;
+                    return _aimpObject;
+                }
+
+                void set(IAIMPOptionsDialogFrame *value)
+                {
+                    _aimpObject = value;
                 }
             }
 
-            property String ^Name
-            {
-                virtual String ^get() override
-                {
-                    return "Options dialog frame";
-                }
-            }
+        public:
+            virtual String^ GetName() abstract;
 
-            property IUnknown *InternalProxyExtension
-            {
-                virtual IUnknown *get() override
-                {
-                    return nullptr;
-                }
+            virtual IntPtr CreateFrame(IntPtr parentWindow) abstract;
 
-                virtual void set(IUnknown *value) override
-                {
+            virtual void DestroyFrame() abstract;
+            
+            virtual void Notification(int id) abstract;
 
-                }
-            }
+            virtual bool DialogKey(int charCode) abstract;
+
+            virtual bool SelectFirstControl() abstract;
+
+            virtual bool SelectNextControl(int findForward, int isTabKeyAction) abstract;
         };
     }
 }
