@@ -182,10 +182,13 @@
     </ClInclude>
     <ClInclude Include="SDK\Threading\AimpAsyncTask.h" />
     <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h" />
-    <ClInclude Include="SDK\Options\AimpOptionsDialogFrame.h" />
     <ClInclude Include="SDK\AimpExtensionBase.h" />
-    <ClInclude Include="Proxy\OptionFrameProxy.h" />
-    <ClInclude Include="Proxy\ProxyManager.h" />
+    <ClInclude Include="SDK\Options\AimpServiceOptionsDialog.h">
+      <Filter>SDK\Options</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Options\AimpOptionsDialogFrame.h">
+      <Filter>SDK\Options</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
@@ -234,6 +237,9 @@
     </Filter>
     <Filter Include="SDK\Player">
       <UniqueIdentifier>{4ca24899-f191-4fa1-b3f3-45b295a8d39f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK\Options">
+      <UniqueIdentifier>{7d42b0de-836b-4064-a168-88bac54a8caa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

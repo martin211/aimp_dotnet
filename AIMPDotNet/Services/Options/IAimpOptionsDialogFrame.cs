@@ -5,12 +5,6 @@ namespace AIMP.SDK.Services.Options
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="id">The identifier.</param>
-    public delegate void AimpOptionFrameHandler(int id);
-
-    /// <summary>
-    /// 
-    /// </summary>
     public interface IAimpOptionsDialogFrame : IAimpExtension
     {
         /// <summary>
@@ -34,6 +28,6 @@ namespace AIMP.SDK.Services.Options
         /// <summary>
         /// Occurs when [notification].
         /// </summary>
-        event AimpOptionFrameHandler Notification;
+        void Notification(int id);
     }
 }

@@ -249,7 +249,8 @@ namespace AIMP
 
 			FillMenuData(newItem, menuItem);
 
-			_core->RegisterExtension(IID_IAIMPServiceMenuManager, newItem);
+            // TODO: FIX IT!
+			//_core->RegisterExtension(IID_IAIMPServiceMenuManager, newItem);
 
 			if (menuItem->ChildItems != nullptr && menuItem->ChildItems->Count > 0)
 			{

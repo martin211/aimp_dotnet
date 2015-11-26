@@ -47,7 +47,7 @@ HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
 {
     System::Diagnostics::Debug::WriteLine("BEGIN: Initialize DotNet plugin");
 
-    _managedCore = gcnew ManagedAimpCore(core);
+    _managedCore = gcnew ManagedAimpCore(core, this);
     _managedExtension = gcnew ManagedFunctionality(core, _managedCore);
     _configurationManager = gcnew AIMP::AimpConfigurationManager(_managedCore);
 //    _proxyManager = new AIMP::Proxy::ProxyManager(this, _managedCore);
@@ -79,8 +79,8 @@ HRESULT WINAPI DotNetPlugin::Finalize()
     _frame = nullptr;
 
     _pluginSettings->PluginInformation->Unload();
-    _pluginSettings->AimpPlugin->PluginLoadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
-    _pluginSettings->AimpPlugin->PluginUnloadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
+    _pluginSettings->PluginInformation->PluginLoadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
+    _pluginSettings->PluginInformation->PluginUnloadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
 
     _optionsLoaded = false;
 
@@ -109,16 +109,10 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
         return S_OK;
     }
 
-    if (riid == IID_IAIMPOptionsDialogFrame)
+    if (riid == IID_IAIMPOptionsDialogFrame && _frame != NULL)
     {
-//        IAIMPOptionsDialogFrame *frame = _proxyManager->GetOptionsDialogFrameProxy();
-        //if (frame != NULL)
-        //{
-        //    *ppvObj = frame;
-        //    AddRef();
-        //    System::Diagnostics::Debug::WriteLine("DotNetPlugin: QueryInterface: S_OK");
-        //}
-
+        *ppvObj = _frame;
+        AddRef();
         return S_OK;
     }
 
@@ -180,4 +174,13 @@ HRESULT DotNetPlugin::LoadExtensions(IAIMPCore* core)
     r = core->RegisterExtension(IID_IAIMPServicePlayer, _playerHook);
 
     return r;
+}
+
+void DotNetPlugin::RegisterOptionsFrameExtension(IAIMPOptionsDialogFrame *frame)
+{
+    if (_frame != NULL)
+    {
+        _frame = frame;
+    }
+    // TODO: Log error if frame has been already created.
 }

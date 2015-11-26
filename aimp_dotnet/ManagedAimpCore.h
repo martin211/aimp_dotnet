@@ -2,7 +2,6 @@
 #include "AIMP_SDK\AimpSDK.h"
 #include "EventHelper.h"
 #include <Unknwnbase.h>
-#include "Proxy/ProxyManager.h"
 
 namespace AIMP
 {
@@ -30,7 +29,7 @@ namespace AIMP
             /// Initializes a new instance of the <see cref="ManagedAimpCore"/> class.
             /// </summary>
             /// <param name="core">The core.</param>
-            ManagedAimpCore(IAIMPCore* core);
+            ManagedAimpCore(IAIMPCore* core, IAimpDotNetProxy *mainPlugin);
 
             /// <summary>
             /// Finalizes an instance of the <see cref="ManagedAimpCore"/> class.
@@ -40,8 +39,6 @@ namespace AIMP
             virtual AIMP::SDK::Services::AimpActionResult GetPath(AimpMessages::AimpCorePathType pathType, String ^%path);
 
             virtual HRESULT SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj);
-
-            //virtual bool RegisterExtension(Guid extensionId, IUnknown* extension);
 
             virtual event AimpEventsDelegate^ CoreMessage;
 
@@ -56,23 +53,13 @@ namespace AIMP
             void OnCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2);
 
         internal:
-            ProxyManager *GetProxyManager()
-            {
-                return _proxyManager;
-            }
-
-            void SetProxyManager(ProxyManager *value)
-            {
-                _proxyManager = value;
-            }
-
             IAIMPActionEvent* CreateActionEvent();
 
             HRESULT GetService(REFIID iid, void** service);
 
             static IUnknown *QueryInterface(REFIID iid);
 
-            bool RegisterExtension(GUID iid, IUnknown* extension);
+            bool RegisterExtension(GUID iid, AIMP::Services::IAimpExtension^ extension);
 
             void UnregisterExtension(IUnknown* extension);
 
@@ -90,6 +77,14 @@ namespace AIMP
 
             bool OnCheckUrl(String^ %url);
 
+            virtual property AIMP::SDK::Services::Options::IAimpOptionsDialogFrame ^OptionsFrame
+            {
+                AIMP::SDK::Services::Options::IAimpOptionsDialogFrame ^get()
+                {
+                    return _optionsFrame;
+                }
+            }
+
         private:
             static IAIMPCore* _core;
             EventHelper* _nativeEventHelper;
@@ -99,12 +94,12 @@ namespace AIMP
             IAIMPMessageHook* _hook;
             List<AimpEventsDelegate^> ^_coreMessage;
             List<AIMP::SDK::Extensions::PlayListHandler^> ^_playListActivatedHandlers;
+            IAimpDotNetProxy *_mainPlugin;
+            AIMP::SDK::Services::Options::IAimpOptionsDialogFrame ^_optionsFrame;
 
             AIMP::SDK::Extensions::PlayListHandler ^_playlistAdded;
             AIMP::SDK::Extensions::PlayListHandler ^_playlistRemoved;
             AIMP::SDK::Services::Playback::AimpCheckUrl ^_checkUrl;
-
-            ProxyManager *_proxyManager;
         };
     }
 }
