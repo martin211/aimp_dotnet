@@ -2,98 +2,104 @@
 #include "AIMP_SDK\AimpSDK.h"
 #include "EventHelper.h"
 #include <Unknwnbase.h>
-#include "AIMP_SDK\IUnknownInterfaceImpl.h"
-
 
 namespace AIMP
 {
-	namespace SDK
-	{
-		using namespace System;
-		using namespace System::Collections::Generic;
+    namespace SDK
+    {
+        using namespace System;
+        using namespace System::Collections::Generic;
 
-		using namespace AIMPSDK;
-		using namespace AIMP::SDK;
-		using namespace AIMP::SDK::Interfaces;
-		using namespace AIMP::SDK::Extensions;
-		using namespace AIMP::SDK::Services::PlayList;
+        using namespace AIMPSDK;
+        using namespace AIMP::SDK;
+        using namespace AIMP::SDK::Interfaces;
+        using namespace AIMP::SDK::Extensions;
+        using namespace AIMP::SDK::Services::PlayList;
 
-		delegate void ChangeHandler(AimpMessages::AimpCoreMessageType, int);
+        delegate void ChangeHandler(AimpMessages::AimpCoreMessageType, int);
 
-		/// <summary>
-		/// Wrapper on IAIMPCore interface.
-		/// </summary>
-		public ref class ManagedAimpCore
-		{
+        /// <summary>
+        /// Wrapper on IAIMPCore interface.
+        /// </summary>
+        public ref class ManagedAimpCore
+        {
 
-		public:
-			/// <summary>
-			/// Initializes a new instance of the <see cref="ManagedAimpCore"/> class.
-			/// </summary>
-			/// <param name="core">The core.</param>
-			ManagedAimpCore(IAIMPCore* core);
-			
-			/// <summary>
-			/// Finalizes an instance of the <see cref="ManagedAimpCore"/> class.
-			/// </summary>
-			~ManagedAimpCore();
-			
-			virtual AIMP::SDK::Services::AimpActionResult GetPath(AimpMessages::AimpCorePathType pathType, String ^%path);
+        public:
+            /// <summary>
+            /// Initializes a new instance of the <see cref="ManagedAimpCore"/> class.
+            /// </summary>
+            /// <param name="core">The core.</param>
+            ManagedAimpCore(IAIMPCore* core, IAimpDotNetProxy *mainPlugin);
 
-			virtual HRESULT SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj);
-			
-			//virtual bool RegisterExtension(Guid extensionId, IUnknown* extension);
-			
-			virtual event AimpEventsDelegate^ CoreMessage;
+            /// <summary>
+            /// Finalizes an instance of the <see cref="ManagedAimpCore"/> class.
+            /// </summary>
+            ~ManagedAimpCore();
 
-			virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistActivated;
+            virtual AIMP::SDK::Services::AimpActionResult GetPath(AimpMessages::AimpCorePathType pathType, String ^%path);
 
-			virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistAdded;
+            virtual HRESULT SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj);
 
-			virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistRemoved;
+            virtual event AimpEventsDelegate^ CoreMessage;
 
-			virtual event AIMP::SDK::Services::Playback::AimpCheckUrl ^CheckUrl;
+            virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistActivated;
 
-			void OnCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2);
+            virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistAdded;
 
-		internal:
-			IAIMPActionEvent* CreateActionEvent();
+            virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistRemoved;
 
-			HRESULT GetService(REFIID iid, void** service);
+            virtual event AIMP::SDK::Services::Playback::AimpCheckUrl ^CheckUrl;
 
-			static IUnknown *QueryInterface(REFIID iid);
+            void OnCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2);
 
-			bool RegisterExtension(GUID iid, IUnknown* extension);
+        internal:
+            IAIMPActionEvent* CreateActionEvent();
 
-			void UnregisterExtension(IUnknown* extension);
+            HRESULT GetService(REFIID iid, void** service);
 
-			static IAIMPCore* GetAimpCore();
+            static IUnknown *QueryInterface(REFIID iid);
 
-			HRESULT ShowNotification(bool autoHide, String ^notification);
+            bool RegisterExtension(GUID iid, AIMP::Services::IAimpExtension^ extension);
 
-			IAIMPStream* CreateStream();
+            void UnregisterExtension(IUnknown* extension);
 
-			void OnPlaylistActivated(IAIMPPlaylist *playlist);
+            static IAIMPCore* GetAimpCore();
 
-			void OnPlayListAdded(IAIMPPlaylist *playlist);
+            HRESULT ShowNotification(bool autoHide, String ^notification);
 
-			void OnPlayListRemoved(IAIMPPlaylist *playlist);
+            IAIMPStream* CreateStream();
 
-			bool OnCheckUrl(String^ %url);
+            void OnPlaylistActivated(IAIMPPlaylist *playlist);
 
-		private:
-			static IAIMPCore* _core;
-			EventHelper* _nativeEventHelper;
-			Callback* _coreMessageCallback;
-			Callback* _playListActivatedCallback;
-			IAIMPServiceMessageDispatcher* _messageDispatcher;
-			IAIMPMessageHook* _hook;
-			List<AimpEventsDelegate^> ^_coreMessage;
-			List<AIMP::SDK::Extensions::PlayListHandler^> ^_playListActivatedHandlers;
-			
-			AIMP::SDK::Extensions::PlayListHandler ^_playlistAdded;
-			AIMP::SDK::Extensions::PlayListHandler ^_playlistRemoved;
-			AIMP::SDK::Services::Playback::AimpCheckUrl ^_checkUrl;
-		};
-	}
+            void OnPlayListAdded(IAIMPPlaylist *playlist);
+
+            void OnPlayListRemoved(IAIMPPlaylist *playlist);
+
+            bool OnCheckUrl(String^ %url);
+
+            virtual property AIMP::SDK::Services::Options::IAimpOptionsDialogFrame ^OptionsFrame
+            {
+                AIMP::SDK::Services::Options::IAimpOptionsDialogFrame ^get()
+                {
+                    return _optionsFrame;
+                }
+            }
+
+        private:
+            static IAIMPCore* _core;
+            EventHelper* _nativeEventHelper;
+            Callback* _coreMessageCallback;
+            Callback* _playListActivatedCallback;
+            IAIMPServiceMessageDispatcher* _messageDispatcher;
+            IAIMPMessageHook* _hook;
+            List<AimpEventsDelegate^> ^_coreMessage;
+            List<AIMP::SDK::Extensions::PlayListHandler^> ^_playListActivatedHandlers;
+            IAimpDotNetProxy *_mainPlugin;
+            AIMP::SDK::Services::Options::IAimpOptionsDialogFrame ^_optionsFrame;
+
+            AIMP::SDK::Extensions::PlayListHandler ^_playlistAdded;
+            AIMP::SDK::Extensions::PlayListHandler ^_playlistRemoved;
+            AIMP::SDK::Services::Playback::AimpCheckUrl ^_checkUrl;
+        };
+    }
 }

@@ -5,6 +5,7 @@ using AIMP.SDK.Services.AlbumArtManager;
 using AIMP.SDK.Services.ConfigurationManager;
 using AIMP.SDK.Services.MenuManager;
 using AIMP.SDK.Services.MUIManager;
+using AIMP.SDK.Services.Options;
 using AIMP.SDK.Services.Playback;
 using AIMP.SDK.Services.Win32Manager;
 
@@ -89,6 +90,8 @@ namespace AIMP.SDK.Services.Player
         /// Gets the playback queue manager.
         /// </summary>
         IAimpPlaybackQueueService PlaybackQueueManager { get; }
+
+        IAimpServiceOptionsDialog ServiceOptionsDialog { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the volume is mute.
