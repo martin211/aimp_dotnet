@@ -55,7 +55,21 @@ namespace AIMPSDK
 
             virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
             {
-                return _mainPlugin->QueryInterface(riid, ppvObject);
+                //return _mainPlugin->QueryInterface(riid, ppvObject);
+                if (!ppvObject) return E_POINTER;
+
+                if (riid == IID_IAIMPOptionsDialogFrame) {
+                    *ppvObject = this;
+                    AddRef();
+                    return S_OK;
+                }
+                if (riid == IID_IAIMPOptionsDialogFrameKeyboardHelper) {
+                    *ppvObject = static_cast<IAIMPOptionsDialogFrameKeyboardHelper*>(this);
+                    AddRef();
+                    return S_OK;
+                }
+
+                return E_NOINTERFACE;
             }
 
             virtual ULONG WINAPI AddRef(void)
