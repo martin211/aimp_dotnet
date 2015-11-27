@@ -73,11 +73,6 @@ HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
 
 HRESULT WINAPI DotNetPlugin::Finalize()
 {
-    ManagedAimpCore::GetAimpCore()->UnregisterExtension((IAIMPOptionsDialogFrame*)_frame);
-
-    delete _frame;
-    _frame = nullptr;
-
     _pluginSettings->PluginInformation->Unload();
     _pluginSettings->PluginInformation->PluginLoadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
     _pluginSettings->PluginInformation->PluginUnloadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
@@ -106,13 +101,6 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
         *ppvObj = this;
         AddRef();
         System::Diagnostics::Debug::WriteLine("DotNetPlugin: QueryInterface: S_OK");
-        return S_OK;
-    }
-
-    if (riid == IID_IAIMPOptionsDialogFrame && _frame != NULL)
-    {
-        *ppvObj = _frame;
-        AddRef();
         return S_OK;
     }
 
@@ -174,13 +162,4 @@ HRESULT DotNetPlugin::LoadExtensions(IAIMPCore* core)
     r = core->RegisterExtension(IID_IAIMPServicePlayer, _playerHook);
 
     return r;
-}
-
-void DotNetPlugin::RegisterOptionsFrameExtension(IAIMPOptionsDialogFrame *frame)
-{
-    if (_frame != NULL)
-    {
-        _frame = frame;
-    }
-    // TODO: Log error if frame has been already created.
 }

@@ -29,7 +29,7 @@ namespace AIMP
             /// Initializes a new instance of the <see cref="ManagedAimpCore"/> class.
             /// </summary>
             /// <param name="core">The core.</param>
-            ManagedAimpCore(IAIMPCore* core, IAimpDotNetProxy *mainPlugin);
+            ManagedAimpCore(IAIMPCore* core, IUnknown *mainPlugin);
 
             /// <summary>
             /// Finalizes an instance of the <see cref="ManagedAimpCore"/> class.
@@ -94,7 +94,7 @@ namespace AIMP
             IAIMPMessageHook* _hook;
             List<AimpEventsDelegate^> ^_coreMessage;
             List<AIMP::SDK::Extensions::PlayListHandler^> ^_playListActivatedHandlers;
-            IAimpDotNetProxy *_mainPlugin;
+            IUnknown *_mainPlugin;
             AIMP::SDK::Services::Options::IAimpOptionsDialogFrame ^_optionsFrame;
 
             AIMP::SDK::Extensions::PlayListHandler ^_playlistAdded;

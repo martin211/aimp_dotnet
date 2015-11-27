@@ -46,7 +46,7 @@ private:
 /// <summary>
 /// 
 /// </summary>
-class DotNetPlugin : public IUnknownInterfaceImpl<IAIMPPlugin>, public IAimpDotNetProxy
+class DotNetPlugin : public IUnknownInterfaceImpl<IAIMPPlugin>
 {
 public:
     DotNetPlugin();
@@ -71,12 +71,6 @@ public:
     virtual AIMP::SDK::AimpDotNetPlugin^ LoadDotNetPlugin();
 
     virtual void SavePluginOptions();
-    
-    /// <summary>
-    /// Registers the options frame extension.
-    /// </summary>
-    /// <param name="frame">The frame.</param>
-    virtual void RegisterOptionsFrameExtension(IAIMPOptionsDialogFrame *frame);
 private:
     HRESULT LoadExtensions(IAIMPCore* core);
 
@@ -90,7 +84,6 @@ private:
     gcroot<AIMP::SDK::AimpDotNetPlugin^> _pluginSettings;
     gcroot<AIMP::AimpConfigurationManager^> _configurationManager;
     IAIMPServiceConfig *_configService;
-    IAIMPOptionsDialogFrame *_frame;
     IAIMPExtensionPlaylistManagerListener *_listner;
     IAIMPExtensionPlayerHook *_playerHook;
     typedef IUnknownInterfaceImpl<IAIMPPlugin> Base;
