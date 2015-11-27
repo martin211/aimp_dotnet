@@ -32,10 +32,9 @@ namespace AIMP
             gcroot<ManagedAimpCore^> aimp36_manager_;
         };
 
-        ManagedAimpCore::ManagedAimpCore(IAIMPCore* core, IUnknown *mainPlugin)
+        ManagedAimpCore::ManagedAimpCore(IAIMPCore* core)
         {
             _core = core;
-            _mainPlugin = mainPlugin;
             _nativeEventHelper = new EventHelper();
 
             IAIMPServiceMessageDispatcher* aimp_service_message_dispatcher;
@@ -80,7 +79,7 @@ namespace AIMP
             AIMP::SDK::AimpOptionsDialogFrame^ optionsFrameExtension = dynamic_cast<AIMP::SDK::AimpOptionsDialogFrame^>(extension);
             if (optionsFrameExtension != nullptr)
             {
-                OptionsDialogFrameProxy* odfp = new OptionsDialogFrameProxy(_mainPlugin, this->GetAimpCore(), optionsFrameExtension);
+                OptionsDialogFrameProxy* odfp = new OptionsDialogFrameProxy(this->GetAimpCore(), optionsFrameExtension);
                 _optionsFrame = optionsFrameExtension;
                 HRESULT result = _core->RegisterExtension(IID_IAIMPServiceOptionsDialog, static_cast<OptionsDialogFrameProxy::Base*>(odfp));
                 return result == S_OK;
