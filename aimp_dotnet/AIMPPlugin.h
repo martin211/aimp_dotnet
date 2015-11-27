@@ -4,46 +4,59 @@
 
 namespace AIMP
 {
-	namespace SDK
-	{
-		using namespace System;
-		using namespace AIMP::SDK::Services::Player;
-		using namespace AIMP::SDK::Interfaces;
+    namespace SDK
+    {
+        using namespace System;        
+        using namespace AIMP::SDK::Services::Player;
+        using namespace AIMP::SDK::Interfaces;
 
-		public ref class AimpPlugin abstract : public AimpPluginBase
-		{
-		public:
-			AimpPlugin()
-			{
+        public ref class AimpPlugin abstract : public AimpPluginBase
+        {
+        public:
+            AimpPlugin()
+            {
+            }
 
-			}
+            property IAimpCore^ AimpCore
+            {
+                IAimpCore^ get()
+                {
+                    return Player->Core;
+                }
+            }
 
-			property IAimpCore^ AimpCore
-			{
-				IAimpCore^ get()
-				{
-					return Player->Core;
-				}
-			}
+            property IAimpPlayer^ Player
+            {
+                IAimpPlayer^ get()
+                {
+                    return (IAimpPlayer^)AimpPlayer;
+                }
+            }
 
-			property IAimpPlayer^ Player
-			{
-				IAimpPlayer^ get()
-				{
-					return (IAimpPlayer^) AimpPlayer;
-				} 
-			}
+            property AIMP::SDK::Logger::ILogger ^LoggerManager
+            {
+                AIMP::SDK::Logger::ILogger ^get()
+                {
+                    return AIMP::SDK::InternalLogger::Instance;
+                }
+            }
 
-			property AIMP::SDK::Logger::ILogger ^LoggerManager
-			{
-				AIMP::SDK::Logger::ILogger ^get()
-				{
-					return AIMP::SDK::InternalLogger::Instance;
-				}
-			}
+            //property IAimpMenuManager^ MenuManager
+            //{
+            //    IAimpMenuManager^ get()
+            //    {
+            //        if (_menuManager == nullptr)
+            //        {
+            //            _menuManager = gcnew AimpMenuManager(_core);
+            //        }
 
-		private:
-			AimpMenuManager^ _menuManager;
-		};
-	}
+            //        return _menuManager;
+            //    }
+            //}
+
+        //private:
+        //    AimpMenuManager^ _menuManager;
+        //    ManagedAimpCore ^_core;
+        };
+    }
 }

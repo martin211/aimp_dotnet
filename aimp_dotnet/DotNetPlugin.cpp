@@ -47,7 +47,7 @@ HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
 {
     System::Diagnostics::Debug::WriteLine("BEGIN: Initialize DotNet plugin");
 
-    _managedCore = gcnew ManagedAimpCore(core, this);
+    _managedCore = gcnew ManagedAimpCore(core);
     _managedExtension = gcnew ManagedFunctionality(core, _managedCore);
     _configurationManager = gcnew AIMP::AimpConfigurationManager(_managedCore);
 //    _proxyManager = new AIMP::Proxy::ProxyManager(this, _managedCore);

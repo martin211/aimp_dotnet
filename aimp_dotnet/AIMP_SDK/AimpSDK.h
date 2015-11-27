@@ -24,12 +24,10 @@ namespace AIMPSDK
     class AimpExtension
     {
         protected:
-            IUnknown *_mainPlugin;
             IAIMPCore *_aimpCore;
         public:
-            AimpExtension(IUnknown *mainPlugin, IAIMPCore *aimpCore)
+            AimpExtension(IAIMPCore *aimpCore)
             {
-                _mainPlugin = mainPlugin;
                 _aimpCore = aimpCore;
             }
     };
@@ -42,8 +40,8 @@ namespace AIMPSDK
         private:
             gcroot<AIMP::SDK::Services::Options::IAimpOptionsDialogFrame^> _managedFrame;
         public:
-            explicit OptionsDialogFrameProxy(IUnknown *mainPlugin, IAIMPCore *aimpCore, gcroot<AIMP::SDK::Services::Options::IAimpOptionsDialogFrame^> managedFrame) 
-                : AimpExtension(mainPlugin, aimpCore)
+            explicit OptionsDialogFrameProxy(IAIMPCore *aimpCore, gcroot<AIMP::SDK::Services::Options::IAimpOptionsDialogFrame^> managedFrame) 
+                : AimpExtension(aimpCore)
             {
                 _managedFrame = managedFrame;
             }
@@ -74,12 +72,12 @@ namespace AIMPSDK
 
             virtual ULONG WINAPI AddRef(void)
             {
-                return _mainPlugin->AddRef();
+                return Base::AddRef();
             }
 
             virtual ULONG WINAPI Release(void)
             {
-                return _mainPlugin->Release();
+                return Base::Release();
             }
 
             virtual HRESULT WINAPI GetName(IAIMPString **S)
