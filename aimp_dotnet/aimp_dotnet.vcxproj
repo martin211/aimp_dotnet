@@ -45,7 +45,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..\..\Aimp\AIMP4.00\Plugins\aimp_dotnet</OutDir>
+    <OutDir>$(SolutionDir)..\AIMP4.00\Plugins\aimp_dotnet\</OutDir>
     <IncludePath>z:\Libraries\boost;$(IncludePath)</IncludePath>
     <LibraryPath>z:\Libraries\boost\lib32-msvc-14.0;$(LibraryPath)</LibraryPath>
     <TargetName>aimp_dotnet</TargetName>
@@ -123,6 +123,9 @@
     <ClInclude Include="AIMP_SDK\AimpObject.h" />
     <ClInclude Include="AIMP_SDK\AimpSDK.h" />
     <ClInclude Include="AIMP_SDK\Utils.h" />
+    <ClInclude Include="SDK\AimpExtensionBase.h" />
+    <ClInclude Include="SDK\Options\AimpOptionsDialogFrame.h" />
+    <ClInclude Include="SDK\Options\AimpServiceOptionsDialog.h" />
     <ClInclude Include="SDK\PlayList\PlayListManager.h" />
     <ClInclude Include="SDK\PlayList\AimpPlayListQueue.h" />
     <ClInclude Include="AIMPPlugin.h" />

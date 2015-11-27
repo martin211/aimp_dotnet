@@ -7,6 +7,8 @@ DotNetPlugin::DotNetPlugin()
     _pluginSettings = LoadDotNetPlugin();
 }
 
+// TODO: Add finalizer.
+
 PWCHAR WINAPI DotNetPlugin::InfoGet(int index)
 {
     switch (index)
@@ -45,9 +47,10 @@ HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
 {
     System::Diagnostics::Debug::WriteLine("BEGIN: Initialize DotNet plugin");
 
-    _managedCore = gcnew ManagedAimpCore(core);
+    _managedCore = gcnew ManagedAimpCore(core, this);
     _managedExtension = gcnew ManagedFunctionality(core, _managedCore);
     _configurationManager = gcnew AIMP::AimpConfigurationManager(_managedCore);
+//    _proxyManager = new AIMP::Proxy::ProxyManager(this, _managedCore);
 
     LoadExtensions(core);
 
@@ -60,6 +63,7 @@ HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
 
     _pluginSettings->PluginInformation->PluginLoadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
     _pluginSettings->PluginInformation->PluginUnloadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
+    _pluginSettings->PluginInformation->Load();
 
     AIMP::SDK::InternalLogger::Instance->Write("Initialized");
     System::Diagnostics::Debug::WriteLine("END: Initialize DotNet plugin");
@@ -74,9 +78,9 @@ HRESULT WINAPI DotNetPlugin::Finalize()
     delete _frame;
     _frame = nullptr;
 
-    _pluginSettings->AimpPlugin->UnloadAll();
-    _pluginSettings->AimpPlugin->PluginLoadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
-    _pluginSettings->AimpPlugin->PluginUnloadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
+    _pluginSettings->PluginInformation->Unload();
+    _pluginSettings->PluginInformation->PluginLoadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
+    _pluginSettings->PluginInformation->PluginUnloadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
 
     _optionsLoaded = false;
 
@@ -105,12 +109,10 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
         return S_OK;
     }
 
-    if (riid == IID_IAIMPOptionsDialogFrame)
+    if (riid == IID_IAIMPOptionsDialogFrame && _frame != NULL)
     {
         *ppvObj = _frame;
         AddRef();
-        _optionsLoaded = true;
-        System::Diagnostics::Debug::WriteLine("DotNetPlugin: QueryInterface: S_OK");
         return S_OK;
     }
 
@@ -160,9 +162,9 @@ HRESULT DotNetPlugin::LoadExtensions(IAIMPCore* core)
 {
     HRESULT r = S_OK;
 
-    IAIMPOptionsDialogFrame *frame = new OptionFrame(_managedCore, this);
-    _frame = frame;
-    r = core->RegisterExtension(IID_IAIMPServiceOptionsDialog, frame);
+    //IAIMPOptionsDialogFrame *frame = new OptionFrame(_managedCore, this);
+    //_frame = frame;
+    //r = core->RegisterExtension(IID_IAIMPServiceOptionsDialog, frame);
 
     IAIMPExtensionPlaylistManagerListener *listner = new PlaylistManagerListener(this);
     _listner = listner;
@@ -172,4 +174,13 @@ HRESULT DotNetPlugin::LoadExtensions(IAIMPCore* core)
     r = core->RegisterExtension(IID_IAIMPServicePlayer, _playerHook);
 
     return r;
+}
+
+void DotNetPlugin::RegisterOptionsFrameExtension(IAIMPOptionsDialogFrame *frame)
+{
+    if (_frame != NULL)
+    {
+        _frame = frame;
+    }
+    // TODO: Log error if frame has been already created.
 }

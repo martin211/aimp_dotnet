@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using AIMP.SDK.Services;
 
 namespace AIMP.SDK
 {
@@ -81,6 +82,7 @@ namespace AIMP.SDK
             PluginShortInfoForLoad resPlugInfolst = new PluginShortInfoForLoad();
             Type pluginDeriveType = typeof(IAimpPlugin);
             Type attribForPlugin = typeof(AimpPluginAttribute);
+            //var extensionType = typeof(IAimpExtension);
 
             try
             {
@@ -97,8 +99,9 @@ namespace AIMP.SDK
                             continue;
                         }
 
-                        foreach (var plgType in curAsmbl
-                            .GetTypes()
+                        var assemblyTypes = curAsmbl.GetTypes();
+
+                        foreach (var plgType in assemblyTypes
                             .Where(o => pluginDeriveType.IsAssignableFrom(o)
                                         && o.GetCustomAttributes(attribForPlugin, false).Length == 1))
                         {
@@ -113,6 +116,7 @@ namespace AIMP.SDK
                                 PluginLocInfo = curAttr
                             };
                         }
+                        //var pluginExtensions = assemblyTypes.Where(o => extensionType.IsAssignableFrom(o)).ToList();
                     }
                     catch
                     {

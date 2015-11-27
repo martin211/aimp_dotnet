@@ -7,7 +7,7 @@ namespace AIMPSDK36
 {
 	// Add all AIMP SDK functionality to AIMP360SDK namespace.
 	#include "AIMP360\apiPlugin.h"
-	#include "AIMP360\apiPlayer.h"	
+	#include "AIMP360\apiPlayer.h"
 	#include "AIMP360\apiObjects.h"
 	#include "AIMP360\apiFileManager.h"
 	#include "AIMP360\apiMessages.h"

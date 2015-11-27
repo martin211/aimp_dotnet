@@ -17,6 +17,7 @@ namespace TestPlugin
     public class Program : AimpPlugin
     {
         private Form1 _demoForm;
+        private OptionsFrame _optionsFrame;
 
         public override void ShowSettingDialog(IWin32Window ParentWnd)
         {
@@ -46,6 +47,10 @@ namespace TestPlugin
             Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, menuItem);
             var action = new AimpActionItem("Teset action", "test Group");
             Player.ActionManager.Add(action);
+
+            _optionsFrame = new OptionsFrame(Player);
+
+            Player.Core.RegisterExtension(_optionsFrame);
         }
 
         public override void Dispose()
