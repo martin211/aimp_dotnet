@@ -14,6 +14,7 @@
 #include <boost/signal.hpp>
 #include <iostream>
 
+typedef boost::intrusive_ptr<IAIMPString> IAIMPString_ptr;
 
 inline void intrusive_ptr_add_ref(IUnknown* po)
 {
