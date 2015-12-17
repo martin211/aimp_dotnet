@@ -62,8 +62,8 @@ namespace AIMP
         {
             IAIMPString* res;
             _core->GetPath((int)pathType, &res);
-            //IAIMPString_ptr path(res, false);
-            //pathResult = gcnew System::String(std::wstring(path->GetData(), path->GetLength()).c_str());
+            IAIMPString_ptr path(res, false);
+            pathResult = gcnew System::String(std::wstring(path->GetData(), path->GetLength()).c_str());
             return AIMP::SDK::AimpActionResult::Ok;
         }
 
