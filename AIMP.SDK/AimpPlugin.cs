@@ -32,7 +32,7 @@ namespace AIMP.SDK
     /// <summary>
     /// Base abstract class for AIMP Plugin.
     /// </summary>
-    public abstract class AimpPluginBase : MarshalByRefObject, IAimpPlugin
+    public abstract class AimpPlugin : MarshalByRefObject, IAimpPlugin
     {
         /// <summary>
         /// If true, then plugin has setting dialog

@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace TestPlugin
 {
     using AIMP.SDK;
-    using AIMP.SDK.Services.MenuManager;
+    using AIMP.SDK.MenuManager;
+    using AIMP.SDK.Options;
     using AIMP.SDK.UI.ActionItem;
     using AIMP.SDK.UI.MenuItem;
 
     [AimpPlugin("dotNetInteropTest", "Evgeniy Bogdan", "1")]
-    public class Program : AimpPluginBase
+    public class Program : AimpPlugin
     {
         private Form1 _demoForm;
-        //private OptionsFrame _optionsFrame;
+        private IAimpOptionsDialogFrame _optionsFrame;
 
         public override void ShowSettingDialog(IWin32Window ParentWnd)
         {
@@ -47,9 +43,8 @@ namespace TestPlugin
             var action = new AimpActionItem("Teset action", "test Group");
             Player.ActionManager.Add(action);
 
-            //_optionsFrame = new OptionsFrame(Player);
-
-            //Player.Core.RegisterExtension(_optionsFrame);
+            _optionsFrame = new OptionsFrame(Player);
+            Player.Core.RegisterExtension(_optionsFrame);
         }
 
         public override void Dispose()

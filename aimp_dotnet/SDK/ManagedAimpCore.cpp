@@ -3,9 +3,8 @@
 #include "..\IUnknownInterfaceImpl.h"
 #include "PlayList\AimpPlayList.h"
 #include "ObjectHelper.h"
-#include "Options\AimpOptionsDialogFrame.h"
 #include "..\AimpSdk.h"
-
+#include "..\Extensions\OptionsDialogFrameExtension.h"
 
 namespace AIMP
 {
@@ -75,14 +74,13 @@ namespace AIMP
         /// <returns></returns>
         bool ManagedAimpCore::RegisterExtension(GUID extensionId, AIMP::IAimpExtension^ extension)
         {
-            AIMP::SDK::AimpOptionsDialogFrame^ optionsFrameExtension = dynamic_cast<AIMP::SDK::AimpOptionsDialogFrame^>(extension);
+            AIMP::SDK::Options::IAimpOptionsDialogFrame^ optionsFrameExtension = dynamic_cast<AIMP::SDK::Options::IAimpOptionsDialogFrame^>(extension);
             if (optionsFrameExtension != nullptr)
             {
-                //OptionsDialogFrameProxy* odfp = new OptionsDialogFrameProxy(this->GetAimpCore(), optionsFrameExtension);
-                //_optionsFrame = optionsFrameExtension;
-                //HRESULT result = _core->RegisterExtension(IID_IAIMPServiceOptionsDialog, static_cast<OptionsDialogFrameProxy::Base*>(odfp));
-                //return result == S_OK;
-                return true;
+                OptionsDialogFrameExtension* odfp = new OptionsDialogFrameExtension(this->GetAimpCore(), optionsFrameExtension);
+                _optionsFrame = optionsFrameExtension;
+                HRESULT result = _core->RegisterExtension(IID_IAIMPServiceOptionsDialog, static_cast<OptionsDialogFrameExtension::Base*>(odfp));
+                return result == S_OK;
             }
 
             return false;
