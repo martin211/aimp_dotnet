@@ -8,7 +8,7 @@ namespace TestPlugin
     using AIMP.SDK.UI.ActionItem;
     using AIMP.SDK.UI.MenuItem;
 
-    [AimpPlugin("dotNetInteropTest", "Evgeniy Bogdan", "1")]
+    [AimpPlugin("dotNetInteropTest", "Evgeniy Bogdan", "1", AimpPluginType = AimpPluginType.Addons)]
     public class Program : AimpPlugin
     {
         private Form1 _demoForm;

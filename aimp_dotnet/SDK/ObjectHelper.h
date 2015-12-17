@@ -363,11 +363,20 @@ namespace AIMP
 				}
 
 				imageContainer->CreateImage(&image);
+
+                if (image == NULL)
+                {
+                    return nullptr;
+                }
+
 				return GetBitmap(image);
 			}
 
 			static System::Drawing::Bitmap^ GetBitmap(IAIMPImage* image)
 			{
+                return nullptr;
+
+                // TODO: Fix bug and refact code.
 				SIZE size;
 				if (CheckResult(image->GetSize(&size)))
 				{

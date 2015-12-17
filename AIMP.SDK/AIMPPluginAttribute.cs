@@ -2,6 +2,14 @@
 
 namespace AIMP.SDK
 {
+    public enum AimpPluginType
+    {
+        Addons = 0x1,
+        Decoders = 0x2,
+        Visuals = 0x4,
+        DSP = 0x8
+    }
+
     /// <summary>
     /// This attribute should mark plugin class
     /// </summary>
@@ -48,5 +56,7 @@ namespace AIMP.SDK
         public string Version { get; set; }
 
         public string FullDescription { get; set; }
+
+        public AimpPluginType AimpPluginType { get; set; }
     }
 }
