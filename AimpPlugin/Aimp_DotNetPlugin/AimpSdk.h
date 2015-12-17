@@ -1,0 +1,22 @@
+#pragma once
+
+#include "AIMPSDK\AIMP360\apiActions.h"
+#include "AIMPSDK\AIMP360\apiPlugin.h"
+#include "AIMPSDK\AIMP360\apiPlayer.h"
+#include "AIMPSDK\AIMP360\apiObjects.h"
+#include "AIMPSDK\AIMP360\apiFileManager.h"
+#include "AIMPSDK\AIMP360\apiMessages.h"
+#include "AIMPSDK\AIMP360\apiAlbumArt.h"
+#include "AIMPSDK\AIMP360\apiMenu.h"
+#include "AIMPSDK\AIMP360\apiPlaylists.h"
+#include "AIMPSDK\AIMP360\apiMenu.h"
+#include "AIMPSDK\AIMP360\apiMUI.h"
+#include "AIMPSDK\AIMP360\apiMenu.h"
+#include "AIMPSDK\AIMP360\apiOptions.h"
+#include "AIMPSDK\AIMP360\apiAlbumArt.h"
+#include "AIMPSDK\AIMP360\apiCore.h"
+#include "AIMPSDK\AIMP360\apiThreading.h"
+
+#include "Utils.h"
+#include "SDK\AimpObject.h"
+#include "DataConversion.h"

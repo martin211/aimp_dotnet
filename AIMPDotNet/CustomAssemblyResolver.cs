@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace AIMP.SDK
 {
-    internal static class CustomAssemblyResolver
+    public static class CustomAssemblyResolver
     {
         private static string curPath;
         private static bool isInited;

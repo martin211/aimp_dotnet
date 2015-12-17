@@ -40,7 +40,7 @@
             }
         }
 
-        internal override void OnClick()
+        public override void OnClick()
         {
             Checked = !Checked;
             base.OnClick();

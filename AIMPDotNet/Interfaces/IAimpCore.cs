@@ -1,7 +1,5 @@
 ﻿namespace AIMP.SDK.Interfaces
 {
-    using System;
-
     using AIMP.SDK.Services;
 
     /// <summary>

@@ -3,7 +3,7 @@
     /// <summary>
     /// DotNet plugin settings.
     /// </summary>
-    internal class AimpDotNetPlugin
+    public class AimpDotNetPlugin
     {
         public PluginInformation PluginInformation { get; set; }
 
