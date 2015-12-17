@@ -1,13 +1,13 @@
-#include "Stdafx.h"
+#include "..\..\Stdafx.h"
 #include "AimpPlayListGroup.h"
 #include "AimpPlayListItem.h"
-#include "..\..\ObjectHelper.h"
+#include "..\..\SDK\ObjectHelper.h"
 
 namespace AIMP
 {
 	namespace SDK
 	{
-		using namespace AIMP::SDK::Services::PlayList;
+		using namespace AIMP::SDK::PlayList;
 
 		AimpPlayListGroup::AimpPlayListGroup()
 		{

@@ -1,4 +1,4 @@
-﻿#include "Stdafx.h"
+﻿#include "..\..\Stdafx.h"
 #include "AimpPlayList.h"
 #include "AimpPlayListGroup.h"
 #include "AimpFileInfo.h"
@@ -540,7 +540,7 @@ namespace AIMP
 
 		void AimpPlayList::Changed::raise(IAimpPlayList^ sender, PlayListNotifyType notifyType)
 		{
-			AIMP::Services::PlayList::PlayListChangedHandler ^tmp = this->_onChanged;
+			AIMP::PlayList::PlayListChangedHandler ^tmp = this->_onChanged;
 			if (tmp != nullptr)
 			{
 				_onChanged(sender, notifyType);

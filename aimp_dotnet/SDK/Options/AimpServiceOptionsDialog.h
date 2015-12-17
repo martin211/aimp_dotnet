@@ -6,8 +6,8 @@ namespace AIMP
 {
     namespace SDK
     {
-        using namespace AIMP::SDK::Services;
-        using namespace AIMP::SDK::Services::Options;
+        using namespace AIMP::SDK;
+        using namespace AIMP::SDK::Options;
 
         public ref class AimpServiceOptionsDialog : public AimpBaseManager, public IAimpServiceOptionsDialog
         {

@@ -7,8 +7,8 @@ namespace AIMP
 {
 	namespace SDK
 	{
-		using namespace AIMP::SDK::Services::PlayList;
-		using namespace AIMP::SDK::Services::Playback;
+		using namespace AIMP::SDK::PlayList;
+		using namespace AIMP::SDK::Playback;
 
 		public ref class AimpServicePlaybackQueue : public AimpBaseManager,  public IAimpPlaybackQueueService
 		{

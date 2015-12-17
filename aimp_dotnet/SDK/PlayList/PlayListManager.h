@@ -8,7 +8,7 @@ namespace AIMP
 		using namespace System::Collections::Generic;
 
 		using namespace AIMP::SDK;
-		using namespace AIMP::SDK::Services::PlayList;
+		using namespace AIMP::SDK::PlayList;
 
 		public ref class PlayListManager : public AimpBaseManager, public IAimpPlayListManager, public IExtensionPlaylistManagerListener
 		{

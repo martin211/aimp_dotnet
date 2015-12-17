@@ -1,6 +1,5 @@
 #pragma once
 
-#include "..\..\ManagedAimpCore.h"
 #include "..\BaseManager.h"
 #include "..\PlayList\AimpFileInfo.h"
 
@@ -12,7 +11,7 @@ namespace AIMP
 		using namespace System::IO;
 
 		using namespace AIMP::SDK;
-		using namespace AIMP::SDK::Services::AlbumArtManager;
+		using namespace AIMP::SDK::AlbumArtManager;
 
 		public ref class AimpAlbumArtManager : public AimpBaseManager, public IAimpAlbumArtManager
 		{
@@ -175,7 +174,7 @@ namespace AIMP
 				return (IntPtr) taskId;
 			}
 
-			virtual IntPtr GetImage(AIMP::SDK::Services::PlayList::IAimpFileInfo^ fileInfo, AimpFingCovertArtType flags, Object^ userData)
+			virtual IntPtr GetImage(AIMP::SDK::PlayList::IAimpFileInfo^ fileInfo, AimpFingCovertArtType flags, Object^ userData)
 			{
 				void* taskId = nullptr;
 				_findCallback = gcnew OnFindCoverCallback(this, &AIMP::AimpAlbumArtManager::OnAlbumArtReceive);
@@ -184,7 +183,7 @@ namespace AIMP
 				_service->Get2(
 					((AIMP::SDK::AimpFileInfo^) fileInfo)->InternalAimpObject, 
 					(DWORD) flags, 
-					(AIMPSDK::TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(), 
+					(TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(), 
 					reinterpret_cast<void*>(&userData), 
 					&taskId);
 

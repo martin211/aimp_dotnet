@@ -1,13 +1,12 @@
 #pragma once
 
 #include "..\ManagedAimpCore.h"
-#include "..\InternalLogger.h"
 
 namespace AIMP
 {
 	namespace SDK
 	{
-		using namespace AIMP::SDK::Services;
+		using namespace AIMP::SDK;
 
 		public ref class AimpBaseManager abstract
 		{
@@ -20,9 +19,9 @@ namespace AIMP
 			AimpActionResult CheckResult(HRESULT result)
 			{
 				AimpActionResult res = Utils::CheckResult(result);
-				if (res != AIMP::SDK::Services::AimpActionResult::Ok)
+				if (res != AimpActionResult::Ok)
 				{
-					AIMP::SDK::InternalLogger::Instance->Write("Invalid operation: result " + result);
+					//AIMP::SDK::InternalLogger::Instance->Write("Invalid operation: result " + result);
 				}
 
 				return res;

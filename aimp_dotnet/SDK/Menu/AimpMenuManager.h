@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\..\ManagedAimpCore.h"
+#include "..\ManagedAimpCore.h"
 #include "..\BaseManager.h"
 #include "MenuItemEvent.h"
 #include "ICallBackHeader.h"
@@ -11,7 +11,7 @@ namespace AIMP
 	namespace SDK
 	{
 		using namespace AIMP::SDK::UI::MenuItem;
-		using namespace AIMP::SDK::Services::MenuManager;
+		using namespace AIMP::SDK::MenuManager;
 
 		public ref class AimpMenuManager : public AimpBaseManager, public IAimpMenuManager
 		{

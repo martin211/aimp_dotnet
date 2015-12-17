@@ -6,9 +6,8 @@ namespace AIMP
 	{
 		using namespace System;
 
-		using namespace AIMPSDK;
-		using namespace AIMP::SDK::Services;
-		using namespace AIMP::SDK::Services::PlayList;
+		using namespace AIMP::SDK;
+		using namespace AIMP::SDK::PlayList;
 
 		public ref class AimpPlayListItem : public AimpObject<IAIMPPlaylistItem>, public IAimpPlayListItem
 		{

@@ -101,7 +101,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AIMPDotNet\AIMP.SDK.csproj">
+    <ProjectReference Include="..\..\AIMP.SDK\AIMP.SDK.csproj">
       <Project>{154c60cf-2dae-4227-ad2c-cce7c63cde5a}</Project>
       <Name>AIMP.SDK</Name>
     </ProjectReference>

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "AimpPlayListItem.h"
+#include "..\..\IUnknownInterfaceImpl.h"
 
 namespace AIMP
 {
@@ -14,8 +15,8 @@ namespace AIMP
 		using namespace System;
 		using namespace System::Collections::Generic;
 
-		using namespace AIMP::SDK::Services;
-		using namespace AIMP::SDK::Services::PlayList;
+		using namespace AIMP::SDK;
+		using namespace AIMP::SDK::PlayList;
 
 		class AimpPlaylistListener : public IUnknownInterfaceImpl<IAIMPPlaylistListener>
 		{

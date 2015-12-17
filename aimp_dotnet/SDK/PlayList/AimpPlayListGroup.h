@@ -1,13 +1,13 @@
 #pragma once
 
-#include "..\..\ObjectHelper.h"
+#include "..\ObjectHelper.h"
 
 
 namespace AIMP
 {
 	namespace SDK
 	{
-		using namespace AIMP::SDK::Services::PlayList;
+    	using namespace AIMP::SDK::PlayList;
 
 		public ref class AimpPlayListGroup : public AimpObject<IAIMPPlaylistGroup>, public IAimpPlayListGroup
 		{

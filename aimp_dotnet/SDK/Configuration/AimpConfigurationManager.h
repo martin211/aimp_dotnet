@@ -1,6 +1,5 @@
 #pragma once
 
-#include "..\..\ManagedAimpCore.h"
 #include "..\BaseManager.h"
 
 namespace AIMP
@@ -8,7 +7,7 @@ namespace AIMP
 	namespace SDK
 	{
 		using namespace System;
-		using namespace AIMP::SDK::Services::ConfigurationManager;
+		using namespace AIMP::SDK::ConfigurationManager;
 
 		public ref class AimpConfigurationManager : public AimpBaseManager, public IAimpConfigurationManager
 		{
