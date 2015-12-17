@@ -6,10 +6,10 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{154C60CF-2DAE-4227-AD2C-CCE7C63CDE5A}</ProjectGuid>
-    <OutputType>module</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AIMP.SDK</RootNamespace>
-    <AssemblyName>AIMPDotNet</AssemblyName>
+    <AssemblyName>AIMP.SDK</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\aimp_dotnet\CSDebug\</OutputPath>
+    <OutputPath>..\..\AIMP4.00\Plugins\dotnet_test\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -38,6 +38,9 @@
     </DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -54,27 +57,27 @@
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Extensions\IExtensionPlaylistManagerListener.cs" />
-    <Compile Include="Services\AimpActionResult.cs" />
-    <Compile Include="Services\IAimpExtension.cs" />
-    <Compile Include="Services\Options\IAimpOptionsDialogFrameKeyboardHelper.cs" />
-    <Compile Include="Services\Options\IAimpServiceOptionsDialog.cs" />
-    <Compile Include="Services\Playback\IAimpPlaybackQueueService.cs" />
-    <Compile Include="Services\Playback\IAimpExtensionPlayerHook.cs" />
-    <Compile Include="Services\Playback\IAimpPlaybackQueueItem.cs" />
-    <Compile Include="Services\PlayList\IAimpPlaylistQueue.cs" />
-    <Compile Include="Services\PlayList\AimpPlayListEventArgs.cs" />
-    <Compile Include="Services\Threading\IAimpAsyncTask.cs" />
-    <Compile Include="Services\Threading\IAimpAsyncTaskOwner.cs" />
-    <Compile Include="Services\Threading\IAimpServiceSynchronizer.cs" />
-    <Compile Include="Services\Threading\IAimpServiceThreadPool.cs" />
-    <Compile Include="Services\Threading\IAimpTaskPriority.cs" />
+    <Compile Include="Interfaces\AimpActionResult.cs" />
+    <Compile Include="Interfaces\IAimpExtension.cs" />
+    <Compile Include="Interfaces\Options\IAimpOptionsDialogFrameKeyboardHelper.cs" />
+    <Compile Include="Interfaces\Options\IAimpServiceOptionsDialog.cs" />
+    <Compile Include="Interfaces\Playback\IAimpPlaybackQueueService.cs" />
+    <Compile Include="Interfaces\Playback\IAimpExtensionPlayerHook.cs" />
+    <Compile Include="Interfaces\Playback\IAimpPlaybackQueueItem.cs" />
+    <Compile Include="Interfaces\PlayList\IAimpPlaylistQueue.cs" />
+    <Compile Include="Interfaces\PlayList\AimpPlayListEventArgs.cs" />
+    <Compile Include="Interfaces\Threading\IAimpAsyncTask.cs" />
+    <Compile Include="Interfaces\Threading\IAimpAsyncTaskOwner.cs" />
+    <Compile Include="Interfaces\Threading\IAimpServiceSynchronizer.cs" />
+    <Compile Include="Interfaces\Threading\IAimpServiceThreadPool.cs" />
+    <Compile Include="Interfaces\Threading\IAimpTaskPriority.cs" />
     <Compile Include="UI\AimpUIItem.cs" />
     <Compile Include="AIMPPluginAttribute.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Interfaces\IAimpCore.cs" />
-    <Compile Include="Services\Options\IAimpOptionsDialogFrame.cs" />
-    <Compile Include="Services\Player\IAimpPlayer.cs" />
+    <Compile Include="Interfaces\Options\IAimpOptionsDialogFrame.cs" />
+    <Compile Include="Interfaces\Player\IAimpPlayer.cs" />
     <Compile Include="AimpPluginBase.cs" />
     <Compile Include="CustomAssemblyResolver.cs" />
     <Compile Include="PluginInfo.cs" />
@@ -91,21 +94,21 @@
     <Compile Include="UI\MenuItem\RadioButtonMenuItem.cs" />
     <Compile Include="UI\MenuItem\StandartMenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ActionManager\IAimpActionManager.cs" />
-    <Compile Include="Services\AlbumArtManager\AimpFingCovertArtType.cs" />
-    <Compile Include="Services\AlbumArtManager\AimpGetAlbumArtEventArgs.cs" />
-    <Compile Include="Services\AlbumArtManager\IAimpAlbumArtManager.cs" />
-    <Compile Include="Services\ConfigurationManager\IAimpConfigurationManager.cs" />
-    <Compile Include="Services\IAimpPropertyList.cs" />
-    <Compile Include="Services\MenuManager\IAimpMenuItem.cs" />
-    <Compile Include="Services\MenuManager\IAimpMenuManager.cs" />
-    <Compile Include="Services\MUIManager\IAimpMUIManager.cs" />
-    <Compile Include="Services\PlayList\IAimpFileInfo.cs" />
-    <Compile Include="Services\PlayList\IAimpPlayList.cs" />
-    <Compile Include="Services\PlayList\IAimpPlayListGroup.cs" />
-    <Compile Include="Services\PlayList\IAimpPlayListItem.cs" />
-    <Compile Include="Services\PlayList\IAimpPlayListManager.cs" />
-    <Compile Include="Services\Win32Manager\IWin32Manager.cs" />
+    <Compile Include="Interfaces\ActionManager\IAimpActionManager.cs" />
+    <Compile Include="Interfaces\AlbumArtManager\AimpFingCovertArtType.cs" />
+    <Compile Include="Interfaces\AlbumArtManager\AimpGetAlbumArtEventArgs.cs" />
+    <Compile Include="Interfaces\AlbumArtManager\IAimpAlbumArtManager.cs" />
+    <Compile Include="Interfaces\ConfigurationManager\IAimpConfigurationManager.cs" />
+    <Compile Include="Interfaces\IAimpPropertyList.cs" />
+    <Compile Include="Interfaces\MenuManager\IAimpMenuItem.cs" />
+    <Compile Include="Interfaces\MenuManager\IAimpMenuManager.cs" />
+    <Compile Include="Interfaces\MUIManager\IAimpMUIManager.cs" />
+    <Compile Include="Interfaces\PlayList\IAimpFileInfo.cs" />
+    <Compile Include="Interfaces\PlayList\IAimpPlayList.cs" />
+    <Compile Include="Interfaces\PlayList\IAimpPlayListGroup.cs" />
+    <Compile Include="Interfaces\PlayList\IAimpPlayListItem.cs" />
+    <Compile Include="Interfaces\PlayList\IAimpPlayListManager.cs" />
+    <Compile Include="Interfaces\Win32Manager\IWin32Manager.cs" />
     <Compile Include="AimpDotNetPlugin.cs" />
   </ItemGroup>
   <ItemGroup>

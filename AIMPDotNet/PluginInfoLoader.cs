@@ -8,7 +8,7 @@ using AIMP.SDK.Services;
 namespace AIMP.SDK
 {
     [Serializable]
-    internal struct PluginShortInfoForLoad
+    public struct PluginShortInfoForLoad
     {
         /// <summary>
         /// Gets or sets the name of the assembly file.
@@ -31,12 +31,12 @@ namespace AIMP.SDK
         public AimpPluginAttribute PluginLocInfo { get; set; }
     }
 
-    internal abstract class PluginLoadingStrategy : MarshalByRefObject
+    public abstract class PluginLoadingStrategy : MarshalByRefObject
     {
         public abstract PluginShortInfoForLoad Load(string path);
     }
 
-    internal class AssemblyScanPluginLoadStrategy : PluginLoadingStrategy
+    public class AssemblyScanPluginLoadStrategy : PluginLoadingStrategy
     {
         /// <summary>
         /// Path to the plugin folder where additional dependencies will be searched for.
@@ -115,6 +115,8 @@ namespace AIMP.SDK
                                 ClassName = plgType.FullName,
                                 PluginLocInfo = curAttr
                             };
+
+                            break;
                         }
                         //var pluginExtensions = assemblyTypes.Where(o => extensionType.IsAssignableFrom(o)).ToList();
                     }
@@ -132,8 +134,8 @@ namespace AIMP.SDK
             return resPlugInfolst;
         }
     }
-    
-    internal static class PluginInfoLoader
+
+    public static class PluginInfoLoader
     {
         public static Type LoadStrategyType = typeof(AssemblyScanPluginLoadStrategy);
 

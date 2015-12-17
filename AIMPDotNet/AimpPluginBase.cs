@@ -83,15 +83,15 @@ namespace AIMP.SDK
             Initialize();
         }
 
-        internal int PluginId
+        public int PluginId
         {
             get;
             set;
         }
 
-        internal IAimpPlayer AimpPlayer;
+        public IAimpPlayer AimpPlayer;
 
-        internal IAimpPlayer PlayerFLvl
+        public IAimpPlayer Player
         {
             get { return AimpPlayer; }
         }

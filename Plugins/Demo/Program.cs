@@ -14,10 +14,10 @@ namespace TestPlugin
     using AIMP.SDK.UI.MenuItem;
 
     [AimpPlugin("dotNetInteropTest", "Evgeniy Bogdan", "1")]
-    public class Program : AimpPlugin
+    public class Program : AimpPluginBase
     {
         private Form1 _demoForm;
-        private OptionsFrame _optionsFrame;
+        //private OptionsFrame _optionsFrame;
 
         public override void ShowSettingDialog(IWin32Window ParentWnd)
         {
@@ -48,9 +48,9 @@ namespace TestPlugin
             var action = new AimpActionItem("Teset action", "test Group");
             Player.ActionManager.Add(action);
 
-            _optionsFrame = new OptionsFrame(Player);
+            //_optionsFrame = new OptionsFrame(Player);
 
-            Player.Core.RegisterExtension(_optionsFrame);
+            //Player.Core.RegisterExtension(_optionsFrame);
         }
 
         public override void Dispose()

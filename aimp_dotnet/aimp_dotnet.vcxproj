@@ -71,7 +71,7 @@
       <ModuleDefinitionFile>AIMP_Exports.def</ModuleDefinitionFile>
       <AddModuleNamesToAssembly>
       </AddModuleNamesToAssembly>
-      <AdditionalOptions>/LTCG "$(ProjectDir)\CSDebug\AIMPDotNet.netmodule" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <ForceSymbolReferences>
       </ForceSymbolReferences>
     </Link>

@@ -142,7 +142,7 @@ namespace AIMP.SDK.UI.MenuItem
         /// <summary>
         /// Called when [click].
         /// </summary>
-        internal virtual void OnClick()
+        public virtual void OnClick()
         {
             var tmp = System.Threading.Interlocked.CompareExchange(ref Click, null, null);
             if (tmp != null)
@@ -151,7 +151,7 @@ namespace AIMP.SDK.UI.MenuItem
             }
         }
 
-        internal virtual void OnBeforeShow()
+        public virtual void OnBeforeShow()
         {
             var tmp = System.Threading.Interlocked.CompareExchange(ref BeforeShow, null, null);
             if (tmp != null)
