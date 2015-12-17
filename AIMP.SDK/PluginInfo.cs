@@ -123,7 +123,7 @@ namespace AIMP.SDK
         /// <summary>
         /// Gets the loaded plugin.
         /// </summary>
-        public AimpPluginBase LoadedPlugin
+        public AimpPlugin LoadedPlugin
         {
             get;
             private set;
@@ -167,7 +167,7 @@ namespace AIMP.SDK
                         };
 
                         PluginAppDomainInfo = AppDomain.CreateDomain(PluginInfo.Name + "_domain" + Guid.NewGuid().ToString().GetHashCode().ToString("x"), null, dmnSetup);
-                        LoadedPlugin = (AimpPluginBase)PluginAppDomainInfo.CreateInstanceFromAndUnwrap(_inPathToAssembly.FullName, PluginClassName);
+                        LoadedPlugin = (AimpPlugin)PluginAppDomainInfo.CreateInstanceFromAndUnwrap(_inPathToAssembly.FullName, PluginClassName);
                     }
                     catch (Exception ex)
                     {
@@ -216,7 +216,7 @@ namespace AIMP.SDK
                         try
                         {  
                             Type instType = asm.GetType(PluginClassName);
-                            LoadedPlugin = (AimpPluginBase)Activator.CreateInstance(instType);
+                            LoadedPlugin = (AimpPlugin)Activator.CreateInstance(instType);
                         }
                         catch (Exception ex)
                         {

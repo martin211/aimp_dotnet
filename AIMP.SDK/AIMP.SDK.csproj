@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\AIMP4.00\Plugins\dotnet_test\</OutputPath>
+    <OutputPath>..\..\AIMP4.00\Plugins\aimp_dotnet\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -78,7 +78,7 @@
     <Compile Include="IAimpCore.cs" />
     <Compile Include="Options\IAimpOptionsDialogFrame.cs" />
     <Compile Include="Player\IAimpPlayer.cs" />
-    <Compile Include="AimpPluginBase.cs" />
+    <Compile Include="AimpPlugin.cs" />
     <Compile Include="CustomAssemblyResolver.cs" />
     <Compile Include="PluginInfo.cs" />
     <Compile Include="DotNetPluginInfo.cs" />

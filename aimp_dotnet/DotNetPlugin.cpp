@@ -1,6 +1,7 @@
 #include "Stdafx.h"
 #include "DotNetPlugin.h"
 #include "vcclr.h"
+//#include "Extensions/OptionsDialogFrameExtension.h"
 
 DotNetPlugin::DotNetPlugin()
 {

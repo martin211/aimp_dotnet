@@ -56,6 +56,7 @@
     <ClInclude Include="AIMPSDK\AIMP360\apiVisuals.h" />
     <ClInclude Include="DataConversion.h" />
     <ClInclude Include="DotNetPlugin.h" />
+    <ClInclude Include="Extensions\OptionsDialogFrameExtension.h" />
     <ClInclude Include="IUnknownInterfaceImpl.h" />
     <ClInclude Include="SDK\Action\AimpActionManager.h" />
     <ClInclude Include="SDK\AimpCore.h" />
@@ -114,11 +115,12 @@
     <CLRSupport>true</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>true</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -152,8 +154,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\..\..\AIMP4.00\Plugins\dotnet_test</OutDir>
-    <TargetName>dotnet_test</TargetName>
+    <OutDir>$(ProjectDir)..\..\AIMP4.00\Plugins\aimp_dotnet</OutDir>
+    <TargetName>aimp_dotnet</TargetName>
+    <IncludePath>z:\Libraries\boost;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>z:\Libraries\boost\lib32-msvc-14.0;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(ProjectDir)..\..\AIMP4.00\Plugins\aimp_dotnet</OutDir>
+    <TargetName>aimp_dotnet</TargetName>
     <IncludePath>z:\Libraries\boost;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>z:\Libraries\boost\lib32-msvc-14.0;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
@@ -185,6 +193,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>AIMP_Exports.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
