@@ -8,7 +8,6 @@ using System.Windows.Forms;
 namespace TestPlugin
 {
     using AIMP.SDK;
-    using AIMP.SDK.Services.AlbumArtManager;
     using AIMP.SDK.Services.MenuManager;
     using AIMP.SDK.UI.ActionItem;
     using AIMP.SDK.UI.MenuItem;

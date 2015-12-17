@@ -1,5 +1,6 @@
 #pragma once
-#include "..\..\ObjectHelper.h"
+#include "..\ObjectHelper.h"
+#include "..\AimpObject.h"
 
 namespace AIMP
 {

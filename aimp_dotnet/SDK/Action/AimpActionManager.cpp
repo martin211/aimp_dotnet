@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Stdafx.h"
+#include "..\..\Stdafx.h"
 #include "AimpActionManager.h"
-#include "..\..\ObjectHelper.h"
+#include "..\ObjectHelper.h"
 
 namespace AIMP
 {

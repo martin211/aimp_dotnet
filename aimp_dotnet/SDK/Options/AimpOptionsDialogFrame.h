@@ -5,7 +5,7 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK::Services::Options;
+        using namespace AIMP::SDK::Options;
 
         public ref class AimpOptionsDialogFrame : public IAimpOptionsDialogFrame, public IAimpOptionsDialogFrameKeyboardHelper
         {

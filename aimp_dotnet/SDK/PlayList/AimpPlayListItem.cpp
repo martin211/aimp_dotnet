@@ -1,4 +1,4 @@
-#include "Stdafx.h"
+#include "..\..\Stdafx.h"
 #include "AimpPlayListItem.h"
 #include "AimpPlayListGroup.h"
 #include "AimpFileInfo.h"
@@ -10,7 +10,7 @@ namespace AIMP
 	{
 		using namespace System;
 
-		using namespace AIMP::SDK::Services::PlayList;
+		using namespace AIMP::SDK::PlayList;
 
 		AimpPlayListItem::AimpPlayListItem()
 		{

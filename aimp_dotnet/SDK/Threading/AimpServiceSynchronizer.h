@@ -5,14 +5,14 @@ namespace AIMP
 {
 	namespace SDK
 	{
-		using namespace AIMP::SDK::Services::Threading;
+		using namespace AIMP::SDK::Threading;
 
 		public ref class AimpServiceSynchronizer : public IAimpServiceSynchronizer
 		{
 		public:
 			virtual AimpActionResult ExecuteInMainThread(IAimpAsyncTask^ task, bool executeNow)
 			{
-				return AIMP::SDK::Services::AimpActionResult::Fail;
+				return AIMP::SDK::AimpActionResult::Fail;
 			}
 		};
 	}

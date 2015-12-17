@@ -1,15 +1,14 @@
 #pragma once
 
-#include "..\..\ManagedAimpCore.h"
 #include "..\BaseManager.h"
-#include "ObjectHelper.h"
+#include "..\ObjectHelper.h"
 
 namespace AIMP
 {
 	namespace SDK
 	{
 		using namespace System;
-		using namespace AIMP::SDK::Services::MUIManager;
+		using namespace AIMP::SDK::MUIManager;
 
 		public ref class AimpMIUManager : public AimpBaseManager, public IAimpMUIManager
 		{
@@ -24,7 +23,7 @@ namespace AIMP
 
 			virtual String^ GetName()
 			{
-				IAIMPString *str;
+				IAIMPString *str = NULL;
 				try
 				{
 					_muiService->GetName(&str);
@@ -32,8 +31,11 @@ namespace AIMP
 				}
 				finally
 				{
-					str->Release();
-					str = NULL;
+                    if (str != NULL)
+                    {
+                        str->Release();
+                        str = NULL;
+                    }
 				}
 
 				return String::Empty;
@@ -41,7 +43,7 @@ namespace AIMP
 
 			virtual String^ GetValue(String^ key)
 			{
-				IAIMPString *str;
+				IAIMPString *str = NULL;
 				try
 				{
 					_muiService->GetValue(ObjectHelper::MakeAimpString(_core->GetAimpCore(), key), &str);
@@ -54,8 +56,11 @@ namespace AIMP
 				}
 				finally
 				{
-					str->Release();
-					str = NULL;
+                    if (str != NULL)
+                    {
+                        str->Release();
+                        str = NULL;
+                    }
 				}
 
 				return String::Empty;
@@ -63,7 +68,7 @@ namespace AIMP
 
 			virtual String^ GetValuePart(String^ key, int index)
 			{
-				IAIMPString *str;
+				IAIMPString *str = NULL;
 				try
 				{
 					_muiService->GetValuePart(ObjectHelper::MakeAimpString(_core->GetAimpCore(), key), index, &str);
@@ -77,8 +82,11 @@ namespace AIMP
 				}
 				finally
 				{
-					str->Release();
-					str = NULL;
+                    if (str != NULL)
+                    {
+                        str->Release();
+                        str = NULL;
+                    }
 				}
 
 				return String::Empty;

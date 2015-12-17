@@ -1,12 +1,12 @@
 #pragma once
-#include "..\..\AIMP_SDK\IUnknownInterfaceImpl.h"
+#include "..\..\IUnknownInterfaceImpl.h"
 #include "AimpMenuManager.h"
 
 namespace AIMP
 {
 	namespace SDK
 	{
-		#include "..\..\AIMP_SDK\AIMP360\apiActions.h"
+		#include "..\..\AIMPSDK\AIMP360\apiActions.h"
 
 		typedef boost::signals::connection EventCallback;
 		typedef boost::signal<void(void)> EventChangedSignal;

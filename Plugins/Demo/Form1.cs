@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
 using AIMP.SDK;
-using AIMP.SDK.Interfaces;
-using AIMP.SDK.Services.PlayList;
 
 namespace TestPlugin
 {
     using System.Collections.Generic;
 
-    using AIMP.SDK.Services.Player;
+    using AIMP.SDK.Player;
+    using AIMP.SDK.PlayList;
 
     public partial class Form1 : Form
     {

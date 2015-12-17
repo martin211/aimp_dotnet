@@ -1,6 +1,6 @@
-#include "Stdafx.h"
+#include "..\..\Stdafx.h"
 #include "AimpMenuManager.h"
-#include "..\..\ObjectHelper.h"
+#include "..\ObjectHelper.h"
 
 namespace AIMP
 {

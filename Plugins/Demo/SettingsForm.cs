@@ -5,12 +5,13 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using AIMP.SDK;
-using AIMP.SDK.Services.MUIManager;
-using AIMP.SDK.Services.Options;
-using AIMP.SDK.Services.Player;
 
 namespace DemoPlugin
 {
+    using AIMP.SDK.MUIManager;
+    using AIMP.SDK.Options;
+    using AIMP.SDK.Player;
+
     internal partial class SettingsForm : Form
     {
         //public PluginSettings Settings { get; set; }
