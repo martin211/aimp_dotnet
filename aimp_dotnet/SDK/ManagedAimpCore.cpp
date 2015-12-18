@@ -78,7 +78,7 @@ namespace AIMP
             if (optionsFrameExtension != nullptr)
             {
                 OptionsDialogFrameExtension* odfp = new OptionsDialogFrameExtension(this->GetAimpCore(), optionsFrameExtension);
-                _optionsFrame = optionsFrameExtension;
+                _optionsFrame = odfp;
                 HRESULT result = _core->RegisterExtension(IID_IAIMPServiceOptionsDialog, static_cast<OptionsDialogFrameExtension::Base*>(odfp));
                 return result == S_OK;
             }
@@ -207,6 +207,12 @@ namespace AIMP
         IAIMPCore* ManagedAimpCore::GetAimpCore()
         {
             return _core;
+        }
+
+
+        OptionsDialogFrameExtension* ManagedAimpCore::GetOptionsFrame()
+        {
+            return _optionsFrame;
         }
     }
 }

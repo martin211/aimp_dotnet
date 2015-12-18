@@ -2,6 +2,7 @@
 #include "..\AimpSdk.h"
 #include <Unknwnbase.h>
 #include "EventHelper.h"
+#include "..\Extensions\OptionsDialogFrameExtension.h"
 
 namespace AIMP
 {
@@ -75,14 +76,8 @@ namespace AIMP
 
             bool OnCheckUrl(String^ %url);
 
-            virtual property AIMP::SDK::Options::IAimpOptionsDialogFrame ^OptionsFrame
-            {
-                AIMP::SDK::Options::IAimpOptionsDialogFrame ^get()
-                {
-                    return _optionsFrame;
-                }
-            }
-
+            OptionsDialogFrameExtension* GetOptionsFrame();
+           
         private:
             static IAIMPCore* _core;
             EventHelper* _nativeEventHelper;
@@ -92,7 +87,7 @@ namespace AIMP
             IAIMPMessageHook* _hook;
             List<AimpEventsDelegate^> ^_coreMessage;
             List<AIMP::SDK::Extensions::PlayListHandler^> ^_playListActivatedHandlers;
-            AIMP::SDK::Options::IAimpOptionsDialogFrame ^_optionsFrame;
+            OptionsDialogFrameExtension* _optionsFrame;
 
             AIMP::SDK::Extensions::PlayListHandler ^_playlistAdded;
             AIMP::SDK::Extensions::PlayListHandler ^_playlistRemoved;
