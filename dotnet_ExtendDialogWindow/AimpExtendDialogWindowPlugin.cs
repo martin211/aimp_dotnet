@@ -5,7 +5,7 @@ using AIMP.SDK;
 namespace dotnet_ExtendDialogWindow
 {
     [AimpPlugin("dotnet_ExtendDialogWindow", "AIMP DOTNET", "1", AimpPluginType = AimpPluginType.Addons)]
-    public class AimpExtendDialogWindowPlugin : AimpPlugin
+    public class AimpExtendDialogWindowPlugin : AimpPlugin, IAimpExternalSettingsDialog
     {
         public override bool HasSettingDialog { get { return false; } }
 
@@ -21,6 +21,11 @@ namespace dotnet_ExtendDialogWindow
         }
 
         public override void ShowSettingDialog(IWin32Window parentWindow)
+        {
+            
+        }
+
+        public void Show(IntPtr parentWindow)
         {
             
         }

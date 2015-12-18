@@ -82,6 +82,7 @@ namespace AIMP.SDK
             Type pluginDeriveType = typeof(IAimpPlugin);
             Type attribForPlugin = typeof(AimpPluginAttribute);
             //var extensionType = typeof(IAimpExtension);
+            Type externalSettingsDialog = typeof(IAimpExternalSettingsDialog);
 
             try
             {
@@ -106,6 +107,8 @@ namespace AIMP.SDK
                         {
                             var curAttr = (AimpPluginAttribute)plgType.GetCustomAttributes(attribForPlugin, false)[0];
                             System.Diagnostics.Debug.WriteLine("Load plugin: " + curAsmbl.FullName);
+
+                            curAttr.IsExternalSettingsDialog = externalSettingsDialog.IsAssignableFrom(plgType);
 
                             resPlugInfolst = new PluginShortInfoForLoad
                             {

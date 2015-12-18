@@ -39,7 +39,7 @@ private:
 /// <summary>
 /// 
 /// </summary>
-class DotNetPlugin : public IUnknownInterfaceImpl<IAIMPPlugin>
+class DotNetPlugin : public IUnknownInterfaceImpl<IAIMPPlugin>, IAIMPExternalSettingsDialog
 {
 public:
     DotNetPlugin();
@@ -60,6 +60,8 @@ public:
     virtual ULONG WINAPI AddRef(void);
 
     virtual ULONG WINAPI Release(void);
+
+    virtual void WINAPI Show(HWND ParentWindow);
 
 private:
     HRESULT LoadExtensions(IAIMPCore* core);
