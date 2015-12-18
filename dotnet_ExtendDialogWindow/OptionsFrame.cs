@@ -1,11 +1,9 @@
 ﻿using System;
-using DemoPlugin;
+using AIMP.SDK.Options;
+using AIMP.SDK.Player;
 
-namespace TestPlugin
+namespace dotnet_ExtendDialogWindow
 {
-    using AIMP.SDK.Options;
-    using AIMP.SDK.Player;
-
     public class OptionsFrame : IAimpOptionsDialogFrame, IAimpOptionsDialogFrameKeyboardHelper
     {
         private SettingsForm _settingsForm;
