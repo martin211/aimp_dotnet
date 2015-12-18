@@ -45,7 +45,7 @@ PWCHAR WINAPI DotNetPlugin::InfoGet(int index)
 
 DWORD WINAPI DotNetPlugin::InfoGetCategories()
 {
-    return AIMP_PLUGIN_CATEGORY_ADDONS;
+    return (DWORD)_dotNetPlugin->PluginInformation->PluginInfo->AimpPluginType;
 }
 
 HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
@@ -88,6 +88,17 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
         return E_POINTER;
     }
 
+    if (riid == IID_IAIMPExternalSettingsDialog)
+    {
+        if (_dotNetPlugin->PluginInformation->PluginInfo->IsExternalSettingsDialog)
+        {
+            *ppvObj = this;
+            return S_OK;
+        }
+
+        return E_NOINTERFACE;
+    }
+
     return E_NOINTERFACE;
 }
 
@@ -101,9 +112,7 @@ ULONG WINAPI DotNetPlugin::Release(void)
     return Base::Release();
 }
 
-//AIMP::SDK::AimpDotNetPlugin^ DotNetPlugin::LoadDotNetPlugin()
-//{
-//    System::String^ path = System::Reflection::Assembly::GetExecutingAssembly()->Location;
-//    AIMP::SDK::CustomAssemblyResolver::Initialize(System::IO::Path::GetDirectoryName(path));
-//    return AIMP::SDK::PluginInfoLoader::LoadPlugin(System::IO::Path::GetDirectoryName(path));
-//}
+void WINAPI DotNetPlugin::Show(HWND ParentWindow)
+{
+    _dotNetPlugin->PluginInformation->ShowSettingDialog
+}

@@ -55,8 +55,16 @@ namespace AIMP.SDK
         ///</summary>
         public string Version { get; set; }
 
+        /// <summary>
+        /// Gets or sets the full description.
+        /// </summary>
         public string FullDescription { get; set; }
 
+        /// <summary>
+        /// Gets or sets the type of the aimp plugin.
+        /// </summary>
         public AimpPluginType AimpPluginType { get; set; }
+
+        public bool IsExternalSettingsDialog { get; set; }
     }
 }

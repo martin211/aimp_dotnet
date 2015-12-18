@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAimpExternalSettingsDialog.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Extensions\IExtensionPlaylistManagerListener.cs" />

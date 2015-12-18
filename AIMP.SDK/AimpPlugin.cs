@@ -10,20 +10,6 @@ namespace AIMP.SDK
     public interface IAimpPlugin : IDisposable
     {
         /// <summary>
-        /// Gets a value indicating whether this instance has setting dialog.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance has setting dialog; otherwise, <c>false</c>.
-        /// </value>
-        bool HasSettingDialog { get; }
-
-        /// <summary>
-        /// Shows the setting dialog.
-        /// </summary>
-        /// <param name="parentWindow">The parent window.</param>
-        void ShowSettingDialog(System.Windows.Forms.IWin32Window parentWindow);
-
-        /// <summary>
         /// Initializes this instance.
         /// </summary>
         void Initialize();
@@ -34,20 +20,6 @@ namespace AIMP.SDK
     /// </summary>
     public abstract class AimpPlugin : MarshalByRefObject, IAimpPlugin
     {
-        /// <summary>
-        /// If true, then plugin has setting dialog
-        /// </summary>
-        public abstract bool HasSettingDialog
-        {
-            get;
-        }
-
-        /// <summary>
-        /// Show settings dialog
-        /// </summary>
-        /// <param name="parentWindow">Parent window</param>
-        public abstract void ShowSettingDialog(System.Windows.Forms.IWin32Window parentWindow);
-        
         /// <summary>
         /// Inside this function, plugin should perform all initialization
         /// </summary>
