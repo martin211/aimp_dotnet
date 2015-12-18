@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aimp_dotnet", "aimp_dotnet\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMP.SDK", "AIMP.SDK\AIMP.SDK.csproj", "{154C60CF-2DAE-4227-AD2C-CCE7C63CDE5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_ExtendDialogWindow", "dotnet_ExtendDialogWindow\dotnet_ExtendDialogWindow.csproj", "{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,11 +81,32 @@ Global
 		{154C60CF-2DAE-4227-AD2C-CCE7C63CDE5A}.Release|x64.Build.0 = Release|Any CPU
 		{154C60CF-2DAE-4227-AD2C-CCE7C63CDE5A}.Release|x86.ActiveCfg = Release|Any CPU
 		{154C60CF-2DAE-4227-AD2C-CCE7C63CDE5A}.Release|x86.Build.0 = Release|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Debug|Win32.Build.0 = Debug|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Debug|x64.Build.0 = Debug|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Debug|x86.Build.0 = Debug|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Release|Win32.ActiveCfg = Release|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Release|Win32.Build.0 = Release|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Release|x64.ActiveCfg = Release|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Release|x64.Build.0 = Release|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Release|x86.ActiveCfg = Release|Any CPU
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{72CBA5F8-494D-4EEB-803B-7D1802A91D4A} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
+		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
 	EndGlobalSection
 EndGlobal

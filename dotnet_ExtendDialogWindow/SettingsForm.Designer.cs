@@ -1,4 +1,4 @@
-﻿namespace DemoPlugin
+﻿namespace dotnet_ExtendDialogWindow
 {
     partial class SettingsForm
     {

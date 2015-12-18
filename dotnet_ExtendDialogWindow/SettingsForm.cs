@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
 using AIMP.SDK;
+using AIMP.SDK.MUIManager;
+using AIMP.SDK.Options;
+using AIMP.SDK.Player;
 
-namespace DemoPlugin
+namespace dotnet_ExtendDialogWindow
 {
-    using AIMP.SDK.MUIManager;
-    using AIMP.SDK.Options;
-    using AIMP.SDK.Player;
-
     internal partial class SettingsForm : Form
     {
         //public PluginSettings Settings { get; set; }
