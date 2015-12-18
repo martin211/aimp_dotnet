@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "..\BaseManager.h"
-#include "AimpOptionsDialogFrame.h"
+#include "..\..\Extensions\OptionsDialogFrameExtension.h"
 
 namespace AIMP
 {
@@ -24,12 +24,12 @@ namespace AIMP
 
                 virtual AimpActionResult FrameModified(IAimpOptionsDialogFrame ^frame)
                 {
-                    return CheckResult(_service->FrameModified(((AimpOptionsDialogFrame^)_core->OptionsFrame)->AimpObject));
+                    return CheckResult(_service->FrameModified(_core->GetOptionsFrame()));
                 }
 
                 virtual AimpActionResult FrameShow(IAimpOptionsDialogFrame ^frame, bool forceShow)
                 {
-                    return CheckResult(_service->FrameShow(((AimpOptionsDialogFrame^)_core->OptionsFrame)->AimpObject));
+                    return CheckResult(_service->FrameShow(_core->GetOptionsFrame()));
                 }
         };
     }

@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoPlugin", "Plugins\Demo\DemoPlugin.csproj", "{72CBA5F8-494D-4EEB-803B-7D1802A91D4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_demo", "Plugins\Demo\dotnet_demo.csproj", "{72CBA5F8-494D-4EEB-803B-7D1802A91D4A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aimp_dotnet", "aimp_dotnet\Aimp_DotNetPlugin.vcxproj", "{8D30D1F5-1925-4926-83F2-F0B21B45646F}"
 EndProject
