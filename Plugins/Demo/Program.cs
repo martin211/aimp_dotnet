@@ -14,11 +14,6 @@ namespace TestPlugin
         private Form1 _demoForm;
         private IAimpOptionsDialogFrame _optionsFrame;
 
-        public override void ShowSettingDialog(IWin32Window ParentWnd)
-        {
-            
-        }
-
         public override void Initialize()
         {
             Player.Core.CoreMessage += (param1, param2) =>
@@ -50,14 +45,6 @@ namespace TestPlugin
         public override void Dispose()
         {
             System.Diagnostics.Debug.WriteLine("Dispose");
-        }
-
-        public override bool HasSettingDialog
-        {
-            get
-            {
-                return false;
-            }
         }
     }
 }
