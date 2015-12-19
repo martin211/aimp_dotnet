@@ -114,5 +114,6 @@ ULONG WINAPI DotNetPlugin::Release(void)
 
 void WINAPI DotNetPlugin::Show(HWND ParentWindow)
 {
-    _dotNetPlugin->PluginInformation->ShowSettingDialog
+    System::IntPtr parent = System::IntPtr(ParentWindow);
+    _dotNetPlugin->PluginInformation->ShowSettingDialog(parent);
 }
