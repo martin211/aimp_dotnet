@@ -374,14 +374,9 @@ namespace AIMP
 
 			static System::Drawing::Bitmap^ GetBitmap(IAIMPImage* image)
 			{
-                return nullptr;
-
-                // TODO: Fix bug and refact code.
 				SIZE size;
 				if (CheckResult(image->GetSize(&size)))
 				{
-					image->SaveToFile(AIMP::ObjectHelper::MakeAimpString(AIMP::SDK::ManagedAimpCore::GetAimpCore(), "d:\\temp.png"), AIMP_IMAGE_FORMAT_PNG);
-
 					if (size.cx == 0 || size.cy == 0)
 					{
 						return nullptr;
