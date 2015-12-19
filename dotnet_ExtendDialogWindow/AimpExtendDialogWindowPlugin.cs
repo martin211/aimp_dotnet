@@ -7,8 +7,6 @@ namespace dotnet_ExtendDialogWindow
     [AimpPlugin("dotnet_ExtendDialogWindow", "AIMP DOTNET", "1", AimpPluginType = AimpPluginType.Addons)]
     public class AimpExtendDialogWindowPlugin : AimpPlugin, IAimpExternalSettingsDialog
     {
-        public override bool HasSettingDialog { get { return false; } }
-
         public override void Initialize()
         {
             var optionsForm = new OptionsFrame(Player);
@@ -20,14 +18,9 @@ namespace dotnet_ExtendDialogWindow
             
         }
 
-        public override void ShowSettingDialog(IWin32Window parentWindow)
-        {
-            
-        }
-
         public void Show(IntPtr parentWindow)
         {
-            
+            MessageBox.Show("AimpExtendDialogWindowPlugin.Show");
         }
     }
 }

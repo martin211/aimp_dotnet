@@ -89,18 +89,6 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        /// Gets a value indicating whether this plugin has setting dialog.
-        /// </summary>
-        public bool HasSettingDialog
-        {
-            get
-            {
-                return IsLoaded && LoadedPlugin.HasSettingDialog;
-            }
-        }
-
-
-        /// <summary>
         /// Gets a value indicating whether this plugin is loaded.
         /// </summary>
         public bool IsLoaded
@@ -289,12 +277,10 @@ namespace AIMP.SDK
         /// Shows the setting dialog.
         /// </summary>
         /// <param name="parentWindow">The parent window.</param>
-        public void ShowSettingDialog(System.Windows.Forms.IWin32Window parentWindow)
+        public void ShowSettingDialog(IntPtr parentWindow)
         {
-            if (IsLoaded)
-            {
-                LoadedPlugin.ShowSettingDialog(parentWindow);
-            }
+            var plugin = LoadedPlugin as IAimpExternalSettingsDialog;
+            plugin?.Show(parentWindow);
         }
 
         /// <summary>
