@@ -22,7 +22,7 @@
 
 1. Download last release
 2. Copy plugin to %AIMP%\Plugins folder (example: plugins\dotnet_myplugin)
-3. Rename file aimp_dotnet to dotnet_myplugin
+3. Rename file aimp_dotnet.dll to dotnet_myplugin.dll
 4. Add reference to AIMP.SDK.dll to your plugin project
  
 # License
