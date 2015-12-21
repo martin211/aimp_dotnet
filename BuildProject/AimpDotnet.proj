@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <!-- For zipping -->
-  <!--<Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\common.Tasks"/>-->
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
 
 	<PropertyGroup>
 		<BuildDirectory>$(MSBuildProjectDirectory)</BuildDirectory> 
@@ -9,7 +9,7 @@
 		<DeploymentFolder>$(BuildPath)Release</DeploymentFolder>
 		<VersionName>1.4.0</VersionName>
 		<ShipFile>AIMP.SDK.zip</ShipFile>
-		<Configuration>Debug</Configuration>
+		<Configuration>Release</Configuration>
 	</PropertyGroup>
 
 	<ItemGroup>  	
@@ -61,9 +61,10 @@
 			Condition="'%(project.type)'=='SDK' AND '%(project.ProjectFile)' != ''"
 			Projects="%(project.identity)\%(project.ProjectFile)"
 			Targets="Rebuild"
-			Properties="DebugType=none;OutDir=%(project.identity)\bin\$(Configuration)" />
+			Properties="DebugType=none;OutDir=%(project.identity)\bin\$(Configuration);Configuration=Release" />
 			
 		<CallTarget Targets="PrepareSDK"/>
+		<CallTarget Targets="MakeZip"/>
 	</Target>
 	
 	<Target Name="BuildPlugins">
@@ -71,7 +72,7 @@
 			Condition="'%(project.type)'=='plugin'"
 			Projects="%(project.identity)\%(project.ProjectFile)"
 			Targets="ResolveReferences;Rebuild"
-			Properties="OutDir=$(DeploymentFolder)\%(project.mainfolder)\bin\;DebugType=none" />
+			Properties="OutDir=$(DeploymentFolder)\%(project.mainfolder)\bin\;DebugType=none;Configuration=Release" />
 	</Target>
 	
 	<Target Name="PrepareSDK">
@@ -104,5 +105,13 @@
 	</Target>
   
 	<Target Name="MakeZip">
+		<ItemGroup>
+			<SDKFiles Include="$(DeploymentFolder)\aimp_dotnet\**\*.*"/>
+		</ItemGroup>
+		<Zip Files="@(SDKFiles)"
+			WorkingDirectory="$(DeploymentFolder)\"
+			ZipFileName="$(DeploymentFolder)\$(ShipFile)"
+			ZipLevel="9" />
     </Target>
+
 </Project>
