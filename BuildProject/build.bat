@@ -1,0 +1,3 @@
+@IF NOT EXIST "%programfiles(x86)%\MSBuild\14.0\Bin\MSBuild.exe" @ECHO COULDN'T FIND MSBUILD: %windir%\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe (Is .NET 4 installed?)
+
+"%programfiles(x86)%\MSBuild\14.0\Bin\MSBuild.exe" AimpDotnet.proj /target:Default /maxcpucount /l:FileLogger,Microsoft.Build.Engine;logfile=log.log %* /p:PackageDir="d:\tmp\002" /p:Version=1.1.0 /p:VersionName=1.1.0.0 /p:DeployFolder=d:\tmp\003 /p:ShipFile=AIMP.SDK.zip
