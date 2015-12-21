@@ -1,17 +1,16 @@
 ﻿using System.Reflection;
 using System.Resources;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("1")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("AIMP.SDK")]
+[assembly: AssemblyDescription("Aimp DotNet SDK")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AIMP.SDK.Properties")]
-[assembly: AssemblyCopyright("Copyright © 2015")]
+[assembly: AssemblyProduct("Aimp DotNet SDK")]
+[assembly: AssemblyCopyright("Copyright © Evgeniy Bogdan 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,7 +29,7 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.*")]
-[assembly: AssemblyFileVersion("1.0.0.*")]
+[assembly: AssemblyVersion("3.60.1455.*")]
+[assembly: AssemblyFileVersion("3.60.1455.*")]
 
 [assembly: NeutralResourcesLanguage("")]
