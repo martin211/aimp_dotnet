@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <!-- For zipping -->
+  <!--<Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\common.Tasks"/>-->
+
+	<PropertyGroup>
+		<BuildDirectory>$(MSBuildProjectDirectory)</BuildDirectory> 
+		<BuildPath>$(BuildDirectory)\..\</BuildPath>
+		<DeploymentFolder>$(BuildPath)Release</DeploymentFolder>
+		<VersionName>1.4.0</VersionName>
+		<ShipFile>AIMP.SDK.zip</ShipFile>
+		<Configuration>Debug</Configuration>
+	</PropertyGroup>
+
+	<ItemGroup>  	
+		<project Include="$(BuildPath)\AIMP.SDK" >
+		  <mainfolder>aimp_dotnet</mainfolder>
+		  <name>aimp_dotnet</name>
+		  <ProjectFile>AIMP.SDK.csproj</ProjectFile>
+		  <type>SDK</type>
+		</project>
+
+		<project Include="$(BuildPath)\aimp_dotnet" >
+		  <mainfolder>aimp_dotnet</mainfolder>
+		  <name>aimp_dotnet</name>		  
+		  <ProjectFile>Aimp_DotNetPlugin.vcxproj</ProjectFile>
+		  <type>SDK</type>
+		</project> 
+		
+		<project Include="$(BuildPath)\aimp_dotnet\langs" >
+		  <mainfolder>aimp_dotnet\langs</mainfolder>
+		  <name>aimp_dotnet</name>		  		  
+		  <type>Language</type>
+		</project> 
+		
+		<project Include="$(BuildPath)\AIMP.SDK" >
+		  <mainfolder>AIMP.SDK</mainfolder>
+		  <name>AIMP.SDK</name>		  
+		  <type>plugin</type>
+		</project>
+		
+		<project Include="$(BuildPath)\AIMP.SDK" >
+		  <mainfolder>AIMP.SDK</mainfolder>
+		  <name>AIMP.SDK</name>		  
+		  <type>plugin</type>
+		</project>
+		
+		<project Include="$(BuildPath)\AIMP.SDK" >
+		  <mainfolder>AIMP.SDK</mainfolder>
+		  <name>AIMP.SDK</name>		  
+		  <type>plugin</type>
+		</project>	
+	</ItemGroup>
+  
+	<Target Name="Default" DependsOnTargets="PrepareFolder">
+		<CallTarget Targets="BuildSDK"/>
+	</Target>
+	
+	<Target Name="BuildSDK">
+		<MSBuild 
+			Condition="'%(project.type)'=='SDK' AND '%(project.ProjectFile)' != ''"
+			Projects="%(project.identity)\%(project.ProjectFile)"
+			Targets="Rebuild"
+			Properties="DebugType=none;OutDir=%(project.identity)\bin\$(Configuration)" />
+			
+		<CallTarget Targets="PrepareSDK"/>
+	</Target>
+	
+	<Target Name="BuildPlugins">
+		<MSBuild 
+			Condition="'%(project.type)'=='plugin'"
+			Projects="%(project.identity)\%(project.ProjectFile)"
+			Targets="ResolveReferences;Rebuild"
+			Properties="OutDir=$(DeploymentFolder)\%(project.mainfolder)\bin\;DebugType=none" />
+	</Target>
+	
+	<Target Name="PrepareSDK">
+		<CreateItem AdditionalMetadata="mainfolder=%(project.mainfolder)" 
+			Include="%(project.identity)\bin\$(Configuration)\*.dll" 
+			Condition="'%(project.type)'=='SDK'">
+			<Output TaskParameter="Include" ItemName="SDKOutputFiles" />
+		</CreateItem>
+		
+		<CreateItem AdditionalMetadata="mainfolder=%(project.mainfolder)" 
+			Include="%(project.identity)\*.*" 
+			Condition="'%(project.type)'=='Language'">
+			<Output TaskParameter="Include" ItemName="LanguageOutputFiles" />
+		</CreateItem>
+		
+		<Copy 	Condition="'%(project.type)'=='SDK'" 
+				SourceFiles="@(SDKOutputFiles)" 
+				OverwriteReadOnlyFiles="true"
+				DestinationFiles="@(SDKOutputFiles->'$(DeploymentFolder)\%(mainfolder)\%(RecursiveDir)\%(Filename)%(Extension)')" />
+				
+		<Copy 	Condition="'%(project.type)'=='Language'" 
+				SourceFiles="@(LanguageOutputFiles)" 
+				OverwriteReadOnlyFiles="true"
+				DestinationFiles="@(LanguageOutputFiles->'$(DeploymentFolder)\%(mainfolder)\%(RecursiveDir)\%(Filename)%(Extension)')" />				
+	</Target>
+ 	
+	<Target Name="PrepareFolder">
+		<RemoveDir Directories="$(DeploymentFolder)" />
+		<MakeDir Directories="$(DeploymentFolder)" />		
+	</Target>
+  
+	<Target Name="MakeZip">
+    </Target>
+</Project>

@@ -1,0 +1,11 @@
+﻿[DotNet]
+
+
+[DotNet.Plugins]
+Caption=DotNet Plugins
+Plugins=Plugins
+Settings=Settings
+bSettings=Settings
+
+[DotNet.Settings]
+DebugMode=Enable debug mode
