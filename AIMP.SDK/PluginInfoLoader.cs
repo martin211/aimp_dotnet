@@ -28,8 +28,6 @@ namespace AIMP.SDK
         /// Gets or sets the plugin loc information.
         /// </summary>
         public AimpPluginAttribute PluginLocInfo { get; set; }
-
-        public bool IsLoad { get; set; }
     }
 
     public abstract class PluginLoadingStrategy : MarshalByRefObject
@@ -117,8 +115,7 @@ namespace AIMP.SDK
                                 AssemblyFileName = fileInfo.FullName,
                                 AssemblyFullName = curAsmbl.FullName,
                                 ClassName = plgType.FullName,
-                                PluginLocInfo = curAttr,
-                                IsLoad = true
+                                PluginLocInfo = curAttr
                             };
 
                             break;
