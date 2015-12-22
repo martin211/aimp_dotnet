@@ -11,7 +11,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aimp_dotnet", "aimp_dotnet\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMP.SDK", "AIMP.SDK\AIMP.SDK.csproj", "{154C60CF-2DAE-4227-AD2C-CCE7C63CDE5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_ExtendDialogWindow", "dotnet_ExtendDialogWindow\dotnet_ExtendDialogWindow.csproj", "{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_ExtendDialogWindow", "Plugins\dotnet_ExtendDialogWindow\dotnet_ExtendDialogWindow.csproj", "{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
