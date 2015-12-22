@@ -28,6 +28,8 @@ namespace AIMP.SDK
         /// Gets or sets the plugin loc information.
         /// </summary>
         public AimpPluginAttribute PluginLocInfo { get; set; }
+
+        public bool IsLoad { get; set; }
     }
 
     public abstract class PluginLoadingStrategy : MarshalByRefObject
@@ -115,7 +117,8 @@ namespace AIMP.SDK
                                 AssemblyFileName = fileInfo.FullName,
                                 AssemblyFullName = curAsmbl.FullName,
                                 ClassName = plgType.FullName,
-                                PluginLocInfo = curAttr
+                                PluginLocInfo = curAttr,
+                                IsLoad = true
                             };
 
                             break;
@@ -153,6 +156,11 @@ namespace AIMP.SDK
                 PluginLoadingStrategy strat = (PluginLoadingStrategy)loadDomain.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName, LoadStrategyType.FullName);
 
                 var plugin = strat.Load(path);
+                if (plugin.PluginLocInfo == null)
+                {
+                    return null;
+                }
+
                 return new AimpDotNetPlugin
                 {
                     PluginInformation = new PluginInformation(plugin.AssemblyFileName, plugin.AssemblyFullName, plugin.ClassName, plugin.PluginLocInfo),

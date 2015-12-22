@@ -96,12 +96,12 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <ResourceCompile Include="aimp_dotnet.rc" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\AIMP.SDK\AIMP.SDK.csproj">
       <Project>{154c60cf-2dae-4227-ad2c-cce7c63cde5a}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="aimp_dotnet.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8D30D1F5-1925-4926-83F2-F0B21B45646F}</ProjectGuid>
