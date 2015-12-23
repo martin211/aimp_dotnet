@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMP.SDK", "AIMP.SDK\AIMP.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_ExtendDialogWindow", "Plugins\dotnet_ExtendDialogWindow\dotnet_ExtendDialogWindow.csproj", "{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_albumart", "Plugins\dotnet_albumart\dotnet_albumart.csproj", "{6961D299-1D2B-435E-8222-A82FF8EECA1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,26 @@ Global
 		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Release|x64.Build.0 = Release|Any CPU
 		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Release|x86.ActiveCfg = Release|Any CPU
 		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}.Release|x86.Build.0 = Release|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Debug|Win32.Build.0 = Debug|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Debug|x64.Build.0 = Debug|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Debug|x86.Build.0 = Debug|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Release|Win32.ActiveCfg = Release|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Release|Win32.Build.0 = Release|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Release|x64.ActiveCfg = Release|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Release|x64.Build.0 = Release|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Release|x86.ActiveCfg = Release|Any CPU
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,5 +130,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{72CBA5F8-494D-4EEB-803B-7D1802A91D4A} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
 		{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
+		{6961D299-1D2B-435E-8222-A82FF8EECA1C} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
 	EndGlobalSection
 EndGlobal

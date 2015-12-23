@@ -35,8 +35,10 @@ public:
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
     {
-        //return _mainPlugin->QueryInterface(riid, ppvObject);
-        if (!ppvObject) return E_POINTER;
+        if (!ppvObject) 
+        {
+            return E_POINTER;
+        }
 
         if (riid == IID_IAIMPOptionsDialogFrame) {
             *ppvObject = this;
