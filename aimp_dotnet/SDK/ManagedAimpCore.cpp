@@ -5,6 +5,7 @@
 #include "ObjectHelper.h"
 #include "..\AimpSdk.h"
 #include "..\Extensions\OptionsDialogFrameExtension.h"
+#include "..\Extensions\AimpExtensionAlbumArtCatalog.h"
 
 namespace AIMP
 {
@@ -83,7 +84,31 @@ namespace AIMP
                 return result == S_OK;
             }
 
+            AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^ albumArtCatalogExtension = dynamic_cast<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^>(extension);
+            if (albumArtCatalogExtension != nullptr)
+            {
+                AimpExtensionAlbumArtCatalog *cat = new AimpExtensionAlbumArtCatalog(this->GetAimpCore(), albumArtCatalogExtension);
+                //_albumArtCatalogExtension = cat;
+                HRESULT result = _core->RegisterExtension(IID_IAIMPServiceAlbumArt, static_cast<AimpExtensionAlbumArtCatalog::Base*>(cat));
+                return result == S_OK;
+            }
+
             return false;
+        }
+
+        void ManagedAimpCore::UnregisterExtension(IAimpExtension^ extension)
+        {
+            AIMP::SDK::Options::IAimpOptionsDialogFrame^ optionsFrameExtension = dynamic_cast<AIMP::SDK::Options::IAimpOptionsDialogFrame^>(extension);
+            if (optionsFrameExtension != nullptr)
+            {
+                _core->UnregisterExtension(static_cast<IAIMPOptionsDialogFrame*>(_optionsFrame));
+            }
+
+            AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^ albumArtCatalogExtension = dynamic_cast<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^>(extension);
+            if (albumArtCatalogExtension != nullptr)
+            {
+                _core->UnregisterExtension(static_cast<IAIMPExtensionAlbumArtCatalog2*>(_albumArtCatalogExtension));
+            }
         }
 
         void ManagedAimpCore::UnregisterExtension(IUnknown* extension)

@@ -63,6 +63,12 @@ namespace AIMP
                 return AimpActionResult::Ok;
             }
 
+            virtual AimpActionResult UnregisterExtension(AIMP::IAimpExtension ^extension)
+            {
+                _aimpCore->UnregisterExtension(extension);
+                return AimpActionResult::Ok;
+            }
+
             virtual event AimpEventsDelegate^ CoreMessage
             {
                 virtual void add(AimpEventsDelegate^ onEvent)

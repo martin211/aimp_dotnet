@@ -3,6 +3,7 @@
 #include <Unknwnbase.h>
 #include "EventHelper.h"
 #include "..\Extensions\OptionsDialogFrameExtension.h"
+#include "..\Extensions\AimpExtensionAlbumArtCatalog.h"
 
 namespace AIMP
 {
@@ -60,6 +61,8 @@ namespace AIMP
 
             bool RegisterExtension(GUID iid, IAimpExtension^ extension);
 
+            void UnregisterExtension(IAimpExtension^ extension);
+
             void UnregisterExtension(IUnknown* extension);
 
             static IAIMPCore* GetAimpCore();
@@ -88,6 +91,7 @@ namespace AIMP
             List<AimpEventsDelegate^> ^_coreMessage;
             List<AIMP::SDK::Extensions::PlayListHandler^> ^_playListActivatedHandlers;
             OptionsDialogFrameExtension* _optionsFrame;
+            AimpExtensionAlbumArtCatalog* _albumArtCatalogExtension;
 
             AIMP::SDK::Extensions::PlayListHandler ^_playlistAdded;
             AIMP::SDK::Extensions::PlayListHandler ^_playlistRemoved;
