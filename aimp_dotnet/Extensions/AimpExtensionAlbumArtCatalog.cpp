@@ -21,7 +21,11 @@ HRESULT WINAPI AimpExtensionAlbumArtCatalog::GetName(IAIMPString **Name)
 HRESULT WINAPI AimpExtensionAlbumArtCatalog::Show(IAIMPString *FileURI, IAIMPString *Artist, IAIMPString *Album, IAIMPImageContainer **Image)
 {
     System::Drawing::Bitmap^ bitmap;
-    HRESULT r = (HRESULT)_managedinstance->Show(gcnew System::String(Artist->GetData()), gcnew System::String(Artist->GetData()), gcnew System::String(Album->GetData()), bitmap);
+    HRESULT r = (HRESULT)_managedinstance->Show(
+        gcnew System::String(Artist->GetData()), 
+        gcnew System::String(Artist->GetData()), 
+        gcnew System::String(Album->GetData()), bitmap);
+
     return r;
 }
 
@@ -33,30 +37,10 @@ HRESULT WINAPI AimpExtensionAlbumArtCatalog::Show2(IAIMPFileInfo *FileInfo, IAIM
     if (r == AIMP::AimpActionResult::Ok && bitmap != nullptr)
     {
         IAIMPImageContainer *container;
-        System::IO::MemoryStream ^stream;
-
-        try
-        {
-            _aimpCore->CreateObject(IID_IAIMPImageContainer, (void**)&container);
-            stream = gcnew System::IO::MemoryStream();
-            bitmap->Save(stream, System::Drawing::Imaging::ImageFormat::Png);
-            array<byte> ^buffer = gcnew array<byte>(stream->Length);
-            buffer = stream->ToArray();
-
-            pin_ptr<System::Byte> p = &buffer[0];
-            unsigned char* pby = p;
-            container->SetDataSize(pby);
-        }
-        finally
-        {
-            if (stream != nullptr)
-            {
-                stream->Close();
-            }
-        }
-        bitmap->To
+        Utils::CheckResult(_aimpCore->CreateObject(IID_IAIMPImageContainer, (void**)&container));
         *Image = container;
     }
 
-    return (HRESULT)r;
+    // TODO: BUGS at IAimpFileInfo->SetDataSize(), need wait to new virsion of AIMP and SDK
+    return E_UNEXPECTED;
 }

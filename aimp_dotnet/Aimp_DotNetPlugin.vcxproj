@@ -25,6 +25,7 @@
     <ClCompile Include="AimpDotnetPlugin.cpp" />
     <ClCompile Include="DotNetPlugin.cpp" />
     <ClCompile Include="Extensions\AimpExtensionAlbumArtCatalog.cpp" />
+    <ClCompile Include="Extensions\AimpExtensionAlbumArtProvider.cpp" />
     <ClCompile Include="SDK\Action\AimpActionManager.cpp" />
     <ClCompile Include="SDK\ManagedAimpCore.cpp" />
     <ClCompile Include="SDK\Menu\AimpMenuManager.cpp" />
@@ -58,6 +59,7 @@
     <ClInclude Include="AIMPSDK\AIMP360\apiVisuals.h" />
     <ClInclude Include="DataConversion.h" />
     <ClInclude Include="DotNetPlugin.h" />
+    <ClInclude Include="Extensions\AimpExtensionAlbumArtProvider.h" />
     <ClInclude Include="Extensions\OptionsDialogFrameExtension.h" />
     <ClInclude Include="IUnknownInterfaceImpl.h" />
     <ClInclude Include="resource.h" />

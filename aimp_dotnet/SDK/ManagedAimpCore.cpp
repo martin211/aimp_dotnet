@@ -88,8 +88,17 @@ namespace AIMP
             if (albumArtCatalogExtension != nullptr)
             {
                 AimpExtensionAlbumArtCatalog *cat = new AimpExtensionAlbumArtCatalog(this->GetAimpCore(), albumArtCatalogExtension);
-                //_albumArtCatalogExtension = cat;
+                _albumArtCatalogExtension = cat;
                 HRESULT result = _core->RegisterExtension(IID_IAIMPServiceAlbumArt, static_cast<AimpExtensionAlbumArtCatalog::Base*>(cat));
+                return result == S_OK;
+            }
+
+            AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^ albumArtProviderExtension = dynamic_cast<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^>(extension);
+            if (albumArtProviderExtension != nullptr)
+            {
+                AimpExtensionAlbumArtProvider *ext = new AimpExtensionAlbumArtProvider(this->GetAimpCore(), albumArtProviderExtension);
+                _albumArtProviderExtension = ext;
+                HRESULT result = _core->RegisterExtension(IID_IAIMPServiceAlbumArt, static_cast<AimpExtensionAlbumArtProvider::Base*>(ext));
                 return result == S_OK;
             }
 
@@ -107,7 +116,13 @@ namespace AIMP
             AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^ albumArtCatalogExtension = dynamic_cast<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^>(extension);
             if (albumArtCatalogExtension != nullptr)
             {
-                _core->UnregisterExtension(static_cast<IAIMPExtensionAlbumArtCatalog2*>(_albumArtCatalogExtension));
+                _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtCatalog::Base*>(_albumArtCatalogExtension));
+            }
+
+            AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^ albumArtProviderExtension = dynamic_cast<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^>(extension);
+            if (albumArtProviderExtension != nullptr)
+            {
+                _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
             }
         }
 

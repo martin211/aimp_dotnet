@@ -10,7 +10,7 @@ private:
 public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionAlbumArtCatalog> Base;
 
-    AimpExtensionAlbumArtCatalog(IAIMPCore *aimpCore, gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^> instance)        
+    AimpExtensionAlbumArtCatalog(IAIMPCore *aimpCore, gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^> instance)
     {
         _managedinstance = instance;
         _aimpCore = aimpCore;

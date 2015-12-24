@@ -4,6 +4,7 @@
 #include "EventHelper.h"
 #include "..\Extensions\OptionsDialogFrameExtension.h"
 #include "..\Extensions\AimpExtensionAlbumArtCatalog.h"
+#include "..\Extensions\AimpExtensionAlbumArtProvider.h"
 
 namespace AIMP
 {
@@ -92,6 +93,7 @@ namespace AIMP
             List<AIMP::SDK::Extensions::PlayListHandler^> ^_playListActivatedHandlers;
             OptionsDialogFrameExtension* _optionsFrame;
             AimpExtensionAlbumArtCatalog* _albumArtCatalogExtension;
+            AimpExtensionAlbumArtProvider* _albumArtProviderExtension;
 
             AIMP::SDK::Extensions::PlayListHandler ^_playlistAdded;
             AIMP::SDK::Extensions::PlayListHandler ^_playlistRemoved;
