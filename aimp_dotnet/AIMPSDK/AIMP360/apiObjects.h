@@ -189,7 +189,7 @@ class IAIMPImageContainer: public IUnknown
 		virtual HRESULT WINAPI GetInfo(SIZE *Size, int *FormatID) = 0;
 		virtual byte* WINAPI GetData() = 0;
 		virtual DWORD WINAPI GetDataSize() = 0;
-		virtual HRESULT WINAPI SetDataSize(DWORD Value) = 0;		
+		virtual HRESULT WINAPI SetDataSize(DWORD Value) = 0;
 };
 
 /* IAIMPProgressCallback */

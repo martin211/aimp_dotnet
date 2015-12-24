@@ -89,6 +89,9 @@
     <ClCompile Include="Extensions\AimpExtensionAlbumArtCatalog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Extensions\AimpExtensionAlbumArtProvider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -264,6 +267,9 @@
     </ClInclude>
     <ClInclude Include="Extensions\AimpExtensionAlbumArtCatalog.h">
       <Filter>SDK\AlbumArt</Filter>
+    </ClInclude>
+    <ClInclude Include="Extensions\AimpExtensionAlbumArtProvider.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
