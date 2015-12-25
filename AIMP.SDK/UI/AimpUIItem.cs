@@ -30,6 +30,7 @@ namespace AIMP.SDK.UI
         }
 
         private string _id;
+
         /// <summary>
         /// Gets or sets the menu identifier.
         /// </summary>

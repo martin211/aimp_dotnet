@@ -1,11 +1,12 @@
 ﻿using System;
+using AIMP.SDK.ActionManager;
 
 namespace AIMP.SDK.UI.ActionItem
 {
     /// <summary>
     /// Action item.
     /// </summary>
-    public class AimpActionItem : AimpUIItem
+    public class AimpActionItem : AimpUIItem, IAimpAction
     {
         private string _customData;
 
@@ -27,9 +28,6 @@ namespace AIMP.SDK.UI.ActionItem
         /// <summary>
         /// Gets or sets the some custom data.
         /// </summary>
-        /// <value>
-        /// The data.
-        /// </value>
         public string CustomData
         {
             get
@@ -47,11 +45,13 @@ namespace AIMP.SDK.UI.ActionItem
         }
 
         /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the group.
         /// </summary>
-        /// <value>
-        /// The name of the group.
-        /// </value>
         public string GroupName
         {
             get
@@ -69,6 +69,10 @@ namespace AIMP.SDK.UI.ActionItem
         }
 
         private int _defaultLocalHotKey;
+
+        /// <summary>
+        /// Gets or sets the default hot key.
+        /// </summary>
         public int DefaultLocalHotKey
         {
             get
@@ -84,6 +88,9 @@ namespace AIMP.SDK.UI.ActionItem
 
         private int _defaultGlobalHotKey;
 
+        /// <summary>
+        /// Gets or sets the default global hot key.
+        /// </summary>
         public int DefaultGlobalHotKey
         {
             get { return _defaultGlobalHotKey; }
@@ -97,11 +104,8 @@ namespace AIMP.SDK.UI.ActionItem
         private int _defaultGlobalHotKey2;
 
         /// <summary>
-        /// Gets or sets the second global hot key.
+        /// Gets or sets the default global hot key2.
         /// </summary>
-        /// <value>
-        /// The global hot key2.
-        /// </value>
         public int DefaultGlobalHotKey2
         {
             get { return _defaultGlobalHotKey2; }
