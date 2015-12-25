@@ -54,6 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionManager\IAimpAction.cs" />
+    <Compile Include="ActionManager\IAimpActionEvent.cs" />
+    <Compile Include="ActionManager\IAimpServiceActionManager.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtCatalog.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtCatalog2.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtProvider.cs" />
