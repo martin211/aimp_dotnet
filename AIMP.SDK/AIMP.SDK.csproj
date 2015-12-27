@@ -61,6 +61,15 @@
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtCatalog2.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtProvider.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtProvider2.cs" />
+    <Compile Include="GUI\Controls\Form\IAimpUIForm.cs" />
+    <Compile Include="GUI\Controls\IAimpUIControl.cs" />
+    <Compile Include="GUI\Controls\IAimpUIMenuItem.cs" />
+    <Compile Include="GUI\Controls\IAimpUIPopupMenu.cs" />
+    <Compile Include="GUI\Controls\IAimpUIWinControl.cs" />
+    <Compile Include="GUI\Dialogs\IAimpUIBrowseFolderDialog.cs" />
+    <Compile Include="GUI\IAimpServiceUI.cs" />
+    <Compile Include="GUI\IAimpUIForm.cs" />
+    <Compile Include="GUI\IAimpUIWinControl.cs" />
     <Compile Include="IAimpExternalSettingsDialog.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -125,6 +134,7 @@
   <ItemGroup>
     <None Include="Resources\1424983248_control-center2.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
