@@ -1,12 +1,12 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v3.60 build 1455               */
+/*               v4.00 build 1660               */
 /*                                              */
 /*                Artem Izmaylov                */
 /*                (C) 2006-2015                 */
 /*                 www.aimp.ru                  */
-/*              ICQ: 345-908-513                */
+/*                                              */
 /*            Mail: support@aimp.ru             */
 /*                                              */
 /************************************************/
@@ -17,16 +17,21 @@
 #include <windows.h>
 #include <unknwn.h>
 #include "apiObjects.h"
+#include "apiThreading.h"
 
 static const GUID IID_IAIMPPlaylist = {0x41494D50, 0x506C, 0x7300, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 static const GUID IID_IAIMPPlaylistGroup = {0x41494D50, 0x506C, 0x7347, 0x72, 0x6F, 0x75, 0x70, 0x00, 0x00, 0x00, 0x00};
 static const GUID IID_IAIMPPlaylistItem = {0x41494D50, 0x506C, 0x7349, 0x74, 0x65, 0x6D, 0x00, 0x00, 0x00, 0x00, 0x00};
 static const GUID IID_IAIMPPlaylistListener = {0x41494D50, 0x506C, 0x734C, 0x73, 0x74, 0x6E, 0x72, 0x00, 0x00, 0x00, 0x00};
+static const GUID IID_IAIMPPlaylistListener2 = {0x41494D50, 0x506C, 0x734C, 0x73, 0x74, 0x6E, 0x72, 0x32, 0x00, 0x00, 0x00};
 static const GUID IID_IAIMPPlaylistQueue = {0x41494D50, 0x506C, 0x7351, 0x75, 0x65, 0x75, 0x65, 0x00, 0x00, 0x00, 0x00};
+static const GUID IID_IAIMPPlaylistQueue2 = {0x41494D50, 0x506C, 0x7351, 0x75, 0x65, 0x75, 0x65, 0x32, 0x00, 0x00, 0x00};
+static const GUID IID_IAIMPPlaylistQueueListener = {0x41494D50, 0x506C, 0x7351, 0x75, 0x65, 0x75, 0x65, 0x4C, 0x73, 0x74, 0x00};
 static const GUID IID_IAIMPExtensionPlaylistManagerListener = {0x41494D50, 0x4578, 0x7450, 0x6C, 0x73, 0x4D, 0x61, 0x6E, 0x4C, 0x74, 0x72};
 static const GUID IID_IAIMPServicePlaylistManager = {0x41494D50, 0x5372, 0x7650, 0x6C, 0x73, 0x4D, 0x61, 0x6E, 0x00, 0x00, 0x00};
 
 // Property IDs for IAIMPPlaylistItem
+const int AIMP_PLAYLISTITEM_PROPID_CUSTOM		  = 0;
 const int AIMP_PLAYLISTITEM_PROPID_DISPLAYTEXT    = 1;
 const int AIMP_PLAYLISTITEM_PROPID_FILEINFO       = 2;
 const int AIMP_PLAYLISTITEM_PROPID_FILENAME       = 3;
@@ -78,8 +83,12 @@ const int AIMP_PLAYLIST_PROPID_PREIMAGE                 = 60;
 // Flags for IAIMPPlaylist.Add & IAIMPPlaylist.AddList
 const int AIMP_PLAYLIST_ADD_FLAGS_NOCHECKFORMAT = 1;
 const int AIMP_PLAYLIST_ADD_FLAGS_NOEXPAND      = 2;
-const int AIMP_PLAYLIST_ADD_FLAGS_NOASYNC       = 4;
+const int AIMP_PLAYLIST_ADD_FLAGS_NOTHREADING   = 4;
 const int AIMP_PLAYLIST_ADD_FLAGS_FILEINFO      = 8;
+
+// Flags for IAIMPPlaylist.Delete3
+const int AIMP_PLAYLIST_DELETE_FLAGS_PHYSICALLY     = 1;
+const int AIMP_PLAYLIST_DELETE_FLAGS_NOCONFIRMATION = 2;
 
 // Flags for IAIMPPlaylist.Sort
 const int AIMP_PLAYLIST_SORTMODE_TITLE      = 1;
@@ -93,7 +102,7 @@ const int AIMP_PLAYLIST_SORTMODE_RANDOMIZE  = 6;
 const int AIMP_PLAYLIST_CLOSE_FLAGS_FORCE_REMOVE = 1;
 const int AIMP_PLAYLIST_CLOSE_FLAGS_FORCE_UNLOAD = 2;
 
-// IAIMPPlaylist.GetFiles:
+// Flags for IAIMPPlaylist.GetFiles
 const int AIMP_PLAYLIST_GETFILES_FLAGS_SELECTED_ONLY    = 0x1;
 const int AIMP_PLAYLIST_GETFILES_FLAGS_VISIBLE_ONLY     = 0x2;
 const int AIMP_PLAYLIST_GETFILES_FLAGS_COLLAPSE_VIRTUAL = 0x4;
@@ -137,6 +146,16 @@ class IAIMPPlaylistListener: public IUnknown
 		virtual void WINAPI Removed() = 0;
 };
 
+/* IAIMPPlaylistListener2 */
+
+class IAIMPPlaylistListener2: public IUnknown
+{
+	public:
+		virtual void WINAPI ScanningBegin() = 0;
+		virtual void WINAPI ScanningProgress(const double Progress) = 0;
+		virtual void WINAPI ScanningEnd(BOOL HasChanges, BOOL Canceled) = 0;
+};
+
 typedef int  (CALLBACK TAIMPPlaylistCompareProc)(IAIMPPlaylistItem* Item1, IAIMPPlaylistItem* Item2, void* UserData);
 typedef BOOL (CALLBACK TAIMPPlaylistDeleteProc)(IAIMPPlaylistItem* Item, void* UserData);
 
@@ -153,7 +172,7 @@ class IAIMPPlaylist: public IUnknown
 		// Deleting
 		virtual HRESULT WINAPI Delete(IAIMPPlaylistItem* Item) = 0;
 		virtual HRESULT WINAPI Delete2(int ItemIndex) = 0;
-		virtual HRESULT WINAPI Delete3(BOOL Physically, TAIMPPlaylistDeleteProc Proc, void* UserData) = 0;
+		virtual HRESULT WINAPI Delete3(DWORD Flags, TAIMPPlaylistDeleteProc Proc, void* UserData) = 0;
 		virtual HRESULT WINAPI DeleteAll() = 0;
 
 		// Sorting
@@ -165,7 +184,7 @@ class IAIMPPlaylist: public IUnknown
 		virtual HRESULT WINAPI BeginUpdate() = 0;
 		virtual HRESULT WINAPI EndUpdate() = 0;
 
-		// Another Commands
+		// Other Commands
 		virtual HRESULT WINAPI Close(DWORD Flags) = 0;
 		virtual HRESULT WINAPI GetFiles(DWORD Flags, IAIMPObjectList **List) = 0;
 		virtual HRESULT WINAPI MergeGroup(IAIMPPlaylistGroup* Group) = 0;
@@ -203,6 +222,27 @@ class IAIMPPlaylistQueue: public IUnknown
 		virtual HRESULT WINAPI GetItem(int Index, REFIID IID, void **Obj) = 0;
 		virtual int WINAPI GetItemCount() = 0;
 };
+
+/* IAIMPPlaylistQueueListener */
+
+class IAIMPPlaylistQueueListener: public IUnknown
+{
+	public:
+		virtual void WINAPI ContentChanged() = 0;
+		virtual void WINAPI StateChanged() = 0;
+
+};
+
+/* IAIMPPlaylistQueue2 */
+
+class IAIMPPlaylistQueue2: public IAIMPPlaylistQueue
+{
+	public:
+		// Listener
+		virtual HRESULT WINAPI ListenerAdd(IAIMPPlaylistQueueListener* AListener) = 0;
+		virtual HRESULT WINAPI ListenerRemove(IAIMPPlaylistQueueListener* AListener) = 0;
+};
+
 
 /* IAIMPExtensionPlaylistManagerListener */
 

@@ -1,12 +1,12 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v3.60 build 1455               */
+/*               v4.00 build 1660               */
 /*                                              */
 /*                Artem Izmaylov                */
 /*                (C) 2006-2015                 */
 /*                 www.aimp.ru                  */
-/*              ICQ: 345-908-513                */
+/*                                              */
 /*            Mail: support@aimp.ru             */
 /*                                              */
 /************************************************/
@@ -481,6 +481,16 @@ const int AIMP_MSG_EVENT_TERMINATING = AIMP_MSG_EVENT_BASE + 19;
 // Called, when information about playable file changed (album, title, album art and etc)
 // AParam1, AParam2: unused
 const int AIMP_MSG_EVENT_PLAYABLE_FILE_INFO	= AIMP_MSG_EVENT_BASE + 20;
+
+// High resolution version of the AIMP_MSG_EVENT_PLAYER_UPDATE_POSITION event
+// Called few times per second by a timer (is about 10 fps, real FPS is depended from some internal and external factors)
+// AParam1, AParam2: unused
+const int AIMP_MSG_EVENT_PLAYER_UPDATE_POSITION_HR = AIMP_MSG_EVENT_BASE + 21;
+
+// Called, when name of equalizer preset has been changed
+// AParam1: Unused
+// AParam2: Pointer to WideChar array, can be = nil (ReadOnly!)
+const int AIMP_MSG_EVENT_EQUALIZER_PRESET_NAME = AIMP_MSG_EVENT_BASE + 22;
 
 //==============================================================================
 

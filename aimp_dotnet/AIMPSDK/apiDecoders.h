@@ -32,7 +32,7 @@ const int AIMP_DECODER_SAMPLEFORMAT_32BIT      = 4;
 const int AIMP_DECODER_SAMPLEFORMAT_32BITFLOAT = 5;
 
 // Flags for IAIMPExtensionAudioDecoder / IAIMPExtensionAudioDecoderOld
-const int AIMP_DECODER_FLAGS_FORCE_CREATE_INSTANCE = $1000;
+const int AIMP_DECODER_FLAGS_FORCE_CREATE_INSTANCE = 0x1000;
 
 /* IAIMPAudioDecoder */
   

@@ -1,12 +1,12 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v3.60 build 1455               */
+/*               v4.00 build 1660               */
 /*                                              */
 /*                Artem Izmaylov                */
 /*                (C) 2006-2015                 */
 /*                 www.aimp.ru                  */
-/*              ICQ: 345-908-513                */
+/*                 www.aimp.ru                  */
 /*            Mail: support@aimp.ru             */
 /*                                              */
 /************************************************/
@@ -30,6 +30,7 @@ static const GUID IID_IAIMPServiceFileInfo = {0x41494D50, 0x5372, 0x7646, 0x69, 
 static const GUID IID_IAIMPServiceFileInfoFormatter = {0x41494D50, 0x5372, 0x7646, 0x6C, 0x49, 0x6E, 0x66, 0x46, 0x6D, 0x74, 0x00};
 static const GUID IID_IAIMPServiceFileInfoFormatterUtils = {0x41494D50, 0x5372, 0x7646, 0x6C, 0x49, 0x6E, 0x66, 0x46, 0x6D, 0x74, 0x55};
 static const GUID IID_IAIMPServiceFileStreaming = {0x41494D50, 0x5372, 0x7646, 0x69, 0x6C, 0x65, 0x53, 0x74, 0x72, 0x6D, 0x00};
+static const GUID IID_IAIMPServiceFileURI = {0x41494D50, 0x5372, 0x7646, 0x69, 0x6C, 0x65, 0x55, 0x52, 0x49, 0x00, 0x00};
 
 // PropertyID for the IAIMPFileInfo
 const int AIMP_FILEINFO_PROPID_CUSTOM            = 0;
@@ -90,6 +91,10 @@ const int AIMP_SERVICE_FILESTREAMING_FLAG_MAPTOMEMORY = 4;
 
 // Flags for the IAIMPServiceFileInfo.GetFileInfoXXX
 const int AIMP_SERVICE_FILEINFO_FLAG_DONTUSEAUDIODECODERS = 1;
+
+// Flags for the IAIMPServiceFileURI.ChangeFileExt and IAIMPServiceFileURI.ExtractFileExt
+const int AIMP_SERVICE_FILEURI_FLAG_DOUBLE_EXTS = 1;
+const int AIMP_SERVICE_FILEURI_FLAG_PART_EXT    = 2;
 
 /* IAIMPFileInfo */
 
@@ -197,6 +202,23 @@ class IAIMPServiceFileStreaming: public IUnknown
 	public:
 		virtual HRESULT WINAPI CreateStreamForFile(IAIMPString *FileName, DWORD Flags, const INT64 Offset, const INT64 Size, IAIMPStream **Stream) = 0;
 		virtual HRESULT WINAPI CreateStreamForFileURI(IAIMPString *FileURI, IAIMPVirtualFile **VirtualFile, IAIMPStream **Stream) = 0;
+};
+
+/* IAIMPServiceFileURI */
+
+class IAIMPServiceFileURI: public IUnknown
+{
+	public:
+		virtual HRESULT WINAPI Build(IAIMPString* ContainerFileName, IAIMPString* PartName, IAIMPString** FileURI) = 0;
+		virtual HRESULT WINAPI Parse(IAIMPString* FileURI, IAIMPString** ContainerFileName, IAIMPString** PartName) = 0;
+
+		virtual HRESULT WINAPI ChangeFileExt(IAIMPString** FileURI, IAIMPString* NewExt, DWORD Flags) = 0;
+		virtual HRESULT WINAPI ExtractFileExt(IAIMPString* FileURI, IAIMPString** S, DWORD Flags) = 0;
+		virtual HRESULT WINAPI ExtractFileName(IAIMPString* FileURI, IAIMPString* S) = 0;
+		virtual HRESULT WINAPI ExtractFileParentDirName(IAIMPString* FileURI, IAIMPString** S) = 0;
+		virtual HRESULT WINAPI ExtractFileParentName(IAIMPString* FileURI, IAIMPString** S) = 0;
+		virtual HRESULT WINAPI ExtractFilePath(IAIMPString* FileURI, IAIMPString** S) = 0;
+		virtual HRESULT WINAPI IsURL(IAIMPString* FileURI) = 0;	
 };
 
 #endif // !apiFileManagerH
