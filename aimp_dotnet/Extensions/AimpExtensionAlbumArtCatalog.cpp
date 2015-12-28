@@ -21,12 +21,24 @@ HRESULT WINAPI AimpExtensionAlbumArtCatalog::GetName(IAIMPString **Name)
 HRESULT WINAPI AimpExtensionAlbumArtCatalog::Show(IAIMPString *FileURI, IAIMPString *Artist, IAIMPString *Album, IAIMPImageContainer **Image)
 {
     System::Drawing::Bitmap^ bitmap;
-    HRESULT r = (HRESULT)_managedinstance->Show(
+    AIMP::AimpActionResult r = _managedinstance->Show(
         gcnew System::String(Artist->GetData()), 
         gcnew System::String(Artist->GetData()), 
         gcnew System::String(Album->GetData()), bitmap);
 
-    return r;
+    if (r == AIMP::AimpActionResult::Ok && bitmap != nullptr)
+    {
+        IAIMPImageContainer *container = AIMP::SDK::Converter::ToContainer(bitmap);
+        if (container == NULL)
+        {
+            return E_UNEXPECTED;
+        }
+
+        *Image = container;
+        return S_OK;
+    }
+
+    return E_UNEXPECTED;
 }
 
 HRESULT WINAPI AimpExtensionAlbumArtCatalog::Show2(IAIMPFileInfo *FileInfo, IAIMPImageContainer **Image)
@@ -36,11 +48,15 @@ HRESULT WINAPI AimpExtensionAlbumArtCatalog::Show2(IAIMPFileInfo *FileInfo, IAIM
     AIMP::AimpActionResult r = _managedinstance->Show(fi, bitmap);
     if (r == AIMP::AimpActionResult::Ok && bitmap != nullptr)
     {
-        IAIMPImageContainer *container;
-        Utils::CheckResult(_aimpCore->CreateObject(IID_IAIMPImageContainer, (void**)&container));
+        IAIMPImageContainer *container = AIMP::SDK::Converter::ToContainer(bitmap);
+        if (container == NULL)
+        {
+            return E_UNEXPECTED;
+        }
+
         *Image = container;
+        return S_OK;
     }
 
-    // TODO: BUGS at IAimpFileInfo->SetDataSize(), need wait to new virsion of AIMP and SDK
     return E_UNEXPECTED;
 }
