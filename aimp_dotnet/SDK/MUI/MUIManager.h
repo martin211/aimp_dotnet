@@ -1,7 +1,7 @@
 #pragma once
 
 #include "..\BaseManager.h"
-#include "..\ObjectHelper.h"
+#include "..\Converter.h"
 
 namespace AIMP
 {
@@ -46,7 +46,7 @@ namespace AIMP
 				IAIMPString *str = NULL;
 				try
 				{
-					_muiService->GetValue(ObjectHelper::MakeAimpString(_core->GetAimpCore(), key), &str);
+					_muiService->GetValue(Converter::MakeAimpString(_core->GetAimpCore(), key), &str);
 					if (str == NULL)
 					{
 						return String::Empty;
@@ -71,7 +71,7 @@ namespace AIMP
 				IAIMPString *str = NULL;
 				try
 				{
-					_muiService->GetValuePart(ObjectHelper::MakeAimpString(_core->GetAimpCore(), key), index, &str);
+					_muiService->GetValuePart(Converter::MakeAimpString(_core->GetAimpCore(), key), index, &str);
 
 					if (str == NULL)
 					{
