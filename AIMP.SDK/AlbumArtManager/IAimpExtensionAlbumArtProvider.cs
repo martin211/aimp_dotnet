@@ -15,7 +15,7 @@
 
     public interface IAimpExtensionAlbumArtProvider : IAimpExtensionAlbumArtProvider2, IAimpExtension
     {
-        AimpActionResult Get(string fileUrl, string artist, string album, object options, Bitmap image);
+        AimpActionResult Get(string fileUrl, string artist, string album, IAimpAlbumArtSearchOptions options, out Bitmap image);
 
         AimpAlbumArtProviderCategory GetCategory();
     }

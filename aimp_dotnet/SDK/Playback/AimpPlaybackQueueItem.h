@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\ObjectHelper.h"
+#include "..\Converter.h"
 #include "..\PlayList\AimpPlayListItem.h"
 
 

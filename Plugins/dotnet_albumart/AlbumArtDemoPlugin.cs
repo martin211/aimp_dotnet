@@ -10,6 +10,8 @@ namespace dotnet_albumart
     {
         private IAimpExtensionAlbumArtCatalog _catalog;
 
+        private IAimpExtensionAlbumArtProvider _provider;
+
         #region Overrides of AimpPlugin
 
         /// <summary>
@@ -18,7 +20,9 @@ namespace dotnet_albumart
         public override void Initialize()
         {
             _catalog = new AimpExtensionAlbumArtCatalog();
+            _provider = new AimpExtensionAlbumArtProvider();
             Player.Core.RegisterExtension(_catalog);
+            Player.Core.RegisterExtension(_provider);
         }
 
         /// <summary>
@@ -27,6 +31,7 @@ namespace dotnet_albumart
         public override void Dispose()
         {
             Player.Core.UnregisterExtension(_catalog);
+            Player.Core.UnregisterExtension(_provider);
         }
 
         #endregion

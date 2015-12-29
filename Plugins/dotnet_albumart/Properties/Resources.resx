@@ -121,4 +121,7 @@
   <data name="front" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\front.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="lastfm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1451438429_lastfm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

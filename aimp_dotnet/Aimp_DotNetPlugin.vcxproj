@@ -70,6 +70,7 @@
     <ClInclude Include="SDK\AimpObject.h" />
     <ClInclude Include="SDK\AimpPlayer.h" />
     <ClInclude Include="SDK\AlbumArt\AimpAlbumArtManager.h" />
+    <ClInclude Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.h" />
     <ClInclude Include="SDK\BaseManager.h" />
     <ClInclude Include="SDK\Configuration\AimpConfigurationManager.h" />
     <ClInclude Include="SDK\EventHelper.h" />
@@ -78,7 +79,7 @@
     <ClInclude Include="SDK\Menu\ICallBackHeader.h" />
     <ClInclude Include="SDK\Menu\MenuItemEvent.h" />
     <ClInclude Include="SDK\MUI\MUIManager.h" />
-    <ClInclude Include="SDK\ObjectHelper.h" />
+    <ClInclude Include="SDK\Converter.h" />
     <ClInclude Include="SDK\Options\AimpOptionsDialogFrame.h" />
     <ClInclude Include="SDK\Options\AimpServiceOptionsDialog.h" />
     <ClInclude Include="SDK\Playback\AimpPlaybackQueueItem.h" />
