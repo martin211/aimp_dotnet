@@ -1,16 +1,17 @@
 #include "..\Stdafx.h"
 #include "AimpExtensionAlbumArtProvider.h"
 #include "..\SDK\PlayList\AimpFileInfo.h"
+#include "..\SDK\AlbumArt\AimpAlbumArtSearchOptions.h"
 
 HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString *FileURI, IAIMPString *Artist, IAIMPString *Album, IAIMPPropertyList *Options, IAIMPImageContainer **Image)
 {
     System::Drawing::Bitmap ^bitmap;
-
+    AIMP::SDK::AlbumArtManager::IAimpAlbumArtSearchOptions ^searchOptions = gcnew AIMP::SDK::AimpAlbumArtSearchOptions(Options, AIMP::SDK::ManagedAimpCore::GetAimpCore());
     AIMP::AimpActionResult r = _managedinstance->Get(
         gcnew System::String(FileURI->GetData()),
         gcnew System::String(Artist->GetData()),
         gcnew System::String(Album->GetData()),
-        nullptr,
+        searchOptions,
         bitmap);
     {
         IAIMPImageContainer *container = AIMP::SDK::Converter::ToContainer(bitmap);
@@ -35,7 +36,8 @@ HRESULT WINAPI AimpExtensionAlbumArtProvider::Get2(IAIMPFileInfo *FileInfo, IAIM
 {
     System::Drawing::Bitmap^ bitmap;
     AIMP::SDK::PlayList::IAimpFileInfo ^fi = gcnew AIMP::SDK::AimpFileInfo(FileInfo);
-    AIMP::AimpActionResult r = _managedinstance->Get(fi, nullptr, bitmap);
+    AIMP::SDK::AlbumArtManager::IAimpAlbumArtSearchOptions ^searchOptions = gcnew AIMP::SDK::AimpAlbumArtSearchOptions(Options, AIMP::SDK::ManagedAimpCore::GetAimpCore());
+    AIMP::AimpActionResult r = _managedinstance->Get(fi, searchOptions, bitmap);
     if (r == AIMP::AimpActionResult::Ok && bitmap != nullptr)
     {
         IAIMPImageContainer *container = AIMP::SDK::Converter::ToContainer(bitmap);
