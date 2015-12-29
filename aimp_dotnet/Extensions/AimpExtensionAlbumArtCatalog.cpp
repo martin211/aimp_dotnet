@@ -2,8 +2,10 @@
 #include "AimpExtensionAlbumArtCatalog.h"
 #include "..\SDK\PlayList\AimpFileInfo.h"
 
-HRESULT WINAPI AimpExtensionAlbumArtCatalog::GetIcon(HICON *Image)
+HRESULT WINAPI AimpExtensionAlbumArtCatalog::GetIcon(HICON **Image)
 {
+    System::Drawing::Bitmap^ bitmap = _managedinstance->GetIcon();
+    *Image = static_cast<HICON*>(bitmap->GetHicon().ToPointer());
     return S_OK;
 }
 

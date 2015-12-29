@@ -16,7 +16,7 @@ public:
         _aimpCore = aimpCore;
     }
 
-    virtual HRESULT WINAPI GetIcon(HICON *Image);
+    virtual HRESULT WINAPI GetIcon(HICON **Image);
 
     virtual HRESULT WINAPI GetName(IAIMPString **Name);
 

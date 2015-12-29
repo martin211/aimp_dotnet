@@ -271,6 +271,9 @@
     <ClInclude Include="SDK\Converter.h">
       <Filter>SDK</Filter>
     </ClInclude>
+    <ClInclude Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc">

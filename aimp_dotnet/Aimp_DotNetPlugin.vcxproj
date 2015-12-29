@@ -69,6 +69,7 @@
     <ClInclude Include="SDK\AimpObject.h" />
     <ClInclude Include="SDK\AimpPlayer.h" />
     <ClInclude Include="SDK\AlbumArt\AimpAlbumArtManager.h" />
+    <ClInclude Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.h" />
     <ClInclude Include="SDK\BaseManager.h" />
     <ClInclude Include="SDK\Configuration\AimpConfigurationManager.h" />
     <ClInclude Include="SDK\EventHelper.h" />
