@@ -100,7 +100,7 @@ namespace AIMP
 					{
 						str += val[i] + ";";
 					}
-					_properties->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, Converter::MakeAimpString(_core->GetAimpCore(), str));
+					_properties->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, AimpConverter::MakeAimpString(_core->GetAimpCore(), str));
 				}
 			}
 
@@ -120,7 +120,7 @@ namespace AIMP
 					{
 						str += val[i] + ";";
 					}
-					_properties->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, Converter::MakeAimpString(_core->GetAimpCore(), str));
+					_properties->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, AimpConverter::MakeAimpString(_core->GetAimpCore(), str));
 				}
 			}
 
@@ -147,11 +147,11 @@ namespace AIMP
 
 				if (image_container != NULL && image == NULL)
 				{
-					args->CoverImage = Converter::GetBitmap(image_container);
+					args->CoverImage = AimpConverter::GetBitmap(image_container);
 				}
 				else if (image != NULL)
 				{
-					args->CoverImage = Converter::GetBitmap(image);
+					args->CoverImage = AimpConverter::GetBitmap(image);
 				}
 
 				Completed(this, args);
@@ -164,9 +164,9 @@ namespace AIMP
 				//TAIMPServiceAlbumArtReceiveProc *f = &test;
 				IntPtr thunk = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_findCallback);
 				_service->Get(
-					Converter::MakeAimpString(_core->GetAimpCore(), fileUrl), 
-					Converter::MakeAimpString(_core->GetAimpCore(), artist), 
-					Converter::MakeAimpString(_core->GetAimpCore(), album), 
+					AimpConverter::MakeAimpString(_core->GetAimpCore(), fileUrl), 
+					AimpConverter::MakeAimpString(_core->GetAimpCore(), artist), 
+					AimpConverter::MakeAimpString(_core->GetAimpCore(), album), 
 					(DWORD) flags, 
 					(TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(), 
 					reinterpret_cast<void*>(&userData), &taskId);

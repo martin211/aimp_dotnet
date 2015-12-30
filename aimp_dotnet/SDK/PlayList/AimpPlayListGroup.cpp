@@ -1,7 +1,7 @@
 #include "..\..\Stdafx.h"
 #include "AimpPlayListGroup.h"
 #include "AimpPlayListItem.h"
-#include "..\..\SDK\Converter.h"
+#include "..\..\SDK\AimpConverter.h"
 
 namespace AIMP
 {
@@ -20,42 +20,42 @@ namespace AIMP
 
 		System::String^ AimpPlayListGroup::Name::get()
 		{
-			return Converter::GetString(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_NAME);
+			return AimpConverter::GetString(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_NAME);
 		}
 
 		bool AimpPlayListGroup::Expanded::get()
 		{
-			return Converter::GetBool(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_EXPANDED);
+			return AimpConverter::GetBool(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_EXPANDED);
 		}
 
 		void AimpPlayListGroup::Expanded::set(bool value)
 		{
-			Converter::SetBool(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_EXPANDED, value);
+			AimpConverter::SetBool(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_EXPANDED, value);
 		}
 
 		double AimpPlayListGroup::Duration::get()
 		{
-			return Converter::GetFloat(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_DURATION);
+			return AimpConverter::GetFloat(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_DURATION);
 		}
 
 		void AimpPlayListGroup::Duration::set(double value)
 		{
-			Converter::SetFloat(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_DURATION, value);
+			AimpConverter::SetFloat(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_DURATION, value);
 		}
 
 		int AimpPlayListGroup::Index::get()
 		{
-			return Converter::GetInt32(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_INDEX);
+			return AimpConverter::GetInt32(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_INDEX);
 		}
 
 		bool AimpPlayListGroup::Selected::get()
 		{
-			return Converter::GetBool(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_SELECTED);
+			return AimpConverter::GetBool(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_SELECTED);
 		}
 
 		void AimpPlayListGroup::Selected::set(bool value)
 		{
-			Converter::SetBool(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_SELECTED, value);
+			AimpConverter::SetBool(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_SELECTED, value);
 		}
 
 		int AimpPlayListGroup::Count::get()

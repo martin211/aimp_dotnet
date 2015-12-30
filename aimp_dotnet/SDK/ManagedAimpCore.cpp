@@ -2,7 +2,7 @@
 #include "ManagedAimpCore.h"
 #include "..\IUnknownInterfaceImpl.h"
 #include "PlayList\AimpPlayList.h"
-#include "Converter.h"
+#include "AimpConverter.h"
 #include "..\AimpSdk.h"
 #include "..\Extensions\OptionsDialogFrameExtension.h"
 #include "..\Extensions\AimpExtensionAlbumArtCatalog.h"
@@ -230,7 +230,7 @@ namespace AIMP
 
         HRESULT ManagedAimpCore::ShowNotification(bool autoHide, String ^notification)
         {
-            IAIMPString *str = Converter::MakeAimpString(_core, notification);
+            IAIMPString *str = AimpConverter::MakeAimpString(_core, notification);
             return _messageDispatcher->Send((DWORD)AIMP::SDK::AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION, autoHide ? 0 : 1, str->GetData());
         }
 

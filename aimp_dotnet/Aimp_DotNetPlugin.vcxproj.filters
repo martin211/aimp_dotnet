@@ -1,293 +1,88 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="SDK">
-      <UniqueIdentifier>{87c24f19-4f5b-4b4d-b864-4390f76b13f8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="AIMPSDK">
-      <UniqueIdentifier>{b71923ff-8369-48c7-b11e-febd8a9334e2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="AIMPSDK\AIMP360">
-      <UniqueIdentifier>{dfde4f1f-7e11-486a-af9f-5496fa1c0d73}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SDK\Action">
-      <UniqueIdentifier>{843273cc-f30b-4fb5-95c1-dc2db3bf13df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SDK\AlbumArt">
-      <UniqueIdentifier>{a63936e0-81a4-4a4f-ae2b-5f3a23799632}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SDK\Configuration">
-      <UniqueIdentifier>{df924a66-78ca-4227-af7a-47047c48571f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SDK\Menu">
-      <UniqueIdentifier>{8654d330-13fb-4963-a127-22abbb41bd70}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SDK\MUI">
-      <UniqueIdentifier>{5c902193-ac3b-461b-b68c-7cb3fa61b0cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SDK\Options">
-      <UniqueIdentifier>{907b9893-3a98-40a3-8045-74f313b8ad23}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SDK\Playback">
-      <UniqueIdentifier>{44031322-87a0-4d49-bddb-66ca7a71c6ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SDK\PlayList">
-      <UniqueIdentifier>{adbc242c-c6fa-4c29-a016-e59e9a00ae16}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SDK\Threading">
-      <UniqueIdentifier>{096d9bbf-b4bf-48de-9aad-f5cce3e9cde0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SDK\Win32">
-      <UniqueIdentifier>{4d5e6244-1be5-407b-861f-aa6b6bcf0cbc}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="AimpDotnetPlugin.cpp" />
+    <ClCompile Include="DotNetPlugin.cpp" />
+    <ClCompile Include="Extensions\AimpExtensionAlbumArtCatalog.cpp" />
+    <ClCompile Include="Extensions\AimpExtensionAlbumArtProvider.cpp" />
+    <ClCompile Include="SDK\Action\AimpActionManager.cpp" />
+    <ClCompile Include="SDK\ManagedAimpCore.cpp" />
+    <ClCompile Include="SDK\Menu\AimpMenuManager.cpp" />
+    <ClCompile Include="SDK\PlayList\AimpPlayList.cpp" />
+    <ClCompile Include="SDK\PlayList\AimpPlayListGroup.cpp" />
+    <ClCompile Include="SDK\PlayList\AimpPlayListItem.cpp" />
+    <ClCompile Include="Stdafx.cpp" />
+    <ClCompile Include="SDK\GUI\Controls\AimpUIControl.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AIMP_Exports.def">
-      <Filter>Source Files</Filter>
-    </None>
+    <ClInclude Include="AIMPSDK\apiActions.h" />
+    <ClInclude Include="AIMPSDK\apiAlbumArt.h" />
+    <ClInclude Include="AIMPSDK\apiCore.h" />
+    <ClInclude Include="AIMPSDK\apiDecoders.h" />
+    <ClInclude Include="AIMPSDK\apiFileManager.h" />
+    <ClInclude Include="AIMPSDK\apiGUI.h" />
+    <ClInclude Include="AIMPSDK\apiInternet.h" />
+    <ClInclude Include="AIMPSDK\apiMenu.h" />
+    <ClInclude Include="AIMPSDK\apiMessages.h" />
+    <ClInclude Include="AIMPSDK\apiMUI.h" />
+    <ClInclude Include="AIMPSDK\apiObjects.h" />
+    <ClInclude Include="AIMPSDK\apiOptions.h" />
+    <ClInclude Include="AIMPSDK\apiPlayer.h" />
+    <ClInclude Include="AIMPSDK\apiPlaylists.h" />
+    <ClInclude Include="AIMPSDK\apiPlugin.h" />
+    <ClInclude Include="AIMPSDK\apiRemote.h" />
+    <ClInclude Include="AIMPSDK\apiScheduler.h" />
+    <ClInclude Include="AIMPSDK\apiSkins.h" />
+    <ClInclude Include="AIMPSDK\apiTagEditor.h" />
+    <ClInclude Include="AIMPSDK\apiThreading.h" />
+    <ClInclude Include="AIMPSDK\apiVisuals.h" />
+    <ClInclude Include="Extensions\AimpExtensionAlbumArtCatalog.h" />
+    <ClInclude Include="AimpSdk.h" />
+    <ClInclude Include="DataConversion.h" />
+    <ClInclude Include="DotNetPlugin.h" />
+    <ClInclude Include="Extensions\AimpExtensionAlbumArtProvider.h" />
+    <ClInclude Include="Extensions\OptionsDialogFrameExtension.h" />
+    <ClInclude Include="IUnknownInterfaceImpl.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SDK\Action\AimpActionManager.h" />
+    <ClInclude Include="SDK\AimpCore.h" />
+    <ClInclude Include="SDK\AimpExtensionBase.h" />
+    <ClInclude Include="SDK\AimpObject.h" />
+    <ClInclude Include="SDK\AimpPlayer.h" />
+    <ClInclude Include="SDK\AlbumArt\AimpAlbumArtManager.h" />
+    <ClInclude Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.h" />
+    <ClInclude Include="SDK\BaseManager.h" />
+    <ClInclude Include="SDK\Configuration\AimpConfigurationManager.h" />
+    <ClInclude Include="SDK\EventHelper.h" />
+    <ClInclude Include="SDK\ManagedAimpCore.h" />
+    <ClInclude Include="SDK\Menu\AimpMenuManager.h" />
+    <ClInclude Include="SDK\Menu\ICallBackHeader.h" />
+    <ClInclude Include="SDK\Menu\MenuItemEvent.h" />
+    <ClInclude Include="SDK\MUI\MUIManager.h" />
+    <ClInclude Include="SDK\Options\AimpOptionsDialogFrame.h" />
+    <ClInclude Include="SDK\Options\AimpServiceOptionsDialog.h" />
+    <ClInclude Include="SDK\Playback\AimpPlaybackQueueItem.h" />
+    <ClInclude Include="SDK\Playback\AimpServicePlaybackQueue.h" />
+    <ClInclude Include="SDK\PlayList\AimpFileInfo.h" />
+    <ClInclude Include="SDK\PlayList\AimpPlayList.h" />
+    <ClInclude Include="SDK\PlayList\AimpPlayListGroup.h" />
+    <ClInclude Include="SDK\PlayList\AimpPlayListItem.h" />
+    <ClInclude Include="SDK\PlayList\AimpPlayListQueue.h" />
+    <ClInclude Include="SDK\PlayList\PlayListManager.h" />
+    <ClInclude Include="SDK\PlayList\VirtualFileInfoh.h" />
+    <ClInclude Include="SDK\Threading\AimpAsyncTask.h" />
+    <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h" />
+    <ClInclude Include="SDK\Win32\Win32Manager.h" />
+    <ClInclude Include="Stdafx.h" />
+    <ClInclude Include="Utils.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIControl.h" />
+    <ClInclude Include="SDK\GUI\AimpUIForm.h" />
+    <ClInclude Include="SDK\AimpConverter.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AimpDotnetPlugin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DotNetPlugin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\Action\AimpActionManager.cpp">
-      <Filter>SDK\Action</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\Menu\AimpMenuManager.cpp">
-      <Filter>SDK\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\PlayList\AimpPlayList.cpp">
-      <Filter>SDK\PlayList</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\PlayList\AimpPlayListGroup.cpp">
-      <Filter>SDK\PlayList</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\PlayList\AimpPlayListItem.cpp">
-      <Filter>SDK\PlayList</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\ManagedAimpCore.cpp">
-      <Filter>SDK</Filter>
-    </ClCompile>
-    <ClCompile Include="Extensions\AimpExtensionAlbumArtCatalog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Extensions\AimpExtensionAlbumArtProvider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AimpUIControl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ResourceCompile Include="aimp_dotnet.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DotNetPlugin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IUnknownInterfaceImpl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DataConversion.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\AimpPlayer.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\ManagedAimpCore.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="AimpSdk.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Action\AimpActionManager.h">
-      <Filter>SDK\Action</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\AlbumArt\AimpAlbumArtManager.h">
-      <Filter>SDK\AlbumArt</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Configuration\AimpConfigurationManager.h">
-      <Filter>SDK\Configuration</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Menu\AimpMenuManager.h">
-      <Filter>SDK\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Menu\ICallBackHeader.h">
-      <Filter>SDK\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Menu\MenuItemEvent.h">
-      <Filter>SDK\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\MUI\MUIManager.h">
-      <Filter>SDK\MUI</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Options\AimpOptionsDialogFrame.h">
-      <Filter>SDK\Options</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Options\AimpServiceOptionsDialog.h">
-      <Filter>SDK\Options</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Playback\AimpPlaybackQueueItem.h">
-      <Filter>SDK\Playback</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Playback\AimpServicePlaybackQueue.h">
-      <Filter>SDK\Playback</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\PlayList\AimpFileInfo.h">
-      <Filter>SDK\PlayList</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\PlayList\AimpPlayList.h">
-      <Filter>SDK\PlayList</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\PlayList\AimpPlayListGroup.h">
-      <Filter>SDK\PlayList</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\PlayList\AimpPlayListItem.h">
-      <Filter>SDK\PlayList</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\PlayList\AimpPlayListQueue.h">
-      <Filter>SDK\PlayList</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\PlayList\PlayListManager.h">
-      <Filter>SDK\PlayList</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\PlayList\VirtualFileInfoh.h">
-      <Filter>SDK\PlayList</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Threading\AimpAsyncTask.h">
-      <Filter>SDK\Threading</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h">
-      <Filter>SDK\Threading</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Win32\Win32Manager.h">
-      <Filter>SDK\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\AimpExtensionBase.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\BaseManager.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\AimpCore.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\EventHelper.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\AimpObject.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extensions\OptionsDialogFrameExtension.h">
-      <Filter>SDK\Options</Filter>
-    </ClInclude>
-    <ClInclude Include="Extensions\AimpExtensionAlbumArtCatalog.h">
-      <Filter>SDK\AlbumArt</Filter>
-    </ClInclude>
-    <ClInclude Include="Extensions\AimpExtensionAlbumArtProvider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="AIMPSDK\apiActions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiAlbumArt.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiCore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiDecoders.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiFileManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiGUI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiInternet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiMenu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiMessages.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiMUI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiObjects.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiOptions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiPlayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiPlaylists.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiPlugin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiRemote.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiScheduler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiSkins.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiTagEditor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiThreading.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\apiVisuals.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AimpUIControl.h">
-=======
-    <ClInclude Include="SDK\Converter.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.h">
->>>>>>> develop
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="aimp_dotnet.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
+    <None Include="AIMP_Exports.def" />
   </ItemGroup>
 </Project>

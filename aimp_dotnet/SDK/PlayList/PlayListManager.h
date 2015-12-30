@@ -105,7 +105,7 @@ namespace AIMP
 			virtual IAimpPlayList^ CreatePlaylist(System::String^ name, bool isActive)
 			{
 				IAIMPPlaylist *playList;
-				if (CheckResult(_service->CreatePlaylist(Converter::MakeAimpString(_core->GetAimpCore(), name), (BOOL)isActive, &playList)) == AimpActionResult::Ok)
+				if (CheckResult(_service->CreatePlaylist(AimpConverter::MakeAimpString(_core->GetAimpCore(), name), (BOOL)isActive, &playList)) == AimpActionResult::Ok)
 				{
 					return gcnew AimpPlayList(playList);
 				}
@@ -116,7 +116,7 @@ namespace AIMP
 			virtual IAimpPlayList^ CreatePlaylistFromFile(System::String^ fileName, bool isActive)
 			{
 				IAIMPPlaylist *playList;
-				if (CheckResult(_service->CreatePlaylistFromFile(Converter::MakeAimpString(_core->GetAimpCore(), fileName), (BOOL)isActive, &playList)) == AimpActionResult::Ok)
+				if (CheckResult(_service->CreatePlaylistFromFile(AimpConverter::MakeAimpString(_core->GetAimpCore(), fileName), (BOOL)isActive, &playList)) == AimpActionResult::Ok)
 				{
 					return gcnew AimpPlayList(playList);
 				}
@@ -160,7 +160,7 @@ namespace AIMP
 			virtual IAimpPlayList^ GetLoadedPlaylistById(System::String^ id)
 			{
 				IAIMPPlaylist *playList;
-				if (CheckResult(_service->GetLoadedPlaylistByID(Converter::MakeAimpString(_core->GetAimpCore(), id), &playList)) == AimpActionResult::Ok)
+				if (CheckResult(_service->GetLoadedPlaylistByID(AimpConverter::MakeAimpString(_core->GetAimpCore(), id), &playList)) == AimpActionResult::Ok)
 				{
 					return gcnew AimpPlayList(playList);
 				}
@@ -171,7 +171,7 @@ namespace AIMP
 			virtual IAimpPlayList^ GetLoadedPlaylistByName(System::String^ name)
 			{
 				IAIMPPlaylist *playList;
-				if (CheckResult(_service->GetLoadedPlaylistByName(Converter::MakeAimpString(_core->GetAimpCore(), name), &playList)) == AimpActionResult::Ok)
+				if (CheckResult(_service->GetLoadedPlaylistByName(AimpConverter::MakeAimpString(_core->GetAimpCore(), name), &playList)) == AimpActionResult::Ok)
 				{
 					return gcnew AimpPlayList(playList);
 				}

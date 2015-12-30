@@ -23,7 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AimpDotnetPlugin.cpp" />
-    <ClCompile Include="AimpUIControl.cpp" />
+    <ClCompile Include="SDK\GUI\Controls\AimpUIControl.cpp" />
     <ClCompile Include="DotNetPlugin.cpp" />
     <ClCompile Include="Extensions\AimpExtensionAlbumArtCatalog.cpp" />
     <ClCompile Include="Extensions\AimpExtensionAlbumArtProvider.cpp" />
@@ -57,7 +57,7 @@
     <ClInclude Include="AIMPSDK\apiTagEditor.h" />
     <ClInclude Include="AIMPSDK\apiThreading.h" />
     <ClInclude Include="AIMPSDK\apiVisuals.h" />
-    <ClInclude Include="AimpUIControl.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIControl.h" />
     <ClInclude Include="Extensions\AimpExtensionAlbumArtCatalog.h" />
     <ClInclude Include="AimpSdk.h" />
     <ClInclude Include="DataConversion.h" />
@@ -76,12 +76,13 @@
     <ClInclude Include="SDK\BaseManager.h" />
     <ClInclude Include="SDK\Configuration\AimpConfigurationManager.h" />
     <ClInclude Include="SDK\EventHelper.h" />
+    <ClInclude Include="SDK\GUI\AimpUIForm.h" />
     <ClInclude Include="SDK\ManagedAimpCore.h" />
     <ClInclude Include="SDK\Menu\AimpMenuManager.h" />
     <ClInclude Include="SDK\Menu\ICallBackHeader.h" />
     <ClInclude Include="SDK\Menu\MenuItemEvent.h" />
     <ClInclude Include="SDK\MUI\MUIManager.h" />
-    <ClInclude Include="SDK\Converter.h" />
+    <ClInclude Include="SDK\AimpConverter.h" />
     <ClInclude Include="SDK\Options\AimpOptionsDialogFrame.h" />
     <ClInclude Include="SDK\Options\AimpServiceOptionsDialog.h" />
     <ClInclude Include="SDK\Playback\AimpPlaybackQueueItem.h" />

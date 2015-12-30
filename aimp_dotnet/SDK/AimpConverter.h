@@ -12,7 +12,7 @@ namespace AIMP
         /// <summary>
         /// 
         /// </summary>
-        public ref class Converter abstract sealed
+        public ref class AimpConverter abstract sealed
         {
         internal:
             template<typename TObject>
@@ -70,12 +70,12 @@ namespace AIMP
 
             static IAIMPAction *CreateActionItem(IAIMPCore *core, AIMP::SDK::UI::ActionItem::AimpActionItem ^actionItem)
             {
-                IAIMPAction *action = Converter::CreateActionItem(core);
-                action->SetValueAsObject(AIMP_ACTION_PROPID_ID, Converter::MakeAimpString(core, actionItem->Id));
-                action->SetValueAsObject(AIMP_ACTION_PROPID_NAME, Converter::MakeAimpString(core, actionItem->Text));
+                IAIMPAction *action = AimpConverter::CreateActionItem(core);
+                action->SetValueAsObject(AIMP_ACTION_PROPID_ID, AimpConverter::MakeAimpString(core, actionItem->Id));
+                action->SetValueAsObject(AIMP_ACTION_PROPID_NAME, AimpConverter::MakeAimpString(core, actionItem->Text));
                 if (!String::IsNullOrWhiteSpace(actionItem->GroupName))
                 {
-                    action->SetValueAsObject(AIMP_ACTION_PROPID_GROUPNAME, Converter::MakeAimpString(core, actionItem->GroupName));
+                    action->SetValueAsObject(AIMP_ACTION_PROPID_GROUPNAME, AimpConverter::MakeAimpString(core, actionItem->GroupName));
                 }
                 action->SetValueAsInt32(AIMP_ACTION_PROPID_ENABLED, actionItem->Enabled ? 1 : 0);
 

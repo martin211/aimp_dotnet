@@ -62,6 +62,8 @@
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtCatalog2.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtProvider.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtProvider2.cs" />
+    <Compile Include="GUI\Controls\AimpUIControlPlacement.cs" />
+    <Compile Include="GUI\Controls\AimpUIControlPlacementConstraints.cs" />
     <Compile Include="GUI\Controls\Form\IAimpUIForm.cs" />
     <Compile Include="GUI\Controls\IAimpUIControl.cs" />
     <Compile Include="GUI\Controls\IAimpUIMenuItem.cs" />

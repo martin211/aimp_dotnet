@@ -21,7 +21,7 @@ namespace AIMP
 
 			virtual void Delete(String^ key)
 			{
-				_service->Delete(Converter::MakeAimpString(_core->GetAimpCore(), key));
+				_service->Delete(AimpConverter::MakeAimpString(_core->GetAimpCore(), key));
 			}
 
 			virtual void FlushCache()
@@ -32,21 +32,21 @@ namespace AIMP
 			virtual double GetValueAsFloat(String^ key)
 			{
 				double value;
-				CheckResult(_service->GetValueAsFloat(Converter::MakeAimpString(_core->GetAimpCore(), key), &value));
+				CheckResult(_service->GetValueAsFloat(AimpConverter::MakeAimpString(_core->GetAimpCore(), key), &value));
 				return value;
 			}
 
 			virtual int GetValueAsInt32(String^ key)
 			{
 				int value;
-				CheckResult(_service->GetValueAsInt32(Converter::MakeAimpString(_core->GetAimpCore(), key), &value));
+				CheckResult(_service->GetValueAsInt32(AimpConverter::MakeAimpString(_core->GetAimpCore(), key), &value));
 				return value;
 			}
 
 			virtual Int64 GetValueAsInt64(String^ key)
 			{
 				Int64 value;
-				CheckResult(_service->GetValueAsInt64(Converter::MakeAimpString(_core->GetAimpCore(), key), &value));
+				CheckResult(_service->GetValueAsInt64(AimpConverter::MakeAimpString(_core->GetAimpCore(), key), &value));
 				return value;
 			}
 
@@ -62,7 +62,7 @@ namespace AIMP
 
 				try
 				{
-					CheckResult(_service->GetValueAsString(Converter::MakeAimpString(_core->GetAimpCore(), key), &val));
+					CheckResult(_service->GetValueAsString(AimpConverter::MakeAimpString(_core->GetAimpCore(), key), &val));
 					return gcnew String(val->GetData());
 				}
 				finally
@@ -76,17 +76,17 @@ namespace AIMP
 
 			virtual void SetValueAsFloat(String^ key, double value)
 			{
-				CheckResult(_service->SetValueAsFloat(Converter::MakeAimpString(_core->GetAimpCore(), key), value));
+				CheckResult(_service->SetValueAsFloat(AimpConverter::MakeAimpString(_core->GetAimpCore(), key), value));
 			}
 
 			virtual void SetValueAsInt32(String^ key, int value)
 			{
-				CheckResult(_service->SetValueAsInt32(Converter::MakeAimpString(_core->GetAimpCore(), key), value));
+				CheckResult(_service->SetValueAsInt32(AimpConverter::MakeAimpString(_core->GetAimpCore(), key), value));
 			}
 
 			virtual void SetValueAsInt64(String^ key, Int64 value)
 			{
-				CheckResult(_service->SetValueAsInt64(Converter::MakeAimpString(_core->GetAimpCore(), key), value));
+				CheckResult(_service->SetValueAsInt64(AimpConverter::MakeAimpString(_core->GetAimpCore(), key), value));
 			}
 
 			virtual void SetValueAsStream(String^ key, System::IO::Stream^ value)
@@ -97,7 +97,7 @@ namespace AIMP
 
 			virtual void SetValueAsString(String^ key, String^ value)
 			{
-				CheckResult(_service->SetValueAsString(Converter::MakeAimpString(_core->GetAimpCore(), key), Converter::MakeAimpString(_core->GetAimpCore(), value)));
+				CheckResult(_service->SetValueAsString(AimpConverter::MakeAimpString(_core->GetAimpCore(), key), AimpConverter::MakeAimpString(_core->GetAimpCore(), value)));
 			}
 
 		private:

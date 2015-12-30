@@ -31,27 +31,27 @@ namespace AIMP
 
 		String ^AimpPlayList::Id::get()
 		{
-			return Converter::GetString(_properties, AIMP_PLAYLIST_PROPID_ID);
+			return AimpConverter::GetString(_properties, AIMP_PLAYLIST_PROPID_ID);
 		}
 
 		String ^AimpPlayList::Name::get()
 		{
-			return Converter::GetString(_properties, AIMP_PLAYLIST_PROPID_NAME);
+			return AimpConverter::GetString(_properties, AIMP_PLAYLIST_PROPID_NAME);
 		}
 
 		void AimpPlayList::Name::set(String ^value)
 		{
-			Converter::SetString(_properties, AIMP_PLAYLIST_PROPID_NAME, value);
+			AimpConverter::SetString(_properties, AIMP_PLAYLIST_PROPID_NAME, value);
 		}
 
 		bool AimpPlayList::ReadOnly::get()
 		{
-			return Converter::GetBool(_properties, AIMP_PLAYLIST_PROPID_READONLY);
+			return AimpConverter::GetBool(_properties, AIMP_PLAYLIST_PROPID_READONLY);
 		}
 
 		void AimpPlayList::ReadOnly::set(bool value)
 		{
-			Converter::SetBool(_properties, AIMP_PLAYLIST_PROPID_READONLY, value);
+			AimpConverter::SetBool(_properties, AIMP_PLAYLIST_PROPID_READONLY, value);
 		}
 
 		Object ^AimpPlayList::FocusedObject::get()
@@ -65,222 +65,222 @@ namespace AIMP
 
 		bool AimpPlayList::GrouppingOvveriden::get()
 		{
-			return Converter::GetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_OVERRIDEN);
+			return AimpConverter::GetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_OVERRIDEN);
 		}
 
 		void AimpPlayList::GrouppingOvveriden::set(bool value)
 		{
-			Converter::SetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_OVERRIDEN, value);
+			AimpConverter::SetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_OVERRIDEN, value);
 		}
 
 
 		bool AimpPlayList::Groupping::get()
 		{
-			return Converter::GetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING);
+			return AimpConverter::GetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING);
 		}
 
 		void AimpPlayList::Groupping::set(bool value)
 		{
-			Converter::SetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING, value);
+			AimpConverter::SetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING, value);
 		}
 
 
 		String ^AimpPlayList::GrouppingTemplate::get()
 		{
-			return Converter::GetString(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_TEMPLATE);
+			return AimpConverter::GetString(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_TEMPLATE);
 		}
 
 		void AimpPlayList::GrouppingTemplate::set(String ^value)
 		{
-			Converter::SetString(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_TEMPLATE, value);
+			AimpConverter::SetString(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_TEMPLATE, value);
 		}
 
 
 		bool AimpPlayList::GrouppingAutomerging::get()
 		{
-			return Converter::GetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_AUTOMERGING);
+			return AimpConverter::GetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_AUTOMERGING);
 		}
 
 		void AimpPlayList::GrouppingAutomerging::set(bool value)
 		{
-			Converter::SetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_AUTOMERGING, value);
+			AimpConverter::SetBool(_properties, AIMP_PLAYLIST_PROPID_GROUPPING_AUTOMERGING, value);
 		}
 
 
 		bool AimpPlayList::FormatingOverride::get()
 		{
-			return Converter::GetBool(_properties, AIMP_PLAYLIST_PROPID_FORMATING_OVERRIDEN);
+			return AimpConverter::GetBool(_properties, AIMP_PLAYLIST_PROPID_FORMATING_OVERRIDEN);
 		}
 
 		void AimpPlayList::FormatingOverride::set(bool value)
 		{
-			Converter::SetBool(_properties, AIMP_PLAYLIST_PROPID_FORMATING_OVERRIDEN, value);
+			AimpConverter::SetBool(_properties, AIMP_PLAYLIST_PROPID_FORMATING_OVERRIDEN, value);
 		}
 
 
 		String ^AimpPlayList::FirstLineTemplate::get()
 		{
-			return Converter::GetString(_properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE1_TEMPLATE);
+			return AimpConverter::GetString(_properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE1_TEMPLATE);
 		}
 
 		void AimpPlayList::FirstLineTemplate::set(String ^value)
 		{
-			Converter::SetString(_properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE1_TEMPLATE, value);
+			AimpConverter::SetString(_properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE1_TEMPLATE, value);
 		}
 
 
 		String ^AimpPlayList::SecondLineTemplate::get()
 		{
-			return Converter::GetString(_properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE2_TEMPLATE);
+			return AimpConverter::GetString(_properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE2_TEMPLATE);
 		}
 
 		void AimpPlayList::SecondLineTemplate::set(String ^value)
 		{
-			Converter::SetString(_properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE2_TEMPLATE, value);
+			AimpConverter::SetString(_properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE2_TEMPLATE, value);
 		}
 
 
 		bool AimpPlayList::ViewOverride::get()
 		{
-			return Converter::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_OVERRIDEN);
+			return AimpConverter::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_OVERRIDEN);
 		}
 
 		void AimpPlayList::ViewOverride::set(bool value)
 		{
-			Converter::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_OVERRIDEN, value);
+			AimpConverter::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_OVERRIDEN, value);
 		}
 
 
 		bool AimpPlayList::ShowDuration::get()
 		{
-			return Converter::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_DURATION);
+			return AimpConverter::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_DURATION);
 		}
 
 		void AimpPlayList::ShowDuration::set(bool value)
 		{
-			Converter::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_DURATION, value);
+			AimpConverter::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_DURATION, value);
 		}
 
 
 		bool AimpPlayList::ShowExpandButtons::get()
 		{
-			return Converter::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_EXPAND_BUTTONS);
+			return AimpConverter::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_EXPAND_BUTTONS);
 		}
 
 		void AimpPlayList::ShowExpandButtons::set(bool value)
 		{
-			Converter::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_EXPAND_BUTTONS, value);
+			AimpConverter::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_EXPAND_BUTTONS, value);
 		}
 
 
 		bool AimpPlayList::ShowMarks::get()
 		{
-			return Converter::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_MARKS);
+			return AimpConverter::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_MARKS);
 		}
 
 		void AimpPlayList::ShowMarks::set(bool value)
 		{
-			Converter::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_MARKS, value);
+			AimpConverter::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_MARKS, value);
 		}
 
 
 		bool AimpPlayList::ShowNumbers::get()
 		{
-			return Converter::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS);
+			return AimpConverter::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS);
 		}
 
 		void AimpPlayList::ShowNumbers::set(bool value)
 		{
-			Converter::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS, value);
+			AimpConverter::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS, value);
 		}
 
 
 		bool AimpPlayList::ShowAbsoluteNumbers::get()
 		{
-			return Converter::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS_ABSOLUTE);
+			return AimpConverter::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS_ABSOLUTE);
 		}
 
 		void AimpPlayList::ShowAbsoluteNumbers::set(bool value)
 		{
-			Converter::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS_ABSOLUTE, value);
+			AimpConverter::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS_ABSOLUTE, value);
 		}
 
 
 		bool AimpPlayList::ShowSecondLine::get()
 		{
-			return Converter::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_SECOND_LINE);
+			return AimpConverter::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_SECOND_LINE);
 		}
 
 		void AimpPlayList::ShowSecondLine::set(bool value)
 		{
-			Converter::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_SECOND_LINE, value);
+			AimpConverter::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_SECOND_LINE, value);
 		}
 
 
 		bool AimpPlayList::ShowSwitches::get()
 		{
-			return Converter::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_SWITCHES);
+			return AimpConverter::GetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_SWITCHES);
 		}
 
 		void AimpPlayList::ShowSwitches::set(bool value)
 		{
-			Converter::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_SWITCHES, value);
+			AimpConverter::SetBool(_properties, AIMP_PLAYLIST_PROPID_VIEW_SWITCHES, value);
 		}
 
 
 		int AimpPlayList::SelectedIndex::get()
 		{
-			return Converter::GetInt32(_properties, AIMP_PLAYLIST_PROPID_FOCUSINDEX);
+			return AimpConverter::GetInt32(_properties, AIMP_PLAYLIST_PROPID_FOCUSINDEX);
 		}
 
 		void AimpPlayList::SelectedIndex::set(int value)
 		{
-			Converter::SetInt32(_properties, AIMP_PLAYLIST_PROPID_FOCUSINDEX, value);
+			AimpConverter::SetInt32(_properties, AIMP_PLAYLIST_PROPID_FOCUSINDEX, value);
 		}
 
 
 		int AimpPlayList::PlaybackCursor::get()
 		{
-			return Converter::GetInt32(_properties, AIMP_PLAYLIST_PROPID_PLAYBACKCURSOR);
+			return AimpConverter::GetInt32(_properties, AIMP_PLAYLIST_PROPID_PLAYBACKCURSOR);
 		}
 
 		void AimpPlayList::PlaybackCursor::set(int value)
 		{
-			Converter::SetInt32(_properties, AIMP_PLAYLIST_PROPID_PLAYBACKCURSOR, value);
+			AimpConverter::SetInt32(_properties, AIMP_PLAYLIST_PROPID_PLAYBACKCURSOR, value);
 		}
 
 
 		int AimpPlayList::PlayingIndex::get()
 		{
-			return Converter::GetInt32(_properties, AIMP_PLAYLIST_PROPID_PLAYINGINDEX);
+			return AimpConverter::GetInt32(_properties, AIMP_PLAYLIST_PROPID_PLAYINGINDEX);
 		}
 
 		void AimpPlayList::PlayingIndex::set(int value)
 		{
-			Converter::SetInt32(_properties, AIMP_PLAYLIST_PROPID_PLAYINGINDEX, value);
+			AimpConverter::SetInt32(_properties, AIMP_PLAYLIST_PROPID_PLAYINGINDEX, value);
 		}
 
 
 		double AimpPlayList::Duration::get()
 		{
-			return Converter::GetFloat(_properties, AIMP_PLAYLIST_PROPID_DURATION);
+			return AimpConverter::GetFloat(_properties, AIMP_PLAYLIST_PROPID_DURATION);
 		}
 
 
 		double AimpPlayList::Size::get()
 		{
-			return Converter::GetFloat(_properties, AIMP_PLAYLIST_PROPID_SIZE);
+			return AimpConverter::GetFloat(_properties, AIMP_PLAYLIST_PROPID_SIZE);
 		}
 
 
 		String ^AimpPlayList::PreImage::get()
 		{
-			return Converter::GetString(_properties, AIMP_PLAYLIST_PROPID_PREIMAGE);
+			return AimpConverter::GetString(_properties, AIMP_PLAYLIST_PROPID_PREIMAGE);
 		}
 
 		void AimpPlayList::PreImage::set(String ^value)
 		{
-			Converter::SetString(_properties, AIMP_PLAYLIST_PROPID_PREIMAGE, value);
+			AimpConverter::SetString(_properties, AIMP_PLAYLIST_PROPID_PREIMAGE, value);
 		}
 
 
@@ -292,7 +292,7 @@ namespace AIMP
 
 		AimpActionResult AimpPlayList::Add(String^ fileUrl, PlayListFlags flags, PlayListFilePosition filePosition)
 		{
-			IAIMPString *url = Converter::MakeAimpString(ManagedAimpCore::GetAimpCore(), fileUrl);
+			IAIMPString *url = AimpConverter::MakeAimpString(ManagedAimpCore::GetAimpCore(), fileUrl);
 			return CheckResult(InternalAimpObject->Add(url, (DWORD)flags, (int)filePosition));
 		}
 
@@ -321,7 +321,7 @@ namespace AIMP
 				ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPObjectList, (void**)&list);
 				for each (String ^file in fileUrlList)
 				{
-					list->Add(Converter::MakeAimpString(ManagedAimpCore::GetAimpCore(), file));
+					list->Add(AimpConverter::MakeAimpString(ManagedAimpCore::GetAimpCore(), file));
 				}
 
 				return CheckResult(InternalAimpObject->AddList(list, (DWORD)flags, (int)filePosition));
@@ -385,7 +385,7 @@ namespace AIMP
 				IAIMPString *str;
 				if (collection->GetObject(i, IID_IAIMPString, (void**)&str) == S_OK)
 				{
-					result->Add(Converter::GetString(str));
+					result->Add(AimpConverter::GetString(str));
 					str->Release();
 				}
 			}
