@@ -92,6 +92,9 @@
     <ClCompile Include="Extensions\AimpExtensionAlbumArtProvider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AimpUIControl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -272,6 +275,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AIMPSDK\apiVisuals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AimpUIControl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
