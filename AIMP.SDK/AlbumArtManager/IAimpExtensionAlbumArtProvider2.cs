@@ -6,6 +6,6 @@
 
     public interface IAimpExtensionAlbumArtProvider2
     {
-        AimpActionResult Get(IAimpFileInfo fileInfo, object options, Bitmap image);
+        AimpActionResult Get(IAimpFileInfo fileInfo, IAimpAlbumArtSearchOptions options, out Bitmap image);
     }
 }

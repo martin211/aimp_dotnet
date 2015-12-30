@@ -1,6 +1,6 @@
 #include "..\..\Stdafx.h"
 #include "AimpMenuManager.h"
-#include "..\ObjectHelper.h"
+#include "..\Converter.h"
 
 namespace AIMP
 {
@@ -99,7 +99,7 @@ namespace AIMP
 				return;
 			}
 
-			IAIMPString* idString = ObjectHelper::MakeAimpString(_core->GetAimpCore(), id);
+			IAIMPString* idString = Converter::MakeAimpString(_core->GetAimpCore(), id);
 			IAIMPMenuItem *aimpMenuItem;
 			_aimpMenuManager->GetByID(idString, &aimpMenuItem);
 
@@ -133,7 +133,7 @@ namespace AIMP
 				return nullptr;
 			}
 
-			IAIMPString* menuId = ObjectHelper::MakeAimpString(_core->GetAimpCore(), id);
+			IAIMPString* menuId = Converter::MakeAimpString(_core->GetAimpCore(), id);
 			IAIMPMenuItem *aimpMenuItem;
 			_aimpMenuManager->GetByID(menuId, &aimpMenuItem);
 
@@ -185,7 +185,7 @@ namespace AIMP
 			IAIMPMenuItem *aimpMenuItem = nullptr;
 			if (CheckResult(_aimpMenuManager->GetBuiltIn((int)parentMenuType, &aimpMenuItem)) == AimpActionResult::Ok)
 			{
-				return ObjectHelper::ConvertToMenu(aimpMenuItem);
+				return Converter::ConvertToMenu(aimpMenuItem);
 			}
 
 			return nullptr;
@@ -199,7 +199,7 @@ namespace AIMP
 		/// <param name="menuItem">The menu item.</param>
 		void AimpMenuManager::RegisterMenu(IAIMPMenuItem* parentMenuItem, MenuItem^ menuItem)
 		{
-			IAIMPMenuItem *newItem = ObjectHelper::CreateMenuItem(_core->GetAimpCore());
+			IAIMPMenuItem *newItem = Converter::CreateMenuItem(_core->GetAimpCore());
 
 			if (newItem == NULL)
 			{
@@ -208,7 +208,7 @@ namespace AIMP
 
 			menuItem->PropertyChanged += gcnew System::ComponentModel::PropertyChangedEventHandler(this, &AIMP::AimpMenuManager::OnPropertyChanged);
 
-			IAIMPString* idString = ObjectHelper::MakeAimpString(_core->GetAimpCore(), menuItem->Id);
+			IAIMPString* idString = Converter::MakeAimpString(_core->GetAimpCore(), menuItem->Id);
 
 			newItem->SetValueAsObject(AIMP_MENUITEM_PROPID_ID, idString);
 			newItem->SetValueAsObject(AIMP_MENUITEM_PROPID_PARENT, parentMenuItem);
@@ -268,7 +268,7 @@ namespace AIMP
 		/// <param name="menuItem">The menu item.</param>
 		void AimpMenuManager::FillMenuData(IAIMPMenuItem* aimpMenuItem, MenuItem^ menuItem)
 		{
-			aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_NAME, ObjectHelper::MakeAimpString(_core->GetAimpCore(), menuItem->Text));
+			aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_NAME, Converter::MakeAimpString(_core->GetAimpCore(), menuItem->Text));
 			aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_VISIBLE, menuItem->Visible ? 1 : 0);
 			aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_ENABLED, menuItem->Enabled ? 1 : 0);
 			if (menuItem->GetType() == CheckBoxMenuItem::typeid)
@@ -282,12 +282,12 @@ namespace AIMP
 
 			if (menuItem->ActionItem != nullptr)
 			{
-				aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_ACTION, ObjectHelper::CreateActionItem(_core->GetAimpCore(), (AIMP::SDK::UI::ActionItem::AimpActionItem^)menuItem->ActionItem));
+				aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_ACTION, Converter::CreateActionItem(_core->GetAimpCore(), (AIMP::SDK::UI::ActionItem::AimpActionItem^)menuItem->ActionItem));
 			}
 
 			if (menuItem->Image != nullptr)
 			{
-				aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_GLYPH, ObjectHelper::CreateImage(menuItem->Image));
+				aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_GLYPH, Converter::CreateImage(menuItem->Image));
 			}
 		}
 
@@ -302,7 +302,7 @@ namespace AIMP
 				return;
 			}
 
-			IAIMPString* id = ObjectHelper::MakeAimpString(_core->GetAimpCore(), menuItem->Id);
+			IAIMPString* id = Converter::MakeAimpString(_core->GetAimpCore(), menuItem->Id);
 			IAIMPMenuItem *aimpMenuItem;
 			_aimpMenuManager->GetByID(id, &aimpMenuItem);
 

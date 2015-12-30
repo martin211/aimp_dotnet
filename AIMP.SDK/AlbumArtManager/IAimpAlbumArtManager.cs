@@ -7,48 +7,8 @@
     /// <summary>
     /// Album art manager.
     /// </summary>
-    public interface IAimpAlbumArtManager
+    public interface IAimpAlbumArtManager : IAimpAlbumArtSearchOptions
     {
-        /// <summary>
-        /// Gets or sets a value indicating whether [find in files].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [find in files]; otherwise, <c>false</c>.
-        /// </value>
-        bool FindInFiles { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [find in internet].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [find in internet]; otherwise, <c>false</c>.
-        /// </value>
-        bool FindInInternet { get; set; }
-
-        /// <summary>
-        /// Gets or sets the file masks.
-        /// </summary>
-        /// <value>
-        /// The file masks.
-        /// </value>
-        string[] FileMasks { get; set; }
-
-        /// <summary>
-        /// Gets or sets the availabel cover file extensions.
-        /// </summary>
-        /// <value>
-        /// The file extensions.
-        /// </value>
-        string[] FileExtensions { get; set; }
-
-        /// <summary>
-        /// Gets or sets the maximum size of the file wich can be downloaded from internet.
-        /// </summary>
-        /// <value>
-        /// The maximum size of the file.
-        /// </value>
-        int MaxFileSize { get; set; }
-
         /// <summary>
         /// Occurs when [completed].
         /// </summary>

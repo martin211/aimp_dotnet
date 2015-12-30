@@ -14,72 +14,72 @@ namespace AIMP
 
 		AimpPlayListItem::AimpPlayListItem()
 		{
-			_aimpObject = ObjectHelper::MakeObject<IAIMPPlaylistItem>(IID_IAIMPPlaylistItem);
+			_aimpObject = Converter::MakeObject<IAIMPPlaylistItem>(IID_IAIMPPlaylistItem);
 		}
 
 		System::String^ AimpPlayListItem::DisplayText::get()
 		{
-			return ObjectHelper::GetString(_aimpObject, AIMP_PLAYLISTITEM_PROPID_DISPLAYTEXT);
+			return Converter::GetString(_aimpObject, AIMP_PLAYLISTITEM_PROPID_DISPLAYTEXT);
 		}
 
 		void AimpPlayListItem::DisplayText::set(String^ value)
 		{
-			ObjectHelper::SetString(_aimpObject, AIMP_PLAYLISTITEM_PROPID_DISPLAYTEXT, value);
+			Converter::SetString(_aimpObject, AIMP_PLAYLISTITEM_PROPID_DISPLAYTEXT, value);
 		}
 
 		String^ AimpPlayListItem::FileName::get()
 		{
-			return ObjectHelper::GetString(_aimpObject, AIMP_PLAYLISTITEM_PROPID_FILENAME);
+			return Converter::GetString(_aimpObject, AIMP_PLAYLISTITEM_PROPID_FILENAME);
 		}
 
 		void AimpPlayListItem::FileName::set(String ^value)
 		{
-			ObjectHelper::SetString(_aimpObject, AIMP_PLAYLISTITEM_PROPID_FILENAME, value);
+			Converter::SetString(_aimpObject, AIMP_PLAYLISTITEM_PROPID_FILENAME, value);
 		}
 
 		int AimpPlayListItem::Index::get()
 		{
-			return ObjectHelper::GetInt32(_aimpObject, AIMP_PLAYLISTITEM_PROPID_INDEX);
+			return Converter::GetInt32(_aimpObject, AIMP_PLAYLISTITEM_PROPID_INDEX);
 		}
 
 		void AimpPlayListItem::Index::set(int value)
 		{
-			ObjectHelper::SetInt32(_aimpObject, AIMP_PLAYLISTITEM_PROPID_INDEX, value);
+			Converter::SetInt32(_aimpObject, AIMP_PLAYLISTITEM_PROPID_INDEX, value);
 		}
 
 		double AimpPlayListItem::Mark::get()
 		{
-			return ObjectHelper::GetFloat(_aimpObject, AIMP_PLAYLISTITEM_PROPID_MARK);
+			return Converter::GetFloat(_aimpObject, AIMP_PLAYLISTITEM_PROPID_MARK);
 		}
 
 		void AimpPlayListItem::Mark::set(double value)
 		{
-			ObjectHelper::SetFloat(_aimpObject, AIMP_PLAYLISTITEM_PROPID_MARK, value);
+			Converter::SetFloat(_aimpObject, AIMP_PLAYLISTITEM_PROPID_MARK, value);
 		}
 
 		int AimpPlayListItem::PlaybackIndex::get()
 		{
-			return ObjectHelper::GetInt32(_aimpObject, AIMP_PLAYLISTITEM_PROPID_PLAYBACKQUEUEINDEX);
+			return Converter::GetInt32(_aimpObject, AIMP_PLAYLISTITEM_PROPID_PLAYBACKQUEUEINDEX);
 		}
 
 		bool AimpPlayListItem::PlaybackSwitch::get()
 		{
-			return ObjectHelper::GetBool(_aimpObject, AIMP_PLAYLISTITEM_PROPID_PLAYINGSWITCH);
+			return Converter::GetBool(_aimpObject, AIMP_PLAYLISTITEM_PROPID_PLAYINGSWITCH);
 		}
 
 		void AimpPlayListItem::PlaybackSwitch::set(bool value)
 		{
-			ObjectHelper::SetInt32(_aimpObject, AIMP_PLAYLISTITEM_PROPID_PLAYINGSWITCH, value ? 1 : 0);
+			Converter::SetInt32(_aimpObject, AIMP_PLAYLISTITEM_PROPID_PLAYINGSWITCH, value ? 1 : 0);
 		}
 
 		bool AimpPlayListItem::Selected::get()
 		{
-			return ObjectHelper::GetBool(_aimpObject, AIMP_PLAYLISTITEM_PROPID_SELECTED);
+			return Converter::GetBool(_aimpObject, AIMP_PLAYLISTITEM_PROPID_SELECTED);
 		}
 
 		void AimpPlayListItem::Selected::set(bool value)
 		{
-			ObjectHelper::SetInt32(_aimpObject, AIMP_PLAYLISTITEM_PROPID_SELECTED, value ? 1 : 0);
+			Converter::SetInt32(_aimpObject, AIMP_PLAYLISTITEM_PROPID_SELECTED, value ? 1 : 0);
 		}
 
 		IAimpFileInfo^ AimpPlayListItem::FileInfo::get()
@@ -99,7 +99,7 @@ namespace AIMP
 			if (_group == nullptr)
 			{
 				IAIMPPlaylistGroup *group;
-				if (CheckResult(ObjectHelper::GetObject(_aimpObject, AIMP_PLAYLISTITEM_PROPID_GROUP, IID_IAIMPPlaylistGroup, (void**)&group)) != AimpActionResult::Ok)
+				if (CheckResult(Converter::GetObject(_aimpObject, AIMP_PLAYLISTITEM_PROPID_GROUP, IID_IAIMPPlaylistGroup, (void**)&group)) != AimpActionResult::Ok)
 				{
 					return nullptr;
 				}

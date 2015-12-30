@@ -190,9 +190,6 @@
     <ClInclude Include="SDK\AimpCore.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\ObjectHelper.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\EventHelper.h">
       <Filter>SDK</Filter>
     </ClInclude>
@@ -214,6 +211,7 @@
     <ClInclude Include="Extensions\AimpExtensionAlbumArtProvider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="AIMPSDK\apiActions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -278,6 +276,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AimpUIControl.h">
+=======
+    <ClInclude Include="SDK\Converter.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.h">
+>>>>>>> develop
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

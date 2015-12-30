@@ -12,7 +12,7 @@
 
         public Bitmap GetIcon()
         {
-            return null;
+            return Properties.Resources.lastfm;
         }
 
         public string GetName()

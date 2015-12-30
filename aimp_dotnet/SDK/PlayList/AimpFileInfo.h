@@ -1,5 +1,5 @@
 #pragma once
-#include "..\ObjectHelper.h"
+#include "..\Converter.h"
 #include "..\AimpObject.h"
 
 namespace AIMP
@@ -25,11 +25,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_CUSTOM);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_CUSTOM);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_CUSTOM, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_CUSTOM, value);
 				}
 			}
 
@@ -45,7 +45,7 @@ namespace AIMP
 
 					if (container != NULL)
 					{
-						bmp = ObjectHelper::GetBitmap(container);
+						bmp = Converter::GetBitmap(container);
 						container->Release();
 					}
 					else
@@ -55,7 +55,7 @@ namespace AIMP
 						_aimpObject->GetValueAsObject(AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImage, (void**) &image);
 						if (image != NULL)
 						{
-							bmp = ObjectHelper::GetBitmap(image);
+							bmp = Converter::GetBitmap(image);
 							image->Release();
 						}
 					}
@@ -68,11 +68,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_ALBUM);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_ALBUM);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_ALBUM, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_ALBUM, value);
 				}
 			}
 
@@ -80,11 +80,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_ALBUMARTIST);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_ALBUMARTIST);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_ALBUMARTIST, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_ALBUMARTIST, value);
 				}
 			}
 
@@ -92,11 +92,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_ARTIST);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_ARTIST);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_ARTIST, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_ARTIST, value);
 				}
 			}
 
@@ -104,11 +104,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_CODEC);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_CODEC);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_CODEC, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_CODEC, value);
 				}
 			}
 
@@ -116,11 +116,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_COMMENT);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_COMMENT);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_COMMENT, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_COMMENT, value);
 				}
 			}
 
@@ -128,11 +128,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_COMPOSER);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_COMPOSER);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_COMPOSER, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_COMPOSER, value);
 				}
 			}
 
@@ -140,11 +140,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_COPYRIGHT);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_COPYRIGHT);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_COPYRIGHT, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_COPYRIGHT, value);
 				}
 			}
 
@@ -152,11 +152,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_CUESHEET);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_CUESHEET);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_CUESHEET, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_CUESHEET, value);
 				}
 			}
 
@@ -164,11 +164,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_DATE);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_DATE);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_DATE, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_DATE, value);
 				}
 			}
 
@@ -176,11 +176,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_DISKNUMBER);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_DISKNUMBER);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_DISKNUMBER, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_DISKNUMBER, value);
 				}
 			}
 
@@ -188,11 +188,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_DISKTOTAL);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_DISKTOTAL);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_DISKTOTAL, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_DISKTOTAL, value);
 				}
 			}
 
@@ -200,11 +200,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_FILENAME);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_FILENAME);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_FILENAME, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_FILENAME, value);
 				}
 			}
 
@@ -212,11 +212,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_GENRE);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_GENRE);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_GENRE, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_GENRE, value);
 				}
 			}
 
@@ -224,11 +224,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_LYRICS);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_LYRICS);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_LYRICS, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_LYRICS, value);
 				}
 			}
 
@@ -236,11 +236,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_PUBLISHER);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_PUBLISHER);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_PUBLISHER, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_PUBLISHER, value);
 				}
 			}
 
@@ -248,11 +248,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_TITLE);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_TITLE);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_TITLE, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_TITLE, value);
 				}
 			}
 
@@ -260,11 +260,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_TRACKTOTAL);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_TRACKTOTAL);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_TRACKTOTAL, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_TRACKTOTAL, value);
 				}
 			}
 
@@ -272,11 +272,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_URL);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_URL);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_URL, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_URL, value);
 				}					
 			}
 
@@ -284,11 +284,11 @@ namespace AIMP
 			{
 				double get()
 				{
-					return ObjectHelper::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_MARK);
+					return Converter::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_MARK);
 				}
 				void set(double value)
 				{
-					ObjectHelper::SetFloat(_aimpObject, AIMP_FILEINFO_PROPID_MARK, value);
+					Converter::SetFloat(_aimpObject, AIMP_FILEINFO_PROPID_MARK, value);
 				}
 			}
 
@@ -296,7 +296,7 @@ namespace AIMP
 			{
 				double get()
 				{
-					return ObjectHelper::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_STAT_ADDINGDATE);
+					return Converter::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_STAT_ADDINGDATE);
 				}
 			}
 
@@ -304,7 +304,7 @@ namespace AIMP
 			{
 				double get()
 				{
-					return ObjectHelper::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_STAT_LASTPLAYDATE);
+					return Converter::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_STAT_LASTPLAYDATE);
 				}
 			}
 
@@ -312,7 +312,7 @@ namespace AIMP
 			{
 				double get()
 				{					
-					return ObjectHelper::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_STAT_RATING);					
+					return Converter::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_STAT_RATING);					
 				}
 			}
 
@@ -320,11 +320,11 @@ namespace AIMP
 			{
 				double get()
 				{
-					return ObjectHelper::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_STAT_MARK);
+					return Converter::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_STAT_MARK);
 				}
 				void set(double value)
 				{
-					ObjectHelper::SetFloat(_aimpObject, AIMP_FILEINFO_PROPID_STAT_MARK, value);
+					Converter::SetFloat(_aimpObject, AIMP_FILEINFO_PROPID_STAT_MARK, value);
 				}
 			}
 
@@ -332,11 +332,11 @@ namespace AIMP
 			{
 				double get()
 				{
-					return ObjectHelper::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_TRACKGAIN);
+					return Converter::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_TRACKGAIN);
 				}
 				void set(double value)
 				{
-					ObjectHelper::SetFloat(_aimpObject, AIMP_FILEINFO_PROPID_TRACKGAIN, value);
+					Converter::SetFloat(_aimpObject, AIMP_FILEINFO_PROPID_TRACKGAIN, value);
 				}
 			}
 
@@ -344,11 +344,11 @@ namespace AIMP
 			{
 				String^ get()
 				{
-					return ObjectHelper::GetString(_aimpObject, AIMP_FILEINFO_PROPID_TRACKNUMBER);
+					return Converter::GetString(_aimpObject, AIMP_FILEINFO_PROPID_TRACKNUMBER);
 				}
 				void set(String^ value)
 				{
-					ObjectHelper::SetString(_aimpObject, AIMP_FILEINFO_PROPID_TRACKNUMBER, value);
+					Converter::SetString(_aimpObject, AIMP_FILEINFO_PROPID_TRACKNUMBER, value);
 				}
 			}
 
@@ -356,11 +356,11 @@ namespace AIMP
 			{
 				double get()
 				{
-					return ObjectHelper::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_TRACKPEAK);
+					return Converter::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_TRACKPEAK);
 				}
 				void set(double value)
 				{
-					ObjectHelper::SetFloat(_aimpObject, AIMP_FILEINFO_PROPID_TRACKPEAK, value);
+					Converter::SetFloat(_aimpObject, AIMP_FILEINFO_PROPID_TRACKPEAK, value);
 				}
 			}
 
@@ -368,11 +368,11 @@ namespace AIMP
 			{
 				double get()
 				{
-					return ObjectHelper::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_ALBUMGAIN);
+					return Converter::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_ALBUMGAIN);
 				}
 				void set(double value)
 				{
-					ObjectHelper::SetFloat(_aimpObject, AIMP_FILEINFO_PROPID_ALBUMGAIN, value);
+					Converter::SetFloat(_aimpObject, AIMP_FILEINFO_PROPID_ALBUMGAIN, value);
 				}
 			}
 
@@ -380,11 +380,11 @@ namespace AIMP
 			{
 				double get()
 				{
-					return ObjectHelper::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_ALBUMPEAK);
+					return Converter::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_ALBUMPEAK);
 				}
 				void set(double value)
 				{
-					ObjectHelper::SetFloat(_aimpObject, AIMP_FILEINFO_PROPID_ALBUMPEAK, value);
+					Converter::SetFloat(_aimpObject, AIMP_FILEINFO_PROPID_ALBUMPEAK, value);
 				}
 			}
 
@@ -392,11 +392,11 @@ namespace AIMP
 			{
 				double get()
 				{
-					return ObjectHelper::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_DURATION);
+					return Converter::GetFloat(_aimpObject, AIMP_FILEINFO_PROPID_DURATION);
 				}
 				void set(double value)
 				{
-					ObjectHelper::SetFloat(_aimpObject, AIMP_FILEINFO_PROPID_DURATION, value);
+					Converter::SetFloat(_aimpObject, AIMP_FILEINFO_PROPID_DURATION, value);
 				}
 			}
 
@@ -404,11 +404,11 @@ namespace AIMP
 			{
 				int get()
 				{
-					return ObjectHelper::GetInt32(_aimpObject, AIMP_FILEINFO_PROPID_BITRATE);
+					return Converter::GetInt32(_aimpObject, AIMP_FILEINFO_PROPID_BITRATE);
 				}
 				void set(int value)
 				{
-					ObjectHelper::SetInt32(_aimpObject, AIMP_FILEINFO_PROPID_BITRATE, value);
+					Converter::SetInt32(_aimpObject, AIMP_FILEINFO_PROPID_BITRATE, value);
 				}
 			}
 
@@ -416,11 +416,11 @@ namespace AIMP
 			{
 				int get()
 				{   
-					return ObjectHelper::GetInt32(_aimpObject, AIMP_FILEINFO_PROPID_BITDEPTH);
+					return Converter::GetInt32(_aimpObject, AIMP_FILEINFO_PROPID_BITDEPTH);
 				}
 				void set(int value)
 				{
-					ObjectHelper::SetInt32(_aimpObject, AIMP_FILEINFO_PROPID_BITDEPTH, value);
+					Converter::SetInt32(_aimpObject, AIMP_FILEINFO_PROPID_BITDEPTH, value);
 				}
 			}
 
@@ -428,11 +428,11 @@ namespace AIMP
 			{
 				int get()
 				{
-					return ObjectHelper::GetInt32(_aimpObject, AIMP_FILEINFO_PROPID_BPM);
+					return Converter::GetInt32(_aimpObject, AIMP_FILEINFO_PROPID_BPM);
 				}
 				void set(int value)
 				{
-					ObjectHelper::SetInt32(_aimpObject, AIMP_FILEINFO_PROPID_BPM, value);
+					Converter::SetInt32(_aimpObject, AIMP_FILEINFO_PROPID_BPM, value);
 				}
 			}
 
@@ -440,11 +440,11 @@ namespace AIMP
 			{
 				int get()
 				{
-					return ObjectHelper::GetInt32(_aimpObject, AIMP_FILEINFO_PROPID_CHANNELS);
+					return Converter::GetInt32(_aimpObject, AIMP_FILEINFO_PROPID_CHANNELS);
 				}
 				void set(int value)
 				{
-					ObjectHelper::SetInt32(_aimpObject, AIMP_FILEINFO_PROPID_CHANNELS, value);
+					Converter::SetInt32(_aimpObject, AIMP_FILEINFO_PROPID_CHANNELS, value);
 				}
 			}
 
@@ -452,11 +452,11 @@ namespace AIMP
 			{
 				int get()
 				{
-					return ObjectHelper::GetInt32(_aimpObject, AIMP_FILEINFO_PROPID_SAMPLERATE);
+					return Converter::GetInt32(_aimpObject, AIMP_FILEINFO_PROPID_SAMPLERATE);
 				}
 				void set(int value)
 				{
-					ObjectHelper::SetInt32(_aimpObject, AIMP_FILEINFO_PROPID_SAMPLERATE, value);
+					Converter::SetInt32(_aimpObject, AIMP_FILEINFO_PROPID_SAMPLERATE, value);
 				}
 			}
 
@@ -464,7 +464,7 @@ namespace AIMP
 			{
 				int get()
 				{
-					return ObjectHelper::GetInt32(_aimpObject, AIMP_FILEINFO_PROPID_STAT_PLAYCOUNT);
+					return Converter::GetInt32(_aimpObject, AIMP_FILEINFO_PROPID_STAT_PLAYCOUNT);
 				}
 			}
 
@@ -473,11 +473,11 @@ namespace AIMP
 				Int64 get()
 				{
 					
-					return ObjectHelper::GetInt32(_aimpObject, AIMP_FILEINFO_PROPID_FILESIZE);
+					return Converter::GetInt32(_aimpObject, AIMP_FILEINFO_PROPID_FILESIZE);
 				}
 				void set(Int64 value)
 				{
-					ObjectHelper::SetInt64(_aimpObject, AIMP_FILEINFO_PROPID_FILESIZE, value);
+					Converter::SetInt64(_aimpObject, AIMP_FILEINFO_PROPID_FILESIZE, value);
 				}
 			}
 

@@ -1,22 +1,30 @@
 #include "..\Stdafx.h"
 #include "AimpExtensionAlbumArtProvider.h"
 #include "..\SDK\PlayList\AimpFileInfo.h"
+#include "..\SDK\AlbumArt\AimpAlbumArtSearchOptions.h"
 
 HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString *FileURI, IAIMPString *Artist, IAIMPString *Album, IAIMPPropertyList *Options, IAIMPImageContainer **Image)
 {
     System::Drawing::Bitmap ^bitmap;
-
-    if (_managedinstance->Get(
+    AIMP::SDK::AlbumArtManager::IAimpAlbumArtSearchOptions ^searchOptions = gcnew AIMP::SDK::AimpAlbumArtSearchOptions(Options, AIMP::SDK::ManagedAimpCore::GetAimpCore());
+    AIMP::AimpActionResult r = _managedinstance->Get(
         gcnew System::String(FileURI->GetData()),
         gcnew System::String(Artist->GetData()),
         gcnew System::String(Album->GetData()),
-        nullptr,
-        bitmap) != AIMP::SDK::AimpActionResult::Ok)
+        searchOptions,
+        bitmap);
     {
-        return E_FAIL;
+        IAIMPImageContainer *container = AIMP::SDK::Converter::ToContainer(bitmap);
+        if (container == NULL)
+        {
+            return E_UNEXPECTED;
+        }
+
+        *Image = container;
+        return S_OK;
     }
 
-    return S_OK;
+    return E_UNEXPECTED;
 }
 
 DWORD WINAPI AimpExtensionAlbumArtProvider::GetCategory()
@@ -28,14 +36,19 @@ HRESULT WINAPI AimpExtensionAlbumArtProvider::Get2(IAIMPFileInfo *FileInfo, IAIM
 {
     System::Drawing::Bitmap^ bitmap;
     AIMP::SDK::PlayList::IAimpFileInfo ^fi = gcnew AIMP::SDK::AimpFileInfo(FileInfo);
-    AIMP::AimpActionResult r = _managedinstance->Get(fi, nullptr, bitmap);
+    AIMP::SDK::AlbumArtManager::IAimpAlbumArtSearchOptions ^searchOptions = gcnew AIMP::SDK::AimpAlbumArtSearchOptions(Options, AIMP::SDK::ManagedAimpCore::GetAimpCore());
+    AIMP::AimpActionResult r = _managedinstance->Get(fi, searchOptions, bitmap);
     if (r == AIMP::AimpActionResult::Ok && bitmap != nullptr)
     {
-        IAIMPImageContainer *container;
-        Utils::CheckResult(_aimpCore->CreateObject(IID_IAIMPImageContainer, (void**)&container));
+        IAIMPImageContainer *container = AIMP::SDK::Converter::ToContainer(bitmap);
+        if (container == NULL)
+        {
+            return E_UNEXPECTED;
+        }
+
         *Image = container;
+        return S_OK;
     }
 
-    // TODO: BUGS at IAimpFileInfo->SetDataSize(), need wait to new virsion of AIMP and SDK
     return E_UNEXPECTED;
 }
