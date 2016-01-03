@@ -72,7 +72,6 @@
     <Compile Include="GUI\Dialogs\IAimpUIBrowseFolderDialog.cs" />
     <Compile Include="GUI\IAimpServiceUI.cs" />
     <Compile Include="GUI\IAimpUIForm.cs" />
-    <Compile Include="GUI\IAimpUIWinControl.cs" />
     <Compile Include="IAimpExternalSettingsDialog.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Properties\Annotations.cs" />

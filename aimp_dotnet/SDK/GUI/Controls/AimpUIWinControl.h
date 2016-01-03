@@ -2,18 +2,43 @@
 
 #include "..\..\..\AIMPSDK\apiGUI.h"
 #include "..\..\AimpObject.h"
-
+#include "..\..\AimpConverter.h"
+#include "AimpUIControl.h"
 
 namespace AIMP
 {
     namespace SDK
     {
-        ref class AimpUIWinControl : public AimpObject<IAIMPUIWinControl>, public AIMP::SDK::GUI::IAimpUIWinControl
+        using namespace System;
+        using namespace System::Drawing;
+        using namespace AIMP::SDK::GUI::Controls;
+
+        public ref class AimpUIWinControl : public AimpUIControl, public IAimpUIWinControl
         {
         public:
-            AimpUIWinControl();
+            explicit AimpUIWinControl(IAIMPUIWinControl *aimpObject);
+
+            virtual property bool Focused
+            {
+                bool get();
+                void set(bool value);
+            }
+
+            virtual property int TabOrder
+            {
+                int get();
+                void set(int vulue);
+            }
+
+            virtual AimpActionResult GetControl(AIMP::SDK::GUI::Controls::IAimpUIControl ^control, int index, String ^iid);
+
+            virtual int GetControlCount();
+
+            virtual IntPtr GetHandle();
+
+            virtual bool HasHandle();
+
+            virtual AimpActionResult SetFocus();
         };
     }
 }
-
-

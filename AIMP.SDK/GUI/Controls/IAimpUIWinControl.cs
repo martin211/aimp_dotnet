@@ -8,14 +8,14 @@
 
         int TabOrder { get; set; }
 
-        object GetControl(int index, string iid);
+        AimpActionResult GetControl(IAimpUIControl control, int index, string iid);
 
         int GetControlCount();
 
         IntPtr GetHandle();
 
-        bool HasHandle { get; set; }
+        bool HasHandle();
 
-        void SetFocus();
+        AimpActionResult SetFocus();
     }
 }

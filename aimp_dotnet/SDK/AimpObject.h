@@ -30,3 +30,34 @@ internal:
 		}
 	}
 };
+
+template <class TAimpObject>
+public ref class AimpGuiObject : AimpObject<TAimpObject>
+{
+protected:
+    TAimpObject *_aimpObject;
+    IAIMPServiceUI *_service;
+public:
+    explicit AimpGuiObject(IAIMPServiceUI *service, TAimpObject *aimpObject) : AimpObject<TAimpObject>(aimpObject)
+    {
+        _service = service;
+    }
+    internal:
+        property IAIMPServiceUI *AimpServiceUI
+        {
+            IAIMPServiceUI *get()
+            {
+                return _service;
+            }
+        }
+};
+
+template <class TAimpInterface>
+interface class IAimpObject
+{
+    property TAimpInterface *AimpObject
+    {
+        TAimpInterface *get();
+        void set(TAimpInterface *value);
+    }
+};

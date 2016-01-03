@@ -2,6 +2,7 @@
 {
     using System;
 
+    using AIMP.SDK.GUI.Controls;
     using AIMP.SDK.UI;
 
     [Flags]

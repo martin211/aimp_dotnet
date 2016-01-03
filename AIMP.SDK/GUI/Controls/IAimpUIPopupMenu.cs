@@ -1,8 +1,8 @@
 ﻿namespace AIMP.SDK.GUI.Controls
 {
-    using System.ComponentModel;
     using System.Drawing;
 
+    // ReSharper disable once InconsistentNaming
     public interface IAimpUIPopupMenu
     {
         AimpActionResult Add(string id, out IAimpUIMenuItem menuItem);

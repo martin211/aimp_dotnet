@@ -13,6 +13,7 @@
     <ClCompile Include="SDK\PlayList\AimpPlayListItem.cpp" />
     <ClCompile Include="Stdafx.cpp" />
     <ClCompile Include="SDK\GUI\Controls\AimpUIControl.cpp" />
+    <ClCompile Include="SDK\GUI\Controls\AimpUIWinControl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AIMPSDK\apiActions.h" />
@@ -78,6 +79,7 @@
     <ClInclude Include="SDK\GUI\Controls\AimpUIControl.h" />
     <ClInclude Include="SDK\GUI\AimpUIForm.h" />
     <ClInclude Include="SDK\AimpConverter.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIWinControl.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc" />
