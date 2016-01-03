@@ -13,7 +13,7 @@
         AIMPUI_FLAGS_MOD_SHIFT = 4
     }
 
-    public abstract class AimpMouseEventArgs : EventArgs
+    public abstract class AimpMouseArgs : EventArgs
     {
         public PointF Point { get; set; }
 
@@ -22,7 +22,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.EventArgs"/> class.
         /// </summary>
-        protected AimpMouseEventArgs(PointF point, AimpUIModifiers modifiers)
+        protected AimpMouseArgs(PointF point, AimpUIModifiers modifiers)
         {
             Point = point;
             Modifiers = modifiers;

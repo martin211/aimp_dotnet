@@ -1,6 +1,5 @@
 ﻿namespace AIMP.SDK.GUI.Controls.Events
 {
-    using System;
     using System.Drawing;
 
     public enum AimpUIMouseButton
@@ -10,14 +9,14 @@
         umbMiddle = 2
     };
 
-    public class AimpMouseClickEventArgs : AimpMouseEventArgs
+    public class AimpMouseClickArgs : AimpMouseArgs
     {
         public AimpUIMouseButton Button { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.EventArgs"/> class.
         /// </summary>
-        public AimpMouseClickEventArgs(PointF point, AimpUIModifiers modifiers, AimpUIMouseButton button)
+        public AimpMouseClickArgs(PointF point, AimpUIModifiers modifiers, AimpUIMouseButton button)
             : base(point, modifiers)
         {
             Button = button;

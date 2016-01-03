@@ -76,21 +76,21 @@ namespace AIMP
 
             virtual AimpActionResult PaintTo(IntPtr parent, int x, int y) override;
 
-            virtual event EventHandler<AimpMouseClickEventArgs^> ^OnMouseDoubleClick;
+            virtual event AimpUIEventHandler<AimpMouseClickArgs^> ^OnMouseDoubleClick;
 
-            virtual event EventHandler<AimpMouseClickEventArgs^> ^OnMouseDown;
+            virtual event AimpUIEventHandler<AimpMouseClickArgs^> ^OnMouseDown;
 
-            virtual event EventHandler<AimpMouseClickEventArgs^> ^OnMouseUp;
+            virtual event AimpUIEventHandler<AimpMouseClickArgs^> ^OnMouseUp;
 
-            virtual event EventHandler^ OnMouseLeave;
+            virtual event AimpUIEventHandler^ OnMouseLeave;
 
-            virtual event EventHandler<AimpMouseMoveEventArgs^> ^OnMouseMove;
+            virtual event AimpUIEventHandler<AimpMouseMoveArgs^> ^OnMouseMove;
 
-            virtual event EventHandler ^OnMouseWheel;
+            virtual event AimpUIEventHandler ^OnMouseWheel;
 
-            virtual event EventHandler ^OnBoundsChanged;
+            virtual event AimpUIEventHandler ^OnBoundsChanged;
 
-            virtual event AimpContextPopupHandler ^OnContextPopup;
+            virtual event AimpBoolUIEventHandler<AimpContextPopupArgs^> ^OnContextPopup;
         internal:
             property IAIMPUIControl *InternalAimpControl
             {

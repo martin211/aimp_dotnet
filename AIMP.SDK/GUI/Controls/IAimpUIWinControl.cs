@@ -2,7 +2,10 @@
 {
     using System;
 
-    public interface IAimpUIWinControl : IAimpUIControl
+    using AIMP.SDK.GUI.Controls.Events;
+
+    // ReSharper disable once InconsistentNaming
+    public interface IAimpUIWinControl : IAimpUIControl, IAimpUIKeyboardEvents, IAimpUIWndProcEvents
     {
         bool Focused { get; set; }
 

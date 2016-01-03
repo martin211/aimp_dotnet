@@ -1,18 +1,16 @@
 ﻿namespace AIMP.SDK.GUI.Controls.Events
 {
-    using System;
-
     // ReSharper disable once InconsistentNaming
     public interface IAimpUIMouseEvents
     {
-        event EventHandler<AimpMouseClickEventArgs> OnMouseDoubleClick;
+        event AimpUIEventHandler<AimpMouseClickArgs> OnMouseDoubleClick;
 
-        event EventHandler<AimpMouseClickEventArgs> OnMouseDown;
+        event AimpUIEventHandler<AimpMouseClickArgs> OnMouseDown;
 
-        event EventHandler<AimpMouseClickEventArgs> OnMouseUp;
+        event AimpUIEventHandler<AimpMouseClickArgs> OnMouseUp;
 
-        event EventHandler OnMouseLeave;
+        event AimpUIEventHandler OnMouseLeave;
 
-        event EventHandler<AimpMouseMoveEventArgs> OnMouseMove;
+        event AimpUIEventHandler<AimpMouseMoveArgs> OnMouseMove;
     }
 }

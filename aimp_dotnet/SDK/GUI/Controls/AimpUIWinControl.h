@@ -39,6 +39,20 @@ namespace AIMP
             virtual bool HasHandle();
 
             virtual AimpActionResult SetFocus();
+
+            virtual event AimpUIEventHandler ^OnEnter;
+
+            virtual event AimpUIEventHandler ^OnExit;
+
+            virtual event AimpUIEventHandler<AimpKeyboardArgs^> ^OnKeyDown;
+
+            virtual event AimpUIEventHandler<AimpKeyboardArgs^> ^OnKeyUp;
+
+            virtual event AimpUIEventHandler<AimpKeyArgs^> ^OnKeyPress;
+
+            virtual event AimpBoolUIEventHandler<AimpBeforeWndProcArgs^> ^OnBeforeWndProc;
+
+            virtual event AimpUIEventHandler<AimpAfterWndProcArgs^> ^OnAfterWndProc;
         };
     }
 }

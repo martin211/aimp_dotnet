@@ -2,14 +2,17 @@
 {
     using System.Drawing;
 
-    public class AimpMouseMoveEventArgs : AimpMouseEventArgs
+    public class AimpMouseWheelArgs : AimpMouseArgs
     {
+        public int WheelDelta { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.EventArgs"/> class.
         /// </summary>
-        public AimpMouseMoveEventArgs(PointF point, AimpUIModifiers modifiers)
+        public AimpMouseWheelArgs(PointF point, AimpUIModifiers modifiers, int wheelDelta)
             : base(point, modifiers)
         {
+            WheelDelta = wheelDelta;
         }
     }
 }
