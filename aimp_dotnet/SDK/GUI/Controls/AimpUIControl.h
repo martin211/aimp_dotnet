@@ -11,6 +11,7 @@ namespace AIMP
         using namespace System;
         using namespace System::Drawing;
         using namespace AIMP::SDK::GUI::Controls;
+        using namespace AIMP::SDK::GUI::Controls::Events;
 
         public ref class AimpUIControl : public AimpObject<IAIMPUIControl>, public IAimpUIControl
         {
@@ -74,6 +75,22 @@ namespace AIMP
             virtual AimpActionResult Invalidate() override;
 
             virtual AimpActionResult PaintTo(IntPtr parent, int x, int y) override;
+
+            virtual event EventHandler<AimpMouseClickEventArgs^> ^OnMouseDoubleClick;
+
+            virtual event EventHandler<AimpMouseClickEventArgs^> ^OnMouseDown;
+
+            virtual event EventHandler<AimpMouseClickEventArgs^> ^OnMouseUp;
+
+            virtual event EventHandler^ OnMouseLeave;
+
+            virtual event EventHandler<AimpMouseMoveEventArgs^> ^OnMouseMove;
+
+            virtual event EventHandler ^OnMouseWheel;
+
+            virtual event EventHandler ^OnBoundsChanged;
+
+            virtual event AimpContextPopupHandler ^OnContextPopup;
         internal:
             property IAIMPUIControl *InternalAimpControl
             {

@@ -1,9 +1,12 @@
-﻿using System;
-using System.Drawing;
-
-namespace AIMP.SDK.GUI.Controls
+﻿namespace AIMP.SDK.GUI.Controls
 {
-    public interface IAimpUIControl
+    using System;
+    using System.Drawing;
+
+    using AIMP.SDK.GUI.Controls.Events;
+
+    // ReSharper disable once InconsistentNaming
+    public interface IAimpUIControl : IAimpUIMouseEvents, IAimpUIMouseWheelEvents, IAimpUIPlacementEvents, IAimpUIPopupMenuEvents
     {
         string CustomData { get; set; }
 
