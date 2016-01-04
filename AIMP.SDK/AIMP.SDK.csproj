@@ -79,7 +79,10 @@
     <Compile Include="GUI\Controls\Events\IAimpUIPlacementEvents.cs" />
     <Compile Include="GUI\Controls\Events\IAimpUIPopupMenuEvents.cs" />
     <Compile Include="GUI\Controls\Events\IAimpUIWndProcEvents.cs" />
+    <Compile Include="GUI\Controls\Form\AimpFormCloseQueryArgs.cs" />
+    <Compile Include="GUI\Controls\Form\AimpFormShortCutArgs.cs" />
     <Compile Include="GUI\Controls\Form\IAimpUIForm.cs" />
+    <Compile Include="GUI\Controls\Form\IAIMPUIFormEvents.cs" />
     <Compile Include="GUI\Controls\IAimpUIControl.cs" />
     <Compile Include="GUI\Controls\IAimpUIMenuItem.cs" />
     <Compile Include="GUI\Controls\IAimpUIPopupMenu.cs" />

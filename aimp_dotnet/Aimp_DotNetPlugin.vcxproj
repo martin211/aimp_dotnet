@@ -29,6 +29,7 @@
     <ClCompile Include="Extensions\AimpExtensionAlbumArtProvider.cpp" />
     <ClCompile Include="SDK\Action\AimpActionManager.cpp" />
     <ClCompile Include="SDK\GUI\Controls\AimpUIWinControl.cpp" />
+    <ClCompile Include="SDK\GUI\Controls\Form\AimpUIForm.cpp" />
     <ClCompile Include="SDK\ManagedAimpCore.cpp" />
     <ClCompile Include="SDK\Menu\AimpMenuManager.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlayList.cpp" />
@@ -77,8 +78,8 @@
     <ClInclude Include="SDK\BaseManager.h" />
     <ClInclude Include="SDK\Configuration\AimpConfigurationManager.h" />
     <ClInclude Include="SDK\EventHelper.h" />
-    <ClInclude Include="SDK\GUI\AimpUIForm.h" />
     <ClInclude Include="SDK\GUI\Controls\AimpUIWinControl.h" />
+    <ClInclude Include="SDK\GUI\Controls\Form\AimpUIForm.h" />
     <ClInclude Include="SDK\ManagedAimpCore.h" />
     <ClInclude Include="SDK\Menu\AimpMenuManager.h" />
     <ClInclude Include="SDK\Menu\ICallBackHeader.h" />

@@ -23,7 +23,7 @@
     public enum AimpModalResult
     { }
 
-    public interface IAimpUIForm : IAimpUIWinControl
+    public interface IAimpUIForm : IAimpUIWinControl, IAimpUIFormEvents
     {
         string Caption { get; set; }
 

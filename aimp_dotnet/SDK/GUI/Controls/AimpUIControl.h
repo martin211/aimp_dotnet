@@ -1,9 +1,5 @@
 #pragma once
 
-#include "..\..\..\AIMPSDK\apiGUI.h"
-#include "..\..\AimpObject.h"
-#include "..\..\AimpConverter.h"
-
 namespace AIMP
 {
     namespace SDK
