@@ -72,21 +72,61 @@ namespace AIMP
 
             virtual AimpActionResult PaintTo(IntPtr parent, int x, int y) override;
 
-            virtual event AimpUIEventHandler<AimpMouseClickArgs^> ^OnMouseDoubleClick;
+            virtual event AimpUIEventHandler<AimpMouseClickArgs^> ^OnMouseDoubleClick
+            {
+                virtual void add(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent);
+                virtual void remove(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent);
+                virtual void raise(IAimpUIControl ^sender, AimpMouseClickArgs ^args);
+            }
 
-            virtual event AimpUIEventHandler<AimpMouseClickArgs^> ^OnMouseDown;
+            virtual event AimpUIEventHandler<AimpMouseClickArgs^> ^OnMouseDown
+            {
+                virtual void add(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent);
+                virtual void remove(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent);
+                virtual void raise(IAimpUIControl ^sender, AimpMouseClickArgs ^args);
+            }
 
-            virtual event AimpUIEventHandler<AimpMouseClickArgs^> ^OnMouseUp;
+            virtual event AimpUIEventHandler<AimpMouseClickArgs^> ^OnMouseUp
+            {
+                virtual void add(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent);
+                virtual void remove(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent);
+                virtual void raise(IAimpUIControl ^sender, AimpMouseClickArgs ^args);
+            }
 
-            virtual event AimpUIEventHandler^ OnMouseLeave;
+            virtual event AimpUIEventHandler^ OnMouseLeave
+            {
+                virtual void add(AimpUIEventHandler ^onEvent);
+                virtual void remove(AimpUIEventHandler ^onEvent);
+                virtual void raise(IAimpUIControl ^sender);
+            }
 
-            virtual event AimpUIEventHandler<AimpMouseMoveArgs^> ^OnMouseMove;
+            virtual event AimpUIEventHandler<AimpMouseMoveArgs^> ^OnMouseMove
+            {
+                virtual void add(AimpUIEventHandler<AimpMouseMoveArgs^> ^onEvent);
+                virtual void remove(AimpUIEventHandler<AimpMouseMoveArgs^> ^onEvent);
+                virtual void raise(IAimpUIControl ^sender, AimpMouseMoveArgs ^args);
+            }
 
-            virtual event AimpUIEventHandler ^OnMouseWheel;
+            virtual event AimpUIEventHandler ^OnMouseWheel
+            {
+                virtual void add(AimpUIEventHandler ^onEvent);
+                virtual void remove(AimpUIEventHandler ^onEvent);
+                virtual void raise(IAimpUIControl ^sender);
+            }
 
-            virtual event AimpUIEventHandler ^OnBoundsChanged;
+            virtual event AimpUIEventHandler ^OnBoundsChanged
+            {
+                virtual void add(AimpUIEventHandler ^onEvent);
+                virtual void remove(AimpUIEventHandler ^onEvent);
+                virtual void raise(IAimpUIControl ^sender);
+            }
 
-            virtual event AimpBoolUIEventHandler<AimpContextPopupArgs^> ^OnContextPopup;
+            virtual event AimpBoolUIEventHandler<AimpContextPopupArgs^> ^OnContextPopup
+            {
+                virtual void add(AimpBoolUIEventHandler<AimpContextPopupArgs^> ^onEvent);
+                virtual void remove(AimpBoolUIEventHandler<AimpContextPopupArgs^> ^onEvent);
+                virtual bool raise(IAimpUIControl ^sender, AimpContextPopupArgs^ args);
+            }
         internal:
             property IAIMPUIControl *InternalAimpControl
             {
@@ -95,6 +135,15 @@ namespace AIMP
                     return _aimpObject;
                 }
             }
+        private:
+            AimpUIEventHandler<AimpMouseClickArgs^> ^_mouseDoubleClick;
+            AimpUIEventHandler<AimpMouseClickArgs^> ^_mouseDown;
+            AimpUIEventHandler<AimpMouseClickArgs^> ^_mouseUp;
+            AimpUIEventHandler^ _mouseLeave;
+            AimpUIEventHandler<AimpMouseMoveArgs^> ^_mouseMove;
+            AimpUIEventHandler ^_mouseWheel;
+            AimpUIEventHandler ^_boundsChanged;
+            AimpBoolUIEventHandler<AimpContextPopupArgs^> ^_contextPopup;
         };
     }
 }

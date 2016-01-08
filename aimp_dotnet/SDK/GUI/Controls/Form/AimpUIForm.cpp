@@ -117,5 +117,187 @@ namespace AIMP
         {
             Visible = true;
         }
+
+
+        void AimpUIForm::OnActivated::add(AimpUIEventHandler ^onEvent)
+        {
+            if (this->_onActivated == nullptr)
+            {
+                this->_onActivated = (AimpUIEventHandler^)Delegate::Combine(this->_onActivated, onEvent);
+            }
+        }
+
+        void AimpUIForm::OnActivated::remove(AimpUIEventHandler ^onEvent)
+        {
+            if (this->_onActivated != nullptr)
+            {
+                this->_onActivated = (AimpUIEventHandler^)Delegate::Remove(this->_onActivated, onEvent);
+            }
+            
+        }
+
+        void AimpUIForm::OnActivated::raise(IAimpUIControl ^sender)
+        {
+            if (this->_onActivated != nullptr)
+            {
+                this->_onActivated(sender);
+            }
+        }
+
+
+        void AimpUIForm::OnDeactivated::add(AimpUIEventHandler ^onEvent)
+        {
+            if (this->_onDeactivated == nullptr)
+            {
+                this->_onDeactivated = (AimpUIEventHandler^)Delegate::Combine(this->_onDeactivated, onEvent);
+            }
+        }
+
+        void AimpUIForm::OnDeactivated::remove(AimpUIEventHandler ^onEvent)
+        {
+            if (this->_onDeactivated != nullptr)
+            {
+                this->_onDeactivated = (AimpUIEventHandler^)Delegate::Remove(this->_onDeactivated, onEvent);
+            }
+
+        }
+
+        void AimpUIForm::OnDeactivated::raise(IAimpUIControl ^sender)
+        {
+            if (this->_onDeactivated != nullptr)
+            {
+                this->_onDeactivated(sender);
+            }
+        }
+
+
+        void AimpUIForm::OnCreated::add(AimpUIEventHandler ^onEvent)
+        {
+            if (this->_onCreated == nullptr)
+            {
+                this->_onCreated = (AimpUIEventHandler^)Delegate::Combine(this->_onCreated, onEvent);
+            }
+        }
+
+        void AimpUIForm::OnCreated::remove(AimpUIEventHandler ^onEvent)
+        {
+            if (this->_onCreated != nullptr)
+            {
+                this->_onCreated = (AimpUIEventHandler^)Delegate::Remove(this->_onCreated, onEvent);
+            }
+
+        }
+
+        void AimpUIForm::OnCreated::raise(IAimpUIControl ^sender)
+        {
+            if (this->_onCreated != nullptr)
+            {
+                this->_onCreated(sender);
+            }
+        }
+
+
+        void AimpUIForm::OnDestroyed::add(AimpUIEventHandler ^onEvent)
+        {
+            if (this->_onDestroyed == nullptr)
+            {
+                this->_onDestroyed = (AimpUIEventHandler^)Delegate::Combine(this->_onDestroyed, onEvent);
+            }
+        }
+
+        void AimpUIForm::OnDestroyed::remove(AimpUIEventHandler ^onEvent)
+        {
+            if (this->_onDestroyed != nullptr)
+            {
+                this->_onDestroyed = (AimpUIEventHandler^)Delegate::Remove(this->_onDestroyed, onEvent);
+            }
+
+        }
+
+        void AimpUIForm::OnDestroyed::raise(IAimpUIControl ^sender)
+        {
+            if (this->_onDestroyed != nullptr)
+            {
+                this->_onDestroyed(sender);
+            }
+        }
+
+
+        void AimpUIForm::OnLocalize::add(AimpUIEventHandler ^onEvent)
+        {
+            if (this->_onLocalize == nullptr)
+            {
+                this->_onLocalize = (AimpUIEventHandler^)Delegate::Combine(this->_onLocalize, onEvent);
+            }
+        }
+
+        void AimpUIForm::OnLocalize::remove(AimpUIEventHandler ^onEvent)
+        {
+            if (this->_onLocalize != nullptr)
+            {
+                this->_onLocalize = (AimpUIEventHandler^)Delegate::Remove(this->_onLocalize, onEvent);
+            }
+
+        }
+
+        void AimpUIForm::OnLocalize::raise(IAimpUIControl ^sender)
+        {
+            if (this->_onLocalize != nullptr)
+            {
+                this->_onLocalize(sender);
+            }
+        }
+
+
+        void AimpUIForm::OnCloseQuery::add(AimpUIEventHandler<AimpFormCloseQueryArgs^> ^onEvent)
+        {
+            if (this->_onCloseQuery == nullptr)
+            {
+                this->_onCloseQuery = (AimpUIEventHandler<AimpFormCloseQueryArgs^>^)Delegate::Combine(this->_onLocalize, onEvent);
+            }
+        }
+
+        void AimpUIForm::OnCloseQuery::remove(AimpUIEventHandler<AimpFormCloseQueryArgs^> ^onEvent)
+        {
+            if (this->_onCloseQuery != nullptr)
+            {
+                this->_onCloseQuery = (AimpUIEventHandler<AimpFormCloseQueryArgs^>^)Delegate::Remove(this->_onLocalize, onEvent);
+            }
+
+        }
+
+        void AimpUIForm::OnCloseQuery::raise(IAimpUIControl ^sender, AimpFormCloseQueryArgs^ args)
+        {
+            if (this->_onCloseQuery != nullptr)
+            {
+                this->_onCloseQuery(sender, args);
+            }
+        }
+
+
+        void AimpUIForm::OnShortCut::add(AimpUIEventHandler<AimpFormShortCutArgs^> ^onEvent)
+        {
+            if (this->_onShortCut == nullptr)
+            {
+                this->_onShortCut = (AimpUIEventHandler<AimpFormShortCutArgs^>^)Delegate::Combine(this->_onShortCut, onEvent);
+            }
+        }
+
+        void AimpUIForm::OnShortCut::remove(AimpUIEventHandler<AimpFormShortCutArgs^> ^onEvent)
+        {
+            if (this->_onShortCut != nullptr)
+            {
+                this->_onShortCut = (AimpUIEventHandler<AimpFormShortCutArgs^>^)Delegate::Remove(this->_onShortCut, onEvent);
+            }
+
+        }
+
+        void AimpUIForm::OnShortCut::raise(IAimpUIControl ^sender, AimpFormShortCutArgs^ args)
+        {
+            if (this->_onShortCut != nullptr)
+            {
+                this->_onShortCut(sender, args);
+            }
+        }
     }
 }
