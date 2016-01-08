@@ -48,5 +48,7 @@
         AimpActionResult Release(bool postponed);
 
         AimpModalResult ShowModal();
+
+        void Show();
     }
 }

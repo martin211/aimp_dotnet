@@ -19,6 +19,7 @@
 #include "AimpCore.h"
 #include "SDK\Options\AimpOptionsDialogFrame.h"
 #include "SDK\Options\AimpServiceOptionsDialog.h"
+#include "SDK\GUI\AimpServiceUI.h"
 
 
 
@@ -33,6 +34,7 @@ namespace AIMP
     using namespace AIMP::SDK::PlayList;
     using namespace AIMP::SDK::Win32;
     using namespace AIMP::SDK::Playback;
+    using namespace AIMP::SDK::GUI;
 
     private ref class AimpPlayer :
         public MarshalByRefObject,
@@ -54,6 +56,7 @@ namespace AIMP
         IAimpPlayListManager ^_playListManager;
         IAimpPlaybackQueueService ^_playbackQueueManager;
         IAimpServiceOptionsDialog ^_serviceOptionsDialogManager;
+        
         AimpPlayerState _state;
 
         EventHandler<AIMP::SDK::Player::StateChangedEventArgs^> ^_onStateChanged;
@@ -195,6 +198,14 @@ namespace AIMP
                 }
 
                 return _playbackQueueManager;
+            }
+        }
+
+        virtual property IAimpServiceUI ^ServiceUI
+        {
+            IAimpServiceUI ^get()
+            {
+                return gcnew AimpServiceUI((ManagedAimpCore^)_managedAimpCore);
             }
         }
 

@@ -9,10 +9,10 @@ namespace AIMP
         using namespace AIMP::SDK::GUI::Controls;
         using namespace AIMP::SDK::GUI::Controls::Form;
 
-        ref class AimpUIForm : public AimpUIWinControl//, public IAimpUIForm
+        ref class AimpUIForm : public AimpUIWinControl, public IAimpUIForm
         {
         public:
-            explicit AimpUIForm(IAIMPUIForm *aimpForm);
+            explicit AimpUIForm(IAIMPUIForm *aimpForm, IAIMPUIFormEvents *events);
 
             virtual property String ^Caption
             {
@@ -65,6 +65,8 @@ namespace AIMP
             virtual AimpActionResult Release(bool postponed);
 
             virtual AimpModalResult ShowModal();
+
+            virtual void Show();
 
             virtual event AimpUIEventHandler ^OnActivated;
 

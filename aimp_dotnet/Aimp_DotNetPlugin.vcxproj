@@ -59,6 +59,7 @@
     <ClInclude Include="AIMPSDK\apiTagEditor.h" />
     <ClInclude Include="AIMPSDK\apiThreading.h" />
     <ClInclude Include="AIMPSDK\apiVisuals.h" />
+    <ClInclude Include="SDK\GUI\AimpServiceUI.h" />
     <ClInclude Include="SDK\GUI\Controls\AimpUIControl.h" />
     <ClInclude Include="Extensions\AimpExtensionAlbumArtCatalog.h" />
     <ClInclude Include="AimpSdk.h" />
@@ -78,8 +79,14 @@
     <ClInclude Include="SDK\BaseManager.h" />
     <ClInclude Include="SDK\Configuration\AimpConfigurationManager.h" />
     <ClInclude Include="SDK\EventHelper.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIMouseEvents.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIMouseWheelEvents.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIPlacementEvents.h" />
     <ClInclude Include="SDK\GUI\Controls\AimpUIWinControl.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIKeyboardEvents.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIWndProcEvents.h" />
     <ClInclude Include="SDK\GUI\Controls\Form\AimpUIForm.h" />
+    <ClInclude Include="SDK\GUI\Controls\Form\AimpUIFormEvents.h" />
     <ClInclude Include="SDK\ManagedAimpCore.h" />
     <ClInclude Include="SDK\Menu\AimpMenuManager.h" />
     <ClInclude Include="SDK\Menu\ICallBackHeader.h" />

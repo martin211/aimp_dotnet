@@ -5,6 +5,7 @@
     using AIMP.SDK.ActionManager;
     using AIMP.SDK.AlbumArtManager;
     using AIMP.SDK.ConfigurationManager;
+    using AIMP.SDK.GUI;
     using AIMP.SDK.MenuManager;
     using AIMP.SDK.MUIManager;
     using AIMP.SDK.Options;
@@ -91,6 +92,10 @@
         IAimpPlaybackQueueService PlaybackQueueManager { get; }
 
         IAimpServiceOptionsDialog ServiceOptionsDialog { get; }
+
+        // ReSharper disable once InconsistentNaming
+        IAimpServiceUI ServiceUI { get; }
+        // ReSharper restore InconsistentNaming
 
         /// <summary>
         /// Gets or sets a value indicating whether the volume is mute.

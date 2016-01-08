@@ -5,7 +5,7 @@ namespace AIMP
 {
     namespace SDK
     {
-        AimpUIForm::AimpUIForm(IAIMPUIForm *aimpForm) : AimpUIWinControl(aimpForm)
+        AimpUIForm::AimpUIForm(IAIMPUIForm *aimpForm, IAIMPUIFormEvents *events) : AimpUIWinControl(aimpForm)
         {}
 
         String ^AimpUIForm::Caption::get()
@@ -111,6 +111,11 @@ namespace AIMP
         AimpModalResult AimpUIForm::ShowModal()
         {
             return (AimpModalResult)((IAIMPUIForm*)InternalAimpControl)->ShowModal();
+        }
+
+        void AimpUIForm::Show()
+        {
+            Visible = true;
         }
     }
 }
