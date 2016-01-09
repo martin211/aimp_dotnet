@@ -5,21 +5,33 @@ class AimpUIWndProcEvents : public IAIMPUIWndProcEvents
 {
 private:
     IUnknown* _base;
+    gcroot<AIMP::SDK::AimpUIWinControl^> _control;
+
 public:
     AimpUIWndProcEvents(IUnknown *base)
     {
         _base = base;
     }
 
+    void SetControl(AIMP::SDK::AimpUIWinControl ^control)
+    {
+        _control = control;
+    }
+
     virtual BOOL WINAPI OnBeforeWndProc(DWORD Message, WPARAM ParamW, LPARAM ParamL, LRESULT* Result)
     {
-        //System::Diagnostics::Debug::WriteLine("OnBeforeWndProc");
-        return false;
+        if (static_cast<AIMP::SDK::AimpUIWinControl^>(_control) != nullptr)
+        {
+            return _control->OnBeforeWndProcEvent(Message, ParamW, ParamL, Result);
+        }
     }
 
     virtual void WINAPI OnAfterWndProc(DWORD Message, WPARAM ParamW, LPARAM ParamL, LRESULT* Result)
     {
-        //System::Diagnostics::Debug::WriteLine("OnAfterWndProc");
+        if (static_cast<AIMP::SDK::AimpUIWinControl^>(_control) != nullptr)
+        {
+            return _control->OnAfterWndProcEvent(Message, ParamW, ParamL, Result);
+        }
     }
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)

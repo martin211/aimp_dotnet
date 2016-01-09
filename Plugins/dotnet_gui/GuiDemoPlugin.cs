@@ -1,5 +1,7 @@
 ﻿namespace DotnetGui
 {
+    using System.Diagnostics;
+
     using AIMP.SDK;
     using AIMP.SDK.GUI;
     using AIMP.SDK.GUI.Controls.Form;
@@ -25,6 +27,16 @@
                     form.ShowTasksBar = true;
                     form.CloseByEscape = true;
                     form.Show();
+
+                    form.OnCreated += control =>
+                        {
+                            Debugger.Break(); 
+                        };
+
+                    form.OnMouseDown += (control, clickArgs) =>
+                        {
+                            Debugger.Break();
+                        };
                 };
 
             Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, menuItem);

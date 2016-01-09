@@ -86,6 +86,43 @@ namespace AIMP
                 virtual void remove(AimpUIEventHandler<AimpAfterWndProcArgs^> ^onEvent);
                 virtual void raise(IAimpUIControl ^sender, AimpAfterWndProcArgs ^args);
             }
+
+        internal:
+            void OnEnterEvent(IAIMPUIWinControl *sender)
+            {
+                OnEnter(this);
+            }
+
+            void OnExitEvent(IAIMPUIWinControl *sender)
+            {
+                OnExit(this);
+            }
+
+            void OnKeyDownEvent(IAIMPUIWinControl *sender, WORD *key, WORD modifiers)
+            {
+                OnKeyDown(this, gcnew AimpKeyboardArgs((int)key, (AimpUIModifiers)modifiers));
+            }
+
+            void OnKeyUpEvent(IAIMPUIWinControl *sender, WORD *key, WORD modifiers)
+            {
+                OnKeyUp(this, gcnew AimpKeyboardArgs((int)key, (AimpUIModifiers)modifiers));
+            }
+
+            void OnKeyPressEvent(IAIMPUIWinControl *sender, WCHAR *key)
+            {
+                OnKeyPress(this, gcnew AimpKeyArgs((int)key));
+            }
+
+            bool OnBeforeWndProcEvent(DWORD message, WPARAM paramW, LPARAM paramL, LRESULT *resultL)
+            {
+                AimpBeforeWndProcArgs ^args = gcnew AimpBeforeWndProcArgs(message, paramW, paramL, (int)resultL);
+                return OnBeforeWndProc(this, args);
+            }
+
+            void OnAfterWndProcEvent(DWORD message, WPARAM paramW, LPARAM paramL, LRESULT *resultL)
+            {
+                OnAfterWndProc(this, gcnew AimpAfterWndProcArgs(message, paramW, paramL, (int)resultL));
+            }
         private:
             AimpUIEventHandler ^_onEnter;
             AimpUIEventHandler ^_onExit;

@@ -12,7 +12,7 @@ namespace AIMP
         ref class AimpUIForm : public AimpUIWinControl, public IAimpUIForm
         {
         public:
-            explicit AimpUIForm(IAIMPUIForm *aimpForm, IAIMPUIFormEvents *events);
+            explicit AimpUIForm(IAIMPUIForm *aimpForm);
 
             virtual property String ^Caption
             {
@@ -117,14 +117,54 @@ namespace AIMP
                 virtual void raise(IAimpUIControl ^sender, AimpFormShortCutArgs  ^args);
             }
 
-            private:
-                AimpUIEventHandler ^_onActivated;
-                AimpUIEventHandler ^_onDeactivated;
-                AimpUIEventHandler ^_onCreated;
-                AimpUIEventHandler ^_onDestroyed;
-                AimpUIEventHandler<AimpFormCloseQueryArgs^> ^_onCloseQuery;
-                AimpUIEventHandler ^_onLocalize;
-                AimpUIEventHandler<AimpFormShortCutArgs^> ^_onShortCut;
+        public:
+            void OnActivatedEvent(IAIMPUIForm *sender)
+            {
+                OnActivated(this);
+            }
+
+            void OnDeactivatedEvent(IAIMPUIForm *sender)
+            {
+                OnDeactivated(this);
+            }
+
+            void OnCreatedEvent(IAIMPUIForm *sender)
+            {
+                OnCreated(this);
+            }
+
+            void OnDestroyedEvent(IAIMPUIForm *sender)
+            {
+                OnDestroyed(this);
+            }
+
+            void OnLocalizeEvent(IAIMPUIForm *sender)
+            {
+                OnLocalize(this);
+            }
+
+            bool OnCloseQueryEvent(IAIMPUIForm *sender, BOOL *canClose)
+            {
+                AimpFormCloseQueryArgs ^args = gcnew AimpFormCloseQueryArgs();
+                OnCloseQuery(this, args);
+                return args->CanClose;
+            }
+
+            bool OnShortCutEvent(IAIMPUIForm *sender, WORD key, WORD modifiers, BOOL *handled)
+            {
+                AimpFormShortCutArgs ^args = gcnew AimpFormShortCutArgs((int)key, (AimpUIModifiers)modifiers, handled);
+                OnShortCut(this, args);
+                return args->Handled;
+            }
+
+        private:
+            AimpUIEventHandler ^_onActivated;
+            AimpUIEventHandler ^_onDeactivated;
+            AimpUIEventHandler ^_onCreated;
+            AimpUIEventHandler ^_onDestroyed;
+            AimpUIEventHandler<AimpFormCloseQueryArgs^> ^_onCloseQuery;
+            AimpUIEventHandler ^_onLocalize;
+            AimpUIEventHandler<AimpFormShortCutArgs^> ^_onShortCut;
         };
     }
 }

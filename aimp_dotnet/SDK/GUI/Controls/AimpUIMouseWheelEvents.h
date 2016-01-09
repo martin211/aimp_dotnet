@@ -5,6 +5,7 @@ class AimpUIMouseWheelEvents : IUnknownInterfaceImpl<IAIMPUIMouseWheelEvents>
 {
 private:
     IUnknown* _base;
+    gcroot<AIMP::SDK::AimpUIControl^> _control;
 
 public:
     AimpUIMouseWheelEvents(IUnknown *base)
@@ -12,9 +13,19 @@ public:
         _base = base;
     }
 
+    void SetControl(AIMP::SDK::AimpUIControl ^control)
+    {
+        _control = control;
+    }
+
     virtual BOOL WINAPI OnMouseWheel(IUnknown* Sender, int WheelDelta, int X, int Y, WORD Modifiers)
     {
         System::Diagnostics::Debug::WriteLine("OnMouseWheel");
+        if (static_cast<AIMP::SDK::AimpUIControl^>(_control) != nullptr)
+        {
+            _control->OnMouseWheelEvent((IAIMPUIControl*)Sender);
+        }
+
         return false;
     }
 

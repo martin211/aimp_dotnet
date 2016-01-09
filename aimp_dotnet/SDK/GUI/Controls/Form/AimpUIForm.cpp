@@ -5,8 +5,10 @@ namespace AIMP
 {
     namespace SDK
     {
-        AimpUIForm::AimpUIForm(IAIMPUIForm *aimpForm, IAIMPUIFormEvents *events) : AimpUIWinControl(aimpForm)
-        {}
+        AimpUIForm::AimpUIForm(IAIMPUIForm *aimpForm) : AimpUIWinControl(aimpForm)
+        {
+            
+        }
 
         String ^AimpUIForm::Caption::get()
         {

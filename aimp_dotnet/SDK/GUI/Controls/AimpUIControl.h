@@ -135,6 +135,46 @@ namespace AIMP
                     return _aimpObject;
                 }
             }
+
+            void OnMouseDoubleClickEvent(IAIMPUIControl *sender, TAIMPUIMouseButton Button, int X, int Y, WORD Modifiers)
+            {
+                OnMouseDoubleClick(this, gcnew AimpMouseClickArgs(PointF(X, Y), (AimpUIModifiers)Modifiers, (AimpUIMouseButton)Button));
+            }
+
+            void OnMouseDownEvent(IAIMPUIControl *sender, TAIMPUIMouseButton Button, int X, int Y, WORD Modifiers)
+            {
+                OnMouseDown(this, gcnew AimpMouseClickArgs(PointF(X, Y), (AimpUIModifiers)Modifiers, (AimpUIMouseButton)Button));
+            }
+
+            void OnMouseUpEvent(IAIMPUIControl *sender, TAIMPUIMouseButton Button, int X, int Y, WORD Modifiers)
+            {
+                OnMouseUp(this, gcnew AimpMouseClickArgs(PointF(X, Y), (AimpUIModifiers)Modifiers, (AimpUIMouseButton)Button));
+            }
+
+            void OnMouseLeaveEvent(IAIMPUIControl *sender)
+            {
+                OnMouseLeave(this);
+            }
+
+            void OnMouseWheelEvent(IAIMPUIControl *sender)
+            {
+                OnMouseWheel(this);
+            }
+
+            void OnBoundsChangedEvent(IAIMPUIControl *sender)
+            {
+                OnBoundsChanged(this);
+            }
+
+            void OnMouseMoveEvent(IAIMPUIControl *sender, int X, int Y, WORD Modifiers)
+            {
+                OnMouseMove(this, gcnew AimpMouseMoveArgs(PointF(X, Y), (AimpUIModifiers)Modifiers));
+            }
+
+            bool OnContextPopupEvent(IAIMPUIControl *sender, int X, int Y)
+            {
+                return OnContextPopup(this, gcnew AimpContextPopupArgs(PointF(X, Y)));
+            }
         private:
             AimpUIEventHandler<AimpMouseClickArgs^> ^_mouseDoubleClick;
             AimpUIEventHandler<AimpMouseClickArgs^> ^_mouseDown;

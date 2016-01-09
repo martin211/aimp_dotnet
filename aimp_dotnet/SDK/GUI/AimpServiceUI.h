@@ -38,12 +38,15 @@ namespace AIMP
                         (DWORD)flags, AimpConverter::MakeAimpString(_core->GetAimpCore(), name),
                         static_cast<AimpUIFormEvents::Base*>(formEvents),
                         &frm));
+
                 if (r != AimpActionResult::Ok)
                 {
                     return r;
                 }
 
-                form = gcnew AimpUIForm(frm, (IAIMPUIFormEvents*)formEvents);
+                AimpUIForm ^aimpForm = gcnew AimpUIForm(frm);
+                formEvents->SetFormControl(aimpForm);
+                form = aimpForm;
                 return r;
             }
 

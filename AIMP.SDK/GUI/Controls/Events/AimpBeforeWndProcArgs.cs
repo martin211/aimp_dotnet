@@ -10,5 +10,16 @@
         public int ParamL { get; set; }
 
         public int ResultL { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:System.EventArgs"/> class.
+        /// </summary>
+        public AimpBeforeWndProcArgs(int message, int paramW, int paramL, int resultL)
+        {
+            Message = message;
+            ParamW = paramW;
+            ParamL = paramL;
+            ResultL = resultL;
+        }
     }
 }

@@ -5,6 +5,7 @@ class AimpUIPlacementEvents : IUnknownInterfaceImpl<IAIMPUIPlacementEvents>
 {
 private:
     IUnknown* _base;
+    gcroot<AIMP::SDK::AimpUIControl^> _control;
 
 public:
     AimpUIPlacementEvents(IUnknown *base)
@@ -12,9 +13,18 @@ public:
         _base = base;
     }
 
+    void SetControl(AIMP::SDK::AimpUIControl ^control)
+    {
+        _control = control;
+    }
+
     virtual void WINAPI OnBoundsChanged(IUnknown* Sender)
     {
         System::Diagnostics::Debug::WriteLine("OnBoundsChanged");
+        if (static_cast<AIMP::SDK::AimpUIControl^>(_control) != nullptr)
+        {
+            _control->OnBoundsChangedEvent((IAIMPUIControl*)Sender);
+        }
     }
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
