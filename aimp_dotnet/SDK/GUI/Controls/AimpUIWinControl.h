@@ -9,12 +9,13 @@ namespace AIMP
     {
         using namespace System;
         using namespace System::Drawing;
+        using namespace AIMP::SDK::GUI;
         using namespace AIMP::SDK::GUI::Controls;
 
         public ref class AimpUIWinControl : public AimpUIControl, public IAimpUIWinControl
         {
         public:
-            explicit AimpUIWinControl(IAIMPUIWinControl *aimpObject);
+            explicit AimpUIWinControl(IAIMPUIWinControl *aimpObject, IAimpServiceUI ^serviceUI);
 
             virtual property bool Focused
             {
@@ -28,7 +29,8 @@ namespace AIMP
                 void set(int value);
             }
 
-            virtual AimpActionResult GetControl(AIMP::SDK::GUI::Controls::IAimpUIControl ^control, int index, String ^iid);
+            generic <typename TControl>
+            virtual AimpActionResult GetControl(TControl %control, int index);
 
             virtual int GetControlCount();
 

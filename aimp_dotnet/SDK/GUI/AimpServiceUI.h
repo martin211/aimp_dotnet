@@ -3,6 +3,7 @@
 
 #include ".\Controls\Form\AimpUIForm.h"
 #include ".\Controls\Form\AimpUIFormEvents.h"
+//#include ".\Controls\AimpUIBaseEdit.h"
 
 
 namespace AIMP
@@ -35,7 +36,8 @@ namespace AIMP
 
                 AimpActionResult r = Utils::CheckResult(
                     _service->CreateForm((HWND)ownerWindow.ToPointer(),
-                        (DWORD)flags, AimpConverter::MakeAimpString(_core->GetAimpCore(), name),
+                        (DWORD)flags, 
+                        AimpConverter::MakeAimpString(_core->GetAimpCore(), name),
                         static_cast<AimpUIFormEvents::Base*>(formEvents),
                         &frm));
 
@@ -44,20 +46,31 @@ namespace AIMP
                     return r;
                 }
 
-                AimpUIForm ^aimpForm = gcnew AimpUIForm(frm);
+                AimpUIForm ^aimpForm = gcnew AimpUIForm(frm, this);
                 formEvents->SetFormControl(aimpForm);
                 form = aimpForm;
                 return r;
             }
 
-
-            virtual AimpActionResult CreateControl(IAimpUIForm ^owner, IAimpUIWinControl ^parent, String ^name, AimpUIItem ^%item)
+            virtual AimpActionResult CreateObject(IAimpUIForm ^owner, AimpUIItem ^%item)
             {
                 return AimpActionResult::Ok;
             }
 
-            virtual AimpActionResult CreateObject(IAimpUIForm ^owner, AimpUIItem ^%item)
+            generic<typename TControl>
+            virtual AimpActionResult CreateControl(IAimpUIForm ^owner, IAimpUIWinControl ^parent, String ^name, TControl %item) override
             {
+                //if (static_cast<AIMP::SDK::GUI::Controls::AimpUIControlPlacement>(item) != nullptr)
+                //{
+                //    _service->CreateControl(
+                //        ((AimpUIForm^)owner)->InternalAimpControl, 
+                //        ((AimpUIWinControl^)parent)->InternalAimpControl, 
+                //        AimpConverter::MakeAimpString(_core->GetAimpCore(), name),
+                //        nullptr,
+                //        IID_TAIMPUIControlPlacement
+                //        )
+                //}
+
                 return AimpActionResult::Ok;
             }
         };

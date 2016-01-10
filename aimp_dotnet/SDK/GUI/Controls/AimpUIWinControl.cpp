@@ -5,7 +5,7 @@ namespace AIMP
 {
     namespace SDK
     {
-        AimpUIWinControl::AimpUIWinControl(IAIMPUIWinControl *control) : AimpUIControl(control)
+        AimpUIWinControl::AimpUIWinControl(IAIMPUIWinControl *control, IAimpServiceUI ^serviceUI) : AimpUIControl(control, serviceUI)
         {}
 
         bool AimpUIWinControl::Focused::get()
@@ -28,8 +28,10 @@ namespace AIMP
             AimpConverter::SetInt32(InternalAimpControl, AIMPUI_WINCONTROL_PROPID_TABORDER, value);
         }
 
-        AimpActionResult AimpUIWinControl::GetControl(AIMP::SDK::GUI::Controls::IAimpUIControl ^control, int index, String ^iid)
+        generic <typename TControl>
+        AimpActionResult AimpUIWinControl::GetControl(TControl %control, int index)
         {
+            //control = nullptr;
             return AimpActionResult::Ok;
         }
 

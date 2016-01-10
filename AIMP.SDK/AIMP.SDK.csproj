@@ -73,6 +73,7 @@
     <Compile Include="GUI\Controls\Events\AimpMouseMoveArgs.cs" />
     <Compile Include="GUI\Controls\Events\AimpMouseWheelArgs.cs" />
     <Compile Include="GUI\Controls\Events\AimpBeforeWndProcArgs.cs" />
+    <Compile Include="GUI\Controls\Events\IAimpUIChangeEvents.cs" />
     <Compile Include="GUI\Controls\Events\IAimpUIKeyboardEvents.cs" />
     <Compile Include="GUI\Controls\Events\IAimpUIMouseEvents.cs" />
     <Compile Include="GUI\Controls\Events\IAimpUIMouseWheelEvents.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="GUI\Controls\Form\AimpFormShortCutArgs.cs" />
     <Compile Include="GUI\Controls\Form\IAimpUIForm.cs" />
     <Compile Include="GUI\Controls\Form\IAimpUIFormEvents.cs" />
+    <Compile Include="GUI\Controls\IAimpUIBaseEdit.cs" />
     <Compile Include="GUI\Controls\IAimpUIControl.cs" />
     <Compile Include="GUI\Controls\IAimpUIMenuItem.cs" />
     <Compile Include="GUI\Controls\IAimpUIPopupMenu.cs" />

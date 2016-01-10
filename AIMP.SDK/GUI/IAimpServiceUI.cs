@@ -18,7 +18,7 @@
     {
         AimpActionResult CreateForm(IntPtr ownerWindow, CreateFormFlags flags, string name, out IAimpUIForm form);
 
-        AimpActionResult CreateControl(IAimpUIForm owner, IAimpUIWinControl parent, string name, out AimpUIItem item);
+        AimpActionResult CreateControl<TControl>(IAimpUIForm owner, IAimpUIWinControl parent, string name, out TControl item);
 
         AimpActionResult CreateObject(IAimpUIForm owner, out AimpUIItem item);
     }

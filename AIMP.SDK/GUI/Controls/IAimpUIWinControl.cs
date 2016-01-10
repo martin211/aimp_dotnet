@@ -11,7 +11,7 @@
 
         int TabOrder { get; set; }
 
-        AimpActionResult GetControl(IAimpUIControl control, int index, string iid);
+        AimpActionResult GetControl<TControl>(out TControl control, int index);
 
         int GetControlCount();
 

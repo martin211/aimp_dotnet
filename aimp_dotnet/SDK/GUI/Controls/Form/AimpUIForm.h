@@ -6,13 +6,14 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
+        using namespace AIMP::SDK::GUI;
         using namespace AIMP::SDK::GUI::Controls;
         using namespace AIMP::SDK::GUI::Controls::Form;
 
         ref class AimpUIForm : public AimpUIWinControl, public IAimpUIForm
         {
         public:
-            explicit AimpUIForm(IAIMPUIForm *aimpForm);
+            explicit AimpUIForm(IAIMPUIForm *aimpForm, IAimpServiceUI ^serviceUI);
 
             virtual property String ^Caption
             {

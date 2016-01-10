@@ -1,4 +1,5 @@
 #pragma once
+//#include "..\AimpServiceUI.h"
 
 namespace AIMP
 {
@@ -6,13 +7,25 @@ namespace AIMP
     {
         using namespace System;
         using namespace System::Drawing;
+        using namespace AIMP::SDK::GUI;
         using namespace AIMP::SDK::GUI::Controls;
         using namespace AIMP::SDK::GUI::Controls::Events;
 
         public ref class AimpUIControl : public AimpObject<IAIMPUIControl>, public IAimpUIControl
         {
+        private:
+            IAimpServiceUI ^_serviceUI;
+            AimpUIEventHandler<AimpMouseClickArgs^> ^_mouseDoubleClick;
+            AimpUIEventHandler<AimpMouseClickArgs^> ^_mouseDown;
+            AimpUIEventHandler<AimpMouseClickArgs^> ^_mouseUp;
+            AimpUIEventHandler^ _mouseLeave;
+            AimpUIEventHandler<AimpMouseMoveArgs^> ^_mouseMove;
+            AimpUIEventHandler ^_mouseWheel;
+            AimpUIEventHandler ^_boundsChanged;
+            AimpBoolUIEventHandler<AimpContextPopupArgs^> ^_contextPopup;
+
         public:
-            explicit AimpUIControl(IAIMPUIControl *aimpObject);
+            explicit AimpUIControl(IAIMPUIControl *aimpObject, IAimpServiceUI ^serviceUI);
 
             virtual property String ^CustomData
             {
@@ -175,15 +188,6 @@ namespace AIMP
             {
                 return OnContextPopup(this, gcnew AimpContextPopupArgs(PointF(X, Y)));
             }
-        private:
-            AimpUIEventHandler<AimpMouseClickArgs^> ^_mouseDoubleClick;
-            AimpUIEventHandler<AimpMouseClickArgs^> ^_mouseDown;
-            AimpUIEventHandler<AimpMouseClickArgs^> ^_mouseUp;
-            AimpUIEventHandler^ _mouseLeave;
-            AimpUIEventHandler<AimpMouseMoveArgs^> ^_mouseMove;
-            AimpUIEventHandler ^_mouseWheel;
-            AimpUIEventHandler ^_boundsChanged;
-            AimpBoolUIEventHandler<AimpContextPopupArgs^> ^_contextPopup;
         };
     }
 }

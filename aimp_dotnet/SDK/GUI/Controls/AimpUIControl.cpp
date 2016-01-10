@@ -2,12 +2,15 @@
 #include "AimpUIControl.h"
 #include "AimpUIWinControl.h"
 
+
 namespace AIMP
 {
     namespace SDK
     {
-        AimpUIControl::AimpUIControl(IAIMPUIControl *aimpObject) : AimpObject(aimpObject)
+        AimpUIControl::AimpUIControl(IAIMPUIControl *aimpObject, IAimpServiceUI ^serviceUI)
+            : AimpObject(aimpObject)
         {
+            _serviceUI = serviceUI;
         }
 
         String ^AimpUIControl::CustomData::get()
@@ -132,37 +135,77 @@ namespace AIMP
 
         AimpActionResult AimpUIControl::SetPlacement(AIMP::SDK::GUI::Controls::AimpUIControlPlacement placement)
         {
-            //_aimpObject->SetPlacement();
-            return AimpActionResult::Ok;
+            TAIMPUIControlPlacement *pl = new TAIMPUIControlPlacement();
+            pl->Alignment = (TAIMPUIControlAlignment)placement.Alignment;
+            pl->AlignmentMargins = RECT();
+            pl->AlignmentMargins.left = placement.AlignmentMargins.Left;
+            pl->AlignmentMargins.right = placement.AlignmentMargins.Right;
+            pl->AlignmentMargins.bottom = placement.AlignmentMargins.Bottom;
+            pl->AlignmentMargins.top = placement.AlignmentMargins.Top;
+
+            pl->Anchors = RECT();
+            pl->Anchors.left = placement.Anchors.Left;
+            pl->Anchors.right = placement.Anchors.Right;
+            pl->Anchors.bottom = placement.Anchors.Bottom;
+            pl->Anchors.top = placement.Anchors.Top;
+
+            pl->Bounds = RECT();
+            pl->Bounds.left = placement.Bounds.Left;
+            pl->Bounds.right = placement.Bounds.Right;
+            pl->Bounds.bottom = placement.Bounds.Bottom;
+            pl->Bounds.top = placement.Bounds.Top;
+
+            return CheckResult(_aimpObject->SetPlacement(pl));
         }
 
         AimpActionResult AimpUIControl::SetPlacementConstraints(AimpUIControlPlacementConstraints placementConstraints)
         {
-            return AimpActionResult::Ok;
+            TAIMPUIControlPlacementConstraints *pl = new TAIMPUIControlPlacementConstraints();
+
+            pl->MaxHeight = placementConstraints.MaxHeight;
+            pl->MaxWidth = placementConstraints.MaxWidth;
+            pl->MinHeight = placementConstraints.MinHeight;
+            pl->MinWidth = placementConstraints.MinWidth;
+
+            return CheckResult(_aimpObject->SetPlacementConstraints(pl));
         }
 
         AimpActionResult AimpUIControl::ClientToScreen(PointF %point)
         {
-            PointF ^p = gcnew PointF();
-            point = *p;
-            return AimpActionResult::Ok;
+            POINT *p = NULL;
+            AimpActionResult result = CheckResult(_aimpObject->ClientToScreen(p));
+
+            if (result != AimpActionResult::Ok)
+            {
+                return result;
+            }
+
+            point = PointF(p->x, p->y);
+            return result;
         }
 
         AimpActionResult AimpUIControl::ScreenToClient(PointF %point)
         {
-            PointF ^p = gcnew PointF();
-            point = *p;
-            return AimpActionResult::Ok;
+            POINT *p = NULL;
+            AimpActionResult result = CheckResult(_aimpObject->ScreenToClient(p));
+
+            if (result != AimpActionResult::Ok)
+            {
+                return result;
+            }
+
+            point = PointF(p->x, p->y);
+            return result;
         }
 
         AimpActionResult AimpUIControl::Invalidate()
         {
-            return AimpActionResult::Ok;
+            return CheckResult(_aimpObject->Invalidate());
         }
 
         AimpActionResult AimpUIControl::PaintTo(IntPtr parent, int x, int y)
         {
-            return AimpActionResult::Ok;
+            return CheckResult(_aimpObject->PaintTo((HDC)parent.ToPointer(), x, y));
         }
 
 

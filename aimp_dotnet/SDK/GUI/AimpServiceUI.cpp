@@ -26,6 +26,11 @@ namespace AIMP
             return AimpActionResult::Ok;
         }
 
+        AIMP::SDK::AimpActionResult AimpServiceUI::CreateControl(IAimpUIForm owner, IAimpUIWinControl parent, string name, out TControl item)
+        {
+            throw gcnew System::NotImplementedException();
+        }
+
         AimpActionResult AimpServiceUI::CreateObject(AIMP::SDK::GUI::Controls::Form::IAimpUIForm ^owner, AimpUIItem ^%item)
         {
             return AimpActionResult::Ok;
