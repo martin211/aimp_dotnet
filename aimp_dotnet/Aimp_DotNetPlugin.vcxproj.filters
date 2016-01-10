@@ -16,6 +16,7 @@
     <ClCompile Include="SDK\GUI\Controls\AimpUIWinControl.cpp" />
     <ClCompile Include="SDK\GUI\Controls\Form\AimpUIForm.cpp" />
     <ClCompile Include="SDK\GUI\Controls\AimpUIBaseEdit.cpp" />
+    <ClCompile Include="SDK\GUI\Controls\AimpUIBaseButtonnedEdit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AIMPSDK\apiActions.h" />
@@ -90,6 +91,7 @@
     <ClInclude Include="SDK\GUI\Controls\AimpUIWndProcEvents.h" />
     <ClInclude Include="SDK\GUI\Controls\AimpUIKeyboardEvents.h" />
     <ClInclude Include="SDK\GUI\Controls\AimpUIBaseEdit.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIBaseButtonnedEdit.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc" />

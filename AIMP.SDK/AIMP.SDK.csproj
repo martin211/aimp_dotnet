@@ -84,8 +84,11 @@
     <Compile Include="GUI\Controls\Form\AimpFormShortCutArgs.cs" />
     <Compile Include="GUI\Controls\Form\IAimpUIForm.cs" />
     <Compile Include="GUI\Controls\Form\IAimpUIFormEvents.cs" />
+    <Compile Include="GUI\Controls\IAimpUIBaseButtonnedEdit.cs" />
     <Compile Include="GUI\Controls\IAimpUIBaseEdit.cs" />
     <Compile Include="GUI\Controls\IAimpUIControl.cs" />
+    <Compile Include="GUI\Controls\IAimpUIEditButton.cs" />
+    <Compile Include="GUI\Controls\IAimpUIImageList.cs" />
     <Compile Include="GUI\Controls\IAimpUIMenuItem.cs" />
     <Compile Include="GUI\Controls\IAimpUIPopupMenu.cs" />
     <Compile Include="GUI\Controls\IAimpUIWinControl.cs" />
