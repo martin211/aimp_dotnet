@@ -3,7 +3,7 @@
 
 #include ".\Controls\Form\AimpUIForm.h"
 #include ".\Controls\Form\AimpUIFormEvents.h"
-//#include ".\Controls\AimpUIBaseEdit.h"
+#include ".\Controls\AimpUIBaseEdit.h"
 
 
 namespace AIMP

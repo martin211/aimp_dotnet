@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AimpDotnetPlugin.cpp" />
+    <ClCompile Include="SDK\GUI\Controls\AimpUIBaseEdit.cpp" />
     <ClCompile Include="SDK\GUI\Controls\AimpUIControl.cpp" />
     <ClCompile Include="DotNetPlugin.cpp" />
     <ClCompile Include="Extensions\AimpExtensionAlbumArtCatalog.cpp" />
@@ -60,6 +61,7 @@
     <ClInclude Include="AIMPSDK\apiThreading.h" />
     <ClInclude Include="AIMPSDK\apiVisuals.h" />
     <ClInclude Include="SDK\GUI\AimpServiceUI.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIBaseEdit.h" />
     <ClInclude Include="SDK\GUI\Controls\AimpUIControl.h" />
     <ClInclude Include="Extensions\AimpExtensionAlbumArtCatalog.h" />
     <ClInclude Include="AimpSdk.h" />
