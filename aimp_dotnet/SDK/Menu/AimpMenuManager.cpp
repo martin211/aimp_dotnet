@@ -4,344 +4,359 @@
 
 namespace AIMP
 {
-	namespace SDK
-	{
-		/// <summary>
-		/// Somes the callback proxy.
-		/// </summary>
-		/// <param name="This">The this.</param>
-		void SomeCallbackProxy(gcroot<MenuItem^> This)
-		{
-			This->OnClick();
-		}
+    namespace SDK
+    {
+        /// <summary>
+        /// Somes the callback proxy.
+        /// </summary>
+        /// <param name="This">The this.</param>
+        void SomeCallbackProxy(gcroot<MenuItem^> This)
+        {
+            This->OnClick();
+        }
 
-		void BeforeShowCallback(gcroot<MenuItem^> This)
-		{
-			This->OnBeforeShow();
-		}
+        void BeforeShowCallback(gcroot<MenuItem^> This)
+        {
+            This->OnBeforeShow();
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ServiceMenuManager"/> class.
-		/// </summary>
-		/// <param name="core">The core.</param>
-		AimpMenuManager::AimpMenuManager(ManagedAimpCore^ core) : AimpBaseManager(core)
-		{
-			IAIMPServiceMenuManager* menuManager;
-			ManagedAimpCore::GetAimpCore()->QueryInterface(IID_IAIMPServiceMenuManager, (void**)&menuManager);
-			_aimpMenuManager = menuManager;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ServiceMenuManager"/> class.
+        /// </summary>
+        /// <param name="core">The core.</param>
+        AimpMenuManager::AimpMenuManager(ManagedAimpCore^ core) : AimpBaseManager(core)
+        {
+            IAIMPServiceMenuManager* menuManager;
+            ManagedAimpCore::GetAimpCore()->QueryInterface(IID_IAIMPServiceMenuManager, (void**)&menuManager);
+            _aimpMenuManager = menuManager;
+            _aimpActionManager = (IAIMPServiceActionManager*)core->QueryInterface(IID_IAIMPServiceActionManager);
+        }
 
-			_aimpActionManager = (IAIMPServiceActionManager*)core->QueryInterface(IID_IAIMPServiceActionManager);
-		}
+        AimpMenuManager::~AimpMenuManager()
+        {
+            System::Diagnostics::Debug::WriteLine("Dispose AimpMenuManager");
+            _aimpMenuManager->Release();
+            _aimpActionManager->Release();
+            //delete _aimpMenuManager;
+            //delete _aimpActionManager;
+        }
 
-		/// <summary>
-		/// Adds the menu item.
-		/// </summary>
-		/// <param name="parentMenuType">Type of the parent menu.</param>
-		/// <param name="items">The items.</param>
-		void AimpMenuManager::AddRange(ParentMenuType parentMenuType, MenuItemCollection^ items)
-		{
-			// gets the parent menu item. 
-			IAIMPMenuItem* parentMenu;
-			_aimpMenuManager->GetBuiltIn((int)parentMenuType, &parentMenu);
+        AimpMenuManager::!AimpMenuManager()
+        {
+            this->~AimpMenuManager();
+        }
 
-			if (parentMenu == nullptr || items->Count == 0)
-			{
-				return;
-			}
+        /// <summary>
+        /// Adds the menu item.
+        /// </summary>
+        /// <param name="parentMenuType">Type of the parent menu.</param>
+        /// <param name="items">The items.</param>
+        void AimpMenuManager::AddRange(ParentMenuType parentMenuType, MenuItemCollection^ items)
+        {
+            // gets the parent menu item. 
+            IAIMPMenuItem* parentMenu;
+            _aimpMenuManager->GetBuiltIn((int)parentMenuType, &parentMenu);
 
-			for each(MenuItem^ item in items)
-			{
-				RegisterMenu(parentMenu, item);
-			}
-		}
+            if (parentMenu == nullptr || items->Count == 0)
+            {
+                return;
+            }
 
-		/// <summary>
-		/// Adds the menu item.
-		/// </summary>
-		/// <param name="parentMenuType">Type of the parent menu.</param>
-		/// <param name="item">The item.</param>
-		void AimpMenuManager::Add(ParentMenuType parentMenuType, MenuItem^ item)
-		{
-			// gets the parent menu item. 
-			IAIMPMenuItem* parentMenu;
-			_aimpMenuManager->GetBuiltIn((int)parentMenuType, &parentMenu);
+            for each(MenuItem^ item in items)
+            {
+                RegisterMenu(parentMenu, item);
+            }
+        }
 
-			if (parentMenu == nullptr)
-			{
-				return;
-			}
+        /// <summary>
+        /// Adds the menu item.
+        /// </summary>
+        /// <param name="parentMenuType">Type of the parent menu.</param>
+        /// <param name="item">The item.</param>
+        void AimpMenuManager::Add(ParentMenuType parentMenuType, MenuItem^ item)
+        {
+            // gets the parent menu item. 
+            IAIMPMenuItem* parentMenu;
+            _aimpMenuManager->GetBuiltIn((int)parentMenuType, &parentMenu);
 
-			RegisterMenu(parentMenu, item);
-		}
+            if (parentMenu == nullptr)
+            {
+                return;
+            }
 
-		/// <summary>
-		/// Deletes the menu item.
-		/// </summary>
-		/// <param name="item">The item.</param>
-		void AimpMenuManager::Delete(MenuItem^ item)
-		{
-			if (String::IsNullOrWhiteSpace(item->Id))
-			{
-				return;
-			}
+            RegisterMenu(parentMenu, item);
+        }
 
-			Delete(item->Id);
-		}
+        /// <summary>
+        /// Deletes the menu item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        void AimpMenuManager::Delete(MenuItem^ item)
+        {
+            if (String::IsNullOrWhiteSpace(item->Id))
+            {
+                return;
+            }
 
-		/// <summary>
-		/// Deletes the menu item.
-		/// </summary>
-		/// <param name="id">The identifier.</param>
-		void AimpMenuManager::Delete(String^ id)
-		{
-			if (String::IsNullOrWhiteSpace(id))
-			{
-				return;
-			}
+            Delete(item->Id);
+        }
 
-			IAIMPString* idString = Converter::MakeAimpString(_core->GetAimpCore(), id);
-			IAIMPMenuItem *aimpMenuItem;
-			_aimpMenuManager->GetByID(idString, &aimpMenuItem);
+        /// <summary>
+        /// Deletes the menu item.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        void AimpMenuManager::Delete(String^ id)
+        {
+            if (String::IsNullOrWhiteSpace(id))
+            {
+                return;
+            }
 
-			if (aimpMenuItem == NULL)
-			{
-				return;
-			}
+            IAIMPString* idString = Converter::MakeAimpString(_core->GetAimpCore(), id);
+            IAIMPMenuItem *aimpMenuItem;
+            _aimpMenuManager->GetByID(idString, &aimpMenuItem);
 
-			UnregisterMenu(aimpMenuItem);
-		}
+            if (aimpMenuItem == NULL)
+            {
+                return;
+            }
 
-		/// <summary>
-		/// Deletes the specified items.
-		/// </summary>
-		/// <param name="items">The items.</param>
-		void AimpMenuManager::Delete(MenuItemCollection^ items)
-		{
-			if (items != nullptr)
-			{
-				for each (MenuItem^ item in items)
-				{
-					Delete(item);
-				}
-			}
-		}
+            UnregisterMenu(aimpMenuItem);
+        }
 
-		MenuItem^ AimpMenuManager::GetById(String^ id)
-		{
-			if (String::IsNullOrWhiteSpace(id))
-			{
-				return nullptr;
-			}
+        /// <summary>
+        /// Deletes the specified items.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        void AimpMenuManager::Delete(MenuItemCollection^ items)
+        {
+            if (items != nullptr)
+            {
+                for each (MenuItem^ item in items)
+                {
+                    Delete(item);
+                }
+            }
+        }
 
-			IAIMPString* menuId = Converter::MakeAimpString(_core->GetAimpCore(), id);
-			IAIMPMenuItem *aimpMenuItem;
-			_aimpMenuManager->GetByID(menuId, &aimpMenuItem);
+        MenuItem^ AimpMenuManager::GetById(String^ id)
+        {
+            if (String::IsNullOrWhiteSpace(id))
+            {
+                return nullptr;
+            }
 
-			if (aimpMenuItem == NULL)
-			{
-				return nullptr;
-			}
+            IAIMPString* menuId = Converter::MakeAimpString(_core->GetAimpCore(), id);
+            IAIMPMenuItem *aimpMenuItem;
+            _aimpMenuManager->GetByID(menuId, &aimpMenuItem);
 
-			MenuItem^ result;
+            if (aimpMenuItem == NULL)
+            {
+                return nullptr;
+            }
 
-			int menuType;
-			aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, &menuType);
+            MenuItem^ result;
 
-			int checked;
-			aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_CHECKED, &checked);
+            int menuType;
+            aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, &menuType);
 
-			IAIMPString* idString;
-			IAIMPString* nameString;
-			aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_ID, IID_IAIMPString, (void**)&idString);
-			aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_NAME, IID_IAIMPString, (void**)&nameString);
+            int checked;
+            aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_CHECKED, &checked);
 
-			if (menuType == AIMP_MENUITEM_STYLE_CHECKBOX)
-			{
-				result = gcnew CheckBoxMenuItem(gcnew String(nameString->GetData()));
-				((CheckBoxMenuItem^)result)->Checked = checked > 0;
-			}
-			else if (menuType == AIMP_MENUITEM_STYLE_RADIOBOX)
-			{
-				result = gcnew RadioButtonMenuItem(gcnew String(nameString->GetData()));
-				((RadioButtonMenuItem^)result)->Checked = checked > 0;
-			}
-			else if (menuType == AIMP_MENUITEM_STYLE_NORMAL)
-			{
-				result = gcnew StandartMenuItem(gcnew String(nameString->GetData()));
-			}
+            IAIMPString* idString;
+            IAIMPString* nameString;
+            aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_ID, IID_IAIMPString, (void**)&idString);
+            aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_NAME, IID_IAIMPString, (void**)&nameString);
 
-			result->Id = gcnew String(idString->GetData());
-			int visible;
+            if (menuType == AIMP_MENUITEM_STYLE_CHECKBOX)
+            {
+                result = gcnew CheckBoxMenuItem(gcnew String(nameString->GetData()));
+                ((CheckBoxMenuItem^)result)->Checked = checked > 0;
+            }
+            else if (menuType == AIMP_MENUITEM_STYLE_RADIOBOX)
+            {
+                result = gcnew RadioButtonMenuItem(gcnew String(nameString->GetData()));
+                ((RadioButtonMenuItem^)result)->Checked = checked > 0;
+            }
+            else if (menuType == AIMP_MENUITEM_STYLE_NORMAL)
+            {
+                result = gcnew StandartMenuItem(gcnew String(nameString->GetData()));
+            }
 
-			aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_VISIBLE, &visible);
+            result->Id = gcnew String(idString->GetData());
+            int visible;
 
-			result->Visible = visible > 0;
+            aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_VISIBLE, &visible);
 
-			return result;
-		}
+            result->Visible = visible > 0;
 
-		MenuItem ^AimpMenuManager::GetBuiltIn(ParentMenuType parentMenuType)
-		{
-			IAIMPMenuItem *aimpMenuItem = nullptr;
-			if (CheckResult(_aimpMenuManager->GetBuiltIn((int)parentMenuType, &aimpMenuItem)) == AimpActionResult::Ok)
-			{
-				return Converter::ConvertToMenu(aimpMenuItem);
-			}
+            return result;
+        }
 
-			return nullptr;
-		}
+        MenuItem ^AimpMenuManager::GetBuiltIn(ParentMenuType parentMenuType)
+        {
+            IAIMPMenuItem *aimpMenuItem = nullptr;
+            if (CheckResult(_aimpMenuManager->GetBuiltIn((int)parentMenuType, &aimpMenuItem)) == AimpActionResult::Ok)
+            {
+                return Converter::ConvertToMenu(aimpMenuItem);
+            }
 
-		/*** Private */
-		/// <summary>
-		/// Registers the menu.
-		/// </summary>
-		/// <param name="parentMenuItem">The parent menu item.</param>
-		/// <param name="menuItem">The menu item.</param>
-		void AimpMenuManager::RegisterMenu(IAIMPMenuItem* parentMenuItem, MenuItem^ menuItem)
-		{
-			IAIMPMenuItem *newItem = Converter::CreateMenuItem(_core->GetAimpCore());
+            return nullptr;
+        }
 
-			if (newItem == NULL)
-			{
-				return;
-			}
+        /*** Private */
+        /// <summary>
+        /// Registers the menu.
+        /// </summary>
+        /// <param name="parentMenuItem">The parent menu item.</param>
+        /// <param name="menuItem">The menu item.</param>
+        void AimpMenuManager::RegisterMenu(IAIMPMenuItem* parentMenuItem, MenuItem^ menuItem)
+        {
+            IAIMPMenuItem *newItem = Converter::CreateMenuItem(_core->GetAimpCore());
 
-			menuItem->PropertyChanged += gcnew System::ComponentModel::PropertyChangedEventHandler(this, &AIMP::AimpMenuManager::OnPropertyChanged);
+            if (newItem == NULL)
+            {
+                return;
+            }
 
-			IAIMPString* idString = Converter::MakeAimpString(_core->GetAimpCore(), menuItem->Id);
+            menuItem->PropertyChanged += gcnew System::ComponentModel::PropertyChangedEventHandler(this, &AIMP::AimpMenuManager::OnPropertyChanged);
 
-			newItem->SetValueAsObject(AIMP_MENUITEM_PROPID_ID, idString);
-			newItem->SetValueAsObject(AIMP_MENUITEM_PROPID_PARENT, parentMenuItem);
+            IAIMPString* idString = Converter::MakeAimpString(_core->GetAimpCore(), menuItem->Id);
+
+            newItem->SetValueAsObject(AIMP_MENUITEM_PROPID_ID, idString);
+            newItem->SetValueAsObject(AIMP_MENUITEM_PROPID_PARENT, parentMenuItem);
 
 
-			// setup property for checkbox menu item.
-			if (menuItem->GetType() == CheckBoxMenuItem::typeid)
-			{
-				newItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, AIMP_MENUITEM_STYLE_CHECKBOX);
-			}
-			else if (menuItem->GetType() == RadioButtonMenuItem::typeid)
-			{
-				newItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, AIMP_MENUITEM_STYLE_RADIOBOX);
-			}
-			else
-			{
-				newItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, AIMP_MENUITEM_STYLE_NORMAL);
-			}
+            // setup property for checkbox menu item.
+            if (menuItem->GetType() == CheckBoxMenuItem::typeid)
+            {
+                newItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, AIMP_MENUITEM_STYLE_CHECKBOX);
+            }
+            else if (menuItem->GetType() == RadioButtonMenuItem::typeid)
+            {
+                newItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, AIMP_MENUITEM_STYLE_RADIOBOX);
+            }
+            else
+            {
+                newItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, AIMP_MENUITEM_STYLE_NORMAL);
+            }
 
-			MenuItemEvent* itemEvent = new MenuItemEvent();
-			if (newItem->SetValueAsObject(AIMP_MENUITEM_PROPID_EVENT, itemEvent) == S_OK)
-			{
-				EventCallback *callback = new EventCallback;
-				*callback = itemEvent->RegisterCallback(boost::bind(SomeCallbackProxy, gcroot<MenuItem^>(menuItem)));
+            MenuItemEvent* itemEvent = new MenuItemEvent();
+            if (newItem->SetValueAsObject(AIMP_MENUITEM_PROPID_EVENT, itemEvent) == S_OK)
+            {
+                EventCallback *callback = new EventCallback;
+                *callback = itemEvent->RegisterCallback(boost::bind(SomeCallbackProxy, gcroot<MenuItem^>(menuItem)));
 
-				menuItem->AimpMenuItemHeader = IntPtr::IntPtr(newItem);// System::Runtime::InteropServices::Marshal::GetIUnknownForObject(newItem);
+                menuItem->AimpMenuItemHeader = IntPtr::IntPtr(newItem);// System::Runtime::InteropServices::Marshal::GetIUnknownForObject(newItem);
 
-				// register on subitems evnts.
-				menuItem->ChildItems->ItemAdded += gcnew AIMP::SDK::UI::MenuItem::ItemAddedHandler(this, &AIMP::SDK::AimpMenuManager::OnSubitemAdded);
-			}
+                // register on subitems evnts.
+                menuItem->ChildItems->ItemAdded += gcnew AIMP::SDK::UI::MenuItem::ItemAddedHandler(this, &AIMP::SDK::AimpMenuManager::OnSubitemAdded);
+            }
 
-			MenuItemEvent* beforeShowEvent = new MenuItemEvent();
-			if (newItem->SetValueAsObject(AIMP_MENUITEM_PROPID_EVENT_ONSHOW, beforeShowEvent) == S_OK)
-			{
-				EventCallback *callbackBeforeShow = new EventCallback;
-				*callbackBeforeShow = beforeShowEvent->RegisterCallback(boost::bind(BeforeShowCallback, gcroot<MenuItem^>(menuItem)));
-			}
+            MenuItemEvent* beforeShowEvent = new MenuItemEvent();
+            if (newItem->SetValueAsObject(AIMP_MENUITEM_PROPID_EVENT_ONSHOW, beforeShowEvent) == S_OK)
+            {
+                EventCallback *callbackBeforeShow = new EventCallback;
+                *callbackBeforeShow = beforeShowEvent->RegisterCallback(boost::bind(BeforeShowCallback, gcroot<MenuItem^>(menuItem)));
+            }
 
-			FillMenuData(newItem, menuItem);
+            FillMenuData(newItem, menuItem);
 
             // TODO: FIX IT!
-			//_core->RegisterExtension(IID_IAIMPServiceMenuManager, newItem);
+            //_core->RegisterExtension(IID_IAIMPServiceMenuManager, newItem);
 
-			if (menuItem->ChildItems != nullptr && menuItem->ChildItems->Count > 0)
-			{
-				for each(MenuItem^ item in menuItem->ChildItems)
-				{
-					RegisterMenu(newItem, item);
-				}
-			}
-		}
+            if (menuItem->ChildItems != nullptr && menuItem->ChildItems->Count > 0)
+            {
+                for each(MenuItem^ item in menuItem->ChildItems)
+                {
+                    RegisterMenu(newItem, item);
+                }
+            }
+        }
 
-		/// <summary>
-		/// Fills the menu data.
-		/// </summary>
-		/// <param name="aimpMenuItem">The aimp menu item.</param>
-		/// <param name="menuItem">The menu item.</param>
-		void AimpMenuManager::FillMenuData(IAIMPMenuItem* aimpMenuItem, MenuItem^ menuItem)
-		{
-			aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_NAME, Converter::MakeAimpString(_core->GetAimpCore(), menuItem->Text));
-			aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_VISIBLE, menuItem->Visible ? 1 : 0);
-			aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_ENABLED, menuItem->Enabled ? 1 : 0);
-			if (menuItem->GetType() == CheckBoxMenuItem::typeid)
-			{
-				aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_CHECKED, ((CheckedMenuItem^)menuItem)->Checked ? 1 : 0);
-			}
-			else if (menuItem->GetType() == RadioButtonMenuItem::typeid)
-			{
-				aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_CHECKED, ((CheckedMenuItem^)menuItem)->Checked ? 1 : 0);
-			}
+        /// <summary>
+        /// Fills the menu data.
+        /// </summary>
+        /// <param name="aimpMenuItem">The aimp menu item.</param>
+        /// <param name="menuItem">The menu item.</param>
+        void AimpMenuManager::FillMenuData(IAIMPMenuItem* aimpMenuItem, MenuItem^ menuItem)
+        {
+            aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_NAME, Converter::MakeAimpString(_core->GetAimpCore(), menuItem->Text));
+            aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_VISIBLE, menuItem->Visible ? 1 : 0);
+            aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_ENABLED, menuItem->Enabled ? 1 : 0);
+            if (menuItem->GetType() == CheckBoxMenuItem::typeid)
+            {
+                aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_CHECKED, ((CheckedMenuItem^)menuItem)->Checked ? 1 : 0);
+            }
+            else if (menuItem->GetType() == RadioButtonMenuItem::typeid)
+            {
+                aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_CHECKED, ((CheckedMenuItem^)menuItem)->Checked ? 1 : 0);
+            }
 
-			if (menuItem->ActionItem != nullptr)
-			{
-				aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_ACTION, Converter::CreateActionItem(_core->GetAimpCore(), (AIMP::SDK::UI::ActionItem::AimpActionItem^)menuItem->ActionItem));
-			}
+            if (menuItem->ActionItem != nullptr)
+            {
+                aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_ACTION, Converter::CreateActionItem(_core->GetAimpCore(), (AIMP::SDK::UI::ActionItem::AimpActionItem^)menuItem->ActionItem));
+            }
 
-			if (menuItem->Image != nullptr)
-			{
-				aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_GLYPH, Converter::CreateImage(menuItem->Image));
-			}
-		}
+            if (menuItem->Image != nullptr)
+            {
+                aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_GLYPH, Converter::CreateImage(menuItem->Image));
+            }
+        }
 
-		/// <summary>
-		/// Updates the menu item.
-		/// </summary>
-		/// <param name="menuItem">The menu item.</param>
-		void AimpMenuManager::UpdateMenuItem(MenuItem^ menuItem)
-		{
-			if (String::IsNullOrWhiteSpace(menuItem->Id))
-			{
-				return;
-			}
+        /// <summary>
+        /// Updates the menu item.
+        /// </summary>
+        /// <param name="menuItem">The menu item.</param>
+        void AimpMenuManager::UpdateMenuItem(MenuItem^ menuItem)
+        {
+            if (String::IsNullOrWhiteSpace(menuItem->Id))
+            {
+                return;
+            }
 
-			IAIMPString* id = Converter::MakeAimpString(_core->GetAimpCore(), menuItem->Id);
-			IAIMPMenuItem *aimpMenuItem;
-			_aimpMenuManager->GetByID(id, &aimpMenuItem);
+            IAIMPString* id = Converter::MakeAimpString(_core->GetAimpCore(), menuItem->Id);
+            IAIMPMenuItem *aimpMenuItem;
+            _aimpMenuManager->GetByID(id, &aimpMenuItem);
+            id->Release();
 
-			if (aimpMenuItem == NULL)
-			{
-				return;
-			}
+            if (aimpMenuItem == NULL)
+            {
+                return;
+            }
 
-			FillMenuData(aimpMenuItem, menuItem);
-		}
+            FillMenuData(aimpMenuItem, menuItem);
+            aimpMenuItem->Release();
+        }
 
-		/// <summary>
-		/// Unregisters the menu.
-		/// </summary>
-		/// <param name="menuItem">The menu item.</param>
-		void AimpMenuManager::UnregisterMenu(IAIMPMenuItem* menuItem)
-		{
-			_core->UnregisterExtension(menuItem);
-		}
+        /// <summary>
+        /// Unregisters the menu.
+        /// </summary>
+        /// <param name="menuItem">The menu item.</param>
+        void AimpMenuManager::UnregisterMenu(IAIMPMenuItem* menuItem)
+        {
+            _core->UnregisterExtension(menuItem);
+        }
 
-		/// <summary>
-		/// Called when [property changed].
-		/// </summary>
-		/// <param name="sender">The sender.</param>
-		/// <param name="e">The e.</param>
-		void AimpMenuManager::OnPropertyChanged(System::Object ^sender, System::ComponentModel::PropertyChangedEventArgs ^e)
-		{
-			UpdateMenuItem((MenuItem^)sender);
-		}
+        /// <summary>
+        /// Called when [property changed].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        void AimpMenuManager::OnPropertyChanged(System::Object ^sender, System::ComponentModel::PropertyChangedEventArgs ^e)
+        {
+            UpdateMenuItem((MenuItem^)sender);
+        }
 
 
-		void AimpMenuManager::OnSubitemAdded(MenuItem ^parent, MenuItem ^item)
-		{
-			RegisterMenu((IAIMPMenuItem*)parent->AimpMenuItemHeader.ToPointer(), item);
-		}
+        void AimpMenuManager::OnSubitemAdded(MenuItem ^parent, MenuItem ^item)
+        {
+            RegisterMenu((IAIMPMenuItem*)parent->AimpMenuItemHeader.ToPointer(), item);
+        }
 
-		void AimpMenuManager::OnSubItemDeleted(System::Object ^item)
-		{
-			UpdateMenuItem((MenuItem^)item);
-		}
-	}
+        void AimpMenuManager::OnSubItemDeleted(System::Object ^item)
+        {
+            UpdateMenuItem((MenuItem^)item);
+        }
+    }
 }

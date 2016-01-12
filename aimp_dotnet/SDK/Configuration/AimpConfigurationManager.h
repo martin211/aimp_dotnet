@@ -4,104 +4,129 @@
 
 namespace AIMP
 {
-	namespace SDK
-	{
-		using namespace System;
-		using namespace AIMP::SDK::ConfigurationManager;
+    namespace SDK
+    {
+        using namespace System;
+        using namespace AIMP::SDK::ConfigurationManager;
 
-		public ref class AimpConfigurationManager : public AimpBaseManager, public IAimpConfigurationManager
-		{
-		public:
-			explicit AimpConfigurationManager(ManagedAimpCore^ core) : AimpBaseManager(core)
-			{
-				IAIMPServiceConfig* service;
-				core->GetService(IID_IAIMPServiceConfig, (void**) &service);
-				_service = service;
-			}
+        public ref class AimpConfigurationManager : public AimpBaseManager, public IAimpConfigurationManager
+        {
+        public:
+            explicit AimpConfigurationManager(ManagedAimpCore^ core) : AimpBaseManager(core)
+            {
+                IAIMPServiceConfig* service;
+                core->GetService(IID_IAIMPServiceConfig, (void**)&service);
+                _service = service;
+            }
 
-			virtual void Delete(String^ key)
-			{
-				_service->Delete(Converter::MakeAimpString(_core->GetAimpCore(), key));
-			}
+            ~AimpConfigurationManager()
+            {
+                _service->Release();
+            }
 
-			virtual void FlushCache()
-			{
-				CheckResult(_service->FlushCache());
-			}
+            virtual void Delete(String^ key)
+            {
+                IAIMPString *s = Converter::MakeAimpString(_core->GetAimpCore(), key);
+                _service->Delete(s);
+                s->Release();
+            }
 
-			virtual double GetValueAsFloat(String^ key)
-			{
-				double value;
-				CheckResult(_service->GetValueAsFloat(Converter::MakeAimpString(_core->GetAimpCore(), key), &value));
-				return value;
-			}
+            virtual void FlushCache()
+            {
+                CheckResult(_service->FlushCache());
+            }
 
-			virtual int GetValueAsInt32(String^ key)
-			{
-				int value;
-				CheckResult(_service->GetValueAsInt32(Converter::MakeAimpString(_core->GetAimpCore(), key), &value));
-				return value;
-			}
+            virtual double GetValueAsFloat(String^ key)
+            {
+                double value;
+                IAIMPString *s = Converter::MakeAimpString(_core->GetAimpCore(), key);
+                CheckResult(_service->GetValueAsFloat(s, &value));
+                s->Release();
+                return value;
+            }
 
-			virtual Int64 GetValueAsInt64(String^ key)
-			{
-				Int64 value;
-				CheckResult(_service->GetValueAsInt64(Converter::MakeAimpString(_core->GetAimpCore(), key), &value));
-				return value;
-			}
+            virtual int GetValueAsInt32(String^ key)
+            {
+                int value;
+                IAIMPString *s = Converter::MakeAimpString(_core->GetAimpCore(), key);
+                CheckResult(_service->GetValueAsInt32(s, &value));
+                s->Release();
+                return value;
+            }
 
-			virtual System::IO::Stream^ GetValueAsStream(String^ key)
-			{
-				// TODO: Complete it. What it should be, some array of bytes?
-				return nullptr;
-			}
+            virtual Int64 GetValueAsInt64(String^ key)
+            {
+                Int64 value;
+                IAIMPString *s = Converter::MakeAimpString(_core->GetAimpCore(), key);
+                CheckResult(_service->GetValueAsInt64(s, &value));
+                s->Release();
+                return value;
+            }
 
-			virtual String^ GetValueAsString(String^ key)
-			{
-				IAIMPString* val = NULL;
+            virtual System::IO::Stream^ GetValueAsStream(String^ key)
+            {
+                // TODO: Complete it. What it should be, some array of bytes?
+                return nullptr;
+            }
 
-				try
-				{
-					CheckResult(_service->GetValueAsString(Converter::MakeAimpString(_core->GetAimpCore(), key), &val));
-					return gcnew String(val->GetData());
-				}
-				finally
-				{
-					val->Release();
-					val = NULL;
-				}
+            virtual String^ GetValueAsString(String^ key)
+            {
+                IAIMPString* val = NULL;
 
-				return String::Empty;
-			}
+                try
+                {
+                    IAIMPString *s = Converter::MakeAimpString(_core->GetAimpCore(), key);
+                    CheckResult(_service->GetValueAsString(s, &val));
+                    s->Release();
+                    return gcnew String(val->GetData());
+                }
+                finally
+                {
+                    val->Release();
+                    val = NULL;
+                }
 
-			virtual void SetValueAsFloat(String^ key, double value)
-			{
-				CheckResult(_service->SetValueAsFloat(Converter::MakeAimpString(_core->GetAimpCore(), key), value));
-			}
+                return String::Empty;
+            }
 
-			virtual void SetValueAsInt32(String^ key, int value)
-			{
-				CheckResult(_service->SetValueAsInt32(Converter::MakeAimpString(_core->GetAimpCore(), key), value));
-			}
+            virtual void SetValueAsFloat(String^ key, double value)
+            {
+                IAIMPString *s = Converter::MakeAimpString(_core->GetAimpCore(), key);
+                CheckResult(_service->SetValueAsFloat(s, value));
+                s->Release();
+            }
 
-			virtual void SetValueAsInt64(String^ key, Int64 value)
-			{
-				CheckResult(_service->SetValueAsInt64(Converter::MakeAimpString(_core->GetAimpCore(), key), value));
-			}
+            virtual void SetValueAsInt32(String^ key, int value)
+            {
+                IAIMPString *s = Converter::MakeAimpString(_core->GetAimpCore(), key);
+                CheckResult(_service->SetValueAsInt32(s, value));
+                s->Release();
+            }
 
-			virtual void SetValueAsStream(String^ key, System::IO::Stream^ value)
-			{
-				// TODO: Complete it. What it should be, some array of bytes?
-				//_service->SetValueAsStream(key, value);
-			}
+            virtual void SetValueAsInt64(String^ key, Int64 value)
+            {
+                IAIMPString *s = Converter::MakeAimpString(_core->GetAimpCore(), key);
+                CheckResult(_service->SetValueAsInt64(s, value));
+                s->Release();
+            }
 
-			virtual void SetValueAsString(String^ key, String^ value)
-			{
-				CheckResult(_service->SetValueAsString(Converter::MakeAimpString(_core->GetAimpCore(), key), Converter::MakeAimpString(_core->GetAimpCore(), value)));
-			}
+            virtual void SetValueAsStream(String^ key, System::IO::Stream^ value)
+            {
+                // TODO: Complete it. What it should be, some array of bytes?
+                //_service->SetValueAsStream(key, value);
+            }
 
-		private:
-			IAIMPServiceConfig* _service;
-		};
-	}
+            virtual void SetValueAsString(String^ key, String^ value)
+            {
+                IAIMPString *s = Converter::MakeAimpString(_core->GetAimpCore(), key);
+                IAIMPString *sValue = Converter::MakeAimpString(_core->GetAimpCore(), value);
+                CheckResult(_service->SetValueAsString(s, sValue));
+                s->Release();
+                sValue->Release();
+            }
+
+        private:
+            IAIMPServiceConfig* _service;
+        };
+    }
 }

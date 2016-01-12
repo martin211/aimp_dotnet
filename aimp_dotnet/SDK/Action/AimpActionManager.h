@@ -3,30 +3,32 @@
 
 namespace AIMP
 {
-	namespace SDK
-	{
-		using namespace AIMP::SDK::UI::ActionItem;
-		using namespace AIMP::SDK::ActionManager;
+    namespace SDK
+    {
+        using namespace AIMP::SDK::UI::ActionItem;
+        using namespace AIMP::SDK::ActionManager;
 
-		public ref class AimpActionManager : public AimpBaseManager, public IAimpActionManager
-		{
-		public:
-			explicit AimpActionManager(ManagedAimpCore^ core);
+        public ref class AimpActionManager : public AimpBaseManager, public IAimpActionManager
+        {
+        public:
+            explicit AimpActionManager(ManagedAimpCore^ core);
 
-			virtual void Add(AimpActionItem^ action);
+            ~AimpActionManager();
 
-			virtual void AddRange(ActionItemCollection^ actions);
+            virtual void Add(AimpActionItem^ action);
 
-		private:
-			ManagedAimpCore^ _core;
+            virtual void AddRange(ActionItemCollection^ actions);
 
-			IAIMPServiceActionManager* _manager;
+        private:
+            ManagedAimpCore^ _core;
 
-			void RegisterAction(AimpActionItem^ menuItem);
+            IAIMPServiceActionManager* _manager;
 
-			void OnPropertyChanged(System::Object ^sender, System::ComponentModel::PropertyChangedEventArgs ^e);
+            void RegisterAction(AimpActionItem^ menuItem);
 
-			void UpdateItem(AimpActionItem^ menuItem);
-		};
-	}
+            void OnPropertyChanged(System::Object ^sender, System::ComponentModel::PropertyChangedEventArgs ^e);
+
+            void UpdateItem(AimpActionItem^ menuItem);
+        };
+    }
 }

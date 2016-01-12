@@ -47,9 +47,32 @@ namespace AIMP
 
         ManagedAimpCore::~ManagedAimpCore()
         {
+            System::Diagnostics::Debug::WriteLine("Dispose ManagedAimpCore");
             _messageDispatcher->Unhook(_hook);
+            _messageDispatcher->Release();
+            
+            if (_optionsFrame != nullptr)
+            {
+                _core->UnregisterExtension(static_cast<IAIMPOptionsDialogFrame*>(_optionsFrame));
+                _optionsFrame->Release();
+                _optionsFrame = NULL;
+            }
+
+            if (_albumArtCatalogExtension != nullptr)
+            {
+                _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtCatalog::Base*>(_albumArtCatalogExtension));
+                _albumArtCatalogExtension->Release();
+                _albumArtCatalogExtension = nullptr;
+            }
+
+            if (_albumArtProviderExtension != nullptr)
+            {
+                _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
+                _albumArtProviderExtension->Release();
+                _albumArtProviderExtension = nullptr;
+            }
+
             _core->Release();
-            _core = NULL;
         }
 
         /// <summary>
@@ -64,6 +87,7 @@ namespace AIMP
             _core->GetPath((int)pathType, &res);
             IAIMPString_ptr path(res, false);
             pathResult = gcnew System::String(std::wstring(path->GetData(), path->GetLength()).c_str());
+            //res->Release();
             return AIMP::SDK::AimpActionResult::Ok;
         }
 
@@ -111,18 +135,24 @@ namespace AIMP
             if (optionsFrameExtension != nullptr)
             {
                 _core->UnregisterExtension(static_cast<IAIMPOptionsDialogFrame*>(_optionsFrame));
+                _optionsFrame->Release();
+                _optionsFrame = NULL;
             }
 
             AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^ albumArtCatalogExtension = dynamic_cast<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^>(extension);
             if (albumArtCatalogExtension != nullptr)
             {
                 _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtCatalog::Base*>(_albumArtCatalogExtension));
+                _albumArtCatalogExtension->Release();
+                _albumArtCatalogExtension = nullptr;
             }
 
             AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^ albumArtProviderExtension = dynamic_cast<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^>(extension);
             if (albumArtProviderExtension != nullptr)
             {
                 _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
+                _albumArtProviderExtension->Release();
+                _albumArtProviderExtension = nullptr;
             }
         }
 
