@@ -9,30 +9,25 @@ namespace AIMP
     {
         using namespace System;
         using namespace System::IO;
-
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::AlbumArtManager;
 
-        public ref class AimpAlbumArtManager : public AimpBaseManager, public IAimpAlbumArtManager
+        public ref class AimpAlbumArtManager : public AimpBaseManager2<IAIMPServiceAlbumArt>, public IAimpAlbumArtManager
         {
         public:
-            explicit AimpAlbumArtManager(ManagedAimpCore^ core) : AimpBaseManager(core)
+            explicit AimpAlbumArtManager(ManagedAimpCore^ core) : AimpBaseManager2<IAIMPServiceAlbumArt>(core)
             {
-                IAIMPServiceAlbumArt* service;
-                core->GetService(IID_IAIMPServiceAlbumArt, (void**)&service);
-                _service = service;
-                IAIMPPropertyList *prop;
-                service->QueryInterface(IID_IAIMPPropertyList, (void**)&prop);
-                _properties = prop;
+                //IAIMPServiceAlbumArt *service = (IAIMPServiceAlbumArt*)GetService(IID_IAIMPServiceAlbumArt);
+                //IAIMPPropertyList *prop;
+                //service->QueryInterface(IID_IAIMPPropertyList, (void**)&prop);
+                //_properties = prop;
             }
 
             ~AimpAlbumArtManager()
             {
                 System::Diagnostics::Debug::WriteLine("Dispose AimpAlbumArtManager");
-                _service->Release();
                 _properties->Release();
                 delete _findCallback;
-                delete _service;
                 delete _properties;
             }
 
@@ -178,19 +173,26 @@ namespace AIMP
                 IAIMPString *sArtist = Converter::MakeAimpString(_core->GetAimpCore(), artist);
                 IAIMPString *sAlbum = Converter::MakeAimpString(_core->GetAimpCore(), album);
 
-                _service->Get(
-                    sFileUrl,
-                    sArtist,
-                    sAlbum,
-                    (DWORD)flags,
-                    (TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(),
-                    reinterpret_cast<void*>(&userData), &taskId);
 
-                sFileUrl->Release();
-                sAlbum->Release();
-                sAlbum->Release();
+                IAIMPServiceAlbumArt *service;
+                if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
+                {
+                    service->Get(
+                        sFileUrl,
+                        sArtist,
+                        sAlbum,
+                        (DWORD)flags,
+                        (TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(),
+                        reinterpret_cast<void*>(&userData), &taskId);
 
-                return (IntPtr)taskId;
+                    sFileUrl->Release();
+                    sAlbum->Release();
+                    sAlbum->Release();
+
+                    return (IntPtr)taskId;
+                }
+
+                return IntPtr::Zero;
             }
 
             virtual IntPtr GetImage(AIMP::SDK::PlayList::IAimpFileInfo^ fileInfo, AimpFingCovertArtType flags, Object^ userData)
@@ -199,12 +201,14 @@ namespace AIMP
                 _findCallback = gcnew OnFindCoverCallback(this, &AIMP::AimpAlbumArtManager::OnAlbumArtReceive);
                 IntPtr thunk = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_findCallback);
                 AimpFileInfo^ fi = (AimpFileInfo^)fileInfo;
-                _service->Get2(
-                    ((AIMP::SDK::AimpFileInfo^) fileInfo)->InternalAimpObject,
-                    (DWORD)flags,
-                    (TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(),
-                    reinterpret_cast<void*>(&userData),
-                    &taskId);
+
+                //IAIMPServiceAlbumArt *service = (IAIMPServiceAlbumArt*)GetService(IID_IAIMPServiceAlbumArt);
+                //service->Get2(
+                //    ((AIMP::SDK::AimpFileInfo^) fileInfo)->InternalAimpObject,
+                //    (DWORD)flags,
+                //    (TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(),
+                //    reinterpret_cast<void*>(&userData),
+                //    &taskId);
 
                 return (IntPtr)taskId;
             }
@@ -213,14 +217,13 @@ namespace AIMP
             {
                 if (taskId != IntPtr::Zero)
                 {
-                    _service->Cancel((void*)taskId, (DWORD)flags);
+                    //IAIMPServiceAlbumArt *service = (IAIMPServiceAlbumArt*)GetService(IID_IAIMPServiceAlbumArt);
+                    //service->Cancel((void*)taskId, (DWORD)flags);
                 }
             }
         private:
             delegate void OnFindCoverCallback(IAIMPImage *image, IAIMPImageContainer *imageContainer, void *UserData);
             OnFindCoverCallback^ _findCallback;
-
-            IAIMPServiceAlbumArt* _service;
             IAIMPPropertyList *_properties;
             EventHandler<AimpGetAlbumArtEventArgs^>^ _onComplete;
         };

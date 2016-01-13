@@ -9,16 +9,11 @@ namespace AIMP
     namespace SDK
     {
         AimpActionManager::AimpActionManager(ManagedAimpCore^ core) : AimpBaseManager(core)
-        {
-            IAIMPServiceActionManager *manager;
-            ManagedAimpCore::GetAimpCore()->QueryInterface(IID_IAIMPServiceActionManager, (void**)&manager);
-            _manager = manager;
-        }
+        { }
 
         AimpActionManager::~AimpActionManager()
         {
             System::Diagnostics::Debug::WriteLine("Dispose AimpActionManager");
-            _manager->Release();
         }
 
         void AimpActionManager::Add(AimpActionItem^ action)

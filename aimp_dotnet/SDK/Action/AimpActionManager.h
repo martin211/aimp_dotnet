@@ -18,11 +18,8 @@ namespace AIMP
             virtual void Add(AimpActionItem^ action);
 
             virtual void AddRange(ActionItemCollection^ actions);
-
         private:
             ManagedAimpCore^ _core;
-
-            IAIMPServiceActionManager* _manager;
 
             void RegisterAction(AimpActionItem^ menuItem);
 
