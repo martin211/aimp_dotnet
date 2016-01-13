@@ -122,6 +122,10 @@ namespace AIMP
             }
 
             UnregisterMenu(aimpMenuItem);
+            aimpMenuItem->Release();
+            aimpMenuItem = NULL;
+            idString->Release();
+            idString = NULL;
         }
 
         /// <summary>
