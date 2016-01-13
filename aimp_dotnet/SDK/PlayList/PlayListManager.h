@@ -110,6 +110,7 @@ namespace AIMP
 					return gcnew AimpPlayList(playList);
 				}
 
+                playList->Release();
 				return nullptr;
 			}
 
@@ -121,6 +122,7 @@ namespace AIMP
 					return gcnew AimpPlayList(playList);
 				}
 
+                playList->Release();
 				return nullptr;
 			}
 
@@ -132,6 +134,7 @@ namespace AIMP
 					return gcnew AimpPlayList(playList);
 				}
 
+                playList->Release();
 				return nullptr;
 			}
 
@@ -143,6 +146,7 @@ namespace AIMP
 					return gcnew AimpPlayList(playList);
 				}
 
+                playList->Release();
 				return nullptr;
 			}
 
@@ -154,6 +158,7 @@ namespace AIMP
 					return gcnew AimpPlayList(playList);
 				}
 
+                playList->Release();
 				return nullptr;
 			}
 
@@ -165,6 +170,7 @@ namespace AIMP
 					return gcnew AimpPlayList(playList);
 				}
 
+                playList->Release();
 				return nullptr;
 			}
 
@@ -176,6 +182,7 @@ namespace AIMP
 					return gcnew AimpPlayList(playList);
 				}
 
+                playList->Release();
 				return nullptr;
 			}
 
