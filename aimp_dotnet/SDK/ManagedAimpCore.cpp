@@ -216,7 +216,16 @@ namespace AIMP
         /// <returns></returns>
         HRESULT ManagedAimpCore::GetService(REFIID iid, void** service)
         {
-            return _core->QueryInterface(iid, service);
+            //return _core->QueryInterface(iid, service);
+
+            IUnknown* _service;
+            HRESULT result = _core->QueryInterface(iid, (void**) &_service);
+            if (result == S_OK)
+            {
+                *service = _service;
+            }
+
+            return result;
         }
 
         IUnknown* ManagedAimpCore::QueryInterface(REFIID iid)
