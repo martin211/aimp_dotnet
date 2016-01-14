@@ -26,7 +26,7 @@ namespace AIMP
             virtual String^ GetName()
             {
                 IAIMPString *str = NULL;
-                IAIMPServiceMUI* service;
+                IAIMPServiceMUI* service = NULL;
                 try
                 {
                     if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
@@ -49,7 +49,7 @@ namespace AIMP
             virtual String^ GetValue(String^ key)
             {
                 IAIMPString *str = NULL;
-                IAIMPServiceMUI* service;
+                IAIMPServiceMUI* service = NULL;
                 try
                 {
                     if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
@@ -77,7 +77,7 @@ namespace AIMP
             virtual String^ GetValuePart(String^ key, int index)
             {
                 IAIMPString *str = NULL;
-                IAIMPServiceMUI* service;
+                IAIMPServiceMUI* service = NULL;
                 try
                 {
                     if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)

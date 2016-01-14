@@ -348,6 +348,9 @@ namespace AIMP
                     int visible;
                     aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_VISIBLE, &visible);
                     result->Visible = visible > 0;
+
+                    idString->Release();
+                    nameString->Release();
                 }
 
                 return result;

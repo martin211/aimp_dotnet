@@ -26,19 +26,11 @@ namespace AIMP
         /// <param name="core">The core.</param>
         AimpMenuManager::AimpMenuManager(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceMenuManager>(core)
         {
-            //IAIMPServiceMenuManager* menuManager;
-            //ManagedAimpCore::GetAimpCore()->QueryInterface(IID_IAIMPServiceMenuManager, (void**)&menuManager);
-            //_aimpMenuManager = menuManager;
-            //_aimpActionManager = (IAIMPServiceActionManager*)core->QueryInterface(IID_IAIMPServiceActionManager);
         }
 
         AimpMenuManager::~AimpMenuManager()
         {
             System::Diagnostics::Debug::WriteLine("Dispose AimpMenuManager");
-            //_aimpMenuManager->Release();
-            //_aimpActionManager->Release();
-            //delete _aimpMenuManager;
-            //delete _aimpActionManager;
         }
 
         /// <summary>
@@ -97,11 +89,12 @@ namespace AIMP
                     }
 
                     RegisterMenu(parentMenu, item);
+                    parentMenu->Release();
                 }
             }
             finally
             {
-                service = NULL;
+                service->Release();
             }
         }
 
@@ -138,22 +131,26 @@ namespace AIMP
                     IAIMPString* idString = Converter::MakeAimpString(_core->GetAimpCore(), id);
                     IAIMPMenuItem *aimpMenuItem;
                     service->GetByID(idString, &aimpMenuItem);
+                    
+                    idString->Release();
 
                     if (aimpMenuItem == NULL)
                     {
                         return;
                     }
 
+                    if (CheckResult(ManagedAimpCore::GetAimpCore()->UnregisterExtension(aimpMenuItem)) != AimpActionResult::Ok)
+                    {
+                        System::Diagnostics::Debugger::Break();
+                    }
+
                     UnregisterMenu(aimpMenuItem);
                     aimpMenuItem->Release();
-                    aimpMenuItem = NULL;
-                    idString->Release();
-                    idString = NULL;
                 }
             }
             finally
             {
-                service = NULL;
+                service->Release();
             }
         }
 
@@ -228,12 +225,15 @@ namespace AIMP
 
                     result->Visible = visible > 0;
 
+                    idString->Release();
+                    nameString->Release();
+                    
                     return result;
                 }
             }
             finally
             {
-                service = NULL;
+                service->Release();
             }
         }
 
@@ -255,7 +255,7 @@ namespace AIMP
             }
             finally
             {
-                service = NULL;
+                service->Release();
             }
         }
 
@@ -316,6 +316,8 @@ namespace AIMP
             }
 
             FillMenuData(newItem, menuItem);
+            newItem->Release();
+            idString->Release();
 
             // TODO: FIX IT!
             //_core->RegisterExtension(IID_IAIMPServiceMenuManager, newItem);
@@ -336,9 +338,14 @@ namespace AIMP
         /// <param name="menuItem">The menu item.</param>
         void AimpMenuManager::FillMenuData(IAIMPMenuItem* aimpMenuItem, MenuItem^ menuItem)
         {
-            aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_NAME, Converter::MakeAimpString(_core->GetAimpCore(), menuItem->Text));
+            IAIMPString *sName = Converter::MakeAimpString(_core->GetAimpCore(), menuItem->Text);
+
+            aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_NAME, sName);
             aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_VISIBLE, menuItem->Visible ? 1 : 0);
             aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_ENABLED, menuItem->Enabled ? 1 : 0);
+
+            sName->Release();
+
             if (menuItem->GetType() == CheckBoxMenuItem::typeid)
             {
                 aimpMenuItem->SetValueAsInt32(AIMP_MENUITEM_PROPID_CHECKED, ((CheckedMenuItem^)menuItem)->Checked ? 1 : 0);
@@ -355,7 +362,9 @@ namespace AIMP
 
             if (menuItem->Image != nullptr)
             {
-                aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_GLYPH, Converter::CreateImage(menuItem->Image));
+                IAIMPImage *image = Converter::CreateImage(menuItem->Image);
+                aimpMenuItem->SetValueAsObject(AIMP_MENUITEM_PROPID_GLYPH, image);
+                image->Release();
             }
         }
 
@@ -378,6 +387,7 @@ namespace AIMP
                     IAIMPString* id = Converter::MakeAimpString(_core->GetAimpCore(), menuItem->Id);
                     IAIMPMenuItem *aimpMenuItem;
                     service->GetByID(id, &aimpMenuItem);
+
                     id->Release();
 
                     if (aimpMenuItem == NULL)
@@ -387,14 +397,12 @@ namespace AIMP
 
                     FillMenuData(aimpMenuItem, menuItem);
                     aimpMenuItem->Release();
-                    id->Release();
-                    id = NULL;
-                    aimpMenuItem = NULL;
+                    
                 }
             }
             finally
             {
-                service = NULL;
+                service->Release();
             }
         }
 
