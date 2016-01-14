@@ -10,14 +10,14 @@ namespace AIMP
         using namespace AIMP::SDK::PlayList;
         using namespace AIMP::SDK::Playback;
 
-        public ref class AimpServicePlaybackQueue : public AimpBaseManager, public IAimpPlaybackQueueService
+        public ref class AimpServicePlaybackQueue : public AimpBaseManager<IAIMPServicePlaybackQueue>, public IAimpPlaybackQueueService
         {
         private:
             IAIMPServicePlaybackQueue *_service;
             AimpCheckUrl ^_checkUrlHandler;
 
         public:
-            explicit AimpServicePlaybackQueue(ManagedAimpCore ^core) : AimpBaseManager(core)
+            explicit AimpServicePlaybackQueue(ManagedAimpCore ^core) : AimpBaseManager<IAIMPServicePlaybackQueue>(core)
             {
                 IAIMPServicePlaybackQueue *service;
                 if (CheckResult(core->GetService(IID_IAIMPServicePlaybackQueue, (void**)&service)) != AimpActionResult::Ok)
