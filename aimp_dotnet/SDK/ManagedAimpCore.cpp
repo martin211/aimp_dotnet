@@ -84,10 +84,12 @@ namespace AIMP
         AIMP::SDK::AimpActionResult ManagedAimpCore::GetPath(AIMP::SDK::AimpMessages::AimpCorePathType pathType, String ^%pathResult)
         {
             IAIMPString* res;
+            //_core->GetPath((int)pathType, &res);
+            //IAIMPString_ptr path(res, false);
+            //pathResult = gcnew System::String(std::wstring(path->GetData(), path->GetLength()).c_str());
             _core->GetPath((int)pathType, &res);
-            IAIMPString_ptr path(res, false);
-            pathResult = gcnew System::String(std::wstring(path->GetData(), path->GetLength()).c_str());
-            //res->Release();
+            pathResult = Converter::GetString(res);
+            res->Release();
             return AIMP::SDK::AimpActionResult::Ok;
         }
 
@@ -270,7 +272,9 @@ namespace AIMP
         HRESULT ManagedAimpCore::ShowNotification(bool autoHide, String ^notification)
         {
             IAIMPString *str = Converter::MakeAimpString(_core, notification);
-            return _messageDispatcher->Send((DWORD)AIMP::SDK::AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION, autoHide ? 0 : 1, str->GetData());
+            HRESULT r = _messageDispatcher->Send((DWORD)AIMP::SDK::AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION, autoHide ? 0 : 1, str->GetData());
+            str->Release();
+            return r;
         }
 
         /// <summary>

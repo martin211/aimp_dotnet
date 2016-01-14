@@ -305,7 +305,7 @@ namespace AIMP
                 IAIMPString *sAlbum = Converter::MakeAimpString(_core->GetAimpCore(), album);
 
 
-                IAIMPServiceAlbumArt *service;
+                IAIMPServiceAlbumArt *service = NULL;
                 try
                 {
                     if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
@@ -343,7 +343,7 @@ namespace AIMP
                 IntPtr thunk = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_findCallback);
                 AimpFileInfo^ fi = (AimpFileInfo^)fileInfo;
 
-                IAIMPServiceAlbumArt *service;
+                IAIMPServiceAlbumArt *service = NULL;
                 try
                 {
                     if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
@@ -371,7 +371,7 @@ namespace AIMP
             {
                 if (taskId != IntPtr::Zero)
                 {
-                    IAIMPServiceAlbumArt *service;
+                    IAIMPServiceAlbumArt *service = NULL;
                     try
                     {
                         if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
