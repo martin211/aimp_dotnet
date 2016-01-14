@@ -12,10 +12,10 @@ namespace AIMP
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::AlbumArtManager;
 
-        public ref class AimpAlbumArtManager : public AimpBaseManager2<IAIMPServiceAlbumArt>, public IAimpAlbumArtManager
+        public ref class AimpAlbumArtManager : public AimpBaseManager<IAIMPServiceAlbumArt>, public IAimpAlbumArtManager
         {
         public:
-            explicit AimpAlbumArtManager(ManagedAimpCore^ core) : AimpBaseManager2<IAIMPServiceAlbumArt>(core)
+            explicit AimpAlbumArtManager(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceAlbumArt>(core)
             {
                 //IAIMPServiceAlbumArt *service = (IAIMPServiceAlbumArt*)GetService(IID_IAIMPServiceAlbumArt);
                 //IAIMPPropertyList *prop;
@@ -26,9 +26,7 @@ namespace AIMP
             ~AimpAlbumArtManager()
             {
                 System::Diagnostics::Debug::WriteLine("Dispose AimpAlbumArtManager");
-                _properties->Release();
                 delete _findCallback;
-                delete _properties;
             }
 
             event EventHandler<AimpGetAlbumArtEventArgs^>^ Completed
@@ -58,13 +56,43 @@ namespace AIMP
             {
                 bool get()
                 {
-                    int val;
-                    _properties->GetValueAsInt32(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES, &val);
-                    return val != 0;
+                    IAIMPServiceAlbumArt *service = NULL;
+                    IAIMPPropertyList *prop = NULL;
+
+                    try
+                    {
+                        if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
+                        {
+                            service->QueryInterface(IID_IAIMPPropertyList, (void**)&prop);
+                            int val;
+                            prop->GetValueAsInt32(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES, &val);
+                            return val != 0;
+                        }
+                    }
+                    finally
+                    {
+                        service = NULL;
+                        prop = NULL;
+                    }
                 }
                 void set(bool value)
                 {
-                    _properties->SetValueAsInt32(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES, value);
+                    IAIMPServiceAlbumArt *service = NULL;
+                    IAIMPPropertyList *prop = NULL;
+
+                    try
+                    {
+                        if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
+                        {
+                            service->QueryInterface(IID_IAIMPPropertyList, (void**)&prop);
+                            prop->SetValueAsInt32(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES, value);
+                        }
+                    }
+                    finally
+                    {
+                        service = NULL;
+                        prop = NULL;
+                    }
                 }
             }
 
@@ -72,13 +100,43 @@ namespace AIMP
             {
                 bool get()
                 {
-                    int val;
-                    _properties->GetValueAsInt32(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_INTERNET, &val);
-                    return false;
+                    IAIMPServiceAlbumArt *service = NULL;
+                    IAIMPPropertyList *prop = NULL;
+
+                    try
+                    {
+                        if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
+                        {
+                            service->QueryInterface(IID_IAIMPPropertyList, (void**)&prop);
+                            int val;
+                            prop->GetValueAsInt32(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_INTERNET, &val);
+                            return val != 0;
+                        }
+                    }
+                    finally
+                    {
+                        service = NULL;
+                        prop = NULL;
+                    }
                 }
                 void set(bool value)
                 {
-                    _properties->SetValueAsInt32(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_INTERNET, value);
+                    IAIMPServiceAlbumArt *service = NULL;
+                    IAIMPPropertyList *prop = NULL;
+
+                    try
+                    {
+                        if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
+                        {
+                            service->QueryInterface(IID_IAIMPPropertyList, (void**)&prop);
+                            prop->SetValueAsInt32(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_INTERNET, value);
+                        }
+                    }
+                    finally
+                    {
+                        service = NULL;
+                        prop = NULL;
+                    }
                 }
             }
 
@@ -86,23 +144,53 @@ namespace AIMP
             {
                 array<System::String^>^ get()
                 {
-                    IAIMPString *str;
-                    _properties->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, IID_IAIMPString, (void**)&str);
-                    String^ result = gcnew String(str->GetData());
-                    str->Release();
-                    return result->Split(gcnew array<WCHAR>{';'});
+                    IAIMPServiceAlbumArt *service = NULL;
+                    IAIMPPropertyList *prop = NULL;
+
+                    try
+                    {
+                        if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
+                        {
+                            service->QueryInterface(IID_IAIMPPropertyList, (void**)&prop);
+                            IAIMPString *str;
+                            prop->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, IID_IAIMPString, (void**)&str);
+                            String^ result = gcnew String(str->GetData());
+                            str->Release();
+                            return result->Split(gcnew array<WCHAR>{';'});
+                        }
+                    }
+                    finally
+                    {
+                        service = NULL;
+                        prop = NULL;
+                    }
                 }
                 void set(array<System::String^>^ val)
                 {
-                    String^ str;
-                    for (int i = 0; i < val->Length; i++)
-                    {
-                        str += val[i] + ";";
-                    }
-                    IAIMPString *s = Converter::MakeAimpString(_core->GetAimpCore(), str);
+                    IAIMPServiceAlbumArt *service = NULL;
+                    IAIMPPropertyList *prop = NULL;
 
-                    _properties->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, s);
-                    s->Release();
+                    try
+                    {
+                        if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
+                        {
+                            service->QueryInterface(IID_IAIMPPropertyList, (void**)&prop);
+                            String^ str;
+                            for (int i = 0; i < val->Length; i++)
+                            {
+                                str += val[i] + ";";
+                            }
+                            IAIMPString *s = Converter::MakeAimpString(_core->GetAimpCore(), str);
+
+                            prop->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, s);
+                            s->Release();
+                        }
+                    }
+                    finally
+                    {
+                        service = NULL;
+                        prop = NULL;
+                    }
                 }
             }
 
@@ -110,23 +198,53 @@ namespace AIMP
             {
                 array<System::String^>^ get()
                 {
-                    IAIMPString *str;
-                    _properties->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, IID_IAIMPString, (void**)&str);
-                    String^ result = gcnew String(str->GetData());
-                    str->Release();
-                    return result->Split(gcnew array<WCHAR>{';'});
+                    IAIMPServiceAlbumArt *service = NULL;
+                    IAIMPPropertyList *prop = NULL;
+
+                    try
+                    {
+                        if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
+                        {
+                            service->QueryInterface(IID_IAIMPPropertyList, (void**)&prop);
+                            IAIMPString *str;
+                            prop->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, IID_IAIMPString, (void**)&str);
+                            String^ result = gcnew String(str->GetData());
+                            str->Release();
+                            return result->Split(gcnew array<WCHAR>{';'});
+                        }
+                    }
+                    finally
+                    {
+                        service = NULL;
+                        prop = NULL;
+                    }
                 }
                 void set(array<System::String^>^ val)
                 {
-                    String^ str;
-                    for (int i = 0; i < val->Length; i++)
-                    {
-                        str += val[i] + ";";
-                    }
+                    IAIMPServiceAlbumArt *service = NULL;
+                    IAIMPPropertyList *prop = NULL;
 
-                    IAIMPString *s = Converter::MakeAimpString(_core->GetAimpCore(), str);
-                    _properties->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, s);
-                    s->Release();
+                    try
+                    {
+                        if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
+                        {
+                            service->QueryInterface(IID_IAIMPPropertyList, (void**)&prop);
+                            String^ str;
+                            for (int i = 0; i < val->Length; i++)
+                            {
+                                str += val[i] + ";";
+                            }
+
+                            IAIMPString *s = Converter::MakeAimpString(_core->GetAimpCore(), str);
+                            prop->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, s);
+                            s->Release();
+                        }
+                    }
+                    finally
+                    {
+                        service = NULL;
+                        prop = NULL;
+                    }
                 }
             }
 
@@ -202,29 +320,43 @@ namespace AIMP
                 IntPtr thunk = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_findCallback);
                 AimpFileInfo^ fi = (AimpFileInfo^)fileInfo;
 
-                //IAIMPServiceAlbumArt *service = (IAIMPServiceAlbumArt*)GetService(IID_IAIMPServiceAlbumArt);
-                //service->Get2(
-                //    ((AIMP::SDK::AimpFileInfo^) fileInfo)->InternalAimpObject,
-                //    (DWORD)flags,
-                //    (TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(),
-                //    reinterpret_cast<void*>(&userData),
-                //    &taskId);
+                IAIMPServiceAlbumArt *service;
+                if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
+                {
+                    service->Get2(
+                        ((AIMP::SDK::AimpFileInfo^) fileInfo)->InternalAimpObject,
+                        (DWORD)flags,
+                        (TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(),
+                        reinterpret_cast<void*>(&userData),
+                        &taskId);
 
-                return (IntPtr)taskId;
+                    return (IntPtr)taskId;
+                }
+
+                return IntPtr::Zero;
             }
 
             virtual void Cancel(IntPtr taskId, AimpFingCovertArtType flags)
             {
                 if (taskId != IntPtr::Zero)
                 {
-                    //IAIMPServiceAlbumArt *service = (IAIMPServiceAlbumArt*)GetService(IID_IAIMPServiceAlbumArt);
-                    //service->Cancel((void*)taskId, (DWORD)flags);
+                    IAIMPServiceAlbumArt *service;
+                    try
+                    {
+                        if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
+                        {
+                            service->Cancel((void*)taskId, (DWORD)flags);
+                        }
+                    }
+                    finally
+                    {
+                        service = NULL;
+                    }
                 }
             }
         private:
             delegate void OnFindCoverCallback(IAIMPImage *image, IAIMPImageContainer *imageContainer, void *UserData);
             OnFindCoverCallback^ _findCallback;
-            IAIMPPropertyList *_properties;
             EventHandler<AimpGetAlbumArtEventArgs^>^ _onComplete;
         };
     }

@@ -10,7 +10,7 @@ namespace AIMP
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::PlayList;
 
-        public ref class PlayListManager : public AimpBaseManager, public IAimpPlayListManager, public IExtensionPlaylistManagerListener
+        public ref class PlayListManager : public AimpBaseManager<IAIMPServicePlaylistManager>, public IAimpPlayListManager, public IExtensionPlaylistManagerListener
         {
         private:
             IAIMPServicePlaylistManager *_service;
@@ -19,7 +19,7 @@ namespace AIMP
             AIMP::SDK::Extensions::PlayListHandler ^_onPlaylistRemoved;
 
         public:
-            explicit PlayListManager(ManagedAimpCore ^core) : AimpBaseManager(core)
+            explicit PlayListManager(ManagedAimpCore ^core) : AimpBaseManager<IAIMPServicePlaylistManager>(core)
             {
                 IAIMPServicePlaylistManager *service;
                 if (CheckResult(core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service)) != AimpActionResult::Ok)

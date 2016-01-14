@@ -13,14 +13,12 @@ namespace AIMP
         using namespace AIMP::SDK::UI::MenuItem;
         using namespace AIMP::SDK::MenuManager;
 
-        public ref class AimpMenuManager : public AimpBaseManager, public IAimpMenuManager
+        public ref class AimpMenuManager : public AimpBaseManager<IAIMPServiceMenuManager>, public IAimpMenuManager
         {
         public:
             explicit AimpMenuManager(ManagedAimpCore^ core);
 
             ~AimpMenuManager();
-
-            !AimpMenuManager();
 
             virtual void AddRange(ParentMenuType parentMenuType, MenuItemCollection^ items);
 
@@ -37,10 +35,6 @@ namespace AIMP
             virtual MenuItem ^GetBuiltIn(ParentMenuType parentMenuType);
 
         private:
-            IAIMPServiceMenuManager* _aimpMenuManager;
-
-            IAIMPServiceActionManager* _aimpActionManager;
-
             void RegisterMenu(IAIMPMenuItem* parentMenuItem, MenuItem^ menuItem);
 
             void UnregisterMenu(IAIMPMenuItem* menuItem);

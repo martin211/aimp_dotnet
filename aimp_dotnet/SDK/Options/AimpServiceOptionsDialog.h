@@ -9,13 +9,13 @@ namespace AIMP
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::Options;
 
-        public ref class AimpServiceOptionsDialog : public AimpBaseManager, public IAimpServiceOptionsDialog
+        public ref class AimpServiceOptionsDialog : public AimpBaseManager<IAIMPServiceOptionsDialog>, public IAimpServiceOptionsDialog
         {
             private:
                 IAIMPServiceOptionsDialog *_service;
 
             public:
-                explicit AimpServiceOptionsDialog(ManagedAimpCore ^core) : AimpBaseManager(core)
+                explicit AimpServiceOptionsDialog(ManagedAimpCore ^core) : AimpBaseManager<IAIMPServiceOptionsDialog>(core)
                 {
                     IAIMPServiceOptionsDialog *service;
                     core->GetService(IID_IAIMPServiceOptionsDialog, (void**) &service);

@@ -8,7 +8,7 @@ namespace AIMP
 {
     namespace SDK
     {
-        AimpActionManager::AimpActionManager(ManagedAimpCore^ core) : AimpBaseManager(core)
+        AimpActionManager::AimpActionManager(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceActionManager>(core)
         { }
 
         AimpActionManager::~AimpActionManager()

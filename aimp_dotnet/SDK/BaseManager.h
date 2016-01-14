@@ -8,6 +8,7 @@ namespace AIMP
     {
         using namespace AIMP::SDK;
 
+        template<typename TAimpService>
         public ref class AimpBaseManager abstract
         {
         public:
@@ -27,10 +28,10 @@ namespace AIMP
                 return res;
             }
 
-            AimpActionResult GetService(GUID id, IUnknown **service)
+            AimpActionResult GetService(const IID id, TAimpService **service)
             {
-                IUnknown *s;
-                AimpActionResult result = CheckResult(_core->GetService(IID_IAIMPServiceActionManager, (void**)&s));
+                TAimpService *s;
+                AimpActionResult result = CheckResult(_core->GetService(id, (void**)&s));
 
                 if (result == AimpActionResult::Ok)
                 {
@@ -40,43 +41,7 @@ namespace AIMP
                 return result;
             }
 
-            ManagedAimpCore^ _core;
-        };
-
-        template<typename T>
-        public ref class AimpBaseManager2 abstract
-        {
-        public:
-            AimpBaseManager2(ManagedAimpCore^ core)
-            {
-                _core = core;
-            }
-        protected:
-            AimpActionResult CheckResult(HRESULT result)
-            {
-                AimpActionResult res = Utils::CheckResult(result);
-                if (res != AimpActionResult::Ok)
-                {
-                    //AIMP::SDK::InternalLogger::Instance->Write("Invalid operation: result " + result);
-                }
-
-                return res;
-            }
-
-            AimpActionResult GetService(GUID id, T **service)
-            {
-                T *s;
-                AimpActionResult result = CheckResult(_core->GetService(IID_IAIMPServiceActionManager, (void**)&s));
-
-                if (result == AimpActionResult::Ok)
-                {
-                    *service = s;
-                }
-
-                return result;
-            }
-
-            ManagedAimpCore^ _core;
+            ManagedAimpCore^ _core;            
         };
     }
 }
