@@ -17,10 +17,7 @@ namespace AIMP
         public:
             explicit AimpAlbumArtManager(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceAlbumArt>(core)
             {
-                //IAIMPServiceAlbumArt *service = (IAIMPServiceAlbumArt*)GetService(IID_IAIMPServiceAlbumArt);
-                //IAIMPPropertyList *prop;
-                //service->QueryInterface(IID_IAIMPPropertyList, (void**)&prop);
-                //_properties = prop;
+
             }
 
             ~AimpAlbumArtManager()
@@ -71,6 +68,8 @@ namespace AIMP
                     }
                     finally
                     {
+                        service->Release();
+                        prop->Release();
                         service = NULL;
                         prop = NULL;
                     }
@@ -90,6 +89,8 @@ namespace AIMP
                     }
                     finally
                     {
+                        service->Release();
+                        prop->Release();
                         service = NULL;
                         prop = NULL;
                     }
@@ -115,6 +116,8 @@ namespace AIMP
                     }
                     finally
                     {
+                        service->Release();
+                        prop->Release();
                         service = NULL;
                         prop = NULL;
                     }
@@ -134,6 +137,8 @@ namespace AIMP
                     }
                     finally
                     {
+                        service->Release();
+                        prop->Release();
                         service = NULL;
                         prop = NULL;
                     }
@@ -161,6 +166,8 @@ namespace AIMP
                     }
                     finally
                     {
+                        service->Release();
+                        prop->Release();
                         service = NULL;
                         prop = NULL;
                     }
@@ -188,6 +195,8 @@ namespace AIMP
                     }
                     finally
                     {
+                        service->Release();
+                        prop->Release();
                         service = NULL;
                         prop = NULL;
                     }
@@ -215,6 +224,8 @@ namespace AIMP
                     }
                     finally
                     {
+                        service->Release();
+                        prop->Release();
                         service = NULL;
                         prop = NULL;
                     }
@@ -242,6 +253,8 @@ namespace AIMP
                     }
                     finally
                     {
+                        service->Release();
+                        prop->Release();
                         service = NULL;
                         prop = NULL;
                     }
@@ -293,21 +306,31 @@ namespace AIMP
 
 
                 IAIMPServiceAlbumArt *service;
-                if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
+                try
                 {
-                    service->Get(
-                        sFileUrl,
-                        sArtist,
-                        sAlbum,
-                        (DWORD)flags,
-                        (TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(),
-                        reinterpret_cast<void*>(&userData), &taskId);
+                    if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
+                    {
+                        service->Get(
+                            sFileUrl,
+                            sArtist,
+                            sAlbum,
+                            (DWORD)flags,
+                            (TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(),
+                            reinterpret_cast<void*>(&userData), &taskId);
 
+                        return (IntPtr)taskId;
+                    }
+                }
+                finally
+                {
+                    service->Release();
                     sFileUrl->Release();
                     sAlbum->Release();
-                    sAlbum->Release();
-
-                    return (IntPtr)taskId;
+                    sArtist->Release();
+                    service = NULL;
+                    sFileUrl = NULL;
+                    sAlbum = NULL;
+                    sArtist = NULL;
                 }
 
                 return IntPtr::Zero;
@@ -321,16 +344,24 @@ namespace AIMP
                 AimpFileInfo^ fi = (AimpFileInfo^)fileInfo;
 
                 IAIMPServiceAlbumArt *service;
-                if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
+                try
                 {
-                    service->Get2(
-                        ((AIMP::SDK::AimpFileInfo^) fileInfo)->InternalAimpObject,
-                        (DWORD)flags,
-                        (TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(),
-                        reinterpret_cast<void*>(&userData),
-                        &taskId);
+                    if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::Ok)
+                    {
+                        service->Get2(
+                            ((AIMP::SDK::AimpFileInfo^) fileInfo)->InternalAimpObject,
+                            (DWORD)flags,
+                            (TAIMPServiceAlbumArtReceiveProc(_stdcall *))thunk.ToPointer(),
+                            reinterpret_cast<void*>(&userData),
+                            &taskId);
 
-                    return (IntPtr)taskId;
+                        return (IntPtr)taskId;
+                    }
+                }
+                finally
+                {
+                    service->Release();
+                    service = NULL;
                 }
 
                 return IntPtr::Zero;
@@ -350,6 +381,7 @@ namespace AIMP
                     }
                     finally
                     {
+                        service->Release();
                         service = NULL;
                     }
                 }
