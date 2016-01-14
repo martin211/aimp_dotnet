@@ -41,7 +41,7 @@ namespace AIMP
                 return result;
             }
 
-            ManagedAimpCore^ _core;            
+            ManagedAimpCore^ _core;
         };
     }
 }
