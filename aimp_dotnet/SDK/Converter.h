@@ -365,7 +365,7 @@ namespace AIMP
 
             static System::Drawing::Bitmap^ GetBitmap(IAIMPImageContainer* imageContainer)
             {
-                IAIMPImage* image;
+                IAIMPImage* image = NULL;
                 try
                 {
                     if (!CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**)&image)))
@@ -443,7 +443,7 @@ namespace AIMP
             {
                 System::IO::MemoryStream ^stream;
                 IAIMPStream *aimpStream = NULL;
-                IAIMPImage *img;
+                IAIMPImage *img = NULL;
 
                 try
                 {
