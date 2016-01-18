@@ -91,7 +91,17 @@ namespace AIMP
             /// <returns></returns>
             static bool SetString(IAIMPPropertyList *propertyList, int propertyId, String ^value)
             {
-                return SetObject(propertyList, propertyId, MakeAimpString(ManagedAimpCore::GetAimpCore(), value));
+                IAIMPString *str = NULL;
+                try
+                {
+                    str = MakeAimpString(ManagedAimpCore::GetAimpCore(), value);
+                    return SetObject(propertyList, propertyId, str);
+                }
+                finally
+                {
+                    str->Release();
+                    str = NULL;
+                }
             }
 
             /// <summary>
@@ -208,11 +218,8 @@ namespace AIMP
                 }
                 finally
                 {
-                    if (str != NULL)
-                    {
-                        str->Release();
-                        str = NULL;
-                    }
+                    str->Release();
+                    str = NULL;
                 }
 
                 return nullptr;
@@ -359,20 +366,27 @@ namespace AIMP
             static System::Drawing::Bitmap^ GetBitmap(IAIMPImageContainer* imageContainer)
             {
                 IAIMPImage* image;
-                if (!CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**)&image)))
+                try
                 {
-                    //InternalLogger::Instance->Write("Unable get Bitmap");
-                    return nullptr;
+                    if (!CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**)&image)))
+                    {
+                        //InternalLogger::Instance->Write("Unable get Bitmap");
+                        return nullptr;
+                    }
+
+                    imageContainer->CreateImage(&image);
+
+                    if (image == NULL)
+                    {
+                        return nullptr;
+                    }
+                    return GetBitmap(image);
                 }
-
-                imageContainer->CreateImage(&image);
-
-                if (image == NULL)
+                finally
                 {
-                    return nullptr;
+                    image->Release();
+                    image = NULL;
                 }
-
-                return GetBitmap(image);
             }
 
             static System::Drawing::Bitmap^ GetBitmap(IAIMPImage* image)
@@ -414,6 +428,8 @@ namespace AIMP
                             delete[] buf;
                             stream->Release();
                             image->Release();
+                            stream = NULL;
+                            image = NULL;
                         }
                     }
 
@@ -426,6 +442,9 @@ namespace AIMP
             static IAIMPImage *CreateImage(System::Drawing::Bitmap ^image)
             {
                 System::IO::MemoryStream ^stream;
+                IAIMPStream *aimpStream = NULL;
+                IAIMPImage *img;
+
                 try
                 {
                     stream = gcnew System::IO::MemoryStream();
@@ -433,8 +452,6 @@ namespace AIMP
                     array<Byte> ^buffer = gcnew array<byte>(stream->Length);
                     buffer = stream->ToArray();
 
-                    IAIMPStream *aimpStream = NULL;
-                    IAIMPImage *img;
                     if (CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&aimpStream))
                         && CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**)&img)))
                     {
@@ -455,6 +472,10 @@ namespace AIMP
                     {
                         stream->Close();
                     }
+                    aimpStream->Release();
+                    img->Release();
+                    aimpStream = NULL;
+                    img = NULL;
                 }
 
                 return NULL;
