@@ -72,7 +72,7 @@ public:
         _aimpCore->CreateObject(IID_IAIMPString, (void**)&strObject);
         strObject->SetData((PWCHAR)strDate, str->Length);
         *S = strObject;
-        strObject->Release();
+        //strObject->Release();
         return S_OK;
     }
 
