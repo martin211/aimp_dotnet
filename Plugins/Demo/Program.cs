@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace TestPlugin
+﻿namespace TestPlugin
 {
     using AIMP.SDK;
     using AIMP.SDK.MenuManager;
@@ -14,53 +12,62 @@ namespace TestPlugin
 
         private IAimpMenuItem _menuItem;
 
+        private bool _checked;
+
         public override void Initialize()
         {
             if (Player.MenuManager.CreateMenuItem(out _menuItem) == AimpActionResult.Ok)
             {
-                _menuItem.Name = "Demo plugin";
+                _menuItem.Name = "Normal menu item";
                 _menuItem.Id = "demo_item";
                 _menuItem.Visible = true;
                 _menuItem.Enabled = true;
                 _menuItem.Style = AimpMenuItemStyle.Normal;
-                _menuItem.OnExecute += (sender, args) =>
-                    {
-                        _demoForm.Show();
-                    };
 
                 Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, _menuItem);
             }
 
-            //Player.Core.CoreMessage += (param1, param2) =>
-            //    {
-            //        System.Diagnostics.Debug.WriteLine("Demo plugin: Player.Core.CoreMessage");
-            //    };
-            //_demoForm = new Form1(Player);
+            IAimpMenuItem checkedMenu;
+            if (Player.MenuManager.CreateMenuItem(out checkedMenu) == AimpActionResult.Ok)
+            {
+                checkedMenu.Style = AimpMenuItemStyle.CheckBox;
+                checkedMenu.Name = "CheckBox menu item";
+                checkedMenu.Id = "CheckBox_menu_item";
+                checkedMenu.OnExecute += (sender, args) =>
+                {
+                    _checked = !_checked;
+                    checkedMenu.Checked = _checked;
+                };
 
-            //_menuItem = new StandartMenuItem("Demo plugin");
-            //_menuItem.BeforeShow += (sender, args) =>
-            //    {
+                Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, checkedMenu);
+            }
 
-            //    };
+            IAimpMenuItem radioButtonMenu;
+            if (Player.MenuManager.CreateMenuItem(out radioButtonMenu) == AimpActionResult.Ok)
+            {
+                radioButtonMenu.Style = AimpMenuItemStyle.RadioBox;
+                radioButtonMenu.Name = "RadioBox menu item";
+                radioButtonMenu.Id = "RadioBox_menu_item";
 
-            //_menuItem.Click += (sender, args) =>
-            //    {
-            //        var m = Player.MenuManager.GetBuiltIn(ParentMenuType.AIMP_MENUID_PLAYER_MAIN_FUNCTIONS);
-            //        _demoForm.Show();
-            //    };
+                Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, radioButtonMenu);
+            }
 
-            //Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, _menuItem);
-            //var action = new AimpActionItem("Teset action", "test Group");
-            //Player.ActionManager.Add(action);
+            IAimpMenuItem subItem1;
+            if (Player.MenuManager.CreateMenuItem(out subItem1) == AimpActionResult.Ok)
+            {
+                subItem1.Name = "Sub item1";
+                subItem1.Id = "Sub_item_1";
+                subItem1.Style = AimpMenuItemStyle.Normal;
+                subItem1.Parent = _menuItem;
 
-            //_optionsFrame = new OptionsFrame(Player);
-            //Player.Core.RegisterExtension(_optionsFrame);
+                Player.MenuManager.Add(subItem1);
+            }
         }
 
         public override void Dispose()
         {
             System.Diagnostics.Debug.WriteLine("Dispose");
-            //Player.MenuManager.Delete(_menuItem);
+            Player.MenuManager.Delete(_menuItem);
         }
     }
 }

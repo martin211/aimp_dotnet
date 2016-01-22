@@ -13,8 +13,9 @@ public:
 
     ~AimpObject()
     {
-        ((IUnknown*)_aimpObject)->Release();
+        //((IUnknown*)_aimpObject)->Release();
         //_aimpObject = nullptr;
+        _aimpObject = NULL;
     }
 protected:
     AIMP::SDK::AimpActionResult CheckResult(HRESULT result)

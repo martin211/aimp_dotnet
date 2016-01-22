@@ -47,7 +47,7 @@ private:
 /// </summary>
 class DotNetPlugin : public IUnknownInterfaceImpl<IAIMPPlugin>, IAIMPExternalSettingsDialog
 {
-public:
+public: 
     DotNetPlugin();
 
     virtual PWCHAR WINAPI InfoGet(int index);

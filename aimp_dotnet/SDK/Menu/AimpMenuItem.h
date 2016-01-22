@@ -20,6 +20,7 @@ namespace AIMP
             MenuItemEvent *_onShowEvent;
             EventCallback *_onExecuteCallback;
             EventCallback *_onShowCallback;
+            String ^_id;
 
         public:
             explicit AimpMenuItem(IAIMPMenuItem *menuItem) : AimpObject(menuItem)
@@ -27,10 +28,12 @@ namespace AIMP
 
             ~AimpMenuItem()
             {
-                delete _onExecuteEvent;
-                delete _onShowEvent;
-                delete _onExecuteCallback;
-                delete _onShowCallback;
+                _onExecuteHandler = nullptr;
+                _onExecuteHandler = nullptr;
+                _onExecuteEvent = NULL;
+                _onShowEvent = NULL;
+                _onExecuteCallback = NULL;
+                _onShowCallback = NULL;
             }
 
             virtual property String ^Custom
@@ -66,6 +69,7 @@ namespace AIMP
 
                 void set(String ^value)
                 {
+                    _id = value;
                     Converter::SetString(InternalAimpObject, AIMP_MENUITEM_PROPID_ID, value);
                 }
             }
@@ -131,12 +135,12 @@ namespace AIMP
 
                 void set(Bitmap ^value)
                 {
-                    //if (value != nullptr)
-                    //{
-                    //    IAIMPImage *image = Converter::CreateImage(value);
-                    //    InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_GLYPH, image);
-                    //    image->Release();
-                    //}
+                    if (value != nullptr)
+                    {
+                        IAIMPImage *image = Converter::CreateImage(value);
+                        InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_GLYPH, image);
+                        image->Release();
+                    }
                 }
             }
 

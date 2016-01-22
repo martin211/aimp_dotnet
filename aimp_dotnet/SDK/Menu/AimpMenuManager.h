@@ -22,6 +22,8 @@ namespace AIMP
 
             ~AimpMenuManager();
 
+            virtual AimpActionResult Add(IAimpMenuItem ^item);
+
             virtual AimpActionResult Add(ParentMenuType parentMenuType, IAimpMenuItem ^item);
 
             virtual AimpActionResult Delete(IAimpMenuItem ^item);
