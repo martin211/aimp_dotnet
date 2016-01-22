@@ -4,13 +4,13 @@
 #include "..\BaseManager.h"
 #include "MenuItemEvent.h"
 #include "ICallBackHeader.h"
+#include "AimpMenuItem.h"
 
 
 namespace AIMP
 {
     namespace SDK
     {
-        using namespace AIMP::SDK::UI::MenuItem;
         using namespace AIMP::SDK::MenuManager;
 
         public ref class AimpMenuManager : public AimpBaseManager<IAIMPServiceMenuManager>, public IAimpMenuManager
@@ -18,36 +18,22 @@ namespace AIMP
         public:
             explicit AimpMenuManager(ManagedAimpCore^ core);
 
+            virtual AimpActionResult CreateMenuItem(IAimpMenuItem ^%item);
+
             ~AimpMenuManager();
 
-            virtual void AddRange(ParentMenuType parentMenuType, MenuItemCollection^ items);
+            virtual AimpActionResult Add(ParentMenuType parentMenuType, IAimpMenuItem ^item);
 
-            virtual void Add(ParentMenuType parentMenuType, MenuItem^ item);
+            virtual AimpActionResult Delete(IAimpMenuItem ^item);
 
-            virtual void Delete(MenuItem^ item);
+            virtual AimpActionResult Delete(String ^id);
 
-            virtual void Delete(String^ id);
+            virtual AimpActionResult GetById(String ^id, IAimpMenuItem ^%item);
 
-            virtual void Delete(MenuItemCollection^ items);
-
-            virtual MenuItem^ GetById(String^ id);
-
-            virtual MenuItem ^GetBuiltIn(ParentMenuType parentMenuType);
+            virtual AimpActionResult GetBuiltIn(ParentMenuType parentMenuType, IAimpMenuItem ^%item);
 
         private:
-            void RegisterMenu(IAIMPMenuItem* parentMenuItem, MenuItem^ menuItem);
-
-            void UnregisterMenu(IAIMPMenuItem* menuItem);
-
-            void UpdateMenuItem(MenuItem^ menuItem);
-
-            void FillMenuData(IAIMPMenuItem* aimpMenuItem, MenuItem^ menuItem);
-
-            void OnPropertyChanged(System::Object ^sender, System::ComponentModel::PropertyChangedEventArgs ^e);
-
-            void OnSubitemAdded(MenuItem ^parent, MenuItem ^item);
-
-            void OnSubItemDeleted(System::Object ^item);
+            HRESULT UnregisterMenu(IAIMPMenuItem* menuItem);
         };
     }
 }

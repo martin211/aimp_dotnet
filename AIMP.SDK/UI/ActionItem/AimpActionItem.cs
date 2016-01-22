@@ -39,7 +39,6 @@ namespace AIMP.SDK.UI.ActionItem
                 if (_customData == null || _customData != value)
                 {
                     _customData = value;
-                    OnPropertyChanged("CustomData");
                 }
             }
         }
@@ -63,7 +62,6 @@ namespace AIMP.SDK.UI.ActionItem
                 if (string.IsNullOrWhiteSpace(_groupName) || !_groupName.Equals(value))
                 {
                     _groupName = value;
-                    OnPropertyChanged("GroupName");
                 }
             }
         }
@@ -82,7 +80,6 @@ namespace AIMP.SDK.UI.ActionItem
             set
             {
                 _defaultLocalHotKey = value;
-                OnPropertyChanged("DefaultLocalHotKey");
             }
         }
 
@@ -97,7 +94,6 @@ namespace AIMP.SDK.UI.ActionItem
             set
             {
                 _defaultGlobalHotKey = value;
-                OnPropertyChanged("DefaultGlobalHotKey");
             }
         }
 
@@ -112,7 +108,6 @@ namespace AIMP.SDK.UI.ActionItem
             set
             {
                 _defaultGlobalHotKey2 = value;
-                OnPropertyChanged("DefaultGlobalHotKey2");
             }
         }
 
@@ -136,7 +131,6 @@ namespace AIMP.SDK.UI.ActionItem
                 if (_enabled != value)
                 {
                     _enabled = value;
-                    OnPropertyChanged("Enabled");
                 }
             }
         }

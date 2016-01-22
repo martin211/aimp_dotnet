@@ -158,9 +158,9 @@ namespace AIMP
             }
         }
 
-        void ManagedAimpCore::UnregisterExtension(IUnknown* extension)
+        HRESULT ManagedAimpCore::UnregisterExtension(IUnknown* extension)
         {
-            _core->UnregisterExtension(extension);
+            return _core->UnregisterExtension(extension);
         }
 
         /// <summary>
@@ -292,6 +292,13 @@ namespace AIMP
             return _core;
         }
 
+        HRESULT ManagedAimpCore::CreateMenuItem(IAIMPMenuItem **item)
+        {
+            IAIMPMenuItem *i;
+            HRESULT r = _core->CreateObject(IID_IAIMPMenuItem, (void**)&i);
+            *item = i;
+            return r;
+        }
 
         OptionsDialogFrameExtension* ManagedAimpCore::GetOptionsFrame()
         {
