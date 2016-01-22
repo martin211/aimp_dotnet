@@ -1,5 +1,7 @@
 ﻿namespace AIMP.SDK.UI.MenuItem
 {
+    using AIMP.SDK.MenuManager;
+
     /// <summary>
     /// Standart menu item.
     /// </summary>
@@ -10,8 +12,9 @@
         /// </summary>
         /// <param name="text">The text.</param>
         public StandartMenuItem(string text)
-            : base(text)
         {
+            Name = text;
+            Style = AimpMenuItemStyle.Normal;
         }
     }
 }
