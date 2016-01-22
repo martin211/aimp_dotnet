@@ -1,7 +1,10 @@
 #include "Stdafx.h"
+
+//#include <vld.h>
+
 #include "DotNetPlugin.h"
-#include "vcclr.h"
-//#include "Extensions/OptionsDialogFrameExtension.h"
+//#include "vcclr.h"
+#include "Extensions/OptionsDialogFrameExtension.h"
 
 DotNetPlugin::DotNetPlugin()
 {
@@ -82,6 +85,10 @@ HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
 {
     System::Diagnostics::Debug::WriteLine("BEGIN: Initialize DotNet plugin");
 
+//#ifdef _DEBUG
+//    _CrtSetBreakAlloc(230);
+//#endif
+
     if (System::Object::ReferenceEquals(_dotNetPlugin, nullptr))
     {
         return S_OK;
@@ -114,6 +121,10 @@ HRESULT WINAPI DotNetPlugin::Finalize()
 
     AIMP::SDK::CustomAssemblyResolver::Deinitialize();
     System::GC::Collect();
+
+#ifdef _DEBUG
+    _CrtDumpMemoryLeaks();
+#endif
 
     return S_OK;
 }

@@ -64,7 +64,7 @@ namespace AIMP
 
             void UnregisterExtension(IAimpExtension^ extension);
 
-            void UnregisterExtension(IUnknown* extension);
+            HRESULT UnregisterExtension(IUnknown* extension);
 
             static IAIMPCore* GetAimpCore();
 
@@ -79,6 +79,8 @@ namespace AIMP
             void OnPlayListRemoved(IAIMPPlaylist *playlist);
 
             bool OnCheckUrl(String^ %url);
+
+            HRESULT CreateMenuItem(IAIMPMenuItem **item);
 
             OptionsDialogFrameExtension* GetOptionsFrame();
            

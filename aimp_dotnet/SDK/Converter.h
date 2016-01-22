@@ -7,7 +7,6 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK::UI::MenuItem;
 
         /// <summary>
         /// 
@@ -314,54 +313,54 @@ namespace AIMP
                 return GetInt32(propertyList, propertyId) > 0;
             }
 
-            static MenuItem ^ConvertToMenu(IAIMPPropertyList *aimpMenuItem)
-            {
-                MenuItem^ result = nullptr;
+            //static MenuItem ^ConvertToMenu(IAIMPPropertyList *aimpMenuItem)
+            //{
+            //    MenuItem^ result = nullptr;
 
-                int menuType;
-                if (CheckResult(aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, &menuType)))
-                {
-                    int checked;
-                    aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_CHECKED, &checked);
+            //    int menuType;
+            //    if (CheckResult(aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, &menuType)))
+            //    {
+            //        int checked;
+            //        aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_CHECKED, &checked);
 
-                    IAIMPString* idString;
-                    IAIMPString* nameString;
+            //        IAIMPString* idString;
+            //        IAIMPString* nameString;
 
-                    CheckResult(aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_NAME, IID_IAIMPString, (void**)&nameString));
+            //        CheckResult(aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_NAME, IID_IAIMPString, (void**)&nameString));
 
-                    if (menuType == AIMP_MENUITEM_STYLE_CHECKBOX)
-                    {
-                        result = gcnew CheckBoxMenuItem(gcnew String(nameString->GetData()));
-                        ((CheckBoxMenuItem^)result)->Checked = checked > 0;
-                    }
-                    else if (menuType == AIMP_MENUITEM_STYLE_RADIOBOX)
-                    {
-                        result = gcnew RadioButtonMenuItem(gcnew String(nameString->GetData()));
-                        ((RadioButtonMenuItem^)result)->Checked = checked > 0;
-                    }
-                    else if (menuType == AIMP_MENUITEM_STYLE_NORMAL)
-                    {
-                        result = gcnew StandartMenuItem(gcnew String(nameString->GetData()));
-                    }
+            //        if (menuType == AIMP_MENUITEM_STYLE_CHECKBOX)
+            //        {
+            //            //result = gcnew CheckBoxMenuItem(gcnew String(nameString->GetData()));
+            //            //((CheckBoxMenuItem^)result)->Checked = checked > 0;
+            //        }
+            //        else if (menuType == AIMP_MENUITEM_STYLE_RADIOBOX)
+            //        {
+            //            result = gcnew RadioButtonMenuItem(gcnew String(nameString->GetData()));
+            //            ((RadioButtonMenuItem^)result)->Checked = checked > 0;
+            //        }
+            //        else if (menuType == AIMP_MENUITEM_STYLE_NORMAL)
+            //        {
+            //            result = gcnew StandartMenuItem(gcnew String(nameString->GetData()));
+            //        }
 
-                    if (CheckResult(aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_ID, IID_IAIMPString, (void**)&idString)))
-                    {
-                        if (idString != NULL)
-                        {
-                            result->Id = gcnew String(idString->GetData());
-                        }
-                    }
+            //        if (CheckResult(aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_ID, IID_IAIMPString, (void**)&idString)))
+            //        {
+            //            if (idString != NULL)
+            //            {
+            //                result->Id = gcnew String(idString->GetData());
+            //            }
+            //        }
 
-                    int visible;
-                    aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_VISIBLE, &visible);
-                    result->Visible = visible > 0;
+            //        int visible;
+            //        aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_VISIBLE, &visible);
+            //        result->Visible = visible > 0;
 
-                    idString->Release();
-                    nameString->Release();
-                }
+            //        idString->Release();
+            //        nameString->Release();
+            //    }
 
-                return result;
-            }
+            //    return result;
+            //}
 
             static System::Drawing::Bitmap^ GetBitmap(IAIMPImageContainer* imageContainer)
             {
