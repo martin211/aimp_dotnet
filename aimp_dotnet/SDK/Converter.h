@@ -130,7 +130,7 @@ namespace AIMP
             /// <returns></returns>
             static bool SetInt32(IAIMPPropertyList *propertyList, int propertyId, int value)
             {
-                if (CheckResult(propertyList->SetValueAsInt32(propertyId, value)))
+                if (!CheckResult(propertyList->SetValueAsInt32(propertyId, value)))
                 {
                     //InternalLogger::Instance->Write("Unable set Int32 with id " + propertyId);
                     return false;
@@ -148,7 +148,7 @@ namespace AIMP
             /// <returns></returns>
             static bool SetInt64(IAIMPPropertyList *propertyList, int propertyId, Int64 value)
             {
-                if (CheckResult(propertyList->SetValueAsInt64(propertyId, value)))
+                if (!CheckResult(propertyList->SetValueAsInt64(propertyId, value)))
                 {
                     //InternalLogger::Instance->Write("Unable set Int64 with id " + propertyId);
                     return false;
@@ -166,7 +166,7 @@ namespace AIMP
             /// <returns></returns>
             static bool SetFloat(IAIMPPropertyList *propertyList, int propertyId, double value)
             {
-                if (CheckResult(propertyList->SetValueAsFloat(propertyId, value)))
+                if (!CheckResult(propertyList->SetValueAsFloat(propertyId, value)))
                 {
                     //InternalLogger::Instance->Write("Unable set Float with id " + propertyId);
                     return false;

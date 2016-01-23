@@ -72,6 +72,8 @@
         /// <param name="item"></param>
         AimpActionResult Add(ParentMenuType parentMenuType, IAimpMenuItem item);
 
+        AimpActionResult Add(IAimpMenuItem item);
+
         /// <summary>
         /// Deletes the menu item.
         /// </summary>
