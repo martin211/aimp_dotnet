@@ -6,7 +6,6 @@
     using AIMP.SDK.GUI;
     using AIMP.SDK.GUI.Controls.Form;
     using AIMP.SDK.MenuManager;
-    using AIMP.SDK.UI.MenuItem;
 
     [AimpPlugin("dotnet_gui", "AIMP DOTNET", "1", AimpPluginType = AimpPluginType.Addons)]
     public class GuiDemoPlugin : AimpPlugin
@@ -18,8 +17,10 @@
         /// </summary>
         public override void Initialize()
         {
-            var menuItem = new StandartMenuItem("Show aimp form");
-            menuItem.Click += (sender, args) =>
+            IAimpMenuItem menuItem;
+            if (Player.MenuManager.CreateMenuItem(out menuItem) == AimpActionResult.Ok)
+            {
+                menuItem.OnExecute += (sender, args) =>
                 {
                     var aimpHandle = Player.Win32Manager.GetAimpHandle();
                     IAimpUIForm form;
@@ -29,17 +30,18 @@
                     form.Show();
 
                     form.OnCreated += control =>
-                        {
-                            Debugger.Break(); 
-                        };
+                    {
+                        Debugger.Break();
+                    };
 
                     form.OnMouseDown += (control, clickArgs) =>
-                        {
-                            Debugger.Break();
-                        };
+                    {
+                        Debugger.Break();
+                    };
                 };
 
-            Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, menuItem);
+                Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, menuItem);
+            }
         }
 
         /// <summary>
