@@ -99,17 +99,17 @@ namespace AIMP
 
             placement = AimpUIControlPlacement(
                 (AimpUIControlAlignment)aimpPlacement->Alignment,
-                RectangleF(
+                System::Drawing::Rectangle(
                     aimpPlacement->AlignmentMargins.left,
                     aimpPlacement->AlignmentMargins.top,
                     aimpPlacement->AlignmentMargins.right - aimpPlacement->AlignmentMargins.left,
                     aimpPlacement->AlignmentMargins.top - aimpPlacement->AlignmentMargins.bottom),
-                RectangleF(
+                System::Drawing::Rectangle(
                     aimpPlacement->Anchors.left,
                     aimpPlacement->Anchors.top,
                     aimpPlacement->Anchors.right - aimpPlacement->Anchors.left,
                     aimpPlacement->Anchors.top - aimpPlacement->Anchors.bottom),
-                RectangleF(
+                System::Drawing::Rectangle(
                     aimpPlacement->Bounds.left,
                     aimpPlacement->Bounds.top,
                     aimpPlacement->Bounds.right - aimpPlacement->Bounds.left,
@@ -170,7 +170,7 @@ namespace AIMP
             return CheckResult(_aimpObject->SetPlacementConstraints(pl));
         }
 
-        AimpActionResult AimpUIControl::ClientToScreen(PointF %point)
+        AimpActionResult AimpUIControl::ClientToScreen(Point %point)
         {
             POINT *p = NULL;
             AimpActionResult result = CheckResult(_aimpObject->ClientToScreen(p));
@@ -180,11 +180,11 @@ namespace AIMP
                 return result;
             }
 
-            point = PointF(p->x, p->y);
+            point = Point(p->x, p->y);
             return result;
         }
 
-        AimpActionResult AimpUIControl::ScreenToClient(PointF %point)
+        AimpActionResult AimpUIControl::ScreenToClient(Point %point)
         {
             POINT *p = NULL;
             AimpActionResult result = CheckResult(_aimpObject->ScreenToClient(p));
@@ -194,7 +194,7 @@ namespace AIMP
                 return result;
             }
 
-            point = PointF(p->x, p->y);
+            point = Point(p->x, p->y);
             return result;
         }
 
@@ -406,6 +406,8 @@ namespace AIMP
             {
                 return this->_contextPopup(sender, args);
             }
+
+            return false;
         }
     }
 }

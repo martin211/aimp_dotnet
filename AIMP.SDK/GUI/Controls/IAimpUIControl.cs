@@ -30,9 +30,9 @@
 
         AimpActionResult SetPlacementConstraints(AimpUIControlPlacementConstraints placementConstraints);
 
-        AimpActionResult ClientToScreen(out PointF point);
+        AimpActionResult ClientToScreen(out Point point);
 
-        AimpActionResult ScreenToClient(out PointF point);
+        AimpActionResult ScreenToClient(out Point point);
 
         AimpActionResult Invalidate();
 

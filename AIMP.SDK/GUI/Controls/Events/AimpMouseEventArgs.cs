@@ -15,14 +15,14 @@
 
     public abstract class AimpMouseArgs : EventArgs
     {
-        public PointF Point { get; set; }
+        public Point Point { get; set; }
 
         public AimpUIModifiers Modifiers { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.EventArgs"/> class.
         /// </summary>
-        protected AimpMouseArgs(PointF point, AimpUIModifiers modifiers)
+        protected AimpMouseArgs(Point point, AimpUIModifiers modifiers)
         {
             Point = point;
             Modifiers = modifiers;

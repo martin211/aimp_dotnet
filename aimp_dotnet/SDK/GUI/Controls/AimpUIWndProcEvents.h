@@ -24,13 +24,15 @@ public:
         {
             return _control->OnBeforeWndProcEvent(Message, ParamW, ParamL, Result);
         }
+
+        return false;
     }
 
     virtual void WINAPI OnAfterWndProc(DWORD Message, WPARAM ParamW, LPARAM ParamL, LRESULT* Result)
     {
         if (static_cast<AIMP::SDK::AimpUIWinControl^>(_control) != nullptr)
         {
-            return _control->OnAfterWndProcEvent(Message, ParamW, ParamL, Result);
+            _control->OnAfterWndProcEvent(Message, ParamW, ParamL, Result);
         }
     }
 

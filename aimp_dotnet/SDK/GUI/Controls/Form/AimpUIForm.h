@@ -153,7 +153,7 @@ namespace AIMP
 
             bool OnShortCutEvent(IAIMPUIForm *sender, WORD key, WORD modifiers, BOOL *handled)
             {
-                AimpFormShortCutArgs ^args = gcnew AimpFormShortCutArgs((int)key, (AimpUIModifiers)modifiers, handled);
+                AimpFormShortCutArgs ^args = gcnew AimpFormShortCutArgs((int)key, (AimpUIModifiers)modifiers, (bool)handled);
                 OnShortCut(this, args);
                 return args->Handled;
             }

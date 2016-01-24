@@ -73,6 +73,8 @@ namespace AIMP
                         service = NULL;
                         prop = NULL;
                     }
+
+                    return false;
                 }
                 void set(bool value)
                 {
@@ -121,6 +123,8 @@ namespace AIMP
                         service = NULL;
                         prop = NULL;
                     }
+
+                    return false;
                 }
                 void set(bool value)
                 {
@@ -171,6 +175,8 @@ namespace AIMP
                         service = NULL;
                         prop = NULL;
                     }
+
+                    return nullptr;
                 }
                 void set(array<System::String^>^ val)
                 {
@@ -229,6 +235,8 @@ namespace AIMP
                         service = NULL;
                         prop = NULL;
                     }
+
+                    return nullptr;
                 }
                 void set(array<System::String^>^ val)
                 {

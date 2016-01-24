@@ -26,6 +26,8 @@ namespace AIMP
                 {
                     return System::Drawing::Point(rc.left, rc.top);
                 }
+
+                return System::Drawing::Point();
             }
 
             virtual IntPtr GetAimpHandle()

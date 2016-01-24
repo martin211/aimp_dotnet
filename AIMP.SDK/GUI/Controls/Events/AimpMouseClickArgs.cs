@@ -16,7 +16,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.EventArgs"/> class.
         /// </summary>
-        public AimpMouseClickArgs(PointF point, AimpUIModifiers modifiers, AimpUIMouseButton button)
+        public AimpMouseClickArgs(Point point, AimpUIModifiers modifiers, AimpUIMouseButton button)
             : base(point, modifiers)
         {
             Button = button;

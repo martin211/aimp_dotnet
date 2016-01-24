@@ -58,7 +58,7 @@ namespace AIMP
             }
 
             generic<typename TControl>
-            virtual AimpActionResult CreateControl(IAimpUIForm ^owner, IAimpUIWinControl ^parent, String ^name, TControl %item) override
+            virtual AimpActionResult CreateControl(IAimpUIForm ^owner, IAimpUIWinControl ^parent, String ^name, TControl %item)
             {
                 //if (static_cast<AIMP::SDK::GUI::Controls::AimpUIControlPlacement>(item) != nullptr)
                 //{

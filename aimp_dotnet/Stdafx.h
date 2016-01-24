@@ -3,6 +3,8 @@
 // but are changed infrequently
 #pragma once
 
+#define BOOST_SIGNALS_NO_DEPRECATION_WARNING
+
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>

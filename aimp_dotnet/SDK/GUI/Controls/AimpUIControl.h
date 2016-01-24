@@ -69,21 +69,21 @@ namespace AIMP
                 void set(bool value);
             }
 
-            virtual AimpActionResult GetPlacement(AimpUIControlPlacement %placement) override;
+            virtual AimpActionResult GetPlacement(AimpUIControlPlacement %placement);
 
-            virtual AimpActionResult GetPlacementConstraints(AimpUIControlPlacementConstraints %placementConstraints) override;
+            virtual AimpActionResult GetPlacementConstraints(AimpUIControlPlacementConstraints %placementConstraints);
 
-            virtual AimpActionResult SetPlacement(AimpUIControlPlacement placement) override;
+            virtual AimpActionResult SetPlacement(AimpUIControlPlacement placement);
 
-            virtual AimpActionResult SetPlacementConstraints(AimpUIControlPlacementConstraints placementConstraints) override;
+            virtual AimpActionResult SetPlacementConstraints(AimpUIControlPlacementConstraints placementConstraints);
 
-            virtual AimpActionResult ClientToScreen(PointF %point) override;
+            virtual AimpActionResult ClientToScreen(Point %point);
 
-            virtual AimpActionResult ScreenToClient(PointF %point) override;
+            virtual AimpActionResult ScreenToClient(Point %point);
 
-            virtual AimpActionResult Invalidate() override;
+            virtual AimpActionResult Invalidate();
 
-            virtual AimpActionResult PaintTo(IntPtr parent, int x, int y) override;
+            virtual AimpActionResult PaintTo(IntPtr parent, int x, int y);
 
             virtual event AimpUIEventHandler<AimpMouseClickArgs^> ^OnMouseDoubleClick
             {
@@ -151,17 +151,17 @@ namespace AIMP
 
             void OnMouseDoubleClickEvent(IAIMPUIControl *sender, TAIMPUIMouseButton Button, int X, int Y, WORD Modifiers)
             {
-                OnMouseDoubleClick(this, gcnew AimpMouseClickArgs(PointF(X, Y), (AimpUIModifiers)Modifiers, (AimpUIMouseButton)Button));
+                OnMouseDoubleClick(this, gcnew AimpMouseClickArgs(Point(X, Y), (AimpUIModifiers)Modifiers, (AimpUIMouseButton)Button));
             }
 
             void OnMouseDownEvent(IAIMPUIControl *sender, TAIMPUIMouseButton Button, int X, int Y, WORD Modifiers)
             {
-                OnMouseDown(this, gcnew AimpMouseClickArgs(PointF(X, Y), (AimpUIModifiers)Modifiers, (AimpUIMouseButton)Button));
+                OnMouseDown(this, gcnew AimpMouseClickArgs(Point(X, Y), (AimpUIModifiers)Modifiers, (AimpUIMouseButton)Button));
             }
 
             void OnMouseUpEvent(IAIMPUIControl *sender, TAIMPUIMouseButton Button, int X, int Y, WORD Modifiers)
             {
-                OnMouseUp(this, gcnew AimpMouseClickArgs(PointF(X, Y), (AimpUIModifiers)Modifiers, (AimpUIMouseButton)Button));
+                OnMouseUp(this, gcnew AimpMouseClickArgs(Point(X, Y), (AimpUIModifiers)Modifiers, (AimpUIMouseButton)Button));
             }
 
             void OnMouseLeaveEvent(IAIMPUIControl *sender)
@@ -181,12 +181,12 @@ namespace AIMP
 
             void OnMouseMoveEvent(IAIMPUIControl *sender, int X, int Y, WORD Modifiers)
             {
-                OnMouseMove(this, gcnew AimpMouseMoveArgs(PointF(X, Y), (AimpUIModifiers)Modifiers));
+                OnMouseMove(this, gcnew AimpMouseMoveArgs(Point(X, Y), (AimpUIModifiers)Modifiers));
             }
 
             bool OnContextPopupEvent(IAIMPUIControl *sender, int X, int Y)
             {
-                return OnContextPopup(this, gcnew AimpContextPopupArgs(PointF(X, Y)));
+                return OnContextPopup(this, gcnew AimpContextPopupArgs(Point(X, Y)));
             }
         };
     }

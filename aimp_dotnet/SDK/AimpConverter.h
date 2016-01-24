@@ -406,9 +406,9 @@ namespace AIMP
                     if (stream->GetSize() > 0)
                     {
                         Int64 size = stream->GetSize();
-                        unsigned char *buf = new unsigned char[size];
+                        unsigned char *buf = new unsigned char[static_cast<unsigned int>(size)];
                         HRESULT r = stream->Seek(0, AIMP_STREAM_SEEKMODE_FROM_BEGINNING);
-                        r = stream->Read(buf, size);
+                        r = stream->Read(buf, static_cast<unsigned int>(size));
 
                         System::IO::MemoryStream^ strm = gcnew System::IO::MemoryStream();
                         try
@@ -448,7 +448,7 @@ namespace AIMP
                 {
                     stream = gcnew System::IO::MemoryStream();
                     image->Save(stream, System::Drawing::Imaging::ImageFormat::Png);
-                    array<Byte> ^buffer = gcnew array<byte>(stream->Length);
+                    array<Byte> ^buffer = gcnew array<byte>(static_cast<int>(stream->Length));
                     buffer = stream->ToArray();
 
                     if (CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&aimpStream))
@@ -457,7 +457,7 @@ namespace AIMP
                         aimpStream->SetSize(stream->Length);
                         pin_ptr<System::Byte> p = &buffer[0];
                         unsigned char* pby = p;
-                        if (CheckResult(aimpStream->Write(pby, stream->Length, nullptr)))
+                        if (CheckResult(aimpStream->Write(pby, static_cast<unsigned int>(stream->Length), nullptr)))
                         {
                             img->LoadFromStream(aimpStream);
                         }
@@ -491,7 +491,7 @@ namespace AIMP
                         stream = gcnew System::IO::MemoryStream();
                         image->Save(stream, System::Drawing::Imaging::ImageFormat::Jpeg);
                         stream->Seek(0, System::IO::SeekOrigin::Begin);
-                        if (Utils::CheckResult(container->SetDataSize(stream->Length)) != AIMP::SDK::AimpActionResult::Ok)
+                        if (Utils::CheckResult(container->SetDataSize(static_cast<int>(stream->Length))) != AIMP::SDK::AimpActionResult::Ok)
                         {
                             return NULL;
                         }

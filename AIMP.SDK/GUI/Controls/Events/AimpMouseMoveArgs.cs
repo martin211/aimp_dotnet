@@ -7,7 +7,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.EventArgs"/> class.
         /// </summary>
-        public AimpMouseMoveArgs(PointF point, AimpUIModifiers modifiers)
+        public AimpMouseMoveArgs(Point point, AimpUIModifiers modifiers)
             : base(point, modifiers)
         {
         }

@@ -47,7 +47,7 @@ namespace AIMP
 
         bool AimpUIWinControl::HasHandle()
         {
-            return ((IAIMPUIWinControl*)InternalAimpControl)->HasHandle();
+            return (bool)((IAIMPUIWinControl*)InternalAimpControl)->HasHandle();
         }
 
         AimpActionResult AimpUIWinControl::SetFocus()
@@ -203,6 +203,8 @@ namespace AIMP
             {
                 return this->_onBeforeWndProc(sender, args);
             }
+
+            return false;
         }
 
 

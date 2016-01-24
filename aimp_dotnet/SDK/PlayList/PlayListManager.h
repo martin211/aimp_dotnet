@@ -196,17 +196,17 @@ namespace AIMP
                 CheckResult(_service->SetActivePlaylist(((AimpPlayList^)playList)->InternalAimpObject));
             }
         private:
-            virtual void onPlaylistActivated(String ^playListName, String ^playListId)
+            virtual void onPlaylistActivated(String ^playListName, String ^playListId) sealed
             {
                 PlaylistActivated(playListName, playListId);
             }
 
-            virtual void onPlaylistAdded(String ^playListName, String ^playListId)
+            virtual void onPlaylistAdded(String ^playListName, String ^playListId) sealed
             {
                 PlaylistAdded(playListName, playListId);
             }
 
-            virtual void onPlaylistRemoved(String ^playListName, String ^playListId)
+            virtual void onPlaylistRemoved(String ^playListName, String ^playListId) sealed
             {
                 PlaylistRemoved(playListName, playListId);
             }
