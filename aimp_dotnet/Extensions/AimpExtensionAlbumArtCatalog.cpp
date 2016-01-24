@@ -17,6 +17,7 @@ HRESULT WINAPI AimpExtensionAlbumArtCatalog::GetName(IAIMPString **Name)
     _aimpCore->CreateObject(IID_IAIMPString, (void**)&strObject);
     strObject->SetData((PWCHAR)strDate, str->Length);
     *Name = strObject;
+    strObject->Release();
     return S_OK;
 }
 

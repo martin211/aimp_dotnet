@@ -33,6 +33,7 @@
     <ClCompile Include="SDK\GUI\Controls\AimpUIWinControl.cpp" />
     <ClCompile Include="SDK\GUI\Controls\Form\AimpUIForm.cpp" />
     <ClCompile Include="SDK\ManagedAimpCore.cpp" />
+    <ClCompile Include="SDK\Menu\AimpMenuItem.cpp" />
     <ClCompile Include="SDK\Menu\AimpMenuManager.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlayList.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlayListGroup.cpp" />
@@ -92,6 +93,7 @@
     <ClInclude Include="SDK\GUI\Controls\Form\AimpUIForm.h" />
     <ClInclude Include="SDK\GUI\Controls\Form\AimpUIFormEvents.h" />
     <ClInclude Include="SDK\ManagedAimpCore.h" />
+    <ClInclude Include="SDK\Menu\AimpMenuItem.h" />
     <ClInclude Include="SDK\Menu\AimpMenuManager.h" />
     <ClInclude Include="SDK\Menu\ICallBackHeader.h" />
     <ClInclude Include="SDK\Menu\MenuItemEvent.h" />
@@ -183,8 +185,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(OutDir)</OutDir>
     <TargetName>aimp_dotnet</TargetName>
-    <IncludePath>z:\Libraries\boost;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>z:\Libraries\boost\lib32-msvc-14.0;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+    <IncludePath>z:\Libraries\boost;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>z:\Libraries\boost\lib32-msvc-14.0;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(ProjectDir)..\..\AIMP4.00\Plugins\aimp_dotnet</OutDir>

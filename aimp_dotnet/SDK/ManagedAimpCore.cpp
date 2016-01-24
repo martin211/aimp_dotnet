@@ -47,9 +47,32 @@ namespace AIMP
 
         ManagedAimpCore::~ManagedAimpCore()
         {
+            System::Diagnostics::Debug::WriteLine("Dispose ManagedAimpCore");
             _messageDispatcher->Unhook(_hook);
+            _messageDispatcher->Release();
+            
+            if (_optionsFrame != nullptr)
+            {
+                _core->UnregisterExtension(static_cast<IAIMPOptionsDialogFrame*>(_optionsFrame));
+                _optionsFrame->Release();
+                _optionsFrame = NULL;
+            }
+
+            if (_albumArtCatalogExtension != nullptr)
+            {
+                _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtCatalog::Base*>(_albumArtCatalogExtension));
+                _albumArtCatalogExtension->Release();
+                _albumArtCatalogExtension = nullptr;
+            }
+
+            if (_albumArtProviderExtension != nullptr)
+            {
+                _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
+                _albumArtProviderExtension->Release();
+                _albumArtProviderExtension = nullptr;
+            }
+
             _core->Release();
-            _core = NULL;
         }
 
         /// <summary>
@@ -61,9 +84,12 @@ namespace AIMP
         AIMP::SDK::AimpActionResult ManagedAimpCore::GetPath(AIMP::SDK::AimpMessages::AimpCorePathType pathType, String ^%pathResult)
         {
             IAIMPString* res;
+            //_core->GetPath((int)pathType, &res);
+            //IAIMPString_ptr path(res, false);
+            //pathResult = gcnew System::String(std::wstring(path->GetData(), path->GetLength()).c_str());
             _core->GetPath((int)pathType, &res);
-            IAIMPString_ptr path(res, false);
-            pathResult = gcnew System::String(std::wstring(path->GetData(), path->GetLength()).c_str());
+            pathResult = AimpConverter::GetString(res);
+            res->Release();
             return AIMP::SDK::AimpActionResult::Ok;
         }
 
@@ -111,24 +137,30 @@ namespace AIMP
             if (optionsFrameExtension != nullptr)
             {
                 _core->UnregisterExtension(static_cast<IAIMPOptionsDialogFrame*>(_optionsFrame));
+                _optionsFrame->Release();
+                _optionsFrame = NULL;
             }
 
             AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^ albumArtCatalogExtension = dynamic_cast<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^>(extension);
             if (albumArtCatalogExtension != nullptr)
             {
                 _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtCatalog::Base*>(_albumArtCatalogExtension));
+                _albumArtCatalogExtension->Release();
+                _albumArtCatalogExtension = nullptr;
             }
 
             AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^ albumArtProviderExtension = dynamic_cast<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^>(extension);
             if (albumArtProviderExtension != nullptr)
             {
                 _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
+                _albumArtProviderExtension->Release();
+                _albumArtProviderExtension = nullptr;
             }
         }
 
-        void ManagedAimpCore::UnregisterExtension(IUnknown* extension)
+        HRESULT ManagedAimpCore::UnregisterExtension(IUnknown* extension)
         {
-            _core->UnregisterExtension(extension);
+            return _core->UnregisterExtension(extension);
         }
 
         /// <summary>
@@ -186,7 +218,16 @@ namespace AIMP
         /// <returns></returns>
         HRESULT ManagedAimpCore::GetService(REFIID iid, void** service)
         {
-            return _core->QueryInterface(iid, service);
+            //return _core->QueryInterface(iid, service);
+
+            IUnknown* _service;
+            HRESULT result = _core->QueryInterface(iid, (void**) &_service);
+            if (result == S_OK)
+            {
+                *service = _service;
+            }
+
+            return result;
         }
 
         IUnknown* ManagedAimpCore::QueryInterface(REFIID iid)
@@ -231,7 +272,9 @@ namespace AIMP
         HRESULT ManagedAimpCore::ShowNotification(bool autoHide, String ^notification)
         {
             IAIMPString *str = AimpConverter::MakeAimpString(_core, notification);
-            return _messageDispatcher->Send((DWORD)AIMP::SDK::AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION, autoHide ? 0 : 1, str->GetData());
+            HRESULT r = _messageDispatcher->Send((DWORD)AIMP::SDK::AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION, autoHide ? 0 : 1, str->GetData());
+            str->Release();
+            return r;
         }
 
         /// <summary>
@@ -249,6 +292,13 @@ namespace AIMP
             return _core;
         }
 
+        HRESULT ManagedAimpCore::CreateMenuItem(IAIMPMenuItem **item)
+        {
+            IAIMPMenuItem *i;
+            HRESULT r = _core->CreateObject(IID_IAIMPMenuItem, (void**)&i);
+            *item = i;
+            return r;
+        }
 
         OptionsDialogFrameExtension* ManagedAimpCore::GetOptionsFrame()
         {

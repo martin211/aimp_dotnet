@@ -4,52 +4,38 @@
 #include "..\BaseManager.h"
 #include "MenuItemEvent.h"
 #include "ICallBackHeader.h"
+#include "AimpMenuItem.h"
 
 
 namespace AIMP
 {
-	namespace SDK
-	{
-		using namespace AIMP::SDK::UI::MenuItem;
-		using namespace AIMP::SDK::MenuManager;
+    namespace SDK
+    {
+        using namespace AIMP::SDK::MenuManager;
 
-		public ref class AimpMenuManager : public AimpBaseManager, public IAimpMenuManager
-		{
-		public:
-			explicit AimpMenuManager(ManagedAimpCore^ core);
+        public ref class AimpMenuManager : public AimpBaseManager<IAIMPServiceMenuManager>, public IAimpMenuManager
+        {
+        public:
+            explicit AimpMenuManager(ManagedAimpCore^ core);
 
-			virtual void AddRange(ParentMenuType parentMenuType, MenuItemCollection^ items);
+            virtual AimpActionResult CreateMenuItem(IAimpMenuItem ^%item);
 
-			virtual void Add(ParentMenuType parentMenuType, MenuItem^ item);
+            ~AimpMenuManager();
 
-			virtual void Delete(MenuItem^ item);
+            virtual AimpActionResult Add(IAimpMenuItem ^item);
 
-			virtual void Delete(String^ id);
+            virtual AimpActionResult Add(ParentMenuType parentMenuType, IAimpMenuItem ^item);
 
-			virtual void Delete(MenuItemCollection^ items);
+            virtual AimpActionResult Delete(IAimpMenuItem ^item);
 
-			virtual MenuItem^ GetById(String^ id);
+            virtual AimpActionResult Delete(String ^id);
 
-			virtual MenuItem ^GetBuiltIn(ParentMenuType parentMenuType);
+            virtual AimpActionResult GetById(String ^id, IAimpMenuItem ^%item);
 
-		private:
-			IAIMPServiceMenuManager* _aimpMenuManager;
+            virtual AimpActionResult GetBuiltIn(ParentMenuType parentMenuType, IAimpMenuItem ^%item);
 
-			IAIMPServiceActionManager* _aimpActionManager;
-
-			void RegisterMenu(IAIMPMenuItem* parentMenuItem, MenuItem^ menuItem);
-
-			void UnregisterMenu(IAIMPMenuItem* menuItem);
-
-			void UpdateMenuItem(MenuItem^ menuItem);
-
-			void FillMenuData(IAIMPMenuItem* aimpMenuItem, MenuItem^ menuItem);
-
-			void OnPropertyChanged(System::Object ^sender, System::ComponentModel::PropertyChangedEventArgs ^e);
-
-			void OnSubitemAdded(MenuItem ^parent, MenuItem ^item);
-
-			void OnSubItemDeleted(System::Object ^item);
-		};
-	}
+        private:
+            HRESULT UnregisterMenu(IAIMPMenuItem* menuItem);
+        };
+    }
 }

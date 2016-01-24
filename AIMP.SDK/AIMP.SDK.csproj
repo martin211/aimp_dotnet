@@ -127,13 +127,6 @@
     <Compile Include="UI\ActionItem\ActionItemCollection.cs" />
     <Compile Include="UI\ActionItem\AimpActionItem.cs" />
     <Compile Include="UI\MBRCollection.cs" />
-    <Compile Include="UI\MenuItem\MenuItem.cs" />
-    <Compile Include="UI\MenuItem\CheckBoxMenuItem.cs" />
-    <Compile Include="UI\MenuItem\CheckedMenuItem.cs" />
-    <Compile Include="UI\MenuItem\MenuItemCollection.cs" />
-    <Compile Include="UI\MenuItem\MenuItemType.cs" />
-    <Compile Include="UI\MenuItem\RadioButtonMenuItem.cs" />
-    <Compile Include="UI\MenuItem\StandartMenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ActionManager\IAimpActionManager.cs" />
     <Compile Include="AlbumArtManager\AimpFingCovertArtType.cs" />

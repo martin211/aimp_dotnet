@@ -16,7 +16,7 @@ namespace AIMP
         using namespace AIMP::SDK::GUI::Controls;
         using namespace AIMP::SDK::GUI::Controls::Form;
 
-        public ref class AimpServiceUI : public AimpBaseManager, public IAimpServiceUI
+        public ref class AimpServiceUI : public AimpBaseManager<IAIMPServiceUI>, public IAimpServiceUI
         {
         private:
             IAIMPServiceUI *_service;

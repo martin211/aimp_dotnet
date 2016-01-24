@@ -5,95 +5,103 @@
 
 namespace AIMP
 {
-	namespace SDK
-	{
-		using namespace System;
-		using namespace AIMP::SDK::MUIManager;
+    namespace SDK
+    {
+        using namespace System;
+        using namespace AIMP::SDK::MUIManager;
 
-		public ref class AimpMIUManager : public AimpBaseManager, public IAimpMUIManager
-		{
-		public:
-			explicit AimpMIUManager(ManagedAimpCore^ core) : AimpBaseManager(core)
-			{
-				// TODO: Add logging.
-				IAIMPServiceMUI* service;
-				core->GetService(IID_IAIMPServiceMUI, (void**) &service);
-				_muiService = service;
-			}
+        public ref class AimpMIUManager : public AimpBaseManager<IAIMPServiceMUI>, public IAimpMUIManager
+        {
+        public:
+            explicit AimpMIUManager(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceMUI>(core)
+            {
+                
+            }
 
-			virtual String^ GetName()
-			{
-				IAIMPString *str = NULL;
-				try
-				{
-					_muiService->GetName(&str);
-					return gcnew String(str->GetData());
-				}
-				finally
-				{
-                    if (str != NULL)
+            ~AimpMIUManager()
+            {
+                System::Diagnostics::Debug::WriteLine("Dispose AimpMIUManager");
+            }
+
+            virtual String^ GetName()
+            {
+                IAIMPString *str = NULL;
+                IAIMPServiceMUI* service = NULL;
+                try
+                {
+                    if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
                     {
-                        str->Release();
-                        str = NULL;
+                        service->GetName(&str);
+                        return gcnew String(str->GetData());
                     }
-				}
+                }
+                finally
+                {
+                    service->Release();
+                    str->Release();
+                    str = NULL;
+                    service = NULL;
+                }
 
-				return String::Empty;
-			}
+                return String::Empty;
+            }
 
-			virtual String^ GetValue(String^ key)
-			{
-				IAIMPString *str = NULL;
-				try
-				{
-					_muiService->GetValue(AimpConverter::MakeAimpString(_core->GetAimpCore(), key), &str);
-					if (str == NULL)
-					{
-						return String::Empty;
-					}
-
-					return gcnew String(str->GetData());
-				}
-				finally
-				{
-                    if (str != NULL)
+            virtual String^ GetValue(String^ key)
+            {
+                IAIMPString *str = NULL;
+                IAIMPServiceMUI* service = NULL;
+                try
+                {
+                    if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
                     {
-                        str->Release();
-                        str = NULL;
+                        service->GetValue(AimpConverter::MakeAimpString(_core->GetAimpCore(), key), &str);
+                        if (str == NULL)
+                        {
+                            return String::Empty;
+                        }
+
+                        return gcnew String(str->GetData());
                     }
-				}
+                }
+                finally
+                {
+                    service->Release();
+                    str->Release();
+                    str = NULL;
+                    service = NULL;
+                }
 
-				return String::Empty;
-			}
+                return String::Empty;
+            }
 
-			virtual String^ GetValuePart(String^ key, int index)
-			{
-				IAIMPString *str = NULL;
-				try
-				{
-					_muiService->GetValuePart(AimpConverter::MakeAimpString(_core->GetAimpCore(), key), index, &str);
-
-					if (str == NULL)
-					{
-						return String::Empty;
-					}
-
-					return gcnew String(str->GetData());
-				}
-				finally
-				{
-                    if (str != NULL)
+            virtual String^ GetValuePart(String^ key, int index)
+            {
+                IAIMPString *str = NULL;
+                IAIMPServiceMUI* service = NULL;
+                try
+                {
+                    if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
                     {
-                        str->Release();
-                        str = NULL;
+                        service->GetValuePart(AimpConverter::MakeAimpString(_core->GetAimpCore(), key), index, &str);
+
+                        if (str == NULL)
+                        {
+                            return String::Empty;
+                        }
+
+                        return gcnew String(str->GetData());
                     }
-				}
+                }
+                finally
+                {
+                    service->Release();
+                    str->Release();
+                    str = NULL;
+                    service = NULL;
+                }
 
-				return String::Empty;
-			}
-
-		private:
-			IAIMPServiceMUI* _muiService;
-		};
-	}
+                return String::Empty;
+            }
+        };
+    }
 }

@@ -7,7 +7,6 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK::UI::MenuItem;
 
         /// <summary>
         /// 
@@ -91,7 +90,17 @@ namespace AIMP
             /// <returns></returns>
             static bool SetString(IAIMPPropertyList *propertyList, int propertyId, String ^value)
             {
-                return SetObject(propertyList, propertyId, MakeAimpString(ManagedAimpCore::GetAimpCore(), value));
+                IAIMPString *str = NULL;
+                try
+                {
+                    str = MakeAimpString(ManagedAimpCore::GetAimpCore(), value);
+                    return SetObject(propertyList, propertyId, str);
+                }
+                finally
+                {
+                    str->Release();
+                    str = NULL;
+                }
             }
 
             /// <summary>
@@ -121,7 +130,7 @@ namespace AIMP
             /// <returns></returns>
             static bool SetInt32(IAIMPPropertyList *propertyList, int propertyId, int value)
             {
-                if (CheckResult(propertyList->SetValueAsInt32(propertyId, value)))
+                if (!CheckResult(propertyList->SetValueAsInt32(propertyId, value)))
                 {
                     //InternalLogger::Instance->Write("Unable set Int32 with id " + propertyId);
                     return false;
@@ -139,7 +148,7 @@ namespace AIMP
             /// <returns></returns>
             static bool SetInt64(IAIMPPropertyList *propertyList, int propertyId, Int64 value)
             {
-                if (CheckResult(propertyList->SetValueAsInt64(propertyId, value)))
+                if (!CheckResult(propertyList->SetValueAsInt64(propertyId, value)))
                 {
                     //InternalLogger::Instance->Write("Unable set Int64 with id " + propertyId);
                     return false;
@@ -157,7 +166,7 @@ namespace AIMP
             /// <returns></returns>
             static bool SetFloat(IAIMPPropertyList *propertyList, int propertyId, double value)
             {
-                if (CheckResult(propertyList->SetValueAsFloat(propertyId, value)))
+                if (!CheckResult(propertyList->SetValueAsFloat(propertyId, value)))
                 {
                     //InternalLogger::Instance->Write("Unable set Float with id " + propertyId);
                     return false;
@@ -208,11 +217,8 @@ namespace AIMP
                 }
                 finally
                 {
-                    if (str != NULL)
-                    {
-                        str->Release();
-                        str = NULL;
-                    }
+                    str->Release();
+                    str = NULL;
                 }
 
                 return nullptr;
@@ -307,69 +313,79 @@ namespace AIMP
                 return GetInt32(propertyList, propertyId) > 0;
             }
 
-            static MenuItem ^ConvertToMenu(IAIMPPropertyList *aimpMenuItem)
-            {
-                MenuItem^ result = nullptr;
+            //static MenuItem ^ConvertToMenu(IAIMPPropertyList *aimpMenuItem)
+            //{
+            //    MenuItem^ result = nullptr;
 
-                int menuType;
-                if (CheckResult(aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, &menuType)))
-                {
-                    int checked;
-                    aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_CHECKED, &checked);
+            //    int menuType;
+            //    if (CheckResult(aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, &menuType)))
+            //    {
+            //        int checked;
+            //        aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_CHECKED, &checked);
 
-                    IAIMPString* idString;
-                    IAIMPString* nameString;
+            //        IAIMPString* idString;
+            //        IAIMPString* nameString;
 
-                    CheckResult(aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_NAME, IID_IAIMPString, (void**)&nameString));
+            //        CheckResult(aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_NAME, IID_IAIMPString, (void**)&nameString));
 
-                    if (menuType == AIMP_MENUITEM_STYLE_CHECKBOX)
-                    {
-                        result = gcnew CheckBoxMenuItem(gcnew String(nameString->GetData()));
-                        ((CheckBoxMenuItem^)result)->Checked = checked > 0;
-                    }
-                    else if (menuType == AIMP_MENUITEM_STYLE_RADIOBOX)
-                    {
-                        result = gcnew RadioButtonMenuItem(gcnew String(nameString->GetData()));
-                        ((RadioButtonMenuItem^)result)->Checked = checked > 0;
-                    }
-                    else if (menuType == AIMP_MENUITEM_STYLE_NORMAL)
-                    {
-                        result = gcnew StandartMenuItem(gcnew String(nameString->GetData()));
-                    }
+            //        if (menuType == AIMP_MENUITEM_STYLE_CHECKBOX)
+            //        {
+            //            //result = gcnew CheckBoxMenuItem(gcnew String(nameString->GetData()));
+            //            //((CheckBoxMenuItem^)result)->Checked = checked > 0;
+            //        }
+            //        else if (menuType == AIMP_MENUITEM_STYLE_RADIOBOX)
+            //        {
+            //            result = gcnew RadioButtonMenuItem(gcnew String(nameString->GetData()));
+            //            ((RadioButtonMenuItem^)result)->Checked = checked > 0;
+            //        }
+            //        else if (menuType == AIMP_MENUITEM_STYLE_NORMAL)
+            //        {
+            //            result = gcnew StandartMenuItem(gcnew String(nameString->GetData()));
+            //        }
 
-                    if (CheckResult(aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_ID, IID_IAIMPString, (void**)&idString)))
-                    {
-                        if (idString != NULL)
-                        {
-                            result->Id = gcnew String(idString->GetData());
-                        }
-                    }
+            //        if (CheckResult(aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_ID, IID_IAIMPString, (void**)&idString)))
+            //        {
+            //            if (idString != NULL)
+            //            {
+            //                result->Id = gcnew String(idString->GetData());
+            //            }
+            //        }
 
-                    int visible;
-                    aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_VISIBLE, &visible);
-                    result->Visible = visible > 0;
-                }
+            //        int visible;
+            //        aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_VISIBLE, &visible);
+            //        result->Visible = visible > 0;
 
-                return result;
-            }
+            //        idString->Release();
+            //        nameString->Release();
+            //    }
+
+            //    return result;
+            //}
 
             static System::Drawing::Bitmap^ GetBitmap(IAIMPImageContainer* imageContainer)
             {
-                IAIMPImage* image;
-                if (!CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**)&image)))
+                IAIMPImage* image = NULL;
+                try
                 {
-                    //InternalLogger::Instance->Write("Unable get Bitmap");
-                    return nullptr;
+                    if (!CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**)&image)))
+                    {
+                        //InternalLogger::Instance->Write("Unable get Bitmap");
+                        return nullptr;
+                    }
+
+                    imageContainer->CreateImage(&image);
+
+                    if (image == NULL)
+                    {
+                        return nullptr;
+                    }
+                    return GetBitmap(image);
                 }
-
-                imageContainer->CreateImage(&image);
-
-                if (image == NULL)
+                finally
                 {
-                    return nullptr;
+                    image->Release();
+                    image = NULL;
                 }
-
-                return GetBitmap(image);
             }
 
             static System::Drawing::Bitmap^ GetBitmap(IAIMPImage* image)
@@ -411,6 +427,8 @@ namespace AIMP
                             delete[] buf;
                             stream->Release();
                             image->Release();
+                            stream = NULL;
+                            image = NULL;
                         }
                     }
 
@@ -423,6 +441,9 @@ namespace AIMP
             static IAIMPImage *CreateImage(System::Drawing::Bitmap ^image)
             {
                 System::IO::MemoryStream ^stream;
+                IAIMPStream *aimpStream = NULL;
+                IAIMPImage *img = NULL;
+
                 try
                 {
                     stream = gcnew System::IO::MemoryStream();
@@ -430,8 +451,6 @@ namespace AIMP
                     array<Byte> ^buffer = gcnew array<byte>(stream->Length);
                     buffer = stream->ToArray();
 
-                    IAIMPStream *aimpStream = NULL;
-                    IAIMPImage *img;
                     if (CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&aimpStream))
                         && CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**)&img)))
                     {
@@ -452,6 +471,10 @@ namespace AIMP
                     {
                         stream->Close();
                     }
+                    aimpStream->Release();
+                    img->Release();
+                    aimpStream = NULL;
+                    img = NULL;
                 }
 
                 return NULL;
