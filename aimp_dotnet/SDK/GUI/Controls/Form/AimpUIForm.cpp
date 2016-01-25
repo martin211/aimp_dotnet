@@ -105,7 +105,10 @@ namespace AIMP
 
         AimpActionResult AimpUIForm::Release(bool postponed)
         {
-            return CheckResult(((IAIMPUIForm*)InternalAimpControl)->Release(postponed));
+             CheckResult(((IAIMPUIForm*)InternalAimpControl)->Release(postponed));
+            ((IUnknown*)((IAIMPUIForm*)InternalAimpControl))->Release();
+
+            return AimpActionResult::Ok;
         }
 
         AimpModalResult AimpUIForm::ShowModal()
@@ -185,7 +188,6 @@ namespace AIMP
             {
                 this->_onCreated = (AimpUIEventHandler^)Delegate::Remove(this->_onCreated, onEvent);
             }
-
         }
 
         void AimpUIForm::OnCreated::raise(IAimpUIControl ^sender)

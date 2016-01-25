@@ -10,6 +10,8 @@
     [AimpPlugin("dotnet_gui", "AIMP DOTNET", "1", AimpPluginType = AimpPluginType.Addons)]
     public class GuiDemoPlugin : AimpPlugin
     {
+        IAimpUIForm _form;
+
         #region Overrides of AimpPlugin
 
         /// <summary>
@@ -20,28 +22,33 @@
             IAimpMenuItem menuItem;
             if (Player.MenuManager.CreateMenuItem(out menuItem) == AimpActionResult.Ok)
             {
-                menuItem.OnExecute += (sender, args) =>
-                {
-                    var aimpHandle = Player.Win32Manager.GetAimpHandle();
-                    IAimpUIForm form;
-                    AimpActionResult res = Player.ServiceUI.CreateForm(aimpHandle, CreateFormFlags.None, "Test", out form);
-                    form.ShowTasksBar = true;
-                    form.CloseByEscape = true;
-                    form.Show();
-
-                    form.OnCreated += control =>
-                    {
-                        Debugger.Break();
-                    };
-
-                    form.OnMouseDown += (control, clickArgs) =>
-                    {
-                        Debugger.Break();
-                    };
-                };
-
+                menuItem.Enabled = true;
+                menuItem.Visible = true;
+                menuItem.Name = "Test form";
+                menuItem.Id = "test_form";
+                menuItem.OnExecute += MenuItem_OnExecute;
                 Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, menuItem);
             }
+        }
+
+        private void MenuItem_OnExecute(object sender, System.EventArgs e)
+        {
+            var aimpHandle = Player.Win32Manager.GetAimpHandle();
+
+            AimpActionResult res = Player.ServiceUI.CreateForm(aimpHandle, CreateFormFlags.None, "Test", out _form);
+            //form.ShowTasksBar = true;
+            //form.CloseByEscape = true;
+            _form.Show();
+
+            //form.OnCreated += control =>
+            //{
+            //    Debugger.Break();
+            //};
+
+            //form.OnMouseDown += (control, clickArgs) =>
+            //{
+            //    Debugger.Break();
+            //};
         }
 
         /// <summary>
@@ -49,7 +56,7 @@
         /// </summary>
         public override void Dispose()
         {
-
+            _form.Release(false);
         }
 
         #endregion

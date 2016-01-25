@@ -18,38 +18,44 @@ namespace AIMP
 
         public ref class AimpServiceUI : public AimpBaseManager<IAIMPServiceUI>, public IAimpServiceUI
         {
-        private:
-            IAIMPServiceUI *_service;
-
         public:
             explicit AimpServiceUI(ManagedAimpCore ^core) : AimpBaseManager(core)
-            {
-                IAIMPServiceUI *service;
-                core->GetService(IID_IAIMPServiceUI, (void**)&service);
-                _service = service;
-            }
+            {}
 
             virtual AimpActionResult CreateForm(IntPtr ownerWindow, CreateFormFlags flags, String ^name, IAimpUIForm ^%form)
             {
-                IAIMPUIForm *frm;
-                AimpUIFormEvents *formEvents = new AimpUIFormEvents();
-
-                AimpActionResult r = Utils::CheckResult(
-                    _service->CreateForm((HWND)ownerWindow.ToPointer(),
-                        (DWORD)flags, 
-                        AimpConverter::MakeAimpString(_core->GetAimpCore(), name),
-                        static_cast<AimpUIFormEvents::Base*>(formEvents),
-                        &frm));
-
-                if (r != AimpActionResult::Ok)
+                IAIMPUIForm *frm = NULL;
+                AimpUIFormEvents *formEvents = NULL;
+                IAIMPServiceUI *service = NULL;
+                IAIMPString *nameString = AimpConverter::MakeAimpString(_core->GetAimpCore(), name);
+                try
                 {
+                    _core->GetService(IID_IAIMPServiceUI, (void**)&service);
+                    formEvents = new AimpUIFormEvents();
+                    AimpActionResult r = Utils::CheckResult(
+                        service->CreateForm((HWND)ownerWindow.ToPointer(),
+                            (DWORD)flags,
+                            nameString,
+                            static_cast<AimpUIFormEvents::Base*>(formEvents),
+                            &frm));
+
+                    if (r != AimpActionResult::Ok)
+                    {
+                        return r;
+                    }
+
+                    AimpUIForm ^aimpForm = gcnew AimpUIForm(frm, this);
+                    formEvents->SetFormControl(aimpForm);
+                    form = aimpForm;
                     return r;
                 }
-
-                AimpUIForm ^aimpForm = gcnew AimpUIForm(frm, this);
-                formEvents->SetFormControl(aimpForm);
-                form = aimpForm;
-                return r;
+                finally
+                {
+                    service->Release();
+                    nameString->Release();
+                    //((IUnknown*)frm)->Release();
+                    //formEvents->Release();
+                }
             }
 
             virtual AimpActionResult CreateObject(IAimpUIForm ^owner, AimpUIItem ^%item)
