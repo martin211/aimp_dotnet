@@ -16,6 +16,7 @@
 #include "AIMPSDK\AIMP360\apiAlbumArt.h"
 #include "AIMPSDK\AIMP360\apiCore.h"
 #include "AIMPSDK\AIMP360\apiThreading.h"
+#include "AIMPSDK\AIMP360\apiVisuals.h"
 
 #include "Utils.h"
 #include "SDK\AimpObject.h"

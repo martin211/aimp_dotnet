@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AimpDotnetPlugin.cpp" />
+    <ClCompile Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.cpp" />
     <ClCompile Include="DotNetPlugin.cpp" />
     <ClCompile Include="Extensions\AimpExtensionAlbumArtCatalog.cpp" />
     <ClCompile Include="Extensions\AimpExtensionAlbumArtProvider.cpp" />
@@ -36,6 +37,7 @@
     <ClCompile Include="Stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h" />
     <ClInclude Include="Extensions\AimpExtensionAlbumArtCatalog.h" />
     <ClInclude Include="AimpSdk.h" />
     <ClInclude Include="AIMPSDK\AIMP360\apiActions.h" />

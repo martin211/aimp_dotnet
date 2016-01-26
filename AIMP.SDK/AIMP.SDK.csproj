@@ -111,6 +111,7 @@
     <Compile Include="PlayList\IAimpPlayListItem.cs" />
     <Compile Include="PlayList\IAimpPlayListManager.cs" />
     <Compile Include="Visuals\AimpVisualData.cs" />
+    <Compile Include="Visuals\AimpVisualFlags.cs" />
     <Compile Include="Visuals\IAimpExtensionCustomVisualization.cs" />
     <Compile Include="Visuals\IAimpExtensionEmbeddedVisualization.cs" />
     <Compile Include="Visuals\IAimpServiceVisualizations.cs" />

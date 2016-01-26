@@ -1,6 +1,6 @@
 ﻿namespace AIMP.SDK.Visuals
 {
-    public interface IAimpExtensionCustomVisualization
+    public interface IAimpExtensionCustomVisualization : IAimpExtension
     {
         AimpVisualFlags GetFlags();
 

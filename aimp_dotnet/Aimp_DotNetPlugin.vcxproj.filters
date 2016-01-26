@@ -95,6 +95,9 @@
     <ClCompile Include="SDK\Menu\AimpMenuItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -278,6 +281,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Menu\AimpMenuItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
