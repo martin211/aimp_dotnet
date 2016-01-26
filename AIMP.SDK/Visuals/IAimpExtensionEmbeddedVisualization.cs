@@ -2,29 +2,28 @@
 
 namespace AIMP.SDK.Visuals
 {
-    public enum AimpVisualFlags
+    public enum AimpVisualClickButtonType
     {
-        AIMP_VISUAL_FLAGS_RQD_DATA_WAVE,
-        AIMP_VISUAL_FLAGS_RQD_DATA_SPECTRUM,
-        AIMP_VISUAL_FLAGS_NOT_SUSPEND
+        AIMP_VISUAL_CLICK_BUTTON_LEFT,
+        AIMP_VISUAL_CLICK_BUTTON_MIDDLE
     }
 
-    public interface IAimpExtensionEmbeddedVisualization
+    public interface IAimpExtensionEmbeddedVisualization : IAimpExtension
     {
-        event EventHandler Click;
+        void Click(int x, int y, AimpVisualClickButtonType button);
+
+        void Resize(int newWidth, int newHeight);
 
         AimpVisualFlags GetFlags();
 
-        AimpActionResult GetMaxDisplaySize(out int width, out int height);
+        AimpActionResult GetMaxDisplaySize(out Int32 width, out Int32 height);
 
         AimpActionResult GetName(out string name);
 
         AimpActionResult Initialize(int width, int height);
 
-        void Finalize();
+        void OnFinalize();
 
         void Draw(IntPtr dc, AimpVisualData data);
-
-        void Resize(int width, int height);
     }
 }
