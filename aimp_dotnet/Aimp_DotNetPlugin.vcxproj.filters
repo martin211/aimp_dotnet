@@ -98,6 +98,9 @@
     <ClCompile Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -284,6 +287,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

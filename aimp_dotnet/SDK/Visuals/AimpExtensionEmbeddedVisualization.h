@@ -2,8 +2,7 @@
 
 using namespace AIMP::SDK;
 
-class AimpExtensionEmbeddedVisualization :
-    public IUnknownInterfaceImpl<IAIMPExtensionEmbeddedVisualization>
+class AimpExtensionEmbeddedVisualization : public IUnknownInterfaceImpl<IAIMPExtensionEmbeddedVisualization>
 {
 private:
     gcroot<AIMP::SDK::Visuals::IAimpExtensionEmbeddedVisualization^> _managedObject;
