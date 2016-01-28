@@ -59,8 +59,12 @@ namespace AIMP
 
             virtual AimpActionResult RegisterExtension(AIMP::IAimpExtension ^extension)
             {
-                _aimpCore->RegisterExtension(IID_IAIMPOptionsDialogFrame, extension);
-                return AimpActionResult::Ok;
+                if (_aimpCore->RegisterExtension(IID_IAIMPOptionsDialogFrame, extension))
+                {
+                    return AimpActionResult::Ok;
+                }
+
+                return AimpActionResult::Fail;
             }
 
             virtual AimpActionResult UnregisterExtension(AIMP::IAimpExtension ^extension)

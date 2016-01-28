@@ -5,6 +5,8 @@
 #include "..\Extensions\OptionsDialogFrameExtension.h"
 #include "..\Extensions\AimpExtensionAlbumArtCatalog.h"
 #include "..\Extensions\AimpExtensionAlbumArtProvider.h"
+#include "..\SDK\Visuals\AimpExtensionEmbeddedVisualization.h"
+#include "..\SDK\Visuals\AimpExtensionCustomVisualization.h"
 
 namespace AIMP
 {
@@ -62,7 +64,7 @@ namespace AIMP
 
             bool RegisterExtension(GUID iid, IAimpExtension^ extension);
 
-            void UnregisterExtension(IAimpExtension^ extension);
+            HRESULT UnregisterExtension(IAimpExtension^ extension);
 
             HRESULT UnregisterExtension(IUnknown* extension);
 
@@ -96,6 +98,7 @@ namespace AIMP
             OptionsDialogFrameExtension* _optionsFrame;
             AimpExtensionAlbumArtCatalog* _albumArtCatalogExtension;
             AimpExtensionAlbumArtProvider* _albumArtProviderExtension;
+            AimpExtensionEmbeddedVisualization* _embeddedVisualization;
 
             AIMP::SDK::Extensions::PlayListHandler ^_playlistAdded;
             AIMP::SDK::Extensions::PlayListHandler ^_playlistRemoved;

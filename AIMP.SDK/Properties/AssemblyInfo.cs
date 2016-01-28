@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Aimp DotNet SDK")]
-[assembly: AssemblyCopyright("Copyright © Evgeniy Bogdan 2015")]
+[assembly: AssemblyCopyright("Copyright © Evgeniy Bogdan 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,6 +30,4 @@ using System.Runtime.InteropServices;
 //      Revision
 //
 [assembly: AssemblyVersion("3.60.1455.*")]
-[assembly: AssemblyFileVersion("3.60.1455.*")]
-
 [assembly: NeutralResourcesLanguage("")]
