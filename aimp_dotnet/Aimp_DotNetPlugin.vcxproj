@@ -98,6 +98,7 @@
     <ClInclude Include="SDK\PlayList\VirtualFileInfoh.h" />
     <ClInclude Include="SDK\Threading\AimpAsyncTask.h" />
     <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h" />
+    <ClInclude Include="SDK\Visuals\AimpServiceVisualizations.h" />
     <ClInclude Include="SDK\Win32\Win32Manager.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Utils.h" />
