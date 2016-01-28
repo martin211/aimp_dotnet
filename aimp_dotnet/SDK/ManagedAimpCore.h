@@ -62,7 +62,7 @@ namespace AIMP
 
             static IUnknown *QueryInterface(REFIID iid);
 
-            bool RegisterExtension(GUID iid, IAimpExtension^ extension);
+            HRESULT RegisterExtension(GUID iid, IAimpExtension^ extension);
 
             HRESULT UnregisterExtension(IAimpExtension^ extension);
 

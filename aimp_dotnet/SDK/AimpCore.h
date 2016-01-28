@@ -52,25 +52,19 @@ namespace AIMP
                 return String::Empty;
             }
 
-            virtual AIMP::SDK::AimpActionResult SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj)
+            virtual AimpActionResult SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj)
             {
                 return Utils::CheckResult(_aimpCore->SendMessage(message, value, obj));
             }
 
             virtual AimpActionResult RegisterExtension(AIMP::IAimpExtension ^extension)
             {
-                if (_aimpCore->RegisterExtension(IID_IAIMPOptionsDialogFrame, extension))
-                {
-                    return AimpActionResult::Ok;
-                }
-
-                return AimpActionResult::Fail;
+                return Utils::CheckResult(_aimpCore->RegisterExtension(IID_IAIMPOptionsDialogFrame, extension));
             }
 
             virtual AimpActionResult UnregisterExtension(AIMP::IAimpExtension ^extension)
             {
-                _aimpCore->UnregisterExtension(extension);
-                return AimpActionResult::Ok;
+                return Utils::CheckResult(_aimpCore->UnregisterExtension(extension));
             }
 
             virtual event AimpEventsDelegate^ CoreMessage
