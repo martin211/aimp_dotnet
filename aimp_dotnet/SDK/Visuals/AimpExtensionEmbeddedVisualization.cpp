@@ -12,15 +12,11 @@ HRESULT AimpExtensionEmbeddedVisualization::GetMaxDisplaySize(int *Width, int *H
 {
     int w = 0;
     int h = 0;
-    INT w1 = *&w;
-    INT h1 = *&h;
 
-    System::Diagnostics::Debugger::Break();
-
-    if (_managedObject->GetMaxDisplaySize(w1, h1) == AimpActionResult::Ok)
+    if (_managedObject->GetMaxDisplaySize(*&w, *&h) == AimpActionResult::Ok)
     {
-        *Width = w1;
-        *Height = h1;
+        *Width = w;
+        *Height = h;
         return S_OK;
     }
 
@@ -40,7 +36,7 @@ HRESULT AimpExtensionEmbeddedVisualization::GetName(IAIMPString **S)
     _aimpCore->CreateObject(IID_IAIMPString, (void**)&strObject);
     strObject->SetData((PWCHAR)strDate, str->Length);
     *S = strObject;
-    strObject->Release();
+    //strObject->Release();
 
     return S_OK;
 }
@@ -62,7 +58,35 @@ void AimpExtensionEmbeddedVisualization::Click(int X, int Y, int Button)
 
 void AimpExtensionEmbeddedVisualization::Draw(HDC DC, PAIMPVisualData Data)
 {
-    //_managedObject->Draw()
+    AIMP::SDK::Visuals::AimpVisualData ^data = gcnew AIMP::SDK::Visuals::AimpVisualData();
+    data->Peaks = gcnew array<float>(2);
+    data->Spectrum = gcnew array<array<byte>^>(3);
+    data->WaveForm = gcnew array<array<byte>^>(2);
+
+    data->Peaks[0] = Data->Peaks[0];
+    data->Peaks[1] = Data->Peaks[1];
+
+    for (int i = 0; i < 3; i++)
+    {
+        array<byte> ^arr = gcnew array<byte>(AIMP_VISUAL_SPECTRUM_MAX);
+        for (int j = 0; j < AIMP_VISUAL_SPECTRUM_MAX; j++)
+        {
+            arr[j] = Data->Spectrum[i][j];
+        }
+        data->Spectrum[i] = arr;
+    }
+
+    for (int i = 0; i < 2; i++)
+    {
+        array<byte> ^arr = gcnew array<byte>(AIMP_VISUAL_WAVEFORM_MAX);
+        for (int j = 0; j < AIMP_VISUAL_WAVEFORM_MAX; j++)
+        {
+            arr[j] = Data->WaveForm[i][j];
+        }
+        data->WaveForm[i] = arr;
+    }
+
+    _managedObject->Draw(System::IntPtr(DC), data);
 }
 
 void AimpExtensionEmbeddedVisualization::Resize(int NewWidth, int NewHeight)
