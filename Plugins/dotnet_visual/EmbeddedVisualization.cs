@@ -5,6 +5,8 @@ using AIMP.SDK.Visuals;
 
 namespace dotnet_visual
 {
+    using System.Drawing;
+
     public class EmbeddedVisualization : IAimpExtensionEmbeddedVisualization
     {
         public void Click(int x, int y, AimpVisualClickButtonType button)
@@ -51,7 +53,8 @@ namespace dotnet_visual
 
         public void Draw(IntPtr dc, AimpVisualData data)
         {
-            Debug.WriteLine("Draw");
+            var g = Graphics.FromHdc(dc);
+            g.DrawRectangle(new Pen(Color.Crimson), 0,0, 20, 20);
         }
     }
 }

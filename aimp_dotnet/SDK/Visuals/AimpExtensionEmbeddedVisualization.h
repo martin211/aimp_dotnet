@@ -46,6 +46,12 @@ public:
             return S_OK;
         }
 
+        //if (riid == IID_IAIMPServiceVisualizations) {
+        //    *ppvObject = this;
+        //    AddRef();
+        //    return S_OK;
+        //}
+
         return E_NOINTERFACE;
     }
 

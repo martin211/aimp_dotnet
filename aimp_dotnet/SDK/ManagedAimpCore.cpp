@@ -133,7 +133,7 @@ namespace AIMP
             {
                 AimpExtensionEmbeddedVisualization *ext = new AimpExtensionEmbeddedVisualization(this->GetAimpCore(), embeddedVisualization);
                 _embeddedVisualization = ext;
-                HRESULT result = _core->RegisterExtension(IID_IAIMPExtensionEmbeddedVisualization, ext);
+                HRESULT result = _core->RegisterExtension(IID_IAIMPServiceVisualizations, ext);
                 return result == S_OK;
             }
 
