@@ -1,8 +1,6 @@
 #include "..\..\Stdafx.h"
 #include "AimpExtensionEmbeddedVisualization.h"
 
-
-
 int AimpExtensionEmbeddedVisualization::GetFlags()
 {
     return (int)_managedObject->GetFlags();
@@ -33,12 +31,15 @@ HRESULT AimpExtensionEmbeddedVisualization::GetName(IAIMPString **S)
     }
 
     pin_ptr<const WCHAR> strDate = PtrToStringChars(str);
-    _aimpCore->CreateObject(IID_IAIMPString, (void**)&strObject);
-    strObject->SetData((PWCHAR)strDate, str->Length);
-    *S = strObject;
-    //strObject->Release();
+    HRESULT r = _aimpCore->CreateObject(IID_IAIMPString, (void**)&strObject);
 
-    return S_OK;
+    if (r == S_OK)
+    {
+        r = strObject->SetData((PWCHAR)strDate, str->Length);
+        *S = strObject;
+    }
+
+    return r;
 }
 
 void AimpExtensionEmbeddedVisualization::Initialize(int Width, int Height)
