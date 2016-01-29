@@ -7,10 +7,12 @@ namespace dotnet_visual
     public class AimpVisualPlugin : AimpPlugin
     {
         private IAimpExtensionEmbeddedVisualization _embeddedVisualization;
+        private IAimpExtensionCustomVisualization _customVisualization;
 
         public override void Initialize()
         {
             _embeddedVisualization = new EmbeddedVisualization();
+            //_customVisualization = new CustomVisualization();
 
             Player.Core.RegisterExtension(_embeddedVisualization);
         }

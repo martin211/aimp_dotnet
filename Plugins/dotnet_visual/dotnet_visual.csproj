@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="AimpVisualPlugin.cs" />
     <Compile Include="EmbeddedVisualization.cs" />
+    <Compile Include="CustomVisualization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

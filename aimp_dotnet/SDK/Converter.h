@@ -313,55 +313,6 @@ namespace AIMP
                 return GetInt32(propertyList, propertyId) > 0;
             }
 
-            //static MenuItem ^ConvertToMenu(IAIMPPropertyList *aimpMenuItem)
-            //{
-            //    MenuItem^ result = nullptr;
-
-            //    int menuType;
-            //    if (CheckResult(aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, &menuType)))
-            //    {
-            //        int checked;
-            //        aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_CHECKED, &checked);
-
-            //        IAIMPString* idString;
-            //        IAIMPString* nameString;
-
-            //        CheckResult(aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_NAME, IID_IAIMPString, (void**)&nameString));
-
-            //        if (menuType == AIMP_MENUITEM_STYLE_CHECKBOX)
-            //        {
-            //            //result = gcnew CheckBoxMenuItem(gcnew String(nameString->GetData()));
-            //            //((CheckBoxMenuItem^)result)->Checked = checked > 0;
-            //        }
-            //        else if (menuType == AIMP_MENUITEM_STYLE_RADIOBOX)
-            //        {
-            //            result = gcnew RadioButtonMenuItem(gcnew String(nameString->GetData()));
-            //            ((RadioButtonMenuItem^)result)->Checked = checked > 0;
-            //        }
-            //        else if (menuType == AIMP_MENUITEM_STYLE_NORMAL)
-            //        {
-            //            result = gcnew StandartMenuItem(gcnew String(nameString->GetData()));
-            //        }
-
-            //        if (CheckResult(aimpMenuItem->GetValueAsObject(AIMP_MENUITEM_PROPID_ID, IID_IAIMPString, (void**)&idString)))
-            //        {
-            //            if (idString != NULL)
-            //            {
-            //                result->Id = gcnew String(idString->GetData());
-            //            }
-            //        }
-
-            //        int visible;
-            //        aimpMenuItem->GetValueAsInt32(AIMP_MENUITEM_PROPID_VISIBLE, &visible);
-            //        result->Visible = visible > 0;
-
-            //        idString->Release();
-            //        nameString->Release();
-            //    }
-
-            //    return result;
-            //}
-
             static System::Drawing::Bitmap^ GetBitmap(IAIMPImageContainer* imageContainer)
             {
                 IAIMPImage* image = NULL;
@@ -530,6 +481,39 @@ namespace AIMP
                 }
 
                 return result == S_OK;
+            }
+
+            static AIMP::SDK::Visuals::AimpVisualData ^PAIMPVisualDataToManaged(PAIMPVisualData data)
+            {
+                AIMP::SDK::Visuals::AimpVisualData ^result = gcnew AIMP::SDK::Visuals::AimpVisualData();
+                result->Peaks = gcnew array<float>(2);
+                result->Spectrum = gcnew array<array<byte>^>(3);
+                result->WaveForm = gcnew array<array<byte>^>(2);
+
+                result->Peaks[0] = data->Peaks[0];
+                result->Peaks[1] = data->Peaks[1];
+
+                for (int i = 0; i < 3; i++)
+                {
+                    array<byte> ^arr = gcnew array<byte>(AIMP_VISUAL_SPECTRUM_MAX);
+                    for (int j = 0; j < AIMP_VISUAL_SPECTRUM_MAX; j++)
+                    {
+                        arr[j] = data->Spectrum[i][j];
+                    }
+                    result->Spectrum[i] = arr;
+                }
+
+                for (int i = 0; i < 2; i++)
+                {
+                    array<byte> ^arr = gcnew array<byte>(AIMP_VISUAL_WAVEFORM_MAX);
+                    for (int j = 0; j < AIMP_VISUAL_WAVEFORM_MAX; j++)
+                    {
+                        arr[j] = data->WaveForm[i][j];
+                    }
+                    result->WaveForm[i] = arr;
+                }
+
+                return result;
             }
         };
     }
