@@ -487,15 +487,15 @@ namespace AIMP
             {
                 AIMP::SDK::Visuals::AimpVisualData ^result = gcnew AIMP::SDK::Visuals::AimpVisualData();
                 result->Peaks = gcnew array<float>(2);
-                result->Spectrum = gcnew array<array<byte>^>(3);
-                result->WaveForm = gcnew array<array<byte>^>(2);
+                result->Spectrum = gcnew array<array<float>^>(3);
+                result->WaveForm = gcnew array<array<float>^>(2);
 
                 result->Peaks[0] = data->Peaks[0];
                 result->Peaks[1] = data->Peaks[1];
 
                 for (int i = 0; i < 3; i++)
                 {
-                    array<byte> ^arr = gcnew array<byte>(AIMP_VISUAL_SPECTRUM_MAX);
+                    array<float> ^arr = gcnew array<float>(AIMP_VISUAL_SPECTRUM_MAX);
                     for (int j = 0; j < AIMP_VISUAL_SPECTRUM_MAX; j++)
                     {
                         arr[j] = data->Spectrum[i][j];
@@ -505,7 +505,7 @@ namespace AIMP
 
                 for (int i = 0; i < 2; i++)
                 {
-                    array<byte> ^arr = gcnew array<byte>(AIMP_VISUAL_WAVEFORM_MAX);
+                    array<float> ^arr = gcnew array<float>(AIMP_VISUAL_WAVEFORM_MAX);
                     for (int j = 0; j < AIMP_VISUAL_WAVEFORM_MAX; j++)
                     {
                         arr[j] = data->WaveForm[i][j];
