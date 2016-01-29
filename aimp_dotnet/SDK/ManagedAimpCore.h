@@ -99,6 +99,7 @@ namespace AIMP
             AimpExtensionAlbumArtCatalog* _albumArtCatalogExtension;
             AimpExtensionAlbumArtProvider* _albumArtProviderExtension;
             AimpExtensionEmbeddedVisualization* _embeddedVisualization;
+            AimpExtensionCustomVisualization* _customVisualization;
 
             AIMP::SDK::Extensions::PlayListHandler ^_playlistAdded;
             AIMP::SDK::Extensions::PlayListHandler ^_playlistRemoved;

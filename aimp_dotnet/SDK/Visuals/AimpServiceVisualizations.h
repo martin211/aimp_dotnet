@@ -1,6 +1,5 @@
 #pragma once
 
-
 class AimpServiceVisualizations : public IUnknownInterfaceImpl<IAIMPServiceVisualizations>
 {
 public:

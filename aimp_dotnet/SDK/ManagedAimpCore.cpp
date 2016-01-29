@@ -55,28 +55,35 @@ namespace AIMP
             {
                 _core->UnregisterExtension(static_cast<IAIMPOptionsDialogFrame*>(_optionsFrame));
                 _optionsFrame->Release();
-                _optionsFrame = NULL;
+                delete _optionsFrame;
             }
 
             if (_albumArtCatalogExtension != NULL)
             {
                 _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtCatalog::Base*>(_albumArtCatalogExtension));
                 _albumArtCatalogExtension->Release();
-                _albumArtCatalogExtension = NULL;
+                delete _albumArtCatalogExtension;
             }
 
             if (_albumArtProviderExtension != NULL)
             {
                 _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
                 _albumArtProviderExtension->Release();
-                _albumArtProviderExtension = NULL;
+                delete _albumArtProviderExtension;
             }
 
             if (_embeddedVisualization != NULL)
             {
                 _core->UnregisterExtension(_embeddedVisualization);
                 _embeddedVisualization->Release();
-                _embeddedVisualization = NULL;
+                delete _embeddedVisualization;
+            }
+
+            if (_customVisualization != NULL)
+            {
+                _core->UnregisterExtension(_customVisualization);
+                _customVisualization->Release();
+                delete _customVisualization;
             }
 
             _core->Release();
@@ -163,9 +170,21 @@ namespace AIMP
                 return _core->RegisterExtension(IID_IAIMPServiceVisualizations, ext);
             }
 
+            AIMP::SDK::Visuals::IAimpExtensionCustomVisualization ^customVisualization = dynamic_cast<AIMP::SDK::Visuals::IAimpExtensionCustomVisualization^>(extension);
+            if (customVisualization != nullptr)
+            {
+                if (_customVisualization != NULL)
+                {
+                    return E_FAIL;
+                }
+
+                AimpExtensionCustomVisualization *ext = new AimpExtensionCustomVisualization(this->GetAimpCore(), customVisualization);
+                _customVisualization = ext;
+                return _core->RegisterExtension(IID_IAIMPServiceVisualizations, ext);
+            }
+
             return E_UNEXPECTED;
         }
-
 
         HRESULT ManagedAimpCore::UnregisterExtension(IAimpExtension^ extension)
         {
@@ -174,7 +193,7 @@ namespace AIMP
             {
                 HRESULT r = _core->UnregisterExtension(static_cast<IAIMPOptionsDialogFrame*>(_optionsFrame));
                 _optionsFrame->Release();
-                _optionsFrame = NULL;
+                delete _optionsFrame;
                 return r;
             }
 
@@ -183,7 +202,7 @@ namespace AIMP
             {
                 HRESULT r = _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtCatalog::Base*>(_albumArtCatalogExtension));
                 _albumArtCatalogExtension->Release();
-                _albumArtCatalogExtension = NULL;
+                delete _albumArtCatalogExtension;
                 return r;
             }
 
@@ -192,7 +211,7 @@ namespace AIMP
             {
                 HRESULT r = _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
                 _albumArtProviderExtension->Release();
-                _albumArtProviderExtension = NULL;
+                delete _albumArtProviderExtension;
                 return r;
             }
 
@@ -201,7 +220,16 @@ namespace AIMP
             {
                 HRESULT r = _core->UnregisterExtension(_embeddedVisualization);
                 _embeddedVisualization->Release();
-                _embeddedVisualization = NULL;
+                delete _embeddedVisualization;
+                return r;
+            }
+
+            AIMP::SDK::Visuals::IAimpExtensionCustomVisualization ^customVisualization = dynamic_cast<AIMP::SDK::Visuals::IAimpExtensionCustomVisualization^>(extension);
+            if (customVisualization != nullptr)
+            {
+                HRESULT r = _core->UnregisterExtension(_customVisualization);
+                _customVisualization->Release();
+                delete _customVisualization;
                 return r;
             }
         }

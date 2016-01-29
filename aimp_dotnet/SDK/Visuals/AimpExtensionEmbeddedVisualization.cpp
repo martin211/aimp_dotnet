@@ -1,5 +1,6 @@
 #include "..\..\Stdafx.h"
 #include "AimpExtensionEmbeddedVisualization.h"
+#include "..\..\SDK\Converter.h"
 
 int AimpExtensionEmbeddedVisualization::GetFlags()
 {
@@ -59,34 +60,7 @@ void AimpExtensionEmbeddedVisualization::Click(int X, int Y, int Button)
 
 void AimpExtensionEmbeddedVisualization::Draw(HDC DC, PAIMPVisualData Data)
 {
-    AIMP::SDK::Visuals::AimpVisualData ^data = gcnew AIMP::SDK::Visuals::AimpVisualData();
-    data->Peaks = gcnew array<float>(2);
-    data->Spectrum = gcnew array<array<byte>^>(3);
-    data->WaveForm = gcnew array<array<byte>^>(2);
-
-    data->Peaks[0] = Data->Peaks[0];
-    data->Peaks[1] = Data->Peaks[1];
-
-    for (int i = 0; i < 3; i++)
-    {
-        array<byte> ^arr = gcnew array<byte>(AIMP_VISUAL_SPECTRUM_MAX);
-        for (int j = 0; j < AIMP_VISUAL_SPECTRUM_MAX; j++)
-        {
-            arr[j] = Data->Spectrum[i][j];
-        }
-        data->Spectrum[i] = arr;
-    }
-
-    for (int i = 0; i < 2; i++)
-    {
-        array<byte> ^arr = gcnew array<byte>(AIMP_VISUAL_WAVEFORM_MAX);
-        for (int j = 0; j < AIMP_VISUAL_WAVEFORM_MAX; j++)
-        {
-            arr[j] = Data->WaveForm[i][j];
-        }
-        data->WaveForm[i] = arr;
-    }
-
+    AIMP::SDK::Visuals::AimpVisualData ^data = AIMP::SDK::Converter::PAIMPVisualDataToManaged(Data);
     _managedObject->Draw(System::IntPtr(DC), data);
 }
 
