@@ -54,7 +54,47 @@ namespace dotnet_visual
         public void Draw(IntPtr dc, AimpVisualData data)
         {
             var g = Graphics.FromHdc(dc);
-            g.DrawRectangle(new Pen(Color.Crimson), 0,0, 20, 20);
+
+            //Форма волны
+            int Width = 100;
+            int Height = 45;
+            int offset = Height / 2;
+            int y = 0;
+            int z = 0;
+            Bitmap bmp = new Bitmap(Width, Height);
+
+            for (int ci = 0; ci < 2; ci++)
+            {
+                for (int x = 0; x < Width - 1; x++)
+                {
+                    z = (int)((1 - data.WaveForm[ci][x]) * offset / 2);
+                    if (z < 0) z = 0;
+                    if (z > Height) z = Height - 1;
+                    if (x == 0) y = z;
+
+                    do // draw line from previous sample...
+                    {
+                        if (y < z)
+                        { y += 1; }
+                        else if (y > z)
+                        { y -= 1; }
+
+                        if (ci == 0)
+                        {
+                            bmp.SetPixel(x, y + 11, Color.Yellow);
+                        }
+
+                        if (ci == 1)
+                        {
+                            bmp.SetPixel(x, y + 11, Color.Pink);
+                        }
+                    } while (y != z);
+                }
+            }
+
+            //Очистим окно визуализации
+            g.Clear(Color.Black);
+            g.DrawImage(bmp, 0, 0, Width, Height);
         }
     }
 }

@@ -55,35 +55,35 @@ namespace AIMP
             {
                 _core->UnregisterExtension(static_cast<IAIMPOptionsDialogFrame*>(_optionsFrame));
                 _optionsFrame->Release();
-                delete _optionsFrame;
+                _optionsFrame = NULL;
             }
 
             if (_albumArtCatalogExtension != NULL)
             {
                 _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtCatalog::Base*>(_albumArtCatalogExtension));
                 _albumArtCatalogExtension->Release();
-                delete _albumArtCatalogExtension;
+                _albumArtCatalogExtension = NULL;
             }
 
             if (_albumArtProviderExtension != NULL)
             {
                 _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
                 _albumArtProviderExtension->Release();
-                delete _albumArtProviderExtension;
+                _albumArtProviderExtension = NULL;
             }
 
             if (_embeddedVisualization != NULL)
             {
                 _core->UnregisterExtension(_embeddedVisualization);
                 _embeddedVisualization->Release();
-                delete _embeddedVisualization;
+                _embeddedVisualization = NULL;
             }
 
             if (_customVisualization != NULL)
             {
                 _core->UnregisterExtension(_customVisualization);
                 _customVisualization->Release();
-                delete _customVisualization;
+                _customVisualization = NULL;
             }
 
             _core->Release();
@@ -193,7 +193,7 @@ namespace AIMP
             {
                 HRESULT r = _core->UnregisterExtension(static_cast<IAIMPOptionsDialogFrame*>(_optionsFrame));
                 _optionsFrame->Release();
-                delete _optionsFrame;
+                _optionsFrame = NULL;
                 return r;
             }
 
@@ -202,7 +202,7 @@ namespace AIMP
             {
                 HRESULT r = _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtCatalog::Base*>(_albumArtCatalogExtension));
                 _albumArtCatalogExtension->Release();
-                delete _albumArtCatalogExtension;
+                _albumArtCatalogExtension = NULL;
                 return r;
             }
 
@@ -211,7 +211,7 @@ namespace AIMP
             {
                 HRESULT r = _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
                 _albumArtProviderExtension->Release();
-                delete _albumArtProviderExtension;
+                _albumArtProviderExtension = NULL;
                 return r;
             }
 
@@ -220,7 +220,7 @@ namespace AIMP
             {
                 HRESULT r = _core->UnregisterExtension(_embeddedVisualization);
                 _embeddedVisualization->Release();
-                delete _embeddedVisualization;
+                _embeddedVisualization = NULL;
                 return r;
             }
 
@@ -229,7 +229,7 @@ namespace AIMP
             {
                 HRESULT r = _core->UnregisterExtension(_customVisualization);
                 _customVisualization->Release();
-                delete _customVisualization;
+                _customVisualization = NULL;
                 return r;
             }
         }
