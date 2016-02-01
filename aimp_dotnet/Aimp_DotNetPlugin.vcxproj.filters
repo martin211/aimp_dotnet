@@ -61,6 +61,12 @@
     <ClInclude Include="SDK\BaseManager.h" />
     <ClInclude Include="SDK\Configuration\AimpConfigurationManager.h" />
     <ClInclude Include="SDK\EventHelper.h" />
+    <ClCompile Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClInclude Include="SDK\ManagedAimpCore.h" />
     <ClInclude Include="SDK\Menu\AimpMenuManager.h" />
     <ClInclude Include="SDK\Menu\ICallBackHeader.h" />
@@ -101,6 +107,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Menu\AimpMenuItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Visuals\AimpServiceVisualizations.h">
   </ItemGroup>
   <ItemGroup>
     <None Include="AIMP_Exports.def" />

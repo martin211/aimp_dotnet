@@ -25,6 +25,8 @@
     <ClCompile Include="AimpDotnetPlugin.cpp" />
     <ClCompile Include="SDK\GUI\Controls\AimpUIBaseButtonnedEdit.cpp" />
     <ClCompile Include="SDK\GUI\Controls\AimpUIBaseEdit.cpp" />
+    <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp" />
+    <ClCompile Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.cpp" />
     <ClCompile Include="SDK\GUI\Controls\AimpUIControl.cpp" />
     <ClCompile Include="DotNetPlugin.cpp" />
     <ClCompile Include="Extensions\AimpExtensionAlbumArtCatalog.cpp" />
@@ -43,6 +45,8 @@
   <ItemGroup>
     <ClInclude Include="AIMPSDK\apiActions.h" />
     <ClInclude Include="AIMPSDK\apiAlbumArt.h" />
+    <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h" />
+    <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h" />
     <ClInclude Include="AIMPSDK\apiCore.h" />
     <ClInclude Include="AIMPSDK\apiDecoders.h" />
     <ClInclude Include="AIMPSDK\apiFileManager.h" />
@@ -112,6 +116,7 @@
     <ClInclude Include="SDK\PlayList\VirtualFileInfoh.h" />
     <ClInclude Include="SDK\Threading\AimpAsyncTask.h" />
     <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h" />
+    <ClInclude Include="SDK\Visuals\AimpServiceVisualizations.h" />
     <ClInclude Include="SDK\Win32\Win32Manager.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Utils.h" />
@@ -185,8 +190,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(OutDir)</OutDir>
     <TargetName>aimp_dotnet</TargetName>
-    <IncludePath>z:\Libraries\boost;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
-    <LibraryPath>z:\Libraries\boost\lib32-msvc-14.0;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <IncludePath>$(SolutionDir)include\;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(ProjectDir)..\..\AIMP4.00\Plugins\aimp_dotnet</OutDir>

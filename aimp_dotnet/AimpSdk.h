@@ -17,6 +17,7 @@
 #include "AIMPSDK\apiCore.h"
 #include "AIMPSDK\apiThreading.h"
 #include "AIMPSDK\apiGUI.h"
+#include "AIMPSDK\apiVisuals.h"
 
 #include "Utils.h"
 #include "SDK\AimpObject.h"

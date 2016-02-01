@@ -51,25 +51,39 @@ namespace AIMP
             _messageDispatcher->Unhook(_hook);
             _messageDispatcher->Release();
             
-            if (_optionsFrame != nullptr)
+            if (_optionsFrame != NULL)
             {
                 _core->UnregisterExtension(static_cast<IAIMPOptionsDialogFrame*>(_optionsFrame));
                 _optionsFrame->Release();
                 _optionsFrame = NULL;
             }
 
-            if (_albumArtCatalogExtension != nullptr)
+            if (_albumArtCatalogExtension != NULL)
             {
                 _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtCatalog::Base*>(_albumArtCatalogExtension));
                 _albumArtCatalogExtension->Release();
-                _albumArtCatalogExtension = nullptr;
+                _albumArtCatalogExtension = NULL;
             }
 
-            if (_albumArtProviderExtension != nullptr)
+            if (_albumArtProviderExtension != NULL)
             {
                 _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
                 _albumArtProviderExtension->Release();
-                _albumArtProviderExtension = nullptr;
+                _albumArtProviderExtension = NULL;
+            }
+
+            if (_embeddedVisualization != NULL)
+            {
+                _core->UnregisterExtension(_embeddedVisualization);
+                _embeddedVisualization->Release();
+                _embeddedVisualization = NULL;
+            }
+
+            if (_customVisualization != NULL)
+            {
+                _core->UnregisterExtension(_customVisualization);
+                _customVisualization->Release();
+                _customVisualization = NULL;
             }
 
             _core->Release();
@@ -96,65 +110,127 @@ namespace AIMP
         /// <summary>
         /// Registers the extension.
         /// </summary>
+        /// <para>
+        /// Allowed only one the instance of each extension.
+        /// </para>
         /// <param name="extensionId">The extension identifier.</param>
         /// <param name="extension">The extension.</param>
         /// <returns></returns>
-        bool ManagedAimpCore::RegisterExtension(GUID extensionId, AIMP::IAimpExtension^ extension)
+        HRESULT ManagedAimpCore::RegisterExtension(GUID extensionId, AIMP::IAimpExtension^ extension)
         {
             AIMP::SDK::Options::IAimpOptionsDialogFrame^ optionsFrameExtension = dynamic_cast<AIMP::SDK::Options::IAimpOptionsDialogFrame^>(extension);
             if (optionsFrameExtension != nullptr)
             {
+                if (_optionsFrame != NULL)
+                {
+                    return E_FAIL;
+                }
+
                 OptionsDialogFrameExtension* odfp = new OptionsDialogFrameExtension(this->GetAimpCore(), optionsFrameExtension);
                 _optionsFrame = odfp;
-                HRESULT result = _core->RegisterExtension(IID_IAIMPServiceOptionsDialog, static_cast<OptionsDialogFrameExtension::Base*>(odfp));
-                return result == S_OK;
+                return _core->RegisterExtension(IID_IAIMPServiceOptionsDialog, static_cast<OptionsDialogFrameExtension::Base*>(odfp));
             }
 
             AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^ albumArtCatalogExtension = dynamic_cast<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^>(extension);
             if (albumArtCatalogExtension != nullptr)
             {
+                if (_albumArtCatalogExtension != NULL)
+                {
+                    return E_FAIL;
+                }
+
                 AimpExtensionAlbumArtCatalog *cat = new AimpExtensionAlbumArtCatalog(this->GetAimpCore(), albumArtCatalogExtension);
                 _albumArtCatalogExtension = cat;
-                HRESULT result = _core->RegisterExtension(IID_IAIMPServiceAlbumArt, static_cast<AimpExtensionAlbumArtCatalog::Base*>(cat));
-                return result == S_OK;
+                return _core->RegisterExtension(IID_IAIMPServiceAlbumArt, static_cast<AimpExtensionAlbumArtCatalog::Base*>(cat));
             }
 
             AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^ albumArtProviderExtension = dynamic_cast<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^>(extension);
             if (albumArtProviderExtension != nullptr)
             {
+                if (_albumArtProviderExtension != NULL)
+                {
+                    return E_FAIL;
+                }
+
                 AimpExtensionAlbumArtProvider *ext = new AimpExtensionAlbumArtProvider(this->GetAimpCore(), albumArtProviderExtension);
                 _albumArtProviderExtension = ext;
-                HRESULT result = _core->RegisterExtension(IID_IAIMPServiceAlbumArt, static_cast<AimpExtensionAlbumArtProvider::Base*>(ext));
-                return result == S_OK;
+                return _core->RegisterExtension(IID_IAIMPServiceAlbumArt, static_cast<AimpExtensionAlbumArtProvider::Base*>(ext));
             }
 
-            return false;
+            AIMP::SDK::Visuals::IAimpExtensionEmbeddedVisualization ^embeddedVisualization = dynamic_cast<AIMP::SDK::Visuals::IAimpExtensionEmbeddedVisualization^>(extension);
+            if (embeddedVisualization != nullptr)
+            {
+                if (_embeddedVisualization != NULL)
+                {
+                    return E_FAIL;
+                }
+
+                AimpExtensionEmbeddedVisualization *ext = new AimpExtensionEmbeddedVisualization(this->GetAimpCore(), embeddedVisualization);
+                _embeddedVisualization = ext;
+                return _core->RegisterExtension(IID_IAIMPServiceVisualizations, ext);
+            }
+
+            AIMP::SDK::Visuals::IAimpExtensionCustomVisualization ^customVisualization = dynamic_cast<AIMP::SDK::Visuals::IAimpExtensionCustomVisualization^>(extension);
+            if (customVisualization != nullptr)
+            {
+                if (_customVisualization != NULL)
+                {
+                    return E_FAIL;
+                }
+
+                AimpExtensionCustomVisualization *ext = new AimpExtensionCustomVisualization(this->GetAimpCore(), customVisualization);
+                _customVisualization = ext;
+                return _core->RegisterExtension(IID_IAIMPServiceVisualizations, ext);
+            }
+
+            return E_UNEXPECTED;
         }
 
-        void ManagedAimpCore::UnregisterExtension(IAimpExtension^ extension)
+        HRESULT ManagedAimpCore::UnregisterExtension(IAimpExtension^ extension)
         {
             AIMP::SDK::Options::IAimpOptionsDialogFrame^ optionsFrameExtension = dynamic_cast<AIMP::SDK::Options::IAimpOptionsDialogFrame^>(extension);
             if (optionsFrameExtension != nullptr)
             {
-                _core->UnregisterExtension(static_cast<IAIMPOptionsDialogFrame*>(_optionsFrame));
+                HRESULT r = _core->UnregisterExtension(static_cast<IAIMPOptionsDialogFrame*>(_optionsFrame));
                 _optionsFrame->Release();
                 _optionsFrame = NULL;
+                return r;
             }
 
             AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^ albumArtCatalogExtension = dynamic_cast<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^>(extension);
             if (albumArtCatalogExtension != nullptr)
             {
-                _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtCatalog::Base*>(_albumArtCatalogExtension));
+                HRESULT r = _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtCatalog::Base*>(_albumArtCatalogExtension));
                 _albumArtCatalogExtension->Release();
-                _albumArtCatalogExtension = nullptr;
+                _albumArtCatalogExtension = NULL;
+                return r;
             }
 
             AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^ albumArtProviderExtension = dynamic_cast<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^>(extension);
             if (albumArtProviderExtension != nullptr)
             {
-                _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
+                HRESULT r = _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
                 _albumArtProviderExtension->Release();
-                _albumArtProviderExtension = nullptr;
+                _albumArtProviderExtension = NULL;
+                return r;
+            }
+
+            AIMP::SDK::Visuals::IAimpExtensionEmbeddedVisualization ^embeddedVisualization = dynamic_cast<AIMP::SDK::Visuals::IAimpExtensionEmbeddedVisualization^>(extension);
+            if (embeddedVisualization != nullptr)
+            {
+                HRESULT r = _core->UnregisterExtension(_embeddedVisualization);
+                _embeddedVisualization->Release();
+                _embeddedVisualization = NULL;
+                return r;
+            }
+
+            AIMP::SDK::Visuals::IAimpExtensionCustomVisualization ^customVisualization = dynamic_cast<AIMP::SDK::Visuals::IAimpExtensionCustomVisualization^>(extension);
+            if (customVisualization != nullptr)
+            {
+                HRESULT r = _core->UnregisterExtension(_customVisualization);
+                _customVisualization->Release();
+                _customVisualization = NULL;
+                return r;
             }
         }
 

@@ -40,5 +40,3 @@ inline void intrusive_ptr_release(IUnknown* po)
 {
 	po->Release();
 }
-
-

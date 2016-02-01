@@ -18,6 +18,11 @@
  boost 1.5X. 
  You can download binaries from sourceforge.
  
+# Compilation
+ Download boost binaries.
+ Copy '../boost/' folder to the 'aimp_dotnet/include/' folder.
+ Copy all files from 'lib32-msvc-14.0' folder to the 'aimp_dotnet/lib/' folder.
+ 
 # Installation
 
 1. Download last release

@@ -8,40 +8,39 @@ class IUnknownInterfaceImpl : public T
 {
 public:
 
-    IUnknownInterfaceImpl()        
+    IUnknownInterfaceImpl()
     {
-		_LinkCounter = 1;
-	}
+        _LinkCounter = 1;
+    }
 
     virtual ~IUnknownInterfaceImpl() {}
 
-	virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject) 
-	{
-		if (riid == IID_IUnknown)
-		{
-			return S_OK;
-		}
-		return E_NOTIMPL;
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
+    {
+        if (riid == IID_IUnknown)
+        {
+            return S_OK;
+        }
+        return E_NOTIMPL;
     }
 
     virtual ULONG WINAPI AddRef(void)
-    { 
-		_LinkCounter++;
-		return _LinkCounter;
-	}
+    {
+        _LinkCounter++;
+        return _LinkCounter;
+    }
 
     virtual ULONG WINAPI Release(void) {
-		_LinkCounter--;
+        _LinkCounter--;
 
-		if (_LinkCounter == 0) {
+        if (_LinkCounter == 0) {
             delete this;
-			return 0;
+            return 0;
         }
 
-		return _LinkCounter;
+        return _LinkCounter;
     }
 
 private:
-
-	ULONG _LinkCounter;
+    ULONG _LinkCounter;
 };
