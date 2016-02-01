@@ -39,4 +39,4 @@ CSDebug
 Release
 CSRelease
 
-/Aimp/AIMP3.60
+include/boost/*
