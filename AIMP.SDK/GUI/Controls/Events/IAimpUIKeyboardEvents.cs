@@ -3,14 +3,14 @@
     // ReSharper disable once InconsistentNaming
     public interface IAimpUIKeyboardEvents
     {
-        event AimpUIEventHandler OnEnter;
+        event AimpUIControlEventHandler OnEnter;
 
-        event AimpUIEventHandler OnExit;
+        event AimpUIControlEventHandler OnExit;
 
-        event AimpUIEventHandler<AimpKeyboardArgs> OnKeyDown;
+        event AimpUIControlEventHandler<AimpKeyboardArgs> OnKeyDown;
 
-        event AimpUIEventHandler<AimpKeyboardArgs> OnKeyUp;
+        event AimpUIControlEventHandler<AimpKeyboardArgs> OnKeyUp;
 
-        event AimpUIEventHandler<AimpKeyArgs> OnKeyPress;
+        event AimpUIControlEventHandler<AimpKeyArgs> OnKeyPress;
     }
 }

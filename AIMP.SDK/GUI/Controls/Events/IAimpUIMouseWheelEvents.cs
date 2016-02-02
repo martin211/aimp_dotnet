@@ -3,6 +3,6 @@
     // ReSharper disable once InconsistentNaming
     public interface IAimpUIMouseWheelEvents
     {
-        event AimpUIEventHandler OnMouseWheel;
+        event AimpUIControlEventHandler OnMouseWheel;
     }
 }

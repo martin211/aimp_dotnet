@@ -3,14 +3,14 @@
     // ReSharper disable once InconsistentNaming
     public interface IAimpUIMouseEvents
     {
-        event AimpUIEventHandler<AimpMouseClickArgs> OnMouseDoubleClick;
+        event AimpUIControlEventHandler<AimpMouseClickArgs> OnMouseDoubleClick;
 
-        event AimpUIEventHandler<AimpMouseClickArgs> OnMouseDown;
+        event AimpUIControlEventHandler<AimpMouseClickArgs> OnMouseDown;
 
-        event AimpUIEventHandler<AimpMouseClickArgs> OnMouseUp;
+        event AimpUIControlEventHandler<AimpMouseClickArgs> OnMouseUp;
 
-        event AimpUIEventHandler OnMouseLeave;
+        event AimpUIControlEventHandler OnMouseLeave;
 
-        event AimpUIEventHandler<AimpMouseMoveArgs> OnMouseMove;
+        event AimpUIControlEventHandler<AimpMouseMoveArgs> OnMouseMove;
     }
 }

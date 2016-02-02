@@ -3,6 +3,6 @@
     // ReSharper disable once InconsistentNaming
     public interface IAimpUIChangeEvents
     {
-        event AimpUIEventHandler OnChanged;
+        event AimpUIControlEventHandler OnChanged;
     }
 }

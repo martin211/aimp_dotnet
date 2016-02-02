@@ -2,7 +2,7 @@
 {
     using System;
 
-    using AIMP.SDK.GUI.Controls.Events;
+    using Events;
 
     public class AimpFormShortCutArgs : EventArgs
     {

@@ -3,6 +3,6 @@
     // ReSharper disable once InconsistentNaming
     public interface IAimpUIPopupMenuEvents
     {
-        event AimpBoolUIEventHandler<AimpContextPopupArgs> OnContextPopup;
+        event AimpBoolUIControlEventHandler<AimpContextPopupArgs> OnContextPopup;
     }
 }

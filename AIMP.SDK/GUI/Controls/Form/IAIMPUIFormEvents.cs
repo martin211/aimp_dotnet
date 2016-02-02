@@ -5,18 +5,18 @@
     // ReSharper disable once InconsistentNaming
     public interface IAimpUIFormEvents
     {
-        event AimpUIEventHandler OnActivated;
+        event AimpUIControlEventHandler OnActivated;
 
-        event AimpUIEventHandler OnDeactivated;
+        event AimpUIControlEventHandler OnDeactivated;
 
-        event AimpUIEventHandler OnCreated;
+        event AimpUIControlEventHandler OnCreated;
 
-        event AimpUIEventHandler OnDestroyed;
+        event AimpUIControlEventHandler OnDestroyed;
 
-        event AimpUIEventHandler<AimpFormCloseQueryArgs> OnCloseQuery;
+        event AimpUIControlEventHandler<AimpFormCloseQueryArgs> OnCloseQuery;
 
-        event AimpUIEventHandler OnLocalize;
+        event AimpUIControlEventHandler OnLocalize;
 
-        event AimpUIEventHandler<AimpFormShortCutArgs> OnShortCut;
+        event AimpUIControlEventHandler<AimpFormShortCutArgs> OnShortCut;
     }
 }
