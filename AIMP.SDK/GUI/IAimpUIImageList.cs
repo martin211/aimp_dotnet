@@ -1,4 +1,4 @@
-﻿namespace AIMP.SDK.GUI.Controls
+﻿namespace AIMP.SDK.GUI
 {
     using System;
     using System.Drawing;
@@ -18,8 +18,8 @@
 
         int GetCount();
 
-        AimpActionResult GetSize(out SizeF size);
+        AimpActionResult GetSize(out Size size);
 
-        AimpActionResult SetSize(SizeF size);
+        AimpActionResult SetSize(Size size);
     }
 }

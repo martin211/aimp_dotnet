@@ -15,14 +15,14 @@ namespace AIMP
         {
         private:
             IAimpServiceUI ^_serviceUI;
-            AimpUIEventHandler<AimpMouseClickArgs^> ^_mouseDoubleClick;
-            AimpUIEventHandler<AimpMouseClickArgs^> ^_mouseDown;
-            AimpUIEventHandler<AimpMouseClickArgs^> ^_mouseUp;
-            AimpUIEventHandler^ _mouseLeave;
-            AimpUIEventHandler<AimpMouseMoveArgs^> ^_mouseMove;
-            AimpUIEventHandler ^_mouseWheel;
-            AimpUIEventHandler ^_boundsChanged;
-            AimpBoolUIEventHandler<AimpContextPopupArgs^> ^_contextPopup;
+            AimpUIControlEventHandler<AimpMouseClickArgs^> ^_mouseDoubleClick;
+            AimpUIControlEventHandler<AimpMouseClickArgs^> ^_mouseDown;
+            AimpUIControlEventHandler<AimpMouseClickArgs^> ^_mouseUp;
+            AimpUIControlEventHandler^ _mouseLeave;
+            AimpUIControlEventHandler<AimpMouseMoveArgs^> ^_mouseMove;
+            AimpUIControlEventHandler ^_mouseWheel;
+            AimpUIControlEventHandler ^_boundsChanged;
+            AimpBoolUIControlEventHandler<AimpContextPopupArgs^> ^_contextPopup;
 
         public:
             explicit AimpUIControl(IAIMPUIControl *aimpObject, IAimpServiceUI ^serviceUI);
@@ -85,59 +85,59 @@ namespace AIMP
 
             virtual AimpActionResult PaintTo(IntPtr parent, int x, int y);
 
-            virtual event AimpUIEventHandler<AimpMouseClickArgs^> ^OnMouseDoubleClick
+            virtual event AimpUIControlEventHandler<AimpMouseClickArgs^> ^OnMouseDoubleClick
             {
-                virtual void add(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent);
-                virtual void remove(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent);
+                virtual void add(AimpUIControlEventHandler<AimpMouseClickArgs^> ^onEvent);
+                virtual void remove(AimpUIControlEventHandler<AimpMouseClickArgs^> ^onEvent);
                 virtual void raise(IAimpUIControl ^sender, AimpMouseClickArgs ^args);
             }
 
-            virtual event AimpUIEventHandler<AimpMouseClickArgs^> ^OnMouseDown
+            virtual event AimpUIControlEventHandler<AimpMouseClickArgs^> ^OnMouseDown
             {
-                virtual void add(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent);
-                virtual void remove(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent);
+                virtual void add(AimpUIControlEventHandler<AimpMouseClickArgs^> ^onEvent);
+                virtual void remove(AimpUIControlEventHandler<AimpMouseClickArgs^> ^onEvent);
                 virtual void raise(IAimpUIControl ^sender, AimpMouseClickArgs ^args);
             }
 
-            virtual event AimpUIEventHandler<AimpMouseClickArgs^> ^OnMouseUp
+            virtual event AimpUIControlEventHandler<AimpMouseClickArgs^> ^OnMouseUp
             {
-                virtual void add(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent);
-                virtual void remove(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent);
+                virtual void add(AimpUIControlEventHandler<AimpMouseClickArgs^> ^onEvent);
+                virtual void remove(AimpUIControlEventHandler<AimpMouseClickArgs^> ^onEvent);
                 virtual void raise(IAimpUIControl ^sender, AimpMouseClickArgs ^args);
             }
 
-            virtual event AimpUIEventHandler^ OnMouseLeave
+            virtual event AimpUIControlEventHandler^ OnMouseLeave
             {
-                virtual void add(AimpUIEventHandler ^onEvent);
-                virtual void remove(AimpUIEventHandler ^onEvent);
+                virtual void add(AimpUIControlEventHandler ^onEvent);
+                virtual void remove(AimpUIControlEventHandler ^onEvent);
                 virtual void raise(IAimpUIControl ^sender);
             }
 
-            virtual event AimpUIEventHandler<AimpMouseMoveArgs^> ^OnMouseMove
+            virtual event AimpUIControlEventHandler<AimpMouseMoveArgs^> ^OnMouseMove
             {
-                virtual void add(AimpUIEventHandler<AimpMouseMoveArgs^> ^onEvent);
-                virtual void remove(AimpUIEventHandler<AimpMouseMoveArgs^> ^onEvent);
+                virtual void add(AimpUIControlEventHandler<AimpMouseMoveArgs^> ^onEvent);
+                virtual void remove(AimpUIControlEventHandler<AimpMouseMoveArgs^> ^onEvent);
                 virtual void raise(IAimpUIControl ^sender, AimpMouseMoveArgs ^args);
             }
 
-            virtual event AimpUIEventHandler ^OnMouseWheel
+            virtual event AimpUIControlEventHandler ^OnMouseWheel
             {
-                virtual void add(AimpUIEventHandler ^onEvent);
-                virtual void remove(AimpUIEventHandler ^onEvent);
+                virtual void add(AimpUIControlEventHandler ^onEvent);
+                virtual void remove(AimpUIControlEventHandler ^onEvent);
                 virtual void raise(IAimpUIControl ^sender);
             }
 
-            virtual event AimpUIEventHandler ^OnBoundsChanged
+            virtual event AimpUIControlEventHandler ^OnBoundsChanged
             {
-                virtual void add(AimpUIEventHandler ^onEvent);
-                virtual void remove(AimpUIEventHandler ^onEvent);
+                virtual void add(AimpUIControlEventHandler ^onEvent);
+                virtual void remove(AimpUIControlEventHandler ^onEvent);
                 virtual void raise(IAimpUIControl ^sender);
             }
 
-            virtual event AimpBoolUIEventHandler<AimpContextPopupArgs^> ^OnContextPopup
+            virtual event AimpBoolUIControlEventHandler<AimpContextPopupArgs^> ^OnContextPopup
             {
-                virtual void add(AimpBoolUIEventHandler<AimpContextPopupArgs^> ^onEvent);
-                virtual void remove(AimpBoolUIEventHandler<AimpContextPopupArgs^> ^onEvent);
+                virtual void add(AimpBoolUIControlEventHandler<AimpContextPopupArgs^> ^onEvent);
+                virtual void remove(AimpBoolUIControlEventHandler<AimpContextPopupArgs^> ^onEvent);
                 virtual bool raise(IAimpUIControl ^sender, AimpContextPopupArgs^ args);
             }
         internal:

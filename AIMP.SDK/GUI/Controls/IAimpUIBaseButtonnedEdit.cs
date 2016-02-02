@@ -11,7 +11,7 @@
 
         AimpActionResult DeleteButton(IAimpUIEditButton button);
 
-        AimpActionResult DeleteButton(int index, IAimpUIEditButton button);
+        AimpActionResult DeleteButton(int index);
 
         AimpActionResult GetButton(int index, IAimpUIEditButton button);
 

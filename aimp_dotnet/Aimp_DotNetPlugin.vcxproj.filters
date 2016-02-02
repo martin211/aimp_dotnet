@@ -2,25 +2,30 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="AimpDotnetPlugin.cpp" />
+    <ClCompile Include="SDK\GUI\Controls\AimpUIBaseButtonnedEdit.cpp" />
+    <ClCompile Include="SDK\GUI\Controls\AimpUIBaseEdit.cpp" />
+    <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp" />
+    <ClCompile Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.cpp" />
+    <ClCompile Include="SDK\GUI\Controls\AimpUIControl.cpp" />
     <ClCompile Include="DotNetPlugin.cpp" />
     <ClCompile Include="Extensions\AimpExtensionAlbumArtCatalog.cpp" />
     <ClCompile Include="Extensions\AimpExtensionAlbumArtProvider.cpp" />
     <ClCompile Include="SDK\Action\AimpActionManager.cpp" />
+    <ClCompile Include="SDK\GUI\Controls\Form\AimpUIForm.cpp" />
     <ClCompile Include="SDK\ManagedAimpCore.cpp" />
+    <ClCompile Include="SDK\Menu\AimpMenuItem.cpp" />
     <ClCompile Include="SDK\Menu\AimpMenuManager.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlayList.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlayListGroup.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlayListItem.cpp" />
     <ClCompile Include="Stdafx.cpp" />
-    <ClCompile Include="SDK\GUI\Controls\AimpUIControl.cpp" />
     <ClCompile Include="SDK\GUI\Controls\AimpUIWinControl.cpp" />
-    <ClCompile Include="SDK\GUI\Controls\Form\AimpUIForm.cpp" />
-    <ClCompile Include="SDK\GUI\Controls\AimpUIBaseEdit.cpp" />
-    <ClCompile Include="SDK\GUI\Controls\AimpUIBaseButtonnedEdit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AIMPSDK\apiActions.h" />
     <ClInclude Include="AIMPSDK\apiAlbumArt.h" />
+    <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h" />
+    <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h" />
     <ClInclude Include="AIMPSDK\apiCore.h" />
     <ClInclude Include="AIMPSDK\apiDecoders.h" />
     <ClInclude Include="AIMPSDK\apiFileManager.h" />
@@ -40,6 +45,10 @@
     <ClInclude Include="AIMPSDK\apiTagEditor.h" />
     <ClInclude Include="AIMPSDK\apiThreading.h" />
     <ClInclude Include="AIMPSDK\apiVisuals.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIBaseButtonnedEdit.h" />
+    <ClInclude Include="SDK\GUI\AimpServiceUI.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIBaseEdit.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIControl.h" />
     <ClInclude Include="Extensions\AimpExtensionAlbumArtCatalog.h" />
     <ClInclude Include="AimpSdk.h" />
     <ClInclude Include="DataConversion.h" />
@@ -52,26 +61,27 @@
     <ClInclude Include="SDK\AimpCore.h" />
     <ClInclude Include="SDK\AimpExtensionBase.h" />
     <ClInclude Include="SDK\AimpObject.h" />
-    <ClCompile Include="SDK\Menu\AimpMenuItem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClInclude Include="SDK\AimpPlayer.h" />
     <ClInclude Include="SDK\AlbumArt\AimpAlbumArtManager.h" />
     <ClInclude Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.h" />
     <ClInclude Include="SDK\BaseManager.h" />
     <ClInclude Include="SDK\Configuration\AimpConfigurationManager.h" />
     <ClInclude Include="SDK\EventHelper.h" />
-    <ClCompile Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="SDK\GUI\Controls\AimpUIMouseEvents.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIMouseWheelEvents.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIPlacementEvents.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIWinControl.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIKeyboardEvents.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIWndProcEvents.h" />
+    <ClInclude Include="SDK\GUI\Controls\Form\AimpUIForm.h" />
+    <ClInclude Include="SDK\GUI\Controls\Form\AimpUIFormEvents.h" />
     <ClInclude Include="SDK\ManagedAimpCore.h" />
+    <ClInclude Include="SDK\Menu\AimpMenuItem.h" />
     <ClInclude Include="SDK\Menu\AimpMenuManager.h" />
     <ClInclude Include="SDK\Menu\ICallBackHeader.h" />
     <ClInclude Include="SDK\Menu\MenuItemEvent.h" />
     <ClInclude Include="SDK\MUI\MUIManager.h" />
+    <ClInclude Include="SDK\AimpConverter.h" />
     <ClInclude Include="SDK\Options\AimpOptionsDialogFrame.h" />
     <ClInclude Include="SDK\Options\AimpServiceOptionsDialog.h" />
     <ClInclude Include="SDK\Playback\AimpPlaybackQueueItem.h" />
@@ -85,37 +95,17 @@
     <ClInclude Include="SDK\PlayList\VirtualFileInfoh.h" />
     <ClInclude Include="SDK\Threading\AimpAsyncTask.h" />
     <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h" />
+    <ClInclude Include="SDK\Visuals\AimpServiceVisualizations.h" />
     <ClInclude Include="SDK\Win32\Win32Manager.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Utils.h" />
-    <ClInclude Include="SDK\GUI\Controls\AimpUIControl.h" />
-    <ClInclude Include="SDK\AimpConverter.h" />
-    <ClInclude Include="SDK\GUI\Controls\AimpUIWinControl.h" />
-    <ClInclude Include="SDK\GUI\Controls\Form\AimpUIForm.h" />
-    <ClInclude Include="SDK\GUI\AimpServiceUI.h" />
-    <ClInclude Include="SDK\GUI\Controls\Form\AimpUIFormEvents.h" />
-    <ClInclude Include="SDK\GUI\Controls\AimpUIMouseWheelEvents.h" />
-    <ClInclude Include="SDK\GUI\Controls\AimpUIPlacementEvents.h" />
-    <ClInclude Include="SDK\GUI\Controls\AimpUIMouseEvents.h" />
-    <ClInclude Include="SDK\GUI\Controls\AimpUIWndProcEvents.h" />
-    <ClInclude Include="SDK\GUI\Controls\AimpUIKeyboardEvents.h" />
-    <ClInclude Include="SDK\GUI\Controls\AimpUIBaseEdit.h" />
-    <ClInclude Include="SDK\GUI\Controls\AimpUIBaseButtonnedEdit.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIEditButton.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIBaseButtonnedEditEvents.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUIChangeEvents.h" />
+    <ClInclude Include="SDK\GUI\Controls\AimpUILabel.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc" />
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Menu\AimpMenuItem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Visuals\AimpServiceVisualizations.h">
   </ItemGroup>
   <ItemGroup>
     <None Include="AIMP_Exports.def" />

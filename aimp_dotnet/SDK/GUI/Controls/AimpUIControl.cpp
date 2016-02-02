@@ -209,19 +209,19 @@ namespace AIMP
         }
 
 
-        void AimpUIControl::OnMouseDoubleClick::add(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent)
+        void AimpUIControl::OnMouseDoubleClick::add(AimpUIControlEventHandler<AimpMouseClickArgs^> ^onEvent)
         {
             if (this->_mouseDoubleClick == nullptr)
             {
-                this->_mouseDoubleClick = (AimpUIEventHandler<AimpMouseClickArgs^>^)Delegate::Combine(this->_mouseDoubleClick, onEvent);
+                this->_mouseDoubleClick = (AimpUIControlEventHandler<AimpMouseClickArgs^>^)Delegate::Combine(this->_mouseDoubleClick, onEvent);
             }
         }
 
-        void AimpUIControl::OnMouseDoubleClick::remove(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent)
+        void AimpUIControl::OnMouseDoubleClick::remove(AimpUIControlEventHandler<AimpMouseClickArgs^> ^onEvent)
         {
             if (this->_mouseDoubleClick != nullptr)
             {
-                this->_mouseDoubleClick = (AimpUIEventHandler<AimpMouseClickArgs^>^)Delegate::Remove(this->_mouseDoubleClick, onEvent);
+                this->_mouseDoubleClick = (AimpUIControlEventHandler<AimpMouseClickArgs^>^)Delegate::Remove(this->_mouseDoubleClick, onEvent);
             }
         }
 
@@ -234,19 +234,19 @@ namespace AIMP
         }
 
 
-        void AimpUIControl::OnMouseDown::add(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent)
+        void AimpUIControl::OnMouseDown::add(AimpUIControlEventHandler<AimpMouseClickArgs^> ^onEvent)
         {
             if (this->_mouseDown == nullptr)
             {
-                this->_mouseDown = (AimpUIEventHandler<AimpMouseClickArgs^>^)Delegate::Combine(this->_mouseDown, onEvent);
+                this->_mouseDown = (AimpUIControlEventHandler<AimpMouseClickArgs^>^)Delegate::Combine(this->_mouseDown, onEvent);
             }
         }
 
-        void AimpUIControl::OnMouseDown::remove(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent)
+        void AimpUIControl::OnMouseDown::remove(AimpUIControlEventHandler<AimpMouseClickArgs^> ^onEvent)
         {
             if (this->_mouseDown != nullptr)
             {
-                this->_mouseDown = (AimpUIEventHandler<AimpMouseClickArgs^>^)Delegate::Remove(this->_mouseDown, onEvent);
+                this->_mouseDown = (AimpUIControlEventHandler<AimpMouseClickArgs^>^)Delegate::Remove(this->_mouseDown, onEvent);
             }
         }
 
@@ -259,19 +259,19 @@ namespace AIMP
         }
 
 
-        void AimpUIControl::OnMouseUp::add(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent)
+        void AimpUIControl::OnMouseUp::add(AimpUIControlEventHandler<AimpMouseClickArgs^> ^onEvent)
         {
             if (this->_mouseUp == nullptr)
             {
-                this->_mouseUp = (AimpUIEventHandler<AimpMouseClickArgs^>^)Delegate::Combine(this->_mouseUp, onEvent);
+                this->_mouseUp = (AimpUIControlEventHandler<AimpMouseClickArgs^>^)Delegate::Combine(this->_mouseUp, onEvent);
             }
         }
 
-        void AimpUIControl::OnMouseUp::remove(AimpUIEventHandler<AimpMouseClickArgs^> ^onEvent)
+        void AimpUIControl::OnMouseUp::remove(AimpUIControlEventHandler<AimpMouseClickArgs^> ^onEvent)
         {
             if (this->_mouseUp != nullptr)
             {
-                this->_mouseUp = (AimpUIEventHandler<AimpMouseClickArgs^>^)Delegate::Remove(this->_mouseUp, onEvent);
+                this->_mouseUp = (AimpUIControlEventHandler<AimpMouseClickArgs^>^)Delegate::Remove(this->_mouseUp, onEvent);
             }
         }
 
@@ -284,19 +284,19 @@ namespace AIMP
         }
 
 
-        void AimpUIControl::OnMouseLeave::add(AimpUIEventHandler ^onEvent)
+        void AimpUIControl::OnMouseLeave::add(AimpUIControlEventHandler ^onEvent)
         {
             if (this->_mouseLeave == nullptr)
             {
-                this->_mouseLeave = (AimpUIEventHandler^)Delegate::Combine(this->_mouseLeave, onEvent);
+                this->_mouseLeave = (AimpUIControlEventHandler^)Delegate::Combine(this->_mouseLeave, onEvent);
             }
         }
 
-        void AimpUIControl::OnMouseLeave::remove(AimpUIEventHandler ^onEvent)
+        void AimpUIControl::OnMouseLeave::remove(AimpUIControlEventHandler ^onEvent)
         {
             if (this->_mouseLeave != nullptr)
             {
-                this->_mouseLeave = (AimpUIEventHandler^)Delegate::Remove(this->_mouseLeave, onEvent);
+                this->_mouseLeave = (AimpUIControlEventHandler^)Delegate::Remove(this->_mouseLeave, onEvent);
             }
         }
 
@@ -309,19 +309,19 @@ namespace AIMP
         }
 
 
-        void AimpUIControl::OnMouseMove::add(AimpUIEventHandler<AimpMouseMoveArgs^> ^onEvent)
+        void AimpUIControl::OnMouseMove::add(AimpUIControlEventHandler<AimpMouseMoveArgs^> ^onEvent)
         {
             if (this->_mouseMove == nullptr)
             {
-                this->_mouseMove = (AimpUIEventHandler<AimpMouseMoveArgs^>^)Delegate::Combine(this->_mouseMove, onEvent);
+                this->_mouseMove = (AimpUIControlEventHandler<AimpMouseMoveArgs^>^)Delegate::Combine(this->_mouseMove, onEvent);
             }
         }
 
-        void AimpUIControl::OnMouseMove::remove(AimpUIEventHandler<AimpMouseMoveArgs^> ^onEvent)
+        void AimpUIControl::OnMouseMove::remove(AimpUIControlEventHandler<AimpMouseMoveArgs^> ^onEvent)
         {
             if (this->_mouseMove != nullptr)
             {
-                this->_mouseMove = (AimpUIEventHandler<AimpMouseMoveArgs^>^)Delegate::Remove(this->_mouseMove, onEvent);
+                this->_mouseMove = (AimpUIControlEventHandler<AimpMouseMoveArgs^>^)Delegate::Remove(this->_mouseMove, onEvent);
             }
         }
 
@@ -334,19 +334,19 @@ namespace AIMP
         }
 
 
-        void AimpUIControl::OnMouseWheel::add(AimpUIEventHandler ^onEvent)
+        void AimpUIControl::OnMouseWheel::add(AimpUIControlEventHandler ^onEvent)
         {
             if (this->_mouseWheel == nullptr)
             {
-                this->_mouseWheel = (AimpUIEventHandler^)Delegate::Combine(this->_mouseWheel, onEvent);
+                this->_mouseWheel = (AimpUIControlEventHandler^)Delegate::Combine(this->_mouseWheel, onEvent);
             }
         }
 
-        void AimpUIControl::OnMouseWheel::remove(AimpUIEventHandler ^onEvent)
+        void AimpUIControl::OnMouseWheel::remove(AimpUIControlEventHandler ^onEvent)
         {
             if (this->_mouseWheel != nullptr)
             {
-                this->_mouseWheel = (AimpUIEventHandler^)Delegate::Remove(this->_mouseWheel, onEvent);
+                this->_mouseWheel = (AimpUIControlEventHandler^)Delegate::Remove(this->_mouseWheel, onEvent);
             }
         }
 
@@ -359,19 +359,19 @@ namespace AIMP
         }
 
 
-        void AimpUIControl::OnBoundsChanged::add(AimpUIEventHandler ^onEvent)
+        void AimpUIControl::OnBoundsChanged::add(AimpUIControlEventHandler ^onEvent)
         {
             if (this->_boundsChanged == nullptr)
             {
-                this->_boundsChanged = (AimpUIEventHandler^)Delegate::Combine(this->_boundsChanged, onEvent);
+                this->_boundsChanged = (AimpUIControlEventHandler^)Delegate::Combine(this->_boundsChanged, onEvent);
             }
         }
 
-        void AimpUIControl::OnBoundsChanged::remove(AimpUIEventHandler ^onEvent)
+        void AimpUIControl::OnBoundsChanged::remove(AimpUIControlEventHandler ^onEvent)
         {
             if (this->_boundsChanged != nullptr)
             {
-                this->_boundsChanged = (AimpUIEventHandler^)Delegate::Remove(this->_boundsChanged, onEvent);
+                this->_boundsChanged = (AimpUIControlEventHandler^)Delegate::Remove(this->_boundsChanged, onEvent);
             }
         }
 
@@ -384,19 +384,19 @@ namespace AIMP
         }
 
 
-        void AimpUIControl::OnContextPopup::add(AimpBoolUIEventHandler<AimpContextPopupArgs^> ^onEvent)
+        void AimpUIControl::OnContextPopup::add(AimpBoolUIControlEventHandler<AimpContextPopupArgs^> ^onEvent)
         {
             if (this->_contextPopup == nullptr)
             {
-                this->_contextPopup = (AimpBoolUIEventHandler<AimpContextPopupArgs^>^)Delegate::Combine(this->_contextPopup, onEvent);
+                this->_contextPopup = (AimpBoolUIControlEventHandler<AimpContextPopupArgs^>^)Delegate::Combine(this->_contextPopup, onEvent);
             }
         }
 
-        void AimpUIControl::OnContextPopup::remove(AimpBoolUIEventHandler<AimpContextPopupArgs^> ^onEvent)
+        void AimpUIControl::OnContextPopup::remove(AimpBoolUIControlEventHandler<AimpContextPopupArgs^> ^onEvent)
         {
             if (this->_contextPopup != nullptr)
             {
-                this->_contextPopup = (AimpBoolUIEventHandler<AimpContextPopupArgs^>^)Delegate::Remove(this->_contextPopup, onEvent);
+                this->_contextPopup = (AimpBoolUIControlEventHandler<AimpContextPopupArgs^>^)Delegate::Remove(this->_contextPopup, onEvent);
             }
         }
 

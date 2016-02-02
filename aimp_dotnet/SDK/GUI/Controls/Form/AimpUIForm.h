@@ -9,6 +9,7 @@ namespace AIMP
         using namespace AIMP::SDK::GUI;
         using namespace AIMP::SDK::GUI::Controls;
         using namespace AIMP::SDK::GUI::Controls::Form;
+        using namespace AIMP::SDK::GUI::Controls::Events;
 
         ref class AimpUIForm : public AimpUIWinControl, public IAimpUIForm
         {
@@ -69,52 +70,52 @@ namespace AIMP
 
             virtual void Show();
 
-            virtual event AimpUIEventHandler ^OnActivated
+            virtual event AimpUIControlEventHandler ^OnActivated
             {
-                virtual void add(AimpUIEventHandler ^onEvent);
-                virtual void remove(AimpUIEventHandler ^onEvent);
+                virtual void add(AimpUIControlEventHandler ^onEvent);
+                virtual void remove(AimpUIControlEventHandler ^onEvent);
                 virtual void raise(IAimpUIControl ^sender);
             }
 
-            virtual event AimpUIEventHandler ^OnDeactivated
+            virtual event AimpUIControlEventHandler ^OnDeactivated
             {
-                virtual void add(AimpUIEventHandler ^onEvent);
-                virtual void remove(AimpUIEventHandler ^onEvent);
+                virtual void add(AimpUIControlEventHandler ^onEvent);
+                virtual void remove(AimpUIControlEventHandler ^onEvent);
                 virtual void raise(IAimpUIControl ^sender);
             }
 
-            virtual event AimpUIEventHandler ^OnCreated
+            virtual event AimpUIControlEventHandler ^OnCreated
             {
-                virtual void add(AimpUIEventHandler ^onEvent);
-                virtual void remove(AimpUIEventHandler ^onEvent);
+                virtual void add(AimpUIControlEventHandler ^onEvent);
+                virtual void remove(AimpUIControlEventHandler ^onEvent);
                 virtual void raise(IAimpUIControl ^sender);
             }
 
-            virtual event AimpUIEventHandler ^OnDestroyed
+            virtual event AimpUIControlEventHandler ^OnDestroyed
             {
-                virtual void add(AimpUIEventHandler ^onEvent);
-                virtual void remove(AimpUIEventHandler ^onEvent);
+                virtual void add(AimpUIControlEventHandler ^onEvent);
+                virtual void remove(AimpUIControlEventHandler ^onEvent);
                 virtual void raise(IAimpUIControl ^sender);
             }
 
-            virtual event AimpUIEventHandler<AimpFormCloseQueryArgs^> ^OnCloseQuery
+            virtual event AimpUIControlEventHandler<AimpFormCloseQueryArgs^> ^OnCloseQuery
             {
-                virtual void add(AimpUIEventHandler<AimpFormCloseQueryArgs^> ^onEvent);
-                virtual void remove(AimpUIEventHandler<AimpFormCloseQueryArgs^> ^onEvent);
+                virtual void add(AimpUIControlEventHandler<AimpFormCloseQueryArgs^> ^onEvent);
+                virtual void remove(AimpUIControlEventHandler<AimpFormCloseQueryArgs^> ^onEvent);
                 virtual void raise(IAimpUIControl ^sender, AimpFormCloseQueryArgs ^args);
             }
 
-            virtual event AimpUIEventHandler ^OnLocalize
+            virtual event AimpUIControlEventHandler ^OnLocalize
             {
-                virtual void add(AimpUIEventHandler ^onEvent);
-                virtual void remove(AimpUIEventHandler ^onEvent);
+                virtual void add(AimpUIControlEventHandler ^onEvent);
+                virtual void remove(AimpUIControlEventHandler ^onEvent);
                 virtual void raise(IAimpUIControl ^sender);
             }
 
-            virtual event AimpUIEventHandler<AimpFormShortCutArgs^> ^OnShortCut
+            virtual event AimpUIControlEventHandler<AimpFormShortCutArgs^> ^OnShortCut
             {
-                virtual void add(AimpUIEventHandler<AimpFormShortCutArgs^> ^onEvent);
-                virtual void remove(AimpUIEventHandler<AimpFormShortCutArgs^> ^onEvent);
+                virtual void add(AimpUIControlEventHandler<AimpFormShortCutArgs^> ^onEvent);
+                virtual void remove(AimpUIControlEventHandler<AimpFormShortCutArgs^> ^onEvent);
                 virtual void raise(IAimpUIControl ^sender, AimpFormShortCutArgs  ^args);
             }
 
@@ -159,13 +160,13 @@ namespace AIMP
             }
 
         private:
-            AimpUIEventHandler ^_onActivated;
-            AimpUIEventHandler ^_onDeactivated;
-            AimpUIEventHandler ^_onCreated;
-            AimpUIEventHandler ^_onDestroyed;
-            AimpUIEventHandler<AimpFormCloseQueryArgs^> ^_onCloseQuery;
-            AimpUIEventHandler ^_onLocalize;
-            AimpUIEventHandler<AimpFormShortCutArgs^> ^_onShortCut;
+            AimpUIControlEventHandler ^_onActivated;
+            AimpUIControlEventHandler ^_onDeactivated;
+            AimpUIControlEventHandler ^_onCreated;
+            AimpUIControlEventHandler ^_onDestroyed;
+            AimpUIControlEventHandler<AimpFormCloseQueryArgs^> ^_onCloseQuery;
+            AimpUIControlEventHandler ^_onLocalize;
+            AimpUIControlEventHandler<AimpFormShortCutArgs^> ^_onShortCut;
         };
     }
 }

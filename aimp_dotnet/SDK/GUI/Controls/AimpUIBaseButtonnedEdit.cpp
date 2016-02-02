@@ -1,5 +1,7 @@
 #include "..\..\..\Stdafx.h"
 #include "AimpUIBaseButtonnedEdit.h"
+#include "AimpUIBaseButtonnedEditEvents.h"
+#include "AimpUIEditButton.h"
 
 
 namespace AIMP
@@ -19,36 +21,70 @@ namespace AIMP
 
         AimpActionResult AimpUIBaseButtonnedEdit::AddButton(IAimpUIEditButton ^%button)
         {
-            return AimpActionResult::Ok;
+            AimpUIBaseButtonnedEditEvents *eventHandler = new AimpUIBaseButtonnedEditEvents();
+            IAIMPUIEditButton *btn;
+            AimpActionResult r = CheckResult(((IAIMPUIBaseButtonnedEdit*)InternalAimpControl)->AddButton(eventHandler, &btn));
+
+            if (r == AimpActionResult::Ok)
+            {
+                button = gcnew AimpUIEditButton(btn);
+                btn->Release();
+            }
+
+            return r;
         }
 
         AimpActionResult AimpUIBaseButtonnedEdit::DeleteButton(IAimpUIEditButton ^button)
         {
-            return AimpActionResult::Ok;
+            return CheckResult(((IAIMPUIBaseButtonnedEdit*)InternalAimpControl)->DeleteButton2(((AimpUIEditButton^)button)->AimpObject));
         }
 
-        AimpActionResult AimpUIBaseButtonnedEdit::DeleteButton(int index, IAimpUIEditButton ^button)
+        AimpActionResult AimpUIBaseButtonnedEdit::DeleteButton(int index)
         {
-            return AimpActionResult::Ok;
+            return CheckResult(((IAIMPUIBaseButtonnedEdit*)InternalAimpControl)->DeleteButton(index));
         }
 
         AimpActionResult AimpUIBaseButtonnedEdit::GetButton(int index, IAimpUIEditButton ^button)
         {
-            return AimpActionResult::Ok;
+            IAIMPUIEditButton *btn;
+            AimpActionResult r = CheckResult(((IAIMPUIBaseButtonnedEdit*)InternalAimpControl)->GetButton(index, &btn));
+
+            if (r == AimpActionResult::Ok)
+            {
+                button = gcnew AimpUIEditButton(btn);
+                btn->Release();
+            }
+
+            return r;
         }
 
         int AimpUIBaseButtonnedEdit::GetButtonCount()
         {
-            return 0;
+            return ((IAIMPUIBaseButtonnedEdit*)InternalAimpControl)->GetButtonCount();
         }
 
-        void AimpUIBaseButtonnedEdit::OnChanged::add(AimpUIEventHandler ^onEvent)
-        {}
+        void AimpUIBaseButtonnedEdit::OnChanged::add(AimpUIControlEventHandler ^onEvent)
+        {
+            if (_onChange == nullptr)
+            {
+                _onChange = (AimpUIControlEventHandler^)Delegate::Combine(_onChange, onEvent);
+            }
+        }
 
-        void AimpUIBaseButtonnedEdit::OnChanged::remove(AimpUIEventHandler ^onEvent)
-        {}
+        void AimpUIBaseButtonnedEdit::OnChanged::remove(AimpUIControlEventHandler ^onEvent)
+        {
+            if (_onChange != nullptr)
+            {
+                _onChange = (AimpUIControlEventHandler^)Delegate::Remove(_onChange, onEvent);
+            }
+        }
 
         void AimpUIBaseButtonnedEdit::OnChanged::raise(IAimpUIControl ^sender)
-        {}
+        {
+            if (_onChange != nullptr)
+            {
+                _onChange(sender);
+            }
+        }
     }
 }

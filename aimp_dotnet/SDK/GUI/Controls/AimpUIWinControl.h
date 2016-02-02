@@ -40,52 +40,52 @@ namespace AIMP
 
             virtual AimpActionResult SetFocus();
 
-            virtual event AimpUIEventHandler ^OnEnter
+            virtual event AimpUIControlEventHandler ^OnEnter
             {
-                virtual void add(AimpUIEventHandler ^onEvent);
-                virtual void remove(AimpUIEventHandler ^onEvent);
+                virtual void add(AimpUIControlEventHandler ^onEvent);
+                virtual void remove(AimpUIControlEventHandler ^onEvent);
                 virtual void raise(IAimpUIControl ^sender);
             }
 
-            virtual event AimpUIEventHandler ^OnExit
+            virtual event AimpUIControlEventHandler ^OnExit
             {
-                virtual void add(AimpUIEventHandler ^onEvent);
-                virtual void remove(AimpUIEventHandler ^onEvent);
+                virtual void add(AimpUIControlEventHandler ^onEvent);
+                virtual void remove(AimpUIControlEventHandler ^onEvent);
                 virtual void raise(IAimpUIControl ^sender);
             }
 
-            virtual event AimpUIEventHandler<AimpKeyboardArgs^> ^OnKeyDown
+            virtual event AimpUIControlEventHandler<AimpKeyboardArgs^> ^OnKeyDown
             {
-                virtual void add(AimpUIEventHandler<AimpKeyboardArgs^> ^onEvent);
-                virtual void remove(AimpUIEventHandler<AimpKeyboardArgs^> ^onEvent);
+                virtual void add(AimpUIControlEventHandler<AimpKeyboardArgs^> ^onEvent);
+                virtual void remove(AimpUIControlEventHandler<AimpKeyboardArgs^> ^onEvent);
                 virtual void raise(IAimpUIControl ^sender, AimpKeyboardArgs ^args);
             }
 
-            virtual event AimpUIEventHandler<AimpKeyboardArgs^> ^OnKeyUp
+            virtual event AimpUIControlEventHandler<AimpKeyboardArgs^> ^OnKeyUp
             {
-                virtual void add(AimpUIEventHandler<AimpKeyboardArgs^> ^onEvent);
-                virtual void remove(AimpUIEventHandler<AimpKeyboardArgs^> ^onEvent);
+                virtual void add(AimpUIControlEventHandler<AimpKeyboardArgs^> ^onEvent);
+                virtual void remove(AimpUIControlEventHandler<AimpKeyboardArgs^> ^onEvent);
                 virtual void raise(IAimpUIControl ^sender, AimpKeyboardArgs ^args);
             }
 
-            virtual event AimpUIEventHandler<AimpKeyArgs^> ^OnKeyPress
+            virtual event AimpUIControlEventHandler<AimpKeyArgs^> ^OnKeyPress
             {
-                virtual void add(AimpUIEventHandler<AimpKeyArgs^> ^onEvent);
-                virtual void remove(AimpUIEventHandler<AimpKeyArgs^> ^onEvent);
+                virtual void add(AimpUIControlEventHandler<AimpKeyArgs^> ^onEvent);
+                virtual void remove(AimpUIControlEventHandler<AimpKeyArgs^> ^onEvent);
                 virtual void raise(IAimpUIControl ^sender, AimpKeyArgs ^args);
             }
 
-            virtual event AimpBoolUIEventHandler<AimpBeforeWndProcArgs^> ^OnBeforeWndProc
+            virtual event AimpBoolUIControlEventHandler<AimpBeforeWndProcArgs^> ^OnBeforeWndProc
             {
-                virtual void add(AimpBoolUIEventHandler<AimpBeforeWndProcArgs^> ^onEvent);
-                virtual void remove(AimpBoolUIEventHandler<AimpBeforeWndProcArgs^> ^onEvent);
+                virtual void add(AimpBoolUIControlEventHandler<AimpBeforeWndProcArgs^> ^onEvent);
+                virtual void remove(AimpBoolUIControlEventHandler<AimpBeforeWndProcArgs^> ^onEvent);
                 virtual bool raise(IAimpUIControl ^sender, AimpBeforeWndProcArgs ^args);
             }
 
-            virtual event AimpUIEventHandler<AimpAfterWndProcArgs^> ^OnAfterWndProc
+            virtual event AimpUIControlEventHandler<AimpAfterWndProcArgs^> ^OnAfterWndProc
             {
-                virtual void add(AimpUIEventHandler<AimpAfterWndProcArgs^> ^onEvent);
-                virtual void remove(AimpUIEventHandler<AimpAfterWndProcArgs^> ^onEvent);
+                virtual void add(AimpUIControlEventHandler<AimpAfterWndProcArgs^> ^onEvent);
+                virtual void remove(AimpUIControlEventHandler<AimpAfterWndProcArgs^> ^onEvent);
                 virtual void raise(IAimpUIControl ^sender, AimpAfterWndProcArgs ^args);
             }
 
@@ -126,13 +126,13 @@ namespace AIMP
                 OnAfterWndProc(this, gcnew AimpAfterWndProcArgs(message, paramW, paramL, (int)resultL));
             }
         private:
-            AimpUIEventHandler ^_onEnter;
-            AimpUIEventHandler ^_onExit;
-            AimpUIEventHandler<AimpKeyboardArgs^> ^_onKeyDown;
-            AimpUIEventHandler<AimpKeyboardArgs^> ^_onKeyUp;
-            AimpUIEventHandler<AimpKeyArgs^> ^_onKeyPress;
-            AimpBoolUIEventHandler<AimpBeforeWndProcArgs^> ^_onBeforeWndProc;
-            AimpUIEventHandler<AimpAfterWndProcArgs^> ^_onAfterWndProc;
+            AimpUIControlEventHandler ^_onEnter;
+            AimpUIControlEventHandler ^_onExit;
+            AimpUIControlEventHandler<AimpKeyboardArgs^> ^_onKeyDown;
+            AimpUIControlEventHandler<AimpKeyboardArgs^> ^_onKeyUp;
+            AimpUIControlEventHandler<AimpKeyArgs^> ^_onKeyPress;
+            AimpBoolUIControlEventHandler<AimpBeforeWndProcArgs^> ^_onBeforeWndProc;
+            AimpUIControlEventHandler<AimpAfterWndProcArgs^> ^_onAfterWndProc;
         };
     }
 }

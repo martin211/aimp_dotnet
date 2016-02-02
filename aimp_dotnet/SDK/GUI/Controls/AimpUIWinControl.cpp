@@ -56,19 +56,19 @@ namespace AIMP
         }
 
 
-        void AimpUIWinControl::OnEnter::add(AimpUIEventHandler ^onEvent)
+        void AimpUIWinControl::OnEnter::add(AimpUIControlEventHandler ^onEvent)
         {
             if (this->_onEnter == nullptr)
             {
-                this->_onEnter = (AimpUIEventHandler^)Delegate::Combine(this->_onEnter, onEvent);
+                this->_onEnter = (AimpUIControlEventHandler^)Delegate::Combine(this->_onEnter, onEvent);
             }
         }
 
-        void AimpUIWinControl::OnEnter::remove(AimpUIEventHandler ^onEvent)
+        void AimpUIWinControl::OnEnter::remove(AimpUIControlEventHandler ^onEvent)
         {
             if (this->_onEnter != nullptr)
             {
-                this->_onEnter = (AimpUIEventHandler^)Delegate::Remove(this->_onEnter, onEvent);
+                this->_onEnter = (AimpUIControlEventHandler^)Delegate::Remove(this->_onEnter, onEvent);
             }
         }
 
@@ -81,19 +81,19 @@ namespace AIMP
         }
 
 
-        void AimpUIWinControl::OnExit::add(AimpUIEventHandler ^onEvent)
+        void AimpUIWinControl::OnExit::add(AimpUIControlEventHandler ^onEvent)
         {
             if (this->_onExit == nullptr)
             {
-                this->_onExit = (AimpUIEventHandler^)Delegate::Combine(this->_onExit, onEvent);
+                this->_onExit = (AimpUIControlEventHandler^)Delegate::Combine(this->_onExit, onEvent);
             }
         }
 
-        void AimpUIWinControl::OnExit::remove(AimpUIEventHandler ^onEvent)
+        void AimpUIWinControl::OnExit::remove(AimpUIControlEventHandler ^onEvent)
         {
             if (this->_onExit != nullptr)
             {
-                this->_onExit = (AimpUIEventHandler^)Delegate::Remove(this->_onExit, onEvent);
+                this->_onExit = (AimpUIControlEventHandler^)Delegate::Remove(this->_onExit, onEvent);
             }
         }
 
@@ -106,19 +106,19 @@ namespace AIMP
         }
 
 
-        void AimpUIWinControl::OnKeyDown::add(AimpUIEventHandler<AimpKeyboardArgs^> ^onEvent)
+        void AimpUIWinControl::OnKeyDown::add(AimpUIControlEventHandler<AimpKeyboardArgs^> ^onEvent)
         {
             if (this->_onKeyDown == nullptr)
             {
-                this->_onKeyDown = (AimpUIEventHandler<AimpKeyboardArgs^>^)Delegate::Combine(this->_onKeyDown, onEvent);
+                this->_onKeyDown = (AimpUIControlEventHandler<AimpKeyboardArgs^>^)Delegate::Combine(this->_onKeyDown, onEvent);
             }
         }
 
-        void AimpUIWinControl::OnKeyDown::remove(AimpUIEventHandler<AimpKeyboardArgs^> ^onEvent)
+        void AimpUIWinControl::OnKeyDown::remove(AimpUIControlEventHandler<AimpKeyboardArgs^> ^onEvent)
         {
             if (this->_onKeyDown != nullptr)
             {
-                this->_onKeyDown = (AimpUIEventHandler<AimpKeyboardArgs^>^)Delegate::Remove(this->_onKeyDown, onEvent);
+                this->_onKeyDown = (AimpUIControlEventHandler<AimpKeyboardArgs^>^)Delegate::Remove(this->_onKeyDown, onEvent);
             }
         }
 
@@ -131,19 +131,19 @@ namespace AIMP
         }
 
 
-        void AimpUIWinControl::OnKeyUp::add(AimpUIEventHandler<AimpKeyboardArgs^> ^onEvent)
+        void AimpUIWinControl::OnKeyUp::add(AimpUIControlEventHandler<AimpKeyboardArgs^> ^onEvent)
         {
             if (this->_onKeyUp == nullptr)
             {
-                this->_onKeyUp = (AimpUIEventHandler<AimpKeyboardArgs^>^)Delegate::Combine(this->_onKeyUp, onEvent);
+                this->_onKeyUp = (AimpUIControlEventHandler<AimpKeyboardArgs^>^)Delegate::Combine(this->_onKeyUp, onEvent);
             }
         }
 
-        void AimpUIWinControl::OnKeyUp::remove(AimpUIEventHandler<AimpKeyboardArgs^> ^onEvent)
+        void AimpUIWinControl::OnKeyUp::remove(AimpUIControlEventHandler<AimpKeyboardArgs^> ^onEvent)
         {
             if (this->_onKeyUp != nullptr)
             {
-                this->_onKeyUp = (AimpUIEventHandler<AimpKeyboardArgs^>^)Delegate::Remove(this->_onKeyUp, onEvent);
+                this->_onKeyUp = (AimpUIControlEventHandler<AimpKeyboardArgs^>^)Delegate::Remove(this->_onKeyUp, onEvent);
             }
         }
 
@@ -156,19 +156,19 @@ namespace AIMP
         }
 
 
-        void AimpUIWinControl::OnKeyPress::add(AimpUIEventHandler<AimpKeyArgs^> ^onEvent)
+        void AimpUIWinControl::OnKeyPress::add(AimpUIControlEventHandler<AimpKeyArgs^> ^onEvent)
         {
             if (this->_onKeyPress == nullptr)
             {
-                this->_onKeyPress = (AimpUIEventHandler<AimpKeyArgs^>^)Delegate::Combine(this->_onKeyPress, onEvent);
+                this->_onKeyPress = (AimpUIControlEventHandler<AimpKeyArgs^>^)Delegate::Combine(this->_onKeyPress, onEvent);
             }
         }
 
-        void AimpUIWinControl::OnKeyPress::remove(AimpUIEventHandler<AimpKeyArgs^> ^onEvent)
+        void AimpUIWinControl::OnKeyPress::remove(AimpUIControlEventHandler<AimpKeyArgs^> ^onEvent)
         {
             if (this->_onKeyPress != nullptr)
             {
-                this->_onKeyPress = (AimpUIEventHandler<AimpKeyArgs^>^)Delegate::Remove(this->_onKeyPress, onEvent);
+                this->_onKeyPress = (AimpUIControlEventHandler<AimpKeyArgs^>^)Delegate::Remove(this->_onKeyPress, onEvent);
             }
         }
 
@@ -181,19 +181,19 @@ namespace AIMP
         }
 
 
-        void AimpUIWinControl::OnBeforeWndProc::add(AimpBoolUIEventHandler<AimpBeforeWndProcArgs^> ^onEvent)
+        void AimpUIWinControl::OnBeforeWndProc::add(AimpBoolUIControlEventHandler<AimpBeforeWndProcArgs^> ^onEvent)
         {
             if (this->_onBeforeWndProc == nullptr)
             {
-                this->_onBeforeWndProc = (AimpBoolUIEventHandler<AimpBeforeWndProcArgs^>^)Delegate::Combine(this->_onBeforeWndProc, onEvent);
+                this->_onBeforeWndProc = (AimpBoolUIControlEventHandler<AimpBeforeWndProcArgs^>^)Delegate::Combine(this->_onBeforeWndProc, onEvent);
             }
         }
 
-        void AimpUIWinControl::OnBeforeWndProc::remove(AimpBoolUIEventHandler<AimpBeforeWndProcArgs^> ^onEvent)
+        void AimpUIWinControl::OnBeforeWndProc::remove(AimpBoolUIControlEventHandler<AimpBeforeWndProcArgs^> ^onEvent)
         {
             if (this->_onBeforeWndProc != nullptr)
             {
-                this->_onBeforeWndProc = (AimpBoolUIEventHandler<AimpBeforeWndProcArgs^>^)Delegate::Remove(this->_onBeforeWndProc, onEvent);
+                this->_onBeforeWndProc = (AimpBoolUIControlEventHandler<AimpBeforeWndProcArgs^>^)Delegate::Remove(this->_onBeforeWndProc, onEvent);
             }
         }
 
@@ -208,19 +208,19 @@ namespace AIMP
         }
 
 
-        void AimpUIWinControl::OnAfterWndProc::add(AimpUIEventHandler<AimpAfterWndProcArgs^> ^onEvent)
+        void AimpUIWinControl::OnAfterWndProc::add(AimpUIControlEventHandler<AimpAfterWndProcArgs^> ^onEvent)
         {
             if (this->_onAfterWndProc == nullptr)
             {
-                this->_onAfterWndProc = (AimpUIEventHandler<AimpAfterWndProcArgs^>^)Delegate::Combine(this->_onAfterWndProc, onEvent);
+                this->_onAfterWndProc = (AimpUIControlEventHandler<AimpAfterWndProcArgs^>^)Delegate::Combine(this->_onAfterWndProc, onEvent);
             }
         }
 
-        void AimpUIWinControl::OnAfterWndProc::remove(AimpUIEventHandler<AimpAfterWndProcArgs^> ^onEvent)
+        void AimpUIWinControl::OnAfterWndProc::remove(AimpUIControlEventHandler<AimpAfterWndProcArgs^> ^onEvent)
         {
             if (this->_onAfterWndProc != nullptr)
             {
-                this->_onAfterWndProc = (AimpUIEventHandler<AimpAfterWndProcArgs^>^)Delegate::Remove(this->_onAfterWndProc, onEvent);
+                this->_onAfterWndProc = (AimpUIControlEventHandler<AimpAfterWndProcArgs^>^)Delegate::Remove(this->_onAfterWndProc, onEvent);
             }
         }
 

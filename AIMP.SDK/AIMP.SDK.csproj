@@ -102,7 +102,7 @@
     <Compile Include="GUI\Controls\IAimpUIGroupBox.cs" />
     <Compile Include="GUI\Controls\IAimpUIImage.cs" />
     <Compile Include="GUI\Controls\IAimpUIImageComboBox.cs" />
-    <Compile Include="GUI\Controls\IAimpUIImageList.cs" />
+    <Compile Include="GUI\IAimpUIImageList.cs" />
     <Compile Include="GUI\Controls\IAimpUILabel.cs" />
     <Compile Include="GUI\Controls\IAimpUIMemo.cs" />
     <Compile Include="GUI\Controls\IAimpUIMenuItem.cs" />
@@ -125,7 +125,7 @@
     <Compile Include="GUI\Controls\TabControl\IAimpUITabControlEvents.cs" />
     <Compile Include="GUI\Dialogs\IAimpUIBrowseFolderDialog.cs" />
     <Compile Include="GUI\IAimpServiceUI.cs" />
-    <Compile Include="GUI\IAimpUIPanel.cs" />
+    <Compile Include="GUI\Controls\IAimpUIPanel.cs" />
     <Compile Include="IAimpExternalSettingsDialog.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Properties\Annotations.cs" />

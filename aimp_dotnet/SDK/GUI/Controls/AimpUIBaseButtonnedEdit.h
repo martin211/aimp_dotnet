@@ -10,6 +10,9 @@ namespace AIMP
 
         public ref class AimpUIBaseButtonnedEdit : public AimpUIBaseEdit, public IAimpUIBaseButtonnedEdit
         {
+        private:
+            AimpUIControlEventHandler ^_onChange;
+
         public:
             explicit AimpUIBaseButtonnedEdit(IAIMPUIBaseButtonnedEdit *aimpObject, IAimpServiceUI ^serviceUI);
 
@@ -23,16 +26,16 @@ namespace AIMP
 
             virtual AimpActionResult DeleteButton(IAimpUIEditButton ^button);
 
-            virtual AimpActionResult DeleteButton(int index, IAimpUIEditButton ^button);
+            virtual AimpActionResult DeleteButton(int index);
 
             virtual AimpActionResult GetButton(int index, IAimpUIEditButton ^button);
 
             virtual int GetButtonCount();
 
-            virtual event AimpUIEventHandler ^OnChanged
+            virtual event AimpUIControlEventHandler ^OnChanged
             {
-                virtual void add(AimpUIEventHandler ^onEvent);
-                virtual void remove(AimpUIEventHandler ^onEvent);
+                virtual void add(AimpUIControlEventHandler ^onEvent);
+                virtual void remove(AimpUIControlEventHandler ^onEvent);
                 virtual void raise(IAimpUIControl ^sender);
             }
         };
