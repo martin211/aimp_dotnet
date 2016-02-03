@@ -6,16 +6,28 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_demo", "Plugins\Demo\dotnet_demo.csproj", "{72CBA5F8-494D-4EEB-803B-7D1802A91D4A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8D30D1F5-1925-4926-83F2-F0B21B45646F} = {8D30D1F5-1925-4926-83F2-F0B21B45646F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aimp_dotnet", "aimp_dotnet\Aimp_DotNetPlugin.vcxproj", "{8D30D1F5-1925-4926-83F2-F0B21B45646F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMP.SDK", "AIMP.SDK\AIMP.SDK.csproj", "{154C60CF-2DAE-4227-AD2C-CCE7C63CDE5A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_ExtendDialogWindow", "Plugins\dotnet_ExtendDialogWindow\dotnet_ExtendDialogWindow.csproj", "{8B2B3BD6-C90C-40FA-8655-CFE1CC12CBD3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8D30D1F5-1925-4926-83F2-F0B21B45646F} = {8D30D1F5-1925-4926-83F2-F0B21B45646F}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_albumart", "Plugins\dotnet_albumart\dotnet_albumart.csproj", "{6961D299-1D2B-435E-8222-A82FF8EECA1C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8D30D1F5-1925-4926-83F2-F0B21B45646F} = {8D30D1F5-1925-4926-83F2-F0B21B45646F}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_visual", "Plugins\dotnet_visual\dotnet_visual.csproj", "{CB62443E-69B5-43B3-9785-647CAA36D175}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8D30D1F5-1925-4926-83F2-F0B21B45646F} = {8D30D1F5-1925-4926-83F2-F0B21B45646F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +60,7 @@ Global
 		{72CBA5F8-494D-4EEB-803B-7D1802A91D4A}.Release|x64.Build.0 = Release|Any CPU
 		{72CBA5F8-494D-4EEB-803B-7D1802A91D4A}.Release|x86.ActiveCfg = Release|Any CPU
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|Any CPU.Build.0 = Debug|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|Win32.ActiveCfg = Debug|Win32
@@ -57,6 +70,7 @@ Global
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|x86.ActiveCfg = Debug|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|x86.Build.0 = Debug|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Release|Any CPU.ActiveCfg = Release|Win32
+		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Release|Any CPU.Build.0 = Release|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Release|Mixed Platforms.ActiveCfg = Release|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Release|Win32.ActiveCfg = Release|Win32
