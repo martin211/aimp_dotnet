@@ -64,10 +64,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)..\AIMP4.00\Plugins\$(TargetName)\DotNetVisualPlugin.dll"
-copy "$(SolutionDir)$(ConfigurationName)\aimp_dotnet.dll" "$(SolutionDir)..\AIMP4.00\Plugins\$(TargetName)\$(ProjectName).dll"
-copy "$(SolutionDir)\AIMP.SDK\$(OutDir)AIMP.SDK.dll" "$(SolutionDir)..\AIMP4.00\Plugins\$(TargetName)\AIMP.SDK.dll"
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
