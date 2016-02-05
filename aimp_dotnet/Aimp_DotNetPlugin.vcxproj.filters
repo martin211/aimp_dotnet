@@ -283,9 +283,6 @@
     <ClInclude Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\Menu\AimpMenuItem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -294,6 +291,9 @@
     </ClInclude>
     <ClInclude Include="SDK\Visuals\AimpServiceVisualizations.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Menu\AimpMenuItem.h">
+      <Filter>SDK\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
