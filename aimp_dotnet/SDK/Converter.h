@@ -423,9 +423,9 @@ namespace AIMP
                         stream->Close();
                     }
                     aimpStream->Release();
-                    img->Release();
+                    //img->Release();
                     aimpStream = NULL;
-                    img = NULL;
+                    //img = NULL;
                 }
 
                 return NULL;

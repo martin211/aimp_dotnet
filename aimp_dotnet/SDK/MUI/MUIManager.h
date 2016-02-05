@@ -37,10 +37,17 @@ namespace AIMP
                 }
                 finally
                 {
-                    service->Release();
-                    str->Release();
-                    str = NULL;
-                    service = NULL;
+                    if (service != NULL)
+                    {
+                        service->Release();
+                        service = NULL;
+                    }
+
+                    if (str != NULL)
+                    {
+                        str->Release();
+                        str = NULL;
+                    }
                 }
 
                 return String::Empty;
@@ -54,21 +61,30 @@ namespace AIMP
                 {
                     if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
                     {
-                        service->GetValue(Converter::MakeAimpString(_core->GetAimpCore(), key), &str);
-                        if (str == NULL)
+                        if (service->GetValue(Converter::MakeAimpString(_core->GetAimpCore(), key), &str) == S_OK)
                         {
-                            return String::Empty;
-                        }
+                            if (str == NULL)
+                            {
+                                return String::Empty;
+                            }
 
-                        return gcnew String(str->GetData());
+                            return gcnew String(str->GetData());
+                        }
                     }
                 }
                 finally
                 {
-                    service->Release();
-                    str->Release();
-                    str = NULL;
-                    service = NULL;
+                    if (service != NULL)
+                    {
+                        service->Release();
+                        service = NULL;
+                    }
+
+                    if (str != NULL)
+                    {
+                        str->Release();
+                        str = NULL;
+                    }
                 }
 
                 return String::Empty;
@@ -94,10 +110,17 @@ namespace AIMP
                 }
                 finally
                 {
-                    service->Release();
-                    str->Release();
-                    str = NULL;
-                    service = NULL;
+                    if (service != NULL)
+                    {
+                        service->Release();
+                        service = NULL;
+                    }
+
+                    if (str != NULL)
+                    {
+                        str->Release();
+                        str = NULL;
+                    }
                 }
 
                 return String::Empty;
