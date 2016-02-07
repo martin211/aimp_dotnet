@@ -13,33 +13,44 @@ namespace AIMP
         public ref class AimpServicePlaybackQueue : public AimpBaseManager<IAIMPServicePlaybackQueue>, public IAimpPlaybackQueueService
         {
         private:
-            IAIMPServicePlaybackQueue *_service;
             AimpCheckUrl ^_checkUrlHandler;
 
         public:
             explicit AimpServicePlaybackQueue(ManagedAimpCore ^core) : AimpBaseManager<IAIMPServicePlaybackQueue>(core)
             {
-                IAIMPServicePlaybackQueue *service;
-                if (CheckResult(core->GetService(IID_IAIMPServicePlaybackQueue, (void**)&service)) != AimpActionResult::Ok)
-                {
-                    throw gcnew System::ApplicationException("Unable create AIMP service");
-                }
-
-                _service = service;
             }
 
             ~AimpServicePlaybackQueue()
             {
-                _service->Release();
-                _service = NULL;
             }
 
             virtual IAimpPlaybackQueueItem^ GetNextTrack()
             {
-                IAIMPPlaybackQueueItem *item;
-                if (CheckResult(_service->GetNextTrack(&item)) != AimpActionResult::Ok)
+                IAIMPPlaybackQueueItem *item = NULL;
+                IAIMPServicePlaybackQueue *service = NULL;
+                try
                 {
-                    //			return gcnew AimpPlaybackQueueItem(item);
+                    if (CheckResult(_core->GetService(IID_IAIMPServicePlaybackQueue, (void**)&service)) == AimpActionResult::Ok)
+                    {
+                        if (CheckResult(service->GetNextTrack(&item)) == AimpActionResult::Ok)
+                        {
+                            return gcnew AimpPlaybackQueueItem(item);
+                        }
+                    }
+                }
+                finally
+                {
+                    if (service != NULL)
+                    {
+                        service->Release();
+                        service = NULL;
+                    }
+
+                    if (item != NULL)
+                    {
+                        item->Release();
+                        item = NULL;
+                    }
                 }
 
                 return nullptr;
@@ -47,12 +58,31 @@ namespace AIMP
 
             virtual IAimpPlaybackQueueItem^ GetPrevTrack()
             {
-                IAIMPPlaybackQueueItem *item;
-                if (CheckResult(_service->GetPrevTrack(&item)) != AimpActionResult::Ok)
-                {
-                    //					return gcnew AimpPlaybackQueueItem(item);
-                }
+                IAIMPPlaybackQueueItem *item = NULL;
+                IAIMPServicePlaybackQueue *service = NULL;
 
+                try
+                {
+                    if (CheckResult(service->GetPrevTrack(&item)) == AimpActionResult::Ok)
+                    {
+                        return gcnew AimpPlaybackQueueItem(item);
+                    }
+                }
+                finally
+                {
+                    if (service != NULL)
+                    {
+                        service->Release();
+                        service = NULL;
+                    }
+
+                    if (item != NULL)
+                    {
+                        item->Release();
+                        item = NULL;
+                    }
+                }
+                
                 return nullptr;
             }
 

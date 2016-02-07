@@ -61,8 +61,12 @@ namespace AIMP
                 {
                     if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
                     {
-                        if (service->GetValue(Converter::MakeAimpString(_core->GetAimpCore(), key), &str) == S_OK)
+                        IAIMPString* strKey = Converter::MakeAimpString(_core->GetAimpCore(), key);
+
+                        if (service->GetValue(strKey, &str) == S_OK)
                         {
+                            strKey->Release();
+
                             if (str == NULL)
                             {
                                 return String::Empty;
@@ -98,7 +102,10 @@ namespace AIMP
                 {
                     if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
                     {
-                        service->GetValuePart(Converter::MakeAimpString(_core->GetAimpCore(), key), index, &str);
+                        IAIMPString* strKey = Converter::MakeAimpString(_core->GetAimpCore(), key);
+                        service->GetValuePart(strKey, index, &str);
+
+                        strKey->Release();
 
                         if (str == NULL)
                         {
