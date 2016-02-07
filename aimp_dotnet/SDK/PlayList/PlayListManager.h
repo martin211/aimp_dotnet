@@ -104,85 +104,191 @@ namespace AIMP
 
             virtual IAimpPlayList^ CreatePlaylist(System::String^ name, bool isActive)
             {
-                IAIMPPlaylist *playList;
-                if (CheckResult(_service->CreatePlaylist(Converter::MakeAimpString(_core->GetAimpCore(), name), (BOOL)isActive, &playList)) == AimpActionResult::Ok)
+                IAIMPPlaylist *playList = NULL;
+                IAIMPString *str = NULL;
+                try
                 {
-                    return gcnew AimpPlayList(playList);
+                    str = Converter::MakeAimpString(_core->GetAimpCore(), name);
+                    if (CheckResult(_service->CreatePlaylist(str, (BOOL)isActive, &playList)) == AimpActionResult::Ok)
+                    {
+                        return gcnew AimpPlayList(playList);
+                    }
+                }
+                finally
+                {
+                    //if (playList != NULL)
+                    //{
+                    //    playList->Release();
+                    //    playList = NULL;
+                    //}
+
+                    if (str != NULL)
+                    {
+                        str->Release();
+                        str = NULL;
+                    }
                 }
 
-                playList->Release();
                 return nullptr;
             }
 
             virtual IAimpPlayList^ CreatePlaylistFromFile(System::String^ fileName, bool isActive)
             {
-                IAIMPPlaylist *playList;
-                if (CheckResult(_service->CreatePlaylistFromFile(Converter::MakeAimpString(_core->GetAimpCore(), fileName), (BOOL)isActive, &playList)) == AimpActionResult::Ok)
+                IAIMPPlaylist *playList = NULL;
+                IAIMPString *str = NULL;
+
+                try
                 {
-                    return gcnew AimpPlayList(playList);
+                    str = Converter::MakeAimpString(_core->GetAimpCore(), fileName);
+                    if (CheckResult(_service->CreatePlaylistFromFile(str, (BOOL)isActive, &playList)) == AimpActionResult::Ok)
+                    {
+                        return gcnew AimpPlayList(playList);
+                    }
+                }
+                finally
+                {
+                    if (playList != NULL)
+                    {
+                        playList->Release();
+                        playList = NULL;
+                    }
+
+                    if (str != NULL)
+                    {
+                        str->Release();
+                        str = NULL;
+                    }
                 }
 
-                playList->Release();
                 return nullptr;
             }
 
             virtual IAimpPlayList^ GetActivePlaylist()
             {
-                IAIMPPlaylist *playList;
-                if (CheckResult(_service->GetActivePlaylist(&playList)) == AimpActionResult::Ok)
+                IAIMPPlaylist *playList = NULL;
+                try
                 {
-                    return gcnew AimpPlayList(playList);
+                    if (CheckResult(_service->GetActivePlaylist(&playList)) == AimpActionResult::Ok)
+                    {
+                        return gcnew AimpPlayList(playList);
+                    }
+                }
+                finally
+                {
+                    if (playList != NULL)
+                    {
+                        playList->Release();
+                        playList = NULL;
+                    }
                 }
 
-                playList->Release();
                 return nullptr;
             }
 
             virtual IAimpPlayList^ GetLoadedPlaylist(int index)
             {
-                IAIMPPlaylist *playList;
-                if (CheckResult(_service->GetLoadedPlaylist(index, &playList)) == AimpActionResult::Ok)
+                IAIMPPlaylist *playList = NULL;
+
+                try
                 {
-                    return gcnew AimpPlayList(playList);
+                    if (CheckResult(_service->GetLoadedPlaylist(index, &playList)) == AimpActionResult::Ok)
+                    {
+                        return gcnew AimpPlayList(playList);
+                    }
+                }
+                finally
+                {
+                    if (playList != NULL)
+                    {
+                        playList->Release();
+                        playList = NULL;
+                    }
                 }
 
-                playList->Release();
                 return nullptr;
             }
 
             virtual IAimpPlayList^ GetPlayablePlaylist()
             {
-                IAIMPPlaylist *playList;
-                if (CheckResult(_service->GetPlayablePlaylist(&playList)) == AimpActionResult::Ok)
+                IAIMPPlaylist *playList = NULL;
+
+                try
                 {
-                    return gcnew AimpPlayList(playList);
+                    if (CheckResult(_service->GetPlayablePlaylist(&playList)) == AimpActionResult::Ok)
+                    {
+                        return gcnew AimpPlayList(playList);
+                    }                    
+                }
+                finally
+                {
+                    if (playList != NULL)
+                    {
+                        playList->Release();
+                        playList = NULL;
+                    }
                 }
 
-                playList->Release();
                 return nullptr;
             }
 
             virtual IAimpPlayList^ GetLoadedPlaylistById(System::String^ id)
             {
-                IAIMPPlaylist *playList;
-                if (CheckResult(_service->GetLoadedPlaylistByID(Converter::MakeAimpString(_core->GetAimpCore(), id), &playList)) == AimpActionResult::Ok)
+                IAIMPPlaylist *playList = NULL;
+                IAIMPString *key = NULL;
+                try
                 {
-                    return gcnew AimpPlayList(playList);
+                    key = Converter::MakeAimpString(_core->GetAimpCore(), id);
+                    if (CheckResult(_service->GetLoadedPlaylistByID(key, &playList)) == AimpActionResult::Ok)
+                    {
+                        return gcnew AimpPlayList(playList);
+                    }
+                }
+                finally
+                {
+                    if (playList != NULL)
+                    {
+                        playList->Release();
+                        playList = NULL;
+                    }
+
+                    if (key != NULL)
+                    {
+                        key->Release();
+                        key = NULL;
+                    }
                 }
 
-                playList->Release();
                 return nullptr;
             }
 
             virtual IAimpPlayList^ GetLoadedPlaylistByName(System::String^ name)
             {
-                IAIMPPlaylist *playList;
-                if (CheckResult(_service->GetLoadedPlaylistByName(Converter::MakeAimpString(_core->GetAimpCore(), name), &playList)) == AimpActionResult::Ok)
+                IAIMPPlaylist *playList = NULL;
+                IAIMPString *key = NULL;
+
+                try
                 {
-                    return gcnew AimpPlayList(playList);
+                    key = Converter::MakeAimpString(_core->GetAimpCore(), name);
+                    if (CheckResult(_service->GetLoadedPlaylistByName(key, &playList)) == AimpActionResult::Ok)
+                    {
+                        return gcnew AimpPlayList(playList);
+                    }
+                }
+                finally
+                {
+                    if (playList != NULL)
+                    {
+                        playList->Release();
+                        playList = NULL;
+                    }
+
+                    if (key != NULL)
+                    {
+                        key->Release();
+                        key = NULL;
+                    }
                 }
 
-                playList->Release();
                 return nullptr;
             }
 
