@@ -150,9 +150,10 @@ namespace AIMP
                 {
                     IAIMPMenuItem *item;
                     InternalAimpObject->GetValueAsObject(AIMP_MENUITEM_PROPID_PARENT, IID_IAIMPMenuItem, (void**)&item);
-                    return gcnew AimpMenuItem(item);
+                    AimpMenuItem ^parentIttem = gcnew AimpMenuItem(item);
+                    item->Release();
 
-                    return nullptr;
+                    return parentIttem;
                 }
 
                 void set(IAimpMenuItem ^value)
