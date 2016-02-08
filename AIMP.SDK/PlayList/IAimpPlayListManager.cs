@@ -4,21 +4,21 @@
 
     public interface IAimpPlayListManager : IExtensionPlaylistManagerListener
     {
-        IAimpPlayList CreatePlaylist(string name, bool isActive);
+        AimpActionResult CreatePlaylist(string name, bool isActive, out IAimpPlayList playList);
 
-        IAimpPlayList CreatePlaylistFromFile(string fileName, bool isActive);
+        AimpActionResult CreatePlaylistFromFile(string fileName, bool isActive, out IAimpPlayList playList);
 
-        IAimpPlayList GetActivePlaylist();
+        AimpActionResult GetActivePlaylist(out IAimpPlayList playList);
 
         void SetActivePlaylist(IAimpPlayList playList);
 
-        IAimpPlayList GetPlayablePlaylist();
+        AimpActionResult GetPlayablePlaylist(out IAimpPlayList playList);
 
-        IAimpPlayList GetLoadedPlaylist(int index);
+        AimpActionResult GetLoadedPlaylist(int index, out IAimpPlayList playList);
 
-        IAimpPlayList GetLoadedPlaylistById(string id);
+        AimpActionResult GetLoadedPlaylistById(string id, out IAimpPlayList playList);
 
-        IAimpPlayList GetLoadedPlaylistByName(string name);
+        AimpActionResult GetLoadedPlaylistByName(string name, out IAimpPlayList playList);
 
         int GetLoadedPlaylistCount();
     }
