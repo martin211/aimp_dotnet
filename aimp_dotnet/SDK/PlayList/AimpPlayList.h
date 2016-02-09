@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "AimpPlayListItem.h"
 #include "..\..\IUnknownInterfaceImpl.h"
+#include "AimpFileInfo.h"
 
 namespace AIMP
 {
@@ -102,8 +103,6 @@ namespace AIMP
 
         public:
             explicit AimpPlayList(IAIMPPlaylist *aimpPlayList);
-
-            AimpPlayList();
 
             ~AimpPlayList();
 
@@ -317,7 +316,8 @@ namespace AIMP
             }
 
         private:
-            void GetPropertyList();
+            AimpFileInfo ^CreateFileInfo(IAimpFileInfo ^fi);
+
             void RegisterListner();
 
             delegate int OnSortCallback(IAIMPPlaylistItem* item1, IAIMPPlaylistItem* item2, void* userData);

@@ -13,7 +13,6 @@ namespace AIMP
         public ref class PlayListManager : public AimpBaseManager<IAIMPServicePlaylistManager>, public IAimpPlayListManager, public IExtensionPlaylistManagerListener
         {
         private:
-            IAIMPServicePlaylistManager *_service;
             AIMP::SDK::Extensions::PlayListHandler ^_onPlaylistActivated;
             AIMP::SDK::Extensions::PlayListHandler ^_onPlaylistAdded;
             AIMP::SDK::Extensions::PlayListHandler ^_onPlaylistRemoved;
@@ -105,7 +104,7 @@ namespace AIMP
                 if (res == AimpActionResult::Ok)
                 {
                     str = Converter::MakeAimpString(_core->GetAimpCore(), name);
-                    res = CheckResult(_service->CreatePlaylist(str, (BOOL)isActive, &pl));
+                    res = CheckResult(service->CreatePlaylist(str, (BOOL)isActive, &pl));
 
                     if (res == AimpActionResult::Ok)
                     {
@@ -140,7 +139,7 @@ namespace AIMP
                 if (res == AimpActionResult::Ok)
                 {
                     str = Converter::MakeAimpString(_core->GetAimpCore(), fileName);
-                    res = CheckResult(_service->CreatePlaylistFromFile(str, (BOOL)isActive, &pl));
+                    res = CheckResult(service->CreatePlaylistFromFile(str, (BOOL)isActive, &pl));
 
                     if (res == AimpActionResult::Ok)
                     {
@@ -224,7 +223,7 @@ namespace AIMP
                 AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
                 if (res == AimpActionResult::Ok)
                 {
-                    res = CheckResult(_service->GetPlayablePlaylist(&pl));
+                    res = CheckResult(service->GetPlayablePlaylist(&pl));
                     if (res == AimpActionResult::Ok)
                     {
                        playList = gcnew AimpPlayList(pl);
@@ -245,7 +244,7 @@ namespace AIMP
                 if (res == AimpActionResult::Ok)
                 {
                     key = Converter::MakeAimpString(_core->GetAimpCore(), id);
-                    res = CheckResult(_service->GetLoadedPlaylistByID(key, &pl));
+                    res = CheckResult(service->GetLoadedPlaylistByID(key, &pl));
                     if (res == AimpActionResult::Ok)
                     {
                         playList = gcnew AimpPlayList(pl);
@@ -279,7 +278,7 @@ namespace AIMP
                 if (res == AimpActionResult::Ok)
                 {
                     key = Converter::MakeAimpString(_core->GetAimpCore(), name);
-                    res = CheckResult(_service->GetLoadedPlaylistByName(key, &pl));
+                    res = CheckResult(service->GetLoadedPlaylistByName(key, &pl));
 
                     if (res == AimpActionResult::Ok)
                     {
@@ -304,12 +303,16 @@ namespace AIMP
 
             virtual int GetLoadedPlaylistCount()
             {
-                return _service->GetLoadedPlaylistCount();
+                IAIMPServicePlaylistManager *service;
+                AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
+                return service->GetLoadedPlaylistCount();
             }
 
             virtual void SetActivePlaylist(IAimpPlayList^ playList)
             {
-                CheckResult(_service->SetActivePlaylist(((AimpPlayList^)playList)->InternalAimpObject));
+                IAIMPServicePlaylistManager *service;
+                AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
+                CheckResult(service->SetActivePlaylist(((AimpPlayList^)playList)->InternalAimpObject));
             }
         private:
             virtual void onPlaylistActivated(String ^playListName, String ^playListId)
