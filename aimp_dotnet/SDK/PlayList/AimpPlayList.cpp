@@ -9,27 +9,11 @@ namespace AIMP
     {
         AimpPlayList::AimpPlayList(IAIMPPlaylist *aimpPlayList) : AimpObject(aimpPlayList)
         {
-            GetPropertyList();
-        }
-
-        AimpPlayList::AimpPlayList()
-        {
-            IAIMPPlaylist *playList = (IAIMPPlaylist*)ManagedAimpCore::QueryInterface(IID_IAIMPPlaylist);
-            GetPropertyList();
         }
 
         AimpPlayList::~AimpPlayList()
         {
-            if (_listner != NULL)
-            {
-                InternalAimpObject->ListenerRemove(_listner);
-                _listner->Release();
-            }
-
-            if (InternalAimpObject != NULL)
-            {
-                InternalAimpObject->Release();
-            }
+            this->!AimpPlayList();
         }
 
         AimpPlayList::!AimpPlayList()
@@ -935,9 +919,10 @@ namespace AIMP
 
         AimpActionResult AimpPlayList::Add(IAimpFileInfo^ fileInfo, PlayListFlags flags, PlayListFilePosition filePosition)
         {
-            IAIMPPropertyList *properties = NULL;
-            return CheckResult(InternalAimpObject->Add(((AimpFileInfo^)fileInfo)->InternalAimpObject, (DWORD)((int)flags), (int)filePosition));
-            //CheckResult(InternalAimpObject->Add(((AimpFileInfo^)fileInfo)->InternalAimpObject, AIMP36SDK::AIMP_PLAYLIST_ADD_FLAGS_FILEINFO, 0));
+            AimpFileInfo ^file = CreateFileInfo(fileInfo);
+            AimpActionResult result = CheckResult(InternalAimpObject->Add(file->InternalAimpObject, (DWORD)((int)flags), (int)filePosition));
+            file->InternalAimpObject->Release();
+            return result;
         }
 
         AimpActionResult AimpPlayList::Add(String^ fileUrl, PlayListFlags flags, PlayListFilePosition filePosition)
@@ -946,38 +931,61 @@ namespace AIMP
             return CheckResult(InternalAimpObject->Add(url, (DWORD)flags, (int)filePosition));
         }
 
-        AimpActionResult AimpPlayList::AddList(System::Collections::Generic::IList<IAimpFileInfo^>^ fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition)
+        AimpActionResult AimpPlayList::AddList(System::Collections::Generic::IList<IAimpFileInfo^>^ files, PlayListFlags flags, PlayListFilePosition filePosition)
         {
-            if (fileUrlList->Count > 0)
+            AimpActionResult res = AimpActionResult::Fail;
+
+            if (files->Count > 0)
             {
                 IAIMPObjectList *list;
                 ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPObjectList, (void**)&list);
-                for each (AimpFileInfo ^file in fileUrlList)
-                {
-                    list->Add(file->InternalAimpObject);
-                }
 
-                return CheckResult(InternalAimpObject->AddList(list, (DWORD)flags, (int)filePosition));
+                if (list != NULL)
+                {
+                    for (int i = 0; i < files->Count; i++)
+                    {
+                        AimpFileInfo ^file = CreateFileInfo(files[i]);
+                        list->Add(file->InternalAimpObject);
+                        file->InternalAimpObject->Release();
+                    }
+
+                    res = CheckResult(InternalAimpObject->AddList(list, (DWORD)flags, (int)filePosition));
+
+                    list->Release();
+                    list = NULL;
+                }
             }
 
-            return AimpActionResult::Ok;
+            return res;
         }
 
         AimpActionResult AimpPlayList::AddList(IList<String^>^ fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition)
         {
+            AimpActionResult res = AimpActionResult::Fail;
+
             if (fileUrlList->Count > 0)
             {
                 IAIMPObjectList *list;
                 ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPObjectList, (void**)&list);
-                for each (String ^file in fileUrlList)
+
+                if (list != NULL)
                 {
-                    list->Add(Converter::MakeAimpString(ManagedAimpCore::GetAimpCore(), file));
+                    for (int i = 0; i < fileUrlList->Count; i++)
+                    {
+                        IAIMPString *str = Converter::MakeAimpString(ManagedAimpCore::GetAimpCore(), fileUrlList[i]);
+                        list->Add(str);
+                        str->Release();
+                        str = NULL;
+                    }
+
+                    list->Release();
+                    list = NULL;
                 }
 
-                return CheckResult(InternalAimpObject->AddList(list, (DWORD)flags, (int)filePosition));
+                res = CheckResult(InternalAimpObject->AddList(list, (DWORD)flags, (int)filePosition));
             }
 
-            return AimpActionResult::Ok;
+            return res;
         }
 
         AimpActionResult AimpPlayList::Delete(IAimpPlayListItem ^item)
@@ -1037,6 +1045,7 @@ namespace AIMP
                 {
                     result->Add(Converter::GetString(str));
                     str->Release();
+                    str = NULL;
                 }
             }
 
@@ -1061,6 +1070,8 @@ namespace AIMP
             if (InternalAimpObject->GetItem(index, IID_IAIMPPlaylistItem, (void**)&item) == S_OK)
             {
                 result = gcnew AimpPlayListItem(item);
+                item->Release();
+                item = NULL;
             }
 
             return result;
@@ -1211,8 +1222,48 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::GetPropertyList()
+        AimpFileInfo ^AimpPlayList::CreateFileInfo(IAimpFileInfo ^fi)
         {
+            AimpFileInfo ^result = gcnew AimpFileInfo();
+
+            result->Album = fi->Album;
+            result->AlbumArt = fi->AlbumArt;
+            result->AlbumArtist = fi->AlbumArtist;
+            result->Artist = fi->Artist;
+            result->BitDepth = fi->BitDepth;
+            result->BitRate = fi->BitRate;
+            result->BPM= fi->BPM;
+            result->Channels = fi->Channels;
+            result->Codec = fi->Codec;
+            result->Comment = fi->Comment;
+            result->Composer = fi->Composer;
+            result->CopyRight = fi->CopyRight;
+            result->CUESheet = fi->CUESheet;
+            result->CustomData = fi->CustomData;
+            result->Date = fi->Date;
+            result->DiskNumber = fi->DiskNumber;
+            result->DiskTotal = fi->DiskTotal;
+            result->Duration = fi->Duration;
+            result->FileName = fi->FileName;
+            result->FileSize = fi->FileSize;
+            result->Gain = fi->Gain;
+            result->Genre = fi->Genre;
+            //result->LastPlayedDate = fi->LastPlayedDate;
+            result->Lyrics = fi->Lyrics;
+            result->Mark = fi->Mark;
+            result->Peak = fi->Peak;
+            //result->PlayCount = fi->PlayCount;
+            result->Publisher = fi->Publisher;
+            result->SampleRate = fi->SampleRate;
+            result->SampleRate = fi->StateRating;
+            result->StatMark = fi->StatMark;
+            result->Title = fi->Title;
+            result->TrackGain = fi->TrackGain;
+            result->TrackNumber = fi->TrackNumber;
+            result->TrackPeak = fi->TrackPeak;
+            result->TrackTotal = fi->TrackTotal;
+
+            return result;
         }
 
         void AimpPlayList::RegisterListner()

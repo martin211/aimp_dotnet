@@ -90,6 +90,12 @@ namespace AIMP
             /// <returns></returns>
             static bool SetString(IAIMPPropertyList *propertyList, int propertyId, String ^value)
             {
+                // No need to process empty value
+                if (String::IsNullOrWhiteSpace(value))
+                {
+                    return true;
+                }
+
                 IAIMPString *str = NULL;
                 try
                 {
