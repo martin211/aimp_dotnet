@@ -20,17 +20,67 @@ namespace AIMP
         class AIMPMessageHook : public IUnknownInterfaceImpl<IAIMPMessageHook>
         {
         public:
-            explicit AIMPMessageHook(gcroot<ManagedAimpCore^> aimp36_manager)
-                :
-                aimp36_manager_(aimp36_manager)
+            explicit AIMPMessageHook(gcroot<ManagedAimpCore^> managedCore) : _managedCore(managedCore)
             {}
 
-            virtual void WINAPI CoreMessage(DWORD AMessage, int AParam1, void *AParam2, HRESULT *AResult) {
-                aimp36_manager_->OnCoreMessage((AIMP::SDK::AimpMessages::AimpCoreMessageType)AMessage, AParam1);
+            virtual void WINAPI CoreMessage(DWORD AMessage, int AParam1, void *AParam2, HRESULT *AResult) 
+            {
+                _managedCore->OnCoreMessage((AIMP::SDK::AimpMessages::AimpCoreMessageType)AMessage, AParam1);
             }
 
         private:
-            gcroot<ManagedAimpCore^> aimp36_manager_;
+            gcroot<ManagedAimpCore^> _managedCore;
+        };
+
+        class AimpExtensionPlayerHook : public IUnknownInterfaceImpl<IAIMPExtensionPlayerHook>
+        {
+        public:
+            typedef IUnknownInterfaceImpl<IAIMPExtensionPlayerHook> Base;
+
+            explicit AimpExtensionPlayerHook(gcroot<ManagedAimpCore^> managedCore) : _managedCore(managedCore)
+            {}
+
+            virtual HRESULT WINAPI OnCheckURL(IAIMPString* URL, BOOL *Handled)
+            {
+                String ^url = Converter::GetString(URL);
+                bool handled = _managedCore->OnCheckUrl(*&url);
+
+                if (handled)
+                    *Handled = 1;
+                else
+                    *Handled = 0;
+
+                return S_OK;
+            }
+
+            virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObj)
+            {
+                if (!ppvObj)
+                {
+                    return E_POINTER;
+                }
+
+                if (riid == IID_IAIMPExtensionPlayerHook) {
+                    *ppvObj = this;
+                    AddRef();
+                    return S_OK;
+                }
+
+                return E_NOINTERFACE;
+            }
+
+            virtual ULONG WINAPI AddRef(void)
+            {
+                return Base::AddRef();
+            }
+
+            virtual ULONG WINAPI Release(void)
+            {
+                return Base::Release();
+            }
+
+        private:
+            gcroot<ManagedAimpCore^> _managedCore;
         };
 
         ManagedAimpCore::ManagedAimpCore(IAIMPCore* core)
@@ -43,6 +93,9 @@ namespace AIMP
             _hook = new AIMPMessageHook(this);
             aimp_service_message_dispatcher->Hook(_hook);
             _messageDispatcher = aimp_service_message_dispatcher;
+
+            AimpExtensionPlayerHook *playerHook = new AimpExtensionPlayerHook(this);
+            core->RegisterExtension(IID_IAIMPServicePlayer, playerHook);
         }
 
         ManagedAimpCore::~ManagedAimpCore()

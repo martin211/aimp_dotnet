@@ -88,6 +88,7 @@ namespace AIMP
            
         private:
             static IAIMPCore* _core;
+            IAIMPExtensionPlayerHook *_playerHook;
             EventHelper* _nativeEventHelper;
             Callback* _coreMessageCallback;
             Callback* _playListActivatedCallback;
