@@ -100,7 +100,6 @@ HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
     _dotNetPlugin->PluginInformation->PluginUnloadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
     _dotNetPlugin->PluginInformation->Load();
 
-
     System::Diagnostics::Debug::WriteLine("END: Initialize DotNet plugin");
 
     return S_OK;
