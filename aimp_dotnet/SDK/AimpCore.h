@@ -8,7 +8,6 @@ namespace AIMP
     {
         using namespace System;
         using namespace AIMP::SDK;
-        using namespace AIMP::SDK::Extensions;
 
         public ref class AimpCore : public IAimpCore
         {

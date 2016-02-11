@@ -1,8 +1,8 @@
-﻿namespace AIMP.SDK.Extensions
+﻿namespace AIMP.SDK.PlayList
 {
     public delegate void PlayListHandler(string playListName, string playListId);
 
-    public interface IExtensionPlaylistManagerListener
+    public interface IAimpExtensionPlaylistManagerListener
     {
         event PlayListHandler PlaylistActivated;
 
