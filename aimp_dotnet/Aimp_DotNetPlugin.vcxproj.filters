@@ -295,6 +295,9 @@
     <ClInclude Include="SDK\Menu\AimpMenuItem.h">
       <Filter>SDK\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="Extensions\AimpExtensionPlaylistManagerListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc">

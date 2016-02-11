@@ -10,12 +10,14 @@ namespace AIMP
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::PlayList;
 
-        public ref class PlayListManager : public AimpBaseManager<IAIMPServicePlaylistManager>, public IAimpPlayListManager, public IExtensionPlaylistManagerListener
+        public ref class PlayListManager : public AimpBaseManager<IAIMPServicePlaylistManager>, 
+            public IAimpPlayListManager, 
+            public IAimpExtensionPlaylistManagerListenerExecutor
         {
         private:
-            AIMP::SDK::Extensions::PlayListHandler ^_onPlaylistActivated;
-            AIMP::SDK::Extensions::PlayListHandler ^_onPlaylistAdded;
-            AIMP::SDK::Extensions::PlayListHandler ^_onPlaylistRemoved;
+            PlayListHandler ^_onPlaylistActivated;
+            PlayListHandler ^_onPlaylistAdded;
+            PlayListHandler ^_onPlaylistRemoved;
 
         public:
             explicit PlayListManager(ManagedAimpCore ^core) : AimpBaseManager<IAIMPServicePlaylistManager>(core)
@@ -30,20 +32,23 @@ namespace AIMP
 
             !PlayListManager()
             {
-                _core->PlaylistActivated -= gcnew AIMP::SDK::Extensions::PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistActivated);
-                _core->PlaylistAdded -= gcnew AIMP::SDK::Extensions::PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistAdded);
-                _core->PlaylistRemoved -= gcnew AIMP::SDK::Extensions::PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistRemoved);
+                _core->PlaylistActivated -= gcnew PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistActivated);
+                _core->PlaylistAdded -= gcnew PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistAdded);
+                _core->PlaylistRemoved -= gcnew PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistRemoved);
             }
 
-            virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistActivated
+            virtual event PlayListHandler ^PlaylistActivated
             {
-                virtual void add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
+                virtual void add(PlayListHandler ^onEvent)
                 {
                     _onPlaylistActivated = onEvent;
+                    // Register IAimpExtensionPlaylistManagerListener
+                    _core->RegisterExtension(IID_IAIMPServicePlaylistManager, this);
                 }
-                virtual void remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
+                virtual void remove(PlayListHandler ^onEvent)
                 {
                     _onPlaylistActivated = nullptr;
+                    _core->UnregisterExtension(this);
                 }
                 void raise(String ^playListName, String ^playListId)
                 {
@@ -54,13 +59,13 @@ namespace AIMP
                 }
             }
 
-            virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistAdded
+            virtual event PlayListHandler ^PlaylistAdded
             {
-                virtual void add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
+                virtual void add(PlayListHandler ^onEvent)
                 {
                     _onPlaylistAdded = onEvent;
                 }
-                virtual void remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
+                virtual void remove(PlayListHandler ^onEvent)
                 {
                     _onPlaylistAdded = nullptr;
                 }
@@ -73,13 +78,13 @@ namespace AIMP
                 }
             }
 
-            virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistRemoved
+            virtual event PlayListHandler ^PlaylistRemoved
             {
-                virtual void add(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
+                virtual void add(PlayListHandler ^onEvent)
                 {
                     _onPlaylistRemoved = onEvent;
                 }
-                virtual void remove(AIMP::SDK::Extensions::PlayListHandler ^onEvent)
+                virtual void remove(PlayListHandler ^onEvent)
                 {
                     _onPlaylistRemoved = nullptr;
                 }
@@ -314,20 +319,28 @@ namespace AIMP
                 AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
                 CheckResult(service->SetActivePlaylist(((AimpPlayList^)playList)->InternalAimpObject));
             }
-        private:
-            virtual void onPlaylistActivated(String ^playListName, String ^playListId)
+
+            //******** IAimpExtensionPlaylistManagerListenerExecutor ********
+
+            virtual void OnPlaylistActivated(IAIMPPlaylist* playlist)
             {
-                PlaylistActivated(playListName, playListId);
+                AimpPlayList ^pl = gcnew AimpPlayList(playlist);
+                this->PlaylistActivated(pl->Name, pl->Id);
+                pl = nullptr;
             }
 
-            virtual void onPlaylistAdded(String ^playListName, String ^playListId)
+            virtual void OnPlaylistAdded(IAIMPPlaylist* playlist)
             {
-                PlaylistAdded(playListName, playListId);
+                AimpPlayList ^pl = gcnew AimpPlayList(playlist);
+                this->PlaylistAdded(pl->Name, pl->Id);
+                pl = nullptr;
             }
 
-            virtual void onPlaylistRemoved(String ^playListName, String ^playListId)
+            virtual void OnPlaylistRemoved(IAIMPPlaylist* playlist)
             {
-                PlaylistRemoved(playListName, playListId);
+                AimpPlayList ^pl = gcnew AimpPlayList(playlist);
+                this->PlaylistRemoved(pl->Name, pl->Id);
+                pl = nullptr;
             }
         };
     }

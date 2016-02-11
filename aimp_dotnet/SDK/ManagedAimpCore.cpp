@@ -6,6 +6,7 @@
 #include "..\AimpSdk.h"
 #include "..\Extensions\OptionsDialogFrameExtension.h"
 #include "..\Extensions\AimpExtensionAlbumArtCatalog.h"
+#include "..\Extensions\AimpExtensionPlaylistManagerListener.h"
 
 namespace AIMP
 {
@@ -139,6 +140,7 @@ namespace AIMP
                 _customVisualization = NULL;
             }
 
+            _core->UnregisterExtension(this->_playlistManagerListener);
             _core->Release();
         }
 
@@ -236,6 +238,19 @@ namespace AIMP
                 return _core->RegisterExtension(IID_IAIMPServiceVisualizations, ext);
             }
 
+            AIMP::SDK::PlayList::IAimpExtensionPlaylistManagerListener ^playlistManagerListener = dynamic_cast<AIMP::SDK::PlayList::IAimpExtensionPlaylistManagerListener^>(extension);
+            if (playlistManagerListener != nullptr)
+            {
+                if (_playlistManagerListener != NULL)
+                {
+                    return E_FAIL;
+                }
+
+                AimpExtensionPlaylistManagerListener *ext = new AimpExtensionPlaylistManagerListener((IAimpExtensionPlaylistManagerListenerExecutor^)extension);
+                _playlistManagerListener = ext;
+                return _core->RegisterExtension(IID_IAIMPServicePlaylistManager, _playlistManagerListener);
+            }
+
             return E_UNEXPECTED;
         }
 
@@ -285,6 +300,15 @@ namespace AIMP
                 _customVisualization = NULL;
                 return r;
             }
+
+            AIMP::SDK::PlayList::IAimpExtensionPlaylistManagerListener ^playlistManagerListener = dynamic_cast<AIMP::SDK::PlayList::IAimpExtensionPlaylistManagerListener^>(extension);
+            if (customVisualization != nullptr)
+            {
+                HRESULT r = _core->UnregisterExtension(_playlistManagerListener);
+                _playlistManagerListener->Release();
+                _playlistManagerListener = NULL;
+                return r;
+            }
         }
 
         HRESULT ManagedAimpCore::UnregisterExtension(IUnknown* extension)
@@ -302,26 +326,26 @@ namespace AIMP
             CoreMessage(param1, param2);
         }
 
+
+        //******** IAimpExtensionPlaylistManagerListenerExecutor ********
+
         void ManagedAimpCore::OnPlaylistActivated(IAIMPPlaylist *playlist)
         {
-            AimpPlayList ^pl = gcnew AimpPlayList(playlist);
-            this->PlaylistActivated(pl->Name, pl->Id);
-            pl = nullptr;
+
         }
 
-        void ManagedAimpCore::OnPlayListAdded(IAIMPPlaylist *playlist)
+        void ManagedAimpCore::OnPlaylistAdded(IAIMPPlaylist *playlist)
         {
-            AimpPlayList ^pl = gcnew AimpPlayList(playlist);
-            this->PlaylistAdded(pl->Name, pl->Id);
-            pl = nullptr;
+
         }
 
-        void ManagedAimpCore::OnPlayListRemoved(IAIMPPlaylist *playlist)
+        void ManagedAimpCore::OnPlaylistRemoved(IAIMPPlaylist *playlist)
         {
-            AimpPlayList ^pl = gcnew AimpPlayList(playlist);
-            this->PlaylistRemoved(pl->Name, pl->Id);
-            pl = nullptr;
+
         }
+
+        //******** IAimpExtensionPlaylistManagerListenerExecutor ********
+
 
         bool ManagedAimpCore::OnCheckUrl(String^ %url)
         {

@@ -5,6 +5,7 @@
 #include "..\Extensions\OptionsDialogFrameExtension.h"
 #include "..\Extensions\AimpExtensionAlbumArtCatalog.h"
 #include "..\Extensions\AimpExtensionAlbumArtProvider.h"
+#include "..\Extensions\AimpExtensionPlaylistManagerListener.h"
 #include "..\SDK\Visuals\AimpExtensionEmbeddedVisualization.h"
 #include "..\SDK\Visuals\AimpExtensionCustomVisualization.h"
 
@@ -16,7 +17,6 @@ namespace AIMP
         using namespace System::Collections::Generic;
 
         using namespace AIMP::SDK;
-        using namespace AIMP::SDK::Extensions;
         using namespace AIMP::SDK::PlayList;
 
         delegate void ChangeHandler(AimpMessages::AimpCoreMessageType, int);
@@ -45,11 +45,11 @@ namespace AIMP
 
             virtual event AimpEventsDelegate^ CoreMessage;
 
-            virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistActivated;
+            virtual event AIMP::SDK::PlayList::PlayListHandler ^PlaylistActivated;
 
-            virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistAdded;
+            virtual event AIMP::SDK::PlayList::PlayListHandler ^PlaylistAdded;
 
-            virtual event AIMP::SDK::Extensions::PlayListHandler ^PlaylistRemoved;
+            virtual event AIMP::SDK::PlayList::PlayListHandler ^PlaylistRemoved;
 
             virtual event AIMP::SDK::Playback::AimpCheckUrl ^CheckUrl;
 
@@ -74,17 +74,18 @@ namespace AIMP
 
             IAIMPStream* CreateStream();
 
-            void OnPlaylistActivated(IAIMPPlaylist *playlist);
-
-            void OnPlayListAdded(IAIMPPlaylist *playlist);
-
-            void OnPlayListRemoved(IAIMPPlaylist *playlist);
-
             bool OnCheckUrl(String^ %url);
 
             HRESULT CreateMenuItem(IAIMPMenuItem **item);
 
             OptionsDialogFrameExtension* GetOptionsFrame();
+
+        public:
+            virtual void OnPlaylistActivated(IAIMPPlaylist* playlist);
+
+            virtual void OnPlaylistAdded(IAIMPPlaylist* playlist);
+
+            virtual void OnPlaylistRemoved(IAIMPPlaylist* playlist);
            
         private:
             static IAIMPCore* _core;
@@ -95,15 +96,16 @@ namespace AIMP
             IAIMPServiceMessageDispatcher* _messageDispatcher;
             IAIMPMessageHook* _hook;
             List<AimpEventsDelegate^> ^_coreMessage;
-            List<AIMP::SDK::Extensions::PlayListHandler^> ^_playListActivatedHandlers;
+            List<AIMP::SDK::PlayList::PlayListHandler^> ^_playListActivatedHandlers;
             OptionsDialogFrameExtension* _optionsFrame;
             AimpExtensionAlbumArtCatalog* _albumArtCatalogExtension;
             AimpExtensionAlbumArtProvider* _albumArtProviderExtension;
             AimpExtensionEmbeddedVisualization* _embeddedVisualization;
             AimpExtensionCustomVisualization* _customVisualization;
+            AimpExtensionPlaylistManagerListener *_playlistManagerListener;
 
-            AIMP::SDK::Extensions::PlayListHandler ^_playlistAdded;
-            AIMP::SDK::Extensions::PlayListHandler ^_playlistRemoved;
+            AIMP::SDK::PlayList::PlayListHandler ^_playlistAdded;
+            AIMP::SDK::PlayList::PlayListHandler ^_playlistRemoved;
             AIMP::SDK::Playback::AimpCheckUrl ^_checkUrl;
         };
     }
