@@ -118,18 +118,12 @@
     }
 
 
-    public delegate void PlayListChangedHandler(IAimpPlayList sender, PlayListNotifyType notifType);
 
-    public delegate void AimpPlayListHandler(IAimpPlayList sender);
-
-    public interface IAimpPlayList
+    /// <summary>
+    /// Play list interface.
+    /// </summary>
+    public interface IAimpPlayList : IAimpPlaylistListener
     {
-        event AimpPlayListHandler Activated;
-
-        event AimpPlayListHandler Removed;
-
-        event PlayListChangedHandler Changed;
-
         /// <summary>
         /// Gets the identifier.
         /// </summary>
