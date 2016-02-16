@@ -32,9 +32,7 @@ namespace AIMP
 
             !PlayListManager()
             {
-                _core->PlaylistActivated -= gcnew PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistActivated);
-                _core->PlaylistAdded -= gcnew PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistAdded);
-                _core->PlaylistRemoved -= gcnew PlayListHandler(this, &AIMP::SDK::PlayListManager::onPlaylistRemoved);
+
             }
 
             virtual event PlayListHandler ^PlaylistActivated
@@ -43,12 +41,12 @@ namespace AIMP
                 {
                     _onPlaylistActivated = onEvent;
                     // Register IAimpExtensionPlaylistManagerListener
-                    _core->RegisterExtension(IID_IAIMPServicePlaylistManager, this);
+                    //_core->RegisterExtension(IID_IAIMPServicePlaylistManager, this);
                 }
                 virtual void remove(PlayListHandler ^onEvent)
                 {
                     _onPlaylistActivated = nullptr;
-                    _core->UnregisterExtension(this);
+                    //_core->UnregisterExtension(this);
                 }
                 void raise(String ^playListName, String ^playListId)
                 {
@@ -100,11 +98,12 @@ namespace AIMP
             virtual AimpActionResult CreatePlaylist(System::String^ name, bool isActive, IAimpPlayList ^%playList)
             {
                 playList = nullptr;
+                AimpActionResult res = AimpActionResult::Fail;
 
                 IAIMPPlaylist *pl = NULL;
                 IAIMPString *str = NULL;
                 IAIMPServicePlaylistManager *service;
-                AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
+                res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
 
                 if (res == AimpActionResult::Ok)
                 {
@@ -278,7 +277,9 @@ namespace AIMP
                 IAIMPString *key = NULL;
                 IAIMPServicePlaylistManager *service;
 
-                AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
+                AimpActionResult res = AimpActionResult::Fail;
+
+                res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
 
                 if (res == AimpActionResult::Ok)
                 {

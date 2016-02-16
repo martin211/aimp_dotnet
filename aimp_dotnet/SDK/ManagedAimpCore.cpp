@@ -140,7 +140,12 @@ namespace AIMP
                 _customVisualization = NULL;
             }
 
-            _core->UnregisterExtension(this->_playlistManagerListener);
+            if (_playlistManagerListener != NULL)
+            {
+                _core->UnregisterExtension(this->_playlistManagerListener);
+                _playlistManagerListener->Release();
+                _playlistManagerListener = NULL;
+            }
             _core->Release();
         }
 
