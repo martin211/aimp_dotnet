@@ -8,8 +8,13 @@ namespace AIMP
     typedef boost::signals::connection ConnectionCallback;
     typedef boost::signal<void(void)> VoidSignal;
     typedef boost::signal<void(int)> IntSignal;
+    typedef boost::signal<void(double)> DoubleSignal;
+    typedef boost::signal<void(bool, bool)> ScanningEndSignal;
+
     typedef boost::signal<void(void)>::slot_function_type VoidSignalCB;
+    typedef boost::signal<void(double)>::slot_function_type DoubleSignalCB;
     typedef boost::signal<void(int)>::slot_function_type DwordSignalCB;
+    typedef boost::signal<void(bool, bool)>::slot_function_type  ScanningEndSignalCB;
 
     namespace SDK
     {
@@ -19,14 +24,21 @@ namespace AIMP
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::PlayList;
 
-        class AimpPlaylistListener : public IUnknownInterfaceImpl<IAIMPPlaylistListener>
+        class AimpPlaylistListener :
+            public IUnknownInterfaceImpl<IAIMPPlaylistListener>, 
+            public IAIMPPlaylistListener2
         {
         private:
             IntSignal _changed;
             VoidSignal _activated;
             VoidSignal _removed;
+            VoidSignal _scanningBegin;
+            DoubleSignal _scanningProgress;
+            ScanningEndSignal _scanningEnd;
 
         public:
+            typedef IUnknownInterfaceImpl<IAIMPPlaylistListener> Base;
+
             ConnectionCallback RegisterActivatedCallback(VoidSignalCB subscriber)
             {
                 return _activated.connect(subscriber);
@@ -40,6 +52,21 @@ namespace AIMP
             ConnectionCallback RegisterChangedCallback(DwordSignalCB subscriber)
             {
                 return _changed.connect(subscriber);
+            }
+
+            ConnectionCallback RegisterScanningBeginCallback(VoidSignalCB subscriber)
+            {
+                return _scanningBegin.connect(subscriber);
+            }
+
+            ConnectionCallback RegisterScanningProgress(DoubleSignalCB subscriber)
+            {
+                return _scanningProgress.connect(subscriber);
+            }
+
+            ConnectionCallback RegisterScanningEnd(ScanningEndSignalCB subscriber)
+            {
+                return _scanningEnd.connect(subscriber);
             }
 
             void UregisterActivatedCallback(ConnectionCallback *activatedCallback)
@@ -57,6 +84,21 @@ namespace AIMP
                 _changed.disconnect(changedCallback);
             }
 
+            void UnregisterScanningBeginCallback(ConnectionCallback *cb)
+            {
+                _scanningBegin.disconnect(cb);
+            }
+
+            void UnregisterScanningProgress(ConnectionCallback *cb)
+            {
+                _scanningProgress.disconnect(cb);
+            }
+
+            void UnregisterScanningEnd(ConnectionCallback *cb)
+            {
+                _scanningEnd.disconnect(cb);
+            }
+
             virtual void WINAPI Activated()
             {
                 _activated();
@@ -72,16 +114,49 @@ namespace AIMP
                 _removed();
             }
 
+            virtual void WINAPI ScanningBegin()
+            {
+                _scanningBegin();
+            }
+
+            virtual void WINAPI ScanningProgress(const double Progress)
+            {
+                _scanningProgress(Progress);
+            }
+
+            virtual void WINAPI ScanningEnd(BOOL HasChanges, BOOL Canceled)
+            {
+                _scanningEnd(HasChanges, Canceled);
+            }
+
             virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
             {
                 if (riid == IID_IAIMPPlaylistListener)
                 {
                     *ppvObject = this;
+                    AddRef();
+                    return S_OK;
+                }
+
+                if (riid == IID_IAIMPPlaylistListener2)
+                {
+                    *ppvObject = static_cast<IAIMPPlaylistListener2*>(this);
+                    AddRef();
                     return S_OK;
                 }
 
                 ppvObject = NULL;
                 return E_NOTIMPL;
+            }
+
+            virtual ULONG WINAPI AddRef(void)
+            {
+                return Base::AddRef();
+            }
+
+            virtual ULONG WINAPI Release(void)
+            {
+                return Base::Release();
             }
         };
 
@@ -95,11 +170,17 @@ namespace AIMP
             PlayListChangedHandler ^_onChanged;
             AimpPlayListHandler ^_onActivated;
             AimpPlayListHandler ^_onRemoved;
+            AimpPlayListHandler ^_scanningBeginHandler;
+            AimpPlayListHandler<ScanningProgressEventArgs^> ^_scanningProgressHandler;
+            AimpPlayListHandler<ScanningEndEventArgs^> ^_scanningEndHandler;
 
             AimpPlaylistListener *_listner;
             ConnectionCallback *_activatedCallback;
             ConnectionCallback *_removedCallBack;
             ConnectionCallback *_changedCallBack;
+            ConnectionCallback *_scanningBeginCallBack;
+            ConnectionCallback *_scanningProgressCallBack;
+            ConnectionCallback *_scanningEndCallBack;
 
         public:
             explicit AimpPlayList(IAIMPPlaylist *aimpPlayList);
@@ -313,6 +394,27 @@ namespace AIMP
                 void add(PlayListChangedHandler ^onEvent);
                 void remove(PlayListChangedHandler ^onEvent);
                 void raise(IAimpPlayList ^esnder, PlayListNotifyType notifyType);
+            }
+
+            virtual event AimpPlayListHandler ^ScanningBegin
+            {
+                void add(AimpPlayListHandler ^onEvent);
+                void remove(AimpPlayListHandler ^onEvent);
+                void raise(IAimpPlayList ^sender);
+            }
+
+            virtual event AimpPlayListHandler<ScanningProgressEventArgs^> ^ScanningProgress
+            {
+                void add(AimpPlayListHandler<ScanningProgressEventArgs^> ^onEvent);
+                void remove(AimpPlayListHandler<ScanningProgressEventArgs^> ^onEvent);
+                void raise(IAimpPlayList ^sender, ScanningProgressEventArgs^ args);
+            }
+
+            virtual event AimpPlayListHandler<ScanningEndEventArgs^> ^ScanningEnd
+            {
+                void add(AimpPlayListHandler<ScanningEndEventArgs^> ^onEvent);
+                void remove(AimpPlayListHandler<ScanningEndEventArgs^> ^onEvent);
+                void raise(IAimpPlayList ^sender, ScanningEndEventArgs^ args);
             }
 
         private:

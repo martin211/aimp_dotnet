@@ -26,7 +26,8 @@ namespace AIMP
 
             if (InternalAimpObject != NULL)
             {
-                InternalAimpObject->Release();
+                _aimpObject->Release();
+                _aimpObject = NULL;
             }
         }
 
@@ -1113,16 +1114,53 @@ namespace AIMP
             return InternalAimpObject->GetGroupCount();
         }
 
+        void AimpPlayList::RegisterListner()
+        {
+            if (_listner == nullptr)
+            {
+                _listner = new AimpPlaylistListener();
+                InternalAimpObject->ListenerAdd(_listner);
+                _listner->AddRef();
+            }
+        }
+
+
 
         void ActivatedCallback(gcroot<AimpPlayList^> This)
         {
             This->Activated(This);
         }
 
+        void ChangedCallback(gcroot<AimpPlayList^> This, int notifyType)
+        {
+            This->Changed(This, (PlayListNotifyType)notifyType);
+        }
+
+        void RemovedCallback(gcroot<AimpPlayList^> This)
+        {
+            This->Activated(This);
+        }
+
+        void ScanningBeginCallback(gcroot<AimpPlayList^> This)
+        {
+            This->ScanningBegin(This);
+        }
+
+        void ScanningProgressCallback(gcroot<AimpPlayList^> This, double progress)
+        {
+            This->ScanningProgress(This, gcnew AIMP::SDK::PlayList::ScanningProgressEventArgs(progress));
+        }
+
+        void ScanningEndCallback(gcroot<AimpPlayList^> This, bool hasChanged, bool canceled)
+        {
+            This->ScanningEnd(This, gcnew AIMP::SDK::PlayList::ScanningEndEventArgs(hasChanged, canceled));
+        }
+
+
         void AimpPlayList::Activated::add(AimpPlayListHandler ^onEvent)
         {
             RegisterListner();
-            bool tmp = _onActivated != nullptr;
+            bool tmp = _onActivated == nullptr;
             if (tmp)
             {
                 _activatedCallback = new AIMP::ConnectionCallback;
@@ -1138,7 +1176,7 @@ namespace AIMP
             {
                 _onActivated = (AimpPlayListHandler^)Delegate::Remove(_onActivated, onEvent);
                 _listner->UregisterActivatedCallback(_activatedCallback);
-                //delete _activatedCallback;
+                delete _activatedCallback;
             }
         }
 
@@ -1151,10 +1189,7 @@ namespace AIMP
             }
         }
 
-        void RemovedCallback(gcroot<AimpPlayList^> This)
-        {
-            This->Activated(This);
-        }
+
 
         void AimpPlayList::Removed::add(AimpPlayListHandler ^onEvent)
         {
@@ -1187,10 +1222,7 @@ namespace AIMP
             }
         }
 
-        void ChangedCallback(gcroot<AimpPlayList^> This, int notifyType)
-        {
-            This->Changed(This, (PlayListNotifyType)notifyType);
-        }
+
 
         void AimpPlayList::Changed::add(PlayListChangedHandler ^onEvent)
         {
@@ -1266,13 +1298,90 @@ namespace AIMP
             return result;
         }
 
-        void AimpPlayList::RegisterListner()
+
+
+        void AimpPlayList::ScanningBegin::add(AimpPlayListHandler ^onEvent)
         {
-            if (_listner == nullptr)
+            if (this->_scanningBeginHandler == nullptr)
             {
-                _listner = new AimpPlaylistListener();
-                InternalAimpObject->ListenerAdd(_listner);
-                _listner->AddRef();
+                _scanningBeginCallBack = new AIMP::ConnectionCallback;
+                *_scanningBeginCallBack = _listner->RegisterScanningBeginCallback(boost::bind(ScanningBeginCallback, gcroot<AimpPlayList^>(this)));
+                _scanningBeginHandler = (AimpPlayListHandler^)Delegate::Combine(_onChanged, onEvent);
+            }
+        }
+
+        void AimpPlayList::ScanningBegin::remove(AimpPlayListHandler ^onEvent)
+        {
+            if (this->_scanningBeginHandler != nullptr)
+            {
+                _scanningBeginHandler = (AimpPlayListHandler^)Delegate::Remove(_onChanged, onEvent);
+                _listner->UnregisterScanningBeginCallback(_scanningBeginCallBack);
+            }
+        }
+
+        void AimpPlayList::ScanningBegin::raise(IAimpPlayList ^sender)
+        {
+            if (this->_scanningBeginHandler != nullptr)
+            {
+                _scanningBeginHandler(sender);
+            }
+        }
+
+
+
+        void AimpPlayList::ScanningProgress::add(AimpPlayListHandler<ScanningProgressEventArgs^> ^onEvent)
+        {
+            if (this->_scanningProgressHandler == nullptr)
+            {
+                _scanningProgressCallBack = new AIMP::ConnectionCallback;
+                *_scanningProgressCallBack = _listner->RegisterScanningProgress(boost::bind(ScanningProgressCallback, gcroot<AimpPlayList^>(this), _1));
+                _scanningProgressHandler = (AimpPlayListHandler<ScanningProgressEventArgs^>^)Delegate::Combine(_onChanged, onEvent);
+            }
+        }
+
+        void AimpPlayList::ScanningProgress::remove(AimpPlayListHandler<ScanningProgressEventArgs^> ^onEvent)
+        {
+            if (this->_scanningProgressHandler != nullptr)
+            {
+                _scanningProgressHandler = (AimpPlayListHandler<ScanningProgressEventArgs^>^)Delegate::Remove(_onChanged, onEvent);
+                _listner->UnregisterScanningProgress(_scanningProgressCallBack);
+            }
+        }
+
+        void AimpPlayList::ScanningProgress::raise(IAimpPlayList ^sender, ScanningProgressEventArgs^ args)
+        {
+            if (this->_scanningProgressHandler != nullptr)
+            {
+                _scanningProgressHandler(sender, args);
+            }
+        }
+
+
+
+        void AimpPlayList::ScanningEnd::add(AimpPlayListHandler<ScanningEndEventArgs^> ^onEvent)
+        {
+            if (this->_scanningEndHandler == nullptr)
+            {
+                _scanningEndCallBack = new AIMP::ConnectionCallback;
+                *_scanningEndCallBack = _listner->RegisterScanningEnd(boost::bind(ScanningEndCallback, gcroot<AimpPlayList^>(this), _1, _2));
+                _scanningEndHandler = (AimpPlayListHandler<ScanningEndEventArgs^>^)Delegate::Combine(_onChanged, onEvent);
+            }
+        }
+
+        void AimpPlayList::ScanningEnd::remove(AimpPlayListHandler<ScanningEndEventArgs^> ^onEvent)
+        {
+            if (this->_scanningEndHandler != nullptr)
+            {
+                _scanningEndHandler = (AimpPlayListHandler<ScanningEndEventArgs^>^)Delegate::Remove(_onChanged, onEvent);
+                _listner->UnregisterScanningEnd(_scanningEndCallBack);
+            }
+        }
+
+        void AimpPlayList::ScanningEnd::raise(IAimpPlayList ^sender, ScanningEndEventArgs^ args)
+        {
+            if (this->_scanningEndHandler != nullptr)
+            {
+                _scanningEndHandler(sender, args);
             }
         }
     }

@@ -124,6 +124,12 @@
     /// </summary>
     public interface IAimpPlayList : IAimpPlaylistListener
     {
+        //event AimpPlayListHandler Activated;
+
+        //event AimpPlayListHandler Removed;
+
+        //event PlayListChangedHandler Changed;
+
         /// <summary>
         /// Gets the identifier.
         /// </summary>
