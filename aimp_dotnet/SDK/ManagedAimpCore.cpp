@@ -47,7 +47,14 @@ namespace AIMP
                 bool handled = _managedCore->OnCheckUrl(*&url);
 
                 if (handled)
+                {
+                    // TODO: Optimize it
                     *Handled = 1;
+                    IAIMPString *str = Converter::MakeAimpString(this->_managedCore->GetAimpCore(), url);
+                    URL->SetData(str->GetData(), str->GetLength());
+                    str->Release();
+                    str = NULL;
+                }
                 else
                     *Handled = 0;
 
