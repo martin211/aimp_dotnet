@@ -1,19 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AIMP.SDK;
+using AIMP.SDK.Player;
+using AIMP.SDK.PlayList;
 
-namespace TestPlugin
+namespace DemoPlugin
 {
-    using System.Collections.Generic;
-
-    using AIMP.SDK.Player;
-    using AIMP.SDK.PlayList;
-
-    public partial class Form1 : Form
+    public partial class PlayerForm : Form
     {
         private readonly IAimpPlayer _aimpPlayer;
 
-        public Form1(IAimpPlayer player)
+        public PlayerForm(IAimpPlayer player)
         {
             _aimpPlayer = player;
             InitializeComponent();
@@ -31,8 +29,11 @@ namespace TestPlugin
 
             _aimpPlayer.PlayListManager.PlaylistAdded += (name, id) =>
             {
-                var pl = _aimpPlayer.PlayListManager.GetLoadedPlaylistById(id);
-                AddPlayListTab(id, name, pl);
+                IAimpPlayList pl;
+                if (_aimpPlayer.PlayListManager.GetLoadedPlaylistById(id, out pl) == AimpActionResult.Ok)
+                {
+                    AddPlayListTab(id, name, pl);
+                }
             };
 
             _aimpPlayer.PlayListManager.PlaylistRemoved += (name, id) =>
@@ -112,8 +113,11 @@ namespace TestPlugin
             var playlistCount = _aimpPlayer.PlayListManager.GetLoadedPlaylistCount();
             for (var i = 0; i < playlistCount; i++)
             {
-                var playList = _aimpPlayer.PlayListManager.GetLoadedPlaylist(i);
-                AddPlayListTab(playList.Id, playList.Name, playList);
+                IAimpPlayList playList;
+                if (_aimpPlayer.PlayListManager.GetLoadedPlaylist(i, out playList) == AimpActionResult.Ok)
+                {
+                    AddPlayListTab(playList.Id, playList.Name, playList);
+                }
             }
         }
 
@@ -160,21 +164,28 @@ namespace TestPlugin
 
         private void button7_Click(object sender, EventArgs e)
         {
-            var pl = _aimpPlayer.PlayListManager.GetActivePlaylist();
-            pl.Sort((item1, item2) => { return PlayListSortComapreResult.TheSame; });
+            IAimpPlayList pl;
+            if (_aimpPlayer.PlayListManager.GetActivePlaylist(out pl) == AimpActionResult.Ok)
+            {
+                pl.Sort((item1, item2) => PlayListSortComapreResult.TheSame);
+            }
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            var playList = _aimpPlayer.PlayListManager.CreatePlaylist("Test play list", true);
-            playList.Add("http://xstream1.somafm.com:2800", PlayListFlags.NOEXPAND, PlayListFilePosition.EndPosition);
-            playList.AddList(new List<string>()
+            IAimpPlayList playList;
+            if (_aimpPlayer.PlayListManager.CreatePlaylist("Test play list", true, out playList) == AimpActionResult.Ok)
             {
-                "http://xstream1.somafm.com:2800", "http://xstream1.somafm.com:2800"
-            }, PlayListFlags.NOEXPAND, PlayListFilePosition.EndPosition);
-            playList.Activated += (o) => { System.Diagnostics.Debug.WriteLine("Activated {0}", o.Name); };
+                playList.Add("http://xstream1.somafm.com:2800", PlayListFlags.NOEXPAND, PlayListFilePosition.EndPosition);
+                playList.AddList(new List<string>()
+                {
+                    "http://xstream1.somafm.com:2800",
+                    "http://xstream1.somafm.com:2800"
+                }, PlayListFlags.NOEXPAND, PlayListFilePosition.EndPosition);
 
-            playList.Changed += (list, type) => { System.Diagnostics.Debug.WriteLine(type); };
+                playList.Activated += (o) => { System.Diagnostics.Debug.WriteLine("Activated {0}", o.Name); };
+                playList.Changed += (list, type) => { System.Diagnostics.Debug.WriteLine(type); };
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace TestPlugin
+﻿namespace DemoPlugin
 {
-    partial class Form1
+    partial class PlayerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -187,7 +187,7 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(33, 17);
             this.toolStripStatusLabel1.Text = "State";
             // 
-            // Form1
+            // PlayerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -206,8 +206,8 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "PlayerForm";
+            this.Text = "PlayerForm";
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
