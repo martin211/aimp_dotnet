@@ -111,20 +111,6 @@ namespace DemoPlugin
             tabPlayLists.TabPages.Add(tab);
         }
 
-        private void FillTracks(IAimpPlayList playList, ListView tracks)
-        {
-            for (var i = 0; i < playList.GetItemCount(); i++)
-            {
-                var item = playList.GetItem(i);
-                var trackItem = new ListViewItem {Text = item.Index.ToString()};
-                trackItem.SubItems.Add(item.DisplayText);
-                // save playlist item to tag.
-                trackItem.Tag = item;
-
-                tracks.Items.Add(trackItem);
-            }
-        }
-
         private void TracksOnDoubleClick(object sender, EventArgs eventArgs)
         {
             var trackItem = (IAimpPlayListItem)(sender as ListView).SelectedItems[0].Tag;
