@@ -182,6 +182,8 @@ namespace AIMP
             ConnectionCallback *_scanningProgressCallBack;
             ConnectionCallback *_scanningEndCallBack;
 
+            bool _disposed;
+
         public:
             explicit AimpPlayList(IAIMPPlaylist *aimpPlayList);
 
