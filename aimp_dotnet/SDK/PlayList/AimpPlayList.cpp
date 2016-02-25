@@ -1078,8 +1078,6 @@ namespace AIMP
             if (InternalAimpObject->GetItem(index, IID_IAIMPPlaylistItem, (void**)&item) == S_OK)
             {
                 result = gcnew AimpPlayListItem(item);
-                item->Release();
-                item = NULL;
             }
 
             return result;
