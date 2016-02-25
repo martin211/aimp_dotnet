@@ -329,23 +329,35 @@ namespace AIMP
 
             virtual void OnPlaylistActivated(IAIMPPlaylist* playlist)
             {
-                AimpPlayList ^pl = gcnew AimpPlayList(playlist);
-                this->PlaylistActivated(pl->Name, pl->Id);
-                pl = nullptr;
+                IAIMPPropertyList *properties;
+                playlist->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
+                String ^name = AIMP::SDK::Converter::GetString(properties, AIMP_PLAYLIST_PROPID_NAME);
+                String ^id = AIMP::SDK::Converter::GetString(properties, AIMP_PLAYLIST_PROPID_ID);
+                this->PlaylistActivated(name, id);
+                properties->Release();
+                properties = NULL;
             }
 
             virtual void OnPlaylistAdded(IAIMPPlaylist* playlist)
             {
-                AimpPlayList ^pl = gcnew AimpPlayList(playlist);
-                this->PlaylistAdded(pl->Name, pl->Id);
-                pl = nullptr;
+                IAIMPPropertyList *properties;
+                playlist->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
+                String ^name = AIMP::SDK::Converter::GetString(properties, AIMP_PLAYLIST_PROPID_NAME);
+                String ^id = AIMP::SDK::Converter::GetString(properties, AIMP_PLAYLIST_PROPID_ID);
+                this->PlaylistAdded(name, id);
+                properties->Release();
+                properties = NULL;
             }
 
             virtual void OnPlaylistRemoved(IAIMPPlaylist* playlist)
             {
-                AimpPlayList ^pl = gcnew AimpPlayList(playlist);
-                this->PlaylistRemoved(pl->Name, pl->Id);
-                pl = nullptr;
+                IAIMPPropertyList *properties;
+                playlist->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
+                String ^name = AIMP::SDK::Converter::GetString(properties, AIMP_PLAYLIST_PROPID_NAME);
+                String ^id = AIMP::SDK::Converter::GetString(properties, AIMP_PLAYLIST_PROPID_ID);
+                this->PlaylistRemoved(name, id);
+                properties->Release();
+                properties = NULL;
             }
         };
     }

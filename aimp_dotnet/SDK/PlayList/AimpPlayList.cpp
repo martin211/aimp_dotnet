@@ -18,11 +18,16 @@ namespace AIMP
 
         AimpPlayList::!AimpPlayList()
         {
-            //if (_listner != NULL)
-            //{
-            //    InternalAimpObject->ListenerRemove(_listner);
-            //    _listner->Release();
-            //}
+            if (_disposed)
+                return;
+
+            _disposed = true;
+
+            if (_listner != NULL)
+            {
+                InternalAimpObject->ListenerRemove(_listner);
+                _listner->Release();
+            }
 
             if (InternalAimpObject != NULL)
             {
