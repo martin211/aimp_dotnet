@@ -1,4 +1,5 @@
-﻿using DemoPlugin;
+﻿using System;
+using DemoPlugin;
 
 namespace TestPlugin
 {
@@ -64,6 +65,24 @@ namespace TestPlugin
 
                 Player.MenuManager.Add(subItem1);
             }
+
+            IAimpMenuItem demoFormItem;
+            if (Player.MenuManager.CreateMenuItem(out demoFormItem) == AimpActionResult.Ok)
+            {
+                demoFormItem.Name = "Open demo form";
+                demoFormItem.Id = "demo_form";
+                demoFormItem.Style = AimpMenuItemStyle.CheckBox;
+
+                demoFormItem.OnExecute += DemoFormItemOnOnExecute;
+
+                Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, demoFormItem);
+            }
+        }
+
+        private void DemoFormItemOnOnExecute(object sender, EventArgs eventArgs)
+        {
+            _demoForm = new PlayerForm(Player);
+            _demoForm.Show();
         }
 
         public override void Dispose()
