@@ -1,4 +1,6 @@
-﻿namespace TestPlugin
+﻿using DemoPlugin;
+
+namespace TestPlugin
 {
     using AIMP.SDK;
     using AIMP.SDK.MenuManager;
@@ -7,7 +9,7 @@
     [AimpPlugin("dotnet_demo", "Evgeniy Bogdan", "1", AimpPluginType = AimpPluginType.Addons)]
     public class Program : AimpPlugin
     {
-        private Form1 _demoForm;
+        private PlayerForm _demoForm;
         private IAimpOptionsDialogFrame _optionsFrame;
 
         private IAimpMenuItem _menuItem;
