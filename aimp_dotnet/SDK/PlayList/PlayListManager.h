@@ -22,7 +22,8 @@ namespace AIMP
         public:
             explicit PlayListManager(ManagedAimpCore ^core) : AimpBaseManager<IAIMPServicePlaylistManager>(core)
             {
-
+                // Register IAimpExtensionPlaylistManagerListener
+                _core->RegisterExtension(IID_IAIMPServicePlaylistManager, this);
             }
 
             ~PlayListManager()
@@ -32,7 +33,7 @@ namespace AIMP
 
             !PlayListManager()
             {
-
+                _core->UnregisterExtension(this);
             }
 
             virtual event PlayListHandler ^PlaylistActivated
@@ -40,13 +41,10 @@ namespace AIMP
                 virtual void add(PlayListHandler ^onEvent)
                 {
                     _onPlaylistActivated = onEvent;
-                    // Register IAimpExtensionPlaylistManagerListener
-                    //_core->RegisterExtension(IID_IAIMPServicePlaylistManager, this);
                 }
                 virtual void remove(PlayListHandler ^onEvent)
                 {
                     _onPlaylistActivated = nullptr;
-                    //_core->UnregisterExtension(this);
                 }
                 void raise(String ^playListName, String ^playListId)
                 {
@@ -61,11 +59,17 @@ namespace AIMP
             {
                 virtual void add(PlayListHandler ^onEvent)
                 {
-                    _onPlaylistAdded = onEvent;
+                    if (_onPlaylistAdded == nullptr)
+                    {
+                        _onPlaylistAdded = onEvent;
+                    }
                 }
                 virtual void remove(PlayListHandler ^onEvent)
                 {
-                    _onPlaylistAdded = nullptr;
+                    if (_onPlaylistAdded != nullptr)
+                    {
+                        _onPlaylistAdded = nullptr;
+                    }
                 }
                 void raise(String ^playListName, String ^playListId)
                 {
