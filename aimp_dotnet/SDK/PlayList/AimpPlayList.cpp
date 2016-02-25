@@ -18,11 +18,11 @@ namespace AIMP
 
         AimpPlayList::!AimpPlayList()
         {
-            if (_listner != NULL)
-            {
-                InternalAimpObject->ListenerRemove(_listner);
-                _listner->Release();
-            }
+            //if (_listner != NULL)
+            //{
+            //    InternalAimpObject->ListenerRemove(_listner);
+            //    _listner->Release();
+            //}
 
             if (InternalAimpObject != NULL)
             {
@@ -1029,7 +1029,9 @@ namespace AIMP
 
         AimpActionResult AimpPlayList::Close(PlayListCloseFlag closeFlag)
         {
-            return CheckResult(InternalAimpObject->Close((DWORD)closeFlag));
+            AimpActionResult result = CheckResult(InternalAimpObject->Close((DWORD)closeFlag));
+            this->!AimpPlayList();
+            return result;
         }
 
         System::Collections::Generic::IList<String^> ^AimpPlayList::GetFiles(PlayListGetFilesFlag filesFlag)
