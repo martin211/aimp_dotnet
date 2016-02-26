@@ -62,6 +62,7 @@
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtCatalog2.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtProvider.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtProvider2.cs" />
+    <Compile Include="IAimpDisposeable.cs" />
     <Compile Include="IAimpExternalSettingsDialog.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="PlayList\IAimpPlaylistListener.cs" />

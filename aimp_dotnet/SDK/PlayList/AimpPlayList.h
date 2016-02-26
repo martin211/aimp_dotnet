@@ -419,6 +419,8 @@ namespace AIMP
                 void raise(IAimpPlayList ^sender, ScanningEndEventArgs^ args);
             }
 
+            virtual void Release();
+
         private:
             AimpFileInfo ^CreateFileInfo(IAimpFileInfo ^fi);
 
