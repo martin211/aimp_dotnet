@@ -18,15 +18,61 @@ namespace AIMP
 
         AimpPlayList::!AimpPlayList()
         {
+            Release();
+        }
+
+        void AimpPlayList::Release()
+        {
             if (_disposed)
                 return;
+
+            System::Diagnostics::Debug::WriteLine("Dispose play list");
 
             _disposed = true;
 
             if (_listner != NULL)
             {
-                InternalAimpObject->ListenerRemove(_listner);
-                _listner->Release();
+                if (_activatedCallback != NULL)
+                {
+                    _listner->UregisterActivatedCallback(_activatedCallback);
+                    delete _activatedCallback;
+                }
+
+                if (_removedCallBack != NULL)
+                {
+                    _listner->UnregisterRemoveCallback(_removedCallBack);
+                    delete _removedCallBack;
+                }
+
+                if (_changedCallBack != NULL)
+                {
+                    _listner->UnregisterChangedCallback(_changedCallBack);
+                    delete _changedCallBack;
+                }
+                
+                if (_scanningBeginCallBack != NULL)
+                {
+                    _listner->UnregisterScanningBeginCallback(_scanningBeginCallBack);
+                    delete _scanningBeginHandler;
+                }
+
+                if (_scanningProgressCallBack != NULL)
+                {
+                    _listner->UnregisterScanningProgress(_scanningProgressCallBack);
+                    delete _scanningProgressCallBack;
+                }
+
+                if (_scanningEndCallBack != NULL)
+                {
+                    _listner->UnregisterScanningEnd(_scanningEndCallBack);
+                    delete _scanningEndCallBack;
+                }
+
+                if (InternalAimpObject->ListenerRemove(_listner) == S_OK)
+                {
+                    _listner->Release();
+                    _listner = NULL;
+                }
             }
 
             if (InternalAimpObject != NULL)
@@ -934,7 +980,10 @@ namespace AIMP
         AimpActionResult AimpPlayList::Add(String^ fileUrl, PlayListFlags flags, PlayListFilePosition filePosition)
         {
             IAIMPString *url = Converter::MakeAimpString(ManagedAimpCore::GetAimpCore(), fileUrl);
-            return CheckResult(InternalAimpObject->Add(url, (DWORD)flags, (int)filePosition));
+            AimpActionResult res = CheckResult(InternalAimpObject->Add(url, (DWORD)flags, (int)filePosition));
+            url->Release();
+            url = NULL;
+            return res;
         }
 
         AimpActionResult AimpPlayList::AddList(System::Collections::Generic::IList<IAimpFileInfo^>^ files, PlayListFlags flags, PlayListFilePosition filePosition)
@@ -1215,6 +1264,7 @@ namespace AIMP
             {
                 _onRemoved = (AimpPlayListHandler^)Delegate::Remove(_onRemoved, onEvent);
                 _listner->UnregisterRemoveCallback(_removedCallBack);
+                delete _removedCallBack;
             }
         }
 
@@ -1247,6 +1297,7 @@ namespace AIMP
             {
                 _onChanged = (PlayListChangedHandler^)Delegate::Remove(_onChanged, onEvent);
                 _listner->UnregisterChangedCallback(_changedCallBack);
+                delete _changedCallBack;
             }
         }
 
@@ -1321,6 +1372,7 @@ namespace AIMP
             {
                 _scanningBeginHandler = (AimpPlayListHandler^)Delegate::Remove(_onChanged, onEvent);
                 _listner->UnregisterScanningBeginCallback(_scanningBeginCallBack);
+                delete _scanningBeginCallBack;
             }
         }
 
@@ -1350,6 +1402,7 @@ namespace AIMP
             {
                 _scanningProgressHandler = (AimpPlayListHandler<ScanningProgressEventArgs^>^)Delegate::Remove(_onChanged, onEvent);
                 _listner->UnregisterScanningProgress(_scanningProgressCallBack);
+                delete _scanningProgressCallBack;
             }
         }
 

@@ -9,12 +9,15 @@ namespace DemoPlugin
 {
     public partial class PlayerForm : Form
     {
+        private List<IAimpPlayList> _playLists;
+
         private readonly IAimpPlayer _aimpPlayer;
 
         private readonly LoggerForm _loggerForm;
 
         public PlayerForm(IAimpPlayer player)
         {
+            _playLists = new List<IAimpPlayList>();
             _aimpPlayer = player;
             InitializeComponent();
 
@@ -77,6 +80,16 @@ namespace DemoPlugin
                         break;
                 }
             };
+        }
+
+        public new void Dispose()
+        {
+            foreach (var playList in _playLists)
+            {
+                playList.Release();
+            }
+
+            base.Dispose();
         }
 
         private void AddPlayListTab(string id, string name, IAimpPlayList playList)
@@ -185,6 +198,8 @@ namespace DemoPlugin
             IAimpPlayList playList;
             if (_aimpPlayer.PlayListManager.CreatePlaylist("Test play list", true, out playList) == AimpActionResult.Ok)
             {
+                _playLists.Add(playList);
+
                 CheckResult(playList.Add("http://xstream1.somafm.com:2800", PlayListFlags.NOEXPAND, PlayListFilePosition.EndPosition));
                 //CheckResult(playList.AddList(new List<string>()
                 //{
@@ -192,9 +207,8 @@ namespace DemoPlugin
                 //    "http://xstream1.somafm.com:2800"
                 //}, PlayListFlags.NOEXPAND, PlayListFilePosition.EndPosition));
 
-                playList.Activated += o => { System.Diagnostics.Debug.WriteLine("Activated {0}", o.Name); };
+                //playList.Activated += o => { System.Diagnostics.Debug.WriteLine("Activated {0}", o.Name); };
                 playList.Changed += PlayListOnChanged;
-               
             }
         }
 

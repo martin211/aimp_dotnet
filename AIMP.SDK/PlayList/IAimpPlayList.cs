@@ -122,7 +122,7 @@
     /// <summary>
     /// Play list interface.
     /// </summary>
-    public interface IAimpPlayList : IAimpPlaylistListener
+    public interface IAimpPlayList : IAimpPlaylistListener, IAimpDisposeable
     {
         //event AimpPlayListHandler Activated;
 
