@@ -27,6 +27,7 @@ namespace AIMP
             virtual void WINAPI CoreMessage(DWORD AMessage, int AParam1, void *AParam2, HRESULT *AResult) 
             {
                 _managedCore->OnCoreMessage((AIMP::SDK::AimpMessages::AimpCoreMessageType)AMessage, AParam1);
+                _managedCore->OnInternalCoreMessage((AIMP::SDK::AimpMessages::AimpCoreMessageType)AMessage, AParam1);
             }
 
         private:
@@ -336,6 +337,11 @@ namespace AIMP
         void ManagedAimpCore::OnCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2)
         {
             CoreMessage(param1, param2);
+        }
+
+        void ManagedAimpCore::OnInternalCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2)
+        {
+            InternalCoreMessage(param1, param2);
         }
 
 

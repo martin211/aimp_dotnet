@@ -45,6 +45,8 @@ namespace AIMP
 
             virtual event AimpEventsDelegate^ CoreMessage;
 
+            virtual event AimpEventsDelegate^ InternalCoreMessage;
+
             virtual event AIMP::SDK::PlayList::PlayListHandler ^PlaylistActivated;
 
             virtual event AIMP::SDK::PlayList::PlayListHandler ^PlaylistAdded;
@@ -54,6 +56,8 @@ namespace AIMP
             virtual event AIMP::SDK::Playback::AimpCheckUrl ^CheckUrl;
 
             void OnCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2);
+
+            void OnInternalCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2);
 
         internal:
             IAIMPActionEvent* CreateActionEvent();

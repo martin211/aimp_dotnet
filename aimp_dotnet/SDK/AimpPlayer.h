@@ -70,8 +70,6 @@ namespace AIMP
         /// <param name="isCrossDomain">The is cross domain.</param>
         AimpPlayer(ManagedAimpCore ^core, int pluginId, int applicationDomainId, bool isCrossDomain)
         {
-            //_aimpCore = core;
-            //_managerCore = gcnew AIMP::SDK360::ManagedAimpCore(core, nullptr);
             _managedAimpCore = core;
             IAIMPServicePlayer* ps;
             ((ManagedAimpCore^)_managedAimpCore)->GetService(IID_IAIMPServicePlayer, reinterpret_cast<void**>(&ps));
@@ -98,7 +96,7 @@ namespace AIMP
                 if (_aimpCore == nullptr)
                 {
                     _aimpCore = gcnew AimpCore(_managedAimpCore);
-                    _aimpCore->CoreMessage += gcnew AimpEventsDelegate(this, &AIMP::AimpPlayer::OnCoreMessage);
+                    ((AimpCore^)_aimpCore)->InternalCoreMessage += gcnew AimpEventsDelegate(this, &AIMP::AimpPlayer::OnInternalCoreMessage);
                 }
 
                 return _aimpCore;
@@ -460,7 +458,7 @@ namespace AIMP
         }
 
     private:
-        void OnCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2)
+        void OnInternalCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2)
         {
             if (param1 == AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_PLAYER_STATE && _state != this->State)
             {
