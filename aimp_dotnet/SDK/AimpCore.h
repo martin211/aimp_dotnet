@@ -14,6 +14,7 @@ namespace AIMP
         private:
             ManagedAimpCore ^_aimpCore;
             AimpEventsDelegate ^_coreMessageHandler;
+            AimpEventsDelegate ^_internalCoreMessageHandler;
             bool _disposed;
 
         public:
@@ -96,10 +97,38 @@ namespace AIMP
                 }
             }
 
+        internal:
+            virtual event AimpEventsDelegate^ InternalCoreMessage
+            {
+                virtual void add(AimpEventsDelegate^ onEvent)
+                {
+                    _internalCoreMessageHandler = (AimpEventsDelegate^)Delegate::Combine(_internalCoreMessageHandler, onEvent);
+                    _aimpCore->InternalCoreMessage += gcnew AimpEventsDelegate(this, &AIMP::SDK::AimpCore::OnInternalCoreMessage);
+                }
+                virtual void remove(AimpEventsDelegate^ onEvent)
+                {
+                    _internalCoreMessageHandler = (AimpEventsDelegate^)Delegate::Remove(_internalCoreMessageHandler, onEvent);
+                    _aimpCore->InternalCoreMessage -= gcnew AimpEventsDelegate(this, &AIMP::SDK::AimpCore::OnInternalCoreMessage);
+                }
+                void raise(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2)
+                {
+                    bool tmp = _internalCoreMessageHandler != nullptr;
+                    if (tmp)
+                    {
+                        _internalCoreMessageHandler(param1, param2);
+                    }
+                }
+            }
+
         private:
             void OnCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2)
             {
                 CoreMessage(param1, param2);
+            }
+
+            void OnInternalCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2)
+            {
+                InternalCoreMessage(param1, param2);
             }
         };
     }

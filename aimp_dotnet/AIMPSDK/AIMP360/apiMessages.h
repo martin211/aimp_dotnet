@@ -479,6 +479,10 @@ const int AIMP_MSG_EVENT_PLAYER_UPDATE_POSITION = AIMP_MSG_EVENT_BASE + 16;
 // AParam1, AParam2: unused
 const int AIMP_MSG_EVENT_LANGUAGE = AIMP_MSG_EVENT_BASE + 17;
 
+// Called, when AIMP completely loaded
+// AParam1, AParam2: unused
+const int AIMP_MSG_EVENT_LOADED = AIMP_MSG_EVENT_BASE + 18;
+
 // Called, when AIMP is preparing to terminate
 // AParam1, AParam2: unused
 const int AIMP_MSG_EVENT_TERMINATING = AIMP_MSG_EVENT_BASE + 19;
