@@ -251,6 +251,8 @@
 
             AIMP_MSG_EVENT_LANGUAGE = BaseEvent + 17,
 
+            AIMP_MSG_EVENT_LOADED = BaseEvent + 18,
+
             AIMP_MSG_EVENT_TERMINATING = BaseEvent + 19,
 
             AIMP_MSG_EVENT_PLAYABLE_FILE_INFO = BaseEvent + 20,
