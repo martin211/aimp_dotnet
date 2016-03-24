@@ -1,60 +1,79 @@
 #pragma once
-
-#include "..\..\ObjectHelper.h"
+#include "AimpPlayListItem.h"
+#include "AimpPlayList.h"
+#include "AimpPlaylistQueueListener.h"
+#include <gcroot.h>
 
 namespace AIMP
 {
-	namespace SDK
-	{
-		using namespace AIMP::SDK;
+    namespace SDK
+    {
+        using namespace AIMP::SDK;
 
-		public ref class AimpPlaylistQueue : public AimpObject<IAIMPPlaylistQueue>, public IAimpPlayListQueue
-		{
-		public:
-			virtual property bool IsSuspended
-			{
-				bool get()
-				{
-					IAIMPPropertyList *properties;
-					_aimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
-					return AIMP::ObjectHelper::GetBool(properties, AIMP_PLAYLISTQUEUE_PROPID_SUSPENDED);
-				}
-				void set(bool value)
-				{
-					IAIMPPropertyList *properties;
-					_aimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
-					AIMP::ObjectHelper::SetBool(properties, AIMP_PLAYLISTQUEUE_PROPID_SUSPENDED, value);
-				}
-			}
+        public ref class AimpPlaylistQueue :
+            public AimpObject<IAIMPPlaylistQueue>,
+            public IAimpPlayListQueue
+        {
+        public:
+            explicit AimpPlaylistQueue(IAIMPPlaylistQueue *queue, IAIMPPlaylistQueue2 *queue2) : AimpObject(queue)
+            {
+                _listner = new AimpPlaylistQueueListener();
+                _queue2 = queue2;
+            }
 
-			virtual void Add(AIMP::SDK::Services::PlayListManager::IAimpPlayListItem^ item, bool insertAtBeginning)
-			{
-			}
+            virtual property bool IsSuspended
+            {
+                bool get();
+                void set(bool value);
+            }
 
-			virtual void AddList(System::Collections::Generic::IList<AIMP::SDK::Services::PlayListManager::IAimpPlayListItem^>^ items, bool insertAtBeginning)
-			{
-			}
+            virtual AimpActionResult Add(IAimpPlayListItem^ item, bool insertAtBeginning);
 
-			virtual int Count()
-			{
-				return _aimpObject->GetItemCount();
-			}
+            virtual AimpActionResult AddList(System::Collections::Generic::IList<IAimpPlayListItem^>^ items, bool insertAtBeginning);
 
-			virtual void Delete(AIMP::SDK::Services::PlayListManager::IAimpPlayList^ playList)
-			{
-			}
+            virtual int Count();
 
-			virtual void Delete(AIMP::SDK::Services::PlayListManager::IAimpPlayListItem^ item)
-			{
-			}
+            virtual AimpActionResult Delete(IAimpPlayList^ playList);
 
-			virtual void Move(AIMP::SDK::Services::PlayListManager::IAimpPlayListItem^ item, int index)
-			{
-			}
+            virtual AimpActionResult Delete(IAimpPlayListItem^ item);
 
-			virtual void Move(int index, int targetIndex)
-			{
-			}
-		};
-	}
+            virtual AimpActionResult Move(IAimpPlayListItem^ item, int index);
+
+            virtual AimpActionResult Move(int index, int targetIndex);
+
+            virtual AimpActionResult GetItem(int index, IAimpPlayListItem ^%item);
+
+            virtual event EventHandler ^ContentChanged
+            {
+                void add(EventHandler ^onEvent);
+                void remove(EventHandler ^onEvent);
+                void raise(Object ^sender, EventArgs ^args);
+            }
+
+            virtual event EventHandler ^StateChanged
+            {
+                void add(EventHandler ^onEvent);
+                void remove(EventHandler ^onEvent);
+                void raise(Object ^sender, EventArgs ^args);
+            }
+        private:
+            IAIMPPlaylistQueue2 *_queue2;
+            EventHandler ^_contentChanged;
+            EventHandler ^_stateChanged;
+            AimpPlaylistQueueListener* _listner;
+
+            ConnectionCallback *_contentChangedCallback;
+            ConnectionCallback *_stateChangedCallback;
+        };
+
+        void ContentChangedCallBack(gcroot<AimpPlaylistQueue^> sender)
+        {
+            sender->ContentChanged(sender, EventArgs::Empty);
+        }
+
+        void StateChangedCallback(gcroot<AimpPlaylistQueue^> sender)
+        {
+            sender->StateChanged(sender, EventArgs::Empty);
+        }
+    }
 }

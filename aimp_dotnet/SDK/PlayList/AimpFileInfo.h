@@ -18,6 +18,45 @@ namespace AIMP
                 _aimpObject = fileInfo;
             }
 
+            AimpFileInfo(IAimpFileInfo ^item)
+            {
+                _aimpObject = Converter::MakeObject<IAIMPFileInfo>(IID_IAIMPFileInfo);
+                this->Album = item->Album;
+                this->AlbumArt = item->AlbumArt;
+                this->AlbumArtist = item->AlbumArtist;
+                this->Artist = item->Artist;
+                this->BitDepth = item->BitDepth;
+                this->BitRate = item->BitRate;
+                this->BPM = item->BPM;
+                this->Channels = item->Channels;
+                this->Codec = item->Codec;
+                this->Comment = item->Comment;
+                this->Composer = item->Composer;
+                this->CopyRight = item->CopyRight;
+                this->CUESheet = item->CUESheet;
+                this->CustomData = item->CustomData;
+                this->Date = item->Date;
+                this->DiskNumber = item->DiskNumber;
+                this->DiskTotal = item->DiskTotal;
+                this->Duration = item->Duration;
+                this->FileName = item->FileName;
+                this->FileSize = item->FileSize;
+                this->Gain = item->Gain;
+                this->Genre = item->Genre;
+                this->Lyrics = item->Lyrics;
+                this->Mark = item->Mark;
+                this->Peak = item->Peak;
+                this->Publisher = item->Publisher;
+                this->SampleRate = item->SampleRate;
+                this->SampleRate = item->StateRating;
+                this->StatMark = item->StatMark;
+                this->Title = item->Title;
+                this->TrackGain = item->TrackGain;
+                this->TrackNumber = item->TrackNumber;
+                this->TrackPeak = item->TrackPeak;
+                this->TrackTotal = item->TrackTotal;
+            }
+
             AimpFileInfo(IAIMPFileInfo *aimpItem) : AimpObject(aimpItem)
             {}
 

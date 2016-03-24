@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AimpDotnetPlugin.cpp" />
+    <ClCompile Include="SDK\PlayList\AimpPlayListQueue.cpp" />
     <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp" />
     <ClCompile Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.cpp" />
     <ClCompile Include="DotNetPlugin.cpp" />
@@ -39,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Extensions\AimpExtensionPlaylistManagerListener.h" />
+    <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />
     <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h" />
     <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h" />
     <ClInclude Include="Extensions\AimpExtensionAlbumArtCatalog.h" />

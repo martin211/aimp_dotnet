@@ -38,23 +38,24 @@ namespace DemoPlugin
 
         public void LoadTracks()
         {
+            listView1.Items.Clear();
             for (var i = 0; i < _playList.GetItemCount(); i++)
             {
-                //var item = _playList.GetItem(i);
-                //if (item == null)
-                //{
-                //    continue;
-                //}
+                var item = _playList.GetItem(i);
+                if (item == null)
+                {
+                    continue;
+                }
 
-                //var trackItem = new ListViewItem { Text = item.Index.ToString() };
-                //trackItem.SubItems.Add(item.DisplayText);
-                //// save playlist item to tag.
-                //trackItem.Tag = item;
+                var trackItem = new ListViewItem { Text = item.Index.ToString() };
+                trackItem.SubItems.Add(item.DisplayText);
+                // save playlist item to tag.
+                trackItem.Tag = item;
 
-                //listView1.Items.Add(trackItem);
+                listView1.Items.Add(trackItem);
 
-                //// free track resources.
-                //item.Release();
+                // free track resources.
+                item.Release();
             }
         }
     }

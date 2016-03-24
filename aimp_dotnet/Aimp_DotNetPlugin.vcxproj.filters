@@ -101,6 +101,9 @@
     <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\PlayList\AimpPlayListQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -296,6 +299,9 @@
       <Filter>SDK\Menu</Filter>
     </ClInclude>
     <ClInclude Include="Extensions\AimpExtensionPlaylistManagerListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

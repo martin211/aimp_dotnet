@@ -1,4 +1,5 @@
 #include "..\BaseManager.h"
+#include "AimpPlayListQueue.h"
 
 namespace AIMP
 {
@@ -10,7 +11,8 @@ namespace AIMP
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::PlayList;
 
-        public ref class PlayListManager : public AimpBaseManager<IAIMPServicePlaylistManager>, 
+        public ref class PlayListManager : 
+            public AimpBaseManager<IAIMPServicePlaylistManager>, 
             public IAimpPlayListManager, 
             public IAimpExtensionPlaylistManagerListenerExecutor
         {
@@ -18,6 +20,7 @@ namespace AIMP
             PlayListHandler ^_onPlaylistActivated;
             PlayListHandler ^_onPlaylistAdded;
             PlayListHandler ^_onPlaylistRemoved;
+            AimpPlaylistQueue ^_playListQueue;
 
         public:
             explicit PlayListManager(ManagedAimpCore ^core) : AimpBaseManager<IAIMPServicePlaylistManager>(core)
@@ -34,6 +37,32 @@ namespace AIMP
             !PlayListManager()
             {
                 _core->UnregisterExtension(this);
+            }
+
+            virtual property IAimpPlayListQueue ^PlayListQueue
+            {
+                IAimpPlayListQueue ^get()
+                {
+                    if (_playListQueue == nullptr)
+                    {
+                        AimpActionResult res = AimpActionResult::Fail;
+                        IAIMPServicePlaylistManager *service;
+                        res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
+                        if (res == AimpActionResult::Ok)
+                        {
+                            IAIMPPlaylistQueue *playListQueue;
+                            if (CheckResult(service->QueryInterface(IID_IAIMPPlaylistQueue, (void**)&playListQueue)) == AimpActionResult::Ok)
+                            {
+                                IAIMPPlaylistQueue2 *playListQueue2;
+                                service->QueryInterface(IID_IAIMPPlaylistQueue2, (void**)&playListQueue2);
+
+                                _playListQueue = gcnew AimpPlaylistQueue(playListQueue, playListQueue2);
+                            }
+                        }
+                    }
+
+                    return _playListQueue;
+                }
             }
 
             virtual event PlayListHandler ^PlaylistActivated

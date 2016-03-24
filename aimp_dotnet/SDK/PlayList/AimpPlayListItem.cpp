@@ -17,6 +17,18 @@ namespace AIMP
             _aimpObject = Converter::MakeObject<IAIMPPlaylistItem>(IID_IAIMPPlaylistItem);
         }
 
+        AimpPlayListItem::AimpPlayListItem(IAimpPlayListItem ^item)
+        {
+            _aimpObject = Converter::MakeObject<IAIMPPlaylistItem>(IID_IAIMPPlaylistItem);
+            this->FileName = item->FileName;
+            this->Index = item->Index;
+            this->Mark = item->Mark;
+            this->PlaybackSwitch = item->PlaybackSwitch;
+            this->Selected = item->Selected;
+            this->PlayList = gcnew AimpPlayList(item->PlayList);
+            //this->FileInfo = gcnew AimpFileInfo(item->FileInfo);
+        }
+
         System::String^ AimpPlayListItem::DisplayText::get()
         {
             return Converter::GetString(_aimpObject, AIMP_PLAYLISTITEM_PROPID_DISPLAYTEXT);
