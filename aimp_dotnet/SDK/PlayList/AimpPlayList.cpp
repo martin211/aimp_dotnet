@@ -11,6 +11,33 @@ namespace AIMP
         {
         }
 
+        AimpPlayList::AimpPlayList(IAimpPlayList ^item)
+        {
+            _aimpObject = Converter::MakeObject<IAIMPPlaylist>(IID_IAIMPPlaylist);
+            Name = item->Name;
+            ReadOnly = item->ReadOnly;
+            FocusedObject = item->FocusedObject;
+            GrouppingOverriden = item->GrouppingOverriden;
+            Groupping = item->Groupping;
+            GrouppingTemplate = item->GrouppingTemplate;
+            GrouppingAutomerging = item->GrouppingAutomerging;
+            FormatingOverride = item->FormatingOverride;
+            Line1Template = item->Line1Template;
+            Line2Template = item->Line2Template;
+            ViewOverride = item->ViewOverride;
+            ViewDuration = item->ViewDuration;
+            ViewExpandButtons = item->ViewExpandButtons;
+            ViewMarks = item->ViewMarks;
+            ViewNumbers = item->ViewNumbers;
+            ViewNumbersAbsolute = item->ViewNumbersAbsolute;
+            ViewSecondLine = item->ViewSecondLine;
+            ViewSwitches = item->ViewSwitches;
+            FocusIndex = item->FocusIndex;
+            PlaybackCursor = item->PlaybackCursor;
+            PlayingIndex = item->PlayingIndex;
+            PreImage = item->PreImage;
+        }
+
         AimpPlayList::~AimpPlayList()
         {
             this->!AimpPlayList();
@@ -187,7 +214,7 @@ namespace AIMP
         {}
 
 
-        bool AimpPlayList::GrouppingOvveriden::get()
+        bool AimpPlayList::GrouppingOverriden::get()
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -207,7 +234,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::GrouppingOvveriden::set(bool value)
+        void AimpPlayList::GrouppingOverriden::set(bool value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -383,7 +410,7 @@ namespace AIMP
         }
 
 
-        String ^AimpPlayList::FirstLineTemplate::get()
+        String ^AimpPlayList::Line1Template::get()
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -403,7 +430,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::FirstLineTemplate::set(String ^value)
+        void AimpPlayList::Line1Template::set(String ^value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -422,7 +449,7 @@ namespace AIMP
         }
 
 
-        String ^AimpPlayList::SecondLineTemplate::get()
+        String ^AimpPlayList::Line2Template::get()
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -442,7 +469,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::SecondLineTemplate::set(String ^value)
+        void AimpPlayList::Line2Template::set(String ^value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -500,7 +527,7 @@ namespace AIMP
         }
 
 
-        bool AimpPlayList::ShowDuration::get()
+        bool AimpPlayList::ViewDuration::get()
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -520,7 +547,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::ShowDuration::set(bool value)
+        void AimpPlayList::ViewDuration::set(bool value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -539,7 +566,7 @@ namespace AIMP
         }
 
 
-        bool AimpPlayList::ShowExpandButtons::get()
+        bool AimpPlayList::ViewExpandButtons::get()
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -559,7 +586,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::ShowExpandButtons::set(bool value)
+        void AimpPlayList::ViewExpandButtons::set(bool value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -578,7 +605,7 @@ namespace AIMP
         }
 
 
-        bool AimpPlayList::ShowMarks::get()
+        bool AimpPlayList::ViewMarks::get()
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -598,7 +625,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::ShowMarks::set(bool value)
+        void AimpPlayList::ViewMarks::set(bool value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -617,7 +644,7 @@ namespace AIMP
         }
 
 
-        bool AimpPlayList::ShowNumbers::get()
+        bool AimpPlayList::ViewNumbers::get()
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -637,7 +664,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::ShowNumbers::set(bool value)
+        void AimpPlayList::ViewNumbers::set(bool value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -656,7 +683,7 @@ namespace AIMP
         }
 
 
-        bool AimpPlayList::ShowAbsoluteNumbers::get()
+        bool AimpPlayList::ViewNumbersAbsolute::get()
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -676,7 +703,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::ShowAbsoluteNumbers::set(bool value)
+        void AimpPlayList::ViewNumbersAbsolute::set(bool value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -695,7 +722,7 @@ namespace AIMP
         }
 
 
-        bool AimpPlayList::ShowSecondLine::get()
+        bool AimpPlayList::ViewSecondLine::get()
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -715,7 +742,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::ShowSecondLine::set(bool value)
+        void AimpPlayList::ViewSecondLine::set(bool value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -734,7 +761,7 @@ namespace AIMP
         }
 
 
-        bool AimpPlayList::ShowSwitches::get()
+        bool AimpPlayList::ViewSwitches::get()
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -754,7 +781,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::ShowSwitches::set(bool value)
+        void AimpPlayList::ViewSwitches::set(bool value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -773,7 +800,7 @@ namespace AIMP
         }
 
 
-        int AimpPlayList::SelectedIndex::get()
+        int AimpPlayList::FocusIndex::get()
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -793,7 +820,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::SelectedIndex::set(int value)
+        void AimpPlayList::FocusIndex::set(int value)
         {
             IAIMPPropertyList *properties = NULL;
             try

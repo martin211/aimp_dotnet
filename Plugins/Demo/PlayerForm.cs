@@ -102,25 +102,6 @@ namespace DemoPlugin
 
             var pl = new PlayListControl(playList);
             tab.Controls.Add(pl);
-
-
-            //var tracks = new ListView()
-            //{
-            //    Dock = DockStyle.Fill
-            //};
-
-            //tracks.Columns.Add("trackId", "#");
-            //tracks.Columns.Add("trackName", "Name");
-            //tracks.MultiSelect = false;
-            //tracks.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            //tracks.View = View.Details;
-
-            //tracks.DoubleClick += TracksOnDoubleClick;
-
-            //tab.Controls.Add(tracks);
-
-            //FillTracks(playList, tracks);
-
             tabPlayLists.TabPages.Add(tab);
         }
 
@@ -240,6 +221,24 @@ namespace DemoPlugin
             {
                 _loggerForm.WriteLog($"{Environment.StackTrace}: {actionResult}");
             }
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            IAimpPlayListItem item;
+            if (_aimpPlayer.PlayListManager.PlayListQueue.GetItem(0, out item) == AimpActionResult.Ok)
+            {
+
+            }
+
+            _aimpPlayer.PlayListManager.PlayListQueue.StateChanged += PlayListQueue_StateChanged;
+
+            var i = _aimpPlayer.PlayListManager.PlayListQueue.Count();
+        }
+
+        private void PlayListQueue_StateChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

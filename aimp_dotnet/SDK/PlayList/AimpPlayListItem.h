@@ -19,6 +19,8 @@ namespace AIMP
             AimpPlayListItem(IAIMPPlaylistItem *aimpItem) : AimpObject(aimpItem)
             {
             }
+
+            AimpPlayListItem(IAimpPlayListItem ^item);
         public:
             AimpPlayListItem();
 
@@ -95,6 +97,8 @@ namespace AIMP
             {
                 if (_disposed)
                     return;
+
+                _disposed = true;
 
                 this->_aimpObject->Release();
                 this->_aimpObject = NULL;

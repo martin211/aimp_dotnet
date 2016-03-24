@@ -42,6 +42,7 @@ namespace AIMP.SDK.PlayList
         event AimpPlayListHandler ScanningBegin;
 
         event AimpPlayListHandler<ScanningProgressEventArgs> ScanningProgress;
+
         event AimpPlayListHandler<ScanningEndEventArgs> ScanningEnd;
     }
 }

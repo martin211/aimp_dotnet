@@ -2,6 +2,8 @@
 {
     public interface IAimpPlayListManager : IAimpExtensionPlaylistManagerListener, IAimpExtension
     {
+        IAimpPlayListQueue PlayListQueue { get; }
+
         AimpActionResult CreatePlaylist(string name, bool isActive, out IAimpPlayList playList);
 
         AimpActionResult CreatePlaylistFromFile(string fileName, bool isActive, out IAimpPlayList playList);

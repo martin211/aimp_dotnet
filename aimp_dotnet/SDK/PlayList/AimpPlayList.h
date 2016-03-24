@@ -184,6 +184,9 @@ namespace AIMP
 
             bool _disposed;
 
+        internal:
+            AimpPlayList(IAimpPlayList ^item);
+
         public:
             explicit AimpPlayList(IAIMPPlaylist *aimpPlayList);
 
@@ -214,7 +217,7 @@ namespace AIMP
                 void set(Object ^value);
             }
 
-            virtual property bool GrouppingOvveriden
+            virtual property bool GrouppingOverriden
             {
                 bool get();
                 void set(bool value);
@@ -244,13 +247,13 @@ namespace AIMP
                 void set(bool value);
             }
 
-            virtual property String ^FirstLineTemplate
+            virtual property String ^Line1Template
             {
                 String ^get();
                 void set(String ^value);
             }
 
-            virtual property String ^SecondLineTemplate
+            virtual property String ^Line2Template
             {
                 String ^get();
                 void set(String ^value);
@@ -262,49 +265,49 @@ namespace AIMP
                 void set(bool value);
             }
 
-            virtual property bool ShowDuration
+            virtual property bool ViewDuration
             {
                 bool get();
                 void set(bool value);
             }
 
-            virtual property bool ShowExpandButtons
+            virtual property bool ViewExpandButtons
             {
                 bool get();
                 void set(bool value);
             }
 
-            virtual property bool ShowMarks
+            virtual property bool ViewMarks
             {
                 bool get();
                 void set(bool value);
             }
 
-            virtual property bool ShowNumbers
+            virtual property bool ViewNumbers
             {
                 bool get();
                 void set(bool value);
             }
 
-            virtual property bool ShowAbsoluteNumbers
+            virtual property bool ViewNumbersAbsolute
             {
                 bool get();
                 void set(bool value);
             }
 
-            virtual property bool ShowSecondLine
+            virtual property bool ViewSecondLine
             {
                 bool get();
                 void set(bool value);
             }
 
-            virtual property bool ShowSwitches
+            virtual property bool ViewSwitches
             {
                 bool get();
                 void set(bool value);
             }
 
-            virtual property int SelectedIndex
+            virtual property int FocusIndex
             {
                 int get();
                 void set(int value);

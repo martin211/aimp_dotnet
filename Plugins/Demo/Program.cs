@@ -84,7 +84,8 @@ namespace TestPlugin
 
         private void DemoFormItemOnOnExecute(object sender, EventArgs eventArgs)
         {
-
+            //_demoForm = new PlayerForm(Player);
+            _demoForm.Show();
         }
 
         public override void Dispose()
