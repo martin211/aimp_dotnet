@@ -17,19 +17,19 @@ namespace AIMP
             Name = item->Name;
             ReadOnly = item->ReadOnly;
             FocusedObject = item->FocusedObject;
-            GrouppingOverriden = item->GrouppingOverriden;
+            //GrouppingOvveriden = item->GrouppingOvveriden;
             Groupping = item->Groupping;
             GrouppingTemplate = item->GrouppingTemplate;
             GrouppingAutomerging = item->GrouppingAutomerging;
             FormatingOverride = item->FormatingOverride;
-            Line1Template = item->Line1Template;
-            Line2Template = item->Line2Template;
+            FormatingLine1Template = item->FormatingLine1Template;
+            FormatingLine2Template = item->FormatingLine2Template;
             ViewOverride = item->ViewOverride;
             ViewDuration = item->ViewDuration;
             ViewExpandButtons = item->ViewExpandButtons;
             ViewMarks = item->ViewMarks;
             ViewNumbers = item->ViewNumbers;
-            ViewNumbersAbsolute = item->ViewNumbersAbsolute;
+            ViewAbsoluteNumbers = item->ViewAbsoluteNumbers;
             ViewSecondLine = item->ViewSecondLine;
             ViewSwitches = item->ViewSwitches;
             FocusIndex = item->FocusIndex;
@@ -410,7 +410,7 @@ namespace AIMP
         }
 
 
-        String ^AimpPlayList::Line1Template::get()
+        String ^AimpPlayList::FormatingLine1Template::get()
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -430,7 +430,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::Line1Template::set(String ^value)
+        void AimpPlayList::FormatingLine1Template::set(String ^value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -449,7 +449,7 @@ namespace AIMP
         }
 
 
-        String ^AimpPlayList::Line2Template::get()
+        String ^AimpPlayList::FormatingLine2Template::get()
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -469,7 +469,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::Line2Template::set(String ^value)
+        void AimpPlayList::FormatingLine2Template::set(String ^value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -683,7 +683,7 @@ namespace AIMP
         }
 
 
-        bool AimpPlayList::ViewNumbersAbsolute::get()
+        bool AimpPlayList::ViewAbsoluteNumbers::get()
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -703,7 +703,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::ViewNumbersAbsolute::set(bool value)
+        void AimpPlayList::ViewAbsoluteNumbers::set(bool value)
         {
             IAIMPPropertyList *properties = NULL;
             try

@@ -31,7 +31,7 @@ namespace AIMP
 
             virtual AimpActionResult AddList(System::Collections::Generic::IList<IAimpPlayListItem^>^ items, bool insertAtBeginning);
 
-            virtual int Count();
+            virtual int GetItemCount();
 
             virtual AimpActionResult Delete(IAimpPlayList^ playList);
 
@@ -65,15 +65,5 @@ namespace AIMP
             ConnectionCallback *_contentChangedCallback;
             ConnectionCallback *_stateChangedCallback;
         };
-
-        void ContentChangedCallBack(gcroot<AimpPlaylistQueue^> sender)
-        {
-            sender->ContentChanged(sender, EventArgs::Empty);
-        }
-
-        void StateChangedCallback(gcroot<AimpPlaylistQueue^> sender)
-        {
-            sender->StateChanged(sender, EventArgs::Empty);
-        }
     }
 }
