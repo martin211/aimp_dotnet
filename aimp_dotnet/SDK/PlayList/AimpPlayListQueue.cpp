@@ -1,6 +1,16 @@
 #include "..\..\Stdafx.h"
 #include "AimpPlayListQueue.h"
 
+void ContentChangedCallBack(gcroot<AimpPlaylistQueue^> sender)
+{
+    sender->ContentChanged(sender, EventArgs::Empty);
+}
+
+void StateChangedCallback(gcroot<AimpPlaylistQueue^> sender)
+{
+    sender->StateChanged(sender, EventArgs::Empty);
+}
+
 bool AimpPlaylistQueue::IsSuspended::get()
 {
     IAIMPPropertyList *properties;
@@ -45,7 +55,7 @@ AimpActionResult AimpPlaylistQueue::AddList(System::Collections::Generic::IList<
     return result;
 }
 
-int AimpPlaylistQueue::Count()
+int AimpPlaylistQueue::GetItemCount()
 {
     return _aimpObject->GetItemCount();
 }

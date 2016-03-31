@@ -225,15 +225,15 @@ namespace DemoPlugin
 
         private void button10_Click(object sender, EventArgs e)
         {
-            IAimpPlayListItem item;
-            if (_aimpPlayer.PlayListManager.PlayListQueue.GetItem(0, out item) == AimpActionResult.Ok)
-            {
+            //IAimpPlayListItem item;
+            //if (_aimpPlayer.PlayListManager.PlayListQueue.GetItem(0, out item) == AimpActionResult.Ok)
+            //{
 
-            }
+            //}
 
-            _aimpPlayer.PlayListManager.PlayListQueue.StateChanged += PlayListQueue_StateChanged;
+            //_aimpPlayer.PlayListManager.PlayListQueue.StateChanged += PlayListQueue_StateChanged;
 
-            var i = _aimpPlayer.PlayListManager.PlayListQueue.Count();
+            //var i = _aimpPlayer.PlayListManager.PlayListQueue.Count();
         }
 
         private void PlayListQueue_StateChanged(object sender, EventArgs e)

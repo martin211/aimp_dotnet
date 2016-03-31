@@ -153,7 +153,7 @@
 
         object FocusedObject { get; set; }
 
-        bool GrouppingOvveriden { get; set; }
+        bool GrouppingOverriden { get; set; }
 
         bool Groupping { get; set; }
 
@@ -163,27 +163,27 @@
 
         bool FormatingOverride { get; set; }
 
-        string FirstLineTemplate { get; set; }
+        string FormatingLine1Template { get; set; }
 
-        string SecondLineTemplate { get; set; }
+        string FormatingLine2Template { get; set; }
 
         bool ViewOverride { get; set; }
 
-        bool ShowDuration { get; set; }
+        bool ViewDuration { get; set; }
 
-        bool ShowExpandButtons { get; set; }
+        bool ViewExpandButtons { get; set; }
 
-        bool ShowMarks { get; set; }
+        bool ViewMarks { get; set; }
 
-        bool ShowNumbers { get; set; }
+        bool ViewNumbers { get; set; }
 
-        bool ShowAbsoluteNumbers { get; set; }
+        bool ViewAbsoluteNumbers { get; set; }
 
-        bool ShowSecondLine { get; set; }
+        bool ViewSecondLine { get; set; }
 
-        bool ShowSwitches { get; set; }
+        bool ViewSwitches { get; set; }
 
-        int SelectedIndex { get; set; }
+        int FocusIndex { get; set; }
 
         int PlaybackCursor { get; set; }
 

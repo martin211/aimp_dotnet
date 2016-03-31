@@ -229,16 +229,16 @@ namespace AIMP
                 void set(bool value);
             }
 
-            virtual property String ^GrouppingTemplate
-            {
-                String ^get();
-                void set(String ^value);
-            }
-
             virtual property bool GrouppingAutomerging
             {
                 bool get();
                 void set(bool value);
+            }
+
+            virtual property String ^GrouppingTemplate
+            {
+                String ^get();
+                void set(String ^value);
             }
 
             virtual property bool FormatingOverride
@@ -247,13 +247,13 @@ namespace AIMP
                 void set(bool value);
             }
 
-            virtual property String ^Line1Template
+            virtual property String ^FormatingLine1Template
             {
                 String ^get();
                 void set(String ^value);
             }
 
-            virtual property String ^Line2Template
+            virtual property String ^FormatingLine2Template
             {
                 String ^get();
                 void set(String ^value);
@@ -289,7 +289,7 @@ namespace AIMP
                 void set(bool value);
             }
 
-            virtual property bool ViewNumbersAbsolute
+            virtual property bool ViewAbsoluteNumbers
             {
                 bool get();
                 void set(bool value);

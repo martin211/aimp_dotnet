@@ -2,25 +2,24 @@
 {
     using System.Collections.Generic;
 
-    public interface IAimpPlayListQueue
+    public interface IAimpPlayListQueue : IAimpPlaylistQueueListener
     {
         bool IsSuspended { get; set; }
 
-        void Add(IAimpPlayListItem item, bool insertAtBeginning);
+        AimpActionResult Add(IAimpPlayListItem item, bool insertAtBeginning);
 
-        void AddList(IList<IAimpPlayListItem> items, bool insertAtBeginning);
+        AimpActionResult AddList(IList<IAimpPlayListItem> items, bool insertAtBeginning);
 
-        void Delete(IAimpPlayListItem item);
+        AimpActionResult Delete(IAimpPlayListItem item);
 
-        void Delete(IAimpPlayList playList);
+        AimpActionResult Delete(IAimpPlayList playList);
 
-        void Move(IAimpPlayListItem item, int index);
+        AimpActionResult Move(IAimpPlayListItem item, int index);
 
-        void Move(int index, int targetIndex);
+        AimpActionResult Move(int index, int targetIndex);
 
-        // TODO: Add GetItem
-        //object GetItem(int index,);
+        AimpActionResult GetItem(int index, out IAimpPlayListItem item);
 
-        int Count();
+        int GetItemCount();
     }
 }
