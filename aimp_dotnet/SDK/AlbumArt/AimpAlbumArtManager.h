@@ -73,7 +73,10 @@ namespace AIMP
                         service = NULL;
                         prop = NULL;
                     }
+
+                    return false;
                 }
+
                 void set(bool value)
                 {
                     IAIMPServiceAlbumArt *service = NULL;
@@ -121,7 +124,10 @@ namespace AIMP
                         service = NULL;
                         prop = NULL;
                     }
+
+                    return false;
                 }
+
                 void set(bool value)
                 {
                     IAIMPServiceAlbumArt *service = NULL;
@@ -171,7 +177,10 @@ namespace AIMP
                         service = NULL;
                         prop = NULL;
                     }
+
+                    return nullptr;
                 }
+
                 void set(array<System::String^>^ val)
                 {
                     IAIMPServiceAlbumArt *service = NULL;
@@ -229,7 +238,10 @@ namespace AIMP
                         service = NULL;
                         prop = NULL;
                     }
+
+                    return nullptr;
                 }
+
                 void set(array<System::String^>^ val)
                 {
                     IAIMPServiceAlbumArt *service = NULL;

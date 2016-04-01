@@ -927,8 +927,9 @@ namespace AIMP
                     properties = NULL;
                 }
             }
-        }
 
+            return 0;
+        }
 
         String ^AimpPlayList::PreImage::get()
         {

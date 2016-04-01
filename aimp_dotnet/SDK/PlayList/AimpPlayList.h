@@ -9,12 +9,12 @@ namespace AIMP
     typedef boost::signal<void(void)> VoidSignal;
     typedef boost::signal<void(int)> IntSignal;
     typedef boost::signal<void(double)> DoubleSignal;
-    typedef boost::signal<void(bool, bool)> ScanningEndSignal;
+    typedef boost::signal<void(BOOL, BOOL)> ScanningEndSignal;
 
     typedef boost::signal<void(void)>::slot_function_type VoidSignalCB;
     typedef boost::signal<void(double)>::slot_function_type DoubleSignalCB;
     typedef boost::signal<void(int)>::slot_function_type DwordSignalCB;
-    typedef boost::signal<void(bool, bool)>::slot_function_type  ScanningEndSignalCB;
+    typedef boost::signal<void(BOOL, BOOL)>::slot_function_type  ScanningEndSignalCB;
 
     namespace SDK
     {

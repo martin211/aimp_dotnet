@@ -114,6 +114,8 @@ namespace AIMP
                 {
                     return _checkUrlHandler(url);
                 }
+
+                return false;
             }
         };
     }
