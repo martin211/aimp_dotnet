@@ -101,6 +101,9 @@
     <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AimpConverter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -120,66 +123,6 @@
     </ClInclude>
     <ClInclude Include="SDK\ManagedAimpCore.h">
       <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiActions.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiAlbumArt.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiCore.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiDecoders.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiFileManager.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiInternet.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiMenu.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiMessages.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiMUI.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiObjects.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiOptions.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiPlayer.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiPlaylists.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiPlugin.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiRemote.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiScheduler.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiSkins.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiTagEditor.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiThreading.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP360\apiVisuals.h">
-      <Filter>AIMPSDK\AIMP360</Filter>
     </ClInclude>
     <ClInclude Include="AimpSdk.h">
       <Filter>SDK</Filter>
@@ -296,6 +239,75 @@
       <Filter>SDK\Menu</Filter>
     </ClInclude>
     <ClInclude Include="Extensions\AimpExtensionPlaylistManagerListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AimpConverter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiActions.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiAlbumArt.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiCore.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiDecoders.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiFileManager.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiGUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiInternet.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiMenu.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiMessages.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiMUI.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiObjects.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiOptions.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiPlayer.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiPlaylists.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiPlugin.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiRemote.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiScheduler.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiSkins.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiTagEditor.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiThreading.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiVisuals.h">
+      <Filter>AIMPSDK\AIMP360</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMPSDK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
