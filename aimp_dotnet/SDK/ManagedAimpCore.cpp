@@ -322,6 +322,8 @@ namespace AIMP
                 _playlistManagerListener = NULL;
                 return r;
             }
+
+            return E_NOTIMPL;
         }
 
         HRESULT ManagedAimpCore::UnregisterExtension(IUnknown* extension)
