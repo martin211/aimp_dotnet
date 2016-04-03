@@ -61,7 +61,7 @@ namespace AIMP
                 {
                     if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
                     {
-                        IAIMPString* strKey = Converter::MakeAimpString(_core->GetAimpCore(), key);
+                        IAIMPString* strKey = AimpConverter::GetAimpString(key);
 
                         if (service->GetValue(strKey, &str) == S_OK)
                         {

@@ -101,7 +101,7 @@
     <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AimpConverter.cpp">
+    <ClCompile Include="SDK\AimpConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -241,9 +241,6 @@
     <ClInclude Include="Extensions\AimpExtensionPlaylistManagerListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AimpConverter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AIMPSDK\AIMP400\apiActions.h">
       <Filter>AIMPSDK\AIMP360</Filter>
     </ClInclude>
@@ -308,6 +305,9 @@
       <Filter>AIMPSDK\AIMP360</Filter>
     </ClInclude>
     <ClInclude Include="AIMPSDK\AIMPSDK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AimpConverter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
