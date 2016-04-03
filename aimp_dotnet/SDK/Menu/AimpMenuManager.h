@@ -1,6 +1,5 @@
 #pragma once
 
-#include "..\ManagedAimpCore.h"
 #include "..\BaseManager.h"
 #include "MenuItemEvent.h"
 #include "ICallBackHeader.h"

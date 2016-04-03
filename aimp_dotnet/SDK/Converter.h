@@ -45,41 +45,30 @@ namespace AIMP
                 return strObject;
             }
 
-            static IAIMPMenuItem *CreateMenuItem(IAIMPCore *core)
-            {
-                IAIMPMenuItem *item;
-                if (!CheckResult(core->CreateObject(IID_IAIMPMenuItem, (void**)&item)))
-                {
-                    //InternalLogger::Instance->Write("Unable create IAIMPMenuItem object");
-                    return NULL;
-                }
-                return item;
-            }
+            //static IAIMPAction *CreateActionItem(IAIMPCore *core)
+            //{
+            //    IAIMPAction *newAction;
+            //    if (!CheckResult(core->CreateObject(IID_IAIMPMenuItem, (void**)&newAction)))
+            //    {
+            //        //InternalLogger::Instance->Write("Unable create IAIMPAction object");
+            //        return NULL;
+            //    }
+            //    return newAction;
+            //}
 
-            static IAIMPAction *CreateActionItem(IAIMPCore *core)
-            {
-                IAIMPAction *newAction;
-                if (!CheckResult(core->CreateObject(IID_IAIMPMenuItem, (void**)&newAction)))
-                {
-                    //InternalLogger::Instance->Write("Unable create IAIMPAction object");
-                    return NULL;
-                }
-                return newAction;
-            }
+            //static IAIMPAction *CreateActionItem(IAIMPCore *core, AIMP::SDK::UI::ActionItem::AimpActionItem ^actionItem)
+            //{
+            //    IAIMPAction *action = Converter::CreateActionItem(core);
+            //    action->SetValueAsObject(AIMP_ACTION_PROPID_ID, Converter::MakeAimpString(core, actionItem->Id));
+            //    action->SetValueAsObject(AIMP_ACTION_PROPID_NAME, Converter::MakeAimpString(core, actionItem->Text));
+            //    if (!String::IsNullOrWhiteSpace(actionItem->GroupName))
+            //    {
+            //        action->SetValueAsObject(AIMP_ACTION_PROPID_GROUPNAME, Converter::MakeAimpString(core, actionItem->GroupName));
+            //    }
+            //    action->SetValueAsInt32(AIMP_ACTION_PROPID_ENABLED, actionItem->Enabled ? 1 : 0);
 
-            static IAIMPAction *CreateActionItem(IAIMPCore *core, AIMP::SDK::UI::ActionItem::AimpActionItem ^actionItem)
-            {
-                IAIMPAction *action = Converter::CreateActionItem(core);
-                action->SetValueAsObject(AIMP_ACTION_PROPID_ID, Converter::MakeAimpString(core, actionItem->Id));
-                action->SetValueAsObject(AIMP_ACTION_PROPID_NAME, Converter::MakeAimpString(core, actionItem->Text));
-                if (!String::IsNullOrWhiteSpace(actionItem->GroupName))
-                {
-                    action->SetValueAsObject(AIMP_ACTION_PROPID_GROUPNAME, Converter::MakeAimpString(core, actionItem->GroupName));
-                }
-                action->SetValueAsInt32(AIMP_ACTION_PROPID_ENABLED, actionItem->Enabled ? 1 : 0);
-
-                return action;
-            }
+            //    return action;
+            //}
 
             /// <summary>
             /// Sets the string.

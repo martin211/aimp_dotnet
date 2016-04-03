@@ -1,8 +1,6 @@
 #pragma once
 
 #include <vcclr.h>
-//#include "AIMPPlugin.h"
-#include "ManagedAimpCore.h"
 
 #include "SDK\Menu\AimpMenuManager.h"
 #include "SDK\Action\AimpActionManager.h"
