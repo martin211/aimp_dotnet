@@ -106,7 +106,10 @@
     </ClCompile>
     <ClCompile Include="SDK\AimpExtension.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>    
+    </ClCompile>
+    <ClCompile Include="SDK\PlayList\AimpPlaylistQueueListener.cpp">
+      <Filter>SDK\PlayList</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -241,9 +244,6 @@
     <ClInclude Include="Extensions\AimpExtensionPlaylistManagerListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>    
     <ClInclude Include="AIMPSDK\AIMP400\apiActions.h">
       <Filter>AIMPSDK\AIMP360</Filter>
     </ClInclude>
@@ -312,6 +312,9 @@
     </ClInclude>
     <ClInclude Include="SDK\AimpExtension.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h">
+      <Filter>SDK\PlayList</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -65,6 +65,16 @@ namespace DemoPlugin
                 }
             };
 
+            _aimpPlayer.PlayListManager.PlayListQueue.ContentChanged += (sender, args) =>
+            {
+
+            };
+
+            _aimpPlayer.PlayListManager.PlayListQueue.StateChanged += (sender, args) =>
+            {
+
+            };
+
             _aimpPlayer.StateChanged += (sender, args) =>
             {
                 switch (args.PlayerState)

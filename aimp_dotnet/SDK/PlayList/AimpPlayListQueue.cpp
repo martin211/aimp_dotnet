@@ -127,6 +127,8 @@ void AimpPlaylistQueue::StateChanged::add(EventHandler ^onEvent)
 {
     if (_stateChanged == nullptr)
     {
+        _stateChangedCallback = new AIMP::ConnectionCallback;
+        *_stateChangedCallback = _listner->RegisterStateChangedCallback(boost::bind(StateChangedCallback, gcroot<AimpPlaylistQueue^>(this)));
         _stateChanged = (EventHandler^)Delegate::Combine(_stateChanged, onEvent);
     }
 }
@@ -135,6 +137,7 @@ void AimpPlaylistQueue::StateChanged::remove(EventHandler ^onEvent)
 {
     if (_stateChanged != nullptr)
     {
+        _listner->UnregisterStateChangedCallback(_stateChangedCallback);
         _stateChanged = (EventHandler^)Delegate::Remove(_stateChanged, onEvent);
     }
 }
