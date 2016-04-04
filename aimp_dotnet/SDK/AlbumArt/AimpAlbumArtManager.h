@@ -197,7 +197,7 @@ namespace AIMP
                                 str += val[i] + ";";
                             }
 
-                            IAIMPString *s = AimpConverter::GetAimpString(str);
+                            IAIMPString *s = AimpExtension::GetAimpString(str);
                             prop->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, s);
                             s->Release();
                         }
@@ -258,7 +258,7 @@ namespace AIMP
                                 str += val[i] + ";";
                             }
 
-                            IAIMPString *s = AimpConverter::GetAimpString(str);
+                            IAIMPString *s = AimpExtension::GetAimpString(str);
                             prop->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, s);
                             s->Release();
                         }
@@ -296,11 +296,11 @@ namespace AIMP
 
                 if (image_container != NULL && image == NULL)
                 {
-                    args->CoverImage = AimpConverter::GetBitmap(image_container);
+                    args->CoverImage = AimpExtension::GetBitmap(image_container);
                 }
                 else if (image != NULL)
                 {
-                    args->CoverImage = AimpConverter::GetBitmap(image);
+                    args->CoverImage = AimpExtension::GetBitmap(image);
                 }
 
                 Completed(this, args);
@@ -312,9 +312,9 @@ namespace AIMP
                 _findCallback = gcnew OnFindCoverCallback(this, &AIMP::AimpAlbumArtManager::OnAlbumArtReceive);
                 //TAIMPServiceAlbumArtReceiveProc *f = &test;
                 IntPtr thunk = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_findCallback);
-                IAIMPString *sFileUrl = AimpConverter::GetAimpString(fileUrl);
-                IAIMPString *sArtist = AimpConverter::GetAimpString(artist);
-                IAIMPString *sAlbum = AimpConverter::GetAimpString(album);
+                IAIMPString *sFileUrl = AimpExtension::GetAimpString(fileUrl);
+                IAIMPString *sArtist = AimpExtension::GetAimpString(artist);
+                IAIMPString *sAlbum = AimpExtension::GetAimpString(album);
 
 
                 IAIMPServiceAlbumArt *service = NULL;

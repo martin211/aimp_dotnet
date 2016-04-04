@@ -14,7 +14,7 @@ namespace AIMP
         /// <summary>
         /// Aimp  Converter helper class.
         /// </summary>
-        public ref class AimpConverter sealed
+        public ref class AimpExtension sealed
         {
         internal:
             /// <summary>

@@ -14,7 +14,7 @@ namespace AIMP
 
         AimpPlayListItem::AimpPlayListItem()
         {
-            //_aimpObject = AimpConverter::GetObject<IAIMPPlaylistItem>(IID_IAIMPPlaylistItem);
+            //_aimpObject = AimpExtension::GetObject<IAIMPPlaylistItem>(IID_IAIMPPlaylistItem);
         }
 
         System::String^ AimpPlayListItem::DisplayText::get()

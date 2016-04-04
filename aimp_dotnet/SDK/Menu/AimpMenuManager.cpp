@@ -118,7 +118,7 @@ namespace AIMP
                         return AimpActionResult::Fail;
                     }
 
-                    idString = AimpConverter::GetAimpString(id);
+                    idString = AimpExtension::GetAimpString(id);
                     
                     service->GetByID(idString, &aimpMenuItem);
 
@@ -161,7 +161,7 @@ namespace AIMP
                         return AimpActionResult::Fail;
                     }
 
-                    menuId = AimpConverter::GetAimpString(id);
+                    menuId = AimpExtension::GetAimpString(id);
                     result = CheckResult(service->GetByID(menuId, &aimpMenuItem));
                     
                     if (result != AimpActionResult::Ok)

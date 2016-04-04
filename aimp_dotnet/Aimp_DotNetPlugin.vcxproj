@@ -22,7 +22,7 @@
     <None Include="AIMP_Exports.def" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SDK\AimpConverter.cpp" />
+    <ClCompile Include="SDK\AimpExtension.cpp" />
     <ClCompile Include="AimpDotnetPlugin.cpp" />
     <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp" />
     <ClCompile Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.cpp" />
@@ -39,7 +39,7 @@
     <ClCompile Include="Stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SDK\AimpConverter.h" />
+    <ClInclude Include="SDK\AimpExtension.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiGUI.h" />
     <ClInclude Include="AIMPSDK\AIMPSDK.h" />
     <ClInclude Include="Extensions\AimpExtensionPlaylistManagerListener.h" />
