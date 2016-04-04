@@ -2,7 +2,7 @@
 
 #include "AIMPSDK\AIMPSDK.h"
 
-#include "SDK\AimpConverter.h"
+#include "SDK\AimpExtension.h"
 
 #include "Utils.h"
 #include "SDK\AimpObject.h"

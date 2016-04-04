@@ -1024,7 +1024,7 @@ namespace AIMP
 
         AimpActionResult AimpPlayList::Add(String^ fileUrl, PlayListFlags flags, PlayListFilePosition filePosition)
         {
-            IAIMPString *url = AimpConverter::GetAimpString(fileUrl);
+            IAIMPString *url = AimpExtension::GetAimpString(fileUrl);
             AimpActionResult res = CheckResult(InternalAimpObject->Add(url, (DWORD)flags, (int)filePosition));
             url->Release();
             url = NULL;
@@ -1072,7 +1072,7 @@ namespace AIMP
                 {
                     for (int i = 0; i < fileUrlList->Count; i++)
                     {
-                        IAIMPString *str = AimpConverter::GetAimpString(fileUrlList[i]);
+                        IAIMPString *str = AimpExtension::GetAimpString(fileUrlList[i]);
                         list->Add(str);
                         str->Release();
                         str = NULL;
@@ -1145,7 +1145,7 @@ namespace AIMP
                 IAIMPString *str;
                 if (collection->GetObject(i, IID_IAIMPString, (void**)&str) == S_OK)
                 {
-                    result->Add(AimpConverter::GetString(str));
+                    result->Add(AimpExtension::GetString(str));
                     str->Release();
                     str = NULL;
                 }

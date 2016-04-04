@@ -101,7 +101,7 @@
     <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SDK\AimpConverter.cpp">
+    <ClCompile Include="SDK\AimpExtension.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -304,7 +304,7 @@
     <ClInclude Include="AIMPSDK\AIMPSDK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\AimpConverter.h">
+    <ClInclude Include="SDK\AimpExtension.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

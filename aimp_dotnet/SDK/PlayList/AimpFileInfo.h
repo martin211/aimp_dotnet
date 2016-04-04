@@ -45,7 +45,7 @@ namespace AIMP
 
                     if (container != NULL)
                     {
-                        bmp = AimpConverter::GetBitmap(container);
+                        bmp = AimpExtension::GetBitmap(container);
                         container->Release();
                     }
                     else
@@ -55,7 +55,7 @@ namespace AIMP
                         _aimpObject->GetValueAsObject(AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImage, (void**)&image);
                         if (image != NULL)
                         {
-                            bmp = AimpConverter::GetBitmap(image);
+                            bmp = AimpExtension::GetBitmap(image);
                             image->Release();
                         }
                     }

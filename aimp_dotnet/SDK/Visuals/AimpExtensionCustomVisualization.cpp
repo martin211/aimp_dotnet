@@ -10,6 +10,6 @@ int AimpExtensionCustomVisualization::GetFlags()
 
 void AimpExtensionCustomVisualization::Draw(PAIMPVisualData Data)
 {
-    AIMP::SDK::Visuals::AimpVisualData ^data = AIMP::SDK::AimpConverter::PAIMPVisualDataToManaged(Data);
+    AIMP::SDK::Visuals::AimpVisualData ^data = AIMP::SDK::AimpExtension::PAIMPVisualDataToManaged(Data);
     _managedObject->Draw(data);
 }

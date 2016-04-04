@@ -146,7 +146,7 @@ namespace AIMP
                 {
                     if (value != nullptr)
                     {
-                        IAIMPImage *image = AimpConverter::GetImage(value);
+                        IAIMPImage *image = AimpExtension::GetImage(value);
                         InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_GLYPH, image);
                         image->Release();
                     }

@@ -1,6 +1,6 @@
 #include "..\Stdafx.h"
 
-#include "AimpConverter.h"
+#include "AimpExtension.h"
 #include "..\Utils.h"
 #include "ManagedAimpCore.h"
 
@@ -9,7 +9,7 @@ namespace AIMP
     namespace SDK
     {
         template<typename TAimpNativeObject>
-        TAimpNativeObject* AimpConverter::GetObject(REFIID objectId)
+        TAimpNativeObject* AimpExtension::GetObject(REFIID objectId)
         {
             TAimpNativeObject* object = NULL;
 
@@ -21,7 +21,7 @@ namespace AIMP
             return NULL;
         }
 
-        IAIMPString* AimpConverter::GetAimpString(String ^value)
+        IAIMPString* AimpExtension::GetAimpString(String ^value)
         {
             IAIMPString *strObject = GetObject<IAIMPString>(IID_IAIMPString);
             pin_ptr<const WCHAR> strDate = PtrToStringChars(value);
@@ -29,7 +29,7 @@ namespace AIMP
             return strObject;
         }
 
-        IAIMPImage* AimpConverter::GetImage(System::Drawing::Bitmap^ image)
+        IAIMPImage* AimpExtension::GetImage(System::Drawing::Bitmap^ image)
         {
             System::IO::MemoryStream ^stream;
             IAIMPStream *aimpStream = NULL;
@@ -69,12 +69,12 @@ namespace AIMP
             return NULL;
         }
 
-        IAIMPCore* AimpConverter::GetCore()
+        IAIMPCore* AimpExtension::GetCore()
         {
             return AIMP::SDK::ManagedAimpCore::GetAimpCore();
         }
 
-        AIMP::SDK::Visuals::AimpVisualData^ AimpConverter::PAIMPVisualDataToManaged(PAIMPVisualData data)
+        AIMP::SDK::Visuals::AimpVisualData^ AimpExtension::PAIMPVisualDataToManaged(PAIMPVisualData data)
         {
             AIMP::SDK::Visuals::AimpVisualData ^result = gcnew AIMP::SDK::Visuals::AimpVisualData();
             result->Peaks = gcnew array<float>(2);
@@ -107,7 +107,7 @@ namespace AIMP
             return result;
         }
 
-        System::Drawing::Bitmap^ AimpConverter::GetBitmap(IAIMPImageContainer* imageContainer)
+        System::Drawing::Bitmap^ AimpExtension::GetBitmap(IAIMPImageContainer* imageContainer)
         {
             IAIMPImage* image = NULL;
             try
@@ -132,7 +132,7 @@ namespace AIMP
             }
         }
 
-        System::Drawing::Bitmap^ AimpConverter::GetBitmap(IAIMPImage* image)
+        System::Drawing::Bitmap^ AimpExtension::GetBitmap(IAIMPImage* image)
         {
             SIZE size;
             if (Utils::CheckResult(image->GetSize(&size)) == AimpActionResult::Ok)
@@ -182,7 +182,7 @@ namespace AIMP
             return nullptr;
         }
 
-        IAIMPImageContainer* AimpConverter::ToContainer(System::Drawing::Bitmap ^image)
+        IAIMPImageContainer* AimpExtension::ToContainer(System::Drawing::Bitmap ^image)
         {
             IAIMPImageContainer *container;
             if (Utils::CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImageContainer, (void**)&container)) == AimpActionResult::Ok)
@@ -218,7 +218,7 @@ namespace AIMP
             return NULL;
         }
 
-        String^ AimpConverter::GetString(IAIMPString* value)
+        String^ AimpExtension::GetString(IAIMPString* value)
         {
             return gcnew String(value->GetData());
         }
@@ -239,7 +239,7 @@ namespace AIMP
             IAIMPString *str = NULL;
             try
             {
-                str = AimpConverter::GetAimpString(value);
+                str = AimpExtension::GetAimpString(value);
                 return SetObject(propertyList, propertyId, str);
             }
             finally
