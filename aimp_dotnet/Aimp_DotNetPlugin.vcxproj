@@ -24,6 +24,7 @@
   <ItemGroup>
     <ClCompile Include="SDK\AimpExtension.cpp" />
     <ClCompile Include="AimpDotnetPlugin.cpp" />
+    <ClCompile Include="SDK\PlayList\AimpPlaylistQueueListener.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlayListQueue.cpp" />
     <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp" />
     <ClCompile Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.cpp" />
