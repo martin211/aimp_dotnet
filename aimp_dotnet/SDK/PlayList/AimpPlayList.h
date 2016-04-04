@@ -422,6 +422,7 @@ namespace AIMP
             virtual void Release();
 
         private:
+            AimpActionResult GetProperties(IAIMPPropertyList** properties);
             AimpFileInfo ^CreateFileInfo(IAimpFileInfo ^fi);
 
             void RegisterListner();

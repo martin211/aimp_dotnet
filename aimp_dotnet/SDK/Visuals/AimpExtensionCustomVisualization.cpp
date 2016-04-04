@@ -1,6 +1,6 @@
 #include "..\..\Stdafx.h"
 #include "AimpExtensionCustomVisualization.h"
-#include "..\..\SDK\Converter.h"
+//#include "..\..\SDK\Converter.h"
 
 
 int AimpExtensionCustomVisualization::GetFlags()
@@ -10,6 +10,6 @@ int AimpExtensionCustomVisualization::GetFlags()
 
 void AimpExtensionCustomVisualization::Draw(PAIMPVisualData Data)
 {
-    AIMP::SDK::Visuals::AimpVisualData ^data = AIMP::SDK::Converter::PAIMPVisualDataToManaged(Data);
+    AIMP::SDK::Visuals::AimpVisualData ^data = AIMP::SDK::AimpConverter::PAIMPVisualDataToManaged(Data);
     _managedObject->Draw(data);
 }
