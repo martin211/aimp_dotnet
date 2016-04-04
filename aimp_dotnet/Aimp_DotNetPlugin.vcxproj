@@ -22,6 +22,7 @@
     <None Include="AIMP_Exports.def" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SDK\AimpExtension.cpp" />
     <ClCompile Include="AimpDotnetPlugin.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlayListQueue.cpp" />
     <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp" />
@@ -39,32 +40,35 @@
     <ClCompile Include="Stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SDK\AimpExtension.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiGUI.h" />
+    <ClInclude Include="AIMPSDK\AIMPSDK.h" />
     <ClInclude Include="Extensions\AimpExtensionPlaylistManagerListener.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />
     <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h" />
     <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h" />
     <ClInclude Include="Extensions\AimpExtensionAlbumArtCatalog.h" />
     <ClInclude Include="AimpSdk.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiActions.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiAlbumArt.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiCore.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiDecoders.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiFileManager.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiInternet.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiMenu.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiMessages.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiMUI.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiObjects.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiOptions.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiPlayer.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiPlaylists.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiPlugin.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiRemote.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiScheduler.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiSkins.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiTagEditor.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiThreading.h" />
-    <ClInclude Include="AIMPSDK\AIMP360\apiVisuals.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiActions.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiAlbumArt.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiCore.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiDecoders.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiFileManager.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiInternet.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiMenu.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiMessages.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiMUI.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiObjects.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiOptions.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiPlayer.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiPlaylists.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiPlugin.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiRemote.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiScheduler.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiSkins.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiTagEditor.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiThreading.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiVisuals.h" />
     <ClInclude Include="DataConversion.h" />
     <ClInclude Include="DotNetPlugin.h" />
     <ClInclude Include="Extensions\AimpExtensionAlbumArtProvider.h" />
@@ -87,7 +91,6 @@
     <ClInclude Include="SDK\Menu\ICallBackHeader.h" />
     <ClInclude Include="SDK\Menu\MenuItemEvent.h" />
     <ClInclude Include="SDK\MUI\MUIManager.h" />
-    <ClInclude Include="SDK\Converter.h" />
     <ClInclude Include="SDK\Options\AimpOptionsDialogFrame.h" />
     <ClInclude Include="SDK\Options\AimpServiceOptionsDialog.h" />
     <ClInclude Include="SDK\Playback\AimpPlaybackQueueItem.h" />

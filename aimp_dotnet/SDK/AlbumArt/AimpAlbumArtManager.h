@@ -73,7 +73,10 @@ namespace AIMP
                         service = NULL;
                         prop = NULL;
                     }
+
+                    return false;
                 }
+
                 void set(bool value)
                 {
                     IAIMPServiceAlbumArt *service = NULL;
@@ -121,7 +124,10 @@ namespace AIMP
                         service = NULL;
                         prop = NULL;
                     }
+
+                    return false;
                 }
+
                 void set(bool value)
                 {
                     IAIMPServiceAlbumArt *service = NULL;
@@ -171,7 +177,10 @@ namespace AIMP
                         service = NULL;
                         prop = NULL;
                     }
+
+                    return nullptr;
                 }
+
                 void set(array<System::String^>^ val)
                 {
                     IAIMPServiceAlbumArt *service = NULL;
@@ -187,8 +196,8 @@ namespace AIMP
                             {
                                 str += val[i] + ";";
                             }
-                            IAIMPString *s = Converter::MakeAimpString(_core->GetAimpCore(), str);
 
+                            IAIMPString *s = AimpExtension::GetAimpString(str);
                             prop->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, s);
                             s->Release();
                         }
@@ -229,7 +238,10 @@ namespace AIMP
                         service = NULL;
                         prop = NULL;
                     }
+
+                    return nullptr;
                 }
+
                 void set(array<System::String^>^ val)
                 {
                     IAIMPServiceAlbumArt *service = NULL;
@@ -246,7 +258,7 @@ namespace AIMP
                                 str += val[i] + ";";
                             }
 
-                            IAIMPString *s = Converter::MakeAimpString(_core->GetAimpCore(), str);
+                            IAIMPString *s = AimpExtension::GetAimpString(str);
                             prop->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, s);
                             s->Release();
                         }
@@ -284,11 +296,11 @@ namespace AIMP
 
                 if (image_container != NULL && image == NULL)
                 {
-                    args->CoverImage = Converter::GetBitmap(image_container);
+                    args->CoverImage = AimpExtension::GetBitmap(image_container);
                 }
                 else if (image != NULL)
                 {
-                    args->CoverImage = Converter::GetBitmap(image);
+                    args->CoverImage = AimpExtension::GetBitmap(image);
                 }
 
                 Completed(this, args);
@@ -300,9 +312,9 @@ namespace AIMP
                 _findCallback = gcnew OnFindCoverCallback(this, &AIMP::AimpAlbumArtManager::OnAlbumArtReceive);
                 //TAIMPServiceAlbumArtReceiveProc *f = &test;
                 IntPtr thunk = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_findCallback);
-                IAIMPString *sFileUrl = Converter::MakeAimpString(_core->GetAimpCore(), fileUrl);
-                IAIMPString *sArtist = Converter::MakeAimpString(_core->GetAimpCore(), artist);
-                IAIMPString *sAlbum = Converter::MakeAimpString(_core->GetAimpCore(), album);
+                IAIMPString *sFileUrl = AimpExtension::GetAimpString(fileUrl);
+                IAIMPString *sArtist = AimpExtension::GetAimpString(artist);
+                IAIMPString *sAlbum = AimpExtension::GetAimpString(album);
 
 
                 IAIMPServiceAlbumArt *service = NULL;

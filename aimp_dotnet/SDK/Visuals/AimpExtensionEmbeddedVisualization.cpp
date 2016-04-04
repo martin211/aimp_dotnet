@@ -1,6 +1,6 @@
 #include "..\..\Stdafx.h"
 #include "AimpExtensionEmbeddedVisualization.h"
-#include "..\..\SDK\Converter.h"
+#include "..\..\SDK\AimpExtension.h"
 
 int AimpExtensionEmbeddedVisualization::GetFlags()
 {
@@ -60,7 +60,7 @@ void AimpExtensionEmbeddedVisualization::Click(int X, int Y, int Button)
 
 void AimpExtensionEmbeddedVisualization::Draw(HDC DC, PAIMPVisualData Data)
 {
-    AIMP::SDK::Visuals::AimpVisualData ^data = AIMP::SDK::Converter::PAIMPVisualDataToManaged(Data);
+    AIMP::SDK::Visuals::AimpVisualData ^data = AIMP::SDK::AimpExtension::PAIMPVisualDataToManaged(Data);
     _managedObject->Draw(System::IntPtr(DC), data);
 }
 

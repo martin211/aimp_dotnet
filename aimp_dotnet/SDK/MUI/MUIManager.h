@@ -1,7 +1,6 @@
 #pragma once
 
 #include "..\BaseManager.h"
-#include "..\Converter.h"
 
 namespace AIMP
 {
@@ -61,7 +60,7 @@ namespace AIMP
                 {
                     if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
                     {
-                        IAIMPString* strKey = Converter::MakeAimpString(_core->GetAimpCore(), key);
+                        IAIMPString* strKey = AimpExtension::GetAimpString(key);
 
                         if (service->GetValue(strKey, &str) == S_OK)
                         {
@@ -102,7 +101,7 @@ namespace AIMP
                 {
                     if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
                     {
-                        IAIMPString* strKey = Converter::MakeAimpString(_core->GetAimpCore(), key);
+                        IAIMPString* strKey = AimpExtension::GetAimpString(key);
                         service->GetValuePart(strKey, index, &str);
 
                         strKey->Release();

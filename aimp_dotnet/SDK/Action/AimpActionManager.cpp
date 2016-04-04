@@ -1,8 +1,6 @@
 #pragma once
-
 #include "..\..\Stdafx.h"
 #include "AimpActionManager.h"
-#include "..\Converter.h"
 
 namespace AIMP
 {
@@ -50,9 +48,9 @@ namespace AIMP
             //_core->GetAimpCore()->RegisterExtension(AIMP36SDK::IID_IAIMPServiceMenuManager, newAction);
 
             IAIMPAction* newAction;
-            IAIMPString* actionIdString = Converter::MakeAimpString(_core->GetAimpCore(), menuItem->Id);
-            IAIMPString* actionNameString = Converter::MakeAimpString(_core->GetAimpCore(), menuItem->Text);
-            IAIMPString* actionGroupString = Converter::MakeAimpString(_core->GetAimpCore(), menuItem->GroupName);
+            IAIMPString* actionIdString = AimpExtension::GetAimpString(menuItem->Id);
+            IAIMPString* actionNameString = AimpExtension::GetAimpString(menuItem->Text);
+            IAIMPString* actionGroupString = AimpExtension::GetAimpString(menuItem->GroupName);
 
             _core->GetAimpCore()->CreateObject(IID_IAIMPAction, (void**)&newAction);
 

@@ -1,5 +1,4 @@
 #pragma once
-#include "..\Converter.h"
 #include "MenuItemEvent.h"
 
 namespace AIMP
@@ -64,13 +63,15 @@ namespace AIMP
             {
                 String ^get()
                 {
-                    return Converter::GetString(InternalAimpObject, AIMP_MENUITEM_PROPID_ID);
+                    String^ str = nullptr;
+                    PropertyListExtension::GetString(InternalAimpObject, AIMP_MENUITEM_PROPID_ID, *&str);
+                    return str;
                 }
 
                 void set(String ^value)
                 {
                     _id = value;
-                    Converter::SetString(InternalAimpObject, AIMP_MENUITEM_PROPID_ID, value);
+                    PropertyListExtension::SetString(InternalAimpObject, AIMP_MENUITEM_PROPID_ID, value);
                 }
             }
 
@@ -78,12 +79,14 @@ namespace AIMP
             {
                 String ^get()
                 {
-                    return Converter::GetString(InternalAimpObject, AIMP_MENUITEM_PROPID_NAME);
+                    String^ str = nullptr;
+                    PropertyListExtension::GetString(InternalAimpObject, AIMP_MENUITEM_PROPID_NAME, *&str);
+                    return str;
                 }
 
                 void set(String ^value)
                 {
-                    Converter::SetString(InternalAimpObject, AIMP_MENUITEM_PROPID_NAME, value);
+                    PropertyListExtension::SetString(InternalAimpObject, AIMP_MENUITEM_PROPID_NAME, value);
                 }
             }
 
@@ -91,12 +94,14 @@ namespace AIMP
             {
                 bool get()
                 {
-                    return Converter::GetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_CHECKED);
+                    bool val = false;
+                    PropertyListExtension::GetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_CHECKED, val);
+                    return val;
                 }
 
                 void set(bool value)
                 {
-                    Converter::SetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_CHECKED, value);
+                    PropertyListExtension::SetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_CHECKED, value);
                 }
             }
 
@@ -104,12 +109,14 @@ namespace AIMP
             {
                 bool get()
                 {
-                    return Converter::GetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_ENABLED);
+                    bool val = false;
+                    PropertyListExtension::GetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_ENABLED, val);
+                    return val;
                 }
 
                 void set(bool value)
                 {
-                    Converter::SetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_ENABLED, value);
+                    PropertyListExtension::SetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_ENABLED, value);
                 }
             }
 
@@ -117,12 +124,14 @@ namespace AIMP
             {
                 bool get()
                 {
-                    return Converter::GetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_VISIBLE);
+                    bool val = false;
+                    PropertyListExtension::GetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_VISIBLE, val);
+                    return val;
                 }
 
                 void set(bool value)
                 {
-                    Converter::SetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_VISIBLE, value);
+                    PropertyListExtension::SetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_VISIBLE, value);
                 }
             }
 
@@ -137,7 +146,7 @@ namespace AIMP
                 {
                     if (value != nullptr)
                     {
-                        IAIMPImage *image = Converter::CreateImage(value);
+                        IAIMPImage *image = AimpExtension::GetImage(value);
                         InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_GLYPH, image);
                         image->Release();
                     }
@@ -166,12 +175,14 @@ namespace AIMP
             {
                 AimpMenuItemStyle get()
                 {
-                    return (AimpMenuItemStyle)Converter::GetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_STYLE);
+                    int val = 0;
+                    PropertyListExtension::GetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_STYLE, val);
+                    return (AimpMenuItemStyle)val;
                 }
 
                 void set(AimpMenuItemStyle value)
                 {
-                    Converter::SetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_STYLE, (int)value);
+                    PropertyListExtension::SetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_STYLE, (int)value);
                 }
             }
 

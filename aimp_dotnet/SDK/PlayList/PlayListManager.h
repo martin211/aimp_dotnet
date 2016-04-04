@@ -140,7 +140,7 @@ namespace AIMP
 
                 if (res == AimpActionResult::Ok)
                 {
-                    str = Converter::MakeAimpString(_core->GetAimpCore(), name);
+                    str = AimpExtension::GetAimpString(name);
                     res = CheckResult(service->CreatePlaylist(str, (BOOL)isActive, &pl));
 
                     if (res == AimpActionResult::Ok)
@@ -175,7 +175,7 @@ namespace AIMP
                 AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
                 if (res == AimpActionResult::Ok)
                 {
-                    str = Converter::MakeAimpString(_core->GetAimpCore(), fileName);
+                    str = AimpExtension::GetAimpString(fileName);
                     res = CheckResult(service->CreatePlaylistFromFile(str, (BOOL)isActive, &pl));
 
                     if (res == AimpActionResult::Ok)
@@ -280,7 +280,7 @@ namespace AIMP
                 AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
                 if (res == AimpActionResult::Ok)
                 {
-                    key = Converter::MakeAimpString(_core->GetAimpCore(), id);
+                    key = AimpExtension::GetAimpString(id);
                     res = CheckResult(service->GetLoadedPlaylistByID(key, &pl));
                     if (res == AimpActionResult::Ok)
                     {
@@ -316,7 +316,7 @@ namespace AIMP
 
                 if (res == AimpActionResult::Ok)
                 {
-                    key = Converter::MakeAimpString(_core->GetAimpCore(), name);
+                    key = AimpExtension::GetAimpString(name);
                     res = CheckResult(service->GetLoadedPlaylistByName(key, &pl));
 
                     if (res == AimpActionResult::Ok)
@@ -360,8 +360,8 @@ namespace AIMP
             {
                 IAIMPPropertyList *properties;
                 playlist->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
-                String ^name = AIMP::SDK::Converter::GetString(properties, AIMP_PLAYLIST_PROPID_NAME);
-                String ^id = AIMP::SDK::Converter::GetString(properties, AIMP_PLAYLIST_PROPID_ID);
+                String ^name = AIMP::SDK::PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_NAME);
+                String ^id = AIMP::SDK::PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_ID);
                 this->PlaylistActivated(name, id);
                 properties->Release();
                 properties = NULL;
@@ -371,8 +371,8 @@ namespace AIMP
             {
                 IAIMPPropertyList *properties;
                 playlist->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
-                String ^name = AIMP::SDK::Converter::GetString(properties, AIMP_PLAYLIST_PROPID_NAME);
-                String ^id = AIMP::SDK::Converter::GetString(properties, AIMP_PLAYLIST_PROPID_ID);
+                String ^name = AIMP::SDK::PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_NAME);
+                String ^id = AIMP::SDK::PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_ID);
                 this->PlaylistAdded(name, id);
                 properties->Release();
                 properties = NULL;
@@ -382,8 +382,8 @@ namespace AIMP
             {
                 IAIMPPropertyList *properties;
                 playlist->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
-                String ^name = AIMP::SDK::Converter::GetString(properties, AIMP_PLAYLIST_PROPID_NAME);
-                String ^id = AIMP::SDK::Converter::GetString(properties, AIMP_PLAYLIST_PROPID_ID);
+                String ^name = AIMP::SDK::PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_NAME);
+                String ^id = AIMP::SDK::PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_ID);
                 this->PlaylistRemoved(name, id);
                 properties->Release();
                 properties = NULL;

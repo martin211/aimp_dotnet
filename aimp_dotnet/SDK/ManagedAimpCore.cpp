@@ -2,7 +2,6 @@
 #include "ManagedAimpCore.h"
 #include "..\IUnknownInterfaceImpl.h"
 #include "PlayList\AimpPlayList.h"
-#include "Converter.h"
 #include "..\AimpSdk.h"
 #include "..\Extensions\OptionsDialogFrameExtension.h"
 #include "..\Extensions\AimpExtensionAlbumArtCatalog.h"
@@ -44,14 +43,14 @@ namespace AIMP
 
             virtual HRESULT WINAPI OnCheckURL(IAIMPString* URL, BOOL *Handled)
             {
-                String ^url = Converter::GetString(URL);
+                String ^url = AimpExtension::GetString(URL);
                 bool handled = _managedCore->OnCheckUrl(*&url);
 
                 if (handled)
                 {
                     // TODO: Optimize it
                     *Handled = 1;
-                    IAIMPString *str = Converter::MakeAimpString(this->_managedCore->GetAimpCore(), url);
+                    IAIMPString *str = AimpExtension::GetAimpString(url);
                     URL->SetData(str->GetData(), str->GetLength());
                     str->Release();
                     str = NULL;
@@ -166,11 +165,8 @@ namespace AIMP
         AIMP::SDK::AimpActionResult ManagedAimpCore::GetPath(AIMP::SDK::AimpMessages::AimpCorePathType pathType, String ^%pathResult)
         {
             IAIMPString* res;
-            //_core->GetPath((int)pathType, &res);
-            //IAIMPString_ptr path(res, false);
-            //pathResult = gcnew System::String(std::wstring(path->GetData(), path->GetLength()).c_str());
             _core->GetPath((int)pathType, &res);
-            pathResult = Converter::GetString(res);
+            pathResult = AimpExtension::GetString(res);
             res->Release();
             return AIMP::SDK::AimpActionResult::Ok;
         }
@@ -322,6 +318,8 @@ namespace AIMP
                 _playlistManagerListener = NULL;
                 return r;
             }
+
+            return E_NOTIMPL;
         }
 
         HRESULT ManagedAimpCore::UnregisterExtension(IUnknown* extension)
@@ -442,7 +440,7 @@ namespace AIMP
 
         HRESULT ManagedAimpCore::ShowNotification(bool autoHide, String ^notification)
         {
-            IAIMPString *str = Converter::MakeAimpString(_core, notification);
+            IAIMPString *str = AimpExtension::GetAimpString(notification);
             HRESULT r = _messageDispatcher->Send((DWORD)AIMP::SDK::AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION, autoHide ? 0 : 1, str->GetData());
             str->Release();
             return r;
