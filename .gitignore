@@ -40,3 +40,5 @@ Release
 CSRelease
 
 include/boost/*
+*.opendb
+*.db

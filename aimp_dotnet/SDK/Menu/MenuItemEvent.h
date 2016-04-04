@@ -6,7 +6,7 @@ namespace AIMP
 {
     namespace SDK
     {
-#include "..\..\AIMPSDK\AIMP360\apiActions.h"
+#include "..\..\AIMPSDK\AIMP400\apiActions.h"
 
         typedef boost::signals::connection EventCallback;
         typedef boost::signal<void(void)> EventChangedSignal;

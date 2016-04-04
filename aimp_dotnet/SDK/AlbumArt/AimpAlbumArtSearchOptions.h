@@ -63,7 +63,7 @@ namespace AIMP
                     {
                         str += val[i] + ";";
                     }
-                    _properties->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, Converter::MakeAimpString(_core, str));
+                    _properties->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, AimpExtension::GetAimpString(str));
                 }
             }
 
@@ -84,7 +84,7 @@ namespace AIMP
                     {
                         str += val[i] + ";";
                     }
-                    IAIMPString *s = Converter::MakeAimpString(_core, str);
+                    IAIMPString *s = AimpExtension::GetAimpString(str);
                     _properties->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, s);
                     s->Release();
                 }

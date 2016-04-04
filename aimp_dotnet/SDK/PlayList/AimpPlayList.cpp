@@ -7,6 +7,14 @@ namespace AIMP
 {
     namespace SDK
     {
+        AimpActionResult AimpPlayList::GetProperties(IAIMPPropertyList** properties)
+        {
+            IAIMPPropertyList *prop = NULL;
+            AimpActionResult result = CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&prop));
+            *properties = prop;
+            return result;
+        }
+
         AimpPlayList::AimpPlayList(IAIMPPlaylist *aimpPlayList) : AimpObject(aimpPlayList)
         {
         }
@@ -114,8 +122,10 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetString(properties, AIMP_PLAYLIST_PROPID_ID);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                {
+                    return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_ID);
+                }
 
                 return nullptr;
             }
@@ -134,8 +144,10 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetString(properties, AIMP_PLAYLIST_PROPID_NAME);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                {
+                    return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_NAME);
+                }
 
                 return nullptr;
             }
@@ -154,8 +166,10 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetString(properties, AIMP_PLAYLIST_PROPID_NAME, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                {
+                    PropertyListExtension::SetString(properties, AIMP_PLAYLIST_PROPID_NAME, value);
+                }
             }
             finally
             {
@@ -172,8 +186,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetBool(properties, AIMP_PLAYLIST_PROPID_READONLY);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_READONLY);
 
                 return false;
             }
@@ -192,8 +206,10 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetBool(properties, AIMP_PLAYLIST_PROPID_READONLY, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                {
+                    PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_READONLY, value);
+                }
             }
             finally
             {
@@ -207,20 +223,24 @@ namespace AIMP
 
         Object ^AimpPlayList::FocusedObject::get()
         {
+            // todo
             return nullptr;
         }
 
         void AimpPlayList::FocusedObject::set(Object ^value)
-        {}
+        {
+        // todo
+        }
 
 
         bool AimpPlayList::GrouppingOverriden::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING_OVERRIDEN);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING_OVERRIDEN);
 
                 return false;
             }
@@ -239,8 +259,10 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING_OVERRIDEN, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                {
+                    PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING_OVERRIDEN, value);
+                }
             }
             finally
             {
@@ -256,12 +278,11 @@ namespace AIMP
         bool AimpPlayList::Groupping::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING);
-
-                return false;
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING);
             }
             finally
             {
@@ -278,8 +299,10 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                {
+                    PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING, value);
+                }
             }
             finally
             {
@@ -295,10 +318,11 @@ namespace AIMP
         String ^AimpPlayList::GrouppingTemplate::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetString(properties, AIMP_PLAYLIST_PROPID_GROUPPING_TEMPLATE);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_GROUPPING_TEMPLATE);
 
                 return nullptr;
             }
@@ -317,8 +341,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetString(properties, AIMP_PLAYLIST_PROPID_GROUPPING_TEMPLATE, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetString(properties, AIMP_PLAYLIST_PROPID_GROUPPING_TEMPLATE, value);
             }
             finally
             {
@@ -334,10 +358,11 @@ namespace AIMP
         bool AimpPlayList::GrouppingAutomerging::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING_AUTOMERGING);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING_AUTOMERGING);
 
                 return false;
             }
@@ -357,8 +382,8 @@ namespace AIMP
 
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING_AUTOMERGING, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING_AUTOMERGING, value);
             }
             finally
             {
@@ -374,10 +399,11 @@ namespace AIMP
         bool AimpPlayList::FormatingOverride::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetBool(properties, AIMP_PLAYLIST_PROPID_FORMATING_OVERRIDEN);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_FORMATING_OVERRIDEN);
 
                 return false;
             }
@@ -396,8 +422,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetBool(properties, AIMP_PLAYLIST_PROPID_FORMATING_OVERRIDEN, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_FORMATING_OVERRIDEN, value);
             }
             finally
             {
@@ -413,10 +439,11 @@ namespace AIMP
         String ^AimpPlayList::FormatingLine1Template::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetString(properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE1_TEMPLATE);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE1_TEMPLATE);
 
                 return nullptr;
             }
@@ -435,8 +462,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetString(properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE1_TEMPLATE, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetString(properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE1_TEMPLATE, value);
             }
             finally
             {
@@ -452,10 +479,11 @@ namespace AIMP
         String ^AimpPlayList::FormatingLine2Template::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetString(properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE2_TEMPLATE);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE2_TEMPLATE);
 
                 return nullptr;
             }
@@ -474,8 +502,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetString(properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE2_TEMPLATE, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetString(properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE2_TEMPLATE, value);
             }
             finally
             {
@@ -491,10 +519,11 @@ namespace AIMP
         bool AimpPlayList::ViewOverride::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_OVERRIDEN);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_OVERRIDEN);
 
                 return false;
             }
@@ -513,8 +542,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_OVERRIDEN, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_OVERRIDEN, value);
             }
             finally
             {
@@ -530,10 +559,11 @@ namespace AIMP
         bool AimpPlayList::ViewDuration::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_DURATION);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_DURATION);
 
                 return false;
             }
@@ -552,8 +582,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_DURATION, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_DURATION, value);
             }
             finally
             {
@@ -569,10 +599,11 @@ namespace AIMP
         bool AimpPlayList::ViewExpandButtons::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_EXPAND_BUTTONS);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_EXPAND_BUTTONS);
 
                 return false;
             }
@@ -591,8 +622,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_EXPAND_BUTTONS, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_EXPAND_BUTTONS, value);
             }
             finally
             {
@@ -608,10 +639,11 @@ namespace AIMP
         bool AimpPlayList::ViewMarks::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_MARKS);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_MARKS);
 
                 return false;
             }
@@ -630,8 +662,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_MARKS, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_MARKS, value);
             }
             finally
             {
@@ -647,10 +679,11 @@ namespace AIMP
         bool AimpPlayList::ViewNumbers::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS);
 
                 return false;
             }
@@ -669,8 +702,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS, value);
             }
             finally
             {
@@ -686,10 +719,11 @@ namespace AIMP
         bool AimpPlayList::ViewAbsoluteNumbers::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS_ABSOLUTE);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS_ABSOLUTE);
 
                 return false;
             }
@@ -708,8 +742,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS_ABSOLUTE, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS_ABSOLUTE, value);
             }
             finally
             {
@@ -725,10 +759,11 @@ namespace AIMP
         bool AimpPlayList::ViewSecondLine::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_SECOND_LINE);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_SECOND_LINE);
 
                 return false;
             }
@@ -747,8 +782,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_SECOND_LINE, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_SECOND_LINE, value);
             }
             finally
             {
@@ -764,10 +799,11 @@ namespace AIMP
         bool AimpPlayList::ViewSwitches::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_SWITCHES);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_SWITCHES);
 
                 return false;
             }
@@ -786,8 +822,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_SWITCHES, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_SWITCHES, value);
             }
             finally
             {
@@ -803,10 +839,11 @@ namespace AIMP
         int AimpPlayList::FocusIndex::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetInt32(properties, AIMP_PLAYLIST_PROPID_FOCUSINDEX);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetInt32(properties, AIMP_PLAYLIST_PROPID_FOCUSINDEX);
 
                 return 0;
             }
@@ -825,8 +862,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetInt32(properties, AIMP_PLAYLIST_PROPID_FOCUSINDEX, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetInt32(properties, AIMP_PLAYLIST_PROPID_FOCUSINDEX, value);
             }
             finally
             {
@@ -842,10 +879,11 @@ namespace AIMP
         int AimpPlayList::PlaybackCursor::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetInt32(properties, AIMP_PLAYLIST_PROPID_PLAYBACKCURSOR);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetInt32(properties, AIMP_PLAYLIST_PROPID_PLAYBACKCURSOR);
 
                 return 0;
             }
@@ -864,8 +902,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetInt32(properties, AIMP_PLAYLIST_PROPID_PLAYBACKCURSOR, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetInt32(properties, AIMP_PLAYLIST_PROPID_PLAYBACKCURSOR, value);
             }
             finally
             {
@@ -881,10 +919,11 @@ namespace AIMP
         int AimpPlayList::PlayingIndex::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetInt32(properties, AIMP_PLAYLIST_PROPID_PLAYINGINDEX);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetInt32(properties, AIMP_PLAYLIST_PROPID_PLAYINGINDEX);
 
                 return 0;
             }
@@ -903,8 +942,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetInt32(properties, AIMP_PLAYLIST_PROPID_PLAYINGINDEX, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetInt32(properties, AIMP_PLAYLIST_PROPID_PLAYINGINDEX, value);
             }
             finally
             {
@@ -920,10 +959,11 @@ namespace AIMP
         double AimpPlayList::Duration::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetFloat(properties, AIMP_PLAYLIST_PROPID_DURATION);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                     return PropertyListExtension::GetFloat(properties, AIMP_PLAYLIST_PROPID_DURATION);
 
                 return 0;
             }
@@ -941,10 +981,12 @@ namespace AIMP
         double AimpPlayList::Size::get()
         {
             IAIMPPropertyList *properties = NULL;
+            double size = 0;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetFloat(properties, AIMP_PLAYLIST_PROPID_SIZE);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::GetFloat(properties, AIMP_PLAYLIST_PROPID_SIZE, *&size);
             }
             finally
             {
@@ -954,16 +996,19 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return size;
         }
 
 
         String ^AimpPlayList::PreImage::get()
         {
             IAIMPPropertyList *properties = NULL;
+
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    return Converter::GetString(properties, AIMP_PLAYLIST_PROPID_PREIMAGE);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_PREIMAGE);
 
                 return nullptr;
             }
@@ -982,8 +1027,8 @@ namespace AIMP
             IAIMPPropertyList *properties = NULL;
             try
             {
-                if (CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties)) == AimpActionResult::Ok)
-                    Converter::SetString(properties, AIMP_PLAYLIST_PROPID_PREIMAGE, value);
+                if (GetProperties(&properties) == AimpActionResult::Ok)
+                    PropertyListExtension::SetString(properties, AIMP_PLAYLIST_PROPID_PREIMAGE, value);
             }
             finally
             {
@@ -1006,7 +1051,7 @@ namespace AIMP
 
         AimpActionResult AimpPlayList::Add(String^ fileUrl, PlayListFlags flags, PlayListFilePosition filePosition)
         {
-            IAIMPString *url = Converter::MakeAimpString(ManagedAimpCore::GetAimpCore(), fileUrl);
+            IAIMPString *url = AimpExtension::GetAimpString(fileUrl);
             AimpActionResult res = CheckResult(InternalAimpObject->Add(url, (DWORD)flags, (int)filePosition));
             url->Release();
             url = NULL;
@@ -1054,7 +1099,7 @@ namespace AIMP
                 {
                     for (int i = 0; i < fileUrlList->Count; i++)
                     {
-                        IAIMPString *str = Converter::MakeAimpString(ManagedAimpCore::GetAimpCore(), fileUrlList[i]);
+                        IAIMPString *str = AimpExtension::GetAimpString(fileUrlList[i]);
                         list->Add(str);
                         str->Release();
                         str = NULL;
@@ -1127,7 +1172,7 @@ namespace AIMP
                 IAIMPString *str;
                 if (collection->GetObject(i, IID_IAIMPString, (void**)&str) == S_OK)
                 {
-                    result->Add(Converter::GetString(str));
+                    result->Add(AimpExtension::GetString(str));
                     str->Release();
                     str = NULL;
                 }

@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "ManagedAimpCore.h"
 #include "SDK\AimpExtensionBase.h"
 
 namespace AIMP
