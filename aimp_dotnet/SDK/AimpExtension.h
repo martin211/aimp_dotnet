@@ -21,8 +21,8 @@ namespace AIMP
             /// Gets the AIMP native object.
             /// </summary>
             /// <param name="objectId">The object identifier.</param>
-            template<typename TAimpNativeObject>
-            static TAimpNativeObject* GetObject(REFIID objectId);
+            //template<typename TAimpNativeObject>
+            //static TAimpNativeObject* MakeObject(REFIID objectId);
 
             static IAIMPString* GetAimpString(String^ value);
 
@@ -37,6 +37,15 @@ namespace AIMP
             static System::Drawing::Bitmap^ GetBitmap(IAIMPImage* image);
 
             static IAIMPImageContainer* ToContainer(System::Drawing::Bitmap ^image);
+
+            template<typename TObject>
+            static TObject* MakeObject(REFIID objectId)
+            {
+                TObject *obj = NULL;
+                ManagedAimpCore::GetAimpCore()->CreateObject(objectId, (void**)&obj);
+                return obj;
+            }
+
 
         private:
             static IAIMPCore* GetCore();

@@ -15,14 +15,14 @@ bool AimpPlaylistQueue::IsSuspended::get()
 {
     IAIMPPropertyList *properties;
     _aimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
-    return Converter::GetBool(properties, AIMP_PLAYLISTQUEUE_PROPID_SUSPENDED);
+    return PropertyListExtension::GetBool(properties, AIMP_PLAYLISTQUEUE_PROPID_SUSPENDED);
 }
 
 void AimpPlaylistQueue::IsSuspended::set(bool value)
 {
     IAIMPPropertyList *properties;
     _aimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
-    Converter::SetBool(properties, AIMP_PLAYLISTQUEUE_PROPID_SUSPENDED, value);
+    PropertyListExtension::SetBool(properties, AIMP_PLAYLISTQUEUE_PROPID_SUSPENDED, value);
 }
 
 AimpActionResult AimpPlaylistQueue::Add(IAimpPlayListItem^ item, bool insertAtBeginning)
