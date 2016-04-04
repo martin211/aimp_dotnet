@@ -8,22 +8,22 @@ namespace AIMP
 {
     namespace SDK
     {
-        template<typename TAimpNativeObject>
-        TAimpNativeObject* AimpExtension::GetObject(REFIID objectId)
-        {
-            TAimpNativeObject* object = NULL;
+        //template<typename TAimpNativeObject>
+        //TAimpNativeObject* AimpExtension::MakeObject(REFIID objectId)
+        //{
+        //    TAimpNativeObject* object = NULL;
 
-            if (GetCore()->CreateObject(objectId, (void**)&object) == S_OK)
-            {
-                return object;
-            }
+        //    if (GetCore()->CreateObject(objectId, (void**)&object) == S_OK)
+        //    {
+        //        return object;
+        //    }
 
-            return NULL;
-        }
+        //    return NULL;
+        //}
 
         IAIMPString* AimpExtension::GetAimpString(String ^value)
         {
-            IAIMPString *strObject = GetObject<IAIMPString>(IID_IAIMPString);
+            IAIMPString *strObject = MakeObject<IAIMPString>(IID_IAIMPString);
             pin_ptr<const WCHAR> strDate = PtrToStringChars(value);
             strObject->SetData((PWCHAR)strDate, value->Length);
             return strObject;

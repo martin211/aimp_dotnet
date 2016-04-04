@@ -20,7 +20,7 @@ namespace AIMP
 
             AimpFileInfo(IAimpFileInfo ^item)
             {
-                _aimpObject = Converter::MakeObject<IAIMPFileInfo>(IID_IAIMPFileInfo);
+                _aimpObject = AimpExtension::MakeObject<IAIMPFileInfo>(IID_IAIMPFileInfo);
                 this->Album = item->Album;
                 this->AlbumArt = item->AlbumArt;
                 this->AlbumArtist = item->AlbumArtist;

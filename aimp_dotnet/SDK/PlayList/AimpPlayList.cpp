@@ -21,7 +21,7 @@ namespace AIMP
 
         AimpPlayList::AimpPlayList(IAimpPlayList ^item)
         {
-            _aimpObject = Converter::MakeObject<IAIMPPlaylist>(IID_IAIMPPlaylist);
+            _aimpObject = AimpExtension::MakeObject<IAIMPPlaylist>(IID_IAIMPPlaylist);
             Name = item->Name;
             ReadOnly = item->ReadOnly;
             FocusedObject = item->FocusedObject;
