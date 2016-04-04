@@ -1,6 +1,5 @@
 #include "..\..\Stdafx.h"
 #include "AimpMenuManager.h"
-#include "..\Converter.h"
 
 namespace AIMP
 {
@@ -119,7 +118,7 @@ namespace AIMP
                         return AimpActionResult::Fail;
                     }
 
-                    idString = Converter::MakeAimpString(_core->GetAimpCore(), id);
+                    idString = AimpConverter::GetAimpString(id);
                     
                     service->GetByID(idString, &aimpMenuItem);
 
@@ -162,7 +161,7 @@ namespace AIMP
                         return AimpActionResult::Fail;
                     }
 
-                    menuId = Converter::MakeAimpString(_core->GetAimpCore(), id);
+                    menuId = AimpConverter::GetAimpString(id);
                     result = CheckResult(service->GetByID(menuId, &aimpMenuItem));
                     
                     if (result != AimpActionResult::Ok)

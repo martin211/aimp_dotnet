@@ -1,8 +1,5 @@
 #pragma once
 
-#include "..\Converter.h"
-
-
 namespace AIMP
 {
     namespace SDK

@@ -220,9 +220,6 @@
     <ClInclude Include="Extensions\AimpExtensionAlbumArtProvider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\Converter.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
