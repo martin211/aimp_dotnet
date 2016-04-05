@@ -104,8 +104,6 @@ namespace AIMP
 
             AimpExtensionPlayerHook *playerHook = new AimpExtensionPlayerHook(this);
             core->RegisterExtension(IID_IAIMPServicePlayer, playerHook);
-
-            AimpPlaylistQueueListener *queueListner = new AimpPlaylistQueueListener();
         }
 
         ManagedAimpCore::~ManagedAimpCore()

@@ -1,6 +1,14 @@
 #include "..\..\Stdafx.h"
 #include "AimpPlayListQueue.h"
 
+AimpPlaylistQueue::AimpPlaylistQueue(IAIMPPlaylistQueue *queue, IAIMPPlaylistQueue2 *queue2) : AimpObject(queue)
+{
+    _listner = new AimpPlaylistQueueListener();
+    HRESULT res = queue2->ListenerAdd(_listner);
+    System::Diagnostics::Debug::WriteLine(res);
+    _queue2 = queue2;
+}
+
 void ContentChangedCallBack(gcroot<AimpPlaylistQueue^> sender)
 {
     sender->ContentChanged(sender, EventArgs::Empty);
