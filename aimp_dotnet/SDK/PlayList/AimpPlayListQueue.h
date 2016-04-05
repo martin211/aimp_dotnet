@@ -15,11 +15,7 @@ namespace AIMP
             public IAimpPlayListQueue
         {
         public:
-            explicit AimpPlaylistQueue(IAIMPPlaylistQueue *queue, IAIMPPlaylistQueue2 *queue2) : AimpObject(queue)
-            {
-                _listner = new AimpPlaylistQueueListener();
-                _queue2 = queue2;
-            }
+            explicit AimpPlaylistQueue(IAIMPPlaylistQueue *queue, IAIMPPlaylistQueue2 *queue2);
 
             virtual property bool IsSuspended
             {
