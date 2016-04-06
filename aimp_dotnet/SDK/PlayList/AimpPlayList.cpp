@@ -65,51 +65,6 @@ namespace AIMP
 
             _disposed = true;
 
-            if (_listner != NULL)
-            {
-                if (_activatedCallback != NULL)
-                {
-                    _listner->UregisterActivatedCallback(_activatedCallback);
-                    delete _activatedCallback;
-                }
-
-                if (_removedCallBack != NULL)
-                {
-                    _listner->UnregisterRemoveCallback(_removedCallBack);
-                    delete _removedCallBack;
-                }
-
-                if (_changedCallBack != NULL)
-                {
-                    _listner->UnregisterChangedCallback(_changedCallBack);
-                    delete _changedCallBack;
-                }
-                
-                if (_scanningBeginCallBack != NULL)
-                {
-                    _listner->UnregisterScanningBeginCallback(_scanningBeginCallBack);
-                    delete _scanningBeginHandler;
-                }
-
-                if (_scanningProgressCallBack != NULL)
-                {
-                    _listner->UnregisterScanningProgress(_scanningProgressCallBack);
-                    delete _scanningProgressCallBack;
-                }
-
-                if (_scanningEndCallBack != NULL)
-                {
-                    _listner->UnregisterScanningEnd(_scanningEndCallBack);
-                    delete _scanningEndCallBack;
-                }
-
-                if (InternalAimpObject->ListenerRemove(_listner) == S_OK)
-                {
-                    _listner->Release();
-                    _listner = NULL;
-                }
-            }
-
             if (InternalAimpObject != NULL)
             {
                 _aimpObject->Release();
@@ -1155,6 +1110,49 @@ namespace AIMP
 
         AimpActionResult AimpPlayList::Close(PlayListCloseFlag closeFlag)
         {
+            if (_listner != NULL)
+            {
+                if (_activatedCallback != NULL)
+                {
+                    _listner->UregisterActivatedCallback(_activatedCallback);
+                    delete _activatedCallback;
+                }
+
+                if (_removedCallBack != NULL)
+                {
+                    _listner->UnregisterRemoveCallback(_removedCallBack);
+                    delete _removedCallBack;
+                }
+
+                if (_changedCallBack != NULL)
+                {
+                    _listner->UnregisterChangedCallback(_changedCallBack);
+                    delete _changedCallBack;
+                }
+
+                if (_scanningBeginCallBack != NULL)
+                {
+                    _listner->UnregisterScanningBeginCallback(_scanningBeginCallBack);
+                    delete _scanningBeginHandler;
+                }
+
+                if (_scanningProgressCallBack != NULL)
+                {
+                    _listner->UnregisterScanningProgress(_scanningProgressCallBack);
+                    delete _scanningProgressCallBack;
+                }
+
+                if (_scanningEndCallBack != NULL)
+                {
+                    _listner->UnregisterScanningEnd(_scanningEndCallBack);
+                    delete _scanningEndCallBack;
+                }
+
+                InternalAimpObject->ListenerRemove(_listner);
+                _listner->Release();
+                _listner = NULL;
+            }
+
             AimpActionResult result = CheckResult(InternalAimpObject->Close((DWORD)closeFlag));
             this->!AimpPlayList();
             return result;
