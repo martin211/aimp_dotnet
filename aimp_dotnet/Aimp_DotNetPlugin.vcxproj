@@ -45,6 +45,8 @@
     <ClInclude Include="AIMPSDK\AIMP400\apiGUI.h" />
     <ClInclude Include="AIMPSDK\AIMPSDK.h" />
     <ClInclude Include="Extensions\AimpExtensionPlaylistManagerListener.h" />
+    <ClInclude Include="SDK\Delegates.h" />
+    <ClInclude Include="SDK\delegate_impl.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />
     <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h" />
     <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h" />
