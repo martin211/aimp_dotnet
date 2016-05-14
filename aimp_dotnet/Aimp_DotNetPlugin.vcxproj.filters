@@ -205,9 +205,6 @@
     <ClInclude Include="SDK\AimpCore.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\EventHelper.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\AimpObject.h">
       <Filter>SDK</Filter>
     </ClInclude>

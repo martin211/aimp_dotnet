@@ -1,7 +1,6 @@
 #pragma once
 #include "..\AimpSdk.h"
 #include <Unknwnbase.h>
-#include "EventHelper.h"
 #include "..\Extensions\OptionsDialogFrameExtension.h"
 #include "..\Extensions\AimpExtensionAlbumArtCatalog.h"
 #include "..\Extensions\AimpExtensionAlbumArtProvider.h"
@@ -11,6 +10,9 @@
 
 namespace AIMP
 {
+    using namespace System;
+    using namespace AIMP::SDK;
+
     namespace SDK
     {
         using namespace System;
@@ -94,9 +96,9 @@ namespace AIMP
         private:
             static IAIMPCore* _core;
             IAIMPExtensionPlayerHook *_playerHook;
-            EventHelper* _nativeEventHelper;
-            Callback* _coreMessageCallback;
-            Callback* _playListActivatedCallback;
+            //EventHelper* _nativeEventHelper;
+            //Callback* _coreMessageCallback;
+            //Callback* _playListActivatedCallback;
             IAIMPServiceMessageDispatcher* _messageDispatcher;
             IAIMPMessageHook* _hook;
             List<AimpEventsDelegate^> ^_coreMessage;
