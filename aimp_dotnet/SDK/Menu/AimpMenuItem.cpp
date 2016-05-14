@@ -6,23 +6,11 @@ namespace AIMP
 {
     namespace SDK
     {
-        void OnExecuteProxy(gcroot<AimpMenuItem^> sender)
-        {
-            sender->OnExecuteClick();
-        }
-
-        void OnBeforeShowProxy(gcroot<AimpMenuItem^> sender)
-        {
-            sender->OnBeforeShowClick();
-        }
-
         void AimpMenuItem::OnExecute::add(EventHandler ^onEvent)
         {
             if (_onExecuteHandler == nullptr)
             {
-                _onExecuteEvent = new MenuItemEvent();
-                _onExecuteCallback = new EventCallback;
-                *_onExecuteCallback = _onExecuteEvent->RegisterCallback(boost::bind(OnExecuteProxy, gcroot<AimpMenuItem^>(this)));
+                _onExecuteEvent = new MenuItemEvent(this, true);
                 _onExecuteHandler = (EventHandler^)Delegate::Combine(_onExecuteHandler, onEvent);
                 InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_EVENT, _onExecuteEvent);
             }
@@ -33,8 +21,6 @@ namespace AIMP
             if (_onExecuteHandler != nullptr)
             {
                 _onExecuteHandler = (EventHandler^)Delegate::Remove(_onExecuteHandler, onEvent);
-                _onExecuteEvent->UnregisterCallback(*_onExecuteCallback);
-                delete _onExecuteCallback;
                 delete _onExecuteEvent;
             }
         }
@@ -51,9 +37,7 @@ namespace AIMP
         {
             if (_onShowHandler == nullptr)
             {
-                _onShowEvent = new MenuItemEvent();
-                _onShowCallback = new EventCallback;
-                *_onShowCallback = _onShowEvent->RegisterCallback(boost::bind(OnBeforeShowProxy, gcroot<AimpMenuItem^>(this)));
+                _onShowEvent = new MenuItemEvent(this, false);
                 _onShowHandler = (EventHandler^)Delegate::Combine(_onShowHandler, onEvent);
                 InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_EVENT_ONSHOW, _onShowEvent);
             }
@@ -64,8 +48,6 @@ namespace AIMP
             if (_onShowHandler != nullptr)
             {
                 _onShowHandler = (EventHandler^)Delegate::Remove(_onShowHandler, onEvent);
-                _onShowEvent->UnregisterCallback(*_onShowCallback);
-                delete _onShowCallback;
                 delete _onShowEvent;
             }
         }

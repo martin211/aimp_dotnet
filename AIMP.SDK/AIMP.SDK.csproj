@@ -65,6 +65,7 @@
     <Compile Include="IAimpDisposeable.cs" />
     <Compile Include="IAimpExternalSettingsDialog.cs" />
     <Compile Include="Logger\ILogger.cs" />
+    <Compile Include="MenuManager\IAimpMenuEvents.cs" />
     <Compile Include="PlayList\IAimpPlaylistListener.cs" />
     <Compile Include="PlayList\IAimpPlaylistQueueListener.cs" />
     <Compile Include="Properties\Annotations.cs" />

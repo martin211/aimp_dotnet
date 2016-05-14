@@ -6,28 +6,23 @@ namespace AIMP
 {
     namespace SDK
     {
-#include "..\..\AIMPSDK\AIMP400\apiActions.h"
-
-        typedef boost::signals::connection EventCallback;
-        typedef boost::signal<void(void)> EventChangedSignal;
-        typedef boost::signal<void(void)>::slot_function_type EventChangedSignalCB;
+        #include "..\..\AIMPSDK\AIMP400\apiActions.h"
 
         class MenuItemEvent : public IUnknownInterfaceImpl<IAIMPActionEvent>
         {
         public:
-            EventCallback RegisterCallback(EventChangedSignalCB subscriber)
+            MenuItemEvent(gcroot<AIMP::SDK::MenuManager::IAimpMenuEvents^> menuItem, bool isExecuteEvent)
             {
-                return _callBack.connect(subscriber);
-            }
-
-            void UnregisterCallback(EventCallback callback)
-            {
-                _callBack.disconnect(callback);
+                _menuItem = menuItem;
+                _isExecuteEvent = isExecuteEvent;
             }
 
             virtual void WINAPI OnExecute(IUnknown *Data)
             {
-                _callBack();
+                if (_isExecuteEvent)
+                    _menuItem->Execute();
+                else
+                    _menuItem->Show();
             }
 
             virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
@@ -42,7 +37,8 @@ namespace AIMP
                 return E_NOTIMPL;
             }
         private:
-            EventChangedSignal _callBack;
+            gcroot<AIMP::SDK::MenuManager::IAimpMenuEvents^> _menuItem;
+            bool _isExecuteEvent;
         };
     }
 }

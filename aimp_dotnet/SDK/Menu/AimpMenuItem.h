@@ -1,6 +1,7 @@
 #pragma once
 #include "MenuItemEvent.h"
 
+
 namespace AIMP
 {
     namespace SDK
@@ -10,15 +11,13 @@ namespace AIMP
         using namespace AIMP::SDK::MenuManager;
         using namespace AIMP::SDK::ActionManager;
 
-        public ref class AimpMenuItem : public AimpObject<IAIMPMenuItem>, public IAimpMenuItem
+        public ref class AimpMenuItem : public AimpObject<IAIMPMenuItem>, public IAimpMenuItem, public IAimpMenuEvents
         {
         private:
             EventHandler ^_onExecuteHandler;
             EventHandler ^_onShowHandler;
             MenuItemEvent *_onExecuteEvent;
             MenuItemEvent *_onShowEvent;
-            EventCallback *_onExecuteCallback;
-            EventCallback *_onShowCallback;
             String ^_id;
 
         public:
@@ -29,10 +28,6 @@ namespace AIMP
             {
                 _onExecuteHandler = nullptr;
                 _onExecuteHandler = nullptr;
-                _onExecuteEvent = NULL;
-                _onShowEvent = NULL;
-                _onExecuteCallback = NULL;
-                _onShowCallback = NULL;
             }
 
             virtual property String ^Custom
@@ -209,13 +204,12 @@ namespace AIMP
                 return CheckResult(InternalAimpObject->DeleteChildren());
             }
 
-        internal:
-            void OnExecuteClick()
+            virtual void Execute()
             {
                 this->OnExecute(this, EventArgs::Empty);
             }
 
-            void OnBeforeShowClick()
+            virtual void Show()
             {
                 this->OnShow(this, EventArgs::Empty);
             }
