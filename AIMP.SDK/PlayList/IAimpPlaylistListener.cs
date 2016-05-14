@@ -10,9 +10,9 @@ namespace AIMP.SDK.PlayList
 
     public class ScanningProgressEventArgs : EventArgs
     {
-        public int Progress { get; private set; }
+        public double Progress { get; }
 
-        public ScanningProgressEventArgs(int progress)
+        public ScanningProgressEventArgs(double progress)
         {
             Progress = progress;
         }

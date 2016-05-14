@@ -1112,42 +1112,6 @@ namespace AIMP
         {
             if (_listner != NULL)
             {
-                if (_activatedCallback != NULL)
-                {
-                    _listner->UregisterActivatedCallback(_activatedCallback);
-                    delete _activatedCallback;
-                }
-
-                if (_removedCallBack != NULL)
-                {
-                    _listner->UnregisterRemoveCallback(_removedCallBack);
-                    delete _removedCallBack;
-                }
-
-                if (_changedCallBack != NULL)
-                {
-                    _listner->UnregisterChangedCallback(_changedCallBack);
-                    delete _changedCallBack;
-                }
-
-                if (_scanningBeginCallBack != NULL)
-                {
-                    _listner->UnregisterScanningBeginCallback(_scanningBeginCallBack);
-                    delete _scanningBeginHandler;
-                }
-
-                if (_scanningProgressCallBack != NULL)
-                {
-                    _listner->UnregisterScanningProgress(_scanningProgressCallBack);
-                    delete _scanningProgressCallBack;
-                }
-
-                if (_scanningEndCallBack != NULL)
-                {
-                    _listner->UnregisterScanningEnd(_scanningEndCallBack);
-                    delete _scanningEndCallBack;
-                }
-
                 InternalAimpObject->ListenerRemove(_listner);
                 _listner->Release();
                 _listner = NULL;
@@ -1242,44 +1206,11 @@ namespace AIMP
         {
             if (_listner == nullptr)
             {
-                _listner = new AimpPlaylistListener();
+                _listner = new AimpPlaylistListener(this);
                 InternalAimpObject->ListenerAdd(_listner);
                 _listner->AddRef();
             }
         }
-
-
-
-        void ActivatedCallback(gcroot<AimpPlayList^> This)
-        {
-            This->Activated(This);
-        }
-
-        void ChangedCallback(gcroot<AimpPlayList^> This, int notifyType)
-        {
-            This->Changed(This, (PlayListNotifyType)notifyType);
-        }
-
-        void RemovedCallback(gcroot<AimpPlayList^> This)
-        {
-            This->Activated(This);
-        }
-
-        void ScanningBeginCallback(gcroot<AimpPlayList^> This)
-        {
-            This->ScanningBegin(This);
-        }
-
-        void ScanningProgressCallback(gcroot<AimpPlayList^> This, double progress)
-        {
-            This->ScanningProgress(This, gcnew AIMP::SDK::PlayList::ScanningProgressEventArgs(progress));
-        }
-
-        void ScanningEndCallback(gcroot<AimpPlayList^> This, bool hasChanged, bool canceled)
-        {
-            This->ScanningEnd(This, gcnew AIMP::SDK::PlayList::ScanningEndEventArgs(hasChanged, canceled));
-        }
-
 
         void AimpPlayList::Activated::add(AimpPlayListHandler ^onEvent)
         {
@@ -1287,8 +1218,6 @@ namespace AIMP
             bool tmp = _onActivated == nullptr;
             if (tmp)
             {
-                _activatedCallback = new AIMP::ConnectionCallback;
-                *_activatedCallback = _listner->RegisterActivatedCallback(boost::bind(ActivatedCallback, gcroot<AimpPlayList^>(this)));
                 _onActivated = (AimpPlayListHandler^)Delegate::Combine(_onActivated, onEvent);
             }
         }
@@ -1299,8 +1228,6 @@ namespace AIMP
             if (tmp)
             {
                 _onActivated = (AimpPlayListHandler^)Delegate::Remove(_onActivated, onEvent);
-                _listner->UregisterActivatedCallback(_activatedCallback);
-                delete _activatedCallback;
             }
         }
 
@@ -1321,8 +1248,6 @@ namespace AIMP
             bool tmp = _onRemoved != nullptr;
             if (tmp)
             {
-                _removedCallBack = new AIMP::ConnectionCallback;
-                *_removedCallBack = _listner->RegisterRemovedCallback(boost::bind(RemovedCallback, gcroot<AimpPlayList^>(this)));
                 _onRemoved = (AimpPlayListHandler^)Delegate::Combine(_onRemoved, onEvent);
             }
         }
@@ -1333,8 +1258,6 @@ namespace AIMP
             if (tmp)
             {
                 _onRemoved = (AimpPlayListHandler^)Delegate::Remove(_onRemoved, onEvent);
-                _listner->UnregisterRemoveCallback(_removedCallBack);
-                delete _removedCallBack;
             }
         }
 
@@ -1354,8 +1277,6 @@ namespace AIMP
             RegisterListner();
             if (_onChanged == nullptr)
             {
-                _changedCallBack = new AIMP::ConnectionCallback;
-                *_changedCallBack = _listner->RegisterChangedCallback(boost::bind(ChangedCallback, gcroot<AimpPlayList^>(this), _1));
                 _onChanged = (PlayListChangedHandler^)Delegate::Combine(_onChanged, onEvent);
             }
         }
@@ -1366,8 +1287,6 @@ namespace AIMP
             if (tmp)
             {
                 _onChanged = (PlayListChangedHandler^)Delegate::Remove(_onChanged, onEvent);
-                _listner->UnregisterChangedCallback(_changedCallBack);
-                delete _changedCallBack;
             }
         }
 
@@ -1430,8 +1349,6 @@ namespace AIMP
         {
             if (this->_scanningBeginHandler == nullptr)
             {
-                _scanningBeginCallBack = new AIMP::ConnectionCallback;
-                *_scanningBeginCallBack = _listner->RegisterScanningBeginCallback(boost::bind(ScanningBeginCallback, gcroot<AimpPlayList^>(this)));
                 _scanningBeginHandler = (AimpPlayListHandler^)Delegate::Combine(_onChanged, onEvent);
             }
         }
@@ -1441,8 +1358,6 @@ namespace AIMP
             if (this->_scanningBeginHandler != nullptr)
             {
                 _scanningBeginHandler = (AimpPlayListHandler^)Delegate::Remove(_onChanged, onEvent);
-                _listner->UnregisterScanningBeginCallback(_scanningBeginCallBack);
-                delete _scanningBeginCallBack;
             }
         }
 
@@ -1460,8 +1375,6 @@ namespace AIMP
         {
             if (this->_scanningProgressHandler == nullptr)
             {
-                _scanningProgressCallBack = new AIMP::ConnectionCallback;
-                *_scanningProgressCallBack = _listner->RegisterScanningProgress(boost::bind(ScanningProgressCallback, gcroot<AimpPlayList^>(this), _1));
                 _scanningProgressHandler = (AimpPlayListHandler<ScanningProgressEventArgs^>^)Delegate::Combine(_onChanged, onEvent);
             }
         }
@@ -1471,8 +1384,6 @@ namespace AIMP
             if (this->_scanningProgressHandler != nullptr)
             {
                 _scanningProgressHandler = (AimpPlayListHandler<ScanningProgressEventArgs^>^)Delegate::Remove(_onChanged, onEvent);
-                _listner->UnregisterScanningProgress(_scanningProgressCallBack);
-                delete _scanningProgressCallBack;
             }
         }
 
@@ -1490,8 +1401,6 @@ namespace AIMP
         {
             if (this->_scanningEndHandler == nullptr)
             {
-                _scanningEndCallBack = new AIMP::ConnectionCallback;
-                *_scanningEndCallBack = _listner->RegisterScanningEnd(boost::bind(ScanningEndCallback, gcroot<AimpPlayList^>(this), _1, _2));
                 _scanningEndHandler = (AimpPlayListHandler<ScanningEndEventArgs^>^)Delegate::Combine(_onChanged, onEvent);
             }
         }
@@ -1501,7 +1410,6 @@ namespace AIMP
             if (this->_scanningEndHandler != nullptr)
             {
                 _scanningEndHandler = (AimpPlayListHandler<ScanningEndEventArgs^>^)Delegate::Remove(_onChanged, onEvent);
-                _listner->UnregisterScanningEnd(_scanningEndCallBack);
             }
         }
 

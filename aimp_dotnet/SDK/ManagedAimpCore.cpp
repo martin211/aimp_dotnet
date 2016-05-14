@@ -94,8 +94,6 @@ namespace AIMP
         ManagedAimpCore::ManagedAimpCore(IAIMPCore* core)
         {
             _core = core;
-            _nativeEventHelper = new EventHelper();
-
             IAIMPServiceMessageDispatcher* aimp_service_message_dispatcher;
             core->QueryInterface(IID_IAIMPServiceMessageDispatcher, reinterpret_cast<void**>(&aimp_service_message_dispatcher));
             _hook = new AIMPMessageHook(this);
