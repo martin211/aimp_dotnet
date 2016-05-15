@@ -48,6 +48,7 @@
     <ClInclude Include="SDK\Delegates.h" />
     <ClInclude Include="SDK\delegate_impl.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />
+    <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h" />
     <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h" />
     <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h" />
     <ClInclude Include="Extensions\AimpExtensionAlbumArtCatalog.h" />

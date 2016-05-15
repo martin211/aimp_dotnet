@@ -2,6 +2,7 @@
 #include "AimpPlayListItem.h"
 #include "AimpPlayList.h"
 #include "AimpPlaylistQueueListener.h"
+#include "IPlayListQueueEventExecutor.h"
 #include <gcroot.h>
 
 namespace AIMP
@@ -12,7 +13,8 @@ namespace AIMP
 
         public ref class AimpPlaylistQueue :
             public AimpObject<IAIMPPlaylistQueue>,
-            public IAimpPlayListQueue
+            public IAimpPlayListQueue,
+            public IPlayListQueueEventExecutor
         {
         public:
             explicit AimpPlaylistQueue(IAIMPPlaylistQueue *queue, IAIMPPlaylistQueue2 *queue2);
@@ -52,14 +54,21 @@ namespace AIMP
                 void remove(EventHandler ^onEvent);
                 void raise(Object ^sender, EventArgs ^args);
             }
+
+            virtual void OnContentChanged()
+            {
+                ContentChanged(this, EventArgs::Empty);
+            }
+
+            virtual void OnStateChanged()
+            {
+                StateChanged(this, EventArgs::Empty);
+            }
         private:
             IAIMPPlaylistQueue2 *_queue2;
             EventHandler ^_contentChanged;
             EventHandler ^_stateChanged;
             AimpPlaylistQueueListener* _listner;
-
-            ConnectionCallback *_contentChangedCallback;
-            ConnectionCallback *_stateChangedCallback;
         };
     }
 }
