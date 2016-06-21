@@ -1,4 +1,4 @@
-https://ci.appveyor.com/api/projects/status/github/martin211/aimp_dotnet?branch=master&svg=true
+![alt tag](https://ci.appveyor.com/api/projects/status/github/martin211/aimp_dotnet?branch=master&svg=true)
 
 # AIMP DotNet SDK plugin
  Microsoft .Net SDK for AIMP v3.60 / AIMP 4.00 media player (wwww.aimp.ru)
