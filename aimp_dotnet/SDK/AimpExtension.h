@@ -42,7 +42,10 @@ namespace AIMP
             static TObject* MakeObject(REFIID objectId)
             {
                 TObject *obj = NULL;
-                ManagedAimpCore::GetAimpCore()->CreateObject(objectId, (void**)&obj);
+                HRESULT r = ManagedAimpCore::GetAimpCore()->CreateObject(objectId, (void**)&obj);
+                
+                System::Diagnostics::Debug::WriteLine("MakeObject result: " + r);
+
                 return obj;
             }
 

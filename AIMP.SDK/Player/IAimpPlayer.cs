@@ -1,4 +1,6 @@
-﻿namespace AIMP.SDK.Player
+﻿using AIMP.SDK.Threading;
+
+namespace AIMP.SDK.Player
 {
     using System;
 
@@ -187,5 +189,9 @@
         /// </summary>
         /// <param name="playList">The play list.</param>
         void Play(IAimpPlayList playList);
+
+        IAimpServiceSynchronizer ServiceSynchronizer { get; }
+
+        IAimpServiceThreadPool ServiceThreadPool { get; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace dotnet_albumart
+﻿namespace dotnet_albumart
 {
     using AIMP.SDK;
     using AIMP.SDK.AlbumArtManager;

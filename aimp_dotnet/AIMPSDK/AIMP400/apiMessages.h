@@ -341,7 +341,7 @@ const int AIMP_MSG_PROPERTY_PLAYER_POSITION = AIMP_MSG_PROPERTY_BASE + 17;
 
 // !!!ReadOnly property
 // AParam1: AIMP_MSG_PROPVALUE_GET
-// AParam2: Pointer to Single (32-bit floating point value) variable
+// AParam2: Pointer to Single (32-bit floating point value) variable, in Seconds
 const int AIMP_MSG_PROPERTY_PLAYER_DURATION = AIMP_MSG_PROPERTY_BASE + 18;
 
 // !!!ReadOnly property
@@ -411,6 +411,11 @@ const int AIMP_MSG_PROPERTY_LOADED = AIMP_MSG_PROPERTY_BASE + 30;
 // AParam2: Pointer to LongBool (32-bit boolean value) variable
 const int AIMP_MSG_PROPERTY_VISUAL_FULLSCREEN = AIMP_MSG_PROPERTY_BASE + 31;
 
+// !!!ReadOnly property
+// AParam1: AIMP_MSG_PROPVALUE_GET
+// AParam2: Pointer to Single (32-bit floating point value) variable, [0..100]%
+const int AIMP_MSG_PROPERTY_PLAYER_BUFFERING = AIMP_MSG_PROPERTY_BASE + 32;
+
 //==============================================================================
 // Events
 //==============================================================================
@@ -478,10 +483,6 @@ const int AIMP_MSG_EVENT_PLAYER_UPDATE_POSITION = AIMP_MSG_EVENT_BASE + 16;
 // Called, when inteface language has been changed
 // AParam1, AParam2: unused
 const int AIMP_MSG_EVENT_LANGUAGE = AIMP_MSG_EVENT_BASE + 17;
-
-// Called, when AIMP completely loaded
-// AParam1, AParam2: unused
-const int AIMP_MSG_EVENT_LOADED = AIMP_MSG_EVENT_BASE + 18;
 
 // Called, when AIMP is preparing to terminate
 // AParam1, AParam2: unused
