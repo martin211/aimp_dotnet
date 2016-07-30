@@ -21,6 +21,7 @@
 #include "apiFileManager.h"
 
 static const GUID IID_IAIMPAudioDecoder = {0x41494D50, 0x4175, 0x6469, 0x6F, 0x44, 0x65, 0x63, 0x00, 0x00, 0x00, 0x00};
+static const GUID IID_IAIMPAudioDecoderBufferingProgress = {0x41494D50, 0x4175, 0x6469, 0x6F, 0x44, 0x65, 0x63, 0x42, 0x75, 0x66, 0x66};
 static const GUID IID_IAIMPExtensionAudioDecoder = {0x41494D50, 0x4578, 0x7441, 0x75, 0x64, 0x69, 0x6F, 0x44, 0x65, 0x63, 0x00};
 static const GUID IID_IAIMPExtensionAudioDecoderOld = {0x41494D50, 0x4578, 0x7441, 0x75, 0x64, 0x69, 0x6F, 0x44, 0x65, 0x63, 0x4F};
 static const GUID IID_IAIMPServiceAudioDecoders = {0x41494D50, 0x5372, 0x7641, 0x75, 0x64, 0x69, 0x6F, 0x44, 0x65, 0x63, 0x00};
@@ -50,10 +51,18 @@ class IAIMPAudioDecoder: public IUnknown
 		virtual INT64 WINAPI GetPosition() = 0;
 		virtual BOOL WINAPI SetPosition(const INT64 Value) = 0;
 
-		virtual int Read(void *Buffer, int Count) = 0;
+		virtual int WINAPI Read(void *Buffer, int Count) = 0;
 };
-  
-/* IAIMPAudioDecoderExtension */
+
+/* IAIMPAudioDecoderBufferingProgress */
+
+class IAIMPAudioDecoderBufferingProgress: public IUnknown
+{
+	public:
+		virtual BOOL WINAPI Get(double* Value) = 0;
+};
+
+/* IAIMPExtensionAudioDecoder */
   
 class IAIMPExtensionAudioDecoder: public IUnknown
 {

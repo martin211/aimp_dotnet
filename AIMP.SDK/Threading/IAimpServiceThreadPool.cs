@@ -10,10 +10,10 @@
 
     public interface IAimpServiceThreadPool
     {
-        AimpActionResult Cancel(IntPtr taskhandle, AimpServiceThreadPoolType flags);
+        AimpActionResult Cancel(UIntPtr taskhandle, AimpServiceThreadPoolType flags);
 
-        AimpActionResult Execute(IAimpAsyncTask task, out IntPtr taskHandle);
+        AimpActionResult Execute(IAimpTask task, out UIntPtr taskHandle);
 
-        AimpActionResult WaitFor(IntPtr taskHandle);
+        AimpActionResult WaitFor(UIntPtr taskHandle);
     }
 }

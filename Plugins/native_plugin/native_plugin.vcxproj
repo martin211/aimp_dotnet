@@ -78,6 +78,19 @@
     <Link>
       <ModuleDefinitionFile>AIMP_Exports.def</ModuleDefinitionFile>
     </Link>
+    <PostBuildEvent>
+      <Command>IF $(ConfigurationName) == Debug (
+IF NOT EXIST "$(SolutionDir)..\AIMP4.00\Plugins\$(TargetName)" mkdir "$(SolutionDir)..\AIMP4.00\Plugins\$(TargetName)"
+copy "$(TargetPath)" "$(SolutionDir)..\AIMP4.00\Plugins\$(TargetName)\$(ProjectName).dll"
+)
+
+IF $(ConfigurationName) == Release (
+IF NOT EXIST "$(SolutionDir)\$(ConfigurationName)\AIMP.SDK\Demos" mkdir "$(SolutionDir)\$(ConfigurationName)\AIMP.SDK\Demos"
+IF NOT EXIST "$(SolutionDir)\$(ConfigurationName)\AIMP.SDK\Demos\$(TargetName)" mkdir "$(SolutionDir)\$(ConfigurationName)\AIMP.SDK\Demos\$(TargetName)"
+
+copy "$(TargetPath)" "$(SolutionDir)\$(ConfigurationName)\AIMP.SDK\Demos\$(TargetName)\$(ProjectName).dll"
+)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

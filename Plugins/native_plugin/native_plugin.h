@@ -1,6 +1,17 @@
 #pragma once
+#include <Windows.h>
+#include <iostream>
+#include <sstream>
 
 #include "AIMP400/apiPlugin.h"
+#include "AIMP400/apiThreading.h"
+
+#define DBOUT( s )            \
+{                             \
+   std::wostringstream os_;    \
+   os_ << s;                   \
+   OutputDebugStringW( os_.str().c_str() );  \
+}
 
 template <typename T>
 class IUnknownInterfaceImpl : public T
@@ -44,6 +55,43 @@ private:
     ULONG _LinkCounter;
 };
 
+class AimpTask : public IUnknownInterfaceImpl<IAIMPTask>
+{
+public:
+    typedef IUnknownInterfaceImpl<IAIMPTask> Base;
+
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
+    {
+        if (!ppvObject)
+        {
+            return E_POINTER;
+        }
+
+        if (riid == IID_IAIMPTask) {
+            *ppvObject = this;
+            AddRef();
+            return S_OK;
+        }
+
+        return E_NOINTERFACE;
+    }
+
+    virtual ULONG WINAPI AddRef(void)
+    {
+        return Base::AddRef();
+    }
+
+    virtual ULONG WINAPI Release(void)
+    {
+        return Base::Release();
+    }
+
+    virtual void WINAPI Execute(IAIMPTaskOwner* Owner)
+    {
+        DBOUT("Tasl execute");
+    }
+};
+
 class NativePlugin : public IUnknownInterfaceImpl<IAIMPPlugin>
 {
 public:
@@ -53,7 +101,7 @@ public:
         {
         case AIMP_PLUGIN_INFO_NAME:
         {
-            return L"AIMP DotNet proxy";
+            return L"AIMP native plugin";
         }
         case AIMP_PLUGIN_INFO_AUTHOR:
         {
@@ -61,11 +109,11 @@ public:
         }
         case AIMP_PLUGIN_INFO_SHORT_DESCRIPTION:
         {
-            return L"AIMP DotNet proxy plugin";
+            return L"AIMP native plugin";
         }
         case AIMP_PLUGIN_INFO_FULL_DESCRIPTION:
         {
-            return L"AIMP DotNet proxy plugin";
+            return L"AIMP native plugin";
         }
         }
 
@@ -80,6 +128,18 @@ public:
     // Initialization / Finalization
     virtual HRESULT WINAPI Initialize(IAIMPCore* Core)
     {
+        IAIMPServiceThreadPool *service;
+
+        HRESULT res = Core->QueryInterface(IID_IAIMPServiceThreadPool, (void**)&service);
+        DBOUT("QueryInterface result " << res);
+
+        AimpTask* task = new AimpTask();
+
+        DWORD_PTR h;
+
+        res = service->Execute(task, &h);
+        DBOUT("Execute result " << res);
+
         return S_OK;
     }
 

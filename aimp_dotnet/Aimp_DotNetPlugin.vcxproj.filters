@@ -187,9 +187,6 @@
     <ClInclude Include="SDK\PlayList\VirtualFileInfoh.h">
       <Filter>SDK\PlayList</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\Threading\AimpAsyncTask.h">
-      <Filter>SDK\Threading</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h">
       <Filter>SDK\Threading</Filter>
     </ClInclude>
@@ -320,6 +317,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Threading\AimpTask.h">
+      <Filter>SDK\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Threading\AimpTaskOwner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,6 @@
 {
     public interface IAimpServiceSynchronizer
     {
-       AimpActionResult ExecuteInMainThread(IAimpAsyncTask task, bool executeNow);
+       AimpActionResult ExecuteInMainThread(IAimpTask task, bool executeNow);
     }
 }

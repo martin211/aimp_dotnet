@@ -79,8 +79,8 @@
     <Compile Include="Playback\IAimpPlaybackQueueItem.cs" />
     <Compile Include="PlayList\IAimpPlaylistQueue.cs" />
     <Compile Include="PlayList\AimpPlayListEventArgs.cs" />
-    <Compile Include="Threading\IAimpAsyncTask.cs" />
-    <Compile Include="Threading\IAimpAsyncTaskOwner.cs" />
+    <Compile Include="Threading\IAimpTask.cs" />
+    <Compile Include="Threading\IAimpTaskOwner.cs" />
     <Compile Include="Threading\IAimpServiceSynchronizer.cs" />
     <Compile Include="Threading\IAimpServiceThreadPool.cs" />
     <Compile Include="Threading\IAimpTaskPriority.cs" />
