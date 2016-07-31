@@ -22,8 +22,11 @@
     <None Include="AIMP_Exports.def" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SDK\MusicLibrary\AimpDataStorage.cpp" />
     <ClCompile Include="SDK\AimpExtension.cpp" />
     <ClCompile Include="AimpDotnetPlugin.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpServiceMusicLibrary.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpGroupingPresets.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlaylistQueueListener.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlayListQueue.cpp" />
     <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp" />
@@ -41,12 +44,16 @@
     <ClCompile Include="Stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataStorage.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiMusicLibrary.h" />
     <ClInclude Include="SDK\AimpExtension.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiGUI.h" />
     <ClInclude Include="AIMPSDK\AIMPSDK.h" />
     <ClInclude Include="Extensions\AimpExtensionPlaylistManagerListener.h" />
     <ClInclude Include="SDK\Delegates.h" />
     <ClInclude Include="SDK\delegate_impl.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibrary.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresets.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />
     <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h" />
     <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h" />

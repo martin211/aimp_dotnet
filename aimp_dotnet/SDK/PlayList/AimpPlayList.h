@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "AimpPlayListItem.h"
-#include "..\..\IUnknownInterfaceImpl.h"
 #include "AimpFileInfo.h"
 
 namespace AIMP
