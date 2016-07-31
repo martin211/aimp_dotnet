@@ -19,6 +19,7 @@
 #include "SDK\Options\AimpServiceOptionsDialog.h"
 #include "SDK\Threading\AimpServiceSynchronizer.h"
 #include "SDK\Threading\AimpServiceThreadPool.h"
+#include "SDK\MusicLibrary\AimpServiceMusicLibrary.h"
 
 
 namespace AIMP
