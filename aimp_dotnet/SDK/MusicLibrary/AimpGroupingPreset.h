@@ -9,29 +9,31 @@ namespace AIMP
         using namespace AIMP::SDK::MusicLibrary::DataStorage;
         using namespace AIMP::SDK::MusicLibrary::Presets;
 
-        public ref class AimpDataStorage : public AimpObject<IAIMPMLDataStorage>, public IAimpDataStorage
+        public ref class AimpGroupingPreset : public AimpObject<IAIMPMLGroupingPreset>, public IAimpGroupingPreset
         {
         public:
-            explicit AimpDataStorage(IAIMPMLDataStorage *aimpDataStorage);
+            explicit AimpGroupingPreset(IAIMPMLGroupingPreset *preset);
 
-            !AimpDataStorage();
+            !AimpGroupingPreset();
 
-            ~AimpDataStorage();
+            ~AimpGroupingPreset();
+
+            virtual property String ^Custom
+            {
+                String ^get();
+                void set(String ^value);
+            }
 
             virtual property String ^Id
             {
                 String ^get();
+                void set(String ^value);
             }
 
-            virtual property String ^Caption
+            virtual property String ^Name
             {
                 String ^get();
-            }
-
-            virtual property IAimpGroupingPreset ^GroupingPreset
-            {
-                IAimpGroupingPreset ^get();
-                void set(IAimpGroupingPreset ^value);
+                void set(String ^value);
             }
 
         private:
@@ -41,4 +43,3 @@ namespace AIMP
         };
     }
 }
-

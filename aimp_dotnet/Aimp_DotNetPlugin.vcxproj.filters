@@ -116,7 +116,7 @@
     <ClCompile Include="SDK\MusicLibrary\AimpDataStorage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SDK\MusicLibrary\AimpGroupingPresets.cpp">
+    <ClCompile Include="SDK\MusicLibrary\AimpGroupingPreset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -347,6 +347,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingPreset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
