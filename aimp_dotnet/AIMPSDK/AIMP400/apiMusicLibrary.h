@@ -109,11 +109,11 @@ const int AIMPML_FIELDFLAG_INTERNAL    = 4;
 const int AIMPML_FIELDFLAG_REQUIRED    = 8;
 
 // Built-in Reserved Field Names
-const WCHAR* AIMPML_RESERVED_FIELD_ID       = L"ID";       // !REQUIRED! unique record id (Int32, Int64 or String)
-const WCHAR* AIMPML_RESERVED_FIELD_FILENAME = L"FileName"; // !REQUIRED! string
-const WCHAR* AIMPML_RESERVED_FIELD_FILESIZE = L"FileSize"; // Int64, in bytes
-const WCHAR* AIMPML_RESERVED_FIELD_DURATION = L"Duration"; // double, in seconds
-const WCHAR* AIMPML_RESERVED_FIELD_USERMARK = L"UserMark"; // double, 0.0 .. 5.0
+static const WCHAR* AIMPML_RESERVED_FIELD_ID       = L"ID";       // !REQUIRED! unique record id (Int32, Int64 or String)
+static const WCHAR* AIMPML_RESERVED_FIELD_FILENAME = L"FileName"; // !REQUIRED! string
+static const WCHAR* AIMPML_RESERVED_FIELD_FILESIZE = L"FileSize"; // Int64, in bytes
+static const WCHAR* AIMPML_RESERVED_FIELD_DURATION = L"Duration"; // double, in seconds
+static const WCHAR* AIMPML_RESERVED_FIELD_USERMARK = L"UserMark"; // double, 0.0 .. 5.0
 
 // Property ID for IAIMPMLGroupingPreset
 const int AIMPML_GROUPINGPRESET_PROPID_CUSTOM   = 0;

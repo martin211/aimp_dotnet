@@ -1,6 +1,6 @@
 #pragma once
 #include "..\BaseManager.h"
-#include "..\..\AIMPSDK\AIMP400\apiMusicLibrary.h"
+#include "AimpGroupingPresets.h"
 
 namespace AIMP
 {
@@ -19,15 +19,21 @@ namespace AIMP
 
             }
 
-            virtual AimpActionResult GetActiveDataStorage(IAimpExtensionDataStorage ^%obj);
+            virtual AimpActionResult GetActiveDataStorage(IAimpDataStorage ^%storage);
 
-            virtual AimpActionResult GeteActiveGroupingPreset(IAimpGroupingPreset ^%preset);
+            virtual AimpActionResult GetActiveDataStorage(IAimpGroupingPresets ^%preset);
 
-            virtual AimpActionResult SetActiveStorage(IAimpExtensionDataStorage ^storage);
+            virtual AimpActionResult SetActiveStorage(IAimpDataStorage ^storage);
 
-            //virtual AimpActionResult GetStorage(int index, StorageType storageType, Object ^%obj);
+            virtual AimpActionResult SetActiveStorage(IAimpGroupingPresets ^preset);
 
-            //virtual AimpActionResult GetStorageById(String ^id, StorageType storageType, Object ^%obj);
+            virtual AimpActionResult GetStorage(int index, IAimpDataStorage ^%storage);
+
+            virtual AimpActionResult GetStorage(int index, IAimpGroupingPresets ^%preset);
+
+            virtual AimpActionResult GetStorageById(String ^id, IAimpDataStorage ^%storage);
+
+            virtual AimpActionResult GetStorageById(String ^id, IAimpGroupingPresets ^%preset);
 
             virtual int GetStorageCount();
         };

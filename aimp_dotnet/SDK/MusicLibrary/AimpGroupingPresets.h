@@ -1,6 +1,6 @@
 #pragma once
-#include "..\..\AIMPSDK\AIMP400\apiMusicLibrary.h"
 #include "..\AimpObject.h"
+#include "..\..\AIMPSDK\AIMPSDK.h"
 
 namespace AIMP
 {
@@ -13,19 +13,61 @@ namespace AIMP
 
         public ref class AimpGroupingPresets : public AimpObject<IAIMPMLGroupingPresets>, public IAimpGroupingPresets
         {
-            AimpActionResult Add(String ^id, String ^name, IAimpGroupingTreeDataProvider ^provider, IAimpGroupingPreset ^%preset);
+        public:
+            virtual AimpActionResult Add(String^ id, String^ name, IAimpGroupingTreeDataProvider^ provider, IAimpGroupingPreset ^%preset)
+            {
+                return AimpActionResult::Unexpected;
+            }
 
-            AimpActionResult Add(String ^id, String ^name, IEnumerable<String^> ^fieldNames, IAimpGroupingPresetStandard ^%preset);
+            AimpActionResult Add(System::String^ id, System::String^ name, System::Collections::Generic::IEnumerable<System::String^>^ fieldNames, AIMP::SDK::MusicLibrary::Presets::IAimpGroupingPresetStandard^ preset)
+            {
+                return AimpActionResult::Unexpected;
+            }
 
-            AimpActionResult Add(String ^id, String ^name, String ^fieldName, IAimpGroupingPresetStandard ^%preset);
+            AimpActionResult Add(System::String^ id, System::String^ name, System::String^ fieldName, AIMP::SDK::MusicLibrary::Presets::IAimpGroupingPresetStandard^ preset)
+            {
+                return AimpActionResult::Unexpected;
+            }
 
-            void BeginUpdate();
+            virtual void BeginUpdate()
+            {
+                InternalAimpObject->BeginUpdate();
+            }
 
-            void EndUpdate();
+            virtual void EndUpdate()
+            {
+                InternalAimpObject->EndUpdate();
+            }
 
-            AimpActionResult Delete(int index);
+            virtual AimpActionResult Delete(int index)
+            {
+                return CheckResult(InternalAimpObject->Delete(index));
+            }
 
-            int GetCount();
+            virtual int GetCount(void)
+            {
+                return InternalAimpObject->GetCount();
+            }
+
+            virtual AimpActionResult Get(int index, IAimpGroupingPreset ^%preset)
+            {
+                return AimpActionResult::Unexpected;
+            }
+
+            virtual AimpActionResult Get(int index, IAimpGroupingPresetStandard ^%preset)
+            {
+                return AimpActionResult::Unexpected;
+            }
+
+            /*virtual AimpActionResult GetById(int index, IAimpGroupingPreset ^%preset)
+            {
+                return AimpActionResult::Unexpected;
+            }
+
+            virtual AimpActionResult GetById(int index, IAimpGroupingPresetStandard ^%preset)
+            {
+                return AimpActionResult::Unexpected;
+            }*/
         };
     }
 }

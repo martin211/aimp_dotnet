@@ -5,15 +5,21 @@ namespace AIMP.SDK.MusicLibrary
 {
     public interface IAimpServiceMusicLibrary
     {
-        AimpActionResult GetActiveDataStorage(out IAimpDataStorage dataStorage);
+        AimpActionResult GetActiveDataStorage(out IAimpDataStorage storage);
 
-        AimpActionResult GeteActiveGroupingPreset(out IAimpGroupingPresets preset);
+        AimpActionResult GetActiveDataStorage(out IAimpGroupingPresets preset);
 
         AimpActionResult SetActiveStorage(IAimpDataStorage storage);
 
-        //AimpActionResult GetStorage(int index, StorageType storageType, out object obj);
+        AimpActionResult SetActiveStorage(IAimpGroupingPresets preset);
 
-        //AimpActionResult GetStorageById(string id, StorageType storageType, out object obj);
+        AimpActionResult GetStorage(int index, out IAimpDataStorage storage);
+
+        AimpActionResult GetStorage(int index, out IAimpGroupingPresets preset);
+
+        AimpActionResult GetStorageById(string id, out IAimpDataStorage storage);
+
+        AimpActionResult GetStorageById(string id, out IAimpGroupingPresets preset);
 
         int GetStorageCount();
     }
