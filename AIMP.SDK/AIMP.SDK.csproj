@@ -66,6 +66,10 @@
     <Compile Include="IAimpExternalSettingsDialog.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="MenuManager\IAimpMenuEvents.cs" />
+    <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilter.cs" />
+    <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilterByArray.cs" />
+    <Compile Include="MusicLibrary\DataFilter\IAimpDataFilter.cs" />
+    <Compile Include="MusicLibrary\DataFilter\IAimpDataFilterGroup.cs" />
     <Compile Include="MusicLibrary\DataStorage\IAimpDataStorage.cs" />
     <Compile Include="MusicLibrary\DataStorage\IAimpGroupingTreeDataProvider.cs" />
     <Compile Include="MusicLibrary\IAimpDataFilter.cs" />
@@ -127,6 +131,7 @@
     <Compile Include="PlayList\IAimpPlayListGroup.cs" />
     <Compile Include="PlayList\IAimpPlayListItem.cs" />
     <Compile Include="PlayList\IAimpPlayListManager.cs" />
+    <Compile Include="Variant.cs" />
     <Compile Include="Visuals\AimpVisualData.cs" />
     <Compile Include="Visuals\AimpVisualFlags.cs" />
     <Compile Include="Visuals\IAimpExtensionCustomVisualization.cs" />

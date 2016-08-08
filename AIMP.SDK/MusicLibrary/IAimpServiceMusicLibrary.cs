@@ -5,9 +5,9 @@ namespace AIMP.SDK.MusicLibrary
 {
     public interface IAimpServiceMusicLibrary
     {
-        AimpActionResult GetActiveDataStorage(out IAimpDataStorage storage);
+        AimpActionResult GetActiveStorage(out IAimpDataStorage storage);
 
-        AimpActionResult GetActiveDataStorage(out IAimpGroupingPresets preset);
+        AimpActionResult GetActiveStorage(out IAimpGroupingPresets preset);
 
         AimpActionResult SetActiveStorage(IAimpDataStorage storage);
 

@@ -1,4 +1,5 @@
-﻿using AIMP.SDK.Threading;
+﻿using AIMP.SDK.MusicLibrary;
+using AIMP.SDK.Threading;
 
 namespace AIMP.SDK.Player
 {
@@ -193,5 +194,9 @@ namespace AIMP.SDK.Player
         IAimpServiceSynchronizer ServiceSynchronizer { get; }
 
         IAimpServiceThreadPool ServiceThreadPool { get; }
+
+        IAimpServiceMusicLibrary ServiceMusicLibrary { get; }
+
+        IAimpServiceMusicLibraryUI ServiceMusicLibraryUi { get; }
     }
 }

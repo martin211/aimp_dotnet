@@ -19,9 +19,9 @@ namespace AIMP
 
             }
 
-            virtual AimpActionResult GetActiveDataStorage(IAimpDataStorage ^%storage);
+            virtual AimpActionResult GetActiveStorage(IAimpDataStorage ^%storage);
 
-            virtual AimpActionResult GetActiveDataStorage(IAimpGroupingPresets ^%preset);
+            virtual AimpActionResult GetActiveStorage(IAimpGroupingPresets ^%presets);
 
             virtual AimpActionResult SetActiveStorage(IAimpDataStorage ^storage);
 

@@ -1,11 +1,13 @@
 #include "..\..\Stdafx.h"
 #include "AimpServiceMusicLibrary.h"
+#include "AimpDataStorage.h"
+#include "AimpGroupingPresets.h"
 
 namespace AIMP
 {
     namespace SDK
     {
-        AimpActionResult AimpServiceMusicLibrary::GetActiveDataStorage(IAimpDataStorage ^%storage)
+        AimpActionResult AimpServiceMusicLibrary::GetActiveStorage(IAimpDataStorage ^%storage)
         {
             IAIMPServiceMusicLibrary *service = NULL;
             AimpActionResult result = AimpActionResult::Fail;
@@ -14,8 +16,9 @@ namespace AIMP
             {
                 if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::Ok)
                 {
-                    IAIMPMLDataStorage *storage;
-                    result = CheckResult(service->GetActiveStorage(IID_IAIMPMLDataStorage, (void**)&storage));
+                    IAIMPMLDataStorage *aimpStorage;
+                    result = CheckResult(service->GetActiveStorage(IID_IAIMPMLDataStorage, (void**)&aimpStorage));
+                    storage = gcnew AimpDataStorage(aimpStorage);
                 }
 
                 return result;
@@ -30,7 +33,7 @@ namespace AIMP
             }
         }
 
-        AimpActionResult AimpServiceMusicLibrary::GetActiveDataStorage(IAimpGroupingPresets ^%preset)
+        AimpActionResult AimpServiceMusicLibrary::GetActiveStorage(IAimpGroupingPresets ^%presets)
         {
             IAIMPServiceMusicLibrary *service = NULL;
             AimpActionResult result = AimpActionResult::Fail;
@@ -39,8 +42,9 @@ namespace AIMP
             {
                 if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::Ok)
                 {
-                    IAIMPMLGroupingPresets *storage;
-                    result = CheckResult(service->GetActiveStorage(IID_IAIMPMLGroupingPresets, (void**)&storage));
+                    IAIMPMLGroupingPresets *aimpPresets;
+                    result = CheckResult(service->GetActiveStorage(IID_IAIMPMLGroupingPresets, (void**)&aimpPresets));
+                    presets = gcnew AimpGroupingPresets(aimpPresets);
                 }
 
                 return result;

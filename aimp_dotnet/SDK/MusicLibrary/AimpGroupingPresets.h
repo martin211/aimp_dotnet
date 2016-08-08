@@ -7,6 +7,7 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
+        using namespace System::Collections;
         using namespace System::Collections::Generic;
         using namespace AIMP::SDK::MusicLibrary::DataStorage;
         using namespace AIMP::SDK::MusicLibrary::Presets;
@@ -14,17 +15,20 @@ namespace AIMP
         public ref class AimpGroupingPresets : public AimpObject<IAIMPMLGroupingPresets>, public IAimpGroupingPresets
         {
         public:
+            explicit AimpGroupingPresets(IAIMPMLGroupingPresets *aimpObject) : AimpObject(aimpObject)
+            {}
+
             virtual AimpActionResult Add(String^ id, String^ name, IAimpGroupingTreeDataProvider^ provider, IAimpGroupingPreset ^%preset)
             {
                 return AimpActionResult::Unexpected;
             }
 
-            AimpActionResult Add(System::String^ id, System::String^ name, System::Collections::Generic::IEnumerable<System::String^>^ fieldNames, AIMP::SDK::MusicLibrary::Presets::IAimpGroupingPresetStandard^ preset)
+            virtual AimpActionResult Add(String^ id, String^ name, System::Collections::Generic::IList<String^>^ fieldNames, IAimpGroupingPresetStandard^ %preset)
             {
                 return AimpActionResult::Unexpected;
             }
 
-            AimpActionResult Add(System::String^ id, System::String^ name, System::String^ fieldName, AIMP::SDK::MusicLibrary::Presets::IAimpGroupingPresetStandard^ preset)
+            virtual AimpActionResult Add(System::String^ id, String^ name, String^ fieldName, IAimpGroupingPresetStandard^ %preset)
             {
                 return AimpActionResult::Unexpected;
             }
@@ -59,7 +63,7 @@ namespace AIMP
                 return AimpActionResult::Unexpected;
             }
 
-            /*virtual AimpActionResult GetById(int index, IAimpGroupingPreset ^%preset)
+            virtual AimpActionResult GetById(int index, IAimpGroupingPreset ^%preset)
             {
                 return AimpActionResult::Unexpected;
             }
@@ -67,7 +71,7 @@ namespace AIMP
             virtual AimpActionResult GetById(int index, IAimpGroupingPresetStandard ^%preset)
             {
                 return AimpActionResult::Unexpected;
-            }*/
+            }
         };
     }
 }
