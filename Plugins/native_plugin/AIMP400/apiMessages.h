@@ -341,7 +341,7 @@ const int AIMP_MSG_PROPERTY_PLAYER_POSITION = AIMP_MSG_PROPERTY_BASE + 17;
 
 // !!!ReadOnly property
 // AParam1: AIMP_MSG_PROPVALUE_GET
-// AParam2: Pointer to Single (32-bit floating point value) variable
+// AParam2: Pointer to Single (32-bit floating point value) variable, in Seconds
 const int AIMP_MSG_PROPERTY_PLAYER_DURATION = AIMP_MSG_PROPERTY_BASE + 18;
 
 // !!!ReadOnly property
@@ -410,6 +410,11 @@ const int AIMP_MSG_PROPERTY_LOADED = AIMP_MSG_PROPERTY_BASE + 30;
 // AParam1: AIMP_MSG_PROPVALUE_GET / AIMP_MSG_PROPVALUE_SET
 // AParam2: Pointer to LongBool (32-bit boolean value) variable
 const int AIMP_MSG_PROPERTY_VISUAL_FULLSCREEN = AIMP_MSG_PROPERTY_BASE + 31;
+
+// !!!ReadOnly property
+// AParam1: AIMP_MSG_PROPVALUE_GET
+// AParam2: Pointer to Single (32-bit floating point value) variable, [0..100]%
+const int AIMP_MSG_PROPERTY_PLAYER_BUFFERING = AIMP_MSG_PROPERTY_BASE + 32;
 
 //==============================================================================
 // Events

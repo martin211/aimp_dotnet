@@ -61,6 +61,18 @@ const int AIMP_MENUID_PLAYER_PLAYLIST_CONTEXT_DELETION  = 34;
 const int AIMP_MENUID_PLAYER_TRAY                       = 40;
 const int AIMP_MENUID_PLAYER_EQ_LIB                     = 41;
 const int AIMP_MENUID_PLAYER_STOP_OPTIONS               = 42; // v4.00.1690
+const int AIMP_MENUID_ML_MISCELLANEOUS                  = 50; // v4.10
+const int AIMP_MENUID_ML_DELETION                       = 51; // v4.10
+const int AIMP_MENUID_ML_MAIN_DB                        = 60; // v4.10
+const int AIMP_MENUID_ML_MAIN_FUNCTIONS                 = 61; // v4.10
+const int AIMP_MENUID_ML_MAIN_OPEN                      = 62; // v4.10
+const int AIMP_MENUID_ML_MAIN_OPTIONS                   = 63; // v4.10
+const int AIMP_MENUID_ML_TABLE_CONTEXT_ADDING           = 70; // v4.10
+const int AIMP_MENUID_ML_TABLE_CONTEXT_FUNCTIONS        = 71; // v4.10
+const int AIMP_MENUID_ML_TABLE_CONTEXT_SENDING          = 72; // v4.10
+const int AIMP_MENUID_ML_TABLE_CONTEXT_DELETION         = 73; // v4.10
+const int AIMP_MENUID_ML_TREE_CONTEXT_FUNCTIONS         = 80; // v4.10
+const int AIMP_MENUID_ML_TREE_CONTEXT_DELETION          = 81; // v4.10
 
 /* IAIMPMenuItem */
 

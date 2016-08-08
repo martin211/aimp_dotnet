@@ -5,6 +5,7 @@
 
 #include "AIMP400/apiPlugin.h"
 #include "AIMP400/apiThreading.h"
+#include "AIMP400/apiMusicLibrary.h"
 
 #define DBOUT( s )            \
 {                             \
@@ -128,16 +129,23 @@ public:
     // Initialization / Finalization
     virtual HRESULT WINAPI Initialize(IAIMPCore* Core)
     {
-        IAIMPServiceThreadPool *service;
+        //IAIMPServiceThreadPool *service;
 
-        HRESULT res = Core->QueryInterface(IID_IAIMPServiceThreadPool, (void**)&service);
+        //HRESULT res = Core->QueryInterface(IID_IAIMPServiceThreadPool, (void**)&service);
+        //DBOUT("QueryInterface result " << res);
+
+        //AimpTask* task = new AimpTask();
+
+        //DWORD_PTR h;
+
+        ////res = service->Execute(task, &h);
+        //DBOUT("Execute result " << res);
+
+        IAIMPServiceMusicLibrary *mlservice;
+        HRESULT res = Core->QueryInterface(IID_IAIMPServiceMusicLibrary, (void**)&mlservice);
         DBOUT("QueryInterface result " << res);
-
-        AimpTask* task = new AimpTask();
-
-        DWORD_PTR h;
-
-        res = service->Execute(task, &h);
+        IAIMPMLDataStorage *storage;
+        res = mlservice->GetActiveStorage(IID_IAIMPMLDataStorage, (void**)&storage);
         DBOUT("Execute result " << res);
 
         return S_OK;

@@ -92,6 +92,10 @@ namespace AIMP
             static AimpActionResult GetFloat(IAIMPPropertyList *propertyList, int propertyId, double %value);
 
             static AimpActionResult GetBool(IAIMPPropertyList *propertyList, int propertyId, bool %value);
+
+            static AimpActionResult GetVariant(IAIMPPropertyList2 *propertyList, int propertyId, AIMP::SDK::Variant %value);
+
+            static AimpActionResult SetVariant(IAIMPPropertyList2 *propertyList, int propertyId, AIMP::SDK::Variant value);
         };
     }
 }

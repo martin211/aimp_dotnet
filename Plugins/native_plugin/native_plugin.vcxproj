@@ -57,6 +57,7 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="AIMP.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -80,8 +81,8 @@
     </Link>
     <PostBuildEvent>
       <Command>IF $(ConfigurationName) == Debug (
-IF NOT EXIST "$(SolutionDir)..\AIMP4.00\Plugins\$(TargetName)" mkdir "$(SolutionDir)..\AIMP4.00\Plugins\$(TargetName)"
-copy "$(TargetPath)" "$(SolutionDir)..\AIMP4.00\Plugins\$(TargetName)\$(ProjectName).dll"
+IF NOT EXIST "$(SolutionDir)..\$(AIMP_VERSION)\Plugins\$(TargetName)" mkdir "$(SolutionDir)..\$(AIMP_VERSION)\Plugins\$(TargetName)"
+copy "$(TargetPath)" "$(SolutionDir)..\$(AIMP_VERSION)\Plugins\$(TargetName)\$(ProjectName).dll"
 )
 
 IF $(ConfigurationName) == Release (

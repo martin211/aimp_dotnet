@@ -44,6 +44,7 @@
     <ClCompile Include="Stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilter.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPreset.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataStorage.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiMusicLibrary.h" />
@@ -53,6 +54,7 @@
     <ClInclude Include="Extensions\AimpExtensionPlaylistManagerListener.h" />
     <ClInclude Include="SDK\Delegates.h" />
     <ClInclude Include="SDK\delegate_impl.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibrary.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresets.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />

@@ -58,6 +58,8 @@ namespace AIMP
         AimpPlayerState _state;
         IAimpServiceSynchronizer ^_serviceSynchronizer;
         IAimpServiceThreadPool ^_serviceThreadPool;
+        IAimpServiceMusicLibrary ^_serviceMusicLibrary;
+        IAimpServiceMusicLibraryUI ^_serviceMusicLibraryUi;
 
         EventHandler<AIMP::SDK::Player::StateChangedEventArgs^> ^_onStateChanged;
         EventHandler ^_onLanguageChanged;
@@ -485,6 +487,32 @@ namespace AIMP
                 }
 
                 return _serviceThreadPool;
+            }
+        }
+
+        virtual property IAimpServiceMusicLibrary ^ServiceMusicLibrary
+        {
+            IAimpServiceMusicLibrary ^get()
+            {
+                if (_serviceMusicLibrary == nullptr)
+                {
+                    _serviceMusicLibrary = gcnew AIMP::SDK::AimpServiceMusicLibrary((ManagedAimpCore^)_managedAimpCore);
+                }
+
+                return _serviceMusicLibrary;
+            }
+        }
+
+        virtual property IAimpServiceMusicLibraryUI ^ServiceMusicLibraryUi
+        {
+            IAimpServiceMusicLibraryUI ^get()
+            {
+                if (_serviceMusicLibraryUi == nullptr)
+                {
+                    //_serviceMusicLibraryUi = gcnew AIMP::SDK::AimpS
+                }
+
+                return nullptr;
             }
         }
 

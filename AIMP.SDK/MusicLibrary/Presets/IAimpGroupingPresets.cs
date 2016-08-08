@@ -10,9 +10,9 @@ namespace AIMP.SDK.MusicLibrary.Presets
     {
         AimpActionResult Add(string id, string name, IAimpGroupingTreeDataProvider provider, out IAimpGroupingPreset preset);
 
-        //AimpActionResult Add(string id, string name, IEnumerable<string> fieldNames, out IAimpGroupingPresetStandard preset);
+        AimpActionResult Add(string id, string name, IList<string> fieldNames, out IAimpGroupingPresetStandard preset);
 
-        //AimpActionResult Add(string id, string name, string fieldName, out IAimpGroupingPresetStandard preset);
+        AimpActionResult Add(string id, string name, string fieldName, out IAimpGroupingPresetStandard preset);
 
         void BeginUpdate();
 
@@ -24,9 +24,9 @@ namespace AIMP.SDK.MusicLibrary.Presets
 
         AimpActionResult Get(int index, out IAimpGroupingPresetStandard preset);
 
-        //AimpActionResult GetById(string id, out IAimpGroupingPreset preset);
+        AimpActionResult GetById(int index, out IAimpGroupingPreset preset);
 
-        //AimpActionResult GetById(string id, out IAimpGroupingPresetStandard preset);
+        AimpActionResult GetById(int index, out IAimpGroupingPresetStandard preset);
 
         int GetCount();
     }

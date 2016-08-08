@@ -352,6 +352,12 @@
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPreset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc">
