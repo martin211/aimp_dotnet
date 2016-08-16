@@ -358,6 +358,18 @@
     <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpExtensionDataStorage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataStorageManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AimpPropertyList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeDataProvider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc">

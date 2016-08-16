@@ -1,6 +1,7 @@
 #pragma once
 #include "..\AimpObject.h"
 #include "..\..\AIMPSDK\AIMPSDK.h"
+#include "AimpGroupingTreeDataProvider.h"
 
 namespace AIMP
 {
@@ -9,6 +10,7 @@ namespace AIMP
         using namespace System;
         using namespace System::Collections;
         using namespace System::Collections::Generic;
+        using namespace AIMP::SDK;
         using namespace AIMP::SDK::MusicLibrary::DataStorage;
         using namespace AIMP::SDK::MusicLibrary::Presets;
 
@@ -20,6 +22,8 @@ namespace AIMP
 
             virtual AimpActionResult Add(String^ id, String^ name, IAimpGroupingTreeDataProvider^ provider, IAimpGroupingPreset ^%preset)
             {
+                InternalAimpObject->Add(AimpExtension::GetAimpString(name), AimpExtension::GetAimpString(name), 0, );
+
                 return AimpActionResult::Unexpected;
             }
 

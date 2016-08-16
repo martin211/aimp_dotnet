@@ -4,9 +4,9 @@ namespace AIMP.SDK.MusicLibrary
 {
     public interface IAimpDataStorageManager
     {
-        AimpActionResult BackgroundTaskStarted(int id, string caption, IAimpActionEvent cancelEvent);
+        void BackgroundTaskStarted(int id, string caption, IAimpActionEvent cancelEvent);
 
-        AimpActionResult BackgroundTaskFinished(int id);
+        void BackgroundTaskFinished(int id);
 
         void Changed();
     }
