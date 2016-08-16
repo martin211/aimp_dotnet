@@ -20,14 +20,6 @@ namespace AIMP
             Release();
         }
 
-        AimpActionResult AimpGroupingPreset::GetProperties(IAIMPPropertyList** properties)
-        {
-            IAIMPPropertyList *prop = NULL;
-            AimpActionResult result = CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&prop));
-            *properties = prop;
-            return result;
-        }
-
         void AimpGroupingPreset::Release()
         {
             if (InternalAimpObject != NULL)
@@ -39,124 +31,34 @@ namespace AIMP
 
         String ^AimpGroupingPreset::Custom::get()
         {
-            IAIMPPropertyList *properties = NULL;
-            try
-            {
-                if (GetProperties(&properties) == AimpActionResult::Ok)
-                {
-                    return PropertyListExtension::GetString(properties, AIMPML_GROUPINGPRESET_PROPID_CUSTOM);
-                }
-            }
-            finally
-            {
-                if (properties != NULL)
-                {
-                    properties->Release();
-                    properties = NULL;
-                }
-            }
+            return PropertyListExtension::GetString(InternalAimpObject, AIMPML_GROUPINGPRESET_PROPID_CUSTOM);
         }
 
         void AimpGroupingPreset::Custom::set(String ^value)
         {
-            IAIMPPropertyList *properties = NULL;
-            try
-            {
-                if (GetProperties(&properties) == AimpActionResult::Ok)
-                {
-                    PropertyListExtension::SetString(properties, AIMPML_GROUPINGPRESET_PROPID_CUSTOM, value);
-                }
-            }
-            finally
-            {
-                if (properties != NULL)
-                {
-                    properties->Release();
-                    properties = NULL;
-                }
-            }
+            PropertyListExtension::SetString(InternalAimpObject, AIMPML_GROUPINGPRESET_PROPID_CUSTOM, value);
         }
 
 
         String ^AimpGroupingPreset::Id::get()
         {
-            IAIMPPropertyList *properties = NULL;
-            try
-            {
-                if (GetProperties(&properties) == AimpActionResult::Ok)
-                {
-                    return PropertyListExtension::GetString(properties, AIMPML_GROUPINGPRESET_PROPID_ID);
-                }
-            }
-            finally
-            {
-                if (properties != NULL)
-                {
-                    properties->Release();
-                    properties = NULL;
-                }
-            }
+            return PropertyListExtension::GetString(_aimpObject, AIMPML_GROUPINGPRESET_PROPID_ID);
         }
 
         void AimpGroupingPreset::Id::set(String ^value)
         {
-            IAIMPPropertyList *properties = NULL;
-            try
-            {
-                if (GetProperties(&properties) == AimpActionResult::Ok)
-                {
-                    PropertyListExtension::SetString(properties, AIMPML_GROUPINGPRESET_PROPID_ID, value);
-                }
-            }
-            finally
-            {
-                if (properties != NULL)
-                {
-                    properties->Release();
-                    properties = NULL;
-                }
-            }
+            PropertyListExtension::SetString(InternalAimpObject, AIMPML_GROUPINGPRESET_PROPID_ID, value);
         }
 
 
         String ^AimpGroupingPreset::Name::get()
         {
-            IAIMPPropertyList *properties = NULL;
-            try
-            {
-                if (GetProperties(&properties) == AimpActionResult::Ok)
-                {
-                    return PropertyListExtension::GetString(properties, AIMPML_GROUPINGPRESET_PROPID_NAME);
-                }
-            }
-            finally
-            {
-                if (properties != NULL)
-                {
-                    properties->Release();
-                    properties = NULL;
-                }
-            }
+             return PropertyListExtension::GetString(InternalAimpObject, AIMPML_GROUPINGPRESET_PROPID_NAME);
         }
 
         void AimpGroupingPreset::Name::set(String ^value)
         {
-            IAIMPPropertyList *properties = NULL;
-            try
-            {
-                if (GetProperties(&properties) == AimpActionResult::Ok)
-                {
-                    PropertyListExtension::SetString(properties, AIMPML_GROUPINGPRESET_PROPID_NAME, value);
-                }
-            }
-            finally
-            {
-                if (properties != NULL)
-                {
-                    properties->Release();
-                    properties = NULL;
-                }
-            }
+            PropertyListExtension::SetString(InternalAimpObject, AIMPML_GROUPINGPRESET_PROPID_NAME, value);
         }
     }
 }

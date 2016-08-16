@@ -37,8 +37,6 @@ namespace AIMP
             }
 
         private:
-            AimpActionResult GetProperties(IAIMPPropertyList** properties);
-
             void Release();
         };
     }

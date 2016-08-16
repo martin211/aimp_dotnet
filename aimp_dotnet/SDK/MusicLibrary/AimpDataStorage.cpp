@@ -75,10 +75,13 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                 {
-                    IAIMPMLGroupingPreset *preset;
+                    IAIMPMLGroupingPreset *preset = NULL;
                     if (PropertyListExtension::GetObject(properties, AIMPML_DATASTORAGE_PROPID_GROUPINGPRESET, IID_IAIMPMLGroupingPreset, (void**)&preset) == AimpActionResult::Ok)
                     {
-                        return gcnew AimpGroupingPreset(preset);
+                        if (preset != NULL)
+                            return gcnew AimpGroupingPreset(preset);
+
+                        return nullptr;
                     }
                 }
             }

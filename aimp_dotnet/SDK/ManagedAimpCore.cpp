@@ -258,6 +258,19 @@ namespace AIMP
                 return _core->RegisterExtension(IID_IAIMPServicePlaylistManager, _playlistManagerListener);
             }
 
+            AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage ^dataStorageExtension = dynamic_cast<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^>(extension);
+            if (dataStorageExtension != nullptr)
+            {
+                if (_musicLibraryDataStorage != NULL)
+                {
+                    return E_FAIL;
+                }
+
+                AimpExtensionDataStorage *ext = new AimpExtensionDataStorage(_core, dataStorageExtension);
+                _musicLibraryDataStorage = ext;
+                return _core->RegisterExtension(IID_IAIMPMLExtensionDataStorage, _musicLibraryDataStorage);
+            }
+
             return E_UNEXPECTED;
         }
 

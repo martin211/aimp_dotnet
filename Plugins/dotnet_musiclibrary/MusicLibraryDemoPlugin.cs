@@ -15,7 +15,16 @@ namespace dotnet_musiclibrary
             if (Player.ServiceMusicLibrary.GetActiveStorage(out storage) == AimpActionResult.Ok)
             {
                 System.Diagnostics.Debug.WriteLine($"{nameof(storage.Id)}:{storage.Id}\t{nameof(storage.Caption)}:{storage.Caption}");
+
+                if (storage.GroupingPreset != null)
+                {
+                    System.Diagnostics.Debug.WriteLine($"{nameof(storage.GroupingPreset.Id)}:{storage.GroupingPreset.Id}\t{nameof(storage.GroupingPreset.Name)}:{storage.GroupingPreset.Name}");
+                }
             }
+
+
+            var demoPlugin = new DemoMusicLibrary();
+            Player.Core.RegisterExtension(demoPlugin);
         }
 
         public override void Dispose()

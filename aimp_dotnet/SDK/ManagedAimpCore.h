@@ -7,6 +7,7 @@
 #include "..\Extensions\AimpExtensionPlaylistManagerListener.h"
 #include "..\SDK\Visuals\AimpExtensionEmbeddedVisualization.h"
 #include "..\SDK\Visuals\AimpExtensionCustomVisualization.h"
+#include "..\SDK\MusicLibrary\AimpExtensionDataStorage.h"
 
 namespace AIMP
 {
@@ -109,6 +110,7 @@ namespace AIMP
             AimpExtensionEmbeddedVisualization* _embeddedVisualization;
             AimpExtensionCustomVisualization* _customVisualization;
             AimpExtensionPlaylistManagerListener *_playlistManagerListener;
+            AimpExtensionDataStorage *_musicLibraryDataStorage;
 
             AIMP::SDK::PlayList::PlayListHandler ^_playlistAdded;
             AIMP::SDK::PlayList::PlayListHandler ^_playlistRemoved;
