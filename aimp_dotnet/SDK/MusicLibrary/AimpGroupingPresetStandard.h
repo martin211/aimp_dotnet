@@ -28,21 +28,25 @@ namespace AIMP
             {
                 System::Collections::Generic::IList<String^>^ get()
                 {
-                    System::Collections::Generic::IList<String^>^ result;
-                    IAIMPObjectList *fields;
+                    System::Collections::Generic::IList<String^>^ result = gcnew System::Collections::Generic::List<String^>();
+                    IAIMPObjectList* fields = NULL;
                     if (PropertyListExtension::GetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList, (void**)fields) == AimpActionResult::Ok)
                     {
+                        if (fields == NULL)
+                        {
+                            return result;
+                        }
+
                         int count = fields->GetCount();
-                        result = gcnew System::Collections::Generic::List<String^>(count);
                         for (int i = 0; i < count; i++)
                         {
-                            IAIMPString* str;
+                            IAIMPString* str = NULL;
                             fields->GetObject(i, IID_IAIMPString, (void**)str);
                             result->Add(AimpExtension::GetString(str));
                         }
                     }
 
-                    return nullptr;
+                    return result;
                 }
 
                 void set(System::Collections::Generic::IList<String^>^ value)
