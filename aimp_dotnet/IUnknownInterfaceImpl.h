@@ -30,7 +30,8 @@ public:
         return _LinkCounter;
     }
 
-    virtual ULONG WINAPI Release(void) {
+    virtual ULONG WINAPI Release(void) 
+    {
         _LinkCounter--;
 
         if (_LinkCounter == 0) {

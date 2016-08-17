@@ -22,7 +22,7 @@ namespace AIMP
 
             virtual AimpActionResult Add(String^ id, String^ name, IAimpGroupingTreeDataProvider^ provider, IAimpGroupingPreset ^%preset)
             {
-                InternalAimpObject->Add(AimpExtension::GetAimpString(name), AimpExtension::GetAimpString(name), 0, );
+                //InternalAimpObject->Add(AimpExtension::GetAimpString(name), AimpExtension::GetAimpString(name), 0, );
 
                 return AimpActionResult::Unexpected;
             }

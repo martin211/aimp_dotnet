@@ -24,11 +24,11 @@ namespace dotnet_musiclibrary
         private const string EVDS_FileSize = "FileSize";
         private const string EVDS_Fake = "Fake";
 
-        public string Id { get; }
+        public string Id => "AimpDemoMusicLibrary";
 
-        public string Caption { get; }
+        public string Caption => "AIMP Demo Music Library";
 
-        public CapabilitiesType Capabilities { get; }
+        public CapabilitiesType Capabilities => CapabilitiesType.AIMPML_DATASTORAGE_CAP_GROUPINGPRESETS;
 
         public void Initialize(IAimpDataStorageManager manager)
         {

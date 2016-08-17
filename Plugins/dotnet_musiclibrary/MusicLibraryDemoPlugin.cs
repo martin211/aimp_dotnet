@@ -24,7 +24,10 @@ namespace dotnet_musiclibrary
 
 
             var demoPlugin = new DemoMusicLibrary();
-            Player.Core.RegisterExtension(demoPlugin);
+            if (Player.Core.RegisterExtension(demoPlugin) != AimpActionResult.Ok)
+            {
+                System.Diagnostics.Debug.WriteLine("Unable register DemoMusicLibrary");
+            }
         }
 
         public override void Dispose()
