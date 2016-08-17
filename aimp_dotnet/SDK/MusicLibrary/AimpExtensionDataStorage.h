@@ -3,7 +3,8 @@
 #include "AimpGroupingPresets.h"
 
 class AimpExtensionDataStorage :
-    public IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage>
+    public IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage>,
+    public IAIMPMLDataProvider
 {
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage> Base;
@@ -17,21 +18,25 @@ public:
     virtual void WINAPI Finalize()
     {
        //_managedInstance->Dispose();
+        System::Diagnostics::Debug::WriteLine("Finalize");
     }
 
     virtual void WINAPI Initialize(IAIMPMLDataStorageManager* Manager)
     {
+        System::Diagnostics::Debug::WriteLine("Initialize");
         IAimpDataStorageManager ^manager = gcnew AimpDataStorageManager(Manager);
         _managedInstance->Initialize(manager);
     }
 
     virtual HRESULT WINAPI ConfigLoad(IAIMPConfig *Config, IAIMPString* Section)
     {
+        System::Diagnostics::Debug::WriteLine("Config load");
         return (HRESULT)_managedInstance->ConfigLoad(nullptr, AIMP::SDK::AimpExtension::GetString(Section));
     }
 
     virtual HRESULT WINAPI ConfigSave(IAIMPConfig *Config, IAIMPString* Section)
     {
+        System::Diagnostics::Debug::WriteLine("Config save");
         return (HRESULT)_managedInstance->ConfigLoad(nullptr, AIMP::SDK::AimpExtension::GetString(Section));
     }
 
@@ -75,6 +80,12 @@ public:
     {
         AIMP::SDK::AimpGroupingPresets ^managedPresets = gcnew AIMP::SDK::AimpGroupingPresets(Presets);
         return (HRESULT)_managedInstance->GetGroupingPresets((AIMP::SDK::MusicLibrary::Extension::GroupingPresetsSchemaType)Schema, managedPresets);
+    }
+
+    virtual HRESULT WINAPI GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* Filter, IUnknown** Data)
+    {
+        System::Diagnostics::Debug::WriteLine("Get data");
+        return S_OK;
     }
 
     virtual void WINAPI FlushCache(int Reserved /*= 0*/)
@@ -148,19 +159,30 @@ public:
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
     {
+        if (!ppvObject)
+        {
+            return E_POINTER;
+        }
+
         if (riid == IID_IAIMPMLExtensionDataStorage)
         {
             *ppvObject = this;
+            AddRef();
+            return S_OK;
         }
 
-        return S_OK;
+        return E_NOINTERFACE;
     }
 
-    //virtual ULONG WINAPI AddRef(void)
-    //{}
+    virtual ULONG WINAPI AddRef(void)
+    {
+        return Base::AddRef();
+    }
 
-    //virtual ULONG WINAPI Release(void)
-    //{}
+    virtual ULONG WINAPI Release(void)
+    {
+        return Base::Release();
+    }
 
 private:
     gcroot<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^> _managedInstance;

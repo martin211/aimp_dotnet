@@ -2,6 +2,7 @@
 #include "..\AimpObject.h"
 #include "..\..\AIMPSDK\AIMPSDK.h"
 #include "AimpGroupingTreeDataProvider.h"
+#include "AimpGroupingPresetStandard.h"
 
 namespace AIMP
 {
@@ -22,18 +23,28 @@ namespace AIMP
 
             virtual AimpActionResult Add(String^ id, String^ name, IAimpGroupingTreeDataProvider^ provider, IAimpGroupingPreset ^%preset)
             {
+                //AimpGroupingTreeDataProvider* treeDataProvider;
                 //InternalAimpObject->Add(AimpExtension::GetAimpString(name), AimpExtension::GetAimpString(name), 0, );
-
                 return AimpActionResult::Unexpected;
             }
 
             virtual AimpActionResult Add(String^ id, String^ name, System::Collections::Generic::IList<String^>^ fieldNames, IAimpGroupingPresetStandard^ %preset)
             {
+                //InternalAimpObject->Add2(AimpExtension::GetAimpString(id), AimpExtension::GetAimpString(name), 0);
                 return AimpActionResult::Unexpected;
             }
 
             virtual AimpActionResult Add(System::String^ id, String^ name, String^ fieldName, IAimpGroupingPresetStandard^ %preset)
             {
+                IAIMPMLGroupingPresetStandard* standartPreset;
+                AimpActionResult result = CheckResult(InternalAimpObject->Add3(AimpExtension::GetAimpString(id), AimpExtension::GetAimpString(name), 0, AimpExtension::GetAimpString(fieldName), &standartPreset));
+
+                preset = nullptr;
+                if (result == AimpActionResult::Ok)
+                {
+                    preset = gcnew AimpGroupingPresetStandard(standartPreset);
+                }
+
                 return AimpActionResult::Unexpected;
             }
 
