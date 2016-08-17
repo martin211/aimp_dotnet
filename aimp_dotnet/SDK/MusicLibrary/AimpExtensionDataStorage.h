@@ -3,9 +3,11 @@
 #include "AimpGroupingPresets.h"
 
 class AimpExtensionDataStorage :
-    public IAIMPMLExtensionDataStorage
+    public IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage>
 {
 public:
+    typedef IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage> Base;
+
     AimpExtensionDataStorage(IAIMPCore *aimpCore, gcroot<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^> instance)
     {
         _managedInstance = instance;
@@ -14,7 +16,7 @@ public:
 
     virtual void WINAPI Finalize()
     {
-        _managedInstance->Dispose();
+       //_managedInstance->Dispose();
     }
 
     virtual void WINAPI Initialize(IAIMPMLDataStorageManager* Manager)
@@ -78,7 +80,6 @@ public:
     virtual void WINAPI FlushCache(int Reserved /*= 0*/)
     {}
 
-
     virtual void WINAPI BeginUpdate()
     {
 
@@ -91,7 +92,7 @@ public:
 
     virtual HRESULT WINAPI Reset()
     {
-
+        return S_OK;
     }
 
     // Read
@@ -144,6 +145,22 @@ public:
             return S_OK;
         }
     }
+
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
+    {
+        if (riid == IID_IAIMPMLExtensionDataStorage)
+        {
+            *ppvObject = this;
+        }
+
+        return S_OK;
+    }
+
+    //virtual ULONG WINAPI AddRef(void)
+    //{}
+
+    //virtual ULONG WINAPI Release(void)
+    //{}
 
 private:
     gcroot<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^> _managedInstance;

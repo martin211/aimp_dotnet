@@ -1041,7 +1041,7 @@ namespace AIMP
             return res;
         }
 
-        AimpActionResult AimpPlayList::AddList(IList<String^>^ fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition)
+        AimpActionResult AimpPlayList::AddList(System::Collections::Generic::IList<String^>^ fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition)
         {
             AimpActionResult res = AimpActionResult::Fail;
 
