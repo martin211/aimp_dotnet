@@ -10,11 +10,10 @@ namespace AIMP
 
         public ref class AimpDataFilter :
             public AimpDataFilterGroup,
-            public IAimpObject<IAIMPMLDataFilter>,
             public IAimpDataFilter
         {
         public:
-            explicit AimpDataFilter(IAIMPMLDataFilter* native) : AimpObject(native)
+            explicit AimpDataFilter(IAIMPMLDataFilter* native) : AimpDataFilterGroup(native)
             {}
 
             virtual property int Offset

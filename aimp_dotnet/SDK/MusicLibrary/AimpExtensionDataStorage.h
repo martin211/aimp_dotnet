@@ -38,7 +38,7 @@ public:
     virtual HRESULT WINAPI ConfigSave(IAIMPConfig *Config, IAIMPString* Section)
     {
         System::Diagnostics::Debug::WriteLine("Config save");
-        return (HRESULT)_managedInstance->ConfigLoad(nullptr, AIMP::SDK::AimpExtension::GetString(Section));
+        return (HRESULT)_managedInstance->ConfigSave(nullptr, AIMP::SDK::AimpExtension::GetString(Section));
     }
 
     virtual HRESULT WINAPI GetFields(int Schema, IAIMPObjectList** List)
@@ -127,6 +127,11 @@ public:
 
     virtual HRESULT WINAPI GetValueAsInt32(int PropertyID, int *Value)
     {
+        if (PropertyID == AIMPML_DATASTORAGE_PROPID_CAPABILITIES)
+        {
+            *Value = (int)_managedInstance->Capabilities;
+        }
+
         return S_OK;
     }
 
@@ -137,6 +142,16 @@ public:
 
     virtual HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void **Value)
     {
+        if (PropertyID == AIMPML_DATASTORAGE_PROPID_ID)
+        {
+            *Value = AIMP::SDK::AimpExtension::GetAimpString(_managedInstance->Id);
+        }
+
+        if (PropertyID == AIMPML_DATASTORAGE_PROPID_CAPTION)
+        {
+            *Value = AIMP::SDK::AimpExtension::GetAimpString(_managedInstance->Caption);
+        }
+
         return S_OK;
     }
     // Write
@@ -157,16 +172,16 @@ public:
 
     virtual HRESULT WINAPI SetValueAsObject(int PropertyID, IUnknown *Value)
     {
+        return S_OK;
+
         if (PropertyID == AIMPML_DATASTORAGE_PROPID_ID)
         {
-            Value = AIMP::SDK::AimpExtension::GetAimpString(_managedInstance->Id);
-            return S_OK;
+            AIMP::SDK::PropertyListExtension::SetString(this, AIMPML_DATASTORAGE_PROPID_ID, _managedInstance->Id);
         }
 
         if (PropertyID == AIMPML_DATASTORAGE_PROPID_CAPTION)
         {
-            Value = AIMP::SDK::AimpExtension::GetAimpString(_managedInstance->Caption);
-            return S_OK;
+            AIMP::SDK::PropertyListExtension::SetString(this, AIMPML_DATASTORAGE_PROPID_CAPTION, _managedInstance->Caption);
         }
     }
 
@@ -175,6 +190,13 @@ public:
         if (!ppvObject)
         {
             return E_POINTER;
+        }
+
+        if (riid == IID_IAIMPMLDataProvider)
+        {
+            *ppvObject = this;
+            AddRef();
+            return S_OK;
         }
 
         if (riid == IID_IAIMPMLExtensionDataStorage)

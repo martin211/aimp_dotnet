@@ -12,7 +12,7 @@ public interface class IAimpObject
 };
 
 template<class TAimpObject>
-public ref class AimpObject : public IAimpObject<TAimpObject>
+public ref class AimpObject
 {
 protected:
     AimpObject() {}

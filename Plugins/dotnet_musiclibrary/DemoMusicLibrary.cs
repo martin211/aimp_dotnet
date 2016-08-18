@@ -26,9 +26,9 @@ namespace dotnet_musiclibrary
 
         public string Id => "AimpDemoMusicLibrary";
 
-        public string Caption => "AIMP Demo Music Library";
+        public string Caption => "Demo ML";
 
-        public CapabilitiesType Capabilities => CapabilitiesType.AIMPML_DATASTORAGE_CAP_GROUPINGPRESETS;
+        public CapabilitiesType Capabilities => CapabilitiesType.AIMPML_DATASTORAGE_CAP_FILTERING | CapabilitiesType.AIMPML_DATASTORAGE_CAP_GROUPINGPRESETS | CapabilitiesType.AIMPML_DATASTORAGE_CAP_PREIMAGES;
 
         public void Initialize(IAimpDataStorageManager manager)
         {
@@ -62,20 +62,21 @@ namespace dotnet_musiclibrary
                 case SchemaType.AIMPML_FIELDS_SCHEMA_ALL:
                     list = new List<IAimpDataField>
                     {
-                        new AimpDataField(EVDS_ID, AimpDataFieldType.AIMPML_FIELDTYPE_STRING, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_INTERNAL),
-                        new AimpDataField(EVDS_FileName, AimpDataFieldType.None),
-                        new AimpDataField(EVDS_FileFormat, AimpDataFieldType.AIMPML_FIELDTYPE_STRING),
-                        new AimpDataField(EVDS_FileSize, AimpDataFieldType.AIMPML_FIELDTYPE_FILESIZE),
-                        new AimpDataField(EVDS_FileAccessTime, AimpDataFieldType.AIMPML_FIELDTYPE_DATETIME),
-                        new AimpDataField(EVDS_FileCreationTime, AimpDataFieldType.AIMPML_FIELDTYPE_DATETIME),
-                        new AimpDataField(EVDS_Fake, AimpDataFieldType.AIMPML_FIELDTYPE_FILENAME,
-                            AimpDataFieldFlagsType.AIMPML_FIELDFLAG_INTERNAL | AimpDataFieldFlagsType.AIMPML_FIELDFLAG_GROUPING)
+                        new AimpDataField(EVDS_ID, AimpDataFieldType.AIMPML_FIELDTYPE_STRING, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_INTERNAL | AimpDataFieldFlagsType.AIMPML_FIELDFLAG_FILTERING),
+                        new AimpDataField(EVDS_FileName, AimpDataFieldType.None, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_FILTERING),
+                        new AimpDataField(EVDS_FileFormat, AimpDataFieldType.AIMPML_FIELDTYPE_STRING, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_FILTERING),
+                        new AimpDataField(EVDS_FileSize, AimpDataFieldType.AIMPML_FIELDTYPE_FILESIZE, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_FILTERING),
+                        new AimpDataField(EVDS_FileAccessTime, AimpDataFieldType.AIMPML_FIELDTYPE_DATETIME, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_FILTERING),
+                        new AimpDataField(EVDS_FileCreationTime, AimpDataFieldType.AIMPML_FIELDTYPE_DATETIME, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_FILTERING),
+                        new AimpDataField(EVDS_Fake, AimpDataFieldType.AIMPML_FIELDTYPE_FILENAME, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_INTERNAL | AimpDataFieldFlagsType.AIMPML_FIELDFLAG_GROUPING)
                     };
                     break;
 
+                case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_GROUPBY:
+                case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_GROUPDETAILS:
+                case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_VIEW_GROUPDETAILS:
                 case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_VIEW_DEFAULT:
                 case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_VIEW_ALBUMTHUMBNAILS:
-                case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_VIEW_GROUPDETAILS:
                     list = new List<string>
                     {
                         EVDS_FileFormat,
@@ -100,8 +101,6 @@ namespace dotnet_musiclibrary
             {
                 IAimpGroupingPresetStandard preset;
                 presets.Add("Demo.ExplorerView.GroupingPreset.Default", string.Empty, EVDS_Fake, out preset);
-
-                var f = preset.Fields;
             }
 
             return AimpActionResult.Ok;
