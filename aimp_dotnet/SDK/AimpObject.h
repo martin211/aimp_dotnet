@@ -1,7 +1,18 @@
 ﻿#pragma once
 
 template<class TAimpObject>
-public ref class AimpObject
+public interface class IAimpObject
+{
+    AIMP::SDK::AimpActionResult CheckResult(HRESULT result);
+
+    property TAimpObject *InternalAimpObject
+    {
+        TAimpObject *get();
+    }
+};
+
+template<class TAimpObject>
+public ref class AimpObject : public IAimpObject<TAimpObject>
 {
 protected:
     AimpObject() {}

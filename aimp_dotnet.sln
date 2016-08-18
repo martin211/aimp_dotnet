@@ -37,7 +37,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_musiclibrary", "Plug
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{E560656D-14CC-48E6-A94E-9992D99B5BA0}"
 	ProjectSection(SolutionItems) = preProject
-		CopyPlugin.bat = CopyPlugin.bat
+		CopyPlugin.cmd = CopyPlugin.cmd
 	EndProjectSection
 EndProject
 Global

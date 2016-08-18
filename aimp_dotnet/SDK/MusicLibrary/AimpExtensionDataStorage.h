@@ -1,6 +1,7 @@
 #pragma once
 #include "AimpDataStorageManager.h"
 #include "AimpGroupingPresets.h"
+#include "AimpDataFilter.h"
 
 class AimpExtensionDataStorage :
     public IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage>,
@@ -85,6 +86,18 @@ public:
     virtual HRESULT WINAPI GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* Filter, IUnknown** Data)
     {
         System::Diagnostics::Debug::WriteLine("Get data");
+        System::Object^ obj = _managedInstance;
+
+        IAimpDataProvider^ provider = dynamic_cast<IAimpDataProvider^>(obj);
+        if (provider != nullptr)
+        {
+            System::Object^ o;
+            provider->GetData(
+                AIMP::SDK::AimpExtension::ToStringCollection(Fields),
+                gcnew AimpDataFilter(Filter),
+                o);
+        }
+
         return S_OK;
     }
 

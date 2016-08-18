@@ -69,7 +69,6 @@
     <Compile Include="MenuManager\IAimpMenuEvents.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilter.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilterByArray.cs" />
-    <Compile Include="MusicLibrary\DataFilter\IAimpDataFilter.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFilterGroup.cs" />
     <Compile Include="MusicLibrary\DataStorage\IAimpDataField.cs" />
     <Compile Include="MusicLibrary\DataStorage\IAimpDataStorage.cs" />
