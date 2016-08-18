@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
 
 namespace AIMP.SDK
 {
@@ -12,11 +9,17 @@ namespace AIMP.SDK
     {
         [FieldOffset(0)]
         public int Integer;
+
         [FieldOffset(0)]
         public float Float;
+
         [FieldOffset(0)]
         public double Double;
+
         [FieldOffset(0)]
         public byte Byte;
+
+        [FieldOffset(0)]
+        public string String;
     }
 }

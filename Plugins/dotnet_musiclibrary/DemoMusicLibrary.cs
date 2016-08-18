@@ -107,7 +107,7 @@ namespace dotnet_musiclibrary
             return AimpActionResult.Ok;
         }
 
-        public AimpActionResult GetData(IList fields, IAimpDataFilter filter, out object data)
+        public AimpActionResult GetData(IList<string> fields, IAimpDataFilter filter, out object data)
         {
             data = null;
             if (fields.Count == 1 && fields[0].ToString() == EVDS_Fake)

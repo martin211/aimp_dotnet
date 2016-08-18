@@ -22,6 +22,7 @@
     <None Include="AIMP_Exports.def" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SDK\MusicLibrary\AimpDataFilterGroup.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpGroupingPreset.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpDataStorage.cpp" />
     <ClCompile Include="SDK\AimpExtension.cpp" />
@@ -46,6 +47,7 @@
   <ItemGroup>
     <ClInclude Include="SDK\AimpPropertyList.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilter.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFilterGroup.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataStorageManager.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpExtensionDataStorage.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPreset.h" />
@@ -61,6 +63,7 @@
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeDataProvider.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibrary.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresets.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFilter.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />
     <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h" />
     <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h" />
