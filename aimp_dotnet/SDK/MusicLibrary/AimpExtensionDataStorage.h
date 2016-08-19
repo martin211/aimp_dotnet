@@ -5,7 +5,9 @@
 
 class AimpExtensionDataStorage :
     public IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage>,
-    public IAIMPMLDataProvider
+    public IAIMPMLDataProvider,
+    public IAIMPMLDataStorageCommandAddFiles,
+    public IAIMPMLDataStorageCommandAddFilesDialog
 {
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage> Base;
@@ -206,6 +208,20 @@ public:
             return S_OK;
         }
 
+        if (riid == IID_IAIMPMLDataStorageCommandAddFiles)
+        {
+            *ppvObject = this;
+            AddRef();
+            return S_OK;
+        }
+
+        if (riid == IID_IAIMPMLDataStorageCommandAddFilesDialog)
+        {
+            *ppvObject = this;
+            AddRef();
+            return S_OK;
+        }
+
         return E_NOINTERFACE;
     }
 
@@ -217,6 +233,16 @@ public:
     virtual ULONG WINAPI Release(void)
     {
         return Base::Release();
+    }
+
+    virtual HRESULT WINAPI Add(IAIMPObjectList* Files)
+    {
+        return S_OK;
+    }
+
+    virtual HRESULT WINAPI Execute(HWND OwnerHandle)
+    {
+        return S_OK;
     }
 
 private:

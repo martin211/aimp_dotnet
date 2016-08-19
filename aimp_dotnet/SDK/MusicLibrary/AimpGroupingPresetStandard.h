@@ -4,6 +4,7 @@
 #include "..\..\AIMPSDK\AIMPSDK.h"
 #include "AimpGroupingPreset.h"
 #include "AimpDataFieldFilter.h"
+#include "..\AimpObjectList.h"
 
 namespace AIMP
 {
@@ -15,41 +16,37 @@ namespace AIMP
         using namespace System::Collections::Generic;
         using namespace AIMP::SDK::MusicLibrary::DataFilter;
 
+        public ref class B
+        {};
+
         public ref class AimpGroupingPresetStandard :
-            public AimpObject<IAIMPMLGroupingPresetStandard>, 
-            public IAimpGroupingPresetStandard,
-            public IAimpGroupingPreset
+            public AimpGroupingPreset,
+            public IAimpGroupingPresetStandard
         {
         public:
-            AimpGroupingPresetStandard(IAIMPMLGroupingPresetStandard *aimpObject) : AimpObject(aimpObject)
+            AimpGroupingPresetStandard(IAIMPMLGroupingPresetStandard *aimpObject) : AimpGroupingPreset(aimpObject)
             {}
 
-            virtual property System::Collections::Generic::IList<String^>^ Fields
+            virtual property AIMP::SDK::IAimpObjectList<String^>^ Fields
             {
-                System::Collections::Generic::IList<String^>^ get()
+                AIMP::SDK::IAimpObjectList<String^>^ get()
                 {
-                    System::Collections::Generic::IList<String^>^ result = gcnew System::Collections::Generic::List<String^>();
                     IAIMPObjectList* fields = NULL;
-                    if (PropertyListExtension::GetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList, (void**)fields) == AimpActionResult::Ok)
+                    if (PropertyListExtension::GetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList, (void**)&fields) == AimpActionResult::Ok)
                     {
                         if (fields == NULL)
                         {
-                            return result;
+                            //fields = AimpExtension::MakeObject<IAIMPObjectList>(IID_IAIMPObjectList);
+                            //PropertyListExtension::SetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, fields);
                         }
 
-                        int count = fields->GetCount();
-                        for (int i = 0; i < count; i++)
-                        {
-                            IAIMPString* str = NULL;
-                            fields->GetObject(i, IID_IAIMPString, (void**)str);
-                            result->Add(AimpExtension::GetString(str));
-                        }
+                        return gcnew AimpObjectList<String^>(fields);
                     }
 
-                    return result;
+                    return nullptr;
                 }
 
-                void set(System::Collections::Generic::IList<String^>^ value)
+                void set(AIMP::SDK::IAimpObjectList<String^>^ value)
                 {
                     System::Collections::Generic::IList<String^>^ result;
                     IAIMPObjectList *fields = AimpExtension::MakeObject<IAIMPObjectList>(IID_IAIMPObjectList);
@@ -57,44 +54,10 @@ namespace AIMP
 
                     for (int i = 0; i < count; i++)
                     {
-                        fields->Add(AimpExtension::GetAimpString(value[i]));
+                        //fields->Add(AimpExtension::GetAimpString(value[i]));
                     }
 
                     PropertyListExtension::SetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, fields);
-                }
-            }
-
-            virtual property String^ Custom
-            {
-                String^ get()
-                {
-                    return "";
-                }
-                void set(String^ value)
-                {}
-            }
-
-            virtual property String^ Id
-            {
-                String^ get()
-                {
-                    return PropertyListExtension::GetString(InternalAimpObject, AIMPML_GROUPINGPRESET_PROPID_ID);
-                }
-                void set(String^ value)
-                {
-                    PropertyListExtension::SetString(InternalAimpObject, AIMPML_GROUPINGPRESET_PROPID_ID, value);
-                }
-            }
-
-            virtual property String^ Name
-            {
-                String^ get()
-                {
-                    return PropertyListExtension::GetString(InternalAimpObject, AIMPML_GROUPINGPRESET_PROPID_NAME);
-                }
-                void set(String^ value)
-                {
-                    PropertyListExtension::SetString(InternalAimpObject, AIMPML_GROUPINGPRESET_PROPID_NAME, value);
                 }
             }
 

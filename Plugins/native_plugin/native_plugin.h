@@ -144,9 +144,19 @@ public:
         IAIMPServiceMusicLibrary *mlservice;
         HRESULT res = Core->QueryInterface(IID_IAIMPServiceMusicLibrary, (void**)&mlservice);
         DBOUT("QueryInterface result " << res);
-        IAIMPMLDataStorage *storage;
-        res = mlservice->GetActiveStorage(IID_IAIMPMLDataStorage, (void**)&storage);
-        DBOUT("Execute result " << res);
+
+        //IAIMPMLDataStorage *storage;
+        //res = mlservice->GetActiveStorage(IID_IAIMPMLDataStorage, (void**)&storage);
+        //DBOUT("Execute result " << res);
+
+        IAIMPMLGroupingPresets* presets = NULL;
+        res = mlservice->GetStorage(0, IID_IAIMPMLGroupingPresets, (void**)presets);
+        DBOUT("Execute GetActiveStorage for presets " << res);
+
+        IAIMPMLGroupingPresetStandard* std;
+
+        res = presets->Get(0, IID_IAIMPMLGroupingPresetStandard, (void**)&std);
+        DBOUT("Execute Get for IAIMPMLGroupingPresetStandard " << res);
 
         return S_OK;
     }

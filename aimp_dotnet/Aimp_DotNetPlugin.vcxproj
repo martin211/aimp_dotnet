@@ -22,6 +22,7 @@
     <None Include="AIMP_Exports.def" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SDK\AimpObjectList.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpDataFilterGroup.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpGroupingPreset.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpDataStorage.cpp" />
@@ -45,6 +46,7 @@
     <ClCompile Include="Stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SDK\AimpObjectList.h" />
     <ClInclude Include="SDK\AimpPropertyList.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilter.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataFilterGroup.h" />

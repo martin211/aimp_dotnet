@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using AIMP.SDK.MusicLibrary.DataFilter;
+﻿using AIMP.SDK.MusicLibrary.DataFilter;
 
 namespace AIMP.SDK.MusicLibrary.Presets
 {
@@ -8,7 +7,7 @@ namespace AIMP.SDK.MusicLibrary.Presets
         /// <summary>
         /// Gets or sets the fields that used for groupping at filter.
         /// </summary>
-        IList<string> Fields { get; set; }
+        IAimpObjectList<string> Fields { get; set; }
 
         /// <summary>
         /// Gets the used filter.

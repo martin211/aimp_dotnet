@@ -143,8 +143,17 @@ namespace AIMP
             {
                 if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::Ok)
                 {
-                    IAIMPMLGroupingPresets *storage;
-                    result = CheckResult(service->GetStorage(index, IID_IAIMPMLGroupingPresets, (void**)&storage));
+                    IAIMPMLGroupingPresets* s;
+                    result = CheckResult(service->GetStorage(index, IID_IAIMPMLGroupingPresets, (void**)&s));
+
+                    if (s != NULL)
+                    {
+                        storage = gcnew AimpGroupingPresets(s);
+                    }
+                    else
+                    {
+                        return AimpActionResult::Handle;
+                    }
                 }
 
                 return result;
