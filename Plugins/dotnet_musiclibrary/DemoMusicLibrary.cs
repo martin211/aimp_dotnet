@@ -100,7 +100,10 @@ namespace dotnet_musiclibrary
             if (schema == GroupingPresetsSchemaType.AIMPML_GROUPINGPRESETS_SCHEMA_BUILTIN)
             {
                 IAimpGroupingPresetStandard preset;
-                presets.Add("Demo.ExplorerView.GroupingPreset.Default", string.Empty, EVDS_Fake, out preset);
+                presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset", new List<string> { EVDS_Fake }, out preset);
+                presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset2", new List<string> { EVDS_Fake }, out preset);
+                var f = preset.Fields;
+                //preset.Fields.Add(EVDS_Fake);
             }
 
             return AimpActionResult.Ok;
@@ -108,6 +111,7 @@ namespace dotnet_musiclibrary
 
         public AimpActionResult GetData(IList<string> fields, IAimpDataFilter filter, out object data)
         {
+            System.Diagnostics.Debugger.Break();
             data = null;
             if (fields.Count == 1 && fields[0].ToString() == EVDS_Fake)
             {

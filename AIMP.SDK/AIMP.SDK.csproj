@@ -65,6 +65,7 @@
     <Compile Include="IAimpConfig.cs" />
     <Compile Include="IAimpDisposeable.cs" />
     <Compile Include="IAimpExternalSettingsDialog.cs" />
+    <Compile Include="IAimpObjectList.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="MenuManager\IAimpMenuEvents.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilter.cs" />

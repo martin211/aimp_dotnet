@@ -122,6 +122,9 @@
     <ClCompile Include="SDK\MusicLibrary\AimpDataFilterGroup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\AimpObjectList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -377,6 +380,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\MusicLibrary\AimpDataFilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AimpObjectList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
