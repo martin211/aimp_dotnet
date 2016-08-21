@@ -16,9 +16,6 @@ namespace AIMP
         using namespace System::Collections::Generic;
         using namespace AIMP::SDK::MusicLibrary::DataFilter;
 
-        public ref class B
-        {};
-
         public ref class AimpGroupingPresetStandard :
             public AimpGroupingPreset,
             public IAimpGroupingPresetStandard

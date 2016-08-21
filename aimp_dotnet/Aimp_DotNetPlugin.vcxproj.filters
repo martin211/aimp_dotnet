@@ -52,6 +52,9 @@
     <Filter Include="SDK\Win32">
       <UniqueIdentifier>{4d5e6244-1be5-407b-861f-aa6b6bcf0cbc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SDK\MusicLibrary">
+      <UniqueIdentifier>{b7677b24-3466-47d2-96a1-5619326ea56d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="AIMP_Exports.def">
@@ -59,9 +62,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AimpDotnetPlugin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DotNetPlugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -113,17 +113,20 @@
     <ClCompile Include="SDK\MusicLibrary\AimpServiceMusicLibrary.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SDK\MusicLibrary\AimpDataStorage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\MusicLibrary\AimpGroupingPreset.cpp">
+    <ClCompile Include="SDK\AimpObjectList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SDK\MusicLibrary\AimpDataFilterGroup.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>SDK\MusicLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="SDK\AimpObjectList.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="SDK\MusicLibrary\AimpDataStorage.cpp">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="AimpDotnetPlugin.cpp">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\MusicLibrary\AimpGroupingPreset.cpp">
+      <Filter>SDK\MusicLibrary</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -349,41 +352,41 @@
     <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibrary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\MusicLibrary\AimpDataStorage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresets.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\MusicLibrary\AimpGroupingPreset.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\MusicLibrary\AimpExtensionDataStorage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\MusicLibrary\AimpDataStorageManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\AimpPropertyList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeDataProvider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\MusicLibrary\AimpDataFilterGroup.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\MusicLibrary\AimpDataFilter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\AimpObjectList.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataStorageManager.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataStorage.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFilterGroup.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFilter.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilter.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpExtensionDataStorage.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingPreset.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresets.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeDataProvider.h">
+      <Filter>SDK\MusicLibrary</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

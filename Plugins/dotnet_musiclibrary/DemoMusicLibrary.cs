@@ -1,14 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using AIMP.SDK;
 using AIMP.SDK.MusicLibrary;
 using AIMP.SDK.MusicLibrary.DataStorage;
 using AIMP.SDK.MusicLibrary.Extension;
+using AIMP.SDK.MusicLibrary.Extension.Command;
 using AIMP.SDK.MusicLibrary.Presets;
 
 namespace dotnet_musiclibrary
 {
-    public class DemoMusicLibrary : IAimpExtensionDataStorage, IAimpDataProvider, IAimpExtension
+    public class DemoMusicLibrary : 
+        IAimpExtensionDataStorage, 
+        IAimpDataProvider,
+        //IAimpDataStorageCommandAddFiles,
+        //IAimpDataStorageCommandAddFilesDialog
+        IAimpExtension
     {
         private const string AIMPML_RESERVED_FIELD_ID = "ID";       // !REQUIRED! unique record id (Int32, Int64 or String)
         private const string AIMPML_RESERVED_FIELD_FILENAME = "FileName"; // !REQUIRED! string
@@ -120,5 +127,23 @@ namespace dotnet_musiclibrary
 
             return AimpActionResult.Ok;
         }
+
+        #region Implementation of IAimpDataStorageCommandAddFiles
+
+        public AimpActionResult Add(IList<string> files)
+        {
+            return AimpActionResult.Ok;
+        }
+
+        #endregion
+
+        #region Implementation of IAimpDataStorageCommandAddFilesDialog
+
+        public AimpActionResult Execute(IntPtr ownerHandle)
+        {
+            return AimpActionResult.Ok;
+        }
+
+        #endregion
     }
 }
