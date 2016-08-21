@@ -81,6 +81,9 @@
     <ClInclude Include="native_plugin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AIMP400\apimusiclibrary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="AIMP_Exports.def">

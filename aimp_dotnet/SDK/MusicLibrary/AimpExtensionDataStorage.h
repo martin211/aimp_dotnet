@@ -3,12 +3,27 @@
 #include "AimpGroupingPresets.h"
 #include "AimpDataFilter.h"
 
+using namespace AIMP::SDK::MusicLibrary::Extension::Command;
+
 class AimpExtensionDataStorage :
     public IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage>,
     public IAIMPMLDataProvider,
     public IAIMPMLDataStorageCommandAddFiles,
-    public IAIMPMLDataStorageCommandAddFilesDialog
+    public IAIMPMLDataStorageCommandAddFilesDialog,
+    public IAIMPMLDataStorageCommandDeleteFiles,
+    public IAIMPMLDataStorageCommandDropData,
+    public IAIMPMLDataStorageCommandReloadTags,
+    public IAIMPMLDataStorageCommandReportDialog,
+    public IAIMPMLDataStorageCommandUserMark
 {
+private:
+    bool _implementsAddFilesCommand = false;
+    bool _implementsAddFilesDialogCommand = false;
+    bool _implementsDeleteFilesCommand = false;
+    bool _implementsDropDataCommand = true;
+    bool _implementsReloadTagsCommand = false;
+    bool _implementsReportDialogCommand = false;
+    bool _implementsUserMarkCommand = false;
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage> Base;
 
@@ -16,6 +31,16 @@ public:
     {
         _managedInstance = instance;
         _aimpCore = aimpCore;
+
+        Object^ obj = _managedInstance;
+
+        _implementsAddFilesCommand = dynamic_cast<IAimpDataStorageCommandAddFiles^>(obj) != nullptr;
+        _implementsAddFilesDialogCommand = dynamic_cast<IAimpDataStorageCommandAddFilesDialog^>(obj) != nullptr;
+        _implementsDeleteFilesCommand = dynamic_cast<IAimpDataStorageCommandDeleteFiles^>(obj) != nullptr;
+        _implementsDropDataCommand = dynamic_cast<IAimpDataStorageCommandDropData^>(obj) != nullptr;
+        _implementsReloadTagsCommand = dynamic_cast<IAimpDataStorageCommandReloadTags^>(obj) != nullptr;
+        _implementsReportDialogCommand = dynamic_cast<IAimpDataStorageCommandReportDialog^>(obj) != nullptr;
+        _implementsUserMarkCommand = dynamic_cast<IAimpDataStorageCommandUserMark^>(obj) != nullptr;
     }
 
     virtual void WINAPI Finalize()
@@ -201,21 +226,14 @@ public:
             return S_OK;
         }
 
-        if (riid == IID_IAIMPMLExtensionDataStorage)
-        {
-            *ppvObject = this;
-            AddRef();
-            return S_OK;
-        }
-
-        if (riid == IID_IAIMPMLDataStorageCommandAddFiles)
-        {
-            *ppvObject = this;
-            AddRef();
-            return S_OK;
-        }
-
-        if (riid == IID_IAIMPMLDataStorageCommandAddFilesDialog)
+        if (riid == IID_IAIMPMLExtensionDataStorage
+            || (riid == IID_IAIMPMLDataStorageCommandAddFiles && _implementsAddFilesCommand)
+            || (riid == IID_IAIMPMLDataStorageCommandAddFilesDialog && _implementsAddFilesDialogCommand)
+            || (riid == IID_IAIMPMLDataStorageCommandDeleteFiles && _implementsDeleteFilesCommand)
+            || (riid == IID_IAIMPMLDataStorageCommandDropData && _implementsDropDataCommand)
+            || (riid == IID_IAIMPMLDataStorageCommandReloadTags && _implementsReloadTagsCommand)
+            || (riid == IID_IAIMPMLDataStorageCommandReportDialog && _implementsReportDialogCommand)
+            || (riid == IID_IAIMPMLDataStorageCommandUserMark && _implementsUserMarkCommand))
         {
             *ppvObject = this;
             AddRef();
@@ -237,11 +255,47 @@ public:
 
     virtual HRESULT WINAPI Add(IAIMPObjectList* Files)
     {
-        return S_OK;
+        System::Diagnostics::Debugger::Break();
+        System::Object^ obj = _managedInstance;
+        IAimpDataStorageCommandAddFiles^ cmd = dynamic_cast<IAimpDataStorageCommandAddFiles^>(obj);
+        return (HRESULT)cmd->Add(nullptr);
     }
 
     virtual HRESULT WINAPI Execute(HWND OwnerHandle)
     {
+        System::Diagnostics::Debugger::Break();
+        System::Object^ obj = _managedInstance;
+        IAimpDataStorageCommandAddFilesDialog^ cmd = dynamic_cast<IAimpDataStorageCommandAddFilesDialog^>(obj);
+        return (HRESULT)cmd->Execute(IntPtr::Zero);
+    }
+
+    virtual BOOL WINAPI CanDelete(BOOL Physically)
+    {
+        System::Diagnostics::Debugger::Break();
+        return S_OK;
+    }
+
+    virtual HRESULT WINAPI Delete(IAIMPMLFileList* Files, BOOL Physically)
+    {
+        System::Diagnostics::Debugger::Break();
+        return S_OK;
+    }
+
+    virtual HRESULT WINAPI DropData()
+    {
+        System::Diagnostics::Debugger::Break();
+        return S_OK;
+    }
+
+    virtual HRESULT WINAPI ReloadTags(IAIMPMLFileList* Files)
+    {
+        System::Diagnostics::Debugger::Break();
+        return S_OK;
+    }
+
+    virtual HRESULT WINAPI SetMark(const VARIANT ID, const DOUBLE Value)
+    {
+        System::Diagnostics::Debugger::Break();
         return S_OK;
     }
 
