@@ -1,4 +1,5 @@
 #pragma once
+#include "AimpDataField.h"
 
 namespace AIMP
 {
@@ -7,7 +8,9 @@ namespace AIMP
         using namespace System;
         using namespace AIMP::SDK;
 
-        public ref class AimpDataFieldFilter : public AimpObject<IAIMPMLDataFieldFilter>, public IAimpDataFieldFilter
+        public ref class AimpDataFieldFilter :
+            public AimpObject<IAIMPMLDataFieldFilter>,
+            public IAimpDataFieldFilter
         {
         public:
             explicit AimpDataFieldFilter(IAIMPMLDataFieldFilter *aimpDataFieldFilter) : AimpObject(aimpDataFieldFilter)
@@ -23,16 +26,22 @@ namespace AIMP
                 this->!AimpDataFieldFilter();
             }
 
-            virtual property String^ Field
+            virtual property IAimpDataField^ Field
             {
-                String^ get()
+                IAimpDataField^ get()
                 {
                     IAIMPPropertyList2 *properties = NULL;
                     try
                     {
                         if (GetProperties(&properties) == AimpActionResult::Ok)
                         {
-                            return PropertyListExtension::GetString(properties, AIMPML_FIELDFILTER_FIELD);
+                            IAIMPMLDataField* dataField;
+                            if (PropertyListExtension::GetObject(properties, AIMPML_FIELDFILTER_FIELD, IID_IAIMPMLDataField, (void**)&dataField) == AimpActionResult::Ok)
+                            {
+                                return gcnew AIMP::SDK::AimpDataField(dataField);
+                            }
+
+                            return nullptr;
                         }
                     }
                     finally
@@ -45,14 +54,15 @@ namespace AIMP
                     }
                 }
 
-                void set(String^ value)
+                void set(IAimpDataField^ value)
                 {
                     IAIMPPropertyList2 *properties = NULL;
                     try
                     {
                         if (GetProperties(&properties) == AimpActionResult::Ok)
                         {
-                            PropertyListExtension::SetString(properties, AIMPML_FIELDFILTER_FIELD, value);
+                            //todo complete it.
+                            //PropertyListExtension::SetObject(properties, AIMPML_FIELDFILTER_FIELD, value);
                         }
                     }
                     finally

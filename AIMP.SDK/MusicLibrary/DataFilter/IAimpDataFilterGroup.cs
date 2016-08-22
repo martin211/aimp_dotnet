@@ -44,7 +44,21 @@
         /// <param name="index">The index.</param>
         AimpActionResult Delete(int index);
 
-        //AimpActionResult GetChild(int index, );
+        /// <summary>
+        /// Gets the child group by index.
+        /// </summary>
+        /// <param name="index">The index.</param>
+        /// <param name="group">The filter group <seealso cref="IAimpDataFilterGroup"/>.</param>
+        /// <returns></returns>
+        AimpActionResult GetChild(int index, out IAimpDataFilterGroup group);
+
+        /// <summary>
+        /// Gets the child field filter by index.
+        /// </summary>
+        /// <param name="index">The index.</param>
+        /// <param name="fieldFilter">The field filter <seealso cref="IAimpDataFieldFilter"/>.</param>
+        /// <returns></returns>
+        AimpActionResult GetChild(int index, out IAimpDataFieldFilter fieldFilter);
 
         int GetChildCount();
     }

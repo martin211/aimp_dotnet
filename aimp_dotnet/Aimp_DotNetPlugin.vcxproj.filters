@@ -388,6 +388,9 @@
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeDataProvider.h">
       <Filter>SDK\MusicLibrary</Filter>
     </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc">

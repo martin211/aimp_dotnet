@@ -31,6 +31,10 @@ namespace AIMP
 
             virtual AimpActionResult Delete(int index);
 
+            virtual AimpActionResult GetChild(int index, IAimpDataFilterGroup^% group);
+
+            virtual AimpActionResult GetChild(int index, IAimpDataFieldFilter^% fieldFilter);
+
             virtual int GetChildCount();
         };
     }

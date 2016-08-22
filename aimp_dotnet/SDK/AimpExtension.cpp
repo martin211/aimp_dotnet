@@ -273,7 +273,7 @@ namespace AIMP
 
         AimpActionResult PropertyListExtension::GetString(IAIMPPropertyList* propertyList, int propertyId, String^% value)
         {
-            IAIMPString* str = nullptr;
+            IAIMPString* str = NULL;
             String ^val = String::Empty;
 
             try
@@ -298,8 +298,11 @@ namespace AIMP
             }
             finally
             {
-                str->Release();
-                str = NULL;
+                if (str != NULL)
+                {
+                    str->Release();
+                    str = NULL;
+                }
             }
 
             return AimpActionResult::Unexpected;
@@ -351,13 +354,13 @@ namespace AIMP
 
         String^ PropertyListExtension::GetString(IAIMPPropertyList *propertyList, int propertyId)
         {
-            String^ val;
+            String^ val = String::Empty;
             if (GetString(propertyList, propertyId, *&val) == AimpActionResult::Ok)
             {
                 return val;
             }
 
-            return nullptr;
+            return val;
         }
 
         int PropertyListExtension::GetInt32(IAIMPPropertyList *propertyList, int propertyId)
