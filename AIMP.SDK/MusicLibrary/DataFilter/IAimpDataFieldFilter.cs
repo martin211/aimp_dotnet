@@ -1,4 +1,6 @@
-﻿namespace AIMP.SDK.MusicLibrary.DataFilter
+﻿using AIMP.SDK.MusicLibrary.DataStorage;
+
+namespace AIMP.SDK.MusicLibrary.DataFilter
 {
     public enum FieldFilterOperationType
     {
@@ -19,7 +21,7 @@
         /// <summary>
         /// Gets or sets the filter field.
         /// </summary>
-        string Field { get; set; }
+        IAimpDataField Field { get; set; }
 
         FieldFilterOperationType Operation { get; set; }
 

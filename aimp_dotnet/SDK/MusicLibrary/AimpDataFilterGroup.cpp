@@ -79,3 +79,27 @@ int AimpDataFilterGroup::GetChildCount()
 {
     return InternalAimpObject->GetChildCount();
 }
+
+AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFilterGroup^% group)
+{
+    IAIMPMLDataFilterGroup* child;
+    AimpActionResult result = CheckResult(InternalAimpObject->GetChild(index, IID_IAIMPMLDataFilterGroup, (void**)&child));
+    if (result == AimpActionResult::Ok)
+    {
+        group = gcnew AimpDataFilterGroup(child);
+    }
+
+    return result;
+}
+
+AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFieldFilter^% fieldFilter)
+{
+    IAIMPMLDataFieldFilter* child;
+    AimpActionResult result = CheckResult(InternalAimpObject->GetChild(index, IID_IAIMPMLDataFieldFilter, (void**)&child));
+    if (result == AimpActionResult::Ok)
+    {
+        fieldFilter = gcnew AimpDataFieldFilter(child);
+    }
+
+    return result;
+}

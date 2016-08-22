@@ -43,6 +43,7 @@
     <Compile Include="DemoMusicLibrary.cs" />
     <Compile Include="MusicLibraryDemoPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TDemoExplorerViewGroupingTreeFoldersProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AIMP.SDK\AIMP.SDK.csproj">

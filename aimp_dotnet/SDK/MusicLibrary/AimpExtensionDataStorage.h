@@ -5,30 +5,37 @@
 
 using namespace AIMP::SDK::MusicLibrary::Extension::Command;
 
-class Test : public IUnknownInterfaceImpl<IAIMPMLDataProvider>
+class AimpDataProvider : public IUnknownInterfaceImpl<IAIMPMLDataProvider>
 {
+private:
+    gcroot<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^> _instance;
+
 public:
+    AimpDataProvider(gcroot<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^> instance)
+    {
+        _instance = instance;
+    }
+
     virtual HRESULT WINAPI GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* Filter, IUnknown** Data)
     {
         System::Diagnostics::Debug::WriteLine("Get data");
-        //System::Object^ obj = _managedInstance;
+        System::Object^ obj = _instance;
 
-        //IAimpDataProvider^ provider = dynamic_cast<IAimpDataProvider^>(obj);
-        //if (provider != nullptr)
-        //{
-        //    System::Object^ o;
-        //    provider->GetData(
-        //        AIMP::SDK::AimpExtension::ToStringCollection(Fields),
-        //        gcnew AimpDataFilter(Filter),
-        //        o);
-        //}
+        IAimpDataProvider^ provider = dynamic_cast<IAimpDataProvider^>(obj);
+        if (provider != nullptr)
+        {
+            System::Object^ o;
+            provider->GetData(
+                AIMP::SDK::AimpExtension::ToStringCollection(Fields),
+                gcnew AimpDataFilter(Filter),
+                o);
+        }
 
         return S_OK;
     }
 };
 
 class AimpExtensionDataStorage :
-    //public IUnknown,
     public IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage>
     //public IAIMPMLDataProvider
     //public IAIMPMLDataStorageCommandAddFiles,
@@ -47,7 +54,7 @@ private:
     bool _implementsReloadTagsCommand = false;
     bool _implementsReportDialogCommand = false;
     bool _implementsUserMarkCommand = false;
-    Test* _test;
+    AimpDataProvider* _aimpDataProvider;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage> Base;
@@ -67,7 +74,7 @@ public:
         _implementsReportDialogCommand = dynamic_cast<IAimpDataStorageCommandReportDialog^>(obj) != nullptr;
         _implementsUserMarkCommand = dynamic_cast<IAimpDataStorageCommandUserMark^>(obj) != nullptr;
 
-        _test = new Test();
+        _aimpDataProvider = new AimpDataProvider(instance);
     }
 
     virtual void WINAPI Finalize()
@@ -156,24 +163,6 @@ public:
 
         return S_OK;
     }
-
-    /*virtual HRESULT WINAPI GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* Filter, IUnknown** Data)
-    {
-        System::Diagnostics::Debug::WriteLine("Get data");
-        System::Object^ obj = _managedInstance;
-
-        IAimpDataProvider^ provider = dynamic_cast<IAimpDataProvider^>(obj);
-        if (provider != nullptr)
-        {
-            System::Object^ o;
-            provider->GetData(
-                AIMP::SDK::AimpExtension::ToStringCollection(Fields),
-                gcnew AimpDataFilter(Filter),
-                o);
-        }
-
-        return S_OK;
-    }*/
 
     virtual void WINAPI FlushCache(int Reserved /*= 0*/)
     {}
@@ -275,7 +264,7 @@ public:
 
         if (riid == IID_IAIMPMLDataProvider)
         {
-            *ppvObject = _test;
+            *ppvObject = _aimpDataProvider;
             AddRef();
             return S_OK;
         }

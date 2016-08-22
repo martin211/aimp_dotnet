@@ -48,6 +48,7 @@
   <ItemGroup>
     <ClInclude Include="SDK\AimpObjectList.h" />
     <ClInclude Include="SDK\AimpPropertyList.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpDataField.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilter.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataFilterGroup.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataStorageManager.h" />

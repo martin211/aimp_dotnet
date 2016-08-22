@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using AIMP.SDK;
 using AIMP.SDK.MusicLibrary;
+using AIMP.SDK.MusicLibrary.DataFilter;
 using AIMP.SDK.MusicLibrary.DataStorage;
 using AIMP.SDK.MusicLibrary.Extension;
 using AIMP.SDK.MusicLibrary.Extension.Command;
@@ -120,12 +121,62 @@ namespace dotnet_musiclibrary
         {
             System.Diagnostics.Debugger.Break();
             data = null;
-            if (fields.Count == 1 && fields[0].ToString() == EVDS_Fake)
+            if (fields.Count == 1 && fields[0] == EVDS_Fake)
             {
-                
+                var s = GetRootPath(filter);
+
+                if (!string.IsNullOrWhiteSpace(s))
+                {
+                    
+                }
             }
 
             return AimpActionResult.Ok;
+        }
+
+        private string GetRootPath(IAimpDataFilter filter)
+        {
+            var s = string.Empty;
+
+            var result = EnumDataFieldFilters(filter, fieldFilter =>
+            {
+                if (fieldFilter.Field != null && fieldFilter.Field.Name == EVDS_Fake)
+                {
+                    var res = fieldFilter.Operation == FieldFilterOperationType.AIMPML_FIELDFILTER_OPERATION_BEGINSWITH |
+                           fieldFilter.Operation == FieldFilterOperationType.AIMPML_FIELDFILTER_OPERATION_EQUALS;
+
+                    s = res ? fieldFilter.Value1.String : string.Empty;
+                    return res;
+                }
+
+                return false;
+            });
+
+            return s;
+        }
+
+        private bool EnumDataFieldFilters(IAimpDataFilterGroup filter, Func<IAimpDataFieldFilter, bool> aProc)
+        {
+            if (filter != null)
+            {
+                for (int i = 0; i < filter.GetChildCount(); i++)
+                {
+                    IAimpDataFilterGroup group;
+                    IAimpDataFieldFilter field;
+                    if (filter.GetChild(i, out group) == AimpActionResult.Ok)
+                    {
+                        EnumDataFieldFilters(group, aProc);
+                    }
+                    else if (filter.GetChild(i, out field) == AimpActionResult.Ok)
+                    {
+                        return aProc(field);
+                    }
+
+                    break;
+                }
+            }
+
+            return false;
         }
 
         #region Implementation of IAimpDataStorageCommandAddFiles
