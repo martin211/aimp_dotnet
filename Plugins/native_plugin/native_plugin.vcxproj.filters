@@ -84,6 +84,15 @@
     <ClInclude Include="AIMP400\apimusiclibrary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TDemoExplorerViewDataStorage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IUnknownInterfaceImpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AimpSDK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="AIMP_Exports.def">
