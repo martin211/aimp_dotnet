@@ -268,7 +268,7 @@ namespace AIMP
 
                 AimpExtensionDataStorage *ext = new AimpExtensionDataStorage(_core, dataStorageExtension);
                 _musicLibraryDataStorage = ext;
-                return _core->RegisterExtension(IID_IAIMPServiceMusicLibrary, (IAIMPMLExtensionDataStorage*)_musicLibraryDataStorage);
+                return _core->RegisterExtension(IID_IAIMPServiceMusicLibrary, ext);
             }
 
             return E_UNEXPECTED;

@@ -107,7 +107,7 @@ namespace dotnet_musiclibrary
             if (schema == GroupingPresetsSchemaType.AIMPML_GROUPINGPRESETS_SCHEMA_BUILTIN)
             {
                 IAimpGroupingPresetStandard preset;
-                presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset", new List<string> { EVDS_Fake }, out preset);
+                presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset", EVDS_Fake, out preset);
                 presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset2", new List<string> { EVDS_Fake }, out preset);
                 var f = preset.Fields;
                 //preset.Fields.Add(EVDS_Fake);

@@ -5,16 +5,39 @@
 
 using namespace AIMP::SDK::MusicLibrary::Extension::Command;
 
+class Test : public IUnknownInterfaceImpl<IAIMPMLDataProvider>
+{
+public:
+    virtual HRESULT WINAPI GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* Filter, IUnknown** Data)
+    {
+        System::Diagnostics::Debug::WriteLine("Get data");
+        //System::Object^ obj = _managedInstance;
+
+        //IAimpDataProvider^ provider = dynamic_cast<IAimpDataProvider^>(obj);
+        //if (provider != nullptr)
+        //{
+        //    System::Object^ o;
+        //    provider->GetData(
+        //        AIMP::SDK::AimpExtension::ToStringCollection(Fields),
+        //        gcnew AimpDataFilter(Filter),
+        //        o);
+        //}
+
+        return S_OK;
+    }
+};
+
 class AimpExtensionDataStorage :
-    public IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage>,
-    public IAIMPMLDataProvider,
-    public IAIMPMLDataStorageCommandAddFiles,
-    public IAIMPMLDataStorageCommandAddFilesDialog,
-    public IAIMPMLDataStorageCommandDeleteFiles,
-    public IAIMPMLDataStorageCommandDropData,
-    public IAIMPMLDataStorageCommandReloadTags,
-    public IAIMPMLDataStorageCommandReportDialog,
-    public IAIMPMLDataStorageCommandUserMark
+    //public IUnknown,
+    public IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage>
+    //public IAIMPMLDataProvider
+    //public IAIMPMLDataStorageCommandAddFiles,
+    //public IAIMPMLDataStorageCommandAddFilesDialog,
+    //public IAIMPMLDataStorageCommandDeleteFiles,
+    //public IAIMPMLDataStorageCommandDropData,
+    //public IAIMPMLDataStorageCommandReloadTags,
+    //public IAIMPMLDataStorageCommandReportDialog,
+    //public IAIMPMLDataStorageCommandUserMark
 {
 private:
     bool _implementsAddFilesCommand = false;
@@ -24,6 +47,8 @@ private:
     bool _implementsReloadTagsCommand = false;
     bool _implementsReportDialogCommand = false;
     bool _implementsUserMarkCommand = false;
+    Test* _test;
+
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage> Base;
 
@@ -41,6 +66,8 @@ public:
         _implementsReloadTagsCommand = dynamic_cast<IAimpDataStorageCommandReloadTags^>(obj) != nullptr;
         _implementsReportDialogCommand = dynamic_cast<IAimpDataStorageCommandReportDialog^>(obj) != nullptr;
         _implementsUserMarkCommand = dynamic_cast<IAimpDataStorageCommandUserMark^>(obj) != nullptr;
+
+        _test = new Test();
     }
 
     virtual void WINAPI Finalize()
@@ -104,13 +131,33 @@ public:
         return S_OK;
     }
 
-    virtual HRESULT WINAPI GetGroupingPresets(int Schema, IAIMPMLGroupingPresets* Presets)
+    IAIMPString* MakeString(WCHAR* value)
     {
-        AIMP::SDK::AimpGroupingPresets ^managedPresets = gcnew AIMP::SDK::AimpGroupingPresets(Presets);
-        return (HRESULT)_managedInstance->GetGroupingPresets((AIMP::SDK::MusicLibrary::Extension::GroupingPresetsSchemaType)Schema, managedPresets);
+        IAIMPString* str;
+        _aimpCore->CreateObject(IID_IAIMPString, (void**)&str);
+        str->SetData(value, sizeof(value));
+        return str;
     }
 
-    virtual HRESULT WINAPI GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* Filter, IUnknown** Data)
+    virtual HRESULT WINAPI GetGroupingPresets(int Schema, IAIMPMLGroupingPresets* Presets)
+    {
+        //AIMP::SDK::AimpGroupingPresets ^managedPresets = gcnew AIMP::SDK::AimpGroupingPresets(Presets);
+        //return (HRESULT)_managedInstance->GetGroupingPresets((AIMP::SDK::MusicLibrary::Extension::GroupingPresetsSchemaType)Schema, managedPresets);
+        IAIMPMLGroupingPresetStandard* preset = NULL;
+        IAIMPObjectList* list = nullptr;
+        if (Schema == AIMPML_GROUPINGPRESETS_SCHEMA_BUILTIN)
+        {
+            Presets->Add3(MakeString(L"Demo.ExplorerView.GroupingPreset.Default"), MakeString(L"Demo"), 0, MakeString(L"Fake"), &preset);
+            preset->GetValueAsObject(AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList, reinterpret_cast<void**>(&list));
+            int count = list->GetCount();
+
+            System::Diagnostics::Debug::WriteLine(count);
+        }
+
+        return S_OK;
+    }
+
+    /*virtual HRESULT WINAPI GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* Filter, IUnknown** Data)
     {
         System::Diagnostics::Debug::WriteLine("Get data");
         System::Object^ obj = _managedInstance;
@@ -126,7 +173,7 @@ public:
         }
 
         return S_OK;
-    }
+    }*/
 
     virtual void WINAPI FlushCache(int Reserved /*= 0*/)
     {}
@@ -219,9 +266,16 @@ public:
             return E_POINTER;
         }
 
+        //if (riid == IID_IAIMPMLDataProvider)
+        //{
+        //    *ppvObject = this;
+        //    AddRef();
+        //    return S_OK;
+        //}
+
         if (riid == IID_IAIMPMLDataProvider)
         {
-            *ppvObject = this;
+            *ppvObject = _test;
             AddRef();
             return S_OK;
         }

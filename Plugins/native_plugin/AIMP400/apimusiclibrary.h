@@ -337,7 +337,7 @@ class IAIMPMLPlaylistPreimage : public IAIMPPlaylistPreimage
 
 /* IAIMPMLDataProvider */
 
-class IAIMPMLDataProvider : public IUnknown
+class IAIMPMLDataProvider
 {
 	public:
 		virtual HRESULT WINAPI GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* Filter, IUnknown** Data) = 0;

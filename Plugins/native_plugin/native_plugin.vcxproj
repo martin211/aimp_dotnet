@@ -29,6 +29,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>true</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -150,7 +151,10 @@ copy "$(TargetPath)" "$(SolutionDir)\$(ConfigurationName)\AIMP.SDK\Demos\$(Targe
     <ClInclude Include="AIMP400\apiTagEditor.h" />
     <ClInclude Include="AIMP400\apiThreading.h" />
     <ClInclude Include="AIMP400\apiVisuals.h" />
+    <ClInclude Include="AimpSDK.h" />
+    <ClInclude Include="IUnknownInterfaceImpl.h" />
     <ClInclude Include="native_plugin.h" />
+    <ClInclude Include="TDemoExplorerViewDataStorage.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AIMP_Exports.def" />
