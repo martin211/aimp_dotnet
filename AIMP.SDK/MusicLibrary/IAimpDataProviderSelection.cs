@@ -1,5 +1,8 @@
 ﻿namespace AIMP.SDK.MusicLibrary
 {
+    /// <summary>
+    /// Interface provides access to the currently selected data at DataProvider.
+    /// </summary>
     public interface IAimpDataProviderSelection
     {
         double GetValueAsFloat(int fieldIndex);
@@ -10,7 +13,7 @@
 
         string GetValueAsString(int fieldIndex);
 
-        AimpActionResult HasNextPage();
+        bool HasNextPage();
 
         bool NextRow();
     }

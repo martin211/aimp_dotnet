@@ -67,6 +67,7 @@
     <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibrary.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresets.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataFilter.h" />
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpDataProviderSelection.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />
     <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h" />
     <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h" />

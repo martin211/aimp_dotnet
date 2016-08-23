@@ -6,7 +6,6 @@ using AIMP.SDK.MusicLibrary;
 using AIMP.SDK.MusicLibrary.DataFilter;
 using AIMP.SDK.MusicLibrary.DataStorage;
 using AIMP.SDK.MusicLibrary.Extension;
-using AIMP.SDK.MusicLibrary.Extension.Command;
 using AIMP.SDK.MusicLibrary.Presets;
 
 namespace dotnet_musiclibrary
@@ -109,9 +108,6 @@ namespace dotnet_musiclibrary
             {
                 IAimpGroupingPresetStandard preset;
                 presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset", EVDS_Fake, out preset);
-                presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset2", new List<string> { EVDS_Fake }, out preset);
-                var f = preset.Fields;
-                //preset.Fields.Add(EVDS_Fake);
             }
 
             return AimpActionResult.Ok;
@@ -123,18 +119,22 @@ namespace dotnet_musiclibrary
             data = null;
             if (fields.Count == 1 && fields[0] == EVDS_Fake)
             {
-                var s = GetRootPath(filter);
+                string s;
 
-                if (!string.IsNullOrWhiteSpace(s))
+                if (GetRootPath(filter, out s))
                 {
-                    data = new TDemoExplorerViewGroupingTreeFoldersProvider();
+                    data = new TDemoExplorerViewGroupingTreeFoldersProvider(s);
+                }
+                else
+                {
+                    data = new TDemoExplorerViewGroupingTreeDrivesProvider();
                 }
             }
 
             return AimpActionResult.Ok;
         }
 
-        private string GetRootPath(IAimpDataFilter filter)
+        private bool GetRootPath(IAimpDataFilter filter, out string str)
         {
             var s = string.Empty;
 
@@ -152,7 +152,8 @@ namespace dotnet_musiclibrary
                 return false;
             });
 
-            return s;
+            str = s;
+            return result;
         }
 
         private bool EnumDataFieldFilters(IAimpDataFilterGroup filter, Func<IAimpDataFieldFilter, bool> aProc)
