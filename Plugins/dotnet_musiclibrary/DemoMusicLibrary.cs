@@ -127,7 +127,7 @@ namespace dotnet_musiclibrary
 
                 if (!string.IsNullOrWhiteSpace(s))
                 {
-                    
+                    data = new TDemoExplorerViewGroupingTreeFoldersProvider();
                 }
             }
 
