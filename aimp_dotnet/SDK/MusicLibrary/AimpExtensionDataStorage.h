@@ -2,6 +2,7 @@
 #include "AimpDataStorageManager.h"
 #include "AimpGroupingPresets.h"
 #include "AimpDataFilter.h"
+#include "InternalAimpDataProviderSelection.h"
 
 using namespace AIMP::SDK::MusicLibrary::Extension::Command;
 
@@ -25,10 +26,20 @@ public:
         if (provider != nullptr)
         {
             System::Object^ o;
-            provider->GetData(
+            AimpActionResult result = provider->GetData(
                 AIMP::SDK::AimpExtension::ToStringCollection(Fields),
                 gcnew AimpDataFilter(Filter),
                 o);
+
+            if (result == AimpActionResult::Ok)
+            {
+                IAimpDataProviderSelection^ selection = dynamic_cast<IAimpDataProviderSelection^>(o);
+
+                if (selection != nullptr)
+                {
+                    *Data = new InternalAimpDataProviderSelection((IAimpDataProviderSelection^)o);
+                }
+            }
         }
 
         return S_OK;
@@ -254,13 +265,6 @@ public:
         {
             return E_POINTER;
         }
-
-        //if (riid == IID_IAIMPMLDataProvider)
-        //{
-        //    *ppvObject = this;
-        //    AddRef();
-        //    return S_OK;
-        //}
 
         if (riid == IID_IAIMPMLDataProvider)
         {
