@@ -42,7 +42,8 @@ namespace dotnet_musiclibrary
 
         protected TDemoExplorerViewCustomDataProviderSelection(string apath)
         {
-
+            _rootPath = $"{apath}\\";
+            var dirs = Directory.GetDirectories(_rootPath, "*");
         }
 
         public override bool NextRow()
