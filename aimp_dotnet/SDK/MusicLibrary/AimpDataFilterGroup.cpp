@@ -17,7 +17,7 @@ void AimpDataFilterGroup::Operation::set(FilterGroupOperationType val)
     PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTERGROUP_OPERATION, (int)val);
 }
 
-AimpActionResult AimpDataFilterGroup::Add(String^ field, Variant value1, Variant value2, FilterGroupOperationType operation, IAimpDataFieldFilter^% filter)
+AimpActionResult AimpDataFilterGroup::Add(String^ field, Object^ value1, Object^ value2, FilterGroupOperationType operation, IAimpDataFieldFilter^% filter)
 {
     VARIANT val1 = AimpExtension::ToNativeVariant(value1);
     VARIANT val2 = AimpExtension::ToNativeVariant(value2);
@@ -41,7 +41,7 @@ AimpActionResult AimpDataFilterGroup::Add(String^ field, Variant value1, Variant
     return result;
 }
 
-AimpActionResult AimpDataFilterGroup::Add(String^ field, array<Variant>^ values, int count, IAimpDataFieldFilterByArray^% filter)
+AimpActionResult AimpDataFilterGroup::Add(String^ field, array<Object^>^ values, int count, IAimpDataFieldFilterByArray^% filter)
 {
     //AimpActionResult result = CheckResult(InternalAimpObject->Add2(
     //    AimpExtension::GetAimpString(field), 
@@ -84,7 +84,7 @@ AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFilterGroup^%
 {
     IAIMPMLDataFilterGroup* child;
     AimpActionResult result = CheckResult(InternalAimpObject->GetChild(index, IID_IAIMPMLDataFilterGroup, (void**)&child));
-    if (result == AimpActionResult::Ok)
+    if (result == AimpActionResult::Ok && child != NULL)
     {
         group = gcnew AimpDataFilterGroup(child);
     }
@@ -96,7 +96,7 @@ AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFieldFilter^%
 {
     IAIMPMLDataFieldFilter* child;
     AimpActionResult result = CheckResult(InternalAimpObject->GetChild(index, IID_IAIMPMLDataFieldFilter, (void**)&child));
-    if (result == AimpActionResult::Ok)
+    if (result == AimpActionResult::Ok && child != NULL)
     {
         fieldFilter = gcnew AimpDataFieldFilter(child);
     }

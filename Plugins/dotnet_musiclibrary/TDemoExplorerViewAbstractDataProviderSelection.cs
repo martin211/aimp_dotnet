@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using AIMP.SDK;
 using AIMP.SDK.MusicLibrary;
 
 namespace dotnet_musiclibrary
@@ -72,11 +72,15 @@ namespace dotnet_musiclibrary
         {
             if (_index < _drivers.Length)
             {
-                _index++;
                 _currentDrive = _drivers[_index];
+                _index++;
+            }
+            else
+            {
+                return false;
             }
 
-            return _index < _drivers.Length;
+            return _index - 1 != _drivers.Length;
         }
     }
 
@@ -84,11 +88,61 @@ namespace dotnet_musiclibrary
     {
         public TDemoExplorerViewGroupingTreeFoldersProvider(string apath) : base(apath)
         {
+            
         }
 
         public override string GetValueAsString(int fieldIndex)
         {
             return string.Empty;
+        }
+    }
+
+    public class TDemoExplorerViewDataProviderSelection : TDemoExplorerViewCustomDataProviderSelection
+    {
+        private readonly string[] _fields;
+
+        public TDemoExplorerViewDataProviderSelection(string apath, IEnumerable<string> fields) : base(apath)
+        {
+            _fields = fields.ToArray();
+        }
+
+        public override bool NextRow()
+        {
+            return true;
+        }
+
+        public override double GetValueAsFloat(int fieldIndex)
+        {
+            if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_FileAccessTime))
+            {
+
+            }
+            else if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_FileCreationTime))
+            {
+
+            }
+
+            return 0;
+        }
+
+        public override long GetValueAsInt64(int fieldIndex)
+        {
+            return 0;
+        }
+
+        public override string GetValueAsString(int fieldIndex)
+        {
+            if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_FileName))
+            { }
+            else if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_ID))
+            { }
+
+            return string.Empty;
+        }
+
+        private int GetIndex(string fieldName)
+        {
+            return Array.IndexOf(_fields.ToArray(), fieldName);
         }
     }
 }

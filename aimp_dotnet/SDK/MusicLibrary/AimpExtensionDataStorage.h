@@ -12,6 +12,8 @@ private:
     gcroot<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^> _instance;
 
 public:
+    typedef IUnknownInterfaceImpl<IAIMPMLDataProvider> Base;
+
     AimpDataProvider(gcroot<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^> instance)
     {
         _instance = instance;
@@ -39,10 +41,24 @@ public:
                 {
                     *Data = new InternalAimpDataProviderSelection((IAimpDataProviderSelection^)o);
                 }
+                else
+                {
+                    *Data = AIMP::SDK::AimpExtension::GetAimpString(o->ToString());
+                }
             }
         }
 
         return S_OK;
+    }
+
+    virtual ULONG WINAPI AddRef(void)
+    {
+        return Base::AddRef();
+    }
+
+    virtual ULONG WINAPI Release(void)
+    {
+        return Base::Release();
     }
 };
 
@@ -269,7 +285,7 @@ public:
         if (riid == IID_IAIMPMLDataProvider)
         {
             *ppvObject = _aimpDataProvider;
-            AddRef();
+            _aimpDataProvider->AddRef();
             return S_OK;
         }
 

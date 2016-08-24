@@ -23,9 +23,9 @@
         /// <param name="value2">The value2.</param>
         /// <param name="operation">The rule processing results from subsidiaries filters.</param>
         /// <param name="filter">[out] The added filter.</param>
-        AimpActionResult Add(string field, Variant value1, Variant value2, FilterGroupOperationType operation, out IAimpDataFieldFilter filter);
+        AimpActionResult Add(string field, object value1, object value2, FilterGroupOperationType operation, out IAimpDataFieldFilter filter);
 
-        AimpActionResult Add(string field, Variant[] values, int count, out IAimpDataFieldFilterByArray filter);
+        AimpActionResult Add(string field, object[] values, int count, out IAimpDataFieldFilterByArray filter);
 
         /// <summary>
         /// Adds the child group.

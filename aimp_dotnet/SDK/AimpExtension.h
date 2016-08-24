@@ -67,20 +67,31 @@ namespace AIMP
                 return result;
             }
 
-            static VARIANT ToNativeVariant(AIMP::SDK::Variant variant)
+            static VARIANT ToNativeVariant(System::Object^ variant)
             {
                 VARIANT result = VARIANT();
 
-                if (variant.String != nullptr)
-                {
-                    IntPtr ptr = Runtime::InteropServices::Marshal::StringToBSTR(variant.String);
-                    BSTR bs = static_cast<BSTR>(ptr.ToPointer());
-                    result.bstrVal = bs;
-                    Runtime::InteropServices::Marshal::FreeBSTR(ptr);
-                }
+                //if (variant.String != nullptr)
+                //{
+                //    IntPtr ptr = Runtime::InteropServices::Marshal::StringToBSTR(variant.String);
+                //    BSTR bs = static_cast<BSTR>(ptr.ToPointer());
+                //    result.bstrVal = bs;
+                //    Runtime::InteropServices::Marshal::FreeBSTR(ptr);
+                //}
 
                 return result;
             }
+
+            //static AIMP::SDK::Variant ToManaged(VARIANT variant)
+            //{
+            //    AIMP::SDK::Variant var = AIMP::SDK::Variant();
+            //    if (variant.bstrVal != NULL)
+            //    {
+            //        var.String = gcnew System::String((WCHAR*)variant.bstrVal);
+            //    }
+
+            //    return var;
+            //}
         private:
             static IAIMPCore* GetCore();
         };
@@ -124,9 +135,9 @@ namespace AIMP
 
             static AimpActionResult GetBool(IAIMPPropertyList *propertyList, int propertyId, bool %value);
 
-            static AimpActionResult GetVariant(IAIMPPropertyList2 *propertyList, int propertyId, AIMP::SDK::Variant %value);
+            static AimpActionResult GetVariant(IAIMPPropertyList2 *propertyList, int propertyId, System::Object^% value);
 
-            static AimpActionResult SetVariant(IAIMPPropertyList2 *propertyList, int propertyId, AIMP::SDK::Variant value);
+            static AimpActionResult SetVariant(IAIMPPropertyList2 *propertyList, int propertyId, System::Object^% value);
         };
     }
 }

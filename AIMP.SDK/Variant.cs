@@ -7,19 +7,19 @@ namespace AIMP.SDK
     [StructLayout(LayoutKind.Explicit)]
     public struct Variant
     {
-        [FieldOffset(0)]
+        [FieldOffset(4)]
         public int Integer;
 
-        [FieldOffset(0)]
+        [FieldOffset(5)]
         public float Float;
 
-        [FieldOffset(0)]
+        [FieldOffset(6)]
         public double Double;
 
-        [FieldOffset(0)]
+        [FieldOffset(7)]
         public byte Byte;
 
-        [FieldOffset(0)]
+        [FieldOffset(8)]
         public string String;
     }
 }
