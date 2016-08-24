@@ -12,9 +12,14 @@ namespace AIMP
             public AimpObject<IAIMPMLDataFieldFilter>,
             public IAimpDataFieldFilter
         {
+        private:
+            AIMP::SDK::AimpDataField^ _dataField;
+
         public:
             explicit AimpDataFieldFilter(IAIMPMLDataFieldFilter *aimpDataFieldFilter) : AimpObject(aimpDataFieldFilter)
-            {}
+            {
+                _dataField = nullptr;
+            }
 
             !AimpDataFieldFilter()
             {
@@ -26,23 +31,16 @@ namespace AIMP
                 this->!AimpDataFieldFilter();
             }
 
-            virtual property IAimpDataField^ Field
+            virtual property String^ Field
             {
-                IAimpDataField^ get()
+                String^ get()
                 {
-                    IAIMPMLDataField* dataField;
-                    if (PropertyListExtension::GetObject(InternalAimpObject, AIMPML_FIELDFILTER_FIELD, IID_IAIMPMLDataField, (void**)&dataField) == AimpActionResult::Ok)
-                    {
-                        return gcnew AIMP::SDK::AimpDataField(dataField);
-                    }
-
-                    return nullptr;
+                    return PropertyListExtension::GetString(InternalAimpObject, AIMPML_FIELDFILTER_FIELD);
                 }
 
-                void set(IAimpDataField^ value)
+                void set(String^ value)
                 {
-                    //todo complete it.
-                    //PropertyListExtension::SetObject(properties, AIMPML_FIELDFILTER_FIELD, value);
+                    PropertyListExtension::SetString(InternalAimpObject, AIMPML_FIELDFILTER_FIELD, value);
                 }
             }
 
@@ -65,26 +63,30 @@ namespace AIMP
             {
                 System::Object^ get()
                 {
-                    System::Object^ v;
-                    PropertyListExtension::GetVariant(InternalAimpObject, AIMPML_FIELDFILTER_VALUE1, v);
+                    System::String^ v;
+                    PropertyListExtension::GetString(InternalAimpObject, AIMPML_FIELDFILTER_VALUE1, v);
                     return v;
                 }
 
                 void set(System::Object^ value)
-                {}
+                {
+                    PropertyListExtension::SetString(InternalAimpObject, AIMPML_FIELDFILTER_VALUE2, value->ToString());
+                }
             }
 
             virtual property System::Object^ Value2
             {
                 System::Object^ get()
                 {
-                    System::Object^ v;
-                    PropertyListExtension::GetVariant(InternalAimpObject, AIMPML_FIELDFILTER_VALUE2, v);
+                    System::String^ v;
+                    PropertyListExtension::GetString(InternalAimpObject, AIMPML_FIELDFILTER_VALUE2, v);
                     return v;
                 }
 
                 void set(System::Object^ value)
-                {}
+                {
+                    PropertyListExtension::SetString(InternalAimpObject, AIMPML_FIELDFILTER_VALUE2, value->ToString());
+                }
             }
 
         private:

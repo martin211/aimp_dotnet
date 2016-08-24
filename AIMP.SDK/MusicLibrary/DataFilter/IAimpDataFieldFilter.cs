@@ -21,7 +21,7 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
         /// <summary>
         /// Gets or sets the filter field.
         /// </summary>
-        IAimpDataField Field { get; set; }
+        string Field { get; set; }
 
         FieldFilterOperationType Operation { get; set; }
 

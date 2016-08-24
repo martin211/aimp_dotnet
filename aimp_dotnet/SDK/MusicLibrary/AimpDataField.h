@@ -32,6 +32,10 @@ namespace AIMP
             {
                 String^ get()
                 {
+                    //IAIMPString* str;
+                    //InternalAimpObject->GetValueAsObject(AIMPML_FIELD_PROPID_NAME, IID_IAIMPString, (void**)&str);
+                    //String^ s = AIMP::SDK::AimpExtension::GetString(str);
+                    //return s;
                     return AIMP::SDK::PropertyListExtension::GetString(InternalAimpObject, AIMPML_FIELD_PROPID_NAME);
                 }
 
