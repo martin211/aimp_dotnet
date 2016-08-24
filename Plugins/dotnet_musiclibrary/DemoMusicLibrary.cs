@@ -17,19 +17,19 @@ namespace dotnet_musiclibrary
         //IAimpDataStorageCommandAddFilesDialog
         IAimpExtension
     {
-        private const string AIMPML_RESERVED_FIELD_ID = "ID";       // !REQUIRED! unique record id (Int32, Int64 or String)
-        private const string AIMPML_RESERVED_FIELD_FILENAME = "FileName"; // !REQUIRED! string
-        private const string AIMPML_RESERVED_FIELD_FILESIZE = "FileSize"; // Int64, in bytes
-        private const string AIMPML_RESERVED_FIELD_DURATION = "Duration"; // double, in seconds
-        private const string AIMPML_RESERVED_FIELD_USERMARK = "UserMark"; // double, 0.0 .. 5.0
+        public const string AIMPML_RESERVED_FIELD_ID = "ID";       // !REQUIRED! unique record id (Int32, Int64 or String)
+        public const string AIMPML_RESERVED_FIELD_FILENAME = "FileName"; // !REQUIRED! string
+        public const string AIMPML_RESERVED_FIELD_FILESIZE = "FileSize"; // Int64, in bytes
+        public const string AIMPML_RESERVED_FIELD_DURATION = "Duration"; // double, in seconds
+        public const string AIMPML_RESERVED_FIELD_USERMARK = "UserMark"; // double, 0.0 .. 5.0
 
-        private const string EVDS_ID = AIMPML_RESERVED_FIELD_ID;
-        private const string EVDS_FileName = AIMPML_RESERVED_FIELD_FILENAME;
-        private const string EVDS_FileFormat = "FileFormat";
-        private const string EVDS_FileAccessTime = "FileAccessTime";
-        private const string EVDS_FileCreationTime = "FileCreationTime";
-        private const string EVDS_FileSize = "FileSize";
-        private const string EVDS_Fake = "Fake";
+        public const string EVDS_ID = AIMPML_RESERVED_FIELD_ID;
+        public const string EVDS_FileName = AIMPML_RESERVED_FIELD_FILENAME;
+        public const string EVDS_FileFormat = "FileFormat";
+        public const string EVDS_FileAccessTime = "FileAccessTime";
+        public const string EVDS_FileCreationTime = "FileCreationTime";
+        public const string EVDS_FileSize = "FileSize";
+        public const string EVDS_Fake = "Fake";
 
         public string Id => "AimpDemoMusicLibrary";
 
@@ -115,12 +115,11 @@ namespace dotnet_musiclibrary
 
         public AimpActionResult GetData(IList<string> fields, IAimpDataFilter filter, out object data)
         {
-            System.Diagnostics.Debugger.Break();
             data = null;
+            string s;
+
             if (fields.Count == 1 && fields[0] == EVDS_Fake)
             {
-                string s;
-
                 if (GetRootPath(filter, out s))
                 {
                     data = new TDemoExplorerViewGroupingTreeFoldersProvider(s);
@@ -128,6 +127,17 @@ namespace dotnet_musiclibrary
                 else
                 {
                     data = new TDemoExplorerViewGroupingTreeDrivesProvider();
+                }
+            }
+            else
+            {
+                if (GetRootPath(filter, out s))
+                {
+                    data = new TDemoExplorerViewDataProviderSelection(s, fields);
+                }
+                else
+                {
+                    data = "No data";
                 }
             }
 
@@ -140,23 +150,25 @@ namespace dotnet_musiclibrary
 
             var result = EnumDataFieldFilters(filter, fieldFilter =>
             {
+                System.Diagnostics.Debugger.Break();
+
                 if (fieldFilter.Field != null && fieldFilter.Field.Name == EVDS_Fake)
                 {
                     var res = fieldFilter.Operation == FieldFilterOperationType.AIMPML_FIELDFILTER_OPERATION_BEGINSWITH |
                            fieldFilter.Operation == FieldFilterOperationType.AIMPML_FIELDFILTER_OPERATION_EQUALS;
 
-                    s = res ? fieldFilter.Value1.String : string.Empty;
-                    return res;
+                    //s = res ? fieldFilter.Value1.String : string.Empty;
+                    //return res;
                 }
 
-                return false;
+                //return false;
             });
 
             str = s;
             return result;
         }
 
-        private bool EnumDataFieldFilters(IAimpDataFilterGroup filter, Func<IAimpDataFieldFilter, bool> aProc)
+        private bool EnumDataFieldFilters(IAimpDataFilterGroup filter, Action<IAimpDataFieldFilter> aProc)
         {
             if (filter != null)
             {
@@ -164,13 +176,25 @@ namespace dotnet_musiclibrary
                 {
                     IAimpDataFilterGroup group;
                     IAimpDataFieldFilter field;
-                    if (filter.GetChild(i, out group) == AimpActionResult.Ok)
+                    if (filter.GetChild(i, out group) == AimpActionResult.Ok && group != null)
                     {
                         EnumDataFieldFilters(group, aProc);
                     }
-                    else if (filter.GetChild(i, out field) == AimpActionResult.Ok)
+                    else if (filter.GetChild(i, out field) == AimpActionResult.Ok && field != null)
                     {
-                        return aProc(field);
+                        var v1 = field.Value1;
+
+                        switch (field.Operation)
+                        {
+                            case FieldFilterOperationType.AIMPML_FIELDFILTER_OPERATION_BEGINSWITH:
+                            case FieldFilterOperationType.AIMPML_FIELDFILTER_OPERATION_EQUALS:
+
+                                
+
+                                break;
+                        }
+
+                        return false;
                     }
 
                     break;

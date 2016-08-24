@@ -21,9 +21,9 @@ namespace AIMP
                 void set(FilterGroupOperationType value);
             }
 
-            virtual AimpActionResult Add(String^ field, Variant value1, Variant value2, FilterGroupOperationType operation, IAimpDataFieldFilter^% filter);
+            virtual AimpActionResult Add(String^ field, Object^ value1, Object^ value2, FilterGroupOperationType operation, IAimpDataFieldFilter^% filter);
 
-            virtual AimpActionResult Add(String^ field, array<Variant>^ values, int count, IAimpDataFieldFilterByArray^% filter);
+            virtual AimpActionResult Add(String^ field, array<Object^>^ values, int count, IAimpDataFieldFilterByArray^% filter);
 
             virtual AimpActionResult AddGroup(IAimpDataFilterGroup^% group);
 

@@ -2,6 +2,6 @@
 {
     public interface IAimpDataStorageCommandUserMark
     {
-        AimpActionResult SetMark(Variant id, double value);
+        AimpActionResult SetMark(object id, double value);
     }
 }

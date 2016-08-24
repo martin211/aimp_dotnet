@@ -407,16 +407,17 @@ namespace AIMP
             return false;
         }
 
-        AimpActionResult PropertyListExtension::GetVariant(IAIMPPropertyList2 *propertyList, int propertyId, AIMP::SDK::Variant %value)
+        AimpActionResult PropertyListExtension::GetVariant(IAIMPPropertyList2 *propertyList, int propertyId, Object^% value)
         {
-            VARIANT *val = NULL;
-            AimpActionResult result = Utils::CheckResult(propertyList->GetValueAsVariant(propertyId, val));
+            VARIANT val;
+            AimpActionResult result = Utils::CheckResult(propertyList->GetValueAsVariant(propertyId, &val));
+            //value = AimpExtension::ToManaged(val);
             //value = val->cVal;
-            value = AIMP::SDK::Variant();
+            //value = AIMP::SDK::Variant();
             return result;
         }
 
-        AimpActionResult PropertyListExtension::SetVariant(IAIMPPropertyList2 *propertyList, int propertyId, AIMP::SDK::Variant val)
+        AimpActionResult PropertyListExtension::SetVariant(IAIMPPropertyList2 *propertyList, int propertyId, Object^% val)
         {
             return AimpActionResult::NotImplemented;
         }
