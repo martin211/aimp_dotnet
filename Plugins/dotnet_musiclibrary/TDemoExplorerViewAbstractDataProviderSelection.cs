@@ -40,33 +40,60 @@ namespace dotnet_musiclibrary
     {
         protected string _rootPath;
         private int _index;
-        private string[] _directories;
+        private List<string> _items = new List<string>();
         protected string CurrentItem;
 
         protected TDemoExplorerViewCustomDataProviderSelection(string apath)
         {
-            _rootPath = $"{apath}\\";
-            CurrentItem = _rootPath;
-            _directories = Directory.GetDirectories(_rootPath, "*");
+            _rootPath = $@"{apath}";
 
-            while (!CheckRecordAttributes())
+            System.Diagnostics.Debug.WriteLine(_rootPath);
+
+            var dirs = Directory.GetDirectories(_rootPath, "*");
+            if (dirs != null && dirs.Any())
             {
-                if (!NextRow())
-                {
-                    break;
-                }
+                _items.AddRange(dirs);
             }
+
+            //var files = Directory.GetFiles(_rootPath, "*");
+            //if (files != null && files.Any())
+            //{
+            //    _items.AddRange(files);
+            //}
+
+            if (_items.Any())
+            {
+                CurrentItem = _items[_index];
+            }
+
+            //while (!CheckRecordAttributes())
+            //{
+            //    if (!NextRow())
+            //    {
+            //        break;
+            //    }
+            //}
         }
 
         public override bool NextRow()
         {
-            bool result = false;
+            _index++;
+            bool result = _index < _items.Count;
 
-            do
+            if (result)
             {
-                result = _directories[_index] != null;
-                _index++;
-            } while (!result || CheckRecordAttributes());
+                CurrentItem = _items[_index];
+            }
+
+            //do
+            //{
+            //    _index++;
+            //    result = _index < _items.Count;
+            //    if (result)
+            //    {
+            //        CurrentItem = _items[_index];
+            //    }
+            //} while (result || CheckRecordAttributes());
 
             return result;
         }
@@ -74,7 +101,7 @@ namespace dotnet_musiclibrary
         protected string GetDirectory()
         {
             DirectoryInfo di;
-            var dir = _directories[_index];
+            var dir = _items[_index];
             di = new DirectoryInfo(dir);
 
             if (!di.Attributes.HasFlag(FileAttributes.Directory))
@@ -102,7 +129,12 @@ namespace dotnet_musiclibrary
 
         public TDemoExplorerViewGroupingTreeDrivesProvider()
         {
-            _drivers = DriveInfo.GetDrives();
+            var drivers = DriveInfo.GetDrives().Where(c => c.DriveType == DriveType.Fixed).ToArray();
+            _drivers = new DriveInfo[]
+            {
+                drivers.First()
+            };
+
             _currentDrive = _drivers[_index];
         }
 
@@ -136,13 +168,14 @@ namespace dotnet_musiclibrary
 
         public override string GetValueAsString(int fieldIndex)
         {
-            return GetDirectory();
+            return $@"{CurrentItem}\";
         }
 
         protected override bool CheckRecordAttributes()
         {
             var di = new DirectoryInfo(CurrentItem);
-            return di.Attributes.HasFlag(FileAttributes.Directory) && !(di.Attributes.HasFlag(FileAttributes.Hidden) || di.Attributes.HasFlag(FileAttributes.System));
+            return di.Attributes.HasFlag(FileAttributes.Directory) && !di.Attributes.HasFlag(FileAttributes.System);
+                // && !(di.Attributes.HasFlag(FileAttributes.Hidden) || di.Attributes.HasFlag(FileAttributes.System));
         }
     }
 
@@ -150,22 +183,19 @@ namespace dotnet_musiclibrary
     {
         private readonly string[] _fields;
 
+        private const string _ext = "*.aiff;*.aif;*.ogg;*.oga;*.wav;*.mp3;*.mp2;*.mp1;*.mpga;*.umx;*.mod;*.mo3;*.it;*.s3m;*.mtm;*.xm;*.w64;*.cda;*.iso;*.dff;*.dsf;*.aac;*.m4a;*.m4b;*.mp4;*.ac3;*.ape;*.mac;*.flac;*.fla;*.midi;*.mid;*.rmi;*.kar;*.mpc;*.mp+;*.mpp;*.opus;*.spx;*.tta;*.wma;*.wv;*.tak;";
+
         public TDemoExplorerViewDataProviderSelection(string apath, IEnumerable<string> fields) 
             : base(apath)
         {
             _fields = fields.ToArray();
         }
 
-        public override bool NextRow()
-        {
-            return true;
-        }
-
         protected override bool CheckRecordAttributes()
         {
             var di = new DirectoryInfo(_rootPath);
             return !di.Attributes.HasFlag(FileAttributes.Directory)
-                   && Path.GetExtension(_rootPath).Equals("mp3");
+                   && _ext.Contains($"{Path.GetExtension(_rootPath)};");
         }
 
         public override double GetValueAsFloat(int fieldIndex)
