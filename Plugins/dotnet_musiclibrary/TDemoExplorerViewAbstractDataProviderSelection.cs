@@ -38,18 +38,60 @@ namespace dotnet_musiclibrary
 
     public abstract class TDemoExplorerViewCustomDataProviderSelection : TDemoExplorerViewAbstractDataProviderSelection
     {
-        private string _rootPath;
+        protected string _rootPath;
+        private int _index;
+        private string[] _directories;
+        protected string CurrentItem;
 
         protected TDemoExplorerViewCustomDataProviderSelection(string apath)
         {
             _rootPath = $"{apath}\\";
-            var dirs = Directory.GetDirectories(_rootPath, "*");
+            CurrentItem = _rootPath;
+            _directories = Directory.GetDirectories(_rootPath, "*");
+
+            while (!CheckRecordAttributes())
+            {
+                if (!NextRow())
+                {
+                    break;
+                }
+            }
         }
 
         public override bool NextRow()
         {
-            return true;
+            bool result = false;
+
+            do
+            {
+                result = _directories[_index] != null;
+                _index++;
+            } while (!result || CheckRecordAttributes());
+
+            return result;
         }
+
+        protected string GetDirectory()
+        {
+            DirectoryInfo di;
+            var dir = _directories[_index];
+            di = new DirectoryInfo(dir);
+
+            if (!di.Attributes.HasFlag(FileAttributes.Directory))
+            {
+                return string.Empty;
+            }
+
+            if (di.Attributes.HasFlag(FileAttributes.Hidden) || di.Attributes.HasFlag(FileAttributes.System))
+            {
+                _index++;
+                return GetDirectory();
+            }
+
+            return dir;
+        }
+
+        protected abstract bool CheckRecordAttributes();
     }
 
     public class TDemoExplorerViewGroupingTreeDrivesProvider : TDemoExplorerViewAbstractDataProviderSelection
@@ -94,7 +136,13 @@ namespace dotnet_musiclibrary
 
         public override string GetValueAsString(int fieldIndex)
         {
-            return string.Empty;
+            return GetDirectory();
+        }
+
+        protected override bool CheckRecordAttributes()
+        {
+            var di = new DirectoryInfo(CurrentItem);
+            return di.Attributes.HasFlag(FileAttributes.Directory) && !(di.Attributes.HasFlag(FileAttributes.Hidden) || di.Attributes.HasFlag(FileAttributes.System));
         }
     }
 
@@ -102,7 +150,8 @@ namespace dotnet_musiclibrary
     {
         private readonly string[] _fields;
 
-        public TDemoExplorerViewDataProviderSelection(string apath, IEnumerable<string> fields) : base(apath)
+        public TDemoExplorerViewDataProviderSelection(string apath, IEnumerable<string> fields) 
+            : base(apath)
         {
             _fields = fields.ToArray();
         }
@@ -110,6 +159,13 @@ namespace dotnet_musiclibrary
         public override bool NextRow()
         {
             return true;
+        }
+
+        protected override bool CheckRecordAttributes()
+        {
+            var di = new DirectoryInfo(_rootPath);
+            return !di.Attributes.HasFlag(FileAttributes.Directory)
+                   && Path.GetExtension(_rootPath).Equals("mp3");
         }
 
         public override double GetValueAsFloat(int fieldIndex)
@@ -134,7 +190,9 @@ namespace dotnet_musiclibrary
         public override string GetValueAsString(int fieldIndex)
         {
             if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_FileName))
-            { }
+            {
+                
+            }
             else if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_ID))
             { }
 
