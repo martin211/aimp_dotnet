@@ -45,34 +45,24 @@ namespace dotnet_musiclibrary
 
         protected TDemoExplorerViewCustomDataProviderSelection(string apath)
         {
-            _rootPath = $@"{apath}";
-
-            System.Diagnostics.Debug.WriteLine(_rootPath);
+            _rootPath = $@"{apath}" + (apath.EndsWith("\\") ? string.Empty : "\\");
 
             var dirs = Directory.GetDirectories(_rootPath, "*");
-            if (dirs != null && dirs.Any())
+            if (dirs.Any())
             {
-                _items.AddRange(dirs);
+                _items.AddRange(dirs.Where(c =>
+                {
+                    var di = new DirectoryInfo(c);
+                    return di.Attributes.HasFlag(FileAttributes.Directory) 
+                        && !di.Attributes.HasFlag(FileAttributes.System)
+                        && !di.Attributes.HasFlag(FileAttributes.Hidden);
+                }));
             }
-
-            //var files = Directory.GetFiles(_rootPath, "*");
-            //if (files != null && files.Any())
-            //{
-            //    _items.AddRange(files);
-            //}
 
             if (_items.Any())
             {
                 CurrentItem = _items[_index];
             }
-
-            //while (!CheckRecordAttributes())
-            //{
-            //    if (!NextRow())
-            //    {
-            //        break;
-            //    }
-            //}
         }
 
         public override bool NextRow()
@@ -84,16 +74,6 @@ namespace dotnet_musiclibrary
             {
                 CurrentItem = _items[_index];
             }
-
-            //do
-            //{
-            //    _index++;
-            //    result = _index < _items.Count;
-            //    if (result)
-            //    {
-            //        CurrentItem = _items[_index];
-            //    }
-            //} while (result || CheckRecordAttributes());
 
             return result;
         }
@@ -129,12 +109,7 @@ namespace dotnet_musiclibrary
 
         public TDemoExplorerViewGroupingTreeDrivesProvider()
         {
-            var drivers = DriveInfo.GetDrives().Where(c => c.DriveType == DriveType.Fixed).ToArray();
-            _drivers = new DriveInfo[]
-            {
-                drivers.First()
-            };
-
+            _drivers = DriveInfo.GetDrives().Where(c => c.DriveType == DriveType.Fixed).ToArray();
             _currentDrive = _drivers[_index];
         }
 
@@ -175,7 +150,6 @@ namespace dotnet_musiclibrary
         {
             var di = new DirectoryInfo(CurrentItem);
             return di.Attributes.HasFlag(FileAttributes.Directory) && !di.Attributes.HasFlag(FileAttributes.System);
-                // && !(di.Attributes.HasFlag(FileAttributes.Hidden) || di.Attributes.HasFlag(FileAttributes.System));
         }
     }
 
