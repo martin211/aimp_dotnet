@@ -39,21 +39,25 @@ namespace dotnet_musiclibrary
     public abstract class TDemoExplorerViewCustomDataProviderSelection : TDemoExplorerViewAbstractDataProviderSelection
     {
         protected string _rootPath;
-        private int _index;
-        private List<string> _items = new List<string>();
+        protected int _index;
+        protected List<string> _items = new List<string>();
         protected string CurrentItem;
 
         protected TDemoExplorerViewCustomDataProviderSelection(string apath)
         {
             _rootPath = $@"{apath}" + (apath.EndsWith("\\") ? string.Empty : "\\");
+            FillItems();
+        }
 
+        protected virtual void FillItems()
+        {
             var dirs = Directory.GetDirectories(_rootPath, "*");
             if (dirs.Any())
             {
                 _items.AddRange(dirs.Where(c =>
                 {
                     var di = new DirectoryInfo(c);
-                    return di.Attributes.HasFlag(FileAttributes.Directory) 
+                    return di.Attributes.HasFlag(FileAttributes.Directory)
                         && !di.Attributes.HasFlag(FileAttributes.System)
                         && !di.Attributes.HasFlag(FileAttributes.Hidden);
                 }));
@@ -97,8 +101,6 @@ namespace dotnet_musiclibrary
 
             return dir;
         }
-
-        protected abstract bool CheckRecordAttributes();
     }
 
     public class TDemoExplorerViewGroupingTreeDrivesProvider : TDemoExplorerViewAbstractDataProviderSelection
@@ -145,12 +147,6 @@ namespace dotnet_musiclibrary
         {
             return $@"{CurrentItem}\";
         }
-
-        protected override bool CheckRecordAttributes()
-        {
-            var di = new DirectoryInfo(CurrentItem);
-            return di.Attributes.HasFlag(FileAttributes.Directory) && !di.Attributes.HasFlag(FileAttributes.System);
-        }
     }
 
     public class TDemoExplorerViewDataProviderSelection : TDemoExplorerViewCustomDataProviderSelection
@@ -165,22 +161,30 @@ namespace dotnet_musiclibrary
             _fields = fields.ToArray();
         }
 
-        protected override bool CheckRecordAttributes()
+        protected override void FillItems()
         {
-            var di = new DirectoryInfo(_rootPath);
-            return !di.Attributes.HasFlag(FileAttributes.Directory)
-                   && _ext.Contains($"{Path.GetExtension(_rootPath)};");
+            var items = Directory.GetFiles(_rootPath, "*");
+            if (items.Any())
+            {
+                var availabelFiles = _ext.Split(';').Select(c => c.Replace("*", string.Empty));
+                _items.AddRange(items.Where(c => availabelFiles.Contains(Path.GetExtension(c))));
+            }
+
+            CurrentItem = items[_index];
         }
 
         public override double GetValueAsFloat(int fieldIndex)
         {
+            var fi = new FileInfo(CurrentItem);
+
             if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_FileAccessTime))
             {
-
+                return fi.LastAccessTime.Ticks;
             }
-            else if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_FileCreationTime))
-            {
 
+            if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_FileCreationTime))
+            {
+                return fi.CreationTime.Ticks;
             }
 
             return 0;
@@ -193,14 +197,27 @@ namespace dotnet_musiclibrary
 
         public override string GetValueAsString(int fieldIndex)
         {
+            if (string.IsNullOrWhiteSpace(CurrentItem))
+            {
+                return string.Empty;
+            }
+
+            var fi = new FileInfo(CurrentItem);
             if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_FileName))
             {
-                
+                return fi.Name;
             }
-            else if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_ID))
-            { }
+            if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_ID))
+            {
+                return string.Empty;
+            }
 
             return string.Empty;
+        }
+
+        public override bool NextRow()
+        {
+            return base.NextRow();
         }
 
         private int GetIndex(string fieldName)
