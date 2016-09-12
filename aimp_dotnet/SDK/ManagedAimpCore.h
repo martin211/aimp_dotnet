@@ -8,6 +8,7 @@
 #include "..\SDK\Visuals\AimpExtensionEmbeddedVisualization.h"
 #include "..\SDK\Visuals\AimpExtensionCustomVisualization.h"
 #include "..\SDK\MusicLibrary\AimpExtensionDataStorage.h"
+#include "..\SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h"
 
 namespace AIMP
 {

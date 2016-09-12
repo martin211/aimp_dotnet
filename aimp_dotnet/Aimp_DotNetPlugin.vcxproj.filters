@@ -394,6 +394,15 @@
     <ClInclude Include="SDK\MusicLibrary\InternalAimpDataProviderSelection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeSelection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeDataProviderSelection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc">

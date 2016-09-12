@@ -10,7 +10,7 @@ namespace AIMP
 
         public ref class AimpGroupingTreeDataProvider :
             public AimpObject<IAIMPMLGroupingTreeDataProvider>,
-            public AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider
+            public IAimpGroupingTreeDataProvider
         {
         public:
             explicit AimpGroupingTreeDataProvider(IAIMPMLGroupingTreeDataProvider* aimpObject) : AimpObject(aimpObject)
