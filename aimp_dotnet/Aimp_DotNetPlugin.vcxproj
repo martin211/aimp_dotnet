@@ -64,10 +64,13 @@
     <ClInclude Include="SDK\delegate_impl.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeDataProvider.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeDataProviderSelection.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeSelection.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibrary.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresets.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataFilter.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpDataProviderSelection.h" />
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />
     <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h" />
     <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h" />

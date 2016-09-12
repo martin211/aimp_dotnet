@@ -5,6 +5,7 @@ public interface class IAimpObject
 {
     AIMP::SDK::AimpActionResult CheckResult(HRESULT result);
 
+    [System::Diagnostics::DebuggerBrowsableAttribute(System::Diagnostics::DebuggerBrowsableState::Never)]
     property TAimpObject *InternalAimpObject
     {
         TAimpObject *get();
@@ -16,6 +17,8 @@ public ref class AimpObject
 {
 protected:
     AimpObject() {}
+
+    [System::Diagnostics::DebuggerBrowsableAttribute(System::Diagnostics::DebuggerBrowsableState::Never)]
     TAimpObject *_aimpObject;
 public:
     AimpObject(TAimpObject *aimpObject) : _aimpObject(aimpObject)
