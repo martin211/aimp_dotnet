@@ -71,12 +71,19 @@ namespace dotnet_musiclibrary
 
         public override bool NextRow()
         {
+            if (!_items.Any())
+                return false;
+
             _index++;
             bool result = _index < _items.Count;
 
             if (result)
             {
                 CurrentItem = _items[_index];
+            }
+            else
+            {
+                _index = 0;
             }
 
             return result;
@@ -154,6 +161,8 @@ namespace dotnet_musiclibrary
         private readonly string[] _fields;
 
         private const string _ext = "*.aiff;*.aif;*.ogg;*.oga;*.wav;*.mp3;*.mp2;*.mp1;*.mpga;*.umx;*.mod;*.mo3;*.it;*.s3m;*.mtm;*.xm;*.w64;*.cda;*.iso;*.dff;*.dsf;*.aac;*.m4a;*.m4b;*.mp4;*.ac3;*.ape;*.mac;*.flac;*.fla;*.midi;*.mid;*.rmi;*.kar;*.mpc;*.mp+;*.mpp;*.opus;*.spx;*.tta;*.wma;*.wv;*.tak;";
+        private readonly IEnumerable<string> _fileExtensions  = _ext.Split(new [] {';'}, StringSplitOptions.RemoveEmptyEntries)
+            .Select(c => c.Replace("*", string.Empty));
 
         public TDemoExplorerViewDataProviderSelection(string apath, IEnumerable<string> fields) 
             : base(apath)
@@ -163,28 +172,31 @@ namespace dotnet_musiclibrary
 
         protected override void FillItems()
         {
-            var items = Directory.GetFiles(_rootPath, "*");
-            if (items.Any())
-            {
-                var availabelFiles = _ext.Split(';').Select(c => c.Replace("*", string.Empty));
-                _items.AddRange(items.Where(c => availabelFiles.Contains(Path.GetExtension(c))));
-            }
+            _items = Directory.EnumerateFiles(_rootPath, "*.*", SearchOption.TopDirectoryOnly)
+                .Where(c => _fileExtensions.Contains(Path.GetExtension(c))).ToList();
 
-            CurrentItem = items[_index];
+            if (!_items.Any())
+                return;
+
+            if (_index < _items.Count)
+                CurrentItem = _items[_index];
         }
 
         public override double GetValueAsFloat(int fieldIndex)
         {
+            if (string.IsNullOrWhiteSpace(CurrentItem))
+                return 0;
+
             var fi = new FileInfo(CurrentItem);
 
             if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_FileAccessTime))
             {
-                return fi.LastAccessTime.Ticks;
+                return fi.LastAccessTime.ToOADate();
             }
 
             if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_FileCreationTime))
             {
-                return fi.CreationTime.Ticks;
+                return fi.CreationTime.ToOADate();
             }
 
             return 0;
@@ -192,7 +204,10 @@ namespace dotnet_musiclibrary
 
         public override long GetValueAsInt64(int fieldIndex)
         {
-            return 0;
+            if (string.IsNullOrWhiteSpace(CurrentItem))
+                return 0;
+
+            return new FileInfo(CurrentItem).Length;
         }
 
         public override string GetValueAsString(int fieldIndex)
@@ -207,17 +222,18 @@ namespace dotnet_musiclibrary
             {
                 return fi.Name;
             }
+
+            if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_FileFormat))
+            {
+                return Path.GetExtension(CurrentItem).Replace(".", string.Empty);
+            }
+
             if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_ID))
             {
                 return string.Empty;
             }
 
             return string.Empty;
-        }
-
-        public override bool NextRow()
-        {
-            return base.NextRow();
         }
 
         private int GetIndex(string fieldName)
