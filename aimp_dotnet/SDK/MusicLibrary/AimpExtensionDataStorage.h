@@ -106,26 +106,22 @@ public:
 
     virtual void WINAPI Finalize()
     {
-       //_managedInstance->Dispose();
-        System::Diagnostics::Debug::WriteLine("Finalize");
+       _managedInstance->Terminate();
     }
 
     virtual void WINAPI Initialize(IAIMPMLDataStorageManager* Manager)
     {
-        System::Diagnostics::Debug::WriteLine("Initialize");
         IAimpDataStorageManager ^manager = gcnew AimpDataStorageManager(Manager);
         _managedInstance->Initialize(manager);
     }
 
     virtual HRESULT WINAPI ConfigLoad(IAIMPConfig *Config, IAIMPString* Section)
     {
-        System::Diagnostics::Debug::WriteLine("Config load");
         return (HRESULT)_managedInstance->ConfigLoad(nullptr, AIMP::SDK::AimpExtension::GetString(Section));
     }
 
     virtual HRESULT WINAPI ConfigSave(IAIMPConfig *Config, IAIMPString* Section)
     {
-        System::Diagnostics::Debug::WriteLine("Config save");
         return (HRESULT)_managedInstance->ConfigSave(nullptr, AIMP::SDK::AimpExtension::GetString(Section));
     }
 
@@ -191,12 +187,13 @@ public:
         return S_OK;
     }
 
-    virtual void WINAPI FlushCache(int Reserved /*= 0*/)
-    {}
+    virtual void WINAPI FlushCache(int Reserved)
+    {
+        _managedInstance->FlushCache();
+    }
 
     virtual void WINAPI BeginUpdate()
     {
-
     }
 
     virtual void WINAPI EndUpdate()
@@ -297,6 +294,13 @@ public:
             || (riid == IID_IAIMPMLDataStorageCommandReloadTags && _implementsReloadTagsCommand)
             || (riid == IID_IAIMPMLDataStorageCommandReportDialog && _implementsReportDialogCommand)
             || (riid == IID_IAIMPMLDataStorageCommandUserMark && _implementsUserMarkCommand))
+        {
+            *ppvObject = this;
+            AddRef();
+            return S_OK;
+        }
+
+        if (riid == IID_IAIMPMLGroupingTreeDataProvider)
         {
             *ppvObject = this;
             AddRef();

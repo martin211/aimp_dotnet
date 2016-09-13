@@ -54,7 +54,7 @@ namespace AIMP.SDK.MusicLibrary.Extension
         /// <summary>
         /// Finalizes callback.
         /// </summary>
-        void Dispose();
+        void Terminate(); // TODO Rename
 
         void FlushCache();
 

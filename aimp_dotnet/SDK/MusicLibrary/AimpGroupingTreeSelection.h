@@ -24,7 +24,7 @@ namespace AIMP
             virtual AimpActionResult GetValue(int index, System::String^% fieldName, System::Object^% value)
             {
                 IAIMPString* str;
-                VARIANT* val;
+                VARIANT* val = NULL;
 
                 AimpActionResult result = CheckResult(InternalAimpObject->GetValue(index, &str, val));
 

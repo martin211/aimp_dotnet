@@ -1,14 +1,20 @@
 #pragma once
 #include "AimpGroupingTreeSelection.h"
+#include "AimpGroupingTreeDataProviderSelection.h"
 
 class InternalAimpGroupingTreeDataProvider : public IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProvider>
 {
 private:
     gcroot<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^> _managedInstance;
+    IAIMPCore *_aimpCore;
+
 public:
-    InternalAimpGroupingTreeDataProvider(gcroot<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^> managedInstance)
+    typedef IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProvider> Base;
+
+    InternalAimpGroupingTreeDataProvider(IAIMPCore* aimpCore, gcroot<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^> managedInstance)
     {
         _managedInstance = managedInstance;
+        _aimpCore = aimpCore;
     }
 
     virtual HRESULT WINAPI AppendFilter(IAIMPMLDataFilterGroup* Filter, IAIMPMLGroupingTreeSelection* Selection)
@@ -29,13 +35,42 @@ public:
     virtual HRESULT WINAPI GetData(IAIMPMLGroupingTreeSelection* Selection, IAIMPMLGroupingTreeDataProviderSelection** Data)
     {
         IAimpGroupingTreeSelection^ selection = gcnew AimpGroupingTreeSelection(Selection);
-        IAimpGroupingTreeDataProviderSelection^ dataProviderSelection = gcnew AimpGroupingTreeDataProviderSelection();
+        IAimpGroupingTreeDataProviderSelection^ dataProviderSelection;
 
-        return (HRESULT)_managedInstance->GetData(selection, dataProviderSelection);
+        AimpActionResult result = _managedInstance->GetData(selection, dataProviderSelection);
+
+        return (HRESULT)result;
     }
 
     virtual HRESULT WINAPI GetFieldForAlphabeticIndex(IAIMPString** FieldName)
     {
-        
+        return E_FAIL;
+    }
+
+    virtual ULONG WINAPI AddRef(void)
+    {
+        return Base::AddRef();
+    }
+
+    virtual ULONG WINAPI Release(void)
+    {
+        return Base::Release();
+    }
+
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
+    {
+        if (!ppvObject)
+        {
+            return E_POINTER;
+        }
+
+        if (riid == IID_IAIMPMLGroupingTreeDataProvider)
+        {
+            *ppvObject = this;
+            AddRef();
+            return S_OK;
+        }
+
+        return E_NOINTERFACE;
     }
 };

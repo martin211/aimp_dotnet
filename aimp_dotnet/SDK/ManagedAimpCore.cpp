@@ -151,6 +151,21 @@ namespace AIMP
                 _playlistManagerListener->Release();
                 _playlistManagerListener = NULL;
             }
+
+            if (_musicLibraryDataStorage != NULL)
+            {
+                _core->UnregisterExtension(this->_musicLibraryDataStorage);
+                _musicLibraryDataStorage->Release();
+                _musicLibraryDataStorage = NULL;
+            }
+
+            if (_groupingTreeDataProvider != NULL)
+            {
+                _core->UnregisterExtension(this->_groupingTreeDataProvider);
+                _groupingTreeDataProvider->Release();
+                _groupingTreeDataProvider = NULL;
+            }
+
             _core->Release();
         }
 
@@ -268,6 +283,19 @@ namespace AIMP
 
                 AimpExtensionDataStorage *ext = new AimpExtensionDataStorage(_core, dataStorageExtension);
                 _musicLibraryDataStorage = ext;
+                return _core->RegisterExtension(IID_IAIMPServiceMusicLibrary, ext);
+            }
+
+            AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^ groupingTreeDataProviderExtension = dynamic_cast<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^>(extension);
+            if (groupingTreeDataProviderExtension != nullptr)
+            {
+                if (_groupingTreeDataProvider != NULL)
+                {
+                    return E_FAIL;
+                }
+
+                InternalAimpGroupingTreeDataProvider *ext = new InternalAimpGroupingTreeDataProvider(_core, groupingTreeDataProviderExtension);
+                _groupingTreeDataProvider = ext;
                 return _core->RegisterExtension(IID_IAIMPServiceMusicLibrary, ext);
             }
 
