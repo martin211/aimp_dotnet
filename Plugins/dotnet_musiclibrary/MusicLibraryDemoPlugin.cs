@@ -13,6 +13,13 @@ namespace dotnet_musiclibrary
                 System.Diagnostics.Debugger.Break();
                 System.Diagnostics.Debug.WriteLine("Unable register DemoMusicLibrary");
             }
+
+            var demoGroupingProvider = new CustomAimpGroupingTreeDataProvider();
+            if (Player.Core.RegisterExtension(demoGroupingProvider) != AimpActionResult.Ok)
+            {
+                System.Diagnostics.Debugger.Break();
+                System.Diagnostics.Debug.WriteLine("Unable register DemoMusicLibrary");
+            }
         }
 
         public override void Dispose()

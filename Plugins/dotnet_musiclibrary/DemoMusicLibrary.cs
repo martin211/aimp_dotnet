@@ -10,8 +10,8 @@ using AIMP.SDK.MusicLibrary.Presets;
 
 namespace dotnet_musiclibrary
 {
-    public class DemoMusicLibrary : 
-        IAimpExtensionDataStorage, 
+    public class DemoMusicLibrary :
+        IAimpExtensionDataStorage,
         IAimpDataProvider,
         //IAimpDataStorageCommandAddFiles,
         //IAimpDataStorageCommandAddFilesDialog
@@ -42,9 +42,8 @@ namespace dotnet_musiclibrary
             
         }
 
-        public void Dispose()
+        public void Terminate()
         {
-            
         }
 
         public void FlushCache()

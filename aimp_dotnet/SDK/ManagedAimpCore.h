@@ -112,6 +112,7 @@ namespace AIMP
             AimpExtensionCustomVisualization* _customVisualization;
             AimpExtensionPlaylistManagerListener *_playlistManagerListener;
             AimpExtensionDataStorage *_musicLibraryDataStorage;
+            InternalAimpGroupingTreeDataProvider* _groupingTreeDataProvider;
 
             AIMP::SDK::PlayList::PlayListHandler ^_playlistAdded;
             AIMP::SDK::PlayList::PlayListHandler ^_playlistRemoved;

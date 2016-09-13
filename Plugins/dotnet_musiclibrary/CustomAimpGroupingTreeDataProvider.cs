@@ -4,7 +4,7 @@ using AIMP.SDK.MusicLibrary.DataStorage;
 
 namespace dotnet_musiclibrary
 {
-    public class CustomAimpGroupingTreeDataProvider : IAimpGroupingTreeDataProvider
+    public class CustomAimpGroupingTreeDataProvider : IAimpGroupingTreeDataProvider, IAimpExtension
     {
         public AimpActionResult AppendFilter(IAimpDataFilterGroup filter, IAimpGroupingTreeSelection selection)
         {
