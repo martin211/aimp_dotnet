@@ -1,6 +1,7 @@
 #pragma once
 #include "AimpGroupingTreeSelection.h"
 #include "AimpGroupingTreeDataProviderSelection.h"
+#include "AimpDataFilterGroup.h"
 
 class InternalAimpGroupingTreeDataProvider : public IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProvider>
 {
@@ -11,10 +12,9 @@ private:
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProvider> Base;
 
-    InternalAimpGroupingTreeDataProvider(IAIMPCore* aimpCore, gcroot<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^> managedInstance)
+    InternalAimpGroupingTreeDataProvider(gcroot<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^> managedInstance)
     {
         _managedInstance = managedInstance;
-        _aimpCore = aimpCore;
     }
 
     virtual HRESULT WINAPI AppendFilter(IAIMPMLDataFilterGroup* Filter, IAIMPMLGroupingTreeSelection* Selection)

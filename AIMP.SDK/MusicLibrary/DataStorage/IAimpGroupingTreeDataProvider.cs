@@ -7,8 +7,8 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
     public enum CapabilitiesFlags
     {
         None = 0,
-        AIMPML_GROUPINGTREEDATAPROVIDER_CAP_HIDEALLDATA,
-        AIMPML_GROUPINGTREEDATAPROVIDER_CAP_DONTSORT
+        HideAllData = 1,
+        DontSort = 2
     }
 
     /// <summary>

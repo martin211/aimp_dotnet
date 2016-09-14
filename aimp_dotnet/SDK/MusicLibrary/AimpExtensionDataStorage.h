@@ -171,9 +171,10 @@ public:
 
     virtual HRESULT WINAPI GetGroupingPresets(int Schema, IAIMPMLGroupingPresets* Presets)
     {
-        //AIMP::SDK::AimpGroupingPresets ^managedPresets = gcnew AIMP::SDK::AimpGroupingPresets(Presets);
-        //return (HRESULT)_managedInstance->GetGroupingPresets((AIMP::SDK::MusicLibrary::Extension::GroupingPresetsSchemaType)Schema, managedPresets);
-        IAIMPMLGroupingPresetStandard* preset = NULL;
+        AIMP::SDK::AimpGroupingPresets ^managedPresets = gcnew AIMP::SDK::AimpGroupingPresets(Presets);
+        return (HRESULT)_managedInstance->GetGroupingPresets((AIMP::SDK::MusicLibrary::Extension::GroupingPresetsSchemaType)Schema, managedPresets);
+
+        /*IAIMPMLGroupingPresetStandard* preset = NULL;
         IAIMPObjectList* list = nullptr;
         if (Schema == AIMPML_GROUPINGPRESETS_SCHEMA_BUILTIN)
         {
@@ -184,7 +185,7 @@ public:
             System::Diagnostics::Debug::WriteLine(count);
         }
 
-        return S_OK;
+        return S_OK;*/
     }
 
     virtual void WINAPI FlushCache(int Reserved)
