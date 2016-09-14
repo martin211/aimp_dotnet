@@ -4,26 +4,36 @@ using AIMP.SDK.MusicLibrary.DataStorage;
 
 namespace dotnet_musiclibrary
 {
-    public class CustomAimpGroupingTreeDataProvider : IAimpGroupingTreeDataProvider, IAimpExtension
+    public class CustomAimpGroupingTreeDataProvider : IAimpGroupingTreeDataProvider
     {
         public AimpActionResult AppendFilter(IAimpDataFilterGroup filter, IAimpGroupingTreeSelection selection)
         {
-            throw new System.NotImplementedException();
+            return AimpActionResult.NotImplemented;
         }
 
         public CapabilitiesFlags GetCapabilities()
         {
-            throw new System.NotImplementedException();
+            return CapabilitiesFlags.None;
         }
 
         public AimpActionResult GetData(IAimpGroupingTreeSelection selection, out IAimpGroupingTreeDataProviderSelection data)
         {
-            throw new System.NotImplementedException();
+            data = null;
+
+            string name;
+            object value;
+
+            if (selection.GetValue(0, out name, out value) == AimpActionResult.Ok)
+            {
+                return AimpActionResult.Ok;
+            }
+
+            return AimpActionResult.Fail;
         }
 
         public AimpActionResult GetFieldForAlphabeticIndex(string fileName)
         {
-            throw new System.NotImplementedException();
+            return AimpActionResult.NotImplemented;
         }
     }
 }

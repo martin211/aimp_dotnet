@@ -7,15 +7,8 @@ namespace dotnet_musiclibrary
     {
         public override void Initialize()
         {
-            var demoPlugin = new DemoMusicLibrary();
-            if (Player.Core.RegisterExtension(demoPlugin) != AimpActionResult.Ok)
-            {
-                System.Diagnostics.Debugger.Break();
-                System.Diagnostics.Debug.WriteLine("Unable register DemoMusicLibrary");
-            }
-
-            var demoGroupingProvider = new CustomAimpGroupingTreeDataProvider();
-            if (Player.Core.RegisterExtension(demoGroupingProvider) != AimpActionResult.Ok)
+            var demoLibrary = new DemoMusicLibrary();
+            if (Player.Core.RegisterExtension(demoLibrary) != AimpActionResult.Ok)
             {
                 System.Diagnostics.Debugger.Break();
                 System.Diagnostics.Debug.WriteLine("Unable register DemoMusicLibrary");

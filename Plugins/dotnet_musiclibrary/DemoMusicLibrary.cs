@@ -37,31 +37,31 @@ namespace dotnet_musiclibrary
 
         public CapabilitiesType Capabilities => CapabilitiesType.AIMPML_DATASTORAGE_CAP_FILTERING | CapabilitiesType.AIMPML_DATASTORAGE_CAP_GROUPINGPRESETS | CapabilitiesType.AIMPML_DATASTORAGE_CAP_PREIMAGES;
 
-        public void Initialize(IAimpDataStorageManager manager)
+        void IAimpExtensionDataStorage.Initialize(IAimpDataStorageManager manager)
         {
             
         }
 
-        public void Terminate()
+        void IAimpExtensionDataStorage.Terminate()
         {
         }
 
-        public void FlushCache()
+        void IAimpExtensionDataStorage.FlushCache()
         {
             
         }
 
-        public AimpActionResult ConfigLoad(IAimpConfig config, string section)
+        AimpActionResult IAimpExtensionDataStorage.ConfigLoad(IAimpConfig config, string section)
         {
             return AimpActionResult.Ok;
         }
 
-        public AimpActionResult ConfigSave(IAimpConfig config, string section)
+        AimpActionResult IAimpExtensionDataStorage.ConfigSave(IAimpConfig config, string section)
         {
             return AimpActionResult.Ok;
         }
 
-        public AimpActionResult GetFields(SchemaType schemaType, out IList list)
+        AimpActionResult IAimpExtensionDataStorage.GetFields(SchemaType schemaType, out IList list)
         {
             switch (schemaType)
             {
@@ -101,18 +101,27 @@ namespace dotnet_musiclibrary
             return AimpActionResult.Ok;
         }
 
-        public AimpActionResult GetGroupingPresets(GroupingPresetsSchemaType schema, IAimpGroupingPresets presets)
+        AimpActionResult IAimpExtensionDataStorage.GetGroupingPresets(GroupingPresetsSchemaType schema, IAimpGroupingPresets presets)
         {
             if (schema == GroupingPresetsSchemaType.AIMPML_GROUPINGPRESETS_SCHEMA_BUILTIN)
             {
                 IAimpGroupingPresetStandard preset;
                 presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset", EVDS_Fake, out preset);
+
+                var demoProvider = new CustomAimpGroupingTreeDataProvider();
+                IAimpGroupingPreset groupingPreset;
+
+                if (presets.Add("Demo.CustomGroupingProvider", "Custom provider", demoProvider, out groupingPreset) !=
+                    AimpActionResult.Ok || groupingPreset == null)
+                {
+                    System.Diagnostics.Debugger.Break();
+                }
             }
 
             return AimpActionResult.Ok;
         }
 
-        public AimpActionResult GetData(IList<string> fields, IAimpDataFilter filter, out object data)
+        AimpActionResult IAimpDataProvider.GetData(IList<string> fields, IAimpDataFilter filter, out object data)
         {
             data = null;
             string s;
