@@ -385,9 +385,6 @@
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h">
       <Filter>SDK\MusicLibrary</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeDataProvider.h">
-      <Filter>SDK\MusicLibrary</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\MusicLibrary\AimpDataField.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -400,7 +397,7 @@
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeSelection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeDataProviderSelection.h">
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProviderSelection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

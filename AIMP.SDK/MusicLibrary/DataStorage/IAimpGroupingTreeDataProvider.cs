@@ -26,7 +26,6 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         /// <summary>
         /// Gets the capabilities.
         /// </summary>
-        /// <returns></returns>
         CapabilitiesFlags GetCapabilities();
 
         /// <summary>
@@ -34,14 +33,12 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         /// </summary>
         /// <param name="selection">The selection.</param>
         /// <param name="data">The data.</param>
-        /// <returns></returns>
         AimpActionResult GetData(IAimpGroupingTreeSelection selection, out IAimpGroupingTreeDataProviderSelection data);
 
         /// <summary>
         /// Returns the name of top level field for alphabetic index.
         /// </summary>
-        /// <param name="fileName">Name of the file.</param>
-        /// <returns></returns>
-        AimpActionResult GetFieldForAlphabeticIndex(string fileName);
+        /// <param name="fieldName">Name of the field.</param>
+        AimpActionResult GetFieldForAlphabeticIndex(out string fieldName);
     }
 }

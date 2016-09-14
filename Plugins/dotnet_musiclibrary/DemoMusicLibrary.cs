@@ -123,7 +123,6 @@ namespace dotnet_musiclibrary
 
         AimpActionResult IAimpDataProvider.GetData(IList<string> fields, IAimpDataFilter filter, out object data)
         {
-            data = null;
             string s;
 
             if (fields.Count == 1 && fields[0] == EVDS_Fake)
