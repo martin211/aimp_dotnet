@@ -1,7 +1,7 @@
 #pragma once
 #include "..\AimpObject.h"
 #include "..\..\AIMPSDK\AIMPSDK.h"
-#include "AimpGroupingTreeDataProvider.h"
+//#include "AimpGroupingTreeDataProvider.h"
 #include "AimpGroupingPresetStandard.h"
 #include "InternalAimpGroupingTreeDataProvider.h"
 

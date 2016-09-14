@@ -41,6 +41,6 @@
         /// <summary>
         /// Jumps to the next record. Returns False if current node is last.
         /// </summary>
-        bool NextRecord();
+        bool NextRow();
     }
 }

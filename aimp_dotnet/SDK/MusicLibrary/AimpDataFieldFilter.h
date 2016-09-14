@@ -7,6 +7,7 @@ namespace AIMP
     {
         using namespace System;
         using namespace AIMP::SDK;
+        using namespace AIMP::SDK::MusicLibrary::DataFilter;
 
         public ref class AimpDataFieldFilter :
             public AimpObject<IAIMPMLDataFieldFilter>,

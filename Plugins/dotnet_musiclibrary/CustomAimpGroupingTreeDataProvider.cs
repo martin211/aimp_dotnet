@@ -23,17 +23,25 @@ namespace dotnet_musiclibrary
             string name;
             object value;
 
-            if (selection.GetValue(0, out name, out value) == AimpActionResult.Ok)
+            var count = selection.GetCount();
+
+            if (count > 0)
             {
-                return AimpActionResult.Ok;
+                if (selection.GetValue(0, out name, out value) == AimpActionResult.Ok)
+                {
+                    return AimpActionResult.Ok;
+                }
             }
 
-            return AimpActionResult.Fail;
+            data = new CustomAimpGroupingTreeDataProviderSelection();
+
+            return AimpActionResult.Ok;
         }
 
-        public AimpActionResult GetFieldForAlphabeticIndex(string fileName)
+        public AimpActionResult GetFieldForAlphabeticIndex(out string fieldName)
         {
-            return AimpActionResult.NotImplemented;
+            fieldName = "Test";
+            return AimpActionResult.Ok;
         }
     }
 }

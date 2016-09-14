@@ -63,8 +63,7 @@
     <ClInclude Include="SDK\Delegates.h" />
     <ClInclude Include="SDK\delegate_impl.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h" />
-    <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeDataProvider.h" />
-    <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeDataProviderSelection.h" />
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProviderSelection.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeSelection.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibrary.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresets.h" />

@@ -1,6 +1,6 @@
 #pragma once
 #include "AimpGroupingTreeSelection.h"
-#include "AimpGroupingTreeDataProviderSelection.h"
+#include "InternalAimpGroupingTreeDataProviderSelection.h"
 #include "AimpDataFilterGroup.h"
 
 class InternalAimpGroupingTreeDataProvider : public IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProvider>
@@ -39,12 +39,26 @@ public:
 
         AimpActionResult result = _managedInstance->GetData(selection, dataProviderSelection);
 
+        if (result == AimpActionResult::Ok)
+        {
+            *Data = new InternalAimpGroupingTreeDataProviderSelection(dataProviderSelection);
+        }
+
         return (HRESULT)result;
     }
 
     virtual HRESULT WINAPI GetFieldForAlphabeticIndex(IAIMPString** FieldName)
     {
-        return E_FAIL;
+        System::String^ str;
+
+        AimpActionResult result = _managedInstance->GetFieldForAlphabeticIndex(str);
+
+        if (result == AimpActionResult::Ok)
+        {
+            *FieldName = AIMP::SDK::AimpExtension::GetAimpString(str);
+        }
+
+        return (HRESULT)result;
     }
 
     virtual ULONG WINAPI AddRef(void)
