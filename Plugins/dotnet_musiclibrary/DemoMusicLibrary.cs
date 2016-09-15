@@ -76,13 +76,16 @@ namespace dotnet_musiclibrary
                         new AimpDataField(EVDS_FileCreationTime, AimpDataFieldType.AIMPML_FIELDTYPE_DATETIME, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_FILTERING),
                         new AimpDataField(EVDS_Fake, AimpDataFieldType.AIMPML_FIELDTYPE_FILENAME, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_INTERNAL | AimpDataFieldFlagsType.AIMPML_FIELDFLAG_GROUPING)
                     };
-                    break;
 
-                case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_GROUPBY:
-                case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_GROUPDETAILS:
-                case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_VIEW_GROUPDETAILS:
+                    return AimpActionResult.Ok;
+
                 case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_VIEW_DEFAULT:
                 case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_VIEW_ALBUMTHUMBNAILS:
+                case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_GROUPDETAILS:
+
+                //case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_GROUPBY:
+                //case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_VIEW_GROUPDETAILS:
+                //case SchemaType.AIMPML_FIELDS_SCHEMA_GROUPING_TREE:
                     list = new List<string>
                     {
                         EVDS_FileFormat,
@@ -91,7 +94,7 @@ namespace dotnet_musiclibrary
                         EVDS_FileAccessTime,
                         EVDS_FileCreationTime
                     };
-                    break;
+                    return AimpActionResult.Ok;
 
                 default:
                     list = new List<string>();
@@ -105,17 +108,31 @@ namespace dotnet_musiclibrary
         {
             if (schema == GroupingPresetsSchemaType.AIMPML_GROUPINGPRESETS_SCHEMA_BUILTIN)
             {
+               
+            }
+            else if (schema == GroupingPresetsSchemaType.AIMPML_GROUPINGPRESETS_SCHEMA_DEFAULT)
+            {
                 IAimpGroupingPresetStandard preset;
                 presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset", EVDS_Fake, out preset);
 
-                var demoProvider = new CustomAimpGroupingTreeDataProvider();
-                IAimpGroupingPreset groupingPreset;
+                //IAimpGroupingPresetStandard preset;
+                //presets.Add("Demo.ExplorerView.GroupingPreset.Default2", "Demo preset2", new List<string>
+                //{
+                //    EVDS_FileFormat,
+                //    EVDS_FileName,
+                //    EVDS_FileSize,
+                //    EVDS_FileAccessTime,
+                //    EVDS_FileCreationTime
+                //}, out preset);
 
-                if (presets.Add("Demo.CustomGroupingProvider", "Custom provider", demoProvider, out groupingPreset) !=
-                    AimpActionResult.Ok || groupingPreset == null)
-                {
-                    System.Diagnostics.Debugger.Break();
-                }
+                //var demoProvider = new CustomAimpGroupingTreeDataProvider();
+                //IAimpGroupingPreset groupingPreset;
+
+                //if (presets.Add("Demo.CustomGroupingProvider", "Custom provider", demoProvider, out groupingPreset) !=
+                //    AimpActionResult.Ok || groupingPreset == null)
+                //{
+                //    System.Diagnostics.Debugger.Break();
+                //}
             }
 
             return AimpActionResult.Ok;
