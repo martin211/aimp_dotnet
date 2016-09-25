@@ -421,5 +421,25 @@ namespace AIMP
         {
             return AimpActionResult::NotImplemented;
         }
+
+        void AimpExtension::ToVariant(System::Object^ objectValue, VARIANT* variant)
+        {
+            System::String^ s = dynamic_cast<System::String^>(objectValue);
+
+            if (s != nullptr)
+            {
+                variant->bstrVal = (BSTR)Runtime::InteropServices::Marshal::StringToBSTR(s).ToPointer();
+            }
+        }
+
+        System::Object^ AimpExtension::FromVaiant(VARIANT* variant)
+        {
+            if (variant->bstrVal != NULL)
+            {
+                return gcnew System::String(variant->bstrVal);
+            }
+
+            return nullptr;
+        }
     }
 }

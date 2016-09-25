@@ -62,9 +62,7 @@ namespace AIMP
                 if (result == AimpActionResult::Ok)
                 {
                     *FieldName = AimpExtension::GetAimpString(fieldName);
-                    Value = new VARIANT();
-                    Value->ppunkVal = (IUnknown**)AimpExtension::GetAimpString("Test field");
-                    // TODO Implement value
+                    AimpExtension::ToVariant(value, Value);
                 }
 
                 return (HRESULT)result;

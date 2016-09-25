@@ -44,9 +44,6 @@ namespace AIMP
             {
                 TObject *obj = NULL;
                 HRESULT r = ManagedAimpCore::GetAimpCore()->CreateObject(objectId, (void**)&obj);
-                
-                System::Diagnostics::Debug::WriteLine("MakeObject result: " + r);
-
                 return obj;
             }
 
@@ -81,6 +78,10 @@ namespace AIMP
 
                 return result;
             }
+
+            static void ToVariant(System::Object^ objectValue, VARIANT* variant);
+
+            static System::Object^ FromVaiant(VARIANT* variant);
 
             //static AIMP::SDK::Variant ToManaged(VARIANT variant)
             //{
