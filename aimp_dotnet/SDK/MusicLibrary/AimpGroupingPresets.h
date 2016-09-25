@@ -102,7 +102,7 @@ namespace AIMP
                 {
                     System::Diagnostics::Debugger::Break();
                 }
-                AimpActionResult result = CheckResult(InternalAimpObject->Get(index, IID_IAIMPMLGroupingPreset, (void**)p));
+                AimpActionResult result = CheckResult(InternalAimpObject->Get(index, IID_IAIMPMLGroupingPreset, (void**)&p));
                 if (result == AimpActionResult::Ok)
                 {
                     preset = gcnew AimpGroupingPreset(p);
@@ -117,7 +117,7 @@ namespace AIMP
                 {
                     IAIMPMLGroupingPresetStandard* p = NULL;
                     preset = nullptr;
-                    AimpActionResult result = CheckResult(InternalAimpObject->Get(index, IID_IAIMPMLGroupingPresetStandard, (void**)p));
+                    AimpActionResult result = CheckResult(InternalAimpObject->Get(index, IID_IAIMPMLGroupingPresetStandard, (void**)&p));
                     if (result == AimpActionResult::Ok)
                     {
                         preset = gcnew AimpGroupingPresetStandard(p);

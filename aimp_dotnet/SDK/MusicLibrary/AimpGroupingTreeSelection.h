@@ -34,6 +34,8 @@ namespace AIMP
                 {
                     if (str != NULL)
                         fieldName = AimpExtension::GetString(str);
+
+                    value = AimpExtension::FromVaiant(&val);
                 }
 
                 return result;
