@@ -42,3 +42,7 @@ CSRelease
 include/boost/*
 *.opendb
 *.db
+.sonar/
+*.user
+*.plog
+*.properties
