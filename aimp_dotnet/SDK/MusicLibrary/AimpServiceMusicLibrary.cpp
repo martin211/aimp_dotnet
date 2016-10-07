@@ -1,4 +1,4 @@
-#include "..\..\Stdafx.h"
+#include "Stdafx.h"
 #include "AimpServiceMusicLibrary.h"
 #include "AimpDataStorage.h"
 #include "AimpGroupingPresets.h"

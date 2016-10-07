@@ -57,11 +57,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="AIMP_Exports.def">
-      <Filter>Source Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="DotNetPlugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -106,9 +101,6 @@
     </ClCompile>
     <ClCompile Include="SDK\AimpExtension.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\PlayList\AimpPlaylistQueueListener.cpp">
-      <Filter>SDK\PlayList</Filter>
     </ClCompile>
     <ClCompile Include="SDK\MusicLibrary\AimpServiceMusicLibrary.cpp">
       <Filter>Source Files</Filter>
@@ -400,10 +392,39 @@
     <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProviderSelection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SDK\Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayList\Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Visuals\Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Threading\Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Menu\Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Action\Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Extensions\Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AIMP_Exports.def">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

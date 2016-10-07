@@ -1,4 +1,4 @@
-#include "..\Stdafx.h"
+#include "Stdafx.h"
 #include "AimpObjectList.h"
 
 using namespace AIMP::SDK;
@@ -60,3 +60,4 @@ AimpActionResult AimpObjectList<T>::SetObject(int index, T item)
 {
     return Utils::CheckResult(_nativeObject->SetObject(index, AimpExtension::GetAimpString((String^)item)));
 }
+

@@ -1,4 +1,4 @@
-#include "..\..\Stdafx.h"
+#include "Stdafx.h"
 #include "..\ManagedAimpCore.h"
 #include "AimpPlayListGroup.h"
 #include "AimpPlayListItem.h"

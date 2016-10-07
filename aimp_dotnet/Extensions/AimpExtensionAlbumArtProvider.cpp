@@ -1,4 +1,4 @@
-#include "..\Stdafx.h"
+#include "Stdafx.h"
 #include "AimpExtensionAlbumArtProvider.h"
 #include "..\SDK\PlayList\AimpFileInfo.h"
 #include "..\SDK\AlbumArt\AimpAlbumArtSearchOptions.h"
