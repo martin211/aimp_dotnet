@@ -1,5 +1,5 @@
 #pragma once
-#include "..\..\Stdafx.h"
+#include "Stdafx.h"
 #include "AimpGroupingPreset.h"
 
 namespace AIMP
