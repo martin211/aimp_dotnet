@@ -24,8 +24,11 @@ namespace AIMP
                 {
                     if (GetService(IID_IAIMPServiceSynchronizer, &service) == AimpActionResult::Ok)
                     {
-                        InternalAimpTask *internalTask = new InternalAimpTask(task);
-                        return CheckResult(service->ExecuteInMainThread(internalTask, (BOOL)executeNow));
+                        if (service != NULL)
+                        {
+                            InternalAimpTask *internalTask = new InternalAimpTask(task);
+                            return CheckResult(service->ExecuteInMainThread(internalTask, (BOOL)executeNow));
+                        }
                     }
                 }
                 finally

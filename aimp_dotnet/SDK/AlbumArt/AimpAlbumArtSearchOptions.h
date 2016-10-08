@@ -16,6 +16,7 @@ namespace AIMP
             {
                 _properties = properties;
                 _core = core;
+                _findInFiles = false;
             }
 
             virtual property bool FindInFiles
