@@ -46,6 +46,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return String::Empty;
         }
 
         String ^AimpDataStorage::Caption::get()
@@ -66,6 +68,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return String::Empty;
         }
 
         IAimpGroupingPreset ^AimpDataStorage::GroupingPreset::get()
@@ -80,8 +84,6 @@ namespace AIMP
                     {
                         if (preset != NULL)
                             return gcnew AimpGroupingPreset(preset);
-
-                        return nullptr;
                     }
                 }
             }
@@ -93,6 +95,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return nullptr;
         }
 
         void AimpDataStorage::GroupingPreset::set(IAimpGroupingPreset ^value)

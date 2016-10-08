@@ -271,6 +271,8 @@ public:
         {
             AIMP::SDK::PropertyListExtension::SetString(this, AIMPML_DATASTORAGE_PROPID_CAPTION, _managedInstance->Caption);
         }
+
+        return S_OK;
     }
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)

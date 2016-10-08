@@ -15,6 +15,7 @@ public:
     InternalAimpGroupingTreeDataProvider(gcroot<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^> managedInstance)
     {
         _managedInstance = managedInstance;
+        _aimpCore = NULL;
     }
 
     virtual HRESULT WINAPI AppendFilter(IAIMPMLDataFilterGroup* Filter, IAIMPMLGroupingTreeSelection* Selection)

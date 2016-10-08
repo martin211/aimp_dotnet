@@ -130,6 +130,8 @@ namespace AIMP
                 image->Release();
                 image = NULL;
             }
+
+            return nullptr;
         }
 
         System::Drawing::Bitmap^ AimpExtension::GetBitmap(IAIMPImage* image)

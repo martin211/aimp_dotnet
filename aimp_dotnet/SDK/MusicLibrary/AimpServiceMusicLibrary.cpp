@@ -16,9 +16,12 @@ namespace AIMP
             {
                 if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::Ok)
                 {
-                    IAIMPMLDataStorage *aimpStorage;
-                    result = CheckResult(service->GetActiveStorage(IID_IAIMPMLDataStorage, (void**)&aimpStorage));
-                    storage = gcnew AimpDataStorage(aimpStorage);
+                    if (service != NULL)
+                    {
+                        IAIMPMLDataStorage *aimpStorage;
+                        result = CheckResult(service->GetActiveStorage(IID_IAIMPMLDataStorage, (void**)&aimpStorage));
+                        storage = gcnew AimpDataStorage(aimpStorage);
+                    }
                 }
 
                 return result;
@@ -42,9 +45,12 @@ namespace AIMP
             {
                 if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::Ok)
                 {
-                    IAIMPMLGroupingPresets *aimpPresets;
-                    result = CheckResult(service->GetActiveStorage(IID_IAIMPMLGroupingPresets, (void**)&aimpPresets));
-                    presets = gcnew AimpGroupingPresets(aimpPresets);
+                    if (service != NULL)
+                    {
+                        IAIMPMLGroupingPresets *aimpPresets;
+                        result = CheckResult(service->GetActiveStorage(IID_IAIMPMLGroupingPresets, (void**)&aimpPresets));
+                        presets = gcnew AimpGroupingPresets(aimpPresets);
+                    }
                 }
 
                 return result;
@@ -118,6 +124,11 @@ namespace AIMP
             {
                 if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::Ok)
                 {
+                    if (service == NULL)
+                    {
+                        return AimpActionResult::Fail;
+                    }
+
                     IAIMPMLDataStorage *storage;
                     result = CheckResult(service->GetStorage(index, IID_IAIMPMLDataStorage, (void**)&storage));
                 }
@@ -143,6 +154,9 @@ namespace AIMP
             {
                 if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::Ok)
                 {
+                    if (service == NULL)
+                        return AimpActionResult::Fail;
+
                     IAIMPMLGroupingPresets* s;
                     result = CheckResult(service->GetStorage(index, IID_IAIMPMLGroupingPresets, (void**)&s));
 
@@ -226,11 +240,12 @@ namespace AIMP
             {
                 if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::Ok)
                 {
-                    IAIMPMLGroupingPresets *storage;
-                    return service->GetStorageCount();
+                    if (service != NULL)
+                    {
+                        IAIMPMLGroupingPresets *storage;
+                        return service->GetStorageCount();
+                    }
                 }
-
-                return 0;
             }
             finally
             {
@@ -240,6 +255,8 @@ namespace AIMP
                     service = NULL;
                 }
             }
+
+            return 0;
         }
     }
 }

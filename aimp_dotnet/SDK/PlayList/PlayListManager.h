@@ -138,7 +138,7 @@ namespace AIMP
                 IAIMPServicePlaylistManager *service;
                 res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
 
-                if (res == AimpActionResult::Ok)
+                if (res == AimpActionResult::Ok && service != NULL)
                 {
                     str = AimpExtension::GetAimpString(name);
                     res = CheckResult(service->CreatePlaylist(str, (BOOL)isActive, &pl));
@@ -173,7 +173,7 @@ namespace AIMP
                 IAIMPServicePlaylistManager *service;
 
                 AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
-                if (res == AimpActionResult::Ok)
+                if (service != NULL && res == AimpActionResult::Ok)
                 {
                     str = AimpExtension::GetAimpString(fileName);
                     res = CheckResult(service->CreatePlaylistFromFile(str, (BOOL)isActive, &pl));
@@ -206,7 +206,7 @@ namespace AIMP
                 IAIMPServicePlaylistManager *service;
 
                 AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
-                if (res == AimpActionResult::Ok)
+                if (service != NULL && res == AimpActionResult::Ok)
                 {
                     res = CheckResult(service->GetActivePlaylist(&pl));
                     if (res == AimpActionResult::Ok)
@@ -232,7 +232,7 @@ namespace AIMP
 
                 AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
 
-                if (res == AimpActionResult::Ok)
+                if (service != NULL && res == AimpActionResult::Ok)
                 {
                     res = CheckResult(service->GetLoadedPlaylist(index, &pl));
                     if (res == AimpActionResult::Ok)

@@ -22,7 +22,8 @@ namespace AIMP
                 {
                     if (GetService(IID_IAIMPServiceThreadPool, &service) == AimpActionResult::Ok)
                     {
-                        return CheckResult(service->Cancel((DWORD_PTR)taskHandle.ToPointer(), (DWORD)flags));
+                        if (service != NULL)
+                            return CheckResult(service->Cancel((DWORD_PTR)taskHandle.ToPointer(), (DWORD)flags));
                     }
                 }
                 finally
@@ -45,12 +46,15 @@ namespace AIMP
 
                     if (GetService(IID_IAIMPServiceThreadPool, &service) == AimpActionResult::Ok)
                     {
-                        InternalAimpTask *internalTask = new InternalAimpTask(task);
-                        AimpActionResult result = CheckResult(service->Execute(internalTask, &h));
-                        System::Diagnostics::Debug::WriteLine(result.ToString());
+                        if (service != NULL)
+                        {
+                            InternalAimpTask *internalTask = new InternalAimpTask(task);
+                            AimpActionResult result = CheckResult(service->Execute(internalTask, &h));
+                            System::Diagnostics::Debug::WriteLine(result.ToString());
 
-                        handle = UIntPtr((void*)h);
-                        return result;
+                            handle = UIntPtr((void*)h);
+                            return result;
+                        }
                     }
                 }
                 finally
@@ -71,7 +75,10 @@ namespace AIMP
                 {
                     if (GetService(IID_IAIMPServiceThreadPool, &service) == AimpActionResult::Ok)
                     {
-                        return CheckResult(service->WaitFor((DWORD_PTR)handle.ToPointer()));
+                        if (service != NULL)
+                        {
+                            return CheckResult(service->WaitFor((DWORD_PTR)handle.ToPointer()));
+                        }
                     }
                 }
                 finally

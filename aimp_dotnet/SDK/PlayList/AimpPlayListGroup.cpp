@@ -16,6 +16,7 @@ namespace AIMP
 
         AimpPlayListGroup::AimpPlayListGroup(IAIMPPlaylistGroup *item) : AimpObject(item)
         {
+            _item = nullptr;
         }
 
         System::String^ AimpPlayListGroup::Name::get()

@@ -10,6 +10,7 @@ public:
     ManagedFunctionality(IAIMPCore* core)
     {
         _core = core;
+        _managedCore = nullptr;
     }
 
     ~ManagedFunctionality()

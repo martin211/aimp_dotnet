@@ -81,8 +81,6 @@ namespace AIMP
                 {
                     return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_ID);
                 }
-
-                return nullptr;
             }
             finally
             {
@@ -92,6 +90,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return String::Empty;
         }
 
         String ^AimpPlayList::Name::get()
@@ -103,8 +103,6 @@ namespace AIMP
                 {
                     return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_NAME);
                 }
-
-                return nullptr;
             }
             finally
             {
@@ -114,6 +112,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return String::Empty;
         }
 
         void AimpPlayList::Name::set(String ^value)
@@ -143,8 +143,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_READONLY);
-
-                return false;
             }
             finally
             {
@@ -154,6 +152,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ReadOnly::set(bool value)
@@ -196,8 +196,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING_OVERRIDEN);
-
-                return false;
             }
             finally
             {
@@ -207,6 +205,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::GrouppingOverriden::set(bool value)
@@ -247,6 +247,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::Groupping::set(bool value)
@@ -278,8 +280,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_GROUPPING_TEMPLATE);
-
-                return nullptr;
             }
             finally
             {
@@ -289,6 +289,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return String::Empty;
         }
 
         void AimpPlayList::GrouppingTemplate::set(String ^value)
@@ -318,8 +320,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING_AUTOMERGING);
-
-                return false;
             }
             finally
             {
@@ -329,6 +329,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::GrouppingAutomerging::set(bool value)
@@ -359,8 +361,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_FORMATING_OVERRIDEN);
-
-                return false;
             }
             finally
             {
@@ -370,6 +370,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::FormatingOverride::set(bool value)
@@ -399,8 +401,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE1_TEMPLATE);
-
-                return nullptr;
             }
             finally
             {
@@ -410,6 +410,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return String::Empty;
         }
 
         void AimpPlayList::FormatingLine1Template::set(String ^value)
@@ -439,8 +441,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE2_TEMPLATE);
-
-                return nullptr;
             }
             finally
             {
@@ -450,6 +450,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return String::Empty;
         }
 
         void AimpPlayList::FormatingLine2Template::set(String ^value)
@@ -479,8 +481,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_OVERRIDEN);
-
-                return false;
             }
             finally
             {
@@ -490,6 +490,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ViewOverride::set(bool value)
@@ -519,8 +521,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_DURATION);
-
-                return false;
             }
             finally
             {
@@ -530,6 +530,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ViewDuration::set(bool value)
@@ -559,8 +561,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_EXPAND_BUTTONS);
-
-                return false;
             }
             finally
             {
@@ -570,6 +570,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ViewExpandButtons::set(bool value)
@@ -599,8 +601,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_MARKS);
-
-                return false;
             }
             finally
             {
@@ -610,6 +610,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ViewMarks::set(bool value)
@@ -639,8 +641,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS);
-
-                return false;
             }
             finally
             {
@@ -650,6 +650,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ViewNumbers::set(bool value)
@@ -679,8 +681,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS_ABSOLUTE);
-
-                return false;
             }
             finally
             {
@@ -690,6 +690,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ViewAbsoluteNumbers::set(bool value)
@@ -719,8 +721,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_SECOND_LINE);
-
-                return false;
             }
             finally
             {
@@ -730,6 +730,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ViewSecondLine::set(bool value)
@@ -759,8 +761,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_SWITCHES);
-
-                return false;
             }
             finally
             {
@@ -770,6 +770,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ViewSwitches::set(bool value)
@@ -799,8 +801,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetInt32(properties, AIMP_PLAYLIST_PROPID_FOCUSINDEX);
-
-                return 0;
             }
             finally
             {
@@ -810,6 +810,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return 0;
         }
 
         void AimpPlayList::FocusIndex::set(int value)
@@ -839,8 +841,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetInt32(properties, AIMP_PLAYLIST_PROPID_PLAYBACKCURSOR);
-
-                return 0;
             }
             finally
             {
@@ -850,6 +850,9 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return 0;
+
         }
 
         void AimpPlayList::PlaybackCursor::set(int value)
@@ -879,8 +882,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetInt32(properties, AIMP_PLAYLIST_PROPID_PLAYINGINDEX);
-
-                return 0;
             }
             finally
             {
@@ -890,6 +891,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return 0;
         }
 
         void AimpPlayList::PlayingIndex::set(int value)
@@ -919,8 +922,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                      return PropertyListExtension::GetFloat(properties, AIMP_PLAYLIST_PROPID_DURATION);
-
-                return 0;
             }
             finally
             {
@@ -930,6 +931,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return 0;
         }
 
 
@@ -964,8 +967,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_PREIMAGE);
-
-                return nullptr;
             }
             finally
             {
@@ -975,6 +976,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return String::Empty;
         }
 
         void AimpPlayList::PreImage::set(String ^value)

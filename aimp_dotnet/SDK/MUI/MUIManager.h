@@ -30,8 +30,11 @@ namespace AIMP
                 {
                     if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
                     {
-                        service->GetName(&str);
-                        return gcnew String(str->GetData());
+                        if (service != NULL)
+                        {
+                            service->GetName(&str);
+                            return gcnew String(str->GetData());
+                        }
                     }
                 }
                 finally
@@ -60,6 +63,11 @@ namespace AIMP
                 {
                     if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
                     {
+                        if (service == NULL)
+                        {
+                            return String::Empty;
+                        }
+
                         IAIMPString* strKey = AimpExtension::GetAimpString(key);
 
                         if (service->GetValue(strKey, &str) == S_OK)
@@ -101,6 +109,9 @@ namespace AIMP
                 {
                     if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
                     {
+                        if (service == NULL)
+                            return nullptr;
+
                         IAIMPString* strKey = AimpExtension::GetAimpString(key);
                         service->GetValuePart(strKey, index, &str);
 

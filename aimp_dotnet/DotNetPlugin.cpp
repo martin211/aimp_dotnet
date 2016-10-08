@@ -8,17 +8,10 @@
 
 DotNetPlugin::DotNetPlugin()
 {
-    try
-    {
-        _optionsLoaded = false;
-        System::String ^path = System::IO::Path::GetDirectoryName(System::Reflection::Assembly::GetExecutingAssembly()->Location);
-        AIMP::SDK::CustomAssemblyResolver::Initialize(path);
-        _dotNetPlugin = AIMP::SDK::PluginInfoLoader::LoadPlugin(path);
-    }
-    catch (const std::exception&)
-    {
-
-    }
+    _optionsLoaded = false;
+    System::String ^path = System::IO::Path::GetDirectoryName(System::Reflection::Assembly::GetExecutingAssembly()->Location);
+    AIMP::SDK::CustomAssemblyResolver::Initialize(path);
+    _dotNetPlugin = AIMP::SDK::PluginInfoLoader::LoadPlugin(path);
 }
 
 // TODO: Add finalizer.
