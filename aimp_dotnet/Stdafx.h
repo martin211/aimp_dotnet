@@ -3,6 +3,8 @@
 // but are changed infrequently
 #pragma once
 
+//-V122_NOPTR
+
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
