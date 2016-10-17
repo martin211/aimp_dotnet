@@ -39,8 +39,7 @@ namespace AIMP
             {
                 stream = gcnew System::IO::MemoryStream();
                 image->Save(stream, System::Drawing::Imaging::ImageFormat::Png);
-                array<Byte> ^buffer = gcnew array<byte>((int)stream->Length);
-                buffer = stream->ToArray();
+                array<Byte>^ buffer = stream->ToArray();
 
                 if (Utils::CheckResult(GetCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&aimpStream)) == AIMP::SDK::AimpActionResult::Ok
                     && Utils::CheckResult(GetCore()->CreateObject(IID_IAIMPImage, (void**)&img)) == AIMP::SDK::AimpActionResult::Ok)
