@@ -33,7 +33,9 @@ namespace AIMP
                         if (service != NULL)
                         {
                             service->GetName(&str);
-                            return gcnew String(str->GetData());
+
+                            if (str != NULL)
+                                return gcnew String(str->GetData());
                         }
                     }
                 }
