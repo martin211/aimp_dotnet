@@ -43,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		CopyPlugin.cmd = CopyPlugin.cmd
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_MLCustomDatapPovider", "Plugins\aim_musiclibaray_customdataprovider\dotnet_MLCustomDatapPovider.csproj", "{070451E7-0E4D-4670-87A9-C31CFE0F9930}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -231,6 +233,26 @@ Global
 		{9C155223-D1C5-4943-A4E6-02131544E5FD}.Release|x64.Build.0 = Release|Any CPU
 		{9C155223-D1C5-4943-A4E6-02131544E5FD}.Release|x86.ActiveCfg = Release|Any CPU
 		{9C155223-D1C5-4943-A4E6-02131544E5FD}.Release|x86.Build.0 = Release|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Debug|Win32.Build.0 = Debug|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Debug|x64.Build.0 = Debug|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Debug|x86.Build.0 = Debug|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Release|Any CPU.Build.0 = Release|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Release|Win32.ActiveCfg = Release|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Release|Win32.Build.0 = Release|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Release|x64.ActiveCfg = Release|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Release|x64.Build.0 = Release|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Release|x86.ActiveCfg = Release|Any CPU
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -243,5 +265,6 @@ Global
 		{E9D9E53D-40D5-4965-9770-FAADF73CEEEA} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
 		{7D283154-7CF9-434E-BA5A-5FB3D03AC271} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
 		{9C155223-D1C5-4943-A4E6-02131544E5FD} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
+		{070451E7-0E4D-4670-87A9-C31CFE0F9930} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
 	EndGlobalSection
 EndGlobal

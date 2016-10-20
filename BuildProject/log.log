@@ -1,0 +1,405 @@
+Build started 31.01.2016 0:22:29.
+     1>Project "Z:\Code\AIMP\aimp_dotnet\BuildProject\AimpDotnet.proj" on node 1 (Default target(s)).
+         Removing directory "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\Release".
+         Creating directory "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\Release".
+       The target "BeforeGenerateProjectPriFile" listed in a BeforeTargets attribute at "C:\Program Files (x86)\MSBuild\Microsoft\NuGet\Microsoft.NuGet.targets (186,61)" does not exist in the project, and will be ignored.
+     1>Project "Z:\Code\AIMP\aimp_dotnet\BuildProject\AimpDotnet.proj" (1) is building "Z:\Code\AIMP\aimp_dotnet\AIMP.SDK\AIMP.SDK.csproj" (2) on node 1 (Rebuild target(s)).
+         Deleting file "Z:\Code\AIMP\aimp_dotnet\AIMP.SDK\bin\Release\AIMP.SDK.dll".
+         Deleting file "Z:\Code\AIMP\aimp_dotnet\AIMP.SDK\bin\Release\AIMP.SDK.pdb".
+         Deleting file "Z:\Code\AIMP\aimp_dotnet\AIMP.SDK\obj\Release\AIMP.SDK.dll".
+         Deleting file "Z:\Code\AIMP\aimp_dotnet\AIMP.SDK\obj\Release\AIMP.SDK.pdb".
+     2>GenerateTargetFrameworkMonikerAttribute:
+       Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+     2>PluginInfoLoader.cs(183,13): warning CS0162: Unreachable code detected
+     2>PluginInfo.cs(160,38): warning CS0168: The variable 'ex' is declared but never used
+     2>PluginInfo.cs(181,38): warning CS0168: The variable 'ex' is declared but never used
+     2>PluginInfo.cs(194,42): warning CS0168: The variable 'ex' is declared but never used
+     2>PluginInfo.cs(209,42): warning CS0168: The variable 'ex' is declared but never used
+     2>PluginInfo.cs(266,34): warning CS0168: The variable 'ex' is declared but never used
+     2>UI\ActionItem\AimpActionItem.cs(114,35): warning CS0067: The event 'AimpActionItem.OnExecute' is never used
+     2>PluginInfoLoader.cs(43,24): warning CS0649: Field 'AssemblyScanPluginLoadStrategy._probePath' is never assigned to, and will always have its default value null
+       CopyFilesToOutputDirectory:
+         Copying file from "obj\Release\AIMP.SDK.dll" to "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\\AIMP.SDK\bin\Release\AIMP.SDK.dll".
+         AIMP.SDK -> Z:\Code\AIMP\aimp_dotnet\AIMP.SDK\bin\Release\AIMP.SDK.dll
+     2>Done Building Project "Z:\Code\AIMP\aimp_dotnet\AIMP.SDK\AIMP.SDK.csproj" (Rebuild target(s)).
+       The target "BeforeGenerateProjectPriFile" listed in a BeforeTargets attribute at "C:\Program Files (x86)\MSBuild\Microsoft\NuGet\Microsoft.NuGet.targets (186,61)" does not exist in the project, and will be ignored.
+     1>Project "Z:\Code\AIMP\aimp_dotnet\BuildProject\AimpDotnet.proj" (1) is building "Z:\Code\AIMP\aimp_dotnet\aimp_dotnet\Aimp_DotNetPlugin.vcxproj" (3) on node 1 (Rebuild target(s)).
+         Deleting file "Release\aimp_dotnet.tlog\aimp_dotnet.lastbuildstate".
+       The target "BeforeGenerateProjectPriFile" listed in a BeforeTargets attribute at "C:\Program Files (x86)\MSBuild\Microsoft\NuGet\Microsoft.NuGet.targets (186,61)" does not exist in the project, and will be ignored.
+     3>Project "Z:\Code\AIMP\aimp_dotnet\aimp_dotnet\Aimp_DotNetPlugin.vcxproj" (3) is building "Z:\Code\AIMP\aimp_dotnet\AIMP.SDK\AIMP.SDK.csproj" (2:2) on node 1 (Clean target(s)).
+         Deleting file "Z:\Code\AIMP\aimp_dotnet\aimp_dotnet\bin\Release\AIMP.SDK.dll".
+         Deleting file "Z:\Code\AIMP\aimp_dotnet\AIMP.SDK\obj\Release\AIMP.SDK.dll".
+         Deleting file "Z:\Code\AIMP\aimp_dotnet\AIMP.SDK\obj\Release\AIMP.SDK.csprojResolveAssemblyReference.cache".
+     2>Done Building Project "Z:\Code\AIMP\aimp_dotnet\AIMP.SDK\AIMP.SDK.csproj" (Clean target(s)).
+     3>Project "Z:\Code\AIMP\aimp_dotnet\aimp_dotnet\Aimp_DotNetPlugin.vcxproj" (3) is building "Z:\Code\AIMP\aimp_dotnet\AIMP.SDK\AIMP.SDK.csproj" (2:3) on node 1 (default targets).
+       Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+     2>PluginInfoLoader.cs(183,13): warning CS0162: Unreachable code detected
+     2>PluginInfo.cs(160,38): warning CS0168: The variable 'ex' is declared but never used
+     2>PluginInfo.cs(181,38): warning CS0168: The variable 'ex' is declared but never used
+     2>PluginInfo.cs(194,42): warning CS0168: The variable 'ex' is declared but never used
+     2>PluginInfo.cs(209,42): warning CS0168: The variable 'ex' is declared but never used
+     2>PluginInfo.cs(266,34): warning CS0168: The variable 'ex' is declared but never used
+     2>UI\ActionItem\AimpActionItem.cs(114,35): warning CS0067: The event 'AimpActionItem.OnExecute' is never used
+     2>PluginInfoLoader.cs(43,24): warning CS0649: Field 'AssemblyScanPluginLoadStrategy._probePath' is never assigned to, and will always have its default value null
+     2>CopyFilesToOutputDirectory:
+         Copying file from "obj\Release\AIMP.SDK.dll" to "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\\aimp_dotnet\bin\Release\AIMP.SDK.dll".
+         AIMP.SDK -> Z:\Code\AIMP\aimp_dotnet\aimp_dotnet\bin\Release\AIMP.SDK.dll
+     2>Done Building Project "Z:\Code\AIMP\aimp_dotnet\AIMP.SDK\AIMP.SDK.csproj" (default targets).
+     3>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+     3>InitializeBuildStatus:
+         Creating "Release\aimp_dotnet.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+       GenerateTargetFrameworkMonikerAttribute:
+       Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+       ClCompile:
+         AimpDotnetPlugin.cpp
+     3>CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\AlbumArt\AimpAlbumArtManager.h(43): warning C4803: 'void AIMP::SDK::AimpAlbumArtManager::Completed::raise(System::Object ^,AIMP::SDK::AlbumArtManager::AimpGetAlbumArtEventArgs ^)': the raise method has a different storage class from that of the event, 'event System::EventHandler<AIMP::SDK::AlbumArtManager::AimpGetAlbumArtEventArgs ^> ^AIMP::SDK::AimpAlbumArtManager::Completed'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\AlbumArt\AimpAlbumArtManager.h(29): note: see declaration of 'AIMP::SDK::AimpAlbumArtManager::Completed'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\AlbumArt\AimpAlbumArtManager.h(43): note: The add_-method is 'void AIMP::SDK::AimpAlbumArtManager::Completed::add(System::EventHandler<AIMP::SDK::AlbumArtManager::AimpGetAlbumArtEventArgs ^> ^)'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\AlbumArt\AimpAlbumArtManager.h(31): note: see declaration of 'AIMP::SDK::AimpAlbumArtManager::Completed::add'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\AlbumArt\AimpAlbumArtManager.h(43): note: The remove_-method is 'void AIMP::SDK::AimpAlbumArtManager::Completed::remove(System::EventHandler<AIMP::SDK::AlbumArtManager::AimpGetAlbumArtEventArgs ^> ^)'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\AlbumArt\AimpAlbumArtManager.h(38): note: see declaration of 'AIMP::SDK::AimpAlbumArtManager::Completed::remove'
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\PlayList\PlayListManager.h(199): warning C4486: 'AIMP::SDK::PlayListManager::onPlaylistActivated': a private virtual method of a ref class or value class should be marked 'sealed'
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\PlayList\PlayListManager.h(204): warning C4486: 'AIMP::SDK::PlayListManager::onPlaylistAdded': a private virtual method of a ref class or value class should be marked 'sealed'
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\PlayList\PlayListManager.h(209): warning C4486: 'AIMP::SDK::PlayListManager::onPlaylistRemoved': a private virtual method of a ref class or value class should be marked 'sealed'
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): warning C4570: 'AIMP::SDK::AimpOptionsDialogFrame': is not explicitly declared as abstract but has abstract functions
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): note: 'System::String ^AIMP::SDK::AimpOptionsDialogFrame::GetName(void)': is abstract
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(29): note: see declaration of 'AIMP::SDK::AimpOptionsDialogFrame::GetName'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): note: 'System::IntPtr AIMP::SDK::AimpOptionsDialogFrame::CreateFrame(System::IntPtr)': is abstract
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(31): note: see declaration of 'AIMP::SDK::AimpOptionsDialogFrame::CreateFrame'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): note: 'void AIMP::SDK::AimpOptionsDialogFrame::DestroyFrame(void)': is abstract
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(33): note: see declaration of 'AIMP::SDK::AimpOptionsDialogFrame::DestroyFrame'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): note: 'void AIMP::SDK::AimpOptionsDialogFrame::Notification(int)': is abstract
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(35): note: see declaration of 'AIMP::SDK::AimpOptionsDialogFrame::Notification'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): note: 'bool AIMP::SDK::AimpOptionsDialogFrame::DialogKey(int)': is abstract
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(37): note: see declaration of 'AIMP::SDK::AimpOptionsDialogFrame::DialogKey'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): note: 'bool AIMP::SDK::AimpOptionsDialogFrame::SelectFirstControl(void)': is abstract
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(39): note: see declaration of 'AIMP::SDK::AimpOptionsDialogFrame::SelectFirstControl'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): note: 'bool AIMP::SDK::AimpOptionsDialogFrame::SelectNextControl(int,int)': is abstract
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(41): note: see declaration of 'AIMP::SDK::AimpOptionsDialogFrame::SelectNextControl'
+         AimpExtensionCustomVisualization.cpp
+     3>CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         AimpExtensionEmbeddedVisualization.cpp
+     3>CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         DotNetPlugin.cpp
+     3>CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\AlbumArt\AimpAlbumArtManager.h(43): warning C4803: 'void AIMP::SDK::AimpAlbumArtManager::Completed::raise(System::Object ^,AIMP::SDK::AlbumArtManager::AimpGetAlbumArtEventArgs ^)': the raise method has a different storage class from that of the event, 'event System::EventHandler<AIMP::SDK::AlbumArtManager::AimpGetAlbumArtEventArgs ^> ^AIMP::SDK::AimpAlbumArtManager::Completed'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\AlbumArt\AimpAlbumArtManager.h(29): note: see declaration of 'AIMP::SDK::AimpAlbumArtManager::Completed'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\AlbumArt\AimpAlbumArtManager.h(43): note: The add_-method is 'void AIMP::SDK::AimpAlbumArtManager::Completed::add(System::EventHandler<AIMP::SDK::AlbumArtManager::AimpGetAlbumArtEventArgs ^> ^)'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\AlbumArt\AimpAlbumArtManager.h(31): note: see declaration of 'AIMP::SDK::AimpAlbumArtManager::Completed::add'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\AlbumArt\AimpAlbumArtManager.h(43): note: The remove_-method is 'void AIMP::SDK::AimpAlbumArtManager::Completed::remove(System::EventHandler<AIMP::SDK::AlbumArtManager::AimpGetAlbumArtEventArgs ^> ^)'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\AlbumArt\AimpAlbumArtManager.h(38): note: see declaration of 'AIMP::SDK::AimpAlbumArtManager::Completed::remove'
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\PlayList\PlayListManager.h(199): warning C4486: 'AIMP::SDK::PlayListManager::onPlaylistActivated': a private virtual method of a ref class or value class should be marked 'sealed'
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\PlayList\PlayListManager.h(204): warning C4486: 'AIMP::SDK::PlayListManager::onPlaylistAdded': a private virtual method of a ref class or value class should be marked 'sealed'
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\PlayList\PlayListManager.h(209): warning C4486: 'AIMP::SDK::PlayListManager::onPlaylistRemoved': a private virtual method of a ref class or value class should be marked 'sealed'
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): warning C4570: 'AIMP::SDK::AimpOptionsDialogFrame': is not explicitly declared as abstract but has abstract functions
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): note: 'System::String ^AIMP::SDK::AimpOptionsDialogFrame::GetName(void)': is abstract
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(29): note: see declaration of 'AIMP::SDK::AimpOptionsDialogFrame::GetName'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): note: 'System::IntPtr AIMP::SDK::AimpOptionsDialogFrame::CreateFrame(System::IntPtr)': is abstract
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(31): note: see declaration of 'AIMP::SDK::AimpOptionsDialogFrame::CreateFrame'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): note: 'void AIMP::SDK::AimpOptionsDialogFrame::DestroyFrame(void)': is abstract
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(33): note: see declaration of 'AIMP::SDK::AimpOptionsDialogFrame::DestroyFrame'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): note: 'void AIMP::SDK::AimpOptionsDialogFrame::Notification(int)': is abstract
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(35): note: see declaration of 'AIMP::SDK::AimpOptionsDialogFrame::Notification'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): note: 'bool AIMP::SDK::AimpOptionsDialogFrame::DialogKey(int)': is abstract
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(37): note: see declaration of 'AIMP::SDK::AimpOptionsDialogFrame::DialogKey'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): note: 'bool AIMP::SDK::AimpOptionsDialogFrame::SelectFirstControl(void)': is abstract
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(39): note: see declaration of 'AIMP::SDK::AimpOptionsDialogFrame::SelectFirstControl'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): note: 'bool AIMP::SDK::AimpOptionsDialogFrame::SelectNextControl(int,int)': is abstract
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(41): note: see declaration of 'AIMP::SDK::AimpOptionsDialogFrame::SelectNextControl'
+         AimpExtensionAlbumArtCatalog.cpp
+     3>CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         AimpExtensionAlbumArtProvider.cpp
+     3>CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         AimpActionManager.cpp
+     3>CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\action\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\action\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\action\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\action\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\action\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\action\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         ManagedAimpCore.cpp
+     3>CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         AimpMenuItem.cpp
+     3>CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         AimpMenuManager.cpp
+     3>CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         AimpPlayList.cpp
+     3>CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         AimpPlayListGroup.cpp
+     3>CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         AimpPlayListItem.cpp
+     3>CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         Stdafx.cpp
+     3>CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+         Generating Code...
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\managedaimpcore.cpp(235): warning C4715: 'AIMP::SDK::ManagedAimpCore::UnregisterExtension': not all control paths return a value
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\win32\win32manager.h(29): warning C4715: 'AIMP::Win32::Win32Manager::GetWindowPosition': not all control paths return a value
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playback\aimpserviceplaybackqueue.h(87): warning C4715: 'AIMP::SDK::AimpServicePlaybackQueue::RaiseCheckUrl': not all control paths return a value
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\albumart\aimpalbumartmanager.h(76): warning C4715: 'AIMP::SDK::AimpAlbumArtManager::FindInFiles::get': not all control paths return a value
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\albumart\aimpalbumartmanager.h(124): warning C4715: 'AIMP::SDK::AimpAlbumArtManager::FindInInternet::get': not all control paths return a value
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\albumart\aimpalbumartmanager.h(174): warning C4715: 'AIMP::SDK::AimpAlbumArtManager::FileMasks::get': not all control paths return a value
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\albumart\aimpalbumartmanager.h(232): warning C4715: 'AIMP::SDK::AimpAlbumArtManager::FileExtensions::get': not all control paths return a value
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\win32\win32manager.h(29): warning C4715: 'AIMP::Win32::Win32Manager::GetWindowPosition': not all control paths return a value
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playback\aimpserviceplaybackqueue.h(87): warning C4715: 'AIMP::SDK::AimpServicePlaybackQueue::RaiseCheckUrl': not all control paths return a value
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\albumart\aimpalbumartmanager.h(76): warning C4715: 'AIMP::SDK::AimpAlbumArtManager::FindInFiles::get': not all control paths return a value
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\albumart\aimpalbumartmanager.h(124): warning C4715: 'AIMP::SDK::AimpAlbumArtManager::FindInInternet::get': not all control paths return a value
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\albumart\aimpalbumartmanager.h(174): warning C4715: 'AIMP::SDK::AimpAlbumArtManager::FileMasks::get': not all control paths return a value
+     3>z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\albumart\aimpalbumartmanager.h(232): warning C4715: 'AIMP::SDK::AimpAlbumArtManager::FileExtensions::get': not all control paths return a value
+         .NETFramework,Version=v4.5.AssemblyAttributes.cpp
+       Link:
+            Creating library Z:\Code\AIMP\aimp_dotnet\BuildProject\..\\aimp_dotnet\bin\Release\aimp_dotnet.lib and object Z:\Code\AIMP\aimp_dotnet\BuildProject\..\\aimp_dotnet\bin\Release\aimp_dotnet.exp
+         LINK : /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
+         Aimp_DotNetPlugin.vcxproj -> Z:\Code\AIMP\aimp_dotnet\BuildProject\..\\aimp_dotnet\bin\Release\aimp_dotnet.dll
+         Aimp_DotNetPlugin.vcxproj -> Z:\Code\AIMP\aimp_dotnet\BuildProject\..\\aimp_dotnet\bin\Release\aimp_dotnet.pdb (Full PDB)
+       FinalizeBuildStatus:
+         Deleting file "Release\aimp_dotnet.tlog\unsuccessfulbuild".
+         Touching "Release\aimp_dotnet.tlog\aimp_dotnet.lastbuildstate".
+     3>Done Building Project "Z:\Code\AIMP\aimp_dotnet\aimp_dotnet\Aimp_DotNetPlugin.vcxproj" (Rebuild target(s)).
+     1>PrepareSDK:
+         Creating directory "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\Release\aimp_dotnet".
+         Copying file from "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\\AIMP.SDK\bin\Release\AIMP.SDK.dll" to "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\Release\aimp_dotnet\\AIMP.SDK.dll".
+         Copying file from "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\\aimp_dotnet\bin\Release\AIMP.SDK.dll" to "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\Release\aimp_dotnet\\AIMP.SDK.dll".
+         Copying file from "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\\aimp_dotnet\bin\Release\aimp_dotnet.dll" to "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\Release\aimp_dotnet\\aimp_dotnet.dll".
+         Creating directory "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\Release\aimp_dotnet\langs".
+         Copying file from "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\\aimp_dotnet\langs\english.lng" to "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\Release\aimp_dotnet\langs\\english.lng".
+         Copying file from "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\\aimp_dotnet\langs\russian.lng" to "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\Release\aimp_dotnet\langs\\russian.lng".
+       MakeZip:
+         Creating zip file "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\Release\AIMP.SDK.zip".
+           added "aimp_dotnet/AIMP.SDK.dll".
+           added "aimp_dotnet/aimp_dotnet.dll".
+           added "aimp_dotnet/langs/english.lng".
+           added "aimp_dotnet/langs/russian.lng".
+         Created zip file "Z:\Code\AIMP\aimp_dotnet\BuildProject\..\Release\AIMP.SDK.zip" successfully.
+     1>Done Building Project "Z:\Code\AIMP\aimp_dotnet\BuildProject\AimpDotnet.proj" (Default target(s)).
+
+Build succeeded.
+
+       "Z:\Code\AIMP\aimp_dotnet\BuildProject\AimpDotnet.proj" (Default target) (1) ->
+       "Z:\Code\AIMP\aimp_dotnet\AIMP.SDK\AIMP.SDK.csproj" (Rebuild target) (2) ->
+       (CoreCompile target) -> 
+         PluginInfoLoader.cs(183,13): warning CS0162: Unreachable code detected
+         PluginInfo.cs(160,38): warning CS0168: The variable 'ex' is declared but never used
+         PluginInfo.cs(181,38): warning CS0168: The variable 'ex' is declared but never used
+         PluginInfo.cs(194,42): warning CS0168: The variable 'ex' is declared but never used
+         PluginInfo.cs(209,42): warning CS0168: The variable 'ex' is declared but never used
+         PluginInfo.cs(266,34): warning CS0168: The variable 'ex' is declared but never used
+         UI\ActionItem\AimpActionItem.cs(114,35): warning CS0067: The event 'AimpActionItem.OnExecute' is never used
+         PluginInfoLoader.cs(43,24): warning CS0649: Field 'AssemblyScanPluginLoadStrategy._probePath' is never assigned to, and will always have its default value null
+
+
+       "Z:\Code\AIMP\aimp_dotnet\BuildProject\AimpDotnet.proj" (Default target) (1) ->
+       "Z:\Code\AIMP\aimp_dotnet\aimp_dotnet\Aimp_DotNetPlugin.vcxproj" (Rebuild target) (3) ->
+       "Z:\Code\AIMP\aimp_dotnet\AIMP.SDK\AIMP.SDK.csproj" (default target) (2:3) ->
+         PluginInfoLoader.cs(183,13): warning CS0162: Unreachable code detected
+         PluginInfo.cs(160,38): warning CS0168: The variable 'ex' is declared but never used
+         PluginInfo.cs(181,38): warning CS0168: The variable 'ex' is declared but never used
+         PluginInfo.cs(194,42): warning CS0168: The variable 'ex' is declared but never used
+         PluginInfo.cs(209,42): warning CS0168: The variable 'ex' is declared but never used
+         PluginInfo.cs(266,34): warning CS0168: The variable 'ex' is declared but never used
+         UI\ActionItem\AimpActionItem.cs(114,35): warning CS0067: The event 'AimpActionItem.OnExecute' is never used
+         PluginInfoLoader.cs(43,24): warning CS0649: Field 'AssemblyScanPluginLoadStrategy._probePath' is never assigned to, and will always have its default value null
+
+
+       "Z:\Code\AIMP\aimp_dotnet\BuildProject\AimpDotnet.proj" (Default target) (1) ->
+       "Z:\Code\AIMP\aimp_dotnet\aimp_dotnet\Aimp_DotNetPlugin.vcxproj" (Rebuild target) (3) ->
+       (PrepareForBuild target) -> 
+         C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+
+
+       "Z:\Code\AIMP\aimp_dotnet\BuildProject\AimpDotnet.proj" (Default target) (1) ->
+       "Z:\Code\AIMP\aimp_dotnet\aimp_dotnet\Aimp_DotNetPlugin.vcxproj" (Rebuild target) (3) ->
+       (ClCompile target) -> 
+         CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\AlbumArt\AimpAlbumArtManager.h(43): warning C4803: 'void AIMP::SDK::AimpAlbumArtManager::Completed::raise(System::Object ^,AIMP::SDK::AlbumArtManager::AimpGetAlbumArtEventArgs ^)': the raise method has a different storage class from that of the event, 'event System::EventHandler<AIMP::SDK::AlbumArtManager::AimpGetAlbumArtEventArgs ^> ^AIMP::SDK::AimpAlbumArtManager::Completed'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\PlayList\PlayListManager.h(199): warning C4486: 'AIMP::SDK::PlayListManager::onPlaylistActivated': a private virtual method of a ref class or value class should be marked 'sealed'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\PlayList\PlayListManager.h(204): warning C4486: 'AIMP::SDK::PlayListManager::onPlaylistAdded': a private virtual method of a ref class or value class should be marked 'sealed'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\PlayList\PlayListManager.h(209): warning C4486: 'AIMP::SDK::PlayListManager::onPlaylistRemoved': a private virtual method of a ref class or value class should be marked 'sealed'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): warning C4570: 'AIMP::SDK::AimpOptionsDialogFrame': is not explicitly declared as abstract but has abstract functions
+         CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\visuals\..\..\SDK\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\AlbumArt\AimpAlbumArtManager.h(43): warning C4803: 'void AIMP::SDK::AimpAlbumArtManager::Completed::raise(System::Object ^,AIMP::SDK::AlbumArtManager::AimpGetAlbumArtEventArgs ^)': the raise method has a different storage class from that of the event, 'event System::EventHandler<AIMP::SDK::AlbumArtManager::AimpGetAlbumArtEventArgs ^> ^AIMP::SDK::AimpAlbumArtManager::Completed'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\PlayList\PlayListManager.h(199): warning C4486: 'AIMP::SDK::PlayListManager::onPlaylistActivated': a private virtual method of a ref class or value class should be marked 'sealed'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\PlayList\PlayListManager.h(204): warning C4486: 'AIMP::SDK::PlayListManager::onPlaylistAdded': a private virtual method of a ref class or value class should be marked 'sealed'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\PlayList\PlayListManager.h(209): warning C4486: 'AIMP::SDK::PlayListManager::onPlaylistRemoved': a private virtual method of a ref class or value class should be marked 'sealed'
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\SDK\Options\AimpOptionsDialogFrame.h(10): warning C4570: 'AIMP::SDK::AimpOptionsDialogFrame': is not explicitly declared as abstract but has abstract functions
+         CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\action\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\action\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\action\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\action\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\action\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\action\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\menu\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(212): warning C4101: 'ex': unreferenced local variable
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(360): warning C4244: 'initializing': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(362): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(402): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(411): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playlist\..\Converter.h(445): warning C4244: 'argument': conversion from '__int64' to 'DWORD', possible loss of data
+         CL : warning : Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\managedaimpcore.cpp(235): warning C4715: 'AIMP::SDK::ManagedAimpCore::UnregisterExtension': not all control paths return a value
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\win32\win32manager.h(29): warning C4715: 'AIMP::Win32::Win32Manager::GetWindowPosition': not all control paths return a value
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playback\aimpserviceplaybackqueue.h(87): warning C4715: 'AIMP::SDK::AimpServicePlaybackQueue::RaiseCheckUrl': not all control paths return a value
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\albumart\aimpalbumartmanager.h(76): warning C4715: 'AIMP::SDK::AimpAlbumArtManager::FindInFiles::get': not all control paths return a value
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\albumart\aimpalbumartmanager.h(124): warning C4715: 'AIMP::SDK::AimpAlbumArtManager::FindInInternet::get': not all control paths return a value
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\albumart\aimpalbumartmanager.h(174): warning C4715: 'AIMP::SDK::AimpAlbumArtManager::FileMasks::get': not all control paths return a value
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\albumart\aimpalbumartmanager.h(232): warning C4715: 'AIMP::SDK::AimpAlbumArtManager::FileExtensions::get': not all control paths return a value
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\win32\win32manager.h(29): warning C4715: 'AIMP::Win32::Win32Manager::GetWindowPosition': not all control paths return a value
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\playback\aimpserviceplaybackqueue.h(87): warning C4715: 'AIMP::SDK::AimpServicePlaybackQueue::RaiseCheckUrl': not all control paths return a value
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\albumart\aimpalbumartmanager.h(76): warning C4715: 'AIMP::SDK::AimpAlbumArtManager::FindInFiles::get': not all control paths return a value
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\albumart\aimpalbumartmanager.h(124): warning C4715: 'AIMP::SDK::AimpAlbumArtManager::FindInInternet::get': not all control paths return a value
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\albumart\aimpalbumartmanager.h(174): warning C4715: 'AIMP::SDK::AimpAlbumArtManager::FileMasks::get': not all control paths return a value
+         z:\code\aimp\aimp_dotnet\aimp_dotnet\sdk\albumart\aimpalbumartmanager.h(232): warning C4715: 'AIMP::SDK::AimpAlbumArtManager::FileExtensions::get': not all control paths return a value
+
+    132 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:43.28
