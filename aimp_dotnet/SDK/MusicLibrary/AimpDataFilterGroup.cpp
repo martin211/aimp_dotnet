@@ -17,7 +17,7 @@ void AimpDataFilterGroup::Operation::set(FilterGroupOperationType val)
     PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTERGROUP_OPERATION, (int)val);
 }
 
-AimpActionResult AimpDataFilterGroup::Add(String^ field, Object^ value1, Object^ value2, FilterGroupOperationType operation, IAimpDataFieldFilter^% filter)
+AimpActionResult AimpDataFilterGroup::Add(String^ field, Object^ value1, Object^ value2, FieldFilterOperationType operation, IAimpDataFieldFilter^% filter)
 {
     VARIANT val1 = AimpExtension::ToNativeVariant(value1);
     VARIANT val2 = AimpExtension::ToNativeVariant(value2);
@@ -102,4 +102,14 @@ AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFieldFilter^%
     }
 
     return result;
+}
+
+void AimpDataFilterGroup::BeginUpdate()
+{
+    InternalAimpObject->BeginUpdate();
+}
+
+void AimpDataFilterGroup::EndUpdate()
+{
+    InternalAimpObject->EndUpdate();
 }

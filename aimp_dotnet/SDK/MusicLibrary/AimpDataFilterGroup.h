@@ -21,7 +21,7 @@ namespace AIMP
                 void set(FilterGroupOperationType value);
             }
 
-            virtual AimpActionResult Add(String^ field, Object^ value1, Object^ value2, FilterGroupOperationType operation, IAimpDataFieldFilter^% filter);
+            virtual AimpActionResult Add(String^ field, Object^ value1, Object^ value2, FieldFilterOperationType operation, IAimpDataFieldFilter^% filter);
 
             virtual AimpActionResult Add(String^ field, array<Object^>^ values, int count, IAimpDataFieldFilterByArray^% filter);
 
@@ -36,6 +36,10 @@ namespace AIMP
             virtual AimpActionResult GetChild(int index, IAimpDataFieldFilter^% fieldFilter);
 
             virtual int GetChildCount();
+
+            virtual void BeginUpdate();
+
+            virtual void EndUpdate();
         };
     }
 }
