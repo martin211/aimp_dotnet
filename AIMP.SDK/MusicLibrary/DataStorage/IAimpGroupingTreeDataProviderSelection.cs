@@ -1,5 +1,8 @@
-﻿namespace AIMP.SDK.MusicLibrary.DataStorage
+﻿using System;
+
+namespace AIMP.SDK.MusicLibrary.DataStorage
 {
+    [Flags]
     public enum GroupingTreeNodeFlags
     {
         AIMPML_GROUPINGTREENODE_FLAG_HASCHILDREN = 1,
