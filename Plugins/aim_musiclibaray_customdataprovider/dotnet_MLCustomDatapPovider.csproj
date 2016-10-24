@@ -41,8 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomDataProvider.cs" />
     <Compile Include="CustomGroupingDataProviderPlugin.cs" />
+    <Compile Include="DataStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TAIMPPodcastsMLDataProviderGroupingTree.cs" />
+    <Compile Include="DataProviderGroupingTreeData.cs" />
+    <Compile Include="TAIMPPodcastsMLDataProviderGroupingTreeSelection.cs" />
+    <Compile Include="TAIMPPodcastsMLDataStorageCategory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AIMP.SDK\AIMP.SDK.csproj">
