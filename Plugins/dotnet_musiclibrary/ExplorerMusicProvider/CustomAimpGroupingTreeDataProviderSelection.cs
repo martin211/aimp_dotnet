@@ -1,7 +1,7 @@
 ﻿using AIMP.SDK;
 using AIMP.SDK.MusicLibrary.DataStorage;
 
-namespace dotnet_musiclibrary
+namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 {
     public class CustomAimpGroupingTreeDataProviderSelection : IAimpGroupingTreeDataProviderSelection
     {
