@@ -128,7 +128,12 @@ public:
     virtual HRESULT WINAPI GetFields(int Schema, IAIMPObjectList** List)
     {
         System::Collections::IList ^collection;
-        _managedInstance->GetFields((AIMP::SDK::MusicLibrary::Extension::SchemaType)Schema, collection);
+        AimpActionResult result = _managedInstance->GetFields((AIMP::SDK::MusicLibrary::Extension::SchemaType)Schema, collection);
+
+        if (collection == nullptr)
+        {
+            return (HRESULT)result;
+        }
 
         IAIMPObjectList *L = AIMP::SDK::AimpExtension::MakeObject<IAIMPObjectList>(IID_IAIMPObjectList);
 

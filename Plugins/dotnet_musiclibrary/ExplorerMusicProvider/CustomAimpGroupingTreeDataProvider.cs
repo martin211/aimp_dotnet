@@ -2,7 +2,7 @@
 using AIMP.SDK.MusicLibrary.DataFilter;
 using AIMP.SDK.MusicLibrary.DataStorage;
 
-namespace dotnet_musiclibrary
+namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 {
     public class CustomAimpGroupingTreeDataProvider : IAimpGroupingTreeDataProvider
     {

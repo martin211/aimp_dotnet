@@ -1,6 +1,7 @@
-﻿using AIMP.SDK;
+﻿using AIMP.DotNet.MusicLibrary.ExplorerMusicProvider;
+using AIMP.SDK;
 
-namespace dotnet_musiclibrary
+namespace AIMP.DotNet.MusicLibrary
 {
     [AimpPlugin("MusicLibraryDemoPlugin", "Martin", "1.0.0", AimpPluginType = AimpPluginType.Addons, FullDescription = "MusicLibrary demo plugin")]
     public class MusicLibraryDemoPlugin : AimpPlugin

@@ -8,7 +8,7 @@ using AIMP.SDK.MusicLibrary.DataStorage;
 using AIMP.SDK.MusicLibrary.Extension;
 using AIMP.SDK.MusicLibrary.Presets;
 
-namespace dotnet_musiclibrary
+namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 {
     public class DemoMusicLibrary :
         IAimpExtensionDataStorage,
@@ -33,7 +33,7 @@ namespace dotnet_musiclibrary
 
         public string Id => "AimpDemoMusicLibrary";
 
-        public string Caption => "Demo ML";
+        public string Caption => "Explorer media library";
 
         public CapabilitiesType Capabilities => CapabilitiesType.AIMPML_DATASTORAGE_CAP_FILTERING | CapabilitiesType.AIMPML_DATASTORAGE_CAP_GROUPINGPRESETS | CapabilitiesType.AIMPML_DATASTORAGE_CAP_PREIMAGES;
 

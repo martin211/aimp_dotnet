@@ -7,7 +7,7 @@
     <ProjectGuid>{9C155223-D1C5-4943-A4E6-02131544E5FD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>dotnet_musiclibrary</RootNamespace>
+    <RootNamespace>AIMP.DotNet.MusicLibrary</RootNamespace>
     <AssemblyName>dotnet_musiclibrary</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -40,18 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomAimpGroupingTreeDataProvider.cs" />
-    <Compile Include="CustomAimpGroupingTreeDataProviderSelection.cs" />
-    <Compile Include="DemoMusicLibrary.cs" />
+    <Compile Include="ExplorerMusicProvider\CustomAimpGroupingTreeDataProvider.cs" />
+    <Compile Include="ExplorerMusicProvider\CustomAimpGroupingTreeDataProviderSelection.cs" />
+    <Compile Include="ExplorerMusicProvider\DemoMusicLibrary.cs" />
     <Compile Include="MusicLibraryDemoPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TDemoExplorerViewAbstractDataProviderSelection.cs" />
+    <Compile Include="ExplorerMusicProvider\TDemoExplorerViewAbstractDataProviderSelection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AIMP.SDK\AIMP.SDK.csproj">
       <Project>{154c60cf-2dae-4227-ad2c-cce7c63cde5a}</Project>
       <Name>AIMP.SDK</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ExplorerGroupingProvider\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

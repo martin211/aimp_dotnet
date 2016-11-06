@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using AIMP.SDK.MusicLibrary;
 
-namespace dotnet_musiclibrary
+namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 {
     public abstract class TDemoExplorerViewAbstractDataProviderSelection : IAimpDataProviderSelection
     {
