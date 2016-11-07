@@ -445,7 +445,7 @@ static const GUID IID_IAIMPUIWndProcEvents = {0x61756957, 0x6E64, 0x5072, 0x6F, 
   class IAIMPUIChangeEvents: public IUnknown
   {
 		public:
-			virtual void OnChanged(IUnknown* Sender) = 0;
+			virtual void WINAPI OnChanged(IUnknown* Sender) = 0;
   };
 
   /* IAIMPUIDrawEvents */
@@ -545,10 +545,10 @@ static const GUID IID_IAIMPUIWndProcEvents = {0x61756957, 0x6E64, 0x5072, 0x6F, 
   class IAIMPUIControl: public IAIMPPropertyList
   {
 	  public:
-			virtual HRESULT WINAPI GetPlacement(TAIMPUIControlPlacement** Placement) = 0;
-			virtual HRESULT WINAPI GetPlacementConstraints(TAIMPUIControlPlacementConstraints** Constraints) = 0;
-			virtual HRESULT WINAPI SetPlacement(TAIMPUIControlPlacement* Placement) = 0;
-			virtual HRESULT WINAPI SetPlacementConstraints(TAIMPUIControlPlacementConstraints* Constraints) = 0;
+			virtual HRESULT WINAPI GetPlacement(TAIMPUIControlPlacement* Placement) = 0;
+			virtual HRESULT WINAPI GetPlacementConstraints(TAIMPUIControlPlacementConstraints* Constraints) = 0;
+			virtual HRESULT WINAPI SetPlacement(TAIMPUIControlPlacement Placement) = 0;
+			virtual HRESULT WINAPI SetPlacementConstraints(TAIMPUIControlPlacementConstraints Constraints) = 0;
 
 			// Coords Translation
 			virtual HRESULT WINAPI ClientToScreen(POINT* P) = 0;

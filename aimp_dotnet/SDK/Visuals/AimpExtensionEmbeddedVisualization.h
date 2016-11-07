@@ -23,7 +23,7 @@ public:
 
     virtual HRESULT WINAPI GetName(IAIMPString **S);
 
-    virtual void WINAPI Initialize(int Width, int Height);
+    virtual HRESULT WINAPI Initialize(int Width, int Height);
 
     virtual void WINAPI Finalize();
 
