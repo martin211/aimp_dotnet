@@ -69,7 +69,7 @@ class IAIMPExtensionEmbeddedVisualization: public IUnknown
 		virtual HRESULT WINAPI GetMaxDisplaySize(int *Width, int *Height) = 0;
 		virtual HRESULT WINAPI GetName(IAIMPString **S) = 0;
 		// Initialization / Finalization
-		virtual void WINAPI Initialize(int Width, int Height) = 0;
+		virtual HRESULT WINAPI Initialize(int Width, int Height) = 0;
 		virtual void WINAPI Finalize() = 0;
 		// Basic functionality
 		virtual void WINAPI Click(int X, int Y, int Button) = 0;
