@@ -56,8 +56,8 @@ const int AIMP_SHUTDOWN_EVENT_ACTION_SHUTDOWN_WINDOWS_HIBERNATE = 8;
 const int AIMP_SHUTDOWN_EVENT_ACTION_SHUTDOWN_WINDOWS_SLEEP     = 16;
 
 // Custom Messages for IAIMPServiceMessageDispatcher
-#define AIMP_SCHEDULER_MSG_EVENT_COUNTDOWN L"AIMP.Scheduler.MSG.Countdown";
-#define AIMP_SCHEDULER_MSG_EVENT_STATE L"AIMP.Scheduler.MSG.State";
+#define AIMP_SCHEDULER_MSG_EVENT_COUNTDOWN  L"AIMP.Scheduler.MSG.Countdown"
+#define AIMP_SCHEDULER_MSG_EVENT_STATE 		L"AIMP.Scheduler.MSG.State"
 
 
 /* IAIMPSchedulerEvent */

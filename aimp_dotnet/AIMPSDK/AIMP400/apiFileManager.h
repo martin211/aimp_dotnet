@@ -189,7 +189,7 @@ class IAIMPFileSystemCommandDropSource : public IUnknown
 class IAIMPFileSystemCommandFileInfo : public IUnknown 
 {
 	public:
-		virtual HRESULT WINAPI GetFileAttrs(IAIMPString* FileName, TAIMPFileAttributes** Attrs) = 0;
+		virtual HRESULT WINAPI GetFileAttrs(IAIMPString* FileName, TAIMPFileAttributes* Attrs) = 0;
 		virtual HRESULT WINAPI GetFileSize(IAIMPString* FileName, INT64* Size) = 0;
 		virtual HRESULT WINAPI IsFileExists(IAIMPString* FileName) = 0;
 };

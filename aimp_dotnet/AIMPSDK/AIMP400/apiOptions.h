@@ -64,7 +64,7 @@ class IAIMPServiceOptionsDialog: public IUnknown
 {
 	public:
  		virtual HRESULT WINAPI FrameModified(IAIMPOptionsDialogFrame* Frame) = 0;
- 		virtual HRESULT WINAPI FrameShow(IAIMPOptionsDialogFrame* Frame) = 0;
+ 		virtual HRESULT WINAPI FrameShow(IAIMPOptionsDialogFrame* Frame, BOOL ForceShow) = 0;
 };
 
 #endif // !apiOptionsH

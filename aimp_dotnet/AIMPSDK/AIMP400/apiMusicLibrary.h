@@ -1,5 +1,3 @@
-#pragma once
-
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
