@@ -40,9 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExplorerGroupingProvider\DataProviderGroupingTree.cs" />
+    <Compile Include="ExplorerGroupingProvider\DataProviderGroupingTreeData.cs" />
+    <Compile Include="ExplorerGroupingProvider\DataProviderGroupingTreeSelection.cs" />
+    <Compile Include="ExplorerGroupingProvider\RootDataProviderSelection.cs" />
     <Compile Include="ExplorerMusicProvider\CustomAimpGroupingTreeDataProvider.cs" />
     <Compile Include="ExplorerMusicProvider\CustomAimpGroupingTreeDataProviderSelection.cs" />
-    <Compile Include="ExplorerMusicProvider\DemoMusicLibrary.cs" />
+    <Compile Include="DemoMusicLibrary.cs" />
     <Compile Include="MusicLibraryDemoPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExplorerMusicProvider\TDemoExplorerViewAbstractDataProviderSelection.cs" />
@@ -53,9 +57,7 @@
       <Name>AIMP.SDK</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ExplorerGroupingProvider\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)CopyPlugin.cmd "AIMP4.10" "$(ConfigurationName)" "$(SolutionDir)" "$(TargetName)" "$(ProjectName)" "$(OutDir)" "$(TargetPath)"</PostBuildEvent>
