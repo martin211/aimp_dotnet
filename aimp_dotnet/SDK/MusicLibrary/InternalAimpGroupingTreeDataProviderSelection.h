@@ -70,7 +70,7 @@ namespace AIMP
 
             virtual BOOL WINAPI NextRow()
             {
-                return _managedInstance->NextRow();
+                return (BOOL)_managedInstance->NextRow();
             }
         };
     }

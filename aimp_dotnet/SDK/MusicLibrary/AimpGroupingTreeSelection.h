@@ -23,19 +23,31 @@ namespace AIMP
 
             virtual AimpActionResult GetValue(int index, System::String^% fieldName, System::Object^% value)
             {
-                IAIMPString* str = AimpExtension::GetAimpString(System::String::Empty);
+                IAIMPString* str;
                 VARIANT val;
+
                 fieldName = nullptr;
                 value = nullptr;
 
                 AimpActionResult result = CheckResult(InternalAimpObject->GetValue(index, &str, &val));
 
-                if (result == AimpActionResult::Ok)
+                try
+                {
+                    if (result == AimpActionResult::Ok)
+                    {
+                        if (str != NULL)
+                            fieldName = AimpExtension::GetString(str);
+
+                        value = AimpExtension::FromVaiant(&val);
+                    }
+                }
+                finally
                 {
                     if (str != NULL)
-                        fieldName = AimpExtension::GetString(str);
-
-                    value = AimpExtension::FromVaiant(&val);
+                    {
+                        str->Release();
+                        str = NULL;
+                    }
                 }
 
                 return result;
