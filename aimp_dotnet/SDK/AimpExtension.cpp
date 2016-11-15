@@ -410,8 +410,9 @@ namespace AIMP
 
         AimpActionResult PropertyListExtension::GetVariant(IAIMPPropertyList2 *propertyList, int propertyId, Object^% value)
         {
-            VARIANT val;
-            AimpActionResult result = Utils::CheckResult(propertyList->GetValueAsVariant(propertyId, &val));
+            VARIANT *val = NULL;
+            AimpActionResult result = Utils::CheckResult(propertyList->GetValueAsVariant(propertyId, val));
+            value = AimpExtension::FromVaiant(val);
             //value = AimpExtension::ToManaged(val);
             //value = val->cVal;
             //value = AIMP::SDK::Variant();
@@ -423,24 +424,19 @@ namespace AIMP
             return AimpActionResult::NotImplemented;
         }
 
-        void AimpExtension::ToVariant(System::Object^ objectValue, VARIANT* variant)
+        VARIANT AimpExtension::ToVariant(System::Object^ objectValue)
         {
-            System::String^ s = dynamic_cast<System::String^>(objectValue);
-
-            if (s != nullptr)
-            {
-                variant->bstrVal = (BSTR)Runtime::InteropServices::Marshal::StringToBSTR(s).ToPointer();
-            }
+            VARIANT varTag;
+            VariantInit(&varTag);
+            IntPtr h = IntPtr(&varTag);
+            System::Runtime::InteropServices::Marshal::GetNativeVariantForObject(objectValue, h);
+            return varTag;
         }
 
         System::Object^ AimpExtension::FromVaiant(VARIANT* variant)
         {
-            if (variant->bstrVal != NULL)
-            {
-                return gcnew System::String(variant->bstrVal);
-            }
-
-            return nullptr;
+            void *p = variant;
+            return System::Runtime::InteropServices::Marshal::GetObjectForNativeVariant(IntPtr(p));
         }
     }
 }
