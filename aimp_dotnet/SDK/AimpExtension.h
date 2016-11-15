@@ -79,7 +79,7 @@ namespace AIMP
                 return result;
             }
 
-            static void ToVariant(System::Object^ objectValue, VARIANT* variant);
+            static VARIANT ToVariant(System::Object^ objectValue);
 
             static System::Object^ FromVaiant(VARIANT* variant);
 

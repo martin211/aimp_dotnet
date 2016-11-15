@@ -1,4 +1,5 @@
 #pragma once
+#include <vcclr.h>
 
 namespace AIMP
 {
@@ -14,6 +15,7 @@ namespace AIMP
         {
         private:
             gcroot<IAimpGroupingTreeDataProviderSelection^> _managedInstance;
+            typedef IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProviderSelection> Base;
 
         public:
             explicit InternalAimpGroupingTreeDataProviderSelection(gcroot<IAimpGroupingTreeDataProviderSelection^> managedInstance)
@@ -55,14 +57,15 @@ namespace AIMP
             virtual HRESULT WINAPI GetValue(IAIMPString** FieldName, VARIANT* Value)
             {
                 String^ fieldName;
-                Object^ value;
+                Object^ val;
 
-                AimpActionResult result = _managedInstance->GetValue(fieldName, value);
+                AimpActionResult result = _managedInstance->GetValue(fieldName, val);
 
                 if (result == AimpActionResult::Ok)
                 {
                     *FieldName = AimpExtension::GetAimpString(fieldName);
-                    AimpExtension::ToVariant(value, Value);
+                    VARIANT v = AimpExtension::ToVariant(val);
+                    Value = &v;
                 }
 
                 return (HRESULT)result;
