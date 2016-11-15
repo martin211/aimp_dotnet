@@ -65,7 +65,7 @@ namespace AIMP
                 {
                     *FieldName = AimpExtension::GetAimpString(fieldName);
                     VARIANT v = AimpExtension::ToVariant(val);
-                    Value = &v;
+                    VariantCopyInd(Value, &v);
                 }
 
                 return (HRESULT)result;
