@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider;
 using AIMP.DotNet.MusicLibrary.ExplorerMusicProvider;
 using AIMP.SDK;
@@ -9,6 +10,7 @@ using AIMP.SDK.MusicLibrary.DataFilter;
 using AIMP.SDK.MusicLibrary.DataStorage;
 using AIMP.SDK.MusicLibrary.Extension;
 using AIMP.SDK.MusicLibrary.Presets;
+using AIMP.SDK.Player;
 
 namespace AIMP.DotNet.MusicLibrary
 {
@@ -38,20 +40,18 @@ namespace AIMP.DotNet.MusicLibrary
 
         public string Caption => "Explorer media library";
 
+        private AsyncOperation _asyncOperation;
+
         private DataProviderGroupingTreeData _data = new DataProviderGroupingTreeData();
 
         public CapabilitiesType Capabilities => CapabilitiesType.AIMPML_DATASTORAGE_CAP_FILTERING | CapabilitiesType.AIMPML_DATASTORAGE_CAP_GROUPINGPRESETS | CapabilitiesType.AIMPML_DATASTORAGE_CAP_PREIMAGES | CapabilitiesType.AIMPML_DATASTORAGE_CAP_FILTERING;
 
+        public DemoMusicLibrary(IAimpPlayer aimpPlayer)
+        {
+        }
+
         void IAimpExtensionDataStorage.Initialize(IAimpDataStorageManager manager)
         {
-            _data.Add(new DataProviderGroupingTreeNode
-            {
-                ImageIndex = (int)ImageType.AIMPML_FIELDIMAGE_FOLDER,
-                Standalone = true,
-                HasChildren = true,
-                DisplayValue = "My computer",
-                Value = (int)DataStorageCategoryType.LocalDisks
-            });
         }
 
         void IAimpExtensionDataStorage.Terminate()
@@ -121,13 +121,13 @@ namespace AIMP.DotNet.MusicLibrary
             if (schema == GroupingPresetsSchemaType.AIMPML_GROUPINGPRESETS_SCHEMA_BUILTIN)
             {
                 IAimpGroupingPreset outPreset;
-                var result = presets.Add("AIMP.DEMO.ML.DEFAULT", "Grouping preset", new DataProviderGroupingTree(_data), out outPreset);
+                presets.Add("AIMP.DEMO.ML.DEFAULT", "Grouping preset", new DataProviderGroupingTree(_data), out outPreset);
             }
-            //else if (schema == GroupingPresetsSchemaType.AIMPML_GROUPINGPRESETS_SCHEMA_DEFAULT)
-            //{
-            //    IAimpGroupingPresetStandard preset;
-            //    presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset", EVDS_Fake, out preset);
-            //}
+            else if (schema == GroupingPresetsSchemaType.AIMPML_GROUPINGPRESETS_SCHEMA_DEFAULT)
+            {
+                IAimpGroupingPresetStandard preset;
+                presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset", EVDS_Fake, out preset);
+            }
 
             return AimpActionResult.Ok;
         }
@@ -135,7 +135,6 @@ namespace AIMP.DotNet.MusicLibrary
         AimpActionResult IAimpDataProvider.GetData(IList<string> fields, IAimpDataFilter filter, out object data)
         {
             string s;
-
             if (fields.Count == 1 && fields[0] == EVDS_Fake)
             {
                 if (GetRootPath(filter, out s))
@@ -158,7 +157,6 @@ namespace AIMP.DotNet.MusicLibrary
                     data = "No data";
                 }
             }
-
             //data = new RootDataProviderSelection(fields, filter, _data);
 
             return AimpActionResult.Ok;

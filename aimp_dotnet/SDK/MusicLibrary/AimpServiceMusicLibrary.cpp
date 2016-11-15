@@ -11,6 +11,7 @@ namespace AIMP
         {
             IAIMPServiceMusicLibrary *service = NULL;
             AimpActionResult result = AimpActionResult::Fail;
+            storage = nullptr;
 
             try
             {
@@ -20,7 +21,10 @@ namespace AIMP
                     {
                         IAIMPMLDataStorage *aimpStorage;
                         result = CheckResult(service->GetActiveStorage(IID_IAIMPMLDataStorage, (void**)&aimpStorage));
-                        storage = gcnew AimpDataStorage(aimpStorage);
+                        if (result == AimpActionResult::Ok)
+                        {
+                            storage = gcnew AimpDataStorage(aimpStorage);
+                        }
                     }
                 }
 

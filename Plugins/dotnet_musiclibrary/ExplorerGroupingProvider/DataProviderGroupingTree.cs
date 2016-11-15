@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using AIMP.DotNet.MusicLibrary.ExplorerMusicProvider;
 using AIMP.SDK;
 using AIMP.SDK.MusicLibrary.DataFilter;
 using AIMP.SDK.MusicLibrary.DataStorage;
-using AIMP.SDK.MusicLibrary.Presets;
 
 namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
 {
@@ -55,8 +53,9 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                 {
                     if (!string.IsNullOrWhiteSpace(outValue?.ToString()))
                     {
-                        var category = (DataStorageCategoryType) Enum.Parse(typeof(DataStorageCategoryType), outValue.ToString().Split(new []{ "\\"}, StringSplitOptions.RemoveEmptyEntries)[1]);
-                        data = new DataProviderGroupingTreeSelection(_dataProviders[category](outFieldName));
+                        var pathParts = outValue.ToString().Split(new[] {"\\"}, StringSplitOptions.RemoveEmptyEntries);
+                        var category = (DataStorageCategoryType) Enum.Parse(typeof(DataStorageCategoryType), pathParts[1]);
+                        data = new DataProviderGroupingTreeSelection(_dataProviders[category](outValue.ToString()));
                         return AimpActionResult.Ok;
                     }
                 }
@@ -94,7 +93,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                 {
                     Standalone = true,
                     Value = $"MyComputer\\{DataStorageCategoryType.Other}",
-                    HasChildren = true,
+                    HasChildren = false,
                     ImageIndex = (int) ImageType.AIMPML_FIELDIMAGE_FOLDER,
                     DisplayValue = "Other"
                 }
@@ -103,17 +102,36 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
 
         private DataProviderGroupingTreeData PopulateMyComputer(string data)
         {
-            var drivers = DriveInfo.GetDrives().Where(c => c.DriveType == DriveType.Fixed).ToList();
-
             var result = new DataProviderGroupingTreeData();
-            result.AddRange(drivers.Select(driver => new DataProviderGroupingTreeNode
+
+            var pathParts = data.Split(new[] { "\\" }, StringSplitOptions.RemoveEmptyEntries);
+            if (pathParts.Length <= 2)
             {
-                ImageIndex = (int)ImageType.AIMPML_FIELDIMAGE_FOLDER,
-                Standalone = true,
-                HasChildren = true,
-                DisplayValue = driver.Name,
-                Value = $"MyComputer\\{DataStorageCategoryType.LocalDisks}\\{driver.Name.Replace(":\\", string.Empty)}"
-            }));
+                var drivers = DriveInfo.GetDrives().Where(c => c.DriveType == DriveType.Fixed).ToList();
+                result.AddRange(drivers.Select(driver => new DataProviderGroupingTreeNode
+                {
+                    ImageIndex = (int) ImageType.AIMPML_FIELDIMAGE_FOLDER,
+                    Standalone = true,
+                    HasChildren = true,
+                    DisplayValue = driver.Name,
+                    Value = $"MyComputer\\{DataStorageCategoryType.LocalDisks}\\{driver.Name}"
+                }));
+            }
+            else
+            {
+                var path = data.Replace($"MyComputer\\{DataStorageCategoryType.LocalDisks}\\", string.Empty);
+                DirectoryInfo di = new DirectoryInfo(path);
+                result.AddRange(di.GetDirectories()
+                    .Where(dir => dir.Attributes.HasFlag(FileAttributes.Directory) && !(dir.Attributes.HasFlag(FileAttributes.Hidden) || dir.Attributes.HasFlag(FileAttributes.System)))
+                    .Select(dir => new DataProviderGroupingTreeNode
+                    {
+                        DisplayValue = dir.Name,
+                        Value = $"{(data.EndsWith("\\") ? data : data + "\\" )}{dir.Name}\\",
+                        HasChildren = dir.GetDirectories().Any(),
+                        Standalone = true,
+                        ImageIndex = (int)ImageType.AIMPML_FIELDIMAGE_FOLDER
+                    }));
+            }
 
             return result;
         }
