@@ -317,7 +317,7 @@ namespace AIMP
 
         AimpActionResult PropertyListExtension::GetObject(IAIMPPropertyList* propertyList, int propertyId, REFIID objectId, void** value)
         {
-            AimpActionResult result = Utils::CheckResult(propertyList->GetValueAsObject(propertyId, objectId, (void**)&value));
+            AimpActionResult result = Utils::CheckResult(propertyList->GetValueAsObject(propertyId, objectId, value));
             return result;
         }
 
