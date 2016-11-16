@@ -413,9 +413,6 @@ namespace AIMP
             VARIANT *val = NULL;
             AimpActionResult result = Utils::CheckResult(propertyList->GetValueAsVariant(propertyId, val));
             value = AimpExtension::FromVaiant(val);
-            //value = AimpExtension::ToManaged(val);
-            //value = val->cVal;
-            //value = AIMP::SDK::Variant();
             return result;
         }
 

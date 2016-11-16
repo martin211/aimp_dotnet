@@ -7,7 +7,6 @@ class InternalAimpGroupingTreeDataProvider : public IUnknownInterfaceImpl<IAIMPM
 {
 private:
     gcroot<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^> _managedInstance;
-    IAIMPCore *_aimpCore;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProvider> Base;
@@ -15,14 +14,12 @@ public:
     InternalAimpGroupingTreeDataProvider(gcroot<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^> managedInstance)
     {
         _managedInstance = managedInstance;
-        _aimpCore = NULL;
     }
 
     virtual HRESULT WINAPI AppendFilter(IAIMPMLDataFilterGroup* Filter, IAIMPMLGroupingTreeSelection* Selection)
     {
         AimpDataFilterGroup^ dataFilterGroup = gcnew AimpDataFilterGroup(Filter);
         IAimpGroupingTreeSelection^ selection = gcnew AimpGroupingTreeSelection(Selection);
-
         AIMP::SDK::AimpActionResult result = _managedInstance->AppendFilter(dataFilterGroup, selection);
 
         return (HRESULT)result;

@@ -19,19 +19,22 @@ void AimpDataFilterGroup::Operation::set(FilterGroupOperationType val)
 
 AimpActionResult AimpDataFilterGroup::Add(String^ field, Object^ value1, Object^ value2, FieldFilterOperationType operation, IAimpDataFieldFilter^% filter)
 {
-    VARIANT val1 = AimpExtension::ToNativeVariant(value1);
-    VARIANT val2 = AimpExtension::ToNativeVariant(value2);
+    filter = nullptr;
+
+    VARIANT val1 = AimpExtension::ToVariant(value1);
+    VARIANT val2 = AimpExtension::ToVariant(value2);
 
     IAIMPMLDataFieldFilter* nativeFilter;
 
+    VARIANT v1;
+    VariantInit(&v1);
+
     AimpActionResult result = CheckResult(InternalAimpObject->Add(
         AimpExtension::GetAimpString(field),
-        val1,
-        val2,
+        &val1,
+        &val2,
         (int)operation,
         &nativeFilter));
-
-    filter = nullptr;
 
     if (result == AimpActionResult::Ok)
     {

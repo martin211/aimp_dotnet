@@ -64,21 +64,6 @@ namespace AIMP
                 return result;
             }
 
-            static VARIANT ToNativeVariant(System::Object^ variant)
-            {
-                VARIANT result = VARIANT();
-
-                //if (variant.String != nullptr)
-                //{
-                //    IntPtr ptr = Runtime::InteropServices::Marshal::StringToBSTR(variant.String);
-                //    BSTR bs = static_cast<BSTR>(ptr.ToPointer());
-                //    result.bstrVal = bs;
-                //    Runtime::InteropServices::Marshal::FreeBSTR(ptr);
-                //}
-
-                return result;
-            }
-
             static VARIANT ToVariant(System::Object^ objectValue);
 
             static System::Object^ FromVaiant(VARIANT* variant);
