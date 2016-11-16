@@ -2,6 +2,9 @@
 
 namespace AIMP.SDK.MusicLibrary.Presets
 {
+    /// <summary>
+    /// Represents the preset for standard grouping.
+    /// </summary>
     public interface IAimpGroupingPresetStandard : IAimpGroupingPreset
     {
         /// <summary>
@@ -13,7 +16,7 @@ namespace AIMP.SDK.MusicLibrary.Presets
         /// Gets the used filter.
         /// </summary>
         /// <param name="filter">The filter.</param>
-        /// <returns></returns>
+        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
         AimpActionResult GetFilter(out IAimpDataFieldFilter filter);
     }
 }
