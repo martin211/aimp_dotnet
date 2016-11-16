@@ -98,10 +98,6 @@ namespace AIMP
                 IAIMPMLGroupingPreset* p = NULL;
                 preset = nullptr;
 
-                if (InternalAimpObject == NULL)
-                {
-                    System::Diagnostics::Debugger::Break();
-                }
                 AimpActionResult result = CheckResult(InternalAimpObject->Get(index, IID_IAIMPMLGroupingPreset, (void**)&p));
                 if (result == AimpActionResult::Ok)
                 {
@@ -113,31 +109,45 @@ namespace AIMP
 
             virtual AimpActionResult Get(int index, IAimpGroupingPresetStandard ^%preset)
             {
-                try
+                IAIMPMLGroupingPresetStandard* p = NULL;
+                preset = nullptr;
+                AimpActionResult result = CheckResult(InternalAimpObject->Get(index, IID_IAIMPMLGroupingPresetStandard, (void**)&p));
+
+                if (result == AimpActionResult::Ok)
                 {
-                    IAIMPMLGroupingPresetStandard* p = NULL;
-                    preset = nullptr;
-                    AimpActionResult result = CheckResult(InternalAimpObject->Get(index, IID_IAIMPMLGroupingPresetStandard, (void**)&p));
-                    if (result == AimpActionResult::Ok)
-                    {
-                        preset = gcnew AimpGroupingPresetStandard(p);
-                    }
-                    return result;
+                    preset = gcnew AimpGroupingPresetStandard(p);
                 }
-                catch (const std::exception&)
-                {
-                    return AimpActionResult::Fail;
-                }
+
+                return result;
             }
 
-            virtual AimpActionResult GetById(int index, IAimpGroupingPreset ^%preset)
+            virtual AimpActionResult GetById(String^ id, IAimpGroupingPreset ^%preset)
             {
-                return AimpActionResult::Unexpected;
+                IAIMPMLGroupingPreset* p = NULL;
+                preset = nullptr;
+
+                AimpActionResult result = CheckResult(InternalAimpObject->GetByID(AimpExtension::GetAimpString(id), IID_IAIMPMLGroupingPreset, (void**)&p));
+
+                if (result == AimpActionResult::Ok)
+                {
+                    preset = gcnew AimpGroupingPreset(p);
+                }
+
+                return result;
             }
 
-            virtual AimpActionResult GetById(int index, IAimpGroupingPresetStandard ^%preset)
+            virtual AimpActionResult GetById(String^ id, IAimpGroupingPresetStandard ^%preset)
             {
-                return AimpActionResult::Unexpected;
+                IAIMPMLGroupingPresetStandard* p = NULL;
+                preset = nullptr;
+                AimpActionResult result = CheckResult(InternalAimpObject->GetByID(AimpExtension::GetAimpString(id), IID_IAIMPMLGroupingPresetStandard, (void**)&p));
+
+                if (result == AimpActionResult::Ok)
+                {
+                    preset = gcnew AimpGroupingPresetStandard(p);
+                }
+
+                return result;
             }
         };
     }
