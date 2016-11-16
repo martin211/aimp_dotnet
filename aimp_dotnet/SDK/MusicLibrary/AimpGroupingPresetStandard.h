@@ -66,7 +66,17 @@ namespace AIMP
 
             virtual AimpActionResult GetFilter(IAimpDataFieldFilter ^%filter)
             {
-                return AimpActionResult::NotImplemented;
+                IAIMPMLDataFieldFilter *f;
+                filter = nullptr;
+
+                AimpActionResult result = CheckResult(((IAIMPMLGroupingPresetStandard*)InternalAimpObject)->GetFilter(&f));
+
+                if (result == AimpActionResult::Ok)
+                {
+                    filter = gcnew AimpDataFieldFilter(f);
+                }
+
+                return result;
             }
         };
     }
