@@ -33,6 +33,29 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
 
         public AimpActionResult AppendFilter(IAimpDataFilterGroup filter, IAimpGroupingTreeSelection selection)
         {
+            filter.BeginUpdate();
+            try
+            {
+                filter.Operation = FilterGroupOperationType.AND;
+                for (var i = 0; i < selection.GetCount(); i++)
+                {
+                    string fName;
+                    object fValue;
+                    if (selection.GetValue(i, out fName, out fValue) == AimpActionResult.Ok)
+                    {
+                        IAimpDataFieldFilter fFilter;
+                        fValue = fValue.ToString()
+                            .Replace($"MyComputer\\{DataStorageCategoryType.LocalDisks}\\", string.Empty)
+                            .Replace($"MyComputer\\{DataStorageCategoryType.Other}\\", string.Empty);
+                        filter.Add(fName, fValue, null, FieldFilterOperationType.AIMPML_FIELDFILTER_OPERATION_EQUALS, out fFilter);
+                    }
+                }
+            }
+            finally
+            {
+                filter.EndUpdate();
+            }
+
             return AimpActionResult.Ok;
         }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider;
 using AIMP.DotNet.MusicLibrary.ExplorerMusicProvider;
 using AIMP.SDK;
@@ -11,14 +10,13 @@ using AIMP.SDK.MusicLibrary.DataStorage;
 using AIMP.SDK.MusicLibrary.Extension;
 using AIMP.SDK.MusicLibrary.Presets;
 using AIMP.SDK.Player;
+using AIMP.SDK.Threading;
 
 namespace AIMP.DotNet.MusicLibrary
 {
     public class DemoMusicLibrary :
         IAimpExtensionDataStorage,
         IAimpDataProvider,
-        //IAimpDataStorageCommandAddFiles,
-        //IAimpDataStorageCommandAddFilesDialog
         IAimpExtension
     {
         public const string AIMPML_RESERVED_FIELD_ID = "ID";       // !REQUIRED! unique record id (Int32, Int64 or String)
@@ -40,14 +38,14 @@ namespace AIMP.DotNet.MusicLibrary
 
         public string Caption => "Explorer media library";
 
-        private AsyncOperation _asyncOperation;
-
         private DataProviderGroupingTreeData _data = new DataProviderGroupingTreeData();
+        private IAimpPlayer _aimpPlayer;
 
         public CapabilitiesType Capabilities => CapabilitiesType.AIMPML_DATASTORAGE_CAP_FILTERING | CapabilitiesType.AIMPML_DATASTORAGE_CAP_GROUPINGPRESETS | CapabilitiesType.AIMPML_DATASTORAGE_CAP_PREIMAGES | CapabilitiesType.AIMPML_DATASTORAGE_CAP_FILTERING;
 
         public DemoMusicLibrary(IAimpPlayer aimpPlayer)
         {
+            _aimpPlayer = aimpPlayer;
         }
 
         void IAimpExtensionDataStorage.Initialize(IAimpDataStorageManager manager)
@@ -157,7 +155,6 @@ namespace AIMP.DotNet.MusicLibrary
                     data = "No data";
                 }
             }
-            //data = new RootDataProviderSelection(fields, filter, _data);
 
             return AimpActionResult.Ok;
         }
@@ -169,7 +166,7 @@ namespace AIMP.DotNet.MusicLibrary
 
             var result = EnumDataFieldFilters(filter, fieldFilter =>
             {
-                var res = fieldFilter.Field == EVDS_Fake;
+                var res = fieldFilter.Field == EVDS_Fake || fieldFilter.Field == FieldNode;
                 res = res &
                       (fieldFilter.Operation == FieldFilterOperationType.AIMPML_FIELDFILTER_OPERATION_BEGINSWITH ||
                        fieldFilter.Operation == FieldFilterOperationType.AIMPML_FIELDFILTER_OPERATION_EQUALS);
