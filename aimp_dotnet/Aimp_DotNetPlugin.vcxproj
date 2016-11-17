@@ -55,6 +55,7 @@
     <ClInclude Include="SDK\MusicLibrary\AimpDataFilterGroup.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataStorageManager.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpExtensionDataStorage.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpFileList.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPreset.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataStorage.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiMusicLibrary.h" />
@@ -65,6 +66,7 @@
     <ClInclude Include="SDK\Delegates.h" />
     <ClInclude Include="SDK\delegate_impl.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibraryUI.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProviderSelection.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeSelection.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibrary.h" />

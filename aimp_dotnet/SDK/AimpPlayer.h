@@ -20,6 +20,7 @@
 #include "SDK\Threading\AimpServiceSynchronizer.h"
 #include "SDK\Threading\AimpServiceThreadPool.h"
 #include "SDK\MusicLibrary\AimpServiceMusicLibrary.h"
+#include "SDK\MusicLibrary\AimpServiceMusicLibraryUI.h"
 
 
 namespace AIMP
@@ -509,10 +510,10 @@ namespace AIMP
             {
                 if (_serviceMusicLibraryUi == nullptr)
                 {
-                    //_serviceMusicLibraryUi = gcnew AIMP::SDK::AimpS
+                    _serviceMusicLibraryUi = gcnew AIMP::SDK::AimpServiceMusicLibraryUI((ManagedAimpCore^)_managedAimpCore);
                 }
 
-                return nullptr;
+                return _serviceMusicLibraryUi;
             }
         }
 

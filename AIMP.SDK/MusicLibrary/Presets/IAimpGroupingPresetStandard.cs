@@ -17,6 +17,6 @@ namespace AIMP.SDK.MusicLibrary.Presets
         /// </summary>
         /// <param name="filter">The filter.</param>
         /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetFilter(out IAimpDataFieldFilter filter);
+        AimpActionResult GetFilter(out IAimpDataFilterGroup filter);
     }
 }

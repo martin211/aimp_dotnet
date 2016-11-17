@@ -1,10 +1,9 @@
 #pragma once
-#include "..\..\Stdafx.h"
 #include "..\AimpObject.h"
 #include "..\..\AIMPSDK\AIMPSDK.h"
 #include "AimpGroupingPreset.h"
-#include "AimpDataFieldFilter.h"
 #include "..\AimpObjectList.h"
+#include "AimpDataFilterGroup.h"
 
 namespace AIMP
 {
@@ -64,16 +63,16 @@ namespace AIMP
                 }
             }
 
-            virtual AimpActionResult GetFilter(IAimpDataFieldFilter ^%filter)
+            virtual AimpActionResult GetFilter(IAimpDataFilterGroup ^%filter)
             {
-                IAIMPMLDataFieldFilter *f;
+                IAIMPMLDataFilterGroup *f;
                 filter = nullptr;
 
                 AimpActionResult result = CheckResult(((IAIMPMLGroupingPresetStandard*)InternalAimpObject)->GetFilter(&f));
 
                 if (result == AimpActionResult::Ok)
                 {
-                    filter = gcnew AimpDataFieldFilter(f);
+                    filter = gcnew AimpDataFilterGroup(f);
                 }
 
                 return result;

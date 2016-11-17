@@ -338,12 +338,6 @@
     <ClInclude Include="SDK\Threading\AimpTaskOwner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP400\apiMusicLibrary.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibrary.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\AimpPropertyList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -415,6 +409,18 @@
     </ClInclude>
     <ClInclude Include="Extensions\Stdafx.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpFileList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiMusicLibrary.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibrary.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibraryUI.h">
+      <Filter>SDK\MusicLibrary</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
