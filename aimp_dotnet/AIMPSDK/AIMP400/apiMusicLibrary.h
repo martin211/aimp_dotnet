@@ -237,16 +237,16 @@ class IAIMPMLDataFilter : public IAIMPMLDataFilterGroup
 class IAIMPMLFileList : public IUnknown
 {
 	public:
-		virtual HRESULT WINAPI Add(const VARIANT ID, IAIMPString* FileName) = 0;
+		virtual HRESULT WINAPI Add(VARIANT* ID, IAIMPString* FileName) = 0;
 		virtual HRESULT WINAPI Clear() = 0;
 		virtual HRESULT WINAPI Delete(int Index) = 0;
-		virtual HRESULT WINAPI Insert(int Index, const VARIANT ID, IAIMPString* FileName) = 0;
+		virtual HRESULT WINAPI Insert(int Index, VARIANT* ID, IAIMPString* FileName) = 0;
 
 		virtual int WINAPI GetCount() = 0;
 		virtual HRESULT WINAPI GetFileName(int Index, IAIMPString** FileName) = 0;
 		virtual HRESULT WINAPI SetFileName(int Index, IAIMPString* FileName) = 0;
 		virtual HRESULT WINAPI GetID(int Index, VARIANT** ID) = 0;
-		virtual HRESULT WINAPI SetID(int Index, const VARIANT ID) = 0;
+		virtual HRESULT WINAPI SetID(int Index, VARIANT* ID) = 0;
 
 		virtual HRESULT WINAPI Clone(void** Obj) = 0;
 };
