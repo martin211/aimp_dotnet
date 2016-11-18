@@ -52,6 +52,7 @@
     <ClInclude Include="SDK\Menu\Stdafx.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataField.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilter.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilterByArray.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataFilterGroup.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataStorageManager.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpExtensionDataStorage.h" />
