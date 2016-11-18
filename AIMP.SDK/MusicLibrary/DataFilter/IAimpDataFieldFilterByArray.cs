@@ -1,14 +1,16 @@
-﻿namespace AIMP.SDK.MusicLibrary.DataFilter
+﻿using System.Collections.Generic;
+
+namespace AIMP.SDK.MusicLibrary.DataFilter
 {
     public interface IAimpDataFieldFilterByArray
     {
         /// <summary>
-        /// Gets or sets the filter filed.
+        /// Gets or sets the filter field.
         /// </summary>
-        string Filed { get; set; }
+        string Field { get; set; }
 
-        AimpActionResult GetData(uint[] values, int count);
+        AimpActionResult GetData(IList<object> values);
 
-        AimpActionResult SetData(uint[] values, int count);
+        AimpActionResult SetData(IList<object> values);
     }
 }

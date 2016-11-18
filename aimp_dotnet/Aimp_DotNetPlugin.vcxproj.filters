@@ -422,6 +422,9 @@
     <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibraryUI.h">
       <Filter>SDK\MusicLibrary</Filter>
     </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilterByArray.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc">
