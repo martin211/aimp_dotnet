@@ -8,16 +8,20 @@ using AIMP.SDK.MusicLibrary;
 using AIMP.SDK.MusicLibrary.DataFilter;
 using AIMP.SDK.MusicLibrary.DataStorage;
 using AIMP.SDK.MusicLibrary.Extension;
+using AIMP.SDK.MusicLibrary.Extension.Command;
 using AIMP.SDK.MusicLibrary.Presets;
 using AIMP.SDK.Player;
-using AIMP.SDK.Threading;
 
 namespace AIMP.DotNet.MusicLibrary
 {
     public class DemoMusicLibrary :
         IAimpExtensionDataStorage,
         IAimpDataProvider,
-        IAimpExtension
+        IAimpExtension,
+        IAimpDataStorageCommandAddFilesDialog,
+        IAimpDataStorageCommandDeleteFiles,
+        IAimpDataStorageCommandDropData,
+        IAimpDataStorageCommandReloadTags
     {
         public const string AIMPML_RESERVED_FIELD_ID = "ID";       // !REQUIRED! unique record id (Int32, Int64 or String)
         public const string AIMPML_RESERVED_FIELD_FILENAME = "FileName"; // !REQUIRED! string
@@ -229,5 +233,25 @@ namespace AIMP.DotNet.MusicLibrary
         }
 
         #endregion
+
+        public bool CanDelete(bool physically)
+        {
+            return true;
+        }
+
+        public AimpActionResult Delete(IAimpFileList files, bool physically)
+        {
+            return AimpActionResult.Ok;
+        }
+
+        public AimpActionResult DropData()
+        {
+            return AimpActionResult.Ok;
+        }
+
+        public AimpActionResult ReloadTags(IAimpFileList files)
+        {
+            return AimpActionResult.Ok;
+        }
     }
 }
