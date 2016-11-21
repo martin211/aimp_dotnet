@@ -50,6 +50,8 @@ function Invoke-ExtractFile {
     [System.IO.Compression.ZipFile]::ExtractToDirectory("$inputFile", "$outputPath")
 }
 
+$Sonar_MsBuildToolExe = "MSBuild.SonarQube.Runner.exe"
+
 function Start-SonarAnalysis {
     param(
         [string] $projectKey,        
