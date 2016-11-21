@@ -28,9 +28,7 @@ function Edit-ReplaceByFormat {
 function Invoke-DownloadFile {
     param (
         [string] $fileUrl,
-        [string] $outFile,
-        [bool] $unzip,
-        [string] $unzipFolder
+        [string] $outFile
     )
     
     Invoke-WebRequest -Uri "$fileUrl" -OutFile $outFile
