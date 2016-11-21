@@ -3,6 +3,7 @@
 #include "AimpGroupingPresets.h"
 #include "AimpDataFilter.h"
 #include "InternalAimpDataProviderSelection.h"
+#include "AimpFileList.h"
 
 using namespace AIMP::SDK::MusicLibrary::Extension::Command;
 
@@ -62,26 +63,162 @@ public:
     }
 };
 
-class AimpExtensionDataStorage :
-    public IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage>
-    //public IAIMPMLDataProvider
-    //public IAIMPMLDataStorageCommandAddFiles,
-    //public IAIMPMLDataStorageCommandAddFilesDialog,
-    //public IAIMPMLDataStorageCommandDeleteFiles,
-    //public IAIMPMLDataStorageCommandDropData,
-    //public IAIMPMLDataStorageCommandReloadTags,
-    //public IAIMPMLDataStorageCommandReportDialog,
-    //public IAIMPMLDataStorageCommandUserMark
+class AimpDataStorageCommandAddFiles : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandAddFiles>
 {
 private:
-    bool _implementsAddFilesCommand = false;
-    bool _implementsAddFilesDialogCommand = false;
-    bool _implementsDeleteFilesCommand = false;
-    bool _implementsDropDataCommand = true;
-    bool _implementsReloadTagsCommand = false;
-    bool _implementsReportDialogCommand = false;
-    bool _implementsUserMarkCommand = false;
+    gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandAddFiles^> _instance;
+public:
+    typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandAddFiles> Base;
+
+    AimpDataStorageCommandAddFiles(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandAddFiles^> instance)
+    {
+        _instance = instance;
+    }
+
+    virtual HRESULT WINAPI Add(IAIMPObjectList* Files)
+    {
+        return (HRESULT)_instance->Add(nullptr);
+    }
+
+    virtual ULONG WINAPI AddRef(void)
+    {
+        return Base::AddRef();
+    }
+
+    virtual ULONG WINAPI Release(void)
+    {
+        return Base::Release();
+    }
+};
+
+class AimpDataStorageCommandAddFilesDialog : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandAddFilesDialog>
+{
+private:
+    gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandAddFilesDialog^> _instance;
+public:
+    typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandAddFilesDialog> Base;
+
+    AimpDataStorageCommandAddFilesDialog(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandAddFilesDialog^> instance)
+    {
+        _instance = instance;
+    }
+
+    virtual HRESULT WINAPI Execute(HWND OwnerHandle)
+    {
+        System::IntPtr ownerHandle(OwnerHandle);
+        return (HRESULT)_instance->Execute(ownerHandle);
+    }
+
+    virtual ULONG WINAPI AddRef(void)
+    {
+        return Base::AddRef();
+    }
+
+    virtual ULONG WINAPI Release(void)
+    {
+        return Base::Release();
+    }
+};
+
+class AimpDataStorageCommandDeleteFiles : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandDeleteFiles>
+{
+private:
+    gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandDeleteFiles^> _instance;
+public:
+    typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandDeleteFiles> Base;
+
+    AimpDataStorageCommandDeleteFiles(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandDeleteFiles^> instance)
+    {
+        _instance = instance;
+    }
+
+    virtual BOOL WINAPI CanDelete(BOOL Physically)
+    {
+        return _instance->CanDelete(Physically);
+    }
+
+    virtual HRESULT WINAPI Delete(IAIMPMLFileList* Files, BOOL Physically)
+    {
+        return (HRESULT)_instance->Delete(gcnew AimpFileList(Files), Physically);
+    }
+
+    virtual ULONG WINAPI AddRef(void)
+    {
+        return Base::AddRef();
+    }
+
+    virtual ULONG WINAPI Release(void)
+    {
+        return Base::Release();
+    }
+};
+
+class AimpDataStorageCommandDropData : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandDropData>
+{
+private:
+    gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandDropData^> _instance;
+public:
+    typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandDropData> Base;
+
+    AimpDataStorageCommandDropData(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandDropData^> instance)
+    {
+        _instance = instance;
+    }
+
+    virtual HRESULT WINAPI DropData()
+    {
+        return (HRESULT)_instance->DropData();
+    }
+
+    virtual ULONG WINAPI AddRef(void)
+    {
+        return Base::AddRef();
+    }
+
+    virtual ULONG WINAPI Release(void)
+    {
+        return Base::Release();
+    }
+};
+
+class AimpDataStorageCommandReloadTags : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandReloadTags>
+{
+private:
+    gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandReloadTags^> _instance;
+public:
+    typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandReloadTags> Base;
+
+    AimpDataStorageCommandReloadTags(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandReloadTags^> instance)
+    {
+        _instance = instance;
+    }
+
+    virtual HRESULT WINAPI ReloadTags(IAIMPMLFileList* Files)
+    {
+        return (HRESULT)_instance->ReloadTags(gcnew AimpFileList(Files));
+    }
+
+    virtual ULONG WINAPI AddRef(void)
+    {
+        return Base::AddRef();
+    }
+
+    virtual ULONG WINAPI Release(void)
+    {
+        return Base::Release();
+    }
+};
+
+class AimpExtensionDataStorage :
+    public IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage>
+{
+private:
     AimpDataProvider* _aimpDataProvider;
+    //AimpDataStorageCommandAddFiles* _addFilesCommand;
+    AimpDataStorageCommandAddFilesDialog* _addFilesDialogCommand;
+    AimpDataStorageCommandDeleteFiles* _deleteFilesCommand;
+    AimpDataStorageCommandDropData* _dropDataCommand;
+    AimpDataStorageCommandReloadTags* _reloadTagsCommand;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage> Base;
@@ -93,13 +230,38 @@ public:
 
         Object^ obj = _managedInstance;
 
-        _implementsAddFilesCommand = dynamic_cast<IAimpDataStorageCommandAddFiles^>(obj) != nullptr;
-        _implementsAddFilesDialogCommand = dynamic_cast<IAimpDataStorageCommandAddFilesDialog^>(obj) != nullptr;
-        _implementsDeleteFilesCommand = dynamic_cast<IAimpDataStorageCommandDeleteFiles^>(obj) != nullptr;
-        _implementsDropDataCommand = dynamic_cast<IAimpDataStorageCommandDropData^>(obj) != nullptr;
-        _implementsReloadTagsCommand = dynamic_cast<IAimpDataStorageCommandReloadTags^>(obj) != nullptr;
-        _implementsReportDialogCommand = dynamic_cast<IAimpDataStorageCommandReportDialog^>(obj) != nullptr;
-        _implementsUserMarkCommand = dynamic_cast<IAimpDataStorageCommandUserMark^>(obj) != nullptr;
+        IAimpDataStorageCommandAddFiles^ AddFilesCommand = dynamic_cast<IAimpDataStorageCommandAddFiles^>(obj);
+        IAimpDataStorageCommandAddFilesDialog^ AddFilesDialogCommand = dynamic_cast<IAimpDataStorageCommandAddFilesDialog^>(obj);
+        IAimpDataStorageCommandDeleteFiles^ DeleteFilesCommand = dynamic_cast<IAimpDataStorageCommandDeleteFiles^>(obj);
+        IAimpDataStorageCommandDropData^ dropDataCommand = dynamic_cast<IAimpDataStorageCommandDropData^>(obj);
+        IAimpDataStorageCommandReloadTags^ reloadTagsCommand = dynamic_cast<IAimpDataStorageCommandReloadTags^>(obj);
+        //IAimpDataStorageCommandReportDialog^ reportDialogCommand = dynamic_cast<IAimpDataStorageCommandReportDialog^>(obj);
+        //IAimpDataStorageCommandUserMark^ userMarkCommand = dynamic_cast<IAimpDataStorageCommandUserMark^>(obj);
+
+        if (AddFilesDialogCommand != nullptr)
+        {
+            _addFilesDialogCommand = new AimpDataStorageCommandAddFilesDialog(AddFilesDialogCommand);
+        }
+
+        //if (AddFilesCommand != nullptr)
+        //{
+        //    _addFilesCommand = new AimpDataStorageCommandAddFiles(AddFilesCommand);
+        //}
+
+        if (DeleteFilesCommand != nullptr)
+        {
+            _deleteFilesCommand = new AimpDataStorageCommandDeleteFiles(DeleteFilesCommand);
+        }
+
+        if (dropDataCommand != nullptr)
+        {
+            _dropDataCommand = new AimpDataStorageCommandDropData(dropDataCommand);
+        }
+
+        if (reloadTagsCommand != nullptr)
+        {
+            _reloadTagsCommand = new AimpDataStorageCommandReloadTags(reloadTagsCommand);
+        }
 
         _aimpDataProvider = new AimpDataProvider(instance);
     }
@@ -295,15 +457,51 @@ public:
         }
 
         if (riid == IID_IAIMPMLExtensionDataStorage
-            || (riid == IID_IAIMPMLDataStorageCommandAddFiles && _implementsAddFilesCommand)
-            || (riid == IID_IAIMPMLDataStorageCommandAddFilesDialog && _implementsAddFilesDialogCommand)
-            || (riid == IID_IAIMPMLDataStorageCommandDeleteFiles && _implementsDeleteFilesCommand)
-            || (riid == IID_IAIMPMLDataStorageCommandDropData && _implementsDropDataCommand)
-            || (riid == IID_IAIMPMLDataStorageCommandReloadTags && _implementsReloadTagsCommand)
-            || (riid == IID_IAIMPMLDataStorageCommandReportDialog && _implementsReportDialogCommand)
-            || (riid == IID_IAIMPMLDataStorageCommandUserMark && _implementsUserMarkCommand))
+            //|| (riid == IID_IAIMPMLDataStorageCommandAddFiles && _implementsAddFilesCommand)
+            //|| (riid == IID_IAIMPMLDataStorageCommandAddFilesDialog && _implementsAddFilesDialogCommand)
+            //|| (riid == IID_IAIMPMLDataStorageCommandDeleteFiles && _implementsDeleteFilesCommand)
+            //|| (riid == IID_IAIMPMLDataStorageCommandDropData && _implementsDropDataCommand)
+            //|| (riid == IID_IAIMPMLDataStorageCommandReloadTags && _implementsReloadTagsCommand)
+            //|| (riid == IID_IAIMPMLDataStorageCommandReportDialog && _implementsReportDialogCommand)
+            //|| (riid == IID_IAIMPMLDataStorageCommandUserMark && _implementsUserMarkCommand)
+                )
         {
             *ppvObject = this;
+            AddRef();
+            return S_OK;
+        }
+
+        if (riid == IID_IAIMPMLDataStorageCommandAddFilesDialog && _addFilesDialogCommand != NULL)
+        {
+            *ppvObject = _addFilesDialogCommand;
+            AddRef();
+            return S_OK;
+        }
+
+        if (riid == IID_IAIMPMLDataStorageCommandDeleteFiles && _deleteFilesCommand != NULL)
+        {
+            *ppvObject = _deleteFilesCommand;
+            AddRef();
+            return S_OK;
+        }
+
+        //if (riid == IID_IAIMPMLDataStorageCommandAddFiles && _addFilesCommand != NULL)
+        //{
+        //    *ppvObject = _addFilesCommand;
+        //    AddRef();
+        //    return S_OK;
+        //}
+
+        if (riid == IID_IAIMPMLDataStorageCommandDropData && _dropDataCommand != NULL)
+        {
+            *ppvObject = _dropDataCommand;
+            AddRef();
+            return S_OK;
+        }
+
+        if (riid == IID_IAIMPMLDataStorageCommandReloadTags && _reloadTagsCommand != NULL)
+        {
+            *ppvObject = _reloadTagsCommand;
             AddRef();
             return S_OK;
         }
@@ -326,52 +524,6 @@ public:
     virtual ULONG WINAPI Release(void)
     {
         return Base::Release();
-    }
-
-    virtual HRESULT WINAPI Add(IAIMPObjectList* Files)
-    {
-        System::Diagnostics::Debugger::Break();
-        System::Object^ obj = _managedInstance;
-        IAimpDataStorageCommandAddFiles^ cmd = dynamic_cast<IAimpDataStorageCommandAddFiles^>(obj);
-        return (HRESULT)cmd->Add(nullptr);
-    }
-
-    virtual HRESULT WINAPI Execute(HWND OwnerHandle)
-    {
-        System::Diagnostics::Debugger::Break();
-        System::Object^ obj = _managedInstance;
-        IAimpDataStorageCommandAddFilesDialog^ cmd = dynamic_cast<IAimpDataStorageCommandAddFilesDialog^>(obj);
-        return (HRESULT)cmd->Execute(IntPtr::Zero);
-    }
-
-    virtual BOOL WINAPI CanDelete(BOOL Physically)
-    {
-        System::Diagnostics::Debugger::Break();
-        return S_OK;
-    }
-
-    virtual HRESULT WINAPI Delete(IAIMPMLFileList* Files, BOOL Physically)
-    {
-        System::Diagnostics::Debugger::Break();
-        return S_OK;
-    }
-
-    virtual HRESULT WINAPI DropData()
-    {
-        System::Diagnostics::Debugger::Break();
-        return S_OK;
-    }
-
-    virtual HRESULT WINAPI ReloadTags(IAIMPMLFileList* Files)
-    {
-        System::Diagnostics::Debugger::Break();
-        return S_OK;
-    }
-
-    virtual HRESULT WINAPI SetMark(const VARIANT ID, const DOUBLE Value)
-    {
-        System::Diagnostics::Debugger::Break();
-        return S_OK;
     }
 
 private:
