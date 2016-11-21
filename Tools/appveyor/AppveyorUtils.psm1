@@ -46,14 +46,13 @@ function Invoke-ExtractFile {
     )
 
     Add-Type -AssemblyName System.IO.Compression.FileSystem
-    Write-Host "Extracting archive '$outFile' to the folder '$unzipFolder'"
-    [System.IO.Compression.ZipFile]::ExtractToDirectory("$outFile", "$unzipFolder")
+    Write-Host "Extracting archive '$inputFile' to the folder '$outputPath'"
+    [System.IO.Compression.ZipFile]::ExtractToDirectory("$inputFile", "$outputPath")
 }
 
 function Start-SonarAnalysis {
     param(
-        [string] $projectKey,
-        [string] $projectPath,
+        [string] $projectKey,        
         [string] $version,
         [string] $solutionFile,
         [string] $toolsPath = (Get-Item -Path ".\" -Verbose).FullName,
