@@ -95,6 +95,8 @@ namespace AIMP
             delete _playbackQueueManager;
             delete _serviceSynchronizer;
             delete _serviceThreadPool;
+            delete _serviceMusicLibrary;
+            delete _serviceMusicLibraryUi;
         }
 
         virtual property IAimpCore^ Core

@@ -315,7 +315,7 @@ class IAIMPMLDataStorageCommandReportDialog : public IUnknown
 class IAIMPMLDataStorageCommandUserMark : public IUnknown
 {
 	public:
-		virtual HRESULT WINAPI SetMark(const VARIANT ID, const DOUBLE Value) = 0;
+		virtual HRESULT WINAPI SetMark(VARIANT* ID, const DOUBLE Value) = 0;
 };
 
 //----------------------------------------------------------------------------------------------------------------------
