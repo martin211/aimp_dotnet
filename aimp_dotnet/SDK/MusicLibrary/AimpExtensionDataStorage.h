@@ -80,6 +80,19 @@ public:
         return (HRESULT)_instance->Add(nullptr);
     }
 
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
+    {
+        *ppvObject = NULL;
+        if (riid == IID_IAIMPMLDataStorageCommandAddFiles)
+        {
+            *ppvObject = this;
+            AddRef();
+            return S_OK;
+        }
+
+        return E_NOINTERFACE;
+    }
+
     virtual ULONG WINAPI AddRef(void)
     {
         return Base::AddRef();
@@ -107,6 +120,19 @@ public:
     {
         System::IntPtr ownerHandle(OwnerHandle);
         return (HRESULT)_instance->Execute(ownerHandle);
+    }
+
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
+    {
+        *ppvObject = NULL;
+        if (riid == IID_IAIMPMLDataStorageCommandAddFilesDialog)
+        {
+            *ppvObject = this;
+            AddRef();
+            return S_OK;
+        }
+
+        return E_NOINTERFACE;
     }
 
     virtual ULONG WINAPI AddRef(void)
@@ -142,6 +168,19 @@ public:
         return (HRESULT)_instance->Delete(gcnew AimpFileList(Files), Physically);
     }
 
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
+    {
+        *ppvObject = NULL;
+        if (riid == IID_IAIMPMLDataStorageCommandDeleteFiles)
+        {
+            *ppvObject = this;
+            AddRef();
+            return S_OK;
+        }
+
+        return E_NOINTERFACE;
+    }
+
     virtual ULONG WINAPI AddRef(void)
     {
         return Base::AddRef();
@@ -168,6 +207,19 @@ public:
     virtual HRESULT WINAPI DropData()
     {
         return (HRESULT)_instance->DropData();
+    }
+
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
+    {
+        *ppvObject = NULL;
+        if (riid == IID_IAIMPMLDataStorageCommandDropData)
+        {
+            *ppvObject = this;
+            AddRef();
+            return S_OK;
+        }
+
+        return E_NOINTERFACE;
     }
 
     virtual ULONG WINAPI AddRef(void)
@@ -198,6 +250,104 @@ public:
         return (HRESULT)_instance->ReloadTags(gcnew AimpFileList(Files));
     }
 
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
+    {
+        *ppvObject = NULL;
+        if (riid == IID_IAIMPMLDataStorageCommandReloadTags)
+        {
+            *ppvObject = this;
+            AddRef();
+            return S_OK;
+        }
+
+        return E_NOINTERFACE;
+    }
+
+    virtual ULONG WINAPI AddRef(void)
+    {
+        return Base::AddRef();
+    }
+
+    virtual ULONG WINAPI Release(void)
+    {
+        return Base::Release();
+    }
+};
+
+class AimpDataStorageCommandReportDialog : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandReportDialog>
+{
+private:
+    gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandReportDialog^> _instance;
+
+public:
+    typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandReportDialog> Base;
+
+    AimpDataStorageCommandReportDialog(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandReportDialog^> instance)
+    {
+        _instance = instance;
+    }
+
+    virtual HRESULT WINAPI Execute(HWND OwnerHandle)
+    {
+        System::IntPtr ownerHandle(OwnerHandle);
+        return (HRESULT)_instance->Execute(ownerHandle);
+    }
+
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
+    {
+        *ppvObject = NULL;
+        if (riid == IID_IAIMPMLDataStorageCommandReportDialog)
+        {
+            *ppvObject = this;
+            AddRef();
+            return S_OK;
+        }
+
+        return E_NOINTERFACE;
+    }
+
+    virtual ULONG WINAPI AddRef(void)
+    {
+        return Base::AddRef();
+    }
+
+    virtual ULONG WINAPI Release(void)
+    {
+        return Base::Release();
+    }
+};
+
+class AimpDataStorageCommandUserMark : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandUserMark>
+{
+private:
+    gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandUserMark^> _instance;
+
+public:
+    typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandUserMark> Base;
+
+    AimpDataStorageCommandUserMark(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandUserMark^> instance)
+    {
+        _instance = instance;
+    }
+
+    virtual HRESULT WINAPI SetMark(VARIANT* ID, const DOUBLE Value)
+    {
+        return (HRESULT)_instance->SetMark(AIMP::SDK::AimpExtension::FromVaiant(ID), Value);
+    }
+
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
+    {
+        *ppvObject = NULL;
+        if (riid == IID_IAIMPMLDataStorageCommandUserMark)
+        {
+            *ppvObject = this;
+            AddRef();
+            return S_OK;
+        }
+
+        return E_NOINTERFACE;
+    }
+
     virtual ULONG WINAPI AddRef(void)
     {
         return Base::AddRef();
@@ -214,11 +364,13 @@ class AimpExtensionDataStorage :
 {
 private:
     AimpDataProvider* _aimpDataProvider;
-    //AimpDataStorageCommandAddFiles* _addFilesCommand;
-    AimpDataStorageCommandAddFilesDialog* _addFilesDialogCommand;
-    AimpDataStorageCommandDeleteFiles* _deleteFilesCommand;
-    AimpDataStorageCommandDropData* _dropDataCommand;
-    AimpDataStorageCommandReloadTags* _reloadTagsCommand;
+    AimpDataStorageCommandAddFiles* _addFilesCommand = NULL;
+    AimpDataStorageCommandAddFilesDialog* _addFilesDialogCommand = NULL;
+    AimpDataStorageCommandDeleteFiles* _deleteFilesCommand = NULL;
+    AimpDataStorageCommandDropData* _dropDataCommand = NULL;
+    AimpDataStorageCommandReloadTags* _reloadTagsCommand = NULL;
+    AimpDataStorageCommandReportDialog* _reportDialogCommand = NULL;
+    AimpDataStorageCommandUserMark* _userMarkCommand = NULL;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage> Base;
@@ -235,18 +387,18 @@ public:
         IAimpDataStorageCommandDeleteFiles^ DeleteFilesCommand = dynamic_cast<IAimpDataStorageCommandDeleteFiles^>(obj);
         IAimpDataStorageCommandDropData^ dropDataCommand = dynamic_cast<IAimpDataStorageCommandDropData^>(obj);
         IAimpDataStorageCommandReloadTags^ reloadTagsCommand = dynamic_cast<IAimpDataStorageCommandReloadTags^>(obj);
-        //IAimpDataStorageCommandReportDialog^ reportDialogCommand = dynamic_cast<IAimpDataStorageCommandReportDialog^>(obj);
-        //IAimpDataStorageCommandUserMark^ userMarkCommand = dynamic_cast<IAimpDataStorageCommandUserMark^>(obj);
+        IAimpDataStorageCommandReportDialog^ reportDialogCommand = dynamic_cast<IAimpDataStorageCommandReportDialog^>(obj);
+        IAimpDataStorageCommandUserMark^ userMarkCommand = dynamic_cast<IAimpDataStorageCommandUserMark^>(obj);
 
         if (AddFilesDialogCommand != nullptr)
         {
             _addFilesDialogCommand = new AimpDataStorageCommandAddFilesDialog(AddFilesDialogCommand);
         }
 
-        //if (AddFilesCommand != nullptr)
-        //{
-        //    _addFilesCommand = new AimpDataStorageCommandAddFiles(AddFilesCommand);
-        //}
+        if (AddFilesCommand != nullptr)
+        {
+            _addFilesCommand = new AimpDataStorageCommandAddFiles(AddFilesCommand);
+        }
 
         if (DeleteFilesCommand != nullptr)
         {
@@ -261,6 +413,16 @@ public:
         if (reloadTagsCommand != nullptr)
         {
             _reloadTagsCommand = new AimpDataStorageCommandReloadTags(reloadTagsCommand);
+        }
+
+        if (reportDialogCommand != nullptr)
+        {
+            _reportDialogCommand = new AimpDataStorageCommandReportDialog(reportDialogCommand);
+        }
+
+        if (userMarkCommand != nullptr)
+        {
+            _userMarkCommand = new AimpDataStorageCommandUserMark(userMarkCommand);
         }
 
         _aimpDataProvider = new AimpDataProvider(instance);
@@ -456,15 +618,7 @@ public:
             return S_OK;
         }
 
-        if (riid == IID_IAIMPMLExtensionDataStorage
-            //|| (riid == IID_IAIMPMLDataStorageCommandAddFiles && _implementsAddFilesCommand)
-            //|| (riid == IID_IAIMPMLDataStorageCommandAddFilesDialog && _implementsAddFilesDialogCommand)
-            //|| (riid == IID_IAIMPMLDataStorageCommandDeleteFiles && _implementsDeleteFilesCommand)
-            //|| (riid == IID_IAIMPMLDataStorageCommandDropData && _implementsDropDataCommand)
-            //|| (riid == IID_IAIMPMLDataStorageCommandReloadTags && _implementsReloadTagsCommand)
-            //|| (riid == IID_IAIMPMLDataStorageCommandReportDialog && _implementsReportDialogCommand)
-            //|| (riid == IID_IAIMPMLDataStorageCommandUserMark && _implementsUserMarkCommand)
-                )
+        if (riid == IID_IAIMPMLExtensionDataStorage)
         {
             *ppvObject = this;
             AddRef();
@@ -473,37 +627,32 @@ public:
 
         if (riid == IID_IAIMPMLDataStorageCommandAddFilesDialog && _addFilesDialogCommand != NULL)
         {
-            *ppvObject = _addFilesDialogCommand;
-            AddRef();
-            return S_OK;
+            return _addFilesDialogCommand->QueryInterface(riid, ppvObject);
         }
 
         if (riid == IID_IAIMPMLDataStorageCommandDeleteFiles && _deleteFilesCommand != NULL)
         {
-            *ppvObject = _deleteFilesCommand;
-            AddRef();
-            return S_OK;
+            return _deleteFilesCommand->QueryInterface(riid, ppvObject);
         }
 
-        //if (riid == IID_IAIMPMLDataStorageCommandAddFiles && _addFilesCommand != NULL)
-        //{
-        //    *ppvObject = _addFilesCommand;
-        //    AddRef();
-        //    return S_OK;
-        //}
+        if (riid == IID_IAIMPMLDataStorageCommandAddFiles && _addFilesCommand != NULL)
+        {
+            return _addFilesCommand->QueryInterface(riid, ppvObject);
+        }
 
         if (riid == IID_IAIMPMLDataStorageCommandDropData && _dropDataCommand != NULL)
         {
-            *ppvObject = _dropDataCommand;
-            AddRef();
-            return S_OK;
+            return _dropDataCommand->QueryInterface(riid, ppvObject);
         }
 
         if (riid == IID_IAIMPMLDataStorageCommandReloadTags && _reloadTagsCommand != NULL)
         {
-            *ppvObject = _reloadTagsCommand;
-            AddRef();
-            return S_OK;
+            return _reloadTagsCommand->QueryInterface(riid, ppvObject);
+        }
+
+        if (riid == IID_IAIMPMLDataStorageCommandUserMark && _userMarkCommand != NULL)
+        {
+            return _userMarkCommand->QueryInterface(riid, ppvObject);
         }
 
         if (riid == IID_IAIMPMLGroupingTreeDataProvider)
@@ -512,6 +661,13 @@ public:
             AddRef();
             return S_OK;
         }
+
+        //if (riid == IID_IAIMPMLDataStorageCommandReportDialog && _reportDialogCommand != NULL)
+        //{
+        //    *ppvObject = _reportDialogCommand;
+        //    AddRef();
+        //    return S_OK;
+        //}
 
         return E_NOINTERFACE;
     }
