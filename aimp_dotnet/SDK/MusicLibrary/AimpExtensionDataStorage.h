@@ -663,10 +663,10 @@ public:
             return _userMarkCommand->QueryInterface(riid, ppvObject);
         }
 
-        //if (riid == IID_IAIMPMLDataStorageCommandReportDialog && _reportDialogCommand != NULL)
-        //{
-        //    return _reportDialogCommand->QueryInterface(riid, ppvObject);
-        //}
+        if (riid == IID_IAIMPMLDataStorageCommandReportDialog && _reportDialogCommand != NULL)
+        {
+            return _reportDialogCommand->QueryInterface(riid, ppvObject);
+        }
 
         if (riid == IID_IAIMPMLGroupingTreeDataProvider)
         {
