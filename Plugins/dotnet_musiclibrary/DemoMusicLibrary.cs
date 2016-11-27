@@ -45,8 +45,9 @@ namespace AIMP.DotNet.MusicLibrary
 
         public string Caption => "Explorer media library";
 
-        private DataProviderGroupingTreeData _data = new DataProviderGroupingTreeData();
-        private IAimpPlayer _aimpPlayer;
+        private readonly DataProviderGroupingTreeData _data = new DataProviderGroupingTreeData();
+        private readonly IAimpPlayer _aimpPlayer;
+        IAimpGroupingPresetStandard _groupingPresetStandard;
 
         public CapabilitiesType Capabilities => CapabilitiesType.AIMPML_DATASTORAGE_CAP_FILTERING | CapabilitiesType.AIMPML_DATASTORAGE_CAP_GROUPINGPRESETS | CapabilitiesType.AIMPML_DATASTORAGE_CAP_PREIMAGES | CapabilitiesType.AIMPML_DATASTORAGE_CAP_FILTERING;
 
@@ -61,6 +62,8 @@ namespace AIMP.DotNet.MusicLibrary
 
         void IAimpExtensionDataStorage.Terminate()
         {
+            _groupingPresetStandard = null;
+            _outPreset = null;
         }
 
         void IAimpExtensionDataStorage.FlushCache()
@@ -121,17 +124,19 @@ namespace AIMP.DotNet.MusicLibrary
             return AimpActionResult.Ok;
         }
 
+        private IAimpGroupingPreset _outPreset;
+
         AimpActionResult IAimpExtensionDataStorage.GetGroupingPresets(GroupingPresetsSchemaType schema, IAimpGroupingPresets presets)
         {
             if (schema == GroupingPresetsSchemaType.AIMPML_GROUPINGPRESETS_SCHEMA_BUILTIN)
             {
-                IAimpGroupingPreset outPreset;
-                presets.Add("AIMP.DEMO.ML.DEFAULT", "Grouping preset", new DataProviderGroupingTree(_data), out outPreset);
+                
+               // presets.Add("AIMP.DEMO.ML.DEFAULT", "Grouping preset", new DataProviderGroupingTree(_data), out outPreset);
             }
             else if (schema == GroupingPresetsSchemaType.AIMPML_GROUPINGPRESETS_SCHEMA_DEFAULT)
             {
-                IAimpGroupingPresetStandard preset;
-                presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset", EVDS_Fake, out preset);
+                
+                presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset", EVDS_Fake, out _groupingPresetStandard);
             }
 
             return AimpActionResult.Ok;

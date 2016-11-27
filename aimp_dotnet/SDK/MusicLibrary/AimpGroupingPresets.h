@@ -1,7 +1,6 @@
 #pragma once
 #include "..\AimpObject.h"
 #include "..\..\AIMPSDK\AIMPSDK.h"
-//#include "AimpGroupingTreeDataProvider.h"
 #include "AimpGroupingPresetStandard.h"
 #include "InternalAimpGroupingTreeDataProvider.h"
 
@@ -18,18 +17,42 @@ namespace AIMP
 
         public ref class AimpGroupingPresets : public AimpObject<IAIMPMLGroupingPresets>, public IAimpGroupingPresets
         {
+        private:
+            InternalAimpGroupingTreeDataProvider* _internalProvider;
+
         public:
+            ~AimpGroupingPresets()
+            {
+                this->!AimpGroupingPresets();
+            }
+
+            !AimpGroupingPresets()
+            {
+                if (_internalProvider != NULL)
+                {
+                    _internalProvider->Release();
+                    _internalProvider = NULL;
+                }
+            }
+
             explicit AimpGroupingPresets(IAIMPMLGroupingPresets *aimpObject) : AimpObject(aimpObject)
-            {}
+            {
+            }
 
             virtual AimpActionResult Add(String^ id, String^ name, IAimpGroupingTreeDataProvider^ provider, IAimpGroupingPreset^% preset)
             {
                 preset = nullptr;
 
                 // create internal wrapper for grouping provider
-                InternalAimpGroupingTreeDataProvider* internalProvider = new InternalAimpGroupingTreeDataProvider(provider);
+                _internalProvider = new InternalAimpGroupingTreeDataProvider(provider);
                 IAIMPMLGroupingPreset* aimpPreset = NULL;
-                AimpActionResult result = CheckResult(InternalAimpObject->Add(AimpExtension::GetAimpString(id), AimpExtension::GetAimpString(name), 0, internalProvider, &aimpPreset));
+                IAIMPString* aimpId = AimpExtension::GetAimpString(id);
+                IAIMPString* aimpName = AimpExtension::GetAimpString(name);
+
+                AimpActionResult result = CheckResult(InternalAimpObject->Add(aimpId, aimpName, 0, _internalProvider, &aimpPreset));
+
+                aimpId->Release();
+                aimpName->Release();
 
                 if (result == AimpActionResult::Ok)
                 {
@@ -45,12 +68,22 @@ namespace AIMP
 
                 for (int i = 0; i < fieldNames->Count; i++)
                 {
-                    fields->Add(AimpExtension::GetAimpString(fieldNames[i]));
+                    IAIMPString* s = AimpExtension::GetAimpString(fieldNames[i]);
+                    fields->Add(s);
+                    //AimpObjectDisposer::AddToBack(s);
+                    s->Release();
                 }
 
                 IAIMPMLGroupingPresetStandard* standartPreset;
-                AimpActionResult result = CheckResult(InternalAimpObject->Add2(AimpExtension::GetAimpString(id), AimpExtension::GetAimpString(name), 0, fields, &standartPreset));
+                IAIMPString* aimpId = AimpExtension::GetAimpString(id);
+                IAIMPString* aimpName = AimpExtension::GetAimpString(name);
+
+                AimpActionResult result = CheckResult(InternalAimpObject->Add2(aimpId, aimpName, 0, fields, &standartPreset));
                 preset = nullptr;
+
+                aimpId->Release();
+                aimpName->Release();
+
                 if (result == AimpActionResult::Ok)
                 {
                     preset = gcnew AimpGroupingPresetStandard(standartPreset);
@@ -62,7 +95,16 @@ namespace AIMP
             virtual AimpActionResult Add(System::String^ id, String^ name, String^ fieldName, IAimpGroupingPresetStandard^ %preset)
             {
                 IAIMPMLGroupingPresetStandard* standartPreset;
-                AimpActionResult result = CheckResult(InternalAimpObject->Add3(AimpExtension::GetAimpString(id), AimpExtension::GetAimpString(name), 0, AimpExtension::GetAimpString(fieldName), &standartPreset));
+
+                IAIMPString* aimpId = AimpExtension::GetAimpString(id);
+                IAIMPString* aimpName = AimpExtension::GetAimpString(name);
+                IAIMPString* aimpFieldName = AimpExtension::GetAimpString(name);
+
+                AimpActionResult result = CheckResult(InternalAimpObject->Add3(aimpId, aimpName, 0, aimpFieldName, &standartPreset));
+
+                aimpId->Release();
+                aimpName->Release();
+                aimpFieldName->Release();
 
                 preset = nullptr;
                 if (result == AimpActionResult::Ok)
@@ -126,7 +168,9 @@ namespace AIMP
                 IAIMPMLGroupingPreset* p = NULL;
                 preset = nullptr;
 
-                AimpActionResult result = CheckResult(InternalAimpObject->GetByID(AimpExtension::GetAimpString(id), IID_IAIMPMLGroupingPreset, (void**)&p));
+                IAIMPString* aimpId = AimpExtension::GetAimpString(id);
+                AimpActionResult result = CheckResult(InternalAimpObject->GetByID(aimpId, IID_IAIMPMLGroupingPreset, (void**)&p));
+                aimpId->Release();
 
                 if (result == AimpActionResult::Ok)
                 {
@@ -140,7 +184,10 @@ namespace AIMP
             {
                 IAIMPMLGroupingPresetStandard* p = NULL;
                 preset = nullptr;
-                AimpActionResult result = CheckResult(InternalAimpObject->GetByID(AimpExtension::GetAimpString(id), IID_IAIMPMLGroupingPresetStandard, (void**)&p));
+
+                IAIMPString* aimpId = AimpExtension::GetAimpString(id);
+                AimpActionResult result = CheckResult(InternalAimpObject->GetByID(aimpId, IID_IAIMPMLGroupingPresetStandard, (void**)&p));
+                aimpId->Release();
 
                 if (result == AimpActionResult::Ok)
                 {

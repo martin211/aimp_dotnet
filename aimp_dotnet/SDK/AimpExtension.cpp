@@ -435,5 +435,17 @@ namespace AIMP
             void *p = variant;
             return System::Runtime::InteropServices::Marshal::GetObjectForNativeVariant(IntPtr(p));
         }
+
+        IAIMPObjectList* AimpExtension::GetAimpObjectList()
+        {
+            IAIMPObjectList* res = MakeObject<IAIMPObjectList>(IID_IAIMPObjectList);
+            return res;
+        }
+
+        IAIMPMLDataField* AimpExtension::GetAimpDataField()
+        {
+            IAIMPMLDataField* res = MakeObject<IAIMPMLDataField>(IID_IAIMPMLDataField);
+            return res;
+        }
     }
 }
