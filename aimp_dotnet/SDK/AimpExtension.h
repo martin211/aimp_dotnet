@@ -1,7 +1,6 @@
 #pragma once
 #include "guiddef.h"
 #include "vcclr.h"
-
 #include "..\AIMPSDK\AIMPSDK.h"
 #include "..\Utils.h"
 
@@ -68,16 +67,9 @@ namespace AIMP
 
             static System::Object^ FromVaiant(VARIANT* variant);
 
-            //static AIMP::SDK::Variant ToManaged(VARIANT variant)
-            //{
-            //    AIMP::SDK::Variant var = AIMP::SDK::Variant();
-            //    if (variant.bstrVal != NULL)
-            //    {
-            //        var.String = gcnew System::String((WCHAR*)variant.bstrVal);
-            //    }
+            static IAIMPObjectList* GetAimpObjectList();
 
-            //    return var;
-            //}
+            static IAIMPMLDataField* GetAimpDataField();
         private:
             static IAIMPCore* GetCore();
         };

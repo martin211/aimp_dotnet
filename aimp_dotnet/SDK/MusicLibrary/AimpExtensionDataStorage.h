@@ -371,6 +371,7 @@ private:
     AimpDataStorageCommandReloadTags* _reloadTagsCommand = NULL;
     AimpDataStorageCommandReportDialog* _reportDialogCommand = NULL;
     AimpDataStorageCommandUserMark* _userMarkCommand = NULL;
+    gcroot<AIMP::SDK::AimpGroupingPresets^> _managedPresets;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage> Base;
@@ -431,6 +432,31 @@ public:
     virtual void WINAPI Finalize()
     {
        _managedInstance->Terminate();
+       _aimpDataProvider->Release();
+       _aimpDataProvider = NULL;
+
+       if (_addFilesCommand != NULL)
+           _addFilesCommand->Release();
+
+        if (_addFilesDialogCommand != NULL)
+            _addFilesDialogCommand->Release();
+
+        if (_deleteFilesCommand != NULL)
+            _deleteFilesCommand->Release();
+
+        if (_dropDataCommand != NULL)
+            _dropDataCommand->Release();
+
+        if (_reloadTagsCommand != NULL)
+            _reloadTagsCommand->Release();
+
+        if (_reportDialogCommand != NULL)
+            _reportDialogCommand->Release();
+
+        if (_userMarkCommand != NULL)
+            _userMarkCommand->Release();
+
+        _managedInstance = nullptr;
     }
 
     virtual void WINAPI Initialize(IAIMPMLDataStorageManager* Manager)
@@ -451,6 +477,8 @@ public:
 
     virtual HRESULT WINAPI GetFields(int Schema, IAIMPObjectList** List)
     {
+        IAIMPObjectList *L = AIMP::SDK::AimpExtension::GetAimpObjectList();
+
         System::Collections::IList ^collection;
         AimpActionResult result = _managedInstance->GetFields((AIMP::SDK::MusicLibrary::Extension::SchemaType)Schema, collection);
 
@@ -459,21 +487,20 @@ public:
             return (HRESULT)result;
         }
 
-        IAIMPObjectList *L = AIMP::SDK::AimpExtension::MakeObject<IAIMPObjectList>(IID_IAIMPObjectList);
-
         System::Type^ t = collection->GetType()->GetGenericArguments()[0];
         if (t == AIMP::SDK::MusicLibrary::DataStorage::IAimpDataField::typeid)
         {
             for (int i = 0; i < collection->Count; i++)
             {
                 AIMP::SDK::MusicLibrary::DataStorage::IAimpDataField ^dataField = (AIMP::SDK::MusicLibrary::DataStorage::IAimpDataField^)collection[i];
-                IAIMPMLDataField *df = AIMP::SDK::AimpExtension::MakeObject<IAIMPMLDataField>(IID_IAIMPMLDataField);
+                IAIMPMLDataField *df = AIMP::SDK::AimpExtension::GetAimpDataField();
 
                 AIMP::SDK::PropertyListExtension::SetInt32(df, AIMPML_FIELD_PROPID_TYPE, (int)dataField->Type);
                 AIMP::SDK::PropertyListExtension::SetString(df, AIMPML_FIELD_PROPID_NAME, dataField->Name);
                 AIMP::SDK::PropertyListExtension::SetInt32(df, AIMPML_FIELD_PROPID_FLAGS, (int)dataField->Flags);
 
                 L->Add(df);
+                df->Release();
             }
         }
         else if (t == System::String::typeid)
@@ -481,7 +508,9 @@ public:
             for (int i = 0; i < collection->Count; i++)
             {
                 System::String^ str = (System::String^)collection[i];
-                L->Add(AIMP::SDK::AimpExtension::GetAimpString(str));
+                IAIMPString *s = AIMP::SDK::AimpExtension::GetAimpString(str);
+                L->Add(s);
+                s->Release();
             }
         }
 
@@ -490,31 +519,10 @@ public:
         return S_OK;
     }
 
-    IAIMPString* MakeString(WCHAR* value)
-    {
-        IAIMPString* str;
-        _aimpCore->CreateObject(IID_IAIMPString, (void**)&str);
-        str->SetData(value, sizeof(value));
-        return str;
-    }
-
     virtual HRESULT WINAPI GetGroupingPresets(int Schema, IAIMPMLGroupingPresets* Presets)
     {
-        AIMP::SDK::AimpGroupingPresets ^managedPresets = gcnew AIMP::SDK::AimpGroupingPresets(Presets);
-        return (HRESULT)_managedInstance->GetGroupingPresets((AIMP::SDK::MusicLibrary::Extension::GroupingPresetsSchemaType)Schema, managedPresets);
-
-        /*IAIMPMLGroupingPresetStandard* preset = NULL;
-        IAIMPObjectList* list = nullptr;
-        if (Schema == AIMPML_GROUPINGPRESETS_SCHEMA_BUILTIN)
-        {
-            Presets->Add3(MakeString(L"Demo.ExplorerView.GroupingPreset.Default"), MakeString(L"Demo"), 0, MakeString(L"Fake"), &preset);
-            preset->GetValueAsObject(AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList, reinterpret_cast<void**>(&list));
-            int count = list->GetCount();
-
-            System::Diagnostics::Debug::WriteLine(count);
-        }
-
-        return S_OK;*/
+        _managedPresets = gcnew AIMP::SDK::AimpGroupingPresets(Presets);
+        return (HRESULT)_managedInstance->GetGroupingPresets((AIMP::SDK::MusicLibrary::Extension::GroupingPresetsSchemaType)Schema, _managedPresets);
     }
 
     virtual void WINAPI FlushCache(int Reserved)
@@ -655,19 +663,17 @@ public:
             return _userMarkCommand->QueryInterface(riid, ppvObject);
         }
 
+        //if (riid == IID_IAIMPMLDataStorageCommandReportDialog && _reportDialogCommand != NULL)
+        //{
+        //    return _reportDialogCommand->QueryInterface(riid, ppvObject);
+        //}
+
         if (riid == IID_IAIMPMLGroupingTreeDataProvider)
         {
             *ppvObject = this;
             AddRef();
             return S_OK;
         }
-
-        //if (riid == IID_IAIMPMLDataStorageCommandReportDialog && _reportDialogCommand != NULL)
-        //{
-        //    *ppvObject = _reportDialogCommand;
-        //    AddRef();
-        //    return S_OK;
-        //}
 
         return E_NOINTERFACE;
     }
