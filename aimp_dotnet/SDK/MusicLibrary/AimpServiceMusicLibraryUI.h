@@ -126,6 +126,7 @@ namespace AIMP
             {
                 IAIMPServiceMusicLibraryUI* service = NULL;
                 AimpActionResult result = AimpActionResult::Fail;
+                IAIMPString* strPath = NULL;
 
                 try
                 {
@@ -134,7 +135,8 @@ namespace AIMP
                     {
                         if (service != NULL)
                         {
-                            result = CheckResult(service->SetGroupingFilterPath(AimpExtension::GetAimpString(path)));
+                            strPath = AimpExtension::GetAimpString(path);
+                            result = CheckResult(service->SetGroupingFilterPath(strPath));
                         }
                     }
                 }
@@ -144,6 +146,12 @@ namespace AIMP
                     {
                         service->Release();
                         service = NULL;
+                    }
+
+                    if (strPath != NULL)
+                    {
+                        strPath->Release();
+                        strPath = NULL;
                     }
                 }
 

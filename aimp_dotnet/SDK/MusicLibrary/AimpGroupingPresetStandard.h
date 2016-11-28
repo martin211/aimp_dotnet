@@ -20,11 +20,6 @@ namespace AIMP
             public IAimpGroupingPresetStandard
         {
         public:
-            ~AimpGroupingPresetStandard()
-            {
-                System::Diagnostics::Debugger::Break();
-            }
-
             AimpGroupingPresetStandard(IAIMPMLGroupingPresetStandard *aimpObject) : AimpGroupingPreset(aimpObject)
             {}
 

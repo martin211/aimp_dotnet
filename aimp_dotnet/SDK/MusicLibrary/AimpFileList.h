@@ -17,7 +17,19 @@ namespace AIMP
 
             virtual AimpActionResult Add(Object^ id, String^ fileName)
             {
-                return CheckResult(InternalAimpObject->Add(&AimpExtension::ToVariant(id), AimpExtension::GetAimpString(fileName)));
+                IAIMPString *sFileName = AimpExtension::GetAimpString(fileName);
+                try
+                {
+                    return CheckResult(InternalAimpObject->Add(&AimpExtension::ToVariant(id), sFileName));
+                }
+                finally
+                {
+                    if (sFileName != NULL)
+                    {
+                        sFileName->Release();
+                        sFileName = NULL;
+                    }
+                }
             }
 
             virtual AimpActionResult Clear()
@@ -32,7 +44,20 @@ namespace AIMP
 
             virtual AimpActionResult Insert(int index, Object^ id, String^ fileName)
             {
-                return CheckResult(InternalAimpObject->Insert(index, &AimpExtension::ToVariant(id), AimpExtension::GetAimpString(fileName)));
+                IAIMPString *sFileName = AimpExtension::GetAimpString(fileName);
+
+                try
+                {
+                    return CheckResult(InternalAimpObject->Insert(index, &AimpExtension::ToVariant(id), sFileName));
+                }
+                finally
+                {
+                    if (sFileName != NULL)
+                    {
+                        sFileName->Release();
+                        sFileName = NULL;
+                    }
+                }
             }
 
             virtual int GetCount()
@@ -67,7 +92,20 @@ namespace AIMP
 
             virtual AimpActionResult SetFileName(int index, String^ fileName)
             {
-                return CheckResult(InternalAimpObject->SetFileName(index, AimpExtension::GetAimpString(fileName)));
+                IAIMPString *sFileName = AimpExtension::GetAimpString(fileName);
+
+                try
+                {
+                    return CheckResult(InternalAimpObject->SetFileName(index, sFileName));
+                }
+                finally
+                {
+                    if (sFileName != NULL)
+                    {
+                        sFileName->Release();
+                        sFileName = NULL;
+                    }
+                }
             }
 
             virtual AimpActionResult GetId(int index, Object^% id)
