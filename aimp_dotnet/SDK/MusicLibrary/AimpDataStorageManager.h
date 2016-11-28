@@ -17,7 +17,19 @@ namespace AIMP
             virtual void BackgroundTaskStarted(int id, System::String ^cartion, AIMP::SDK::ActionManager::IAimpActionEvent ^cancelEvent)
             {
                 //todo complete it
-                this->InternalAimpObject->BackgroundTaskStarted(id, AimpExtension::GetAimpString(cartion), NULL);
+                IAIMPString *str = AimpExtension::GetAimpString(cartion);
+                try
+                {
+                    this->InternalAimpObject->BackgroundTaskStarted(id, str, NULL);
+                }
+                finally
+                {
+                    if (str != NULL)
+                    {
+                        str->Release();
+                        str = NULL;
+                    }
+                }
             }
 
             virtual void BackgroundTaskFinished(int id)

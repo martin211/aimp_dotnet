@@ -29,19 +29,32 @@ AimpActionResult AimpDataFilterGroup::Add(String^ field, Object^ value1, Object^
     VARIANT v1;
     VariantInit(&v1);
 
-    AimpActionResult result = CheckResult(InternalAimpObject->Add(
-        AimpExtension::GetAimpString(field),
-        &val1,
-        &val2,
-        (int)operation,
-        &nativeFilter));
+    IAIMPString *sField = AimpExtension::GetAimpString(field);
 
-    if (result == AimpActionResult::Ok)
+    try
     {
-        filter = gcnew AimpDataFieldFilter(nativeFilter);
-    }
+        AimpActionResult result = CheckResult(InternalAimpObject->Add(
+            sField,
+            &val1,
+            &val2,
+            (int)operation,
+            &nativeFilter));
 
-    return result;
+        if (result == AimpActionResult::Ok)
+        {
+            filter = gcnew AimpDataFieldFilter(nativeFilter);
+        }
+
+        return result;
+    }
+    finally
+    {
+        if (sField != NULL)
+        {
+            sField->Release();
+            sField = NULL;
+        }
+    }
 }
 
 AimpActionResult AimpDataFilterGroup::Add(String^ field, array<Object^>^ values, int count, IAimpDataFieldFilterByArray^% filter)

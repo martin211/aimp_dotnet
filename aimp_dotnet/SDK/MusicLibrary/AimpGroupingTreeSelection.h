@@ -16,6 +16,21 @@ namespace AIMP
             explicit AimpGroupingTreeSelection(IAIMPMLGroupingTreeSelection* aimpObject) : AimpObject(aimpObject)
             {}
 
+            ~AimpGroupingTreeSelection()
+            {
+                this->!AimpGroupingTreeSelection();
+            }
+
+            !AimpGroupingTreeSelection()
+            {
+                System::Diagnostics::Debug::WriteLine("Dispose AimpGroupingTreeSelection");
+                if (_aimpObject != NULL)
+                {
+                    _aimpObject->Release();
+                    _aimpObject = NULL;
+                }
+            }
+
             virtual int GetCount()
             {
                 return InternalAimpObject->GetCount();
