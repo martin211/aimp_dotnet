@@ -190,7 +190,7 @@ namespace AIMP
         {
             IAIMPServiceMusicLibrary *service = NULL;
             AimpActionResult result = AimpActionResult::Fail;
-            IAIMPString *aimpId;
+            IAIMPString *aimpId = NULL;
 
             try
             {
@@ -218,7 +218,7 @@ namespace AIMP
         {
             IAIMPServiceMusicLibrary *service = NULL;
             AimpActionResult result = AimpActionResult::Fail;
-            IAIMPString *aimpId;
+            IAIMPString *aimpId = NULL;
 
             try
             {
