@@ -5,16 +5,17 @@
 using namespace AIMP::SDK;
 
 AimpDataFilterGroup::AimpDataFilterGroup(IAIMPMLDataFilterGroup* filterGroup) : AimpObject(filterGroup)
-{}
+{
+}
 
 FilterGroupOperationType AimpDataFilterGroup::Operation::get()
 {
-    return (FilterGroupOperationType)PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTERGROUP_OPERATION);
+    return (FilterGroupOperationType)PropertyListExtension::GetInt32(_aimpObject, AIMPML_FILTERGROUP_OPERATION);
 }
 
 void AimpDataFilterGroup::Operation::set(FilterGroupOperationType val)
 {
-    PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTERGROUP_OPERATION, (int)val);
+    PropertyListExtension::SetInt32(_aimpObject, AIMPML_FILTERGROUP_OPERATION, (int)val);
 }
 
 AimpActionResult AimpDataFilterGroup::Add(String^ field, Object^ value1, Object^ value2, FieldFilterOperationType operation, IAimpDataFieldFilter^% filter)
@@ -33,7 +34,7 @@ AimpActionResult AimpDataFilterGroup::Add(String^ field, Object^ value1, Object^
 
     try
     {
-        AimpActionResult result = CheckResult(InternalAimpObject->Add(
+        AimpActionResult result = CheckResult(_aimpObject->Add(
             sField,
             &val1,
             &val2,
@@ -70,7 +71,7 @@ AimpActionResult AimpDataFilterGroup::Add(String^ field, array<Object^>^ values,
 AimpActionResult AimpDataFilterGroup::AddGroup(IAimpDataFilterGroup^% group)
 {
     IAIMPMLDataFilterGroup *nativeGroup;
-    AimpActionResult result = CheckResult(InternalAimpObject->AddGroup(&nativeGroup));
+    AimpActionResult result = CheckResult(_aimpObject->AddGroup(&nativeGroup));
     group = nullptr;
 
     if (result == AimpActionResult::Ok)
@@ -83,23 +84,23 @@ AimpActionResult AimpDataFilterGroup::AddGroup(IAimpDataFilterGroup^% group)
 
 AimpActionResult AimpDataFilterGroup::Clear()
 {
-    return CheckResult(InternalAimpObject->Clear());
+    return CheckResult(_aimpObject->Clear());
 }
 
 AimpActionResult AimpDataFilterGroup::Delete(int index)
 {
-    return CheckResult(InternalAimpObject->Delete(index));
+    return CheckResult(_aimpObject->Delete(index));
 }
 
 int AimpDataFilterGroup::GetChildCount()
 {
-    return InternalAimpObject->GetChildCount();
+    return _aimpObject->GetChildCount();
 }
 
 AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFilterGroup^% group)
 {
     IAIMPMLDataFilterGroup* child;
-    AimpActionResult result = CheckResult(InternalAimpObject->GetChild(index, IID_IAIMPMLDataFilterGroup, (void**)&child));
+    AimpActionResult result = CheckResult(_aimpObject->GetChild(index, IID_IAIMPMLDataFilterGroup, (void**)&child));
     if (result == AimpActionResult::Ok && child != NULL)
     {
         group = gcnew AimpDataFilterGroup(child);
@@ -111,7 +112,7 @@ AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFilterGroup^%
 AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFieldFilter^% fieldFilter)
 {
     IAIMPMLDataFieldFilter* child;
-    AimpActionResult result = CheckResult(InternalAimpObject->GetChild(index, IID_IAIMPMLDataFieldFilter, (void**)&child));
+    AimpActionResult result = CheckResult(_aimpObject->GetChild(index, IID_IAIMPMLDataFieldFilter, (void**)&child));
     if (result == AimpActionResult::Ok && child != NULL)
     {
         fieldFilter = gcnew AimpDataFieldFilter(child);
@@ -122,10 +123,10 @@ AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFieldFilter^%
 
 void AimpDataFilterGroup::BeginUpdate()
 {
-    InternalAimpObject->BeginUpdate();
+    _aimpObject->BeginUpdate();
 }
 
 void AimpDataFilterGroup::EndUpdate()
 {
-    InternalAimpObject->EndUpdate();
+    _aimpObject->EndUpdate();
 }

@@ -22,14 +22,14 @@ namespace AIMP
                 _dataField = nullptr;
             }
 
-            !AimpDataFieldFilter()
-            {
-                Release();
-            }
-
             ~AimpDataFieldFilter()
             {
                 this->!AimpDataFieldFilter();
+            }
+
+            !AimpDataFieldFilter()
+            {
+                _aimpObject->Release();
             }
 
             virtual property String^ Field
@@ -87,16 +87,6 @@ namespace AIMP
                 void set(System::Object^ value)
                 {
                     PropertyListExtension::SetString(InternalAimpObject, AIMPML_FIELDFILTER_VALUE2, value->ToString());
-                }
-            }
-
-        private:
-            void Release()
-            {
-                if (InternalAimpObject != NULL)
-                {
-                    _aimpObject->Release();
-                    _aimpObject = NULL;
                 }
             }
         };

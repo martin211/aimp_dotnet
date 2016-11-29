@@ -15,6 +15,16 @@ namespace AIMP
         public:
             explicit AimpDataFilterGroup(IAIMPMLDataFilterGroup *filterGroup);
 
+            ~AimpDataFilterGroup()
+            {
+                this->!AimpDataFilterGroup();
+            }
+
+            !AimpDataFilterGroup()
+            {
+                //_aimpObject->Release();
+            }
+
             virtual property FilterGroupOperationType Operation
             {
                 FilterGroupOperationType get();

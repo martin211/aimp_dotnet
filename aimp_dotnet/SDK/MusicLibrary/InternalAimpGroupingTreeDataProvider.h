@@ -3,10 +3,11 @@
 #include "InternalAimpGroupingTreeDataProviderSelection.h"
 #include "AimpDataFilterGroup.h"
 
-class InternalAimpGroupingTreeDataProvider : public IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProvider>
+class InternalAimpGroupingTreeDataProvider : public IAIMPMLGroupingTreeDataProvider
 {
 private:
     gcroot<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^> _managedInstance;
+    ULONG _linkCount;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProvider> Base;
@@ -14,15 +15,32 @@ public:
     InternalAimpGroupingTreeDataProvider(gcroot<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^> managedInstance)
     {
         _managedInstance = managedInstance;
+        _linkCount = 1;
     }
 
     virtual HRESULT WINAPI AppendFilter(IAIMPMLDataFilterGroup* Filter, IAIMPMLGroupingTreeSelection* Selection)
     {
-        AimpDataFilterGroup^ dataFilterGroup = gcnew AimpDataFilterGroup(Filter);
-        IAimpGroupingTreeSelection^ selection = gcnew AimpGroupingTreeSelection(Selection);
-        AIMP::SDK::AimpActionResult result = _managedInstance->AppendFilter(dataFilterGroup, selection);
+        AimpDataFilterGroup^ dataFilterGroup = nullptr;
+        IAimpGroupingTreeSelection^ selection = nullptr;
 
-        return (HRESULT)result;
+        try
+        {
+            dataFilterGroup = gcnew AimpDataFilterGroup(Filter);
+            selection = gcnew AimpGroupingTreeSelection(Selection);
+
+            AIMP::SDK::AimpActionResult result = _managedInstance->AppendFilter(dataFilterGroup, selection);
+            return (HRESULT)S_OK;
+        }
+        finally
+        {
+            //Selection->Release();
+            //Selection = NULL;
+            //Filter->Release();
+            //Filter = NULL;
+
+            delete dataFilterGroup;
+            delete selection;
+        }
     }
 
     virtual DWORD WINAPI GetCapabilities()
@@ -32,17 +50,28 @@ public:
 
     virtual HRESULT WINAPI GetData(IAIMPMLGroupingTreeSelection* Selection, IAIMPMLGroupingTreeDataProviderSelection** Data)
     {
-        IAimpGroupingTreeSelection^ selection = gcnew AimpGroupingTreeSelection(Selection);
-        IAimpGroupingTreeDataProviderSelection^ dataProviderSelection;
+        IAimpGroupingTreeSelection^ selection = nullptr;
+        IAimpGroupingTreeDataProviderSelection^ dataProviderSelection = nullptr;
 
-        AimpActionResult result = _managedInstance->GetData(selection, dataProviderSelection);
-
-        if (result == AimpActionResult::Ok)
+        try
         {
-            *Data = new InternalAimpGroupingTreeDataProviderSelection(dataProviderSelection);
-        }
+            selection = gcnew AimpGroupingTreeSelection(Selection);
+            AimpActionResult result = _managedInstance->GetData(selection, dataProviderSelection);
 
-        return (HRESULT)result;
+            if (result == AimpActionResult::Ok)
+            {
+                *Data = new InternalAimpGroupingTreeDataProviderSelection(dataProviderSelection);
+            }
+
+            return (HRESULT)result;
+        }
+        finally
+        {
+            //Selection->Release();
+            //Selection = NULL;
+            //delete selection;
+            //delete dataProviderSelection;
+        }
     }
 
     virtual HRESULT WINAPI GetFieldForAlphabeticIndex(IAIMPString** FieldName)
@@ -61,12 +90,22 @@ public:
 
     virtual ULONG WINAPI AddRef(void)
     {
-        return Base::AddRef();
+        System::Diagnostics::Debug::WriteLine("InternalAimpGroupingTreeDataProvider.AddRef");
+        _linkCount++;
+        return _linkCount;
     }
 
     virtual ULONG WINAPI Release(void)
     {
-        return Base::Release();
+        System::Diagnostics::Debug::WriteLine("InternalAimpGroupingTreeDataProvider.Release");
+        _linkCount--;
+
+        if (_linkCount == 0)
+        {
+            delete this;
+        }
+
+        return _linkCount;
     }
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)

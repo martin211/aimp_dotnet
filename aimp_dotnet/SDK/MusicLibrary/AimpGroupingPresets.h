@@ -21,6 +21,10 @@ namespace AIMP
             InternalAimpGroupingTreeDataProvider* _internalProvider;
 
         public:
+            explicit AimpGroupingPresets(IAIMPMLGroupingPresets *aimpObject) : AimpObject(aimpObject)
+            {
+            }
+
             ~AimpGroupingPresets()
             {
                 this->!AimpGroupingPresets();
@@ -28,15 +32,7 @@ namespace AIMP
 
             !AimpGroupingPresets()
             {
-                if (_internalProvider != NULL)
-                {
-                    _internalProvider->Release();
-                    _internalProvider = NULL;
-                }
-            }
-
-            explicit AimpGroupingPresets(IAIMPMLGroupingPresets *aimpObject) : AimpObject(aimpObject)
-            {
+                _aimpObject->Release();
             }
 
             virtual AimpActionResult Add(String^ id, String^ name, IAimpGroupingTreeDataProvider^ provider, IAimpGroupingPreset^% preset)

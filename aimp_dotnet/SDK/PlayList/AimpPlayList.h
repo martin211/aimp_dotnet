@@ -393,8 +393,6 @@ namespace AIMP
                 void raise(IAimpPlayList ^sender, ScanningEndEventArgs^ args);
             }
 
-            virtual void Release();
-
         private:
             AimpActionResult GetProperties(IAIMPPropertyList** properties);
             AimpFileInfo ^CreateFileInfo(IAimpFileInfo ^fi);

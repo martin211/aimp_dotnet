@@ -1,7 +1,7 @@
 ﻿
 namespace AIMP.SDK.PlayList
 {
-    public interface IAimpPlayListItem : IAimpDisposeable
+    public interface IAimpPlayListItem
     {
         string DisplayText { get; }
 

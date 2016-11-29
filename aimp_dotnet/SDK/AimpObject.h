@@ -13,7 +13,7 @@ public interface class IAimpObject
 };
 
 template<class TAimpObject>
-public ref class AimpObject
+public ref class AimpObject 
 {
 protected:
     AimpObject() {}
@@ -23,13 +23,6 @@ protected:
 public:
     AimpObject(TAimpObject *aimpObject) : _aimpObject(aimpObject)
     {
-    }
-
-    ~AimpObject()
-    {
-        //((IUnknown*)_aimpObject)->Release();
-        //_aimpObject = nullptr;
-        _aimpObject = NULL;
     }
 protected:
     AIMP::SDK::AimpActionResult CheckResult(HRESULT result)
