@@ -14,9 +14,9 @@ namespace AIMP
         public:
             explicit AimpGroupingPreset(IAIMPMLGroupingPreset *preset);
 
-            !AimpGroupingPreset();
-
             ~AimpGroupingPreset();
+
+            !AimpGroupingPreset();
 
             virtual property String ^Custom
             {
@@ -35,9 +35,6 @@ namespace AIMP
                 String ^get();
                 void set(String ^value);
             }
-
-        private:
-            void Release();
         };
     }
 }

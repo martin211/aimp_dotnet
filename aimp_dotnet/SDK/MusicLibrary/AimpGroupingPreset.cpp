@@ -17,16 +17,7 @@ namespace AIMP
 
         AimpGroupingPreset::!AimpGroupingPreset()
         {
-            Release();
-        }
-
-        void AimpGroupingPreset::Release()
-        {
-            if (InternalAimpObject != NULL)
-            {
-                _aimpObject->Release();
-                _aimpObject = NULL;
-            }
+            _aimpObject->Release();
         }
 
         String ^AimpGroupingPreset::Custom::get()

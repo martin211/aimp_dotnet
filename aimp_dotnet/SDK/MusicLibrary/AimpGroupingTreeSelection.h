@@ -23,12 +23,7 @@ namespace AIMP
 
             !AimpGroupingTreeSelection()
             {
-                System::Diagnostics::Debug::WriteLine("Dispose AimpGroupingTreeSelection");
-                if (_aimpObject != NULL)
-                {
-                    _aimpObject->Release();
-                    _aimpObject = NULL;
-                }
+                _aimpObject->Release();
             }
 
             virtual int GetCount()

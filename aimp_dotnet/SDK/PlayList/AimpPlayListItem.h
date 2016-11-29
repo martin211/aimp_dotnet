@@ -24,15 +24,9 @@ namespace AIMP
         public:
             AimpPlayListItem();
 
-            ~AimpPlayListItem()
-            {
-                this->!AimpPlayListItem(); 
-            }
+            ~AimpPlayListItem();
 
-            !AimpPlayListItem()
-            {
-                Release();
-            }
+            !AimpPlayListItem();
 
             virtual property System::String^ DisplayText
             {
@@ -92,17 +86,6 @@ namespace AIMP
             }
 
             virtual AimpActionResult ReloadInfo();
-
-            virtual void Release()
-            {
-                if (_disposed)
-                    return;
-
-                _disposed = true;
-
-                this->_aimpObject->Release();
-                this->_aimpObject = NULL;
-            }
         };
     }
 }

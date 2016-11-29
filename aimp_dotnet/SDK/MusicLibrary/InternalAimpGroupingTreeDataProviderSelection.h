@@ -11,11 +11,11 @@ namespace AIMP
         using namespace AIMP::SDK::MusicLibrary::DataStorage;
 
         class InternalAimpGroupingTreeDataProviderSelection :
-            public IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProviderSelection>
+            public IAIMPMLGroupingTreeDataProviderSelection
         {
         private:
+            ULONG _LinkCounter = 1;
             gcroot<IAimpGroupingTreeDataProviderSelection^> _managedInstance;
-            typedef IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProviderSelection> Base;
 
         public:
             explicit InternalAimpGroupingTreeDataProviderSelection(gcroot<IAimpGroupingTreeDataProviderSelection^> managedInstance)
@@ -74,6 +74,39 @@ namespace AIMP
             virtual BOOL WINAPI NextRow()
             {
                 return (BOOL)_managedInstance->NextRow();
+            }
+
+            virtual ULONG WINAPI AddRef(void)
+            {
+                _LinkCounter++;
+                System::Diagnostics::Debug::WriteLine("InternalAimpGroupingTreeDataProviderSelection: AddRef. _LinkCounter: " + _LinkCounter);
+                return _LinkCounter;
+            }
+
+            virtual ULONG WINAPI Release(void)
+            {
+                _LinkCounter--;
+                System::Diagnostics::Debug::WriteLine("InternalAimpGroupingTreeDataProviderSelection: Release. _LinkCounter: " + _LinkCounter);
+
+                if (_LinkCounter == 0) {
+                    delete this;
+                    return 0;
+                }
+
+                return _LinkCounter;
+            }
+
+            virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
+            {
+                if (riid == IID_IAIMPMLGroupingTreeDataProviderSelection)
+                {
+                    *ppvObject = this;
+                    AddRef();
+                    return S_OK;
+                }
+
+                *ppvObject = NULL;
+                return E_NOINTERFACE;
             }
         };
     }

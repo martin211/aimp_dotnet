@@ -17,6 +17,16 @@ namespace AIMP
             _aimpObject = AimpExtension::MakeObject<IAIMPPlaylistItem>(IID_IAIMPPlaylistItem);
         }
 
+        AimpPlayListItem::~AimpPlayListItem()
+        {
+            this->!AimpPlayListItem();
+        }
+
+        AimpPlayListItem::!AimpPlayListItem()
+        {
+            _aimpObject->Release();
+        }
+
         AimpPlayListItem::AimpPlayListItem(IAimpPlayListItem ^item)
         {
             _aimpObject = AimpExtension::MakeObject<IAIMPPlaylistItem>(IID_IAIMPPlaylistItem);

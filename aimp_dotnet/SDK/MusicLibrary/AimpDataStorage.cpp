@@ -8,7 +8,7 @@ namespace AIMP
     {
         AimpDataStorage::!AimpDataStorage()
         {
-            Release();
+            _aimpObject->Release();
         }
 
         AimpDataStorage::~AimpDataStorage()
@@ -117,15 +117,6 @@ namespace AIMP
                     properties->Release();
                     properties = NULL;
                 }
-            }
-        }
-
-        void AimpDataStorage::Release()
-        {
-            if (InternalAimpObject != NULL)
-            {
-                _aimpObject->Release();
-                _aimpObject = NULL;
             }
         }
     }

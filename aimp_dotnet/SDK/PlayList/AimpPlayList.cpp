@@ -7,6 +7,16 @@ namespace AIMP
 {
     namespace SDK
     {
+        AimpPlayList::~AimpPlayList()
+        {
+            this->!AimpPlayList();
+        }
+
+        AimpPlayList::!AimpPlayList()
+        {
+            _aimpObject->Release();
+        }
+
         AimpActionResult AimpPlayList::GetProperties(IAIMPPropertyList** properties)
         {
             IAIMPPropertyList *prop = NULL;
@@ -44,32 +54,6 @@ namespace AIMP
             PlaybackCursor = item->PlaybackCursor;
             PlayingIndex = item->PlayingIndex;
             PreImage = item->PreImage;
-        }
-
-        AimpPlayList::~AimpPlayList()
-        {
-            this->!AimpPlayList();
-        }
-
-        AimpPlayList::!AimpPlayList()
-        {
-            Release();
-        }
-
-        void AimpPlayList::Release()
-        {
-            if (_disposed)
-                return;
-
-            System::Diagnostics::Debug::WriteLine("Dispose play list");
-
-            _disposed = true;
-
-            if (InternalAimpObject != NULL)
-            {
-                _aimpObject->Release();
-                _aimpObject = NULL;
-            }
         }
 
         String ^AimpPlayList::Id::get()
@@ -1121,7 +1105,6 @@ namespace AIMP
             }
 
             AimpActionResult result = CheckResult(InternalAimpObject->Close((DWORD)closeFlag));
-            this->!AimpPlayList();
             return result;
         }
 
