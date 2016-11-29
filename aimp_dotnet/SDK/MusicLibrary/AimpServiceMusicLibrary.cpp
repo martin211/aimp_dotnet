@@ -190,13 +190,16 @@ namespace AIMP
         {
             IAIMPServiceMusicLibrary *service = NULL;
             AimpActionResult result = AimpActionResult::Fail;
+            IAIMPString *aimpId;
 
             try
             {
                 if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::Ok)
                 {
-                    IAIMPMLDataStorage *storage;
-                    //result = CheckResult(service->GetStorageByID(index, IID_IAIMPMLDataStorage, (void**)&storage));
+                    IAIMPMLDataStorage *aimpStorage;
+                    aimpId = AimpExtension::GetAimpString(id);
+                    result = CheckResult(service->GetStorageByID(aimpId, IID_IAIMPMLDataStorage, (void**)&aimpStorage));
+                    storage = gcnew AimpDataStorage(aimpStorage);
                 }
 
                 return result;
@@ -206,7 +209,7 @@ namespace AIMP
                 if (service != NULL)
                 {
                     service->Release();
-                    service = NULL;
+                    aimpId->Release();
                 }
             }
         }
@@ -215,13 +218,16 @@ namespace AIMP
         {
             IAIMPServiceMusicLibrary *service = NULL;
             AimpActionResult result = AimpActionResult::Fail;
+            IAIMPString *aimpId;
 
             try
             {
                 if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::Ok)
                 {
-                    IAIMPMLGroupingPresets *storage;
-                    //result = CheckResult(service->GetStorageByID(index, IID_IAIMPMLGroupingPresets, (void**)&storage));
+                    IAIMPMLGroupingPresets *aimpStorage;
+                    aimpId = AimpExtension::GetAimpString(id);
+                    result = CheckResult(service->GetStorageByID(aimpId, IID_IAIMPMLGroupingPresets, (void**)&aimpStorage));
+                    storage = gcnew AimpGroupingPresets(aimpStorage);
                 }
 
                 return result;
@@ -231,7 +237,7 @@ namespace AIMP
                 if (service != NULL)
                 {
                     service->Release();
-                    service = NULL;
+                    aimpId->Release();
                 }
             }
         }
