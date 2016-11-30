@@ -43,6 +43,46 @@ private:
     AIMP::SDK::ManagedAimpCore ^_managedCore;
 };
 
+class AimpExternalSettingsDialog : public IUnknownInterfaceImpl<IAIMPExternalSettingsDialog>
+{
+private:
+    gcroot<AIMP::SDK::IAimpExternalSettingsDialog^> _instance;
+    typedef IUnknownInterfaceImpl<IAIMPExternalSettingsDialog> Base;
+public:
+    AimpExternalSettingsDialog(gcroot<AIMP::SDK::IAimpExternalSettingsDialog^> instance)
+    {
+        _instance = instance;
+    }
+
+    virtual void WINAPI Show(HWND ParentWindow)
+    {
+        _instance->Show(IntPtr(ParentWindow));
+    }
+
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
+    {
+        *ppvObject = NULL;
+        if (riid == IID_IAIMPExternalSettingsDialog)
+        {
+            *ppvObject = this;
+            AddRef();
+            return S_OK;
+        }
+
+        return E_NOINTERFACE;
+    }
+
+    virtual ULONG WINAPI AddRef(void)
+    {
+        return Base::AddRef();
+    }
+
+    virtual ULONG WINAPI Release(void)
+    {
+        return Base::Release();
+    }
+};
+
 /// <summary>
 /// 
 /// </summary>
@@ -80,5 +120,6 @@ private:
     gcroot<AIMP::SDK::AimpDotNetPlugin^> _dotNetPlugin;
     IAIMPServiceConfig *_configService;
     IAIMPExtensionPlayerHook *_playerHook;
+    AimpExternalSettingsDialog *_externalSettingsDialog;
     typedef IUnknownInterfaceImpl<IAIMPPlugin> Base;
 };
