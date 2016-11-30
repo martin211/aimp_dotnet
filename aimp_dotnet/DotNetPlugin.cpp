@@ -92,6 +92,13 @@ HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
     _dotNetPlugin->PluginInformation->PluginLoadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
     _dotNetPlugin->PluginInformation->PluginUnloadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
     _dotNetPlugin->PluginInformation->Load();
+    System::Diagnostics::Debugger::Launch();
+    AIMP::SDK::IAimpExternalSettingsDialog^ externalSettingsDialog = dynamic_cast<AIMP::SDK::IAimpExternalSettingsDialog^>(_dotNetPlugin->PluginInformation->LoadedPlugin);
+
+    if (externalSettingsDialog != nullptr && _dotNetPlugin->PluginInformation->PluginInfo->IsExternalSettingsDialog)
+    {
+        _externalSettingsDialog = new AimpExternalSettingsDialog(externalSettingsDialog);
+    }
 
     System::Diagnostics::Debug::WriteLine("END: Initialize DotNet plugin");
 
@@ -139,15 +146,9 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
         return E_POINTER;
     }
 
-    if (riid == IID_IAIMPExternalSettingsDialog)
+    if (riid == IID_IAIMPExternalSettingsDialog && _externalSettingsDialog != NULL)
     {
-        if (_dotNetPlugin->PluginInformation->PluginInfo->IsExternalSettingsDialog)
-        {
-            *ppvObj = this;
-            return S_OK;
-        }
-
-        return E_NOINTERFACE;
+        return _externalSettingsDialog->QueryInterface(riid, ppvObj);
     }
 
     return E_NOINTERFACE;
