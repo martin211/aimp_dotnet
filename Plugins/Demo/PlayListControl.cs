@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using AIMP.SDK.PlayList;
 
 namespace DemoPlugin
@@ -53,9 +45,6 @@ namespace DemoPlugin
                 trackItem.Tag = item;
 
                 listView1.Items.Add(trackItem);
-
-                // free track resources.
-                item.Release();
             }
         }
     }
