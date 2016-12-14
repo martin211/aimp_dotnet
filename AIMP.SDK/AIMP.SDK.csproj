@@ -62,7 +62,16 @@
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtCatalog2.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtProvider.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtProvider2.cs" />
+    <Compile Include="FileManager\Extensions\IAimpExtensionFileExpander.cs" />
+    <Compile Include="FileManager\Extensions\IAimpExtensionFileFormat.cs" />
+    <Compile Include="FileManager\Extensions\IAimpExtensionFileInfoProvider.cs" />
+    <Compile Include="FileManager\Extensions\IAimpExtensionFileSystem.cs" />
     <Compile Include="FileManager\IAimpServiceFileFormats.cs" />
+    <Compile Include="FileManager\IAimpServiceFileInfo.cs" />
+    <Compile Include="FileManager\IAimpServiceFileInfoFormatterUtils.cs" />
+    <Compile Include="FileManager\IAimpServiceFileManager.cs" />
+    <Compile Include="FileManager\IAimpServiceFileStreaming.cs" />
+    <Compile Include="FileManager\IAimpVirtualFile.cs" />
     <Compile Include="IAimpConfig.cs" />
     <Compile Include="IAimpDisposeable.cs" />
     <Compile Include="IAimpExternalSettingsDialog.cs" />
@@ -156,6 +165,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\1424983248_control-center2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FileManager" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

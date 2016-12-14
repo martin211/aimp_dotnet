@@ -9,10 +9,24 @@ namespace AIMP.SDK.FileManager
         AIMP_SERVICE_FILEFORMATS_CATEGORY_PLAYLISTS = 2
     }
 
+    /// <summary>
+    /// Provide acccess to registered file types.
+    /// </summary>
     public interface IAimpServiceFileFormats
     {
+        /// <summary>
+        /// Gets the availabel file formats.
+        /// </summary>
+        /// <param name="formats">Out. File formats.</param>
+        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
         AimpActionResult GetFormats(out string formats);
 
+        /// <summary>
+        /// Check is the file extension supported.
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="flags"></param>
+        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
         AimpActionResult IsSupported(string fileName, FileFormats flags);
     }
 }
