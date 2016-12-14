@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="RIDER_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$/../..">
+      <sourceFolder url="file://$MODULE_DIR$/../../AIMP.SDK" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../aimp_dotnet" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../CopyPlugin.cmd" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../Plugins/Demo" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../Plugins/dotnet_albumart" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../Plugins/dotnet_ExtendDialogWindow" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../Plugins/dotnet_musiclibrary" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../Plugins/dotnet_threading" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../Plugins/dotnet_visual" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../Plugins/native_plugin" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../../AIMP.SDK/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../AIMP.SDK/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Debug" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Plugins/Demo/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Plugins/Demo/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Plugins/dotnet_ExtendDialogWindow/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Plugins/dotnet_ExtendDialogWindow/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Plugins/dotnet_albumart/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Plugins/dotnet_albumart/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Plugins/dotnet_musiclibrary/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Plugins/dotnet_musiclibrary/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Plugins/dotnet_threading/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Plugins/dotnet_threading/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Plugins/dotnet_visual/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Plugins/dotnet_visual/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Plugins/native_plugin/Debug" />
+      <excludeFolder url="file://$MODULE_DIR$/../../aimp_dotnet/Debug" />
+      <excludeFolder url="file://$MODULE_DIR$/../../packages" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
