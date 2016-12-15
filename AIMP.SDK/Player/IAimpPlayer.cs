@@ -1,4 +1,5 @@
-﻿using AIMP.SDK.MusicLibrary;
+﻿using AIMP.SDK.FileManager;
+using AIMP.SDK.MusicLibrary;
 using AIMP.SDK.Threading;
 
 namespace AIMP.SDK.Player

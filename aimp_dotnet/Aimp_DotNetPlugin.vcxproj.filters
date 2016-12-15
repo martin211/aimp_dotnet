@@ -55,6 +55,9 @@
     <Filter Include="SDK\MusicLibrary">
       <UniqueIdentifier>{b7677b24-3466-47d2-96a1-5619326ea56d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SDK\FileManager">
+      <UniqueIdentifier>{84b44698-8eae-4cf7-b905-4757b9b15bea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DotNetPlugin.cpp">
@@ -120,6 +123,9 @@
     <ClCompile Include="SDK\MusicLibrary\AimpGroupingPreset.cpp">
       <Filter>SDK\MusicLibrary</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.cpp">
+      <Filter>SDK\FileManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -175,9 +181,6 @@
     </ClInclude>
     <ClInclude Include="SDK\Playback\AimpServicePlaybackQueue.h">
       <Filter>SDK\Playback</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\PlayList\AimpFileInfo.h">
-      <Filter>SDK\PlayList</Filter>
     </ClInclude>
     <ClInclude Include="SDK\PlayList\AimpPlayList.h">
       <Filter>SDK\PlayList</Filter>
@@ -424,6 +427,15 @@
     </ClInclude>
     <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilterByArray.h">
       <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Stdafx.h">
+      <Filter>SDK\FileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.h">
+      <Filter>SDK\FileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\AimpFileInfo.h">
+      <Filter>SDK\FileManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

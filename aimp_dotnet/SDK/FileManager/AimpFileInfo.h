@@ -15,7 +15,7 @@ namespace AIMP
             AimpFileInfo()
             {
                 IAIMPFileInfo *fileInfo;
-                (IAIMPFileInfo*)ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPFileInfo, (void**)&fileInfo);
+                ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPFileInfo, (void**)&fileInfo);
                 _aimpObject = fileInfo;
             }
 

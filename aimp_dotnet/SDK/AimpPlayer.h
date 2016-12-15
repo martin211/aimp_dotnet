@@ -7,7 +7,7 @@
 #include "SDK\MUI\MUIManager.h"
 #include "SDK\AlbumArt\AimpAlbumArtManager.h"
 #include "SDK\Configuration\AimpConfigurationManager.h"
-#include "SDK\PlayList\AimpFileInfo.h"
+#include "SDK\FileManager\AimpFileInfo.h"
 #include "SDK\Win32\Win32Manager.h"
 #include "SDK\PlayList\AimpPlayListItem.h"
 #include "SDK\PlayList\AimpPlayList.h"

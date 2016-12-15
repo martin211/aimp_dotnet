@@ -7,6 +7,7 @@
 #include "..\Extensions\AimpExtensionAlbumArtCatalog.h"
 #include "..\Extensions\AimpExtensionPlaylistManagerListener.h"
 
+
 namespace AIMP
 {
     /// <summary>
@@ -159,6 +160,13 @@ namespace AIMP
                 _musicLibraryDataStorage = NULL;
             }
 
+            if (_fileInfoExtensionProvider != NULL)
+            {
+                _core->UnregisterExtension(static_cast<InternalAimpExtensionFileInfoProvider::Base*>(_fileInfoExtensionProvider));
+                _fileInfoExtensionProvider->Release();
+                _fileInfoExtensionProvider = NULL;
+            }
+
             _core->Release();
         }
 
@@ -277,6 +285,19 @@ namespace AIMP
                 AimpExtensionDataStorage *ext = new AimpExtensionDataStorage(_core, dataStorageExtension);
                 _musicLibraryDataStorage = ext;
                 return _core->RegisterExtension(IID_IAIMPServiceMusicLibrary, ext);
+            }
+
+            AIMP::SDK::FileManager::Extensions::IAimpExtensionFileInfoProvider ^fileInfoProviderExtension = dynamic_cast<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileInfoProvider^>(extension);
+            if (fileInfoProviderExtension != nullptr)
+            {
+                if (_fileInfoExtensionProvider != NULL)
+                {
+                    return E_FAIL;
+                }
+
+                InternalAimpExtensionFileInfoProvider *ext = new InternalAimpExtensionFileInfoProvider(fileInfoProviderExtension);
+                _fileInfoExtensionProvider = ext;
+                return _core->RegisterExtension(IID_IAIMPServiceFileInfo, static_cast<InternalAimpExtensionFileInfoProvider::Base*>(ext));
             }
 
             return E_UNEXPECTED;
