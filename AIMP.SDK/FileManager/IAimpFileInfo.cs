@@ -1,8 +1,8 @@
-﻿namespace AIMP.SDK.PlayList
-{
-    using System;
-    using System.Drawing;
+﻿using System;
+using System.Drawing;
 
+namespace AIMP.SDK.FileManager
+{
     /// <summary>
     /// 
     /// </summary>

@@ -1,4 +1,6 @@
 ﻿
+using AIMP.SDK.FileManager;
+
 namespace AIMP.SDK.PlayList
 {
     public interface IAimpPlayListItem

@@ -1,7 +1,7 @@
 ﻿#include "Stdafx.h"
 #include "AimpPlayList.h"
 #include "AimpPlayListGroup.h"
-#include "AimpFileInfo.h"
+#include "..\FileManager\AimpFileInfo.h"
 
 namespace AIMP
 {

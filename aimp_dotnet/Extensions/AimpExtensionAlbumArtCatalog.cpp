@@ -47,7 +47,7 @@ HRESULT WINAPI AimpExtensionAlbumArtCatalog::Show(IAIMPString *FileURI, IAIMPStr
 HRESULT WINAPI AimpExtensionAlbumArtCatalog::Show2(IAIMPFileInfo *FileInfo, IAIMPImageContainer **Image)
 {
     System::Drawing::Bitmap^ bitmap;
-    AIMP::SDK::PlayList::IAimpFileInfo ^fi = gcnew AIMP::SDK::AimpFileInfo(FileInfo);
+    AIMP::SDK::FileManager::IAimpFileInfo ^fi = gcnew AIMP::SDK::AimpFileInfo(FileInfo);
     AIMP::AimpActionResult r = _managedinstance->Show(fi, bitmap);
     if (r == AIMP::AimpActionResult::Ok && bitmap != nullptr)
     {

@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK\AimpObjectList.cpp" />
+    <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpDataFilterGroup.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpGroupingPreset.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpDataStorage.cpp" />
@@ -49,6 +50,8 @@
     <ClInclude Include="SDK\Action\Stdafx.h" />
     <ClInclude Include="SDK\AimpObjectList.h" />
     <ClInclude Include="SDK\AimpPropertyList.h" />
+    <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.h" />
+    <ClInclude Include="SDK\FileManager\Stdafx.h" />
     <ClInclude Include="SDK\Menu\Stdafx.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataField.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilter.h" />
@@ -132,7 +135,7 @@
     <ClInclude Include="SDK\Options\AimpServiceOptionsDialog.h" />
     <ClInclude Include="SDK\Playback\AimpPlaybackQueueItem.h" />
     <ClInclude Include="SDK\Playback\AimpServicePlaybackQueue.h" />
-    <ClInclude Include="SDK\PlayList\AimpFileInfo.h" />
+    <ClInclude Include="SDK\FileManager\AimpFileInfo.h" />
     <ClInclude Include="SDK\PlayList\AimpPlayList.h" />
     <ClInclude Include="SDK\PlayList\AimpPlayListGroup.h" />
     <ClInclude Include="SDK\PlayList\AimpPlayListItem.h" />

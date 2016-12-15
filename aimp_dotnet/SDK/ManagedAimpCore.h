@@ -9,6 +9,7 @@
 #include "..\SDK\Visuals\AimpExtensionCustomVisualization.h"
 #include "..\SDK\MusicLibrary\AimpExtensionDataStorage.h"
 #include "..\SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h"
+#include "..\SDK\FileManager\InternalAimpExtensionFileInfoProvider.h"
 
 namespace AIMP
 {
@@ -112,6 +113,7 @@ namespace AIMP
             AimpExtensionCustomVisualization* _customVisualization;
             AimpExtensionPlaylistManagerListener *_playlistManagerListener;
             AimpExtensionDataStorage *_musicLibraryDataStorage;
+            InternalAimpExtensionFileInfoProvider *_fileInfoExtensionProvider;
 
             AIMP::SDK::PlayList::PlayListHandler ^_playlistAdded;
             AIMP::SDK::PlayList::PlayListHandler ^_playlistRemoved;

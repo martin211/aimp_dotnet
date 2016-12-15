@@ -1,4 +1,6 @@
-﻿namespace AIMP.SDK.PlayList
+﻿using AIMP.SDK.FileManager;
+
+namespace AIMP.SDK.PlayList
 {
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,6 @@
-﻿namespace AIMP.SDK.AlbumArtManager
+﻿using AIMP.SDK.FileManager;
+
+namespace AIMP.SDK.AlbumArtManager
 {
     using System.Drawing;
 

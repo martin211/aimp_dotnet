@@ -147,7 +147,7 @@
     <Compile Include="MenuManager\IAimpMenuItem.cs" />
     <Compile Include="MenuManager\IAimpMenuManager.cs" />
     <Compile Include="MUIManager\IAimpMUIManager.cs" />
-    <Compile Include="PlayList\IAimpFileInfo.cs" />
+    <Compile Include="FileManager\IAimpFileInfo.cs" />
     <Compile Include="PlayList\IAimpPlayList.cs" />
     <Compile Include="PlayList\IAimpPlayListGroup.cs" />
     <Compile Include="PlayList\IAimpPlayListItem.cs" />
@@ -166,9 +166,7 @@
   <ItemGroup>
     <None Include="Resources\1424983248_control-center2.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FileManager" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
