@@ -51,6 +51,7 @@
     <ClInclude Include="SDK\AimpObjectList.h" />
     <ClInclude Include="SDK\AimpPropertyList.h" />
     <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.h" />
+    <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileSystem.h" />
     <ClInclude Include="SDK\FileManager\Stdafx.h" />
     <ClInclude Include="SDK\Menu\Stdafx.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataField.h" />

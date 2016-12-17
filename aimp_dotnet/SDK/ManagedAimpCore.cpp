@@ -167,6 +167,12 @@ namespace AIMP
                 _fileInfoExtensionProvider = NULL;
             }
 
+            if (_extensionFileSystem != NULL)
+            {
+                _extensionFileSystem->Release();
+                _extensionFileSystem = NULL;
+            }
+
             _core->Release();
         }
 
@@ -298,6 +304,19 @@ namespace AIMP
                 InternalAimpExtensionFileInfoProvider *ext = new InternalAimpExtensionFileInfoProvider(fileInfoProviderExtension);
                 _fileInfoExtensionProvider = ext;
                 return _core->RegisterExtension(IID_IAIMPServiceFileInfo, static_cast<InternalAimpExtensionFileInfoProvider::Base*>(ext));
+            }
+
+            AIMP::SDK::FileManager::Extensions::IAimpExtensionFileSystem ^extensionFileSystem = dynamic_cast<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileSystem^>(extension);
+            if (extensionFileSystem != nullptr)
+            {
+                if (_extensionFileSystem != NULL)
+                {
+                    return E_FAIL;
+                }
+
+                InternalAimpExtensionFileSystem *ext = new InternalAimpExtensionFileSystem(extensionFileSystem, _core);
+
+                return _core->RegisterExtension(IID_IAIMPServiceFileSystems, ext);
             }
 
             return E_UNEXPECTED;

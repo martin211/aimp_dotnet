@@ -62,6 +62,14 @@
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtCatalog2.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtProvider.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtProvider2.cs" />
+    <Compile Include="FileManager\Commands\IAimpFileSystemCommand.cs" />
+    <Compile Include="FileManager\Commands\IAimpFileSystemCommandCopyToClipboard.cs" />
+    <Compile Include="FileManager\Commands\IAimpFileSystemCommandDelete.cs" />
+    <Compile Include="FileManager\Commands\IAimpFileSystemCommandDropSource.cs" />
+    <Compile Include="FileManager\Commands\IAimpFileSystemCommandFileInfo.cs" />
+    <Compile Include="FileManager\Commands\IAimpFileSystemCommandOpenFileFolder.cs" />
+    <Compile Include="FileManager\Commands\IAimpFileSystemCommandStreaming.cs" />
+    <Compile Include="FileManager\Commands\IAimpFileSystemCustomFileCommand.cs" />
     <Compile Include="FileManager\Extensions\IAimpExtensionFileExpander.cs" />
     <Compile Include="FileManager\Extensions\IAimpExtensionFileFormat.cs" />
     <Compile Include="FileManager\Extensions\IAimpExtensionFileInfoProvider.cs" />
@@ -71,6 +79,7 @@
     <Compile Include="FileManager\IAimpServiceFileInfoFormatterUtils.cs" />
     <Compile Include="FileManager\IAimpServiceFileManager.cs" />
     <Compile Include="FileManager\IAimpServiceFileStreaming.cs" />
+    <Compile Include="FileManager\IAIMPServiceFileSystems.cs" />
     <Compile Include="FileManager\IAimpVirtualFile.cs" />
     <Compile Include="IAimpConfig.cs" />
     <Compile Include="IAimpDisposeable.cs" />

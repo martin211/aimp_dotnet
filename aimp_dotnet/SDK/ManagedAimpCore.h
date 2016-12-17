@@ -10,6 +10,7 @@
 #include "..\SDK\MusicLibrary\AimpExtensionDataStorage.h"
 #include "..\SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h"
 #include "..\SDK\FileManager\InternalAimpExtensionFileInfoProvider.h"
+#include "..\SDK\FileManager\InternalAimpExtensionFileSystem.h"
 
 namespace AIMP
 {
@@ -114,6 +115,7 @@ namespace AIMP
             AimpExtensionPlaylistManagerListener *_playlistManagerListener;
             AimpExtensionDataStorage *_musicLibraryDataStorage;
             InternalAimpExtensionFileInfoProvider *_fileInfoExtensionProvider;
+            InternalAimpExtensionFileSystem *_extensionFileSystem;
 
             AIMP::SDK::PlayList::PlayListHandler ^_playlistAdded;
             AIMP::SDK::PlayList::PlayListHandler ^_playlistRemoved;
