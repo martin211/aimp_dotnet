@@ -3,9 +3,9 @@
     public interface IAimpExtensionFileSystem
     {
         /// <summary>
-        /// Gets or sets the scheme filesystem paths.
+        /// Gets the scheme filesystem paths.
         /// </summary>
-        string Schema { get; set; }
+        string Schema { get; }
 
         /// <summary>
         /// Returns false, if the file system does not support the modification of data.

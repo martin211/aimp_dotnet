@@ -25,7 +25,9 @@ public:
         {
             return E_POINTER;
         }
-        if (riid == IID_IAIMPExtensionFileInfoProvider) {
+
+        if (riid == IID_IAIMPExtensionFileInfoProvider)
+        {
             *ppvObject = this;
             AddRef();
             return S_OK;

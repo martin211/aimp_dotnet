@@ -92,7 +92,6 @@ HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
     _dotNetPlugin->PluginInformation->PluginLoadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
     _dotNetPlugin->PluginInformation->PluginUnloadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
     _dotNetPlugin->PluginInformation->Load();
-    System::Diagnostics::Debugger::Launch();
     AIMP::SDK::IAimpExternalSettingsDialog^ externalSettingsDialog = dynamic_cast<AIMP::SDK::IAimpExternalSettingsDialog^>(_dotNetPlugin->PluginInformation->LoadedPlugin);
 
     if (externalSettingsDialog != nullptr && _dotNetPlugin->PluginInformation->PluginInfo->IsExternalSettingsDialog)
