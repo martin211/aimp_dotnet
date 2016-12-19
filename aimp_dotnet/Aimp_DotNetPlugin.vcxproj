@@ -50,6 +50,9 @@
     <ClInclude Include="SDK\Action\Stdafx.h" />
     <ClInclude Include="SDK\AimpObjectList.h" />
     <ClInclude Include="SDK\AimpPropertyList.h" />
+    <ClInclude Include="SDK\FileManager\AimpServiceFileFormats.h" />
+    <ClInclude Include="SDK\FileManager\AimpServiceFileInfo.h" />
+    <ClInclude Include="SDK\FileManager\AimpVirtualFile.h" />
     <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.h" />
     <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileSystem.h" />
     <ClInclude Include="SDK\FileManager\Stdafx.h" />

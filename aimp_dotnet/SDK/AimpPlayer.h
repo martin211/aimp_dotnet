@@ -21,6 +21,8 @@
 #include "SDK\Threading\AimpServiceThreadPool.h"
 #include "SDK\MusicLibrary\AimpServiceMusicLibrary.h"
 #include "SDK\MusicLibrary\AimpServiceMusicLibraryUI.h"
+#include "SDK\FileManager\AimpServiceFileFormats.h"
+#include "SDK\FileManager\AimpServiceFileInfo.h"
 
 
 namespace AIMP
@@ -61,6 +63,8 @@ namespace AIMP
         IAimpServiceThreadPool ^_serviceThreadPool;
         IAimpServiceMusicLibrary ^_serviceMusicLibrary;
         IAimpServiceMusicLibraryUI ^_serviceMusicLibraryUi;
+        IAimpServiceFileFormats ^_serviceFileFormats;
+        IAimpServiceFileInfo ^_serviceFileInfo;
 
         EventHandler<AIMP::SDK::Player::StateChangedEventArgs^> ^_onStateChanged;
         EventHandler ^_onLanguageChanged;
@@ -97,6 +101,8 @@ namespace AIMP
             delete _serviceThreadPool;
             delete _serviceMusicLibrary;
             delete _serviceMusicLibraryUi;
+            delete _serviceFileFormats;
+            delete _serviceFileInfo;
         }
 
         virtual property IAimpCore^ Core
@@ -516,6 +522,32 @@ namespace AIMP
                 }
 
                 return _serviceMusicLibraryUi;
+            }
+        }
+
+        virtual property IAimpServiceFileFormats ^ServiceFileFormats
+        {
+            IAimpServiceFileFormats ^get()
+            {
+                if (_serviceFileFormats == nullptr)
+                {
+                    _serviceFileFormats = gcnew AIMP::SDK::AimpServiceFileFormats((ManagedAimpCore^)_managedAimpCore);
+                }
+
+                return _serviceFileFormats;
+            }
+        }
+
+        virtual property IAimpServiceFileInfo ^ServiceFileInfo
+        {
+            IAimpServiceFileInfo ^get()
+            {
+                if (_serviceFileInfo == nullptr)
+                {
+                    _serviceFileInfo = gcnew AIMP::SDK::AimpServiceFileInfo((ManagedAimpCore^)_managedAimpCore);
+                }
+
+                return _serviceFileInfo;
             }
         }
 

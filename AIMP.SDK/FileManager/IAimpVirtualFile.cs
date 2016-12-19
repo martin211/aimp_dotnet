@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using AIMP.SDK.PlayList;
 
 namespace AIMP.SDK.FileManager
 {
