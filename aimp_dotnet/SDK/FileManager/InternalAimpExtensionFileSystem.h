@@ -58,7 +58,7 @@ public:
 
     virtual HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void **Value)
     {
-        System::Diagnostics::Debugger::Launch();
+        //System::Diagnostics::Debugger::Launch();
         if (PropertyID == AIMP_FILESYSTEM_PROPID_SCHEME)
         {
             IAIMPString *strObject = NULL;
@@ -66,7 +66,7 @@ public:
             pin_ptr<const WCHAR> strDate = PtrToStringChars(str);
             _core->CreateObject(IID_IAIMPString, (void**)&strObject);
             strObject->SetData((PWCHAR)strDate, str->Length);
-            Value = (void**)&strObject;
+            *Value = strObject;
             //ManagedAimpCore->GetAimpCore()->CreateObject(IID_IAIMPString, (void**)&str);
             //*Value = AIMP::SDK::AimpExtension::GetAimpString(_managed->Schema);
         }

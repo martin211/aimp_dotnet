@@ -17,9 +17,10 @@ namespace AIMP.SDK.FileManager
         /// <summary>
         /// Gets the availabel file formats.
         /// </summary>
+        /// <param name="flags"></param>
         /// <param name="formats">Out. File formats.</param>
         /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetFormats(out string formats);
+        AimpActionResult GetFormats(FileFormats flags, out string formats);
 
         /// <summary>
         /// Check is the file extension supported.

@@ -199,5 +199,9 @@ namespace AIMP.SDK.Player
         IAimpServiceMusicLibrary ServiceMusicLibrary { get; }
 
         IAimpServiceMusicLibraryUI ServiceMusicLibraryUi { get; }
+
+        IAimpServiceFileFormats ServiceFileFormats { get; }
+
+        IAimpServiceFileInfo ServiceFileInfo { get; }
     }
 }
