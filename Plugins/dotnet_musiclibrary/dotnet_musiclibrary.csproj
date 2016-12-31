@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DemoExtensionFileSystem.cs" />
     <Compile Include="ExplorerGroupingProvider\DataProviderGroupingTree.cs" />
     <Compile Include="ExplorerGroupingProvider\DataProviderGroupingTreeData.cs" />
     <Compile Include="ExplorerGroupingProvider\DataProviderGroupingTreeSelection.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="ExplorerMusicProvider\CustomAimpGroupingTreeDataProviderSelection.cs" />
     <Compile Include="DemoMusicLibrary.cs" />
     <Compile Include="MusicLibraryDemoPlugin.cs" />
+    <Compile Include="MyExtensionFileInfoProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExplorerMusicProvider\TDemoExplorerViewAbstractDataProviderSelection.cs" />
   </ItemGroup>
@@ -61,7 +63,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)CopyPlugin.cmd "AIMP4.12" "$(ConfigurationName)" "$(SolutionDir)" "$(TargetName)" "$(ProjectName)" "$(OutDir)" "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>$(SolutionDir)CopyPlugin.cmd "AIMP4.11" "$(ConfigurationName)" "$(SolutionDir)" "$(TargetName)" "$(ProjectName)" "$(OutDir)" "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

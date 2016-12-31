@@ -82,7 +82,7 @@ namespace AIMP
 
             HRESULT ShowNotification(bool autoHide, String ^notification);
 
-            IAIMPStream* CreateStream();
+            AimpActionResult CreateStream(IAIMPStream *stream);
 
             bool OnCheckUrl(String^ %url);
 

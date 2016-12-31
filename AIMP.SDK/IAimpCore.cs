@@ -41,5 +41,7 @@
         /// Occurs when [core message].
         /// </summary>
         event AimpEventsDelegate CoreMessage;
+
+        IAimpStream CreateStream();
     }
 }

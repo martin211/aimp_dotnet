@@ -1,6 +1,6 @@
 #include "Stdafx.h"
 #include "AimpExtensionAlbumArtCatalog.h"
-#include "..\SDK\PlayList\AimpFileInfo.h"
+#include "..\SDK\FileManager\AimpFileInfo.h"
 
 HRESULT WINAPI AimpExtensionAlbumArtCatalog::GetIcon(HICON **Image)
 {

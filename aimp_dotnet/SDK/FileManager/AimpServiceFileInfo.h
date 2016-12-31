@@ -58,7 +58,7 @@ namespace AIMP
                 }
             }
 
-            virtual AimpActionResult GetFileInfoFromStream(Stream ^fileStream, ServiceFileInfoFlags fileInfoFlags, IAimpFileInfo ^% fileInfo)
+            virtual AimpActionResult GetFileInfoFromStream(IAimpStream ^fileStream, ServiceFileInfoFlags fileInfoFlags, IAimpFileInfo ^% fileInfo)
             {
                 fileInfo = nullptr;
                 return AimpActionResult::NotImplemented;

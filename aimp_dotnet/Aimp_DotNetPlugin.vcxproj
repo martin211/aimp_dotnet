@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK\AimpObjectList.cpp" />
+    <ClCompile Include="SDK\AimpStream.cpp" />
+    <ClCompile Include="SDK\FileManager\AimpServiceFileStreaming.cpp" />
     <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpDataFilterGroup.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpGroupingPreset.cpp" />
@@ -50,9 +52,19 @@
     <ClInclude Include="SDK\Action\Stdafx.h" />
     <ClInclude Include="SDK\AimpObjectList.h" />
     <ClInclude Include="SDK\AimpPropertyList.h" />
+    <ClInclude Include="SDK\AimpStream.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileFormats.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileInfo.h" />
+    <ClInclude Include="SDK\FileManager\AimpServiceFileStreaming.h" />
+    <ClInclude Include="SDK\FileManager\AimpServiceFileSystems.h" />
     <ClInclude Include="SDK\FileManager\AimpVirtualFile.h" />
+    <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandFileInfo.h" />
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandCopyToClipboard.h" />
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDelete.h" />
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDropSource.h" />
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCustomFileCommand.h" />
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandFileInfo.h" />
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandOpenFileFolder.h" />
     <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.h" />
     <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileSystem.h" />
     <ClInclude Include="SDK\FileManager\Stdafx.h" />
