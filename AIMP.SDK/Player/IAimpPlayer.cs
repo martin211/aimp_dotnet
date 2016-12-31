@@ -203,5 +203,9 @@ namespace AIMP.SDK.Player
         IAimpServiceFileFormats ServiceFileFormats { get; }
 
         IAimpServiceFileInfo ServiceFileInfo { get; }
+
+        IAimpServiceFileSystems ServiceFileSystems { get; }
+
+        IAimpServiceFileStreaming ServiceFileStreaming { get; }
     }
 }

@@ -508,11 +508,12 @@ namespace AIMP
         /// <summary>
         /// Creates the new AIMP stream.
         /// </summary>
-        IAIMPStream* ManagedAimpCore::CreateStream()
+        AimpActionResult ManagedAimpCore::CreateStream(IAIMPStream* stream)
         {
-            IAIMPStream* stream;
-            _core->CreateObject(IID_IAIMPMemoryStream, (void**)&stream);
-            return stream;
+            IAIMPStream* s = NULL;
+            AimpActionResult result = Utils::CheckResult(_core->CreateObject(IID_IAIMPMemoryStream, (void**)&s));
+            stream = s;
+            return result;
         }
 
         IAIMPCore* ManagedAimpCore::GetAimpCore()

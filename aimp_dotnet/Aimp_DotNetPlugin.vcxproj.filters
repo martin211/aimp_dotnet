@@ -126,6 +126,12 @@
     <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.cpp">
       <Filter>SDK\FileManager</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\AimpStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\AimpServiceFileStreaming.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -447,6 +453,36 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\FileManager\AimpVirtualFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\AimpServiceFileSystems.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandFileInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandOpenFileFolder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCustomFileCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AimpStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\AimpServiceFileStreaming.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandFileInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandCopyToClipboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDelete.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDropSource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

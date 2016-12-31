@@ -23,6 +23,8 @@
 #include "SDK\MusicLibrary\AimpServiceMusicLibraryUI.h"
 #include "SDK\FileManager\AimpServiceFileFormats.h"
 #include "SDK\FileManager\AimpServiceFileInfo.h"
+#include "SDK\FileManager\AimpServiceFileSystems.h"
+#include "SDK\FileManager\AimpServiceFileStreaming.h"
 
 
 namespace AIMP
@@ -65,6 +67,8 @@ namespace AIMP
         IAimpServiceMusicLibraryUI ^_serviceMusicLibraryUi;
         IAimpServiceFileFormats ^_serviceFileFormats;
         IAimpServiceFileInfo ^_serviceFileInfo;
+        IAimpServiceFileSystems ^_serviceFileSystems;
+        IAimpServiceFileStreaming ^_serviceFileStreaming;
 
         EventHandler<AIMP::SDK::Player::StateChangedEventArgs^> ^_onStateChanged;
         EventHandler ^_onLanguageChanged;
@@ -548,6 +552,32 @@ namespace AIMP
                 }
 
                 return _serviceFileInfo;
+            }
+        }
+
+        virtual property IAimpServiceFileSystems ^ServiceFileSystems
+        {
+            IAimpServiceFileSystems ^get()
+            {
+                if (_serviceFileSystems == nullptr)
+                {
+                    _serviceFileSystems = gcnew AIMP::SDK::AimpServiceFileSystems((ManagedAimpCore^)_managedAimpCore);
+                }
+
+                return _serviceFileSystems;
+            }
+        }
+
+        virtual property IAimpServiceFileStreaming ^ServiceFileStreaming
+        {
+            IAimpServiceFileStreaming ^get()
+            {
+                if (_serviceFileStreaming == nullptr)
+                {
+                    _serviceFileStreaming = gcnew AIMP::SDK::AimpServiceFileStreaming((ManagedAimpCore^)_managedAimpCore);
+                }
+
+                return _serviceFileStreaming;
             }
         }
 

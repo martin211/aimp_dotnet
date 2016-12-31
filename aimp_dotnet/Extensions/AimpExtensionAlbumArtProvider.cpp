@@ -1,6 +1,6 @@
 #include "Stdafx.h"
 #include "AimpExtensionAlbumArtProvider.h"
-#include "..\SDK\PlayList\AimpFileInfo.h"
+#include "..\SDK\FileManager\AimpFileInfo.h"
 #include "..\SDK\AlbumArt\AimpAlbumArtSearchOptions.h"
 
 HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString *FileURI, IAIMPString *Artist, IAIMPString *Album, IAIMPPropertyList *Options, IAIMPImageContainer **Image)

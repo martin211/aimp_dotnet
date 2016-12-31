@@ -1,6 +1,4 @@
-﻿using AIMP.DotNet.MusicLibrary.ExplorerMusicProvider;
-using AIMP.SDK;
-using AIMP.SDK.MusicLibrary.DataStorage;
+﻿using AIMP.SDK;
 
 namespace AIMP.DotNet.MusicLibrary
 {
@@ -10,6 +8,20 @@ namespace AIMP.DotNet.MusicLibrary
         public override void Initialize()
         {
             var demoLibrary = new DemoMusicLibrary(this.Player);
+            var schemaExtension = new DemoExtensionFileSystem();
+            var fileINfoProvider = new MyExtensionFileInfoProvider();
+
+
+            if (Player.Core.RegisterExtension(schemaExtension) != AimpActionResult.Ok)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+            if (Player.Core.RegisterExtension(fileINfoProvider) != AimpActionResult.Ok)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
             if (Player.Core.RegisterExtension(demoLibrary) != AimpActionResult.Ok)
             {
                 System.Diagnostics.Debugger.Break();

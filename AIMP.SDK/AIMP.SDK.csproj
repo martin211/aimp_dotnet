@@ -79,12 +79,14 @@
     <Compile Include="FileManager\IAimpServiceFileInfoFormatterUtils.cs" />
     <Compile Include="FileManager\IAimpServiceFileManager.cs" />
     <Compile Include="FileManager\IAimpServiceFileStreaming.cs" />
-    <Compile Include="FileManager\IAIMPServiceFileSystems.cs" />
+    <Compile Include="FileManager\IAimpServiceFileSystems.cs" />
     <Compile Include="FileManager\IAimpVirtualFile.cs" />
+    <Compile Include="FileManager\AimpFileAttributes.cs" />
     <Compile Include="IAimpConfig.cs" />
     <Compile Include="IAimpDisposeable.cs" />
     <Compile Include="IAimpExternalSettingsDialog.cs" />
     <Compile Include="IAimpObjectList.cs" />
+    <Compile Include="IAimpStream.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="MenuManager\IAimpMenuEvents.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilter.cs" />
