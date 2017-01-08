@@ -220,7 +220,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
             var fi = new FileInfo(CurrentItem);
             if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_FileName))
             {
-                return $"myschema://Audios/{fi.Name}";// fi.FullName;
+                return $"myschema://{fi.FullName}";// fi.FullName;
             }
 
             if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_FileFormat))

@@ -62,6 +62,7 @@
     <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandCopyToClipboard.h" />
     <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDelete.h" />
     <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDropSource.h" />
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandStreaming.h" />
     <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCustomFileCommand.h" />
     <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandFileInfo.h" />
     <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandOpenFileFolder.h" />
