@@ -13,7 +13,7 @@ namespace AIMP.SDK.FileManager.Extensions
         /// <param name="fileUri">The virtual file name.</param>
         /// <param name="fileInfo">Out. File information/</param>
         /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetFileInfo(string fileUri, out IAimpFileInfo fileInfo);
+        AimpActionResult GetFileInfo(string fileUri, ref IAimpFileInfo fileInfo);
 
         /// <summary>
         /// Returns the file information. This method slowes then get info by file name.
@@ -21,6 +21,6 @@ namespace AIMP.SDK.FileManager.Extensions
         /// <param name="stream">The file stream.</param>
         /// <param name="fileInfo">Out. File information/</param>
         /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetFileInfo(Stream stream, out IAimpFileInfo fileInfo);
+        AimpActionResult GetFileInfo(Stream stream, ref IAimpFileInfo fileInfo);
     }
 }

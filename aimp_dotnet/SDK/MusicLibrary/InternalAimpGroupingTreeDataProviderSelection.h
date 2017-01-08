@@ -10,14 +10,15 @@ namespace AIMP
         using namespace AIMP::SDK::MusicLibrary::DataFilter;
         using namespace AIMP::SDK::MusicLibrary::DataStorage;
 
-        class InternalAimpGroupingTreeDataProviderSelection :
-            public IAIMPMLGroupingTreeDataProviderSelection
+        class InternalAimpGroupingTreeDataProviderSelection : public IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProviderSelection>
         {
         private:
             ULONG _LinkCounter = 1;
             gcroot<IAimpGroupingTreeDataProviderSelection^> _managedInstance;
 
         public:
+            typedef IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProviderSelection> Base;
+
             explicit InternalAimpGroupingTreeDataProviderSelection(gcroot<IAimpGroupingTreeDataProviderSelection^> managedInstance)
             {
                 _managedInstance = managedInstance;
@@ -78,26 +79,18 @@ namespace AIMP
 
             virtual ULONG WINAPI AddRef(void)
             {
-                _LinkCounter++;
-                System::Diagnostics::Debug::WriteLine("InternalAimpGroupingTreeDataProviderSelection: AddRef. _LinkCounter: " + _LinkCounter);
-                return _LinkCounter;
+                return Base::AddRef();
             }
 
             virtual ULONG WINAPI Release(void)
             {
-                _LinkCounter--;
-                System::Diagnostics::Debug::WriteLine("InternalAimpGroupingTreeDataProviderSelection: Release. _LinkCounter: " + _LinkCounter);
-
-                if (_LinkCounter == 0) {
-                    delete this;
-                    return 0;
-                }
-
-                return _LinkCounter;
+                return Base::Release();
             }
 
             virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
             {
+                HRESULT res = Base::QueryInterface(riid, ppvObject);
+
                 if (riid == IID_IAIMPMLGroupingTreeDataProviderSelection)
                 {
                     *ppvObject = this;
@@ -106,7 +99,7 @@ namespace AIMP
                 }
 
                 *ppvObject = NULL;
-                return E_NOINTERFACE;
+                return res;
             }
         };
     }

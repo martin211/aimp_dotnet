@@ -1,6 +1,9 @@
 #pragma once
 
 #include <Unknwn.h>
+#ifdef _DEBUG
+#include <atlbase.h>
+#endif
 
 //! Helper implements IUnknown interface.
 template <typename T>
@@ -17,10 +20,11 @@ public:
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
     {
-        if (riid == IID_IUnknown)
-        {
-            return S_OK;
-        }
+#ifdef _DEBUG
+        CComBSTR guidBstr(riid);
+        System::Diagnostics::Debug::WriteLine("QueryInterface: " + gcnew System::String(guidBstr));
+#endif
+
         return E_NOTIMPL;
     }
 

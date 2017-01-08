@@ -7,17 +7,16 @@ namespace AIMP.DotNet.MusicLibrary
 {
     public class MyExtensionFileInfoProvider : IAimpExtensionFileInfoProvider, IAimpExtension
     {
-        public AimpActionResult GetFileInfo(string fileUri, out IAimpFileInfo fileInfo)
+        public AimpActionResult GetFileInfo(string fileUri, ref IAimpFileInfo fileInfo)
         {
-            System.Diagnostics.Debugger.Break();
-            fileInfo = null;
+            fileInfo.Artist = "test";
+            //fileInfo = null;
             return AimpActionResult.Ok;
         }
 
-        public AimpActionResult GetFileInfo(Stream stream, out IAimpFileInfo fileInfo)
+        public AimpActionResult GetFileInfo(Stream stream, ref IAimpFileInfo fileInfo)
         {
-            System.Diagnostics.Debugger.Break();
-            fileInfo = null;
+            //fileInfo = null;
             return AimpActionResult.Ok;
         }
     }

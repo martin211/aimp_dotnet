@@ -316,7 +316,7 @@ namespace AIMP
 
                 InternalAimpExtensionFileSystem *ext = new InternalAimpExtensionFileSystem(extensionFileSystem, _core);
 
-                return _core->RegisterExtension(IID_IAIMPServiceFileSystems, ext);
+                return _core->RegisterExtension(IID_IAIMPServiceFileSystems, (IAIMPExtensionFileSystem*)ext);
             }
 
             return E_UNEXPECTED;

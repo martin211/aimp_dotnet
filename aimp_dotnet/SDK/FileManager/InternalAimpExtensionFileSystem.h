@@ -4,6 +4,7 @@
 #include "Commands\InternalAimpFileSystemCommandCopyToClipboard.h"
 #include "Commands\InternalAimpFileSystemCommandDelete.h"
 #include "Commands\InternalAimpFileSystemCommandDropSource.h"
+#include "Commands\InternalAimpFileSystemCommandStreaming.h"
 
 using namespace AIMP::SDK::FileManager::Commands;
 
@@ -13,11 +14,12 @@ private:
     gcroot<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileSystem^> _managed;
     IAIMPCore *_core;
 
-    InternalAimpFileSystemCommandFileInfo *_commandFileInfo;
-    InternalAimpFileSystemCommandOpenFileFolder *_commandOpenFileFolder;
-    InternalAimpFileSystemCommandCopyToClipboard *_commandCopyToClipboard;
-    InternalAimpFileSystemCommandDelete *_commandDelete;
-    InternalAimpFileSystemCommandDropSource *_commandDropSource;
+    InternalAimpFileSystemCommandFileInfo *_commandFileInfo = NULL;
+    InternalAimpFileSystemCommandOpenFileFolder *_commandOpenFileFolder = NULL;
+    InternalAimpFileSystemCommandCopyToClipboard *_commandCopyToClipboard = NULL;
+    InternalAimpFileSystemCommandDelete *_commandDelete = NULL;
+    InternalAimpFileSystemCommandDropSource *_commandDropSource = NULL;
+    InternalAimpFileSystemCommandStreaming *_commandStreaming = NULL;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionFileSystem> Base;
@@ -33,31 +35,25 @@ public:
         IAimpFileSystemCommandCopyToClipboard ^copyToClipboardCommand = dynamic_cast<IAimpFileSystemCommandCopyToClipboard^>(obj);
         IAimpFileSystemCommandDelete ^deleteCommand = dynamic_cast<IAimpFileSystemCommandDelete^>(obj);
         IAimpFileSystemCommandDropSource ^dropSourceCommand = dynamic_cast<IAimpFileSystemCommandDropSource^>(obj);
+        IAimpFileSystemCommandStreaming ^streamingCommand = dynamic_cast<IAimpFileSystemCommandStreaming^>(obj);
 
         if (fileInfoCommand != nullptr)
-        {
             _commandFileInfo = new InternalAimpFileSystemCommandFileInfo(fileInfoCommand);
-        }
 
         if (openFileFolderCommand != nullptr)
-        {
             _commandOpenFileFolder = new InternalAimpFileSystemCommandOpenFileFolder(openFileFolderCommand);
-        }
 
         if (copyToClipboardCommand != nullptr)
-        {
             _commandCopyToClipboard = new InternalAimpFileSystemCommandCopyToClipboard(copyToClipboardCommand);
-        }
 
         if (deleteCommand != nullptr)
-        {
             _commandDelete = new InternalAimpFileSystemCommandDelete(deleteCommand);
-        }
 
         if (dropSourceCommand != nullptr)
-        {
             _commandDropSource = new InternalAimpFileSystemCommandDropSource(dropSourceCommand);
-        }
+
+        if (streamingCommand != nullptr)
+            _commandStreaming = new InternalAimpFileSystemCommandStreaming(streamingCommand);
     }
 
     virtual void WINAPI BeginUpdate()
@@ -144,8 +140,28 @@ public:
         return E_NOTIMPL;
     }
 
+    virtual HRESULT WINAPI GetFileAttrs(IAIMPString* FileName, TAIMPFileAttributes* Attrs)
+    {
+        System::Diagnostics::Debug::WriteLine("GetFileAttrs");
+        return S_OK;
+    }
+
+    virtual HRESULT WINAPI GetFileSize(IAIMPString* FileName, INT64* Size)
+    {
+        System::Diagnostics::Debug::WriteLine("GetFileSize");
+        return S_OK;
+    }
+
+    virtual HRESULT WINAPI IsFileExists(IAIMPString* FileName)
+    {
+        System::Diagnostics::Debug::WriteLine("IsFileExists");
+        return S_OK;
+    }
+
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
     {
+        HRESULT res = Base::QueryInterface(riid, ppvObject);
+
         if (!ppvObject)
         {
             return E_POINTER;
@@ -158,25 +174,44 @@ public:
             return S_OK;
         }
 
-        if (riid == IID_IAIMPFileSystemCommandFileInfo && _commandFileInfo != NULL)
+        if (riid == IID_IAIMPFileSystemCommandFileInfo)
         {
-            return _commandFileInfo->QueryInterface(riid, ppvObject);
+            if (_commandFileInfo != NULL)
+                return _commandFileInfo->QueryInterface(riid, ppvObject);
         }
 
-        if (riid == IID_IAIMPFileSystemCommandOpenFileFolder && _commandOpenFileFolder != NULL)
+        if (riid == IID_IAIMPFileSystemCommandOpenFileFolder)
         {
-            return _commandOpenFileFolder->QueryInterface(riid, ppvObject);
+            if (_commandOpenFileFolder != NULL)
+                return _commandOpenFileFolder->QueryInterface(riid, ppvObject);
         }
 
-        if (riid == IID_IAIMPFileSystemCommandCopyToClipboard && _commandCopyToClipboard != NULL)
+        if (riid == IID_IAIMPFileSystemCommandCopyToClipboard)
         {
-            return _commandCopyToClipboard->QueryInterface(riid, ppvObject);
+            if (_commandCopyToClipboard != NULL)
+                return _commandCopyToClipboard->QueryInterface(riid, ppvObject);
         }
 
-        if (riid == IID_IAIMPFileSystemCommandDropSource && _commandDropSource != NULL)
+        if (riid == IID_IAIMPFileSystemCommandDropSource)
         {
-            return _commandDropSource->QueryInterface(riid, ppvObject);
+            if (_commandDropSource != NULL)
+                return _commandDropSource->QueryInterface(riid, ppvObject);
         }
+
+        if (riid == IID_IAIMPFileSystemCommandStreaming)
+        {
+            if (_commandStreaming != NULL)
+                return _commandStreaming->QueryInterface(riid, ppvObject);
+        }
+
+        if (riid == IID_IAIMPFileSystemCommandDelete)
+        {
+            if (_commandDelete != NULL)
+                return _commandDelete->QueryInterface(riid, ppvObject);
+        }
+
+        ppvObject = NULL;
+        return res;
     }
 
     virtual ULONG WINAPI AddRef(void)
@@ -186,7 +221,6 @@ public:
 
     virtual ULONG WINAPI Release(void)
     {
-        System::Diagnostics::Debug::WriteLine("Release");
         return Base::Release();
     }
 };
