@@ -1,11 +1,10 @@
-﻿namespace dotnet_albumart
+﻿using AIMP.SDK.FileManager;
+
+namespace dotnet_albumart
 {
     using System.Drawing;
-    using System.Runtime.InteropServices.WindowsRuntime;
-
     using AIMP.SDK;
     using AIMP.SDK.AlbumArtManager;
-    using AIMP.SDK.PlayList;
 
     public class AimpExtensionAlbumArtProvider : IAimpExtensionAlbumArtProvider
     {
