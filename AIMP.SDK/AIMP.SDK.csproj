@@ -62,9 +62,59 @@
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtCatalog2.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtProvider.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtProvider2.cs" />
+    <Compile Include="FileManager\Commands\IAimpFileSystemCommand.cs" />
+    <Compile Include="FileManager\Commands\IAimpFileSystemCommandCopyToClipboard.cs" />
+    <Compile Include="FileManager\Commands\IAimpFileSystemCommandDelete.cs" />
+    <Compile Include="FileManager\Commands\IAimpFileSystemCommandDropSource.cs" />
+    <Compile Include="FileManager\Commands\IAimpFileSystemCommandFileInfo.cs" />
+    <Compile Include="FileManager\Commands\IAimpFileSystemCommandOpenFileFolder.cs" />
+    <Compile Include="FileManager\Commands\IAimpFileSystemCommandStreaming.cs" />
+    <Compile Include="FileManager\Commands\IAimpFileSystemCustomFileCommand.cs" />
+    <Compile Include="FileManager\Extensions\IAimpExtensionFileExpander.cs" />
+    <Compile Include="FileManager\Extensions\IAimpExtensionFileFormat.cs" />
+    <Compile Include="FileManager\Extensions\IAimpExtensionFileInfoProvider.cs" />
+    <Compile Include="FileManager\Extensions\IAimpExtensionFileSystem.cs" />
+    <Compile Include="FileManager\IAimpServiceFileFormats.cs" />
+    <Compile Include="FileManager\IAimpServiceFileInfo.cs" />
+    <Compile Include="FileManager\IAimpServiceFileInfoFormatterUtils.cs" />
+    <Compile Include="FileManager\IAimpServiceFileManager.cs" />
+    <Compile Include="FileManager\IAimpServiceFileStreaming.cs" />
+    <Compile Include="FileManager\IAimpServiceFileSystems.cs" />
+    <Compile Include="FileManager\IAimpVirtualFile.cs" />
+    <Compile Include="FileManager\AimpFileAttributes.cs" />
+    <Compile Include="IAimpConfig.cs" />
     <Compile Include="IAimpDisposeable.cs" />
     <Compile Include="IAimpExternalSettingsDialog.cs" />
+    <Compile Include="IAimpObjectList.cs" />
+    <Compile Include="IAimpStream.cs" />
     <Compile Include="Logger\ILogger.cs" />
+    <Compile Include="MenuManager\IAimpMenuEvents.cs" />
+    <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilter.cs" />
+    <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilterByArray.cs" />
+    <Compile Include="MusicLibrary\DataFilter\IAimpDataFilterGroup.cs" />
+    <Compile Include="MusicLibrary\DataStorage\IAimpDataField.cs" />
+    <Compile Include="MusicLibrary\DataStorage\IAimpDataStorage.cs" />
+    <Compile Include="MusicLibrary\DataStorage\IAimpGroupingTreeDataProvider.cs" />
+    <Compile Include="MusicLibrary\DataStorage\IAimpGroupingTreeDataProviderSelection.cs" />
+    <Compile Include="MusicLibrary\DataStorage\IAimpGroupingTreeSelection.cs" />
+    <Compile Include="MusicLibrary\Extension\Command\IAimpDataStorageCommandAddFiles.cs" />
+    <Compile Include="MusicLibrary\Extension\Command\IAimpDataStorageCommandAddFilesDialog.cs" />
+    <Compile Include="MusicLibrary\Extension\Command\IAimpDataStorageCommandDeleteFiles.cs" />
+    <Compile Include="MusicLibrary\Extension\Command\IAimpDataStorageCommandDropData.cs" />
+    <Compile Include="MusicLibrary\Extension\Command\IAimpDataStorageCommandReloadTags.cs" />
+    <Compile Include="MusicLibrary\Extension\Command\IAimpDataStorageCommandReportDialog.cs" />
+    <Compile Include="MusicLibrary\Extension\Command\IAimpDataStorageCommandUserMark.cs" />
+    <Compile Include="MusicLibrary\IAimpDataFilter.cs" />
+    <Compile Include="MusicLibrary\DataStorage\IAimpDataProvider.cs" />
+    <Compile Include="MusicLibrary\IAimpDataProviderSelection.cs" />
+    <Compile Include="MusicLibrary\IAimpDataStorageManager.cs" />
+    <Compile Include="MusicLibrary\Extension\IAimpExtensionDataStorage.cs" />
+    <Compile Include="MusicLibrary\IAimpFileList.cs" />
+    <Compile Include="MusicLibrary\Presets\IAimpGroupingPreset.cs" />
+    <Compile Include="MusicLibrary\Presets\IAimpGroupingPresets.cs" />
+    <Compile Include="MusicLibrary\IAimpServiceMusicLibrary.cs" />
+    <Compile Include="MusicLibrary\IAimpServiceMusicLibraryUI.cs" />
+    <Compile Include="MusicLibrary\Presets\IAimpGroupingPresetStandard.cs" />
     <Compile Include="PlayList\IAimpPlaylistListener.cs" />
     <Compile Include="PlayList\IAimpPlaylistQueueListener.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -78,8 +128,8 @@
     <Compile Include="Playback\IAimpPlaybackQueueItem.cs" />
     <Compile Include="PlayList\IAimpPlaylistQueue.cs" />
     <Compile Include="PlayList\AimpPlayListEventArgs.cs" />
-    <Compile Include="Threading\IAimpAsyncTask.cs" />
-    <Compile Include="Threading\IAimpAsyncTaskOwner.cs" />
+    <Compile Include="Threading\IAimpTask.cs" />
+    <Compile Include="Threading\IAimpTaskOwner.cs" />
     <Compile Include="Threading\IAimpServiceSynchronizer.cs" />
     <Compile Include="Threading\IAimpServiceThreadPool.cs" />
     <Compile Include="Threading\IAimpTaskPriority.cs" />
@@ -108,7 +158,7 @@
     <Compile Include="MenuManager\IAimpMenuItem.cs" />
     <Compile Include="MenuManager\IAimpMenuManager.cs" />
     <Compile Include="MUIManager\IAimpMUIManager.cs" />
-    <Compile Include="PlayList\IAimpFileInfo.cs" />
+    <Compile Include="FileManager\IAimpFileInfo.cs" />
     <Compile Include="PlayList\IAimpPlayList.cs" />
     <Compile Include="PlayList\IAimpPlayListGroup.cs" />
     <Compile Include="PlayList\IAimpPlayListItem.cs" />
@@ -127,6 +177,7 @@
   <ItemGroup>
     <None Include="Resources\1424983248_control-center2.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

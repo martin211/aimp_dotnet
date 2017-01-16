@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "SDK\AimpExtensionBase.h"
+#include "AimpStream.h"
 
 namespace AIMP
 {
@@ -94,6 +95,17 @@ namespace AIMP
                         _coreMessageHandler(param1, param2);
                     }
                 }
+            }
+
+            virtual IAimpStream^ CreateStream()
+            {
+                IAIMPStream *stream = NULL;
+                if (_aimpCore->CreateStream(stream) == AimpActionResult::Ok)
+                {
+                    return gcnew AIMP::SDK::AimpStream(stream);
+                }
+
+                return nullptr;
             }
 
         internal:

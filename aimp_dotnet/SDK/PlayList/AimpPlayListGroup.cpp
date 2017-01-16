@@ -1,4 +1,4 @@
-#include "..\..\Stdafx.h"
+#include "Stdafx.h"
 #include "..\ManagedAimpCore.h"
 #include "AimpPlayListGroup.h"
 #include "AimpPlayListItem.h"
@@ -16,6 +16,7 @@ namespace AIMP
 
         AimpPlayListGroup::AimpPlayListGroup(IAIMPPlaylistGroup *item) : AimpObject(item)
         {
+            _item = nullptr;
         }
 
         System::String^ AimpPlayListGroup::Name::get()

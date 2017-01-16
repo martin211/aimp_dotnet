@@ -1,4 +1,4 @@
-#include "..\..\Stdafx.h"
+#include "Stdafx.h"
 #include "AimpMenuManager.h"
 
 namespace AIMP
@@ -96,8 +96,7 @@ namespace AIMP
         /// <param name="item">The item.</param>
         AimpActionResult AimpMenuManager::Delete(IAimpMenuItem ^item)
         {
-            delete item;
-            return AimpActionResult::Ok;
+            return this->Delete(item->Id);
         }
 
         /// <summary>
@@ -132,8 +131,7 @@ namespace AIMP
                     //    System::Diagnostics::Debugger::Break();
                     //}
 
-                    UnregisterMenu(aimpMenuItem);
-                    
+                    return Utils::CheckResult(UnregisterMenu(aimpMenuItem));
                 }
 
                 return AimpActionResult::Unexpected;

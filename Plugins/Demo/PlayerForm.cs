@@ -94,11 +94,6 @@ namespace DemoPlugin
 
         public new void Dispose()
         {
-            foreach (var playList in _playLists)
-            {
-                playList.Release();
-            }
-
             base.Dispose();
         }
 

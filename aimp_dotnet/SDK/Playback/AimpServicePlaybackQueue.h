@@ -32,9 +32,12 @@ namespace AIMP
                 {
                     if (CheckResult(_core->GetService(IID_IAIMPServicePlaybackQueue, (void**)&service)) == AimpActionResult::Ok)
                     {
-                        if (CheckResult(service->GetNextTrack(&item)) == AimpActionResult::Ok)
+                        if (service != NULL)
                         {
-                            return gcnew AimpPlaybackQueueItem(item);
+                            if (CheckResult(service->GetNextTrack(&item)) == AimpActionResult::Ok)
+                            {
+                                return gcnew AimpPlaybackQueueItem(item);
+                            }
                         }
                     }
                 }
@@ -63,9 +66,17 @@ namespace AIMP
 
                 try
                 {
-                    if (CheckResult(service->GetPrevTrack(&item)) == AimpActionResult::Ok)
+                    if (CheckResult(_core->GetService(IID_IAIMPServicePlaybackQueue, (void**)&service)) == AimpActionResult::Ok)
                     {
-                        return gcnew AimpPlaybackQueueItem(item);
+                        if (service == NULL)
+                        {
+                            return nullptr;
+                        }
+
+                        if (CheckResult(service->GetPrevTrack(&item)) == AimpActionResult::Ok)
+                        {
+                            return gcnew AimpPlaybackQueueItem(item);
+                        }
                     }
                 }
                 finally
@@ -82,7 +93,7 @@ namespace AIMP
                         item = NULL;
                     }
                 }
-                
+
                 return nullptr;
             }
 

@@ -1,4 +1,4 @@
-#include "..\..\Stdafx.h"
+#include "Stdafx.h"
 #include "AimpExtensionEmbeddedVisualization.h"
 #include "..\..\SDK\AimpExtension.h"
 
@@ -43,9 +43,9 @@ HRESULT AimpExtensionEmbeddedVisualization::GetName(IAIMPString **S)
     return r;
 }
 
-void AimpExtensionEmbeddedVisualization::Initialize(int Width, int Height)
+HRESULT AimpExtensionEmbeddedVisualization::Initialize(int Width, int Height)
 {
-    _managedObject->Initialize(Width, Height);
+    return (HRESULT)_managedObject->Initialize(Width, Height);
 }
 
 void AimpExtensionEmbeddedVisualization::Finalize()

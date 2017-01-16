@@ -29,7 +29,7 @@ namespace AIMP
 
                 virtual AimpActionResult FrameShow(IAimpOptionsDialogFrame ^frame, bool forceShow)
                 {
-                    return CheckResult(_service->FrameShow(_core->GetOptionsFrame()));
+                    return CheckResult(_service->FrameShow(_core->GetOptionsFrame(), forceShow));
                 }
         };
     }

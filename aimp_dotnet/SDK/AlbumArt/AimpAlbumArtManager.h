@@ -1,7 +1,7 @@
 #pragma once
 
 #include "..\BaseManager.h"
-#include "..\PlayList\AimpFileInfo.h"
+#include "..\FileManager\AimpFileInfo.h"
 
 namespace AIMP
 {
@@ -348,7 +348,7 @@ namespace AIMP
                 return IntPtr::Zero;
             }
 
-            virtual IntPtr GetImage(AIMP::SDK::PlayList::IAimpFileInfo^ fileInfo, AimpFingCovertArtType flags, Object^ userData)
+            virtual IntPtr GetImage(AIMP::SDK::FileManager::IAimpFileInfo^ fileInfo, AimpFingCovertArtType flags, Object^ userData)
             {
                 void* taskId = nullptr;
                 _findCallback = gcnew OnFindCoverCallback(this, &AIMP::AimpAlbumArtManager::OnAlbumArtReceive);

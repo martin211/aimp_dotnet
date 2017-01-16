@@ -1,4 +1,4 @@
-#include "..\Stdafx.h"
+#include "Stdafx.h"
 #include "ManagedAimpCore.h"
 #include "..\IUnknownInterfaceImpl.h"
 #include "PlayList\AimpPlayList.h"
@@ -6,6 +6,7 @@
 #include "..\Extensions\OptionsDialogFrameExtension.h"
 #include "..\Extensions\AimpExtensionAlbumArtCatalog.h"
 #include "..\Extensions\AimpExtensionPlaylistManagerListener.h"
+
 
 namespace AIMP
 {
@@ -94,8 +95,6 @@ namespace AIMP
         ManagedAimpCore::ManagedAimpCore(IAIMPCore* core)
         {
             _core = core;
-            _nativeEventHelper = new EventHelper();
-
             IAIMPServiceMessageDispatcher* aimp_service_message_dispatcher;
             core->QueryInterface(IID_IAIMPServiceMessageDispatcher, reinterpret_cast<void**>(&aimp_service_message_dispatcher));
             _hook = new AIMPMessageHook(this);
@@ -153,6 +152,27 @@ namespace AIMP
                 _playlistManagerListener->Release();
                 _playlistManagerListener = NULL;
             }
+
+            if (_musicLibraryDataStorage != NULL)
+            {
+                _core->UnregisterExtension(this->_musicLibraryDataStorage);
+                _musicLibraryDataStorage->Release();
+                _musicLibraryDataStorage = NULL;
+            }
+
+            if (_fileInfoExtensionProvider != NULL)
+            {
+                _core->UnregisterExtension(static_cast<InternalAimpExtensionFileInfoProvider::Base*>(_fileInfoExtensionProvider));
+                _fileInfoExtensionProvider->Release();
+                _fileInfoExtensionProvider = NULL;
+            }
+
+            if (_extensionFileSystem != NULL)
+            {
+                _extensionFileSystem->Release();
+                _extensionFileSystem = NULL;
+            }
+
             _core->Release();
         }
 
@@ -258,6 +278,45 @@ namespace AIMP
                 AimpExtensionPlaylistManagerListener *ext = new AimpExtensionPlaylistManagerListener((IAimpExtensionPlaylistManagerListenerExecutor^)extension);
                 _playlistManagerListener = ext;
                 return _core->RegisterExtension(IID_IAIMPServicePlaylistManager, _playlistManagerListener);
+            }
+
+            AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage ^dataStorageExtension = dynamic_cast<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^>(extension);
+            if (dataStorageExtension != nullptr)
+            {
+                if (_musicLibraryDataStorage != NULL)
+                {
+                    return E_FAIL;
+                }
+
+                AimpExtensionDataStorage *ext = new AimpExtensionDataStorage(_core, dataStorageExtension);
+                _musicLibraryDataStorage = ext;
+                return _core->RegisterExtension(IID_IAIMPServiceMusicLibrary, ext);
+            }
+
+            AIMP::SDK::FileManager::Extensions::IAimpExtensionFileInfoProvider ^fileInfoProviderExtension = dynamic_cast<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileInfoProvider^>(extension);
+            if (fileInfoProviderExtension != nullptr)
+            {
+                if (_fileInfoExtensionProvider != NULL)
+                {
+                    return E_FAIL;
+                }
+
+                InternalAimpExtensionFileInfoProvider *ext = new InternalAimpExtensionFileInfoProvider(fileInfoProviderExtension);
+                _fileInfoExtensionProvider = ext;
+                return _core->RegisterExtension(IID_IAIMPServiceFileInfo, static_cast<InternalAimpExtensionFileInfoProvider::Base*>(ext));
+            }
+
+            AIMP::SDK::FileManager::Extensions::IAimpExtensionFileSystem ^extensionFileSystem = dynamic_cast<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileSystem^>(extension);
+            if (extensionFileSystem != nullptr)
+            {
+                if (_extensionFileSystem != NULL)
+                {
+                    return E_FAIL;
+                }
+
+                InternalAimpExtensionFileSystem *ext = new InternalAimpExtensionFileSystem(extensionFileSystem, _core);
+
+                return _core->RegisterExtension(IID_IAIMPServiceFileSystems, (IAIMPExtensionFileSystem*)ext);
             }
 
             return E_UNEXPECTED;
@@ -449,11 +508,12 @@ namespace AIMP
         /// <summary>
         /// Creates the new AIMP stream.
         /// </summary>
-        IAIMPStream* ManagedAimpCore::CreateStream()
+        AimpActionResult ManagedAimpCore::CreateStream(IAIMPStream* stream)
         {
-            IAIMPStream* stream;
-            _core->CreateObject(IID_IAIMPMemoryStream, (void**)&stream);
-            return stream;
+            IAIMPStream* s = NULL;
+            AimpActionResult result = Utils::CheckResult(_core->CreateObject(IID_IAIMPMemoryStream, (void**)&s));
+            stream = s;
+            return result;
         }
 
         IAIMPCore* ManagedAimpCore::GetAimpCore()

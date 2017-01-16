@@ -1,21 +1,9 @@
 ﻿#pragma once
 #include "AimpPlayListItem.h"
-#include "..\..\IUnknownInterfaceImpl.h"
-#include "AimpFileInfo.h"
+#include "..\FileManager\AimpFileInfo.h"
 
 namespace AIMP
 {
-    typedef boost::signals::connection ConnectionCallback;
-    typedef boost::signal<void(void)> VoidSignal;
-    typedef boost::signal<void(int)> IntSignal;
-    typedef boost::signal<void(double)> DoubleSignal;
-    typedef boost::signal<void(BOOL, BOOL)> ScanningEndSignal;
-
-    typedef boost::signal<void(void)>::slot_function_type VoidSignalCB;
-    typedef boost::signal<void(double)>::slot_function_type DoubleSignalCB;
-    typedef boost::signal<void(int)>::slot_function_type DwordSignalCB;
-    typedef boost::signal<void(BOOL, BOOL)>::slot_function_type  ScanningEndSignalCB;
-
     namespace SDK
     {
         using namespace System;
@@ -24,109 +12,66 @@ namespace AIMP
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::PlayList;
 
+        public interface class IPlayListListnerExecutor
+        {
+        public:
+            void OnChanged(DWORD flag);
+
+            void OnActivated();
+
+            void OnRemoved();
+
+            void OnScanningBegin();
+
+            void OnScanningProgress(const double progress);
+
+            void OnScanningEnd(bool hasChanges, bool canceled);
+        };
+
+
         class AimpPlaylistListener :
             public IUnknownInterfaceImpl<IAIMPPlaylistListener>, 
             public IAIMPPlaylistListener2
         {
         private:
-            IntSignal _changed;
-            VoidSignal _activated;
-            VoidSignal _removed;
-            VoidSignal _scanningBegin;
-            DoubleSignal _scanningProgress;
-            ScanningEndSignal _scanningEnd;
+            gcroot<IPlayListListnerExecutor^> _playList;
 
         public:
+            AimpPlaylistListener(gcroot<IPlayListListnerExecutor^> playList)
+            {
+                _playList = playList;
+            }
+
             typedef IUnknownInterfaceImpl<IAIMPPlaylistListener> Base;
-
-            ConnectionCallback RegisterActivatedCallback(VoidSignalCB subscriber)
-            {
-                return _activated.connect(subscriber);
-            }
-
-            ConnectionCallback RegisterRemovedCallback(VoidSignalCB subscriber)
-            {
-                return _removed.connect(subscriber);
-            }
-
-            ConnectionCallback RegisterChangedCallback(DwordSignalCB subscriber)
-            {
-                return _changed.connect(subscriber);
-            }
-
-            ConnectionCallback RegisterScanningBeginCallback(VoidSignalCB subscriber)
-            {
-                return _scanningBegin.connect(subscriber);
-            }
-
-            ConnectionCallback RegisterScanningProgress(DoubleSignalCB subscriber)
-            {
-                return _scanningProgress.connect(subscriber);
-            }
-
-            ConnectionCallback RegisterScanningEnd(ScanningEndSignalCB subscriber)
-            {
-                return _scanningEnd.connect(subscriber);
-            }
-
-            void UregisterActivatedCallback(ConnectionCallback *activatedCallback)
-            {
-                _activated.disconnect(activatedCallback);
-            }
-
-            void UnregisterRemoveCallback(ConnectionCallback *removedCallback)
-            {
-                _removed.disconnect(removedCallback);
-            }
-
-            void UnregisterChangedCallback(ConnectionCallback *changedCallback)
-            {
-                _changed.disconnect(changedCallback);
-            }
-
-            void UnregisterScanningBeginCallback(ConnectionCallback *cb)
-            {
-                _scanningBegin.disconnect(cb);
-            }
-
-            void UnregisterScanningProgress(ConnectionCallback *cb)
-            {
-                _scanningProgress.disconnect(cb);
-            }
-
-            void UnregisterScanningEnd(ConnectionCallback *cb)
-            {
-                _scanningEnd.disconnect(cb);
-            }
 
             virtual void WINAPI Activated()
             {
-                _activated();
+                _playList->OnActivated();
             }
 
             virtual void WINAPI Changed(DWORD flags)
             {
-                _changed(flags);
+                _playList->OnChanged(flags);
             }
 
             virtual void WINAPI Removed()
             {
-                _removed();
+                _playList->OnRemoved();
             }
 
             virtual void WINAPI ScanningBegin()
             {
-                _scanningBegin();
+                _playList->OnScanningBegin();
             }
 
             virtual void WINAPI ScanningProgress(const double Progress)
             {
-                _scanningProgress(Progress);
+                _playList->OnScanningProgress(Progress);
             }
 
             virtual void WINAPI ScanningEnd(BOOL HasChanges, BOOL Canceled)
             {
-                _scanningEnd(HasChanges, Canceled);
+                _playList->OnScanningEnd(HasChanges, Canceled);
             }
 
             virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
@@ -163,7 +108,10 @@ namespace AIMP
         /// <summary>
         /// 
         /// </summary>
-        public ref class AimpPlayList : public AimpObject<IAIMPPlaylist>, public IAimpPlayList
+        public ref class AimpPlayList : 
+            public AimpObject<IAIMPPlaylist>, 
+            public IAimpPlayList, 
+            public IPlayListListnerExecutor
         {
         private:
             Func<IAimpPlayListItem^, IAimpPlayListItem^, PlayListSortComapreResult>^ _compareFunc;
@@ -175,13 +123,6 @@ namespace AIMP
             AimpPlayListHandler<ScanningEndEventArgs^> ^_scanningEndHandler;
 
             AimpPlaylistListener *_listner;
-            ConnectionCallback *_activatedCallback;
-            ConnectionCallback *_removedCallBack;
-            ConnectionCallback *_changedCallBack;
-            ConnectionCallback *_scanningBeginCallBack;
-            ConnectionCallback *_scanningProgressCallBack;
-            ConnectionCallback *_scanningEndCallBack;
-
             bool _disposed;
 
         internal:
@@ -341,6 +282,36 @@ namespace AIMP
                 void set(String ^value);
             }
 
+            virtual void OnChanged(DWORD flags)
+            {
+                this->Changed(this, (PlayListNotifyType)flags);
+            }
+
+            virtual void OnActivated()
+            {
+                this->Activated(this);
+            }
+
+            virtual void OnRemoved()
+            {
+                this->Removed(this);
+            }
+
+            virtual void OnScanningBegin()
+            {
+                this->ScanningBegin(this);
+            }
+
+            virtual void OnScanningProgress(const double progress)
+            {
+                this->ScanningProgress(this, gcnew ScanningProgressEventArgs(progress));
+            }
+
+            virtual void OnScanningEnd(bool hasChanges, bool canceled)
+            {
+                this->ScanningEnd(this, gcnew ScanningEndEventArgs(hasChanges, canceled));
+            }
+
         public:
             virtual AimpActionResult Add(IAimpFileInfo^ fileInfo, PlayListFlags flags, PlayListFilePosition filePosition);
 
@@ -421,8 +392,6 @@ namespace AIMP
                 void remove(AimpPlayListHandler<ScanningEndEventArgs^> ^onEvent);
                 void raise(IAimpPlayList ^sender, ScanningEndEventArgs^ args);
             }
-
-            virtual void Release();
 
         private:
             AimpActionResult GetProperties(IAIMPPropertyList** properties);

@@ -1,14 +1,11 @@
 #pragma once
 #include "..\..\IUnknownInterfaceImpl.h"
+#include "IPlayListQueueEventExecutor.h"
 
 namespace AIMP
 {
     namespace SDK
     {
-        typedef boost::signals::connection ConnectionCallback;
-        typedef boost::signal<void(void)> VoidSignal;
-        typedef boost::signal<void(void)>::slot_function_type VoidSignalCB;
-
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::PlayList;
 
@@ -16,40 +13,24 @@ namespace AIMP
             public IUnknownInterfaceImpl<IAIMPPlaylistQueueListener>
         {
         private:
-            VoidSignal _contentChanged;
-            VoidSignal _stateChanged;
+            gcroot<IPlayListQueueEventExecutor^> _executor;
 
         public:
             typedef IUnknownInterfaceImpl<IAIMPPlaylistQueueListener> Base;
 
-            ConnectionCallback RegisterContentChangedCallback(VoidSignalCB subscriber)
+            AimpPlaylistQueueListener(gcroot<IPlayListQueueEventExecutor^> executor)
             {
-                return _contentChanged.connect(subscriber);
-            }
-
-            ConnectionCallback RegisterStateChangedCallback(VoidSignalCB subscriber)
-            {
-                return _stateChanged.connect(subscriber);
-            }
-
-            void UnregisterContentChangedCallback(ConnectionCallback *callback)
-            {
-                _contentChanged.disconnect(callback);
-            }
-
-            void UnregisterStateChangedCallback(ConnectionCallback *callback)
-            {
-                _stateChanged.disconnect(callback);
+                _executor = executor;
             }
 
             virtual void WINAPI ContentChanged()
             {
-                _contentChanged();
+                _executor->OnContentChanged();
             }
 
             virtual void WINAPI StateChanged()
             {
-                _stateChanged();
+                _executor->OnStateChanged();
             }
 
             virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)

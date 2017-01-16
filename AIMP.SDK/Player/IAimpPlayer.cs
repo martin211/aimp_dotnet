@@ -1,4 +1,8 @@
-﻿namespace AIMP.SDK.Player
+﻿using AIMP.SDK.FileManager;
+using AIMP.SDK.MusicLibrary;
+using AIMP.SDK.Threading;
+
+namespace AIMP.SDK.Player
 {
     using System;
 
@@ -187,5 +191,21 @@
         /// </summary>
         /// <param name="playList">The play list.</param>
         void Play(IAimpPlayList playList);
+
+        IAimpServiceSynchronizer ServiceSynchronizer { get; }
+
+        IAimpServiceThreadPool ServiceThreadPool { get; }
+
+        IAimpServiceMusicLibrary ServiceMusicLibrary { get; }
+
+        IAimpServiceMusicLibraryUI ServiceMusicLibraryUi { get; }
+
+        IAimpServiceFileFormats ServiceFileFormats { get; }
+
+        IAimpServiceFileInfo ServiceFileInfo { get; }
+
+        IAimpServiceFileSystems ServiceFileSystems { get; }
+
+        IAimpServiceFileStreaming ServiceFileStreaming { get; }
     }
 }

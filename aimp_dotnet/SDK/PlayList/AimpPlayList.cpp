@@ -1,12 +1,22 @@
-﻿#include "..\..\Stdafx.h"
+﻿#include "Stdafx.h"
 #include "AimpPlayList.h"
 #include "AimpPlayListGroup.h"
-#include "AimpFileInfo.h"
+#include "..\FileManager\AimpFileInfo.h"
 
 namespace AIMP
 {
     namespace SDK
     {
+        AimpPlayList::~AimpPlayList()
+        {
+            this->!AimpPlayList();
+        }
+
+        AimpPlayList::!AimpPlayList()
+        {
+            _aimpObject->Release();
+        }
+
         AimpActionResult AimpPlayList::GetProperties(IAIMPPropertyList** properties)
         {
             IAIMPPropertyList *prop = NULL;
@@ -46,77 +56,6 @@ namespace AIMP
             PreImage = item->PreImage;
         }
 
-        AimpPlayList::~AimpPlayList()
-        {
-            this->!AimpPlayList();
-        }
-
-        AimpPlayList::!AimpPlayList()
-        {
-            Release();
-        }
-
-        void AimpPlayList::Release()
-        {
-            if (_disposed)
-                return;
-
-            System::Diagnostics::Debug::WriteLine("Dispose play list");
-
-            _disposed = true;
-
-            if (_listner != NULL)
-            {
-                if (_activatedCallback != NULL)
-                {
-                    _listner->UregisterActivatedCallback(_activatedCallback);
-                    delete _activatedCallback;
-                }
-
-                if (_removedCallBack != NULL)
-                {
-                    _listner->UnregisterRemoveCallback(_removedCallBack);
-                    delete _removedCallBack;
-                }
-
-                if (_changedCallBack != NULL)
-                {
-                    _listner->UnregisterChangedCallback(_changedCallBack);
-                    delete _changedCallBack;
-                }
-                
-                if (_scanningBeginCallBack != NULL)
-                {
-                    _listner->UnregisterScanningBeginCallback(_scanningBeginCallBack);
-                    delete _scanningBeginHandler;
-                }
-
-                if (_scanningProgressCallBack != NULL)
-                {
-                    _listner->UnregisterScanningProgress(_scanningProgressCallBack);
-                    delete _scanningProgressCallBack;
-                }
-
-                if (_scanningEndCallBack != NULL)
-                {
-                    _listner->UnregisterScanningEnd(_scanningEndCallBack);
-                    delete _scanningEndCallBack;
-                }
-
-                if (InternalAimpObject->ListenerRemove(_listner) == S_OK)
-                {
-                    _listner->Release();
-                    _listner = NULL;
-                }
-            }
-
-            if (InternalAimpObject != NULL)
-            {
-                _aimpObject->Release();
-                _aimpObject = NULL;
-            }
-        }
-
         String ^AimpPlayList::Id::get()
         {
             IAIMPPropertyList *properties = NULL;
@@ -126,8 +65,6 @@ namespace AIMP
                 {
                     return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_ID);
                 }
-
-                return nullptr;
             }
             finally
             {
@@ -137,6 +74,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return String::Empty;
         }
 
         String ^AimpPlayList::Name::get()
@@ -148,8 +87,6 @@ namespace AIMP
                 {
                     return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_NAME);
                 }
-
-                return nullptr;
             }
             finally
             {
@@ -159,6 +96,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return String::Empty;
         }
 
         void AimpPlayList::Name::set(String ^value)
@@ -188,8 +127,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_READONLY);
-
-                return false;
             }
             finally
             {
@@ -199,6 +136,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ReadOnly::set(bool value)
@@ -241,8 +180,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING_OVERRIDEN);
-
-                return false;
             }
             finally
             {
@@ -252,6 +189,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::GrouppingOverriden::set(bool value)
@@ -292,6 +231,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::Groupping::set(bool value)
@@ -323,8 +264,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_GROUPPING_TEMPLATE);
-
-                return nullptr;
             }
             finally
             {
@@ -334,6 +273,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return String::Empty;
         }
 
         void AimpPlayList::GrouppingTemplate::set(String ^value)
@@ -363,8 +304,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING_AUTOMERGING);
-
-                return false;
             }
             finally
             {
@@ -374,6 +313,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::GrouppingAutomerging::set(bool value)
@@ -404,8 +345,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_FORMATING_OVERRIDEN);
-
-                return false;
             }
             finally
             {
@@ -415,6 +354,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::FormatingOverride::set(bool value)
@@ -444,8 +385,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE1_TEMPLATE);
-
-                return nullptr;
             }
             finally
             {
@@ -455,6 +394,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return String::Empty;
         }
 
         void AimpPlayList::FormatingLine1Template::set(String ^value)
@@ -484,8 +425,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE2_TEMPLATE);
-
-                return nullptr;
             }
             finally
             {
@@ -495,6 +434,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return String::Empty;
         }
 
         void AimpPlayList::FormatingLine2Template::set(String ^value)
@@ -524,8 +465,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_OVERRIDEN);
-
-                return false;
             }
             finally
             {
@@ -535,6 +474,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ViewOverride::set(bool value)
@@ -564,8 +505,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_DURATION);
-
-                return false;
             }
             finally
             {
@@ -575,6 +514,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ViewDuration::set(bool value)
@@ -604,8 +545,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_EXPAND_BUTTONS);
-
-                return false;
             }
             finally
             {
@@ -615,6 +554,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ViewExpandButtons::set(bool value)
@@ -644,8 +585,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_MARKS);
-
-                return false;
             }
             finally
             {
@@ -655,6 +594,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ViewMarks::set(bool value)
@@ -684,8 +625,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS);
-
-                return false;
             }
             finally
             {
@@ -695,6 +634,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ViewNumbers::set(bool value)
@@ -724,8 +665,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS_ABSOLUTE);
-
-                return false;
             }
             finally
             {
@@ -735,6 +674,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ViewAbsoluteNumbers::set(bool value)
@@ -764,8 +705,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_SECOND_LINE);
-
-                return false;
             }
             finally
             {
@@ -775,6 +714,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ViewSecondLine::set(bool value)
@@ -804,8 +745,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_SWITCHES);
-
-                return false;
             }
             finally
             {
@@ -815,6 +754,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return false;
         }
 
         void AimpPlayList::ViewSwitches::set(bool value)
@@ -844,8 +785,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetInt32(properties, AIMP_PLAYLIST_PROPID_FOCUSINDEX);
-
-                return 0;
             }
             finally
             {
@@ -855,6 +794,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return 0;
         }
 
         void AimpPlayList::FocusIndex::set(int value)
@@ -884,8 +825,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetInt32(properties, AIMP_PLAYLIST_PROPID_PLAYBACKCURSOR);
-
-                return 0;
             }
             finally
             {
@@ -895,6 +834,9 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return 0;
+
         }
 
         void AimpPlayList::PlaybackCursor::set(int value)
@@ -924,8 +866,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetInt32(properties, AIMP_PLAYLIST_PROPID_PLAYINGINDEX);
-
-                return 0;
             }
             finally
             {
@@ -935,6 +875,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return 0;
         }
 
         void AimpPlayList::PlayingIndex::set(int value)
@@ -964,8 +906,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                      return PropertyListExtension::GetFloat(properties, AIMP_PLAYLIST_PROPID_DURATION);
-
-                return 0;
             }
             finally
             {
@@ -975,6 +915,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return 0;
         }
 
 
@@ -1009,8 +951,6 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                     return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_PREIMAGE);
-
-                return nullptr;
             }
             finally
             {
@@ -1020,6 +960,8 @@ namespace AIMP
                     properties = NULL;
                 }
             }
+
+            return String::Empty;
         }
 
         void AimpPlayList::PreImage::set(String ^value)
@@ -1086,7 +1028,7 @@ namespace AIMP
             return res;
         }
 
-        AimpActionResult AimpPlayList::AddList(IList<String^>^ fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition)
+        AimpActionResult AimpPlayList::AddList(System::Collections::Generic::IList<String^>^ fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition)
         {
             AimpActionResult res = AimpActionResult::Fail;
 
@@ -1155,8 +1097,14 @@ namespace AIMP
 
         AimpActionResult AimpPlayList::Close(PlayListCloseFlag closeFlag)
         {
+            if (_listner != NULL)
+            {
+                InternalAimpObject->ListenerRemove(_listner);
+                _listner->Release();
+                _listner = NULL;
+            }
+
             AimpActionResult result = CheckResult(InternalAimpObject->Close((DWORD)closeFlag));
-            this->!AimpPlayList();
             return result;
         }
 
@@ -1244,44 +1192,11 @@ namespace AIMP
         {
             if (_listner == nullptr)
             {
-                _listner = new AimpPlaylistListener();
+                _listner = new AimpPlaylistListener(this);
                 InternalAimpObject->ListenerAdd(_listner);
                 _listner->AddRef();
             }
         }
-
-
-
-        void ActivatedCallback(gcroot<AimpPlayList^> This)
-        {
-            This->Activated(This);
-        }
-
-        void ChangedCallback(gcroot<AimpPlayList^> This, int notifyType)
-        {
-            This->Changed(This, (PlayListNotifyType)notifyType);
-        }
-
-        void RemovedCallback(gcroot<AimpPlayList^> This)
-        {
-            This->Activated(This);
-        }
-
-        void ScanningBeginCallback(gcroot<AimpPlayList^> This)
-        {
-            This->ScanningBegin(This);
-        }
-
-        void ScanningProgressCallback(gcroot<AimpPlayList^> This, double progress)
-        {
-            This->ScanningProgress(This, gcnew AIMP::SDK::PlayList::ScanningProgressEventArgs(progress));
-        }
-
-        void ScanningEndCallback(gcroot<AimpPlayList^> This, bool hasChanged, bool canceled)
-        {
-            This->ScanningEnd(This, gcnew AIMP::SDK::PlayList::ScanningEndEventArgs(hasChanged, canceled));
-        }
-
 
         void AimpPlayList::Activated::add(AimpPlayListHandler ^onEvent)
         {
@@ -1289,8 +1204,6 @@ namespace AIMP
             bool tmp = _onActivated == nullptr;
             if (tmp)
             {
-                _activatedCallback = new AIMP::ConnectionCallback;
-                *_activatedCallback = _listner->RegisterActivatedCallback(boost::bind(ActivatedCallback, gcroot<AimpPlayList^>(this)));
                 _onActivated = (AimpPlayListHandler^)Delegate::Combine(_onActivated, onEvent);
             }
         }
@@ -1301,8 +1214,6 @@ namespace AIMP
             if (tmp)
             {
                 _onActivated = (AimpPlayListHandler^)Delegate::Remove(_onActivated, onEvent);
-                _listner->UregisterActivatedCallback(_activatedCallback);
-                delete _activatedCallback;
             }
         }
 
@@ -1323,8 +1234,6 @@ namespace AIMP
             bool tmp = _onRemoved != nullptr;
             if (tmp)
             {
-                _removedCallBack = new AIMP::ConnectionCallback;
-                *_removedCallBack = _listner->RegisterRemovedCallback(boost::bind(RemovedCallback, gcroot<AimpPlayList^>(this)));
                 _onRemoved = (AimpPlayListHandler^)Delegate::Combine(_onRemoved, onEvent);
             }
         }
@@ -1335,8 +1244,6 @@ namespace AIMP
             if (tmp)
             {
                 _onRemoved = (AimpPlayListHandler^)Delegate::Remove(_onRemoved, onEvent);
-                _listner->UnregisterRemoveCallback(_removedCallBack);
-                delete _removedCallBack;
             }
         }
 
@@ -1356,8 +1263,6 @@ namespace AIMP
             RegisterListner();
             if (_onChanged == nullptr)
             {
-                _changedCallBack = new AIMP::ConnectionCallback;
-                *_changedCallBack = _listner->RegisterChangedCallback(boost::bind(ChangedCallback, gcroot<AimpPlayList^>(this), _1));
                 _onChanged = (PlayListChangedHandler^)Delegate::Combine(_onChanged, onEvent);
             }
         }
@@ -1368,8 +1273,6 @@ namespace AIMP
             if (tmp)
             {
                 _onChanged = (PlayListChangedHandler^)Delegate::Remove(_onChanged, onEvent);
-                _listner->UnregisterChangedCallback(_changedCallBack);
-                delete _changedCallBack;
             }
         }
 
@@ -1432,8 +1335,6 @@ namespace AIMP
         {
             if (this->_scanningBeginHandler == nullptr)
             {
-                _scanningBeginCallBack = new AIMP::ConnectionCallback;
-                *_scanningBeginCallBack = _listner->RegisterScanningBeginCallback(boost::bind(ScanningBeginCallback, gcroot<AimpPlayList^>(this)));
                 _scanningBeginHandler = (AimpPlayListHandler^)Delegate::Combine(_onChanged, onEvent);
             }
         }
@@ -1443,8 +1344,6 @@ namespace AIMP
             if (this->_scanningBeginHandler != nullptr)
             {
                 _scanningBeginHandler = (AimpPlayListHandler^)Delegate::Remove(_onChanged, onEvent);
-                _listner->UnregisterScanningBeginCallback(_scanningBeginCallBack);
-                delete _scanningBeginCallBack;
             }
         }
 
@@ -1462,8 +1361,6 @@ namespace AIMP
         {
             if (this->_scanningProgressHandler == nullptr)
             {
-                _scanningProgressCallBack = new AIMP::ConnectionCallback;
-                *_scanningProgressCallBack = _listner->RegisterScanningProgress(boost::bind(ScanningProgressCallback, gcroot<AimpPlayList^>(this), _1));
                 _scanningProgressHandler = (AimpPlayListHandler<ScanningProgressEventArgs^>^)Delegate::Combine(_onChanged, onEvent);
             }
         }
@@ -1473,8 +1370,6 @@ namespace AIMP
             if (this->_scanningProgressHandler != nullptr)
             {
                 _scanningProgressHandler = (AimpPlayListHandler<ScanningProgressEventArgs^>^)Delegate::Remove(_onChanged, onEvent);
-                _listner->UnregisterScanningProgress(_scanningProgressCallBack);
-                delete _scanningProgressCallBack;
             }
         }
 
@@ -1492,8 +1387,6 @@ namespace AIMP
         {
             if (this->_scanningEndHandler == nullptr)
             {
-                _scanningEndCallBack = new AIMP::ConnectionCallback;
-                *_scanningEndCallBack = _listner->RegisterScanningEnd(boost::bind(ScanningEndCallback, gcroot<AimpPlayList^>(this), _1, _2));
                 _scanningEndHandler = (AimpPlayListHandler<ScanningEndEventArgs^>^)Delegate::Combine(_onChanged, onEvent);
             }
         }
@@ -1503,7 +1396,6 @@ namespace AIMP
             if (this->_scanningEndHandler != nullptr)
             {
                 _scanningEndHandler = (AimpPlayListHandler<ScanningEndEventArgs^>^)Delegate::Remove(_onChanged, onEvent);
-                _listner->UnregisterScanningEnd(_scanningEndCallBack);
             }
         }
 

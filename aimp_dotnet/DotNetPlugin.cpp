@@ -8,17 +8,10 @@
 
 DotNetPlugin::DotNetPlugin()
 {
-    try
-    {
-        _optionsLoaded = false;
-        System::String ^path = System::IO::Path::GetDirectoryName(System::Reflection::Assembly::GetExecutingAssembly()->Location);
-        AIMP::SDK::CustomAssemblyResolver::Initialize(path);
-        _dotNetPlugin = AIMP::SDK::PluginInfoLoader::LoadPlugin(path);
-    }
-    catch (const std::exception&)
-    {
-
-    }
+    _optionsLoaded = false;
+    System::String ^path = System::IO::Path::GetDirectoryName(System::Reflection::Assembly::GetExecutingAssembly()->Location);
+    AIMP::SDK::CustomAssemblyResolver::Initialize(path);
+    _dotNetPlugin = AIMP::SDK::PluginInfoLoader::LoadPlugin(path);
 }
 
 // TODO: Add finalizer.
@@ -99,6 +92,12 @@ HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
     _dotNetPlugin->PluginInformation->PluginLoadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
     _dotNetPlugin->PluginInformation->PluginUnloadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
     _dotNetPlugin->PluginInformation->Load();
+    AIMP::SDK::IAimpExternalSettingsDialog^ externalSettingsDialog = dynamic_cast<AIMP::SDK::IAimpExternalSettingsDialog^>(_dotNetPlugin->PluginInformation->LoadedPlugin);
+
+    if (externalSettingsDialog != nullptr && _dotNetPlugin->PluginInformation->PluginInfo->IsExternalSettingsDialog)
+    {
+        _externalSettingsDialog = new AimpExternalSettingsDialog(externalSettingsDialog);
+    }
 
     System::Diagnostics::Debug::WriteLine("END: Initialize DotNet plugin");
 
@@ -146,15 +145,9 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
         return E_POINTER;
     }
 
-    if (riid == IID_IAIMPExternalSettingsDialog)
+    if (riid == IID_IAIMPExternalSettingsDialog && _externalSettingsDialog != NULL)
     {
-        if (_dotNetPlugin->PluginInformation->PluginInfo->IsExternalSettingsDialog)
-        {
-            *ppvObj = this;
-            return S_OK;
-        }
-
-        return E_NOINTERFACE;
+        return _externalSettingsDialog->QueryInterface(riid, ppvObj);
     }
 
     return E_NOINTERFACE;
