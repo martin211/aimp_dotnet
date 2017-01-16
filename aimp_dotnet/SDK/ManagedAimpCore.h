@@ -1,16 +1,22 @@
 #pragma once
 #include "..\AimpSdk.h"
 #include <Unknwnbase.h>
-#include "EventHelper.h"
 #include "..\Extensions\OptionsDialogFrameExtension.h"
 #include "..\Extensions\AimpExtensionAlbumArtCatalog.h"
 #include "..\Extensions\AimpExtensionAlbumArtProvider.h"
 #include "..\Extensions\AimpExtensionPlaylistManagerListener.h"
 #include "..\SDK\Visuals\AimpExtensionEmbeddedVisualization.h"
 #include "..\SDK\Visuals\AimpExtensionCustomVisualization.h"
+#include "..\SDK\MusicLibrary\AimpExtensionDataStorage.h"
+#include "..\SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h"
+#include "..\SDK\FileManager\InternalAimpExtensionFileInfoProvider.h"
+#include "..\SDK\FileManager\InternalAimpExtensionFileSystem.h"
 
 namespace AIMP
 {
+    using namespace System;
+    using namespace AIMP::SDK;
+
     namespace SDK
     {
         using namespace System;
@@ -76,7 +82,7 @@ namespace AIMP
 
             HRESULT ShowNotification(bool autoHide, String ^notification);
 
-            IAIMPStream* CreateStream();
+            AimpActionResult CreateStream(IAIMPStream *stream);
 
             bool OnCheckUrl(String^ %url);
 
@@ -94,9 +100,9 @@ namespace AIMP
         private:
             static IAIMPCore* _core;
             IAIMPExtensionPlayerHook *_playerHook;
-            EventHelper* _nativeEventHelper;
-            Callback* _coreMessageCallback;
-            Callback* _playListActivatedCallback;
+            //EventHelper* _nativeEventHelper;
+            //Callback* _coreMessageCallback;
+            //Callback* _playListActivatedCallback;
             IAIMPServiceMessageDispatcher* _messageDispatcher;
             IAIMPMessageHook* _hook;
             List<AimpEventsDelegate^> ^_coreMessage;
@@ -107,6 +113,9 @@ namespace AIMP
             AimpExtensionEmbeddedVisualization* _embeddedVisualization;
             AimpExtensionCustomVisualization* _customVisualization;
             AimpExtensionPlaylistManagerListener *_playlistManagerListener;
+            AimpExtensionDataStorage *_musicLibraryDataStorage;
+            InternalAimpExtensionFileInfoProvider *_fileInfoExtensionProvider;
+            InternalAimpExtensionFileSystem *_extensionFileSystem;
 
             AIMP::SDK::PlayList::PlayListHandler ^_playlistAdded;
             AIMP::SDK::PlayList::PlayListHandler ^_playlistRemoved;

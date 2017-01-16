@@ -1,7 +1,7 @@
-#include "..\..\Stdafx.h"
+#include "Stdafx.h"
 #include "AimpPlayListItem.h"
 #include "AimpPlayListGroup.h"
-#include "AimpFileInfo.h"
+#include "..\FileManager\AimpFileInfo.h"
 #include "AimpPlayList.h"
 
 namespace AIMP
@@ -15,6 +15,16 @@ namespace AIMP
         AimpPlayListItem::AimpPlayListItem()
         {
             _aimpObject = AimpExtension::MakeObject<IAIMPPlaylistItem>(IID_IAIMPPlaylistItem);
+        }
+
+        AimpPlayListItem::~AimpPlayListItem()
+        {
+            this->!AimpPlayListItem();
+        }
+
+        AimpPlayListItem::!AimpPlayListItem()
+        {
+            _aimpObject->Release();
         }
 
         AimpPlayListItem::AimpPlayListItem(IAimpPlayListItem ^item)

@@ -1,6 +1,6 @@
-#include "..\Stdafx.h"
+#include "Stdafx.h"
 #include "AimpExtensionAlbumArtProvider.h"
-#include "..\SDK\PlayList\AimpFileInfo.h"
+#include "..\SDK\FileManager\AimpFileInfo.h"
 #include "..\SDK\AlbumArt\AimpAlbumArtSearchOptions.h"
 
 HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString *FileURI, IAIMPString *Artist, IAIMPString *Album, IAIMPPropertyList *Options, IAIMPImageContainer **Image)
@@ -35,7 +35,7 @@ DWORD WINAPI AimpExtensionAlbumArtProvider::GetCategory()
 HRESULT WINAPI AimpExtensionAlbumArtProvider::Get2(IAIMPFileInfo *FileInfo, IAIMPPropertyList *Options, IAIMPImageContainer **Image)
 {
     System::Drawing::Bitmap^ bitmap;
-    AIMP::SDK::PlayList::IAimpFileInfo ^fi = gcnew AIMP::SDK::AimpFileInfo(FileInfo);
+    AIMP::SDK::FileManager::IAimpFileInfo ^fi = gcnew AIMP::SDK::AimpFileInfo(FileInfo);
     AIMP::SDK::AlbumArtManager::IAimpAlbumArtSearchOptions ^searchOptions = gcnew AIMP::SDK::AimpAlbumArtSearchOptions(Options, AIMP::SDK::ManagedAimpCore::GetAimpCore());
     AIMP::AimpActionResult r = _managedinstance->Get(fi, searchOptions, bitmap);
     if (r == AIMP::AimpActionResult::Ok && bitmap != nullptr)

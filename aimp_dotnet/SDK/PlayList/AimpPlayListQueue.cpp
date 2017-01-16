@@ -1,22 +1,12 @@
-#include "..\..\Stdafx.h"
+#include "Stdafx.h"
 #include "AimpPlayListQueue.h"
 
 AimpPlaylistQueue::AimpPlaylistQueue(IAIMPPlaylistQueue *queue, IAIMPPlaylistQueue2 *queue2) : AimpObject(queue)
 {
-    _listner = new AimpPlaylistQueueListener();
+    _listner = new AimpPlaylistQueueListener(this);
     HRESULT res = queue2->ListenerAdd(_listner);
     System::Diagnostics::Debug::WriteLine(res);
     _queue2 = queue2;
-}
-
-void ContentChangedCallBack(gcroot<AimpPlaylistQueue^> sender)
-{
-    sender->ContentChanged(sender, EventArgs::Empty);
-}
-
-void StateChangedCallback(gcroot<AimpPlaylistQueue^> sender)
-{
-    sender->StateChanged(sender, EventArgs::Empty);
 }
 
 bool AimpPlaylistQueue::IsSuspended::get()
@@ -107,8 +97,6 @@ void AimpPlaylistQueue::ContentChanged::add(EventHandler ^onEvent)
 {
     if (_contentChanged == nullptr)
     {
-        _contentChangedCallback = new AIMP::ConnectionCallback;
-        *_contentChangedCallback = _listner->RegisterContentChangedCallback(boost::bind(ContentChangedCallBack, gcroot<AimpPlaylistQueue^>(this)));
         _contentChanged = (EventHandler^)Delegate::Combine(_contentChanged, onEvent);
     }
 }
@@ -117,7 +105,6 @@ void AimpPlaylistQueue::ContentChanged::remove(EventHandler ^onEvent)
 {
     if (_contentChanged != nullptr)
     {
-        _listner->UnregisterContentChangedCallback(_contentChangedCallback);
         _contentChanged = (EventHandler^)Delegate::Remove(_contentChanged, onEvent);
     }
 }
@@ -135,8 +122,6 @@ void AimpPlaylistQueue::StateChanged::add(EventHandler ^onEvent)
 {
     if (_stateChanged == nullptr)
     {
-        _stateChangedCallback = new AIMP::ConnectionCallback;
-        *_stateChangedCallback = _listner->RegisterStateChangedCallback(boost::bind(StateChangedCallback, gcroot<AimpPlaylistQueue^>(this)));
         _stateChanged = (EventHandler^)Delegate::Combine(_stateChanged, onEvent);
     }
 }
@@ -145,7 +130,6 @@ void AimpPlaylistQueue::StateChanged::remove(EventHandler ^onEvent)
 {
     if (_stateChanged != nullptr)
     {
-        _listner->UnregisterStateChangedCallback(_stateChangedCallback);
         _stateChanged = (EventHandler^)Delegate::Remove(_stateChanged, onEvent);
     }
 }

@@ -1,4 +1,4 @@
-#include "..\Stdafx.h"
+#include "Stdafx.h"
 
 #include "AimpExtension.h"
 #include "..\Utils.h"
@@ -39,8 +39,7 @@ namespace AIMP
             {
                 stream = gcnew System::IO::MemoryStream();
                 image->Save(stream, System::Drawing::Imaging::ImageFormat::Png);
-                array<Byte> ^buffer = gcnew array<byte>((int)stream->Length);
-                buffer = stream->ToArray();
+                array<Byte>^ buffer = stream->ToArray();
 
                 if (Utils::CheckResult(GetCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&aimpStream)) == AIMP::SDK::AimpActionResult::Ok
                     && Utils::CheckResult(GetCore()->CreateObject(IID_IAIMPImage, (void**)&img)) == AIMP::SDK::AimpActionResult::Ok)
@@ -130,6 +129,8 @@ namespace AIMP
                 image->Release();
                 image = NULL;
             }
+
+            return nullptr;
         }
 
         System::Drawing::Bitmap^ AimpExtension::GetBitmap(IAIMPImage* image)
@@ -273,7 +274,7 @@ namespace AIMP
 
         AimpActionResult PropertyListExtension::GetString(IAIMPPropertyList* propertyList, int propertyId, String^% value)
         {
-            IAIMPString* str = nullptr;
+            IAIMPString* str = NULL;
             String ^val = String::Empty;
 
             try
@@ -298,8 +299,11 @@ namespace AIMP
             }
             finally
             {
-                str->Release();
-                str = NULL;
+                if (str != NULL)
+                {
+                    str->Release();
+                    str = NULL;
+                }
             }
 
             return AimpActionResult::Unexpected;
@@ -313,7 +317,7 @@ namespace AIMP
 
         AimpActionResult PropertyListExtension::GetObject(IAIMPPropertyList* propertyList, int propertyId, REFIID objectId, void** value)
         {
-            AimpActionResult result = Utils::CheckResult(propertyList->GetValueAsObject(propertyId, objectId, (void**)&value));
+            AimpActionResult result = Utils::CheckResult(propertyList->GetValueAsObject(propertyId, objectId, value));
             return result;
         }
 
@@ -351,13 +355,13 @@ namespace AIMP
 
         String^ PropertyListExtension::GetString(IAIMPPropertyList *propertyList, int propertyId)
         {
-            String^ val;
+            String^ val = String::Empty;
             if (GetString(propertyList, propertyId, *&val) == AimpActionResult::Ok)
             {
                 return val;
             }
 
-            return nullptr;
+            return val;
         }
 
         int PropertyListExtension::GetInt32(IAIMPPropertyList *propertyList, int propertyId)
@@ -402,6 +406,46 @@ namespace AIMP
             }
 
             return false;
+        }
+
+        AimpActionResult PropertyListExtension::GetVariant(IAIMPPropertyList2 *propertyList, int propertyId, Object^% value)
+        {
+            VARIANT *val = NULL;
+            AimpActionResult result = Utils::CheckResult(propertyList->GetValueAsVariant(propertyId, val));
+            value = AimpExtension::FromVaiant(val);
+            return result;
+        }
+
+        AimpActionResult PropertyListExtension::SetVariant(IAIMPPropertyList2 *propertyList, int propertyId, Object^% val)
+        {
+            return AimpActionResult::NotImplemented;
+        }
+
+        VARIANT AimpExtension::ToVariant(System::Object^ objectValue)
+        {
+            VARIANT varTag;
+            VariantInit(&varTag);
+            IntPtr h = IntPtr(&varTag);
+            System::Runtime::InteropServices::Marshal::GetNativeVariantForObject(objectValue, h);
+            return varTag;
+        }
+
+        System::Object^ AimpExtension::FromVaiant(VARIANT* variant)
+        {
+            void *p = variant;
+            return System::Runtime::InteropServices::Marshal::GetObjectForNativeVariant(IntPtr(p));
+        }
+
+        IAIMPObjectList* AimpExtension::GetAimpObjectList()
+        {
+            IAIMPObjectList* res = MakeObject<IAIMPObjectList>(IID_IAIMPObjectList);
+            return res;
+        }
+
+        IAIMPMLDataField* AimpExtension::GetAimpDataField()
+        {
+            IAIMPMLDataField* res = MakeObject<IAIMPMLDataField>(IID_IAIMPMLDataField);
+            return res;
         }
     }
 }

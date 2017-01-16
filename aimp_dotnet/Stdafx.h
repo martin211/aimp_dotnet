@@ -3,6 +3,8 @@
 // but are changed infrequently
 #pragma once
 
+//-V122_NOPTR
+
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
@@ -12,11 +14,6 @@
 #include <windows.h>
 #include "AimpSdk.h"
 #include <vcclr.h>
-
-#include <boost/intrusive_ptr.hpp>
-
-#include <boost/bind.hpp>
-#include <boost/signal.hpp>
 #include <iostream>
 
 #ifdef _DEBUG
@@ -25,15 +22,3 @@
 #define new DBG_NEW
 #endif
 #endif  // _DEBUG
-
-typedef boost::intrusive_ptr<IAIMPString> IAIMPString_ptr;
-
-inline void intrusive_ptr_add_ref(IUnknown* po)
-{
-	po->AddRef();
-}
-
-inline void intrusive_ptr_release(IUnknown* po)
-{
-	po->Release();
-}

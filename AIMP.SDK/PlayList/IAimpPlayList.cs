@@ -1,4 +1,6 @@
-﻿namespace AIMP.SDK.PlayList
+﻿using AIMP.SDK.FileManager;
+
+namespace AIMP.SDK.PlayList
 {
     using System;
     using System.Collections.Generic;
@@ -122,7 +124,7 @@
     /// <summary>
     /// Play list interface.
     /// </summary>
-    public interface IAimpPlayList : IAimpPlaylistListener, IAimpDisposeable
+    public interface IAimpPlayList : IAimpPlaylistListener
     {
         //event AimpPlayListHandler Activated;
 

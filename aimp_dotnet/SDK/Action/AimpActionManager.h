@@ -19,8 +19,6 @@ namespace AIMP
 
             virtual void AddRange(ActionItemCollection^ actions);
         private:
-            ManagedAimpCore^ _core;
-
             void RegisterAction(AimpActionItem^ menuItem);
 
             void OnPropertyChanged(System::Object ^sender, System::ComponentModel::PropertyChangedEventArgs ^e);

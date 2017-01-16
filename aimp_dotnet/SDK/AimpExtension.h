@@ -1,8 +1,8 @@
 #pragma once
 #include "guiddef.h"
 #include "vcclr.h"
-
 #include "..\AIMPSDK\AIMPSDK.h"
+#include "..\Utils.h"
 
 namespace AIMP
 {
@@ -42,11 +42,34 @@ namespace AIMP
             static TObject* MakeObject(REFIID objectId)
             {
                 TObject *obj = NULL;
-                ManagedAimpCore::GetAimpCore()->CreateObject(objectId, (void**)&obj);
+                HRESULT r = ManagedAimpCore::GetAimpCore()->CreateObject(objectId, (void**)&obj);
                 return obj;
             }
 
+            static System::Collections::Generic::IList<String^>^ ToStringCollection(IAIMPObjectList* aimpList)
+            {
+                int count = aimpList->GetCount();
+                System::Collections::Generic::List<String^>^ result = gcnew System::Collections::Generic::List<String^>(count);
+                for (int i = 0; i < count; i++)
+                {
+                    IAIMPString* str;
+                    HRESULT res = aimpList->GetObject(i, IID_IAIMPString, (void**)&str);
+                    if (Utils::CheckResult(res) == AimpActionResult::Ok)
+                    {
+                        result->Add(AimpExtension::GetString(str));
+                    }
+                }
 
+                return result;
+            }
+
+            static VARIANT ToVariant(System::Object^ objectValue);
+
+            static System::Object^ FromVaiant(VARIANT* variant);
+
+            static IAIMPObjectList* GetAimpObjectList();
+
+            static IAIMPMLDataField* GetAimpDataField();
         private:
             static IAIMPCore* GetCore();
         };
@@ -89,6 +112,10 @@ namespace AIMP
             static AimpActionResult GetFloat(IAIMPPropertyList *propertyList, int propertyId, double %value);
 
             static AimpActionResult GetBool(IAIMPPropertyList *propertyList, int propertyId, bool %value);
+
+            static AimpActionResult GetVariant(IAIMPPropertyList2 *propertyList, int propertyId, System::Object^% value);
+
+            static AimpActionResult SetVariant(IAIMPPropertyList2 *propertyList, int propertyId, System::Object^% value);
         };
     }
 }

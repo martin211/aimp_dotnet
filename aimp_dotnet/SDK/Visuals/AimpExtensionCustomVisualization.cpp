@@ -1,4 +1,4 @@
-#include "..\..\Stdafx.h"
+#include "Stdafx.h"
 #include "AimpExtensionCustomVisualization.h"
 //#include "..\..\SDK\Converter.h"
 

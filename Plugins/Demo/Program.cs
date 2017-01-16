@@ -79,12 +79,14 @@ namespace TestPlugin
             }
 
             _demoForm = new PlayerForm(Player);
-            _demoForm.Show();
+            //_demoForm.Show();
         }
 
         private void DemoFormItemOnOnExecute(object sender, EventArgs eventArgs)
         {
-            //_demoForm = new PlayerForm(Player);
+            if (_demoForm.IsDisposed)
+                _demoForm = new PlayerForm(Player);
+
             _demoForm.Show();
         }
 

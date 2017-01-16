@@ -52,16 +52,14 @@
     <Filter Include="SDK\Win32">
       <UniqueIdentifier>{4d5e6244-1be5-407b-861f-aa6b6bcf0cbc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SDK\MusicLibrary">
+      <UniqueIdentifier>{b7677b24-3466-47d2-96a1-5619326ea56d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK\FileManager">
+      <UniqueIdentifier>{84b44698-8eae-4cf7-b905-4757b9b15bea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="AIMP_Exports.def">
-      <Filter>Source Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="AimpDotnetPlugin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DotNetPlugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -107,8 +105,32 @@
     <ClCompile Include="SDK\AimpExtension.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SDK\PlayList\AimpPlaylistQueueListener.cpp">
-      <Filter>SDK\PlayList</Filter>
+    <ClCompile Include="SDK\MusicLibrary\AimpServiceMusicLibrary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\AimpObjectList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\MusicLibrary\AimpDataFilterGroup.cpp">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\MusicLibrary\AimpDataStorage.cpp">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="AimpDotnetPlugin.cpp">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\MusicLibrary\AimpGroupingPreset.cpp">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.cpp">
+      <Filter>SDK\FileManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\AimpStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\AimpServiceFileStreaming.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,9 +188,6 @@
     <ClInclude Include="SDK\Playback\AimpServicePlaybackQueue.h">
       <Filter>SDK\Playback</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\PlayList\AimpFileInfo.h">
-      <Filter>SDK\PlayList</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\PlayList\AimpPlayList.h">
       <Filter>SDK\PlayList</Filter>
     </ClInclude>
@@ -187,9 +206,6 @@
     <ClInclude Include="SDK\PlayList\VirtualFileInfoh.h">
       <Filter>SDK\PlayList</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\Threading\AimpAsyncTask.h">
-      <Filter>SDK\Threading</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h">
       <Filter>SDK\Threading</Filter>
     </ClInclude>
@@ -203,9 +219,6 @@
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="SDK\AimpCore.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\EventHelper.h">
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="SDK\AimpObject.h">
@@ -316,10 +329,174 @@
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h">
       <Filter>SDK\PlayList</Filter>
     </ClInclude>
+    <ClInclude Include="SDK\Delegates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\delegate_impl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Threading\AimpTask.h">
+      <Filter>SDK\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Threading\AimpTaskOwner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AimpPropertyList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AimpObjectList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataStorageManager.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataStorage.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFilterGroup.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFilter.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilter.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpExtensionDataStorage.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingPreset.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresets.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpDataProviderSelection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeSelection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProviderSelection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayList\Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Visuals\Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Threading\Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Menu\Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Action\Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Extensions\Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpFileList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiMusicLibrary.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibrary.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibraryUI.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilterByArray.h">
+      <Filter>SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Stdafx.h">
+      <Filter>SDK\FileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.h">
+      <Filter>SDK\FileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\AimpFileInfo.h">
+      <Filter>SDK\FileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\AimpServiceFileFormats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\AimpServiceFileInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\AimpVirtualFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\AimpServiceFileSystems.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandFileInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandOpenFileFolder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCustomFileCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AimpStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\AimpServiceFileStreaming.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandFileInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandCopyToClipboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDelete.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDropSource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandStreaming.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AIMP_Exports.def">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

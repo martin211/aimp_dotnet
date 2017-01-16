@@ -1,8 +1,0 @@
-
-namespace AIMP
-{
-    namespace SDK
-    {
-        
-    }
-}

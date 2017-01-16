@@ -28,6 +28,9 @@ static const GUID IID_IAIMPServicePlaybackQueue = {0x41494D50, 0x5372, 0x7650, 0
 static const GUID IID_IAIMPServicePlayer = {0x41494D50, 0x5372, 0x7650, 0x6C, 0x61, 0x79, 0x65, 0x72, 0x00, 0x00, 0x00};
 static const GUID IID_IAIMPServicePlayerEqualizerPresets = {0x41494D50, 0x5372, 0x7645, 0x51, 0x50, 0x72, 0x73, 0x74, 0x73, 0x00, 0x00};
 static const GUID IID_IAIMPServicePlayerEqualizer = {0x41494D50, 0x5372, 0x7645, 0x51, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+static const GUID IID_IAIMPServiceWaveform = {0x41494D50, 0x5372, 0x7657, 0x61, 0x76, 0x65, 0x00, 0x00, 0x00, 0x00, 0x00};
+static const GUID IID_IAIMPExtensionWaveformProvider = {0x41494D50, 0x4578, 0x7457, 0x61, 0x76, 0x50, 0x72, 0x76, 0x00, 0x00, 0x00};
+
 
 // PropIDs for IAIMPPlaybackQueueItem
 const int AIMP_PLAYBACKQUEUEITEM_PROPID_CUSTOM        = 0;
@@ -55,6 +58,16 @@ const int AIMP_PLAYER_PROPID_MANUALSWITCHING                      = 20;
 const int AIMP_PLAYER_PROPID_MANUALSWITCHING_CROSSFADE            = 21; // msec
 const int AIMP_PLAYER_PROPID_MANUALSWITCHING_FADEIN               = 22; // msec
 const int AIMP_PLAYER_PROPID_MANUALSWITCHING_FADEOUT              = 23; // msec
+
+#pragma pack(push, 1)
+struct TAIMPWaveformPeakInfo
+{
+	WORD MaxNegative;
+	WORD MaxPositive;
+};
+#pragma pack(pop)
+typedef TAIMPWaveformPeakInfo* PAIMPWaveformPeakInfo;
+
 
 /* IAIMPEqualizerPreset */
 
@@ -89,6 +102,14 @@ class IAIMPExtensionPlaybackQueue: public IUnknown
 		virtual HRESULT WINAPI GetNext(IUnknown* Current, DWORD Flags, IAIMPPlaybackQueueItem* QueueItem) = 0;
 		virtual HRESULT WINAPI GetPrev(IUnknown* Current, DWORD Flags, IAIMPPlaybackQueueItem* QueueItem) = 0;
 		virtual void WINAPI OnSelect(IAIMPPlaylistItem* Item, IAIMPPlaybackQueueItem* QueueItem) = 0;
+};
+
+/* IAIMPExtensionWaveformProvider */
+
+class IAIMPExtensionWaveformProvider : public IUnknown 
+{
+	public:
+		virtual HRESULT WINAPI Calculate(IAIMPString* FileURI, IAIMPTaskOwner* TaskOwner, PAIMPWaveformPeakInfo Peaks, int PeakCount) = 0;
 };
 
 /* IAIMPServicePlayer */
@@ -157,6 +178,12 @@ class IAIMPServicePlaybackQueue: public IUnknown
 	public:
 		virtual HRESULT WINAPI GetNextTrack(IAIMPPlaybackQueueItem **Item) = 0;
 		virtual HRESULT WINAPI GetPrevTrack(IAIMPPlaybackQueueItem **Item) = 0;
+};
+
+/* IAIMPServiceWaveform */
+
+class IAIMPServiceWaveform : public IUnknown
+{
 };
 
 #endif // !apiPlayerH

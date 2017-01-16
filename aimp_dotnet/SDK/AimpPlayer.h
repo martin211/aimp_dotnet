@@ -7,7 +7,7 @@
 #include "SDK\MUI\MUIManager.h"
 #include "SDK\AlbumArt\AimpAlbumArtManager.h"
 #include "SDK\Configuration\AimpConfigurationManager.h"
-#include "SDK\PlayList\AimpFileInfo.h"
+#include "SDK\FileManager\AimpFileInfo.h"
 #include "SDK\Win32\Win32Manager.h"
 #include "SDK\PlayList\AimpPlayListItem.h"
 #include "SDK\PlayList\AimpPlayList.h"
@@ -17,7 +17,14 @@
 #include "AimpCore.h"
 #include "SDK\Options\AimpOptionsDialogFrame.h"
 #include "SDK\Options\AimpServiceOptionsDialog.h"
-
+#include "SDK\Threading\AimpServiceSynchronizer.h"
+#include "SDK\Threading\AimpServiceThreadPool.h"
+#include "SDK\MusicLibrary\AimpServiceMusicLibrary.h"
+#include "SDK\MusicLibrary\AimpServiceMusicLibraryUI.h"
+#include "SDK\FileManager\AimpServiceFileFormats.h"
+#include "SDK\FileManager\AimpServiceFileInfo.h"
+#include "SDK\FileManager\AimpServiceFileSystems.h"
+#include "SDK\FileManager\AimpServiceFileStreaming.h"
 
 
 namespace AIMP
@@ -31,6 +38,7 @@ namespace AIMP
     using namespace AIMP::SDK::PlayList;
     using namespace AIMP::SDK::Win32;
     using namespace AIMP::SDK::Playback;
+    using namespace AIMP::SDK::Threading;
 
     private ref class AimpPlayer :
         public MarshalByRefObject,
@@ -53,6 +61,14 @@ namespace AIMP
         IAimpPlaybackQueueService ^_playbackQueueManager;
         IAimpServiceOptionsDialog ^_serviceOptionsDialogManager;
         AimpPlayerState _state;
+        IAimpServiceSynchronizer ^_serviceSynchronizer;
+        IAimpServiceThreadPool ^_serviceThreadPool;
+        IAimpServiceMusicLibrary ^_serviceMusicLibrary;
+        IAimpServiceMusicLibraryUI ^_serviceMusicLibraryUi;
+        IAimpServiceFileFormats ^_serviceFileFormats;
+        IAimpServiceFileInfo ^_serviceFileInfo;
+        IAimpServiceFileSystems ^_serviceFileSystems;
+        IAimpServiceFileStreaming ^_serviceFileStreaming;
 
         EventHandler<AIMP::SDK::Player::StateChangedEventArgs^> ^_onStateChanged;
         EventHandler ^_onLanguageChanged;
@@ -85,6 +101,12 @@ namespace AIMP
             delete _configManager;
             delete _playListManager;
             delete _playbackQueueManager;
+            delete _serviceSynchronizer;
+            delete _serviceThreadPool;
+            delete _serviceMusicLibrary;
+            delete _serviceMusicLibraryUi;
+            delete _serviceFileFormats;
+            delete _serviceFileInfo;
         }
 
         virtual property IAimpCore^ Core
@@ -453,6 +475,110 @@ namespace AIMP
         virtual void Play(IAimpPlayList^ playList)
         {
             _player->Play3(((AimpPlayList^)playList)->InternalAimpObject);
+        }
+
+        virtual property IAimpServiceSynchronizer ^ServiceSynchronizer
+        {
+            IAimpServiceSynchronizer ^get()
+            {
+                if (_serviceSynchronizer == nullptr)
+                {
+                    _serviceSynchronizer = gcnew AIMP::SDK::AimpServiceSynchronizer((ManagedAimpCore^)_managedAimpCore);
+                }
+
+                return _serviceSynchronizer;
+            }
+        }
+
+        virtual property IAimpServiceThreadPool ^ServiceThreadPool
+        {
+            IAimpServiceThreadPool ^get()
+            {
+                if (_serviceThreadPool == nullptr)
+                {
+                    _serviceThreadPool = gcnew AIMP::SDK::AimpServiceThreadPool((ManagedAimpCore^)_managedAimpCore);
+                }
+
+                return _serviceThreadPool;
+            }
+        }
+
+        virtual property IAimpServiceMusicLibrary ^ServiceMusicLibrary
+        {
+            IAimpServiceMusicLibrary ^get()
+            {
+                if (_serviceMusicLibrary == nullptr)
+                {
+                    _serviceMusicLibrary = gcnew AIMP::SDK::AimpServiceMusicLibrary((ManagedAimpCore^)_managedAimpCore);
+                }
+
+                return _serviceMusicLibrary;
+            }
+        }
+
+        virtual property IAimpServiceMusicLibraryUI ^ServiceMusicLibraryUi
+        {
+            IAimpServiceMusicLibraryUI ^get()
+            {
+                if (_serviceMusicLibraryUi == nullptr)
+                {
+                    _serviceMusicLibraryUi = gcnew AIMP::SDK::AimpServiceMusicLibraryUI((ManagedAimpCore^)_managedAimpCore);
+                }
+
+                return _serviceMusicLibraryUi;
+            }
+        }
+
+        virtual property IAimpServiceFileFormats ^ServiceFileFormats
+        {
+            IAimpServiceFileFormats ^get()
+            {
+                if (_serviceFileFormats == nullptr)
+                {
+                    _serviceFileFormats = gcnew AIMP::SDK::AimpServiceFileFormats((ManagedAimpCore^)_managedAimpCore);
+                }
+
+                return _serviceFileFormats;
+            }
+        }
+
+        virtual property IAimpServiceFileInfo ^ServiceFileInfo
+        {
+            IAimpServiceFileInfo ^get()
+            {
+                if (_serviceFileInfo == nullptr)
+                {
+                    _serviceFileInfo = gcnew AIMP::SDK::AimpServiceFileInfo((ManagedAimpCore^)_managedAimpCore);
+                }
+
+                return _serviceFileInfo;
+            }
+        }
+
+        virtual property IAimpServiceFileSystems ^ServiceFileSystems
+        {
+            IAimpServiceFileSystems ^get()
+            {
+                if (_serviceFileSystems == nullptr)
+                {
+                    _serviceFileSystems = gcnew AIMP::SDK::AimpServiceFileSystems((ManagedAimpCore^)_managedAimpCore);
+                }
+
+                return _serviceFileSystems;
+            }
+        }
+
+        virtual property IAimpServiceFileStreaming ^ServiceFileStreaming
+        {
+            IAimpServiceFileStreaming ^get()
+            {
+                if (_serviceFileStreaming == nullptr)
+                {
+                    _serviceFileStreaming = gcnew AIMP::SDK::AimpServiceFileStreaming((ManagedAimpCore^)_managedAimpCore);
+                }
+
+                return _serviceFileStreaming;
+            }
         }
 
     private:
