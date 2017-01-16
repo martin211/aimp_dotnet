@@ -84,8 +84,7 @@ public:
         System::Diagnostics::Debugger::Break();
         if (PropertyID == AIMP_FILESYSTEM_PROPID_READONLY)
         {
-            //*Value = _managed->ReadOnly ? 0 : 1;
-            *Value = 0;
+            *Value = _managed->ReadOnly ? 1 : 0;
         }
 
         return S_OK;
