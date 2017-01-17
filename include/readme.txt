@@ -1,1 +1,0 @@
-Folder for the 3th party libraries

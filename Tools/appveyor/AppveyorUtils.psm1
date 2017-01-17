@@ -6,7 +6,6 @@ function Edit-ReplaceByFormat {
     )
 
     Write-Output "Start replace content at source: '$fileToReplace'"
-    Write-Output "Replace: '$contentToReplace' to the '$replaceTo'"
 
     if (!([System.IO.File]::Exists($fileToReplace)))
     {
