@@ -36,6 +36,7 @@
     <ClCompile Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.cpp" />
     <ClCompile Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProviderSelection.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlayListQueue.cpp" />
+    <ClCompile Include="SDK\PropertyListHelper.cpp" />
     <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp" />
     <ClCompile Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.cpp" />
     <ClCompile Include="DotNetPlugin.cpp" />
@@ -90,8 +91,6 @@
     <ClInclude Include="AIMPSDK\AIMP400\apiGUI.h" />
     <ClInclude Include="AIMPSDK\AIMPSDK.h" />
     <ClInclude Include="Extensions\AimpExtensionPlaylistManagerListener.h" />
-    <ClInclude Include="SDK\Delegates.h" />
-    <ClInclude Include="SDK\delegate_impl.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibraryUI.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProviderSelection.h" />
@@ -105,6 +104,7 @@
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />
     <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h" />
     <ClInclude Include="SDK\PlayList\Stdafx.h" />
+    <ClInclude Include="SDK\PropertyListHelper.h" />
     <ClInclude Include="SDK\Stdafx.h" />
     <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h" />
     <ClInclude Include="SDK\Threading\AimpTaskOwner.h" />
@@ -133,7 +133,6 @@
     <ClInclude Include="AIMPSDK\AIMP400\apiTagEditor.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiThreading.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiVisuals.h" />
-    <ClInclude Include="DataConversion.h" />
     <ClInclude Include="DotNetPlugin.h" />
     <ClInclude Include="Extensions\AimpExtensionAlbumArtProvider.h" />
     <ClInclude Include="Extensions\OptionsDialogFrameExtension.h" />

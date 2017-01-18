@@ -111,9 +111,6 @@
     <ClCompile Include="SDK\PlayList\AimpPlayListQueue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SDK\AimpExtension.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SDK\AimpObjectList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -180,7 +177,13 @@
     <ClCompile Include="SDK\MusicLibrary\AimpDataStorage.cpp">
       <Filter>Source Files\SDK\MusicLibrary</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\PropertyListHelper.cpp">
+      <Filter>Source Files\SDK</Filter>
+    </ClCompile>
     <ClCompile Include="AimpDotnetPlugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\AimpExtension.cpp">
       <Filter>Source Files\SDK</Filter>
     </ClCompile>
   </ItemGroup>
@@ -192,9 +195,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IUnknownInterfaceImpl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DataConversion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\AimpPlayer.h">
@@ -371,20 +371,8 @@
     <ClInclude Include="AIMPSDK\AIMP400\apiVisuals.h">
       <Filter>AIMPSDK\AIMP360</Filter>
     </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMPSDK.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\AimpExtension.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h">
       <Filter>SDK\PlayList</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Delegates.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\delegate_impl.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h">
       <Filter>Header Files</Filter>
@@ -430,9 +418,6 @@
     </ClInclude>
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h">
       <Filter>Header Files\SDK\MusicLibrary</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Stdafx.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\PlayList\Stdafx.h">
       <Filter>Header Files</Filter>
@@ -538,6 +523,18 @@
     </ClInclude>
     <ClInclude Include="SDK\MusicLibrary\Stdafx.h">
       <Filter>Header Files\SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AimpExtension.h">
+      <Filter>Header Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PropertyListHelper.h">
+      <Filter>Header Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Stdafx.h">
+      <Filter>Header Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMPSDK.h">
+      <Filter>Header Files\SDK</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

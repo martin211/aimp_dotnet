@@ -2,6 +2,8 @@
 
 #include "AIMPSDK\AIMPSDK.h"
 #include "SDK\AimpExtension.h"
+#include "SDK\PropertyListHelper.h"
+
 #include "Utils.h"
 #include "SDK\AimpObject.h"
 #include "DataConversion.h"
