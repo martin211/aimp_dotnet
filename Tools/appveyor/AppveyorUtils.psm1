@@ -62,7 +62,7 @@ function Start-SonarAnalysis {
 
     Write-Output "Start SonarQube analize for $solutionFile"
     $sonarMsbuildPath = Join-Path $toolsPath $Sonar_MsBuildToolExe
-    & $sonarMsbuildPath begin /k:"$projectKey" /n:"$solutionFile" /v:"$version" /d:sonar.branch="$branch" /d:sonar.verbose=false /d:sonar.cxx.includeDirectories="C:\Program Files (x86)\Windows Kits\8.1\Include,C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include"
+    & $sonarMsbuildPath begin /k:"$projectKey" /n:"$solutionFile" /v:"$version" /d:sonar.branch="$branch" /d:sonar.verbose=false
 }
 
 function Stop-SonarAnalysis {
@@ -73,5 +73,5 @@ function Stop-SonarAnalysis {
     Write-Output "End SonarQube analize"
     $sonarMsbuildPath = Join-Path $toolsPath $Sonar_MsBuildToolExe
     Write-Output "$sonarMsbuildPath"
-	& $sonarMsbuildPath end > null
+	& $sonarMsbuildPath end > sonar.log
 }
