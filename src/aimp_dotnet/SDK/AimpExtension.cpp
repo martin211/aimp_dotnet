@@ -8,22 +8,17 @@ namespace AIMP
 {
     namespace SDK
     {
-        //template<typename TAimpNativeObject>
-        //TAimpNativeObject* AimpExtension::MakeObject(REFIID objectId)
-        //{
-        //    TAimpNativeObject* object = NULL;
+        IUnknown* AimpExtension::MakeObject(REFIID objectId)
+        {
+            IUnknown *obj = NULL;
+            HRESULT r = ManagedAimpCore::GetAimpCore()->CreateObject(objectId, (void**)&obj);
+            return obj;
+        }
 
-        //    if (GetCore()->CreateObject(objectId, (void**)&object) == S_OK)
-        //    {
-        //        return object;
-        //    }
-
-        //    return NULL;
-        //}
 
         IAIMPString* AimpExtension::GetAimpString(String ^value)
         {
-            IAIMPString *strObject = MakeObject<IAIMPString>(IID_IAIMPString);
+            IAIMPString *strObject = MakeObject2<IAIMPString>(IID_IAIMPString);
             pin_ptr<const WCHAR> strDate = PtrToStringChars(value);
             strObject->SetData((PWCHAR)strDate, value->Length);
             return strObject;
@@ -438,14 +433,24 @@ namespace AIMP
 
         IAIMPObjectList* AimpExtension::GetAimpObjectList()
         {
-            IAIMPObjectList* res = MakeObject<IAIMPObjectList>(IID_IAIMPObjectList);
+            IAIMPObjectList* res = (IAIMPObjectList*)MakeObject(IID_IAIMPObjectList);
             return res;
         }
 
         IAIMPMLDataField* AimpExtension::GetAimpDataField()
         {
-            IAIMPMLDataField* res = MakeObject<IAIMPMLDataField>(IID_IAIMPMLDataField);
+            IAIMPMLDataField* res = (IAIMPMLDataField*)MakeObject(IID_IAIMPMLDataField);
             return res;
         }
+
+
+        template<typename TObject>
+        TObject* AIMP::SDK::AimpExtension::MakeObject2(REFIID objectId)
+        {
+            TObject *obj = NULL;
+            HRESULT r = ManagedAimpCore::GetAimpCore()->CreateObject(objectId, (void**)&obj);
+            return obj;
+        }
+
     }
 }

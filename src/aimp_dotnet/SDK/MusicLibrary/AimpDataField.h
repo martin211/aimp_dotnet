@@ -12,85 +12,42 @@ namespace AIMP
             public IAimpDataField
         {
         public:
-            explicit AimpDataField(IAIMPMLDataField* aimpObject) : AimpObject(aimpObject)
-            {}
+            explicit AimpDataField(IAIMPMLDataField* aimpObject);
 
             virtual property String^ Custom
             {
-                String^ get()
-                {
-                    return AIMP::SDK::PropertyListExtension::GetString(InternalAimpObject, AIMPML_FIELD_PROPID_CUSTOM);
-                }
-
-                void set(String^ value)
-                {
-                    AIMP::SDK::PropertyListExtension::SetString(InternalAimpObject, AIMPML_FIELD_PROPID_CUSTOM, value);
-                }
+                String^ get();
+                void set(String^ value);
             }
 
             virtual property String^ Name
             {
-                String^ get()
-                {
-                    return AIMP::SDK::PropertyListExtension::GetString(InternalAimpObject, AIMPML_FIELD_PROPID_NAME);
-                }
-
-                void set(String^ value)
-                {
-                    AIMP::SDK::PropertyListExtension::SetString(InternalAimpObject, AIMPML_FIELD_PROPID_NAME, value);
-                }
+                String^ get();
+                void set(String^ value);
             }
 
             virtual property AimpDataFieldType Type
             {
-                AimpDataFieldType get()
-                {
-                    return (AimpDataFieldType)AIMP::SDK::PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FIELD_PROPID_TYPE);
-                }
-
-                void set(AimpDataFieldType value)
-                {
-                    AIMP::SDK::PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FIELD_PROPID_TYPE, (int)value);
-                }
+                AimpDataFieldType get();
+                void set(AimpDataFieldType value);
             }
 
             virtual property AimpDataFieldFlagsType Flags
             {
-                AimpDataFieldFlagsType get()
-                {
-                    return (AimpDataFieldFlagsType)AIMP::SDK::PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FIELD_PROPID_FLAGS);
-                }
-
-                void set(AimpDataFieldFlagsType value)
-                {
-                    AIMP::SDK::PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FIELD_PROPID_FLAGS, (int)value);
-                }
+                AimpDataFieldFlagsType get();
+                void set(AimpDataFieldFlagsType value);
             }
 
             virtual property ImageType Image
             {
-                ImageType get()
-                {
-                    return (ImageType)AIMP::SDK::PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FIELD_PROPID_IMAGE);
-                }
-
-                void set(ImageType value)
-                {
-                    AIMP::SDK::PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FIELD_PROPID_IMAGE, (int)value);
-                }
+                ImageType get();
+                void set(ImageType value);
             }
 
             virtual property String^ DisplayValue
             {
-                String^ get()
-                {
-                    return AIMP::SDK::PropertyListExtension::GetString(InternalAimpObject, AIMPML_FIELD_PROPID_DISPLAYVALUE);
-                }
-
-                void set(String^ value)
-                {
-                    AIMP::SDK::PropertyListExtension::SetString(InternalAimpObject, AIMPML_FIELD_PROPID_DISPLAYVALUE, value);
-                }
+                String^ get();
+                void set(String^ value);
             }
         };
     }

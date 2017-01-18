@@ -11,36 +11,13 @@ namespace AIMP
             public IAimpDataStorageManager
         {
         public:
-            explicit AimpDataStorageManager(IAIMPMLDataStorageManager *manager) : AimpObject(manager)
-            {}
+            explicit AimpDataStorageManager(IAIMPMLDataStorageManager *manager);
 
-            virtual void BackgroundTaskStarted(int id, System::String ^cartion, AIMP::SDK::ActionManager::IAimpActionEvent ^cancelEvent)
-            {
-                //todo complete it
-                IAIMPString *str = AimpExtension::GetAimpString(cartion);
-                try
-                {
-                    this->InternalAimpObject->BackgroundTaskStarted(id, str, NULL);
-                }
-                finally
-                {
-                    if (str != NULL)
-                    {
-                        str->Release();
-                        str = NULL;
-                    }
-                }
-            }
+            virtual void BackgroundTaskStarted(int id, System::String ^cartion, AIMP::SDK::ActionManager::IAimpActionEvent ^cancelEvent);
 
-            virtual void BackgroundTaskFinished(int id)
-            {
-                this->InternalAimpObject->BackgroundTaskFinished(id);
-            }
+            virtual void BackgroundTaskFinished(int id);
 
-            virtual void Changed()
-            {
-                this->InternalAimpObject->Changed();
-            }
+            virtual void Changed();
         };
     }
 }

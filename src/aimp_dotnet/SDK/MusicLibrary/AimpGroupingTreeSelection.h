@@ -13,55 +13,15 @@ namespace AIMP
             public IAimpGroupingTreeSelection
         {
         public:
-            explicit AimpGroupingTreeSelection(IAIMPMLGroupingTreeSelection* aimpObject) : AimpObject(aimpObject)
-            {}
+            explicit AimpGroupingTreeSelection(IAIMPMLGroupingTreeSelection* aimpObject);
 
-            ~AimpGroupingTreeSelection()
-            {
-                this->!AimpGroupingTreeSelection();
-            }
+            ~AimpGroupingTreeSelection();
 
-            !AimpGroupingTreeSelection()
-            {
-                _aimpObject->Release();
-            }
+            !AimpGroupingTreeSelection();
 
-            virtual int GetCount()
-            {
-                return InternalAimpObject->GetCount();
-            }
+            virtual int GetCount();
 
-            virtual AimpActionResult GetValue(int index, System::String^% fieldName, System::Object^% value)
-            {
-                IAIMPString* str;
-                VARIANT val;
-
-                fieldName = nullptr;
-                value = nullptr;
-
-                AimpActionResult result = CheckResult(InternalAimpObject->GetValue(index, &str, &val));
-
-                try
-                {
-                    if (result == AimpActionResult::Ok)
-                    {
-                        if (str != NULL)
-                            fieldName = AimpExtension::GetString(str);
-
-                        value = AimpExtension::FromVaiant(&val);
-                    }
-                }
-                finally
-                {
-                    if (str != NULL)
-                    {
-                        str->Release();
-                        str = NULL;
-                    }
-                }
-
-                return result;
-            }
+            virtual AimpActionResult GetValue(int index, System::String^% fieldName, System::Object^% value);
         };
     }
 }

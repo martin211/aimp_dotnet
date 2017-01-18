@@ -6,37 +6,22 @@ namespace AIMP
     {
         using namespace System;
         using namespace System::Collections::Generic;
-        using namespace AIMP::SDK::MusicLibrary;
+        using namespace AIMP::SDK::MusicLibrary::DataFilter;
 
         public ref class AimpDataFieldFilterByArray : public IAimpDataFieldFilterByArray, public AimpObject<IAIMPMLDataFieldFilterByArray>
         {
         public:
-            explicit AimpDataFieldFilterByArray(IAIMPMLDataFieldFilterByArray *aimpObject) : AimpObject(aimpObject)
-            { }
+            explicit AimpDataFieldFilterByArray(IAIMPMLDataFieldFilterByArray *aimpObject);
 
             virtual property String^ Field
             {
-                String^ get()
-                {
-                    return PropertyListExtension::GetString(InternalAimpObject, AIMPML_FIELDFILTERBYARRAY_FIELD);
-                }
-
-                void set(String^ value)
-                {
-                    PropertyListExtension::SetString(InternalAimpObject, AIMPML_FIELDFILTERBYARRAY_FIELD, value);
-                }
+                String^ get();
+                void set(String^ value);
             }
 
-            virtual AimpActionResult GetData(IList<Object^>^ values)
-            {
-                values = nullptr;
-                return AimpActionResult::NotImplemented;
-            }
+            virtual AimpActionResult GetData(IList<Object^>^ values);
 
-            virtual AimpActionResult SetData(IList<Object^>^ values)
-            {
-                return AimpActionResult::NotImplemented;
-            }
+            virtual AimpActionResult SetData(IList<Object^>^ values);
         };
     }
 }
