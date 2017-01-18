@@ -13,97 +13,47 @@ namespace AIMP
             public IAimpDataFilter
         {
         public:
-            explicit AimpDataFilter(IAIMPMLDataFilter* native) : AimpDataFilterGroup(native)
-            {}
+            explicit AimpDataFilter(IAIMPMLDataFilter* native);
 
             virtual property int Offset
             {
-                int get()
-                {
-                    return PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_OFFSET);
-                }
-
-                void set(int value)
-                {
-                    PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_OFFSET, value);
-                }
+                int get();
+                void set(int value);
             }
 
             virtual property int Limit
             {
-                int get()
-                {
-                    return PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_LIMIT);
-                }
-
-                void set(int value)
-                {
-                    PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_LIMIT, value);
-                }
+                int get();
+                void set(int value);
             }
 
             virtual property String^ SortBy
             {
-                String^ get()
-                {
-                    return PropertyListExtension::GetString(InternalAimpObject, AIMPML_FILTER_SORTBY);
-                }
-
-                void set(String^ value)
-                {
-                    PropertyListExtension::SetString(InternalAimpObject, AIMPML_FILTER_SORTBY, value);
-                }
+                String^ get();
+                void set(String^ value);
             }
 
             virtual property SortDirectionType SortDirection
             {
-                SortDirectionType get()
-                {
-                    return (SortDirectionType)PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_SORTDIRECTION);
-                }
-
-                void set(SortDirectionType value)
-                {
-                    PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_SORTDIRECTION, (int)value);
-                }
+                SortDirectionType get();
+                void set(SortDirectionType value);
             }
 
             virtual property String^ SearchString
             {
-                String^ get()
-                {
-                    return PropertyListExtension::GetString(InternalAimpObject, AIMPML_FILTER_SEARCHSTRING);
-                }
-
-                void set(String^ value)
-                {
-                    PropertyListExtension::SetString(InternalAimpObject, AIMPML_FILTER_SEARCHSTRING, value);
-                }
+                String^ get();
+                void set(String^ value);
             }
 
             virtual property int AlphaBeticIndex
             {
-                int get()
-                {
-                    return PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_ALPHABETICINDEX);
-                }
-
-                void set(int value)
-                {
-                    PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_ALPHABETICINDEX, value);
-                }
+                int get();
+                void set(int value);
             }
 
-            virtual AimpActionResult Assign(IAimpDataFieldFilter^ source)
-            {
-                return AimpActionResult::NotImplemented;
-            }
+            virtual AimpActionResult Assign(IAimpDataFieldFilter^ source);
 
-            virtual AimpActionResult Clone(IAimpDataFilter^% source)
-            {
-                source = nullptr;
-                return AimpActionResult::NotImplemented;
-            }
+            virtual AimpActionResult Clone(IAimpDataFilter^% source);
         };
     }
 }

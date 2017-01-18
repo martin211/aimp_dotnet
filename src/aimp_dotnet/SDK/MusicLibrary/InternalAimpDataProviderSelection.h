@@ -5,53 +5,19 @@ class InternalAimpDataProviderSelection : public IUnknownInterfaceImpl<IAIMPMLDa
 private:
     gcroot<AIMP::SDK::MusicLibrary::IAimpDataProviderSelection^> _instance;
 public:
-    InternalAimpDataProviderSelection(gcroot<AIMP::SDK::MusicLibrary::IAimpDataProviderSelection^> managedInstance)
-    {
-        _instance = managedInstance;
-    }
+    InternalAimpDataProviderSelection(gcroot<AIMP::SDK::MusicLibrary::IAimpDataProviderSelection^> managedInstance);
 
-    virtual DOUBLE WINAPI GetValueAsFloat(int FieldIndex)
-    {
-        return _instance->GetValueAsFloat(FieldIndex);
-    }
+    virtual DOUBLE WINAPI GetValueAsFloat(int FieldIndex);
 
-    virtual int WINAPI GetValueAsInt32(int FieldIndex)
-    {
-        return _instance->GetValueAsInt32(FieldIndex);
-    }
+    virtual int WINAPI GetValueAsInt32(int FieldIndex);
 
-    virtual INT64 WINAPI GetValueAsInt64(int FieldIndex)
-    {
-        return _instance->GetValueAsInt64(FieldIndex);
-    }
+    virtual INT64 WINAPI GetValueAsInt64(int FieldIndex);
 
-    virtual WCHAR* WINAPI GetValueAsString(int FieldIndex, int* Length)
-    {
-        System::String^ str = _instance->GetValueAsString(FieldIndex);
-        pin_ptr<const wchar_t> str1 = PtrToStringChars(str);
-        *Length = str->Length;
-        return (PWCHAR)str1;
-    }
+    virtual WCHAR* WINAPI GetValueAsString(int FieldIndex, int* Length);
 
-    virtual BOOL WINAPI NextRow()
-    {
-        return _instance->NextRow();
-    }
+    virtual BOOL WINAPI NextRow();
 
-    virtual BOOL WINAPI HasNextPage()
-    {
-        return _instance->HasNextPage();
-    }
+    virtual BOOL WINAPI HasNextPage();
 
-    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
-    {
-        if (riid == IID_IAIMPMLDataProviderSelection)
-        {
-            *ppvObject = this;
-            AddRef();
-            return S_OK;
-        }
-
-        return E_NOINTERFACE;
-    }
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
 };

@@ -38,13 +38,10 @@ namespace AIMP
 
             static IAIMPImageContainer* ToContainer(System::Drawing::Bitmap ^image);
 
+            static IUnknown* MakeObject(REFIID objectId);
+
             template<typename TObject>
-            static TObject* MakeObject(REFIID objectId)
-            {
-                TObject *obj = NULL;
-                HRESULT r = ManagedAimpCore::GetAimpCore()->CreateObject(objectId, (void**)&obj);
-                return obj;
-            }
+            static TObject* MakeObject2(REFIID objectId);
 
             static System::Collections::Generic::IList<String^>^ ToStringCollection(IAIMPObjectList* aimpList)
             {

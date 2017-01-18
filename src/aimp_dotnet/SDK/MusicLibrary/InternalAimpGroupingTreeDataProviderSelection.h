@@ -19,88 +19,23 @@ namespace AIMP
         public:
             typedef IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProviderSelection> Base;
 
-            explicit InternalAimpGroupingTreeDataProviderSelection(gcroot<IAimpGroupingTreeDataProviderSelection^> managedInstance)
-            {
-                _managedInstance = managedInstance;
-            }
+            explicit InternalAimpGroupingTreeDataProviderSelection(gcroot<IAimpGroupingTreeDataProviderSelection^> managedInstance);
 
-            virtual HRESULT WINAPI GetDisplayValue(IAIMPString** S)
-            {
-                String^ str;
-                AimpActionResult result = _managedInstance->GetDisplayValue(str);
+            virtual HRESULT WINAPI GetDisplayValue(IAIMPString** S);
 
-                if (result == AimpActionResult::Ok)
-                {
-                    *S = AimpExtension::GetAimpString(str);
-                }
+            virtual DWORD WINAPI GetFlags();
 
-                return (HRESULT)result;
-            }
+            virtual HRESULT WINAPI GetImageIndex(int* Index);
 
-            virtual DWORD WINAPI GetFlags()
-            {
-                return (DWORD)_managedInstance->GetFlags();
-            }
+            virtual HRESULT WINAPI GetValue(IAIMPString** FieldName, VARIANT* Value);
 
-            virtual HRESULT WINAPI GetImageIndex(int* Index)
-            {
-                FieldImageIndex index;
-                AimpActionResult result = _managedInstance->GetImageIndex(index);
+            virtual BOOL WINAPI NextRow();
 
-                if (result == AimpActionResult::Ok)
-                {
-                    *Index = (int)index;
-                }
+            virtual ULONG WINAPI AddRef(void);
 
-                return (HRESULT)result;
-            }
+            virtual ULONG WINAPI Release(void);
 
-            virtual HRESULT WINAPI GetValue(IAIMPString** FieldName, VARIANT* Value)
-            {
-                String^ fieldName;
-                Object^ val;
-
-                AimpActionResult result = _managedInstance->GetValue(fieldName, val);
-
-                if (result == AimpActionResult::Ok)
-                {
-                    *FieldName = AimpExtension::GetAimpString(fieldName);
-                    VARIANT v = AimpExtension::ToVariant(val);
-                    VariantCopyInd(Value, &v);
-                }
-
-                return (HRESULT)result;
-            }
-
-            virtual BOOL WINAPI NextRow()
-            {
-                return (BOOL)_managedInstance->NextRow();
-            }
-
-            virtual ULONG WINAPI AddRef(void)
-            {
-                return Base::AddRef();
-            }
-
-            virtual ULONG WINAPI Release(void)
-            {
-                return Base::Release();
-            }
-
-            virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
-            {
-                HRESULT res = Base::QueryInterface(riid, ppvObject);
-
-                if (riid == IID_IAIMPMLGroupingTreeDataProviderSelection)
-                {
-                    *ppvObject = this;
-                    AddRef();
-                    return S_OK;
-                }
-
-                *ppvObject = NULL;
-                return res;
-            }
+            virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
         };
     }
 }

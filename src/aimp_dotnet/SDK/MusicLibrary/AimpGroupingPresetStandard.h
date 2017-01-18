@@ -20,63 +20,16 @@ namespace AIMP
             public IAimpGroupingPresetStandard
         {
         public:
-            AimpGroupingPresetStandard(IAIMPMLGroupingPresetStandard *aimpObject) : AimpGroupingPreset(aimpObject)
-            {}
+            AimpGroupingPresetStandard(IAIMPMLGroupingPresetStandard *aimpObject);
 
             virtual property AIMP::SDK::IAimpObjectList<String^>^ Fields
             {
-                AIMP::SDK::IAimpObjectList<String^>^ get()
-                {
-                    IAIMPObjectList* fields = NULL;
-                    
-                    if (CheckResult(InternalAimpObject->GetValueAsObject(AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList, (void**)&fields)) == AimpActionResult::Ok)
-                    {
-                        return gcnew AimpObjectList<String^>(fields);
-                    }
+                AIMP::SDK::IAimpObjectList<String^>^ get();
 
-                    // TODO: Check GetObject
-                    //if (PropertyListExtension::GetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList, (void**)&fields) == AimpActionResult::Ok)
-                    //{
-                    //    if (fields == NULL)
-                    //    {
-                    //        //fields = AimpExtension::MakeObject<IAIMPObjectList>(IID_IAIMPObjectList);
-                    //        //PropertyListExtension::SetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, fields);
-                    //    }
-                    //    return gcnew AimpObjectList<String^>(fields);
-                    //}
-
-                    return nullptr;
-                }
-
-                void set(AIMP::SDK::IAimpObjectList<String^>^ value)
-                {
-                    System::Collections::Generic::IList<String^>^ result;
-                    IAIMPObjectList *fields = AimpExtension::MakeObject<IAIMPObjectList>(IID_IAIMPObjectList);
-                    int count = value->Count;
-
-                    for (int i = 0; i < count; i++)
-                    {
-                        //fields->Add(AimpExtension::GetAimpString(value[i]));
-                    }
-
-                    PropertyListExtension::SetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, fields);
-                }
+                void set(AIMP::SDK::IAimpObjectList<String^>^ value);
             }
 
-            virtual AimpActionResult GetFilter(IAimpDataFilterGroup ^%filter)
-            {
-                IAIMPMLDataFilterGroup *f;
-                filter = nullptr;
-
-                AimpActionResult result = CheckResult(((IAIMPMLGroupingPresetStandard*)InternalAimpObject)->GetFilter(&f));
-
-                if (result == AimpActionResult::Ok)
-                {
-                    filter = gcnew AimpDataFilterGroup(f);
-                }
-
-                return result;
-            }
+            virtual AimpActionResult GetFilter(IAimpDataFilterGroup ^%filter);
         };
     }
 }

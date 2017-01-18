@@ -2,122 +2,117 @@
 #include "AimpDataStorage.h"
 #include "AimpGroupingPreset.h"
 
-namespace AIMP
+using namespace AIMP::SDK;
+AimpDataStorage::!AimpDataStorage()
 {
-    namespace SDK
+    _aimpObject->Release();
+}
+
+AimpDataStorage::~AimpDataStorage()
+{
+    this->!AimpDataStorage();
+}
+
+AimpActionResult AimpDataStorage::GetProperties(IAIMPPropertyList** properties)
+{
+    IAIMPPropertyList *prop = NULL;
+    AimpActionResult result = CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&prop));
+    *properties = prop;
+    return result;
+}
+
+AimpDataStorage::AimpDataStorage(IAIMPMLDataStorage *aimpDataStorage) : AimpObject(aimpDataStorage)
+{
+}
+
+String ^AimpDataStorage::Id::get()
+{
+    IAIMPPropertyList *properties = NULL;
+    try
     {
-        AimpDataStorage::!AimpDataStorage()
+        if (GetProperties(&properties) == AimpActionResult::Ok)
         {
-            _aimpObject->Release();
+            return PropertyListExtension::GetString(properties, AIMPML_DATASTORAGE_PROPID_ID);
         }
-
-        AimpDataStorage::~AimpDataStorage()
+    }
+    finally
+    {
+        if (properties != NULL)
         {
-            this->!AimpDataStorage();
+            properties->Release();
+            properties = NULL;
         }
+    }
 
-        AimpActionResult AimpDataStorage::GetProperties(IAIMPPropertyList** properties)
+    return String::Empty;
+}
+
+String ^AimpDataStorage::Caption::get()
+{
+    IAIMPPropertyList *properties = NULL;
+    try
+    {
+        if (GetProperties(&properties) == AimpActionResult::Ok)
         {
-            IAIMPPropertyList *prop = NULL;
-            AimpActionResult result = CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&prop));
-            *properties = prop;
-            return result;
+            return PropertyListExtension::GetString(properties, AIMPML_DATASTORAGE_PROPID_CAPTION);
         }
-
-        AimpDataStorage::AimpDataStorage(IAIMPMLDataStorage *aimpDataStorage) : AimpObject(aimpDataStorage)
+    }
+    finally
+    {
+        if (properties != NULL)
         {
+            properties->Release();
+            properties = NULL;
         }
+    }
 
-        String ^AimpDataStorage::Id::get()
+    return String::Empty;
+}
+
+IAimpGroupingPreset ^AimpDataStorage::GroupingPreset::get()
+{
+    IAIMPPropertyList *properties = NULL;
+    try
+    {
+        if (GetProperties(&properties) == AimpActionResult::Ok)
         {
-            IAIMPPropertyList *properties = NULL;
-            try
+            IAIMPMLGroupingPreset *preset = NULL;
+            if (PropertyListExtension::GetObject(properties, AIMPML_DATASTORAGE_PROPID_GROUPINGPRESET, IID_IAIMPMLGroupingPreset, (void**)&preset) == AimpActionResult::Ok)
             {
-                if (GetProperties(&properties) == AimpActionResult::Ok)
-                {
-                    return PropertyListExtension::GetString(properties, AIMPML_DATASTORAGE_PROPID_ID);
-                }
+                if (preset != NULL)
+                    return gcnew AimpGroupingPreset(preset);
             }
-            finally
-            {
-                if (properties != NULL)
-                {
-                    properties->Release();
-                    properties = NULL;
-                }
-            }
-
-            return String::Empty;
         }
-
-        String ^AimpDataStorage::Caption::get()
+    }
+    finally
+    {
+        if (properties != NULL)
         {
-            IAIMPPropertyList *properties = NULL;
-            try
-            {
-                if (GetProperties(&properties) == AimpActionResult::Ok)
-                {
-                    return PropertyListExtension::GetString(properties, AIMPML_DATASTORAGE_PROPID_CAPTION);
-                }
-            }
-            finally
-            {
-                if (properties != NULL)
-                {
-                    properties->Release();
-                    properties = NULL;
-                }
-            }
-
-            return String::Empty;
+            properties->Release();
+            properties = NULL;
         }
+    }
 
-        IAimpGroupingPreset ^AimpDataStorage::GroupingPreset::get()
+    return nullptr;
+}
+
+void AimpDataStorage::GroupingPreset::set(IAimpGroupingPreset ^value)
+{
+    IAIMPPropertyList *properties = NULL;
+    try
+    {
+        if (GetProperties(&properties) == AimpActionResult::Ok)
         {
-            IAIMPPropertyList *properties = NULL;
-            try
-            {
-                if (GetProperties(&properties) == AimpActionResult::Ok)
-                {
-                    IAIMPMLGroupingPreset *preset = NULL;
-                    if (PropertyListExtension::GetObject(properties, AIMPML_DATASTORAGE_PROPID_GROUPINGPRESET, IID_IAIMPMLGroupingPreset, (void**)&preset) == AimpActionResult::Ok)
-                    {
-                        if (preset != NULL)
-                            return gcnew AimpGroupingPreset(preset);
-                    }
-                }
-            }
-            finally
-            {
-                if (properties != NULL)
-                {
-                    properties->Release();
-                    properties = NULL;
-                }
-            }
-
-            return nullptr;
+            IAIMPMLGroupingPreset *preset = ((AimpGroupingPreset^)value)->InternalAimpObject;
+            PropertyListExtension::SetObject(properties, AIMPML_DATASTORAGE_PROPID_GROUPINGPRESET, preset);
         }
-
-        void AimpDataStorage::GroupingPreset::set(IAimpGroupingPreset ^value)
+    }
+    finally
+    {
+        if (properties != NULL)
         {
-            IAIMPPropertyList *properties = NULL;
-            try
-            {
-                if (GetProperties(&properties) == AimpActionResult::Ok)
-                {
-                    IAIMPMLGroupingPreset *preset = ((AimpGroupingPreset^)value)->InternalAimpObject;
-                    PropertyListExtension::SetObject(properties, AIMPML_DATASTORAGE_PROPID_GROUPINGPRESET, preset);
-                }
-            }
-            finally
-            {
-                if (properties != NULL)
-                {
-                    properties->Release();
-                    properties = NULL;
-                }
-            }
+            properties->Release();
+            properties = NULL;
         }
     }
 }
