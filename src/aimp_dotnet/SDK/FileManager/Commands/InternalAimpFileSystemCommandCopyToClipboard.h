@@ -9,36 +9,13 @@ private:
     gcroot<IAimpFileSystemCommandCopyToClipboard^> _instance;
 
 public:
-    InternalAimpFileSystemCommandCopyToClipboard(gcroot<IAimpFileSystemCommandCopyToClipboard^> instance)
-    {
-        _instance = instance;
-    }
+    InternalAimpFileSystemCommandCopyToClipboard(gcroot<IAimpFileSystemCommandCopyToClipboard^> instance);
 
-    virtual HRESULT WINAPI CopyToClipboard(IAIMPObjectList* Files)
-    {
-        return (HRESULT)_instance->CopyToClipboard(AIMP::SDK::AimpExtension::ToStringCollection(Files));
-    }
+    virtual HRESULT WINAPI CopyToClipboard(IAIMPObjectList* Files);
 
-    virtual ULONG WINAPI AddRef(void)
-    {
-        return Base::AddRef();
-    }
+    virtual ULONG WINAPI AddRef(void);
 
-    virtual ULONG WINAPI Release(void)
-    {
-        return Base::Release();
-    }
+    virtual ULONG WINAPI Release(void);
 
-    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
-    {
-        *ppvObject = NULL;
-        if (riid == IID_IAIMPFileSystemCommandCopyToClipboard)
-        {
-            *ppvObject = this;
-            AddRef();
-            return S_OK;
-        }
-
-        return E_NOINTERFACE;
-    }
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
 };

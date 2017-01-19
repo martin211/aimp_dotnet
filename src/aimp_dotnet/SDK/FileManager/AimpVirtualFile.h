@@ -13,113 +13,53 @@ namespace AIMP
         public ref class AimpVirtualFile : public AimpObject<IAIMPVirtualFile>, public IAimpVirtualFile
         {
         public:
-            AimpVirtualFile(IAIMPVirtualFile *aimpObject) : AimpObject(aimpObject)
-            {}
+            AimpVirtualFile(IAIMPVirtualFile *aimpObject);
 
             virtual property int IndexInSet
             {
-                int get()
-                {
-                    return PropertyListExtension::GetInt32(_aimpObject, AIMP_VIRTUALFILE_PROPID_INDEXINSET);
-                }
-                void set(int value)
-                {
-                    PropertyListExtension::SetInt32(_aimpObject, AIMP_VIRTUALFILE_PROPID_INDEXINSET, value);
-                }
+                int get();
+                void set(int value);
             }
 
             virtual property double ClipStart
             {
-                double get()
-                {
-                    return PropertyListExtension::GetFloat(_aimpObject, AIMP_VIRTUALFILE_PROPID_CLIPSTART);
-                }
-                void set(double value)
-                {
-                    PropertyListExtension::SetFloat(_aimpObject, AIMP_VIRTUALFILE_PROPID_CLIPSTART, value);
-                }
+                double get();
+                void set(double value);
             }
 
             virtual property double ClipFinish
             {
-                double get()
-                {
-                    return PropertyListExtension::GetFloat(_aimpObject, AIMP_VIRTUALFILE_PROPID_CLIPFINISH);
-                }
-                void set(double value)
-                {
-                    PropertyListExtension::SetFloat(_aimpObject, AIMP_VIRTUALFILE_PROPID_CLIPFINISH, value);
-                }
+                double get();
+                void set(double value);
             }
 
             virtual property String ^AudioSourceFile
             {
-                String ^get()
-                {
-                    return PropertyListExtension::GetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_AUDIOSOURCEFILE);
-                }
-                void set(String ^value)
-                {
-                    PropertyListExtension::SetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_AUDIOSOURCEFILE, value);
-                }
+                String ^get();
+                void set(String ^value);
             }
 
             virtual property String ^FileFormat
             {
-                String ^get()
-                {
-                    return PropertyListExtension::GetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_FILEFORMAT);
-                }
-                void set(String ^value)
-                {
-                    PropertyListExtension::SetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_FILEFORMAT, value);
-                }
+                String ^get();
+                void set(String ^value);
             }
 
             virtual property String ^FileUri
             {
-                String ^get()
-                {
-                    return PropertyListExtension::GetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_FILEURI);
-                }
-                void set(String ^value)
-                {
-                    PropertyListExtension::SetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_FILEURI, value);
-                }
+                String ^get();
+                void set(String ^value);
             }
 
-            virtual AimpActionResult CreateStream(System::IO::Stream ^%stream)
-            {
-                stream = nullptr;
-                return AimpActionResult::Ok;
-            }
+            virtual AimpActionResult CreateStream(System::IO::Stream ^%stream);
 
-            virtual AimpActionResult GetFileInfo(IAimpFileInfo ^%fileInfo)
-            {
-                IAIMPFileInfo *fi = NULL;
-                AimpActionResult result = CheckResult(_aimpObject->GetFileInfo(fi));
-                if (result == AimpActionResult::Ok)
-                {
-                    fileInfo = gcnew AimpFileInfo(fi);
-                }
+            virtual AimpActionResult GetFileInfo(IAimpFileInfo ^%fileInfo);
 
-                return result;
-            }
+            virtual bool IsExists();
 
-            virtual bool IsExists()
-            {
-                return _aimpObject->IsExists();
-            }
+            virtual AimpActionResult IsInSameStream(IAimpVirtualFile ^virtualFile);
 
-            virtual AimpActionResult IsInSameStream(IAimpVirtualFile ^virtualFile)
-            {
-                return AimpActionResult::NotImplemented;
-            }
-
-            virtual AimpActionResult Synchronize()
-            {
-                return CheckResult(_aimpObject->Synchronize());
-            }
+            virtual AimpActionResult Synchronize();
         };
     }
 }
