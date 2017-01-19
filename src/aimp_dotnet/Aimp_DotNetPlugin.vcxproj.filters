@@ -67,6 +67,18 @@
     <Filter Include="Source Files\SDK\MusicLibrary">
       <UniqueIdentifier>{972d2359-477c-4006-b702-e4d2effaab8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\SDK\FileManager">
+      <UniqueIdentifier>{f4656e0d-d70d-489a-ae70-7e2aec5daf2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SDK\FileManager\Commands">
+      <UniqueIdentifier>{0c2018b1-0678-4f31-856f-2f0ee4100514}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SDK\FileManager">
+      <UniqueIdentifier>{f5beece8-ea4e-4acf-8c87-6e27642838cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SDK\FileManager\Commands">
+      <UniqueIdentifier>{dd681368-a297-478e-a4fa-ab82f25ad393}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DotNetPlugin.cpp">
@@ -185,6 +197,48 @@
     </ClCompile>
     <ClCompile Include="SDK\AimpExtension.cpp">
       <Filter>Source Files\SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandFileInfo.cpp">
+      <Filter>Source Files\SDK\FileManager\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandCopyToClipboard.cpp">
+      <Filter>Source Files\SDK\FileManager\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDelete.cpp">
+      <Filter>Source Files\SDK\FileManager\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDropSource.cpp">
+      <Filter>Source Files\SDK\FileManager\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandFileInfo.cpp">
+      <Filter>Source Files\SDK\FileManager\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandOpenFileFolder.cpp">
+      <Filter>Source Files\SDK\FileManager\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandStreaming.cpp">
+      <Filter>Source Files\SDK\FileManager\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCustomFileCommand.cpp">
+      <Filter>Source Files\SDK\FileManager\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\AimpFileInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\AimpServiceFileFormats.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\AimpServiceFileInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\AimpServiceFileSystems.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\AimpVirtualFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileSystem.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -473,34 +527,10 @@
     <ClInclude Include="SDK\FileManager\AimpServiceFileSystems.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandFileInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandOpenFileFolder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCustomFileCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\AimpStream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\FileManager\AimpServiceFileStreaming.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandFileInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandCopyToClipboard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDelete.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDropSource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandStreaming.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProviderSelection.h">
@@ -535,6 +565,33 @@
     </ClInclude>
     <ClInclude Include="AIMPSDK\AIMPSDK.h">
       <Filter>Header Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandCopyToClipboard.h">
+      <Filter>Header Files\SDK\FileManager\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDelete.h">
+      <Filter>Header Files\SDK\FileManager\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDropSource.h">
+      <Filter>Header Files\SDK\FileManager\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandFileInfo.h">
+      <Filter>Header Files\SDK\FileManager\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandOpenFileFolder.h">
+      <Filter>Header Files\SDK\FileManager\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandStreaming.h">
+      <Filter>Header Files\SDK\FileManager\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCustomFileCommand.h">
+      <Filter>Header Files\SDK\FileManager\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\Stdafx.h">
+      <Filter>Header Files\SDK\FileManager\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandFileInfo.h">
+      <Filter>Header Files\SDK\FileManager\Commands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
