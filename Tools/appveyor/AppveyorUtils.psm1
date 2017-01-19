@@ -67,13 +67,14 @@ function Start-SonarAnalysis {
 
 function Stop-SonarAnalysis {
     param (
-        [string] $toolsPath = (Get-Item -Path ".\" -Verbose).FullName
+        [string] $toolsPath = (Get-Item -Path ".\" -Verbose).FullName,
+		[string] $logFile
     )
 
     Write-Output "End SonarQube analize"
     $sonarMsbuildPath = Join-Path $toolsPath $Sonar_MsBuildToolExe
     Write-Output "$sonarMsbuildPath"
-	& $sonarMsbuildPath end > sonar.log
+	& $sonarMsbuildPath end > $logFile
 }
 
 function Invoke-PrepareArtifacts {
@@ -139,4 +140,26 @@ function Invoke-PrepareArtifacts {
 
 	Copy-Item $sdkFile -Destination $artifactsFolder
 	Copy-Item $sdkPluginFile -Destination $artifactsFolder
+}
+
+function Invoke-PushArtifacts {
+	param (
+		[string] $inputPath
+	)
+	
+	Push-AppveyorArtifact $inputPath
+}
+
+function Invoke-CompressArtifacts {
+	param (
+		[string] $archiveName,
+		[string] $inputPath,
+		[string] $outputPath
+	)
+	
+	$output = Join-Path $outputPath $archiveName
+	$input = Join-Path $inputPath "*"
+	
+	$compressCommand = "7z"			
+	& $compressCommand a $output $input
 }
