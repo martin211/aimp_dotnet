@@ -54,7 +54,8 @@
       <ModuleDefinitionFile>AIMP_Exports.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
-      <Command>$(SolutionDir)CopyPlugin.cmd "AIMP4.12" "$(ConfigurationName)" "$(SolutionDir)" "$(TargetName)" "$(ProjectName)" "$(OutDir)" "$(TargetPath)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
