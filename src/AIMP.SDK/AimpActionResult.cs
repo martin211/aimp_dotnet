@@ -1,40 +1,40 @@
 ﻿namespace AIMP.SDK
 {
-    public enum AimpActionResult
+    public enum AimpActionResult : uint
     {
         /// <summary>
-        /// Operation completed.
+        /// Operation successful.
         /// </summary>
-        Ok,
+        Ok = 0x00000000,
 
         /// <summary>
-        /// Cross-thread operation not valid
+        /// General access denied error.
         /// </summary>
-        AccessDenied,
+        AccessDenied = 0x80070005,
 
         /// <summary>
-        /// Object already disposed
+        /// Handle that is not valid.
         /// </summary>
-        Handle,
+        Handle = 0x80070006,
 
         /// <summary>
-        /// Invalid arguments.
+        /// One or more arguments are not valid.
         /// </summary>
-        InvalidArguments,
+        InvalidArguments = 0x80070057,
 
         /// <summary>
         /// Not implemented.
         /// </summary>
-        NotImplemented,
+        NotImplemented = 0x80004001,
 
         /// <summary>
-        /// Unexpe3cted error.
+        /// Unexpected failure.
         /// </summary>
-        Unexpected,
+        Unexpected = 0x8000FFFF,
 
         /// <summary>
-        /// Failed.
+        /// Unspecified failure.
         /// </summary>
-        Fail
+        Fail = 0x80004005
     }
 }
