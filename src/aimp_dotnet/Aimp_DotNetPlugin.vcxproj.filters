@@ -280,6 +280,12 @@
       <Filter>Source Files\SDK\Options</Filter>
     </ClCompile>
     <ClCompile Include="SDK\Options\OptionsDialogFrameExtension.cpp">
+      <Filter>Source Files\SDK\Options</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Playback\AimpPlaybackQueueItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Playback\AimpServicePlaybackQueue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -646,6 +652,9 @@
     </ClInclude>
     <ClInclude Include="SDK\Options\OptionsDialogFrameExtension.h">
       <Filter>Header Files\SDK\Options</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Playback\Stdafx.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
