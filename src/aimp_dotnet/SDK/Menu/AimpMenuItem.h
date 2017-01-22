@@ -16,8 +16,8 @@ namespace AIMP
         private:
             EventHandler ^_onExecuteHandler;
             EventHandler ^_onShowHandler;
-            MenuItemEvent *_onExecuteEvent;
-            MenuItemEvent *_onShowEvent;
+            IAIMPActionEvent *_onExecuteEvent;
+            IAIMPActionEvent *_onShowEvent;
             String ^_id;
 
         public:
