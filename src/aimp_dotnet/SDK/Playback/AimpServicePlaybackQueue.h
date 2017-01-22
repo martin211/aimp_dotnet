@@ -16,118 +16,19 @@ namespace AIMP
             AimpCheckUrl ^_checkUrlHandler;
 
         public:
-            explicit AimpServicePlaybackQueue(ManagedAimpCore ^core) : AimpBaseManager<IAIMPServicePlaybackQueue>(core)
-            {
-            }
+            explicit AimpServicePlaybackQueue(ManagedAimpCore ^core);
 
-            ~AimpServicePlaybackQueue()
-            {
-            }
+            virtual IAimpPlaybackQueueItem^ GetNextTrack();
 
-            virtual IAimpPlaybackQueueItem^ GetNextTrack()
-            {
-                IAIMPPlaybackQueueItem *item = NULL;
-                IAIMPServicePlaybackQueue *service = NULL;
-                try
-                {
-                    if (CheckResult(_core->GetService(IID_IAIMPServicePlaybackQueue, (void**)&service)) == AimpActionResult::Ok)
-                    {
-                        if (service != NULL)
-                        {
-                            if (CheckResult(service->GetNextTrack(&item)) == AimpActionResult::Ok)
-                            {
-                                return gcnew AimpPlaybackQueueItem(item);
-                            }
-                        }
-                    }
-                }
-                finally
-                {
-                    if (service != NULL)
-                    {
-                        service->Release();
-                        service = NULL;
-                    }
-
-                    if (item != NULL)
-                    {
-                        item->Release();
-                        item = NULL;
-                    }
-                }
-
-                return nullptr;
-            }
-
-            virtual IAimpPlaybackQueueItem^ GetPrevTrack()
-            {
-                IAIMPPlaybackQueueItem *item = NULL;
-                IAIMPServicePlaybackQueue *service = NULL;
-
-                try
-                {
-                    if (CheckResult(_core->GetService(IID_IAIMPServicePlaybackQueue, (void**)&service)) == AimpActionResult::Ok)
-                    {
-                        if (service == NULL)
-                        {
-                            return nullptr;
-                        }
-
-                        if (CheckResult(service->GetPrevTrack(&item)) == AimpActionResult::Ok)
-                        {
-                            return gcnew AimpPlaybackQueueItem(item);
-                        }
-                    }
-                }
-                finally
-                {
-                    if (service != NULL)
-                    {
-                        service->Release();
-                        service = NULL;
-                    }
-
-                    if (item != NULL)
-                    {
-                        item->Release();
-                        item = NULL;
-                    }
-                }
-
-                return nullptr;
-            }
+            virtual IAimpPlaybackQueueItem^ GetPrevTrack();
 
             virtual event AimpCheckUrl ^OnCheckURL
             {
-                void add(AimpCheckUrl ^onEvent)
-                {
-                    bool tmp = _checkUrlHandler == nullptr;
-                    if (tmp)
-                    {
-                        _checkUrlHandler = (AimpCheckUrl^)System::Delegate::Combine(_checkUrlHandler, onEvent);
-                    }
-                }
-
-                void remove(AimpCheckUrl ^onEvent)
-                {
-                    bool tmp = _checkUrlHandler != nullptr;
-                    if (tmp)
-                    {
-                        _checkUrlHandler = (AimpCheckUrl^)System::Delegate::Remove(_checkUrlHandler, onEvent);
-                    }
-                }
+                virtual void add(AimpCheckUrl ^onEvent);
+                virtual void remove(AimpCheckUrl ^onEvent);
             }
         internal:
-            bool RaiseCheckUrl(String^ %url)
-            {
-                bool tmp = this->_checkUrlHandler != nullptr;
-                if (tmp)
-                {
-                    return _checkUrlHandler(url);
-                }
-
-                return false;
-            }
+            bool RaiseCheckUrl(String^ %url);
         };
     }
 }
