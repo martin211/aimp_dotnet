@@ -7,25 +7,14 @@ namespace AIMP
         using namespace System;
         using namespace AIMP::SDK::Options;
 
-        public ref class AimpOptionsDialogFrame : public IAimpOptionsDialogFrame, public IAimpOptionsDialogFrameKeyboardHelper
+        public ref class AimpOptionsDialogFrame :
+            public AimpObject<IAIMPOptionsDialogFrame>,
+            public IAimpOptionsDialogFrame,
+            public IAimpOptionsDialogFrameKeyboardHelper
         {
-        private:
-            IAIMPOptionsDialogFrame *_aimpObject;
-        internal:
-            virtual property IAIMPOptionsDialogFrame *AimpObject
-            {
-                IAIMPOptionsDialogFrame *get()
-                {
-                    return _aimpObject;
-                }
-
-                void set(IAIMPOptionsDialogFrame *value)
-                {
-                    _aimpObject = value;
-                }
-            }
-
         public:
+            explicit AimpOptionsDialogFrame(IAIMPOptionsDialogFrame* aimpObject);
+
             virtual String^ GetName() abstract;
 
             virtual IntPtr CreateFrame(IntPtr parentWindow) abstract;

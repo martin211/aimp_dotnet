@@ -54,6 +54,9 @@
     <ClCompile Include="SDK\MusicLibrary\InternalAimpDataProviderSelection.cpp" />
     <ClCompile Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.cpp" />
     <ClCompile Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProviderSelection.cpp" />
+    <ClCompile Include="SDK\Options\AimpOptionsDialogFrame.cpp" />
+    <ClCompile Include="SDK\Options\AimpServiceOptionsDialog.cpp" />
+    <ClCompile Include="SDK\Options\OptionsDialogFrameExtension.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlayListQueue.cpp" />
     <ClCompile Include="SDK\PropertyListHelper.cpp" />
     <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp" />
@@ -124,6 +127,7 @@
     <ClInclude Include="SDK\MusicLibrary\InternalAimpDataProviderSelection.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h" />
     <ClInclude Include="SDK\MusicLibrary\Stdafx.h" />
+    <ClInclude Include="SDK\Options\Stdafx.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />
     <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h" />
     <ClInclude Include="SDK\PlayList\Stdafx.h" />
@@ -158,7 +162,7 @@
     <ClInclude Include="AIMPSDK\AIMP400\apiVisuals.h" />
     <ClInclude Include="DotNetPlugin.h" />
     <ClInclude Include="Extensions\AimpExtensionAlbumArtProvider.h" />
-    <ClInclude Include="Extensions\OptionsDialogFrameExtension.h" />
+    <ClInclude Include="SDK\Options\OptionsDialogFrameExtension.h" />
     <ClInclude Include="IUnknownInterfaceImpl.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SDK\Action\AimpActionManager.h" />

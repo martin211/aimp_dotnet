@@ -1,7 +1,7 @@
 #pragma once
 #include "..\AimpSdk.h"
 #include <Unknwnbase.h>
-#include "..\Extensions\OptionsDialogFrameExtension.h"
+#include "..\SDK\Options\OptionsDialogFrameExtension.h"
 #include "..\Extensions\AimpExtensionAlbumArtCatalog.h"
 #include "..\Extensions\AimpExtensionAlbumArtProvider.h"
 #include "..\Extensions\AimpExtensionPlaylistManagerListener.h"

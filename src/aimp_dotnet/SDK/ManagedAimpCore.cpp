@@ -3,7 +3,7 @@
 #include "..\IUnknownInterfaceImpl.h"
 #include "PlayList\AimpPlayList.h"
 #include "..\AimpSdk.h"
-#include "..\Extensions\OptionsDialogFrameExtension.h"
+#include "..\SDK\Options\OptionsDialogFrameExtension.h"
 #include "..\Extensions\AimpExtensionAlbumArtCatalog.h"
 #include "..\Extensions\AimpExtensionPlaylistManagerListener.h"
 

@@ -4,7 +4,7 @@
 
 #include "DotNetPlugin.h"
 //#include "vcclr.h"
-#include "Extensions/OptionsDialogFrameExtension.h"
+#include "SDK/Options/OptionsDialogFrameExtension.h"
 
 DotNetPlugin::DotNetPlugin()
 {
