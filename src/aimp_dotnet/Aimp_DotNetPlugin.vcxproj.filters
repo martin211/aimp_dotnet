@@ -91,6 +91,12 @@
     <Filter Include="Source Files\SDK\MUI">
       <UniqueIdentifier>{e22f750b-79c6-4223-81ab-9a854b0d27ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\SDK\Options">
+      <UniqueIdentifier>{e9209391-8389-474c-845f-c88eaf90875c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SDK\Options">
+      <UniqueIdentifier>{ad4083de-3c46-4109-a3ad-026610d1372a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DotNetPlugin.cpp">
@@ -267,6 +273,15 @@
     <ClCompile Include="SDK\FileManager\AimpServiceFileStreaming.cpp">
       <Filter>Source Files\SDK\FileManager</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\Options\AimpOptionsDialogFrame.cpp">
+      <Filter>Source Files\SDK\Options</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Options\AimpServiceOptionsDialog.cpp">
+      <Filter>Source Files\SDK\Options</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Options\OptionsDialogFrameExtension.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -286,12 +301,6 @@
     </ClInclude>
     <ClInclude Include="AimpSdk.h">
       <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Options\AimpOptionsDialogFrame.h">
-      <Filter>SDK\Options</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Options\AimpServiceOptionsDialog.h">
-      <Filter>SDK\Options</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Playback\AimpPlaybackQueueItem.h">
       <Filter>SDK\Playback</Filter>
@@ -340,9 +349,6 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extensions\OptionsDialogFrameExtension.h">
-      <Filter>SDK\Options</Filter>
     </ClInclude>
     <ClInclude Include="Extensions\AimpExtensionAlbumArtProvider.h">
       <Filter>Header Files</Filter>
@@ -628,6 +634,18 @@
     </ClInclude>
     <ClInclude Include="SDK\FileManager\AimpFileInfo.h">
       <Filter>Header Files\SDK\FileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Options\AimpOptionsDialogFrame.h">
+      <Filter>Header Files\SDK\Options</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Options\AimpServiceOptionsDialog.h">
+      <Filter>Header Files\SDK\Options</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Options\Stdafx.h">
+      <Filter>Header Files\SDK\Options</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Options\OptionsDialogFrameExtension.h">
+      <Filter>Header Files\SDK\Options</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

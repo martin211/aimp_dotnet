@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "..\BaseManager.h"
-#include "..\..\Extensions\OptionsDialogFrameExtension.h"
+#include "..\..\SDK\Options\OptionsDialogFrameExtension.h"
 
 namespace AIMP
 {
@@ -15,22 +15,11 @@ namespace AIMP
                 IAIMPServiceOptionsDialog *_service;
 
             public:
-                explicit AimpServiceOptionsDialog(ManagedAimpCore ^core) : AimpBaseManager<IAIMPServiceOptionsDialog>(core)
-                {
-                    IAIMPServiceOptionsDialog *service;
-                    core->GetService(IID_IAIMPServiceOptionsDialog, (void**) &service);
-                    _service = service;
-                }
+                explicit AimpServiceOptionsDialog(ManagedAimpCore ^core);
 
-                virtual AimpActionResult FrameModified(IAimpOptionsDialogFrame ^frame)
-                {
-                    return CheckResult(_service->FrameModified(_core->GetOptionsFrame()));
-                }
+                virtual AimpActionResult FrameModified(IAimpOptionsDialogFrame ^frame);
 
-                virtual AimpActionResult FrameShow(IAimpOptionsDialogFrame ^frame, bool forceShow)
-                {
-                    return CheckResult(_service->FrameShow(_core->GetOptionsFrame(), forceShow));
-                }
+                virtual AimpActionResult FrameShow(IAimpOptionsDialogFrame ^frame, bool forceShow);
         };
     }
 }
