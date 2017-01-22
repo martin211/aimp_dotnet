@@ -4,8 +4,6 @@ namespace AIMP.SDK.AlbumArtManager
 {
     using System;
 
-    using AIMP.SDK.PlayList;
-
     /// <summary>
     /// Album art manager.
     /// </summary>

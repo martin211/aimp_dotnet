@@ -1,7 +1,6 @@
 #pragma once
 
 #include "..\BaseManager.h"
-#include "MenuItemEvent.h"
 #include "ICallBackHeader.h"
 #include "AimpMenuItem.h"
 

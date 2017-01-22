@@ -13,6 +13,9 @@
   <ItemGroup>
     <ClCompile Include="SDK\AimpObjectList.cpp" />
     <ClCompile Include="SDK\AimpStream.cpp" />
+    <ClCompile Include="SDK\AlbumArt\AimpAlbumArtManager.cpp" />
+    <ClCompile Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.cpp" />
+    <ClCompile Include="SDK\Configuration\AimpConfigurationManager.cpp" />
     <ClCompile Include="SDK\FileManager\AimpFileInfo.cpp" />
     <ClCompile Include="SDK\FileManager\AimpServiceFileFormats.cpp" />
     <ClCompile Include="SDK\FileManager\AimpServiceFileInfo.cpp" />
@@ -29,6 +32,8 @@
     <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCustomFileCommand.cpp" />
     <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.cpp" />
     <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileSystem.cpp" />
+    <ClCompile Include="SDK\Menu\MenuItemEvent.cpp" />
+    <ClCompile Include="SDK\MUI\MUIManager.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpDataField.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpDataFieldFilter.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpDataFieldFilterByArray.cpp" />
@@ -74,6 +79,8 @@
     <ClInclude Include="SDK\AimpObjectList.h" />
     <ClInclude Include="SDK\AimpPropertyList.h" />
     <ClInclude Include="SDK\AimpStream.h" />
+    <ClInclude Include="SDK\AlbumArt\Stdafx.h" />
+    <ClInclude Include="SDK\Configuration\Stdafx.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileFormats.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileInfo.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileStreaming.h" />
@@ -92,6 +99,7 @@
     <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileSystem.h" />
     <ClInclude Include="SDK\FileManager\Stdafx.h" />
     <ClInclude Include="SDK\Menu\Stdafx.h" />
+    <ClInclude Include="SDK\MUI\Stdafx.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataField.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilter.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilterByArray.h" />
