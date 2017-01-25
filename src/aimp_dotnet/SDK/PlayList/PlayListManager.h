@@ -11,7 +11,7 @@ namespace AIMP
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::PlayList;
 
-        public ref class PlayListManager : 
+        public ref class PlayListManager :
             public AimpBaseManager<IAIMPServicePlaylistManager>, 
             public IAimpPlayListManager, 
             public IAimpExtensionPlaylistManagerListenerExecutor
@@ -23,90 +23,29 @@ namespace AIMP
             AimpPlaylistQueue ^_playListQueue;
 
         public:
-            explicit PlayListManager(ManagedAimpCore ^core) : AimpBaseManager<IAIMPServicePlaylistManager>(core)
-            {
-                // Register IAimpExtensionPlaylistManagerListener
-                _core->RegisterExtension(IID_IAIMPServicePlaylistManager, this);
-            }
+            explicit PlayListManager(ManagedAimpCore ^core);
 
-            ~PlayListManager()
-            {
-                this->!PlayListManager();
-            }
+            ~PlayListManager();
 
-            !PlayListManager()
-            {
-                _core->UnregisterExtension(this);
-            }
+            !PlayListManager();
 
             virtual property IAimpPlayListQueue ^PlayListQueue
             {
-                IAimpPlayListQueue ^get()
-                {
-                    if (_playListQueue == nullptr)
-                    {
-                        AimpActionResult res = AimpActionResult::Fail;
-                        IAIMPServicePlaylistManager *service;
-                        res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
-                        if (res == AimpActionResult::Ok)
-                        {
-                            IAIMPPlaylistQueue *playListQueue;
-                            if (CheckResult(service->QueryInterface(IID_IAIMPPlaylistQueue, (void**)&playListQueue)) == AimpActionResult::Ok)
-                            {
-                                IAIMPPlaylistQueue2 *playListQueue2;
-                                service->QueryInterface(IID_IAIMPPlaylistQueue2, (void**)&playListQueue2);
-
-                                _playListQueue = gcnew AimpPlaylistQueue(playListQueue, playListQueue2);
-                            }
-                        }
-                    }
-
-                    return _playListQueue;
-                }
+                IAimpPlayListQueue ^get();
             }
 
             virtual event PlayListHandler ^PlaylistActivated
             {
-                virtual void add(PlayListHandler ^onEvent)
-                {
-                    _onPlaylistActivated = onEvent;
-                }
-                virtual void remove(PlayListHandler ^onEvent)
-                {
-                    _onPlaylistActivated = nullptr;
-                }
-                void raise(String ^playListName, String ^playListId)
-                {
-                    if (_onPlaylistActivated != nullptr)
-                    {
-                        _onPlaylistActivated(playListName, playListId);
-                    }
-                }
+                virtual void add(PlayListHandler ^onEvent);
+                virtual void remove(PlayListHandler ^onEvent);
+                virtual void raise(String ^playListName, String ^playListId);
             }
 
             virtual event PlayListHandler ^PlaylistAdded
             {
-                virtual void add(PlayListHandler ^onEvent)
-                {
-                    if (_onPlaylistAdded == nullptr)
-                    {
-                        _onPlaylistAdded = onEvent;
-                    }
-                }
-                virtual void remove(PlayListHandler ^onEvent)
-                {
-                    if (_onPlaylistAdded != nullptr)
-                    {
-                        _onPlaylistAdded = nullptr;
-                    }
-                }
-                void raise(String ^playListName, String ^playListId)
-                {
-                    if (_onPlaylistAdded != nullptr)
-                    {
-                        _onPlaylistAdded(playListName, playListId);
-                    }
-                }
+                virtual void add(PlayListHandler ^onEvent);
+                virtual void remove(PlayListHandler ^onEvent);
+                virtual void raise(String ^playListName, String ^playListId);
             }
 
             virtual event PlayListHandler ^PlaylistRemoved

@@ -18,43 +18,17 @@ namespace AIMP
         public:
             typedef IUnknownInterfaceImpl<IAIMPPlaylistQueueListener> Base;
 
-            AimpPlaylistQueueListener(gcroot<IPlayListQueueEventExecutor^> executor)
-            {
-                _executor = executor;
-            }
+            AimpPlaylistQueueListener(gcroot<IPlayListQueueEventExecutor^> executor);
 
-            virtual void WINAPI ContentChanged()
-            {
-                _executor->OnContentChanged();
-            }
+            virtual void WINAPI ContentChanged();
 
-            virtual void WINAPI StateChanged()
-            {
-                _executor->OnStateChanged();
-            }
+            virtual void WINAPI StateChanged();
 
-            virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
-            {
-                if (riid == IID_IAIMPPlaylistQueueListener)
-                {
-                    *ppvObject = this;
-                    AddRef();
-                    return S_OK;
-                }
+            virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
 
-                ppvObject = NULL;
-                return E_NOTIMPL;
-            }
+            virtual ULONG WINAPI AddRef(void);
 
-            virtual ULONG WINAPI AddRef(void)
-            {
-                return Base::AddRef();
-            }
-
-            virtual ULONG WINAPI Release(void)
-            {
-                return Base::Release();
-            }
+            virtual ULONG WINAPI Release(void);
         };
     }
 }
