@@ -1329,8 +1329,6 @@ namespace AIMP
             return result;
         }
 
-
-
         void AimpPlayList::ScanningBegin::add(AimpPlayListHandler ^onEvent)
         {
             if (this->_scanningBeginHandler == nullptr)
@@ -1354,8 +1352,6 @@ namespace AIMP
                 _scanningBeginHandler(sender);
             }
         }
-
-
 
         void AimpPlayList::ScanningProgress::add(AimpPlayListHandler<ScanningProgressEventArgs^> ^onEvent)
         {
@@ -1381,8 +1377,6 @@ namespace AIMP
             }
         }
 
-
-
         void AimpPlayList::ScanningEnd::add(AimpPlayListHandler<ScanningEndEventArgs^> ^onEvent)
         {
             if (this->_scanningEndHandler == nullptr)
@@ -1406,5 +1400,75 @@ namespace AIMP
                 _scanningEndHandler(sender, args);
             }
         }
+
+#pragma region AimpPlaylistListener
+
+        AimpPlaylistListener::AimpPlaylistListener(gcroot<IPlayListListnerExecutor^> playList)
+        {
+            _playList = playList;
+        }
+
+        void WINAPI AimpPlaylistListener::Activated()
+        {
+            _playList->OnActivated();
+        }
+
+        void WINAPI AimpPlaylistListener::Changed(DWORD flags)
+        {
+            _playList->OnChanged(flags);
+        }
+
+        void WINAPI AimpPlaylistListener::Removed()
+        {
+            _playList->OnRemoved();
+        }
+
+        void WINAPI AimpPlaylistListener::ScanningBegin()
+        {
+            _playList->OnScanningBegin();
+        }
+
+        void WINAPI AimpPlaylistListener::ScanningProgress(const double Progress)
+        {
+            _playList->OnScanningProgress(Progress);
+        }
+
+        void WINAPI AimpPlaylistListener::ScanningEnd(BOOL HasChanges, BOOL Canceled)
+        {
+            _playList->OnScanningEnd(HasChanges, Canceled);
+        }
+
+        HRESULT WINAPI AimpPlaylistListener::QueryInterface(REFIID riid, LPVOID* ppvObject)
+        {
+            HRESULT res = Base::QueryInterface(riid, ppvObject);
+
+            if (riid == IID_IAIMPPlaylistListener)
+            {
+                *ppvObject = this;
+                AddRef();
+                return S_OK;
+            }
+
+            if (riid == IID_IAIMPPlaylistListener2)
+            {
+                *ppvObject = static_cast<IAIMPPlaylistListener2*>(this);
+                AddRef();
+                return S_OK;
+            }
+
+            ppvObject = NULL;
+            return res;
+        }
+
+        ULONG WINAPI AimpPlaylistListener::AddRef(void)
+        {
+            return Base::AddRef();
+        }
+
+        ULONG WINAPI AimpPlaylistListener::Release(void)
+        {
+            return Base::Release();
+        }
+#pragma endregion
     }
 };

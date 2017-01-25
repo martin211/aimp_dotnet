@@ -37,72 +37,27 @@ namespace AIMP
             gcroot<IPlayListListnerExecutor^> _playList;
 
         public:
-            AimpPlaylistListener(gcroot<IPlayListListnerExecutor^> playList)
-            {
-                _playList = playList;
-            }
+            AimpPlaylistListener(gcroot<IPlayListListnerExecutor^> playList);
 
             typedef IUnknownInterfaceImpl<IAIMPPlaylistListener> Base;
 
-            virtual void WINAPI Activated()
-            {
-                _playList->OnActivated();
-            }
+            virtual void WINAPI Activated();
 
-            virtual void WINAPI Changed(DWORD flags)
-            {
-                _playList->OnChanged(flags);
-            }
+            virtual void WINAPI Changed(DWORD flags);
 
-            virtual void WINAPI Removed()
-            {
-                _playList->OnRemoved();
-            }
+            virtual void WINAPI Removed();
 
-            virtual void WINAPI ScanningBegin()
-            {
-                _playList->OnScanningBegin();
-            }
+            virtual void WINAPI ScanningBegin();
 
-            virtual void WINAPI ScanningProgress(const double Progress)
-            {
-                _playList->OnScanningProgress(Progress);
-            }
+            virtual void WINAPI ScanningProgress(const double Progress);
 
-            virtual void WINAPI ScanningEnd(BOOL HasChanges, BOOL Canceled)
-            {
-                _playList->OnScanningEnd(HasChanges, Canceled);
-            }
+            virtual void WINAPI ScanningEnd(BOOL HasChanges, BOOL Canceled);
 
-            virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
-            {
-                if (riid == IID_IAIMPPlaylistListener)
-                {
-                    *ppvObject = this;
-                    AddRef();
-                    return S_OK;
-                }
+            virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
 
-                if (riid == IID_IAIMPPlaylistListener2)
-                {
-                    *ppvObject = static_cast<IAIMPPlaylistListener2*>(this);
-                    AddRef();
-                    return S_OK;
-                }
+            virtual ULONG WINAPI AddRef(void);
 
-                ppvObject = NULL;
-                return E_NOTIMPL;
-            }
-
-            virtual ULONG WINAPI AddRef(void)
-            {
-                return Base::AddRef();
-            }
-
-            virtual ULONG WINAPI Release(void)
-            {
-                return Base::Release();
-            }
+            virtual ULONG WINAPI Release(void);
         };
 
         /// <summary>

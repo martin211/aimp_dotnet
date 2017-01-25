@@ -16,12 +16,6 @@
     <Filter Include="SDK">
       <UniqueIdentifier>{87c24f19-4f5b-4b4d-b864-4390f76b13f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SDK\Options">
-      <UniqueIdentifier>{907b9893-3a98-40a3-8045-74f313b8ad23}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SDK\Playback">
-      <UniqueIdentifier>{44031322-87a0-4d49-bddb-66ca7a71c6ea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SDK\PlayList">
       <UniqueIdentifier>{adbc242c-c6fa-4c29-a016-e59e9a00ae16}</UniqueIdentifier>
     </Filter>
@@ -96,6 +90,12 @@
     </Filter>
     <Filter Include="Source Files\SDK\Options">
       <UniqueIdentifier>{ad4083de-3c46-4109-a3ad-026610d1372a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SDK\Playback">
+      <UniqueIdentifier>{349f0fae-1fe3-47fa-b389-0c3725252e67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SDK\Playback">
+      <UniqueIdentifier>{974f39ac-c403-4925-8441-23faf0504207}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -283,9 +283,15 @@
       <Filter>Source Files\SDK\Options</Filter>
     </ClCompile>
     <ClCompile Include="SDK\Playback\AimpPlaybackQueueItem.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\SDK\Playback</Filter>
     </ClCompile>
     <ClCompile Include="SDK\Playback\AimpServicePlaybackQueue.cpp">
+      <Filter>Source Files\SDK\Playback</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\PlayList\AimpPlaylistQueueListener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\PlayList\PlayListManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -307,12 +313,6 @@
     </ClInclude>
     <ClInclude Include="AimpSdk.h">
       <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Playback\AimpPlaybackQueueItem.h">
-      <Filter>SDK\Playback</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Playback\AimpServicePlaybackQueue.h">
-      <Filter>SDK\Playback</Filter>
     </ClInclude>
     <ClInclude Include="SDK\PlayList\AimpPlayList.h">
       <Filter>SDK\PlayList</Filter>
@@ -654,7 +654,13 @@
       <Filter>Header Files\SDK\Options</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Playback\Stdafx.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\SDK\Playback</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Playback\AimpPlaybackQueueItem.h">
+      <Filter>Header Files\SDK\Playback</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Playback\AimpServicePlaybackQueue.h">
+      <Filter>Header Files\SDK\Playback</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
