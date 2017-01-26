@@ -11,15 +11,11 @@ namespace AIMP
         public ref class AimpTaskOwner : public AimpObject<IAIMPTaskOwner>, public IAimpTaskOwner
         {
         public:
-            explicit AimpTaskOwner(IAIMPTaskOwner *taskOwner) : AimpObject(taskOwner)
-            {}
+            explicit AimpTaskOwner(IAIMPTaskOwner *taskOwner);
 
             virtual property bool IsCanceled
             {
-                bool get()
-                {
-                    return InternalAimpObject->IsCanceled();
-                }
+                bool get();
             }
         };
     }

@@ -297,6 +297,18 @@
     <ClCompile Include="SDK\PlayList\AimpPlayListQueue.cpp">
       <Filter>Source Files\SDK\PlayList</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\Threading\AimpServiceSynchronizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Threading\AimpServiceThreadPool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Threading\InternalAimpTask.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Threading\AimpTaskOwner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -418,9 +430,6 @@
     </ClInclude>
     <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Threading\AimpTask.h">
-      <Filter>SDK\Threading</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h">
       <Filter>Header Files</Filter>
@@ -661,6 +670,9 @@
     </ClInclude>
     <ClInclude Include="SDK\PlayList\Stdafx.h">
       <Filter>Header Files\SDK\PlayList</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Threading\InternalAimpTask.h">
+      <Filter>SDK\Threading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
