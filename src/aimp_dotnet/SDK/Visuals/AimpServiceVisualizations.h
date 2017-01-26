@@ -10,4 +10,4 @@ public:
     virtual ULONG WINAPI AddRef(void);
 
     virtual ULONG WINAPI Release(void);
-}
+};

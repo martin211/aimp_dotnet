@@ -12,29 +12,11 @@ namespace AIMP
         public ref class Win32Manager : public IWin32Manager
         {
         public:
-            virtual void SetParentWindow(IntPtr child, IntPtr parent)
-            {
-                SetParent((HWND)child.ToPointer(), (HWND)parent.ToPointer());
-            }
+            virtual void SetParentWindow(IntPtr child, IntPtr parent);
 
-            virtual System::Drawing::Point GetWindowPosition(IntPtr handle)
-            {
-                RECT rc;
-                HWND hndl = FindWindow("TAIMPMainForm", 0);
+            virtual System::Drawing::Point GetWindowPosition(IntPtr handle);
 
-                if (GetWindowRect(hndl, &rc))
-                {
-                    return System::Drawing::Point(rc.left, rc.top);
-                }
-
-                return  System::Drawing::Point::Empty;
-            }
-
-            virtual IntPtr GetAimpHandle()
-            {
-                HWND hndl = FindWindow("TAIMPMainForm", 0);
-                return IntPtr(hndl);
-            }
+            virtual IntPtr GetAimpHandle();
         };
     }
 }

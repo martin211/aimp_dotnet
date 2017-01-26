@@ -4,8 +4,8 @@
 #include "PlayList\AimpPlayList.h"
 #include "..\AimpSdk.h"
 #include "..\SDK\Options\OptionsDialogFrameExtension.h"
-#include "..\Extensions\AimpExtensionAlbumArtCatalog.h"
-#include "..\Extensions\AimpExtensionPlaylistManagerListener.h"
+#include "..\SDK\AlbumArt\AimpExtensionAlbumArtCatalog.h"
+#include "..\SDK\PlayList\AimpExtensionPlaylistManagerListener.h"
 
 
 namespace AIMP

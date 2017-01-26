@@ -2,6 +2,7 @@
 #include "AimpServiceVisualizations.h"
 
 
+
 HRESULT WINAPI AimpServiceVisualizations::QueryInterface(REFIID riid, LPVOID* ppvObject)
 {
     HRESULT res = Base::QueryInterface(riid, ppvObject);

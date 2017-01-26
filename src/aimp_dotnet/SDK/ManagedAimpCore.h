@@ -2,15 +2,16 @@
 #include "..\AimpSdk.h"
 #include <Unknwnbase.h>
 #include "..\SDK\Options\OptionsDialogFrameExtension.h"
-#include "..\Extensions\AimpExtensionAlbumArtCatalog.h"
-#include "..\Extensions\AimpExtensionAlbumArtProvider.h"
-#include "..\Extensions\AimpExtensionPlaylistManagerListener.h"
+#include "..\SDK\AlbumArt\AimpExtensionAlbumArtCatalog.h"
+#include "..\SDK\AlbumArt\AimpExtensionAlbumArtProvider.h"
+#include "..\SDK\PlayList\AimpExtensionPlaylistManagerListener.h"
 #include "..\SDK\Visuals\AimpExtensionEmbeddedVisualization.h"
 #include "..\SDK\Visuals\AimpExtensionCustomVisualization.h"
 #include "..\SDK\MusicLibrary\AimpExtensionDataStorage.h"
 #include "..\SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h"
 #include "..\SDK\FileManager\InternalAimpExtensionFileInfoProvider.h"
 #include "..\SDK\FileManager\InternalAimpExtensionFileSystem.h"
+#include "..\SDK\Visuals\AimpServiceVisualizations.h"
 
 namespace AIMP
 {

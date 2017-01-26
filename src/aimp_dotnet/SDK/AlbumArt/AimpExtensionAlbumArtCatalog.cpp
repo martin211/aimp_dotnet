@@ -1,6 +1,6 @@
 #include "Stdafx.h"
 #include "AimpExtensionAlbumArtCatalog.h"
-#include "..\SDK\FileManager\AimpFileInfo.h"
+#include "..\FileManager\AimpFileInfo.h"
 
 AimpExtensionAlbumArtCatalog::AimpExtensionAlbumArtCatalog(IAIMPCore *aimpCore, gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^> instance)
 {
