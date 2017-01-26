@@ -68,3 +68,27 @@ void AimpExtensionEmbeddedVisualization::Resize(int NewWidth, int NewHeight)
 {
     _managedObject->Resize(NewWidth, NewHeight);
 }
+
+HRESULT WINAPI AimpExtensionEmbeddedVisualization::QueryInterface(REFIID riid, LPVOID* ppvObject)
+{
+    HRESULT res = Base::QueryInterface(riid, ppvObject);
+
+    if (riid == IID_IAIMPExtensionEmbeddedVisualization) {
+        *ppvObject = this;
+        AddRef();
+        return S_OK;
+    }
+
+    ppvObject = NULL;
+    return res;
+}
+
+ULONG WINAPI AimpExtensionEmbeddedVisualization::AddRef(void)
+{
+    return Base::AddRef();
+}
+
+ULONG WINAPI AimpExtensionEmbeddedVisualization::Release(void)
+{
+    return Base::Release();
+}

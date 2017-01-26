@@ -33,29 +33,9 @@ public:
 
     virtual void WINAPI Resize(int NewWidth, int NewHeight);
 
-    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
-    {
-        if (!ppvObject)
-        {
-            return E_POINTER;
-        }
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
 
-        if (riid == IID_IAIMPExtensionEmbeddedVisualization) {
-            *ppvObject = this;
-            AddRef();
-            return S_OK;
-        }
+    virtual ULONG WINAPI AddRef(void);
 
-        return E_NOINTERFACE;
-    }
-
-    virtual ULONG WINAPI AddRef(void)
-    {
-        return Base::AddRef();
-    }
-
-    virtual ULONG WINAPI Release(void)
-    {
-        return Base::Release();
-    }
+    virtual ULONG WINAPI Release(void);
 };
