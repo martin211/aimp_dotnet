@@ -16,9 +16,6 @@
     <Filter Include="SDK">
       <UniqueIdentifier>{87c24f19-4f5b-4b4d-b864-4390f76b13f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SDK\Win32">
-      <UniqueIdentifier>{4d5e6244-1be5-407b-861f-aa6b6bcf0cbc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\SDK">
       <UniqueIdentifier>{18cc40fa-1574-4887-ac11-8295b6e14055}</UniqueIdentifier>
     </Filter>
@@ -106,6 +103,15 @@
     <Filter Include="Header Files\SDK\Visuals">
       <UniqueIdentifier>{4ec84bf5-d237-4550-b082-5bc45a1f7ec0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\SDK\Visuals">
+      <UniqueIdentifier>{539142a1-7be5-4b42-8751-27a4e118e471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SDK\Win32">
+      <UniqueIdentifier>{18af25c2-baa2-4418-bb5b-5af311f5a852}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SDK\Win32">
+      <UniqueIdentifier>{31cca0f6-b516-4991-943e-73e29080e410}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DotNetPlugin.cpp">
@@ -116,15 +122,6 @@
     </ClCompile>
     <ClCompile Include="SDK\ManagedAimpCore.cpp">
       <Filter>SDK</Filter>
-    </ClCompile>
-    <ClCompile Include="Extensions\AimpExtensionAlbumArtProvider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SDK\AimpObjectList.cpp">
       <Filter>Source Files</Filter>
@@ -246,9 +243,6 @@
     <ClCompile Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.cpp">
       <Filter>Source Files\SDK\AlbumArt</Filter>
     </ClCompile>
-    <ClCompile Include="Extensions\AimpExtensionAlbumArtCatalog.cpp">
-      <Filter>Source Files\SDK\AlbumArt</Filter>
-    </ClCompile>
     <ClCompile Include="SDK\Configuration\AimpConfigurationManager.cpp">
       <Filter>Source Files\SDK\Configuration</Filter>
     </ClCompile>
@@ -315,6 +309,24 @@
     <ClCompile Include="SDK\Threading\AimpTaskOwner.cpp">
       <Filter>Source Files\SDK\Threading</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.cpp">
+      <Filter>Source Files\SDK\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp">
+      <Filter>Source Files\SDK\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Win32\Win32Manager.cpp">
+      <Filter>Source Files\SDK\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\AlbumArt\AimpExtensionAlbumArtCatalog.cpp">
+      <Filter>Source Files\SDK\AlbumArt</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\AlbumArt\AimpExtensionAlbumArtProvider.cpp">
+      <Filter>Source Files\SDK\AlbumArt</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="SDK\Visuals\AimpServiceVisualizations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -338,9 +350,6 @@
     <ClInclude Include="AimpSdk.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\Win32\Win32Manager.h">
-      <Filter>SDK\Win32</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\AimpExtensionBase.h">
       <Filter>SDK</Filter>
     </ClInclude>
@@ -357,12 +366,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extensions\AimpExtensionAlbumArtProvider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extensions\AimpExtensionPlaylistManagerListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AIMPSDK\AIMP400\apiActions.h">
@@ -460,9 +463,6 @@
     </ClInclude>
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h">
       <Filter>Header Files\SDK\MusicLibrary</Filter>
-    </ClInclude>
-    <ClInclude Include="Extensions\Stdafx.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AIMPSDK\AIMP400\apiMusicLibrary.h">
       <Filter>Header Files\SDK\MusicLibrary</Filter>
@@ -564,9 +564,6 @@
       <Filter>Header Files\SDK\Action</Filter>
     </ClInclude>
     <ClInclude Include="SDK\AlbumArt\AimpAlbumArtManager.h">
-      <Filter>Header Files\SDK\AlbumArt</Filter>
-    </ClInclude>
-    <ClInclude Include="Extensions\AimpExtensionAlbumArtCatalog.h">
       <Filter>Header Files\SDK\AlbumArt</Filter>
     </ClInclude>
     <ClInclude Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.h">
@@ -682,6 +679,21 @@
     </ClInclude>
     <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h">
       <Filter>Header Files\SDK\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Win32\Win32Manager.h">
+      <Filter>Header Files\SDK\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Win32\Stdafx.h">
+      <Filter>Header Files\SDK\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AlbumArt\AimpExtensionAlbumArtCatalog.h">
+      <Filter>Header Files\SDK\AlbumArt</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AlbumArt\AimpExtensionAlbumArtProvider.h">
+      <Filter>Header Files\SDK\AlbumArt</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

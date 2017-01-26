@@ -59,6 +59,7 @@
     <ClCompile Include="SDK\Options\OptionsDialogFrameExtension.cpp" />
     <ClCompile Include="SDK\Playback\AimpPlaybackQueueItem.cpp" />
     <ClCompile Include="SDK\Playback\AimpServicePlaybackQueue.cpp" />
+    <ClCompile Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlayListQueue.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlaylistQueueListener.cpp" />
     <ClCompile Include="SDK\PlayList\PlayListManager.cpp" />
@@ -70,8 +71,8 @@
     <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp" />
     <ClCompile Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.cpp" />
     <ClCompile Include="DotNetPlugin.cpp" />
-    <ClCompile Include="Extensions\AimpExtensionAlbumArtCatalog.cpp" />
-    <ClCompile Include="Extensions\AimpExtensionAlbumArtProvider.cpp" />
+    <ClCompile Include="SDK\AlbumArt\AimpExtensionAlbumArtCatalog.cpp" />
+    <ClCompile Include="SDK\AlbumArt\AimpExtensionAlbumArtProvider.cpp" />
     <ClCompile Include="SDK\Action\AimpActionManager.cpp" />
     <ClCompile Include="SDK\ManagedAimpCore.cpp" />
     <ClCompile Include="SDK\Menu\AimpMenuItem.cpp" />
@@ -80,13 +81,13 @@
     <ClCompile Include="SDK\PlayList\AimpPlayListGroup.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlayListItem.cpp" />
     <ClCompile Include="SDK\Visuals\AimpServiceVisualizations.cpp" />
+    <ClCompile Include="SDK\Win32\Win32Manager.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Extensions\Stdafx.h" />
     <ClInclude Include="SDK\Action\Stdafx.h" />
     <ClInclude Include="SDK\AimpObjectList.h" />
     <ClInclude Include="SDK\AimpPropertyList.h" />
@@ -125,7 +126,7 @@
     <ClInclude Include="SDK\AimpExtension.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiGUI.h" />
     <ClInclude Include="AIMPSDK\AIMPSDK.h" />
-    <ClInclude Include="Extensions\AimpExtensionPlaylistManagerListener.h" />
+    <ClInclude Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibraryUI.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProviderSelection.h" />
@@ -148,7 +149,7 @@
     <ClInclude Include="SDK\Threading\Stdafx.h" />
     <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h" />
     <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h" />
-    <ClInclude Include="Extensions\AimpExtensionAlbumArtCatalog.h" />
+    <ClInclude Include="SDK\AlbumArt\AimpExtensionAlbumArtCatalog.h" />
     <ClInclude Include="AimpSdk.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiActions.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiAlbumArt.h" />
@@ -171,7 +172,7 @@
     <ClInclude Include="AIMPSDK\AIMP400\apiThreading.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiVisuals.h" />
     <ClInclude Include="DotNetPlugin.h" />
-    <ClInclude Include="Extensions\AimpExtensionAlbumArtProvider.h" />
+    <ClInclude Include="SDK\AlbumArt\AimpExtensionAlbumArtProvider.h" />
     <ClInclude Include="SDK\Options\OptionsDialogFrameExtension.h" />
     <ClInclude Include="IUnknownInterfaceImpl.h" />
     <ClInclude Include="resource.h" />
@@ -204,6 +205,7 @@
     <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h" />
     <ClInclude Include="SDK\Visuals\AimpServiceVisualizations.h" />
     <ClInclude Include="SDK\Visuals\Stdafx.h" />
+    <ClInclude Include="SDK\Win32\Stdafx.h" />
     <ClInclude Include="SDK\Win32\Win32Manager.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Utils.h" />
