@@ -16,9 +16,6 @@
     <Filter Include="SDK">
       <UniqueIdentifier>{87c24f19-4f5b-4b4d-b864-4390f76b13f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SDK\Threading">
-      <UniqueIdentifier>{096d9bbf-b4bf-48de-9aad-f5cce3e9cde0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SDK\Win32">
       <UniqueIdentifier>{4d5e6244-1be5-407b-861f-aa6b6bcf0cbc}</UniqueIdentifier>
     </Filter>
@@ -99,6 +96,15 @@
     </Filter>
     <Filter Include="Source Files\SDK\PlayList">
       <UniqueIdentifier>{58b07397-8464-4aed-8b62-4a91a00fec92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SDK\Threading">
+      <UniqueIdentifier>{2dad0e0e-35ac-43ad-9fbf-479180fec38d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SDK\Threading">
+      <UniqueIdentifier>{e8fb6b16-d753-4320-bee1-82bb6081a091}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SDK\Visuals">
+      <UniqueIdentifier>{4ec84bf5-d237-4550-b082-5bc45a1f7ec0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -298,15 +304,18 @@
       <Filter>Source Files\SDK\PlayList</Filter>
     </ClCompile>
     <ClCompile Include="SDK\Threading\AimpServiceSynchronizer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\SDK\Threading</Filter>
     </ClCompile>
     <ClCompile Include="SDK\Threading\AimpServiceThreadPool.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\SDK\Threading</Filter>
     </ClCompile>
     <ClCompile Include="SDK\Threading\InternalAimpTask.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\SDK\Threading</Filter>
     </ClCompile>
     <ClCompile Include="SDK\Threading\AimpTaskOwner.cpp">
+      <Filter>Source Files\SDK\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Visuals\AimpServiceVisualizations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -328,9 +337,6 @@
     </ClInclude>
     <ClInclude Include="AimpSdk.h">
       <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h">
-      <Filter>SDK\Threading</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Win32\Win32Manager.h">
       <Filter>SDK\Win32</Filter>
@@ -354,15 +360,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Extensions\AimpExtensionAlbumArtProvider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Visuals\AimpServiceVisualizations.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Extensions\AimpExtensionPlaylistManagerListener.h">
@@ -431,12 +428,6 @@
     <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Threading\AimpTaskOwner.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\AimpPropertyList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -469,15 +460,6 @@
     </ClInclude>
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h">
       <Filter>Header Files\SDK\MusicLibrary</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Visuals\Stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Threading\Stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Action\Stdafx.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Extensions\Stdafx.h">
       <Filter>Header Files</Filter>
@@ -671,8 +653,35 @@
     <ClInclude Include="SDK\PlayList\Stdafx.h">
       <Filter>Header Files\SDK\PlayList</Filter>
     </ClInclude>
+    <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h">
+      <Filter>Header Files\SDK\Threading</Filter>
+    </ClInclude>
     <ClInclude Include="SDK\Threading\InternalAimpTask.h">
-      <Filter>SDK\Threading</Filter>
+      <Filter>Header Files\SDK\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Threading\AimpTaskOwner.h">
+      <Filter>Header Files\SDK\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h">
+      <Filter>Header Files\SDK\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Action\Stdafx.h">
+      <Filter>Header Files\SDK\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Threading\Stdafx.h">
+      <Filter>Header Files\SDK\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Visuals\AimpServiceVisualizations.h">
+      <Filter>Header Files\SDK\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Visuals\Stdafx.h">
+      <Filter>Header Files\SDK\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h">
+      <Filter>Header Files\SDK\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h">
+      <Filter>Header Files\SDK\Visuals</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
