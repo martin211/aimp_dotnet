@@ -195,7 +195,6 @@
     <ClInclude Include="SDK\PlayList\AimpPlayListItem.h" />
     <ClInclude Include="SDK\PlayList\AimpPlayListQueue.h" />
     <ClInclude Include="SDK\PlayList\PlayListManager.h" />
-    <ClInclude Include="SDK\PlayList\VirtualFileInfoh.h" />
     <ClInclude Include="SDK\Threading\AimpTask.h" />
     <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h" />
     <ClInclude Include="SDK\Visuals\AimpServiceVisualizations.h" />
