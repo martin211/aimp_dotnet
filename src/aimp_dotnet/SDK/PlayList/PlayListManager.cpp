@@ -113,7 +113,7 @@ AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::CreatePlaylist(System::S
 
     if (res == AimpActionResult::Ok && service != NULL)
     {
-        str = AimpExtension::GetAimpString(name);
+        str = AimpConverter::ToAimpString(name);
         res = CheckResult(service->CreatePlaylist(str, (BOOL)isActive, &pl));
 
         if (res == AimpActionResult::Ok)
@@ -148,7 +148,7 @@ AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::CreatePlaylistFromFile(S
     AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
     if (service != NULL && res == AimpActionResult::Ok)
     {
-        str = AimpExtension::GetAimpString(fileName);
+        str = AimpConverter::ToAimpString(fileName);
         res = CheckResult(service->CreatePlaylistFromFile(str, (BOOL)isActive, &pl));
 
         if (res == AimpActionResult::Ok)
@@ -253,7 +253,7 @@ AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::GetLoadedPlaylistById(Sy
     AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
     if (res == AimpActionResult::Ok)
     {
-        key = AimpExtension::GetAimpString(id);
+        key = AimpConverter::ToAimpString(id);
         res = CheckResult(service->GetLoadedPlaylistByID(key, &pl));
         if (res == AimpActionResult::Ok)
         {
@@ -289,7 +289,7 @@ AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::GetLoadedPlaylistByName(
 
     if (res == AimpActionResult::Ok)
     {
-        key = AimpExtension::GetAimpString(name);
+        key = AimpConverter::ToAimpString(name);
         res = CheckResult(service->GetLoadedPlaylistByName(key, &pl));
 
         if (res == AimpActionResult::Ok)

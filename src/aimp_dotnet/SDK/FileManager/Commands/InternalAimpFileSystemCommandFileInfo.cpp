@@ -11,7 +11,7 @@ InternalAimpFileSystemCommandFileInfo::InternalAimpFileSystemCommandFileInfo(gcr
 HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileAttrs(IAIMPString* FileName, TAIMPFileAttributes* Attrs)
 {
     AIMP::SDK::FileManager::AimpFileAttributes attr;
-    AimpActionResult result = _instance->GetFileAttrs(AIMP::SDK::AimpExtension::GetString(FileName), attr);
+    AimpActionResult result = _instance->GetFileAttrs(AIMP::SDK::AimpConverter::ToManagedString(FileName), attr);
     Attrs = new TAIMPFileAttributes();
     Attrs->Attributes = (DWORD)attr.Attributes;
     //Attrs->TimeCreation = attr.TimeCreation->ToOADate();
@@ -24,14 +24,14 @@ HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileAttrs(IAIMPString* 
 HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileSize(IAIMPString* FileName, INT64* Size)
 {
     long long size = 0;
-    AimpActionResult result = _instance->GetFileSize(AIMP::SDK::AimpExtension::GetString(FileName), size);
+    AimpActionResult result = _instance->GetFileSize(AIMP::SDK::AimpConverter::ToManagedString(FileName), size);
     *Size = size;
     return (HRESULT)result;
 }
 
 HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::IsFileExists(IAIMPString* FileName)
 {
-    return (HRESULT)_instance->IsFileExists(AIMP::SDK::AimpExtension::GetString(FileName));
+    return (HRESULT)_instance->IsFileExists(AIMP::SDK::AimpConverter::ToManagedString(FileName));
 }
 
 ULONG WINAPI InternalAimpFileSystemCommandFileInfo::AddRef(void)

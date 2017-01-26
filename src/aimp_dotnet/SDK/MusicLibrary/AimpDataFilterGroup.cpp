@@ -22,15 +22,15 @@ AimpActionResult AimpDataFilterGroup::Add(String^ field, Object^ value1, Object^
 {
     filter = nullptr;
 
-    VARIANT val1 = AimpExtension::ToVariant(value1);
-    VARIANT val2 = AimpExtension::ToVariant(value2);
+    VARIANT val1 = AimpConverter::ToNativeVariant(value1);
+    VARIANT val2 = AimpConverter::ToNativeVariant(value2);
 
     IAIMPMLDataFieldFilter* nativeFilter;
 
     VARIANT v1;
     VariantInit(&v1);
 
-    IAIMPString *sField = AimpExtension::GetAimpString(field);
+    IAIMPString *sField = AimpConverter::ToAimpString(field);
 
     try
     {
@@ -61,7 +61,7 @@ AimpActionResult AimpDataFilterGroup::Add(String^ field, Object^ value1, Object^
 AimpActionResult AimpDataFilterGroup::Add(String^ field, array<Object^>^ values, int count, IAimpDataFieldFilterByArray^% filter)
 {
     //AimpActionResult result = CheckResult(InternalAimpObject->Add2(
-    //    AimpExtension::GetAimpString(field), 
+    //    AimpConverter::GetAimpString(field), 
 
     //    ));
     // todo Complete it.

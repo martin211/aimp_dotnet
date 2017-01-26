@@ -14,7 +14,7 @@ AimpActionResult AimpServiceFileStreaming::CreateStreamForFile(String ^fileName,
         {
             if (service != NULL)
             {
-                str = AimpExtension::GetAimpString(fileName);
+                str = AimpConverter::ToAimpString(fileName);
                 result = CheckResult(service->CreateStreamForFile(str, (DWORD)flags, ofset, size, &aimpStream));
 
                 if (result == AimpActionResult::Ok)
@@ -56,7 +56,7 @@ AimpActionResult AimpServiceFileStreaming::CreateStreamForFileUri(String ^fileUr
         {
             if (service != NULL)
             {
-                str = AimpExtension::GetAimpString(fileUrl);
+                str = AimpConverter::ToAimpString(fileUrl);
                 result = CheckResult(service->CreateStreamForFileURI(str, &vf, &aimpStream));
 
                 if (result == AimpActionResult::Ok)

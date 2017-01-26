@@ -12,7 +12,7 @@ AimpObjectList<T>::AimpObjectList(IAIMPObjectList* nativeObject)
 generic<typename T>
 AimpActionResult AimpObjectList<T>::Add(T entry)
 {
-    return Utils::CheckResult(_nativeObject->Add(AimpExtension::GetAimpString((String^)entry)));
+    return Utils::CheckResult(_nativeObject->Add(AimpConverter::ToAimpString((String^)entry)));
 }
 
 generic<typename T>
@@ -30,7 +30,7 @@ AimpActionResult AimpObjectList<T>::Delete(int index)
 generic<typename T>
 AimpActionResult AimpObjectList<T>::Insert(int index, T entry)
 {
-    return Utils::CheckResult(_nativeObject->Insert(index, AimpExtension::GetAimpString((String^)entry)));
+    return Utils::CheckResult(_nativeObject->Insert(index, AimpConverter::ToAimpString((String^)entry)));
 }
 
 generic<typename T>
@@ -47,7 +47,7 @@ AimpActionResult AimpObjectList<T>::GetObject(int index, T% item)
 
     if (result == AimpActionResult::Ok && str != NULL)
     {
-        item = (T)AimpExtension::GetString(str);
+        item = (T)AimpConverter::ToManagedString(str);
         str->Release();
         str = NULL;
     }
@@ -58,6 +58,6 @@ AimpActionResult AimpObjectList<T>::GetObject(int index, T% item)
 generic<typename T>
 AimpActionResult AimpObjectList<T>::SetObject(int index, T item)
 {
-    return Utils::CheckResult(_nativeObject->SetObject(index, AimpExtension::GetAimpString((String^)item)));
+    return Utils::CheckResult(_nativeObject->SetObject(index, AimpConverter::ToAimpString((String^)item)));
 }
 

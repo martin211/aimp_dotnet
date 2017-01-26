@@ -19,7 +19,7 @@ HRESULT WINAPI AimpDataProvider::GetData(IAIMPObjectList* Fields, IAIMPMLDataFil
     if (provider != nullptr)
     {
         System::Object^ o;
-        AimpActionResult result = provider->GetData(AimpExtension::ToStringCollection(Fields), gcnew AimpDataFilter(Filter), o);
+        AimpActionResult result = provider->GetData(AimpConverter::ToStringCollection(Fields), gcnew AimpDataFilter(Filter), o);
 
         if (result == AimpActionResult::Ok)
         {
@@ -31,7 +31,7 @@ HRESULT WINAPI AimpDataProvider::GetData(IAIMPObjectList* Fields, IAIMPMLDataFil
             }
             else
             {
-                *Data = AIMP::SDK::AimpExtension::GetAimpString(o->ToString());
+                *Data = AIMP::SDK::AimpConverter::ToAimpString(o->ToString());
             }
         }
     }
@@ -241,7 +241,7 @@ AimpDataStorageCommandUserMark::AimpDataStorageCommandUserMark(gcroot<AIMP::SDK:
 
 HRESULT WINAPI AimpDataStorageCommandUserMark::SetMark(VARIANT* ID, const DOUBLE Value)
 {
-    return (HRESULT)_instance->SetMark(AIMP::SDK::AimpExtension::FromVaiant(ID), Value);
+    return (HRESULT)_instance->SetMark(AIMP::SDK::AimpConverter::FromVaiant(ID), Value);
 }
 
 HRESULT WINAPI AimpDataStorageCommandUserMark::QueryInterface(REFIID riid, LPVOID* ppvObject)
@@ -360,17 +360,17 @@ void WINAPI AimpExtensionDataStorage::Initialize(IAIMPMLDataStorageManager* Mana
 
 HRESULT WINAPI AimpExtensionDataStorage::ConfigLoad(IAIMPConfig *Config, IAIMPString* Section)
 {
-    return (HRESULT)_managedInstance->ConfigLoad(nullptr, AIMP::SDK::AimpExtension::GetString(Section));
+    return (HRESULT)_managedInstance->ConfigLoad(nullptr, AIMP::SDK::AimpConverter::ToManagedString(Section));
 }
 
 HRESULT WINAPI AimpExtensionDataStorage::ConfigSave(IAIMPConfig *Config, IAIMPString* Section)
 {
-    return (HRESULT)_managedInstance->ConfigSave(nullptr, AIMP::SDK::AimpExtension::GetString(Section));
+    return (HRESULT)_managedInstance->ConfigSave(nullptr, AIMP::SDK::AimpConverter::ToManagedString(Section));
 }
 
 HRESULT WINAPI AimpExtensionDataStorage::GetFields(int Schema, IAIMPObjectList** List)
 {
-    IAIMPObjectList *L = AIMP::SDK::AimpExtension::GetAimpObjectList();
+    IAIMPObjectList *L = AIMP::SDK::AimpConverter::GetAimpObjectList();
 
     System::Collections::IList ^collection;
     AimpActionResult result = _managedInstance->GetFields((AIMP::SDK::MusicLibrary::Extension::SchemaType)Schema, collection);
@@ -386,7 +386,7 @@ HRESULT WINAPI AimpExtensionDataStorage::GetFields(int Schema, IAIMPObjectList**
         for (int i = 0; i < collection->Count; i++)
         {
             AIMP::SDK::MusicLibrary::DataStorage::IAimpDataField ^dataField = (AIMP::SDK::MusicLibrary::DataStorage::IAimpDataField^)collection[i];
-            IAIMPMLDataField *df = AIMP::SDK::AimpExtension::GetAimpDataField();
+            IAIMPMLDataField *df = AIMP::SDK::AimpConverter::GetAimpDataField();
 
             AIMP::SDK::PropertyListExtension::SetInt32(df, AIMPML_FIELD_PROPID_TYPE, (int)dataField->Type);
             AIMP::SDK::PropertyListExtension::SetString(df, AIMPML_FIELD_PROPID_NAME, dataField->Name);
@@ -401,7 +401,7 @@ HRESULT WINAPI AimpExtensionDataStorage::GetFields(int Schema, IAIMPObjectList**
         for (int i = 0; i < collection->Count; i++)
         {
             System::String^ str = (System::String^)collection[i];
-            IAIMPString *s = AIMP::SDK::AimpExtension::GetAimpString(str);
+            IAIMPString *s = AIMP::SDK::AimpConverter::ToAimpString(str);
             L->Add(s);
             s->Release();
         }
@@ -462,12 +462,12 @@ HRESULT WINAPI AimpExtensionDataStorage::GetValueAsObject(int PropertyID, REFIID
 {
     if (PropertyID == AIMPML_DATASTORAGE_PROPID_ID)
     {
-        *Value = AIMP::SDK::AimpExtension::GetAimpString(_managedInstance->Id);
+        *Value = AIMP::SDK::AimpConverter::ToAimpString(_managedInstance->Id);
     }
 
     if (PropertyID == AIMPML_DATASTORAGE_PROPID_CAPTION)
     {
-        *Value = AIMP::SDK::AimpExtension::GetAimpString(_managedInstance->Caption);
+        *Value = AIMP::SDK::AimpConverter::ToAimpString(_managedInstance->Caption);
     }
 
     return S_OK;

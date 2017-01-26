@@ -48,9 +48,9 @@ namespace AIMP
             //_core->GetAimpCore()->RegisterExtension(AIMP36SDK::IID_IAIMPServiceMenuManager, newAction);
 
             IAIMPAction* newAction;
-            IAIMPString* actionIdString = AimpExtension::GetAimpString(menuItem->Id);
-            IAIMPString* actionNameString = AimpExtension::GetAimpString(menuItem->Text);
-            IAIMPString* actionGroupString = AimpExtension::GetAimpString(menuItem->GroupName);
+            IAIMPString* actionIdString = AimpConverter::ToAimpString(menuItem->Id);
+            IAIMPString* actionNameString = AimpConverter::ToAimpString(menuItem->Text);
+            IAIMPString* actionGroupString = AimpConverter::ToAimpString(menuItem->GroupName);
 
             _core->GetAimpCore()->CreateObject(IID_IAIMPAction, (void**)&newAction);
 

@@ -19,7 +19,7 @@ generic<typename TCommand>
             {
                 if (service != NULL)
                 {
-                    //str = AimpExtension::GetAimpString(fileUri);
+                    //str = AimpConverter::GetAimpString(fileUri);
 
                     //if (IAimpFileSystemCommandFileInfo::GetType() == TCommand)
                     //{

@@ -9,7 +9,7 @@ InternalAimpFileSystemCommandCopyToClipboard::InternalAimpFileSystemCommandCopyT
 
 HRESULT WINAPI InternalAimpFileSystemCommandCopyToClipboard::CopyToClipboard(IAIMPObjectList* Files)
 {
-    return (HRESULT)_instance->CopyToClipboard(AIMP::SDK::AimpExtension::ToStringCollection(Files));
+    return (HRESULT)_instance->CopyToClipboard(AIMP::SDK::AimpConverter::ToStringCollection(Files));
 }
 
 ULONG WINAPI InternalAimpFileSystemCommandCopyToClipboard::AddRef(void)

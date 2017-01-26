@@ -44,14 +44,14 @@ namespace AIMP
 
             virtual HRESULT WINAPI OnCheckURL(IAIMPString* URL, BOOL *Handled)
             {
-                String ^url = AimpExtension::GetString(URL);
+                String ^url = AimpConverter::ToManagedString(URL);
                 bool handled = _managedCore->OnCheckUrl(*&url);
 
                 if (handled)
                 {
                     // TODO: Optimize it
                     *Handled = 1;
-                    IAIMPString *str = AimpExtension::GetAimpString(url);
+                    IAIMPString *str = AimpConverter::ToAimpString(url);
                     URL->SetData(str->GetData(), str->GetLength());
                     str->Release();
                     str = NULL;
@@ -186,7 +186,7 @@ namespace AIMP
         {
             IAIMPString* res;
             _core->GetPath((int)pathType, &res);
-            pathResult = AimpExtension::GetString(res);
+            pathResult = AimpConverter::ToManagedString(res);
             res->Release();
             return AIMP::SDK::AimpActionResult::Ok;
         }
@@ -499,7 +499,7 @@ namespace AIMP
 
         HRESULT ManagedAimpCore::ShowNotification(bool autoHide, String ^notification)
         {
-            IAIMPString *str = AimpExtension::GetAimpString(notification);
+            IAIMPString *str = AimpConverter::ToAimpString(notification);
             HRESULT r = _messageDispatcher->Send((DWORD)AIMP::SDK::AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION, autoHide ? 0 : 1, str->GetData());
             str->Release();
             return r;

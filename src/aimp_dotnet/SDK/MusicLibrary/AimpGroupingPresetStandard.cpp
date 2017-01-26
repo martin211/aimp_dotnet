@@ -20,7 +20,7 @@ IAimpObjectList<String^>^ AimpGroupingPresetStandard::Fields::get()
     //{
     //    if (fields == NULL)
     //    {
-    //        //fields = AimpExtension::MakeObject<IAIMPObjectList>(IID_IAIMPObjectList);
+    //        //fields = AimpConverter::MakeObject<IAIMPObjectList>(IID_IAIMPObjectList);
     //        //PropertyListExtension::SetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, fields);
     //    }
     //    return gcnew AimpObjectList<String^>(fields);
@@ -32,12 +32,12 @@ IAimpObjectList<String^>^ AimpGroupingPresetStandard::Fields::get()
 void AimpGroupingPresetStandard::Fields::set(IAimpObjectList<String^>^ value)
 {
     System::Collections::Generic::IList<String^>^ result;
-    IAIMPObjectList *fields = (IAIMPObjectList*)AimpExtension::MakeObject(IID_IAIMPObjectList);
+    IAIMPObjectList *fields = AimpConverter::CreateAimpObject<IAIMPObjectList>(IID_IAIMPObjectList);
     int count = value->Count;
 
     for (int i = 0; i < count; i++)
     {
-        //fields->Add(AimpExtension::GetAimpString(value[i]));
+        //fields->Add(AimpConverter::GetAimpString(value[i]));
     }
 
     PropertyListExtension::SetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, fields);

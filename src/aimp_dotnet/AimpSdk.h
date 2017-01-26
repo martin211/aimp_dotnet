@@ -1,7 +1,7 @@
 #pragma once
 
 #include "AIMPSDK\AIMPSDK.h"
-#include "SDK\AimpExtension.h"
+#include "SDK\AimpConverter.h"
 #include "SDK\PropertyListHelper.h"
 
 #include "Utils.h"

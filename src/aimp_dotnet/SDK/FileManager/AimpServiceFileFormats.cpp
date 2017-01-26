@@ -22,7 +22,7 @@ AimpActionResult AimpServiceFileFormats::GetFormats(FileFormats flags, String ^%
 
                 if (result == AimpActionResult::Ok)
                 {
-                    formats = AimpExtension::GetString(str);
+                    formats = AimpConverter::ToManagedString(str);
                 }
             }
         }
@@ -57,7 +57,7 @@ AimpActionResult AimpServiceFileFormats::IsSupported(String ^fileName, FileForma
         {
             if (service != NULL)
             {
-                str = AimpExtension::GetAimpString(fileName);
+                str = AimpConverter::ToAimpString(fileName);
                 result = CheckResult(service->IsSupported(str, (DWORD)flags));
             }
         }

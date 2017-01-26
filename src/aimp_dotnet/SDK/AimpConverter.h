@@ -14,7 +14,7 @@ namespace AIMP
         /// <summary>
         /// Aimp  Converter helper class.
         /// </summary>
-        public ref class AimpExtension sealed
+        public ref class AimpConverter sealed
         {
         internal:
             /// <summary>
@@ -24,24 +24,24 @@ namespace AIMP
             //template<typename TAimpNativeObject>
             //static TAimpNativeObject* MakeObject(REFIID objectId);
 
-            static IAIMPString* GetAimpString(String^ value);
+            static IAIMPString* ToAimpString(String^ value);
 
-            static String^ GetString(IAIMPString* value);
+            static String^ ToManagedString(IAIMPString* value);
 
-            static IAIMPImage* GetImage(System::Drawing::Bitmap^ image);
+            static IAIMPImage* ToAimpImage(System::Drawing::Bitmap^ image);
 
             static AIMP::SDK::Visuals::AimpVisualData^ PAIMPVisualDataToManaged(PAIMPVisualData data);
 
-            static System::Drawing::Bitmap^ GetBitmap(IAIMPImageContainer* imageContainer);
+            static System::Drawing::Bitmap^ ToManagedBitmap(IAIMPImageContainer* imageContainer);
 
-            static System::Drawing::Bitmap^ GetBitmap(IAIMPImage* image);
+            static System::Drawing::Bitmap^ ToManagedBitmap(IAIMPImage* image);
 
-            static IAIMPImageContainer* ToContainer(System::Drawing::Bitmap ^image);
+            static IAIMPImageContainer* ToAimpImageContainer(System::Drawing::Bitmap ^image);
 
             static IUnknown* MakeObject(REFIID objectId);
 
             template<typename TObject>
-            static TObject* MakeObject2(REFIID objectId);
+            static TObject* CreateAimpObject(REFIID objectId);
 
             static System::Collections::Generic::IList<String^>^ ToStringCollection(IAIMPObjectList* aimpList)
             {
@@ -53,14 +53,14 @@ namespace AIMP
                     HRESULT res = aimpList->GetObject(i, IID_IAIMPString, (void**)&str);
                     if (Utils::CheckResult(res) == AimpActionResult::Ok)
                     {
-                        result->Add(AimpExtension::GetString(str));
+                        result->Add(AimpConverter::ToManagedString(str));
                     }
                 }
 
                 return result;
             }
 
-            static VARIANT ToVariant(System::Object^ objectValue);
+            static VARIANT ToNativeVariant(System::Object^ objectValue);
 
             static System::Object^ FromVaiant(VARIANT* variant);
 

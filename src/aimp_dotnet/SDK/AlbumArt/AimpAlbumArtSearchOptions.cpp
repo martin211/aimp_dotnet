@@ -50,7 +50,7 @@ void AimpAlbumArtSearchOptions::FileMasks::set(array<System::String^>^ value)
     {
         str += value[i] + ";";
     }
-    _properties->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, AimpExtension::GetAimpString(str));
+    _properties->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, AimpConverter::ToAimpString(str));
 }
 
 array<System::String^>^ AimpAlbumArtSearchOptions::FileExtensions::get()
@@ -69,7 +69,7 @@ void AimpAlbumArtSearchOptions::FileExtensions::set(array<System::String^>^ valu
     {
         str += value[i] + ";";
     }
-    IAIMPString *s = AimpExtension::GetAimpString(str);
+    IAIMPString *s = AimpConverter::ToAimpString(str);
     _properties->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, s);
     s->Release();
 }

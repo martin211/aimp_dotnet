@@ -96,7 +96,7 @@ AimpActionResult AimpServiceMusicLibraryUI::GetGroupingFilterPath(String^% path)
 
                 if (result == AimpActionResult::Ok && str != NULL)
                 {
-                    path = AimpExtension::GetString(str);
+                    path = AimpConverter::ToManagedString(str);
                 }
             }
         }
@@ -126,7 +126,7 @@ AimpActionResult AimpServiceMusicLibraryUI::SetGroupingFilterPath(String^ path)
         {
             if (service != NULL)
             {
-                strPath = AimpExtension::GetAimpString(path);
+                strPath = AimpConverter::ToAimpString(path);
                 result = CheckResult(service->SetGroupingFilterPath(strPath));
             }
         }

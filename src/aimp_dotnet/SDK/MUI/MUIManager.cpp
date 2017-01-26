@@ -58,7 +58,7 @@ System::String^ AIMP::SDK::AimpMIUManager::GetValue(String^ key)
                 return String::Empty;
             }
 
-            IAIMPString* strKey = AimpExtension::GetAimpString(key);
+            IAIMPString* strKey = AimpConverter::ToAimpString(key);
 
             if (service->GetValue(strKey, &str) == S_OK)
             {
@@ -102,7 +102,7 @@ System::String^ AIMP::SDK::AimpMIUManager::GetValuePart(String^ key, int index)
             if (service == NULL)
                 return nullptr;
 
-            IAIMPString* strKey = AimpExtension::GetAimpString(key);
+            IAIMPString* strKey = AimpConverter::ToAimpString(key);
             service->GetValuePart(strKey, index, &str);
 
             strKey->Release();

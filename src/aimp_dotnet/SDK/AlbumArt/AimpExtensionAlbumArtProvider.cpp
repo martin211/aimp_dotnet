@@ -1,7 +1,7 @@
 #include "Stdafx.h"
 #include "AimpExtensionAlbumArtProvider.h"
-#include "..\SDK\FileManager\AimpFileInfo.h"
-#include "..\SDK\AlbumArt\AimpAlbumArtSearchOptions.h"
+#include "..\FileManager\AimpFileInfo.h"
+#include "..\AlbumArt\AimpAlbumArtSearchOptions.h"
 
 HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString *FileURI, IAIMPString *Artist, IAIMPString *Album, IAIMPPropertyList *Options, IAIMPImageContainer **Image)
 {
@@ -14,7 +14,7 @@ HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString *FileURI, IAIMPStr
         searchOptions,
         bitmap);
     {
-        IAIMPImageContainer *container = AIMP::SDK::AimpExtension::ToContainer(bitmap);
+        IAIMPImageContainer *container = AIMP::SDK::AimpConverter::ToAimpImageContainer(bitmap);
         if (container == NULL)
         {
             return E_UNEXPECTED;
@@ -40,7 +40,7 @@ HRESULT WINAPI AimpExtensionAlbumArtProvider::Get2(IAIMPFileInfo *FileInfo, IAIM
     AIMP::AimpActionResult r = _managedinstance->Get(fi, searchOptions, bitmap);
     if (r == AIMP::AimpActionResult::Ok && bitmap != nullptr)
     {
-        IAIMPImageContainer *container = AIMP::SDK::AimpExtension::ToContainer(bitmap);
+        IAIMPImageContainer *container = AIMP::SDK::AimpConverter::ToAimpImageContainer(bitmap);
         if (container == NULL)
         {
             return E_UNEXPECTED;
