@@ -38,9 +38,9 @@ AimpActionResult AimpGroupingTreeSelection::GetValue(int index, System::String^%
         if (result == AimpActionResult::Ok)
         {
             if (str != NULL)
-                fieldName = AimpExtension::GetString(str);
+                fieldName = AimpConverter::ToManagedString(str);
 
-            value = AimpExtension::FromVaiant(&val);
+            value = AimpConverter::FromVaiant(&val);
         }
     }
     finally

@@ -20,7 +20,7 @@ AimpActionResult AimpServiceFileInfo::GetFileInfoFromFileUri(String ^fileUri, Se
             if (service != NULL)
             {
                 IAIMPFileInfo *fi = NULL;
-                str = AimpExtension::GetAimpString(fileUri);
+                str = AimpConverter::ToAimpString(fileUri);
                 result = CheckResult(service->GetFileInfoFromFileURI(str, (DWORD)fileInfoFlags, fi));
 
                 if (result == AimpActionResult::Ok)
@@ -67,7 +67,7 @@ AimpActionResult AimpServiceFileInfo::GetVirtualFile(String ^fileUri, IAimpVirtu
             if (service != NULL)
             {
                 IAIMPVirtualFile *vf;
-                str = AimpExtension::GetAimpString(fileUri);
+                str = AimpConverter::ToAimpString(fileUri);
                 result = CheckResult(service->GetVirtualFile(str, 0, &vf));
 
                 if (result == AimpActionResult::Ok)

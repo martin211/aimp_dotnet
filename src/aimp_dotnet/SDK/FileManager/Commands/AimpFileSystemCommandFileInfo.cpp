@@ -8,7 +8,7 @@ AimpFileSystemCommandFileInfo::AimpFileSystemCommandFileInfo(IAIMPFileSystemComm
 
 AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(String ^file, AimpFileAttributes %attr)
 {
-    IAIMPString *str = AimpExtension::GetAimpString(file);
+    IAIMPString *str = AimpConverter::ToAimpString(file);
     try
     {
         TAIMPFileAttributes *fattr = NULL;
@@ -31,7 +31,7 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(String ^file, long l
 
     try
     {
-        str = AimpExtension::GetAimpString(file);
+        str = AimpConverter::ToAimpString(file);
         INT64 *fSize = 0;
         AimpActionResult result = CheckResult(_aimpObject->GetFileSize(str, fSize));
         if (result == AimpActionResult::Ok)
@@ -56,7 +56,7 @@ AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(String ^file)
     IAIMPString *str = NULL;
     try
     {
-        str = AimpExtension::GetAimpString(file);
+        str = AimpConverter::ToAimpString(file);
         return CheckResult(_aimpObject->IsFileExists(str));
     }
     finally

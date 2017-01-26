@@ -1,6 +1,6 @@
 #include "Stdafx.h"
 
-#include "AimpExtension.h"
+#include "AimpConverter.h"
 #include "..\Utils.h"
 #include "ManagedAimpCore.h"
 
@@ -8,7 +8,7 @@ namespace AIMP
 {
     namespace SDK
     {
-        IUnknown* AimpExtension::MakeObject(REFIID objectId)
+        IUnknown* AimpConverter::MakeObject(REFIID objectId)
         {
             IUnknown *obj = NULL;
             HRESULT r = ManagedAimpCore::GetAimpCore()->CreateObject(objectId, (void**)&obj);
@@ -16,15 +16,15 @@ namespace AIMP
         }
 
 
-        IAIMPString* AimpExtension::GetAimpString(String ^value)
+        IAIMPString* AimpConverter::ToAimpString(String ^value)
         {
-            IAIMPString *strObject = MakeObject2<IAIMPString>(IID_IAIMPString);
+            IAIMPString *strObject = CreateAimpObject<IAIMPString>(IID_IAIMPString);
             pin_ptr<const WCHAR> strDate = PtrToStringChars(value);
             strObject->SetData((PWCHAR)strDate, value->Length);
             return strObject;
         }
 
-        IAIMPImage* AimpExtension::GetImage(System::Drawing::Bitmap^ image)
+        IAIMPImage* AimpConverter::ToAimpImage(System::Drawing::Bitmap^ image)
         {
             System::IO::MemoryStream ^stream;
             IAIMPStream *aimpStream = NULL;
@@ -63,12 +63,12 @@ namespace AIMP
             return NULL;
         }
 
-        IAIMPCore* AimpExtension::GetCore()
+        IAIMPCore* AimpConverter::GetCore()
         {
             return AIMP::SDK::ManagedAimpCore::GetAimpCore();
         }
 
-        AIMP::SDK::Visuals::AimpVisualData^ AimpExtension::PAIMPVisualDataToManaged(PAIMPVisualData data)
+        AIMP::SDK::Visuals::AimpVisualData^ AimpConverter::PAIMPVisualDataToManaged(PAIMPVisualData data)
         {
             AIMP::SDK::Visuals::AimpVisualData ^result = gcnew AIMP::SDK::Visuals::AimpVisualData();
             result->Peaks = gcnew array<float>(2);
@@ -101,7 +101,7 @@ namespace AIMP
             return result;
         }
 
-        System::Drawing::Bitmap^ AimpExtension::GetBitmap(IAIMPImageContainer* imageContainer)
+        System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImageContainer* imageContainer)
         {
             IAIMPImage* image = NULL;
             try
@@ -117,7 +117,7 @@ namespace AIMP
                 {
                     return nullptr;
                 }
-                return GetBitmap(image);
+                return ToManagedBitmap(image);
             }
             finally
             {
@@ -128,7 +128,7 @@ namespace AIMP
             return nullptr;
         }
 
-        System::Drawing::Bitmap^ AimpExtension::GetBitmap(IAIMPImage* image)
+        System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImage* image)
         {
             SIZE size;
             if (Utils::CheckResult(image->GetSize(&size)) == AimpActionResult::Ok)
@@ -178,7 +178,7 @@ namespace AIMP
             return nullptr;
         }
 
-        IAIMPImageContainer* AimpExtension::ToContainer(System::Drawing::Bitmap ^image)
+        IAIMPImageContainer* AimpConverter::ToAimpImageContainer(System::Drawing::Bitmap ^image)
         {
             IAIMPImageContainer *container;
             if (Utils::CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImageContainer, (void**)&container)) == AimpActionResult::Ok)
@@ -214,14 +214,14 @@ namespace AIMP
             return NULL;
         }
 
-        String^ AimpExtension::GetString(IAIMPString* value)
+        String^ AimpConverter::ToManagedString(IAIMPString* value)
         {
             return gcnew String(value->GetData());
         }
 
 
 
-        VARIANT AimpExtension::ToVariant(System::Object^ objectValue)
+        VARIANT AimpConverter::ToNativeVariant(System::Object^ objectValue)
         {
             VARIANT varTag;
             VariantInit(&varTag);
@@ -230,27 +230,27 @@ namespace AIMP
             return varTag;
         }
 
-        System::Object^ AimpExtension::FromVaiant(VARIANT* variant)
+        System::Object^ AimpConverter::FromVaiant(VARIANT* variant)
         {
             void *p = variant;
             return System::Runtime::InteropServices::Marshal::GetObjectForNativeVariant(IntPtr(p));
         }
 
-        IAIMPObjectList* AimpExtension::GetAimpObjectList()
+        IAIMPObjectList* AimpConverter::GetAimpObjectList()
         {
-            IAIMPObjectList* res = (IAIMPObjectList*)MakeObject(IID_IAIMPObjectList);
+            IAIMPObjectList* res = CreateAimpObject<IAIMPObjectList>(IID_IAIMPObjectList);
             return res;
         }
 
-        IAIMPMLDataField* AimpExtension::GetAimpDataField()
+        IAIMPMLDataField* AimpConverter::GetAimpDataField()
         {
-            IAIMPMLDataField* res = (IAIMPMLDataField*)MakeObject(IID_IAIMPMLDataField);
+            IAIMPMLDataField* res = CreateAimpObject<IAIMPMLDataField>(IID_IAIMPMLDataField);
             return res;
         }
 
 
         template<typename TObject>
-        TObject* AIMP::SDK::AimpExtension::MakeObject2(REFIID objectId)
+        TObject* AIMP::SDK::AimpConverter::CreateAimpObject(REFIID objectId)
         {
             TObject *obj = NULL;
             HRESULT r = ManagedAimpCore::GetAimpCore()->CreateObject(objectId, (void**)&obj);

@@ -24,7 +24,7 @@ System::Drawing::Bitmap^ AimpFileInfo::AlbumArt::get()
 
     if (container != NULL)
     {
-        bmp = AimpExtension::GetBitmap(container);
+        bmp = AimpConverter::ToManagedBitmap(container);
         container->Release();
     }
     else
@@ -34,7 +34,7 @@ System::Drawing::Bitmap^ AimpFileInfo::AlbumArt::get()
         _aimpObject->GetValueAsObject(AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImage, (void**)&image);
         if (image != NULL)
         {
-            bmp = AimpExtension::GetBitmap(image);
+            bmp = AimpConverter::ToManagedBitmap(image);
             image->Release();
         }
     }
@@ -441,7 +441,7 @@ AimpFileInfo::AimpFileInfo(IAIMPFileInfo *aimpItem) : AimpObject(aimpItem)
 
 AimpFileInfo::AimpFileInfo(IAimpFileInfo ^item)
 {
-    _aimpObject = (IAIMPFileInfo*)AimpExtension::MakeObject(IID_IAIMPFileInfo);
+    _aimpObject = (IAIMPFileInfo*)AimpConverter::MakeObject(IID_IAIMPFileInfo);
     this->Album = item->Album;
     this->AlbumArt = item->AlbumArt;
     this->AlbumArtist = item->AlbumArtist;

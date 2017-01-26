@@ -84,7 +84,7 @@ HRESULT WINAPI InternalAimpExtensionFileSystem::GetValueAsObject(int PropertyID,
         strObject->SetData((PWCHAR)strDate, str->Length);
         *Value = strObject;
         //ManagedAimpCore->GetAimpCore()->CreateObject(IID_IAIMPString, (void**)&str);
-        //*Value = AIMP::SDK::AimpExtension::GetAimpString(_managed->Schema);
+        //*Value = AIMP::SDK::AimpConverter::GetAimpString(_managed->Schema);
     }
 
     return S_OK;

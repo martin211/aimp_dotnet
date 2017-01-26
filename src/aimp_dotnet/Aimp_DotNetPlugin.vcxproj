@@ -44,7 +44,7 @@
     <ClCompile Include="SDK\MusicLibrary\AimpFileList.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpGroupingPreset.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpDataStorage.cpp" />
-    <ClCompile Include="SDK\AimpExtension.cpp" />
+    <ClCompile Include="SDK\AimpConverter.cpp" />
     <ClCompile Include="AimpDotnetPlugin.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpGroupingPresets.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpGroupingPresetStandard.cpp" />
@@ -123,7 +123,7 @@
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPreset.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataStorage.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiMusicLibrary.h" />
-    <ClInclude Include="SDK\AimpExtension.h" />
+    <ClInclude Include="SDK\AimpConverter.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiGUI.h" />
     <ClInclude Include="AIMPSDK\AIMPSDK.h" />
     <ClInclude Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.h" />

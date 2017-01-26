@@ -14,7 +14,7 @@ namespace AIMP
 
         AimpPlayListItem::AimpPlayListItem()
         {
-            _aimpObject = (IAIMPPlaylistItem*)AimpExtension::MakeObject(IID_IAIMPPlaylistItem);
+            _aimpObject = (IAIMPPlaylistItem*)AimpConverter::MakeObject(IID_IAIMPPlaylistItem);
         }
 
         AimpPlayListItem::~AimpPlayListItem()
@@ -29,7 +29,7 @@ namespace AIMP
 
         AimpPlayListItem::AimpPlayListItem(IAimpPlayListItem ^item)
         {
-            _aimpObject = (IAIMPPlaylistItem*)AimpExtension::MakeObject(IID_IAIMPPlaylistItem);
+            _aimpObject = (IAIMPPlaylistItem*)AimpConverter::MakeObject(IID_IAIMPPlaylistItem);
             this->FileName = item->FileName;
             this->Index = item->Index;
             this->Mark = item->Mark;

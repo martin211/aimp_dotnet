@@ -8,10 +8,10 @@ InternalAimpFileSystemCustomFileCommand::InternalAimpFileSystemCustomFileCommand
 
 HRESULT WINAPI InternalAimpFileSystemCustomFileCommand::CanProcess(IAIMPString* FileName)
 {
-    return (HRESULT)_instance->CanProcess(AIMP::SDK::AimpExtension::GetString(FileName));
+    return (HRESULT)_instance->CanProcess(AIMP::SDK::AimpConverter::ToManagedString(FileName));
 }
 
 HRESULT WINAPI InternalAimpFileSystemCustomFileCommand::Process(IAIMPString* FileName)
 {
-    return (HRESULT)_instance->Process(AIMP::SDK::AimpExtension::GetString(FileName));
+    return (HRESULT)_instance->Process(AIMP::SDK::AimpConverter::ToManagedString(FileName));
 }

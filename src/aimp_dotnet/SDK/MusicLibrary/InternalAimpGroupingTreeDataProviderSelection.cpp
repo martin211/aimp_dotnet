@@ -15,7 +15,7 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetDisplayValue(IA
 
     if (result == AimpActionResult::Ok)
     {
-        *S = AimpExtension::GetAimpString(str);
+        *S = AimpConverter::ToAimpString(str);
     }
 
     return (HRESULT)result;
@@ -48,8 +48,8 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetValue(IAIMPStri
 
     if (result == AimpActionResult::Ok)
     {
-        *FieldName = AimpExtension::GetAimpString(fieldName);
-        VARIANT v = AimpExtension::ToVariant(val);
+        *FieldName = AimpConverter::ToAimpString(fieldName);
+        VARIANT v = AimpConverter::ToNativeVariant(val);
         VariantCopyInd(Value, &v);
     }
 

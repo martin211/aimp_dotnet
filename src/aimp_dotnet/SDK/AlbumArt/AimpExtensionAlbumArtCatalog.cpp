@@ -37,7 +37,7 @@ HRESULT WINAPI AimpExtensionAlbumArtCatalog::Show(IAIMPString *FileURI, IAIMPStr
 
     if (r == AIMP::AimpActionResult::Ok && bitmap != nullptr)
     {
-        IAIMPImageContainer *container = AIMP::SDK::AimpExtension::ToContainer(bitmap);
+        IAIMPImageContainer *container = AIMP::SDK::AimpConverter::ToAimpImageContainer(bitmap);
         if (container == NULL)
         {
             return E_UNEXPECTED;
@@ -57,7 +57,7 @@ HRESULT WINAPI AimpExtensionAlbumArtCatalog::Show2(IAIMPFileInfo *FileInfo, IAIM
     AIMP::AimpActionResult r = _managedinstance->Show(fi, bitmap);
     if (r == AIMP::AimpActionResult::Ok && bitmap != nullptr)
     {
-        IAIMPImageContainer *container = AIMP::SDK::AimpExtension::ToContainer(bitmap);
+        IAIMPImageContainer *container = AIMP::SDK::AimpConverter::ToAimpImageContainer(bitmap);
         if (container == NULL)
         {
             return E_UNEXPECTED;

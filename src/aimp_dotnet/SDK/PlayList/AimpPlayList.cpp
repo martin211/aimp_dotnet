@@ -31,7 +31,7 @@ namespace AIMP
 
         AimpPlayList::AimpPlayList(IAimpPlayList ^item)
         {
-            _aimpObject = (IAIMPPlaylist*)AimpExtension::MakeObject(IID_IAIMPPlaylist);
+            _aimpObject = (IAIMPPlaylist*)AimpConverter::MakeObject(IID_IAIMPPlaylist);
             Name = item->Name;
             ReadOnly = item->ReadOnly;
             FocusedObject = item->FocusedObject;
@@ -993,7 +993,7 @@ namespace AIMP
 
         AimpActionResult AimpPlayList::Add(String^ fileUrl, PlayListFlags flags, PlayListFilePosition filePosition)
         {
-            IAIMPString *url = AimpExtension::GetAimpString(fileUrl);
+            IAIMPString *url = AimpConverter::ToAimpString(fileUrl);
             AimpActionResult res = CheckResult(InternalAimpObject->Add(url, (DWORD)flags, (int)filePosition));
             url->Release();
             url = NULL;
@@ -1041,7 +1041,7 @@ namespace AIMP
                 {
                     for (int i = 0; i < fileUrlList->Count; i++)
                     {
-                        IAIMPString *str = AimpExtension::GetAimpString(fileUrlList[i]);
+                        IAIMPString *str = AimpConverter::ToAimpString(fileUrlList[i]);
                         list->Add(str);
                         str->Release();
                         str = NULL;
@@ -1120,7 +1120,7 @@ namespace AIMP
                 IAIMPString *str;
                 if (collection->GetObject(i, IID_IAIMPString, (void**)&str) == S_OK)
                 {
-                    result->Add(AimpExtension::GetString(str));
+                    result->Add(AimpConverter::ToManagedString(str));
                     str->Release();
                     str = NULL;
                 }

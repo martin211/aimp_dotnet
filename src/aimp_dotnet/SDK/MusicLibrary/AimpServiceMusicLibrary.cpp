@@ -195,7 +195,7 @@ AimpActionResult AimpServiceMusicLibrary::GetStorageById(String ^id, IAimpDataSt
         if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::Ok)
         {
             IAIMPMLDataStorage *aimpStorage;
-            aimpId = AimpExtension::GetAimpString(id);
+            aimpId = AimpConverter::ToAimpString(id);
             result = CheckResult(service->GetStorageByID(aimpId, IID_IAIMPMLDataStorage, (void**)&aimpStorage));
             storage = gcnew AimpDataStorage(aimpStorage);
         }
@@ -223,7 +223,7 @@ AimpActionResult AimpServiceMusicLibrary::GetStorageById(String ^id, IAimpGroupi
         if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::Ok)
         {
             IAIMPMLGroupingPresets *aimpStorage;
-            aimpId = AimpExtension::GetAimpString(id);
+            aimpId = AimpConverter::ToAimpString(id);
             result = CheckResult(service->GetStorageByID(aimpId, IID_IAIMPMLGroupingPresets, (void**)&aimpStorage));
             storage = gcnew AimpGroupingPresets(aimpStorage);
         }

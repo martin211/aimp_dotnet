@@ -5,7 +5,7 @@
 HRESULT WINAPI InternalAimpExtensionFileInfoProvider::GetFileInfo(IAIMPString *FileURI, IAIMPFileInfo *Info)
 {
     AIMP::SDK::FileManager::IAimpFileInfo^ aimpFileInfo = gcnew AimpFileInfo(Info);
-    return (HRESULT)_managedInstance->GetFileInfo(AIMP::SDK::AimpExtension::GetString(FileURI), aimpFileInfo);
+    return (HRESULT)_managedInstance->GetFileInfo(AIMP::SDK::AimpConverter::ToManagedString(FileURI), aimpFileInfo);
 }
 
 HRESULT WINAPI InternalAimpExtensionFileInfoProvider::GetFileInfo(IAIMPStream *Stream, IAIMPFileInfo *Info)

@@ -10,12 +10,12 @@ InternalAimpFileSystemCommandDelete::InternalAimpFileSystemCommandDelete(gcroot<
 
 HRESULT WINAPI InternalAimpFileSystemCommandDelete::CanProcess(IAIMPString* FileName)
 {
-    return (HRESULT)_instance->CanProcess(AimpExtension::GetString(FileName));
+    return (HRESULT)_instance->CanProcess(AimpConverter::ToManagedString(FileName));
 }
 
 HRESULT WINAPI InternalAimpFileSystemCommandDelete::Process(IAIMPString* FileName)
 {
-    return (HRESULT)_instance->Process(AimpExtension::GetString(FileName));
+    return (HRESULT)_instance->Process(AimpConverter::ToManagedString(FileName));
 }
 
 ULONG WINAPI InternalAimpFileSystemCommandDelete::AddRef(void)

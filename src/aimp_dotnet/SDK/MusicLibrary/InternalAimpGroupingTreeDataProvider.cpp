@@ -64,7 +64,7 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProvider::GetFieldForAlphabeticIndex(
 
     if (result == AimpActionResult::Ok)
     {
-        *FieldName = AIMP::SDK::AimpExtension::GetAimpString(str);
+        *FieldName = AIMP::SDK::AimpConverter::ToAimpString(str);
     }
 
     return (HRESULT)result;

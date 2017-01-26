@@ -19,7 +19,7 @@ void AIMP::SDK::AimpConfigurationManager::Delete(String^ key)
         {
             if (service != NULL)
             {
-                s = AimpExtension::GetAimpString(key);
+                s = AimpConverter::ToAimpString(key);
                 service->Delete(s);
             }
         }
@@ -76,7 +76,7 @@ double AIMP::SDK::AimpConfigurationManager::GetValueAsFloat(String^ key)
             if (service != NULL)
             {
                 double value = 0;
-                s = AimpExtension::GetAimpString(key);
+                s = AimpConverter::ToAimpString(key);
                 service->GetValueAsFloat(s, &value);
                 return value;
             }
@@ -112,7 +112,7 @@ int AIMP::SDK::AimpConfigurationManager::GetValueAsInt32(String^ key)
             if (service != NULL)
             {
                 int value = 0;
-                s = AimpExtension::GetAimpString(key);
+                s = AimpConverter::ToAimpString(key);
                 service->GetValueAsInt32(s, &value);
                 return value;
             }
@@ -148,7 +148,7 @@ System::Int64 AIMP::SDK::AimpConfigurationManager::GetValueAsInt64(String^ key)
             if (service != NULL)
             {
                 Int64 value = 0;
-                s = AimpExtension::GetAimpString(key);
+                s = AimpConverter::ToAimpString(key);
                 service->GetValueAsInt64(s, &value);
                 return value;
             }
@@ -190,7 +190,7 @@ System::String^ AIMP::SDK::AimpConfigurationManager::GetValueAsString(String^ ke
         {
             if (service != NULL)
             {
-                s = AimpExtension::GetAimpString(key);
+                s = AimpConverter::ToAimpString(key);
                 service->GetValueAsString(s, &val);
                 return gcnew String(val->GetData());
             }
@@ -231,7 +231,7 @@ void AIMP::SDK::AimpConfigurationManager::SetValueAsFloat(String^ key, double va
         {
             if (service != NULL)
             {
-                s = AimpExtension::GetAimpString(key);
+                s = AimpConverter::ToAimpString(key);
                 service->SetValueAsFloat(s, value);
             }
         }
@@ -263,7 +263,7 @@ void AIMP::SDK::AimpConfigurationManager::SetValueAsInt32(String^ key, int value
         {
             if (service != NULL)
             {
-                s = AimpExtension::GetAimpString(key);
+                s = AimpConverter::ToAimpString(key);
                 service->SetValueAsInt32(s, value);
             }
         }
@@ -295,7 +295,7 @@ void AIMP::SDK::AimpConfigurationManager::SetValueAsInt64(String^ key, Int64 val
         {
             if (service != NULL)
             {
-                s = AimpExtension::GetAimpString(key);
+                s = AimpConverter::ToAimpString(key);
                 service->SetValueAsInt64(s, value);
             }
         }
@@ -334,8 +334,8 @@ void AIMP::SDK::AimpConfigurationManager::SetValueAsString(String^ key, String^ 
         {
             if (service != NULL)
             {
-                s = AimpExtension::GetAimpString(key);
-                val = AimpExtension::GetAimpString(value);
+                s = AimpConverter::ToAimpString(key);
+                val = AimpConverter::ToAimpString(value);
                 service->SetValueAsString(s, val);
             }
         }

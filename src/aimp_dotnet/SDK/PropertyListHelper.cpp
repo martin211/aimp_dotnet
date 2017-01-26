@@ -20,7 +20,7 @@ AimpActionResult PropertyListExtension::SetString(IAIMPPropertyList* propertyLis
     IAIMPString *str = NULL;
     try
     {
-        str = AimpExtension::GetAimpString(value);
+        str = AimpConverter::ToAimpString(value);
         return SetObject(propertyList, propertyId, str);
     }
     finally
@@ -192,7 +192,7 @@ AimpActionResult PropertyListExtension::GetVariant(IAIMPPropertyList2 *propertyL
 {
     VARIANT *val = NULL;
     AimpActionResult result = Utils::CheckResult(propertyList->GetValueAsVariant(propertyId, val));
-    value = AimpExtension::FromVaiant(val);
+    value = AimpConverter::FromVaiant(val);
     return result;
 }
 

@@ -11,10 +11,10 @@ AimpFileList::AimpFileList(IAIMPMLFileList* aimpObject) : AimpObject(aimpObject)
 
 AimpActionResult AimpFileList::Add(Object^ id, String^ fileName)
 {
-    IAIMPString *sFileName = AimpExtension::GetAimpString(fileName);
+    IAIMPString *sFileName = AimpConverter::ToAimpString(fileName);
     try
     {
-        return CheckResult(InternalAimpObject->Add(&AimpExtension::ToVariant(id), sFileName));
+        return CheckResult(InternalAimpObject->Add(&AimpConverter::ToNativeVariant(id), sFileName));
     }
     finally
     {
@@ -38,11 +38,11 @@ AimpActionResult AimpFileList::Delete(int index)
 
 AimpActionResult AimpFileList::Insert(int index, Object^ id, String^ fileName)
 {
-    IAIMPString *sFileName = AimpExtension::GetAimpString(fileName);
+    IAIMPString *sFileName = AimpConverter::ToAimpString(fileName);
 
     try
     {
-        return CheckResult(InternalAimpObject->Insert(index, &AimpExtension::ToVariant(id), sFileName));
+        return CheckResult(InternalAimpObject->Insert(index, &AimpConverter::ToNativeVariant(id), sFileName));
     }
     finally
     {
@@ -69,7 +69,7 @@ AimpActionResult AimpFileList::GetFileName(int index, String^% fileName)
 
         if (res == AimpActionResult::Ok && str != NULL)
         {
-            fileName = AimpExtension::GetString(str);
+            fileName = AimpConverter::ToManagedString(str);
         }
 
         return res;
@@ -86,7 +86,7 @@ AimpActionResult AimpFileList::GetFileName(int index, String^% fileName)
 
 AimpActionResult AimpFileList::SetFileName(int index, String^ fileName)
 {
-    IAIMPString *sFileName = AimpExtension::GetAimpString(fileName);
+    IAIMPString *sFileName = AimpConverter::ToAimpString(fileName);
 
     try
     {
@@ -112,7 +112,7 @@ AimpActionResult AimpFileList::GetId(int index, Object^% id)
 
         if (res == AimpActionResult::Ok)
         {
-            id = AimpExtension::FromVaiant(idVar);
+            id = AimpConverter::FromVaiant(idVar);
         }
 
         return res;
@@ -125,7 +125,7 @@ AimpActionResult AimpFileList::GetId(int index, Object^% id)
 
 AimpActionResult AimpFileList::SetId(int index, Object^ id)
 {
-    return CheckResult(InternalAimpObject->SetID(index, &AimpExtension::ToVariant(id)));
+    return CheckResult(InternalAimpObject->SetID(index, &AimpConverter::ToNativeVariant(id)));
 }
 
 AimpActionResult AimpFileList::Clone(IAimpFileList^% list)

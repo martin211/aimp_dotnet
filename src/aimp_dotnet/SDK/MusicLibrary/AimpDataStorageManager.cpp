@@ -10,7 +10,7 @@ AimpDataStorageManager::AimpDataStorageManager(IAIMPMLDataStorageManager *manage
 void AimpDataStorageManager::BackgroundTaskStarted(int id, System::String ^cartion, ActionManager::IAimpActionEvent ^cancelEvent)
 {
     //todo complete it
-    IAIMPString *str = AimpExtension::GetAimpString(cartion);
+    IAIMPString *str = AimpConverter::ToAimpString(cartion);
     try
     {
         this->InternalAimpObject->BackgroundTaskStarted(id, str, NULL);
