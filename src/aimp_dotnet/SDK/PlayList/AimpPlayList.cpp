@@ -1,4 +1,12 @@
-﻿#include "Stdafx.h"
+/*
+ * AIMP DotNet SDK
+ * 
+ * (C) 2017
+ * Mail: mail4evgeniy@gmail.com
+ * https://github.com/martin211/aimp_dotnet
+ * 
+ */
+#include "Stdafx.h"
 #include "AimpPlayList.h"
 #include "AimpPlayListGroup.h"
 #include "..\FileManager\AimpFileInfo.h"
