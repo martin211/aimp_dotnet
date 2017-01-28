@@ -8,7 +8,7 @@
  */
 #include "Stdafx.h"
 #include "AimpExtensionEmbeddedVisualization.h"
-#include "..\..\SDK\AimpConverter.h"
+#include "SDK\AimpConverter.h"
 
 int AimpExtensionEmbeddedVisualization::GetFlags()
 {

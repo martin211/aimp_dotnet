@@ -8,12 +8,12 @@
  */
 #include "Stdafx.h"
 #include "ManagedAimpCore.h"
-#include "..\IUnknownInterfaceImpl.h"
+#include "IUnknownInterfaceImpl.h"
 #include "PlayList\AimpPlayList.h"
-#include "..\AimpSdk.h"
-#include "..\SDK\Options\OptionsDialogFrameExtension.h"
-#include "..\SDK\AlbumArt\AimpExtensionAlbumArtCatalog.h"
-#include "..\SDK\PlayList\AimpExtensionPlaylistManagerListener.h"
+#include "AimpSdk.h"
+#include "SDK\Options\OptionsDialogFrameExtension.h"
+#include "SDK\AlbumArt\AimpExtensionAlbumArtCatalog.h"
+#include "SDK\PlayList\AimpExtensionPlaylistManagerListener.h"
 
 
 namespace AIMP

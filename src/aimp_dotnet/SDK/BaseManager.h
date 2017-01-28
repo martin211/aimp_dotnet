@@ -8,7 +8,7 @@
  */
 #pragma once
 
-#include "..\ManagedAimpCore.h"
+#include "SDK\ManagedAimpCore.h"
 
 namespace AIMP
 {

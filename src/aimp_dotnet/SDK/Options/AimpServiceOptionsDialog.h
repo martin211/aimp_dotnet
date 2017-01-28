@@ -7,8 +7,8 @@
  * 
  */
 #pragma once
-#include "..\BaseManager.h"
-#include "..\..\SDK\Options\OptionsDialogFrameExtension.h"
+#include "SDK\BaseManager.h"
+#include "SDK\Options\OptionsDialogFrameExtension.h"
 
 namespace AIMP
 {

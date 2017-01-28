@@ -7,7 +7,7 @@
  * 
  */
 #pragma once
-#include "..\..\IUnknownInterfaceImpl.h"
+#include "IUnknownInterfaceImpl.h"
 #include "IPlayListQueueEventExecutor.h"
 
 namespace AIMP

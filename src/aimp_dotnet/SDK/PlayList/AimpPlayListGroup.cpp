@@ -7,7 +7,7 @@
  * 
  */
 #include "Stdafx.h"
-#include "..\ManagedAimpCore.h"
+#include "SDK\ManagedAimpCore.h"
 #include "AimpPlayListGroup.h"
 #include "AimpPlayListItem.h"
 

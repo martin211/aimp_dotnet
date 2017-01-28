@@ -7,11 +7,11 @@
  * 
  */
 #pragma once
-#include "..\AimpObject.h"
-#include "..\..\AIMPSDK\AIMPSDK.h"
 #include "AimpGroupingPreset.h"
-#include "..\AimpObjectList.h"
 #include "AimpDataFilterGroup.h"
+#include "SDK\AimpObject.h"
+#include "SDK\AimpObjectList.h"
+#include "AIMPSDK\AIMPSDK.h"
 
 namespace AIMP
 {

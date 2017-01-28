@@ -7,7 +7,7 @@
  * 
  */
 #pragma once
-#include "..\PlayList\AimpPlayListItem.h"
+#include "SDK\PlayList\AimpPlayListItem.h"
 
 namespace AIMP
 {
