@@ -7,7 +7,7 @@
  * 
  */
 #pragma once
-#include "..\BaseManager.h"
+#include "SDK\BaseManager.h"
 #include "Commands\InternalAimpFileSystemCommandFileInfo.h"
 #include "Commands\AimpFileSystemCommandFileInfo.h"
 

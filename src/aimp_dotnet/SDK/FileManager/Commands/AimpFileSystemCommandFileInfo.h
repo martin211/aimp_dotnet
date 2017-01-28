@@ -7,7 +7,7 @@
  * 
  */
 #pragma once
-#include "..\..\AimpObject.h"
+#include "SDK\AimpObject.h"
 
 namespace AIMP
 {

@@ -7,8 +7,8 @@
  * 
  */
 #pragma once
-#include "..\BaseManager.h"
-#include "..\AimpStream.h"
+#include "SDK\BaseManager.h"
+#include "SDK\AimpStream.h"
 
 namespace AIMP
 {
