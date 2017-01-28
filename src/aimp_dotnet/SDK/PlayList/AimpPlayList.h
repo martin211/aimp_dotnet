@@ -8,7 +8,7 @@
  */
 #pragma once
 #include "AimpPlayListItem.h"
-#include "..\FileManager\AimpFileInfo.h"
+#include "SDK\FileManager\AimpFileInfo.h"
 
 namespace AIMP
 {

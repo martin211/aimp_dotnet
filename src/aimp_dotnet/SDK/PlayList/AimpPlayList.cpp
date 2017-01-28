@@ -9,7 +9,7 @@
 #include "Stdafx.h"
 #include "AimpPlayList.h"
 #include "AimpPlayListGroup.h"
-#include "..\FileManager\AimpFileInfo.h"
+#include "SDK\FileManager\AimpFileInfo.h"
 
 namespace AIMP
 {

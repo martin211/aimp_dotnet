@@ -7,4 +7,4 @@
  * 
  */
 #pragma once
-#include "..\..\Stdafx.h"
+#include "Stdafx.h"

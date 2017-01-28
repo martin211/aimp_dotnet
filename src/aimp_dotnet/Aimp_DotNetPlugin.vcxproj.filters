@@ -500,13 +500,7 @@
     <ClInclude Include="SDK\MusicLibrary\AimpFileList.h">
       <Filter>Header Files\SDK\MusicLibrary</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\MusicLibrary\Stdafx.h">
-      <Filter>Header Files\SDK\MusicLibrary</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\PropertyListHelper.h">
-      <Filter>Header Files\SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Stdafx.h">
       <Filter>Header Files\SDK</Filter>
     </ClInclude>
     <ClInclude Include="AIMPSDK\AIMPSDK.h">
@@ -554,9 +548,6 @@
     <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileSystem.h">
       <Filter>Header Files\SDK\FileManager</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\FileManager\Stdafx.h">
-      <Filter>Header Files\SDK\FileManager</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\Action\AimpActionManager.h">
       <Filter>Header Files\SDK\Action</Filter>
     </ClInclude>
@@ -566,13 +557,7 @@
     <ClInclude Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.h">
       <Filter>Header Files\SDK\AlbumArt</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\AlbumArt\Stdafx.h">
-      <Filter>Header Files\SDK\AlbumArt</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\Configuration\AimpConfigurationManager.h">
-      <Filter>Header Files\SDK\Configuration</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Configuration\Stdafx.h">
       <Filter>Header Files\SDK\Configuration</Filter>
     </ClInclude>
     <ClInclude Include="AIMPSDK\AIMP400\apiGUI.h">
@@ -590,12 +575,6 @@
     <ClInclude Include="SDK\Menu\AimpMenuItem.h">
       <Filter>Header Files\SDK\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\Menu\Stdafx.h">
-      <Filter>Header Files\SDK\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\MUI\Stdafx.h">
-      <Filter>Header Files\SDK\MUI</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\MUI\MUIManager.h">
       <Filter>Header Files\SDK\MUI</Filter>
     </ClInclude>
@@ -611,14 +590,8 @@
     <ClInclude Include="SDK\Options\AimpServiceOptionsDialog.h">
       <Filter>Header Files\SDK\Options</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\Options\Stdafx.h">
-      <Filter>Header Files\SDK\Options</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\Options\OptionsDialogFrameExtension.h">
       <Filter>Header Files\SDK\Options</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Playback\Stdafx.h">
-      <Filter>Header Files\SDK\Playback</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Playback\AimpPlaybackQueueItem.h">
       <Filter>Header Files\SDK\Playback</Filter>
@@ -644,9 +617,6 @@
     <ClInclude Include="SDK\PlayList\PlayListManager.h">
       <Filter>Header Files\SDK\PlayList</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\PlayList\Stdafx.h">
-      <Filter>Header Files\SDK\PlayList</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h">
       <Filter>Header Files\SDK\Threading</Filter>
     </ClInclude>
@@ -659,16 +629,7 @@
     <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h">
       <Filter>Header Files\SDK\Threading</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\Action\Stdafx.h">
-      <Filter>Header Files\SDK\Action</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Threading\Stdafx.h">
-      <Filter>Header Files\SDK\Threading</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\Visuals\AimpServiceVisualizations.h">
-      <Filter>Header Files\SDK\Visuals</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Visuals\Stdafx.h">
       <Filter>Header Files\SDK\Visuals</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h">
@@ -678,9 +639,6 @@
       <Filter>Header Files\SDK\Visuals</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Win32\Win32Manager.h">
-      <Filter>Header Files\SDK\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Win32\Stdafx.h">
       <Filter>Header Files\SDK\Win32</Filter>
     </ClInclude>
     <ClInclude Include="SDK\AlbumArt\AimpExtensionAlbumArtCatalog.h">

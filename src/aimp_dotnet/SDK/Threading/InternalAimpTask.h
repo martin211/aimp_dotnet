@@ -7,7 +7,7 @@
  * 
  */
 #pragma once
-#include "..\..\AimpSdk.h"
+#include "AimpSdk.h"
 #include "AimpServiceSynchronizer.h"
 #include "AimpTaskOwner.h"
 

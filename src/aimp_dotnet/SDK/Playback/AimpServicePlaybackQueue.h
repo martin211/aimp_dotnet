@@ -8,7 +8,7 @@
  */
 #pragma once
 
-#include "..\BaseManager.h"
+#include "SDK\BaseManager.h"
 #include "AimpPlaybackQueueItem.h"
 
 namespace AIMP

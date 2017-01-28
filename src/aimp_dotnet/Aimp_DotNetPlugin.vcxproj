@@ -88,12 +88,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SDK\Action\Stdafx.h" />
     <ClInclude Include="SDK\AimpObjectList.h" />
     <ClInclude Include="SDK\AimpPropertyList.h" />
     <ClInclude Include="SDK\AimpStream.h" />
-    <ClInclude Include="SDK\AlbumArt\Stdafx.h" />
-    <ClInclude Include="SDK\Configuration\Stdafx.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileFormats.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileInfo.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileStreaming.h" />
@@ -110,9 +107,6 @@
     <ClInclude Include="SDK\FileManager\Commands\Stdafx.h" />
     <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.h" />
     <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileSystem.h" />
-    <ClInclude Include="SDK\FileManager\Stdafx.h" />
-    <ClInclude Include="SDK\Menu\Stdafx.h" />
-    <ClInclude Include="SDK\MUI\Stdafx.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataField.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilter.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilterByArray.h" />
@@ -136,17 +130,11 @@
     <ClInclude Include="SDK\MusicLibrary\AimpDataFilter.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpDataProviderSelection.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h" />
-    <ClInclude Include="SDK\MusicLibrary\Stdafx.h" />
-    <ClInclude Include="SDK\Options\Stdafx.h" />
-    <ClInclude Include="SDK\Playback\Stdafx.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />
     <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h" />
-    <ClInclude Include="SDK\PlayList\Stdafx.h" />
     <ClInclude Include="SDK\PropertyListHelper.h" />
-    <ClInclude Include="SDK\Stdafx.h" />
     <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h" />
     <ClInclude Include="SDK\Threading\AimpTaskOwner.h" />
-    <ClInclude Include="SDK\Threading\Stdafx.h" />
     <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h" />
     <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h" />
     <ClInclude Include="SDK\AlbumArt\AimpExtensionAlbumArtCatalog.h" />
@@ -204,8 +192,6 @@
     <ClInclude Include="SDK\Threading\InternalAimpTask.h" />
     <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h" />
     <ClInclude Include="SDK\Visuals\AimpServiceVisualizations.h" />
-    <ClInclude Include="SDK\Visuals\Stdafx.h" />
-    <ClInclude Include="SDK\Win32\Stdafx.h" />
     <ClInclude Include="SDK\Win32\Win32Manager.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Utils.h" />
@@ -263,7 +249,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(OutDir)</OutDir>
     <TargetName>aimp_dotnet</TargetName>
-    <IncludePath>$(SolutionDir)aimp_dotnet\;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
     <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\MixedRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>

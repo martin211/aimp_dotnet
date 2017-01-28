@@ -7,7 +7,7 @@
  * 
  */
 #pragma once
-#include "..\BaseManager.h"
+#include "SDK\BaseManager.h"
 #include "AimpGroupingPresets.h"
 
 namespace AIMP

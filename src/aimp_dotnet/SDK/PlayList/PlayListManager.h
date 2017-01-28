@@ -6,7 +6,7 @@
  * https://github.com/martin211/aimp_dotnet
  * 
  */
-#include "..\BaseManager.h"
+#include "SDK\BaseManager.h"
 #include "AimpPlayListQueue.h"
 
 namespace AIMP

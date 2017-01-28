@@ -7,8 +7,8 @@
  * 
  */
 #pragma once
-#include "..\AimpObject.h"
-#include "..\..\AIMPSDK\AIMPSDK.h"
+#include "SDK\AimpObject.h"
+#include "AIMPSDK\AIMPSDK.h"
 #include "AimpGroupingPresetStandard.h"
 #include "InternalAimpGroupingTreeDataProvider.h"
 
