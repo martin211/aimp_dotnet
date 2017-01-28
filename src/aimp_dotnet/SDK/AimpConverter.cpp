@@ -7,9 +7,7 @@
  * 
  */
 #include "Stdafx.h"
-
 #include "AimpConverter.h"
-#include "..\Utils.h"
 #include "ManagedAimpCore.h"
 
 namespace AIMP

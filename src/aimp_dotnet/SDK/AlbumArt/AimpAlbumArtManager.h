@@ -8,8 +8,8 @@
  */
 #pragma once
 
-#include "..\BaseManager.h"
-#include "..\FileManager\AimpFileInfo.h"
+#include "SDK\BaseManager.h"
+#include "SDK\FileManager\AimpFileInfo.h"
 
 namespace AIMP
 {

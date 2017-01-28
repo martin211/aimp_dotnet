@@ -9,8 +9,8 @@
 #pragma once
 #include "guiddef.h"
 #include "vcclr.h"
-#include "..\AIMPSDK\AIMPSDK.h"
-#include "..\Utils.h"
+#include "AIMPSDK\AIMPSDK.h"
+#include "Utils.h"
 
 namespace AIMP
 {
@@ -20,7 +20,7 @@ namespace AIMP
         using namespace AIMP::SDK;
 
         /// <summary>
-        /// Aimp  Converter helper class.
+        /// Aimp Converter helper class.
         /// </summary>
         public ref class AimpConverter sealed
         {
