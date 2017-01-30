@@ -51,7 +51,13 @@ System::Drawing::Bitmap^ AimpFileInfo::AlbumArt::get()
 }
 
 void AimpFileInfo::AlbumArt::set(System::Drawing::Bitmap^ value)
-{}
+{
+    IAIMPImage *img = AimpConverter::ToAimpImage(value);
+    if (img != NULL)
+    {
+        PropertyListExtension::SetObject(_aimpObject, AIMP_FILEINFO_PROPID_ALBUMART, img);
+    }
+}
 
 
 System::String^ AimpFileInfo::Album::get()

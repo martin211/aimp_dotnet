@@ -203,10 +203,9 @@ namespace AIMP.SDK.FileManager
         /// </summary>
         IAimpFileInfo Clone();
 
-        // TODO: Add set functionality;
         /// <summary>
-        /// 
+        /// Gets or sets the album art.
         /// </summary>
-        Bitmap AlbumArt { get; }
+        Bitmap AlbumArt { get; set; }
     }
 }
