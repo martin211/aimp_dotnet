@@ -1,12 +1,12 @@
 ﻿namespace AIMP.SDK.ActionManager
 {
     /// <summary>
-    /// Action item interface.
+    /// Main feature of Action is an ability to display it in hotkey list, and provide an ability to customize it hotkey.
     /// </summary>
     public interface IAimpAction : IAimpActionEvent
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        /// Gets or sets the unique action identificator, must be unique for all plugins.
         /// </summary>
         string Id { get; set; }
 
@@ -16,12 +16,12 @@
         string CustomData { get; set; }
 
         /// <summary>
-        /// Gets or sets the name.
+        /// Gets or sets the command name, value is displaying in the hotkey list.
         /// </summary>
         string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the group.
+        /// Gets or sets the group name. Optional, can be undefined.
         /// </summary>
         string GroupName { get; set; }
 
@@ -31,18 +31,18 @@
         bool Enabled { get; set; }
 
         /// <summary>
-        /// Gets or sets the default hot key.
+        /// Gets or sets the default hot key. Can be 0.
         /// </summary>
         int DefaultLocalHotKey { get; set; }
 
         /// <summary>
-        /// Gets or sets the default global hot key.
+        /// Gets or sets the default global hot key. Can be 0.
         /// </summary>
         int DefaultGlobalHotKey { get; set; }
 
         /// <summary>
-        /// Gets or sets the default global hot key2.
+        /// Gets or sets the alternative global hot key. Can be 0.
         /// </summary>
-        int DefaultGlobalHotKey2 { get; set; }
+        int AlternativeGlobalHotKey { get; set; }
     }
 }

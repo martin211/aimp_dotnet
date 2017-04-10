@@ -5,12 +5,14 @@ namespace AIMP.SDK.AlbumArtManager
     using System;
 
     /// <summary>
-    /// Album art manager.
+    /// Service provides an ability to get album art for specified file or/and album.
+    /// AlbumArt search process will run in separate thread, and plugin will receive a notification about the end of operation via callback function.
     /// </summary>
+    //TODO: ADN-24
     public interface IAimpAlbumArtManager : IAimpAlbumArtSearchOptions
     {
         /// <summary>
-        /// Occurs when [completed].
+        /// Occurs when search was completed.
         /// </summary>
         event EventHandler<AimpGetAlbumArtEventArgs> Completed;
 
@@ -18,12 +20,12 @@ namespace AIMP.SDK.AlbumArtManager
         /// Gets the image.
         /// </summary>
         /// <param name="fileUrl">The file URL.</param>
-        /// <param name="artist">The artist.</param>
-        /// <param name="album">The album.</param>
-        /// <param name="flags">The flags.</param>
+        /// <param name="artist">Optional. The artist.</param>
+        /// <param name="album">Optional. The album.</param>
+        /// <param name="flags">Optional. The <see cref="AimpFindCovertArtType"/>.</param>
         /// <param name="userData">The user data.</param>
         /// <returns></returns>
-        IntPtr GetImage(string fileUrl, string artist, string album, AimpFingCovertArtType flags, object userData);
+        IntPtr GetImage(string fileUrl, string artist, string album, AimpFindCovertArtType flags, object userData);
 
         /// <summary>
         /// Gets the image.
@@ -32,13 +34,13 @@ namespace AIMP.SDK.AlbumArtManager
         /// <param name="flags">The flags.</param>
         /// <param name="userData">The user data.</param>
         /// <returns></returns>
-        IntPtr GetImage(IAimpFileInfo fileInfo, AimpFingCovertArtType flags, object userData);
+        IntPtr GetImage(IAimpFileInfo fileInfo, AimpFindCovertArtType flags, object userData);
 
         /// <summary>
         /// Cancels the get cover art request by specified task identifier.
         /// </summary>
         /// <param name="taskId">The task identifier.</param>
         /// <param name="flags">The flags.</param>
-        void Cancel(IntPtr taskId, AimpFingCovertArtType flags);
+        void Cancel(IntPtr taskId, AimpFindCovertArtType flags);
     }
 }

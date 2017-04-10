@@ -102,7 +102,7 @@ namespace AIMP.SDK.UI.ActionItem
         /// <summary>
         /// Gets or sets the default global hot key2.
         /// </summary>
-        public int DefaultGlobalHotKey2
+        public int AlternativeGlobalHotKey
         {
             get { return _defaultGlobalHotKey2; }
             set
