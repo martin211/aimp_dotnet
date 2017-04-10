@@ -6,7 +6,7 @@
     /// 
     /// </summary>
     [Flags]
-    public enum AimpFingCovertArtType
+    public enum AimpFindCovertArtType
     {
         None = 0,
         AIMP_SERVICE_ALBUMART_FLAGS_IGNORECACHE = 1,

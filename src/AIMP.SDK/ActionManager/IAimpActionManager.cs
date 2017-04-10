@@ -1,6 +1,6 @@
 ﻿namespace AIMP.SDK.ActionManager
 {
-    using AIMP.SDK.UI.ActionItem;
+    using UI.ActionItem;
 
     /// <summary>
     /// Action manager interface.
