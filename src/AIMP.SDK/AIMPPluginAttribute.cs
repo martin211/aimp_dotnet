@@ -65,6 +65,9 @@ namespace AIMP.SDK
         /// </summary>
         public AimpPluginType AimpPluginType { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this plugin is support external settings dialog.
+        /// </summary>
         public bool IsExternalSettingsDialog { get; set; }
     }
 }

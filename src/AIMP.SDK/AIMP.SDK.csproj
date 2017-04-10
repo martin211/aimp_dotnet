@@ -83,7 +83,6 @@
     <Compile Include="FileManager\IAimpVirtualFile.cs" />
     <Compile Include="FileManager\AimpFileAttributes.cs" />
     <Compile Include="IAimpConfig.cs" />
-    <Compile Include="IAimpDisposeable.cs" />
     <Compile Include="IAimpExternalSettingsDialog.cs" />
     <Compile Include="IAimpObjectList.cs" />
     <Compile Include="IAimpStream.cs" />
@@ -154,7 +153,6 @@
     <Compile Include="AlbumArtManager\AimpGetAlbumArtEventArgs.cs" />
     <Compile Include="AlbumArtManager\IAimpAlbumArtManager.cs" />
     <Compile Include="ConfigurationManager\IAimpConfigurationManager.cs" />
-    <Compile Include="IAimpPropertyList.cs" />
     <Compile Include="MenuManager\IAimpMenuItem.cs" />
     <Compile Include="MenuManager\IAimpMenuManager.cs" />
     <Compile Include="MUIManager\IAimpMUIManager.cs" />
