@@ -1,10 +1,13 @@
 ﻿namespace AIMP.SDK
 {
     /// <summary>
-    /// DotNet plugin settings.
+    /// DotNet plugin information.
     /// </summary>
     public class AimpDotNetPlugin
     {
+        /// <summary>
+        /// Gets or sets the plugin information.
+        /// </summary>
         public PluginInformation PluginInformation { get; set; }
 
         /// <summary>
@@ -37,6 +40,9 @@
         ///</summary>
         public string Version { get; set; }
 
+        /// <summary>
+        /// Gets or sets the full description.
+        /// </summary>
         public string FullDescription { get; set; }
     }
 }

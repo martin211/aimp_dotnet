@@ -6,15 +6,14 @@
     public delegate void AimpEventsDelegate(AimpMessages.AimpCoreMessageType param1, int param2);
 
     /// <summary>
-    /// AIMP Core interface.
+    /// This interface provides an ability to access to services and an ability to register custom services and extensions.
     /// </summary>
     public interface IAimpCore
     {
         /// <summary>
-        /// Gets the specified path.
+        /// Gets the path to one of the "system" folders of player.
         /// </summary>
         /// <param name="aimpCorePath">The aimp core path <seealso cref="AimpMessages.AimpCorePathType"/> type.</param>
-        /// <returns></returns>
         string GetPath(AimpMessages.AimpCorePathType aimpCorePath);
 
         /// <summary>
@@ -26,15 +25,19 @@
         AimpActionResult SendMessage(AimpMessages.AimpCoreMessageType message, int param, object objectParameter);
 
         /// <summary>
-        /// Registers the extension.
+        /// Method provides an ability to register extension.
+        /// An access to extensions provides by specified for it services.For example: IAimpServiceAudioDecoders.
+        /// All extensions will be automatically unregistered from the application before plugin finalization.
         /// </summary>
-        /// <param name="extension">The extension.</param>
+        /// <param name="extension">The Aimp extension.</param>
         AimpActionResult RegisterExtension(IAimpExtension extension);
 
         /// <summary>
-        /// Unregisters the extension.
+        /// Method provides an ability to unregister specified extension manually.
+        /// Note 1: all extensions will be automatically unregistered from the application before plugin finalization.So, this method is optional.
+        /// Note 2: extension may be used at the current time, in this case it will be completely unregistered only the after release
         /// </summary>
-        /// <param name="extension">The extension.</param>
+        /// <param name="extension">The Aimp extension.</param>
         AimpActionResult UnregisterExtension(IAimpExtension extension);
 
         /// <summary>
@@ -42,6 +45,10 @@
         /// </summary>
         event AimpEventsDelegate CoreMessage;
 
+        /// <summary>
+        /// Creates the Aimp stream instance.
+        /// </summary>
+        /// <returns></returns>
         IAimpStream CreateStream();
     }
 }

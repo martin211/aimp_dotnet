@@ -3,7 +3,7 @@
     public enum AimpActionResult : uint
     {
         /// <summary>
-        /// Operation successful.
+        /// Operation successful complete.
         /// </summary>
         Ok = 0x00000000,
 

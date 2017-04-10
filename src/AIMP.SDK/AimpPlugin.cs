@@ -2,7 +2,7 @@
 
 namespace AIMP.SDK
 {
-    using AIMP.SDK.Player;
+    using Player;
 
     /// <summary>
     /// AIMP plugin interface.
@@ -16,7 +16,7 @@ namespace AIMP.SDK
     }
 
     /// <summary>
-    /// Base abstract class for AIMP Plugin.
+    /// Base class for AIMP Plugin.
     /// </summary>
     public abstract class AimpPlugin : MarshalByRefObject, IAimpPlugin
     {
@@ -55,17 +55,13 @@ namespace AIMP.SDK
             Initialize();
         }
 
-        public int PluginId
-        {
-            get;
-            set;
-        }
+        /// <summary>
+        /// Gets or sets the plugin identifier.
+        /// </summary>
+        public int PluginId { get; set; }
 
         public IAimpPlayer AimpPlayer;
 
-        public IAimpPlayer Player
-        {
-            get { return AimpPlayer; }
-        }
+        public IAimpPlayer Player => AimpPlayer;
     }
 }
