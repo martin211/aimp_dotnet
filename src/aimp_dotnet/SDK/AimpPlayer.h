@@ -96,6 +96,9 @@ namespace AIMP
             IAIMPServicePlayer* ps;
             ((ManagedAimpCore^)_managedAimpCore)->GetService(IID_IAIMPServicePlayer, reinterpret_cast<void**>(&ps));
             _player = ps;
+
+            _aimpCore = gcnew AimpCore(_managedAimpCore);
+            ((AimpCore^)_aimpCore)->InternalCoreMessage += gcnew AimpEventsDelegate(this, &AIMP::AimpPlayer::OnInternalCoreMessage);
         }
 
         ~AimpPlayer()
@@ -121,12 +124,6 @@ namespace AIMP
         {
             IAimpCore^ get()
             {
-                if (_aimpCore == nullptr)
-                {
-                    _aimpCore = gcnew AimpCore(_managedAimpCore);
-                    ((AimpCore^)_aimpCore)->InternalCoreMessage += gcnew AimpEventsDelegate(this, &AIMP::AimpPlayer::OnInternalCoreMessage);
-                }
-
                 return _aimpCore;
             }
         }
@@ -606,8 +603,6 @@ namespace AIMP
                 TrackChanged(this, EventArgs::Empty);
             }
         }
-
-        //bool onCheckUrl([Runtime::InteropServices::Out] String^ %url);
     };
 
     private ref class AIMPControllerInitializer : public System::MarshalByRefObject
