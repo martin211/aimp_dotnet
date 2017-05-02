@@ -7,9 +7,12 @@
     }
 
     /// <summary>
-    /// Describe the new file format for player.
+    /// Extension for the <seealso cref="IAimpServiceFileFormats"/> service that provides an information about the new file format.
+    /// <para>
+    /// Instance should be created by plugin and must be registered in the application at the plugin initialization method via the IAimpCore.RegisterExtension method.
+    /// </para>
     /// </summary>
-    public interface IAimpExtensionFileFormat
+    public interface IAimpExtensionFileFormat : IAimpExtension
     {
         /// <summary>
         /// Returns the short description. Ex. Ogg Vorbis

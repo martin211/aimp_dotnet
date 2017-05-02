@@ -3,6 +3,12 @@ using System.Collections.Generic;
 
 namespace AIMP.SDK.FileManager.Extensions
 {
+    /// <summary>
+    /// Interface is an extension for the <see cref="IAimpServiceFileManager"/> service that allows split real file container into one or view virtual files.
+    /// <para>
+    /// Instance should be created by plugin and must be registered in the application at the plugin initialization method via the IAimpCore.RegisterExtension method.
+    /// </para>
+    /// </summary>
     public interface IAimpExtensionFileExpander
     {
         /// <summary>

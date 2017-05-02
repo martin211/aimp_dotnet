@@ -149,7 +149,7 @@
     <Compile Include="UI\MBRCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ActionManager\IAimpActionManager.cs" />
-    <Compile Include="AlbumArtManager\AimpFingCovertArtType.cs" />
+    <Compile Include="AlbumArtManager\AimpFindCovertArtType.cs" />
     <Compile Include="AlbumArtManager\AimpGetAlbumArtEventArgs.cs" />
     <Compile Include="AlbumArtManager\IAimpAlbumArtManager.cs" />
     <Compile Include="ConfigurationManager\IAimpConfigurationManager.cs" />

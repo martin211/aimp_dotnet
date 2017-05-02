@@ -82,11 +82,11 @@ namespace AIMP
 
             void OnAlbumArtReceive(IAIMPImage* image, IAIMPImageContainer* image_container, void* user_data);
 
-            virtual IntPtr GetImage(String^ fileUrl, String^ artist, String^ album, AimpFingCovertArtType flags, Object^ userData);
+            virtual IntPtr GetImage(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags, Object^ userData);
 
-            virtual IntPtr GetImage(AIMP::SDK::FileManager::IAimpFileInfo^ fileInfo, AimpFingCovertArtType flags, Object^ userData);
+            virtual IntPtr GetImage(AIMP::SDK::FileManager::IAimpFileInfo^ fileInfo, AimpFindCovertArtType flags, Object^ userData);
 
-            virtual void Cancel(IntPtr taskId, AimpFingCovertArtType flags);
+            virtual void Cancel(IntPtr taskId, AimpFindCovertArtType flags);
         private:
             delegate void OnFindCoverCallback(IAIMPImage *image, IAIMPImageContainer *imageContainer, void *UserData);
             OnFindCoverCallback^ _findCallback;

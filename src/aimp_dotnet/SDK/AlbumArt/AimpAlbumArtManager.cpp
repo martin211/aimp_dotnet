@@ -333,7 +333,7 @@ void AimpAlbumArtManager::OnAlbumArtReceive(IAIMPImage* image, IAIMPImageContain
     Completed(this, args);
 }
 
-IntPtr AimpAlbumArtManager::GetImage(String^ fileUrl, String^ artist, String^ album, AimpFingCovertArtType flags, Object^ userData)
+IntPtr AimpAlbumArtManager::GetImage(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags, Object^ userData)
 {
     void* taskId;
     _findCallback = gcnew OnFindCoverCallback(this, &AIMP::AimpAlbumArtManager::OnAlbumArtReceive);
@@ -373,7 +373,7 @@ IntPtr AimpAlbumArtManager::GetImage(String^ fileUrl, String^ artist, String^ al
     return IntPtr::Zero;
 }
 
-IntPtr AimpAlbumArtManager::GetImage(AIMP::SDK::FileManager::IAimpFileInfo^ fileInfo, AimpFingCovertArtType flags, Object^ userData)
+IntPtr AimpAlbumArtManager::GetImage(AIMP::SDK::FileManager::IAimpFileInfo^ fileInfo, AimpFindCovertArtType flags, Object^ userData)
 {
     void* taskId = nullptr;
     _findCallback = gcnew OnFindCoverCallback(this, &AIMP::AimpAlbumArtManager::OnAlbumArtReceive);
@@ -404,7 +404,7 @@ IntPtr AimpAlbumArtManager::GetImage(AIMP::SDK::FileManager::IAimpFileInfo^ file
     return IntPtr::Zero;
 }
 
-void AimpAlbumArtManager::Cancel(IntPtr taskId, AimpFingCovertArtType flags)
+void AimpAlbumArtManager::Cancel(IntPtr taskId, AimpFindCovertArtType flags)
 {
     if (taskId != IntPtr::Zero)
     {

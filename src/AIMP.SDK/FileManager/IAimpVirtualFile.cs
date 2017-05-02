@@ -3,12 +3,12 @@
 namespace AIMP.SDK.FileManager
 {
     /// <summary>
-    /// Provide information about virtual file.
+    /// Interface provides information about virtual file.
     /// </summary>
     public interface IAimpVirtualFile
     {
         /// <summary>
-        /// Gets or sets the index number at steck.
+        /// Gets or sets the index of virtual track in the set (if presented).
         /// </summary>
         int IndexInSet { get; set; }
 
@@ -24,6 +24,9 @@ namespace AIMP.SDK.FileManager
 
         /// <summary>
         /// Gets or sets the real source file.
+        /// <para>
+        /// Property can be not set if real file name is not exists or file name is same to file name of file-container.
+        /// </para>
         /// </summary>
         string AudioSourceFile { get; set; }
 
@@ -37,8 +40,9 @@ namespace AIMP.SDK.FileManager
         /// </summary>
         string FileUri { get; set; }
 
+        //TODO: ADN-26
         /// <summary>
-        /// Create the new stream.
+        /// Create the instance of the <see cref="IAimpStream"/>.
         /// </summary>
         /// <param name="stream"></param>
         /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
@@ -65,7 +69,12 @@ namespace AIMP.SDK.FileManager
         AimpActionResult IsInSameStream(IAimpVirtualFile virtualFile);
 
         /// <summary>
-        ///
+        /// Plugin must validate state of all internal data that refer with source.
+        /// If internal data is not valid, plugin must return any error code except AimpActionResult.Ok.
+        /// In this case, the application will automatically reload virtual files for current file-container via one of the IAimpExtensionFileExpander extensions.
+        /// <para>
+        /// The method called by the application before call the CreateStream method.
+        /// </para>
         /// </summary>
         /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
         AimpActionResult Synchronize();

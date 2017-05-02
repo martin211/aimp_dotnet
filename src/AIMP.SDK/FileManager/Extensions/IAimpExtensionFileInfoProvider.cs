@@ -3,7 +3,10 @@
 namespace AIMP.SDK.FileManager.Extensions
 {
     /// <summary>
-    /// Provides detailed information about the specified file.
+    /// Interface is an extension for the <see cref="IAimpServiceFileInfo"/> service that provides an extended information about the file.
+    /// <para>
+    /// Instance should be created by plugin and must be registered in the application at the plugin initialization method via the IAimpCore.RegisterExtension method.
+    /// </para>
     /// </summary>
     public interface IAimpExtensionFileInfoProvider
     {
