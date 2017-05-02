@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace AIMP.SDK.FileManager
+﻿namespace AIMP.SDK.FileManager
 {
     public enum ServiceFileInfoFlags
     {

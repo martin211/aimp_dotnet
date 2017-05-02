@@ -1,5 +1,9 @@
 ﻿namespace AIMP.SDK.FileManager.Extensions
 {
+    /// <summary>
+    /// Extension for the IAIMPServiceFileSystems service.
+    /// Must implement one or few file system commands(Refer to the children articles of the IAIMPServiceFileSystems chapter).
+    /// </summary>
     public interface IAimpExtensionFileSystem
     {
         /// <summary>

@@ -4,12 +4,15 @@ using System.Drawing;
 namespace AIMP.SDK.FileManager
 {
     /// <summary>
-    /// 
+    /// Storage for extended information about the file.
     /// </summary>
     public interface IAimpFileInfo
     {
         /// <summary>
         /// Gets or sets the custom data.
+        /// <para>
+        /// It allow to bind custom data to the interface.
+        /// </para>
         /// </summary>
         string CustomData { get; set; }
 
