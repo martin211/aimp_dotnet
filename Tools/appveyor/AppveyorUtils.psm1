@@ -67,14 +67,13 @@ function Start-SonarAnalysis {
 
 function Stop-SonarAnalysis {
     param (
-        [string] $toolsPath = (Get-Item -Path ".\" -Verbose).FullName,
-		[string] $logFile
+        [string] $toolsPath = (Get-Item -Path ".\" -Verbose).FullName
     )
 
     Write-Output "End SonarQube analize"
     $sonarMsbuildPath = Join-Path $toolsPath $Sonar_MsBuildToolExe
     Write-Output "$sonarMsbuildPath"
-	& $sonarMsbuildPath end > $logFile
+	& $sonarMsbuildPath end
 }
 
 function Invoke-PrepareArtifacts {
