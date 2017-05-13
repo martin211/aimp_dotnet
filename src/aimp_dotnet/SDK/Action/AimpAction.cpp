@@ -8,6 +8,7 @@
 */
 #include "Stdafx.h"
 #include "AimpAction.h"
+#include "../Action/AimpActionEvent.h"
 
 using namespace AIMP::SDK;
 
@@ -99,7 +100,12 @@ void AimpAction::OnExecute::add(EventHandler ^onEvent)
 {
     if (_onExecuteHandler == nullptr)
     {
-        _onExecuteEvent = new AimpActionEvent(this);
+        AIMP::SDK::AimpActionEventDelegate ^fp = gcnew AIMP::SDK::AimpActionEventDelegate(this->Execute);
+        _executeHandler = GCHandle::Alloc(fp);
+        IntPtr ip = Marshal::GetFunctionPointerForDelegate(fp);
+        AIMP::SDK::AimpActionEventCallback callback = static_cast<AIMP::SDK::AimpActionEventCallback>(ip.ToPointer());
+        _onExecuteEvent = new AimpActionEvent(this, callback);
+        GC::Collect();
         _onExecuteHandler = (EventHandler^)Delegate::Combine(_onExecuteHandler, onEvent);
         InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_EVENT, _onExecuteEvent);
     }
@@ -121,31 +127,3 @@ void AimpAction::OnExecute::raise(Object ^sender, EventArgs ^args)
         _onExecuteHandler(sender, args);
     }
 }
-
-#pragma region AimpActionEvent
-
-AimpActionEvent::AimpActionEvent(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> managedInstance)
-{
-    _managedInstance = managedInstance;
-}
-
-void WINAPI AimpActionEvent::OnExecute(IUnknown *Data)
-{
-    Object^ obj = _managedInstance;
-    AimpAction^ action = dynamic_cast<AimpAction^>(obj);
-    action->RaiseOnExecute();
-}
-
-HRESULT WINAPI AimpActionEvent::QueryInterface(REFIID riid, LPVOID* ppvObject)
-{
-    if (riid == IID_IAIMPActionEvent)
-    {
-        *ppvObject = this;
-        return S_OK;
-    }
-
-    ppvObject = NULL;
-    return E_NOTIMPL;
-}
-
-#pragma endregion

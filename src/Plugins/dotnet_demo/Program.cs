@@ -93,6 +93,9 @@ namespace TestPlugin
             if (_demoForm.IsDisposed)
                 _demoForm = new PlayerForm(Player);
 
+            var item = sender as IAimpMenuItem;
+            Logger.Instance.AddInfoMessage($"Event: [Execute] {item.Id}");
+
             _demoForm.Show();
         }
 
