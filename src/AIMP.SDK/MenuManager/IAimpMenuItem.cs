@@ -15,7 +15,7 @@
     /// <summary>
     /// AIMP menu item interface.
     /// </summary>
-    public interface IAimpMenuItem
+    public interface IAimpMenuItem : IAimpActionEvent
     {
         string Custom { get; set; }
 
@@ -28,8 +28,6 @@
         bool Checked { get; set; }
 
         bool Enabled { get; set; }
-
-        event EventHandler OnExecute;
 
         event EventHandler OnShow;
 

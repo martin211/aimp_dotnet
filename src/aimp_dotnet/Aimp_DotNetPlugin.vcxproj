@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SDK\Action\AimpAction.cpp" />
+    <ClCompile Include="SDK\Action\AimpActionEvent.cpp" />
     <ClCompile Include="SDK\AimpObjectList.cpp" />
     <ClCompile Include="SDK\AimpStream.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpAlbumArtManager.cpp" />
@@ -32,7 +34,6 @@
     <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCustomFileCommand.cpp" />
     <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.cpp" />
     <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileSystem.cpp" />
-    <ClCompile Include="SDK\Menu\MenuItemEvent.cpp" />
     <ClCompile Include="SDK\MUI\MUIManager.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpDataField.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpDataFieldFilter.cpp" />
@@ -88,6 +89,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SDK\Action\AimpAction.h" />
+    <ClInclude Include="SDK\Action\AimpActionEvent.h" />
     <ClInclude Include="SDK\AimpObjectList.h" />
     <ClInclude Include="SDK\AimpPropertyList.h" />
     <ClInclude Include="SDK\AimpStream.h" />
@@ -177,7 +180,6 @@
     <ClInclude Include="SDK\Menu\AimpMenuItem.h" />
     <ClInclude Include="SDK\Menu\AimpMenuManager.h" />
     <ClInclude Include="SDK\Menu\ICallBackHeader.h" />
-    <ClInclude Include="SDK\Menu\MenuItemEvent.h" />
     <ClInclude Include="SDK\MUI\MUIManager.h" />
     <ClInclude Include="SDK\Options\AimpOptionsDialogFrame.h" />
     <ClInclude Include="SDK\Options\AimpServiceOptionsDialog.h" />
@@ -199,6 +201,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc" />

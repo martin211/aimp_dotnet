@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using DemoPlugin;
 
 namespace TestPlugin
@@ -74,6 +75,11 @@ namespace TestPlugin
                 demoFormItem.Style = AimpMenuItemStyle.CheckBox;
 
                 demoFormItem.OnExecute += DemoFormItemOnOnExecute;
+                demoFormItem.OnShow += (sender, args) =>
+                {
+                    var item = sender as IAimpMenuItem;
+                    Logger.Instance.AddInfoMessage($"Event: [Show] {item.Id}");
+                };
 
                 Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, demoFormItem);
             }
