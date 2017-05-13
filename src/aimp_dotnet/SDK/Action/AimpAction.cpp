@@ -117,6 +117,9 @@ void AimpAction::OnExecute::remove(EventHandler ^onEvent)
     {
         _onExecuteHandler = (EventHandler^)Delegate::Remove(_onExecuteHandler, onEvent);
         InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_EVENT, NULL);
+        _executeHandler.Free();
+        _onExecuteEvent->Release();
+        _onExecuteEvent = NULL;
     }
 }
 
@@ -126,4 +129,9 @@ void AimpAction::OnExecute::raise(Object ^sender, EventArgs ^args)
     {
         _onExecuteHandler(sender, args);
     }
+}
+
+AIMP::SDK::AimpAction::~AimpAction()
+{
+    _executeHandler.Free();
 }

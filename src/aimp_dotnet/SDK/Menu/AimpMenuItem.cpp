@@ -177,6 +177,7 @@ void AimpMenuItem::OnExecute::remove(EventHandler ^onEvent)
     {
         _onExecuteHandler = (EventHandler^)Delegate::Remove(_onExecuteHandler, onEvent);
         _onExecuteEvent->Release();
+        _onExecuteEvent = NULL;
         delete _onExecuteEvent;
         _executeHandler.Free();
     }
@@ -211,6 +212,7 @@ void AimpMenuItem::OnShow::remove(EventHandler ^onEvent)
     {
         _onShowHandler = (EventHandler^)Delegate::Remove(_onShowHandler, onEvent);
         _onShowEvent->Release();
+        _onShowEvent = NULL;
         delete _onShowEvent;
         _showHandler.Free();
     }
