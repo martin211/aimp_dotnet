@@ -13,25 +13,15 @@ namespace AIMP
 {
     namespace SDK
     {
+        using namespace System::Runtime::InteropServices;
         using namespace AIMP::SDK::ActionManager;
-
-        class AimpActionEvent : public IUnknownInterfaceImpl<IAIMPActionEvent>
-        {
-        public:
-            AimpActionEvent(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> managedInstance);
-
-            virtual void WINAPI OnExecute(IUnknown *Data);
-
-            virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
-        private:
-            gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> _managedInstance;
-        };
 
         public ref class AimpAction : public AimpObject<IAIMPAction>, public IAimpAction
         {
         private:
             EventHandler ^_onExecuteHandler;
             IAIMPActionEvent *_onExecuteEvent;
+            GCHandle _executeHandler;
         public:
             explicit AimpAction(IAIMPAction *action);
 
@@ -91,9 +81,11 @@ namespace AIMP
             }
 
         internal:
-            void RaiseOnExecute()
+            static void Execute(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> sender, IUnknown *data)
             {
-                OnExecute(this, System::EventArgs::Empty);
+                Object ^obj = sender;
+                AimpAction ^action = dynamic_cast<AimpAction^>(obj);
+                action->OnExecute(obj, System::EventArgs::Empty);
             }
         };
     }
