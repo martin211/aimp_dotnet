@@ -9,6 +9,7 @@
 #pragma once
 #include "Stdafx.h"
 #include "AimpActionManager.h"
+#include "AimpAction.h"
 
 namespace AIMP
 {
@@ -82,6 +83,45 @@ namespace AIMP
         void AimpActionManager::OnPropertyChanged(System::Object ^sender, System::ComponentModel::PropertyChangedEventArgs ^e)
         {
             UpdateItem((AimpActionItem^)sender);
+        }
+
+        AimpActionResult AimpActionManager::GetById(String ^id, IAimpAction ^%action)
+        {
+            AimpActionResult result = AimpActionResult::Fail;
+            IAIMPServiceActionManager *service = NULL;
+
+            try
+            {
+                if (GetService(IID_IAIMPServiceActionManager, &service) == AimpActionResult::Ok)
+                {
+                    if (service != NULL)
+                    {
+                        IAIMPAction *resAction;
+                        IAIMPString *strId = AimpConverter::ToAimpString(id);
+                        result = CheckResult(service->GetByID(strId, &resAction));
+                        if (result == AimpActionResult::Ok)
+                        {
+                            action = gcnew AimpAction(resAction);
+                        }
+                        strId->Release();
+                    }
+                }
+
+                return result;
+            }
+            finally
+            {
+                if (service != NULL)
+                {
+                    service->Release();
+                    service = NULL;
+                }
+            }
+        }
+
+        int AimpActionManager::MakeHotkey(ModifierKeys modifiers, unsigned int key)
+        {
+            return 0;
         }
     }
 }

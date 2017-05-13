@@ -13,19 +13,28 @@ namespace AIMP
 {
     namespace SDK
     {
+        using namespace System::Windows::Input;
+        using namespace AIMP::SDK;
         using namespace AIMP::SDK::UI::ActionItem;
         using namespace AIMP::SDK::ActionManager;
 
-        public ref class AimpActionManager : public AimpBaseManager<IAIMPServiceActionManager>, public IAimpActionManager
+        public ref class AimpActionManager :
+            public AimpBaseManager<IAIMPServiceActionManager>,
+            public IAimpActionManager,
+            public IAimpServiceActionManager
         {
         public:
             explicit AimpActionManager(ManagedAimpCore^ core);
 
             ~AimpActionManager();
 
-            virtual void Add(AimpActionItem^ action);
+            virtual void Add(AimpActionItem ^action);
 
-            virtual void AddRange(ActionItemCollection^ actions);
+            virtual void AddRange(ActionItemCollection ^actions);
+
+            virtual AimpActionResult GetById(String ^id, IAimpAction ^%action);
+
+            virtual int MakeHotkey(ModifierKeys modifiers, unsigned int key);
         private:
             void RegisterAction(AimpActionItem^ menuItem);
 

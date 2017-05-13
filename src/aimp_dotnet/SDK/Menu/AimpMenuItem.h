@@ -7,8 +7,6 @@
  * 
  */
 #pragma once
-#include "MenuItemEvent.h"
-
 
 namespace AIMP
 {
@@ -16,10 +14,11 @@ namespace AIMP
     {
         using namespace System;
         using namespace System::Drawing;
+        using namespace System::Runtime::InteropServices;
         using namespace AIMP::SDK::MenuManager;
         using namespace AIMP::SDK::ActionManager;
 
-        public ref class AimpMenuItem : public AimpObject<IAIMPMenuItem>, public IAimpMenuItem, public IAimpMenuEvents
+        public ref class AimpMenuItem : public AimpObject<IAIMPMenuItem>, public IAimpMenuItem
         {
         private:
             EventHandler ^_onExecuteHandler;
@@ -27,183 +26,100 @@ namespace AIMP
             IAIMPActionEvent *_onExecuteEvent;
             IAIMPActionEvent *_onShowEvent;
             String ^_id;
+            GCHandle _showHandler;
+            GCHandle _executeHandler;
+
+        internal:
+            static void Execute(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> sender, IUnknown *data)
+            {
+                Object ^obj = sender;
+                AimpMenuItem ^item = dynamic_cast<AimpMenuItem^>(obj);
+                item->OnExecute(sender, EventArgs::Empty);
+            }
+
+            static void Show(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> sender, IUnknown *data)
+            {
+                Object ^obj = sender;
+                AimpMenuItem ^item = dynamic_cast<AimpMenuItem^>(obj);
+                item->OnShow(sender, EventArgs::Empty);
+            }
 
         public:
-            explicit AimpMenuItem(IAIMPMenuItem *menuItem) : AimpObject(menuItem)
-            {}
+            explicit AimpMenuItem(IAIMPMenuItem *menuItem);
 
-            ~AimpMenuItem()
-            {
-                _onExecuteHandler = nullptr;
-                _onExecuteHandler = nullptr;
-            }
+            ~AimpMenuItem();
 
             virtual property String ^Custom
             {
-                String^ get()
-                {
-                    return String::Empty;
-                }
-
-                void set(String ^value)
-                {}
+                String^ get();
+                void set(String ^value);
             }
 
             virtual property IAimpAction ^Action
             {
-                IAimpAction ^get()
-                {
-                    return nullptr;
-                }
-
-                void set(IAimpAction ^value)
-                {
-
-                }
+                IAimpAction ^get();
+                void set(IAimpAction ^value);
             }
 
             virtual property String ^Id
             {
-                String ^get()
-                {
-                    String^ str = nullptr;
-                    PropertyListExtension::GetString(InternalAimpObject, AIMP_MENUITEM_PROPID_ID, *&str);
-                    return str;
-                }
-
-                void set(String ^value)
-                {
-                    _id = value;
-                    PropertyListExtension::SetString(InternalAimpObject, AIMP_MENUITEM_PROPID_ID, value);
-                }
+                String ^get();
+                void set(String ^value);
             }
 
             virtual property String ^Name
             {
-                String ^get()
-                {
-                    String^ str = nullptr;
-                    PropertyListExtension::GetString(InternalAimpObject, AIMP_MENUITEM_PROPID_NAME, *&str);
-                    return str;
-                }
-
-                void set(String ^value)
-                {
-                    PropertyListExtension::SetString(InternalAimpObject, AIMP_MENUITEM_PROPID_NAME, value);
-                }
+                String ^get();
+                void set(String ^value);
             }
 
             virtual property bool Checked
             {
-                bool get()
-                {
-                    bool val = false;
-                    PropertyListExtension::GetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_CHECKED, val);
-                    return val;
-                }
-
-                void set(bool value)
-                {
-                    PropertyListExtension::SetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_CHECKED, value);
-                }
+                bool get();
+                void set(bool value);
             }
 
             virtual property bool Enabled
             {
-                bool get()
-                {
-                    bool val = false;
-                    PropertyListExtension::GetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_ENABLED, val);
-                    return val;
-                }
-
-                void set(bool value)
-                {
-                    PropertyListExtension::SetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_ENABLED, value);
-                }
+                bool get();
+                void set(bool value);
             }
 
             virtual property bool Visible
             {
-                bool get()
-                {
-                    bool val = false;
-                    PropertyListExtension::GetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_VISIBLE, val);
-                    return val;
-                }
-
-                void set(bool value)
-                {
-                    PropertyListExtension::SetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_VISIBLE, value);
-                }
+                bool get();
+                void set(bool value);
             }
 
             virtual property Bitmap ^Glyph
             {
-                Bitmap ^get()
-                {
-                    return nullptr;
-                }
-
-                void set(Bitmap ^value)
-                {
-                    if (value != nullptr)
-                    {
-                        IAIMPImage *image = AimpConverter::ToAimpImage(value);
-                        InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_GLYPH, image);
-                        image->Release();
-                    }
-                }
+                Bitmap ^get();
+                void set(Bitmap ^value);
             }
 
             virtual property IAimpMenuItem ^Parent
             {
-                IAimpMenuItem ^get()
-                {
-                    IAIMPMenuItem *item;
-                    InternalAimpObject->GetValueAsObject(AIMP_MENUITEM_PROPID_PARENT, IID_IAIMPMenuItem, (void**)&item);
-                    AimpMenuItem ^parentIttem = gcnew AimpMenuItem(item);
-                    item->Release();
-
-                    return parentIttem;
-                }
-
-                void set(IAimpMenuItem ^value)
-                {
-                    InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_PARENT, ((AimpMenuItem^)value)->InternalAimpObject);
-                }
+                IAimpMenuItem ^get();
+                void set(IAimpMenuItem ^value);
             }
 
             virtual property AimpMenuItemStyle Style
             {
-                AimpMenuItemStyle get()
-                {
-                    int val = 0;
-                    PropertyListExtension::GetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_STYLE, val);
-                    return (AimpMenuItemStyle)val;
-                }
-
-                void set(AimpMenuItemStyle value)
-                {
-                    PropertyListExtension::SetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_STYLE, (int)value);
-                }
+                AimpMenuItemStyle get();
+                void set(AimpMenuItemStyle value);
             }
 
             virtual event EventHandler ^OnExecute
             {
                 virtual void add(EventHandler ^onEvent);
-
                 virtual void remove(EventHandler ^onEvent);
-
                 virtual void raise(Object ^sender, EventArgs ^args);
             }
 
             virtual event EventHandler ^OnShow
             {
                 virtual void add(EventHandler ^onEvent);
-
                 virtual void remove(EventHandler ^onEvent);
-
                 virtual void raise(Object ^sender, EventArgs ^args);
             }
 
@@ -212,15 +128,15 @@ namespace AIMP
                 return CheckResult(InternalAimpObject->DeleteChildren());
             }
 
-            virtual void Execute()
-            {
-                this->OnExecute(this, EventArgs::Empty);
-            }
+            //virtual void Execute()
+            //{
+            //    this->OnExecute(this, EventArgs::Empty);
+            //}
 
-            virtual void Show()
-            {
-                this->OnShow(this, EventArgs::Empty);
-            }
+            //virtual void Show()
+            //{
+            //    this->OnShow(this, EventArgs::Empty);
+            //}
         };
     }
 }

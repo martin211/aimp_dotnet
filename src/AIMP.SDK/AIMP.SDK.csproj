@@ -52,6 +52,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionManager\IAimpAction.cs" />
@@ -87,7 +88,6 @@
     <Compile Include="IAimpObjectList.cs" />
     <Compile Include="IAimpStream.cs" />
     <Compile Include="Logger\ILogger.cs" />
-    <Compile Include="MenuManager\IAimpMenuEvents.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilter.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilterByArray.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFilterGroup.cs" />
