@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using AIMP.SDK.ActionManager;
 using DemoPlugin;
 
 namespace TestPlugin
@@ -85,7 +86,8 @@ namespace TestPlugin
             }
 
             _demoForm = new PlayerForm(Player);
-            //_demoForm.Show();
+
+            CreateMenuWithAction();
         }
 
         private void DemoFormItemOnOnExecute(object sender, EventArgs eventArgs)
@@ -104,6 +106,30 @@ namespace TestPlugin
             _demoForm.Dispose();
             System.Diagnostics.Debug.WriteLine("Dispose");
             Player.MenuManager.Delete(_menuItem);
+        }
+
+        private void CreateMenuWithAction()
+        {
+            IAimpMenuItem actionMenuItem;
+            if (Player.MenuManager.CreateMenuItem(out actionMenuItem) == AimpActionResult.Ok)
+            {
+
+                IAimpAction action = Player.Core.CreateAction();
+                action.Id = "aimp.MenuAndActionsDemo.action.1";
+                action.Name = "Simple action title";
+                action.GroupName = "Menu And Actions Demo";
+                action.OnExecute += (sender, args) =>
+                {
+                    var item = sender as IAimpAction;
+                    Logger.Instance.AddInfoMessage($"Event: [Execute] {item.Id}");
+                };
+                Player.ActionManager.Register(action);
+
+                actionMenuItem.Name = "Menu item with linked action";
+                actionMenuItem.Id = "aimp.MenuAndActionsDemo.menuitem.with.action";
+                actionMenuItem.Action = action;
+                Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, actionMenuItem);
+            }
         }
     }
 }

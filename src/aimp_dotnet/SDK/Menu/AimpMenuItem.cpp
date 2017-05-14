@@ -9,6 +9,7 @@
 #include "Stdafx.h"
 #include "AimpMenuItem.h"
 #include "../Action/AimpActionEvent.h"
+#include "../Action/AimpAction.h"
 
 using namespace AIMP::SDK;
 using namespace System;
@@ -39,11 +40,19 @@ void AimpMenuItem::Custom::set(String ^value)
 
 IAimpAction ^AimpMenuItem::Action::get()
 {
+    IAIMPAction *action;
+    if (PropertyListExtension::GetObject(InternalAimpObject, AIMP_MENUITEM_PROPID_ACTION, IID_IAIMPAction, (void**)&action) == AimpActionResult::Ok)
+    {
+        return gcnew AimpAction(action);
+    }
+
     return nullptr;
 }
 
 void AimpMenuItem::Action::set(IAimpAction ^value)
-{}
+{
+    PropertyListExtension::SetObject(InternalAimpObject, AIMP_MENUITEM_PROPID_ACTION, ((AimpAction^)value)->InternalAimpObject);
+}
 
 
 String ^AimpMenuItem::Id::get()

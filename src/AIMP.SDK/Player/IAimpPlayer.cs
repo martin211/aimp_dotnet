@@ -65,7 +65,7 @@ namespace AIMP.SDK.Player
         /// <summary>
         /// Gets player action manager.
         /// </summary>
-        IAimpActionManager ActionManager { get; }
+        IAimpServiceActionManager ActionManager { get; }
 
         /// <summary>
         /// Gets the MUI manager.

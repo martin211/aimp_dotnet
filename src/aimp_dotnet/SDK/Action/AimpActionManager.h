@@ -20,7 +20,6 @@ namespace AIMP
 
         public ref class AimpActionManager :
             public AimpBaseManager<IAIMPServiceActionManager>,
-            public IAimpActionManager,
             public IAimpServiceActionManager
         {
         public:
@@ -28,19 +27,13 @@ namespace AIMP
 
             ~AimpActionManager();
 
-            virtual void Add(AimpActionItem ^action);
-
-            virtual void AddRange(ActionItemCollection ^actions);
-
             virtual AimpActionResult GetById(String ^id, IAimpAction ^%action);
 
             virtual int MakeHotkey(ModifierKeys modifiers, unsigned int key);
-        private:
-            void RegisterAction(AimpActionItem^ menuItem);
 
-            void OnPropertyChanged(System::Object ^sender, System::ComponentModel::PropertyChangedEventArgs ^e);
+            virtual AimpActionResult Register(IAimpAction ^action);
 
-            void UpdateItem(AimpActionItem^ menuItem);
+            virtual AimpActionResult Register(System::Collections::Generic::ICollection<AIMP::SDK::ActionManager::IAimpAction^>^ actions);
         };
     }
 }

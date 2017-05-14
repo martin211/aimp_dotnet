@@ -9,6 +9,7 @@
 #pragma once
 #include "SDK\AimpExtensionBase.h"
 #include "AimpStream.h"
+#include "Action/AimpAction.h"
 
 namespace AIMP
 {
@@ -108,12 +109,21 @@ namespace AIMP
             virtual IAimpStream^ CreateStream()
             {
                 IAIMPStream *stream = NULL;
-                if (_aimpCore->CreateStream(stream) == AimpActionResult::Ok)
+                if (_aimpCore->CreateStream(&stream) == AimpActionResult::Ok && stream != NULL)
                 {
                     return gcnew AIMP::SDK::AimpStream(stream);
                 }
 
                 return nullptr;
+            }
+
+            virtual IAimpAction ^CreateAction()
+            {
+                IAIMPAction *action = NULL;
+                if (_aimpCore->CreateAction(&action) == AimpActionResult::Ok && action != NULL)
+                {
+                    return gcnew AIMP::SDK::AimpAction(action);
+                }
             }
 
         internal:

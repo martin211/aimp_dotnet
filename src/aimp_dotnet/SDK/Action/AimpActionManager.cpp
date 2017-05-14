@@ -23,68 +23,6 @@ namespace AIMP
             System::Diagnostics::Debug::WriteLine("Dispose AimpActionManager");
         }
 
-        void AimpActionManager::Add(AimpActionItem^ action)
-        {
-            RegisterAction(action);
-        }
-
-        void AimpActionManager::AddRange(ActionItemCollection^ actions)
-        {
-            for each(AimpActionItem^ item in actions)
-            {
-                RegisterAction(item);
-            }
-        }
-
-        void AimpActionManager::RegisterAction(AimpActionItem ^menuItem)
-        {
-            //IAIMPAction* newAction = AimpObjectExtension::CreateActionItem(ManagedAimpCore::GetAimpCore());
-            //IAIMPString* idString = AimpObjectExtension::MakeAimpString(_core->GetAimpCore(), menuItem->Id);
-            //IAIMPString* nameString = AimpObjectExtension::MakeAimpString(_core->GetAimpCore(), menuItem->Text);
-            //
-            //bool checkResult = false;
-
-            //checkResult = CheckResult(newAction->SetValueAsObject(AIMP_ACTION_PROPID_ID, idString));
-            //checkResult &= CheckResult(newAction->SetValueAsObject(AIMP_ACTION_PROPID_NAME, nameString));
-
-            //if (!System::String::IsNullOrEmpty(menuItem->GroupName))
-            //{
-            //	checkResult &= CheckResult(newAction->SetValueAsObject(AIMP_ACTION_PROPID_GROUPNAME, AimpObjectExtension::MakeAimpString(_core->GetAimpCore(), menuItem->GroupName)));
-            //}
-
-            ////checkResult &= CheckResult(newAction->SetValueAsInt32(AIMP_ACTION_PROPID_ENABLED, menuItem->Enabled ? 1 : 0));
-
-            //_core->GetAimpCore()->RegisterExtension(AIMP36SDK::IID_IAIMPServiceMenuManager, newAction);
-
-            IAIMPAction* newAction;
-            IAIMPString* actionIdString = AimpConverter::ToAimpString(menuItem->Id);
-            IAIMPString* actionNameString = AimpConverter::ToAimpString(menuItem->Text);
-            IAIMPString* actionGroupString = AimpConverter::ToAimpString(menuItem->GroupName);
-
-            _core->GetAimpCore()->CreateObject(IID_IAIMPAction, (void**)&newAction);
-
-            CheckResult(newAction->SetValueAsObject(AIMP_ACTION_PROPID_ID, actionIdString));
-            CheckResult(newAction->SetValueAsObject(AIMP_ACTION_PROPID_NAME, actionNameString));
-            CheckResult(newAction->SetValueAsObject(AIMP_ACTION_PROPID_GROUPNAME, actionGroupString));
-            CheckResult(_core->GetAimpCore()->RegisterExtension(IID_IAIMPServiceMenuManager, newAction));
-
-            actionIdString->Release();
-            actionNameString->Release();
-            actionGroupString->Release();
-            newAction->Release();
-        }
-
-        void AimpActionManager::UpdateItem(AimpActionItem^ menuItem)
-        {
-            // todo: complete it.
-            throw gcnew System::NotImplementedException("Not implemented");
-        }
-
-        void AimpActionManager::OnPropertyChanged(System::Object ^sender, System::ComponentModel::PropertyChangedEventArgs ^e)
-        {
-            UpdateItem((AimpActionItem^)sender);
-        }
-
         AimpActionResult AimpActionManager::GetById(String ^id, IAimpAction ^%action)
         {
             AimpActionResult result = AimpActionResult::Fail;
@@ -121,7 +59,50 @@ namespace AIMP
 
         int AimpActionManager::MakeHotkey(ModifierKeys modifiers, unsigned int key)
         {
+            IAIMPServiceActionManager *service = NULL;
+
+            try
+            {
+                if (GetService(IID_IAIMPServiceActionManager, &service) == AimpActionResult::Ok)
+                {
+                    if (service != NULL)
+                    {
+                        return service->MakeHotkey((DWORD)modifiers, key);
+                    }
+                }
+            }
+            finally
+            {
+                if (service != NULL)
+                {
+                    service->Release();
+                    service = NULL;
+                }
+            }
+
             return 0;
+        }
+
+        AimpActionResult AimpActionManager::Register(IAimpAction ^action)
+        {
+            return CheckResult(_core->GetAimpCore()->RegisterExtension(IID_IAIMPServiceActionManager, ((AimpAction^)action)->InternalAimpObject));
+        }
+
+        AimpActionResult AimpActionManager::Register(System::Collections::Generic::ICollection<IAimpAction^>^ actions)
+        {
+            AimpActionResult result = AimpActionResult::Fail;
+
+            for each(AimpActionItem^ item in actions)
+            {
+                result = Register(item);
+
+                if (result != AimpActionResult::Ok)
+                {
+                    return result;
+                }
+            }
+
+            return result;
         }
     }
 }

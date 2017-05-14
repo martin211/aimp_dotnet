@@ -91,7 +91,9 @@ namespace AIMP
 
             HRESULT ShowNotification(bool autoHide, String ^notification);
 
-            AimpActionResult CreateStream(IAIMPStream *stream);
+            AimpActionResult CreateStream(IAIMPStream **stream);
+
+            AimpActionResult CreateAction(IAIMPAction **action);
 
             bool OnCheckUrl(String^ %url);
 

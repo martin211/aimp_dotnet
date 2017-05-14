@@ -60,7 +60,7 @@ namespace AIMP
         IAimpCore ^_aimpCore;
         AimpEventsDelegate^ _coreMessage;
         IAimpMenuManager^ _menuManager;
-        IAimpActionManager^ _actionManager;
+        IAimpServiceActionManager^ _actionManager;
         IAimpMUIManager^ _muiManager;
         IAimpAlbumArtManager^ _artManager;
         IAimpConfigurationManager^ _configManager;
@@ -141,9 +141,9 @@ namespace AIMP
             }
         }
 
-        virtual property IAimpActionManager^ ActionManager
+        virtual property IAimpServiceActionManager^ ActionManager
         {
-            IAimpActionManager^ get()
+            IAimpServiceActionManager^ get()
             {
                 if (_actionManager == nullptr)
                 {

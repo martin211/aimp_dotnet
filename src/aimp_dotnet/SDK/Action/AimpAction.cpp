@@ -58,7 +58,9 @@ void AimpAction::GroupName::set(String ^value)
 
 bool AimpAction::Enabled::get()
 {
-    return PropertyListExtension::GetBool(InternalAimpObject, AIMP_ACTION_PROPID_ENABLED);
+    int val;
+    InternalAimpObject->GetValueAsInt32(AIMP_ACTION_PROPID_ENABLED, &val);
+    return val != 0;
 }
 
 void AimpAction::Enabled::set(bool value)
@@ -107,7 +109,7 @@ void AimpAction::OnExecute::add(EventHandler ^onEvent)
         _onExecuteEvent = new AimpActionEvent(this, callback);
         GC::Collect();
         _onExecuteHandler = (EventHandler^)Delegate::Combine(_onExecuteHandler, onEvent);
-        InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_EVENT, _onExecuteEvent);
+        InternalAimpObject->SetValueAsObject(AIMP_ACTION_PROPID_EVENT, _onExecuteEvent);
     }
 }
 
@@ -116,7 +118,7 @@ void AimpAction::OnExecute::remove(EventHandler ^onEvent)
     if (_onExecuteHandler != nullptr)
     {
         _onExecuteHandler = (EventHandler^)Delegate::Remove(_onExecuteHandler, onEvent);
-        InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_EVENT, NULL);
+        InternalAimpObject->SetValueAsObject(AIMP_ACTION_PROPID_EVENT, NULL);
         _executeHandler.Free();
         _onExecuteEvent->Release();
         _onExecuteEvent = NULL;
@@ -134,4 +136,11 @@ void AimpAction::OnExecute::raise(Object ^sender, EventArgs ^args)
 AIMP::SDK::AimpAction::~AimpAction()
 {
     _executeHandler.Free();
+}
+
+void AIMP::SDK::AimpAction::Execute(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> sender, IUnknown *data)
+{
+    Object ^obj = sender;
+    AimpAction ^action = dynamic_cast<AimpAction^>(obj);
+    action->OnExecute(obj, System::EventArgs::Empty);
 }
