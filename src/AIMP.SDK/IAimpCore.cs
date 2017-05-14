@@ -1,4 +1,6 @@
-﻿namespace AIMP.SDK
+﻿using AIMP.SDK.ActionManager;
+
+namespace AIMP.SDK
 {
     /// <summary>
     /// 
@@ -50,5 +52,10 @@
         /// </summary>
         /// <returns></returns>
         IAimpStream CreateStream();
+
+        /// <summary>
+        /// Creates the Aimp action instance.
+        /// </summary>
+        IAimpAction CreateAction();
     }
 }

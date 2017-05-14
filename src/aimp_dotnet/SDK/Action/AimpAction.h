@@ -83,12 +83,7 @@ namespace AIMP
             }
 
         internal:
-            static void Execute(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> sender, IUnknown *data)
-            {
-                Object ^obj = sender;
-                AimpAction ^action = dynamic_cast<AimpAction^>(obj);
-                action->OnExecute(obj, System::EventArgs::Empty);
-            }
+            static void Execute(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> sender, IUnknown *data);
         };
     }
 }
