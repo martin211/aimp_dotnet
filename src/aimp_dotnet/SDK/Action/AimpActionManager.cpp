@@ -18,11 +18,6 @@ namespace AIMP
         AimpActionManager::AimpActionManager(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceActionManager>(core)
         { }
 
-        AimpActionManager::~AimpActionManager()
-        {
-            System::Diagnostics::Debug::WriteLine("Dispose AimpActionManager");
-        }
-
         AimpActionResult AimpActionManager::GetById(String ^id, IAimpAction ^%action)
         {
             AimpActionResult result = AimpActionResult::Fail;
@@ -92,7 +87,7 @@ namespace AIMP
         {
             AimpActionResult result = AimpActionResult::Fail;
 
-            for each(AimpActionItem^ item in actions)
+            for each(IAimpAction^ item in actions)
             {
                 result = Register(item);
 
