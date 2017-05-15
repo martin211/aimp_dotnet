@@ -19,7 +19,7 @@ namespace AIMP
     {
         using namespace AIMP::SDK::MenuManager;
 
-        public ref class AimpMenuManager : public AimpBaseManager<IAIMPServiceMenuManager>, public IAimpMenuManager
+        public ref class AimpMenuManager : public AimpBaseManager<IAIMPServiceMenuManager>, public IAimpServiceMenuManager
         {
         public:
             explicit AimpMenuManager(ManagedAimpCore^ core);
