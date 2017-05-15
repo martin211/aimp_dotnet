@@ -15,7 +15,6 @@ namespace AIMP
     {
         using namespace System::Windows::Input;
         using namespace AIMP::SDK;
-        using namespace AIMP::SDK::UI::ActionItem;
         using namespace AIMP::SDK::ActionManager;
 
         public ref class AimpActionManager :
@@ -24,8 +23,6 @@ namespace AIMP
         {
         public:
             explicit AimpActionManager(ManagedAimpCore^ core);
-
-            ~AimpActionManager();
 
             virtual AimpActionResult GetById(String ^id, IAimpAction ^%action);
 

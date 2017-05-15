@@ -132,7 +132,6 @@
     <Compile Include="Threading\IAimpServiceSynchronizer.cs" />
     <Compile Include="Threading\IAimpServiceThreadPool.cs" />
     <Compile Include="Threading\IAimpTaskPriority.cs" />
-    <Compile Include="UI\AimpUIItem.cs" />
     <Compile Include="AIMPPluginAttribute.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Logger\Logger.cs" />
@@ -144,9 +143,6 @@
     <Compile Include="PluginInfo.cs" />
     <Compile Include="DotNetPluginInfo.cs" />
     <Compile Include="PluginInfoLoader.cs" />
-    <Compile Include="UI\ActionItem\ActionItemCollection.cs" />
-    <Compile Include="UI\ActionItem\AimpActionItem.cs" />
-    <Compile Include="UI\MBRCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AlbumArtManager\AimpFindCovertArtType.cs" />
     <Compile Include="AlbumArtManager\AimpGetAlbumArtEventArgs.cs" />
