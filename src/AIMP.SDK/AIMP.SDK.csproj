@@ -149,7 +149,7 @@
     <Compile Include="AlbumArtManager\IAimpAlbumArtManager.cs" />
     <Compile Include="ConfigurationManager\IAimpConfigurationManager.cs" />
     <Compile Include="MenuManager\IAimpMenuItem.cs" />
-    <Compile Include="MenuManager\IAimpMenuManager.cs" />
+    <Compile Include="MenuManager\IAimpServiceMenuManager.cs" />
     <Compile Include="MUIManager\IAimpMUIManager.cs" />
     <Compile Include="FileManager\IAimpFileInfo.cs" />
     <Compile Include="PlayList\IAimpPlayList.cs" />

@@ -123,20 +123,22 @@ namespace AIMP
                 virtual void raise(Object ^sender, EventArgs ^args);
             }
 
+            virtual property bool IsDefault
+            {
+                bool get();
+                void set(bool value);
+            }
+
+            virtual property int Shortcut
+            {
+                int get();
+                void set(int value);
+            }
+
             virtual AimpActionResult DeleteChildren()
             {
                 return CheckResult(InternalAimpObject->DeleteChildren());
             }
-
-            //virtual void Execute()
-            //{
-            //    this->OnExecute(this, EventArgs::Empty);
-            //}
-
-            //virtual void Show()
-            //{
-            //    this->OnShow(this, EventArgs::Empty);
-            //}
         };
     }
 }

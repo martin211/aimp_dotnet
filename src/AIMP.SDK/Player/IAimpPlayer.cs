@@ -60,7 +60,7 @@ namespace AIMP.SDK.Player
         /// <summary>
         /// Gets player menu manager.
         /// </summary>
-        IAimpMenuManager MenuManager { get; }
+        IAimpServiceMenuManager MenuManager { get; }
 
         /// <summary>
         /// Gets player action manager.

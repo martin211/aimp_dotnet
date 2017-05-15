@@ -15,8 +15,6 @@ using namespace AIMP::SDK;
 using namespace System;
 using namespace System::Runtime::InteropServices;
 
-#pragma region AimpMenuItem
-
 AimpMenuItem::AimpMenuItem(IAIMPMenuItem *menuItem) : AimpObject(menuItem)
 {}
 
@@ -165,6 +163,33 @@ void AimpMenuItem::Style::set(AimpMenuItemStyle value)
     PropertyListExtension::SetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_STYLE, (int)value);
 }
 
+
+bool AimpMenuItem::IsDefault::get()
+{
+    bool val = false;
+    PropertyListExtension::GetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_DEFAULT, val);
+    return val;
+}
+
+void AimpMenuItem::IsDefault::set(bool value)
+{
+    PropertyListExtension::SetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_DEFAULT, value);
+}
+
+
+int AimpMenuItem::Shortcut::get()
+{
+    int val = 0;
+    PropertyListExtension:: GetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_SHORTCUT, val);
+    return val;
+}
+
+void AimpMenuItem::Shortcut::set(int val)
+{
+    PropertyListExtension::SetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_SHORTCUT, val);
+}
+
+
 void AimpMenuItem::OnExecute::add(EventHandler ^onEvent)
 {
     if (_onExecuteHandler == nullptr)
@@ -234,5 +259,3 @@ void AimpMenuItem::OnShow::raise(Object ^sender, EventArgs ^args)
         _onShowHandler(sender, args);
     }
 }
-
-#pragma endregion

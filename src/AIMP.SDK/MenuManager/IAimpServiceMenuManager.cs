@@ -73,24 +73,21 @@
     /// <summary>
     /// Menu manager interface.
     /// </summary>
-    public interface IAimpMenuManager
+    public interface IAimpServiceMenuManager
     {
-        ///// <summary>
-        ///// Adds the menu item.
-        ///// </summary>
-        ///// <param name="parentMenuType">Type of the parent menu.</param>
-        ///// <param name="items">The menu item <see cref="MenuItem" />.</param>
-        //void AddRange(ParentMenuType parentMenuType, MenuItemCollection items);
-
         AimpActionResult CreateMenuItem(out IAimpMenuItem item);
 
         /// <summary>
-        /// Adds new menu item.
+        /// Adds the new menu item..
         /// </summary>
         /// <param name="parentMenuType"></param>
-        /// <param name="item"></param>
+        /// <param name="item">Menu item <see cref="IAimpMenuItem"/>.</param>
         AimpActionResult Add(ParentMenuType parentMenuType, IAimpMenuItem item);
 
+        /// <summary>
+        /// Adds the new menu item.
+        /// </summary>
+        /// <param name="item">Menu item <see cref="IAimpMenuItem"/>.</param>
         AimpActionResult Add(IAimpMenuItem item);
 
         /// <summary>
@@ -105,23 +102,18 @@
         /// <param name="id">The identifier.</param>
         AimpActionResult Delete(string id);
 
-        ///// <summary>
-        ///// Deletes the specified items.
-        ///// </summary>
-        ///// <param name="items">The items.</param>
-        //void Delete(MenuItemCollection items);
-
         /// <summary>
         /// Gets the by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="item">Menu item <see cref="IAimpMenuItem"/>.</param>
         AimpActionResult GetById(string id, out IAimpMenuItem item);
 
         /// <summary>
         /// Gets the standard menu item.
         /// </summary>
         /// <param name="menuType">Type of the menu.</param>
+        /// <param name="item">Menu item <see cref="IAimpMenuItem"/>.</param>
         AimpActionResult GetBuiltIn(ParentMenuType menuType, out IAimpMenuItem item);
     }
 }
