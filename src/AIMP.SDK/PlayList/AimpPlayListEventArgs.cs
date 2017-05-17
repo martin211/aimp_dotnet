@@ -8,7 +8,7 @@
         /// Initializes a new instance of the <see cref="AimpPlayListEventArgs"/> class.
         /// </summary>
         /// <param name="playlist">The playlist.</param>
-        public AimpPlayListEventArgs(IAimpPlayList playlist)
+        public AimpPlayListEventArgs(IAimpPlaylist playlist)
         {
             Playlist = playlist;
         }
@@ -16,6 +16,6 @@
         /// <summary>
         /// Gets the playlist.
         /// </summary>
-        public IAimpPlayList Playlist { get; private set; }
+        public IAimpPlaylist Playlist { get; }
     }
 }

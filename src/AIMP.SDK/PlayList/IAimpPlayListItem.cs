@@ -21,7 +21,7 @@ namespace AIMP.SDK.PlayList
 
         bool PlaybackSwitch { get; set; }
 
-        IAimpPlayList PlayList { get; set; }
+        IAimpPlaylist PlayList { get; set; }
 
         bool Selected { get; set; }
 

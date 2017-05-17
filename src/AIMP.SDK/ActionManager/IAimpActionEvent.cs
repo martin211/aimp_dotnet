@@ -8,6 +8,9 @@ namespace AIMP.SDK.ActionManager
     public interface IAimpActionEvent
     {
         //todo: add Data parameter
+        /// <summary>
+        /// Occurs when action is executing.
+        /// </summary>
         event EventHandler OnExecute;
     }
 }

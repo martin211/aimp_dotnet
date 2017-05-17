@@ -9,7 +9,10 @@ namespace AIMP.SDK.Visuals
     }
 
     /// <summary>
-    ///  This type visualization displays on visual display of player only and can be chosen by user. 
+    /// This type visualization displays on visual display of player only and can be chosen by user.
+    /// <para>
+    /// Instance should be created by plugin and must be registered in the application in the <see cref="AimpPlugin.Initialize"/> method via the <see cref="IAimpCore.RegisterExtension"/> method.
+    /// </para>
     /// </summary>
     public interface IAimpExtensionEmbeddedVisualization : IAimpExtension
     {
