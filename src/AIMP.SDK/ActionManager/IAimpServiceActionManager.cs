@@ -4,7 +4,7 @@ using System.Windows.Input;
 namespace AIMP.SDK.ActionManager
 {
     /// <summary>
-    /// The service provides an access to actions. 
+    /// The service provides an access to actions.
     /// </summary>
     public interface IAimpServiceActionManager
     {

@@ -50,6 +50,9 @@ namespace AIMP.SDK.Player
         /// </summary>
         event EventHandler LanguageChanged;
 
+        /// <summary>
+        /// Occurs when track was changed.
+        /// </summary>
         event EventHandler TrackChanged;
 
         /// <summary>
@@ -190,7 +193,7 @@ namespace AIMP.SDK.Player
         /// Plays the specified play list.
         /// </summary>
         /// <param name="playList">The play list.</param>
-        void Play(IAimpPlayList playList);
+        void Play(IAimpPlaylist playList);
 
         IAimpServiceSynchronizer ServiceSynchronizer { get; }
 

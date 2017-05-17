@@ -5,9 +5,9 @@ namespace DemoPlugin
 {
     public partial class PlayListControl : UserControl
     {
-        private readonly IAimpPlayList _playList;
+        private readonly IAimpPlaylist _playList;
 
-        public PlayListControl(IAimpPlayList playList)
+        public PlayListControl(IAimpPlaylist playList)
         {
             InitializeComponent();
 

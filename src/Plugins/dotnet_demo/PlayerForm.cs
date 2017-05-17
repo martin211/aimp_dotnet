@@ -9,7 +9,7 @@ namespace DemoPlugin
 {
     public partial class PlayerForm : Form
     {
-        private List<IAimpPlayList> _playLists;
+        private List<IAimpPlaylist> _playLists;
 
         private readonly IAimpPlayer _aimpPlayer;
 
@@ -17,7 +17,7 @@ namespace DemoPlugin
 
         public PlayerForm(IAimpPlayer player)
         {
-            _playLists = new List<IAimpPlayList>();
+            _playLists = new List<IAimpPlaylist>();
             _aimpPlayer = player;
             InitializeComponent();
 
@@ -45,7 +45,7 @@ namespace DemoPlugin
 
             _aimpPlayer.PlayListManager.PlaylistAdded += (name, id) =>
             {
-                IAimpPlayList pl;
+                IAimpPlaylist pl;
                 if (_aimpPlayer.PlayListManager.GetLoadedPlaylistById(id, out pl) == AimpActionResult.Ok)
                 {
                     AddPlayListTab(id, name, pl);
@@ -65,12 +65,12 @@ namespace DemoPlugin
                 }
             };
 
-            _aimpPlayer.PlayListManager.PlayListQueue.ContentChanged += (sender, args) =>
+            _aimpPlayer.PlayListManager.PlaylistQueue.ContentChanged += (sender, args) =>
             {
 
             };
 
-            _aimpPlayer.PlayListManager.PlayListQueue.StateChanged += (sender, args) =>
+            _aimpPlayer.PlayListManager.PlaylistQueue.StateChanged += (sender, args) =>
             {
 
             };
@@ -97,7 +97,7 @@ namespace DemoPlugin
             base.Dispose();
         }
 
-        private void AddPlayListTab(string id, string name, IAimpPlayList playList)
+        private void AddPlayListTab(string id, string name, IAimpPlaylist playList)
         {
             var tab = new TabPage(id)
             {
@@ -121,7 +121,7 @@ namespace DemoPlugin
             var playlistCount = _aimpPlayer.PlayListManager.GetLoadedPlaylistCount();
             for (var i = 0; i < playlistCount; i++)
             {
-                IAimpPlayList playList;
+                IAimpPlaylist playList;
                 if (_aimpPlayer.PlayListManager.GetLoadedPlaylist(i, out playList) == AimpActionResult.Ok)
                 {
                     AddPlayListTab(playList.Id, playList.Name, playList);
@@ -172,7 +172,7 @@ namespace DemoPlugin
 
         private void button7_Click(object sender, EventArgs e)
         {
-            IAimpPlayList pl;
+            IAimpPlaylist pl;
             if (_aimpPlayer.PlayListManager.GetActivePlaylist(out pl) == AimpActionResult.Ok)
             {
                 pl.Sort((item1, item2) => PlayListSortComapreResult.TheSame);
@@ -181,7 +181,7 @@ namespace DemoPlugin
 
         private void button8_Click(object sender, EventArgs e)
         {
-            IAimpPlayList playList;
+            IAimpPlaylist playList;
             if (_aimpPlayer.PlayListManager.CreatePlaylist("Test play list", true, out playList) == AimpActionResult.Ok)
             {
                 _playLists.Add(playList);
@@ -198,7 +198,7 @@ namespace DemoPlugin
             }
         }
 
-        private void PlayListOnChanged(IAimpPlayList sender, PlayListNotifyType notifType)
+        private void PlayListOnChanged(IAimpPlaylist sender, PlayListNotifyType notifType)
         {
             if (notifType.HasFlag(PlayListNotifyType.AIMP_PLAYLIST_NOTIFY_STATISTICS))
             {
@@ -208,7 +208,7 @@ namespace DemoPlugin
 
         private void button9_Click(object sender, EventArgs e)
         {
-            IAimpPlayList playList;
+            IAimpPlaylist playList;
             if (_aimpPlayer.PlayListManager.GetActivePlaylist(out playList) == AimpActionResult.Ok)
             {
                 playList.Close(PlayListCloseFlag.ForceRemove);
@@ -231,14 +231,14 @@ namespace DemoPlugin
         private void button10_Click(object sender, EventArgs e)
         {
             //IAimpPlayListItem item;
-            //if (_aimpPlayer.PlayListManager.PlayListQueue.GetItem(0, out item) == AimpActionResult.Ok)
+            //if (_aimpPlayer.PlayListManager.PlaylistQueue.GetItem(0, out item) == AimpActionResult.Ok)
             //{
 
             //}
 
-            //_aimpPlayer.PlayListManager.PlayListQueue.StateChanged += PlayListQueue_StateChanged;
+            //_aimpPlayer.PlayListManager.PlaylistQueue.StateChanged += PlayListQueue_StateChanged;
 
-            //var i = _aimpPlayer.PlayListManager.PlayListQueue.Count();
+            //var i = _aimpPlayer.PlayListManager.PlaylistQueue.Count();
         }
 
         private void PlayListQueue_StateChanged(object sender, EventArgs e)
