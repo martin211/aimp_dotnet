@@ -88,10 +88,10 @@ namespace AIMP
                 IAimpPlayListGroup^ get();
             }
 
-            virtual property IAimpPlayList^ PlayList
+            virtual property IAimpPlaylist^ PlayList
             {
-                IAimpPlayList^ get();
-                void set(IAimpPlayList^ val);
+                IAimpPlaylist^ get();
+                void set(IAimpPlaylist^ val);
             }
 
             virtual AimpActionResult ReloadInfo();

@@ -21,7 +21,7 @@ namespace AIMP
 
         public ref class AimpPlaylistQueue :
             public AimpObject<IAIMPPlaylistQueue>,
-            public IAimpPlayListQueue,
+            public IAimpPlaylistQueue,
             public IPlayListQueueEventExecutor
         {
         public:
@@ -39,7 +39,7 @@ namespace AIMP
 
             virtual int GetItemCount();
 
-            virtual AimpActionResult Delete(IAimpPlayList^ playList);
+            virtual AimpActionResult Delete(IAimpPlaylist^ playList);
 
             virtual AimpActionResult Delete(IAimpPlayListItem^ item);
 

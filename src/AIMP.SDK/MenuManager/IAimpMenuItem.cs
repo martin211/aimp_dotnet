@@ -1,4 +1,6 @@
-﻿namespace AIMP.SDK.MenuManager
+﻿using System;
+
+namespace AIMP.SDK.MenuManager
 {
     using System.Drawing;
 
@@ -101,5 +103,7 @@
         /// Deletes the children.
         /// </summary>
         AimpActionResult DeleteChildren();
+
+        event EventHandler OnShow;
     }
 }

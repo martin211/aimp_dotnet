@@ -20,8 +20,8 @@ namespace AIMP
         using namespace AIMP::SDK::PlayList;
 
         public ref class PlayListManager :
-            public AimpBaseManager<IAIMPServicePlaylistManager>, 
-            public IAimpPlayListManager, 
+            public AimpBaseManager<IAIMPServicePlaylistManager>,
+            public IAimpPlayListManager,
             public IAimpExtensionPlaylistManagerListenerExecutor
         {
         private:
@@ -37,9 +37,9 @@ namespace AIMP
 
             !PlayListManager();
 
-            virtual property IAimpPlayListQueue ^PlayListQueue
+            virtual property IAimpPlaylistQueue ^PlaylistQueue
             {
-                IAimpPlayListQueue ^get();
+                IAimpPlaylistQueue ^get();
             }
 
             virtual event PlayListHandler ^PlaylistActivated
@@ -63,23 +63,23 @@ namespace AIMP
                 void raise(String ^playListName, String ^playListId);
             }
 
-            virtual AimpActionResult CreatePlaylist(System::String^ name, bool isActive, IAimpPlayList ^%playList);
+            virtual AimpActionResult CreatePlaylist(System::String^ name, bool isActive, IAimpPlaylist ^%playList);
 
-            virtual AimpActionResult CreatePlaylistFromFile(System::String^ fileName, bool isActive, IAimpPlayList ^%playList);
+            virtual AimpActionResult CreatePlaylistFromFile(System::String^ fileName, bool isActive, IAimpPlaylist ^%playList);
 
-            virtual AimpActionResult GetActivePlaylist(IAimpPlayList ^%playList);
+            virtual AimpActionResult GetActivePlaylist(IAimpPlaylist ^%playList);
 
-            virtual AimpActionResult GetLoadedPlaylist(int index, IAimpPlayList ^%playList);
+            virtual AimpActionResult GetLoadedPlaylist(int index, IAimpPlaylist ^%playList);
 
-            virtual AimpActionResult GetPlayablePlaylist(IAimpPlayList ^%playList);
+            virtual AimpActionResult GetPlayablePlaylist(IAimpPlaylist ^%playList);
 
-            virtual AimpActionResult GetLoadedPlaylistById(System::String^ id, IAimpPlayList ^%playList);
+            virtual AimpActionResult GetLoadedPlaylistById(System::String^ id, IAimpPlaylist ^%playList);
 
-            virtual AimpActionResult GetLoadedPlaylistByName(System::String^ name, IAimpPlayList ^%playList);
+            virtual AimpActionResult GetLoadedPlaylistByName(System::String^ name, IAimpPlaylist ^%playList);
 
             virtual int GetLoadedPlaylistCount();
 
-            virtual void SetActivePlaylist(IAimpPlayList^ playList);
+            virtual void SetActivePlaylist(IAimpPlaylist^ playList);
 
             //******** IAimpExtensionPlaylistManagerListenerExecutor ********
 

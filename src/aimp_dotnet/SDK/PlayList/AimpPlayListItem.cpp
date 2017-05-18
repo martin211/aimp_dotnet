@@ -141,7 +141,7 @@ namespace AIMP
             return _group;
         }
 
-        IAimpPlayList^ AimpPlayListItem::PlayList::get()
+        IAimpPlaylist^ AimpPlayListItem::PlayList::get()
         {
             IAIMPPlaylist *obj;
             if (CheckResult(_aimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_PLAYLIST, IID_IAIMPPlaylist, (void**)&obj)) != AimpActionResult::Ok)
@@ -152,7 +152,7 @@ namespace AIMP
             return gcnew AimpPlayList(obj);
         }
 
-        void AimpPlayListItem::PlayList::set(IAimpPlayList^ val)
+        void AimpPlayListItem::PlayList::set(IAimpPlaylist^ val)
         {
             // TODO: complete it
         }
