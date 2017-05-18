@@ -477,7 +477,7 @@ namespace AIMP
             _player->Play2(((AimpPlayListItem^)playListItem)->InternalAimpObject);
         }
 
-        virtual void Play(IAimpPlayList^ playList)
+        virtual void Play(IAimpPlaylist^ playList)
         {
             _player->Play3(((AimpPlayList^)playList)->InternalAimpObject);
         }

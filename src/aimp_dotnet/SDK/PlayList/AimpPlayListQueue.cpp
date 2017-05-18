@@ -66,7 +66,7 @@ int AimpPlaylistQueue::GetItemCount()
     return _aimpObject->GetItemCount();
 }
 
-AimpActionResult AimpPlaylistQueue::Delete(IAimpPlayList^ playList)
+AimpActionResult AimpPlaylistQueue::Delete(IAimpPlaylist^ playList)
 {
     return CheckResult(InternalAimpObject->Delete2(((AimpPlayList^)playList)->InternalAimpObject));
 }

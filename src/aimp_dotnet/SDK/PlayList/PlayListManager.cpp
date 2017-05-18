@@ -26,7 +26,7 @@ PlayListManager::!PlayListManager()
     _core->UnregisterExtension(this);
 }
 
-IAimpPlayListQueue^ PlayListManager::PlayListQueue::get()
+IAimpPlaylistQueue^ PlayListManager::PlaylistQueue::get()
 {
     if (_playListQueue == nullptr)
     {
@@ -109,7 +109,7 @@ void PlayListManager::PlaylistRemoved::raise(String ^playListName, String ^playL
     }
 }
 
-AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::CreatePlaylist(System::String^ name, bool isActive, IAimpPlayList ^%playList)
+AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::CreatePlaylist(System::String^ name, bool isActive, IAimpPlaylist ^%playList)
 {
     playList = nullptr;
     AimpActionResult res = AimpActionResult::Fail;
@@ -145,7 +145,7 @@ AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::CreatePlaylist(System::S
     return res;
 }
 
-AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::CreatePlaylistFromFile(System::String^ fileName, bool isActive, IAimpPlayList ^%playList)
+AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::CreatePlaylistFromFile(System::String^ fileName, bool isActive, IAimpPlaylist ^%playList)
 {
     playList = nullptr;
 
@@ -180,7 +180,7 @@ AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::CreatePlaylistFromFile(S
     return res;
 }
 
-AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::GetActivePlaylist(IAimpPlayList ^%playList)
+AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::GetActivePlaylist(IAimpPlaylist ^%playList)
 {
     playList = nullptr;
     IAIMPPlaylist *pl = NULL;
@@ -205,7 +205,7 @@ AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::GetActivePlaylist(IAimpP
     return res;
 }
 
-AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::GetLoadedPlaylist(int index, IAimpPlayList ^%playList)
+AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::GetLoadedPlaylist(int index, IAimpPlaylist ^%playList)
 {
     playList = nullptr;
     IAIMPPlaylist *pl = NULL;
@@ -231,7 +231,7 @@ AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::GetLoadedPlaylist(int in
     return res;
 }
 
-AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::GetPlayablePlaylist(IAimpPlayList ^%playList)
+AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::GetPlayablePlaylist(IAimpPlaylist ^%playList)
 {
     playList = nullptr;
 
@@ -251,7 +251,7 @@ AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::GetPlayablePlaylist(IAim
     return res;
 }
 
-AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::GetLoadedPlaylistById(System::String^ id, IAimpPlayList ^%playList)
+AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::GetLoadedPlaylistById(System::String^ id, IAimpPlaylist ^%playList)
 {
     playList = nullptr;
     IAIMPPlaylist *pl = NULL;
@@ -284,7 +284,7 @@ AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::GetLoadedPlaylistById(Sy
     return res;
 }
 
-AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::GetLoadedPlaylistByName(System::String^ name, IAimpPlayList ^%playList)
+AIMP::SDK::AimpActionResult AIMP::SDK::PlayListManager::GetLoadedPlaylistByName(System::String^ name, IAimpPlaylist ^%playList)
 {
     playList = nullptr;
     IAIMPPlaylist *pl = NULL;
@@ -328,7 +328,7 @@ int AIMP::SDK::PlayListManager::GetLoadedPlaylistCount()
     return service->GetLoadedPlaylistCount();
 }
 
-void AIMP::SDK::PlayListManager::SetActivePlaylist(IAimpPlayList^ playList)
+void AIMP::SDK::PlayListManager::SetActivePlaylist(IAimpPlaylist^ playList)
 {
     IAIMPServicePlaylistManager *service;
     AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));

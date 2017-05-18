@@ -71,9 +71,9 @@ namespace AIMP
         /// <summary>
         /// 
         /// </summary>
-        public ref class AimpPlayList : 
-            public AimpObject<IAIMPPlaylist>, 
-            public IAimpPlayList, 
+        public ref class AimpPlayList :
+            public AimpObject<IAIMPPlaylist>,
+            public IAimpPlaylist,
             public IPlayListListnerExecutor
         {
         private:
@@ -89,7 +89,7 @@ namespace AIMP
             bool _disposed;
 
         internal:
-            AimpPlayList(IAimpPlayList ^item);
+            AimpPlayList(IAimpPlaylist ^item);
 
         public:
             explicit AimpPlayList(IAIMPPlaylist *aimpPlayList);
@@ -121,25 +121,25 @@ namespace AIMP
                 void set(Object ^value);
             }
 
-            virtual property bool GrouppingOverriden
+            virtual property bool GroupingOverridden
             {
                 bool get();
                 void set(bool value);
             }
 
-            virtual property bool Groupping
+            virtual property bool Grouping
             {
                 bool get();
                 void set(bool value);
             }
 
-            virtual property bool GrouppingAutomerging
+            virtual property bool GroupingAutomerg
             {
                 bool get();
                 void set(bool value);
             }
 
-            virtual property String ^GrouppingTemplate
+            virtual property String ^GroupingTemplate
             {
                 String ^get();
                 void set(String ^value);
@@ -151,13 +151,13 @@ namespace AIMP
                 void set(bool value);
             }
 
-            virtual property String ^FormatingLine1Template
+            virtual property String ^FormattingLine1Template
             {
                 String ^get();
                 void set(String ^value);
             }
 
-            virtual property String ^FormatingLine2Template
+            virtual property String ^FormattingLine2Template
             {
                 String ^get();
                 void set(String ^value);
@@ -318,42 +318,42 @@ namespace AIMP
             {
                 void add(AimpPlayListHandler ^onEvent);
                 void remove(AimpPlayListHandler ^onEvent);
-                void raise(IAimpPlayList ^sender);
+                void raise(IAimpPlaylist ^sender);
             }
 
             virtual event AimpPlayListHandler ^Removed
             {
                 void add(AimpPlayListHandler ^onEvent);
                 void remove(AimpPlayListHandler ^onEvent);
-                void raise(IAimpPlayList ^sender);
+                void raise(IAimpPlaylist ^sender);
             }
 
             virtual event PlayListChangedHandler ^Changed
             {
                 void add(PlayListChangedHandler ^onEvent);
                 void remove(PlayListChangedHandler ^onEvent);
-                void raise(IAimpPlayList ^esnder, PlayListNotifyType notifyType);
+                void raise(IAimpPlaylist ^esnder, PlayListNotifyType notifyType);
             }
 
             virtual event AimpPlayListHandler ^ScanningBegin
             {
                 void add(AimpPlayListHandler ^onEvent);
                 void remove(AimpPlayListHandler ^onEvent);
-                void raise(IAimpPlayList ^sender);
+                void raise(IAimpPlaylist ^sender);
             }
 
             virtual event AimpPlayListHandler<ScanningProgressEventArgs^> ^ScanningProgress
             {
                 void add(AimpPlayListHandler<ScanningProgressEventArgs^> ^onEvent);
                 void remove(AimpPlayListHandler<ScanningProgressEventArgs^> ^onEvent);
-                void raise(IAimpPlayList ^sender, ScanningProgressEventArgs^ args);
+                void raise(IAimpPlaylist ^sender, ScanningProgressEventArgs^ args);
             }
 
             virtual event AimpPlayListHandler<ScanningEndEventArgs^> ^ScanningEnd
             {
                 void add(AimpPlayListHandler<ScanningEndEventArgs^> ^onEvent);
                 void remove(AimpPlayListHandler<ScanningEndEventArgs^> ^onEvent);
-                void raise(IAimpPlayList ^sender, ScanningEndEventArgs^ args);
+                void raise(IAimpPlaylist ^sender, ScanningEndEventArgs^ args);
             }
 
         private:

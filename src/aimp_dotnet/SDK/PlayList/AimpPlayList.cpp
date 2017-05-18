@@ -37,19 +37,19 @@ namespace AIMP
         {
         }
 
-        AimpPlayList::AimpPlayList(IAimpPlayList ^item)
+        AimpPlayList::AimpPlayList(IAimpPlaylist ^item)
         {
             _aimpObject = (IAIMPPlaylist*)AimpConverter::MakeObject(IID_IAIMPPlaylist);
             Name = item->Name;
             ReadOnly = item->ReadOnly;
             FocusedObject = item->FocusedObject;
             //GrouppingOvveriden = item->GrouppingOvveriden;
-            Groupping = item->Groupping;
-            GrouppingTemplate = item->GrouppingTemplate;
-            GrouppingAutomerging = item->GrouppingAutomerging;
+            Grouping = item->Grouping;
+            GroupingTemplate = item->GroupingTemplate;
+            GroupingAutomerg = item->GroupingAutomerg;
             FormatingOverride = item->FormatingOverride;
-            FormatingLine1Template = item->FormatingLine1Template;
-            FormatingLine2Template = item->FormatingLine2Template;
+            FormattingLine1Template = item->FormattingLine1Template;
+            FormattingLine2Template = item->FormattingLine2Template;
             ViewOverride = item->ViewOverride;
             ViewDuration = item->ViewDuration;
             ViewExpandButtons = item->ViewExpandButtons;
@@ -180,7 +180,7 @@ namespace AIMP
         }
 
 
-        bool AimpPlayList::GrouppingOverriden::get()
+        bool AimpPlayList::GroupingOverridden::get()
         {
             IAIMPPropertyList *properties = NULL;
 
@@ -201,7 +201,7 @@ namespace AIMP
             return false;
         }
 
-        void AimpPlayList::GrouppingOverriden::set(bool value)
+        void AimpPlayList::GroupingOverridden::set(bool value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -222,7 +222,7 @@ namespace AIMP
         }
 
 
-        bool AimpPlayList::Groupping::get()
+        bool AimpPlayList::Grouping::get()
         {
             IAIMPPropertyList *properties = NULL;
 
@@ -243,7 +243,7 @@ namespace AIMP
             return false;
         }
 
-        void AimpPlayList::Groupping::set(bool value)
+        void AimpPlayList::Grouping::set(bool value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -264,7 +264,7 @@ namespace AIMP
         }
 
 
-        String ^AimpPlayList::GrouppingTemplate::get()
+        String ^AimpPlayList::GroupingTemplate::get()
         {
             IAIMPPropertyList *properties = NULL;
 
@@ -285,7 +285,7 @@ namespace AIMP
             return String::Empty;
         }
 
-        void AimpPlayList::GrouppingTemplate::set(String ^value)
+        void AimpPlayList::GroupingTemplate::set(String ^value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -304,7 +304,7 @@ namespace AIMP
         }
 
 
-        bool AimpPlayList::GrouppingAutomerging::get()
+        bool AimpPlayList::GroupingAutomerg::get()
         {
             IAIMPPropertyList *properties = NULL;
 
@@ -325,7 +325,7 @@ namespace AIMP
             return false;
         }
 
-        void AimpPlayList::GrouppingAutomerging::set(bool value)
+        void AimpPlayList::GroupingAutomerg::set(bool value)
         {
             IAIMPPropertyList *properties = NULL;
 
@@ -385,7 +385,7 @@ namespace AIMP
         }
 
 
-        String ^AimpPlayList::FormatingLine1Template::get()
+        String ^AimpPlayList::FormattingLine1Template::get()
         {
             IAIMPPropertyList *properties = NULL;
 
@@ -406,7 +406,7 @@ namespace AIMP
             return String::Empty;
         }
 
-        void AimpPlayList::FormatingLine1Template::set(String ^value)
+        void AimpPlayList::FormattingLine1Template::set(String ^value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -425,7 +425,7 @@ namespace AIMP
         }
 
 
-        String ^AimpPlayList::FormatingLine2Template::get()
+        String ^AimpPlayList::FormattingLine2Template::get()
         {
             IAIMPPropertyList *properties = NULL;
 
@@ -446,7 +446,7 @@ namespace AIMP
             return String::Empty;
         }
 
-        void AimpPlayList::FormatingLine2Template::set(String ^value)
+        void AimpPlayList::FormattingLine2Template::set(String ^value)
         {
             IAIMPPropertyList *properties = NULL;
             try
@@ -1225,7 +1225,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::Activated::raise(IAimpPlayList ^sender)
+        void AimpPlayList::Activated::raise(IAimpPlaylist ^sender)
         {
             AimpPlayListHandler ^tmp = this->_onActivated;
             if (tmp != nullptr)
@@ -1255,7 +1255,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::Removed::raise(IAimpPlayList ^sender)
+        void AimpPlayList::Removed::raise(IAimpPlaylist ^sender)
         {
             AimpPlayListHandler ^tmp = this->_onRemoved;
             if (tmp != nullptr)
@@ -1284,7 +1284,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::Changed::raise(IAimpPlayList^ sender, PlayListNotifyType notifyType)
+        void AimpPlayList::Changed::raise(IAimpPlaylist^ sender, PlayListNotifyType notifyType)
         {
             AIMP::PlayList::PlayListChangedHandler ^tmp = this->_onChanged;
             if (tmp != nullptr)
@@ -1353,7 +1353,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::ScanningBegin::raise(IAimpPlayList ^sender)
+        void AimpPlayList::ScanningBegin::raise(IAimpPlaylist ^sender)
         {
             if (this->_scanningBeginHandler != nullptr)
             {
@@ -1377,7 +1377,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::ScanningProgress::raise(IAimpPlayList ^sender, ScanningProgressEventArgs^ args)
+        void AimpPlayList::ScanningProgress::raise(IAimpPlaylist ^sender, ScanningProgressEventArgs^ args)
         {
             if (this->_scanningProgressHandler != nullptr)
             {
@@ -1401,7 +1401,7 @@ namespace AIMP
             }
         }
 
-        void AimpPlayList::ScanningEnd::raise(IAimpPlayList ^sender, ScanningEndEventArgs^ args)
+        void AimpPlayList::ScanningEnd::raise(IAimpPlaylist ^sender, ScanningEndEventArgs^ args)
         {
             if (this->_scanningEndHandler != nullptr)
             {
