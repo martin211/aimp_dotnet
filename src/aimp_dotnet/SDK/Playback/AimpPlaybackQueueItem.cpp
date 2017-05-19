@@ -27,14 +27,14 @@ void AimpPlaybackQueueItem::UserData::set(Object^ value)
     throw gcnew System::NotImplementedException("Not implemented");
 }
 
-IAimpPlayListItem^ AimpPlaybackQueueItem::PlayListItem::get()
+IAimpPlaylistItem^ AimpPlaybackQueueItem::PlaylistItem::get()
 {
     IAIMPPlaylistItem *item;
     InternalAimpObject->GetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, IID_IAIMPPlaylistItem, (void**)&item);
-    return gcnew AimpPlayListItem(item);
+    return gcnew AimpPlaylistItem(item);
 }
 
-void AimpPlaybackQueueItem::PlayListItem::set(IAimpPlayListItem^ value)
+void AimpPlaybackQueueItem::PlaylistItem::set(IAimpPlaylistItem^ value)
 {
-    InternalAimpObject->SetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, ((AimpPlayListItem^)value)->InternalAimpObject);
+    InternalAimpObject->SetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, ((AimpPlaylistItem^)value)->InternalAimpObject);
 }

@@ -33,21 +33,21 @@ namespace AIMP
                 void set(bool value);
             }
 
-            virtual AimpActionResult Add(IAimpPlayListItem^ item, bool insertAtBeginning);
+            virtual AimpActionResult Add(IAimpPlaylistItem^ item, bool insertAtBeginning);
 
-            virtual AimpActionResult AddList(System::Collections::Generic::IList<IAimpPlayListItem^>^ items, bool insertAtBeginning);
+            virtual AimpActionResult AddList(System::Collections::Generic::IList<IAimpPlaylistItem^>^ items, bool insertAtBeginning);
 
             virtual int GetItemCount();
 
             virtual AimpActionResult Delete(IAimpPlaylist^ playList);
 
-            virtual AimpActionResult Delete(IAimpPlayListItem^ item);
+            virtual AimpActionResult Delete(IAimpPlaylistItem^ item);
 
-            virtual AimpActionResult Move(IAimpPlayListItem^ item, int index);
+            virtual AimpActionResult Move(IAimpPlaylistItem^ item, int index);
 
             virtual AimpActionResult Move(int index, int targetIndex);
 
-            virtual AimpActionResult GetItem(int index, IAimpPlayListItem ^%item);
+            virtual AimpActionResult GetItem(int index, IAimpPlaylistItem ^%item);
 
             virtual event EventHandler ^ContentChanged
             {

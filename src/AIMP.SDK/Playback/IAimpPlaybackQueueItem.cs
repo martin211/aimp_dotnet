@@ -6,6 +6,6 @@
     {
         object UserData { get; set; }
 
-        IAimpPlayListItem PlayListItem { get; set; }
+        IAimpPlaylistItem PlaylistItem { get; set; }
     }
 }

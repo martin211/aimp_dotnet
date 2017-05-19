@@ -1065,9 +1065,9 @@ namespace AIMP
             return res;
         }
 
-        AimpActionResult AimpPlayList::Delete(IAimpPlayListItem ^item)
+        AimpActionResult AimpPlayList::Delete(IAimpPlaylistItem ^item)
         {
-            return CheckResult(InternalAimpObject->Delete(((AimpPlayListItem^)item)->InternalAimpObject));
+            return CheckResult(InternalAimpObject->Delete(((AimpPlaylistItem^)item)->InternalAimpObject));
         }
 
         AimpActionResult AimpPlayList::Delete(int index)
@@ -1085,7 +1085,7 @@ namespace AIMP
             return CheckResult(InternalAimpObject->Sort((int)sort));
         }
 
-        AimpActionResult AimpPlayList::Sort(Func<IAimpPlayListItem^, IAimpPlayListItem^, PlayListSortComapreResult>^ compareFunc)
+        AimpActionResult AimpPlayList::Sort(Func<IAimpPlaylistItem^, IAimpPlaylistItem^, PlayListSortComapreResult>^ compareFunc)
         {
             _compareFunc = compareFunc;
             _sortCallback = gcnew OnSortCallback(this, &AimpPlayList::OnSortReceive);
@@ -1147,14 +1147,14 @@ namespace AIMP
             return CheckResult(InternalAimpObject->ReloadInfo(fullReload));
         }
 
-        IAimpPlayListItem ^AimpPlayList::GetItem(int index)
+        IAimpPlaylistItem ^AimpPlayList::GetItem(int index)
         {
-            IAimpPlayListItem ^result = nullptr;
+            IAimpPlaylistItem ^result = nullptr;
             IAIMPPlaylistItem *item;
 
             if (InternalAimpObject->GetItem(index, IID_IAIMPPlaylistItem, (void**)&item) == S_OK)
             {
-                result = gcnew AimpPlayListItem(item);
+                result = gcnew AimpPlaylistItem(item);
             }
 
             return result;

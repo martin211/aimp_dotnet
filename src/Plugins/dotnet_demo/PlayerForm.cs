@@ -112,7 +112,7 @@ namespace DemoPlugin
 
         private void TracksOnDoubleClick(object sender, EventArgs eventArgs)
         {
-            var trackItem = (IAimpPlayListItem)(sender as ListView).SelectedItems[0].Tag;
+            var trackItem = (IAimpPlaylistItem)(sender as ListView).SelectedItems[0].Tag;
             _aimpPlayer.Play(trackItem);
         }
 
@@ -230,7 +230,7 @@ namespace DemoPlugin
 
         private void button10_Click(object sender, EventArgs e)
         {
-            //IAimpPlayListItem item;
+            //IAimpPlaylistItem item;
             //if (_aimpPlayer.PlayListManager.PlaylistQueue.GetItem(0, out item) == AimpActionResult.Ok)
             //{
 

@@ -18,29 +18,29 @@
         /// </summary>
         /// <param name="item">The item.</param>
         /// <param name="insertAtBeginning">if set to <c>true</c> [insert at beginning].</param>
-        /// <returns></returns>
-        AimpActionResult Add(IAimpPlayListItem item, bool insertAtBeginning);
+        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
+        AimpActionResult Add(IAimpPlaylistItem item, bool insertAtBeginning);
 
         /// <summary>
         /// Adds the list of items.
         /// </summary>
-        /// <param name="items">The list of the <see cref="IAimpPlayListItem"/> items.</param>
+        /// <param name="items">The list of the <see cref="IAimpPlaylistItem"/> items.</param>
         /// <param name="insertAtBeginning">if set to <c>true</c> [insert at beginning].</param>
-        /// <returns></returns>
-        AimpActionResult AddList(IList<IAimpPlayListItem> items, bool insertAtBeginning);
+        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
+        AimpActionResult AddList(IList<IAimpPlaylistItem> items, bool insertAtBeginning);
 
         /// <summary>
         /// Deletes the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <returns></returns>
-        AimpActionResult Delete(IAimpPlayListItem item);
+        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
+        AimpActionResult Delete(IAimpPlaylistItem item);
 
         /// <summary>
         /// Deletes the specified play list.
         /// </summary>
         /// <param name="playList">The play list.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
         AimpActionResult Delete(IAimpPlaylist playList);
 
         /// <summary>
@@ -48,15 +48,15 @@
         /// </summary>
         /// <param name="item">The item.</param>
         /// <param name="index">The index.</param>
-        /// <returns></returns>
-        AimpActionResult Move(IAimpPlayListItem item, int index);
+        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
+        AimpActionResult Move(IAimpPlaylistItem item, int index);
 
         /// <summary>
         /// Moves item from index to target index.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="targetIndex">Index of the target.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
         AimpActionResult Move(int index, int targetIndex);
 
         /// <summary>
@@ -64,8 +64,8 @@
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="item">The item.</param>
-        /// <returns></returns>
-        AimpActionResult GetItem(int index, out IAimpPlayListItem item);
+        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
+        AimpActionResult GetItem(int index, out IAimpPlaylistItem item);
 
         /// <summary>
         /// Gets the item count.

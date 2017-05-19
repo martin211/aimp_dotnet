@@ -40,6 +40,6 @@
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns></returns>
-        IAimpPlayListItem GetItem(int index);
+        IAimpPlaylistItem GetItem(int index);
     }
 }
