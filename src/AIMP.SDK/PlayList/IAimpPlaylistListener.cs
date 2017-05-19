@@ -51,10 +51,19 @@ namespace AIMP.SDK.PlayList
         /// </summary>
         event PlayListChangedHandler Changed;
 
+        /// <summary>
+        /// Occurs when scanning begin.
+        /// </summary>
         event AimpPlayListHandler ScanningBegin;
 
+        /// <summary>
+        /// Occurs during scanning progress.
+        /// </summary>
         event AimpPlayListHandler<ScanningProgressEventArgs> ScanningProgress;
 
+        /// <summary>
+        /// Occurs when scanning end.
+        /// </summary>
         event AimpPlayListHandler<ScanningEndEventArgs> ScanningEnd;
     }
 }

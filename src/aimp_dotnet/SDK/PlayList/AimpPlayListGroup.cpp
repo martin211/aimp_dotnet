@@ -72,13 +72,13 @@ namespace AIMP
             return InternalAimpObject->GetItemCount();
         }
 
-        IAimpPlayListItem ^AimpPlayListGroup::GetItem(int index)
+        IAimpPlaylistItem ^AimpPlayListGroup::GetItem(int index)
         {
             if (_item == nullptr)
             {
                 IAIMPPlaylistItem *item;
                 InternalAimpObject->GetItem(index, IID_IAIMPPlaylistItem, (void**)&item);
-                _item = gcnew AimpPlayListItem(item);
+                _item = gcnew AimpPlaylistItem(item);
                 item->Release();
                 item = NULL;
             }

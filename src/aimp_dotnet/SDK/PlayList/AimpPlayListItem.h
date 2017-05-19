@@ -18,24 +18,24 @@ namespace AIMP
         using namespace AIMP::SDK::PlayList;
         using namespace AIMP::SDK::FileManager;
 
-        public ref class AimpPlayListItem : public AimpObject<IAIMPPlaylistItem>, public IAimpPlayListItem
+        public ref class AimpPlaylistItem : public AimpObject<IAIMPPlaylistItem>, public IAimpPlaylistItem
         {
         private:
             IAimpPlayListGroup^ _group;
             bool _disposed;
 
         internal:
-            AimpPlayListItem(IAIMPPlaylistItem *aimpItem) : AimpObject(aimpItem)
+            AimpPlaylistItem(IAIMPPlaylistItem *aimpItem) : AimpObject(aimpItem)
             {
             }
 
-            AimpPlayListItem(IAimpPlayListItem ^item);
+            AimpPlaylistItem(IAimpPlaylistItem ^item);
         public:
-            AimpPlayListItem();
+            AimpPlaylistItem();
 
-            ~AimpPlayListItem();
+            ~AimpPlaylistItem();
 
-            !AimpPlayListItem();
+            !AimpPlaylistItem();
 
             virtual property System::String^ DisplayText
             {

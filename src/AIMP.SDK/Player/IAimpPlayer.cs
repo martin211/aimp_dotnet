@@ -140,7 +140,7 @@ namespace AIMP.SDK.Player
         /// <value>
         /// The current play list item.
         /// </value>
-        IAimpPlayListItem CurrentPlayListItem { get; }
+        IAimpPlaylistItem CurrentPlaylistItem { get; }
 
         /// <summary>
         /// Gets the win32 manager.
@@ -186,8 +186,8 @@ namespace AIMP.SDK.Player
         /// <summary>
         /// Plays the specified play list item.
         /// </summary>
-        /// <param name="playListItem">The play list item.</param>
-        void Play(IAimpPlayListItem playListItem);
+        /// <param name="playlistItem">The play list item.</param>
+        void Play(IAimpPlaylistItem playlistItem);
 
         /// <summary>
         /// Plays the specified play list.

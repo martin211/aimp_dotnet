@@ -315,9 +315,9 @@ namespace AIMP
             }
         }
 
-        virtual property IAimpPlayListItem^ CurrentPlayListItem
+        virtual property IAimpPlaylistItem^ CurrentPlaylistItem
         {
-            IAimpPlayListItem^ get()
+            IAimpPlaylistItem^ get()
             {
                 IAIMPPlaylistItem* item;
                 _player->GetPlaylistItem(&item);
@@ -327,7 +327,7 @@ namespace AIMP
                     return nullptr;
                 }
 
-                return gcnew AimpPlayListItem(item);
+                return gcnew AimpPlaylistItem(item);
             }
         }
 
@@ -472,9 +472,9 @@ namespace AIMP
             _player->Play(((AimpPlaybackQueueItem^)queueItem)->InternalAimpObject);
         }
 
-        virtual void Play(IAimpPlayListItem ^playListItem)
+        virtual void Play(IAimpPlaylistItem ^playListItem)
         {
-            _player->Play2(((AimpPlayListItem^)playListItem)->InternalAimpObject);
+            _player->Play2(((AimpPlaylistItem^)playListItem)->InternalAimpObject);
         }
 
         virtual void Play(IAimpPlaylist^ playList)

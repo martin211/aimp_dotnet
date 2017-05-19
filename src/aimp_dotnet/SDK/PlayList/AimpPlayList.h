@@ -77,7 +77,7 @@ namespace AIMP
             public IPlayListListnerExecutor
         {
         private:
-            Func<IAimpPlayListItem^, IAimpPlayListItem^, PlayListSortComapreResult>^ _compareFunc;
+            Func<IAimpPlaylistItem^, IAimpPlaylistItem^, PlayListSortComapreResult>^ _compareFunc;
             PlayListChangedHandler ^_onChanged;
             AimpPlayListHandler ^_onActivated;
             AimpPlayListHandler ^_onRemoved;
@@ -284,7 +284,7 @@ namespace AIMP
 
             virtual AimpActionResult AddList(System::Collections::Generic::IList<System::String^>^ fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition);
 
-            virtual AimpActionResult Delete(IAimpPlayListItem ^item);
+            virtual AimpActionResult Delete(IAimpPlaylistItem ^item);
 
             virtual AimpActionResult Delete(int index);
 
@@ -292,7 +292,7 @@ namespace AIMP
 
             virtual AimpActionResult Sort(PlayListSort sort);
 
-            virtual AimpActionResult Sort(System::Func<IAimpPlayListItem^, IAimpPlayListItem^, PlayListSortComapreResult>^ compareFunc);
+            virtual AimpActionResult Sort(System::Func<IAimpPlaylistItem^, IAimpPlaylistItem^, PlayListSortComapreResult>^ compareFunc);
 
             virtual AimpActionResult BeginUpdate();
 
@@ -306,7 +306,7 @@ namespace AIMP
 
             virtual AimpActionResult ReloadInfo(bool fullReload);
 
-            virtual IAimpPlayListItem ^GetItem(int index);
+            virtual IAimpPlaylistItem ^GetItem(int index);
 
             virtual int GetItemCount();
 
@@ -370,7 +370,7 @@ namespace AIMP
                 System::Diagnostics::Debugger::Break();
                 PWCHAR sp = (PWCHAR)userData;
                 //delete sp;
-                return (int)_compareFunc(gcnew AimpPlayListItem(item1), gcnew AimpPlayListItem(item2));
+                return (int)_compareFunc(gcnew AimpPlaylistItem(item1), gcnew AimpPlaylistItem(item2));
             }
         };
     }

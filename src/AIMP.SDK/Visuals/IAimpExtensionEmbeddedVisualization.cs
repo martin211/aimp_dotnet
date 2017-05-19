@@ -41,12 +41,14 @@ namespace AIMP.SDK.Visuals
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult GetMaxDisplaySize(out int width, out int height);
 
         /// <summary>
         /// Gets the visualization display name.
         /// </summary>
         /// <param name="name">The display name.</param>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult GetName(out string name);
 
         /// <summary>
@@ -54,7 +56,7 @@ namespace AIMP.SDK.Visuals
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult Initialize(int width, int height);
 
         /// <summary>

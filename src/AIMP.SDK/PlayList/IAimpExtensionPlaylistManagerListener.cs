@@ -3,8 +3,8 @@
     /// <summary>
     /// Delegate for playlist events.
     /// </summary>
-    /// <param name="playListName">Name of the playlist.</param>
-    /// <param name="playListId">The playlist identifier.</param>
+    /// <param name="playlistName">Name of the playlist.</param>
+    /// <param name="playlistId">The playlist identifier.</param>
     public delegate void PlayListHandler(string playlistName, string playlistId);
 
     /// <summary>

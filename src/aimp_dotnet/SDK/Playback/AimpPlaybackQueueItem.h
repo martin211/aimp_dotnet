@@ -26,10 +26,10 @@ namespace AIMP
                 void set(Object^ value);
             }
 
-            virtual property IAimpPlayListItem^ PlayListItem
+            virtual property IAimpPlaylistItem^ PlaylistItem
             {
-                IAimpPlayListItem^ get();
-                void set(IAimpPlayListItem^ value);
+                IAimpPlaylistItem^ get();
+                void set(IAimpPlaylistItem^ value);
             }
         };
     }

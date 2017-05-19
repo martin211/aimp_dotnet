@@ -21,7 +21,7 @@
         /// </param>
         /// <param name="isActive">If set to <c>true</c> playlist will be active.</param>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
         AimpActionResult CreatePlaylist(string name, bool isActive, out IAimpPlaylist playList);
 
         /// <summary>
@@ -35,14 +35,14 @@
         /// </param>
         /// <param name="isActive">If set to <c>true</c> playlist will be active.</param>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
         AimpActionResult CreatePlaylistFromFile(string fileName, bool isActive, out IAimpPlaylist playList);
 
         /// <summary>
         /// Gets the current active playlist.
         /// </summary>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
         AimpActionResult GetActivePlaylist(out IAimpPlaylist playList);
 
         /// <summary>
@@ -55,7 +55,7 @@
         /// Gets the playable playlist.
         /// </summary>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
         AimpActionResult GetPlayablePlaylist(out IAimpPlaylist playList);
 
         /// <summary>
@@ -63,7 +63,7 @@
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
         AimpActionResult GetLoadedPlaylist(int index, out IAimpPlaylist playList);
 
         /// <summary>
@@ -71,7 +71,7 @@
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
         AimpActionResult GetLoadedPlaylistById(string id, out IAimpPlaylist playList);
 
         /// <summary>
@@ -79,7 +79,7 @@
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
         AimpActionResult GetLoadedPlaylistByName(string name, out IAimpPlaylist playList);
 
         /// <summary>

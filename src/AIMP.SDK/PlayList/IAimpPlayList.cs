@@ -342,7 +342,7 @@ namespace AIMP.SDK.PlayList
         /// <param name="fileUrl">The file URL.</param>
         /// <param name="flags">The <see cref="PlayListFlags"/>.</param>
         /// <param name="filePosition">The file position <see cref="PlayListFilePosition"/>.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult Add(string fileUrl, PlayListFlags flags, PlayListFilePosition filePosition);
 
         /// <summary>
@@ -351,7 +351,7 @@ namespace AIMP.SDK.PlayList
         /// <param name="fileInfo">The file information.</param>
         /// <param name="flags">The <see cref="PlayListFlags" />.</param>
         /// <param name="filePosition">The file position <see cref="PlayListFilePosition" />.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult Add(IAimpFileInfo fileInfo, PlayListFlags flags, PlayListFilePosition filePosition);
 
         /// <summary>
@@ -360,7 +360,7 @@ namespace AIMP.SDK.PlayList
         /// <param name="fileUrlList">The file URL list.</param>
         /// <param name="flags">The <see cref="PlayListFlags" />.</param>
         /// <param name="filePosition">The file position <see cref="PlayListFilePosition" />.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult AddList(IList<string> fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition);
 
         /// <summary>
@@ -369,21 +369,21 @@ namespace AIMP.SDK.PlayList
         /// <param name="fileUrlList">The file URL list.</param>
         /// <param name="flags">The <see cref="PlayListFlags" />.</param>
         /// <param name="filePosition">The file position <see cref="PlayListFilePosition" />.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult AddList(IList<IAimpFileInfo> fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition);
 
         /// <summary>
         /// Deletes the specified item.
         /// </summary>
         /// <param name="item">The playlist item.</param>
-        /// <returns></returns>
-        AimpActionResult Delete(IAimpPlayListItem item);
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
+        AimpActionResult Delete(IAimpPlaylistItem item);
 
         /// <summary>
         /// Deletes the item by specified index.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult Delete(int index);
 
         // TODO: implement Delete3
@@ -392,22 +392,22 @@ namespace AIMP.SDK.PlayList
         /// <summary>
         /// Deletes all items.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult DeleteAll();
 
         /// <summary>
         /// Sorts the playlist by specified sort order.
         /// </summary>
         /// <param name="sort">The sort.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult Sort(PlayListSort sort);
 
         /// <summary>
         /// Sorts the playlist by the specified compare function.
         /// </summary>
         /// <param name="compareFunc">The compare function.</param>
-        /// <returns></returns>
-        AimpActionResult Sort(Func<IAimpPlayListItem, IAimpPlayListItem, PlayListSortComapreResult> compareFunc);
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
+        AimpActionResult Sort(Func<IAimpPlaylistItem, IAimpPlaylistItem, PlayListSortComapreResult> compareFunc);
 
         //TODO: implement Sort2, Sort3
         //void Sort();
@@ -416,27 +416,27 @@ namespace AIMP.SDK.PlayList
         /// Method blocks all notifications until EndUpdate is called.
         /// This method is recommended to usage if you will change few options of playlist at one time.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult BeginUpdate();
 
         /// <summary>
         /// Method unblocks all notifications. Refer to the BeginUpdate.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult EndUpdate();
 
         /// <summary>
         /// Closes the playlist.
         /// </summary>
         /// <param name="closeFlag">The close flag <see cref="PlayListCloseFlag"/>.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult Close(PlayListCloseFlag closeFlag);
 
         /// <summary>
         /// Gets the list of files.
         /// </summary>
         /// <param name="filesFlag">The files flag.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         IList<string> GetFiles(PlayListGetFilesFlag filesFlag);
 
         // TODO: Add MergeGroup
@@ -444,22 +444,22 @@ namespace AIMP.SDK.PlayList
         /// <summary>
         /// Reloads from preimage.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult ReloadFromPreimage();
 
         /// <summary>
         /// Reloads information about items (running in separate thread).
         /// </summary>
         /// <param name="fullReload">if set to <c>true</c> [full reload].</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult ReloadInfo(bool fullReload);
 
         /// <summary>
         /// Gets the item.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <returns></returns>
-        IAimpPlayListItem GetItem(int index);
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
+        IAimpPlaylistItem GetItem(int index);
 
         /// <summary>
         /// Gets the item count.
