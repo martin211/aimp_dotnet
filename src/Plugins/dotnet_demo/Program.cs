@@ -114,7 +114,7 @@ namespace TestPlugin
             if (Player.MenuManager.CreateMenuItem(out actionMenuItem) == AimpActionResult.Ok)
             {
 
-                IAimpAction action = Player.Core.CreateAction();
+                IAimpAction action = Player.ActionManager.CreateAction();
                 action.Id = "aimp.MenuAndActionsDemo.action.1";
                 action.Name = "Simple action title";
                 action.GroupName = "Menu And Actions Demo";

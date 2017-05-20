@@ -1,4 +1,5 @@
 ﻿using AIMP.SDK.ActionManager;
+using AIMP.SDK.PlayList;
 
 namespace AIMP.SDK
 {
@@ -52,10 +53,5 @@ namespace AIMP.SDK
         /// </summary>
         /// <returns></returns>
         IAimpStream CreateStream();
-
-        /// <summary>
-        /// Creates the Aimp action instance.
-        /// </summary>
-        IAimpAction CreateAction();
     }
 }

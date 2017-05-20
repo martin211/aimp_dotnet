@@ -99,5 +99,14 @@ namespace AIMP
 
             return result;
         }
+
+        IAimpAction ^AimpActionManager::CreateAction()
+        {
+            IAIMPAction *action = NULL;
+            if (_core->CreateAction(&action) == AimpActionResult::Ok && action != NULL)
+            {
+                return gcnew AIMP::SDK::AimpAction(action);
+            }
+        }
     }
 }

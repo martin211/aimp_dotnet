@@ -37,5 +37,10 @@ namespace AIMP.SDK.ActionManager
         /// <param name="actions">The collection of <see cref="IAimpAction"/>.</param>
         /// <returns>The <see cref="AimpActionResult"/>result.</returns>
         AimpActionResult Register(ICollection<IAimpAction> actions);
+
+        /// <summary>
+        /// Creates the Aimp action instance.
+        /// </summary>
+        IAimpAction CreateAction();
     }
 }
