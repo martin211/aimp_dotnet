@@ -31,6 +31,8 @@ namespace AIMP
             virtual AimpActionResult Register(IAimpAction ^action);
 
             virtual AimpActionResult Register(System::Collections::Generic::ICollection<AIMP::SDK::ActionManager::IAimpAction^>^ actions);
+
+            virtual IAimpAction ^CreateAction();
         };
     }
 }

@@ -116,16 +116,6 @@ namespace AIMP
 
                 return nullptr;
             }
-
-            virtual IAimpAction ^CreateAction()
-            {
-                IAIMPAction *action = NULL;
-                if (_aimpCore->CreateAction(&action) == AimpActionResult::Ok && action != NULL)
-                {
-                    return gcnew AIMP::SDK::AimpAction(action);
-                }
-            }
-
         internal:
             virtual event AimpEventsDelegate^ InternalCoreMessage
             {
