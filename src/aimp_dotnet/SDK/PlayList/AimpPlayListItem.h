@@ -15,7 +15,7 @@ namespace AIMP
         using namespace System;
 
         using namespace AIMP::SDK;
-        using namespace AIMP::SDK::PlayList;
+        using namespace AIMP::SDK::Playlist;
         using namespace AIMP::SDK::FileManager;
 
         public ref class AimpPlaylistItem : public AimpObject<IAIMPPlaylistItem>, public IAimpPlaylistItem

@@ -78,6 +78,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\PlayListEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\PlayListEditor.Designer.cs">
+      <DependentUpon>PlayListEditor.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="LoggerForm.resx">
       <DependentUpon>LoggerForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -97,6 +103,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UI\PlayListEditor.resx">
+      <DependentUpon>PlayListEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

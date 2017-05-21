@@ -1,7 +1,11 @@
-﻿using System;
-
-namespace AIMP.SDK.PlayList
+﻿namespace AIMP.SDK.Playlist
 {
+    /// <summary>
+    /// Playlist queue listener handler.
+    /// </summary>
+    /// <param name="playlistQueue">The playlist queue.</param>
+    public delegate void AimpPlaylistQueueListenerHandler(IAimpPlaylistQueue playlistQueue);
+
     /// <summary>
     /// Interface provides an ability to receive notifications about changes in the queue.
     /// </summary>
@@ -10,11 +14,11 @@ namespace AIMP.SDK.PlayList
         /// <summary>
         /// Event occurs when content of queue was changed.
         /// </summary>
-        event EventHandler ContentChanged;
+        event AimpPlaylistQueueListenerHandler ContentChanged;
 
         /// <summary>
         /// Event occurs when the <see cref="IAimpPlaylistQueue.IsSuspended"/> has been changed.
         /// </summary>
-        event EventHandler StateChanged;
+        event AimpPlaylistQueueListenerHandler StateChanged;
     }
 }

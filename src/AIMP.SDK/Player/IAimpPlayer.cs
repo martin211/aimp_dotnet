@@ -1,5 +1,6 @@
 ﻿using AIMP.SDK.FileManager;
 using AIMP.SDK.MusicLibrary;
+using AIMP.SDK.Playlist;
 using AIMP.SDK.Threading;
 
 namespace AIMP.SDK.Player
@@ -13,7 +14,6 @@ namespace AIMP.SDK.Player
     using AIMP.SDK.MUIManager;
     using AIMP.SDK.Options;
     using AIMP.SDK.Playback;
-    using AIMP.SDK.PlayList;
     using AIMP.SDK.Win32;
 
     /// <summary>

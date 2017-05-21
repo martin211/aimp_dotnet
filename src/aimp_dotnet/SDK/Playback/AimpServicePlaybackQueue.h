@@ -15,7 +15,7 @@ namespace AIMP
 {
     namespace SDK
     {
-        using namespace AIMP::SDK::PlayList;
+        using namespace AIMP::SDK::Playlist;
         using namespace AIMP::SDK::Playback;
 
         public ref class AimpServicePlaybackQueue : public AimpBaseManager<IAIMPServicePlaybackQueue>, public IAimpPlaybackQueueService

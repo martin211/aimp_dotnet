@@ -18,7 +18,7 @@ namespace AIMP
     {
         using namespace System;
 
-        using namespace AIMP::SDK::PlayList;
+        using namespace AIMP::SDK::Playlist;
 
         AimpPlaylistItem::AimpPlaylistItem()
         {

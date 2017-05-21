@@ -6,7 +6,6 @@ namespace dotnet_albumart
 
     using AIMP.SDK;
     using AIMP.SDK.AlbumArtManager;
-    using AIMP.SDK.PlayList;
 
     public class AimpExtensionAlbumArtCatalog : IAimpExtensionAlbumArtCatalog
     {

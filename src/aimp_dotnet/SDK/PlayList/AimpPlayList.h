@@ -18,7 +18,7 @@ namespace AIMP
         using namespace System::Collections::Generic;
 
         using namespace AIMP::SDK;
-        using namespace AIMP::SDK::PlayList;
+        using namespace AIMP::SDK::Playlist;
 
         public interface class IPlayListListnerExecutor
         {

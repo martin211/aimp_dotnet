@@ -275,7 +275,7 @@ namespace AIMP
                 return _core->RegisterExtension(IID_IAIMPServiceVisualizations, ext);
             }
 
-            AIMP::SDK::PlayList::IAimpExtensionPlaylistManagerListener ^playlistManagerListener = dynamic_cast<AIMP::SDK::PlayList::IAimpExtensionPlaylistManagerListener^>(extension);
+            AIMP::SDK::Playlist::IAimpExtensionPlaylistManagerListener ^playlistManagerListener = dynamic_cast<AIMP::SDK::Playlist::IAimpExtensionPlaylistManagerListener^>(extension);
             if (playlistManagerListener != nullptr)
             {
                 if (_playlistManagerListener != NULL)
@@ -377,7 +377,7 @@ namespace AIMP
                 return r;
             }
 
-            AIMP::SDK::PlayList::IAimpExtensionPlaylistManagerListener ^playlistManagerListener = dynamic_cast<AIMP::SDK::PlayList::IAimpExtensionPlaylistManagerListener^>(extension);
+            AIMP::SDK::Playlist::IAimpExtensionPlaylistManagerListener ^playlistManagerListener = dynamic_cast<AIMP::SDK::Playlist::IAimpExtensionPlaylistManagerListener^>(extension);
             if (customVisualization != nullptr)
             {
                 HRESULT r = _core->UnregisterExtension(_playlistManagerListener);

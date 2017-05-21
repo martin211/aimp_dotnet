@@ -101,51 +101,51 @@ AimpActionResult AimpPlaylistQueue::GetItem(int index, IAimpPlaylistItem ^%item)
 }
 
 
-void AimpPlaylistQueue::ContentChanged::add(EventHandler ^onEvent)
+void AimpPlaylistQueue::ContentChanged::add(AimpPlaylistQueueListenerHandler ^onEvent)
 {
     if (_contentChanged == nullptr)
     {
-        _contentChanged = (EventHandler^)Delegate::Combine(_contentChanged, onEvent);
+        _contentChanged = (AimpPlaylistQueueListenerHandler^)Delegate::Combine(_contentChanged, onEvent);
     }
 }
 
-void AimpPlaylistQueue::ContentChanged::remove(EventHandler ^onEvent)
+void AimpPlaylistQueue::ContentChanged::remove(AimpPlaylistQueueListenerHandler ^onEvent)
 {
     if (_contentChanged != nullptr)
     {
-        _contentChanged = (EventHandler^)Delegate::Remove(_contentChanged, onEvent);
+        _contentChanged = (AimpPlaylistQueueListenerHandler^)Delegate::Remove(_contentChanged, onEvent);
     }
 }
 
-void AimpPlaylistQueue::ContentChanged::raise(Object ^sender, EventArgs ^args)
+void AimpPlaylistQueue::ContentChanged::raise(IAimpPlaylistQueue ^sender)
 {
     if (_contentChanged != nullptr)
     {
-        _contentChanged(sender, args);
+        _contentChanged(sender);
     }
 }
 
 
-void AimpPlaylistQueue::StateChanged::add(EventHandler ^onEvent)
+void AimpPlaylistQueue::StateChanged::add(AimpPlaylistQueueListenerHandler ^onEvent)
 {
     if (_stateChanged == nullptr)
     {
-        _stateChanged = (EventHandler^)Delegate::Combine(_stateChanged, onEvent);
+        _stateChanged = (AimpPlaylistQueueListenerHandler^)Delegate::Combine(_stateChanged, onEvent);
     }
 }
 
-void AimpPlaylistQueue::StateChanged::remove(EventHandler ^onEvent)
+void AimpPlaylistQueue::StateChanged::remove(AimpPlaylistQueueListenerHandler ^onEvent)
 {
     if (_stateChanged != nullptr)
     {
-        _stateChanged = (EventHandler^)Delegate::Remove(_stateChanged, onEvent);
+        _stateChanged = (AimpPlaylistQueueListenerHandler^)Delegate::Remove(_stateChanged, onEvent);
     }
 }
 
-void AimpPlaylistQueue::StateChanged::raise(Object ^sender, EventArgs ^args)
+void AimpPlaylistQueue::StateChanged::raise(IAimpPlaylistQueue ^sender)
 {
     if (_stateChanged != nullptr)
     {
-        _stateChanged(sender, args);
+        _stateChanged(sender);
     }
 }

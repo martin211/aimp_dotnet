@@ -1,4 +1,4 @@
-﻿namespace AIMP.SDK.PlayList
+﻿namespace AIMP.SDK.Playlist
 {
     /// <summary>
     /// Delegate for playlist events.

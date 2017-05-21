@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AIMP.SDK.PlayList
+namespace AIMP.SDK.Playlist
 {
     public delegate void PlayListChangedHandler(IAimpPlaylist sender, PlayListNotifyType notifType);
 

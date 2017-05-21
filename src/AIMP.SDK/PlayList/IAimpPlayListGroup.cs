@@ -1,4 +1,4 @@
-﻿namespace AIMP.SDK.PlayList
+﻿namespace AIMP.SDK.Playlist
 {
     /// <summary>
     /// The interface describes playlist group that can contains one or more playlist items.

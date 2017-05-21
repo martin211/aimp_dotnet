@@ -12,7 +12,7 @@ namespace AIMP
 {
     namespace SDK
     {
-        using namespace AIMP::SDK::PlayList;
+        using namespace AIMP::SDK::Playlist;
 
         public ref class AimpPlayListGroup : public AimpObject<IAIMPPlaylistGroup>, public IAimpPlayListGroup
         {

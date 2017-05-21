@@ -1,7 +1,7 @@
-﻿namespace AIMP.SDK.PlayList
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace AIMP.SDK.Playlist
+{
     /// <summary>
     /// This interface provides an access to playback queue. 
     /// </summary>
