@@ -15,7 +15,7 @@ namespace AIMP
     namespace SDK
     {
         using namespace AIMP::SDK;
-        using namespace AIMP::SDK::PlayList;
+        using namespace AIMP::SDK::Playlist;
 
         class AimpPlaylistQueueListener :
             public IUnknownInterfaceImpl<IAIMPPlaylistQueueListener>

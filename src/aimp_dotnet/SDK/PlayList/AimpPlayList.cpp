@@ -1286,7 +1286,7 @@ namespace AIMP
 
         void AimpPlayList::Changed::raise(IAimpPlaylist^ sender, PlayListNotifyType notifyType)
         {
-            AIMP::PlayList::PlayListChangedHandler ^tmp = this->_onChanged;
+            AIMP::Playlist::PlayListChangedHandler ^tmp = this->_onChanged;
             if (tmp != nullptr)
             {
                 _onChanged(sender, notifyType);

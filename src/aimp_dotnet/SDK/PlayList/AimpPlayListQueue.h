@@ -18,6 +18,7 @@ namespace AIMP
     namespace SDK
     {
         using namespace AIMP::SDK;
+        using namespace AIMP::SDK::Playlist;
 
         public ref class AimpPlaylistQueue :
             public AimpObject<IAIMPPlaylistQueue>,
@@ -49,33 +50,33 @@ namespace AIMP
 
             virtual AimpActionResult GetItem(int index, IAimpPlaylistItem ^%item);
 
-            virtual event EventHandler ^ContentChanged
+            virtual event AimpPlaylistQueueListenerHandler ^ContentChanged
             {
-                void add(EventHandler ^onEvent);
-                void remove(EventHandler ^onEvent);
-                void raise(Object ^sender, EventArgs ^args);
+                void add(AimpPlaylistQueueListenerHandler ^onEvent);
+                void remove(AimpPlaylistQueueListenerHandler ^onEvent);
+                void raise(IAimpPlaylistQueue ^sender);
             }
 
-            virtual event EventHandler ^StateChanged
+            virtual event AimpPlaylistQueueListenerHandler ^StateChanged
             {
-                void add(EventHandler ^onEvent);
-                void remove(EventHandler ^onEvent);
-                void raise(Object ^sender, EventArgs ^args);
+                void add(AimpPlaylistQueueListenerHandler ^onEvent);
+                void remove(AimpPlaylistQueueListenerHandler ^onEvent);
+                void raise(IAimpPlaylistQueue ^sender);
             }
 
             virtual void OnContentChanged()
             {
-                ContentChanged(this, EventArgs::Empty);
+                ContentChanged(this);
             }
 
             virtual void OnStateChanged()
             {
-                StateChanged(this, EventArgs::Empty);
+                StateChanged(this);
             }
         private:
             IAIMPPlaylistQueue2 *_queue2;
-            EventHandler ^_contentChanged;
-            EventHandler ^_stateChanged;
+            AimpPlaylistQueueListenerHandler ^_contentChanged;
+            AimpPlaylistQueueListenerHandler ^_stateChanged;
             AimpPlaylistQueueListener* _listner;
         };
     }

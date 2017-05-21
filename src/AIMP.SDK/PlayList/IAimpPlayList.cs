@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using AIMP.SDK.FileManager;
 
-namespace AIMP.SDK.PlayList
+namespace AIMP.SDK.Playlist
 {
     [Flags]
     public enum PlayListFlags

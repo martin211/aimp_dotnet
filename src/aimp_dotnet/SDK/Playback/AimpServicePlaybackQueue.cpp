@@ -10,7 +10,7 @@
 #include "AimpServicePlaybackQueue.h"
 
 using namespace AIMP::SDK;
-using namespace AIMP::SDK::PlayList;
+using namespace AIMP::SDK::Playlist;
 using namespace AIMP::SDK::Playback;
 
 AimpServicePlaybackQueue::AimpServicePlaybackQueue(ManagedAimpCore ^core) : AimpBaseManager<IAIMPServicePlaybackQueue>(core)

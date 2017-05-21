@@ -1,5 +1,4 @@
 ﻿using AIMP.SDK.ActionManager;
-using AIMP.SDK.PlayList;
 
 namespace AIMP.SDK
 {

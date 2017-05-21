@@ -1,7 +1,7 @@
-﻿namespace AIMP.SDK.PlayList
-{
-    using System;
+﻿using System;
 
+namespace AIMP.SDK.Playlist
+{
     public class AimpPlayListEventArgs : EventArgs
     {
         /// <summary>

@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-using AIMP.SDK.PlayList;
+using AIMP.SDK.Playlist;
 
 namespace DemoPlugin
 {

@@ -32,7 +32,7 @@ namespace AIMP
         using namespace System::Collections::Generic;
 
         using namespace AIMP::SDK;
-        using namespace AIMP::SDK::PlayList;
+        using namespace AIMP::SDK::Playlist;
 
         delegate void ChangeHandler(AimpMessages::AimpCoreMessageType, int);
 
@@ -62,11 +62,11 @@ namespace AIMP
 
             virtual event AimpEventsDelegate^ InternalCoreMessage;
 
-            virtual event AIMP::SDK::PlayList::PlayListHandler ^PlaylistActivated;
+            virtual event AIMP::SDK::Playlist::PlayListHandler ^PlaylistActivated;
 
-            virtual event AIMP::SDK::PlayList::PlayListHandler ^PlaylistAdded;
+            virtual event AIMP::SDK::Playlist::PlayListHandler ^PlaylistAdded;
 
-            virtual event AIMP::SDK::PlayList::PlayListHandler ^PlaylistRemoved;
+            virtual event AIMP::SDK::Playlist::PlayListHandler ^PlaylistRemoved;
 
             virtual event AIMP::SDK::Playback::AimpCheckUrl ^CheckUrl;
 
@@ -117,7 +117,7 @@ namespace AIMP
             IAIMPServiceMessageDispatcher* _messageDispatcher;
             IAIMPMessageHook* _hook;
             List<AimpEventsDelegate^> ^_coreMessage;
-            List<AIMP::SDK::PlayList::PlayListHandler^> ^_playListActivatedHandlers;
+            List<AIMP::SDK::Playlist::PlayListHandler^> ^_playListActivatedHandlers;
             OptionsDialogFrameExtension* _optionsFrame;
             AimpExtensionAlbumArtCatalog* _albumArtCatalogExtension;
             AimpExtensionAlbumArtProvider* _albumArtProviderExtension;
@@ -128,8 +128,8 @@ namespace AIMP
             InternalAimpExtensionFileInfoProvider *_fileInfoExtensionProvider;
             InternalAimpExtensionFileSystem *_extensionFileSystem;
 
-            AIMP::SDK::PlayList::PlayListHandler ^_playlistAdded;
-            AIMP::SDK::PlayList::PlayListHandler ^_playlistRemoved;
+            AIMP::SDK::Playlist::PlayListHandler ^_playlistAdded;
+            AIMP::SDK::Playlist::PlayListHandler ^_playlistRemoved;
             AIMP::SDK::Playback::AimpCheckUrl ^_checkUrl;
         };
     }

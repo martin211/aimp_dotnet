@@ -1,7 +1,7 @@
 ﻿
 using AIMP.SDK.FileManager;
 
-namespace AIMP.SDK.PlayList
+namespace AIMP.SDK.Playlist
 {
     /// <summary>
     /// The storage for information about the playlist item.

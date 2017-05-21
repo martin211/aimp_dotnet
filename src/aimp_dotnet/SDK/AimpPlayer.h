@@ -43,7 +43,7 @@ namespace AIMP
     using namespace AIMP::SDK::ActionManager;
     using namespace AIMP::SDK::AlbumArtManager;
     using namespace AIMP::SDK::ConfigurationManager;
-    using namespace AIMP::SDK::PlayList;
+    using namespace AIMP::SDK::Playlist;
     using namespace AIMP::SDK::Win32;
     using namespace AIMP::SDK::Playback;
     using namespace AIMP::SDK::Threading;

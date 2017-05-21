@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using AIMP.SDK;
 using AIMP.SDK.Player;
-using AIMP.SDK.PlayList;
+using AIMP.SDK.Playlist;
+using DemoPlugin.UI;
 
 namespace DemoPlugin
 {
@@ -67,12 +68,12 @@ namespace DemoPlugin
 
             _aimpPlayer.PlayListManager.PlaylistQueue.ContentChanged += (sender, args) =>
             {
-
+                Logger.Instance.AddInfoMessage($"[Event] PlaylistQueue.ContentChanged: ");
             };
 
             _aimpPlayer.PlayListManager.PlaylistQueue.StateChanged += (sender, args) =>
             {
-
+                Logger.Instance.AddInfoMessage($"[Event] PlaylistQueue.StateChanged: ");
             };
 
             _aimpPlayer.StateChanged += (sender, args) =>
@@ -181,25 +182,50 @@ namespace DemoPlugin
 
         private void button8_Click(object sender, EventArgs e)
         {
-            IAimpPlaylist playList;
-            if (_aimpPlayer.PlayListManager.CreatePlaylist("Test play list", true, out playList) == AimpActionResult.Ok)
+            var frm = new PlaylistEditor();
+            if (frm.ShowDialog(this) == DialogResult.OK)
             {
-                _playLists.Add(playList);
+                IAimpPlaylist playList;
+                if (_aimpPlayer.PlayListManager.CreatePlaylist(frm.PlaylistName, true, out playList) == AimpActionResult.Ok)
+                {
+                    _playLists.Add(playList);
 
-                CheckResult(playList.Add("http://xstream1.somafm.com:2800", PlayListFlags.NOEXPAND, PlayListFilePosition.EndPosition));
-                //CheckResult(playList.AddList(new List<string>()
-                //{
-                //    "http://xstream1.somafm.com:2800",
-                //    "http://xstream1.somafm.com:2800"
-                //}, PlayListFlags.NOEXPAND, PlayListFilePosition.EndPosition));
+                    //CheckResult(playList.Add("http://xstream1.somafm.com:2800", PlayListFlags.NOEXPAND, PlayListFilePosition.EndPosition));
+                    //CheckResult(playList.AddList(new List<string>()
+                    //{
+                    //    "http://xstream1.somafm.com:2800",
+                    //    "http://xstream1.somafm.com:2800"
+                    //}, PlayListFlags.NOEXPAND, PlayListFilePosition.EndPosition));
 
-                //playList.Activated += o => { System.Diagnostics.Debug.WriteLine("Activated {0}", o.Name); };
-                playList.Changed += PlayListOnChanged;
+                    //playList.Activated += o => { System.Diagnostics.Debug.WriteLine("Activated {0}", o.Name); };
+                    playList.Changed += PlayListOnChanged;
+                    playList.Activated += playlist =>
+                    {
+                        Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.Activated: {playlist.Id} {playlist.Name}");
+                    };
+                    playList.Removed += playlist =>
+                    {
+                        Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.Removed: {playlist.Id} {playlist.Name}");
+                    };
+                    playList.ScanningBegin += playlist =>
+                    {
+                        Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.ScanningBegin: {playlist.Id} {playlist.Name}");
+                    };
+                    playList.ScanningEnd += (playlist, args) =>
+                    {
+                        Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.ScanningEnd: {playlist.Id} {playlist.Name}");
+                    };
+                    playList.ScanningProgress += (playlist, args) =>
+                    {
+                        Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.ScanningProgress: {playlist.Id} {playlist.Name}");
+                    };
+                }
             }
         }
 
         private void PlayListOnChanged(IAimpPlaylist sender, PlayListNotifyType notifType)
         {
+            Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.Changed: {sender.Id} {sender.Name}");
             if (notifType.HasFlag(PlayListNotifyType.AIMP_PLAYLIST_NOTIFY_STATISTICS))
             {
                 
@@ -211,7 +237,7 @@ namespace DemoPlugin
             IAimpPlaylist playList;
             if (_aimpPlayer.PlayListManager.GetActivePlaylist(out playList) == AimpActionResult.Ok)
             {
-                playList.Close(PlayListCloseFlag.ForceRemove);
+                playList?.Close(PlayListCloseFlag.ForceRemove);
             }
         }
 
@@ -224,7 +250,7 @@ namespace DemoPlugin
         {
             if (actionResult != AimpActionResult.Ok)
             {
-                _loggerForm.WriteLog($"{Environment.StackTrace}: {actionResult}");
+                Logger.Instance.AddInfoMessage($"{Environment.StackTrace}: {actionResult}");
             }
         }
 
