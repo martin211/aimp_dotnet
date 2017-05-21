@@ -2,7 +2,7 @@
 
 namespace AIMP.SDK.Playlist
 {
-    public delegate void PlayListChangedHandler(IAimpPlaylist sender, PlayListNotifyType notifType);
+    public delegate void PlayListChangedHandler(IAimpPlaylist sender, PlaylistNotifyType notifType);
 
     public delegate void AimpPlayListHandler(IAimpPlaylist sender);
 

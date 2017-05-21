@@ -84,6 +84,7 @@
     <Compile Include="UI\PlayListEditor.Designer.cs">
       <DependentUpon>PlayListEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils.cs" />
     <EmbeddedResource Include="LoggerForm.resx">
       <DependentUpon>LoggerForm.cs</DependentUpon>
     </EmbeddedResource>

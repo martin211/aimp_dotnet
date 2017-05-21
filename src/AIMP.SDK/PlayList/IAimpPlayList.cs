@@ -5,7 +5,7 @@ using AIMP.SDK.FileManager;
 namespace AIMP.SDK.Playlist
 {
     [Flags]
-    public enum PlayListFlags
+    public enum PlaylistFlags
     {
         /// <summary>
         /// suppresses file format checking.
@@ -28,7 +28,7 @@ namespace AIMP.SDK.Playlist
         FILEINFO = 8
     }
 
-    public enum PlayListFilePosition
+    public enum PlaylistFilePosition
     { 
         /// <summary>
         /// Adding the records to random position
@@ -46,7 +46,7 @@ namespace AIMP.SDK.Playlist
         CurrentPosition = 0
     }
 
-    public enum PlayListSort
+    public enum PlaylistSort
     {
         TITLE,
         FILENAME,
@@ -57,7 +57,7 @@ namespace AIMP.SDK.Playlist
     }
 
     [Flags]
-    public enum PlayListCloseFlag
+    public enum PlaylistCloseFlag
     {
         None = 0,
         /// <summary>
@@ -71,7 +71,7 @@ namespace AIMP.SDK.Playlist
     }
 
     [Flags]
-    public enum PlayListGetFilesFlag
+    public enum PlaylistGetFilesFlag
     {
         All = 0,
 
@@ -84,7 +84,7 @@ namespace AIMP.SDK.Playlist
         CollapseVirtual = 0x4
     }
 
-    public enum PlayListSortComapreResult
+    public enum PlaylistSortComapreResult
     {
         TheSame = 0,
         LessThen = -1,
@@ -92,7 +92,7 @@ namespace AIMP.SDK.Playlist
     }
 
     [Flags]
-    public enum PlayListNotifyType
+    public enum PlaylistNotifyType
     {
         /// <summary>
         /// Play list name has been changed.
@@ -167,12 +167,6 @@ namespace AIMP.SDK.Playlist
     /// </summary>
     public interface IAimpPlaylist : IAimpPlaylistListener
     {
-        //event AimpPlayListHandler Activated;
-
-        //event AimpPlayListHandler Removed;
-
-        //event PlayListChangedHandler Changed;
-
         /// <summary>
         /// Gets the playlist identifier.
         /// </summary>
@@ -339,37 +333,37 @@ namespace AIMP.SDK.Playlist
         /// Adds the specified file by URL.
         /// </summary>
         /// <param name="fileUrl">The file URL.</param>
-        /// <param name="flags">The <see cref="PlayListFlags"/>.</param>
-        /// <param name="filePosition">The file position <see cref="PlayListFilePosition"/>.</param>
+        /// <param name="flags">The <see cref="PlaylistFlags"/>.</param>
+        /// <param name="filePosition">The file position <see cref="PlaylistFilePosition"/>.</param>
         /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Add(string fileUrl, PlayListFlags flags, PlayListFilePosition filePosition);
+        AimpActionResult Add(string fileUrl, PlaylistFlags flags, PlaylistFilePosition filePosition);
 
         /// <summary>
         /// Adds the specified file by URL.
         /// </summary>
         /// <param name="fileInfo">The file information.</param>
-        /// <param name="flags">The <see cref="PlayListFlags" />.</param>
-        /// <param name="filePosition">The file position <see cref="PlayListFilePosition" />.</param>
+        /// <param name="flags">The <see cref="PlaylistFlags" />.</param>
+        /// <param name="filePosition">The file position <see cref="PlaylistFilePosition" />.</param>
         /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Add(IAimpFileInfo fileInfo, PlayListFlags flags, PlayListFilePosition filePosition);
+        AimpActionResult Add(IAimpFileInfo fileInfo, PlaylistFlags flags, PlaylistFilePosition filePosition);
 
         /// <summary>
         /// Adds the list.
         /// </summary>
         /// <param name="fileUrlList">The file URL list.</param>
-        /// <param name="flags">The <see cref="PlayListFlags" />.</param>
-        /// <param name="filePosition">The file position <see cref="PlayListFilePosition" />.</param>
+        /// <param name="flags">The <see cref="PlaylistFlags" />.</param>
+        /// <param name="filePosition">The file position <see cref="PlaylistFilePosition" />.</param>
         /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult AddList(IList<string> fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition);
+        AimpActionResult AddList(IList<string> fileUrlList, PlaylistFlags flags, PlaylistFilePosition filePosition);
 
         /// <summary>
         /// Adds the list.
         /// </summary>
         /// <param name="fileUrlList">The file URL list.</param>
-        /// <param name="flags">The <see cref="PlayListFlags" />.</param>
-        /// <param name="filePosition">The file position <see cref="PlayListFilePosition" />.</param>
+        /// <param name="flags">The <see cref="PlaylistFlags" />.</param>
+        /// <param name="filePosition">The file position <see cref="PlaylistFilePosition" />.</param>
         /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult AddList(IList<IAimpFileInfo> fileUrlList, PlayListFlags flags, PlayListFilePosition filePosition);
+        AimpActionResult AddList(IList<IAimpFileInfo> fileUrlList, PlaylistFlags flags, PlaylistFilePosition filePosition);
 
         /// <summary>
         /// Deletes the specified item.
@@ -399,14 +393,14 @@ namespace AIMP.SDK.Playlist
         /// </summary>
         /// <param name="sort">The sort.</param>
         /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Sort(PlayListSort sort);
+        AimpActionResult Sort(PlaylistSort sort);
 
         /// <summary>
         /// Sorts the playlist by the specified compare function.
         /// </summary>
         /// <param name="compareFunc">The compare function.</param>
         /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Sort(Func<IAimpPlaylistItem, IAimpPlaylistItem, PlayListSortComapreResult> compareFunc);
+        AimpActionResult Sort(Func<IAimpPlaylistItem, IAimpPlaylistItem, PlaylistSortComapreResult> compareFunc);
 
         //TODO: implement Sort2, Sort3
         //void Sort();
@@ -427,16 +421,19 @@ namespace AIMP.SDK.Playlist
         /// <summary>
         /// Closes the playlist.
         /// </summary>
-        /// <param name="closeFlag">The close flag <see cref="PlayListCloseFlag"/>.</param>
+        /// <param name="closeFlag">The close flag <see cref="PlaylistCloseFlag"/>.</param>
         /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Close(PlayListCloseFlag closeFlag);
+        AimpActionResult Close(PlaylistCloseFlag closeFlag);
 
         /// <summary>
         /// Gets the list of files.
         /// </summary>
         /// <param name="filesFlag">The files flag.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        IList<string> GetFiles(PlayListGetFilesFlag filesFlag);
+        /// <param name="files">The files.</param>
+        /// <returns>
+        /// The <see cref="AimpActionResult" /> result.
+        /// </returns>
+        AimpActionResult GetFiles(PlaylistGetFilesFlag filesFlag, out IList<string> files);
 
         // TODO: Add MergeGroup
 
