@@ -162,6 +162,14 @@ namespace AIMP.SDK.Playlist
         AIMP_PLAYLIST_RELOADINFO_FLAGS_SELECTED
     }
 
+    [Flags]
+    public enum PlaylistDeleteFlags
+    {
+        None = 0,
+        AIMP_PLAYLIST_DELETE_FLAGS_PHYSICALLY = 1,
+        AIMP_PLAYLIST_DELETE_FLAGS_NOCONFIRMATION = 2
+    }
+
     /// <summary>
     /// Playlist interface.
     /// </summary>
@@ -379,8 +387,14 @@ namespace AIMP.SDK.Playlist
         /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult Delete(int index);
 
-        // TODO: implement Delete3
-        //void Delete(bool physically);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="deleteFlags">The delete flags <see cref="PlaylistDeleteFlags"/>.</param>
+        /// <param name="customFilterData">Some additional data that will be passed to the filter function.</param>
+        /// <param name="filterFunc">The filter function. Should return true to delete item.</param>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
+        AimpActionResult Delete(PlaylistDeleteFlags deleteFlags, object customFilterData, Func<IAimpPlaylistItem, object, bool> filterFunc);
 
         /// <summary>
         /// Deletes all items.
@@ -396,14 +410,21 @@ namespace AIMP.SDK.Playlist
         AimpActionResult Sort(PlaylistSort sort);
 
         /// <summary>
+        /// Sorts the playlist items by specified template.
+        /// </summary>
+        /// <param name="template">The template. Refer to <see cref="IAimpServiceFileInfoFormatter"/>.</param>
+        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
+        AimpActionResult Sort(string template);
+
+        /// <summary>
         /// Sorts the playlist by the specified compare function.
         /// </summary>
+        /// <param name="customCompareData">The custom data for compare function.</param>
         /// <param name="compareFunc">The compare function.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Sort(Func<IAimpPlaylistItem, IAimpPlaylistItem, PlaylistSortComapreResult> compareFunc);
-
-        //TODO: implement Sort2, Sort3
-        //void Sort();
+        /// <returns>
+        /// The <see cref="AimpActionResult" /> result.
+        /// </returns>
+        AimpActionResult Sort(object customCompareData, Func<IAimpPlaylistItem, IAimpPlaylistItem, object, PlaylistSortComapreResult> compareFunc);
 
         /// <summary>
         /// Method blocks all notifications until EndUpdate is called.
@@ -435,7 +456,12 @@ namespace AIMP.SDK.Playlist
         /// </returns>
         AimpActionResult GetFiles(PlaylistGetFilesFlag filesFlag, out IList<string> files);
 
-        // TODO: Add MergeGroup
+        /// <summary>
+        /// Merges one or all groups with same names.
+        /// </summary>
+        /// <param name="playlistGroup">Group to merge. All groups will be merged If group is not set (parameter is equals null).</param>
+        /// <returns>The <see cref="AimpActionResult" /> result.</returns>
+        AimpActionResult MergeGroup(IAimpPlaylistGroup playlistGroup);
 
         /// <summary>
         /// Reloads from preimage.
@@ -467,7 +493,7 @@ namespace AIMP.SDK.Playlist
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns></returns>
-        IAimpPlayListGroup GetGroup(int index);
+        IAimpPlaylistGroup GetGroup(int index);
 
         /// <summary>
         /// Gets the group count.

@@ -1080,17 +1080,36 @@ namespace AIMP
             return CheckResult(InternalAimpObject->DeleteAll());
         }
 
+        AimpActionResult AimpPlayList::Delete(PlaylistDeleteFlags deleteFlags, Object ^customFilterData, Func<IAimpPlaylistItem^, Object^, bool> ^filterFunc)
+        {
+            void* customData = GCHandle::ToIntPtr(GCHandle::Alloc(customFilterData)).ToPointer();
+            _deleteFilterFunc = filterFunc;
+            _deleteCallback = gcnew OnDeleteCallback(this, &AimpPlayList::OnDeleteReceive);
+            IntPtr functionHandle = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_deleteCallback);
+            return CheckResult(InternalAimpObject->Delete3((DWORD)deleteFlags, (TAIMPPlaylistDeleteProc(_stdcall*))functionHandle.ToPointer(), customData));
+        }
+
         AimpActionResult AimpPlayList::Sort(PlaylistSort sort)
         {
             return CheckResult(InternalAimpObject->Sort((int)sort));
         }
 
-        AimpActionResult AimpPlayList::Sort(Func<IAimpPlaylistItem^, IAimpPlaylistItem^, PlaylistSortComapreResult>^ compareFunc)
+        AimpActionResult AimpPlayList::Sort(Object ^customSortData, Func<IAimpPlaylistItem^, IAimpPlaylistItem^, Object^, PlaylistSortComapreResult>^ compareFunc)
         {
+            void* customData = GCHandle::ToIntPtr(GCHandle::Alloc(customSortData)).ToPointer();
             _compareFunc = compareFunc;
             _sortCallback = gcnew OnSortCallback(this, &AimpPlayList::OnSortReceive);
             IntPtr functionHandle = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_sortCallback);
-            return CheckResult(InternalAimpObject->Sort3((TAIMPPlaylistCompareProc(_stdcall*))functionHandle.ToPointer(), NULL));
+            return CheckResult(InternalAimpObject->Sort3((TAIMPPlaylistCompareProc(_stdcall*))functionHandle.ToPointer(), customData));
+        }
+
+        AimpActionResult AimpPlayList::Sort(String ^templateString)
+        {
+            IAIMPString *templateStr = AimpConverter::ToAimpString(templateString);
+            AimpActionResult res = CheckResult(InternalAimpObject->Sort2(templateStr));
+            templateStr->Release();
+            templateStr = NULL;
+            return res;
         }
 
         AimpActionResult AimpPlayList::BeginUpdate()
@@ -1171,9 +1190,14 @@ namespace AIMP
             return InternalAimpObject->GetItemCount();
         }
 
-        IAimpPlayListGroup ^AimpPlayList::GetGroup(int index)
+        AimpActionResult AimpPlayList::MergeGroup(IAimpPlaylistGroup ^playlistGroup)
         {
-            IAimpPlayListGroup ^result = nullptr;
+            return CheckResult(InternalAimpObject->MergeGroup(dynamic_cast<AimpPlayListGroup^>(playlistGroup)->InternalAimpObject));
+        }
+
+        IAimpPlaylistGroup ^AimpPlayList::GetGroup(int index)
+        {
+            IAimpPlaylistGroup ^result = nullptr;
             IAIMPPlaylistGroup *group = NULL;
 
             try
@@ -1211,6 +1235,7 @@ namespace AIMP
                 _listner->AddRef();
             }
         }
+
 
         void AimpPlayList::Activated::add(AimpPlayListHandler ^onEvent)
         {
@@ -1413,6 +1438,52 @@ namespace AIMP
             {
                 _scanningEndHandler(sender, args);
             }
+        }
+
+        void AimpPlayList::OnChanged(DWORD flags)
+        {
+            this->Changed(this, (PlaylistNotifyType)flags);
+        }
+
+        void AimpPlayList::OnActivated()
+        {
+            this->Activated(this);
+        }
+
+        void AimpPlayList::OnRemoved()
+        {
+            this->Removed(this);
+        }
+
+        void AimpPlayList::OnScanningBegin()
+        {
+            this->ScanningBegin(this);
+        }
+
+        void AimpPlayList::OnScanningProgress(const double progress)
+        {
+            this->ScanningProgress(this, gcnew ScanningProgressEventArgs(progress));
+        }
+
+        void AimpPlayList::OnScanningEnd(bool hasChanges, bool canceled)
+        {
+            this->ScanningEnd(this, gcnew ScanningEndEventArgs(hasChanges, canceled));
+        }
+
+        int AimpPlayList::OnSortReceive(IAIMPPlaylistItem* item1, IAIMPPlaylistItem* item2, void* userData)
+        {
+            GCHandle h = GCHandle::FromIntPtr(IntPtr(userData));
+            Object^ customData = h.Target;
+            h.Free();
+            return (int)_compareFunc(gcnew AimpPlaylistItem(item1), gcnew AimpPlaylistItem(item2), customData);
+        }
+
+        bool AimpPlayList::OnDeleteReceive(IAIMPPlaylistItem *item1, void *customFilterData)
+        {
+            GCHandle h = GCHandle::FromIntPtr(IntPtr(customFilterData));
+            Object^ customData = h.Target;
+            h.Free();
+            return (bool)_deleteFilterFunc(gcnew AimpPlaylistItem(item1), customData);
         }
 
 #pragma region AimpPlaylistListener

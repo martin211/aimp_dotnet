@@ -5,7 +5,7 @@ namespace AIMP.SDK.Playlist
     /// <summary>
     /// This interface provides an access to playback queue. 
     /// </summary>
-    /// <seealso cref="AIMP.SDK.PlayList.IAimpPlaylistQueueListener" />
+    /// <seealso cref="AIMP.SDK.Playlist.IAimpPlaylistQueueListener" />
     public interface IAimpPlaylistQueue : IAimpPlaylistQueueListener
     {
         /// <summary>

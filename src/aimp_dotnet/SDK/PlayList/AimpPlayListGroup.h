@@ -14,7 +14,7 @@ namespace AIMP
     {
         using namespace AIMP::SDK::Playlist;
 
-        public ref class AimpPlayListGroup : public AimpObject<IAIMPPlaylistGroup>, public IAimpPlayListGroup
+        public ref class AimpPlayListGroup : public AimpObject<IAIMPPlaylistGroup>, public IAimpPlaylistGroup
         {
         private:
             IAimpPlaylistItem ^_item;

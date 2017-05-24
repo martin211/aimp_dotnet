@@ -6,7 +6,7 @@
     /// <seealso cref="IAimpExtensionPlaylistManagerListener" />
     /// <seealso cref="IAimpExtension" />
     // TODO: ADN-32
-    public interface IAimpPlayListManager : IAimpExtensionPlaylistManagerListener, IAimpExtension
+    public interface IAimpPlaylistManager : IAimpExtensionPlaylistManagerListener, IAimpExtension
     {
         IAimpPlaylistQueue PlaylistQueue { get; }
 

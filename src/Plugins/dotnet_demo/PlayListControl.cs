@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AIMP.SDK;
 using AIMP.SDK.Playlist;
@@ -72,11 +73,21 @@ namespace DemoPlugin
         {
             var trackItem = new ListViewItem { Text = item.PlaybackIndex.ToString() };
             trackItem.SubItems.Add(item.DisplayText);
-            trackItem.SubItems.Add(item.FileInfo.Duration.ToString("##:###"));
+            trackItem.SubItems.Add(item.FileInfo.Duration.ToString());
             // save playlist item to tag.
             trackItem.Tag = item;
 
             return trackItem;
+        }
+
+        private void toolStripMenuItem1_Click(object sender, System.EventArgs e)
+        {
+            _playList.Delete(PlaylistDeleteFlags.AIMP_PLAYLIST_DELETE_FLAGS_PHYSICALLY, "test", FilterFunc);
+        }
+
+        private bool FilterFunc(IAimpPlaylistItem aimpPlaylistItem, object o)
+        {
+            return true;
         }
     }
 }
