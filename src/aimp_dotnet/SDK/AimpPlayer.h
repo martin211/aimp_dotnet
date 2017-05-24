@@ -65,7 +65,7 @@ namespace AIMP
         IAimpAlbumArtManager^ _artManager;
         IAimpConfigurationManager^ _configManager;
         IWin32Manager ^_win32Manager;
-        IAimpPlayListManager ^_playListManager;
+        IAimpPlaylistManager ^_playListManager;
         IAimpPlaybackQueueService ^_playbackQueueManager;
         IAimpServiceOptionsDialog ^_serviceOptionsDialogManager;
         AimpPlayerState _state;
@@ -77,6 +77,7 @@ namespace AIMP
         IAimpServiceFileInfo ^_serviceFileInfo;
         IAimpServiceFileSystems ^_serviceFileSystems;
         IAimpServiceFileStreaming ^_serviceFileStreaming;
+        IAimpServiceFileInfoFormatter ^_serviceFileInfoFormatter;
 
         EventHandler<AIMP::SDK::Player::StateChangedEventArgs^> ^_onStateChanged;
         EventHandler ^_onLanguageChanged;
@@ -193,9 +194,9 @@ namespace AIMP
             }
         }
 
-        virtual property IAimpPlayListManager ^PlayListManager
+        virtual property IAimpPlaylistManager ^PlaylistManager
         {
-            IAimpPlayListManager ^get()
+            IAimpPlaylistManager ^get()
             {
                 if (_playListManager == nullptr)
                 {
@@ -583,6 +584,19 @@ namespace AIMP
                 }
 
                 return _serviceFileStreaming;
+            }
+        }
+
+        virtual property IAimpServiceFileInfoFormatter ^ServiceFileInfoFormatter
+        {
+            IAimpServiceFileInfoFormatter ^get()
+            {
+                if (_serviceFileInfoFormatter == nullptr)
+                {
+                    //TODO: Complete it
+                }
+
+                return _serviceFileInfoFormatter;
             }
         }
 

@@ -26,7 +26,7 @@ namespace AIMP.SDK.Playlist
         /// <summary>
         /// Gets the group.
         /// </summary>
-        IAimpPlayListGroup Group { get; }
+        IAimpPlaylistGroup Group { get; }
 
         /// <summary>
         /// Gets or sets the absolute item index in the playlist.

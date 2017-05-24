@@ -21,7 +21,7 @@ namespace AIMP
 
         public ref class PlayListManager :
             public AimpBaseManager<IAIMPServicePlaylistManager>,
-            public IAimpPlayListManager,
+            public IAimpPlaylistManager,
             public IAimpExtensionPlaylistManagerListenerExecutor
         {
         private:

@@ -1,21 +1,20 @@
-﻿using AIMP.SDK.FileManager;
+﻿using System;
+
+using AIMP.SDK.ActionManager;
+using AIMP.SDK.AlbumArtManager;
+using AIMP.SDK.ConfigurationManager;
+using AIMP.SDK.MenuManager;
+using AIMP.SDK.MUIManager;
+using AIMP.SDK.Options;
+using AIMP.SDK.Playback;
+using AIMP.SDK.Win32;
+using AIMP.SDK.FileManager;
 using AIMP.SDK.MusicLibrary;
 using AIMP.SDK.Playlist;
 using AIMP.SDK.Threading;
 
 namespace AIMP.SDK.Player
 {
-    using System;
-
-    using AIMP.SDK.ActionManager;
-    using AIMP.SDK.AlbumArtManager;
-    using AIMP.SDK.ConfigurationManager;
-    using AIMP.SDK.MenuManager;
-    using AIMP.SDK.MUIManager;
-    using AIMP.SDK.Options;
-    using AIMP.SDK.Playback;
-    using AIMP.SDK.Win32;
-
     /// <summary>
     /// Player state changed event.
     /// </summary>
@@ -90,7 +89,7 @@ namespace AIMP.SDK.Player
         /// <summary>
         /// Gets the play list manager.
         /// </summary>
-        IAimpPlayListManager PlayListManager { get; }
+        IAimpPlaylistManager PlaylistManager { get; }
 
         /// <summary>
         /// Gets the playback queue manager.
@@ -210,5 +209,10 @@ namespace AIMP.SDK.Player
         IAimpServiceFileSystems ServiceFileSystems { get; }
 
         IAimpServiceFileStreaming ServiceFileStreaming { get; }
+
+        /// <summary>
+        /// Gets the file information formatter service.
+        /// </summary>
+        IAimpServiceFileInfoFormatter ServiceFileInfoFormatter { get; }
     }
 }

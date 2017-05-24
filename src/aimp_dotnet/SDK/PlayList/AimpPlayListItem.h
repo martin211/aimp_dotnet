@@ -21,7 +21,7 @@ namespace AIMP
         public ref class AimpPlaylistItem : public AimpObject<IAIMPPlaylistItem>, public IAimpPlaylistItem
         {
         private:
-            IAimpPlayListGroup^ _group;
+            IAimpPlaylistGroup ^_group;
             bool _disposed;
 
         internal:
@@ -83,9 +83,9 @@ namespace AIMP
                 IAimpFileInfo^ get();
             }
 
-            virtual property IAimpPlayListGroup^ Group
+            virtual property IAimpPlaylistGroup^ Group
             {
-                IAimpPlayListGroup^ get();
+                IAimpPlaylistGroup^ get();
             }
 
             virtual property IAimpPlaylist^ PlayList

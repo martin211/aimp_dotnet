@@ -2,13 +2,13 @@
 
 namespace AIMP.SDK.Playlist
 {
-    public class AimpPlayListEventArgs : EventArgs
+    public class AimpPlaylistEventArgs : EventArgs
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AimpPlayListEventArgs"/> class.
+        /// Initializes a new instance of the <see cref="AimpPlaylistEventArgs"/> class.
         /// </summary>
         /// <param name="playlist">The playlist.</param>
-        public AimpPlayListEventArgs(IAimpPlaylist playlist)
+        public AimpPlaylistEventArgs(IAimpPlaylist playlist)
         {
             Playlist = playlist;
         }

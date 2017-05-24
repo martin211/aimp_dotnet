@@ -125,7 +125,7 @@ namespace AIMP
             return gcnew AimpFileInfo(fileInfo);
         }
 
-        IAimpPlayListGroup^ AimpPlaylistItem::Group::get()
+        IAimpPlaylistGroup^ AimpPlaylistItem::Group::get()
         {
             if (_group == nullptr)
             {

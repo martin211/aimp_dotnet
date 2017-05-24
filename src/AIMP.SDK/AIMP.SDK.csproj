@@ -77,6 +77,7 @@
     <Compile Include="FileManager\Extensions\IAimpExtensionFileSystem.cs" />
     <Compile Include="FileManager\IAimpServiceFileFormats.cs" />
     <Compile Include="FileManager\IAimpServiceFileInfo.cs" />
+    <Compile Include="FileManager\IAimpServiceFileInfoFormatter.cs" />
     <Compile Include="FileManager\IAimpServiceFileInfoFormatterUtils.cs" />
     <Compile Include="FileManager\IAimpServiceFileManager.cs" />
     <Compile Include="FileManager\IAimpServiceFileStreaming.cs" />
@@ -115,6 +116,8 @@
     <Compile Include="MusicLibrary\IAimpServiceMusicLibraryUI.cs" />
     <Compile Include="MusicLibrary\Presets\IAimpGroupingPresetStandard.cs" />
     <Compile Include="Playlist\IAimpPlaylistListener.cs" />
+    <Compile Include="Playlist\IAIMPPlaylistPreimage.cs" />
+    <Compile Include="Playlist\IAimpPlaylistPreimageListener.cs" />
     <Compile Include="Playlist\IAimpPlaylistQueueListener.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Playlist\IAimpExtensionPlaylistManagerListener.cs" />
@@ -152,10 +155,10 @@
     <Compile Include="MenuManager\IAimpServiceMenuManager.cs" />
     <Compile Include="MUIManager\IAimpMUIManager.cs" />
     <Compile Include="FileManager\IAimpFileInfo.cs" />
-    <Compile Include="Playlist\IAimpPlayList.cs" />
-    <Compile Include="Playlist\IAimpPlayListGroup.cs" />
-    <Compile Include="Playlist\IAimpPlayListItem.cs" />
-    <Compile Include="Playlist\IAimpPlayListManager.cs" />
+    <Compile Include="Playlist\IAimpPlaylist.cs" />
+    <Compile Include="Playlist\IAimpPlaylistGroup.cs" />
+    <Compile Include="Playlist\IAimpPlaylistItem.cs" />
+    <Compile Include="Playlist\IAimpPlaylistManager.cs" />
     <Compile Include="Visuals\AimpVisualData.cs" />
     <Compile Include="Visuals\AimpVisualFlags.cs" />
     <Compile Include="Visuals\IAimpExtensionCustomVisualization.cs" />

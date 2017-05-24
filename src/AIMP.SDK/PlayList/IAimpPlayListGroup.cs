@@ -3,7 +3,7 @@
     /// <summary>
     /// The interface describes playlist group that can contains one or more playlist items.
     /// </summary>
-    public interface IAimpPlayListGroup
+    public interface IAimpPlaylistGroup
     {
         /// <summary>
         /// Gets the name.
@@ -11,7 +11,7 @@
         string Name { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="IAimpPlayListGroup"/> is expanded.
+        /// Gets or sets a value indicating whether this <see cref="IAimpPlaylistGroup"/> is expanded.
         /// </summary>
         bool Expanded { get; set; }
 
@@ -26,7 +26,7 @@
         int Index { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="IAimpPlayListGroup"/> is selected.
+        /// Gets or sets a value indicating whether this <see cref="IAimpPlaylistGroup"/> is selected.
         /// </summary>
         bool Selected { get; set; }
 

@@ -8,7 +8,7 @@
     public delegate void PlayListHandler(string playlistName, string playlistId);
 
     /// <summary>
-    /// This is extension for <see cref="IAimpPlayListManager"/> service, provides an ability to receive notifications about the changes in manager.
+    /// This is extension for <see cref="IAimpPlaylistManager"/> service, provides an ability to receive notifications about the changes in manager.
     /// </summary>
     public interface IAimpExtensionPlaylistManagerListener
     {

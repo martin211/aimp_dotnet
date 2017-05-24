@@ -16,6 +16,7 @@ namespace AIMP
     {
         using namespace System;
         using namespace System::Collections::Generic;
+        using namespace System::Runtime::InteropServices;
 
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::Playlist;
@@ -77,7 +78,8 @@ namespace AIMP
             public IPlayListListnerExecutor
         {
         private:
-            Func<IAimpPlaylistItem^, IAimpPlaylistItem^, PlaylistSortComapreResult>^ _compareFunc;
+            Func<IAimpPlaylistItem^, IAimpPlaylistItem^, Object^, PlaylistSortComapreResult>^ _compareFunc;
+            Func<IAimpPlaylistItem^, Object^, bool> ^_deleteFilterFunc;
             PlayListChangedHandler ^_onChanged;
             AimpPlayListHandler ^_onActivated;
             AimpPlayListHandler ^_onRemoved;
@@ -245,35 +247,17 @@ namespace AIMP
                 void set(String ^value);
             }
 
-            virtual void OnChanged(DWORD flags)
-            {
-                this->Changed(this, (PlaylistNotifyType)flags);
-            }
+            virtual void OnChanged(DWORD flags);
 
-            virtual void OnActivated()
-            {
-                this->Activated(this);
-            }
+            virtual void OnActivated();
 
-            virtual void OnRemoved()
-            {
-                this->Removed(this);
-            }
+            virtual void OnRemoved();
 
-            virtual void OnScanningBegin()
-            {
-                this->ScanningBegin(this);
-            }
+            virtual void OnScanningBegin();
 
-            virtual void OnScanningProgress(const double progress)
-            {
-                this->ScanningProgress(this, gcnew ScanningProgressEventArgs(progress));
-            }
+            virtual void OnScanningProgress(const double progress);
 
-            virtual void OnScanningEnd(bool hasChanges, bool canceled)
-            {
-                this->ScanningEnd(this, gcnew ScanningEndEventArgs(hasChanges, canceled));
-            }
+            virtual void OnScanningEnd(bool hasChanges, bool canceled);
 
         public:
             virtual AimpActionResult Add(IAimpFileInfo^ fileInfo, PlaylistFlags flags, PlaylistFilePosition filePosition);
@@ -290,9 +274,13 @@ namespace AIMP
 
             virtual AimpActionResult DeleteAll();
 
+            virtual AimpActionResult Delete(PlaylistDeleteFlags deleteFlags, System::Object ^customFilterData, System::Func<IAimpPlaylistItem^, System::Object^, bool> ^filterFunc);
+
             virtual AimpActionResult Sort(PlaylistSort sort);
 
-            virtual AimpActionResult Sort(System::Func<IAimpPlaylistItem^, IAimpPlaylistItem^, PlaylistSortComapreResult>^ compareFunc);
+            virtual AimpActionResult Sort(Object ^customSortData, Func<IAimpPlaylistItem^, IAimpPlaylistItem^, Object^, PlaylistSortComapreResult>^ compareFunc);
+
+            virtual AimpActionResult Sort(String ^templateString);
 
             virtual AimpActionResult BeginUpdate();
 
@@ -310,9 +298,11 @@ namespace AIMP
 
             virtual int GetItemCount();
 
-            virtual IAimpPlayListGroup ^GetGroup(int index);
+            virtual IAimpPlaylistGroup ^GetGroup(int index);
 
             virtual int GetGroupCount();
+
+            virtual AimpActionResult MergeGroup(IAimpPlaylistGroup ^playlistGroup);
 
             virtual event AimpPlayListHandler ^Activated
             {
@@ -362,16 +352,14 @@ namespace AIMP
 
             void RegisterListner();
 
-            delegate int OnSortCallback(IAIMPPlaylistItem* item1, IAIMPPlaylistItem* item2, void* userData);
-            OnSortCallback^ _sortCallback;
+            delegate int OnSortCallback(IAIMPPlaylistItem *item1, IAIMPPlaylistItem *item2, void *userData);
+            delegate bool OnDeleteCallback(IAIMPPlaylistItem *item1, void *customFilterData);
+            OnSortCallback ^_sortCallback;
+            OnDeleteCallback ^_deleteCallback;
 
-            int OnSortReceive(IAIMPPlaylistItem* item1, IAIMPPlaylistItem* item2, void* userData)
-            {
-                System::Diagnostics::Debugger::Break();
-                PWCHAR sp = (PWCHAR)userData;
-                //delete sp;
-                return (int)_compareFunc(gcnew AimpPlaylistItem(item1), gcnew AimpPlaylistItem(item2));
-            }
+            int OnSortReceive(IAIMPPlaylistItem* item1, IAIMPPlaylistItem* item2, void* userData);
+
+            bool OnDeleteReceive(IAIMPPlaylistItem *item1, void *customFilterData);
         };
     }
 }
