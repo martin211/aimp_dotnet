@@ -1,4 +1,15 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+using System;
 
 namespace AIMP.SDK.Playlist
 {
@@ -6,29 +17,30 @@ namespace AIMP.SDK.Playlist
 
     public delegate void AimpPlayListHandler(IAimpPlaylist sender);
 
-    public delegate void AimpPlayListHandler<in TEventArgs>(IAimpPlaylist sender, TEventArgs args) where TEventArgs : EventArgs;
+    public delegate void AimpPlayListHandler<in TEventArgs>(IAimpPlaylist sender, TEventArgs args)
+        where TEventArgs : EventArgs;
 
     public class ScanningProgressEventArgs : EventArgs
     {
-        public double Progress { get; }
-
         public ScanningProgressEventArgs(double progress)
         {
             Progress = progress;
         }
+
+        public double Progress { get; }
     }
 
     public class ScanningEndEventArgs : EventArgs
     {
-        public bool HasChanges { get; }
-
-        public bool Canceled { get; }
-
         public ScanningEndEventArgs(bool hasChanges, bool canceled)
         {
             HasChanges = hasChanges;
             Canceled = canceled;
         }
+
+        public bool HasChanges { get; }
+
+        public bool Canceled { get; }
     }
 
     /// <summary>

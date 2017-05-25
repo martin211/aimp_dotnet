@@ -1,4 +1,15 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -9,14 +20,14 @@ namespace AIMP.SDK
     {
         private static string curPath;
         private static bool isInited;
- 
+
         /// <summary>
         /// Initializes the specified path.
         /// </summary>
         /// <param name="path">The path.</param>
         public static void Initialize(string path)
         {
-            curPath = path +"\\";
+            curPath = path + "\\";
             if (!isInited)
             {
                 AppDomain.CurrentDomain.AssemblyResolve += CurrentDomainAssemblyResolve;
@@ -48,7 +59,9 @@ namespace AIMP.SDK
                     return result;
                 }
 
-                var assemblyPath = Directory.EnumerateFiles(projectDir, shortAssemblyName + ".dll", SearchOption.AllDirectories).FirstOrDefault();
+                var assemblyPath = Directory.EnumerateFiles(projectDir, shortAssemblyName + ".dll",
+                        SearchOption.AllDirectories)
+                    .FirstOrDefault();
                 if (assemblyPath != null)
                 {
                     return Assembly.LoadFrom(assemblyPath);

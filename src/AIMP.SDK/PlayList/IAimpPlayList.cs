@@ -1,4 +1,15 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using AIMP.SDK.FileManager;
 
@@ -29,7 +40,7 @@ namespace AIMP.SDK.Playlist
     }
 
     public enum PlaylistFilePosition
-    { 
+    {
         /// <summary>
         /// Adding the records to random position
         /// </summary>
@@ -60,10 +71,12 @@ namespace AIMP.SDK.Playlist
     public enum PlaylistCloseFlag
     {
         None = 0,
+
         /// <summary>
         /// Ignores current settings and remove playlist from disk after closing.
         /// </summary>
         ForceRemove = 1,
+
         /// <summary>
         /// Ignores current settings and not remove playlist from disk after closing.
         /// </summary>
@@ -78,6 +91,7 @@ namespace AIMP.SDK.Playlist
         SelectedOnly = 0x1,
 
         VisibleOnly = 0x2,
+
         /// <summary>
         /// In this case, the file-container will be added to the list if playlist item is virtual file.
         /// </summary>
@@ -102,7 +116,7 @@ namespace AIMP.SDK.Playlist
         /// <summary>
         /// Selected items has been changed.
         /// </summary>
-        AIMP_PLAYLIST_NOTIFY_SELECTION      = 2,
+        AIMP_PLAYLIST_NOTIFY_SELECTION = 2,
 
         /// <summary>
         /// Playback focus has been changed.
@@ -112,27 +126,27 @@ namespace AIMP.SDK.Playlist
         /// <summary>
         /// Read only flag has been changed.
         /// </summary>
-        AIMP_PLAYLIST_NOTIFY_READONLY       = 8,
+        AIMP_PLAYLIST_NOTIFY_READONLY = 8,
 
         /// <summary>
         /// Record focus has been changed.
         /// </summary>
-        AIMP_PLAYLIST_NOTIFY_FOCUSINDEX     = 16,
+        AIMP_PLAYLIST_NOTIFY_FOCUSINDEX = 16,
 
         /// <summary>
         /// Changed records order.
         /// </summary>
-        AIMP_PLAYLIST_NOTIFY_CONTENT        = 32,
+        AIMP_PLAYLIST_NOTIFY_CONTENT = 32,
 
         /// <summary>
         /// Information about one or more files has been changed.
         /// </summary>
-        AIMP_PLAYLIST_NOTIFY_FILEINFO       = 64,
+        AIMP_PLAYLIST_NOTIFY_FILEINFO = 64,
 
         /// <summary>
         /// Statistic for one or more files has been changed.
         /// </summary>
-        AIMP_PLAYLIST_NOTIFY_STATISTICS     = 128,
+        AIMP_PLAYLIST_NOTIFY_STATISTICS = 128,
 
         /// <summary>
         /// Changed auto play switch.
@@ -142,7 +156,7 @@ namespace AIMP.SDK.Playlist
         /// <summary>
         /// Path to pre image has been changed.
         /// </summary>
-        AIMP_PLAYLIST_NOTIFY_PREIMAGE       = 512
+        AIMP_PLAYLIST_NOTIFY_PREIMAGE = 512
     }
 
     [Flags]
@@ -152,10 +166,12 @@ namespace AIMP.SDK.Playlist
         /// Information will be updated for files that does not have it.
         /// </summary>
         AIMP_PLAYLIST_RELOADINFO_FLAGS_DEFAULT,
+
         /// <summary>
         /// Information will be updated for all files.
         /// </summary>
         AIMP_PLAYLIST_RELOADINFO_FLAGS_FULL,
+
         /// <summary>
         /// Information will be updated for selected files.
         /// </summary>
@@ -371,7 +387,8 @@ namespace AIMP.SDK.Playlist
         /// <param name="flags">The <see cref="PlaylistFlags" />.</param>
         /// <param name="filePosition">The file position <see cref="PlaylistFilePosition" />.</param>
         /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult AddList(IList<IAimpFileInfo> fileUrlList, PlaylistFlags flags, PlaylistFilePosition filePosition);
+        AimpActionResult AddList(IList<IAimpFileInfo> fileUrlList, PlaylistFlags flags,
+            PlaylistFilePosition filePosition);
 
         /// <summary>
         /// Deletes the specified item.
@@ -394,7 +411,8 @@ namespace AIMP.SDK.Playlist
         /// <param name="customFilterData">Some additional data that will be passed to the filter function.</param>
         /// <param name="filterFunc">The filter function. Should return true to delete item.</param>
         /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Delete(PlaylistDeleteFlags deleteFlags, object customFilterData, Func<IAimpPlaylistItem, object, bool> filterFunc);
+        AimpActionResult Delete(PlaylistDeleteFlags deleteFlags, object customFilterData,
+            Func<IAimpPlaylistItem, object, bool> filterFunc);
 
         /// <summary>
         /// Deletes all items.
@@ -424,7 +442,8 @@ namespace AIMP.SDK.Playlist
         /// <returns>
         /// The <see cref="AimpActionResult" /> result.
         /// </returns>
-        AimpActionResult Sort(object customCompareData, Func<IAimpPlaylistItem, IAimpPlaylistItem, object, PlaylistSortComapreResult> compareFunc);
+        AimpActionResult Sort(object customCompareData,
+            Func<IAimpPlaylistItem, IAimpPlaylistItem, object, PlaylistSortComapreResult> compareFunc);
 
         /// <summary>
         /// Method blocks all notifications until EndUpdate is called.

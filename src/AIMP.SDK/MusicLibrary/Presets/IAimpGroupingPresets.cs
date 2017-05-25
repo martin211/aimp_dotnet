@@ -1,4 +1,15 @@
-﻿using System.Collections.Generic;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+using System.Collections.Generic;
 using AIMP.SDK.MusicLibrary.DataStorage;
 
 namespace AIMP.SDK.MusicLibrary.Presets
@@ -16,7 +27,8 @@ namespace AIMP.SDK.MusicLibrary.Presets
         /// <param name="provider">Custom data provider <seealso cref="IAimpGroupingTreeDataProvider"/>.</param>
         /// <param name="preset">Created preset <seealso cref="IAimpGroupingPreset"/>.</param>
         /// <returns>The operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult Add(string id, string name, IAimpGroupingTreeDataProvider provider, out IAimpGroupingPreset preset);
+        AimpActionResult Add(string id, string name, IAimpGroupingTreeDataProvider provider,
+            out IAimpGroupingPreset preset);
 
         /// <summary>
         /// Adds new grouping template with default data provider.

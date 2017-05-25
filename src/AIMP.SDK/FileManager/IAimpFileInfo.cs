@@ -1,4 +1,15 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+using System;
 using System.Drawing;
 
 namespace AIMP.SDK.FileManager
@@ -80,17 +91,17 @@ namespace AIMP.SDK.FileManager
         /// Gets or sets the copy right.
         /// </summary>
         string CopyRight { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the cue sheet.
         /// </summary>
         string CUESheet { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the date.
         /// </summary>
         string Date { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the disk number.
         /// </summary>
@@ -110,7 +121,7 @@ namespace AIMP.SDK.FileManager
         /// Gets or sets the name of the file.
         /// </summary>
         string FileName { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the size of the file.
         /// </summary>
@@ -135,12 +146,12 @@ namespace AIMP.SDK.FileManager
         /// Gets or sets the publisher.
         /// </summary>
         string Publisher { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the sample rate.
         /// </summary>
         int SampleRate { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
@@ -170,31 +181,36 @@ namespace AIMP.SDK.FileManager
         /// Gets or sets the URL.
         /// </summary>
         string URL { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the added date.
         /// </summary>
         double AddedDate { get; }
-        
+
         /// <summary>
         /// Gets or sets the last played date.
         /// </summary>
         double LastPlayedDate { get; }
-        
+
         /// <summary>
         /// Gets or sets the stat mark.
         /// </summary>
         double StatMark { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the play count.
         /// </summary>
         int PlayCount { get; }
- 
+
         /// <summary>
         /// Gets or sets the state rating.
         /// </summary>
         double StateRating { get; }
+
+        /// <summary>
+        /// Gets or sets the album art.
+        /// </summary>
+        Bitmap AlbumArt { get; set; }
 
         /// <summary>
         /// Copies all properties from source.
@@ -205,10 +221,5 @@ namespace AIMP.SDK.FileManager
         /// Clones this instance.
         /// </summary>
         IAimpFileInfo Clone();
-
-        /// <summary>
-        /// Gets or sets the album art.
-        /// </summary>
-        Bitmap AlbumArt { get; set; }
     }
 }

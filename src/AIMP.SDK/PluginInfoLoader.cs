@@ -1,4 +1,15 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -41,7 +52,7 @@ namespace AIMP.SDK
         /// Path to the plugin folder where additional dependencies will be searched for.
         /// </summary>
         private string _probePath;
-        
+
         /// <summary>
         /// In case one of plugin dependencies is required during its load and cannot be found in GAC,
         /// this event handler gets executes by the .NET Framework.
@@ -105,7 +116,7 @@ namespace AIMP.SDK
                             .Where(o => pluginDeriveType.IsAssignableFrom(o)
                                         && o.GetCustomAttributes(attribForPlugin, false).Length == 1))
                         {
-                            var curAttr = (AimpPluginAttribute)plgType.GetCustomAttributes(attribForPlugin, false)[0];
+                            var curAttr = (AimpPluginAttribute) plgType.GetCustomAttributes(attribForPlugin, false)[0];
                             System.Diagnostics.Debug.WriteLine("Load plugin: " + curAsmbl.FullName);
 
                             curAttr.IsExternalSettingsDialog = externalSettingsDialog.IsAssignableFrom(plgType);
@@ -124,7 +135,6 @@ namespace AIMP.SDK
                     }
                     catch
                     {
-                        
                     }
                 }
             }
@@ -147,10 +157,13 @@ namespace AIMP.SDK
 
             try
             {
-                AppDomainSetup domainSet = new AppDomainSetup { ApplicationBase = path };
-                loadDomain = AppDomain.CreateDomain("PluginLoadDomain" + new Guid().ToString().GetHashCode().ToString("x"), null, domainSet);
+                AppDomainSetup domainSet = new AppDomainSetup {ApplicationBase = path};
+                loadDomain = AppDomain.CreateDomain(
+                    "PluginLoadDomain" + new Guid().ToString().GetHashCode().ToString("x"), null, domainSet);
 
-                PluginLoadingStrategy strat = (PluginLoadingStrategy)loadDomain.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName, LoadStrategyType.FullName);
+                PluginLoadingStrategy strat =
+                    (PluginLoadingStrategy) loadDomain.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName,
+                        LoadStrategyType.FullName);
 
                 var plugin = strat.Load(path);
                 if (plugin.PluginLocInfo == null)
@@ -160,7 +173,8 @@ namespace AIMP.SDK
 
                 return new AimpDotNetPlugin
                 {
-                    PluginInformation = new PluginInformation(plugin.AssemblyFileName, plugin.AssemblyFullName, plugin.ClassName, plugin.PluginLocInfo),
+                    PluginInformation = new PluginInformation(plugin.AssemblyFileName, plugin.AssemblyFullName,
+                        plugin.ClassName, plugin.PluginLocInfo),
                     Author = plugin.PluginLocInfo.Author,
                     Description = plugin.PluginLocInfo.Description,
                     FullDescription = plugin.PluginLocInfo.FullDescription,
@@ -169,7 +183,7 @@ namespace AIMP.SDK
                 };
             }
 #if DEBUG
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Windows.Forms.MessageBox.Show(e.Message);
             }

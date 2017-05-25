@@ -1,4 +1,15 @@
-﻿namespace AIMP.SDK.MusicLibrary.DataFilter
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+namespace AIMP.SDK.MusicLibrary.DataFilter
 {
     public enum FilterGroupOperationType
     {
@@ -23,7 +34,8 @@
         /// <param name="value2">The value2.</param>
         /// <param name="operation">The rule processing results from subsidiaries filters.</param>
         /// <param name="filter">[out] The added filter.</param>
-        AimpActionResult Add(string field, object value1, object value2, FieldFilterOperationType operation, out IAimpDataFieldFilter filter);
+        AimpActionResult Add(string field, object value1, object value2, FieldFilterOperationType operation,
+            out IAimpDataFieldFilter filter);
 
         AimpActionResult Add(string field, object[] values, int count, out IAimpDataFieldFilterByArray filter);
 

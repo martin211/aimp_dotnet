@@ -1,9 +1,19 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+using System;
 
 namespace AIMP.SDK.MenuManager
 {
     using System.Drawing;
-
     using ActionManager;
 
     /// <summary>
@@ -15,10 +25,12 @@ namespace AIMP.SDK.MenuManager
         /// The normal menu item.
         /// </summary>
         Normal,
+
         /// <summary>
         /// The CheckBox menu item.
         /// </summary>
         CheckBox,
+
         /// <summary>
         /// The radio box menu item.
         /// </summary>

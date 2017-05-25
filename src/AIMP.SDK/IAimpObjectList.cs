@@ -1,4 +1,15 @@
-﻿using System.Collections.Generic;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+using System.Collections.Generic;
 
 namespace AIMP.SDK
 {
@@ -8,6 +19,8 @@ namespace AIMP.SDK
     /// <typeparam name="TObject">The type of elements in the list.</typeparam>
     public interface IAimpObjectList<TObject>
     {
+        int Count { get; }
+
         /// <summary>
         /// Adds an item to the collection.
         /// </summary>
@@ -35,8 +48,6 @@ namespace AIMP.SDK
         /// <param name="item">The object to insert into the collection.</param>
         /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult Insert(int index, TObject item);
-
-        int Count { get; }
 
         /// <summary>
         /// Gets the element at the specified index.

@@ -1,4 +1,15 @@
-﻿namespace AIMP.SDK.Visuals
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+namespace AIMP.SDK.Visuals
 {
     /// <summary>
     /// This structure contains visualization data that needed for frame rendering.

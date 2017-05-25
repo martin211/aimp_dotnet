@@ -1,4 +1,15 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+using System;
 
 namespace AIMP.SDK.MusicLibrary.DataStorage
 {
@@ -59,7 +70,8 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         public const string AIMPML_RESERVED_FIELD_DURATION = "Duration"; // double, in seconds
         public const string AIMPML_RESERVED_FIELD_USERMARK = "UserMark"; // double, 0.0 .. 5.0
 
-        public AimpDataField(string name, AimpDataFieldType type, AimpDataFieldFlagsType flags = AimpDataFieldFlagsType.None)
+        public AimpDataField(string name, AimpDataFieldType type,
+            AimpDataFieldFlagsType flags = AimpDataFieldFlagsType.None)
         {
             Name = name;
             Type = type;

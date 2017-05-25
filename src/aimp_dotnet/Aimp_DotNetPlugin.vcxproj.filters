@@ -467,9 +467,6 @@
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h">
       <Filter>Header Files\SDK\MusicLibrary</Filter>
     </ClInclude>
-    <ClInclude Include="AIMPSDK\AIMP400\apiMusicLibrary.h">
-      <Filter>Header Files\SDK\MusicLibrary</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibrary.h">
       <Filter>Header Files\SDK\MusicLibrary</Filter>
     </ClInclude>
@@ -658,6 +655,9 @@
     </ClInclude>
     <ClInclude Include="SDK\Action\AimpActionEvent.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiMusicLibrary.h">
+      <Filter>Header Files\AIMPSDK\AIMP4</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

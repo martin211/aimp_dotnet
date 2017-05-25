@@ -1,4 +1,15 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -9,65 +20,15 @@ namespace AIMP.SDK.Logger
     /// </summary>
     public class Logger : IDisposable, ILogger
     {
-        internal class Log
-        {
-            /// <summary>
-            /// Gets or sets the message.
-            /// </summary>
-            /// <value>
-            /// The message.
-            /// </value>
-            public string Message { get; set; }
-
-            /// <summary>
-            /// Gets or sets the log time.
-            /// </summary>
-            /// <value>
-            /// The log time.
-            /// </value>
-            public string LogTime { get; set; }
-
-            /// <summary>
-            /// Gets or sets the log date.
-            /// </summary>
-            /// <value>
-            /// The log date.
-            /// </value>
-            public string LogDate { get; set; }
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Log"/> class.
-            /// </summary>
-            /// <param name="message">The message.</param>
-            public Log(string message)
-            {
-                Message = message;
-                LogDate = DateTime.Now.ToString("yyyy-MM-dd");
-                LogTime = DateTime.Now.ToString("hh:mm:ss.fff tt");
-            }
-        }
-
         private static Queue<Log> _logQueue;
-        private string _logDir;
-        private string _fileName;
         private static int _maxLogAge = 10;
         private static int _queueSize = 10;
         private static DateTime lastFlushed = DateTime.Now;
-        private bool _initialized;
         private bool _disposed;
         private string _fileLogPath;
-
-
-        /// <summary>
-        /// Finalizes an instance of the <see cref="Logger"/> class.
-        /// </summary>
-        ~Logger()
-        {
-            if (!_disposed)
-            {
-                FlushLog();
-            }
-        }
+        private string _fileName;
+        private bool _initialized;
+        private string _logDir;
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -84,6 +45,36 @@ namespace AIMP.SDK.Logger
         public void Close()
         {
             Dispose();
+        }
+
+        /// <summary>
+        /// Writes to log.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public void Write(string message)
+        {
+            WriteToLog(message);
+        }
+
+        /// <summary>
+        /// Writes the specified exception.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        public void Write(Exception exception)
+        {
+            WriteToLog(exception.ToString());
+        }
+
+
+        /// <summary>
+        /// Finalizes an instance of the <see cref="Logger"/> class.
+        /// </summary>
+        ~Logger()
+        {
+            if (!_disposed)
+            {
+                FlushLog();
+            }
         }
 
         /// <summary>
@@ -106,31 +97,13 @@ namespace AIMP.SDK.Logger
             }
         }
 
-        /// <summary>
-        /// Writes to log.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        public void Write(string message)
-        {
-            WriteToLog(message);
-        }
-
-        /// <summary>
-        /// Writes the specified exception.
-        /// </summary>
-        /// <param name="exception">The exception.</param>
-        public void Write(Exception exception)
-        {
-            WriteToLog(exception.ToString());
-        }
-
         private void WriteToLog(string message)
         {
             if (!_initialized)
             {
                 throw new ApplicationException("Logger has not been initialized.");
             }
-            
+
             // Lock the queue while writing to prevent contention for the log file
             lock (_logQueue)
             {
@@ -143,7 +116,7 @@ namespace AIMP.SDK.Logger
                 {
                     FlushLog();
                 }
-            }   
+            }
         }
 
         private bool DoPeriodicFlush()
@@ -171,6 +144,44 @@ namespace AIMP.SDK.Logger
                     }
                 }
             }
+        }
+
+        internal class Log
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Log"/> class.
+            /// </summary>
+            /// <param name="message">The message.</param>
+            public Log(string message)
+            {
+                Message = message;
+                LogDate = DateTime.Now.ToString("yyyy-MM-dd");
+                LogTime = DateTime.Now.ToString("hh:mm:ss.fff tt");
+            }
+
+            /// <summary>
+            /// Gets or sets the message.
+            /// </summary>
+            /// <value>
+            /// The message.
+            /// </value>
+            public string Message { get; set; }
+
+            /// <summary>
+            /// Gets or sets the log time.
+            /// </summary>
+            /// <value>
+            /// The log time.
+            /// </value>
+            public string LogTime { get; set; }
+
+            /// <summary>
+            /// Gets or sets the log date.
+            /// </summary>
+            /// <value>
+            /// The log date.
+            /// </value>
+            public string LogDate { get; set; }
         }
     }
 }
