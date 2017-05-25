@@ -1,10 +1,22 @@
-﻿using System.Collections.Generic;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+using System.Collections.Generic;
 
 namespace AIMP.SDK
 {
     /// <summary>
-    /// Plugins inforamtion collection.
+    /// Plugins information collection.
     /// </summary>
+    // TODO: replace on one instance
     public class DotNetPluginInfo : ICollection<PluginInformation>
     {
         private readonly List<PluginInformation> _inPluginsList;
@@ -53,20 +65,6 @@ namespace AIMP.SDK
             _inPluginsList.Add(item);
             item.PluginLoadEvent += item_PluginLoadEvent;
             item.PluginUnloadEvent += item_PluginUnloadEvent;
-        }
-
-        /// <summary>
-        /// Adds the range.
-        /// </summary>
-        /// <param name="col">The col.</param>
-        public void AddRange(IEnumerable<PluginInformation> col)
-        {
-            _inPluginsList.AddRange(col);
-            foreach (PluginInformation item in col)
-            {
-                item.PluginLoadEvent += item_PluginLoadEvent;
-                item.PluginUnloadEvent += item_PluginUnloadEvent;
-            }
         }
 
         /// <summary>
@@ -164,6 +162,20 @@ namespace AIMP.SDK
         }
 
         /// <summary>
+        /// Adds the range.
+        /// </summary>
+        /// <param name="col">The col.</param>
+        public void AddRange(IEnumerable<PluginInformation> col)
+        {
+            _inPluginsList.AddRange(col);
+            foreach (PluginInformation item in col)
+            {
+                item.PluginLoadEvent += item_PluginLoadEvent;
+                item.PluginUnloadEvent += item_PluginUnloadEvent;
+            }
+        }
+
+        /// <summary>
         /// Unloads all.
         /// </summary>
         public void UnloadAll()
@@ -186,7 +198,7 @@ namespace AIMP.SDK
         /// Item_s the plugin load event.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        void item_PluginLoadEvent(PluginInformation sender)
+        private void item_PluginLoadEvent(PluginInformation sender)
         {
             if (PluginLoadEvent != null)
             {
@@ -198,7 +210,7 @@ namespace AIMP.SDK
         /// Item_s the plugin unload event.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        void item_PluginUnloadEvent(PluginInformation sender)
+        private void item_PluginUnloadEvent(PluginInformation sender)
         {
             if (PluginUnloadEvent != null)
             {

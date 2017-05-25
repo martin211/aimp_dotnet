@@ -1,4 +1,15 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+using System;
 
 namespace AIMP.SDK
 {
@@ -20,11 +31,20 @@ namespace AIMP.SDK
     /// </summary>
     public abstract class AimpPlugin : MarshalByRefObject, IAimpPlugin
     {
+        public IAimpPlayer AimpPlayer;
+
+        /// <summary>
+        /// Gets or sets the plugin identifier.
+        /// </summary>
+        public int PluginId { get; set; }
+
+        public IAimpPlayer Player => AimpPlayer;
+
         /// <summary>
         /// Inside this function, plugin should perform all initialization
         /// </summary>
         public abstract void Initialize();
-        
+
         /// <summary>
         /// Inside this function, plugin should dispose all resources
         /// </summary>
@@ -54,14 +74,5 @@ namespace AIMP.SDK
             AimpPlayer = player;
             Initialize();
         }
-
-        /// <summary>
-        /// Gets or sets the plugin identifier.
-        /// </summary>
-        public int PluginId { get; set; }
-
-        public IAimpPlayer AimpPlayer;
-
-        public IAimpPlayer Player => AimpPlayer;
     }
 }

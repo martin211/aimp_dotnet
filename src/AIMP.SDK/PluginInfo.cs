@@ -1,10 +1,21 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+using System;
 using System.IO;
 using System.Linq;
 
 namespace AIMP.SDK
 {
-    using AIMP.SDK.Player;
+    using Player;
 
     /// <summary>
     /// 
@@ -19,10 +30,7 @@ namespace AIMP.SDK
     {
         private static int _curUniquePluginId = 100;
 
-        private static int GetNewUniqPluginId()
-        {   
-            return System.Threading.Interlocked.Increment(ref _curUniquePluginId);
-        }
+        private readonly FileInfo _inPathToAssembly;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PluginInformation" /> class.
@@ -31,7 +39,8 @@ namespace AIMP.SDK
         /// <param name="assemblyName">Name of the assembly.</param>
         /// <param name="className">Name of the class.</param>
         /// <param name="pluginAttribute">The plugin attribute.</param>
-        public PluginInformation(FileInfo assemblyPath, string assemblyName, string className, AimpPluginAttribute pluginAttribute)
+        public PluginInformation(FileInfo assemblyPath, string assemblyName, string className,
+            AimpPluginAttribute pluginAttribute)
         {
             _inPathToAssembly = assemblyPath;
             PluginClassName = className;
@@ -47,7 +56,8 @@ namespace AIMP.SDK
         /// <param name="assemblyName">Name of the assembly.</param>
         /// <param name="className">Name of the class.</param>
         /// <param name="pluginAttribute">The plugin attribute.</param>
-        public PluginInformation(string assemblyPath, string assemblyName, string className, AimpPluginAttribute pluginAttribute)
+        public PluginInformation(string assemblyPath, string assemblyName, string className,
+            AimpPluginAttribute pluginAttribute)
         {
             _inPathToAssembly = new FileInfo(assemblyPath);
             PluginClassName = className;
@@ -56,74 +66,62 @@ namespace AIMP.SDK
             LoadedPlugin = null;
         }
 
-        private readonly FileInfo _inPathToAssembly;
-
 
         /// <summary>
         /// Gets the name of the assembly file.
         /// </summary>
         public string AssemblyFileName
         {
-            get
-            {
-                return _inPathToAssembly.Name;
-            }
+            get { return _inPathToAssembly.Name; }
         }
 
         /// <summary>
         /// Gets the name of the plugin assembly.
         /// </summary>
-        public string PluginAssemblyName
-        {
-            get;
-            private set;
-        }
+        public string PluginAssemblyName { get; private set; }
 
         /// <summary>
         /// Gets the name of the plugin class.
         /// </summary>
-        public string PluginClassName
-        {
-            get;
-            private set;
-        }
+        public string PluginClassName { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether this plugin is loaded.
         /// </summary>
         public bool IsLoaded
         {
-            get
-            {
-                return LoadedPlugin != null;
-            }
+            get { return LoadedPlugin != null; }
         }
 
         /// <summary>
         /// Gets the plugin information.
         /// </summary>
-        public AimpPluginAttribute PluginInfo
-        {
-            get;
-            private set;
-        }
+        public AimpPluginAttribute PluginInfo { get; private set; }
 
         /// <summary>
         /// Gets the loaded plugin.
         /// </summary>
-        public AimpPlugin LoadedPlugin
-        {
-            get;
-            private set;
-        }
+        public AimpPlugin LoadedPlugin { get; private set; }
 
         /// <summary>
         /// Gets the plugin application domain information (null = current doamin).
         /// </summary>
-        public AppDomain PluginAppDomainInfo
+        public AppDomain PluginAppDomainInfo { get; private set; }
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
         {
-            get;
-            private set;
+            if (IsLoaded)
+            {
+                Unload();
+            }
+        }
+
+        private static int GetNewUniqPluginId()
+        {
+            return System.Threading.Interlocked.Increment(ref _curUniquePluginId);
         }
 
         /// <summary>
@@ -145,17 +143,22 @@ namespace AIMP.SDK
             if (!IsLoaded)
             {
                 if (PluginInfo.RequireAppDomain) // need domain
-                { 
+                {
                     try
                     {
                         AppDomainSetup dmnSetup = new AppDomainSetup
                         {
-                            ApplicationName = PluginInfo.Name, 
+                            ApplicationName = PluginInfo.Name,
                             ApplicationBase = _inPathToAssembly.DirectoryName
                         };
 
-                        PluginAppDomainInfo = AppDomain.CreateDomain(PluginInfo.Name + "_domain" + Guid.NewGuid().ToString().GetHashCode().ToString("x"), null, dmnSetup);
-                        LoadedPlugin = (AimpPlugin)PluginAppDomainInfo.CreateInstanceFromAndUnwrap(_inPathToAssembly.FullName, PluginClassName);
+                        PluginAppDomainInfo =
+                            AppDomain.CreateDomain(
+                                PluginInfo.Name + "_domain" + Guid.NewGuid().ToString().GetHashCode().ToString("x"),
+                                null, dmnSetup);
+                        LoadedPlugin =
+                            (AimpPlugin) PluginAppDomainInfo.CreateInstanceFromAndUnwrap(_inPathToAssembly.FullName,
+                                PluginClassName);
                     }
                     catch (Exception ex)
                     {
@@ -172,11 +175,12 @@ namespace AIMP.SDK
                     }
                 }
                 else
-                {  
+                {
                     System.Reflection.Assembly asm = null;
                     try
-                    { 
-                        asm = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(o => o.FullName == PluginAssemblyName);
+                    {
+                        asm = AppDomain.CurrentDomain.GetAssemblies()
+                            .FirstOrDefault(o => o.FullName == PluginAssemblyName);
                     }
                     catch (Exception ex)
                     {
@@ -188,7 +192,7 @@ namespace AIMP.SDK
                     if (asm == null)
                     {
                         try
-                        {  
+                        {
                             asm = System.Reflection.Assembly.LoadFrom(_inPathToAssembly.FullName);
                         }
                         catch (Exception ex)
@@ -202,9 +206,9 @@ namespace AIMP.SDK
                     if (asm != null)
                     {
                         try
-                        {  
+                        {
                             Type instType = asm.GetType(PluginClassName);
-                            LoadedPlugin = (AimpPlugin)Activator.CreateInstance(instType);
+                            LoadedPlugin = (AimpPlugin) Activator.CreateInstance(instType);
                         }
                         catch (Exception ex)
                         {
@@ -292,17 +296,6 @@ namespace AIMP.SDK
             if (IsLoaded)
             {
                 LoadedPlugin.OnInitialize(player, LoadedPlugin.PluginId);
-            }
-        }
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            if (IsLoaded)
-            {
-                Unload();
             }
         }
     }

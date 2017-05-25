@@ -1,70 +1,18 @@
-﻿namespace AIMP.SDK
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+namespace AIMP.SDK
 {
     public static class AimpMessages
     {
-        private const int AIMP_MSG_CMD_BASE = 0;
-
-        private const int BaseEvent = 0x2000;
-
-        private const int AIMP_MSG_PROPERTY_BASE = 0x1000;
-
-        
-        /// <summary>
-        /// Path type.
-        /// </summary>
-        public enum AimpCorePathType
-        {
-            /// <summary>
-            /// Path to audiolibrary.
-            /// </summary>
-            AIMP_CORE_PATH_AUDIOLIBRARY = 6,
-
-            /// <summary>
-            /// Path to encoders.
-            /// </summary>
-            AIMP_CORE_PATH_ENCODERS = 8,
-
-            /// <summary>
-            /// Path to help files.
-            /// </summary>
-            AIMP_CORE_PATH_HELP = 9,
-
-            /// <summary>
-            /// Path to icons.
-            /// </summary>
-            AIMP_CORE_PATH_ICONS = 5,
-
-            /// <summary>
-            /// Path to language files.
-            /// </summary>
-            AIMP_CORE_PATH_LANGS = 2,
-
-            /// <summary>
-            /// Path to playlist.
-            /// </summary>
-            AIMP_CORE_PATH_PLAYLISTS = 1,
-
-            /// <summary>
-            /// Path to plugins.
-            /// </summary>
-            AIMP_CORE_PATH_PLUGINS = 4,
-
-            /// <summary>
-            /// Path to profile.
-            /// </summary>
-            AIMP_CORE_PATH_PROFILE = 0,
-
-            /// <summary>
-            /// Path to skins.
-            /// </summary>
-            AIMP_CORE_PATH_SKINS = 3,
-
-            /// <summary>
-            /// Path to common skins.
-            /// </summary>
-            AIMP_CORE_PATH_SKINS_COMMON = 11
-        }
-
         /// <summary>
         /// Core message type.
         /// </summary>
@@ -112,15 +60,15 @@
 
             AIMP_MSG_CMD_OPEN_FOLDERS = AIMP_MSG_CMD_BASE + 22,
 
-            AIMP_MSG_CMD_OPEN_PLAYLISTS  = AIMP_MSG_CMD_BASE + 23,
+            AIMP_MSG_CMD_OPEN_PLAYLISTS = AIMP_MSG_CMD_BASE + 23,
 
-            AIMP_MSG_CMD_SAVE_PLAYLISTS  = AIMP_MSG_CMD_BASE + 24,
+            AIMP_MSG_CMD_SAVE_PLAYLISTS = AIMP_MSG_CMD_BASE + 24,
 
             AIMP_MSG_CMD_BOOKMARKS = AIMP_MSG_CMD_BASE + 25,
 
             AIMP_MSG_CMD_BOOKMARKS_ADD = AIMP_MSG_CMD_BASE + 26,
 
-            AIMP_MSG_CMD_PLS_RESCAN  = AIMP_MSG_CMD_BASE + 27,
+            AIMP_MSG_CMD_PLS_RESCAN = AIMP_MSG_CMD_BASE + 27,
 
             AIMP_MSG_CMD_PLS_FOCUS_PLAYABLE = AIMP_MSG_CMD_BASE + 28,
 
@@ -185,6 +133,7 @@
             #endregion
 
             #region Events
+
             /// <summary>
             /// Command state has been changed.
             /// </summary>
@@ -289,7 +238,7 @@
 
             AIMP_MSG_PROPERTY_EQUALIZER = AIMP_MSG_PROPERTY_BASE + 14,
 
-            AIMP_MSG_PROPERTY_EQUALIZER_BAND = AIMP_MSG_PROPERTY_BASE + 15,  
+            AIMP_MSG_PROPERTY_EQUALIZER_BAND = AIMP_MSG_PROPERTY_BASE + 15,
 
             AIMP_MSG_PROPERTY_PLAYER_STATE = AIMP_MSG_PROPERTY_BASE + 16,
 
@@ -325,6 +274,69 @@
 
             #endregion
         }
+
+
+        /// <summary>
+        /// Path type.
+        /// </summary>
+        public enum AimpCorePathType
+        {
+            /// <summary>
+            /// Path to audiolibrary.
+            /// </summary>
+            AIMP_CORE_PATH_AUDIOLIBRARY = 6,
+
+            /// <summary>
+            /// Path to encoders.
+            /// </summary>
+            AIMP_CORE_PATH_ENCODERS = 8,
+
+            /// <summary>
+            /// Path to help files.
+            /// </summary>
+            AIMP_CORE_PATH_HELP = 9,
+
+            /// <summary>
+            /// Path to icons.
+            /// </summary>
+            AIMP_CORE_PATH_ICONS = 5,
+
+            /// <summary>
+            /// Path to language files.
+            /// </summary>
+            AIMP_CORE_PATH_LANGS = 2,
+
+            /// <summary>
+            /// Path to playlist.
+            /// </summary>
+            AIMP_CORE_PATH_PLAYLISTS = 1,
+
+            /// <summary>
+            /// Path to plugins.
+            /// </summary>
+            AIMP_CORE_PATH_PLUGINS = 4,
+
+            /// <summary>
+            /// Path to profile.
+            /// </summary>
+            AIMP_CORE_PATH_PROFILE = 0,
+
+            /// <summary>
+            /// Path to skins.
+            /// </summary>
+            AIMP_CORE_PATH_SKINS = 3,
+
+            /// <summary>
+            /// Path to common skins.
+            /// </summary>
+            AIMP_CORE_PATH_SKINS_COMMON = 11
+        }
+
+        private const int AIMP_MSG_CMD_BASE = 0;
+
+        private const int BaseEvent = 0x2000;
+
+        private const int AIMP_MSG_PROPERTY_BASE = 0x1000;
     }
 
     public enum AimpPlayerState
@@ -333,6 +345,6 @@
 
         Pause,
 
-        Playing,
+        Playing
     }
 }

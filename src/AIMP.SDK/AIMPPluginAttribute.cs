@@ -1,4 +1,15 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+using System;
 
 namespace AIMP.SDK
 {
@@ -15,7 +26,7 @@ namespace AIMP.SDK
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     [Serializable]
-    public class AimpPluginAttribute: Attribute
+    public class AimpPluginAttribute : Attribute
     {
         /// <summary>
         /// Mark AIMP plugin class
@@ -33,7 +44,7 @@ namespace AIMP.SDK
         /// <summary>
         /// Plugin's author
         /// </summary>
-        public string Author { get;  set; }
+        public string Author { get; set; }
 
         /// <summary>
         /// Plugin's name

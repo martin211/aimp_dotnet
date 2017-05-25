@@ -1,11 +1,14 @@
-/*
- * AIMP DotNet SDK
- * 
- * (C) 2017
- * Mail: mail4evgeniy@gmail.com
- * https://github.com/martin211/aimp_dotnet
- * 
- */
+// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
 // This is the main DLL file.
 
 #include "stdafx.h"

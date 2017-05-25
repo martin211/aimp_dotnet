@@ -1,5 +1,15 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+//  
+// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
 
+using System;
 using AIMP.SDK.ActionManager;
 using AIMP.SDK.AlbumArtManager;
 using AIMP.SDK.ConfigurationManager;
@@ -21,17 +31,17 @@ namespace AIMP.SDK.Player
     public class StateChangedEventArgs : EventArgs
     {
         /// <summary>
-        /// Gets the state of the player.
-        /// </summary>
-        public AimpPlayerState PlayerState { get; private set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="T:System.EventArgs"/> class.
         /// </summary>
         public StateChangedEventArgs(AimpPlayerState playerState)
         {
             PlayerState = playerState;
         }
+
+        /// <summary>
+        /// Gets the state of the player.
+        /// </summary>
+        public AimpPlayerState PlayerState { get; private set; }
     }
 
     /// <summary>
@@ -39,21 +49,6 @@ namespace AIMP.SDK.Player
     /// </summary>
     public interface IAimpPlayer : IDisposable
     {
-        /// <summary>
-        /// Occurs when player state has been changed.
-        /// </summary>
-        event EventHandler<StateChangedEventArgs> StateChanged;
-
-        /// <summary>
-        /// Occurs when AIMP language has been changed.
-        /// </summary>
-        event EventHandler LanguageChanged;
-
-        /// <summary>
-        /// Occurs when track was changed.
-        /// </summary>
-        event EventHandler TrackChanged;
-
         /// <summary>
         /// Gets Player core.
         /// </summary>
@@ -146,6 +141,42 @@ namespace AIMP.SDK.Player
         /// </summary>
         IWin32Manager Win32Manager { get; }
 
+        IAimpServiceSynchronizer ServiceSynchronizer { get; }
+
+        IAimpServiceThreadPool ServiceThreadPool { get; }
+
+        IAimpServiceMusicLibrary ServiceMusicLibrary { get; }
+
+        IAimpServiceMusicLibraryUI ServiceMusicLibraryUi { get; }
+
+        IAimpServiceFileFormats ServiceFileFormats { get; }
+
+        IAimpServiceFileInfo ServiceFileInfo { get; }
+
+        IAimpServiceFileSystems ServiceFileSystems { get; }
+
+        IAimpServiceFileStreaming ServiceFileStreaming { get; }
+
+        /// <summary>
+        /// Gets the file information formatter service.
+        /// </summary>
+        IAimpServiceFileInfoFormatter ServiceFileInfoFormatter { get; }
+
+        /// <summary>
+        /// Occurs when player state has been changed.
+        /// </summary>
+        event EventHandler<StateChangedEventArgs> StateChanged;
+
+        /// <summary>
+        /// Occurs when AIMP language has been changed.
+        /// </summary>
+        event EventHandler LanguageChanged;
+
+        /// <summary>
+        /// Occurs when track was changed.
+        /// </summary>
+        event EventHandler TrackChanged;
+
         /// <summary>
         /// Pauses player.
         /// </summary>
@@ -193,26 +224,5 @@ namespace AIMP.SDK.Player
         /// </summary>
         /// <param name="playList">The play list.</param>
         void Play(IAimpPlaylist playList);
-
-        IAimpServiceSynchronizer ServiceSynchronizer { get; }
-
-        IAimpServiceThreadPool ServiceThreadPool { get; }
-
-        IAimpServiceMusicLibrary ServiceMusicLibrary { get; }
-
-        IAimpServiceMusicLibraryUI ServiceMusicLibraryUi { get; }
-
-        IAimpServiceFileFormats ServiceFileFormats { get; }
-
-        IAimpServiceFileInfo ServiceFileInfo { get; }
-
-        IAimpServiceFileSystems ServiceFileSystems { get; }
-
-        IAimpServiceFileStreaming ServiceFileStreaming { get; }
-
-        /// <summary>
-        /// Gets the file information formatter service.
-        /// </summary>
-        IAimpServiceFileInfoFormatter ServiceFileInfoFormatter { get; }
     }
 }
