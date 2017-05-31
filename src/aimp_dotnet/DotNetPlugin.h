@@ -129,8 +129,8 @@ private:
     bool _optionsLoaded;
     gcroot<ManagedFunctionality^> _managedExtension;
     gcroot<AIMP::SDK::AimpDotNetPlugin^> _dotNetPlugin;
-    IAIMPServiceConfig *_configService;
-    IAIMPExtensionPlayerHook *_playerHook;
-    AimpExternalSettingsDialog *_externalSettingsDialog;
+    IAIMPServiceConfig *_configService = NULL;
+    IAIMPExtensionPlayerHook *_playerHook = NULL;
+    AimpExternalSettingsDialog *_externalSettingsDialog = NULL;
     typedef IUnknownInterfaceImpl<IAIMPPlugin> Base;
 };
