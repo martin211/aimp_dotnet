@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using AIMP.SDK;
 using AIMP.SDK.Player;
@@ -182,7 +181,7 @@ namespace DemoPlugin
             IAimpPlaylist pl;
             if (_aimpPlayer.PlaylistManager.GetActivePlaylist(out pl) == AimpActionResult.Ok)
             {
-                pl.Sort((item1, item2) => PlaylistSortComapreResult.TheSame);
+                pl.Sort("test", (item, playlistItem, arg3) => PlaylistSortComapreResult.TheSame);
             }
         }
 
