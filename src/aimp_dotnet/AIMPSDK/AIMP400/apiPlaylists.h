@@ -335,7 +335,7 @@ class IAIMPExtensionPlaylistPreimageFactory : public IUnknown
 		virtual HRESULT WINAPI CreatePreimage(IAIMPPlaylistPreimage** preimage) = 0;
 		virtual HRESULT WINAPI GetID(IAIMPString** ID) = 0;
 		virtual HRESULT WINAPI GetName(IAIMPString** Name) = 0;
-		virtual DWORD WINAPI GetName() = 0;
+		virtual DWORD WINAPI GetFlags() = 0;
 };
 
 

@@ -15,7 +15,7 @@ namespace AIMP.SDK.Playlist
     /// 
     /// </summary>
     /// <param name="sender">The sender.</param>
-    public delegate void AimpPlaylistPreimageListenerHandler(IAimpPlaylistPreimage sender);
+    public delegate void AimpPlaylistPreimageListenerHandler();
 
     /// <summary>
     /// The interface provides an ability to notify playlist about the changes in preimage.
