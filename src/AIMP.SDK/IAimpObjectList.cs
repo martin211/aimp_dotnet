@@ -9,8 +9,6 @@
 // 
 // ----------------------------------------------------
 
-using System.Collections.Generic;
-
 namespace AIMP.SDK
 {
     /// <summary>

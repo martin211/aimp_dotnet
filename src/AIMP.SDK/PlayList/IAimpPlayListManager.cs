@@ -17,7 +17,7 @@ namespace AIMP.SDK.Playlist
     /// <seealso cref="IAimpExtensionPlaylistManagerListener" />
     /// <seealso cref="IAimpExtension" />
     // TODO: ADN-32
-    public interface IAimpPlaylistManager : IAimpExtensionPlaylistManagerListener, IAimpExtension
+    public interface IAimpPlaylistManager : IAimpPlaylistManager2, IAimpExtensionPlaylistManagerListener, IAimpExtension
     {
         IAimpPlaylistQueue PlaylistQueue { get; }
 
@@ -60,7 +60,7 @@ namespace AIMP.SDK.Playlist
         /// Sets the playlist as active.
         /// </summary>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        void SetActivePlaylist(IAimpPlaylist playList);
+        AimpActionResult SetActivePlaylist(IAimpPlaylist playList);
 
         /// <summary>
         /// Gets the playable playlist.

@@ -9,8 +9,10 @@
 // 
 // ----------------------------------------------------
 
+#pragma once
 #include "SDK\BaseManager.h"
 #include "AimpPlayListQueue.h"
+#include "AimpPlaylistPreimageFactory.h"
 
 namespace AIMP
 {
@@ -31,7 +33,6 @@ namespace AIMP
             PlayListHandler ^_onPlaylistActivated;
             PlayListHandler ^_onPlaylistAdded;
             PlayListHandler ^_onPlaylistRemoved;
-            AimpPlaylistQueue ^_playListQueue;
 
         public:
             explicit PlayListManager(ManagedAimpCore ^core);
@@ -82,7 +83,13 @@ namespace AIMP
 
             virtual int GetLoadedPlaylistCount();
 
-            virtual void SetActivePlaylist(IAimpPlaylist^ playList);
+            virtual AimpActionResult SetActivePlaylist(IAimpPlaylist^ playList);
+
+            virtual AimpActionResult GetPreimageFactory(int index, IAimpExtensionPlaylistPreimageFactory ^%factory);
+
+            virtual AimpActionResult GetPreimageFactoryByID(String ^id, IAimpExtensionPlaylistPreimageFactory ^%factory);
+
+            virtual int GetPreimageFactoryCount();
 
             //******** IAimpExtensionPlaylistManagerListenerExecutor ********
 
