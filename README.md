@@ -8,7 +8,7 @@
 |  **develop**   |[![developstatus](https://img.shields.io/appveyor/ci/martin211/aimp-dotnet-c4e4m/develop.svg?label=develop)](https://ci.appveyor.com/api/projects/martin211/aimp-dotnet-c4e4m/artifacts/AIMP.SDK.zip?branch=develop) |  [![Quality Gate](https://sonar.uginnet.com/api/badges/gate?key=AIMP:SDK:develop)](https://sonar.uginnet.com/dashboard/index/AIMP:SDK:develop)
 
 ## What is it?
-*Aimp DotNet* allows you to create a plugin for AIMP media player on .Net
+*Aimp DotNet* allows you to create a plugin for [AIMP](http://www.aimp.ru) media player on .Net
 
 ## How to build
 ### Prerequisites
