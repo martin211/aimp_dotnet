@@ -1,6 +1,6 @@
-﻿$gitCommand = "git"
-$npmCommand = "c:\nodejs\npm.cmd"
-$nodeCommand = "c:\nodejs\node.exe"
+$gitCommand = "git"
+$npmCommand = "${Env:ProgramFiles(x86)}\nodejs\npm.cmd"
+$nodeCommand = "${Env:ProgramFiles(x86)}\nodejs\node.exe"
 $gulpCommand = ".\node_modules\.bin\gulp.cmd"
 
 function Write-ToLog() {
@@ -16,6 +16,11 @@ function Write-ToLog() {
 function Invoke-ValidateCommand() {
     param($command)
     return (Get-Command $command -ErrorAction SilentlyContinue) -ne $null
+}
+
+function Invoke-ValidateCommandVersion() {
+    param($command, $version)
+    return (Get-Command $command | % Version) -eq $version
 }
 
 function Invoke-BuildDocumentation() {
@@ -55,7 +60,7 @@ function Invoke-BuildDocumentation() {
         #Write-ToLog("Git is required however it is not installed.")
     #}
 
-    if (-not(Invoke-ValidateCommand($npmCommand))) {
+    if (-not(Invoke-ValidateCommand($npmCommand)) -or -not(Invoke-ValidateCommandVersion($npmCommand, "6.10.3.0"))) {
         Write-ToLog("Npm is required however it is not installed.")
         Write-ToLog("Download NodeJS")
 
@@ -68,16 +73,16 @@ function Invoke-BuildDocumentation() {
 
         Write-ToLog("Install NodeJS")
         if ($logFile -ne "") {
-            & msiexec /a $outFile /qn /L*V+ $logFile
+            & msiexec /a $outFile /qnb /L*V+ $logFile 'TARGETDIR="c:\Program Files (x86)"'
         } else {
-            & msiexec /a $outFile /qn
+            & msiexec /a $outFile /qnb 'TARGETDIR="c:\Program Files (x86)"'
         }
 
         Start-Sleep -s 30
-    }
 
-    Write-ToLog("Update Path environment.")
-    $env:Path += ";c:\nodejs\"
+        Write-ToLog("Update Path environment.")
+        $env:Path += ";c:\Program Files (x86)\nodejs"
+    }
 
     Write-ToLog("Install npm dependencies")
     & $npmCommand install --save-dev | Out-File $logFile -Append
