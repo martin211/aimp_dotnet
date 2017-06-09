@@ -10,13 +10,13 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IAimpFileSystemCommandStreaming
    | Aimp DotNet SDK documentation ">
-    <meta name="generator" content="docfx 2.16.4.1">
+    <meta name="generator" content="docfx 2.18.4.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="">
+    <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     <meta property="docfx:rel" content="../">
     
@@ -57,7 +57,7 @@
           </div>
         </div>
       </header>
-      <div role="main" class="container body-content">
+      <div class="container body-content">
         
         <div id="search-results">
           <div class="search-list"></div>
@@ -75,89 +75,75 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content">
-              
-              
-              <h1 id="AIMP_SDK_FileManager_Commands_IAimpFileSystemCommandStreaming" data-uid="AIMP.SDK.FileManager.Commands.IAimpFileSystemCommandStreaming">Interface IAimpFileSystemCommandStreaming
-              </h1>
-              <div class="markdown level0 summary"></div>
-              <div class="markdown level0 conceptual"></div>
-              <h6><strong>Namespace</strong>:AIMP.SDK.FileManager.Commands</h6>
-              <h6><strong>Assembly</strong>:AIMP.SDK.dll</h6>
-              <h5 id="AIMP_SDK_FileManager_Commands_IAimpFileSystemCommandStreaming_syntax">Syntax</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public interface IAimpFileSystemCommandStreaming : IAimpFileSystemCommand</code></pre>
-              </div>
-              <h3 id="methods">Methods
-              </h3>
-              <span class="small pull-right mobile-hide">
-                <span class="divider">|</span>
-                <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_FileManager_Commands_IAimpFileSystemCommandStreaming_CreateStream_System_String_AIMP_SDK_FileManager_FileStreamingType_System_Int64_System_Int64_AIMP_SDK_IAimpStream__.md&amp;value=---%0Auid%3A%20AIMP.SDK.FileManager.Commands.IAimpFileSystemCommandStreaming.CreateStream(System.String%2CAIMP.SDK.FileManager.FileStreamingType%2CSystem.Int64%2CSystem.Int64%2CAIMP.SDK.IAimpStream%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-              </span>
-              <span class="small pull-right mobile-hide">
-                <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/FileManager/Commands/IAimpFileSystemCommandStreaming.cs/#L11">View Source</a>
-              </span>
-              <a id="AIMP_SDK_FileManager_Commands_IAimpFileSystemCommandStreaming_CreateStream_" data-uid="AIMP.SDK.FileManager.Commands.IAimpFileSystemCommandStreaming.CreateStream*"></a>
-              <h4 id="AIMP_SDK_FileManager_Commands_IAimpFileSystemCommandStreaming_CreateStream_System_String_AIMP_SDK_FileManager_FileStreamingType_System_Int64_System_Int64_AIMP_SDK_IAimpStream__" data-uid="AIMP.SDK.FileManager.Commands.IAimpFileSystemCommandStreaming.CreateStream(System.String,AIMP.SDK.FileManager.FileStreamingType,System.Int64,System.Int64,AIMP.SDK.IAimpStream@)">CreateStream(String, FileStreamingType, Int64, Int64, out IAimpStream)</h4>
-              <div class="markdown level1 summary"></div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">AimpActionResult CreateStream(string fileName, FileStreamingType flags, long offset, long size, out IAimpStream stream)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">fileName</span></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><a class="xref" href="AIMP.SDK.FileManager.FileStreamingType.html">FileStreamingType</a></td>
-                    <td><span class="parametername">flags</span></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Int64</span></td>
-                    <td><span class="parametername">offset</span></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Int64</span></td>
-                    <td><span class="parametername">size</span></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><a class="xref" href="AIMP.SDK.IAimpStream.html">IAimpStream</a></td>
-                    <td><span class="parametername">stream</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="AIMP.SDK.AimpActionResult.html">AimpActionResult</a></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-                        </article>
+            <article class="content wrap" id="_content" data-uid="AIMP.SDK.FileManager.Commands.IAimpFileSystemCommandStreaming">
+  
+  
+  <h1 id="AIMP_SDK_FileManager_Commands_IAimpFileSystemCommandStreaming" data-uid="AIMP.SDK.FileManager.Commands.IAimpFileSystemCommandStreaming">Interface IAimpFileSystemCommandStreaming
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AIMP.SDK.FileManager.Commands.html">AIMP.SDK.FileManager.Commands</a></h6>
+  <h6><strong>Assembly</strong>: AIMP.SDK.dll</h6>
+  <h5 id="AIMP_SDK_FileManager_Commands_IAimpFileSystemCommandStreaming_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IAimpFileSystemCommandStreaming : IAimpFileSystemCommand</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/Commands/IAimpFileSystemCommandStreaming.cs/#L18">View Source</a>
+  </span>
+  <a id="AIMP_SDK_FileManager_Commands_IAimpFileSystemCommandStreaming_CreateStream_" data-uid="AIMP.SDK.FileManager.Commands.IAimpFileSystemCommandStreaming.CreateStream*"></a>
+  <h4 id="AIMP_SDK_FileManager_Commands_IAimpFileSystemCommandStreaming_CreateStream_System_String_AIMP_SDK_FileManager_FileStreamingType_System_Int64_System_Int64_AIMP_SDK_IAimpStream__" data-uid="AIMP.SDK.FileManager.Commands.IAimpFileSystemCommandStreaming.CreateStream(System.String,AIMP.SDK.FileManager.FileStreamingType,System.Int64,System.Int64,AIMP.SDK.IAimpStream@)">CreateStream(String, FileStreamingType, Int64, Int64, out IAimpStream)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult CreateStream(string fileName, FileStreamingType flags, long offset, long size, out IAimpStream stream)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">fileName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.FileManager.FileStreamingType.html">FileStreamingType</a></td>
+        <td><span class="parametername">flags</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">offset</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">size</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.IAimpStream.html">IAimpStream</a></td>
+        <td><span class="parametername">stream</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
@@ -168,7 +154,7 @@
                     <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_FileManager_Commands_IAimpFileSystemCommandStreaming.md&amp;value=---%0Auid%3A%20AIMP.SDK.FileManager.Commands.IAimpFileSystemCommandStreaming%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/FileManager/Commands/IAimpFileSystemCommandStreaming.cs/#L9" class="contribution-link">View Source</a>
+                    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/Commands/IAimpFileSystemCommandStreaming.cs/#L16" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
