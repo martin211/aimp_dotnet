@@ -1,29 +1,22 @@
-![alt tag](https://ci.appveyor.com/api/projects/status/github/martin211/aimp_dotnet?branch=master&svg=true)
+## AIMP DotNet SDK
+[![Github All Releases](https://img.shields.io/github/downloads/martin211/aimp_dotnet/latest/aimp.sdk.zip.svg)](https://github.com/martin211/aimp_dotnet/releases/latest)
+[![test](https://img.shields.io/github/tag/martin211/aimp_dotnet.svg)](https://img.shields.io/github/tag/martin211/aimp_dotnet.svg)
 
-# AIMP DotNet SDK plugin
- Microsoft .Net SDK for AIMP v3.60 / AIMP 4.00 media player (www.aimp.ru)
- 
- 
-# About the Plugin
- This plug-in adds support for DotNet plugins at the AIMP media player.
- Currently does not fully implements the original SDK.
- 
- Implemented services:
- - MenuManager
- - ActionManager (has not the hotkeys implementation)
- - AlbumArtManager
- - ConfigurationManager
- - MUIManager
- - PlayListManager
- - Visualization
- - Play back
+| Branch     |    Package    |  SonarQube |
+| ---------- | ------------- | ---------- |
+| **master** |[![masterstatus](https://img.shields.io/appveyor/ci/martin211/aimp-dotnet-c4e4m/master.svg?label=master)](https://ci.appveyor.com/api/projects/martin211/aimp-dotnet-c4e4m/artifacts/AIMP.SDK.zip?branch=master) | [![Quality Gate](https://sonar.uginnet.com/api/badges/gate?key=AIMP:SDK:master)](https://sonar.uginnet.com/dashboard/index/AIMP:SDK:master)
+|  **develop**   |[![developstatus](https://img.shields.io/appveyor/ci/martin211/aimp-dotnet-c4e4m/develop.svg?label=develop)](https://ci.appveyor.com/api/projects/martin211/aimp-dotnet-c4e4m/artifacts/AIMP.SDK.zip?branch=develop) |  [![Quality Gate](https://sonar.uginnet.com/api/badges/gate?key=AIMP:SDK:develop)](https://sonar.uginnet.com/dashboard/index/AIMP:SDK:develop)
 
-# Installation
+## What is it?
+*Aimp DotNet* allows you to create a plugin for [AIMP](http://www.aimp.ru) media player on .Net
 
-1. Download last release
-2. Copy plugin to %AIMP%\Plugins folder (example: plugins\dotnet_myplugin)
-3. Rename file aimp_dotnet.dll to dotnet_myplugin.dll
-4. Add reference to AIMP.SDK.dll to your plugin project
- 
-# License
-Apache 2.0
+## How to build
+### Prerequisites
+1. [Visual Studio 2017](https://www.visualstudio.com/downloads/) or MsBuild tools 2017
+2. Following components should be installed: 
+	- VS++ 2017 v141
+	- Visual C++ ATL support
+	- C++/CLI support 
+
+## License
+*AIMP DotNet* is licensed under the [Apache 2.0](LICENSE).
