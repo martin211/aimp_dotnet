@@ -57,9 +57,10 @@ namespace AIMP.DotNet.MusicLibrary.SmartPlaylist
             System.Diagnostics.Debug.WriteLine("DemoSmartPlaylist.Initialize");
         }
 
-        public void Dispose()
+        public void FinalizeObject()
         {
             System.Diagnostics.Debug.WriteLine("DemoSmartPlaylist.Dispose");
         }
+        
     }
 }
