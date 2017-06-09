@@ -10,13 +10,13 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace AIMP.SDK.Threading
    | Aimp DotNet SDK documentation ">
-    <meta name="generator" content="docfx 2.16.4.1">
+    <meta name="generator" content="docfx 2.18.4.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="">
+    <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     <meta property="docfx:rel" content="../">
     
@@ -57,7 +57,7 @@
           </div>
         </div>
       </header>
-      <div role="main" class="container body-content">
+      <div class="container body-content">
         
         <div id="search-results">
           <div class="search-list"></div>
@@ -75,32 +75,43 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content">
-              
-              <h1 id="AIMP_SDK_Threading" data-uid="AIMP.SDK.Threading">Namespace AIMP.SDK.Threading
-              </h1>
-              <div class="markdown level0 summary"></div>
-              <div class="markdown level0 conceptual"></div>
-              <div class="markdown level0 remarks"></div>
-                <h3 id="interfaces">Interfaces
-              </h3>
-                  <h4><a class="xref" href="AIMP.SDK.Threading.IAimpServiceSynchronizer.html">IAimpServiceSynchronizer</a></h4>
-                  <section></section>
-                  <h4><a class="xref" href="AIMP.SDK.Threading.IAimpServiceThreadPool.html">IAimpServiceThreadPool</a></h4>
-                  <section></section>
-                  <h4><a class="xref" href="AIMP.SDK.Threading.IAimpTask.html">IAimpTask</a></h4>
-                  <section></section>
-                  <h4><a class="xref" href="AIMP.SDK.Threading.IAimpTaskOwner.html">IAimpTaskOwner</a></h4>
-                  <section></section>
-                  <h4><a class="xref" href="AIMP.SDK.Threading.IAimpTaskPriority.html">IAimpTaskPriority</a></h4>
-                  <section></section>
-                <h3 id="enums">Enums
-              </h3>
-                  <h4><a class="xref" href="AIMP.SDK.Threading.AimpServiceThreadPoolType.html">AimpServiceThreadPoolType</a></h4>
-                  <section></section>
-                  <h4><a class="xref" href="AIMP.SDK.Threading.AimpTaskPriority.html">AimpTaskPriority</a></h4>
-                  <section></section>
-                        </article>
+            <article class="content wrap" id="_content" data-uid="AIMP.SDK.Threading">
+  
+  <h1 id="AIMP_SDK_Threading" data-uid="AIMP.SDK.Threading">Namespace AIMP.SDK.Threading
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="interfaces">Interfaces
+  </h3>
+      <h4><a class="xref" href="AIMP.SDK.Threading.IAimpServiceSynchronizer.html">IAimpServiceSynchronizer</a></h4>
+      <section><p>This service provides an ability to run specified task in main thread of the application.</p>
+</section>
+      <h4><a class="xref" href="AIMP.SDK.Threading.IAimpServiceThreadPool.html">IAimpServiceThreadPool</a></h4>
+      <section><p>Service provides an access to thread pool and allows to plugin add a task to asynchronous execution.
+Note that count of running threads at same time is limited. All tasks will be added to special queue and will be executed when one of the threads is idle.
+<p>
+Make sure that all your tasks is completed or canceled during plugin finalization.
+</p></p>
+</section>
+      <h4><a class="xref" href="AIMP.SDK.Threading.IAimpTask.html">IAimpTask</a></h4>
+      <section><p>Interface implementation must support asynchronous access.</p>
+</section>
+      <h4><a class="xref" href="AIMP.SDK.Threading.IAimpTaskOwner.html">IAimpTaskOwner</a></h4>
+      <section><p>This is tool interface that provides an ability to plugin to be notified about canceling the operation.
+The instance of interface will be created by the application and will be sent to plugin as parameter of the <a class="xref" href="AIMP.SDK.Threading.IAimpTask.html#AIMP_SDK_Threading_IAimpTask_Execute_AIMP_SDK_Threading_IAimpTaskOwner_">Execute(IAimpTaskOwner)</a> method.</p>
+</section>
+      <h4><a class="xref" href="AIMP.SDK.Threading.IAimpTaskPriority.html">IAimpTaskPriority</a></h4>
+      <section><p>This is tool interface that provides an ability to plugin define priority of task.
+Interface should be implemented on same to <a class="xref" href="AIMP.SDK.Threading.IAimpTask.html">IAimpTask</a> level. Priority affects to task position in the waiting queue (waiting queue is used if all threads from pool are busy) and to priority of working thread.</p>
+</section>
+    <h3 id="enums">Enums
+  </h3>
+      <h4><a class="xref" href="AIMP.SDK.Threading.AimpServiceThreadPoolType.html">AimpServiceThreadPoolType</a></h4>
+      <section></section>
+      <h4><a class="xref" href="AIMP.SDK.Threading.AimpTaskPriority.html">AimpTaskPriority</a></h4>
+      <section></section>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

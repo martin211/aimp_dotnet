@@ -10,13 +10,13 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IAimpExtensionFileExpander
    | Aimp DotNet SDK documentation ">
-    <meta name="generator" content="docfx 2.16.4.1">
+    <meta name="generator" content="docfx 2.18.4.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="">
+    <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     <meta property="docfx:rel" content="../">
     
@@ -57,7 +57,7 @@
           </div>
         </div>
       </header>
-      <div role="main" class="container body-content">
+      <div class="container body-content">
         
         <div id="search-results">
           <div class="search-list"></div>
@@ -75,88 +75,73 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content">
-              
-              
-              <h1 id="AIMP_SDK_FileManager_Extensions_IAimpExtensionFileExpander" data-uid="AIMP.SDK.FileManager.Extensions.IAimpExtensionFileExpander">Interface IAimpExtensionFileExpander
-              </h1>
-              <div class="markdown level0 summary"><p>Interface is an extension for the <a class="xref" href="AIMP.SDK.FileManager.IAimpServiceFileManager.html">IAimpServiceFileManager</a> service that allows split real file container into one or view virtual files.
+            <article class="content wrap" id="_content" data-uid="AIMP.SDK.FileManager.Extensions.IAimpExtensionFileExpander">
+  
+  
+  <h1 id="AIMP_SDK_FileManager_Extensions_IAimpExtensionFileExpander" data-uid="AIMP.SDK.FileManager.Extensions.IAimpExtensionFileExpander">Interface IAimpExtensionFileExpander
+  </h1>
+  <div class="markdown level0 summary"><p>Interface is an extension for the <a class="xref" href="AIMP.SDK.FileManager.IAimpServiceFileManager.html">IAimpServiceFileManager</a> service that allows split real file container into one or view virtual files.
 <p>
 Instance should be created by plugin and must be registered in the application at the plugin initialization method via the IAimpCore.RegisterExtension method.
 </p></p>
 </div>
-              <div class="markdown level0 conceptual"></div>
-              <h6><strong>Namespace</strong>:AIMP.SDK.FileManager.Extensions</h6>
-              <h6><strong>Assembly</strong>:AIMP.SDK.dll</h6>
-              <h5 id="AIMP_SDK_FileManager_Extensions_IAimpExtensionFileExpander_syntax">Syntax</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public interface IAimpExtensionFileExpander</code></pre>
-              </div>
-              <h3 id="methods">Methods
-              </h3>
-              <span class="small pull-right mobile-hide">
-                <span class="divider">|</span>
-                <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_FileManager_Extensions_IAimpExtensionFileExpander_Expand_System_String_System_Collections_Generic_IList_AIMP_SDK_FileManager_IAimpVirtualFile___System_Func_System_Int64_System_Boolean__.md&amp;value=---%0Auid%3A%20AIMP.SDK.FileManager.Extensions.IAimpExtensionFileExpander.Expand(System.String%2CSystem.Collections.Generic.IList%7BAIMP.SDK.FileManager.IAimpVirtualFile%7D%40%2CSystem.Func%7BSystem.Int64%2CSystem.Boolean%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-              </span>
-              <span class="small pull-right mobile-hide">
-                <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/FileManager/Extensions/IAimpExtensionFileExpander.cs/#L25">View Source</a>
-              </span>
-              <a id="AIMP_SDK_FileManager_Extensions_IAimpExtensionFileExpander_Expand_" data-uid="AIMP.SDK.FileManager.Extensions.IAimpExtensionFileExpander.Expand*"></a>
-              <h4 id="AIMP_SDK_FileManager_Extensions_IAimpExtensionFileExpander_Expand_System_String_System_Collections_Generic_IList_AIMP_SDK_FileManager_IAimpVirtualFile___System_Func_System_Int64_System_Boolean__" data-uid="AIMP.SDK.FileManager.Extensions.IAimpExtensionFileExpander.Expand(System.String,System.Collections.Generic.IList{AIMP.SDK.FileManager.IAimpVirtualFile}@,System.Func{System.Int64,System.Boolean})">Expand(String, out IList&lt;IAimpVirtualFile&gt;, Func&lt;Int64, Boolean&gt;)</h4>
-              <div class="markdown level1 summary"><p>Split the file container to virtual files.</p>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AIMP.SDK.FileManager.Extensions.html">AIMP.SDK.FileManager.Extensions</a></h6>
+  <h6><strong>Assembly</strong>: AIMP.SDK.dll</h6>
+  <h5 id="AIMP_SDK_FileManager_Extensions_IAimpExtensionFileExpander_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IAimpExtensionFileExpander</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/Extensions/IAimpExtensionFileExpander.cs/#L32">View Source</a>
+  </span>
+  <a id="AIMP_SDK_FileManager_Extensions_IAimpExtensionFileExpander_Expand_" data-uid="AIMP.SDK.FileManager.Extensions.IAimpExtensionFileExpander.Expand*"></a>
+  <h4 id="AIMP_SDK_FileManager_Extensions_IAimpExtensionFileExpander_Expand_System_String_System_Collections_Generic_IList_AIMP_SDK_FileManager_IAimpVirtualFile___System_Func_System_Int64_System_Boolean__" data-uid="AIMP.SDK.FileManager.Extensions.IAimpExtensionFileExpander.Expand(System.String,System.Collections.Generic.IList{AIMP.SDK.FileManager.IAimpVirtualFile}@,System.Func{System.Int64,System.Boolean})">Expand(String, out IList&lt;IAimpVirtualFile&gt;, Func&lt;Int64, Boolean&gt;)</h4>
+  <div class="markdown level1 summary"><p>Split the file container to virtual files.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">AimpActionResult Expand(string fileName, out IList&lt;IAimpVirtualFile&gt; filesList, Func&lt;long, bool&gt; progressCallback)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">fileName</span></td>
-                    <td><p>The real file name</p>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult Expand(string fileName, out IList&lt;IAimpVirtualFile&gt; filesList, Func&lt;long, bool&gt; progressCallback)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">fileName</span></td>
+        <td><p>The real file name</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Collections.Generic.IList</span>&lt;<a class="xref" href="AIMP.SDK.FileManager.IAimpVirtualFile.html">IAimpVirtualFile</a>&gt;</td>
-                    <td><span class="parametername">filesList</span></td>
-                    <td><p>Out. The list of virtual files.</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IList</span>&lt;<a class="xref" href="AIMP.SDK.FileManager.IAimpVirtualFile.html">IAimpVirtualFile</a>&gt;</td>
+        <td><span class="parametername">filesList</span></td>
+        <td><p>Out. The list of virtual files.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Int64</span>, <span class="xref">System.Boolean</span>&gt;</td>
-                    <td><span class="parametername">progressCallback</span></td>
-                    <td><p>Progress callback.</p>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Int64</span>, <span class="xref">System.Boolean</span>&gt;</td>
+        <td><span class="parametername">progressCallback</span></td>
+        <td><p>Progress callback.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="AIMP.SDK.AimpActionResult.html">AimpActionResult</a></td>
-                    <td><p>Operation result <a class="xref" href="AIMP.SDK.AimpActionResult.html">AimpActionResult</a></p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-                        </article>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
@@ -167,7 +152,7 @@ Instance should be created by plugin and must be registered in the application a
                     <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_FileManager_Extensions_IAimpExtensionFileExpander.md&amp;value=---%0Auid%3A%20AIMP.SDK.FileManager.Extensions.IAimpExtensionFileExpander%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/FileManager/Extensions/IAimpExtensionFileExpander.cs/#L16" class="contribution-link">View Source</a>
+                    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/Extensions/IAimpExtensionFileExpander.cs/#L23" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

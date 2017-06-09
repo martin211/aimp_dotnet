@@ -10,13 +10,13 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IAimpServiceFileInfo
    | Aimp DotNet SDK documentation ">
-    <meta name="generator" content="docfx 2.16.4.1">
+    <meta name="generator" content="docfx 2.18.4.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="">
+    <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     <meta property="docfx:rel" content="../">
     
@@ -57,7 +57,7 @@
           </div>
         </div>
       </header>
-      <div role="main" class="container body-content">
+      <div class="container body-content">
         
         <div id="search-results">
           <div class="search-list"></div>
@@ -75,203 +75,158 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content">
-              
-              
-              <h1 id="AIMP_SDK_FileManager_IAimpServiceFileInfo" data-uid="AIMP.SDK.FileManager.IAimpServiceFileInfo">Interface IAimpServiceFileInfo
-              </h1>
-              <div class="markdown level0 summary"><p>Provide access to get information about virtual file.</p>
+            <article class="content wrap" id="_content" data-uid="AIMP.SDK.FileManager.IAimpServiceFileInfo">
+  
+  
+  <h1 id="AIMP_SDK_FileManager_IAimpServiceFileInfo" data-uid="AIMP.SDK.FileManager.IAimpServiceFileInfo">Interface IAimpServiceFileInfo
+  </h1>
+  <div class="markdown level0 summary"><p>Provide access to get information about virtual file.</p>
 </div>
-              <div class="markdown level0 conceptual"></div>
-              <h6><strong>Namespace</strong>:AIMP.SDK.FileManager</h6>
-              <h6><strong>Assembly</strong>:AIMP.SDK.dll</h6>
-              <h5 id="AIMP_SDK_FileManager_IAimpServiceFileInfo_syntax">Syntax</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public interface IAimpServiceFileInfo</code></pre>
-              </div>
-              <h3 id="methods">Methods
-              </h3>
-              <span class="small pull-right mobile-hide">
-                <span class="divider">|</span>
-                <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_FileManager_IAimpServiceFileInfo_GetFileInfoFromFileUri_System_String_AIMP_SDK_FileManager_ServiceFileInfoFlags_AIMP_SDK_FileManager_IAimpFileInfo__.md&amp;value=---%0Auid%3A%20AIMP.SDK.FileManager.IAimpServiceFileInfo.GetFileInfoFromFileUri(System.String%2CAIMP.SDK.FileManager.ServiceFileInfoFlags%2CAIMP.SDK.FileManager.IAimpFileInfo%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-              </span>
-              <span class="small pull-right mobile-hide">
-                <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/FileManager/IAimpServiceFileInfo.cs/#L24">View Source</a>
-              </span>
-              <a id="AIMP_SDK_FileManager_IAimpServiceFileInfo_GetFileInfoFromFileUri_" data-uid="AIMP.SDK.FileManager.IAimpServiceFileInfo.GetFileInfoFromFileUri*"></a>
-              <h4 id="AIMP_SDK_FileManager_IAimpServiceFileInfo_GetFileInfoFromFileUri_System_String_AIMP_SDK_FileManager_ServiceFileInfoFlags_AIMP_SDK_FileManager_IAimpFileInfo__" data-uid="AIMP.SDK.FileManager.IAimpServiceFileInfo.GetFileInfoFromFileUri(System.String,AIMP.SDK.FileManager.ServiceFileInfoFlags,AIMP.SDK.FileManager.IAimpFileInfo@)">GetFileInfoFromFileUri(String, ServiceFileInfoFlags, out IAimpFileInfo)</h4>
-              <div class="markdown level1 summary"><p>Gets the file information from virtual file.</p>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AIMP.SDK.FileManager.html">AIMP.SDK.FileManager</a></h6>
+  <h6><strong>Assembly</strong>: AIMP.SDK.dll</h6>
+  <h5 id="AIMP_SDK_FileManager_IAimpServiceFileInfo_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IAimpServiceFileInfo</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/IAimpServiceFileInfo.cs/#L31">View Source</a>
+  </span>
+  <a id="AIMP_SDK_FileManager_IAimpServiceFileInfo_GetFileInfoFromFileUri_" data-uid="AIMP.SDK.FileManager.IAimpServiceFileInfo.GetFileInfoFromFileUri*"></a>
+  <h4 id="AIMP_SDK_FileManager_IAimpServiceFileInfo_GetFileInfoFromFileUri_System_String_AIMP_SDK_FileManager_ServiceFileInfoFlags_AIMP_SDK_FileManager_IAimpFileInfo__" data-uid="AIMP.SDK.FileManager.IAimpServiceFileInfo.GetFileInfoFromFileUri(System.String,AIMP.SDK.FileManager.ServiceFileInfoFlags,AIMP.SDK.FileManager.IAimpFileInfo@)">GetFileInfoFromFileUri(String, ServiceFileInfoFlags, out IAimpFileInfo)</h4>
+  <div class="markdown level1 summary"><p>Gets the file information from virtual file.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">AimpActionResult GetFileInfoFromFileUri(string fileUri, ServiceFileInfoFlags fileInfoFlags, out IAimpFileInfo fileInfo)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">fileUri</span></td>
-                    <td><p>The virtual file name.</p>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult GetFileInfoFromFileUri(string fileUri, ServiceFileInfoFlags fileInfoFlags, out IAimpFileInfo fileInfo)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">fileUri</span></td>
+        <td><p>The virtual file name.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><a class="xref" href="AIMP.SDK.FileManager.ServiceFileInfoFlags.html">ServiceFileInfoFlags</a></td>
-                    <td><span class="parametername">fileInfoFlags</span></td>
-                    <td><p>The file info flags.</p>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.FileManager.ServiceFileInfoFlags.html">ServiceFileInfoFlags</a></td>
+        <td><span class="parametername">fileInfoFlags</span></td>
+        <td><p>The file info flags.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><a class="xref" href="AIMP.SDK.FileManager.IAimpFileInfo.html">IAimpFileInfo</a></td>
-                    <td><span class="parametername">fileInfo</span></td>
-                    <td><p>Out. The file info <a class="xref" href="AIMP.SDK.FileManager.IAimpFileInfo.html">IAimpFileInfo</a>.</p>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.FileManager.IAimpFileInfo.html">IAimpFileInfo</a></td>
+        <td><span class="parametername">fileInfo</span></td>
+        <td><p>Out. The file info <a class="xref" href="AIMP.SDK.FileManager.IAimpFileInfo.html">IAimpFileInfo</a>.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="AIMP.SDK.AimpActionResult.html">AimpActionResult</a></td>
-                    <td><p>Operation result <a class="xref" href="AIMP.SDK.AimpActionResult.html">AimpActionResult</a></p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <span class="small pull-right mobile-hide">
-                <span class="divider">|</span>
-                <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_FileManager_IAimpServiceFileInfo_GetFileInfoFromStream_AIMP_SDK_IAimpStream_AIMP_SDK_FileManager_ServiceFileInfoFlags_AIMP_SDK_FileManager_IAimpFileInfo__.md&amp;value=---%0Auid%3A%20AIMP.SDK.FileManager.IAimpServiceFileInfo.GetFileInfoFromStream(AIMP.SDK.IAimpStream%2CAIMP.SDK.FileManager.ServiceFileInfoFlags%2CAIMP.SDK.FileManager.IAimpFileInfo%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-              </span>
-              <span class="small pull-right mobile-hide">
-                <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/FileManager/IAimpServiceFileInfo.cs/#L33">View Source</a>
-              </span>
-              <a id="AIMP_SDK_FileManager_IAimpServiceFileInfo_GetFileInfoFromStream_" data-uid="AIMP.SDK.FileManager.IAimpServiceFileInfo.GetFileInfoFromStream*"></a>
-              <h4 id="AIMP_SDK_FileManager_IAimpServiceFileInfo_GetFileInfoFromStream_AIMP_SDK_IAimpStream_AIMP_SDK_FileManager_ServiceFileInfoFlags_AIMP_SDK_FileManager_IAimpFileInfo__" data-uid="AIMP.SDK.FileManager.IAimpServiceFileInfo.GetFileInfoFromStream(AIMP.SDK.IAimpStream,AIMP.SDK.FileManager.ServiceFileInfoFlags,AIMP.SDK.FileManager.IAimpFileInfo@)">GetFileInfoFromStream(IAimpStream, ServiceFileInfoFlags, out IAimpFileInfo)</h4>
-              <div class="markdown level1 summary"><p>Gets the file information from stream.</p>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/IAimpServiceFileInfo.cs/#L41">View Source</a>
+  </span>
+  <a id="AIMP_SDK_FileManager_IAimpServiceFileInfo_GetFileInfoFromStream_" data-uid="AIMP.SDK.FileManager.IAimpServiceFileInfo.GetFileInfoFromStream*"></a>
+  <h4 id="AIMP_SDK_FileManager_IAimpServiceFileInfo_GetFileInfoFromStream_AIMP_SDK_IAimpStream_AIMP_SDK_FileManager_ServiceFileInfoFlags_AIMP_SDK_FileManager_IAimpFileInfo__" data-uid="AIMP.SDK.FileManager.IAimpServiceFileInfo.GetFileInfoFromStream(AIMP.SDK.IAimpStream,AIMP.SDK.FileManager.ServiceFileInfoFlags,AIMP.SDK.FileManager.IAimpFileInfo@)">GetFileInfoFromStream(IAimpStream, ServiceFileInfoFlags, out IAimpFileInfo)</h4>
+  <div class="markdown level1 summary"><p>Gets the file information from stream.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">AimpActionResult GetFileInfoFromStream(IAimpStream fileStream, ServiceFileInfoFlags fileInfoFlags, out IAimpFileInfo fileInfo)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="AIMP.SDK.IAimpStream.html">IAimpStream</a></td>
-                    <td><span class="parametername">fileStream</span></td>
-                    <td><p>The file stream.</p>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult GetFileInfoFromStream(IAimpStream fileStream, ServiceFileInfoFlags fileInfoFlags, out IAimpFileInfo fileInfo)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.IAimpStream.html">IAimpStream</a></td>
+        <td><span class="parametername">fileStream</span></td>
+        <td><p>The file stream.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><a class="xref" href="AIMP.SDK.FileManager.ServiceFileInfoFlags.html">ServiceFileInfoFlags</a></td>
-                    <td><span class="parametername">fileInfoFlags</span></td>
-                    <td><p>The file info flags.</p>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.FileManager.ServiceFileInfoFlags.html">ServiceFileInfoFlags</a></td>
+        <td><span class="parametername">fileInfoFlags</span></td>
+        <td><p>The file info flags.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><a class="xref" href="AIMP.SDK.FileManager.IAimpFileInfo.html">IAimpFileInfo</a></td>
-                    <td><span class="parametername">fileInfo</span></td>
-                    <td><p>Out. The file info <a class="xref" href="AIMP.SDK.FileManager.IAimpFileInfo.html">IAimpFileInfo</a>.</p>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.FileManager.IAimpFileInfo.html">IAimpFileInfo</a></td>
+        <td><span class="parametername">fileInfo</span></td>
+        <td><p>Out. The file info <a class="xref" href="AIMP.SDK.FileManager.IAimpFileInfo.html">IAimpFileInfo</a>.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="AIMP.SDK.AimpActionResult.html">AimpActionResult</a></td>
-                    <td><p>Operation result <a class="xref" href="AIMP.SDK.AimpActionResult.html">AimpActionResult</a></p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-              <span class="small pull-right mobile-hide">
-                <span class="divider">|</span>
-                <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_FileManager_IAimpServiceFileInfo_GetVirtualFile_System_String_AIMP_SDK_FileManager_IAimpVirtualFile__.md&amp;value=---%0Auid%3A%20AIMP.SDK.FileManager.IAimpServiceFileInfo.GetVirtualFile(System.String%2CAIMP.SDK.FileManager.IAimpVirtualFile%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-              </span>
-              <span class="small pull-right mobile-hide">
-                <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/FileManager/IAimpServiceFileInfo.cs/#L41">View Source</a>
-              </span>
-              <a id="AIMP_SDK_FileManager_IAimpServiceFileInfo_GetVirtualFile_" data-uid="AIMP.SDK.FileManager.IAimpServiceFileInfo.GetVirtualFile*"></a>
-              <h4 id="AIMP_SDK_FileManager_IAimpServiceFileInfo_GetVirtualFile_System_String_AIMP_SDK_FileManager_IAimpVirtualFile__" data-uid="AIMP.SDK.FileManager.IAimpServiceFileInfo.GetVirtualFile(System.String,AIMP.SDK.FileManager.IAimpVirtualFile@)">GetVirtualFile(String, out IAimpVirtualFile)</h4>
-              <div class="markdown level1 summary"><p>Gets the virtual file.</p>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/IAimpServiceFileInfo.cs/#L50">View Source</a>
+  </span>
+  <a id="AIMP_SDK_FileManager_IAimpServiceFileInfo_GetVirtualFile_" data-uid="AIMP.SDK.FileManager.IAimpServiceFileInfo.GetVirtualFile*"></a>
+  <h4 id="AIMP_SDK_FileManager_IAimpServiceFileInfo_GetVirtualFile_System_String_AIMP_SDK_FileManager_IAimpVirtualFile__" data-uid="AIMP.SDK.FileManager.IAimpServiceFileInfo.GetVirtualFile(System.String,AIMP.SDK.FileManager.IAimpVirtualFile@)">GetVirtualFile(String, out IAimpVirtualFile)</h4>
+  <div class="markdown level1 summary"><p>Gets the virtual file.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">AimpActionResult GetVirtualFile(string fileUri, out IAimpVirtualFile virtualFile)</code></pre>
-              </div>
-              <h5 class="parameters">Parameters</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td><span class="parametername">fileUri</span></td>
-                    <td><p>The virtual file name.</p>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult GetVirtualFile(string fileUri, out IAimpVirtualFile virtualFile)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">fileUri</span></td>
+        <td><p>The virtual file name.</p>
 </td>
-                  </tr>
-                  <tr>
-                    <td><a class="xref" href="AIMP.SDK.FileManager.IAimpVirtualFile.html">IAimpVirtualFile</a></td>
-                    <td><span class="parametername">virtualFile</span></td>
-                    <td><p>Out. Virtual file <a class="xref" href="AIMP.SDK.FileManager.IAimpVirtualFile.html">IAimpVirtualFile</a>.</p>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.FileManager.IAimpVirtualFile.html">IAimpVirtualFile</a></td>
+        <td><span class="parametername">virtualFile</span></td>
+        <td><p>Out. Virtual file <a class="xref" href="AIMP.SDK.FileManager.IAimpVirtualFile.html">IAimpVirtualFile</a>.</p>
 </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5 class="returns">Returns</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="AIMP.SDK.AimpActionResult.html">AimpActionResult</a></td>
-                    <td><p>Operation result <a class="xref" href="AIMP.SDK.AimpActionResult.html">AimpActionResult</a></p>
-</td>
-                  </tr>
-                </tbody>
-              </table>
-                        </article>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
@@ -282,7 +237,7 @@
                     <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_FileManager_IAimpServiceFileInfo.md&amp;value=---%0Auid%3A%20AIMP.SDK.FileManager.IAimpServiceFileInfo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/FileManager/IAimpServiceFileInfo.cs/#L15" class="contribution-link">View Source</a>
+                    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/IAimpServiceFileInfo.cs/#L22" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

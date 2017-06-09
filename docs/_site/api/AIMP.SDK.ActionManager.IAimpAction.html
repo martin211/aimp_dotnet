@@ -10,13 +10,13 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IAimpAction
    | Aimp DotNet SDK documentation ">
-    <meta name="generator" content="docfx 2.16.4.1">
+    <meta name="generator" content="docfx 2.18.4.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="">
+    <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     <meta property="docfx:rel" content="../">
     
@@ -57,7 +57,7 @@
           </div>
         </div>
       </header>
-      <div role="main" class="container body-content">
+      <div class="container body-content">
         
         <div id="search-results">
           <div class="search-list"></div>
@@ -75,277 +75,149 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content">
-              
-              
-              <h1 id="AIMP_SDK_ActionManager_IAimpAction" data-uid="AIMP.SDK.ActionManager.IAimpAction">Interface IAimpAction
-              </h1>
-              <div class="markdown level0 summary"><p>Main feature of Action is an ability to display it in hotkey list, and provide an ability to customize it hotkey.</p>
+            <article class="content wrap" id="_content" data-uid="AIMP.SDK.ActionManager.IAimpAction">
+  
+  
+  <h1 id="AIMP_SDK_ActionManager_IAimpAction" data-uid="AIMP.SDK.ActionManager.IAimpAction">Interface IAimpAction
+  </h1>
+  <div class="markdown level0 summary"><p>Main feature of Action is an ability to display it in hotkey list, and provide an ability to customize it hotkey.</p>
 </div>
-              <div class="markdown level0 conceptual"></div>
-              <div class="inheritedMembers">
-                <h5>Inherited Members</h5>
-                <div>
-                  <a class="xref" href="AIMP.SDK.ActionManager.IAimpActionEvent.html#AIMP_SDK_ActionManager_IAimpActionEvent_OnExecute">IAimpActionEvent.OnExecute</a>
-                </div>
-              </div>
-              <h6><strong>Namespace</strong>:AIMP.SDK.ActionManager</h6>
-              <h6><strong>Assembly</strong>:AIMP.SDK.dll</h6>
-              <h5 id="AIMP_SDK_ActionManager_IAimpAction_syntax">Syntax</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public interface IAimpAction : IAimpActionEvent</code></pre>
-              </div>
-              <h3 id="properties">Properties
-              </h3>
-              <span class="small pull-right mobile-hide">
-                <span class="divider">|</span>
-                <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_ActionManager_IAimpAction_AlternativeGlobalHotKey.md&amp;value=---%0Auid%3A%20AIMP.SDK.ActionManager.IAimpAction.AlternativeGlobalHotKey%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-              </span>
-              <span class="small pull-right mobile-hide">
-                <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L50">View Source</a>
-              </span>
-              <a id="AIMP_SDK_ActionManager_IAimpAction_AlternativeGlobalHotKey_" data-uid="AIMP.SDK.ActionManager.IAimpAction.AlternativeGlobalHotKey*"></a>
-              <h4 id="AIMP_SDK_ActionManager_IAimpAction_AlternativeGlobalHotKey" data-uid="AIMP.SDK.ActionManager.IAimpAction.AlternativeGlobalHotKey">AlternativeGlobalHotKey</h4>
-              <div class="markdown level1 summary"><p>Gets or sets the alternative global hot key. Can be 0.</p>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="AIMP.SDK.ActionManager.IAimpActionEvent.html#AIMP_SDK_ActionManager_IAimpActionEvent_OnExecute">IAimpActionEvent.OnExecute</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AIMP.SDK.ActionManager.html">AIMP.SDK.ActionManager</a></h6>
+  <h6><strong>Assembly</strong>: AIMP.SDK.dll</h6>
+  <h5 id="AIMP_SDK_ActionManager_IAimpAction_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IAimpAction : IAimpActionEvent</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L57">View Source</a>
+  </span>
+  <a id="AIMP_SDK_ActionManager_IAimpAction_AlternativeGlobalHotKey_" data-uid="AIMP.SDK.ActionManager.IAimpAction.AlternativeGlobalHotKey*"></a>
+  <h4 id="AIMP_SDK_ActionManager_IAimpAction_AlternativeGlobalHotKey" data-uid="AIMP.SDK.ActionManager.IAimpAction.AlternativeGlobalHotKey">AlternativeGlobalHotKey</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the alternative global hot key. Can be 0.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">int AlternativeGlobalHotKey { get; set; }</code></pre>
-              </div>
-              <h5 class="propertyValue">Property Value</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Int32</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <span class="small pull-right mobile-hide">
-                <span class="divider">|</span>
-                <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_ActionManager_IAimpAction_CustomData.md&amp;value=---%0Auid%3A%20AIMP.SDK.ActionManager.IAimpAction.CustomData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-              </span>
-              <span class="small pull-right mobile-hide">
-                <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L20">View Source</a>
-              </span>
-              <a id="AIMP_SDK_ActionManager_IAimpAction_CustomData_" data-uid="AIMP.SDK.ActionManager.IAimpAction.CustomData*"></a>
-              <h4 id="AIMP_SDK_ActionManager_IAimpAction_CustomData" data-uid="AIMP.SDK.ActionManager.IAimpAction.CustomData">CustomData</h4>
-              <div class="markdown level1 summary"><p>Gets or sets the custom data.</p>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">int AlternativeGlobalHotKey { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L27">View Source</a>
+  </span>
+  <a id="AIMP_SDK_ActionManager_IAimpAction_CustomData_" data-uid="AIMP.SDK.ActionManager.IAimpAction.CustomData*"></a>
+  <h4 id="AIMP_SDK_ActionManager_IAimpAction_CustomData" data-uid="AIMP.SDK.ActionManager.IAimpAction.CustomData">CustomData</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the custom data.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">string CustomData { get; set; }</code></pre>
-              </div>
-              <h5 class="propertyValue">Property Value</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <span class="small pull-right mobile-hide">
-                <span class="divider">|</span>
-                <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_ActionManager_IAimpAction_DefaultGlobalHotKey.md&amp;value=---%0Auid%3A%20AIMP.SDK.ActionManager.IAimpAction.DefaultGlobalHotKey%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-              </span>
-              <span class="small pull-right mobile-hide">
-                <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L45">View Source</a>
-              </span>
-              <a id="AIMP_SDK_ActionManager_IAimpAction_DefaultGlobalHotKey_" data-uid="AIMP.SDK.ActionManager.IAimpAction.DefaultGlobalHotKey*"></a>
-              <h4 id="AIMP_SDK_ActionManager_IAimpAction_DefaultGlobalHotKey" data-uid="AIMP.SDK.ActionManager.IAimpAction.DefaultGlobalHotKey">DefaultGlobalHotKey</h4>
-              <div class="markdown level1 summary"><p>Gets or sets the default global hot key. Can be 0.</p>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">string CustomData { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L52">View Source</a>
+  </span>
+  <a id="AIMP_SDK_ActionManager_IAimpAction_DefaultGlobalHotKey_" data-uid="AIMP.SDK.ActionManager.IAimpAction.DefaultGlobalHotKey*"></a>
+  <h4 id="AIMP_SDK_ActionManager_IAimpAction_DefaultGlobalHotKey" data-uid="AIMP.SDK.ActionManager.IAimpAction.DefaultGlobalHotKey">DefaultGlobalHotKey</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the default global hot key. Can be 0.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">int DefaultGlobalHotKey { get; set; }</code></pre>
-              </div>
-              <h5 class="propertyValue">Property Value</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Int32</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <span class="small pull-right mobile-hide">
-                <span class="divider">|</span>
-                <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_ActionManager_IAimpAction_DefaultLocalHotKey.md&amp;value=---%0Auid%3A%20AIMP.SDK.ActionManager.IAimpAction.DefaultLocalHotKey%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-              </span>
-              <span class="small pull-right mobile-hide">
-                <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L40">View Source</a>
-              </span>
-              <a id="AIMP_SDK_ActionManager_IAimpAction_DefaultLocalHotKey_" data-uid="AIMP.SDK.ActionManager.IAimpAction.DefaultLocalHotKey*"></a>
-              <h4 id="AIMP_SDK_ActionManager_IAimpAction_DefaultLocalHotKey" data-uid="AIMP.SDK.ActionManager.IAimpAction.DefaultLocalHotKey">DefaultLocalHotKey</h4>
-              <div class="markdown level1 summary"><p>Gets or sets the default hot key. Can be 0.</p>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">int DefaultGlobalHotKey { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L47">View Source</a>
+  </span>
+  <a id="AIMP_SDK_ActionManager_IAimpAction_DefaultLocalHotKey_" data-uid="AIMP.SDK.ActionManager.IAimpAction.DefaultLocalHotKey*"></a>
+  <h4 id="AIMP_SDK_ActionManager_IAimpAction_DefaultLocalHotKey" data-uid="AIMP.SDK.ActionManager.IAimpAction.DefaultLocalHotKey">DefaultLocalHotKey</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the default hot key. Can be 0.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">int DefaultLocalHotKey { get; set; }</code></pre>
-              </div>
-              <h5 class="propertyValue">Property Value</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Int32</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <span class="small pull-right mobile-hide">
-                <span class="divider">|</span>
-                <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_ActionManager_IAimpAction_Enabled.md&amp;value=---%0Auid%3A%20AIMP.SDK.ActionManager.IAimpAction.Enabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-              </span>
-              <span class="small pull-right mobile-hide">
-                <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L35">View Source</a>
-              </span>
-              <a id="AIMP_SDK_ActionManager_IAimpAction_Enabled_" data-uid="AIMP.SDK.ActionManager.IAimpAction.Enabled*"></a>
-              <h4 id="AIMP_SDK_ActionManager_IAimpAction_Enabled" data-uid="AIMP.SDK.ActionManager.IAimpAction.Enabled">Enabled</h4>
-              <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AIMP.SDK.ActionManager.IAimpAction.html">IAimpAction</a> is enabled.</p>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">int DefaultLocalHotKey { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L42">View Source</a>
+  </span>
+  <a id="AIMP_SDK_ActionManager_IAimpAction_Enabled_" data-uid="AIMP.SDK.ActionManager.IAimpAction.Enabled*"></a>
+  <h4 id="AIMP_SDK_ActionManager_IAimpAction_Enabled" data-uid="AIMP.SDK.ActionManager.IAimpAction.Enabled">Enabled</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AIMP.SDK.ActionManager.IAimpAction.html">IAimpAction</a> is enabled.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">bool Enabled { get; set; }</code></pre>
-              </div>
-              <h5 class="propertyValue">Property Value</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.Boolean</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <span class="small pull-right mobile-hide">
-                <span class="divider">|</span>
-                <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_ActionManager_IAimpAction_GroupName.md&amp;value=---%0Auid%3A%20AIMP.SDK.ActionManager.IAimpAction.GroupName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-              </span>
-              <span class="small pull-right mobile-hide">
-                <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L30">View Source</a>
-              </span>
-              <a id="AIMP_SDK_ActionManager_IAimpAction_GroupName_" data-uid="AIMP.SDK.ActionManager.IAimpAction.GroupName*"></a>
-              <h4 id="AIMP_SDK_ActionManager_IAimpAction_GroupName" data-uid="AIMP.SDK.ActionManager.IAimpAction.GroupName">GroupName</h4>
-              <div class="markdown level1 summary"><p>Gets or sets the group name. Optional, can be undefined.</p>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">bool Enabled { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L37">View Source</a>
+  </span>
+  <a id="AIMP_SDK_ActionManager_IAimpAction_GroupName_" data-uid="AIMP.SDK.ActionManager.IAimpAction.GroupName*"></a>
+  <h4 id="AIMP_SDK_ActionManager_IAimpAction_GroupName" data-uid="AIMP.SDK.ActionManager.IAimpAction.GroupName">GroupName</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the group name. Optional, can be undefined.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">string GroupName { get; set; }</code></pre>
-              </div>
-              <h5 class="propertyValue">Property Value</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <span class="small pull-right mobile-hide">
-                <span class="divider">|</span>
-                <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_ActionManager_IAimpAction_Id.md&amp;value=---%0Auid%3A%20AIMP.SDK.ActionManager.IAimpAction.Id%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-              </span>
-              <span class="small pull-right mobile-hide">
-                <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L15">View Source</a>
-              </span>
-              <a id="AIMP_SDK_ActionManager_IAimpAction_Id_" data-uid="AIMP.SDK.ActionManager.IAimpAction.Id*"></a>
-              <h4 id="AIMP_SDK_ActionManager_IAimpAction_Id" data-uid="AIMP.SDK.ActionManager.IAimpAction.Id">Id</h4>
-              <div class="markdown level1 summary"><p>Gets or sets the unique action identificator, must be unique for all plugins.</p>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">string GroupName { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L22">View Source</a>
+  </span>
+  <a id="AIMP_SDK_ActionManager_IAimpAction_Id_" data-uid="AIMP.SDK.ActionManager.IAimpAction.Id*"></a>
+  <h4 id="AIMP_SDK_ActionManager_IAimpAction_Id" data-uid="AIMP.SDK.ActionManager.IAimpAction.Id">Id</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the unique action identificator, must be unique for all plugins.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">string Id { get; set; }</code></pre>
-              </div>
-              <h5 class="propertyValue">Property Value</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <span class="small pull-right mobile-hide">
-                <span class="divider">|</span>
-                <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_ActionManager_IAimpAction_Name.md&amp;value=---%0Auid%3A%20AIMP.SDK.ActionManager.IAimpAction.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-              </span>
-              <span class="small pull-right mobile-hide">
-                <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L25">View Source</a>
-              </span>
-              <a id="AIMP_SDK_ActionManager_IAimpAction_Name_" data-uid="AIMP.SDK.ActionManager.IAimpAction.Name*"></a>
-              <h4 id="AIMP_SDK_ActionManager_IAimpAction_Name" data-uid="AIMP.SDK.ActionManager.IAimpAction.Name">Name</h4>
-              <div class="markdown level1 summary"><p>Gets or sets the command name, value is displaying in the hotkey list.</p>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">string Id { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L32">View Source</a>
+  </span>
+  <a id="AIMP_SDK_ActionManager_IAimpAction_Name_" data-uid="AIMP.SDK.ActionManager.IAimpAction.Name*"></a>
+  <h4 id="AIMP_SDK_ActionManager_IAimpAction_Name" data-uid="AIMP.SDK.ActionManager.IAimpAction.Name">Name</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the command name, value is displaying in the hotkey list.</p>
 </div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">string Name { get; set; }</code></pre>
-              </div>
-              <h5 class="propertyValue">Property Value</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">System.String</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-                        </article>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">string Name { get; set; }</code></pre>
+  	</div>
+  </div>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
@@ -356,7 +228,7 @@
                     <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_ActionManager_IAimpAction.md&amp;value=---%0Auid%3A%20AIMP.SDK.ActionManager.IAimpAction%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/martin211/aimp_dotnet/blob/develop/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L10" class="contribution-link">View Source</a>
+                    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/ActionManager/IAimpAction.cs/#L17" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
