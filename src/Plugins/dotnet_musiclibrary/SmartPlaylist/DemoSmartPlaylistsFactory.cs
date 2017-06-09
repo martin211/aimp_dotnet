@@ -9,6 +9,7 @@
 // 
 // ----------------------------------------------------
 
+using System;
 using AIMP.SDK;
 using AIMP.SDK.Playlist;
 
@@ -16,24 +17,29 @@ namespace AIMP.DotNet.MusicLibrary.SmartPlaylist
 {
     public class DemoSmartPlaylistsFactory : IAimpExtensionPlaylistPreimageFactory
     {
+        private 
+
         public AimpActionResult CreatePreimage(out IAimpPlaylistPreimage preimage)
         {
-            throw new System.NotImplementedException();
+            preimage = new DemoSmartPlaylist();
+            return AimpActionResult.Ok;
         }
 
         public AimpActionResult GetId(out string id)
         {
-            throw new System.NotImplementedException();
+            id = "DemoFactory";
+            return AimpActionResult.Ok;
         }
 
         public AimpActionResult GetName(out string name)
         {
-            throw new System.NotImplementedException();
+            name = "DemoFactory";
+            return AimpActionResult.Ok;
         }
 
-        public int GetFlags()
+        PreimageFactoryFlags IAimpExtensionPlaylistPreimageFactory.GetFlags()
         {
-            throw new System.NotImplementedException();
+            return PreimageFactoryFlags.AIMP_PREIMAGEFACTORY_FLAG_CONTEXTDEPENDENT;
         }
     }
 }
