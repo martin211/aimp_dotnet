@@ -46,6 +46,4 @@ include/boost/*
 *.user
 *.plog
 *.properties
-
-
-.idea
+.vs
