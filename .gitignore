@@ -46,6 +46,8 @@ include/boost/*
 *.user
 *.plog
 *.properties
-
-
-.idea
+.vs
+bower_components
+apidoc
+node_modules
+docs/*.log
