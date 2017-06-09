@@ -1,0 +1,1292 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IAimpPlaylist
+   | Aimp DotNet SDK documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IAimpPlaylist
+   | Aimp DotNet SDK documentation ">
+    <meta name="generator" content="docfx 2.18.4.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AIMP.SDK.Playlist.IAimpPlaylist">
+  
+  
+  <h1 id="AIMP_SDK_Playlist_IAimpPlaylist" data-uid="AIMP.SDK.Playlist.IAimpPlaylist">Interface IAimpPlaylist
+  </h1>
+  <div class="markdown level0 summary"><p>Playlist interface.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistListener.html#AIMP_SDK_Playlist_IAimpPlaylistListener_Activated">IAimpPlaylistListener.Activated</a>
+    </div>
+    <div>
+      <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistListener.html#AIMP_SDK_Playlist_IAimpPlaylistListener_Removed">IAimpPlaylistListener.Removed</a>
+    </div>
+    <div>
+      <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistListener.html#AIMP_SDK_Playlist_IAimpPlaylistListener_Changed">IAimpPlaylistListener.Changed</a>
+    </div>
+    <div>
+      <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistListener.html#AIMP_SDK_Playlist_IAimpPlaylistListener_ScanningBegin">IAimpPlaylistListener.ScanningBegin</a>
+    </div>
+    <div>
+      <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistListener.html#AIMP_SDK_Playlist_IAimpPlaylistListener_ScanningProgress">IAimpPlaylistListener.ScanningProgress</a>
+    </div>
+    <div>
+      <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistListener.html#AIMP_SDK_Playlist_IAimpPlaylistListener_ScanningEnd">IAimpPlaylistListener.ScanningEnd</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AIMP.SDK.Playlist.html">AIMP.SDK.Playlist</a></h6>
+  <h6><strong>Assembly</strong>: AIMP.SDK.dll</h6>
+  <h5 id="AIMP_SDK_Playlist_IAimpPlaylist_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IAimpPlaylist : IAimpPlaylistListener</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L344">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_Duration_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Duration*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_Duration" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Duration">Duration</h4>
+  <div class="markdown level1 summary"><p>Gets the total duration, in seconds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">double Duration { get; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L213">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_FocusedObject_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.FocusedObject*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_FocusedObject" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.FocusedObject">FocusedObject</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the focused object.
+Object should be <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistItem.html">IAimpPlaylistItem</a> or <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistGroup.html">IAimpPlaylistGroup</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">object FocusedObject { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L328">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_FocusIndex_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.FocusIndex*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_FocusIndex" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.FocusIndex">FocusIndex</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the index of focused playlist item.
+Index can be equals to -1, if no one item is focused.
+Use the AIMP_PLAYLIST_PROPID_FOCUSED_OBJECT property to access to focused group.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">int FocusIndex { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L247">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_FormatingOverride_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.FormatingOverride*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_FormatingOverride" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.FormatingOverride">FormatingOverride</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether [formating override].</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">bool FormatingOverride { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L255">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_FormattingLine1Template_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.FormattingLine1Template*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_FormattingLine1Template" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.FormattingLine1Template">FormattingLine1Template</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the formatting template for the first line.
+<p>
+Changing the value is available only if value of the <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylist.html#AIMP_SDK_Playlist_IAimpPlaylist_GroupingOverridden">GroupingOverridden</a> parameter set as true.
+</p></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">string FormattingLine1Template { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L263">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_FormattingLine2Template_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.FormattingLine2Template*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_FormattingLine2Template" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.FormattingLine2Template">FormattingLine2Template</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the formatting template for the second line.
+<p>
+Changing the value is available only if value of the <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylist.html#AIMP_SDK_Playlist_IAimpPlaylist_GroupingOverridden">GroupingOverridden</a> parameter set as true.
+</p></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">string FormattingLine2Template { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L226">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_Grouping_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Grouping*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_Grouping" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Grouping">Grouping</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylist.html">IAimpPlaylist</a> is grouping.
+<p>
+Changing the value is available only if value of the <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylist.html#AIMP_SDK_Playlist_IAimpPlaylist_GroupingOverridden">GroupingOverridden</a> parameter set as true.
+</p></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">bool Grouping { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L242">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_GroupingAutomerg_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.GroupingAutomerg*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_GroupingAutomerg" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.GroupingAutomerg">GroupingAutomerg</h4>
+  <div class="markdown level1 summary"><p>Enables the auto merge for grouping.
+<p>
+Changing the value is available only if value of the <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylist.html#AIMP_SDK_Playlist_IAimpPlaylist_GroupingOverridden">GroupingOverridden</a> parameter set as true.
+</p></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">bool GroupingAutomerg { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L218">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_GroupingOverridden_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.GroupingOverridden*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_GroupingOverridden" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.GroupingOverridden">GroupingOverridden</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether [grouping overridden].</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">bool GroupingOverridden { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L234">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_GroupingTemplate_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.GroupingTemplate*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_GroupingTemplate" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.GroupingTemplate">GroupingTemplate</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the grouping template.
+<p>
+Changing the value is available only if value of the <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylist.html#AIMP_SDK_Playlist_IAimpPlaylist_GroupingOverridden">GroupingOverridden</a> parameter set as true.
+</p></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">string GroupingTemplate { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L197">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_Id_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Id*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_Id" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Id">Id</h4>
+  <div class="markdown level1 summary"><p>Gets the playlist identifier.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">string Id { get; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L202">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_Name_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Name*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_Name" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Name">Name</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the playlist name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">string Name { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L334">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_PlaybackCursor_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.PlaybackCursor*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_PlaybackCursor" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.PlaybackCursor">PlaybackCursor</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the playback cursor.
+Can be equals to -1, if playable item was removed or playlist never played.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">int PlaybackCursor { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L339">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_PlayingIndex_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.PlayingIndex*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_PlayingIndex" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.PlayingIndex">PlayingIndex</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the index of the playing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">int PlayingIndex { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L354">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_PreImage_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.PreImage*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_PreImage" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.PreImage">PreImage</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the pre image.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">string PreImage { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L207">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_ReadOnly_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ReadOnly*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_ReadOnly" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ReadOnly">ReadOnly</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating playlist is read only..</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">bool ReadOnly { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L349">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_Size_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Size*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_Size" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Size">Size</h4>
+  <div class="markdown level1 summary"><p>Gets the total size, in bytes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">double Size { get; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L305">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_ViewAbsoluteNumbers_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ViewAbsoluteNumbers*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_ViewAbsoluteNumbers" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ViewAbsoluteNumbers">ViewAbsoluteNumbers</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether [view absolute numbers].</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">bool ViewAbsoluteNumbers { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L276">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_ViewDuration_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ViewDuration*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_ViewDuration" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ViewDuration">ViewDuration</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating the track duration visibility.
+<p>
+Changing the value is available only if value of the <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylist.html#AIMP_SDK_Playlist_IAimpPlaylist_GroupingOverridden">GroupingOverridden</a> parameter set as true.
+</p></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">bool ViewDuration { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L284">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_ViewExpandButtons_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ViewExpandButtons*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_ViewExpandButtons" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ViewExpandButtons">ViewExpandButtons</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether [view expand buttons].
+<p>
+Changing the value is available only if value of the <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylist.html#AIMP_SDK_Playlist_IAimpPlaylist_GroupingOverridden">GroupingOverridden</a> parameter set as true.
+</p></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">bool ViewExpandButtons { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L292">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_ViewMarks_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ViewMarks*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_ViewMarks" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ViewMarks">ViewMarks</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating the marks visibility.
+<p>
+Changing the value is available only if value of the <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylist.html#AIMP_SDK_Playlist_IAimpPlaylist_GroupingOverridden">GroupingOverridden</a> parameter set as true.
+</p></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">bool ViewMarks { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L300">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_ViewNumbers_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ViewNumbers*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_ViewNumbers" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ViewNumbers">ViewNumbers</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating the tracks number visibility.
+<p>
+Changing the value is available only if value of the <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylist.html#AIMP_SDK_Playlist_IAimpPlaylist_GroupingOverridden">GroupingOverridden</a> parameter set as true.
+</p></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">bool ViewNumbers { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L268">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_ViewOverride_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ViewOverride*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_ViewOverride" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ViewOverride">ViewOverride</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether [view override].</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">bool ViewOverride { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L313">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_ViewSecondLine_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ViewSecondLine*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_ViewSecondLine" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ViewSecondLine">ViewSecondLine</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether [view second line].
+<p>
+Changing the value is available only if value of the <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylist.html#AIMP_SDK_Playlist_IAimpPlaylist_GroupingOverridden">GroupingOverridden</a> parameter set as true.
+</p></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">bool ViewSecondLine { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L321">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_ViewSwitches_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ViewSwitches*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_ViewSwitches" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ViewSwitches">ViewSwitches</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether [view switches].
+<p>
+Changing the value is available only if value of the <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylist.html#AIMP_SDK_Playlist_IAimpPlaylist_GroupingOverridden">GroupingOverridden</a> parameter set as true.
+</p></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">bool ViewSwitches { get; set; }</code></pre>
+  	</div>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L372">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_Add_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Add*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_Add_AIMP_SDK_FileManager_IAimpFileInfo_AIMP_SDK_Playlist_PlaylistFlags_AIMP_SDK_Playlist_PlaylistFilePosition_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Add(AIMP.SDK.FileManager.IAimpFileInfo,AIMP.SDK.Playlist.PlaylistFlags,AIMP.SDK.Playlist.PlaylistFilePosition)">Add(IAimpFileInfo, PlaylistFlags, PlaylistFilePosition)</h4>
+  <div class="markdown level1 summary"><p>Adds the specified file by URL.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult Add(IAimpFileInfo fileInfo, PlaylistFlags flags, PlaylistFilePosition filePosition)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.FileManager.IAimpFileInfo.html">IAimpFileInfo</a></td>
+        <td><span class="parametername">fileInfo</span></td>
+        <td><p>The file information.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.Playlist.PlaylistFlags.html">PlaylistFlags</a></td>
+        <td><span class="parametername">flags</span></td>
+        <td><p>The <a class="xref" href="AIMP.SDK.Playlist.PlaylistFlags.html">PlaylistFlags</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.Playlist.PlaylistFilePosition.html">PlaylistFilePosition</a></td>
+        <td><span class="parametername">filePosition</span></td>
+        <td><p>The file position <a class="xref" href="AIMP.SDK.Playlist.PlaylistFilePosition.html">PlaylistFilePosition</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L363">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_Add_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Add*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_Add_System_String_AIMP_SDK_Playlist_PlaylistFlags_AIMP_SDK_Playlist_PlaylistFilePosition_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Add(System.String,AIMP.SDK.Playlist.PlaylistFlags,AIMP.SDK.Playlist.PlaylistFilePosition)">Add(String, PlaylistFlags, PlaylistFilePosition)</h4>
+  <div class="markdown level1 summary"><p>Adds the specified file by URL.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult Add(string fileUrl, PlaylistFlags flags, PlaylistFilePosition filePosition)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">fileUrl</span></td>
+        <td><p>The file URL.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.Playlist.PlaylistFlags.html">PlaylistFlags</a></td>
+        <td><span class="parametername">flags</span></td>
+        <td><p>The <a class="xref" href="AIMP.SDK.Playlist.PlaylistFlags.html">PlaylistFlags</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.Playlist.PlaylistFilePosition.html">PlaylistFilePosition</a></td>
+        <td><span class="parametername">filePosition</span></td>
+        <td><p>The file position <a class="xref" href="AIMP.SDK.Playlist.PlaylistFilePosition.html">PlaylistFilePosition</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L390">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_AddList_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.AddList*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_AddList_System_Collections_Generic_IList_AIMP_SDK_FileManager_IAimpFileInfo__AIMP_SDK_Playlist_PlaylistFlags_AIMP_SDK_Playlist_PlaylistFilePosition_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.AddList(System.Collections.Generic.IList{AIMP.SDK.FileManager.IAimpFileInfo},AIMP.SDK.Playlist.PlaylistFlags,AIMP.SDK.Playlist.PlaylistFilePosition)">AddList(IList&lt;IAimpFileInfo&gt;, PlaylistFlags, PlaylistFilePosition)</h4>
+  <div class="markdown level1 summary"><p>Adds the list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult AddList(IList&lt;IAimpFileInfo&gt; fileUrlList, PlaylistFlags flags, PlaylistFilePosition filePosition)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IList</span>&lt;<a class="xref" href="AIMP.SDK.FileManager.IAimpFileInfo.html">IAimpFileInfo</a>&gt;</td>
+        <td><span class="parametername">fileUrlList</span></td>
+        <td><p>The file URL list.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.Playlist.PlaylistFlags.html">PlaylistFlags</a></td>
+        <td><span class="parametername">flags</span></td>
+        <td><p>The <a class="xref" href="AIMP.SDK.Playlist.PlaylistFlags.html">PlaylistFlags</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.Playlist.PlaylistFilePosition.html">PlaylistFilePosition</a></td>
+        <td><span class="parametername">filePosition</span></td>
+        <td><p>The file position <a class="xref" href="AIMP.SDK.Playlist.PlaylistFilePosition.html">PlaylistFilePosition</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L381">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_AddList_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.AddList*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_AddList_System_Collections_Generic_IList_System_String__AIMP_SDK_Playlist_PlaylistFlags_AIMP_SDK_Playlist_PlaylistFilePosition_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.AddList(System.Collections.Generic.IList{System.String},AIMP.SDK.Playlist.PlaylistFlags,AIMP.SDK.Playlist.PlaylistFilePosition)">AddList(IList&lt;String&gt;, PlaylistFlags, PlaylistFilePosition)</h4>
+  <div class="markdown level1 summary"><p>Adds the list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult AddList(IList&lt;string&gt; fileUrlList, PlaylistFlags flags, PlaylistFilePosition filePosition)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IList</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><span class="parametername">fileUrlList</span></td>
+        <td><p>The file URL list.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.Playlist.PlaylistFlags.html">PlaylistFlags</a></td>
+        <td><span class="parametername">flags</span></td>
+        <td><p>The <a class="xref" href="AIMP.SDK.Playlist.PlaylistFlags.html">PlaylistFlags</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.Playlist.PlaylistFilePosition.html">PlaylistFilePosition</a></td>
+        <td><span class="parametername">filePosition</span></td>
+        <td><p>The file position <a class="xref" href="AIMP.SDK.Playlist.PlaylistFilePosition.html">PlaylistFilePosition</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L453">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_BeginUpdate_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.BeginUpdate*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_BeginUpdate" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.BeginUpdate">BeginUpdate()</h4>
+  <div class="markdown level1 summary"><p>Method blocks all notifications until EndUpdate is called.
+This method is recommended to usage if you will change few options of playlist at one time.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult BeginUpdate()</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L466">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_Close_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Close*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_Close_AIMP_SDK_Playlist_PlaylistCloseFlag_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Close(AIMP.SDK.Playlist.PlaylistCloseFlag)">Close(PlaylistCloseFlag)</h4>
+  <div class="markdown level1 summary"><p>Closes the playlist.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult Close(PlaylistCloseFlag closeFlag)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.Playlist.PlaylistCloseFlag.html">PlaylistCloseFlag</a></td>
+        <td><span class="parametername">closeFlag</span></td>
+        <td><p>The close flag <a class="xref" href="AIMP.SDK.Playlist.PlaylistCloseFlag.html">PlaylistCloseFlag</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L398">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_Delete_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Delete*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_Delete_AIMP_SDK_Playlist_IAimpPlaylistItem_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Delete(AIMP.SDK.Playlist.IAimpPlaylistItem)">Delete(IAimpPlaylistItem)</h4>
+  <div class="markdown level1 summary"><p>Deletes the specified item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult Delete(IAimpPlaylistItem item)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistItem.html">IAimpPlaylistItem</a></td>
+        <td><span class="parametername">item</span></td>
+        <td><p>The playlist item.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L414">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_Delete_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Delete*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_Delete_AIMP_SDK_Playlist_PlaylistDeleteFlags_System_Object_System_Func_AIMP_SDK_Playlist_IAimpPlaylistItem_System_Object_System_Boolean__" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Delete(AIMP.SDK.Playlist.PlaylistDeleteFlags,System.Object,System.Func{AIMP.SDK.Playlist.IAimpPlaylistItem,System.Object,System.Boolean})">Delete(PlaylistDeleteFlags, Object, Func&lt;IAimpPlaylistItem, Object, Boolean&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult Delete(PlaylistDeleteFlags deleteFlags, object customFilterData, Func&lt;IAimpPlaylistItem, object, bool&gt; filterFunc)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.Playlist.PlaylistDeleteFlags.html">PlaylistDeleteFlags</a></td>
+        <td><span class="parametername">deleteFlags</span></td>
+        <td><p>The delete flags <a class="xref" href="AIMP.SDK.Playlist.PlaylistDeleteFlags.html">PlaylistDeleteFlags</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">customFilterData</span></td>
+        <td><p>Some additional data that will be passed to the filter function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistItem.html">IAimpPlaylistItem</a>, <span class="xref">System.Object</span>, <span class="xref">System.Boolean</span>&gt;</td>
+        <td><span class="parametername">filterFunc</span></td>
+        <td><p>The filter function. Should return true to delete item.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L405">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_Delete_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Delete*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_Delete_System_Int32_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Delete(System.Int32)">Delete(Int32)</h4>
+  <div class="markdown level1 summary"><p>Deletes the item by specified index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult Delete(int index)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>The index.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L421">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_DeleteAll_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.DeleteAll*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_DeleteAll" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.DeleteAll">DeleteAll()</h4>
+  <div class="markdown level1 summary"><p>Deletes all items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult DeleteAll()</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L459">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_EndUpdate_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.EndUpdate*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_EndUpdate" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.EndUpdate">EndUpdate()</h4>
+  <div class="markdown level1 summary"><p>Method unblocks all notifications. Refer to the BeginUpdate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult EndUpdate()</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L476">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_GetFiles_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.GetFiles*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_GetFiles_AIMP_SDK_Playlist_PlaylistGetFilesFlag_System_Collections_Generic_IList_System_String___" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.GetFiles(AIMP.SDK.Playlist.PlaylistGetFilesFlag,System.Collections.Generic.IList{System.String}@)">GetFiles(PlaylistGetFilesFlag, out IList&lt;String&gt;)</h4>
+  <div class="markdown level1 summary"><p>Gets the list of files.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult GetFiles(PlaylistGetFilesFlag filesFlag, out IList&lt;string&gt; files)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.Playlist.PlaylistGetFilesFlag.html">PlaylistGetFilesFlag</a></td>
+        <td><span class="parametername">filesFlag</span></td>
+        <td><p>The files flag.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IList</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><span class="parametername">files</span></td>
+        <td><p>The files.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L515">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_GetGroup_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.GetGroup*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_GetGroup_System_Int32_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.GetGroup(System.Int32)">GetGroup(Int32)</h4>
+  <div class="markdown level1 summary"><p>Gets the group.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">IAimpPlaylistGroup GetGroup(int index)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>The index.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L521">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_GetGroupCount_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.GetGroupCount*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_GetGroupCount" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.GetGroupCount">GetGroupCount()</h4>
+  <div class="markdown level1 summary"><p>Gets the group count.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">int GetGroupCount()</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L503">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_GetItem_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.GetItem*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_GetItem_System_Int32_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.GetItem(System.Int32)">GetItem(Int32)</h4>
+  <div class="markdown level1 summary"><p>Gets the item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">IAimpPlaylistItem GetItem(int index)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>The index.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L508">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_GetItemCount_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.GetItemCount*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_GetItemCount" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.GetItemCount">GetItemCount()</h4>
+  <div class="markdown level1 summary"><p>Gets the item count.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">int GetItemCount()</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L483">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_MergeGroup_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.MergeGroup*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_MergeGroup_AIMP_SDK_Playlist_IAimpPlaylistGroup_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.MergeGroup(AIMP.SDK.Playlist.IAimpPlaylistGroup)">MergeGroup(IAimpPlaylistGroup)</h4>
+  <div class="markdown level1 summary"><p>Merges one or all groups with same names.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult MergeGroup(IAimpPlaylistGroup playlistGroup)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistGroup.html">IAimpPlaylistGroup</a></td>
+        <td><span class="parametername">playlistGroup</span></td>
+        <td><p>Group to merge. All groups will be merged If group is not set (parameter is equals null).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L489">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_ReloadFromPreimage_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ReloadFromPreimage*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_ReloadFromPreimage" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ReloadFromPreimage">ReloadFromPreimage()</h4>
+  <div class="markdown level1 summary"><p>Reloads from preimage.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult ReloadFromPreimage()</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L496">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_ReloadInfo_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ReloadInfo*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_ReloadInfo_System_Boolean_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.ReloadInfo(System.Boolean)">ReloadInfo(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Reloads information about items (running in separate thread).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult ReloadInfo(bool fullReload)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">fullReload</span></td>
+        <td><p>if set to <code>true</code> [full reload].</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L428">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_Sort_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Sort*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_Sort_AIMP_SDK_Playlist_PlaylistSort_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Sort(AIMP.SDK.Playlist.PlaylistSort)">Sort(PlaylistSort)</h4>
+  <div class="markdown level1 summary"><p>Sorts the playlist by specified sort order.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult Sort(PlaylistSort sort)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.Playlist.PlaylistSort.html">PlaylistSort</a></td>
+        <td><span class="parametername">sort</span></td>
+        <td><p>The sort.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L445">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_Sort_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Sort*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_Sort_System_Object_System_Func_AIMP_SDK_Playlist_IAimpPlaylistItem_AIMP_SDK_Playlist_IAimpPlaylistItem_System_Object_AIMP_SDK_Playlist_PlaylistSortComapreResult__" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Sort(System.Object,System.Func{AIMP.SDK.Playlist.IAimpPlaylistItem,AIMP.SDK.Playlist.IAimpPlaylistItem,System.Object,AIMP.SDK.Playlist.PlaylistSortComapreResult})">Sort(Object, Func&lt;IAimpPlaylistItem, IAimpPlaylistItem, Object, PlaylistSortComapreResult&gt;)</h4>
+  <div class="markdown level1 summary"><p>Sorts the playlist by the specified compare function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult Sort(object customCompareData, Func&lt;IAimpPlaylistItem, IAimpPlaylistItem, object, PlaylistSortComapreResult&gt; compareFunc)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">customCompareData</span></td>
+        <td><p>The custom data for compare function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistItem.html">IAimpPlaylistItem</a>, <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistItem.html">IAimpPlaylistItem</a>, <span class="xref">System.Object</span>, <a class="xref" href="AIMP.SDK.Playlist.PlaylistSortComapreResult.html">PlaylistSortComapreResult</a>&gt;</td>
+        <td><span class="parametername">compareFunc</span></td>
+        <td><p>The compare function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L435">View Source</a>
+  </span>
+  <a id="AIMP_SDK_Playlist_IAimpPlaylist_Sort_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Sort*"></a>
+  <h4 id="AIMP_SDK_Playlist_IAimpPlaylist_Sort_System_String_" data-uid="AIMP.SDK.Playlist.IAimpPlaylist.Sort(System.String)">Sort(String)</h4>
+  <div class="markdown level1 summary"><p>Sorts the playlist items by specified template.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult Sort(string template)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">template</span></td>
+        <td><p>The template. Refer to <a class="xref" href="AIMP.SDK.FileManager.IAimpServiceFileInfoFormatter.html">IAimpServiceFileInfoFormatter</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_Playlist_IAimpPlaylist.md&amp;value=---%0Auid%3A%20AIMP.SDK.Playlist.IAimpPlaylist%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/Playlist/IAimpPlaylist.cs/#L192" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
