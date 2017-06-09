@@ -97,7 +97,7 @@ function Invoke-BuildDocumentation() {
     if (-not($docFile)) {
         Write-ToLog("'$($docFile)' not found. Exit")
     } else {
-        & $docfxCommand $docFile --serve | Out-File $logFile -Append
+        & $docfxCommand $docFile | Out-File $logFile -Append
     }
 
     Pop-Location
