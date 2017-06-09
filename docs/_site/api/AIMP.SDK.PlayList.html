@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Namespace AIMP.SDK.Playlist
+   | Aimp DotNet SDK documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Namespace AIMP.SDK.Playlist
+   | Aimp DotNet SDK documentation ">
+    <meta name="generator" content="docfx 2.18.4.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AIMP.SDK.Playlist">
+  
+  <h1 id="AIMP_SDK_Playlist" data-uid="AIMP.SDK.Playlist">Namespace AIMP.SDK.Playlist
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">Classes
+  </h3>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.AimpPlaylistEventArgs.html">AimpPlaylistEventArgs</a></h4>
+      <section></section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.ScanningEndEventArgs.html">ScanningEndEventArgs</a></h4>
+      <section></section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.ScanningProgressEventArgs.html">ScanningProgressEventArgs</a></h4>
+      <section></section>
+    <h3 id="interfaces">Interfaces
+  </h3>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.IAimpExtensionPlaylistManagerListener.html">IAimpExtensionPlaylistManagerListener</a></h4>
+      <section><p>This is extension for <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistManager.html">IAimpPlaylistManager</a> service, provides an ability to receive notifications about the changes in manager.</p>
+</section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylist.html">IAimpPlaylist</a></h4>
+      <section><p>Playlist interface.</p>
+</section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistGroup.html">IAimpPlaylistGroup</a></h4>
+      <section><p>The interface describes playlist group that can contains one or more playlist items.</p>
+</section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistItem.html">IAimpPlaylistItem</a></h4>
+      <section><p>The storage for information about the playlist item.</p>
+</section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistListener.html">IAimpPlaylistListener</a></h4>
+      <section><p>Interface provides an ability to receive notifications about changes in the playlist.</p>
+</section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistManager.html">IAimpPlaylistManager</a></h4>
+      <section><p>The service provides an access to playlist manager.</p>
+</section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistPreimage.html">IAimpPlaylistPreimage</a></h4>
+      <section><p>It is a general interface for all preimages.
+<p>
+Preimage is data source for smart-playlists with manual or automatic synchronization.
+The principle of cooperation between preimage and playlist is so simple: when data or settings in preimage are changed - preimage notify playlist about the changes via the <a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistPreimageListener.html">IAimpPlaylistPreimageListener</a> interface that related to binded playlist. Playlist, in own case, will reload data from preimage as soon as data will be required by plugin or user.
+</p></p>
+</section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistPreimageListener.html">IAimpPlaylistPreimageListener</a></h4>
+      <section><p>The interface provides an ability to notify playlist about the changes in preimage.</p>
+</section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistQueue.html">IAimpPlaylistQueue</a></h4>
+      <section><p>This interface provides an access to playback queue. </p>
+</section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.IAimpPlaylistQueueListener.html">IAimpPlaylistQueueListener</a></h4>
+      <section><p>Interface provides an ability to receive notifications about changes in the queue.</p>
+</section>
+    <h3 id="enums">Enums
+  </h3>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.PlaylistCloseFlag.html">PlaylistCloseFlag</a></h4>
+      <section></section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.PlaylistDeleteFlags.html">PlaylistDeleteFlags</a></h4>
+      <section></section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.PlaylistFilePosition.html">PlaylistFilePosition</a></h4>
+      <section></section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.PlaylistFlags.html">PlaylistFlags</a></h4>
+      <section></section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.PlaylistGetFilesFlag.html">PlaylistGetFilesFlag</a></h4>
+      <section></section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.PlaylistNotifyType.html">PlaylistNotifyType</a></h4>
+      <section></section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.PlaylistSort.html">PlaylistSort</a></h4>
+      <section></section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.PlaylistSortComapreResult.html">PlaylistSortComapreResult</a></h4>
+      <section></section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.ReloadInfoFlags.html">ReloadInfoFlags</a></h4>
+      <section></section>
+    <h3 id="delegates">Delegates
+  </h3>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.AimpPlayListHandler.html">AimpPlayListHandler</a></h4>
+      <section></section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.AimpPlayListHandler-1.html">AimpPlayListHandler&lt;TEventArgs&gt;</a></h4>
+      <section></section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.AimpPlaylistPreimageListenerHandler.html">AimpPlaylistPreimageListenerHandler</a></h4>
+      <section></section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.AimpPlaylistQueueListenerHandler.html">AimpPlaylistQueueListenerHandler</a></h4>
+      <section><p>Playlist queue listener handler.</p>
+</section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.PlayListChangedHandler.html">PlayListChangedHandler</a></h4>
+      <section></section>
+      <h4><a class="xref" href="AIMP.SDK.Playlist.PlayListHandler.html">PlayListHandler</a></h4>
+      <section><p>Delegate for playlist events.</p>
+</section>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

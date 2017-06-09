@@ -1,0 +1,367 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IAimpVirtualFile
+   | Aimp DotNet SDK documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IAimpVirtualFile
+   | Aimp DotNet SDK documentation ">
+    <meta name="generator" content="docfx 2.18.4.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile">
+  
+  
+  <h1 id="AIMP_SDK_FileManager_IAimpVirtualFile" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile">Interface IAimpVirtualFile
+  </h1>
+  <div class="markdown level0 summary"><p>Interface provides information about virtual file.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AIMP.SDK.FileManager.html">AIMP.SDK.FileManager</a></h6>
+  <h6><strong>Assembly</strong>: AIMP.SDK.dll</h6>
+  <h5 id="AIMP_SDK_FileManager_IAimpVirtualFile_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IAimpVirtualFile</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/IAimpVirtualFile.cs/#L42">View Source</a>
+  </span>
+  <a id="AIMP_SDK_FileManager_IAimpVirtualFile_AudioSourceFile_" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.AudioSourceFile*"></a>
+  <h4 id="AIMP_SDK_FileManager_IAimpVirtualFile_AudioSourceFile" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.AudioSourceFile">AudioSourceFile</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the real source file.
+<p>
+Property can be not set if real file name is not exists or file name is same to file name of file-container.
+</p></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">string AudioSourceFile { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/IAimpVirtualFile.cs/#L34">View Source</a>
+  </span>
+  <a id="AIMP_SDK_FileManager_IAimpVirtualFile_ClipFinish_" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.ClipFinish*"></a>
+  <h4 id="AIMP_SDK_FileManager_IAimpVirtualFile_ClipFinish" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.ClipFinish">ClipFinish</h4>
+  <div class="markdown level1 summary"><p>The end of the passage to play (in seconds).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">double ClipFinish { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/IAimpVirtualFile.cs/#L29">View Source</a>
+  </span>
+  <a id="AIMP_SDK_FileManager_IAimpVirtualFile_ClipStart_" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.ClipStart*"></a>
+  <h4 id="AIMP_SDK_FileManager_IAimpVirtualFile_ClipStart" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.ClipStart">ClipStart</h4>
+  <div class="markdown level1 summary"><p>The beginning of the passage to play (in seconds).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">double ClipStart { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/IAimpVirtualFile.cs/#L47">View Source</a>
+  </span>
+  <a id="AIMP_SDK_FileManager_IAimpVirtualFile_FileFormat_" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.FileFormat*"></a>
+  <h4 id="AIMP_SDK_FileManager_IAimpVirtualFile_FileFormat" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.FileFormat">FileFormat</h4>
+  <div class="markdown level1 summary"><p>Gets the file format. Ex. mp3, ogg, cda.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">string FileFormat { get; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/IAimpVirtualFile.cs/#L52">View Source</a>
+  </span>
+  <a id="AIMP_SDK_FileManager_IAimpVirtualFile_FileUri_" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.FileUri*"></a>
+  <h4 id="AIMP_SDK_FileManager_IAimpVirtualFile_FileUri" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.FileUri">FileUri</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the virtual file name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">string FileUri { get; set; }</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/IAimpVirtualFile.cs/#L24">View Source</a>
+  </span>
+  <a id="AIMP_SDK_FileManager_IAimpVirtualFile_IndexInSet_" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.IndexInSet*"></a>
+  <h4 id="AIMP_SDK_FileManager_IAimpVirtualFile_IndexInSet" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.IndexInSet">IndexInSet</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the index of virtual track in the set (if presented).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">int IndexInSet { get; set; }</code></pre>
+  	</div>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/IAimpVirtualFile.cs/#L60">View Source</a>
+  </span>
+  <a id="AIMP_SDK_FileManager_IAimpVirtualFile_CreateStream_" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.CreateStream*"></a>
+  <h4 id="AIMP_SDK_FileManager_IAimpVirtualFile_CreateStream_System_IO_Stream__" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.CreateStream(System.IO.Stream@)">CreateStream(out Stream)</h4>
+  <div class="markdown level1 summary"><p>Create the instance of the <a class="xref" href="AIMP.SDK.IAimpStream.html">IAimpStream</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult CreateStream(out Stream stream)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.IO.Stream</span></td>
+        <td><span class="parametername">stream</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/IAimpVirtualFile.cs/#L67">View Source</a>
+  </span>
+  <a id="AIMP_SDK_FileManager_IAimpVirtualFile_GetFileInfo_" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.GetFileInfo*"></a>
+  <h4 id="AIMP_SDK_FileManager_IAimpVirtualFile_GetFileInfo_AIMP_SDK_FileManager_IAimpFileInfo__" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.GetFileInfo(AIMP.SDK.FileManager.IAimpFileInfo@)">GetFileInfo(out IAimpFileInfo)</h4>
+  <div class="markdown level1 summary"><p>Gets the file info.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult GetFileInfo(out IAimpFileInfo fileInfo)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.FileManager.IAimpFileInfo.html">IAimpFileInfo</a></td>
+        <td><span class="parametername">fileInfo</span></td>
+        <td><p>Out. File info <a class="xref" href="AIMP.SDK.FileManager.IAimpFileInfo.html">IAimpFileInfo</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/IAimpVirtualFile.cs/#L73">View Source</a>
+  </span>
+  <a id="AIMP_SDK_FileManager_IAimpVirtualFile_IsExists_" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.IsExists*"></a>
+  <h4 id="AIMP_SDK_FileManager_IAimpVirtualFile_IsExists" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.IsExists">IsExists()</h4>
+  <div class="markdown level1 summary"><p>Check is the source exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">bool IsExists()</code></pre>
+  	</div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/IAimpVirtualFile.cs/#L80">View Source</a>
+  </span>
+  <a id="AIMP_SDK_FileManager_IAimpVirtualFile_IsInSameStream_" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.IsInSameStream*"></a>
+  <h4 id="AIMP_SDK_FileManager_IAimpVirtualFile_IsInSameStream_AIMP_SDK_FileManager_IAimpVirtualFile_" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.IsInSameStream(AIMP.SDK.FileManager.IAimpVirtualFile)">IsInSameStream(IAimpVirtualFile)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult IsInSameStream(IAimpVirtualFile virtualFile)</code></pre>
+  	</div>
+  </div>
+  <div class="div-decalaration">
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AIMP.SDK.FileManager.IAimpVirtualFile.html">IAimpVirtualFile</a></td>
+        <td><span class="parametername">virtualFile</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/IAimpVirtualFile.cs/#L91">View Source</a>
+  </span>
+  <a id="AIMP_SDK_FileManager_IAimpVirtualFile_Synchronize_" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.Synchronize*"></a>
+  <h4 id="AIMP_SDK_FileManager_IAimpVirtualFile_Synchronize" data-uid="AIMP.SDK.FileManager.IAimpVirtualFile.Synchronize">Synchronize()</h4>
+  <div class="markdown level1 summary"><p>Plugin must validate state of all internal data that refer with source.
+If internal data is not valid, plugin must return any error code except AimpActionResult.Ok.
+In this case, the application will automatically reload virtual files for current file-container via one of the IAimpExtensionFileExpander extensions.
+<p>
+The method called by the application before call the CreateStream method.
+</p></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  
+  <div class="div-decalaration">
+  	<h5 class="decalaration">Declaration</h5>
+  	<div class="codewrapper">
+  	<pre><code class="lang-csharp hljs">AimpActionResult Synchronize()</code></pre>
+  	</div>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/martin211/aimp_dotnet/new/develop/apiSpec/new?filename=AIMP_SDK_FileManager_IAimpVirtualFile.md&amp;value=---%0Auid%3A%20AIMP.SDK.FileManager.IAimpVirtualFile%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/martin211/aimp_dotnet/blob/Add_documentation/src/AIMP.SDK/FileManager/IAimpVirtualFile.cs/#L19" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

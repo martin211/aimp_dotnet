@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SDK\Action\AimpAction.cpp" />
+    <ClCompile Include="SDK\Action\AimpActionEvent.cpp" />
+    <ClCompile Include="SDK\AimpObjectList.cpp" />
+    <ClCompile Include="SDK\AimpStream.cpp" />
+    <ClCompile Include="SDK\AlbumArt\AimpAlbumArtManager.cpp" />
+    <ClCompile Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.cpp" />
+    <ClCompile Include="SDK\Configuration\AimpConfigurationManager.cpp" />
+    <ClCompile Include="SDK\FileManager\AimpFileInfo.cpp" />
+    <ClCompile Include="SDK\FileManager\AimpServiceFileFormats.cpp" />
+    <ClCompile Include="SDK\FileManager\AimpServiceFileInfo.cpp" />
+    <ClCompile Include="SDK\FileManager\AimpServiceFileStreaming.cpp" />
+    <ClCompile Include="SDK\FileManager\AimpServiceFileSystems.cpp" />
+    <ClCompile Include="SDK\FileManager\AimpVirtualFile.cpp" />
+    <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandFileInfo.cpp" />
+    <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandCopyToClipboard.cpp" />
+    <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDelete.cpp" />
+    <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDropSource.cpp" />
+    <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandFileInfo.cpp" />
+    <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandOpenFileFolder.cpp" />
+    <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandStreaming.cpp" />
+    <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCustomFileCommand.cpp" />
+    <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.cpp" />
+    <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileSystem.cpp" />
+    <ClCompile Include="SDK\MUI\MUIManager.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpDataField.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpDataFieldFilter.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpDataFieldFilterByArray.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpDataFilter.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpDataFilterGroup.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpDataStorageManager.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpExtensionDataStorage.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpFileList.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpGroupingPreset.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpDataStorage.cpp" />
+    <ClCompile Include="SDK\AimpConverter.cpp" />
+    <ClCompile Include="AimpDotnetPlugin.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpGroupingPresets.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpGroupingPresetStandard.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpGroupingTreeSelection.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpServiceMusicLibrary.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\AimpServiceMusicLibraryUI.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\InternalAimpDataProviderSelection.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProviderSelection.cpp" />
+    <ClCompile Include="SDK\Options\AimpOptionsDialogFrame.cpp" />
+    <ClCompile Include="SDK\Options\AimpServiceOptionsDialog.cpp" />
+    <ClCompile Include="SDK\Options\OptionsDialogFrameExtension.cpp" />
+    <ClCompile Include="SDK\Playback\AimpPlaybackQueueItem.cpp" />
+    <ClCompile Include="SDK\Playback\AimpServicePlaybackQueue.cpp" />
+    <ClCompile Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.cpp" />
+    <ClCompile Include="SDK\PlayList\AimpPlayListQueue.cpp" />
+    <ClCompile Include="SDK\PlayList\AimpPlaylistQueueListener.cpp" />
+    <ClCompile Include="SDK\PlayList\PlayListManager.cpp" />
+    <ClCompile Include="SDK\PropertyListHelper.cpp" />
+    <ClCompile Include="SDK\Threading\AimpServiceSynchronizer.cpp" />
+    <ClCompile Include="SDK\Threading\AimpServiceThreadPool.cpp" />
+    <ClCompile Include="SDK\Threading\AimpTaskOwner.cpp" />
+    <ClCompile Include="SDK\Threading\InternalAimpTask.cpp" />
+    <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp" />
+    <ClCompile Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.cpp" />
+    <ClCompile Include="DotNetPlugin.cpp" />
+    <ClCompile Include="SDK\AlbumArt\AimpExtensionAlbumArtCatalog.cpp" />
+    <ClCompile Include="SDK\AlbumArt\AimpExtensionAlbumArtProvider.cpp" />
+    <ClCompile Include="SDK\Action\AimpActionManager.cpp" />
+    <ClCompile Include="SDK\ManagedAimpCore.cpp" />
+    <ClCompile Include="SDK\Menu\AimpMenuItem.cpp" />
+    <ClCompile Include="SDK\Menu\AimpMenuManager.cpp" />
+    <ClCompile Include="SDK\PlayList\AimpPlayList.cpp" />
+    <ClCompile Include="SDK\PlayList\AimpPlayListGroup.cpp" />
+    <ClCompile Include="SDK\PlayList\AimpPlayListItem.cpp" />
+    <ClCompile Include="SDK\Visuals\AimpServiceVisualizations.cpp" />
+    <ClCompile Include="SDK\Win32\Win32Manager.cpp" />
+    <ClCompile Include="Stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SDK\Action\AimpAction.h" />
+    <ClInclude Include="SDK\Action\AimpActionEvent.h" />
+    <ClInclude Include="SDK\AimpObjectList.h" />
+    <ClInclude Include="SDK\AimpPropertyList.h" />
+    <ClInclude Include="SDK\AimpStream.h" />
+    <ClInclude Include="SDK\FileManager\AimpServiceFileFormats.h" />
+    <ClInclude Include="SDK\FileManager\AimpServiceFileInfo.h" />
+    <ClInclude Include="SDK\FileManager\AimpServiceFileStreaming.h" />
+    <ClInclude Include="SDK\FileManager\AimpServiceFileSystems.h" />
+    <ClInclude Include="SDK\FileManager\AimpVirtualFile.h" />
+    <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandFileInfo.h" />
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandCopyToClipboard.h" />
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDelete.h" />
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandDropSource.h" />
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandStreaming.h" />
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCustomFileCommand.h" />
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandFileInfo.h" />
+    <ClInclude Include="SDK\FileManager\Commands\InternalAimpFileSystemCommandOpenFileFolder.h" />
+    <ClInclude Include="SDK\FileManager\Commands\Stdafx.h" />
+    <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.h" />
+    <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileSystem.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpDataField.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilter.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilterByArray.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFilterGroup.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpDataStorageManager.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpExtensionDataStorage.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpFileList.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingPreset.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpDataStorage.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiMusicLibrary.h" />
+    <ClInclude Include="SDK\AimpConverter.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiGUI.h" />
+    <ClInclude Include="AIMPSDK\AIMPSDK.h" />
+    <ClInclude Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibraryUI.h" />
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProviderSelection.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingTreeSelection.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibrary.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresets.h" />
+    <ClInclude Include="SDK\MusicLibrary\AimpDataFilter.h" />
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpDataProviderSelection.h" />
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h" />
+    <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />
+    <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h" />
+    <ClInclude Include="SDK\PropertyListHelper.h" />
+    <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h" />
+    <ClInclude Include="SDK\Threading\AimpTaskOwner.h" />
+    <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h" />
+    <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h" />
+    <ClInclude Include="SDK\AlbumArt\AimpExtensionAlbumArtCatalog.h" />
+    <ClInclude Include="AimpSdk.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiActions.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiAlbumArt.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiCore.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiDecoders.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiFileManager.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiInternet.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiMenu.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiMessages.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiMUI.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiObjects.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiOptions.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiPlayer.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiPlaylists.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiPlugin.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiRemote.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiScheduler.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiSkins.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiTagEditor.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiThreading.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiVisuals.h" />
+    <ClInclude Include="DotNetPlugin.h" />
+    <ClInclude Include="SDK\AlbumArt\AimpExtensionAlbumArtProvider.h" />
+    <ClInclude Include="SDK\Options\OptionsDialogFrameExtension.h" />
+    <ClInclude Include="IUnknownInterfaceImpl.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SDK\Action\AimpActionManager.h" />
+    <ClInclude Include="SDK\AimpCore.h" />
+    <ClInclude Include="SDK\AimpExtensionBase.h" />
+    <ClInclude Include="SDK\AimpObject.h" />
+    <ClInclude Include="SDK\AimpPlayer.h" />
+    <ClInclude Include="SDK\AlbumArt\AimpAlbumArtManager.h" />
+    <ClInclude Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.h" />
+    <ClInclude Include="SDK\BaseManager.h" />
+    <ClInclude Include="SDK\Configuration\AimpConfigurationManager.h" />
+    <ClInclude Include="SDK\ManagedAimpCore.h" />
+    <ClInclude Include="SDK\Menu\AimpMenuItem.h" />
+    <ClInclude Include="SDK\Menu\AimpMenuManager.h" />
+    <ClInclude Include="SDK\Menu\ICallBackHeader.h" />
+    <ClInclude Include="SDK\MUI\MUIManager.h" />
+    <ClInclude Include="SDK\Options\AimpOptionsDialogFrame.h" />
+    <ClInclude Include="SDK\Options\AimpServiceOptionsDialog.h" />
+    <ClInclude Include="SDK\Playback\AimpPlaybackQueueItem.h" />
+    <ClInclude Include="SDK\Playback\AimpServicePlaybackQueue.h" />
+    <ClInclude Include="SDK\FileManager\AimpFileInfo.h" />
+    <ClInclude Include="SDK\PlayList\AimpPlayList.h" />
+    <ClInclude Include="SDK\PlayList\AimpPlayListGroup.h" />
+    <ClInclude Include="SDK\PlayList\AimpPlayListItem.h" />
+    <ClInclude Include="SDK\PlayList\AimpPlayListQueue.h" />
+    <ClInclude Include="SDK\PlayList\PlayListManager.h" />
+    <ClInclude Include="SDK\Threading\InternalAimpTask.h" />
+    <ClInclude Include="SDK\Threading\AimpServiceSynchronizer.h" />
+    <ClInclude Include="SDK\Visuals\AimpServiceVisualizations.h" />
+    <ClInclude Include="SDK\Win32\Win32Manager.h" />
+    <ClInclude Include="Stdafx.h" />
+    <ClInclude Include="Utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="aimp_dotnet.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AIMP.SDK\AIMP.SDK.csproj">
+      <Project>{154c60cf-2dae-4227-ad2c-cce7c63cde5a}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AIMP_Exports.def" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8D30D1F5-1925-4926-83F2-F0B21B45646F}</ProjectGuid>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <RootNamespace>Aimp_DotNetPlugin</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <ProjectName>aimp_dotnet</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>true</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>true</CLRSupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(OutDir)</OutDir>
+    <TargetName>aimp_dotnet</TargetName>
+    <IncludePath>$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\MixedRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(OutDir)</OutDir>
+    <TargetName>aimp_dotnet</TargetName>
+    <IncludePath>$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <EnablePREfast>false</EnablePREfast>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>AIMP_Exports.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>AIMP_Exports.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF NOT EXIST "$(SolutionDir)$(ConfigurationName)\AIMP.SDK" mkdir "$(SolutionDir)$(ConfigurationName)\AIMP.SDK\SDK"
+copy "$(OutDir)AIMP.SDK.dll" "$(SolutionDir)$(ConfigurationName)\AIMP.SDK\SDK\AIMP.SDK.dll"
+copy "$(TargetPath)" "$(SolutionDir)$(ConfigurationName)\AIMP.SDK\SDK\$(TargetFileName)"
+xcopy "$(ProjectDir)Langs" "$(SolutionDir)$(ConfigurationName)\AIMP.SDK\SDK\Langs" /I /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
