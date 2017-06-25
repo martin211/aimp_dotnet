@@ -12,33 +12,58 @@
 #pragma once
 #include "AimpPlaylistPreimageListener.h"
 
-class AimpPlaylistPreimage : public IUnknownInterfaceImpl<IAIMPPlaylistPreimage>
+namespace AIMP
 {
-private:
-    gcroot<AIMP::SDK::Playlist::IAimpPlaylistPreimage^> _managedObject;
-    typedef IUnknownInterfaceImpl<IAIMPPlaylistPreimage> Base;
+    namespace SDK
+    {
+        using namespace System;
+        using namespace AIMP::SDK::Playlist;
 
-public:
+        public ref class AimpPlaylistPreimage :
+            public AimpObject<IAIMPPlaylistPreimage>,
+            public IAimpPlaylistPreimage
+        {
+        public:
 
-    AimpPlaylistPreimage(gcroot<AIMP::SDK::Playlist::IAimpPlaylistPreimage^> managedObject);
+            explicit AimpPlaylistPreimage(IAIMPPlaylistPreimage* aimpObject);
 
-    virtual void WINAPI FinalizeObject();
+            virtual property String^ FactoryId
+            {
+                String^ get();
+            }
 
-    virtual void WINAPI Initialize(IAIMPPlaylistPreimageListener* Listener);
+            virtual property bool AutoSync
+            {
+                bool get();
+                void set(bool value);
+            }
 
-    virtual HRESULT WINAPI ConfigLoad(IAIMPStream* Stream);
-    
-    virtual HRESULT WINAPI ConfigSave(IAIMPStream* Stream);
+            virtual property bool AutoSyncOnStartup
+            {
+                bool get();
+                void set(bool value);
+            }
 
-    virtual HRESULT WINAPI ExecuteDialog(HWND OwnerWndHanle);
+            virtual property bool HasDialog
+            {
+                bool get();
+                void set(bool value);
+            }
 
-    virtual HRESULT WINAPI GetValueAsInt32(int PropertyID, int *Value);
+            virtual property String^ SortTemplate
+            {
+                String^ get();
+            }
 
-    virtual HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void **Value);
+            virtual AimpActionResult ConfigLoad(IAimpStream^ stream);
 
-    virtual ULONG WINAPI AddRef(void);
+            virtual AimpActionResult ConfigSave(IAimpStream^ stream);
 
-    virtual ULONG WINAPI Release(void);
+            virtual AimpActionResult ExecuteDialog(IntPtr ownerHandle);
 
-    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
-};
+            virtual void Initialize(IAimpPlaylistPreimageListener^ listener);
+
+            virtual void FinalizeObject();
+        };
+    }
+}

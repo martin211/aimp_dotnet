@@ -86,6 +86,7 @@
     <Compile Include="FileManager\AimpFileAttributes.cs" />
     <Compile Include="IAimpConfig.cs" />
     <Compile Include="IAimpExternalSettingsDialog.cs" />
+    <Compile Include="IAimpObject.cs" />
     <Compile Include="IAimpObjectList.cs" />
     <Compile Include="IAimpStream.cs" />
     <Compile Include="Logger\ILogger.cs" />

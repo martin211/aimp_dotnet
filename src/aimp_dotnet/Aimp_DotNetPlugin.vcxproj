@@ -67,6 +67,8 @@
     <ClCompile Include="SDK\PlayList\AimpPlaylistPreimage.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlayListQueue.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlaylistQueueListener.cpp" />
+    <ClCompile Include="SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.cpp" />
+    <ClCompile Include="SDK\PlayList\Internal\InternalAimpPlaylistPreimage.cpp" />
     <ClCompile Include="SDK\PlayList\PlayListManager.cpp" />
     <ClCompile Include="SDK\PropertyListHelper.cpp" />
     <ClCompile Include="SDK\Threading\AimpServiceSynchronizer.cpp" />
@@ -142,6 +144,8 @@
     <ClInclude Include="SDK\PlayList\AimpPlaylistPreimageListener.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistPreimage.h" />
+    <ClInclude Include="SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.h" />
+    <ClInclude Include="SDK\PlayList\Internal\InternalAimpPlaylistPreimage.h" />
     <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h" />
     <ClInclude Include="SDK\PropertyListHelper.h" />
     <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h" />
