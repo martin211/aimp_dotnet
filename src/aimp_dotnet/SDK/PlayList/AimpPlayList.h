@@ -12,6 +12,9 @@
 #pragma once
 #include "AimpPlayListItem.h"
 #include "SDK\FileManager\AimpFileInfo.h"
+#include "AimpExtensionPlaylistPreimageFactory.h"
+#include "AimpPlaylistPreimage.h"
+#include "SDK/PlayList/Internal/InternalAimpPlaylistPreimage.h"
 
 namespace AIMP
 {
@@ -90,7 +93,8 @@ namespace AIMP
             AimpPlayListHandler<ScanningProgressEventArgs^> ^_scanningProgressHandler;
             AimpPlayListHandler<ScanningEndEventArgs^> ^_scanningEndHandler;
 
-            AimpPlaylistListener *_listner;
+            AimpPlaylistListener *_listner = NULL;
+            InternalAimpPlaylistPreimage *_internalPreImage = NULL;
             bool _disposed;
 
         internal:
@@ -244,10 +248,10 @@ namespace AIMP
                 double get();
             }
 
-            virtual property String ^PreImage
+            virtual property IAimpPlaylistPreimage ^PreImage
             {
-                String ^get();
-                void set(String ^value);
+                IAimpPlaylistPreimage ^get();
+                void set(IAimpPlaylistPreimage ^value);
             }
 
             virtual void OnChanged(DWORD flags);

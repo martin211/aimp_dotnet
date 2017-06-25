@@ -22,7 +22,7 @@ namespace AIMP
 
         public ref class AimpExtensionPlaylistPreimageFactory :
             public AimpObject<IAIMPExtensionPlaylistPreimageFactory>,
-            public IAimpExtensionPlaylistPreimageFactory
+            public AIMP::SDK::Playlist::IAimpExtensionPlaylistPreimageFactory
         {
         public:
             explicit AimpExtensionPlaylistPreimageFactory(IAIMPExtensionPlaylistPreimageFactory *aimpObject);

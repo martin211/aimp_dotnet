@@ -12,12 +12,12 @@
 using System;
 using AIMP.SDK;
 using AIMP.SDK.Playlist;
+using AIMP.SDK.Threading;
 
 namespace AIMP.DotNet.MusicLibrary.SmartPlaylist
 {
-    public class DemoSmartPlaylistsFactory : IAimpExtensionPlaylistPreimageFactory
+    public class DemoSmartPlaylistsFactory : IAimpExtensionPlaylistPreimageFactory, IAimpPlaylistPreimageDataProvider, IAimpExtension
     {
-        private 
 
         public AimpActionResult CreatePreimage(out IAimpPlaylistPreimage preimage)
         {
@@ -40,6 +40,11 @@ namespace AIMP.DotNet.MusicLibrary.SmartPlaylist
         PreimageFactoryFlags IAimpExtensionPlaylistPreimageFactory.GetFlags()
         {
             return PreimageFactoryFlags.AIMP_PREIMAGEFACTORY_FLAG_CONTEXTDEPENDENT;
+        }
+
+        public AimpActionResult GetFiles(IAimpTaskOwner owner, PreimageFlags preimageFlags, IAimpObjectList<object> dataList)
+        {
+            throw new NotImplementedException();
         }
     }
 }

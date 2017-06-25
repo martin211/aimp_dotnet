@@ -26,6 +26,17 @@ namespace AIMP
         AimpPlayList::!AimpPlayList()
         {
             _aimpObject->Release();
+            if (_internalPreImage != NULL)
+            {
+                delete _internalPreImage;
+                _internalPreImage = NULL;
+            }
+
+            if (_listner != NULL)
+            {
+                delete _listner;
+                _listner = NULL;
+            }
         }
 
         AimpActionResult AimpPlayList::GetProperties(IAIMPPropertyList** properties)
@@ -954,41 +965,37 @@ namespace AIMP
         }
 
 
-        String ^AimpPlayList::PreImage::get()
+        IAimpPlaylistPreimage ^AimpPlayList::PreImage::get()
         {
-            IAIMPPropertyList *properties = NULL;
-
-            try
+            IAIMPPropertyList* pl = (IAIMPPropertyList*)this->InternalAimpObject;
+            if (pl != NULL)
             {
-                if (GetProperties(&properties) == AimpActionResult::Ok)
-                    return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_PREIMAGE);
-            }
-            finally
-            {
-                if (properties != NULL)
+                IAIMPPlaylistPreimage* preImage = NULL;
+                AimpActionResult res = Utils::CheckResult(pl->GetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, IID_IAIMPPlaylistPreimage, (void**)preImage));
+                if (res == AimpActionResult::Ok && preImage != NULL)
                 {
-                    properties->Release();
-                    properties = NULL;
+                    return gcnew AimpPlaylistPreimage(preImage);
                 }
+                
             }
 
-            return String::Empty;
+            return nullptr;
         }
 
-        void AimpPlayList::PreImage::set(String ^value)
+        void AimpPlayList::PreImage::set(IAimpPlaylistPreimage ^value)
         {
-            IAIMPPropertyList *properties = NULL;
-            try
+            IAIMPPropertyList* pl = (IAIMPPropertyList*)this->InternalAimpObject;
+            if (pl != NULL)
             {
-                if (GetProperties(&properties) == AimpActionResult::Ok)
-                    PropertyListExtension::SetString(properties, AIMP_PLAYLIST_PROPID_PREIMAGE, value);
-            }
-            finally
-            {
-                if (properties != NULL)
+                _internalPreImage = new InternalAimpPlaylistPreimage(value);
+                AimpActionResult res = Utils::CheckResult(pl->SetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, static_cast<InternalAimpPlaylistPreimage::Base*>(_internalPreImage)));
+                if (res != AimpActionResult::Ok)
                 {
-                    properties->Release();
-                    properties = NULL;
+                    IAIMPPlaylistPreimage* preImage = NULL;
+                    res = Utils::CheckResult(pl->GetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, IID_IAIMPPlaylistPreimage, (void**)preImage));
+
+                    System::Diagnostics::Debugger::Break();
+                  //  this->AimpObjectError(this, gcnew AimpErrorArgs(res, "Error to set PreImage", System::Environment::StackTrace));
                 }
             }
         }

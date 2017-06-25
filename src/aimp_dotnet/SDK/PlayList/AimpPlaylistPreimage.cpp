@@ -12,91 +12,73 @@
 #include "Stdafx.h"
 #include "AimpPlaylistPreimage.h"
 
-AimpPlaylistPreimage::AimpPlaylistPreimage(gcroot<AIMP::SDK::Playlist::IAimpPlaylistPreimage^> managedObject)
+using namespace AIMP::SDK;
+
+AimpPlaylistPreimage::AimpPlaylistPreimage(IAIMPPlaylistPreimage* aimpObject) : AimpObject(aimpObject)
+{}
+
+String^ AimpPlaylistPreimage::FactoryId::get()
 {
-    _managedObject = managedObject;
+    return PropertyListExtension::GetString(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_FACTORYID);
 }
 
-void AimpPlaylistPreimage::Initialize(IAIMPPlaylistPreimageListener* Listener)
+bool AimpPlaylistPreimage::AutoSync::get()
 {
-    _managedObject->Initialize(gcnew AIMP::SDK::AimpPlaylistPreimageListener(Listener));
+    return PropertyListExtension::GetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC);
 }
 
-HRESULT AimpPlaylistPreimage::ConfigLoad(IAIMPStream * Stream)
+void AimpPlaylistPreimage::AutoSync::set(bool value)
 {
-    return (HRESULT)_managedObject->ConfigLoad(gcnew AIMP::SDK::AimpStream(Stream));
+    PropertyListExtension::SetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC, value);
 }
 
-HRESULT AimpPlaylistPreimage::ConfigSave(IAIMPStream * Stream)
+bool AimpPlaylistPreimage::AutoSyncOnStartup::get()
 {
-    return (HRESULT)_managedObject->ConfigSave(gcnew AIMP::SDK::AimpStream(Stream));
+    return PropertyListExtension::GetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC_ON_STARTUP);
 }
 
-HRESULT AimpPlaylistPreimage::ExecuteDialog(HWND OwnerWndHanle)
+void AimpPlaylistPreimage::AutoSyncOnStartup::set(bool value)
 {
-    System::IntPtr ownerHandle(OwnerWndHanle);
-    return (HRESULT)_managedObject->ExecuteDialog(ownerHandle);
+    PropertyListExtension::SetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC_ON_STARTUP, value);
 }
 
-HRESULT WINAPI AimpPlaylistPreimage::GetValueAsInt32(int PropertyID, int *Value)
+bool AimpPlaylistPreimage::HasDialog::get()
 {
-    switch (PropertyID)
-    {
-    case AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC:
-        *Value = _managedObject->AutoSync ? 1 : 0;
-        break;
-    case AIMP_PLAYLISTPREIMAGE_PROPID_HASDIALOG:
-        *Value = _managedObject->HasDialog ? 1 : 0;
-        break;
-    case AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC_ON_STARTUP:
-        *Value = _managedObject->AutoSyncOnStartup ? 1 : 0;
-        break;
-    }
-
-    return S_OK;
+    return PropertyListExtension::GetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_HASDIALOG);
 }
 
-HRESULT WINAPI AimpPlaylistPreimage::GetValueAsObject(int PropertyID, REFIID IID, void **Value)
+void AimpPlaylistPreimage::HasDialog::set(bool value)
 {
-    switch (PropertyID)
-    {
-    case AIMP_PLAYLISTPREIMAGE_PROPID_FACTORYID:
-        *Value = AIMP::SDK::AimpConverter::ToAimpString(_managedObject->FactoryId);
-        break;
-    case AIMP_PLAYLISTPREIMAGE_PROPID_SORTTEMPLATE:
-        *Value = AIMP::SDK::AimpConverter::ToAimpString(_managedObject->SortTemplate);
-        break;
-    }
+    PropertyListExtension::SetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_HASDIALOG, value);
+}
 
-    return S_OK;
+String^ AimpPlaylistPreimage::SortTemplate::get()
+{
+    return PropertyListExtension::GetString(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_SORTTEMPLATE);
+}
+
+AimpActionResult AimpPlaylistPreimage::ConfigLoad(IAimpStream^ stream)
+{
+    return AimpActionResult::Unexpected;
+}
+
+AimpActionResult AimpPlaylistPreimage::ConfigSave(IAimpStream^ stream)
+{
+    return AimpActionResult::Unexpected;
+}
+
+AimpActionResult AimpPlaylistPreimage::ExecuteDialog(IntPtr ownerHandle)
+{
+    //_aimpObject->ExecuteDialog()
+    return AimpActionResult::Unexpected;
+}
+
+void AimpPlaylistPreimage::Initialize(IAimpPlaylistPreimageListener^ listener)
+{
+    
 }
 
 void AimpPlaylistPreimage::FinalizeObject()
 {
-    _managedObject->FinalizeObject();
-}
-
-ULONG AimpPlaylistPreimage::AddRef(void)
-{
-    return Base::AddRef();
-}
-
-ULONG AimpPlaylistPreimage::Release(void)
-{
-    return Base::Release();
-}
-
-HRESULT AimpPlaylistPreimage::QueryInterface(REFIID riid, LPVOID * ppvObject)
-{
-    HRESULT res = Base::QueryInterface(riid, ppvObject);
-
-    if (riid == IID_IAIMPPlaylistPreimageListener)
-    {
-        *ppvObject = this;
-        AddRef();
-        return S_OK;
-    }
-
-    *ppvObject = NULL;
-    return E_NOINTERFACE;
+    _aimpObject->Finalize();
 }

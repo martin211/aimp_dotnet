@@ -16,6 +16,11 @@ public ref class Utils
 internal:
 	static AIMP::SDK::AimpActionResult CheckResult(HRESULT result)
 	{
+#ifdef _DEBUG
+        if (result != S_OK)
+            System::Diagnostics::Debugger::Break();
+#endif
+
 		switch (result)
 		{
 		case E_ACCESSDENIED:
