@@ -24,13 +24,13 @@ namespace AIMP.SDK.MusicLibrary
         /// <param name="id">The identifier.</param>
         /// <param name="caption">The caption.</param>
         /// <param name="cancelEvent">The cancel event.</param>
-        void BackgroundTaskStarted(int id, string caption, IAimpActionEvent cancelEvent);
+        AimpActionResult BackgroundTaskStarted(int id, string caption, IAimpActionEvent cancelEvent);
 
         /// <summary>
         /// Notifies about the background task that has been finished.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        void BackgroundTaskFinished(int id);
+        AimpActionResult BackgroundTaskFinished(int id);
 
         /// <summary>
         /// Changeds this instance.

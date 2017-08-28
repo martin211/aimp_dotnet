@@ -431,8 +431,8 @@ class IAIMPMLGroupingPresets : public IUnknown
 class IAIMPMLDataStorageManager : public IUnknown
 {
 	public:
-		virtual void WINAPI BackgroundTaskStarted(int ID, IAIMPString* Caption, IAIMPActionEvent* CancelEvent) = 0;
-		virtual void WINAPI BackgroundTaskFinished(int ID) = 0;
+		virtual HRESULT WINAPI BackgroundTaskStarted(int ID, IAIMPString* Caption, IAIMPActionEvent* CancelEvent) = 0;
+		virtual HRESULT WINAPI BackgroundTaskFinished(int ID) = 0;
 		virtual void WINAPI Changed() = 0;
 };
 
