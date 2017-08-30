@@ -36,15 +36,15 @@ namespace AIMP
 
             virtual String ^GetValueAsString(String ^keyPath);
 
-            virtual AimpActionResult SetValueAsFloat(float value);
+            virtual AimpActionResult SetValueAsFloat(String ^keyPath, float value);
 
-            virtual AimpActionResult SetValueAsInt32(int value);
+            virtual AimpActionResult SetValueAsInt32(String ^keyPath, int value);
 
-            virtual AimpActionResult SetValueAsInt64(Int64 value);
+            virtual AimpActionResult SetValueAsInt64(String ^keyPath, Int64 value);
 
-            virtual AimpActionResult SetValueAsStream(IAimpStream ^stream);
+            virtual AimpActionResult SetValueAsStream(String ^keyPath, IAimpStream ^stream);
 
-            virtual AimpActionResult SetValueAsString(String ^value);
+            virtual AimpActionResult SetValueAsString(String ^keyPath, String ^value);
         };
     }
 }

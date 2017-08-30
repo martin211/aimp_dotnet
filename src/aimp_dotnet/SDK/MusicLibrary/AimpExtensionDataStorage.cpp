@@ -372,12 +372,14 @@ void WINAPI AimpExtensionDataStorage::Initialize(IAIMPMLDataStorageManager* Mana
 
 HRESULT WINAPI AimpExtensionDataStorage::ConfigLoad(IAIMPConfig *Config, IAIMPString* Section)
 {
-    return (HRESULT)_managedInstance->ConfigLoad(nullptr, AIMP::SDK::AimpConverter::ToManagedString(Section));
+    IAimpConfig ^cfg = gcnew AimpConfig(Config);
+    return (HRESULT)_managedInstance->ConfigLoad(cfg, AIMP::SDK::AimpConverter::ToManagedString(Section));
 }
 
 HRESULT WINAPI AimpExtensionDataStorage::ConfigSave(IAIMPConfig *Config, IAIMPString* Section)
 {
-    return (HRESULT)_managedInstance->ConfigSave(nullptr, AIMP::SDK::AimpConverter::ToManagedString(Section));
+    IAimpConfig ^cfg = gcnew AimpConfig(Config);
+    return (HRESULT)_managedInstance->ConfigSave(cfg, AIMP::SDK::AimpConverter::ToManagedString(Section));
 }
 
 HRESULT WINAPI AimpExtensionDataStorage::GetFields(int Schema, IAIMPObjectList** List)
