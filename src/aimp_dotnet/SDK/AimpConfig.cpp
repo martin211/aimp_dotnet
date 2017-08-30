@@ -111,7 +111,7 @@ namespace AIMP
                 str = AimpConverter::ToAimpString(keyPath);
                 IAIMPString* val = NULL;
                 InternalAimpObject->GetValueAsString(str, &val);
-                return gcnew String(val->GetData());
+                return val != NULL ? gcnew String(val->GetData()) : String::Empty;
             }
             finally
             {
