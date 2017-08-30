@@ -11,6 +11,7 @@
 
 #include "Stdafx.h"
 #include "AimpExtensionDataStorage.h"
+#include "SDK\AimpConfig.h"
 
 using namespace AIMP::SDK;
 
