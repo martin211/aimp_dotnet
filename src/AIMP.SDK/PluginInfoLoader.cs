@@ -112,13 +112,13 @@ namespace AIMP.SDK
 
                         var assemblyTypes = curAsmbl.GetTypes();
 
-                        foreach (var plgType in assemblyTypes
-                            .Where(o => pluginDeriveType.IsAssignableFrom(o)
-                                        && o.GetCustomAttributes(attribForPlugin, false).Length == 1))
-                        {
-                            var curAttr = (AimpPluginAttribute) plgType.GetCustomAttributes(attribForPlugin, false)[0];
-                            System.Diagnostics.Debug.WriteLine("Load plugin: " + curAsmbl.FullName);
+                        var plgType = assemblyTypes.FirstOrDefault(o => pluginDeriveType.IsAssignableFrom(o)
+                                                              && o.GetCustomAttributes(attribForPlugin, false).Length == 1);
 
+                        if (plgType != null)
+                        {
+                            var curAttr = (AimpPluginAttribute)plgType.GetCustomAttributes(attribForPlugin, false)[0];
+                            System.Diagnostics.Debug.WriteLine("Load plugin: " + curAsmbl.FullName);
                             curAttr.IsExternalSettingsDialog = externalSettingsDialog.IsAssignableFrom(plgType);
 
                             resPlugInfolst = new PluginShortInfoForLoad
@@ -128,13 +128,11 @@ namespace AIMP.SDK
                                 ClassName = plgType.FullName,
                                 PluginLocInfo = curAttr
                             };
-
-                            break;
                         }
-                        //var pluginExtensions = assemblyTypes.Where(o => extensionType.IsAssignableFrom(o)).ToList();
                     }
                     catch
                     {
+                        // ignored
                     }
                 }
             }
