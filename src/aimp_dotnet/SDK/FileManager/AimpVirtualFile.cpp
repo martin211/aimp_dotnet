@@ -87,6 +87,7 @@ AimpActionResult AimpVirtualFile::CreateStream(System::IO::Stream ^%stream)
 AimpActionResult AimpVirtualFile::GetFileInfo(IAimpFileInfo ^%fileInfo)
 {
     IAIMPFileInfo *fi = NULL;
+    fileInfo = nullptr;
     AimpActionResult result = CheckResult(_aimpObject->GetFileInfo(fi));
     if (result == AimpActionResult::Ok)
     {
