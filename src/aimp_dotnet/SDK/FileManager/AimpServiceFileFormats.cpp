@@ -17,11 +17,12 @@ using namespace AIMP::SDK;
 AimpServiceFileFormats::AimpServiceFileFormats(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceFileFormats>(core)
 { }
 
-AimpActionResult AimpServiceFileFormats::GetFormats(FileFormats flags, String ^% formats)
+AimpActionResult AimpServiceFileFormats::GetFormats(FileFormats flags, String ^%formats)
 {
     IAIMPServiceFileFormats *service = NULL;
     AimpActionResult result = AimpActionResult::Fail;
     IAIMPString *str = NULL;
+    formats = nullptr;
 
     try
     {

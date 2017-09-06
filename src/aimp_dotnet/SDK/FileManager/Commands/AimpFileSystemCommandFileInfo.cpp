@@ -20,6 +20,7 @@ AimpFileSystemCommandFileInfo::AimpFileSystemCommandFileInfo(IAIMPFileSystemComm
 AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(String ^file, AimpFileAttributes %attr)
 {
     IAIMPString *str = AimpConverter::ToAimpString(file);
+
     try
     {
         TAIMPFileAttributes *fattr = NULL;
@@ -39,6 +40,7 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(String ^file, AimpF
 AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(String ^file, long long %size)
 {
     IAIMPString *str = NULL;
+    size = 0;
 
     try
     {
