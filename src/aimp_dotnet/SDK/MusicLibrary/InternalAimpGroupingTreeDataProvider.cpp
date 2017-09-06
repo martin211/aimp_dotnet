@@ -83,20 +83,20 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProvider::GetFieldForAlphabeticIndex(
 
 ULONG WINAPI InternalAimpGroupingTreeDataProvider::AddRef(void)
 {
-    _linkCount++;
-    return _linkCount;
+    this->_linkCount++;
+    return this->_linkCount;
 }
 
 ULONG WINAPI InternalAimpGroupingTreeDataProvider::Release(void)
 {
-    _linkCount--;
+    this->_linkCount--;
 
-    if (_linkCount == 0)
+    if (this->_linkCount == 0)
     {
         delete this;
     }
 
-    return _linkCount;
+    return this->_linkCount;
 }
 
 HRESULT WINAPI InternalAimpGroupingTreeDataProvider::QueryInterface(REFIID riid, LPVOID* ppvObject)

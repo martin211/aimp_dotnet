@@ -93,9 +93,11 @@ AimpActionResult AimpPlaylistQueue::GetItem(int index, IAimpPlaylistItem ^%item)
 {
     void** itm = NULL;
     IAIMPPlaylistItem *it = nullptr;
+    item = nullptr;
+
     AimpActionResult res = CheckResult(InternalAimpObject->GetItem(index, IID_IAIMPPlaylistItem, itm));
 
-    if (res == AimpActionResult::Ok)
+    if (res == AimpActionResult::Ok && itm != NULL)
     {
         item = gcnew AimpPlaylistItem(it);
     }
