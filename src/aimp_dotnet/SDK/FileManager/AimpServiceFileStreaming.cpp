@@ -62,6 +62,7 @@ AimpActionResult AimpServiceFileStreaming::CreateStreamForFileUri(String ^fileUr
     AimpActionResult result = AimpActionResult::Fail;
     IAIMPVirtualFile *vf = NULL;
     stream = nullptr;
+    virtualFile = nullptr;
 
     try
     {

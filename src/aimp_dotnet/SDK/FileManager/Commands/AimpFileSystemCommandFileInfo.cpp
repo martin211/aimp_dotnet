@@ -20,6 +20,7 @@ AimpFileSystemCommandFileInfo::AimpFileSystemCommandFileInfo(IAIMPFileSystemComm
 AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(String ^file, AimpFileAttributes %attr)
 {
     IAIMPString *str = AimpConverter::ToAimpString(file);
+    attr = AimpFileAttributes();
 
     try
     {
