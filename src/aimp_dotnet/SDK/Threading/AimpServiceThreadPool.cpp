@@ -58,6 +58,8 @@ AimpActionResult AimpServiceThreadPool::Execute(IAimpTask ^task, UIntPtr %handle
             handle = UIntPtr((void*)h);
             return result;
         }
+
+        return AimpActionResult::Fail;
     }
     finally
     {
