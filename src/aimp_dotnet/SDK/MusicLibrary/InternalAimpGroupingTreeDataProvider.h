@@ -14,11 +14,10 @@
 #include "InternalAimpGroupingTreeDataProviderSelection.h"
 #include "AimpDataFilterGroup.h"
 
-class InternalAimpGroupingTreeDataProvider : public IAIMPMLGroupingTreeDataProvider
+class InternalAimpGroupingTreeDataProvider : public IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProvider>
 {
 private:
     gcroot<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^> _managedInstance;
-    ULONG _linkCount;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProvider> Base;
