@@ -17,7 +17,6 @@ using namespace AIMP::SDK;
 InternalAimpGroupingTreeDataProvider::InternalAimpGroupingTreeDataProvider(gcroot<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^> managedInstance)
 {
     _managedInstance = managedInstance;
-    _linkCount = 1;
 }
 
 HRESULT WINAPI InternalAimpGroupingTreeDataProvider::AppendFilter(IAIMPMLDataFilterGroup* Filter, IAIMPMLGroupingTreeSelection* Selection)
@@ -83,28 +82,17 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProvider::GetFieldForAlphabeticIndex(
 
 ULONG WINAPI InternalAimpGroupingTreeDataProvider::AddRef(void)
 {
-    _linkCount++;
-    return _linkCount;
+    return Base::AddRef();
 }
 
 ULONG WINAPI InternalAimpGroupingTreeDataProvider::Release(void)
 {
-    _linkCount--;
-
-    if (_linkCount == 0)
-    {
-        delete this;
-    }
-
-    return _linkCount;
+    return Base::Release();
 }
 
 HRESULT WINAPI InternalAimpGroupingTreeDataProvider::QueryInterface(REFIID riid, LPVOID* ppvObject)
 {
-    if (!ppvObject)
-    {
-        return E_POINTER;
-    }
+    HRESULT res = Base::QueryInterface(riid, ppvObject);
 
     if (riid == IID_IAIMPMLGroupingTreeDataProvider)
     {
@@ -113,5 +101,6 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProvider::QueryInterface(REFIID riid,
         return S_OK;
     }
 
+    ppvObject = nullptr;
     return E_NOINTERFACE;
 }
