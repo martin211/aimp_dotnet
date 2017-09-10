@@ -23,6 +23,7 @@ AimpActionResult AimpServiceFileInfo::GetFileInfoFromFileUri(String ^fileUri, Se
     IAIMPServiceFileInfo *service = NULL;
     IAIMPString *str = NULL;
     AimpActionResult result = AimpActionResult::Fail;
+    fileInfo = nullptr;
 
     try
     {
@@ -70,6 +71,7 @@ AimpActionResult AimpServiceFileInfo::GetVirtualFile(String ^fileUri, IAimpVirtu
     IAIMPServiceFileInfo *service = NULL;
     IAIMPString *str = NULL;
     AimpActionResult result = AimpActionResult::Fail;
+    virtualFile = nullptr;
 
     try
     {

@@ -333,6 +333,9 @@
     <ClCompile Include="SDK\Action\AimpActionEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\AimpConfig.cpp">
+      <Filter>Source Files\SDK</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -658,6 +661,9 @@
     </ClInclude>
     <ClInclude Include="AIMPSDK\AIMP400\apiMusicLibrary.h">
       <Filter>Header Files\AIMPSDK\AIMP4</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AimpConfig.h">
+      <Filter>Header Files\SDK</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
