@@ -31,9 +31,11 @@ namespace AIMP
 
         AimpActionResult AimpMenuManager::CreateMenuItem(IAimpMenuItem ^%item)
         {
-            IAIMPMenuItem *i;
+            IAIMPMenuItem *i = NULL;
+            item = nullptr;
+
             AimpActionResult result = CheckResult(_core->CreateMenuItem(&i));
-            if (result == AimpActionResult::Ok)
+            if (result == AimpActionResult::Ok && i != NULL)
             {
                 item = gcnew AimpMenuItem(i);
                 item->Style = AimpMenuItemStyle::Normal;
@@ -161,9 +163,11 @@ namespace AIMP
             IAIMPString* menuId = NULL;
             IAIMPMenuItem *aimpMenuItem = NULL;
             AimpActionResult result = AimpActionResult::Unexpected;
+            item = nullptr;
+
             try
             {
-                if (GetService(IID_IAIMPServiceMenuManager, &service) == AimpActionResult::Ok)
+                if (GetService(IID_IAIMPServiceMenuManager, &service) == AimpActionResult::Ok && service != NULL)
                 {
                     if (String::IsNullOrWhiteSpace(id))
                     {
@@ -207,6 +211,8 @@ namespace AIMP
             IAIMPServiceMenuManager *service = NULL;
             IAIMPMenuItem *aimpMenuItem = NULL;
             AimpActionResult result = AimpActionResult::Unexpected;
+            item = nullptr;
+
             try
             {
                 result = GetService(IID_IAIMPServiceMenuManager, &service);

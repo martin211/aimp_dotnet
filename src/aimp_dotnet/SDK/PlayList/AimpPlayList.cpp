@@ -1140,9 +1140,10 @@ namespace AIMP
 
         AimpActionResult AimpPlayList::GetFiles(PlaylistGetFilesFlag filesFlag, System::Collections::Generic::IList<String^> ^%files)
         {
-            IAIMPObjectList *collection;
+            IAIMPObjectList *collection = NULL;
             AimpActionResult actionResult = AimpActionResult::Fail;
             actionResult = CheckResult(InternalAimpObject->GetFiles((DWORD)filesFlag, &collection));
+            files = nullptr;
 
             if (actionResult == AimpActionResult::Ok)
             {

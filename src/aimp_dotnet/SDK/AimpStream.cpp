@@ -62,5 +62,6 @@ int AIMP::SDK::AimpStream::Read(array<unsigned char, 1> ^buffer, int count)
 
 AIMP::SDK::AimpActionResult AIMP::SDK::AimpStream::Write(array<unsigned char, 1> ^buffer, int count, int %writen)
 {
-    return AIMP::SDK::AimpActionResult();
+    writen = 0;
+    return AIMP::SDK::AimpActionResult::NotImplemented;
 }

@@ -25,6 +25,7 @@ namespace AIMP
         {
             AimpActionResult result = AimpActionResult::Fail;
             IAIMPServiceActionManager *service = NULL;
+            action = nullptr;
 
             try
             {
@@ -110,6 +111,8 @@ namespace AIMP
             {
                 return gcnew AIMP::SDK::AimpAction(action);
             }
+
+            return nullptr;
         }
     }
 }
