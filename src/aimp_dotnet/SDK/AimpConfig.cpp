@@ -100,7 +100,26 @@ namespace AIMP
 
         IAimpStream ^AimpConfig::GetValueAsStream(String ^keyPath)
         {
-            return nullptr;
+            IAIMPString *str = NULL;
+            IAIMPStream *stream = NULL;
+            try
+            {
+                str = AimpConverter::ToAimpString(keyPath);
+                if (CheckResult(InternalAimpObject->GetValueAsStream(str, &stream)) == AimpActionResult::Ok && stream != NULL)
+                {
+                    return gcnew AimpStream(stream);
+                }
+
+                return nullptr;
+            }
+            finally
+            {
+                if (str != NULL)
+                {
+                    str->Release();
+                    str = NULL;
+                }
+            }
         }
 
         String ^AimpConfig::GetValueAsString(String ^keyPath)
@@ -179,7 +198,20 @@ namespace AIMP
 
         AimpActionResult AimpConfig::SetValueAsStream(String ^keyPath, IAimpStream ^stream)
         {
-            return AimpActionResult::Fail;
+            IAIMPString *str = NULL;
+            try
+            {
+                str = AimpConverter::ToAimpString(keyPath);
+                return CheckResult(InternalAimpObject->SetValueAsStream(str, ((AimpStream^)stream)->InternalAimpObject));
+            }
+            finally
+            {
+                if (str != NULL)
+                {
+                    str->Release();
+                    str = NULL;
+                }
+            }
         }
 
         AimpActionResult AimpConfig::SetValueAsString(String ^keyPath, String ^value)
