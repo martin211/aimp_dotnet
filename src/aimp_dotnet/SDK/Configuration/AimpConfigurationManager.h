@@ -12,6 +12,7 @@
 #pragma once
 
 #include "SDK\BaseManager.h"
+#include "SDK\AimpConfig.h"
 
 namespace AIMP
 {
@@ -20,36 +21,16 @@ namespace AIMP
         using namespace System;
         using namespace AIMP::SDK::ConfigurationManager;
 
-        public ref class AimpConfigurationManager : public AimpBaseManager<IAIMPServiceConfig>, public IAimpConfigurationManager
+        public ref class AimpServiceConfig :
+            public AimpConfig,
+            public IAimpServiceConfig
         {
         public:
-            explicit AimpConfigurationManager(ManagedAimpCore^ core);
+            explicit AimpServiceConfig(IAIMPServiceConfig* aimpObject);
 
-            ~AimpConfigurationManager();
+            ~AimpServiceConfig();
 
-            virtual void Delete(String^ key);
-
-            virtual void FlushCache();
-
-            virtual double GetValueAsFloat(String^ key);
-
-            virtual int GetValueAsInt32(String^ key);
-
-            virtual Int64 GetValueAsInt64(String^ key);
-
-            virtual System::IO::Stream^ GetValueAsStream(String^ key);
-
-            virtual String^ GetValueAsString(String^ key);
-
-            virtual void SetValueAsFloat(String^ key, double value);
-
-            virtual void SetValueAsInt32(String^ key, int value);
-
-            virtual void SetValueAsInt64(String^ key, Int64 value);
-
-            virtual void SetValueAsStream(String^ key, System::IO::Stream^ value);
-
-            virtual void SetValueAsString(String^ key, String^ value);
+            virtual AimpActionResult FlushCache();
         };
     }
 }

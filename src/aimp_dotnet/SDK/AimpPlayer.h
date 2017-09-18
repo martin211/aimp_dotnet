@@ -66,7 +66,7 @@ namespace AIMP
         IAimpServiceActionManager^ _actionManager;
         IAimpMUIManager^ _muiManager;
         IAimpAlbumArtManager^ _artManager;
-        IAimpConfigurationManager^ _configManager;
+        IAimpServiceConfig^ _serviceConfig;
         IWin32Manager ^_win32Manager;
         IAimpPlaylistManager ^_playListManager;
         IAimpPlaybackQueueService ^_playbackQueueManager;
@@ -113,7 +113,7 @@ namespace AIMP
             delete _actionManager;
             delete _muiManager;
             delete _artManager;
-            delete _configManager;
+            delete _serviceConfig;
             delete _playListManager;
             delete _playbackQueueManager;
             delete _serviceSynchronizer;
@@ -184,16 +184,18 @@ namespace AIMP
             }
         }
 
-        virtual property IAimpConfigurationManager^ ConfigurationManager
+        virtual property IAimpServiceConfig^ ServiceConfig
         {
-            IAimpConfigurationManager^ get()
+            IAimpServiceConfig^ get()
             {
-                if (_configManager == nullptr)
+                if (_serviceConfig == nullptr)
                 {
-                    _configManager = gcnew AIMP::AimpConfigurationManager((ManagedAimpCore^)_managedAimpCore);
+                    IAIMPServiceConfig* config = (IAIMPServiceConfig*)_managedAimpCore->QueryInterface(IID_IAIMPServiceConfig);
+
+                    _serviceConfig = gcnew AIMP::AimpServiceConfig(config);
                 }
 
-                return _configManager;
+                return _serviceConfig;
             }
         }
 

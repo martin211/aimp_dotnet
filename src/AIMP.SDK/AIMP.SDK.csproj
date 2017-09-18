@@ -150,7 +150,7 @@
     <Compile Include="AlbumArtManager\AimpFindCovertArtType.cs" />
     <Compile Include="AlbumArtManager\AimpGetAlbumArtEventArgs.cs" />
     <Compile Include="AlbumArtManager\IAimpAlbumArtManager.cs" />
-    <Compile Include="ConfigurationManager\IAimpConfigurationManager.cs" />
+    <Compile Include="ConfigurationManager\IAimpServiceConfig.cs" />
     <Compile Include="MenuManager\IAimpMenuItem.cs" />
     <Compile Include="MenuManager\IAimpServiceMenuManager.cs" />
     <Compile Include="MUIManager\IAimpMUIManager.cs" />
