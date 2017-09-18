@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using AIMP.SDK.ActionManager;
 using DemoPlugin;
 
@@ -21,6 +22,8 @@ namespace TestPlugin
 
         public override void Initialize()
         {
+            TestWriteConfig();
+
             IAimpMenuItem demoFormItem;
             if (Player.MenuManager.CreateMenuItem(out demoFormItem) == AimpActionResult.Ok)
             {
@@ -41,6 +44,8 @@ namespace TestPlugin
             _demoForm = new PlayerForm(Player);
 
             CreateMenuWithAction();
+
+            TestReadConfig();
         }
 
         private void DemoFormItemOnOnExecute(object sender, EventArgs eventArgs)
@@ -82,6 +87,41 @@ namespace TestPlugin
                 actionMenuItem.Id = "aimp.MenuAndActionsDemo.menuitem.with.action";
                 actionMenuItem.Action = action;
                 Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, actionMenuItem);
+            }
+        }
+
+        private void TestWriteConfig()
+        {
+            Player.ServiceConfig.SetValueAsFloat("AIMP.DOTNET.DEMO\\FLOAT", 0.2f);
+            Player.ServiceConfig.SetValueAsInt32("AIMP.DOTNET.DEMO\\INT32", 10);
+            Player.ServiceConfig.SetValueAsInt64("AIMP.DOTNET.DEMO\\INT64", 20);
+            Player.ServiceConfig.SetValueAsString("AIMP.DOTNET.DEMO\\STRING", "STRING");
+            using (var stream = Player.Core.CreateStream())
+            {
+                var buf = System.Text.Encoding.Default.GetBytes("STREAMDATA");
+                int written;
+                stream.Write(buf, buf.Length, out written);
+                Player.ServiceConfig.SetValueAsStream("AIMP.DOTNET.DEMO\\STREAM", stream);
+            }
+        }
+
+        private void TestReadConfig()
+        {
+            var floatValue = Player.ServiceConfig.GetValueAsFloat("AIMP.DOTNET.DEMO\\FLOAT");
+            Debug.Assert(floatValue == 0.2f);
+            var int32Value = Player.ServiceConfig.GetValueAsInt32("AIMP.DOTNET.DEMO\\INT32");
+            Debug.Assert(int32Value == 10);
+            var int64Value = Player.ServiceConfig.GetValueAsInt64("AIMP.DOTNET.DEMO\\INT64");
+            Debug.Assert(int64Value == 20);
+            var stringValue = Player.ServiceConfig.GetValueAsString("AIMP.DOTNET.DEMO\\STRING");
+            Debug.Assert(stringValue.Equals("STRING"));
+            using (var streamValue = Player.ServiceConfig.GetValueAsStream("AIMP.DOTNET.DEMO\\STREAM"))
+            {
+                long count = streamValue.GetSize();
+                var buf = new byte[count];
+                streamValue.Read(buf, (int) count);
+                var strData = System.Text.Encoding.Default.GetString(buf);
+                Debug.Assert(strData.Equals("STREAMDATA"));
             }
         }
     }
