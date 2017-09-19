@@ -94,534 +94,203 @@ namespace AIMP
         /// <param name="pluginId">The plugin identifier.</param>
         /// <param name="applicationDomainId">The application domain identifier.</param>
         /// <param name="isCrossDomain">The is cross domain.</param>
-        AimpPlayer(ManagedAimpCore ^core, int pluginId, int applicationDomainId, bool isCrossDomain)
-        {
-            _managedAimpCore = core;
-            IAIMPServicePlayer* ps;
-            ((ManagedAimpCore^)_managedAimpCore)->GetService(IID_IAIMPServicePlayer, reinterpret_cast<void**>(&ps));
-            _player = ps;
+        AimpPlayer(ManagedAimpCore ^core, int pluginId, int applicationDomainId, bool isCrossDomain);
 
-            _aimpCore = gcnew AimpCore(_managedAimpCore);
-            ((AimpCore^)_aimpCore)->InternalCoreMessage += gcnew AimpEventsDelegate(this, &AIMP::AimpPlayer::OnInternalCoreMessage);
-        }
+        ~AimpPlayer();
 
-        ~AimpPlayer()
-        {
-            _player->Release();
-            delete _aimpCore;
-            delete _menuManager;
-            delete _actionManager;
-            delete _muiManager;
-            delete _artManager;
-            delete _serviceConfig;
-            delete _playListManager;
-            delete _playbackQueueManager;
-            delete _serviceSynchronizer;
-            delete _serviceThreadPool;
-            delete _serviceMusicLibrary;
-            delete _serviceMusicLibraryUi;
-            delete _serviceFileFormats;
-            delete _serviceFileInfo;
-        }
-
+        /// <summary>
+        /// Gets Player core.
+        /// </summary>
         virtual property IAimpCore^ Core
         {
-            IAimpCore^ get()
-            {
-                return _aimpCore;
-            }
+            IAimpCore^ get();
         }
 
+        /// <summary>
+        /// Gets player menu manager.
+        /// </summary>
         virtual property IAimpServiceMenuManager^ MenuManager
         {
-            IAimpServiceMenuManager^ get()
-            {
-                if (_menuManager == nullptr)
-                {
-                    _menuManager = gcnew AimpMenuManager(_managedAimpCore);
-                }
-
-                return _menuManager;
-            }
+            IAimpServiceMenuManager^ get();
         }
 
+        /// <summary>
+        /// Gets player action manager.
+        /// </summary>
         virtual property IAimpServiceActionManager^ ActionManager
         {
-            IAimpServiceActionManager^ get()
-            {
-                if (_actionManager == nullptr)
-                {
-                    _actionManager = gcnew AIMP::AimpActionManager((ManagedAimpCore^)_managedAimpCore);
-                }
-
-                return _actionManager;
-            }
+            IAimpServiceActionManager^ get();
         }
 
+        /// <summary>
+        /// Gets the MUI manager.
+        /// </summary>
         virtual property IAimpMUIManager^ MUIManager
         {
-            IAimpMUIManager^ get()
-            {
-                if (_muiManager == nullptr)
-                {
-                    _muiManager = gcnew AIMP::AimpMIUManager((ManagedAimpCore^)_managedAimpCore);
-                }
-
-                return _muiManager;
-            }
+            IAimpMUIManager^ get();
         }
 
         virtual property IAimpAlbumArtManager^ AlbumArtManager
         {
-            IAimpAlbumArtManager^ get()
-            {
-                if (_artManager == nullptr)
-                {
-                    _artManager = gcnew AIMP::AimpAlbumArtManager((ManagedAimpCore^)_managedAimpCore);
-                }
-
-                return _artManager;
-            }
+            IAimpAlbumArtManager^ get();
         }
 
         virtual property IAimpServiceConfig^ ServiceConfig
         {
-            IAimpServiceConfig^ get()
-            {
-                if (_serviceConfig == nullptr)
-                {
-                    IAIMPServiceConfig* config = (IAIMPServiceConfig*)_managedAimpCore->QueryInterface(IID_IAIMPServiceConfig);
-
-                    _serviceConfig = gcnew AIMP::AimpServiceConfig(config);
-                }
-
-                return _serviceConfig;
-            }
+            IAimpServiceConfig^ get();
         }
 
         virtual property IAimpPlaylistManager ^PlaylistManager
         {
-            IAimpPlaylistManager ^get()
-            {
-                if (_playListManager == nullptr)
-                {
-                    _playListManager = gcnew AIMP::SDK::PlayListManager((ManagedAimpCore^)_managedAimpCore);
-                }
-
-                return _playListManager;
-            }
+            IAimpPlaylistManager ^get();
         }
 
         virtual property IAimpPlaybackQueueService ^PlaybackQueueManager
         {
-            IAimpPlaybackQueueService ^get()
-            {
-                System::Diagnostics::Debug::WriteLine("Get PlaybackQueueManager");
-                if (_playbackQueueManager == nullptr)
-                {
-                    _playbackQueueManager = gcnew AIMP::SDK::AimpServicePlaybackQueue((ManagedAimpCore^)_managedAimpCore);
-                    ((ManagedAimpCore^)_managedAimpCore)->CheckUrl += gcnew AIMP::SDK::Playback::AimpCheckUrl(this, &AIMP::AimpPlayer::OnCheckUrl);
-                }
-
-                return _playbackQueueManager;
-            }
-        }
-
-        bool OnCheckUrl(String^ %url)
-        {
-            return ((AIMP::SDK::AimpServicePlaybackQueue^)this->_playbackQueueManager)->RaiseCheckUrl(url);
+            IAimpPlaybackQueueService ^get();
         }
 
         virtual property IAIMPServicePlayer* ServicePlayer
         {
-            IAIMPServicePlayer* get()
-            {
-                return _player;
-            }
+            IAIMPServicePlayer* get();
         }
 
         virtual property bool IsMute
         {
-            bool get()
-            {
-                bool value;
-                Utils::CheckResult(_player->GetMute(&value));
-                return value;
-            }
-
-            void set(bool value)
-            {
-                Utils::CheckResult(_player->SetMute(value));
-            }
+            bool get();
+            void set(bool value);
         }
 
         virtual property float Volume
         {
-            float get()
-            {
-                float value;
-                Utils::CheckResult(_player->GetVolume(&value));
-                return value;
-            }
-
-            void set(float value)
-            {
-                Utils::CheckResult(_player->SetVolume(value));
-            }
+            float get();
+            void set(float value);
         }
 
         virtual property double Duration
         {
-            double get()
-            {
-                double value;
-                _player->GetDuration(&value);
-                return value;
-            }
+            double get();
         }
 
         virtual property double Position
         {
-            double get()
-            {
-                double value;
-                Utils::CheckResult(_player->GetPosition(&value));
-                return value;
-            }
-
-            void set(double value)
-            {
-                Utils::CheckResult(_player->SetPosition(value));
-            }
+            double get();
+            void set(double value);
         }
 
         virtual property AimpPlayerState State
         {
-            AimpPlayerState get()
-            {
-                int state = _player->GetState();
-                return (AimpPlayerState)state;
-            }
+            AimpPlayerState get();
         }
 
         virtual property IAimpFileInfo^ CurrentFileInfo
         {
-            IAimpFileInfo^ get()
-            {
-                IAIMPFileInfo* fi;
-                _player->GetInfo(&fi);
-
-                if (fi == NULL)
-                {
-                    return nullptr;
-                }
-
-                AimpFileInfo^ fileInfo = gcnew AimpFileInfo(fi);
-                return fileInfo;
-            }
+            IAimpFileInfo^ get();
         }
 
         virtual property IAimpPlaylistItem^ CurrentPlaylistItem
         {
-            IAimpPlaylistItem^ get()
-            {
-                IAIMPPlaylistItem* item;
-                _player->GetPlaylistItem(&item);
-
-                if (item == NULL)
-                {
-                    return nullptr;
-                }
-
-                return gcnew AimpPlaylistItem(item);
-            }
+            IAimpPlaylistItem^ get();
         }
 
         virtual property IWin32Manager ^Win32Manager
         {
-            IWin32Manager ^get()
-            {
-                if (_win32Manager == nullptr)
-                {
-                    _win32Manager = gcnew AIMP::Win32::Win32Manager();
-                }
-
-                return _win32Manager;
-            }
+            IWin32Manager ^get();
         }
 
         virtual property IAimpServiceOptionsDialog ^ServiceOptionsDialog
         {
-            IAimpServiceOptionsDialog ^get()
-            {
-                if (_serviceOptionsDialogManager == nullptr)
-                {
-                    _serviceOptionsDialogManager = gcnew AIMP::SDK::AimpServiceOptionsDialog((ManagedAimpCore^)_managedAimpCore);
-                }
-
-                return _serviceOptionsDialogManager;
-            }
+            IAimpServiceOptionsDialog ^get();
         }
 
-        virtual event EventHandler<AIMP::SDK::Player::StateChangedEventArgs^>^ StateChanged
+        virtual event EventHandler<Player::StateChangedEventArgs^>^ StateChanged
         {
-            void add(EventHandler<AIMP::SDK::Player::StateChangedEventArgs^>^ onAction)
-            {
-                if (this->_onStateChanged == nullptr)
-                {
-                    _onStateChanged = (EventHandler<AIMP::SDK::Player::StateChangedEventArgs^>^)Delegate::Combine(_onStateChanged, onAction);
-                }
-            }
-            void remove(EventHandler<AIMP::SDK::Player::StateChangedEventArgs^>^ onAction)
-            {
-                bool tmp = this->_onStateChanged != nullptr;
-                if (tmp)
-                {
-                    _onStateChanged = (EventHandler<AIMP::SDK::Player::StateChangedEventArgs^>^)Delegate::Remove(_onStateChanged, onAction);
-                }
-            }
-            void raise(Object ^sender, AIMP::SDK::Player::StateChangedEventArgs^ state)
-            {
-                if (this->_onStateChanged != nullptr)
-                {
-                    _onStateChanged(sender, state);
-                }
-            }
+            void add(EventHandler<Player::StateChangedEventArgs^>^ onAction);
+            void remove(EventHandler<Player::StateChangedEventArgs^>^ onAction);
+            void raise(Object ^sender, AIMP::SDK::Player::StateChangedEventArgs^ state);
         }
 
         virtual event EventHandler ^LanguageChanged
         {
-            void add(EventHandler ^onAction)
-            {
-                bool tmp = _onLanguageChanged == nullptr;
-                if (tmp)
-                {
-                    _onLanguageChanged = (EventHandler^)Delegate::Combine(_onLanguageChanged, onAction);
-                }
-            }
-            void remove(EventHandler ^onAction)
-            {
-                bool tmp = _onLanguageChanged != nullptr;
-                if (tmp)
-                {
-                    _onLanguageChanged = (EventHandler^)Delegate::Remove(_onLanguageChanged, onAction);
-                }
-            }
-            void raise(Object ^sender, EventArgs ^e)
-            {
-                if (_onLanguageChanged != nullptr)
-                {
-                    _onLanguageChanged(sender, e);
-                }
-            }
+            void add(EventHandler ^onAction);
+            void remove(EventHandler ^onAction);
+            void raise(Object ^sender, EventArgs ^e);
         }
 
         virtual event EventHandler ^TrackChanged
         {
-            void add(EventHandler ^onAction)
-            {
-                bool tmp = _onTrackChanged == nullptr;
-                if (tmp)
-                {
-                    _onTrackChanged = (EventHandler^)Delegate::Combine(_onTrackChanged, onAction);
-                }
-            }
-            void remove(EventHandler ^onAction)
-            {
-                bool tmp = _onTrackChanged != nullptr;
-                if (tmp)
-                {
-                    _onTrackChanged = (EventHandler^)Delegate::Remove(_onTrackChanged, onAction);
-                }
-            }
-            void raise(Object ^sender, EventArgs ^e)
-            {
-                if (_onTrackChanged != nullptr)
-                {
-                    _onTrackChanged(sender, e);
-                }
-            }
+            void add(EventHandler ^onAction);
+            void remove(EventHandler ^onAction);
+            void raise(Object ^sender, EventArgs ^e);
         }
 
-        virtual void Pause()
-        {
-            _player->Pause();
-        }
+        virtual void Pause();
 
-        virtual void Stop()
-        {
-            _player->Stop();
-        }
+        virtual void Stop();
 
-        virtual void Resume()
-        {
-            _player->Resume();
-        }
+        virtual void Resume();
 
-        virtual void StopAfterTrack()
-        {
-            _player->StopAfterTrack();
-        }
+        virtual void StopAfterTrack();
 
-        virtual void GoToNext()
-        {
-            _player->GoToNext();
-        }
+        virtual void GoToNext();
 
-        virtual void GoToPrev()
-        {
-            _player->GoToPrev();
-        }
+        virtual void GoToPrev();
 
-        virtual void Play(IAimpPlaybackQueueItem ^queueItem)
-        {
-            _player->Play(((AimpPlaybackQueueItem^)queueItem)->InternalAimpObject);
-        }
+        virtual void Play(IAimpPlaybackQueueItem ^queueItem);
 
-        virtual void Play(IAimpPlaylistItem ^playListItem)
-        {
-            _player->Play2(((AimpPlaylistItem^)playListItem)->InternalAimpObject);
-        }
+        virtual void Play(IAimpPlaylistItem ^playListItem);
 
-        virtual void Play(IAimpPlaylist^ playList)
-        {
-            _player->Play3(((AimpPlayList^)playList)->InternalAimpObject);
-        }
+        virtual void Play(IAimpPlaylist^ playList);
 
         virtual property IAimpServiceSynchronizer ^ServiceSynchronizer
         {
-            IAimpServiceSynchronizer ^get()
-            {
-                if (_serviceSynchronizer == nullptr)
-                {
-                    _serviceSynchronizer = gcnew AIMP::SDK::AimpServiceSynchronizer((ManagedAimpCore^)_managedAimpCore);
-                }
-
-                return _serviceSynchronizer;
-            }
+            IAimpServiceSynchronizer ^get();
         }
 
         virtual property IAimpServiceThreadPool ^ServiceThreadPool
         {
-            IAimpServiceThreadPool ^get()
-            {
-                if (_serviceThreadPool == nullptr)
-                {
-                    _serviceThreadPool = gcnew AIMP::SDK::AimpServiceThreadPool((ManagedAimpCore^)_managedAimpCore);
-                }
-
-                return _serviceThreadPool;
-            }
+            IAimpServiceThreadPool ^get();
         }
 
         virtual property IAimpServiceMusicLibrary ^ServiceMusicLibrary
         {
-            IAimpServiceMusicLibrary ^get()
-            {
-                if (_serviceMusicLibrary == nullptr)
-                {
-                    _serviceMusicLibrary = gcnew AIMP::SDK::AimpServiceMusicLibrary((ManagedAimpCore^)_managedAimpCore);
-                }
-
-                return _serviceMusicLibrary;
-            }
+            IAimpServiceMusicLibrary ^get();
         }
 
         virtual property IAimpServiceMusicLibraryUI ^ServiceMusicLibraryUi
         {
-            IAimpServiceMusicLibraryUI ^get()
-            {
-                if (_serviceMusicLibraryUi == nullptr)
-                {
-                    _serviceMusicLibraryUi = gcnew AIMP::SDK::AimpServiceMusicLibraryUI((ManagedAimpCore^)_managedAimpCore);
-                }
-
-                return _serviceMusicLibraryUi;
-            }
+            IAimpServiceMusicLibraryUI ^get();
         }
 
         virtual property IAimpServiceFileFormats ^ServiceFileFormats
         {
-            IAimpServiceFileFormats ^get()
-            {
-                if (_serviceFileFormats == nullptr)
-                {
-                    _serviceFileFormats = gcnew AIMP::SDK::AimpServiceFileFormats((ManagedAimpCore^)_managedAimpCore);
-                }
-
-                return _serviceFileFormats;
-            }
+            IAimpServiceFileFormats ^get();
         }
 
         virtual property IAimpServiceFileInfo ^ServiceFileInfo
         {
-            IAimpServiceFileInfo ^get()
-            {
-                if (_serviceFileInfo == nullptr)
-                {
-                    _serviceFileInfo = gcnew AIMP::SDK::AimpServiceFileInfo((ManagedAimpCore^)_managedAimpCore);
-                }
-
-                return _serviceFileInfo;
-            }
+            IAimpServiceFileInfo ^get();
         }
 
         virtual property IAimpServiceFileSystems ^ServiceFileSystems
         {
-            IAimpServiceFileSystems ^get()
-            {
-                if (_serviceFileSystems == nullptr)
-                {
-                    _serviceFileSystems = gcnew AIMP::SDK::AimpServiceFileSystems((ManagedAimpCore^)_managedAimpCore);
-                }
-
-                return _serviceFileSystems;
-            }
+            IAimpServiceFileSystems ^get();
         }
 
         virtual property IAimpServiceFileStreaming ^ServiceFileStreaming
         {
-            IAimpServiceFileStreaming ^get()
-            {
-                if (_serviceFileStreaming == nullptr)
-                {
-                    _serviceFileStreaming = gcnew AIMP::SDK::AimpServiceFileStreaming((ManagedAimpCore^)_managedAimpCore);
-                }
-
-                return _serviceFileStreaming;
-            }
+            IAimpServiceFileStreaming ^get();
         }
 
         virtual property IAimpServiceFileInfoFormatter ^ServiceFileInfoFormatter
         {
-            IAimpServiceFileInfoFormatter ^get()
-            {
-                if (_serviceFileInfoFormatter == nullptr)
-                {
-                    //TODO: Complete it
-                }
-
-                return _serviceFileInfoFormatter;
-            }
+            IAimpServiceFileInfoFormatter ^get();
         }
+
+        bool OnCheckUrl(String^ %url);
 
     private:
-        void OnInternalCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2)
-        {
-            if (param1 == AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_PLAYER_STATE && _state != this->State)
-            {
-                _state = this->State;
-                StateChanged(this, gcnew AIMP::SDK::Player::StateChangedEventArgs(_state));
-            }
-            else if (param1 == AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_LANGUAGE)
-            {
-                LanguageChanged(this, EventArgs::Empty);
-            }
-            else if (param1 == AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_STREAM_START || param1 == AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_STREAM_START_SUBTRACK)
-            {
-                TrackChanged(this, EventArgs::Empty);
-            }
-        }
+        void OnInternalCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2);
     };
 
     private ref class AIMPControllerInitializer : public System::MarshalByRefObject
