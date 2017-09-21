@@ -43,7 +43,7 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
         object Value1 { get; set; }
 
         /// <summary>
-        /// This value is used if the <see cref="IAimpDataFieldFilter.Operation"/> property is set to the AIMPML_FIELDFILTER_OPERATION_BETWEEN value.
+        /// This value is used if the <see cref="IAimpDataFieldFilter.Operation"/> property is set to the <see cref="FieldFilterOperationType.AIMPML_FIELDFILTER_OPERATION_BETWEEN"/> value.
         /// </summary>
         object Value2 { get; set; }
     }
