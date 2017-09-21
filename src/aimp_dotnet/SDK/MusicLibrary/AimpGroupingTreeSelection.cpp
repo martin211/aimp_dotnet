@@ -36,7 +36,7 @@ int AimpGroupingTreeSelection::GetCount()
 
 AimpActionResult AimpGroupingTreeSelection::GetValue(int index, System::String^% fieldName, System::Object^% value)
 {
-    IAIMPString* str;
+    IAIMPString* str = NULL;
     VARIANT val;
 
     fieldName = nullptr;

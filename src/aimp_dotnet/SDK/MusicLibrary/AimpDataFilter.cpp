@@ -11,11 +11,14 @@
 
 #include "Stdafx.h"
 #include "AimpDataFilter.h"
+#include "AimpDataFieldFilter.h"
 
 using namespace AIMP::SDK;
 
 AimpDataFilter::AimpDataFilter(IAIMPMLDataFilter* native) : AimpDataFilterGroup(native)
-{}
+{
+    InternalDataFilter = native;
+}
 
 int AimpDataFilter::Offset::get()
 {
@@ -77,13 +80,22 @@ void AimpDataFilter::AlphaBeticIndex::set(int value)
     PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_ALPHABETICINDEX, value);
 }
 
-AimpActionResult AimpDataFilter::Assign(IAimpDataFieldFilter^ source)
+AimpActionResult AimpDataFilter::Assign(IAimpDataFilter^ source)
 {
-    return AimpActionResult::NotImplemented;
+    IAIMPMLDataFilter* filter = ((AimpDataFilter^)source)->InternalDataFilter;
+    return Utils::CheckResult(InternalDataFilter->Assign(filter));
 }
 
 AimpActionResult AimpDataFilter::Clone(IAimpDataFilter^% source)
 {
     source = nullptr;
-    return AimpActionResult::NotImplemented;
+    IAIMPMLDataFilter* clone = NULL;
+
+    AimpActionResult result = Utils::CheckResult(InternalDataFilter->Clone((void**)&clone));
+    if (result == AimpActionResult::Ok && clone != NULL)
+    {
+        source = gcnew AimpDataFilter(clone);
+    }
+
+    return result;
 }
