@@ -72,6 +72,9 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
         /// <returns></returns>
         AimpActionResult GetChild(int index, out IAimpDataFieldFilter fieldFilter);
 
+        /// <summary>
+        /// Gets the child count.
+        /// </summary>
         int GetChildCount();
 
         void BeginUpdate();

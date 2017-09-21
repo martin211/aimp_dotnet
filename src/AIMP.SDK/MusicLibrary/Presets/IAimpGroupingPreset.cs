@@ -11,6 +11,9 @@
 
 namespace AIMP.SDK.MusicLibrary.Presets
 {
+    /// <summary>
+    /// Allow access to grouping preset.
+    /// </summary>
     public interface IAimpGroupingPreset
     {
         /// <summary>

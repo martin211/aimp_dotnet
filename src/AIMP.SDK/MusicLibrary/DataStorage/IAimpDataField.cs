@@ -49,16 +49,35 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
 
     public interface IAimpDataField
     {
+        /// <summary>
+        /// This is a user data parameter, it allow you to bind custom data to the interface.
+        /// </summary>
         string Custom { get; set; }
 
+        /// <summary>
+        /// Internal field name, this values used as unique ID of field in space of current data storage.
+        /// Display name for the field gets from the custom localization from the AIMPML\<FieldName> key path.
+        /// </summary>
         string Name { get; set; }
 
+        /// <summary>
+        /// Gets or sets the data field type.
+        /// </summary>
         AimpDataFieldType Type { get; set; }
 
+        /// <summary>
+        /// Gets or sets the data field flags.
+        /// </summary>
         AimpDataFieldFlagsType Flags { get; set; }
 
+        /// <summary>
+        /// Gets or sets the field image.
+        /// </summary>
         ImageType Image { get; set; }
 
+        /// <summary>
+        /// Gets or sets the display value.
+        /// </summary>
         string DisplayValue { get; set; }
     }
 
