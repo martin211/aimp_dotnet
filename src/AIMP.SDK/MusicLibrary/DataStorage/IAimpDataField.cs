@@ -20,9 +20,25 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         AIMPML_FIELDTYPE_INT64 = 2,
         AIMPML_FIELDTYPE_FLOAT = 3,
         AIMPML_FIELDTYPE_STRING = 4,
+
+        /// <summary>
+        /// Display value is formatted data time value (format string is depended from the context).
+        /// </summary>
         AIMPML_FIELDTYPE_DATETIME = 10,
+
+        /// <summary>
+        /// Display value is formatted time value (format string is depended from the context).
+        /// </summary>
         AIMPML_FIELDTYPE_DURATION = 11,
+
+        /// <summary>
+        /// Display value is formatted file size value (format string is depended from the context).
+        /// </summary>
         AIMPML_FIELDTYPE_FILESIZE = 12,
+
+        /// <summary>
+        /// Grouping tree split the value by levels by the "\" and "/" characters. Grouping by this field with other fields is not available.
+        /// </summary>
         AIMPML_FIELDTYPE_FILENAME = 13
     }
 
@@ -47,6 +63,9 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         AIMPML_FIELDIMAGE_LABEL = 6
     }
 
+    /// <summary>
+    /// Provides information about the data field for Music Library.
+    /// </summary>
     public interface IAimpDataField
     {
         /// <summary>
