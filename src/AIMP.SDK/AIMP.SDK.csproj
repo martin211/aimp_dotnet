@@ -93,6 +93,7 @@
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilterByArray.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFilterGroup.cs" />
     <Compile Include="MusicLibrary\DataStorage\IAimpDataField.cs" />
+    <Compile Include="MusicLibrary\DataStorage\IAimpDataFieldDisplayValue.cs" />
     <Compile Include="MusicLibrary\DataStorage\IAimpDataStorage.cs" />
     <Compile Include="MusicLibrary\DataStorage\IAimpGroupingTreeDataProvider.cs" />
     <Compile Include="MusicLibrary\DataStorage\IAimpGroupingTreeDataProviderSelection.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="MusicLibrary\IAimpDataStorageManager.cs" />
     <Compile Include="MusicLibrary\Extension\IAimpExtensionDataStorage.cs" />
     <Compile Include="MusicLibrary\IAimpFileList.cs" />
+    <Compile Include="MusicLibrary\IAimpPlaylistPreimage.cs" />
     <Compile Include="MusicLibrary\Presets\IAimpGroupingPreset.cs" />
     <Compile Include="MusicLibrary\Presets\IAimpGroupingPresets.cs" />
     <Compile Include="MusicLibrary\IAimpServiceMusicLibrary.cs" />
