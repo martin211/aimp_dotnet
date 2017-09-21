@@ -63,7 +63,7 @@ namespace TestPlugin
         {
             _demoForm.Dispose();
             System.Diagnostics.Debug.WriteLine("Dispose");
-            Player.MenuManager.Delete(_menuItem);
+            //Player.MenuManager.Delete(_menuItem);
         }
 
         private void CreateMenuWithAction()
