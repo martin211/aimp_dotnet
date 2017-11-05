@@ -1,0 +1,7 @@
+stages:
+  - build
+before_script:
+  - 'c:\Nuget\nuget.exe restore src\aimp_dotnet.sln'
+job:
+  stage: build
+  script: 'msbuild src\aimp_dotnet.sln'
