@@ -1,3 +1,6 @@
+variables:
+  VERSION: "$AIMP_VERSION.$CI_JOB_ID"
+
 stages:
   - analysis_start
   - build
@@ -6,8 +9,8 @@ stages:
 analysis_start:
   stage: analysis_start
   script: 
-  - echo "Starting SonarQube publish analysis for project aimp_dotnet [version=$CI_JOB_ID]"
-  - MSBuild.SonarQube.Runner begin /k:$SONAR_PROJECT_KEY /n:$CI_PROJECT_NAME /v:$CI_JOB_ID /d:sonar.msbuild.testProjectPattern=[^\\]*(Unit)?Tests$ /d:sonar.branch=$CI_COMMIT_REF_NAME /d:sonar.exclusions=**/bin/*,**/obj/* /d:sonar.cxx.compiler.reportPath=*.log /d:sonar.cxx.compiler.charset=UTF-8 /d:sonar.cxx.compiler.regex=^(.*)\((\d+)\)\x20*:\x20warning\x20(C\d+):(.*)$
+  - echo "Starting SonarQube analysis for project aimp_dotnet [version=$VERSION, branch=$CI_COMMIT_REF_NAME]"
+  - MSBuild.SonarQube.Runner begin '/k:$SONAR_PROJECT_KEY /n:$CI_PROJECT_NAME /v:$VERSION /d:sonar.msbuild.testProjectPattern=[^\\]*(Unit)?Tests$ /d:sonar.branch=$CI_COMMIT_REF_NAME /d:sonar.exclusions=**/bin/*,**/obj/* /d:sonar.cxx.compiler.reportPath=*.log /d:sonar.cxx.compiler.charset=UTF-8 /d:sonar.cxx.compiler.regex=^(.*)\((\d+)\)\x20*:\x20warning\x20(C\d+):(.*)$'
 
 analysis_end:
   stage: analysis_end
@@ -22,9 +25,8 @@ build_master:
     - develop
   stage: build
   script:
-  - echo "Release build..."
-  script: 
-  - msbuild $CI_PROJECT_DIR\src\aimp_dotnet.sln /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /property:Configuration=Release /p:BuildNumber=$CI_JOB_ID
+  - echo "Build project [version=$VERSION, branch=$CI_COMMIT_REF_NAME]"
+  - msbuild $CI_PROJECT_DIR\src\aimp_dotnet.sln '/consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /property:Configuration=Release /p:BuildNumber=$VERSION'
   artifacts:
     untracked: true
 
@@ -35,6 +37,5 @@ build_develop:
     - master
   stage: build
   script:
-  - echo "Release build..."
-  script: 
-  - msbuild $CI_PROJECT_DIR\src\aimp_dotnet.sln /p:Configuration=Release;WarningLevel=3 /p:Platform=AnyCPU /p:RunCodeAnalysis=True;CodeAnalysisRuleSet=AllRules.ruleset;verbosity=normal /filelogger /fileLoggerParameters:Verbosity=detailed;Encoding=UTF-8 /p:BuildNumber=$CI_JOB_ID
+  - echo "Build project [version=$VERSION, branch=$CI_COMMIT_REF_NAME]"
+  - msbuild $CI_PROJECT_DIR\src\aimp_dotnet.sln '/p:Configuration=Release;WarningLevel=3 /p:Platform=AnyCPU /p:RunCodeAnalysis=True;CodeAnalysisRuleSet=AllRules.ruleset;verbosity=normal /filelogger /fileLoggerParameters:Verbosity=detailed;Encoding=UTF-8 /p:BuildNumber=$VERSION'
