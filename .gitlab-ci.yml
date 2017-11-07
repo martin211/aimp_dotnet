@@ -1,7 +1,53 @@
+variables:
+  SONAR_HOST: "http://localhost:9000"
+  SONAR_ACCESS_TOKEN: ""
+  
 stages:
+  - analysis_start
   - build
+  - analysis_end
+
 before_script:
-  - 'c:\Nuget\nuget.exe restore src\aimp_dotnet.sln'
-job:
+  - echo "Starting build for aimp_dotnet"
+  - echo "Restoring NuGet Packages..."
+  - 'c:\Nuget\nuget.exe restore $CI_PROJECT_DIR\src\aimp_dotnet.sln'
+  - export PROJECT_VERSION = $(git rev-list --count HEAD)
+
+analysis_start:
+  stage: analysis_start
+  script: 
+  - echo "Starting SonarQube publish analysis for project aimp_dotnet [version=$PROJECT_VERSION]"
+  - "MSBuild.SonarQube.Runner begin /k:$SONAR_PROJECT_KEY /n:$CI_PROJECT_NAME /v:$PROJECT_VERSION /d:sonar.msbuild.testProjectPattern=[^\\]*(Unit)?Tests$ /d:sonar.branch=$CI_COMMIT_REF_NAME /d:sonar.exclusions=**/bin/*,**/obj/* /d:sonar.cxx.compiler.reportPath=*.log /d:sonar.cxx.compiler.charset=UTF-8 /d:sonar.cxx.compiler.regex=^(.*)\((\d+)\)\x20*:\x20warning\x20(C\d+):(.*)$"
+
+build_master:
+  only:
+    - master
+    - tags
+  except:
+    - develop
   stage: build
-  script: 'msbuild src\aimp_dotnet.sln'
+  script:
+  - echo "Release build..."
+  script: 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /property:Configuration=Release /p:BuildNumber=$PROJECT_VERSION $CI_PROJECT_DIR\src\aimp_dotnet.sln'
+  artifacts:
+    untracked: true
+
+build_develop:
+  only:
+    - develop
+  except:
+    - master
+  stage: build
+  script:
+  - echo "Release build..."
+  script: 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /property:Configuration=Debug /p:BuildNumber=$PROJECT_VERSION $CI_PROJECT_DIR\src\aimp_dotnet.sln'
+
+sonarqube:
+  stage: analysis
+  image: ciricihq/gitlab-sonar-scanner
+  variables:
+    SONAR_URL: $SONAR_HOST
+    SONAR_PROJECT_VERSION: "$CI_BUILD_ID"
+    SONAR_ANALYSIS_MODE: "issues"
+  script:
+  - /usr/bin/sonar-scanner-run.sh    
