@@ -5,6 +5,7 @@ stages:
   - analysis_start
   - build
   - analysis_end
+  - zip_publish
 
 analysis_start:
   stage: analysis_start
@@ -28,7 +29,9 @@ build_master:
   - echo "Build project [version=$VERSION, branch=$CI_COMMIT_REF_NAME]"
   - msbuild $CI_PROJECT_DIR\src\aimp_dotnet.sln '/consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /property:Configuration=Release /p:BuildNumber=$VERSION'
   artifacts:
-    untracked: true
+    paths:
+      - src\Release\aimp_dotnet.dll
+      - src\Release\AIMP.SDK.dll
 
 build_develop:
   only:
