@@ -9,7 +9,9 @@ stages:
 
 analysis_start:
   stage: analysis_start
-  script: .\tools\ci-build\start-analysis.ps1 '$env:CI_PROJECT_DIR\src\aimp_dotnet.sln' '$env:SONAR_PROJECT_KEY' 'aimp_dotnet' '$env:VERSION' '$env:CI_COMMIT_REF_NAME'
+  script:
+  - echo $env:CI_PROJECT_DIR
+  - .\tools\ci-build\start-analysis.ps1 '$env:CI_PROJECT_DIR\src\aimp_dotnet.sln' '$env:SONAR_PROJECT_KEY' 'aimp_dotnet' '$env:VERSION' '$env:CI_COMMIT_REF_NAME'
 
 analysis_end:
   stage: analysis_end
