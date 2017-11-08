@@ -15,7 +15,5 @@ Write-Output "Checking prerequisites:"
 Get-Command MSBuild
 Write-Output "All prerequisites in place"
 
-#NuGet restore $solutionPath
-
 Write-Output "Starting build $sonarProjectName [version=$version,branch=$branch]"
 Start-Process MSBuild -ArgumentList "$solutionPath /t:Clean,Build /p:BuildNumber=$version /p:Configuration=$configuration; /p:Platform=AnyCPU /p:PlatformToolset=v141" -Wait -NoNewWindow 

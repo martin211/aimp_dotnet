@@ -33,7 +33,3 @@ MSBuild.SonarQube.Runner begin `
 	"/d:sonar.cxx.compiler.charset=UTF-8 " `
 	"/d:sonar.cxx.compiler.regex=^(.*)\((\d+)\)\x20*:\x20warning\x20(C\d+):(.*)$ "
     #/d:sonar.cs.dotcover.reportsPaths=dotCover.html
-
-Start-Process MSBuild -ArgumentList "$solutionPath /t:Clean,Build /p:BuildNumber=$version /p:Configuration=Debug;WarningLevel=3 /p:Platform=AnyCPU /p:PlatformToolset=v141 /p:RunCodeAnalysis=True;CodeAnalysisRuleSet=AllRules.ruleset;verbosity=normal /filelogger /fileLoggerParameters:Verbosity=detailed;Encoding=UTF-8" -Wait -NoNewWindow 
-  
-MSBuild.SonarQube.Runner.exe end
