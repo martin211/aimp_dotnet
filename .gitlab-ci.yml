@@ -11,7 +11,7 @@ analysis_start:
   stage: analysis_start
   script:
   - echo $env:CI_PROJECT_DIR
-  - .\tools\ci-build\start-analysis.ps1 '$env:CI_PROJECT_DIR\src\aimp_dotnet.sln' '$env:SONAR_PROJECT_KEY' 'aimp_dotnet' '$env:VERSION' '$env:CI_COMMIT_REF_NAME'
+  - .\tools\ci-build\start-analysis.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:SONAR_PROJECT_KEY aimp_dotnet $env:VERSION $env:CI_COMMIT_REF_NAME
 
 analysis_end:
   stage: analysis_end
@@ -24,7 +24,7 @@ build_master:
   except:
     - develop
   stage: build
-  script: .\tools\ci-build\build.ps1 '$env:CI_PROJECT_DIR\src\aimp_dotnet.sln' '$env:VERSION' '$env:CI_COMMIT_REF_NAME' 'Debug'
+  script: .\tools\ci-build\build.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:VERSION $env:CI_COMMIT_REF_NAME Debug
   artifacts:
     paths:
       - src\Release\aimp_dotnet.dll
@@ -36,4 +36,4 @@ build_develop:
   except:
     - master
   stage: build
-  script: .\tools\ci-build\build.ps1 '$env:CI_PROJECT_DIR\src\aimp_dotnet.sln' '$env:VERSION' '$env:CI_COMMIT_REF_NAME' 'Release'
+  script: .\tools\ci-build\build.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:VERSION $env:CI_COMMIT_REF_NAME Release
