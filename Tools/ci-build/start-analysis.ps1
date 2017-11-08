@@ -13,13 +13,13 @@ if (-not (Test-Path $solutionPath)) {
 }
 
 Write-Output "Checking prerequisites:"
-#Get-Command NuGet
+Write-Output ""
 Get-Command MSBuild.SonarQube.Runner
 Get-Command MSBuild
 #Get-Command dotCover
 #Get-Command nunit-console
 Write-Output "All prerequisites in place"
-
+Write-Output ""
 #NuGet restore $solutionPath
 
 Write-Output "Starting SonarQube publish analysis for project $sonarProjectName [id=$sonarProjectKey,version=$version,branch=$branch]"
@@ -33,3 +33,7 @@ MSBuild.SonarQube.Runner begin `
 	"/d:sonar.cxx.compiler.charset=UTF-8 " `
 	"/d:sonar.cxx.compiler.regex=^(.*)\((\d+)\)\x20*:\x20warning\x20(C\d+):(.*)$ "
     #/d:sonar.cs.dotcover.reportsPaths=dotCover.html
+
+	if ($LASTEXITCODE -ne 0) {
+        throw "Job failed."
+    }
