@@ -20,7 +20,8 @@ namespace AIMP.DotNet.MusicLibrary.SmartPlaylist
     {
         public AimpActionResult GetFiles(IAimpTaskOwner owner, PreimageFlags preimageFlags, IAimpObjectList<object> dataList)
         {
-            throw new NotImplementedException();
+            System.Diagnostics.Debugger.Break();
+            return AimpActionResult.Ok;
         }
 
         public string FactoryId => "Demo.PreimageFactory";

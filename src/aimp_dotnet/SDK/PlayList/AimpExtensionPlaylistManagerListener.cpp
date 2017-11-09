@@ -13,24 +13,25 @@
 #include "AimpExtensionPlaylistManagerListener.h"
 
 
-AimpExtensionPlaylistManagerListener::AimpExtensionPlaylistManagerListener(gcroot<IAimpExtensionPlaylistManagerListenerExecutor^> instance)
+AimpExtensionPlaylistManagerListener::AimpExtensionPlaylistManagerListener(gcroot<IAimpExtensionPlaylistManagerListener^> instance)
 {
     _managedInstance = instance;
 }
 
 void WINAPI AimpExtensionPlaylistManagerListener::PlaylistActivated(IAIMPPlaylist* Playlist)
 {
-    _managedInstance->OnPlaylistActivated(Playlist);
+    _managedInstance->PlaylistActivated();
+    //System::Diagnostics::Debugger::Break();
 }
 
 void WINAPI AimpExtensionPlaylistManagerListener::PlaylistAdded(IAIMPPlaylist* Playlist)
 {
-    _managedInstance->OnPlaylistAdded(Playlist);
+    System::Diagnostics::Debugger::Break();
 }
 
 void WINAPI AimpExtensionPlaylistManagerListener::PlaylistRemoved(IAIMPPlaylist* Playlist)
 {
-    _managedInstance->OnPlaylistRemoved(Playlist);
+    System::Diagnostics::Debugger::Break();
 }
 
 HRESULT WINAPI AimpExtensionPlaylistManagerListener::QueryInterface(REFIID riid, LPVOID* ppvObject)

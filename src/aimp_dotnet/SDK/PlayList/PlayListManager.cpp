@@ -15,9 +15,9 @@
 
 using namespace AIMP::SDK;
 
-PlayListManager::PlayListManager(ManagedAimpCore ^core) : AimpBaseManager<IAIMPServicePlaylistManager>(core)
+PlayListManager::PlayListManager(ManagedAimpCore ^core) : AimpBaseManager<IAIMPServicePlaylistManager2>(core)
 {
-    _core->RegisterExtension(IID_IAIMPServicePlaylistManager, this);
+    //_core->RegisterExtension(IID_IAIMPServicePlaylistManager, this);
 }
 
 PlayListManager::~PlayListManager()
@@ -32,7 +32,7 @@ PlayListManager::!PlayListManager()
 
 IAimpPlaylistQueue^ PlayListManager::PlaylistQueue::get()
 {
-    IAIMPServicePlaylistManager *service = NULL;
+    IAIMPServicePlaylistManager2 *service = NULL;
     AimpActionResult res = AimpActionResult::Fail;
 
     try
@@ -127,11 +127,11 @@ AimpActionResult PlayListManager::CreatePlaylist(System::String^ name, bool isAc
 
     IAIMPPlaylist *pl = NULL;
     IAIMPString *str = NULL;
-    IAIMPServicePlaylistManager *service = NULL;
+    IAIMPServicePlaylistManager2 *service = NULL;
 
     try
     {
-        res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
+        res = GetService(&service);
         if (res == AimpActionResult::Ok && service != NULL)
         {
             str = AimpConverter::ToAimpString(name);
@@ -163,12 +163,12 @@ AimpActionResult PlayListManager::CreatePlaylistFromFile(System::String^ fileNam
     playList = nullptr;
     IAIMPPlaylist *pl = NULL;
     IAIMPString *str = NULL;
-    IAIMPServicePlaylistManager *service = NULL;
+    IAIMPServicePlaylistManager2 *service = NULL;
     AimpActionResult res = AimpActionResult::Fail;
 
     try
     {
-        res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
+        res = GetService(&service);
         if (res == AimpActionResult::Ok && service != NULL)
         {
             str = AimpConverter::ToAimpString(fileName);
@@ -202,12 +202,12 @@ AimpActionResult PlayListManager::GetActivePlaylist(IAimpPlaylist ^%playList)
 {
     playList = nullptr;
     IAIMPPlaylist *pl = NULL;
-    IAIMPServicePlaylistManager *service = NULL;
+    IAIMPServicePlaylistManager2 *service = NULL;
     AimpActionResult res = AimpActionResult::Fail;
 
     try
     {
-        AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
+        res = GetService(&service);
         if (res == AimpActionResult::Ok && service != NULL)
         {
             res = CheckResult(service->GetActivePlaylist(&pl));
@@ -233,13 +233,12 @@ AimpActionResult PlayListManager::GetLoadedPlaylist(int index, IAimpPlaylist ^%p
 {
     playList = nullptr;
     IAIMPPlaylist *pl = NULL;
-    IAIMPServicePlaylistManager *service = NULL;
+    IAIMPServicePlaylistManager2 *service = NULL;
     AimpActionResult res = AimpActionResult::Fail;
 
     try
     {
-        AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
-
+        res = GetService(&service);
         if (res == AimpActionResult::Ok && service != NULL)
         {
             res = CheckResult(service->GetLoadedPlaylist(index, &pl));
@@ -265,12 +264,12 @@ AimpActionResult PlayListManager::GetPlayablePlaylist(IAimpPlaylist ^%playList)
 {
     playList = nullptr;
     IAIMPPlaylist *pl = NULL;
-    IAIMPServicePlaylistManager *service = NULL;
+    IAIMPServicePlaylistManager2 *service = NULL;
     AimpActionResult res = AimpActionResult::Fail;
 
     try
     {
-        res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
+        res = GetService(&service);
         if (res == AimpActionResult::Ok && service != NULL)
         {
             res = CheckResult(service->GetPlayablePlaylist(&pl));
@@ -297,12 +296,12 @@ AimpActionResult PlayListManager::GetLoadedPlaylistById(System::String^ id, IAim
     playList = nullptr;
     IAIMPPlaylist *pl = NULL;
     IAIMPString *key = NULL;
-    IAIMPServicePlaylistManager *service = NULL;
+    IAIMPServicePlaylistManager2 *service = NULL;
     AimpActionResult res = AimpActionResult::Fail;
 
     try
     {
-        res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
+        res = GetService(&service);
         if (res == AimpActionResult::Ok && service != NULL)
         {
             key = AimpConverter::ToAimpString(id);
@@ -333,12 +332,12 @@ AimpActionResult PlayListManager::GetLoadedPlaylistByName(System::String^ name, 
     playList = nullptr;
     IAIMPPlaylist *pl = NULL;
     IAIMPString *key = NULL;
-    IAIMPServicePlaylistManager *service = NULL;
+    IAIMPServicePlaylistManager2 *service = NULL;
     AimpActionResult res = AimpActionResult::Fail;
 
     try
     {
-        res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
+        res = GetService(&service);
         if (res == AimpActionResult::Ok && service != NULL)
         {
             key = AimpConverter::ToAimpString(name);
@@ -367,11 +366,12 @@ AimpActionResult PlayListManager::GetLoadedPlaylistByName(System::String^ name, 
 
 int PlayListManager::GetLoadedPlaylistCount()
 {
-    IAIMPServicePlaylistManager *service = NULL;
+    IAIMPServicePlaylistManager2 *service = NULL;
+    AimpActionResult res = AimpActionResult::Fail;
 
     try
     {
-        AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
+        res = GetService(&service);
         if (res == AimpActionResult::Ok && service != NULL)
         {
             return service->GetLoadedPlaylistCount();
@@ -391,12 +391,12 @@ int PlayListManager::GetLoadedPlaylistCount()
 
 AimpActionResult PlayListManager::SetActivePlaylist(IAimpPlaylist^ playList)
 {
-    IAIMPServicePlaylistManager *service = NULL;
+    IAIMPServicePlaylistManager2 *service = NULL;
     AimpActionResult res = AimpActionResult::Fail;
 
     try
     {
-        AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager, (void**)&service));
+        res = GetService(&service);
         if (res == AimpActionResult::Ok && service != NULL)
         {
             res = CheckResult(service->SetActivePlaylist(((AimpPlayList^)playList)->InternalAimpObject));
@@ -455,7 +455,7 @@ AimpActionResult PlayListManager::GetPreimageFactory(int index, IAimpExtensionPl
 
     try
     {
-        res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager2, (void**)&service));
+        res = GetService(&service);
         if (res == AimpActionResult::Ok && service != NULL)
         {
             IAIMPExtensionPlaylistPreimageFactory *aimpFactory = NULL;
@@ -487,7 +487,7 @@ AimpActionResult PlayListManager::GetPreimageFactoryByID(String ^id, IAimpExtens
     try
     {
         IAIMPString *idStr = AimpConverter::ToAimpString(id);
-        res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager2, (void**)&service));
+        res = GetService(&service);
         if (res == AimpActionResult::Ok && service != NULL)
         {
             IAIMPExtensionPlaylistPreimageFactory *aimpFactory = NULL;
@@ -507,7 +507,6 @@ AimpActionResult PlayListManager::GetPreimageFactoryByID(String ^id, IAimpExtens
     return res;
 }
 
-
 int PlayListManager::GetPreimageFactoryCount()
 {
     IAIMPServicePlaylistManager2 *service = NULL;
@@ -515,7 +514,7 @@ int PlayListManager::GetPreimageFactoryCount()
 
     try
     {
-        res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager2, (void**)&service));
+        res = GetService(&service);
         if (res == AimpActionResult::Ok && service != NULL)
         {
             return service->GetPreimageFactoryCount();
@@ -531,4 +530,12 @@ int PlayListManager::GetPreimageFactoryCount()
     }
 
     return 0;
+}
+
+AimpActionResult PlayListManager::GetService(IAIMPServicePlaylistManager2** service)
+{
+    IAIMPServicePlaylistManager2 *srv = NULL;
+    AimpActionResult res = CheckResult(_core->GetService(IID_IAIMPServicePlaylistManager2, (void**)&srv));
+    *service = srv;
+    return res;
 }
