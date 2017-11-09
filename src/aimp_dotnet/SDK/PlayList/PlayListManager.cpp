@@ -27,7 +27,7 @@ PlayListManager::~PlayListManager()
 
 PlayListManager::!PlayListManager()
 {
-    _core->UnregisterExtension(this);
+//    _core->UnregisterExtension(this);
 }
 
 IAimpPlaylistQueue^ PlayListManager::PlaylistQueue::get()
