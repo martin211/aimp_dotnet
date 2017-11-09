@@ -20,7 +20,7 @@ AimpExtensionPlaylistManagerListener::AimpExtensionPlaylistManagerListener(gcroo
 
 void WINAPI AimpExtensionPlaylistManagerListener::PlaylistActivated(IAIMPPlaylist* Playlist)
 {
-    _managedInstance->PlaylistActivated();
+    //_managedInstance->On();
     //System::Diagnostics::Debugger::Break();
 }
 

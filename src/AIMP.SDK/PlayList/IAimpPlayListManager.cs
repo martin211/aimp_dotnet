@@ -17,7 +17,7 @@ namespace AIMP.SDK.Playlist
     /// <seealso cref="IAimpExtensionPlaylistManagerListener" />
     /// <seealso cref="IAimpExtension" />
     // TODO: ADN-32
-    public interface IAimpPlaylistManager : IAimpExtensionPlaylistManagerListener, IAimpExtension
+    public interface IAimpPlaylistManager
     {
         IAimpPlaylistQueue PlaylistQueue { get; }
 
