@@ -31,7 +31,7 @@ namespace AIMP.SDK.Playlist
         /// <summary>
         /// The Value different from false if automatic synchronization is switched on in the preimage (note that not all preimages support for this property).
         /// </summary>
-        bool AutoSync { get; set; }
+        bool AutoSync { get; }
 
         /// <summary>
         /// The Value different from false if automatic synchronization is switched on in the preimage at Application startup (note that not all preimages support for this property).

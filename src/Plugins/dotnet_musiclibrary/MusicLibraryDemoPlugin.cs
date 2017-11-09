@@ -9,19 +9,22 @@ namespace AIMP.DotNet.MusicLibrary
     [AimpPlugin("MusicLibraryDemoPlugin", "Martin", "1.0.0", AimpPluginType = AimpPluginType.Addons, FullDescription = "MusicLibrary demo plugin")]
     public class MusicLibraryDemoPlugin : AimpPlugin
     {
-        private DemoSmartPlaylistsFactory _demoSmartPlaylistsFactory;
+        private SmartPlaylistsFactory _smartPlaylistsFactory;
 
         public override void Initialize()
         {
             var demoLibrary = new DemoMusicLibrary(Player);
             var schemaExtension = new DemoExtensionFileSystem();
             var fileINfoProvider = new MyExtensionFileInfoProvider();
-            _demoSmartPlaylistsFactory = new DemoSmartPlaylistsFactory();
+            var listner = new FrmTestPreimage(Player.PlaylistManager, Player.Core);
+
+            //_smartPlaylistsFactory = new SmartPlaylistsFactory();
 
             CheckActionResult(Player.Core.RegisterExtension(schemaExtension));
             CheckActionResult(Player.Core.RegisterExtension(fileINfoProvider));
             CheckActionResult(Player.Core.RegisterExtension(demoLibrary));
-            CheckActionResult(Player.Core.RegisterExtension(_demoSmartPlaylistsFactory));
+            CheckActionResult(Player.Core.RegisterExtension(_smartPlaylistsFactory));
+            //CheckActionResult(Player.Core.RegisterExtension());
 
             IAimpMenuItem menuItem;
             Player.MenuManager.CreateMenuItem(out menuItem);
@@ -41,7 +44,6 @@ namespace AIMP.DotNet.MusicLibrary
             //};
             smartPlaylist.PreImage = new DemoSmartPlaylist();
             var res = smartPlaylist.ReloadFromPreimage();
-            var r = smartPlaylist.PreImage.HasDialog;
         }
 
         public override void Dispose()
