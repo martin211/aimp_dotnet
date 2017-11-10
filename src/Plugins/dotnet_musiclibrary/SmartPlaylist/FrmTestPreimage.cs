@@ -13,6 +13,23 @@ namespace AIMP.DotNet.MusicLibrary.SmartPlaylist
         public event PlayListHandler PlaylistAdded;
         public event PlayListHandler PlaylistRemoved;
 
+        public AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist)
+        {
+            return AimpActionResult.Ok;
+        }
+
+        public AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist)
+        {
+            AimpPlaylists.Add(playlist);
+            return AimpActionResult.Ok;
+        }
+
+        public AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist)
+        {
+            AimpPlaylists.Remove(playlist);
+            return AimpActionResult.Ok;
+        }
+
         public FrmTestPreimage(IAimpPlaylistManager2 service, IAimpCore core)
         {
             _manager = service;

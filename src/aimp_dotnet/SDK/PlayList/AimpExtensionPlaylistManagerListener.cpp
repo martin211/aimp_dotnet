@@ -11,7 +11,7 @@
 
 #include "Stdafx.h"
 #include "AimpExtensionPlaylistManagerListener.h"
-
+#include "AimpPlayList.h"
 
 AimpExtensionPlaylistManagerListener::AimpExtensionPlaylistManagerListener(gcroot<IAimpExtensionPlaylistManagerListener^> instance)
 {
@@ -21,17 +21,20 @@ AimpExtensionPlaylistManagerListener::AimpExtensionPlaylistManagerListener(gcroo
 void WINAPI AimpExtensionPlaylistManagerListener::PlaylistActivated(IAIMPPlaylist* Playlist)
 {
     //_managedInstance->On();
+    _managedInstance->OnPlaylistActivated(gcnew AimpPlayList(Playlist));
     //System::Diagnostics::Debugger::Break();
 }
 
 void WINAPI AimpExtensionPlaylistManagerListener::PlaylistAdded(IAIMPPlaylist* Playlist)
 {
-    System::Diagnostics::Debugger::Break();
+    _managedInstance->OnPlaylistAdded(gcnew AimpPlayList(Playlist));
+    //System::Diagnostics::Debugger::Break();
 }
 
 void WINAPI AimpExtensionPlaylistManagerListener::PlaylistRemoved(IAIMPPlaylist* Playlist)
 {
-    System::Diagnostics::Debugger::Break();
+    _managedInstance->OnPlaylistRemoved(gcnew AimpPlayList(Playlist));
+    //System::Diagnostics::Debugger::Break();
 }
 
 HRESULT WINAPI AimpExtensionPlaylistManagerListener::QueryInterface(REFIID riid, LPVOID* ppvObject)

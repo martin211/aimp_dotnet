@@ -30,20 +30,24 @@ namespace AIMP.DotNet.MusicLibrary
             Player.MenuManager.CreateMenuItem(out menuItem);
             menuItem.Id = "DemoPlugin.CreateSmartPL";
             menuItem.Name = "Create smart Playlist";
-            menuItem.OnExecute += MenuItemOnOnExecute;
-            Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_ML_TREE_CONTEXT_FUNCTIONS, menuItem);
-        }
+            menuItem.OnExecute += (sender, args) =>
+            {
+                IAimpPlaylist smartPlaylist;
+                Player.PlaylistManager.CreatePlaylist("Test smart", true, out smartPlaylist);
 
-        private void MenuItemOnOnExecute(object sender, EventArgs eventArgs)
-        {
-            IAimpPlaylist smartPlaylist;
-            Player.PlaylistManager.CreatePlaylist("Test smart", true, out smartPlaylist);
-            //smartPlaylist.AimpObjectError += (o, args) =>
-            //{
-            //    System.Diagnostics.Debugger.Break();
-            //};
-            smartPlaylist.PreImage = new DemoSmartPlaylist();
-            var res = smartPlaylist.ReloadFromPreimage();
+                //var pl = listner.GetSelectedPlaylist();
+                var pi = listner.GetPlaylistPreimage(smartPlaylist);
+                if (pi != null)
+                {
+                    listner.SetPlaylistPreimage(smartPlaylist, pi);
+                    smartPlaylist.ReloadFromPreimage();
+                }
+
+                //smartPlaylist.PreImage = new DemoSmartPlaylist();
+                //var res = smartPlaylist.ReloadFromPreimage();
+            };
+
+            Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_ML_TREE_CONTEXT_FUNCTIONS, menuItem);
         }
 
         public override void Dispose()

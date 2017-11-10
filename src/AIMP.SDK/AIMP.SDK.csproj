@@ -116,11 +116,13 @@
     <Compile Include="MusicLibrary\IAimpServiceMusicLibrary.cs" />
     <Compile Include="MusicLibrary\IAimpServiceMusicLibraryUI.cs" />
     <Compile Include="MusicLibrary\Presets\IAimpGroupingPresetStandard.cs" />
+    <Compile Include="Playlist\Constants.cs" />
     <Compile Include="Playlist\IAimpExtensionPlaylistPreimageFactory.cs" />
     <Compile Include="Playlist\IAimpPlaylistListener.cs" />
     <Compile Include="Playlist\IAimpPlaylistManager2.cs" />
     <Compile Include="Playlist\IAimpPlaylistPreimage.cs" />
     <Compile Include="Playlist\IAimpPlaylistPreimageDataProvider.cs" />
+    <Compile Include="Playlist\IAimpPlaylistPreimageFolders.cs" />
     <Compile Include="Playlist\IAimpPlaylistPreimageListener.cs" />
     <Compile Include="Playlist\IAimpPlaylistQueueListener.cs" />
     <Compile Include="Properties\Annotations.cs" />
