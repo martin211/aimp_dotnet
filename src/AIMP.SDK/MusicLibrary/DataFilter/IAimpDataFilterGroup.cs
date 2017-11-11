@@ -19,6 +19,9 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
         NOTAND
     }
 
+    /// <summary>
+    /// Provides an ability to group few filters.
+    /// </summary>
     public interface IAimpDataFilterGroup
     {
         /// <summary>
@@ -61,7 +64,7 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="group">The filter group <seealso cref="IAimpDataFilterGroup"/>.</param>
-        /// <returns></returns>
+        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
         AimpActionResult GetChild(int index, out IAimpDataFilterGroup group);
 
         /// <summary>
@@ -69,9 +72,12 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="fieldFilter">The field filter <seealso cref="IAimpDataFieldFilter"/>.</param>
-        /// <returns></returns>
+        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
         AimpActionResult GetChild(int index, out IAimpDataFieldFilter fieldFilter);
 
+        /// <summary>
+        /// Gets the child count.
+        /// </summary>
         int GetChildCount();
 
         void BeginUpdate();

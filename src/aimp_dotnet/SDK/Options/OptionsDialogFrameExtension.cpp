@@ -79,7 +79,7 @@ void WINAPI OptionsDialogFrameExtension::DestroyFrame()
 
 void WINAPI OptionsDialogFrameExtension::Notification(int ID)
 {
-    _managedFrame->Notification(ID);
+    _managedFrame->Notification((AIMP::SDK::Options::OptionsDialogFrameNotificationType)ID);
 }
 
 BOOL WINAPI OptionsDialogFrameExtension::DialogChar(WCHAR CharCode, int Unused)

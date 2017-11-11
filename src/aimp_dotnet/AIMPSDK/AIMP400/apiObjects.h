@@ -1,10 +1,10 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v4.00 build 1660               */
+/*               v4.50 build 2000               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2015                 */
+/*                (C) 2006-2017                 */
 /*                 www.aimp.ru                  */
 /*                                              */
 /*            Mail: support@aimp.ru             */
@@ -18,6 +18,7 @@
 #include <unknwn.h>
 
 static const GUID IID_IAIMPConfig = {0x41494D50, 0x436F, 0x6E66, 0x69, 0x67, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+static const GUID IID_IAIMPDPIAware = {0x41494D50, 0x4450, 0x4941, 0x77, 0x61, 0x72, 0x65, 0x00, 0x00, 0x00, 0x00};
 static const GUID IID_IAIMPErrorInfo = {0x41494D50, 0x4572, 0x7249, 0x6E, 0x66, 0x6F, 0x00, 0x00, 0x00, 0x00, 0x00};
 static const GUID IID_IAIMPHashCode = {0x41494D50, 0x4861, 0x7368, 0x43, 0x6F, 0x64, 0x65, 0x00, 0x00, 0x00, 0x00};
 static const GUID IID_IAIMPFileStream = {0x41494D50, 0x4669, 0x6C65, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6D, 0x00, 0x00};
@@ -73,6 +74,15 @@ class IAIMPHashCode: public IUnknown
 	public:
 		virtual int  WINAPI GetHashCode() = 0;
 		virtual void WINAPI Recalculate() = 0;
+};
+
+/* IAIMPDPIAware */
+
+class IAIMPDPIAware: public IUnknown
+{
+	public:
+		virtual int  	WINAPI GetDPI() = 0;
+		virtual HRESULT WINAPI SetDPI(int Value) = 0;
 };
 
 /* IAIMPObjectList */
@@ -242,7 +252,7 @@ class IAIMPPropertyList2: public IAIMPPropertyList
 {
 	public:
 		virtual HRESULT WINAPI GetValueAsVariant(int PropertyID, VARIANT* Value) = 0;
-		virtual HRESULT WINAPI SetValueAsVariant(int PropertyID, const VARIANT Value) = 0;
+		virtual HRESULT WINAPI SetValueAsVariant(int PropertyID, VARIANT* Value) = 0;
 };
 
 /* IAIMPConfig */

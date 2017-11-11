@@ -32,7 +32,7 @@ namespace AIMP
 
             virtual void DestroyFrame() abstract;
             
-            virtual void Notification(int id) abstract;
+            virtual void Notification(OptionsDialogFrameNotificationType id) abstract;
 
             virtual bool DialogKey(int charCode) abstract;
 

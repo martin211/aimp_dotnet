@@ -60,7 +60,7 @@ function Invoke-BuildDocumentation() {
         #Write-ToLog("Git is required however it is not installed.")
     #}
 
-    if (-not(Invoke-ValidateCommand($npmCommand)) -or -not(Invoke-ValidateCommandVersion($npmCommand, "6.10.3.0"))) {
+    if (-not(Invoke-ValidateCommandVersion -command $nodeCommand -version "6.10.3.0")) {
         Write-ToLog("Npm is required however it is not installed.")
         Write-ToLog("Download NodeJS")
 
