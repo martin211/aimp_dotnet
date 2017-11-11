@@ -23,6 +23,8 @@ namespace AIMP
             public AimpDataFilterGroup,
             public IAimpDataFilter
         {
+        internal:
+            IAIMPMLDataFilter* InternalDataFilter;
         public:
             explicit AimpDataFilter(IAIMPMLDataFilter* native);
 
@@ -62,7 +64,7 @@ namespace AIMP
                 void set(int value);
             }
 
-            virtual AimpActionResult Assign(IAimpDataFieldFilter^ source);
+            virtual AimpActionResult Assign(IAimpDataFilter^ source);
 
             virtual AimpActionResult Clone(IAimpDataFilter^% source);
         };

@@ -33,6 +33,7 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
 
     /// <summary>
     /// Interface provides an access to data from the <seealso cref="IAimpGroupingTreeDataProvider.GetData"/>.
+    /// Interface implementation must support asynchronous access.
     /// </summary>
     public interface IAimpGroupingTreeDataProviderSelection
     {
@@ -40,7 +41,7 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         /// Returns text to display to end user (optionally).
         /// </summary>
         /// <param name="displayValue">The display value.</param>
-        /// <returns></returns>
+        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
         AimpActionResult GetDisplayValue(out string displayValue);
 
         /// <summary>

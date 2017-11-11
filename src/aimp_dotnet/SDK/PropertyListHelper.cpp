@@ -138,7 +138,7 @@ AimpActionResult PropertyListExtension::GetFloat(IAIMPPropertyList* propertyList
 
 AimpActionResult PropertyListExtension::GetBool(IAIMPPropertyList* propertyList, int propertyId, bool %value)
 {
-    int *val = 0;
+    int *val = NULL;
     AimpActionResult result = GetInt32(propertyList, propertyId, *val);
     value = val > 0;
     return result;

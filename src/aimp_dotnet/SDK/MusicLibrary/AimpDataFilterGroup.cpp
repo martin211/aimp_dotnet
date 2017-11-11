@@ -12,6 +12,7 @@
 #include "Stdafx.h"
 #include "AimpDataFilterGroup.h"
 #include "AimpDataFieldFilter.h"
+#include "AimpDataFieldFilterByArray.h"
 
 using namespace AIMP::SDK;
 
@@ -29,14 +30,17 @@ void AimpDataFilterGroup::Operation::set(FilterGroupOperationType val)
     PropertyListExtension::SetInt32(_aimpObject, AIMPML_FILTERGROUP_OPERATION, (int)val);
 }
 
-AimpActionResult AimpDataFilterGroup::Add(String^ field, Object^ value1, Object^ value2, FieldFilterOperationType operation, IAimpDataFieldFilter^% filter)
+AimpActionResult AimpDataFilterGroup::Add(
+    String^ field,
+    Object^ value1,
+    Object^ value2,
+    FieldFilterOperationType operation,
+    IAimpDataFieldFilter^% filter)
 {
     filter = nullptr;
-
+    IAIMPMLDataFieldFilter* nativeFilter = NULL;
     VARIANT val1 = AimpConverter::ToNativeVariant(value1);
     VARIANT val2 = AimpConverter::ToNativeVariant(value2);
-
-    IAIMPMLDataFieldFilter* nativeFilter;
 
     VARIANT v1;
     VariantInit(&v1);
@@ -52,7 +56,7 @@ AimpActionResult AimpDataFilterGroup::Add(String^ field, Object^ value1, Object^
             (int)operation,
             &nativeFilter));
 
-        if (result == AimpActionResult::Ok)
+        if (result == AimpActionResult::Ok && nativeFilter != NULL)
         {
             filter = gcnew AimpDataFieldFilter(nativeFilter);
         }
@@ -69,23 +73,43 @@ AimpActionResult AimpDataFilterGroup::Add(String^ field, Object^ value1, Object^
     }
 }
 
-AimpActionResult AimpDataFilterGroup::Add(String^ field, array<Object^>^ values, int count, IAimpDataFieldFilterByArray^% filter)
+AimpActionResult AimpDataFilterGroup::Add(
+    String^ field,
+    array<Object^>^ values,
+    int count,
+    IAimpDataFieldFilterByArray^% filter)
 {
-    //AimpActionResult result = CheckResult(InternalAimpObject->Add2(
-    //    AimpConverter::GetAimpString(field), 
+    IAIMPMLDataFieldFilterByArray* nativeObj = NULL;
+    int cnt = values->Length;
+    VARIANT *variants = new VARIANT[cnt];
+    filter = nullptr;
 
-    //    ));
-    // todo Complete it.
-    return AimpActionResult::NotImplemented;
+    for (int i = 0; i < values->Length; i++)
+    {
+        variants[i] = AimpConverter::ToNativeVariant(values[i]);
+    }
+
+    AimpActionResult result = CheckResult(InternalAimpObject->Add2(
+        AimpConverter::ToAimpString(field),
+        &variants[0],
+        count,
+        &nativeObj));
+
+    if (result == AimpActionResult::Ok && nativeObj != NULL)
+    {
+        filter = gcnew AimpDataFieldFilterByArray(nativeObj);
+    }
+
+    return result;
 }
 
 AimpActionResult AimpDataFilterGroup::AddGroup(IAimpDataFilterGroup^% group)
 {
-    IAIMPMLDataFilterGroup *nativeGroup;
+    IAIMPMLDataFilterGroup *nativeGroup = NULL;
     AimpActionResult result = CheckResult(_aimpObject->AddGroup(&nativeGroup));
     group = nullptr;
 
-    if (result == AimpActionResult::Ok)
+    if (result == AimpActionResult::Ok && nativeGroup != NULL)
     {
         group = gcnew AimpDataFilterGroup(nativeGroup);
     }
@@ -110,7 +134,8 @@ int AimpDataFilterGroup::GetChildCount()
 
 AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFilterGroup^% group)
 {
-    IAIMPMLDataFilterGroup* child;
+    group = nullptr;
+    IAIMPMLDataFilterGroup* child = NULL;
     AimpActionResult result = CheckResult(_aimpObject->GetChild(index, IID_IAIMPMLDataFilterGroup, (void**)&child));
     if (result == AimpActionResult::Ok && child != NULL)
     {
@@ -122,7 +147,8 @@ AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFilterGroup^%
 
 AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFieldFilter^% fieldFilter)
 {
-    IAIMPMLDataFieldFilter* child;
+    fieldFilter = nullptr;
+    IAIMPMLDataFieldFilter* child = NULL;
     AimpActionResult result = CheckResult(_aimpObject->GetChild(index, IID_IAIMPMLDataFieldFilter, (void**)&child));
     if (result == AimpActionResult::Ok && child != NULL)
     {
