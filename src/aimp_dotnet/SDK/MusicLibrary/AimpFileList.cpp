@@ -73,6 +73,7 @@ int AimpFileList::GetCount()
 AimpActionResult AimpFileList::GetFileName(int index, String^% fileName)
 {
     IAIMPString* str = NULL;
+    fileName = nullptr;
 
     try
     {
@@ -116,6 +117,7 @@ AimpActionResult AimpFileList::SetFileName(int index, String^ fileName)
 AimpActionResult AimpFileList::GetId(int index, Object^% id)
 {
     VARIANT* idVar;
+    id = nullptr;
 
     try
     {

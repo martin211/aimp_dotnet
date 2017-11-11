@@ -79,7 +79,7 @@ namespace AIMP.SDK.Player
         /// <summary>
         /// Gets the configuration manager.
         /// </summary>
-        IAimpConfigurationManager ConfigurationManager { get; }
+        IAimpServiceConfig ServiceConfig { get; }
 
         /// <summary>
         /// Gets the play list manager.

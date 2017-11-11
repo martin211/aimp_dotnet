@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SDK\AimpPlayer.cpp" />
+    <ClCompile Include="SDK\AimpConfig.cpp" />
     <ClCompile Include="SDK\Action\AimpAction.cpp" />
     <ClCompile Include="SDK\Action\AimpActionEvent.cpp" />
     <ClCompile Include="SDK\AimpObjectList.cpp" />
@@ -89,6 +91,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SDK\AimpConfig.h" />
     <ClInclude Include="SDK\Action\AimpAction.h" />
     <ClInclude Include="SDK\Action\AimpActionEvent.h" />
     <ClInclude Include="SDK\AimpObjectList.h" />
