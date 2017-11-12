@@ -63,6 +63,7 @@
     <ClCompile Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.cpp" />
     <ClCompile Include="SDK\PlayList\AimpExtensionPlaylistPreimageFactory.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageFactory.cpp" />
+    <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageFolders.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageListener.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlaylistPreimage.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlayListQueue.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h" />
     <ClInclude Include="SDK\PlayList\AimpExtensionPlaylistPreimageFactory.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistPreimageFactory.h" />
+    <ClInclude Include="SDK\PlayList\AimpPlaylistPreimageFolders.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistPreimageListener.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistPreimage.h" />

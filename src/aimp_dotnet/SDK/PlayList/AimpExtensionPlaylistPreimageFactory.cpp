@@ -11,14 +11,30 @@
 
 #include "Stdafx.h"
 #include "AimpExtensionPlaylistPreimageFactory.h"
+#include "AimpPlaylistPreimage.h"
+#include "AimpPlaylistPreimageFolders.h"
 
 AimpExtensionPlaylistPreimageFactory::AimpExtensionPlaylistPreimageFactory(IAIMPExtensionPlaylistPreimageFactory *aimpObject) : AimpObject<IAIMPExtensionPlaylistPreimageFactory>(aimpObject)
 { }
 
 AimpActionResult AimpExtensionPlaylistPreimageFactory::CreatePreimage(IAimpPlaylistPreimage ^%preimage)
 {
-    AimpActionResult res = AimpActionResult::Fail;
-    //InternalAimpObject->CreatePreimage()
+    IAIMPPlaylistPreimage* image = NULL;
+    //IAIMPPlaylistPreimageFolders* folders = NULL;
+    AimpActionResult res = CheckResult(InternalAimpObject->CreatePreimage(&image));
+    if (res == AimpActionResult::Ok && image != NULL)
+    {
+        IAIMPPlaylistPreimageFolders* folders = (IAIMPPlaylistPreimageFolders*)image;
+        if (folders != NULL)
+        {
+            preimage = gcnew AimpPlaylistPreimageFolders(folders);
+        }
+        else
+        {
+            preimage = gcnew AimpPlaylistPreimage(image);
+        }
+    }
+
     return res;
 }
 

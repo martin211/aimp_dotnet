@@ -29,7 +29,10 @@ bool AimpPlaylistPreimage::AutoSync::get()
 
 void AimpPlaylistPreimage::AutoSync::set(bool value)
 {
-    PropertyListExtension::SetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC, value);
+    if (PropertyListExtension::SetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC, value) != AimpActionResult::Ok)
+    {
+        System::Diagnostics::Debugger::Break();
+    }
 }
 
 bool AimpPlaylistPreimage::AutoSyncOnStartup::get()
@@ -59,12 +62,12 @@ String^ AimpPlaylistPreimage::SortTemplate::get()
 
 AimpActionResult AimpPlaylistPreimage::ConfigLoad(IAimpStream^ stream)
 {
-    return AimpActionResult::Unexpected;
+    return CheckResult(InternalAimpObject->ConfigLoad(((AimpStream^)stream)->InternalAimpObject));
 }
 
 AimpActionResult AimpPlaylistPreimage::ConfigSave(IAimpStream^ stream)
 {
-    return AimpActionResult::Unexpected;
+    return CheckResult(InternalAimpObject->ConfigSave(((AimpStream^)stream)->InternalAimpObject));
 }
 
 AimpActionResult AimpPlaylistPreimage::ExecuteDialog(IntPtr ownerHandle)
