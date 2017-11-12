@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using AIMP.SDK;
 using AIMP.SDK.Playlist;
@@ -62,6 +64,18 @@ namespace Aimp.DotNet.SmartPlaylist
 
         private IAimpPlaylist GetSelectedPlaylist()
         {
+            //var index = listView1.FocusedItem.Index;
+
+            for (var i = 0; i < listView1.Items.Count; i++)
+            {
+                var item = listView1.Items[i];
+                if (item.Selected)
+                {
+                    _manager.GetLoadedPlaylistById(item.Tag.ToString(), out var pl);
+                    return pl;
+                }
+            }
+
             return null;
         }
 
@@ -75,13 +89,24 @@ namespace Aimp.DotNet.SmartPlaylist
 
         public AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist)
         {
-            PlAdded(playlist);
+            listView1.Items.Add(new ListViewItem
+            {
+                Text = playlist.Name,
+                Tag = playlist.Id
+            });
+            //PlAdded(playlist);
             return AimpActionResult.Ok;
         }
 
         public AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist)
         {
-            PlRemoved(playlist);
+            var item = listView1.Items.Cast<ListViewItem>().FirstOrDefault(c => c.Tag == playlist.Id);
+            if (item != null)
+            {
+                listView1.Items.Remove(item);
+            }
+
+            //PlRemoved(playlist);
             return AimpActionResult.Ok;
         }
 
@@ -118,6 +143,8 @@ namespace Aimp.DotNet.SmartPlaylist
                     factory.CreatePreimage(out var preimage);
                     if (preimage is IAimpPlaylistPreimageFolders filePreimage)
                     {
+                        var t = filePreimage.AutoSync;
+
                         filePreimage.AutoSync = true;
                         filePreimage.ItemsAdd(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), true);
                         SetPlaylistPreimage(pl, filePreimage);
@@ -139,6 +166,38 @@ namespace Aimp.DotNet.SmartPlaylist
                     //pi.Reset() TODO
                     stream.Seek(0, SeekOrigin.Begin);
                     pi.ConfigLoad(stream);
+                }
+            }
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var pl = GetSelectedPlaylist();
+
+            if (pl != null)
+            {
+                var preimage = GetPlaylistPreimage(pl);
+
+                if (preimage != null)
+                {
+                    var type = preimage.FactoryId;
+                    string preType = string.Empty;
+
+                    if (preimage is IAimpPlaylistPreimageFolders)
+                    {
+                        preType = $"{type}(Folders)";
+                    }
+                    else if (preimage is IAimpPlaylistPreimage)
+                    {
+                        preType = $"{type}(Music Library)";
+                    }
+
+                    var handler = (IntPtr)GCHandle.Alloc(preimage);
+                    label1.Text = $"Preimage: {preType} [{handler}]";
+                }
+                else
+                {
+                    label1.Text = "Playlist has no preimage";
                 }
             }
         }

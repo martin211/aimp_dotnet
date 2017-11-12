@@ -44,7 +44,7 @@ namespace Aimp.DotNet.SmartPlaylist
 
         public bool HasDialog => true;
 
-        public string SortTemplate { get; }
+        public string SortTemplate => string.Empty;
 
         public AimpActionResult ConfigLoad(IAimpStream stream)
         {

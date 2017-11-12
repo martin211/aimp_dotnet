@@ -351,6 +351,9 @@
     <ClCompile Include="SDK\AimpObjectList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageFolders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -694,6 +697,9 @@
     </ClInclude>
     <ClInclude Include="SDK\PlayList\AimpPlaylistPreimageListener.h">
       <Filter>Header Files\SDK\PlayList</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayList\AimpPlaylistPreimageFolders.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

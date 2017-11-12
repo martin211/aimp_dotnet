@@ -15,6 +15,7 @@
 #include "AimpExtensionPlaylistPreimageFactory.h"
 #include "AimpPlaylistPreimage.h"
 #include "SDK/PlayList/Internal/InternalAimpPlaylistPreimage.h"
+#include "AimpPlaylistPreimageFolders.h"
 
 namespace AIMP
 {
@@ -45,7 +46,7 @@ namespace AIMP
 
 
         class AimpPlaylistListener :
-            public IUnknownInterfaceImpl<IAIMPPlaylistListener>, 
+            public IUnknownInterfaceImpl<IAIMPPlaylistListener>,
             public IAIMPPlaylistListener2
         {
         private:

@@ -53,11 +53,6 @@
     <Compile Include="MyExtensionFileInfoProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExplorerMusicProvider\TDemoExplorerViewAbstractDataProviderSelection.cs" />
-    <Compile Include="SmartPlaylist\DemoSmartPlaylist.cs" />
-    <Compile Include="SmartPlaylist\FrmTestPreimage.cs" />
-    <Compile Include="SmartPlaylist\SmartPlaylistsFactory.cs" />
-    <Compile Include="SmartPlaylist\TestPreimage.cs" />
-    <Compile Include="SmartPlaylist\TestPreimageFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AIMP.SDK\AIMP.SDK.csproj">
