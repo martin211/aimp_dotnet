@@ -330,29 +330,29 @@
     <ClCompile Include="SDK\Action\AimpActionEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageListener.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\PlayList\AimpPlaylistPreimage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageFactory.cpp">
       <Filter>Source Files\SDK\PlayList</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\PlayList\Internal\InternalAimpPlaylistPreimage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\PlayList\AimpExtensionPlaylistPreimageFactory.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SDK\AimpObjectList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\PlayList\Internal\InternalAimpPlaylistPreimage.cpp">
+      <Filter>Source Files\SDK\PlayList</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.cpp">
+      <Filter>Source Files\SDK\PlayList</Filter>
+    </ClCompile>
     <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageFolders.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\SDK\PlayList</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\PlayList\AimpPlaylistPreimage.cpp">
+      <Filter>Source Files\SDK\PlayList</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\PlayList\AimpExtensionPlaylistPreimageFactory.cpp">
+      <Filter>Source Files\SDK\PlayList</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageListener.cpp">
+      <Filter>Source Files\SDK\PlayList</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -699,7 +699,7 @@
       <Filter>Header Files\SDK\PlayList</Filter>
     </ClInclude>
     <ClInclude Include="SDK\PlayList\AimpPlaylistPreimageFolders.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\SDK\PlayList</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

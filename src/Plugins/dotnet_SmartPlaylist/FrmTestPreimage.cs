@@ -64,16 +64,11 @@ namespace Aimp.DotNet.SmartPlaylist
 
         private IAimpPlaylist GetSelectedPlaylist()
         {
-            //var index = listView1.FocusedItem.Index;
-
-            for (var i = 0; i < listView1.Items.Count; i++)
+            if (listView1.SelectedItems.Count > 0)
             {
-                var item = listView1.Items[i];
-                if (item.Selected)
-                {
-                    _manager.GetLoadedPlaylistById(item.Tag.ToString(), out var pl);
-                    return pl;
-                }
+                var item = listView1.SelectedItems[0];
+                _manager.GetLoadedPlaylistById(item.Tag.ToString(), out var pl);
+                return pl;
             }
 
             return null;
@@ -143,8 +138,6 @@ namespace Aimp.DotNet.SmartPlaylist
                     factory.CreatePreimage(out var preimage);
                     if (preimage is IAimpPlaylistPreimageFolders filePreimage)
                     {
-                        var t = filePreimage.AutoSync;
-
                         filePreimage.AutoSync = true;
                         filePreimage.ItemsAdd(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), true);
                         SetPlaylistPreimage(pl, filePreimage);
