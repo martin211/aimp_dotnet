@@ -20,12 +20,11 @@ AimpExtensionPlaylistPreimageFactory::AimpExtensionPlaylistPreimageFactory(IAIMP
 AimpActionResult AimpExtensionPlaylistPreimageFactory::CreatePreimage(IAimpPlaylistPreimage ^%preimage)
 {
     IAIMPPlaylistPreimage* image = NULL;
-    //IAIMPPlaylistPreimageFolders* folders = NULL;
+    IAIMPPlaylistPreimageFolders* folders = NULL;
     AimpActionResult res = CheckResult(InternalAimpObject->CreatePreimage(&image));
-    if (res == AimpActionResult::Ok && image != NULL)
+    if (res == AimpActionResult::Ok && image != nullptr)
     {
-        IAIMPPlaylistPreimageFolders* folders = (IAIMPPlaylistPreimageFolders*)image;
-        if (folders != NULL)
+        if (image->QueryInterface(IID_IAIMPPlaylistPreimageFolders, (void**)&folders) == S_OK)
         {
             preimage = gcnew AimpPlaylistPreimageFolders(folders);
         }

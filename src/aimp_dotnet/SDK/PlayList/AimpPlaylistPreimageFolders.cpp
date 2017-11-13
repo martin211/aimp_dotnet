@@ -23,7 +23,13 @@ AimpActionResult AimpPlaylistPreimageFolders::ItemsAdd(String^ path, bool recurs
 {
     AimpActionResult res = AimpActionResult::Fail;
     IAIMPString* str = AimpConverter::ToAimpString(path);
-    res = CheckResult(((IAIMPPlaylistPreimageFolders*)InternalAimpObject)->ItemsAdd(str, recursive));
+
+    IAIMPPlaylistPreimageFolders* folders = (IAIMPPlaylistPreimageFolders*)InternalAimpObject;
+    if (folders != nullptr)
+    {
+        res = CheckResult(folders->ItemsAdd(str, (BOOL)recursive));
+    }
+
     str->Release();
     return res;
 }
