@@ -27,7 +27,6 @@ namespace AIMP
         public ref class PlayListManager :
             public AimpBaseManager<IAIMPServicePlaylistManager2>,
             public IAimpPlaylistManager2
-            //public IAimpExtensionPlaylistManagerListenerExecutor
         {
         private:
             PlayListHandler ^_onPlaylistActivated;
@@ -93,11 +92,11 @@ namespace AIMP
 
             //******** IAimpExtensionPlaylistManagerListenerExecutor ********
 
-            virtual void OnPlaylistActivated(IAIMPPlaylist* playlist);
+            //virtual void OnPlaylistActivated(IAIMPPlaylist* playlist);
 
-            virtual void OnPlaylistAdded(IAIMPPlaylist* playlist);
+            //virtual void OnPlaylistAdded(IAIMPPlaylist* playlist);
 
-            virtual void OnPlaylistRemoved(IAIMPPlaylist* playlist);
+            //virtual void OnPlaylistRemoved(IAIMPPlaylist* playlist);
 
         private:
             virtual AimpActionResult GetService(IAIMPServicePlaylistManager2** service);

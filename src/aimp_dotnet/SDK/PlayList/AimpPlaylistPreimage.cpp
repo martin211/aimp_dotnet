@@ -24,7 +24,10 @@ String^ AimpPlaylistPreimage::FactoryId::get()
 
 bool AimpPlaylistPreimage::AutoSync::get()
 {
-    return PropertyListExtension::GetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC);
+    int value = PropertyListExtension::GetInt32(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC);
+    return value > 0;
+
+    //return PropertyListExtension::GetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC);
 }
 
 void AimpPlaylistPreimage::AutoSync::set(bool value)
