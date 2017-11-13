@@ -19,6 +19,7 @@ AimpPlaylistPreimageFactory::AimpPlaylistPreimageFactory(gcroot<Playlist::IAimpE
 
 HRESULT WINAPI AimpPlaylistPreimageFactory::CreatePreimage(IAIMPPlaylistPreimage** preimage)
 {
+    System::Diagnostics::Debugger::Break();
     return S_OK;
 }
 

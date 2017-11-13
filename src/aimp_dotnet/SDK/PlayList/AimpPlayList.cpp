@@ -996,19 +996,6 @@ namespace AIMP
                     properties = NULL;
                 }
             }
-
-            //IAIMPPropertyList* pl = (IAIMPPropertyList*)this->InternalAimpObject;
-            //if (pl != NULL)
-            //{
-            //    IAIMPPlaylistPreimage* preImage = NULL;
-            //    AimpActionResult res = Utils::CheckResult(pl->GetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, IID_IAIMPPlaylistPreimage, (void**)preImage));
-            //    if (res == AimpActionResult::Ok && preImage != NULL)
-            //    {
-            //        return gcnew AimpPlaylistPreimage(preImage);
-            //    }
-            //}
-            //IAIMPPlaylistPreimage* preImage = NULL;
-            //AimpActionResult res = Utils::CheckResult(_aimpObject->GetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, IID_IAIMPPlaylistPreimage, (void**)preImage));
             return nullptr;
         }
 
@@ -1019,7 +1006,7 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                 {
-                    IAIMPPlaylistPreimage* preImage = NULL;
+                    IAIMPPlaylistPreimage* preImage = ((IAIMPPlaylistPreimage^)value)->InternalAimpObject;
                     AimpActionResult res = Utils::CheckResult(properties->SetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, preImage));
                     if (res == AimpActionResult::Ok)
                     {
@@ -1034,21 +1021,6 @@ namespace AIMP
                     properties = NULL;
                 }
             }
-
-            //IAIMPPropertyList* pl = (IAIMPPropertyList*)this->InternalAimpObject;
-            //if (pl != NULL)
-            //{
-            //    _internalPreImage = new InternalAimpPlaylistPreimage(value);
-            //    AimpActionResult res = Utils::CheckResult(pl->SetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, static_cast<InternalAimpPlaylistPreimage::Base*>(_internalPreImage)));
-            //    if (res != AimpActionResult::Ok)
-            //    {
-            //        IAIMPPlaylistPreimage* preImage = NULL;
-            //        res = Utils::CheckResult(pl->GetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, IID_IAIMPPlaylistPreimage, (void**)preImage));
-
-            //        System::Diagnostics::Debugger::Break();
-            //      //  this->AimpObjectError(this, gcnew AimpErrorArgs(res, "Error to set PreImage", System::Environment::StackTrace));
-            //    }
-            //}
         }
 
 
