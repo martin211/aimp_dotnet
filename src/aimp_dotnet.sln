@@ -47,6 +47,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_demo", "Plugins\dotn
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_SmartPlaylist", "Plugins\dotnet_SmartPlaylist\dotnet_SmartPlaylist.csproj", "{2B1CD6EA-5B3B-44FE-A242-F06C1D6A41F9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8D30D1F5-1925-4926-83F2-F0B21B45646F} = {8D30D1F5-1925-4926-83F2-F0B21B45646F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
