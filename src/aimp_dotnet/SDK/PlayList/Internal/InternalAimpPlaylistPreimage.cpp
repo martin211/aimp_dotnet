@@ -107,6 +107,7 @@ HRESULT WINAPI AIMP::SDK::InternalAimpPlaylistPreimage::SetValueAsInt64(int Prop
 
 HRESULT WINAPI AIMP::SDK::InternalAimpPlaylistPreimage::SetValueAsObject(int PropertyID, IUnknown *Value)
 {
+    System::Diagnostics::Debugger::Break();
     return E_NOTIMPL;
 }
 

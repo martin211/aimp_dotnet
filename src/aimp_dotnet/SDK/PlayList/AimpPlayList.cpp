@@ -1006,10 +1006,33 @@ namespace AIMP
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
                 {
-                    IAIMPPlaylistPreimage* preImage = ((IAIMPPlaylistPreimage^)value)->InternalAimpObject;
-                    AimpActionResult res = Utils::CheckResult(properties->SetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, preImage));
-                    if (res == AimpActionResult::Ok)
+                    IAIMPPlaylistPreimage* preImage = nullptr;
+
+                    if (value != nullptr)
                     {
+                        AimpPlaylistPreimageFolders^ folders = dynamic_cast<AimpPlaylistPreimageFolders^>(value);
+
+                        if (folders != nullptr)
+                        {
+                            IAIMPPlaylistPreimageFolders *f = (IAIMPPlaylistPreimageFolders*)folders->InternalAimpObject;
+                            AimpActionResult res = Utils::CheckResult(properties->SetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, f));
+                        }
+                        else
+                        {
+                            preImage = ((AimpPlaylistPreimage^)value)->InternalAimpObject;
+                            AimpActionResult res = Utils::CheckResult(properties->SetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, preImage));
+                        }
+                    }
+                    else
+                    {
+                        IAIMPPlaylistPreimage* preImage;
+                        AimpActionResult res = Utils::CheckResult(properties->GetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, IID_IAIMPPlaylistPreimage, (void**)&preImage));
+                        if (res == AimpActionResult::Ok && preImage != nullptr)
+                        {
+                            preImage->Release();
+                            preImage = nullptr;
+                            properties->SetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, (IUnknown*)nullptr);
+                        }
                     }
                 }
             }

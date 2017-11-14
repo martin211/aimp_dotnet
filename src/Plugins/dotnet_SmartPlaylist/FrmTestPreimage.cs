@@ -89,7 +89,6 @@ namespace Aimp.DotNet.SmartPlaylist
                 Text = playlist.Name,
                 Tag = playlist.Id
             });
-            //PlAdded(playlist);
             return AimpActionResult.Ok;
         }
 
@@ -100,8 +99,6 @@ namespace Aimp.DotNet.SmartPlaylist
             {
                 listView1.Items.Remove(item);
             }
-
-            //PlRemoved(playlist);
             return AimpActionResult.Ok;
         }
 
@@ -170,7 +167,7 @@ namespace Aimp.DotNet.SmartPlaylist
             if (pl != null)
             {
                 var preimage = GetPlaylistPreimage(pl);
-
+                button3.Enabled = pl.PreImage == null;
                 if (preimage != null)
                 {
                     var type = preimage.FactoryId;
@@ -193,6 +190,11 @@ namespace Aimp.DotNet.SmartPlaylist
                     label1.Text = "Playlist has no preimage";
                 }
             }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
