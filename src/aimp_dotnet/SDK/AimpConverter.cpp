@@ -265,6 +265,5 @@ namespace AIMP
             HRESULT r = ManagedAimpCore::GetAimpCore()->CreateObject(objectId, (void**)&obj);
             return obj;
         }
-
     }
 }

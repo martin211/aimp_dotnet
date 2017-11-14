@@ -1,8 +1,10 @@
-﻿namespace AIMP.SDK.Playlist
+﻿using System;
+
+namespace AIMP.SDK.Playlist
 {
-    public class Constants
+    public static class Constants
     {
-        public class PreimageFactory
+        public static class PreimageFactory
         {
             public const string FoldersId = "TAIMPPlaylistFoldersPreimage";
             public const string MusicLibraryId = "TAIMPMLPlaylistPreimage";
