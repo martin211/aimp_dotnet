@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DemoSmartPlaylist.cs" />
     <Compile Include="FrmTestPreimage.cs">
       <SubType>Form</SubType>
     </Compile>
