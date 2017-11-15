@@ -119,7 +119,7 @@ namespace Aimp.DotNet.SmartPlaylist
                 var pi = GetPlaylistPreimage(pl);
                 if (pi != null)
                 {
-                    SetPlaylistPreimage(pl, pi);
+                    //SetPlaylistPreimage(pl, pi);
                     pl.ReloadFromPreimage();
                 }
             }
@@ -167,7 +167,11 @@ namespace Aimp.DotNet.SmartPlaylist
             if (pl != null)
             {
                 var preimage = GetPlaylistPreimage(pl);
+                button1.Enabled = pl.PreImage != null;
+                button2.Enabled = pl.PreImage != null;
                 button3.Enabled = pl.PreImage == null;
+                button4.Enabled = pl.PreImage != null;
+
                 if (preimage != null)
                 {
                     var type = preimage.FactoryId;
@@ -192,7 +196,7 @@ namespace Aimp.DotNet.SmartPlaylist
             }
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e)
         {
 
         }

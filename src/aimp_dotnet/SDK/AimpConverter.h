@@ -20,6 +20,7 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
+        using namespace System::Collections::Generic;
         using namespace AIMP::SDK;
 
         /// <summary>
@@ -78,6 +79,12 @@ namespace AIMP
             static IAIMPObjectList* GetAimpObjectList();
 
             static IAIMPMLDataField* GetAimpDataField();
+
+            static IAIMPObjectList* ToManagedObjectList(List<Object^> collection)
+            {
+                IAIMPObjectList* list = GetAimpObjectList();
+                return list;
+            }
         private:
             static IAIMPCore* GetCore();
         };
