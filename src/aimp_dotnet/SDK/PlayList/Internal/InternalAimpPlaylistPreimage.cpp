@@ -55,9 +55,9 @@ HRESULT WINAPI AIMP::SDK::InternalAimpPlaylistPreimage::GetFiles(IAIMPTaskOwner*
     IAimpPlaylistPreimageDataProvider^ dp = dynamic_cast<IAimpPlaylistPreimageDataProvider^>(obj);
     if (dp != nullptr)
     {
-        PreimageFlags flags;
-        res = dp->GetFiles(gcnew AimpTaskOwner(Owner), flags, nullptr);
-
+        int flags = 0;
+        System::Collections::Generic::List<Object^>^ files;
+        res = dp->GetFiles(gcnew AimpTaskOwner(Owner), *&flags, *&files);
 
         if (res == AimpActionResult::Ok)
         {
