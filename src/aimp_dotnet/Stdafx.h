@@ -24,8 +24,7 @@
 
 #include <windows.h>
 #include "AimpSdk.h"
-#include <vcclr.h>
-#include <iostream>
+
 
 #ifdef _DEBUG
 #ifndef DBG_NEW
