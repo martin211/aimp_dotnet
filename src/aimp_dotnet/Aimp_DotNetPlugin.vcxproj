@@ -63,6 +63,7 @@
     <ClCompile Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.cpp" />
     <ClCompile Include="SDK\PlayList\AimpExtensionPlaylistPreimageFactory.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageFactory.cpp" />
+    <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageFolders.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageListener.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlaylistPreimage.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlayListQueue.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h" />
     <ClInclude Include="SDK\PlayList\AimpExtensionPlaylistPreimageFactory.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistPreimageFactory.h" />
+    <ClInclude Include="SDK\PlayList\AimpPlaylistPreimageFolders.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistPreimageListener.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistPreimage.h" />
@@ -230,7 +232,7 @@
     <ProjectGuid>{8D30D1F5-1925-4926-83F2-F0B21B45646F}</ProjectGuid>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <RootNamespace>Aimp_DotNetPlugin</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>aimp_dotnet</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -265,7 +267,7 @@
     <OutDir>$(OutDir)</OutDir>
     <TargetName>aimp_dotnet</TargetName>
     <IncludePath>$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <LibraryPath>$(SolutionDir)lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
     <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\MixedRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
