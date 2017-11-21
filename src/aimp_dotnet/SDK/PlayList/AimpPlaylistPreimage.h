@@ -24,7 +24,6 @@ namespace AIMP
             public IAimpPlaylistPreimage
         {
         public:
-
             explicit AimpPlaylistPreimage(IAIMPPlaylistPreimage* aimpObject);
 
             virtual property String^ FactoryId

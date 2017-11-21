@@ -19,7 +19,10 @@ AIMP::SDK::AimpStream::~AimpStream()
 
 AIMP::SDK::AimpStream::!AimpStream()
 {
-    _aimpObject->Release();
+    if (_aimpObject != nullptr)
+    {
+        _aimpObject->Release();
+    }
 }
 
 AIMP::SDK::AimpStream::AimpStream(IAIMPStream *aimpObject)

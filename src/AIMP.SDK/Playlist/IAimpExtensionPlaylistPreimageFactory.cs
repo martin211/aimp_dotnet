@@ -13,6 +13,7 @@ namespace AIMP.SDK.Playlist
 {
     public enum PreimageFactoryFlags
     {
+        None = 0,
         AIMP_PREIMAGEFACTORY_FLAG_CONTEXTDEPENDENT = 1
     }
 

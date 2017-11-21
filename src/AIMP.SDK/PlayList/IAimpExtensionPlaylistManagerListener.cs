@@ -37,5 +37,11 @@ namespace AIMP.SDK.Playlist
         /// Occurs when playlist removed.
         /// </summary>
         event PlayListHandler PlaylistRemoved;
+
+        AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist);
+
+        AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist);
+
+        AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist);
     }
 }

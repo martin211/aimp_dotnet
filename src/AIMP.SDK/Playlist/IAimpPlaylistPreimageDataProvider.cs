@@ -10,6 +10,7 @@
 // ----------------------------------------------------
 
 using System;
+using System.Collections;
 using AIMP.SDK.Threading;
 
 namespace AIMP.SDK.Playlist
@@ -17,8 +18,7 @@ namespace AIMP.SDK.Playlist
     [Flags]
     public enum PreimageFlags
     {
-        None,
-
+        None = 0,
         AIMP_PLAYLIST_ADD_FLAGS_NOCHECKFORMAT = 1,
         AIMP_PLAYLIST_ADD_FLAGS_NOEXPAND = 2,
         AIMP_PLAYLIST_ADD_FLAGS_NOTHREADING = 4,
@@ -37,6 +37,6 @@ namespace AIMP.SDK.Playlist
         /// <param name="preimageFlags">The preimage flags.</param>
         /// <param name="dataList">The data list.</param>
         /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult GetFiles(IAimpTaskOwner owner, PreimageFlags preimageFlags, IAimpObjectList<object> dataList);
+        AimpActionResult GetFiles(IAimpTaskOwner owner, out int preimageFlags, out IList dataList);
     }
 }
