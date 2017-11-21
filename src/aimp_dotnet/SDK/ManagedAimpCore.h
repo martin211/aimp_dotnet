@@ -23,6 +23,7 @@
 #include "SDK\FileManager\InternalAimpExtensionFileInfoProvider.h"
 #include "SDK\FileManager\InternalAimpExtensionFileSystem.h"
 #include "SDK\Visuals\AimpServiceVisualizations.h"
+#include "SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.h"
 
 namespace AIMP
 {
@@ -112,24 +113,25 @@ namespace AIMP
             virtual void OnPlaylistRemoved(IAIMPPlaylist* playlist);
            
         private:
-            static IAIMPCore* _core;
-            IAIMPExtensionPlayerHook *_playerHook;
+            static IAIMPCore* _core = NULL;
+            IAIMPExtensionPlayerHook *_playerHook = NULL;
             //EventHelper* _nativeEventHelper;
             //Callback* _coreMessageCallback;
             //Callback* _playListActivatedCallback;
-            IAIMPServiceMessageDispatcher* _messageDispatcher;
-            IAIMPMessageHook* _hook;
+            IAIMPServiceMessageDispatcher* _messageDispatcher = NULL;
+            IAIMPMessageHook* _hook = NULL;
             List<AimpEventsDelegate^> ^_coreMessage;
             List<AIMP::SDK::Playlist::PlayListHandler^> ^_playListActivatedHandlers;
-            OptionsDialogFrameExtension* _optionsFrame;
-            AimpExtensionAlbumArtCatalog* _albumArtCatalogExtension;
-            AimpExtensionAlbumArtProvider* _albumArtProviderExtension;
-            AimpExtensionEmbeddedVisualization* _embeddedVisualization;
-            AimpExtensionCustomVisualization* _customVisualization;
-            AimpExtensionPlaylistManagerListener *_playlistManagerListener;
-            AimpExtensionDataStorage *_musicLibraryDataStorage;
-            InternalAimpExtensionFileInfoProvider *_fileInfoExtensionProvider;
-            InternalAimpExtensionFileSystem *_extensionFileSystem;
+            OptionsDialogFrameExtension* _optionsFrame = NULL;
+            AimpExtensionAlbumArtCatalog* _albumArtCatalogExtension = NULL;
+            AimpExtensionAlbumArtProvider* _albumArtProviderExtension = NULL;
+            AimpExtensionEmbeddedVisualization* _embeddedVisualization = NULL;
+            AimpExtensionCustomVisualization* _customVisualization = NULL;
+            AimpExtensionPlaylistManagerListener *_playlistManagerListener = NULL;
+            AimpExtensionDataStorage* _musicLibraryDataStorage = NULL;
+            InternalAimpExtensionFileInfoProvider *_fileInfoExtensionProvider = NULL;
+            InternalAimpExtensionFileSystem *_extensionFileSystem = NULL;
+            InternalAimpExtensionPlaylistPreimageFactory* _extensionPlaylistPreimageFactory = NULL;
 
             AIMP::SDK::Playlist::PlayListHandler ^_playlistAdded;
             AIMP::SDK::Playlist::PlayListHandler ^_playlistRemoved;

@@ -21,7 +21,10 @@ AimpStream::~AimpStream()
 
 AimpStream::!AimpStream()
 {
-    _aimpObject->Release();
+    if (_aimpObject != nullptr)
+    {
+        _aimpObject->Release();
+    }
 }
 
 AimpStream::AimpStream(IAIMPStream *aimpObject)

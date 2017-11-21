@@ -1,4 +1,5 @@
 ﻿using AIMP.SDK;
+using AIMP.SDK.MenuManager;
 
 namespace AIMP.DotNet.MusicLibrary
 {
@@ -7,31 +8,39 @@ namespace AIMP.DotNet.MusicLibrary
     {
         public override void Initialize()
         {
-            var demoLibrary = new DemoMusicLibrary(this.Player);
+            var demoLibrary = new DemoMusicLibrary(Player);
             var schemaExtension = new DemoExtensionFileSystem();
             var fileINfoProvider = new MyExtensionFileInfoProvider();
 
+            //_smartPlaylistsFactory = new SmartPlaylistsFactory();
 
-            if (Player.Core.RegisterExtension(schemaExtension) != AimpActionResult.Ok)
-            {
-                System.Diagnostics.Debugger.Break();
-            }
+            CheckActionResult(Player.Core.RegisterExtension(schemaExtension));
+            CheckActionResult(Player.Core.RegisterExtension(fileINfoProvider));
+            CheckActionResult(Player.Core.RegisterExtension(demoLibrary));
+            //CheckActionResult(Player.Core.RegisterExtension());
 
-            if (Player.Core.RegisterExtension(fileINfoProvider) != AimpActionResult.Ok)
+            IAimpMenuItem menuItem;
+            Player.MenuManager.CreateMenuItem(out menuItem);
+            menuItem.Id = "DemoPlugin.CreateSmartPL";
+            menuItem.Name = "Create smart Playlist";
+            menuItem.OnExecute += (sender, args) =>
             {
-                System.Diagnostics.Debugger.Break();
-            }
+            };
 
-            if (Player.Core.RegisterExtension(demoLibrary) != AimpActionResult.Ok)
-            {
-                System.Diagnostics.Debugger.Break();
-                System.Diagnostics.Debug.WriteLine("Unable register DemoMusicLibrary");
-            }
+            Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_ML_TREE_CONTEXT_FUNCTIONS, menuItem);
         }
 
         public override void Dispose()
         {
             
+        }
+
+        private void CheckActionResult(AimpActionResult result)
+        {
+            if (result != AimpActionResult.Ok)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
         }
     }
 }

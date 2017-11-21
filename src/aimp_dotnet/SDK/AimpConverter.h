@@ -20,7 +20,9 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
+        using namespace System::Collections::Generic;
         using namespace AIMP::SDK;
+        using namespace AIMP::SDK::FileManager;
 
         /// <summary>
         /// Aimp Converter helper class.
@@ -78,6 +80,14 @@ namespace AIMP
             static IAIMPObjectList* GetAimpObjectList();
 
             static IAIMPMLDataField* GetAimpDataField();
+
+            static IAIMPObjectList* ToManagedObjectList(List<Object^> collection)
+            {
+                IAIMPObjectList* list = GetAimpObjectList();
+                return list;
+            }
+
+            static IAIMPFileInfo* ToAimpObject(IAimpFileInfo^ managedObject);
         private:
             static IAIMPCore* GetCore();
         };

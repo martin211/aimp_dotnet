@@ -96,7 +96,7 @@ IAimpServiceConfig^ AimpPlayer::ServiceConfig::get()
     return _serviceConfig;
 }
 
-IAimpPlaylistManager^ AimpPlayer::PlaylistManager::get()
+IAimpPlaylistManager2^ AimpPlayer::PlaylistManager::get()
 {
     if (_playListManager == nullptr)
     {
