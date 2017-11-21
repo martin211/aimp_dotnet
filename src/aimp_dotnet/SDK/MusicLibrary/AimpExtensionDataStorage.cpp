@@ -24,7 +24,6 @@ AimpDataProvider::AimpDataProvider(gcroot<AIMP::SDK::MusicLibrary::Extension::IA
 
 HRESULT WINAPI AimpDataProvider::GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* Filter, IUnknown** Data)
 {
-    System::Diagnostics::Debug::WriteLine("Get data");
     System::Object^ obj = _instance;
 
     IAimpDataProvider^ provider = dynamic_cast<IAimpDataProvider^>(obj);

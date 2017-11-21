@@ -11,23 +11,24 @@
 
 #pragma once
 
-public interface class IAimpExtensionPlaylistManagerListenerExecutor
-{
-    void OnPlaylistActivated(IAIMPPlaylist* playlist);
-    void OnPlaylistAdded(IAIMPPlaylist* playlist);
-    void OnPlaylistRemoved(IAIMPPlaylist* playlist);
-};
+//public interface class IAimpExtensionPlaylistManagerListenerExecutor
+//{
+//    void OnPlaylistActivated(IAIMPPlaylist* playlist);
+//    void OnPlaylistAdded(IAIMPPlaylist* playlist);
+//    void OnPlaylistRemoved(IAIMPPlaylist* playlist);
+//};
 
+using namespace AIMP::SDK::Playlist;
 
 class AimpExtensionPlaylistManagerListener : public IUnknownInterfaceImpl<IAIMPExtensionPlaylistManagerListener>
 {
 private:
-    gcroot<IAimpExtensionPlaylistManagerListenerExecutor^> _managedInstance;
+    gcroot<IAimpExtensionPlaylistManagerListener^> _managedInstance;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionPlaylistManagerListener> Base;
 
-    AimpExtensionPlaylistManagerListener(gcroot<IAimpExtensionPlaylistManagerListenerExecutor^> instance);
+    AimpExtensionPlaylistManagerListener(gcroot<IAimpExtensionPlaylistManagerListener^> instance);
 
     virtual void WINAPI PlaylistActivated(IAIMPPlaylist* Playlist);
 

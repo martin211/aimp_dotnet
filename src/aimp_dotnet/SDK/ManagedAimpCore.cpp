@@ -180,11 +180,20 @@ namespace AIMP
 
             if (_extensionFileSystem != NULL)
             {
+                _core->UnregisterExtension(_extensionFileSystem);
                 _extensionFileSystem->Release();
                 _extensionFileSystem = NULL;
             }
 
+            if (_extensionPlaylistPreimageFactory != NULL)
+            {
+                _core->UnregisterExtension(static_cast<InternalAimpExtensionPlaylistPreimageFactory::Base*>(_extensionPlaylistPreimageFactory));
+                _extensionPlaylistPreimageFactory->Release();
+                _extensionPlaylistPreimageFactory = NULL;
+            }
+
             _core->Release();
+            _core = NULL;
         }
 
         /// <summary>
@@ -278,19 +287,6 @@ namespace AIMP
                 return _core->RegisterExtension(IID_IAIMPServiceVisualizations, ext);
             }
 
-            AIMP::SDK::Playlist::IAimpExtensionPlaylistManagerListener ^playlistManagerListener = dynamic_cast<AIMP::SDK::Playlist::IAimpExtensionPlaylistManagerListener^>(extension);
-            if (playlistManagerListener != nullptr)
-            {
-                if (_playlistManagerListener != NULL)
-                {
-                    return E_FAIL;
-                }
-
-                AimpExtensionPlaylistManagerListener *ext = new AimpExtensionPlaylistManagerListener((IAimpExtensionPlaylistManagerListenerExecutor^)extension);
-                _playlistManagerListener = ext;
-                return _core->RegisterExtension(IID_IAIMPServicePlaylistManager, _playlistManagerListener);
-            }
-
             AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage ^dataStorageExtension = dynamic_cast<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^>(extension);
             if (dataStorageExtension != nullptr)
             {
@@ -326,9 +322,35 @@ namespace AIMP
                 }
 
                 InternalAimpExtensionFileSystem *ext = new InternalAimpExtensionFileSystem(extensionFileSystem, _core);
-
                 return _core->RegisterExtension(IID_IAIMPServiceFileSystems, (IAIMPExtensionFileSystem*)ext);
             }
+
+#pragma region PlaylistExtension
+            AIMP::SDK::Playlist::IAimpExtensionPlaylistPreimageFactory^ extensionPlaylistPreImageFactory = dynamic_cast<AIMP::SDK::Playlist::IAimpExtensionPlaylistPreimageFactory^>(extension);
+            if (extensionPlaylistPreImageFactory != nullptr)
+            {
+                if (_extensionPlaylistPreimageFactory != NULL)
+                {
+                    return E_FAIL;
+                }
+
+                InternalAimpExtensionPlaylistPreimageFactory* ext = new InternalAimpExtensionPlaylistPreimageFactory(extensionPlaylistPreImageFactory);
+                return _core->RegisterExtension(IID_IAIMPServicePlaylistManager, static_cast<InternalAimpExtensionPlaylistPreimageFactory::Base*>(ext));
+            }
+
+            AIMP::SDK::Playlist::IAimpExtensionPlaylistManagerListener ^playlistManagerListener = dynamic_cast<AIMP::SDK::Playlist::IAimpExtensionPlaylistManagerListener^>(extension);
+            if (playlistManagerListener != nullptr)
+            {
+                if (_playlistManagerListener != NULL)
+                {
+                    return E_FAIL;
+                }
+
+                AimpExtensionPlaylistManagerListener *ext = new AimpExtensionPlaylistManagerListener((IAimpExtensionPlaylistManagerListener^)extension);
+                _playlistManagerListener = ext;
+                return _core->RegisterExtension(IID_IAIMPServicePlaylistManager, _playlistManagerListener);
+            }
+#pragma endregion PlaylistExtension
 
             return E_UNEXPECTED;
         }
@@ -386,6 +408,15 @@ namespace AIMP
                 HRESULT r = _core->UnregisterExtension(_playlistManagerListener);
                 _playlistManagerListener->Release();
                 _playlistManagerListener = NULL;
+                return r;
+            }
+
+            AIMP::SDK::Playlist::IAimpExtensionPlaylistPreimageFactory^ extensionPlaylistPreImageFactory = dynamic_cast<AIMP::SDK::Playlist::IAimpExtensionPlaylistPreimageFactory^>(extension);
+            if (extensionPlaylistPreImageFactory != nullptr)
+            {
+                HRESULT r = _core->UnregisterExtension(static_cast<InternalAimpExtensionPlaylistPreimageFactory::Base*>(_extensionPlaylistPreimageFactory));
+                _extensionPlaylistPreimageFactory->Release();
+                _extensionPlaylistPreimageFactory = NULL;
                 return r;
             }
 
