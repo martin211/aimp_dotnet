@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using AIMP.SDK;
 using AIMP.SDK.Playlist;
 using AIMP.SDK.Threading;
@@ -23,13 +25,14 @@ namespace Aimp.DotNet.SmartPlaylist
             FinalizeObject();
         }
 
-        public AimpActionResult GetFiles(IAimpTaskOwner owner, out PreimageFlags preimageFlags, out IList<object> dataList)
+        public AimpActionResult GetFiles(IAimpTaskOwner owner, out int preimageFlags, out IList dataList)
         {
-            preimageFlags = PreimageFlags.None;
-            dataList = new List<object>
+            preimageFlags = (int)PreimageFlags.None;
+            dataList = new List<string>
             {
                 Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)
             };
+
             return AimpActionResult.Ok;
         }
 
@@ -63,6 +66,7 @@ namespace Aimp.DotNet.SmartPlaylist
 
         public AimpActionResult ExecuteDialog(IntPtr ownerHandle)
         {
+            MessageBox.Show("!!!");
             return AimpActionResult.Ok;
         }
 

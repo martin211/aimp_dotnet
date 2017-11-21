@@ -56,14 +56,37 @@ HRESULT WINAPI AIMP::SDK::InternalAimpPlaylistPreimage::GetFiles(IAIMPTaskOwner*
     if (dp != nullptr)
     {
         int flags = 0;
-        System::Collections::Generic::List<Object^>^ files;
-        res = dp->GetFiles(gcnew AimpTaskOwner(Owner), *&flags, *&files);
+        IAIMPObjectList *L = AIMP::SDK::AimpConverter::GetAimpObjectList();
+        System::Collections::IList ^collection;
+        res = dp->GetFiles(gcnew AimpTaskOwner(Owner), *&flags, *&collection);
 
         if (res == AimpActionResult::Ok)
         {
             *Flags = (DWORD*)flags;
-            //*List = list->In
+            System::Type^ t = collection->GetType()->GetGenericArguments()[0];
+            if (t == AIMP::SDK::FileManager::IAimpFileInfo::typeid)
+            {
+                for (int i = 0; i < collection->Count; i++)
+                {
+                    IAIMPFileInfo* fi = AIMP::SDK::AimpConverter::ToAimpObject((IAimpFileInfo^)collection[i]);
+                    L->Add(fi);
+                    fi->Release();
+                    fi = nullptr;
+                }
+            }
+            else if (t == System::String::typeid)
+            {
+                for (int i = 0; i < collection->Count; i++)
+                {
+                    System::String^ str = (System::String^)collection[i];
+                    IAIMPString *s = AIMP::SDK::AimpConverter::ToAimpString(str);
+                    L->Add(s);
+                    s->Release();
+                }
+            }
         }
+
+        *List = L;
     }
 
     return (HRESULT)res;

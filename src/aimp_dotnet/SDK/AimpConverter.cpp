@@ -12,6 +12,7 @@
 #include "Stdafx.h"
 #include "AimpConverter.h"
 #include "ManagedAimpCore.h"
+#include "FileManager\AimpFileInfo.h"
 
 namespace AIMP
 {
@@ -23,7 +24,6 @@ namespace AIMP
             HRESULT r = ManagedAimpCore::GetAimpCore()->CreateObject(objectId, (void**)&obj);
             return obj;
         }
-
 
         IAIMPString* AimpConverter::ToAimpString(String ^value)
         {
@@ -228,8 +228,6 @@ namespace AIMP
             return gcnew String(value->GetData());
         }
 
-
-
         VARIANT AimpConverter::ToNativeVariant(System::Object^ objectValue)
         {
             VARIANT varTag;
@@ -257,13 +255,54 @@ namespace AIMP
             return res;
         }
 
-
         template<typename TObject>
         TObject* AIMP::SDK::AimpConverter::CreateAimpObject(REFIID objectId)
         {
             TObject *obj = NULL;
             HRESULT r = ManagedAimpCore::GetAimpCore()->CreateObject(objectId, (void**)&obj);
             return obj;
+        }
+
+        IAIMPFileInfo* AimpConverter::ToAimpObject(IAimpFileInfo^ managedObject)
+        {
+            AimpFileInfo ^result = gcnew AimpFileInfo();
+            result->Album = managedObject->Album;
+            result->AlbumArt = managedObject->AlbumArt;
+            result->AlbumArtist = managedObject->AlbumArtist;
+            result->Artist = managedObject->Artist;
+            result->BitDepth = managedObject->BitDepth;
+            result->BitRate = managedObject->BitRate;
+            result->BPM = managedObject->BPM;
+            result->Channels = managedObject->Channels;
+            result->Codec = managedObject->Codec;
+            result->Comment = managedObject->Comment;
+            result->Composer = managedObject->Composer;
+            result->CopyRight = managedObject->CopyRight;
+            result->CUESheet = managedObject->CUESheet;
+            result->CustomData = managedObject->CustomData;
+            result->Date = managedObject->Date;
+            result->DiskNumber = managedObject->DiskNumber;
+            result->DiskTotal = managedObject->DiskTotal;
+            result->Duration = managedObject->Duration;
+            result->FileName = managedObject->FileName;
+            result->FileSize = managedObject->FileSize;
+            result->Gain = managedObject->Gain;
+            result->Genre = managedObject->Genre;
+            //result->LastPlayedDate = fi->LastPlayedDate;
+            result->Lyrics = managedObject->Lyrics;
+            result->Mark = managedObject->Mark;
+            result->Peak = managedObject->Peak;
+            //result->PlayCount = fi->PlayCount;
+            result->Publisher = managedObject->Publisher;
+            result->SampleRate = managedObject->SampleRate;
+            result->SampleRate = managedObject->StateRating;
+            result->StatMark = managedObject->StatMark;
+            result->Title = managedObject->Title;
+            result->TrackGain = managedObject->TrackGain;
+            result->TrackNumber = managedObject->TrackNumber;
+            result->TrackPeak = managedObject->TrackPeak;
+            result->TrackTotal = managedObject->TrackTotal;
+            return result->InternalAimpObject;
         }
     }
 }
