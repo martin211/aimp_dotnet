@@ -10,7 +10,7 @@
 // ----------------------------------------------------
 
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using AIMP.SDK.Threading;
 
 namespace AIMP.SDK.Playlist
@@ -37,6 +37,6 @@ namespace AIMP.SDK.Playlist
         /// <param name="preimageFlags">The preimage flags.</param>
         /// <param name="dataList">The data list.</param>
         /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult GetFiles(IAimpTaskOwner owner, out int preimageFlags, out IList<object> dataList);
+        AimpActionResult GetFiles(IAimpTaskOwner owner, out int preimageFlags, out IList dataList);
     }
 }

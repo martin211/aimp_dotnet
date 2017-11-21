@@ -198,7 +198,15 @@ namespace Aimp.DotNet.SmartPlaylist
 
         private void button5_Click(object sender, EventArgs e)
         {
-
+            var pl = GetSelectedPlaylist();
+            if (pl != null)
+            {
+                var preimage = GetPlaylistPreimage(pl);
+                if (preimage != null)
+                {
+                    pl.ReloadFromPreimage();
+                }
+            }
         }
     }
 }
