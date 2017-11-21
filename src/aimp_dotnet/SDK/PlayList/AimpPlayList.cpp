@@ -26,6 +26,17 @@ namespace AIMP
         AimpPlayList::!AimpPlayList()
         {
             _aimpObject->Release();
+            if (_internalPreImage != NULL)
+            {
+                delete _internalPreImage;
+                _internalPreImage = NULL;
+            }
+
+            if (_listner != NULL)
+            {
+                delete _listner;
+                _listner = NULL;
+            }
         }
 
         AimpActionResult AimpPlayList::GetProperties(IAIMPPropertyList** properties)
@@ -953,15 +964,29 @@ namespace AIMP
             return size;
         }
 
-
-        String ^AimpPlayList::PreImage::get()
+        IAimpPlaylistPreimage ^AimpPlayList::PreImage::get()
         {
             IAIMPPropertyList *properties = NULL;
 
             try
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
-                    return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_PREIMAGE);
+                {
+                    IAIMPPlaylistPreimage* preImage = NULL;
+                    AimpActionResult res = Utils::CheckResult(properties->GetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, IID_IAIMPPlaylistPreimage, (void**)&preImage));
+                    if (res == AimpActionResult::Ok && preImage != NULL)
+                    {
+                        IAIMPPlaylistPreimageFolders* preimageFolders = (IAIMPPlaylistPreimageFolders*)preImage;
+                        if (preimageFolders != NULL)
+                        {
+                            return gcnew AimpPlaylistPreimageFolders(preimageFolders);
+                        }
+                        else
+                        {
+                            return gcnew AimpPlaylistPreimage(preImage);
+                        }
+                    }
+                }
             }
             finally
             {
@@ -971,17 +996,45 @@ namespace AIMP
                     properties = NULL;
                 }
             }
-
-            return String::Empty;
+            return nullptr;
         }
 
-        void AimpPlayList::PreImage::set(String ^value)
+        void AimpPlayList::PreImage::set(IAimpPlaylistPreimage ^value)
         {
             IAIMPPropertyList *properties = NULL;
             try
             {
                 if (GetProperties(&properties) == AimpActionResult::Ok)
-                    PropertyListExtension::SetString(properties, AIMP_PLAYLIST_PROPID_PREIMAGE, value);
+                {
+                    IAIMPPlaylistPreimage* preImage = nullptr;
+
+                    if (value != nullptr)
+                    {
+                        AimpPlaylistPreimageFolders^ folders = dynamic_cast<AimpPlaylistPreimageFolders^>(value);
+
+                        if (folders != nullptr)
+                        {
+                            IAIMPPlaylistPreimageFolders *f = (IAIMPPlaylistPreimageFolders*)folders->InternalAimpObject;
+                            AimpActionResult res = Utils::CheckResult(properties->SetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, f));
+                        }
+                        else
+                        {
+                            preImage = ((AimpPlaylistPreimage^)value)->InternalAimpObject;
+                            AimpActionResult res = Utils::CheckResult(properties->SetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, preImage));
+                        }
+                    }
+                    else
+                    {
+                        IAIMPPlaylistPreimage* preImage;
+                        AimpActionResult res = Utils::CheckResult(properties->GetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, IID_IAIMPPlaylistPreimage, (void**)&preImage));
+                        if (res == AimpActionResult::Ok && preImage != nullptr)
+                        {
+                            preImage->Release();
+                            preImage = nullptr;
+                            properties->SetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, (IUnknown*)nullptr);
+                        }
+                    }
+                }
             }
             finally
             {

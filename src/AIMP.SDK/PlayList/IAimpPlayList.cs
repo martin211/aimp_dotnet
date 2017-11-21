@@ -349,9 +349,9 @@ namespace AIMP.SDK.Playlist
         double Size { get; }
 
         /// <summary>
-        /// Gets or sets the pre image.
+        /// Gets or sets the preimage factory.
         /// </summary>
-        string PreImage { get; set; }
+        IAimpPlaylistPreimage PreImage { get; set; }
 
         /// <summary>
         /// Adds the specified file by URL.
