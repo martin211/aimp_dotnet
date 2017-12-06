@@ -15,6 +15,7 @@
 #include "InternalAimpPlaylistPreimage.h"
 #include "SDK/AimpObjectList.h"
 #include "SDK/Threading/AimpTaskOwner.h"
+#include "InternalAimpMLPlaylistPreimage.h"
 
 using namespace AIMP::SDK;
 
@@ -28,7 +29,16 @@ HRESULT InternalAimpExtensionPlaylistPreimageFactory::CreatePreimage(IAIMPPlayli
     IAimpPlaylistPreimage^ preImage = nullptr;
 
     AimpActionResult res = _managedInstance->CreatePreimage(preImage);
-    *preimage = new InternalAimpPlaylistPreimage(preImage);
+    AIMP::SDK::MusicLibrary::IAimpMusicLibraryPlaylistPreimage^ mlPreimage = dynamic_cast<AIMP::SDK::MusicLibrary::IAimpMusicLibraryPlaylistPreimage^>(preImage);
+    if (mlPreimage != nullptr)
+    {
+        *preimage = new InternalAimpMLPlaylistPreimage(mlPreimage);
+    }
+    else
+    {
+        *preimage = new InternalAimpPlaylistPreimage(preImage);
+    }
+
     return (HRESULT)res;
 }
 

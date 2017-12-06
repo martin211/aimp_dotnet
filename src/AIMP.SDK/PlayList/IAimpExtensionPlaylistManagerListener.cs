@@ -26,22 +26,16 @@ namespace AIMP.SDK.Playlist
         /// <summary>
         /// Occurs when playlist activated.
         /// </summary>
-        event PlayListHandler PlaylistActivated;
+        AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist);
 
         /// <summary>
         /// Occurs when playlist added.
         /// </summary>
-        event PlayListHandler PlaylistAdded;
+        AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist);
 
         /// <summary>
         /// Occurs when playlist removed.
         /// </summary>
-        event PlayListHandler PlaylistRemoved;
-
-        AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist);
-
-        AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist);
-
         AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist);
     }
 }

@@ -74,9 +74,6 @@ namespace Aimp.DotNet.SmartPlaylist
             return null;
         }
 
-        public event PlayListHandler PlaylistActivated;
-        public event PlayListHandler PlaylistAdded;
-        public event PlayListHandler PlaylistRemoved;
         public AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist)
         {
             return AimpActionResult.Ok;

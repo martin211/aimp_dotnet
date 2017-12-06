@@ -1,4 +1,5 @@
-﻿using AIMP.SDK;
+﻿using AIMP.DotNet.MusicLibrary.Preimage;
+using AIMP.SDK;
 using AIMP.SDK.MenuManager;
 
 namespace AIMP.DotNet.MusicLibrary
@@ -11,23 +12,16 @@ namespace AIMP.DotNet.MusicLibrary
             var demoLibrary = new DemoMusicLibrary(Player);
             var schemaExtension = new DemoExtensionFileSystem();
             var fileINfoProvider = new MyExtensionFileInfoProvider();
+            var preimageFactory = new MediaLibraryPreimageFactory();
+            var plListner = new PlaylistManagerListener();
 
-            //_smartPlaylistsFactory = new SmartPlaylistsFactory();
 
             CheckActionResult(Player.Core.RegisterExtension(schemaExtension));
             CheckActionResult(Player.Core.RegisterExtension(fileINfoProvider));
             CheckActionResult(Player.Core.RegisterExtension(demoLibrary));
-            //CheckActionResult(Player.Core.RegisterExtension());
 
-            IAimpMenuItem menuItem;
-            Player.MenuManager.CreateMenuItem(out menuItem);
-            menuItem.Id = "DemoPlugin.CreateSmartPL";
-            menuItem.Name = "Create smart Playlist";
-            menuItem.OnExecute += (sender, args) =>
-            {
-            };
-
-            Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_ML_TREE_CONTEXT_FUNCTIONS, menuItem);
+            CheckActionResult(Player.Core.RegisterExtension(plListner));
+            CheckActionResult(Player.Core.RegisterExtension(preimageFactory));
         }
 
         public override void Dispose()
