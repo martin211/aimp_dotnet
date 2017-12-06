@@ -23,6 +23,7 @@
 #endif  // _DEBUG
 
 #include <windows.h>
+#include <exception>
 #include "AimpSdk.h"
 
 

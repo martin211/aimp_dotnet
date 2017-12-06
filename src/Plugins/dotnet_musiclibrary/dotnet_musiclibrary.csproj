@@ -51,6 +51,9 @@
     <Compile Include="DemoMusicLibrary.cs" />
     <Compile Include="MusicLibraryDemoPlugin.cs" />
     <Compile Include="MyExtensionFileInfoProvider.cs" />
+    <Compile Include="Preimage\MediaLibraryPreimageFactory.cs" />
+    <Compile Include="Preimage\PlaylistManagerListener.cs" />
+    <Compile Include="Preimage\TestMediaLibraryPreimage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExplorerMusicProvider\TDemoExplorerViewAbstractDataProviderSelection.cs" />
   </ItemGroup>

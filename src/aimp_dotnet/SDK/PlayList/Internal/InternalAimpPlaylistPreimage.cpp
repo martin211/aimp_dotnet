@@ -42,13 +42,13 @@ HRESULT WINAPI InternalAimpPlaylistPreimage::ConfigSave(IAIMPStream* Stream)
     return (HRESULT)_managedInstance->ConfigSave(gcnew AimpStream(Stream));
 }
 
-HRESULT WINAPI AIMP::SDK::InternalAimpPlaylistPreimage::ExecuteDialog(HWND OwnerWndHanle)
+HRESULT WINAPI InternalAimpPlaylistPreimage::ExecuteDialog(HWND OwnerWndHanle)
 {
     System::IntPtr ownerHandle(OwnerWndHanle);
     return (HRESULT)_managedInstance->ExecuteDialog(ownerHandle);
 }
 
-HRESULT WINAPI AIMP::SDK::InternalAimpPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, DWORD** Flags, IAIMPObjectList** List)
+HRESULT WINAPI InternalAimpPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, DWORD** Flags, IAIMPObjectList** List)
 {
     AimpActionResult res = AimpActionResult::Fail;
     Object^ obj = _managedInstance;
@@ -92,79 +92,47 @@ HRESULT WINAPI AIMP::SDK::InternalAimpPlaylistPreimage::GetFiles(IAIMPTaskOwner*
     return (HRESULT)res;
 }
 
-void WINAPI AIMP::SDK::InternalAimpPlaylistPreimage::BeginUpdate()
-{ }
-
-void WINAPI AIMP::SDK::InternalAimpPlaylistPreimage::EndUpdate()
-{ }
-
-HRESULT WINAPI AIMP::SDK::InternalAimpPlaylistPreimage::Reset()
-{
-    return E_NOTIMPL;
-}
-
-HRESULT WINAPI AIMP::SDK::InternalAimpPlaylistPreimage::GetValueAsFloat(int PropertyID, double *Value)
-{
-    return E_NOTIMPL;
-}
-
-HRESULT WINAPI AIMP::SDK::InternalAimpPlaylistPreimage::GetValueAsInt64(int PropertyID, INT64 *Value)
-{
-    return E_NOTIMPL;
-}
-
-HRESULT WINAPI AIMP::SDK::InternalAimpPlaylistPreimage::SetValueAsFloat(int PropertyID, const double Value)
-{
-    return E_NOTIMPL;
-}
-
-HRESULT WINAPI AIMP::SDK::InternalAimpPlaylistPreimage::SetValueAsInt32(int PropertyID, int Value)
-{
-    return E_NOTIMPL;
-}
-
-HRESULT WINAPI AIMP::SDK::InternalAimpPlaylistPreimage::SetValueAsInt64(int PropertyID, const INT64 Value)
-{
-    return E_NOTIMPL;
-}
-
-HRESULT WINAPI AIMP::SDK::InternalAimpPlaylistPreimage::SetValueAsObject(int PropertyID, IUnknown *Value)
-{
-    System::Diagnostics::Debugger::Break();
-    return E_NOTIMPL;
-}
 
 HRESULT WINAPI InternalAimpPlaylistPreimage::GetValueAsInt32(int PropertyID, int *Value)
 {
+    HRESULT res = AimpPropertyList::GetValueAsInt32(PropertyID, Value);
+
     switch (PropertyID)
     {
     case AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC:
         *Value = _managedInstance->AutoSync ? 1 : 0;
+        res = S_OK;
         break;
     case AIMP_PLAYLISTPREIMAGE_PROPID_HASDIALOG:
         *Value = _managedInstance->HasDialog ? 1 : 0;
+        res = S_OK;
         break;
     case AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC_ON_STARTUP:
         *Value = _managedInstance->AutoSyncOnStartup ? 1 : 0;
+        res = S_OK;
         break;
     }
 
-    return S_OK;
+    return res;
 }
 
 HRESULT WINAPI InternalAimpPlaylistPreimage::GetValueAsObject(int PropertyID, REFIID IID, void **Value)
 {
+    HRESULT res = AimpPropertyList::GetValueAsObject(PropertyID, IID, Value);
+
     switch (PropertyID)
     {
     case AIMP_PLAYLISTPREIMAGE_PROPID_FACTORYID:
         *Value = AimpConverter::ToAimpString(_managedInstance->FactoryId);
+        res = S_OK;
         break;
     case AIMP_PLAYLISTPREIMAGE_PROPID_SORTTEMPLATE:
         *Value = AimpConverter::ToAimpString(_managedInstance->SortTemplate);
+        res = S_OK;
         break;
     }
 
-    return S_OK;
+    return res;
 }
 
 ULONG WINAPI InternalAimpPlaylistPreimage::Release(void)

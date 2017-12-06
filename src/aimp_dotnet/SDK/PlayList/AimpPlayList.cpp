@@ -25,7 +25,19 @@ namespace AIMP
 
         AimpPlayList::!AimpPlayList()
         {
-            _aimpObject->Release();
+            if (_aimpObject != nullptr)
+            {
+                try
+                {
+                    _aimpObject->Release();
+                    _aimpObject = nullptr;
+                }
+                catch (const std::exception&)
+                {
+                }
+                catch(System::AccessViolationException^)
+                { }
+            }
             if (_internalPreImage != NULL)
             {
                 delete _internalPreImage;
