@@ -54,9 +54,12 @@
     <ClCompile Include="SDK\MusicLibrary\AimpGroupingTreeSelection.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpServiceMusicLibrary.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpServiceMusicLibraryUI.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\InternalAimpDataFilter.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\InternalAimpDataFilterGroup.cpp" />
     <ClCompile Include="SDK\MusicLibrary\InternalAimpDataProviderSelection.cpp" />
     <ClCompile Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.cpp" />
     <ClCompile Include="SDK\MusicLibrary\InternalAimpGroupingTreeDataProviderSelection.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\InternalAimpMusicLibraryPlaylistPreimage.cpp" />
     <ClCompile Include="SDK\Options\AimpOptionsDialogFrame.cpp" />
     <ClCompile Include="SDK\Options\AimpServiceOptionsDialog.cpp" />
     <ClCompile Include="SDK\Options\OptionsDialogFrameExtension.cpp" />
@@ -71,6 +74,7 @@
     <ClCompile Include="SDK\PlayList\AimpPlayListQueue.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlaylistQueueListener.cpp" />
     <ClCompile Include="SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.cpp" />
+    <ClCompile Include="SDK\PlayList\Internal\InternalAimpMLPlaylistPreimage.cpp" />
     <ClCompile Include="SDK\PlayList\Internal\InternalAimpPlaylistPreimage.cpp" />
     <ClCompile Include="SDK\PlayList\PlayListManager.cpp" />
     <ClCompile Include="SDK\PropertyListHelper.cpp" />
@@ -98,6 +102,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AIMPSDK\AIMP400\apiLyrics.h" />
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpDataFilter.h" />
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpDataFilterGroup.h" />
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpMusicLibraryPlaylistPreimage.h" />
     <ClInclude Include="SDK\AimpConfig.h" />
     <ClInclude Include="SDK\Action\AimpAction.h" />
     <ClInclude Include="SDK\Action\AimpActionEvent.h" />
@@ -150,6 +158,7 @@
     <ClInclude Include="SDK\PlayList\AimpPlaylistQueueListener.h" />
     <ClInclude Include="SDK\PlayList\AimpPlaylistPreimage.h" />
     <ClInclude Include="SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.h" />
+    <ClInclude Include="SDK\PlayList\Internal\InternalAimpMLPlaylistPreimage.h" />
     <ClInclude Include="SDK\PlayList\Internal\InternalAimpPlaylistPreimage.h" />
     <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h" />
     <ClInclude Include="SDK\PropertyListHelper.h" />
