@@ -6,16 +6,26 @@ stages:
   - build
   - analysis_end
   - zip_publish
+  - documentation
+  - publish_documentation
+
+docker_start:
+  stage: analysis_start
+  script:
+  - Import-Module CiBuildTools
+  - Start-DockerContainer -containerName SonarQube
 
 analysis_start:
   stage: analysis_start
   script:
-  - echo $env:CI_PROJECT_DIR
-  - .\tools\ci-build\start-analysis.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:SONAR_PROJECT_KEY aimp_dotnet $env:VERSION $env:CI_COMMIT_REF_NAME
+  - Import-Module CiBuildTools
+  - Invoke-StartSonarQube -solutionPath $env:CI_PROJECT_DIR\src\aimp_dotnet.sln -sonarProjectKey $env:SONAR_PROJECT_KEY -sonarProjectName aimp_dotnet -version $env:VERSION -branch $env:CI_COMMIT_REF_NAME
 
 analysis_end:
   stage: analysis_end
-  script: .\tools\ci-build\stop-analysis.ps1
+  script:
+  - Import-Module CiBuildTools
+  - Invoke-StopSonarQube
 
 build_master:
   only:
@@ -24,7 +34,9 @@ build_master:
   except:
     - develop
   stage: build
-  script: .\tools\ci-build\build.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:VERSION $env:CI_COMMIT_REF_NAME Debug
+  script:
+  - Import-Module CiBuildTools
+  - Invoke-BuildSolution -solutionPath $env:CI_PROJECT_DIR\src\aimp_dotnet.sln -version $env:VERSION -branch $env:CI_COMMIT_REF_NAME -configuration Debug
   artifacts:
     paths:
       - src\Release\aimp_dotnet.dll
@@ -36,4 +48,18 @@ build_develop:
   except:
     - master
   stage: build
-  script: .\tools\ci-build\build.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:VERSION $env:CI_COMMIT_REF_NAME Release
+  script:
+  - Import-Module CiBuildTools
+  - Invoke-BuildSolution -solutionPath $env:CI_PROJECT_DIR\src\aimp_dotnet.sln -version $env:VERSION -branch $env:CI_COMMIT_REF_NAME -configuration Release
+
+documentation_build:
+  only:
+    - master
+  stage: documentation
+  script: .\docs\build.ps1
+
+documentation_publish:
+  only:
+    - master
+  stage: publish_documentation
+  script: .\docs\publish.ps1
