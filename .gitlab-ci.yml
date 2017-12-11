@@ -13,7 +13,7 @@ docker_start:
   stage: analysis_start
   script:
   - Import-Module CiBuildTools
-  - Start-DockerContainer -containerName SonarQube
+  - Start-DockerContainer -containerName dev.sonarqube
 
 analysis_start:
   stage: analysis_start
