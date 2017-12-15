@@ -8,12 +8,14 @@ stages:
   - zip_publish
   - documentation
   - publish_documentation
+  - deploy
 
 docker_start:
   stage: analysis_start
   script:
   - Import-Module CiBuildTools
-  - Start-DockerContainer -containerName dev.sonarqube
+  - Start-DockerContainer -containerName "dev.mysql"
+  - Start-DockerContainer -containerName "dev.sonarqube"
 
 analysis_start:
   stage: analysis_start
@@ -30,12 +32,13 @@ analysis_end:
 build_master:
   only:
     - master
-    - tags
   except:
     - develop
   stage: build
   script:
   - Import-Module CiBuildTools
+  - Invoke-SetCliVersion -rcFilePath $env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc -contentToReplace 1.0.0.1 -replaceTo $env:VERSION
+  - Invoke-SetCliVersion -rcFilePath $env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc -contentToReplace 1,0,0,1 -replaceTo $env:VERSION.Replace(".", ",")
   - Invoke-BuildSolution -solutionPath $env:CI_PROJECT_DIR\src\aimp_dotnet.sln -version $env:VERSION -branch $env:CI_COMMIT_REF_NAME -configuration Debug
   artifacts:
     paths:
@@ -47,6 +50,7 @@ build_develop:
     - develop
   except:
     - master
+    - tags
   stage: build
   script:
   - Import-Module CiBuildTools
@@ -56,10 +60,24 @@ documentation_build:
   only:
     - master
   stage: documentation
-  script: .\docs\build.ps1
+  script: 
+  - Import-Module CiBuildTools
+  - Invoke-BuildDocumentation
 
 documentation_publish:
   only:
     - master
   stage: publish_documentation
-  script: .\docs\publish.ps1
+  script: 
+  - Import-Module CiBuildTools
+  - Invoke-BuildDocumentation
+
+publish_to_release:
+  stage: deploy
+  only:
+    - master
+  environment:
+    name: Production
+  script:
+  - Import-Module CiBuildTools
+  - New-GitTag -tagName $env:VERSION
