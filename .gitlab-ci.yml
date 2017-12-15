@@ -12,6 +12,8 @@ stages:
 
 docker_start:
   stage: analysis_start
+  except:
+    - master
   script:
   - Import-Module CiBuildTools
   - Start-DockerContainer -containerName "dev.mysql"
@@ -19,12 +21,16 @@ docker_start:
 
 analysis_start:
   stage: analysis_start
+  except:
+    - master
   script:
   - Import-Module CiBuildTools
   - Invoke-StartSonarQube -solutionPath $env:CI_PROJECT_DIR\src\aimp_dotnet.sln -sonarProjectKey $env:SONAR_PROJECT_KEY -sonarProjectName aimp_dotnet -version $env:VERSION -branch $env:CI_COMMIT_REF_NAME
 
 analysis_end:
   stage: analysis_end
+  except:
+    - master
   script:
   - Import-Module CiBuildTools
   - Invoke-StopSonarQube
