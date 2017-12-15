@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}"
 EndProject
@@ -55,9 +55,11 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|Any CPU.Build.0 = Debug|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|x86.ActiveCfg = Debug|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|x86.Build.0 = Debug|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Release|Any CPU.ActiveCfg = Release|Win32
+		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Release|Any CPU.Build.0 = Release|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Release|x86.ActiveCfg = Release|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Release|x86.Build.0 = Release|Win32
 		{154C60CF-2DAE-4227-AD2C-CCE7C63CDE5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -102,10 +104,8 @@ Global
 		{E9D9E53D-40D5-4965-9770-FAADF73CEEEA}.Release|x86.Build.0 = Release|Any CPU
 		{7D283154-7CF9-434E-BA5A-5FB3D03AC271}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{7D283154-7CF9-434E-BA5A-5FB3D03AC271}.Debug|x86.ActiveCfg = Debug|Win32
-		{7D283154-7CF9-434E-BA5A-5FB3D03AC271}.Debug|x86.Build.0 = Debug|Win32
 		{7D283154-7CF9-434E-BA5A-5FB3D03AC271}.Release|Any CPU.ActiveCfg = Release|Win32
 		{7D283154-7CF9-434E-BA5A-5FB3D03AC271}.Release|x86.ActiveCfg = Release|Win32
-		{7D283154-7CF9-434E-BA5A-5FB3D03AC271}.Release|x86.Build.0 = Release|Win32
 		{9C155223-D1C5-4943-A4E6-02131544E5FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9C155223-D1C5-4943-A4E6-02131544E5FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C155223-D1C5-4943-A4E6-02131544E5FD}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -134,5 +134,8 @@ Global
 		{7D283154-7CF9-434E-BA5A-5FB3D03AC271} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
 		{9C155223-D1C5-4943-A4E6-02131544E5FD} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
 		{72CBA5F8-494D-4EEB-803B-7D1802A91D4A} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9CECBA5E-E6AE-4EF1-A2BA-C8AA6549BF09}
 	EndGlobalSection
 EndGlobal
