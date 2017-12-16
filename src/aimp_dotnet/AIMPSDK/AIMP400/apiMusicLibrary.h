@@ -216,13 +216,13 @@ class IAIMPMLDataFieldFilterByArray : public IAIMPPropertyList2
 class IAIMPMLDataFilterGroup : public IAIMPPropertyList2
 {
 	public:
-		virtual HRESULT WINAPI Add(IUnknown* Field, VARIANT* Value1, VARIANT* Value2, int Operation, IAIMPMLDataFieldFilter** Filter) = 0;
-		virtual HRESULT WINAPI Add2(IUnknown* Field, VARIANT* Values, int Count, IAIMPMLDataFieldFilterByArray** Filter) = 0;
-		virtual HRESULT WINAPI AddGroup(IAIMPMLDataFilterGroup** Group) = 0;
-		virtual HRESULT WINAPI Clear() = 0;
-		virtual HRESULT WINAPI Delete(int Index) = 0;
-		virtual HRESULT WINAPI GetChild(int Index, REFIID IID, void **Obj) = 0;
-		virtual int WINAPI GetChildCount() = 0;
+		virtual HRESULT WINAPI Add(IUnknown* Field, VARIANT* Value1, VARIANT* Value2, int Operation, IAIMPMLDataFieldFilter** Filter) { return E_NOTIMPL; }
+		virtual HRESULT WINAPI Add2(IUnknown* Field, VARIANT* Values, int Count, IAIMPMLDataFieldFilterByArray** Filter) { return E_NOTIMPL; }
+		virtual HRESULT WINAPI AddGroup(IAIMPMLDataFilterGroup** Group) { return E_NOTIMPL; }
+		virtual HRESULT WINAPI Clear() { return E_NOTIMPL; }
+		virtual HRESULT WINAPI Delete(int Index) { return E_NOTIMPL; }
+		virtual HRESULT WINAPI GetChild(int Index, REFIID IID, void **Obj) { return E_NOTIMPL; }
+		virtual int WINAPI GetChildCount() { return 0; }
 };
 
 /* IAIMPMLDataFilter */
