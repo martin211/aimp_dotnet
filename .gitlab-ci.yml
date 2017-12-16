@@ -43,9 +43,9 @@ build_master:
   stage: build
   script:
   - Import-Module CiBuildTools
-  - Invoke-SetCliVersion -rcFilePath $env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc -contentToReplace "1.0.0.1" -replaceTo $env:VERSION
-  - Invoke-SetCliVersion -rcFilePath $env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc -contentToReplace "1,0,0,1" -replaceTo $env:VERSION.Replace(".", ",")
-  - Invoke-BuildSolution -solutionPath $env:CI_PROJECT_DIR\src\aimp_dotnet.sln -version $env:VERSION -branch $env:CI_COMMIT_REF_NAME -configuration Debug
+  - Invoke-SetCliVersion -rcFilePath "$env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc" -contentToReplace "1.0.0.1" -replaceTo "$env:VERSION"
+  - Invoke-SetCliVersion -rcFilePath "$env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc" -contentToReplace "1,0,0,1" -replaceTo "$env:VERSION.Replace(".", ",")"
+  - Invoke-BuildSolution -solutionPath "$env:CI_PROJECT_DIR\src\aimp_dotnet.sln" -version "$env:VERSION" -branch "$env:CI_COMMIT_REF_NAME" -configuration "Release"
   artifacts:
     paths:
       - src\Release\aimp_dotnet.dll
@@ -60,7 +60,7 @@ build_develop:
   stage: build
   script:
   - Import-Module CiBuildTools
-  - Invoke-BuildSolution -solutionPath $env:CI_PROJECT_DIR\src\aimp_dotnet.sln -version $env:VERSION -branch $env:CI_COMMIT_REF_NAME -configuration Release
+  - Invoke-BuildSolution -solutionPath "$env:CI_PROJECT_DIR/src/aimp_dotnet.sln" -version "$env:VERSION" -branch "$env:CI_COMMIT_REF_NAME" -configuration "Debug"
 
 documentation_build:
   only:
