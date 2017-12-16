@@ -231,19 +231,19 @@ class IAIMPProgressCallback: public IUnknown
 class IAIMPPropertyList: public IUnknown
 {
 	public:
-		virtual void WINAPI BeginUpdate() = 0;
-		virtual void WINAPI EndUpdate() = 0;
-		virtual HRESULT WINAPI Reset() = 0;
+		virtual void WINAPI BeginUpdate() {}
+		virtual void WINAPI EndUpdate() {}
+        virtual HRESULT WINAPI Reset() { return E_NOTIMPL; }
 		// Read
-		virtual HRESULT WINAPI GetValueAsFloat(int PropertyID, double *Value) = 0;
-		virtual HRESULT WINAPI GetValueAsInt32(int PropertyID, int *Value) = 0;
-		virtual HRESULT WINAPI GetValueAsInt64(int PropertyID, INT64 *Value) = 0;
-		virtual HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void **Value) = 0;
+		virtual HRESULT WINAPI GetValueAsFloat(int PropertyID, double *Value) { return E_NOTIMPL; }
+		virtual HRESULT WINAPI GetValueAsInt32(int PropertyID, int *Value) { return E_NOTIMPL; }
+		virtual HRESULT WINAPI GetValueAsInt64(int PropertyID, INT64 *Value) { return E_NOTIMPL; }
+		virtual HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void **Value) { return E_NOTIMPL; }
 		// Write
-		virtual HRESULT WINAPI SetValueAsFloat(int PropertyID, const double Value) = 0;
-		virtual HRESULT WINAPI SetValueAsInt32(int PropertyID, int Value) = 0;
-		virtual HRESULT WINAPI SetValueAsInt64(int PropertyID, const INT64 Value) = 0;
-		virtual HRESULT WINAPI SetValueAsObject(int PropertyID, IUnknown *Value) = 0;
+		virtual HRESULT WINAPI SetValueAsFloat(int PropertyID, const double Value) { return E_NOTIMPL; }
+		virtual HRESULT WINAPI SetValueAsInt32(int PropertyID, int Value) { return E_NOTIMPL; }
+		virtual HRESULT WINAPI SetValueAsInt64(int PropertyID, const INT64 Value) { return E_NOTIMPL; }
+		virtual HRESULT WINAPI SetValueAsObject(int PropertyID, IUnknown *Value) { return E_NOTIMPL; }
 };
 
 /* IAIMPPropertyList2 */
@@ -251,8 +251,8 @@ class IAIMPPropertyList: public IUnknown
 class IAIMPPropertyList2: public IAIMPPropertyList
 {
 	public:
-		virtual HRESULT WINAPI GetValueAsVariant(int PropertyID, VARIANT* Value) = 0;
-		virtual HRESULT WINAPI SetValueAsVariant(int PropertyID, VARIANT* Value) = 0;
+		virtual HRESULT WINAPI GetValueAsVariant(int PropertyID, VARIANT* Value) { return E_NOTIMPL; }
+		virtual HRESULT WINAPI SetValueAsVariant(int PropertyID, VARIANT* Value) { return E_NOTIMPL; }
 };
 
 /* IAIMPConfig */
