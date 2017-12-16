@@ -44,5 +44,56 @@ namespace AIMP
 
             virtual AimpActionResult SetObject(int index, TObject item);
         };
+
+        public ref class AimpObjectList2 : public IAimpObjectList, public AimpObject<IAIMPObjectList>
+        {
+        public:
+            explicit AimpObjectList2(IAIMPObjectList* nativeObject) : AimpObject(nativeObject)
+            {}
+
+            virtual AimpActionResult Add(Object^ entry)
+            {
+                String^ s = dynamic_cast<String^>(entry);
+                if (s != nullptr)
+                {
+                    return Utils::CheckResult(InternalAimpObject->Add(AimpConverter::ToAimpString(s)));
+                }
+
+                return Utils::CheckResult(InternalAimpObject->Add(AimpConverter::ToAimpString((String^)entry)));
+            }
+
+            virtual AimpActionResult Clear()
+            {
+                return AimpActionResult::Fail;
+            }
+
+            virtual AimpActionResult Delete(int index)
+            {
+                return AimpActionResult::Fail;
+            }
+
+            virtual AimpActionResult Insert(int index, Object^ entry)
+            {
+                return AimpActionResult::Fail;
+            }
+
+            virtual property int Count
+            {
+                int get()
+                {
+                    return 0;
+                }
+            }
+
+            virtual AimpActionResult GetObject(int index, Object^% item)
+            {
+                return AimpActionResult::Fail;
+            }
+
+            virtual AimpActionResult SetObject(int index, Object^ item)
+            {
+                return AimpActionResult::Fail;
+            }
+        };
     }
 }

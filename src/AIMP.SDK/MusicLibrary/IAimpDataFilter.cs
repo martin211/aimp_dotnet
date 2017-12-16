@@ -9,7 +9,6 @@
 // 
 // ----------------------------------------------------
 
-using System;
 using AIMP.SDK.MusicLibrary.DataFilter;
 
 namespace AIMP.SDK.MusicLibrary
@@ -23,28 +22,47 @@ namespace AIMP.SDK.MusicLibrary
     public interface IAimpDataFilter : IAimpDataFilterGroup
     {
         /// <summary>
-        /// Gets or sets the offset.
+        /// Gets or sets the count of records to skip.
         /// </summary>
         int Offset { get; set; }
 
+        /// <summary>
+        /// Gets or sets the max count of records to return. 0 - maximum is not set.
+        /// </summary>
         int Limit { get; set; }
 
+        /// <summary>
+        /// Gets or sets the field name for sorting. Can be null.
+        /// </summary>
         string SortBy { get; set; }
 
         /// <summary>
         /// Gets or sets the sort direction. AIMPML_FILTER_SORTBY
         /// </summary>
-        /// <value>
-        /// The sort direction.
-        /// </value>
         SortDirectionType SortDirection { get; set; }
 
+        /// <summary>
+        /// Gets or sets the search string. Can be null.
+        /// </summary>
         string SearchString { get; set; }
 
+        /// <summary>
+        /// Code of character in the alphabetic index. 0 - character is not set.
+        /// </summary>
         int AlphaBeticIndex { get; set; }
 
-        AimpActionResult Assign(IAimpDataFieldFilter source);
+        /// <summary>
+        /// Copies the data from a Source filter.
+        /// Note: source filter must be assigned to same data storage.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <returns><see cref="AimpActionResult"/></returns>
+        AimpActionResult Assign(IAimpDataFilter source);
 
+        /// <summary>
+        /// Clones to the specified source.
+        /// </summary>
+        /// <param name="source">The source.</param>
         AimpActionResult Clone(out IAimpDataFilter source);
     }
 }

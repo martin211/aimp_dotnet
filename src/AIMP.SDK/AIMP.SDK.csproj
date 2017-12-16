@@ -41,24 +41,6 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -104,6 +86,7 @@
     <Compile Include="FileManager\AimpFileAttributes.cs" />
     <Compile Include="IAimpConfig.cs" />
     <Compile Include="IAimpExternalSettingsDialog.cs" />
+    <Compile Include="IAimpObject.cs" />
     <Compile Include="IAimpObjectList.cs" />
     <Compile Include="IAimpStream.cs" />
     <Compile Include="Logger\ILogger.cs" />
@@ -111,6 +94,7 @@
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilterByArray.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFilterGroup.cs" />
     <Compile Include="MusicLibrary\DataStorage\IAimpDataField.cs" />
+    <Compile Include="MusicLibrary\DataStorage\IAimpDataFieldDisplayValue.cs" />
     <Compile Include="MusicLibrary\DataStorage\IAimpDataStorage.cs" />
     <Compile Include="MusicLibrary\DataStorage\IAimpGroupingTreeDataProvider.cs" />
     <Compile Include="MusicLibrary\DataStorage\IAimpGroupingTreeDataProviderSelection.cs" />
@@ -128,13 +112,19 @@
     <Compile Include="MusicLibrary\IAimpDataStorageManager.cs" />
     <Compile Include="MusicLibrary\Extension\IAimpExtensionDataStorage.cs" />
     <Compile Include="MusicLibrary\IAimpFileList.cs" />
+    <Compile Include="MusicLibrary\IAimpMusicLibraryPlaylistPreimage.cs" />
     <Compile Include="MusicLibrary\Presets\IAimpGroupingPreset.cs" />
     <Compile Include="MusicLibrary\Presets\IAimpGroupingPresets.cs" />
     <Compile Include="MusicLibrary\IAimpServiceMusicLibrary.cs" />
     <Compile Include="MusicLibrary\IAimpServiceMusicLibraryUI.cs" />
     <Compile Include="MusicLibrary\Presets\IAimpGroupingPresetStandard.cs" />
+    <Compile Include="Playlist\Constants.cs" />
+    <Compile Include="Playlist\IAimpExtensionPlaylistPreimageFactory.cs" />
     <Compile Include="Playlist\IAimpPlaylistListener.cs" />
-    <Compile Include="Playlist\IAIMPPlaylistPreimage.cs" />
+    <Compile Include="Playlist\IAimpPlaylistManager2.cs" />
+    <Compile Include="Playlist\IAimpPlaylistPreimage.cs" />
+    <Compile Include="Playlist\IAimpPlaylistPreimageDataProvider.cs" />
+    <Compile Include="Playlist\IAimpPlaylistPreimageFolders.cs" />
     <Compile Include="Playlist\IAimpPlaylistPreimageListener.cs" />
     <Compile Include="Playlist\IAimpPlaylistQueueListener.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -168,7 +158,7 @@
     <Compile Include="AlbumArtManager\AimpFindCovertArtType.cs" />
     <Compile Include="AlbumArtManager\AimpGetAlbumArtEventArgs.cs" />
     <Compile Include="AlbumArtManager\IAimpAlbumArtManager.cs" />
-    <Compile Include="ConfigurationManager\IAimpConfigurationManager.cs" />
+    <Compile Include="ConfigurationManager\IAimpServiceConfig.cs" />
     <Compile Include="MenuManager\IAimpMenuItem.cs" />
     <Compile Include="MenuManager\IAimpServiceMenuManager.cs" />
     <Compile Include="MUIManager\IAimpMUIManager.cs" />

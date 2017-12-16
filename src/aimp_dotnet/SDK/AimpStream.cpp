@@ -12,42 +12,54 @@
 #include "stdafx.h"
 #include "AimpStream.h"
 
-AIMP::SDK::AimpStream::~AimpStream()
+using namespace AIMP::SDK;
+
+AimpStream::~AimpStream()
 {
     this->!AimpStream();
 }
 
-AIMP::SDK::AimpStream::!AimpStream()
+AimpStream::!AimpStream()
 {
-    _aimpObject->Release();
+    if (_aimpObject != nullptr)
+    {
+        try
+        {
+            _aimpObject->Release();
+        }
+        catch (const std::exception& e)
+        {
+            System::Diagnostics::Debugger::Break();
+        }
+    }
 }
 
-AIMP::SDK::AimpStream::AimpStream(IAIMPStream *aimpObject)
+AimpStream::AimpStream(IAIMPStream *aimpObject)
 {
     _aimpObject = aimpObject;
 }
 
-long long AIMP::SDK::AimpStream::GetSize()
+long long AimpStream::GetSize()
 {
     return _aimpObject->GetSize();
 }
 
-AIMP::SDK::AimpActionResult AIMP::SDK::AimpStream::SetSize(long long value)
+AimpActionResult AimpStream::SetSize(long long value)
 {
     return CheckResult(_aimpObject->SetSize(value));
 }
 
-long long AIMP::SDK::AimpStream::GetPosition()
+long long AimpStream::GetPosition()
 {
     return _aimpObject->GetPosition();
 }
 
-AIMP::SDK::AimpActionResult AIMP::SDK::AimpStream::Seek(long long offset, System::IO::SeekOrigin mode)
+AimpActionResult AimpStream::Seek(long long offset, System::IO::SeekOrigin mode)
 {
     return CheckResult(_aimpObject->Seek(offset, (int)mode));
 }
 
-int AIMP::SDK::AimpStream::Read(array<unsigned char, 1> ^buffer, int count)
+int AimpStream::Read(array<unsigned char, 1> ^buffer, int count)
 {
     unsigned char *buf = new unsigned char[count];
     int read = _aimpObject->Read(buf, (unsigned int)count);
@@ -60,7 +72,13 @@ int AIMP::SDK::AimpStream::Read(array<unsigned char, 1> ^buffer, int count)
     return read;
 }
 
-AIMP::SDK::AimpActionResult AIMP::SDK::AimpStream::Write(array<unsigned char, 1> ^buffer, int count, int %writen)
+AimpActionResult AimpStream::Write(array<unsigned char, 1> ^buffer, int count, int %writen)
 {
-    return AIMP::SDK::AimpActionResult();
+    unsigned int writenCount;
+    writen = 0;
+
+    pin_ptr<unsigned char>buff = &buffer[0];
+    AimpActionResult res = CheckResult(InternalAimpObject->Write(buff, count, &writenCount));
+    writen = writenCount;
+    return res;
 }

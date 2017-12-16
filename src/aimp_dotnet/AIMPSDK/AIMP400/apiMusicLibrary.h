@@ -1,10 +1,10 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v4.10 build 1800               */
+/*               v4.50 build 2000               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2016                 */
+/*                (C) 2006-2017                 */
 /*                 www.aimp.ru                  */
 /*                                              */
 /*            Mail: support@aimp.ru             */
@@ -49,6 +49,7 @@ static const GUID IID_IAIMPMLGroupingPresetStandard = {0x41494D50, 0x4D4C, 0x477
 static const GUID IID_IAIMPMLGroupingTreeDataProvider = {0x41494D50, 0x4D4C, 0x4772, 0x70, 0x44, 0x61, 0x74, 0x61, 0x50, 0x72, 0x76};
 static const GUID IID_IAIMPMLGroupingTreeDataProviderSelection = {0x41494D50, 0x4D4C, 0x4772, 0x44, 0x74, 0x50, 0x72, 0x76, 0x53, 0x65, 0x6C};
 static const GUID IID_IAIMPMLGroupingPresets = {0x41494D50, 0x4D4C, 0x4772, 0x50, 0x72, 0x73, 0x74, 0x73, 0x00, 0x00, 0x00};
+static const GUID IID_IAIMPMLSortDirection = {0x41494D50, 0x4D4C, 0x536F, 0x72, 0x74, 0x44, 0x69, 0x72, 0x74, 0x6E, 0x00};
 
 // Property ID for IAIMPPropertyList of IAIMPMLExtensionDataStorage
 const int AIMPML_DATASTORAGE_PROPID_ID              = 0;
@@ -60,6 +61,7 @@ const int AIMPML_DATASTORAGE_PROPID_GROUPINGPRESET  = 20;
 const int AIMPML_DATASTORAGE_CAP_FILTERING       = 1; // return it, if plugin has own implementation of data filtering
 const int AIMPML_DATASTORAGE_CAP_PREIMAGES       = 2;
 const int AIMPML_DATASTORAGE_CAP_GROUPINGPRESETS = 4;
+const int AIMPML_DATASTORAGE_CAP_CUSTOMIZEGROUPS = 8;
 
 // Schema Flags for IAIMPMLExtensionDataStorage.GetFields
 const int AIMPML_FIELDS_SCHEMA_ALL                        = 0;
@@ -111,7 +113,7 @@ static const WCHAR* AIMPML_RESERVED_FIELD_ID       = L"ID";       // !REQUIRED! 
 static const WCHAR* AIMPML_RESERVED_FIELD_FILENAME = L"FileName"; // !REQUIRED! string
 static const WCHAR* AIMPML_RESERVED_FIELD_FILESIZE = L"FileSize"; // Int64, in bytes
 static const WCHAR* AIMPML_RESERVED_FIELD_DURATION = L"Duration"; // double, in seconds
-static const WCHAR* AIMPML_RESERVED_FIELD_USERMARK = L"UserMark"; // double, 0.0 .. 5.0
+static const WCHAR* AIMPML_RESERVED_FIELD_USERMARK = L"UserMark"; // integer, 0.0 .. 5.0
 
 // Property ID for IAIMPMLGroupingPreset
 const int AIMPML_GROUPINGPRESET_PROPID_CUSTOM   = 0;
@@ -155,13 +157,13 @@ const int AIMPML_FIELDFILTERBYARRAY_FIELD = 1;
 const int AIMPML_FILTER_LIMIT           = 1;
 const int AIMPML_FILTER_OFFSET          = 2;
 const int AIMPML_FILTER_SORTBY          = 3;
-const int AIMPML_FILTER_SORTDIRECTION   = 4; // Refer to the AIMPML_FILTER_SORTDIRECTION_XXX
+const int AIMPML_FILTER_SORTDIRECTION   = 4; // Refer to the AIMPML_SORTDIRECTION_XXX
 const int AIMPML_FILTER_SEARCHSTRING    = 10; // optional
 const int AIMPML_FILTER_ALPHABETICINDEX = 11; // optional
 
-// Filter SortingDirection
-const int AIMPML_FILTER_SORTDIRECTION_ASCENDING = 0;
-const int AIMPML_FILTER_SORTDIRECTION_DESCENDING = 1;
+// Sort Direction
+const int AIMPML_SORTDIRECTION_ASCENDING  = 1;
+const int AIMPML_SORTDIRECTION_DESCENDING = 2;
 
 // Flags for IAIMPMLGroupingTreeDataProvider.GetCapabilities
 const int AIMPML_GROUPINGTREEDATAPROVIDER_CAP_HIDEALLDATA = 1;
@@ -191,7 +193,7 @@ class IAIMPMLDataField : public IAIMPPropertyList
 class IAIMPMLDataFieldDisplayValue : public IUnknown
 {
 	public:
-		virtual WCHAR* WINAPI GetDisplayValue(const VARIANT Value, int* Length) = 0;
+		virtual WCHAR* WINAPI GetDisplayValue(VARIANT* Value, int* Length) = 0;
 };
 
 /* IAIMPMLDataFieldFilter */
@@ -214,13 +216,13 @@ class IAIMPMLDataFieldFilterByArray : public IAIMPPropertyList2
 class IAIMPMLDataFilterGroup : public IAIMPPropertyList2
 {
 	public:
-		virtual HRESULT WINAPI Add(IUnknown* Field, VARIANT* Value1, VARIANT* Value2, int Operation, IAIMPMLDataFieldFilter** Filter) = 0;
-		virtual HRESULT WINAPI Add2(IUnknown* Field, VARIANT* Values, int Count, IAIMPMLDataFieldFilterByArray** Filter) = 0;
-		virtual HRESULT WINAPI AddGroup(IAIMPMLDataFilterGroup** Group) = 0;
-		virtual HRESULT WINAPI Clear() = 0;
-		virtual HRESULT WINAPI Delete(int Index) = 0;
-		virtual HRESULT WINAPI GetChild(int Index, REFIID IID, void **Obj) = 0;
-		virtual int WINAPI GetChildCount() = 0;
+		virtual HRESULT WINAPI Add(IUnknown* Field, VARIANT* Value1, VARIANT* Value2, int Operation, IAIMPMLDataFieldFilter** Filter) { return E_NOTIMPL; }
+		virtual HRESULT WINAPI Add2(IUnknown* Field, VARIANT* Values, int Count, IAIMPMLDataFieldFilterByArray** Filter) { return E_NOTIMPL; }
+		virtual HRESULT WINAPI AddGroup(IAIMPMLDataFilterGroup** Group) { return E_NOTIMPL; }
+		virtual HRESULT WINAPI Clear() { return E_NOTIMPL; }
+		virtual HRESULT WINAPI Delete(int Index) { return E_NOTIMPL; }
+		virtual HRESULT WINAPI GetChild(int Index, REFIID IID, void **Obj) { return E_NOTIMPL; }
+		virtual int WINAPI GetChildCount() { return 0; }
 };
 
 /* IAIMPMLDataFilter */
@@ -249,6 +251,15 @@ class IAIMPMLFileList : public IUnknown
 		virtual HRESULT WINAPI SetID(int Index, VARIANT* ID) = 0;
 
 		virtual HRESULT WINAPI Clone(void** Obj) = 0;
+};
+
+/* IAIMPMLSortDirection */
+
+class IAIMPMLSortDirection: public IUnknown
+{
+	public:
+		virtual HRESULT WINAPI GetValue(int* Value) = 0;
+		virtual HRESULT WINAPI SetValue(int Value) = 0;
 };
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -431,8 +442,8 @@ class IAIMPMLGroupingPresets : public IUnknown
 class IAIMPMLDataStorageManager : public IUnknown
 {
 	public:
-		virtual void WINAPI BackgroundTaskStarted(int ID, IAIMPString* Caption, IAIMPActionEvent* CancelEvent) = 0;
-		virtual void WINAPI BackgroundTaskFinished(int ID) = 0;
+		virtual HRESULT WINAPI BackgroundTaskStarted(int ID, IAIMPString* Caption, IAIMPActionEvent* CancelEvent) = 0;
+		virtual HRESULT WINAPI BackgroundTaskFinished(int ID) = 0;
 		virtual void WINAPI Changed() = 0;
 };
 

@@ -15,6 +15,11 @@ namespace AIMP.SDK.MusicLibrary.Extension.Command
 {
     public interface IAimpDataStorageCommandAddFiles
     {
+        /// <summary>
+        /// Adds the specified files.
+        /// </summary>
+        /// <param name="files">List of the filenames.</param>
+        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
         AimpActionResult Add(IList<string> files);
     }
 }

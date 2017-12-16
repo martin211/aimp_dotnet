@@ -24,7 +24,7 @@ AimpMenuItem::AimpMenuItem(IAIMPMenuItem *menuItem) : AimpObject(menuItem)
 AimpMenuItem::~AimpMenuItem()
 {
     _onExecuteHandler = nullptr;
-    _onExecuteHandler = nullptr;
+    _onExecuteEvent = nullptr;
     _showHandler.Free();
     _executeHandler.Free();
 }

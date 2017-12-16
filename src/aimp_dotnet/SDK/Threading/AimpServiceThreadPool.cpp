@@ -29,6 +29,8 @@ AimpActionResult AimpServiceThreadPool::Cancel(UIntPtr taskHandle, AimpServiceTh
         {
             return CheckResult(service->Cancel((DWORD_PTR)taskHandle.ToPointer(), (DWORD)flags));
         }
+
+        return AimpActionResult::Fail;
     }
     finally
     {
@@ -43,6 +45,7 @@ AimpActionResult AimpServiceThreadPool::Cancel(UIntPtr taskHandle, AimpServiceTh
 AimpActionResult AimpServiceThreadPool::Execute(IAimpTask ^task, UIntPtr %handle)
 {
     IAIMPServiceThreadPool *service = NULL;
+    handle = UIntPtr((void*)0);
 
     try
     {
@@ -52,11 +55,11 @@ AimpActionResult AimpServiceThreadPool::Execute(IAimpTask ^task, UIntPtr %handle
         {
             InternalAimpTask *internalTask = new InternalAimpTask(task);
             AimpActionResult result = CheckResult(service->Execute(internalTask, &h));
-            System::Diagnostics::Debug::WriteLine(result.ToString());
-
             handle = UIntPtr((void*)h);
             return result;
         }
+
+        return AimpActionResult::Fail;
     }
     finally
     {
@@ -78,6 +81,8 @@ AimpActionResult AimpServiceThreadPool::WaitFor(UIntPtr handle)
         {
             return CheckResult(service->WaitFor((DWORD_PTR)handle.ToPointer()));
         }
+
+        return AimpActionResult::Fail;
     }
     finally
     {

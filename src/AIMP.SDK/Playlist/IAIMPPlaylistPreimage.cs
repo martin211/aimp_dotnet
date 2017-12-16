@@ -17,10 +17,11 @@ namespace AIMP.SDK.Playlist
     /// It is a general interface for all preimages.
     /// <para>
     /// Preimage is data source for smart-playlists with manual or automatic synchronization.
-    /// The principle of cooperation between preimage and playlist is so simple: when data or settings in preimage are changed - preimage notify playlist about the changes via the <see cref="IAimpPlaylistPreimageListener"/> interface that related to binded playlist. Playlist, in own case, will reload data from preimage as soon as data will be required by plugin or user.
+    /// The principle of cooperation between preimage and playlist is so simple: when data or settings in preimage are changed - preimage notify playlist about the changes via the <see cref="IAimpPlaylistPreimageListener"/> interface that related to binded playlist.
+    /// Playlist, in own case, will reload data from preimage as soon as data will be required by plugin or user.
     /// </para>
     /// </summary>
-    public interface IAimpPlaylistPreimage : IAimpPlaylistPreimageListener
+    public interface IAimpPlaylistPreimage
     {
         /// <summary>
         /// Id of factory that creates this preimage.
@@ -51,16 +52,24 @@ namespace AIMP.SDK.Playlist
         /// Loads the configuration.
         /// </summary>
         /// <param name="stream">The stream.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
+        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
         AimpActionResult ConfigLoad(IAimpStream stream);
 
         /// <summary>
         /// Saves the configuration.
         /// </summary>
         /// <param name="stream">The stream.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
+        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
         AimpActionResult ConfigSave(IAimpStream stream);
 
         AimpActionResult ExecuteDialog(IntPtr ownerHandle);
+
+        /// <summary>
+        /// Initializes the specified listener.
+        /// </summary>
+        /// <param name="listener">The listener.</param>
+        void Initialize(IAimpPlaylistPreimageListener listener);
+
+        void FinalizeObject();
     }
 }

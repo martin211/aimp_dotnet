@@ -13,6 +13,10 @@ using AIMP.SDK.MusicLibrary.Presets;
 
 namespace AIMP.SDK.MusicLibrary.DataStorage
 {
+    /// <summary>
+    /// Interface provides an access to common to all data storages settings. 
+    /// The <see cref="IAimpGroupingPresets"/> is implemented on same level.
+    /// </summary>
     public interface IAimpDataStorage
     {
         /// <summary>
@@ -26,7 +30,7 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         string Caption { get; }
 
         /// <summary>
-        /// Gets or sets the current grouping preset.
+        /// Gets or sets the active grouping preset.
         /// </summary>
         IAimpGroupingPreset GroupingPreset { get; set; }
     }

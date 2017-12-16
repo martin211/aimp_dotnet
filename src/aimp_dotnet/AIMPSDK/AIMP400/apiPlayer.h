@@ -1,10 +1,10 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v4.00 build 1690               */
+/*               v4.50 build 2000               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2016                 */
+/*                (C) 2006-2017                 */
 /*                 www.aimp.ru                  */
 /*                                              */
 /*            Mail: support@aimp.ru             */

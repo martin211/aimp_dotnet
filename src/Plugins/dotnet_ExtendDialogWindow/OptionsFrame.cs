@@ -32,8 +32,9 @@ namespace dotnet_ExtendDialogWindow
             _settingsForm = null;
         }
 
-        public void Notification(int id)
+        public void Notification(OptionsDialogFrameNotificationType id)
         {
+            
         }
 
         public bool DialogKey(int charCode)
