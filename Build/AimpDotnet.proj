@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+	<PropertyGroup>
+		<BuildDirectory>$(MSBuildProjectDirectory)</BuildDirectory> 
+		<BuildPath>$(BuildDirectory)\..\src\</BuildPath>
+		<DeploymentFolder>$(BuildPath)Artifacts</DeploymentFolder>
+		<Version>1.4.0</Version>
+		<ShipFile>AIMP.SDK.zip</ShipFile>
+		<Configuration>Release</Configuration>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<project Include="$(BuildPath)\AIMP.SDK" >
+		  <mainfolder>AIMP.SDK</mainfolder>
+		  <name>AIMP.SDK</name>
+		  <ProjectFile>AIMP.SDK.csproj</ProjectFile>
+		  <type>SDK</type>
+		</project>
+
+		<project Include="$(BuildPath)\aimp_dotnet" >
+		  <mainfolder>aimp_dotnet</mainfolder>
+		  <name>aimp_dotnet</name>
+		  <ProjectFile>Aimp_DotNetPlugin.vcxproj</ProjectFile>
+		  <params>PlatformToolset=v141</params>
+		  <type>SDK</type>
+		</project>
+
+		<project Include="$(BuildPath)\aimp_dotnet\langs" >
+		  <mainfolder>aimp_dotnet\langs</mainfolder>
+		  <name>aimp_dotnet</name>
+		  <type>Language</type>
+		</project> 
+
+		<project Include="$(BuildPath)\Plugins\dotnet_albumart" >
+		  <mainfolder>dotnet_albumart</mainfolder>
+		  <name>dotnet_albumart</name>
+		  <ProjectFile>dotnet_albumart.csproj</ProjectFile>
+		  <type>plugin</type>
+		</project>
+
+		<project Include="$(BuildPath)\Plugins\dotnet_demo" >
+		  <mainfolder>dotnet_demo</mainfolder>
+		  <name>dotnet_demo</name>
+		  <ProjectFile>dotnet_demo.csproj</ProjectFile>
+		  <type>plugin</type>
+		</project>
+
+		<project Include="$(BuildPath)\Plugins\dotnet_ExtendDialogWindow" >
+		  <mainfolder>dotnet_ExtendDialogWindow</mainfolder>
+		  <name>dotnet_ExtendDialogWindow</name>
+		  <ProjectFile>dotnet_ExtendDialogWindow.csproj</ProjectFile>
+		  <type>plugin</type>
+		</project>
+
+		<project Include="$(BuildPath)\Plugins\dotnet_musiclibrary" >
+		  <mainfolder>dotnet_musiclibrary</mainfolder>
+		  <name>dotnet_musiclibrary</name>
+		  <ProjectFile>dotnet_musiclibrary.csproj</ProjectFile>
+		  <type>plugin</type>
+		</project>
+
+		<project Include="$(BuildPath)\Plugins\dotnet_SmartPlaylist" >
+		  <mainfolder>dotnet_SmartPlaylist</mainfolder>
+		  <name>dotnet_SmartPlaylist</name>
+		  <ProjectFile>dotnet_SmartPlaylist.csproj</ProjectFile>
+		  <type>plugin</type>
+		</project>
+
+		<project Include="$(BuildPath)\Plugins\dotnet_threading" >
+		  <mainfolder>dotnet_threading</mainfolder>
+		  <name>dotnet_threading</name>
+		  <ProjectFile>dotnet_threading.csproj</ProjectFile>
+		  <type>plugin</type>
+		</project>
+
+		<project Include="$(BuildPath)\Plugins\dotnet_visual" >
+		  <mainfolder>dotnet_visual</mainfolder>
+		  <name>dotnet_visual</name>
+		  <ProjectFile>dotnet_visual.csproj</ProjectFile>
+		  <type>plugin</type>
+		</project>
+	</ItemGroup>
+  
+	<Target Name="Default" DependsOnTargets="PrepareFolder">
+		<CallTarget Targets="BuildSDK"/>
+	</Target>
+	
+	<Target Name="BuildSDK">
+		<Message Text="Build %(project.name)" Condition="'%(project.type)'=='SDK' AND '%(project.ProjectFile)' != ''"/>
+		<MSBuild 
+			Condition="'%(project.type)'=='SDK' AND '%(project.ProjectFile)' != ''"
+			Projects="%(project.identity)\%(project.ProjectFile)"
+			Targets="Rebuild"
+			Properties="BuildNumber=$(version);DebugType=none;OutDir=%(project.identity)\bin\$(Configuration);Configuration=$(Configuration);$(project.params)" />
+		<CallTarget Targets="PrepareSDK"/>
+	</Target>
+	
+	<Target Name="BuildPlugins">
+		<Message Text="Build %(project.name)" Condition="'%(project.type)'=='plugin'"/>
+		<MSBuild 
+			Condition="'%(project.type)'=='plugin'"
+			Projects="%(project.identity)\%(project.ProjectFile)"
+			Targets="ResolveReferences;Rebuild"
+			Properties="OutDir=$(DeploymentFolder)\%(project.mainfolder)\bin\;DebugType=none;Configuration=$(Configuration)" />
+	</Target>
+	
+	<Target Name="PrepareSDK">
+		<CreateItem AdditionalMetadata="mainfolder=%(project.mainfolder)" 
+			Include="%(project.identity)\bin\$(Configuration)\*.dll" 
+			Condition="'%(project.type)'=='SDK'">
+			<Output TaskParameter="Include" ItemName="SDKOutputFiles" />
+		</CreateItem>
+		
+		<CreateItem AdditionalMetadata="mainfolder=%(project.mainfolder)" 
+			Include="%(project.identity)\*.*" 
+			Condition="'%(project.type)'=='Language'">
+			<Output TaskParameter="Include" ItemName="LanguageOutputFiles" />
+		</CreateItem>
+		
+		<Copy 	Condition="'%(project.type)'=='SDK'"
+				SourceFiles="@(SDKOutputFiles)" 
+				OverwriteReadOnlyFiles="true"
+				DestinationFiles="@(SDKOutputFiles->'$(DeploymentFolder)\%(mainfolder)\%(RecursiveDir)\%(Filename)%(Extension)')" />
+				
+		<Copy 	Condition="'%(project.type)'=='Language'" 
+				SourceFiles="@(LanguageOutputFiles)" 
+				OverwriteReadOnlyFiles="true"
+				DestinationFiles="@(LanguageOutputFiles->'$(DeploymentFolder)\%(mainfolder)\%(RecursiveDir)\%(Filename)%(Extension)')" />
+	</Target>
+ 	
+	<Target Name="PrepareFolder">
+		<RemoveDir Directories="$(DeploymentFolder)" />
+		<MakeDir Directories="$(DeploymentFolder)" />
+	</Target>
+</Project>

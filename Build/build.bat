@@ -1,0 +1,1 @@
+"MSBuild.exe" AimpDotnet.proj /target:Default /maxcpucount /fileLoggerParameters:LogFile="C:\Users\Evgeniy\AppData\Local\Temp\AimpDotnet.proj.msbuild.log";verbosity=normal /fileLoggerParameters1:LogFile="C:\Users\Evgeniy\AppData\Local\Temp\AimpDotnet.proj.msbulid.errors.log";errorsonly /p:Version=1.1.0 /p:VersionName=1.1.0.0 /p:Configuration=Debug

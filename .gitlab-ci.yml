@@ -51,7 +51,7 @@ build_master:
       - src\Release\aimp_dotnet.dll
       - src\Release\AIMP.SDK.dll
 
-build_develop:
+build_sdk_develop:
   only:
     - develop
   except:
@@ -60,7 +60,7 @@ build_develop:
   stage: build
   script:
   - Import-Module CiBuildTools
-  - Invoke-BuildSolution -solutionPath "$env:CI_PROJECT_DIR/src/aimp_dotnet.sln" -version "$env:VERSION" -branch "$env:CI_COMMIT_REF_NAME" -configuration "Debug"
+  - Invoke-BuildProject -Path "$env:CI_PROJECT_DIR/Build/AimpDotnet.proj" -target Default -projectParameters "/p:Version=$env:VERSION /p:Configuration=Debug" -branch "$env:CI_COMMIT_REF_NAME"
 
 documentation_build:
   only:
