@@ -83,6 +83,13 @@
 	</ItemGroup>
   
 	<Target Name="Default" DependsOnTargets="PrepareFolder">
+		<Message Text="Start building with parameters:"/>
+		<Message Text="Configuration: $(Configuration)"/>
+		<Message Text="Version: $(Version)"/>
+		<Message Text="BuildDirectory: $(BuildDirectory)"/>
+		<Message Text="BuildPath: $(BuildPath)"/>
+		<Message Text="DeploymentFolder: $(DeploymentFolder)"/>
+		<Message Text="outputDir: $(outputDir)"/>
 		<CallTarget Targets="BuildSDK"/>
 	</Target>
 	
