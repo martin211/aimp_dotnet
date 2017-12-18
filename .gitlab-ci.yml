@@ -1,6 +1,6 @@
 variables:
   VERSION: "$AIMP_VERSION.$CI_JOB_ID"
-  AimpDotnetProj: "$env:CI_PROJECT_DIR/Build/AimpDotnet.proj"
+  AimpDotnetProj: "'$env:CI_PROJECT_DIR/Build/AimpDotnet.proj'"
   DebugBuildParameters: "-projectParameters '/p:Version=$env:VERSION /p:Configuration=Debug /p:DeploymentFolder=artifacts' -BuildLogDirectoryPath $env:CI_PROJECT_DIR/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow"
   ReleaseBuildParameters: "-projectParameters '/p:Version=$env:VERSION /p:Configuration=Release /p:DeploymentFolder=artifacts' -BuildLogDirectoryPath $env:CI_PROJECT_DIR/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow"
 
