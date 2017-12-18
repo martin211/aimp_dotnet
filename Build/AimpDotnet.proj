@@ -15,6 +15,7 @@
 		  <mainfolder>AIMP.SDK</mainfolder>
 		  <name>AIMP.SDK</name>
 		  <ProjectFile>AIMP.SDK.csproj</ProjectFile>
+		  <params></params>
 		  <type>SDK</type>
 		</project>
 
@@ -99,7 +100,7 @@
 			Condition="'%(project.type)'=='SDK' AND '%(project.ProjectFile)' != ''"
 			Projects="%(project.identity)\%(project.ProjectFile)"
 			Targets="Rebuild"
-			Properties="BuildNumber=$(version);DebugType=none;OutDir=%(project.identity)\bin\$(Configuration);Configuration=$(Configuration);$(project.params)" />
+			Properties="BuildNumber=$(version);DebugType=none;OutDir=%(project.identity)\bin\$(Configuration);Configuration=$(Configuration);%(project.params)" />
 		<CallTarget Targets="PrepareSDK"/>
 	</Target>
 	
