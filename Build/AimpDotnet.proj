@@ -3,10 +3,11 @@
 	<PropertyGroup>
 		<BuildDirectory>$(MSBuildProjectDirectory)</BuildDirectory> 
 		<BuildPath>$(BuildDirectory)\..\src\</BuildPath>
-		<DeploymentFolder>$(BuildPath)Artifacts</DeploymentFolder>
+		<DeploymentFolder>Artifacts</DeploymentFolder>
 		<Version>1.4.0</Version>
 		<ShipFile>AIMP.SDK.zip</ShipFile>
 		<Configuration>Release</Configuration>
+		<outputDir>$(BuildPath)$(DeploymentFolder)</outputDir>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -101,7 +102,7 @@
 			Condition="'%(project.type)'=='plugin'"
 			Projects="%(project.identity)\%(project.ProjectFile)"
 			Targets="ResolveReferences;Rebuild"
-			Properties="OutDir=$(DeploymentFolder)\%(project.mainfolder)\bin\;DebugType=none;Configuration=$(Configuration)" />
+			Properties="OutDir=$(outputDir)\%(project.mainfolder)\bin\;DebugType=none;Configuration=$(Configuration)" />
 	</Target>
 	
 	<Target Name="PrepareSDK">
@@ -120,16 +121,16 @@
 		<Copy 	Condition="'%(project.type)'=='SDK'"
 				SourceFiles="@(SDKOutputFiles)" 
 				OverwriteReadOnlyFiles="true"
-				DestinationFiles="@(SDKOutputFiles->'$(DeploymentFolder)\%(mainfolder)\%(RecursiveDir)\%(Filename)%(Extension)')" />
+				DestinationFiles="@(SDKOutputFiles->'$(outputDir)\%(mainfolder)\%(RecursiveDir)\%(Filename)%(Extension)')" />
 				
 		<Copy 	Condition="'%(project.type)'=='Language'" 
 				SourceFiles="@(LanguageOutputFiles)" 
 				OverwriteReadOnlyFiles="true"
-				DestinationFiles="@(LanguageOutputFiles->'$(DeploymentFolder)\%(mainfolder)\%(RecursiveDir)\%(Filename)%(Extension)')" />
+				DestinationFiles="@(LanguageOutputFiles->'$(outputDir)\%(mainfolder)\%(RecursiveDir)\%(Filename)%(Extension)')" />
 	</Target>
  	
 	<Target Name="PrepareFolder">
-		<RemoveDir Directories="$(DeploymentFolder)" />
-		<MakeDir Directories="$(DeploymentFolder)" />
+		<RemoveDir Directories="$(outputDir)" />
+		<MakeDir Directories="$(outputDir)" />
 	</Target>
 </Project>
