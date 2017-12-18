@@ -1,10 +1,14 @@
 variables:
   VERSION: "$AIMP_VERSION.$CI_JOB_ID"
+  AimpDotnetProj: "$env:CI_PROJECT_DIR/Build/AimpDotnet.proj"
+  DebugBuildParameters: "-projectParameters '/p:Version=$env:VERSION /p:Configuration=Debug /p:DeploymentFolder=artifacts'" -BuildLogDirectoryPath "$env:CI_PROJECT_DIR/Build/logs" -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow
+  ReleaseBuildParameters: "-projectParameters '/p:Version=$env:VERSION /p:Configuration=Release /p:DeploymentFolder=artifacts'" -BuildLogDirectoryPath "$env:CI_PROJECT_DIR/Build/logs" -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow
 
 stages:
   - analysis_start
   - build
   - analysis_end
+  - artifacts
   - zip_publish
   - documentation
   - publish_documentation
@@ -35,34 +39,54 @@ analysis_end:
   - Import-Module CiBuildTools
   - Invoke-StopSonarQube
 
+set_version:
+  stage: build
+  script:
+  - Import-Module CiBuildTools
+  - Invoke-SetCliVersion -rcFilePath "$env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc" -contentToReplace "1.0.0.1" -replaceTo "$env:VERSION"
+  - Invoke-SetCliVersion -rcFilePath "$env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc" -contentToReplace "1,0,0,1" -replaceTo $env:VERSION.Replace(".", ",")
+
 build_master:
   only:
     - master
-  except:
-    - develop
   stage: build
   script:
-  - Import-Module CiBuildTools
-  - Invoke-SetCliVersion -rcFilePath "$env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc" -contentToReplace "1.0.0.1" -replaceTo "$env:VERSION"
-  - Invoke-SetCliVersion -rcFilePath "$env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc" -contentToReplace "1,0,0,1" -replaceTo $env:VERSION.Replace(".", ",")
-  - Invoke-BuildProject -Path "$env:CI_PROJECT_DIR/Build/AimpDotnet.proj" -target Default -projectParameters "/p:Version=$env:VERSION /p:Configuration=Debug /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath "$env:CI_PROJECT_DIR/Build/logs" -KeepBuildLogOnSuccessfulBuilds $true -ShowBuildOutputInCurrentWindow $true
-  artifacts:
-    paths:
-      - src\Release\aimp_dotnet.dll
-      - src\Release\AIMP.SDK.dll
+  - Import-Module CiBuildTools  
+  - Invoke-BuildProject -Path $env:AimpDotnetProj -target Default $env:ReleaseBuildParameters
 
-build_sdk_develop:
+build_develop:
   only:
     - develop
-  except:
-    - master
-    - tags
   stage: build
   script:
+  - Import-Module CiBuildTools  
+  - Invoke-BuildProject -Path $env:AimpDotnetProj -target Default $env:DebugBuildParameters
+
+prepare_artifacts:
+  only:
+    - master
+    - develop
+  except:
+    - tags
+  stage: artifacts
+  script:
   - Import-Module CiBuildTools
-  - Invoke-SetCliVersion -rcFilePath "$env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc" -contentToReplace "1.0.0.1" -replaceTo "$env:VERSION"
-  - Invoke-SetCliVersion -rcFilePath "$env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc" -contentToReplace "1,0,0,1" -replaceTo $env:VERSION.Replace(".", ",")
-  - Invoke-BuildProject -Path "$env:CI_PROJECT_DIR/Build/AimpDotnet.proj" -target Default -projectParameters "/p:Version=$env:VERSION /p:Configuration=Release /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath "$env:CI_PROJECT_DIR/Build/logs" -KeepBuildLogOnSuccessfulBuilds $true -ShowBuildOutputInCurrentWindow $true
+  - Invoke-BuildProject -Path $env:AimpDotnetProj -target CopyArtifacts $env:ReleaseBuildParameters
+
+compress_artifacts:
+  only:
+    - master
+    - develop
+  except:
+    - tags
+  stage: artifacts
+  script:
+  - Import-Module CiBuildTools
+  - Invoke-BuildProject -Path $env:AimpDotnetProj -target MakeZip $env:ReleaseBuildParameters
+  artifacts:
+    paths:
+      - $env:CI_PROJECT_DIR/Build/artifacts/AIMP.SDK.zip
+      - $env:CI_PROJECT_DIR/Build/logs/*
 
 documentation_build:
   only:

@@ -8,7 +8,9 @@
 		<Version>1.4.0</Version>
 		<ShipFile>AIMP.SDK.zip</ShipFile>
 		<Configuration>Release</Configuration>
-		<outputDir>$(BuildDirectory)\..\$(DeploymentFolder)</outputDir>
+		<outputDir>$(BuildDirectory)\$(DeploymentFolder)</outputDir>
+		<SdkOutputDir>$(outputDir)\SDK</SdkOutputDir>
+		<PluginsOutputDir>$(outputDir)\Plugins</PluginsOutputDir>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -92,8 +94,13 @@
 		  <artifacts>true</artifacts>
 		</project>
 	</ItemGroup>
-  
+
 	<Target Name="Default" DependsOnTargets="PrepareFolder">
+		<CallTarget Targets="Sdk"/>
+		<CallTarget Targets="Plugins"/>
+	</Target>
+
+	<Target Name="Sdk">
 		<Message Text="Start building with parameters:"/>
 		<Message Text="Configuration: $(Configuration)"/>
 		<Message Text="Version: $(Version)"/>
@@ -121,36 +128,37 @@
 			Condition="'%(project.type)'=='SDK'"
 			Projects="%(project.identity)\%(project.ProjectFile)"
 			Targets="Build"
-			Properties="BuildNumber=$(version);DebugType=none;OutDir=bin\$(Configuration);Configuration=$(Configuration);%(project.params)" />
+			Properties="BuildNumber=$(version);DebugType=none;OutDir=bin;Configuration=$(Configuration);%(project.params)" />
 		<CallTarget Targets="CopyArtifacts"/>
 	</Target>
-	
+
 	<Target Name="BuildPlugins">
 		<Message Text="Build %(project.name)" Condition="'%(project.type)'=='plugin'"/>
 		<MSBuild 
 			Condition="'%(project.type)'=='plugin'"
 			Projects="%(project.identity)\%(project.ProjectFile)"
 			Targets="ResolveReferences;Build"
-			Properties="OutDir=bin\$(Configuration);DebugType=none;Configuration=$(Configuration);%(project.params)" />
+			Properties="BuildNumber=$(version);OutDir=bin;DebugType=none;Configuration=$(Configuration);%(project.params)" />
 	</Target>
-	
+
 	<Target Name="CopyArtifacts">
+
 		<CreateItem AdditionalMetadata="mainfolder=%(project.mainfolder)"
-			Include="%(project.identity)\bin\$(Configuration)\*.dll"
+			Include="%(project.identity)\bin\*.dll"
 			Condition="'%(project.type)'=='SDK' AND '%(project.artifacts)'=='true'">
 			<Output TaskParameter="Include" ItemName="SDKOutputFiles" />
 		</CreateItem>
 
 		<CreateItem AdditionalMetadata="mainfolder=%(project.mainfolder)"
-			Include="%(project.identity)\bin\$(Configuration)\*.lng"
+			Include="%(project.identity)\*.lng" 
 			Condition="'%(project.type)'=='Language'">
 			<Output TaskParameter="Include" ItemName="LanguageOutputFiles" />
 		</CreateItem>
 
 		<CreateItem AdditionalMetadata="mainfolder=%(project.mainfolder)"
-			Include="%(project.identity)\bin\$(Configuration)\*.dll"
+			Include="%(project.identity)\bin\*.dll"
 			Condition="'%(project.type)'=='plugin' AND '%(project.artifacts)'=='true'"
-			Exclude="AIMP.SDK.dll">
+			Exclude="aimp_dotnet.dll">
 			<Output TaskParameter="Include" ItemName="PluginsOutputFiles" />
 		</CreateItem>
 
@@ -158,27 +166,32 @@
 		<Copy 	Condition="'%(project.type)'=='SDK' AND '%(project.artifacts)'=='true'"
 				SourceFiles="@(SDKOutputFiles)" 
 				OverwriteReadOnlyFiles="true"
-				DestinationFiles="@(SDKOutputFiles->'$(outputDir)\%(Filename)%(Extension)')" />
+				DestinationFiles="@(SDKOutputFiles->'$(SdkOutputDir)\%(Filename)%(Extension)')" />
 
+		<Message Text="Copy Languages" Condition="'%(project.type)'=='Language'"/>
 		<Copy 	Condition="'%(project.type)'=='Language'" 
 				SourceFiles="@(LanguageOutputFiles)"
 				OverwriteReadOnlyFiles="true"
-				DestinationFiles="@(LanguageOutputFiles->'$(outputDir)\%(mainfolder)\%(RecursiveDir)\%(Filename)%(Extension)')" />
+				DestinationFiles="@(LanguageOutputFiles->'$(SdkOutputDir)\langs\%(Filename)%(Extension)')" />
 
-		<Copy 	Condition="'%(project.type)'=='plugin' AND '%(project.artifacts)'=='true'"
-				SourceFiles="@(PluginsOutputFiles)" 
-				OverwriteReadOnlyFiles="true"
-				DestinationFiles="@(PluginsOutputFiles->'$(outputDir)\Plugins\%(mainfolder)\%(RecursiveDir)\%(Filename)_plugin%(Extension)')" />
+		<Copy	Condition="'%(project.type)'=='plugin' AND '%(project.artifacts)'=='true'"
+				SourceFiles="%(project.identity)\bin\%(mainfolder).dll;$(SdkOutputDir)\aimp_dotnet.dll;$(SdkOutputDir)\AIMP.SDK.dll"
+				DestinationFiles="$(PluginsOutputDir)\%(mainfolder)\%(mainfolder)_plugin.dll;$(PluginsOutputDir)\%(mainfolder)\%(mainfolder).dll;$(PluginsOutputDir)\%(mainfolder)\AIMP.SDK.dll" />
+
 	</Target>
- 	
+
 	<Target Name="PrepareFolder">
 		<RemoveDir Directories="$(outputDir)" />
 		<MakeDir Directories="$(outputDir)" />
 	</Target>
 
 	<Target Name="MakeZip">
-		<Zip 	Files="$(outputDir)\**\*.*"
+		<ItemGroup>
+			<ArtifactFiles Include="$(outputDir)\**\*.*" />
+		</ItemGroup>
+		<Zip 	Files="@(ArtifactFiles)"
 				WorkingDirectory="$(outputDir)"
-				ZipFileName="$(outputDir)\aimp.sdk_$(Version).zip"/>
+				ZipFileName="$(outputDir)\AIMP.SDK.zip"
+				ZipLevel="9" />
     </Target>
 </Project>
