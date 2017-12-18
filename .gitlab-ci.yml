@@ -51,6 +51,7 @@ build_master:
     - master
   stage: build
   script:
+  - Start-Sleep -s 20
   - Import-Module CiBuildTools  
   - Invoke-BuildProject -Path $env:AimpDotnetProj -target Default $env:ReleaseBuildParameters
 
