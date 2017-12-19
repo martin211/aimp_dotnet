@@ -19,12 +19,9 @@ param
 
 	$timeout = 30
 )
-
+Start-Sleep 20
 Import-Module CiBuildTools
-$job = Start-Job -name BuildJob -ScriptBlock 
-{
-	Invoke-BuildProject -Path $projFile -target $target -projectParameters "/p:Version=$version /p:Configuration=$configuration /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath $projectDir/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow
-}
+$job = Start-Job -name BuildJob -ScriptBlock {Invoke-BuildProject -Path $projFile -target $target -projectParameters "/p:Version=$version /p:Configuration=$configuration /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath $projectDir/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow}
 
 $job | Wait-Job -Timeout $timeout
 Get-Job -name BuildJob | ?{$_.State -eq 'Running'} | Stop-Job -PassThru
