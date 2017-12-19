@@ -129,7 +129,6 @@
 			Projects="%(project.identity)\%(project.ProjectFile)"
 			Targets="Build"
 			Properties="BuildNumber=$(version);DebugType=none;OutDir=bin;Configuration=$(Configuration);%(project.params)" />
-		<CallTarget Targets="CopyArtifacts"/>
 	</Target>
 
 	<Target Name="BuildPlugins">
