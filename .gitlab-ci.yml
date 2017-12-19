@@ -50,7 +50,7 @@ build_sdk_master:
   stage: build
   script:
   - Import-Module CiBuildTools  
-  - Invoke-BuildProject -Path $env:AimpDotnetProj -target Sdk -projectParameters "/p:Version=$VERSION /p:Configuration=Release /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath $CI_PROJECT_DIR/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow
+  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Sdk -version $VERSION -configuration Release -projectDir $env:$CI_PROJECT_DIR
 
 build_plugins_master:
   only:
@@ -58,15 +58,15 @@ build_plugins_master:
   stage: build
   script:
   - Import-Module CiBuildTools  
-  - Invoke-BuildProject -Path $env:AimpDotnetProj -target Plugins -projectParameters "/p:Version=$VERSION /p:Configuration=Release /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath $CI_PROJECT_DIR/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow
-
+  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Plugins -version $VERSION -configuration Release -projectDir $env:$CI_PROJECT_DIR
+  
 build_sdk_develop:
   only:
     - develop
   stage: build
   script:
   - Import-Module CiBuildTools  
-  - Invoke-BuildProject -Path $env:AimpDotnetProj -target Sdk -projectParameters "/p:Version=$VERSION /p:Configuration=Debug /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath $CI_PROJECT_DIR/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow
+  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Sdk -version $VERSION -configuration Debug -projectDir $env:$CI_PROJECT_DIR
 
 build_plugins_develop:
   only:
@@ -74,7 +74,7 @@ build_plugins_develop:
   stage: build
   script:
   - Import-Module CiBuildTools  
-  - Invoke-BuildProject -Path $env:AimpDotnetProj -target Plugins -projectParameters "/p:Version=$VERSION /p:Configuration=Debug /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath $CI_PROJECT_DIR/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow
+  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Plugins -version $VERSION -configuration Debug -projectDir $env:$CI_PROJECT_DIR
 
 prepare_artifacts:
   only:
@@ -85,7 +85,7 @@ prepare_artifacts:
   stage: artifacts
   script:
   - Import-Module CiBuildTools
-  - Invoke-BuildProject -Path $env:AimpDotnetProj -target CopyArtifacts -projectParameters "/p:Version=$VERSION /p:Configuration=Release /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath $CI_PROJECT_DIR/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow
+  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target CopyArtifacts -version $VERSION -configuration Release -projectDir $env:$CI_PROJECT_DIR
 
 compress_artifacts:
   only:
@@ -96,7 +96,7 @@ compress_artifacts:
   stage: artifacts
   script:
   - Import-Module CiBuildTools
-  - Invoke-BuildProject -Path $env:AimpDotnetProj -target MakeZip -projectParameters "/p:Version=$VERSION /p:Configuration=Release /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath $CI_PROJECT_DIR/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow
+  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target MakeZip -version $VERSION -configuration Release -projectDir $env:$CI_PROJECT_DIR
   artifacts:
     paths:
       - $env:CI_PROJECT_DIR/Build/artifacts/AIMP.SDK.zip
