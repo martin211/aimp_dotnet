@@ -140,7 +140,7 @@
 			Properties="BuildNumber=$(version);OutDir=bin;DebugType=none;Configuration=$(Configuration);%(project.params)" />
 	</Target>
 
-	<Target Name="CopyArtifacts">
+	<Target Name="CopyArtifacts" DependsOnTargets="PrepareFolder">
 
 		<CreateItem AdditionalMetadata="mainfolder=%(project.mainfolder)"
 			Include="%(project.identity)\bin\*.dll"
