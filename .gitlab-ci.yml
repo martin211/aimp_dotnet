@@ -49,28 +49,32 @@ build_sdk_master:
     - master
   stage: build
   script:
-  - powershell -File $env:CI_PROJECT_DIR/Build/build.ps1 -projFile $env:AimpDotnetProj -target Sdk -version $env:VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR/Build/
+  - Import-Module CiBuildTools  
+  - Invoke-BuildProject -Path $env:AimpDotnetProj -target Sdk -projectParameters "/p:Version=$VERSION /p:Configuration=Release /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath $CI_PROJECT_DIR/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow
 
 build_plugins_master:
   only:
     - master
   stage: build
   script:
-  - powershell -File $env:CI_PROJECT_DIR/Build/build.ps1 -projFile $env:AimpDotnetProj -target Plugins -version $env:VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR/Build/
+  - Import-Module CiBuildTools  
+  - Invoke-BuildProject -Path $env:AimpDotnetProj -target Plugins -projectParameters "/p:Version=$VERSION /p:Configuration=Release /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath $CI_PROJECT_DIR/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow
 
 build_sdk_develop:
   only:
     - develop
   stage: build
   script:
-  - $env:CI_PROJECT_DIR/Build/build.ps1 -projFile $env:AimpDotnetProj -target Sdk -version $env:VERSION -configuration Debug -projectDir $env:CI_PROJECT_DIR/Build/
+  - Import-Module CiBuildTools  
+  - Invoke-BuildProject -Path $env:AimpDotnetProj -target Sdk -projectParameters "/p:Version=$VERSION /p:Configuration=Debug /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath $CI_PROJECT_DIR/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow
 
 build_plugins_develop:
   only:
     - develop
   stage: build
   script:
-  - $env:CI_PROJECT_DIR/Build/build.ps1 -projFile $env:AimpDotnetProj -target Plugins -version $env:VERSION -configuration Debug -projectDir $env:CI_PROJECT_DIR/Build/
+  - Import-Module CiBuildTools  
+  - Invoke-BuildProject -Path $env:AimpDotnetProj -target Plugins -projectParameters "/p:Version=$VERSION /p:Configuration=Debug /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath $CI_PROJECT_DIR/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow
 
 prepare_artifacts:
   only:
