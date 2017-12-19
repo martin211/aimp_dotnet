@@ -15,7 +15,6 @@ param
 	$configuration = "Release",
 
 	[parameter(Mandatory=$true)]
-	[ValidateScript({Test-Path -Path $_ -PathType Leaf})]
 	$projectDir,
 
 	$timeout = 30
