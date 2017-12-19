@@ -59,7 +59,9 @@ build_plugins_master:
   script:
   - Import-Module CiBuildTools  
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Plugins -version $VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR
-  
+  cache:
+    untracked: true
+
 build_sdk_develop:
   only:
     - develop
@@ -67,6 +69,8 @@ build_sdk_develop:
   script:
   - Import-Module CiBuildTools  
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Sdk -version $VERSION -configuration Debug -projectDir $env:CI_PROJECT_DIR
+  cache:
+    untracked: true
 
 build_plugins_develop:
   only:
@@ -75,6 +79,8 @@ build_plugins_develop:
   script:
   - Import-Module CiBuildTools  
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Plugins -version $VERSION -configuration Debug -projectDir $env:CI_PROJECT_DIR
+  cache:
+    untracked: true
 
 prepare_artifacts:
   only:
@@ -86,6 +92,8 @@ prepare_artifacts:
   script:
   - Import-Module CiBuildTools
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target CopyArtifacts -version $VERSION -configuration Release -projectDir $env:$CI_PROJECT_DIR
+  cache:
+    untracked: true
 
 compress_artifacts:
   only:
