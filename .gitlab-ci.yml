@@ -50,7 +50,7 @@ build_sdk_master:
   stage: build
   script:
   - Import-Module CiBuildTools  
-  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Sdk -version $VERSION -configuration Release -projectDir $env:$CI_PROJECT_DIR
+  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Sdk -version $VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR
 
 build_plugins_master:
   only:
@@ -58,7 +58,7 @@ build_plugins_master:
   stage: build
   script:
   - Import-Module CiBuildTools  
-  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Plugins -version $VERSION -configuration Release -projectDir $env:$CI_PROJECT_DIR
+  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Plugins -version $VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR
   
 build_sdk_develop:
   only:
@@ -66,7 +66,7 @@ build_sdk_develop:
   stage: build
   script:
   - Import-Module CiBuildTools  
-  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Sdk -version $VERSION -configuration Debug -projectDir $env:$CI_PROJECT_DIR
+  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Sdk -version $VERSION -configuration Debug -projectDir $env:CI_PROJECT_DIR
 
 build_plugins_develop:
   only:
@@ -74,7 +74,7 @@ build_plugins_develop:
   stage: build
   script:
   - Import-Module CiBuildTools  
-  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Plugins -version $VERSION -configuration Debug -projectDir $env:$CI_PROJECT_DIR
+  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Plugins -version $VERSION -configuration Debug -projectDir $env:CI_PROJECT_DIR
 
 prepare_artifacts:
   only:
