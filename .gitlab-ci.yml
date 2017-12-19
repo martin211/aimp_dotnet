@@ -49,35 +49,28 @@ build_sdk_master:
     - master
   stage: build
   script:
-  - Import-Module CiBuildTools
-  - Start-Sleep 20
-  - $job = Start-Job -ScriptBlock {Invoke-BuildProject -Path $env:AimpDotnetProj -target Sdk -projectParameters "/p:Version=$VERSION /p:Configuration=Release /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath $CI_PROJECT_DIR/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow}
-  - $job | Wait-Job -Timeout 30
-  - Get-Job | ?{$_.State -eq 'Running'} | Exit 1
+  - $env:CI_PROJECT_DIR/Build/build.ps1 -projFile $env:AimpDotnetProj -target Sdk -version $env:VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR/Build/
 
 build_plugins_master:
   only:
     - master
   stage: build
   script:
-  - Import-Module CiBuildTools  
-  - Invoke-BuildProject -Path $env:AimpDotnetProj -target Plugins -projectParameters "/p:Version=$VERSION /p:Configuration=Release /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath $CI_PROJECT_DIR/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow
+  - $env:CI_PROJECT_DIR/Build/build.ps1 -projFile $env:AimpDotnetProj -target Plugins -version $env:VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR/Build/
 
 build_sdk_develop:
   only:
     - develop
   stage: build
   script:
-  - Import-Module CiBuildTools  
-  - Invoke-BuildProject -Path $env:AimpDotnetProj -target Sdk -projectParameters "/p:Version=$VERSION /p:Configuration=Debug /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath $CI_PROJECT_DIR/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow
+  - $env:CI_PROJECT_DIR/Build/build.ps1 -projFile $env:AimpDotnetProj -target Sdk -version $env:VERSION -configuration Debug -projectDir $env:CI_PROJECT_DIR/Build/
 
 build_plugins_develop:
   only:
     - develop
   stage: build
   script:
-  - Import-Module CiBuildTools  
-  - Invoke-BuildProject -Path $env:AimpDotnetProj -target Plugins -projectParameters "/p:Version=$VERSION /p:Configuration=Debug /p:DeploymentFolder=artifacts" -BuildLogDirectoryPath $CI_PROJECT_DIR/Build/logs -KeepBuildLogOnSuccessfulBuilds -ShowBuildOutputInCurrentWindow
+  - $env:CI_PROJECT_DIR/Build/build.ps1 -projFile $env:AimpDotnetProj -target Plugins -version $env:VERSION -configuration Debug -projectDir $env:CI_PROJECT_DIR/Build/
 
 prepare_artifacts:
   only:
