@@ -49,14 +49,14 @@ build_sdk_master:
     - master
   stage: build
   script:
-  - $env:CI_PROJECT_DIR/Build/build.ps1 -projFile $env:AimpDotnetProj -target Sdk -version $env:VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR/Build/
+  - & $env:CI_PROJECT_DIR/Build/build.ps1 -projFile $env:AimpDotnetProj -target Sdk -version $env:VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR/Build/
 
 build_plugins_master:
   only:
     - master
   stage: build
   script:
-  - $env:CI_PROJECT_DIR/Build/build.ps1 -projFile $env:AimpDotnetProj -target Plugins -version $env:VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR/Build/
+  - & $env:CI_PROJECT_DIR/Build/build.ps1 -projFile $env:AimpDotnetProj -target Plugins -version $env:VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR/Build/
 
 build_sdk_develop:
   only:
