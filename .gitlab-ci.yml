@@ -116,9 +116,11 @@ compress_artifacts:
   cache:
     untracked: true
   artifacts:
+    when: on_success
+    name: "AIMP SDK"
     paths:
       - $env:CI_PROJECT_DIR/Build/artifacts/AIMP.SDK.zip
-      - $env:CI_PROJECT_DIR/Build/logs/*
+    expire_in: 1 week
 
 documentation_build:
   only:
