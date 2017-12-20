@@ -30,6 +30,7 @@ analysis_start:
   - Invoke-StartSonarQube -solutionPath $env:CI_PROJECT_DIR\src\aimp_dotnet.sln -sonarProjectKey $env:SONAR_PROJECT_KEY -sonarProjectName aimp_dotnet -version $env:VERSION -branch $env:CI_COMMIT_REF_NAME
   cache:
     untracked: true
+    key: "$CI_JOB_NAME"
 
 analysis_end:
   stage: analysis_end
@@ -47,8 +48,9 @@ set_version:
   - Invoke-SetCliVersion -rcFilePath "$env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc" -contentToReplace "1,0,0,1" -replaceTo $env:VERSION.Replace(".", ",")
   cache:
     untracked: true
+    key: "$CI_JOB_NAME"
     paths:
-    - $env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc
+    - $env:CI_PROJECT_DIR/src/aimp_dotnet/aimp_dotnet.rc
 
 build_sdk_master:
   only:
@@ -59,6 +61,7 @@ build_sdk_master:
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Sdk -version $VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR
   cache:
     untracked: true
+    key: "$CI_JOB_NAME"
 
 build_plugins_master:
   only:
@@ -69,6 +72,7 @@ build_plugins_master:
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Plugins -version $VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR
   cache:
     untracked: true
+    key: "$CI_JOB_NAME"
 
 build_sdk_develop:
   only:
@@ -79,6 +83,7 @@ build_sdk_develop:
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Sdk -version $VERSION -configuration Debug -projectDir $env:CI_PROJECT_DIR
   cache:
     untracked: true
+    key: "$CI_JOB_NAME"
 
 build_plugins_develop:
   only:
@@ -89,6 +94,7 @@ build_plugins_develop:
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Plugins -version $VERSION -configuration Debug -projectDir $env:CI_PROJECT_DIR
   cache:
     untracked: true
+    key: "$CI_JOB_NAME"
 
 prepare_artifacts:
   only:
@@ -102,6 +108,7 @@ prepare_artifacts:
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target CopyArtifacts -version $VERSION -configuration Release -projectDir $env:$CI_PROJECT_DIR
   cache:
     untracked: true
+    key: "$CI_JOB_NAME"
 
 compress_artifacts:
   only:
@@ -113,6 +120,9 @@ compress_artifacts:
   script:
   - Import-Module CiBuildTools
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target MakeZip -version $VERSION -configuration Release -projectDir $env:$CI_PROJECT_DIR
+  cache:
+    untracked: true
+    key: "$CI_JOB_NAME"
   artifacts:
     paths:
       - $env:CI_PROJECT_DIR/Build/artifacts/AIMP.SDK.zip
@@ -127,6 +137,7 @@ documentation_build:
   - Invoke-BuildDocumentation
   cache:
     untracked: true
+    key: "$CI_JOB_NAME"
 
 documentation_publish:
   only:
