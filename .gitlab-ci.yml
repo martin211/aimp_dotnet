@@ -7,10 +7,6 @@ stages:
   - build
   - analysis_end
   - artifacts
-  - zip_publish
-  - documentation
-  - publish_documentation
-  - deploy
 
 docker_start:
   stage: analysis_start
@@ -61,6 +57,8 @@ build_sdk_master:
     untracked: true
 
 build_plugins_master:
+  dependencies:
+    - build_sdk_master
   only:
     - master
   stage: build
@@ -129,8 +127,6 @@ documentation_build:
   script: 
   - Import-Module CiBuildTools
   - Invoke-BuildDocumentation
-  cache:
-    untracked: true
 
 documentation_publish:
   only:
