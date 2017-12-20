@@ -115,5 +115,6 @@ compress_artifacts:
     when: on_success
     name: "SDK"
     paths:
-      - $env:CI_PROJECT_DIR/Build/artifacts/AIMP.SDK.zip
+     # - $env:CI_PROJECT_DIR/Build/artifacts/AIMP.SDK.zip
+     - sonar-scanner.properties
     expire_in: 1 week
