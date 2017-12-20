@@ -57,8 +57,6 @@ build_sdk_master:
     untracked: true
 
 build_plugins_master:
-  dependencies:
-    - build_sdk_master
   only:
     - master
   stage: build
