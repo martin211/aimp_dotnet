@@ -56,7 +56,11 @@ build_sdk_master:
   - Import-Module CiBuildTools  
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Sdk -version $VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR
   cache:
-    untracked: true  
+    untracked: true
+    paths:
+    - $env:CI_PROJECT_DIR\build\logs
+    - $env:CI_PROJECT_DIR\build\artifacts
+    - bin/
 
 build_plugins_master:
   only:
@@ -67,6 +71,10 @@ build_plugins_master:
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Plugins -version $VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR
   cache:
     untracked: true
+  paths:
+    - $env:CI_PROJECT_DIR\build\logs
+    - $env:CI_PROJECT_DIR\build\artifacts
+    - bin/
 
 build_sdk_develop:
   only:
@@ -77,6 +85,10 @@ build_sdk_develop:
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Sdk -version $VERSION -configuration Debug -projectDir $env:CI_PROJECT_DIR
   cache:
     untracked: true
+  paths:
+    - $env:CI_PROJECT_DIR\build\logs
+    - $env:CI_PROJECT_DIR\build\artifacts
+    - bin/
 
 build_plugins_develop:
   only:
@@ -87,7 +99,11 @@ build_plugins_develop:
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Plugins -version $VERSION -configuration Debug -projectDir $env:CI_PROJECT_DIR
   cache:
     untracked: true
-
+  paths:
+    - $env:CI_PROJECT_DIR\build\logs
+    - $env:CI_PROJECT_DIR\build\artifacts
+    - bin/
+    
 prepare_artifacts:
   only:
     - master
