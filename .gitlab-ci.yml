@@ -28,6 +28,8 @@ analysis_start:
   script:
   - Import-Module CiBuildTools
   - Invoke-StartSonarQube -solutionPath $env:CI_PROJECT_DIR\src\aimp_dotnet.sln -sonarProjectKey $env:SONAR_PROJECT_KEY -sonarProjectName aimp_dotnet -version $env:VERSION -branch $env:CI_COMMIT_REF_NAME
+  cache:
+    untracked: true
 
 analysis_end:
   stage: analysis_end
@@ -43,6 +45,8 @@ set_version:
   - Import-Module CiBuildTools
   - Invoke-SetCliVersion -rcFilePath "$env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc" -contentToReplace "1.0.0.1" -replaceTo "$env:VERSION"
   - Invoke-SetCliVersion -rcFilePath "$env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc" -contentToReplace "1,0,0,1" -replaceTo $env:VERSION.Replace(".", ",")
+  cache:
+    untracked: true
 
 build_sdk_master:
   only:
@@ -51,6 +55,8 @@ build_sdk_master:
   script:
   - Import-Module CiBuildTools  
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Sdk -version $VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR
+  cache:
+    untracked: true  
 
 build_plugins_master:
   only:
@@ -117,6 +123,8 @@ documentation_build:
   script: 
   - Import-Module CiBuildTools
   - Invoke-BuildDocumentation
+  cache:
+    untracked: true
 
 documentation_publish:
   only:
