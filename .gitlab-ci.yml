@@ -98,23 +98,9 @@ prepare_artifacts:
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target CopyArtifacts -version $VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR
   cache:
     untracked: true
-
-compress_artifacts:
-  only:
-    - master
-    - develop
-  except:
-    - tags
-  stage: artifacts
-  script:
-  - Import-Module CiBuildTools
-  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target MakeZip -version $VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR
-  cache:
-    untracked: true
   artifacts:
     when: on_success
-    name: "SDK"
+    name: "AIMP.SDK"
     paths:
-     # - $env:CI_PROJECT_DIR/Build/artifacts/AIMP.SDK.zip
-     - sonar-scanner.properties
+     - $env:CI_PROJECT_DIR/AIMP.SDK
     expire_in: 1 week

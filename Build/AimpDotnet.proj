@@ -4,9 +4,8 @@
 	<PropertyGroup>
 		<BuildDirectory>$(MSBuildProjectDirectory)</BuildDirectory> 
 		<BuildPath>$(BuildDirectory)\..\src\</BuildPath>
-		<DeploymentFolder>Artifacts</DeploymentFolder>
+		<DeploymentFolder>aimp.sdk</DeploymentFolder>
 		<Version>1.4.0</Version>
-		<ShipFile>AIMP.SDK.zip</ShipFile>
 		<Configuration>Release</Configuration>
 		<outputDir>$(BuildDirectory)\$(DeploymentFolder)</outputDir>
 		<SdkOutputDir>$(outputDir)\SDK</SdkOutputDir>
@@ -122,6 +121,19 @@
 		<CallTarget Targets="BuildPlugins"/>
 	</Target>
 
+	<Target Name="CopyArtifacts" DependsOnTargets="PrepareFolder">
+		<Message Text="Start building with parameters:"/>
+		<Message Text="Configuration: $(Configuration)"/>
+		<Message Text="Version: $(Version)"/>
+		<Message Text="BuildDirectory: $(BuildDirectory)"/>
+		<Message Text="BuildPath: $(BuildPath)"/>
+		<Message Text="DeploymentFolder: $(DeploymentFolder)"/>
+		<Message Text="outputDir: $(outputDir)"/>
+		<Message Text="SdkOutputDir: $(SdkOutputDir)"/>
+		<Message Text="PluginsOutputDir: $(PluginsOutputDir)"/>
+		<CallTarget Targets="ArtifactsCopy"/>
+	</Target>
+	
 	<Target Name="BuildSDK">
 		<Message Text="Build %(project.name)" Condition="'%(project.type)'=='SDK'"/>
 		<MSBuild 
@@ -140,7 +152,7 @@
 			Properties="BuildNumber=$(version);OutDir=bin;DebugType=none;Configuration=$(Configuration);%(project.params)" />
 	</Target>
 
-	<Target Name="CopyArtifacts" DependsOnTargets="PrepareFolder">
+	<Target Name="ArtifactsCopy">
 
 		<CreateItem AdditionalMetadata="mainfolder=%(project.mainfolder)"
 			Include="%(project.identity)\bin\*.dll"
