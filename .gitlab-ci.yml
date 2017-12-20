@@ -119,29 +119,3 @@ compress_artifacts:
     paths:
       - $env:CI_PROJECT_DIR/Build/artifacts/AIMP.SDK.zip
     expire_in: 1 week
-
-documentation_build:
-  only:
-    - master
-  stage: documentation
-  script: 
-  - Import-Module CiBuildTools
-  - Invoke-BuildDocumentation
-
-documentation_publish:
-  only:
-    - master
-  stage: publish_documentation
-  script: 
-  - Import-Module CiBuildTools
-  - Invoke-BuildDocumentation
-
-publish_to_release:
-  stage: deploy
-  only:
-    - master
-  environment:
-    name: Production
-  script:
-  - Import-Module CiBuildTools
-  - New-GitTag -tagName $env:VERSION
