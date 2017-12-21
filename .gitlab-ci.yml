@@ -55,7 +55,8 @@ build_sdk_master:
     - master
   stage: build
   script:
-  - Import-Module CiBuildTools  
+  - Import-Module CiBuildTools
+  - Start-Sleep 40
   - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Sdk -version $VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR
 #  cache:
 #    untracked: true
