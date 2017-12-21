@@ -8,9 +8,10 @@
 		<Version>1.4.0</Version>
 		<Configuration>Release</Configuration>
 		<DeploymentFolder>aimp.sdk</DeploymentFolder>
-		<outputDir>$(RootFolder)\$(DeploymentFolder)</outputDir>
+		<outputDir>$(RootFolder)$(DeploymentFolder)</outputDir>
 		<SdkOutputDir>$(outputDir)\SDK</SdkOutputDir>
 		<PluginsOutputDir>$(outputDir)\Plugins</PluginsOutputDir>
+		<SolutionDir>$(BuildPath)</SolutionDir>
 	</PropertyGroup>
 
 	<ItemGroup>
