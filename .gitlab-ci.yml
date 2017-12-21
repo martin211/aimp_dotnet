@@ -8,7 +8,6 @@ stages:
   - analysis_end
   - artifacts
   - documentation
-  - publish
 
 docker_start:
   stage: analysis_start
@@ -124,15 +123,3 @@ build_documentation:
   script:
   - Import-Module CiBuildTools
   - Invoke-BuildDocumentation -docsPath $env:CI_PROJECT_DIR/docs
-
-publish_artifacts:
-  stage: publish
-  when: manual
-  script:
-  - Write-Error "Not working"
-
-publish_documentation:
-  stage: publish
-  when: manual
-  script:
-  - Write-Error "Not working"
