@@ -7,6 +7,7 @@ stages:
   - build
   - analysis_end
   - artifacts
+  - documentation
 
 docker_start:
   stage: analysis_start
@@ -116,3 +117,9 @@ prepare_artifacts:
     paths:
      - $env:CI_PROJECT_DIR/AIMP.SDK
     expire_in: 1 week
+
+build_documentation:
+  stage: documentation
+  script:
+  - Import-Module CiBuildTools
+  - Invoke-BuildDocumentation -docsPath $env:CI_PROJECT_DIR/docs
