@@ -2,12 +2,13 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
 	<Import Project="$(MSBuildProgramFiles32)\MSBuild\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
 	<PropertyGroup>
-		<BuildDirectory>$(MSBuildProjectDirectory)</BuildDirectory> 
+		<BuildDirectory>$(MSBuildProjectDirectory)</BuildDirectory>
+		<RootFolder>$(BuildDirectory)\..\</RootFolder>
 		<BuildPath>$(BuildDirectory)\..\src\</BuildPath>
-		<DeploymentFolder>aimp.sdk</DeploymentFolder>
 		<Version>1.4.0</Version>
 		<Configuration>Release</Configuration>
-		<outputDir>$(BuildDirectory)\$(DeploymentFolder)</outputDir>
+		<DeploymentFolder>aimp.sdk</DeploymentFolder>
+		<outputDir>$(RootFolder)\$(DeploymentFolder)</outputDir>
 		<SdkOutputDir>$(outputDir)\SDK</SdkOutputDir>
 		<PluginsOutputDir>$(outputDir)\Plugins</PluginsOutputDir>
 	</PropertyGroup>
