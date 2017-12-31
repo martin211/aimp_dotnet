@@ -1,139 +1,53 @@
 variables:
   VERSION: "$AIMP_VERSION.$CI_JOB_ID"
-  AimpDotnetProj: "$CI_PROJECT_DIR/Build/AimpDotnet.proj"
 
 stages:
   - analysis_start
   - build
   - analysis_end
-  - artifacts
+  - zip_publish
   - documentation
-  - deploy
-
-docker_start:
-  stage: analysis_start
-  except:
-    - master
-  script:
-  - Import-Module CiBuildTools
-  - Start-DockerContainer -containerName "dev.mysql"
-  - Start-DockerContainer -containerName "dev.sonarqube"
+  - publish_documentation
 
 analysis_start:
   stage: analysis_start
-  except:
-    - master
   script:
-  - Import-Module CiBuildTools
-  - Invoke-StartSonarQube -solutionPath $env:CI_PROJECT_DIR\src\aimp_dotnet.sln -sonarProjectKey $env:SONAR_PROJECT_KEY -sonarProjectName aimp_dotnet -version $env:VERSION -branch $env:CI_COMMIT_REF_NAME
-  cache:
-    untracked: true
+  - echo $env:CI_PROJECT_DIR
+  - .\tools\ci-build\start-analysis.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:SONAR_PROJECT_KEY aimp_dotnet $env:VERSION $env:CI_COMMIT_REF_NAME
 
 analysis_end:
   stage: analysis_end
-  except:
-    - master
-  script:
-  - Import-Module CiBuildTools
-  - Invoke-StopSonarQube
+  script: .\tools\ci-build\stop-analysis.ps1
 
-set_version:
-  variables:
-    GIT_STRATEGY: fetch
-  stage: build
-  script:
-  - Import-Module CiBuildTools
-  - Invoke-SetCliVersion -rcFilePath "$env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc" -contentToReplace "1.0.0.1" -replaceTo "$env:VERSION"
-  - Invoke-SetCliVersion -rcFilePath "$env:CI_PROJECT_DIR\src\aimp_dotnet\aimp_dotnet.rc" -contentToReplace "1,0,0,1" -replaceTo $env:VERSION.Replace(".", ",")
-#  cache:
-#    untracked: true
-#    paths:
-#    - $env:CI_PROJECT_DIR/src/aimp_dotnet/aimp_dotnet.rc
-
-build_sdk_master:
-  variables:
-    GIT_STRATEGY: none
+build_master:
   only:
     - master
-  stage: build
-  script:
-  - Import-Module CiBuildTools
-  - Start-Sleep 40
-  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Sdk -version $VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR
-#  cache:
-#    untracked: true
-
-build_plugins_master:
-  variables:
-    GIT_STRATEGY: none
-  only:
-    - master
-  stage: build
-  script:
-  - Import-Module CiBuildTools  
-  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Plugins -version $VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR
-#  cache:
-#    untracked: true
-
-build_sdk_develop:
-  variables:
-    GIT_STRATEGY: none
-  only:
-    - develop
-  stage: build
-  script:
-  - Import-Module CiBuildTools  
-  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Sdk -version $VERSION -configuration Debug -projectDir $env:CI_PROJECT_DIR
-#  cache:
-#    untracked: true
-
-build_plugins_develop:
-  variables:
-    GIT_STRATEGY: none
-  only:
-    - develop
-  stage: build
-  script:
-  - Import-Module CiBuildTools  
-  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target Plugins -version $VERSION -configuration Debug -projectDir $env:CI_PROJECT_DIR
-#  cache:
-#    untracked: true
-
-prepare_artifacts:
-  variables:
-    GIT_STRATEGY: none
-  only:
-    - master
-    - develop
-  except:
     - tags
-  stage: artifacts
-  script:
-  - Import-Module CiBuildTools
-  - Invoke-MsBuildProject -projFile $env:AimpDotnetProj -target CopyArtifacts -version $VERSION -configuration Release -projectDir $env:CI_PROJECT_DIR
-#  cache:
-#    untracked: true
+  except:
+    - develop
+  stage: build
+  script: .\tools\ci-build\build.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:VERSION $env:CI_COMMIT_REF_NAME Debug
   artifacts:
-    when: on_success
-    name: "AIMP.SDK"
     paths:
-     - $env:CI_PROJECT_DIR/AIMP.SDK
-    expire_in: 1 week
+      - src\Release\aimp_dotnet.dll
+      - src\Release\AIMP.SDK.dll
 
-build_documentation:
+build_develop:
+  only:
+    - develop
+  except:
+    - master
+  stage: build
+  script: .\tools\ci-build\build.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:VERSION $env:CI_COMMIT_REF_NAME Release
+
+documentation_build:
+  only:
+    - master
   stage: documentation
-  script:
-  - Import-Module CiBuildTools
-  - Invoke-BuildDocumentation -docsPath $env:CI_PROJECT_DIR/docs
-  
-deploy_sdk:
-  stage: deploy
-  script:
-  - Import-Module CiBuildTools
-  when: manual
+  script: .\docs\build.ps1
 
-deploy_documentation:
-  stage: deploy
-  script:
-  - Import-Module CiBuildTools
-  when: manual  
+documentation_publish:
+  only:
+    - master
+  stage: publish_documentation
+  script: .\docs\publish.ps1

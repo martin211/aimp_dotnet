@@ -112,7 +112,6 @@
     <Compile Include="MusicLibrary\IAimpDataStorageManager.cs" />
     <Compile Include="MusicLibrary\Extension\IAimpExtensionDataStorage.cs" />
     <Compile Include="MusicLibrary\IAimpFileList.cs" />
-    <Compile Include="MusicLibrary\IAimpPlaylistPreimage.cs" />
     <Compile Include="MusicLibrary\IAimpMusicLibraryPlaylistPreimage.cs" />
     <Compile Include="MusicLibrary\Presets\IAimpGroupingPreset.cs" />
     <Compile Include="MusicLibrary\Presets\IAimpGroupingPresets.cs" />

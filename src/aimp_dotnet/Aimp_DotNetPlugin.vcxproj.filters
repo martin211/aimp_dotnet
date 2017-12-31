@@ -330,14 +330,8 @@
     <ClCompile Include="SDK\Action\AimpActionEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SDK\AimpConfig.cpp">
-      <Filter>Source Files\SDK</Filter>
-    </ClCompile>
     <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageFactory.cpp">
       <Filter>Source Files\SDK\PlayList</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\AimpPlayer.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SDK\AimpObjectList.cpp">
       <Filter>Source Files</Filter>
@@ -700,9 +694,6 @@
     </ClInclude>
     <ClInclude Include="AIMPSDK\AIMP400\apiMusicLibrary.h">
       <Filter>Header Files\AIMPSDK\AIMP4</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\AimpConfig.h">
-      <Filter>Header Files\SDK</Filter>
     </ClInclude>
     <ClInclude Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.h">
       <Filter>Header Files\SDK\PlayList</Filter>

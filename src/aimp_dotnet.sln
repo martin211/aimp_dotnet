@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2008
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}"
 EndProject
@@ -48,6 +48,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_SmartPlaylist", "Plu
 	ProjectSection(ProjectDependencies) = postProject
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F} = {8D30D1F5-1925-4926-83F2-F0B21B45646F}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_CustomFileSystem", "Plugins\dotnet_CustomFileSystem\dotnet_CustomFileSystem.csproj", "{7AD77F60-D0F1-4241-A67D-0733EF4A5DEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,6 +129,14 @@ Global
 		{2B1CD6EA-5B3B-44FE-A242-F06C1D6A41F9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2B1CD6EA-5B3B-44FE-A242-F06C1D6A41F9}.Release|x86.ActiveCfg = Release|Any CPU
 		{2B1CD6EA-5B3B-44FE-A242-F06C1D6A41F9}.Release|x86.Build.0 = Release|Any CPU
+		{7AD77F60-D0F1-4241-A67D-0733EF4A5DEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AD77F60-D0F1-4241-A67D-0733EF4A5DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AD77F60-D0F1-4241-A67D-0733EF4A5DEE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7AD77F60-D0F1-4241-A67D-0733EF4A5DEE}.Debug|x86.Build.0 = Debug|Any CPU
+		{7AD77F60-D0F1-4241-A67D-0733EF4A5DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AD77F60-D0F1-4241-A67D-0733EF4A5DEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AD77F60-D0F1-4241-A67D-0733EF4A5DEE}.Release|x86.ActiveCfg = Release|Any CPU
+		{7AD77F60-D0F1-4241-A67D-0733EF4A5DEE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -139,6 +149,7 @@ Global
 		{9C155223-D1C5-4943-A4E6-02131544E5FD} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
 		{72CBA5F8-494D-4EEB-803B-7D1802A91D4A} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
 		{2B1CD6EA-5B3B-44FE-A242-F06C1D6A41F9} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
+		{7AD77F60-D0F1-4241-A67D-0733EF4A5DEE} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F89DDEBD-4CC1-4C55-811B-096227CFE66C}
