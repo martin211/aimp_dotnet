@@ -9,8 +9,10 @@
 // 
 // ----------------------------------------------------
 
+#pragma once
 #include "SDK\BaseManager.h"
 #include "AimpPlayListQueue.h"
+#include "AimpPlaylistPreimageFactory.h"
 
 namespace AIMP
 {
@@ -23,15 +25,13 @@ namespace AIMP
         using namespace AIMP::SDK::Playlist;
 
         public ref class PlayListManager :
-            public AimpBaseManager<IAIMPServicePlaylistManager>,
-            public IAimpPlaylistManager,
-            public IAimpExtensionPlaylistManagerListenerExecutor
+            public AimpBaseManager<IAIMPServicePlaylistManager2>,
+            public IAimpPlaylistManager2
         {
         private:
             PlayListHandler ^_onPlaylistActivated;
             PlayListHandler ^_onPlaylistAdded;
             PlayListHandler ^_onPlaylistRemoved;
-            AimpPlaylistQueue ^_playListQueue;
 
         public:
             explicit PlayListManager(ManagedAimpCore ^core);
@@ -82,15 +82,24 @@ namespace AIMP
 
             virtual int GetLoadedPlaylistCount();
 
-            virtual void SetActivePlaylist(IAimpPlaylist^ playList);
+            virtual AimpActionResult SetActivePlaylist(IAimpPlaylist^ playList);
+
+            virtual AimpActionResult GetPreimageFactory(int index, IAimpExtensionPlaylistPreimageFactory ^%factory);
+
+            virtual AimpActionResult GetPreimageFactoryByID(String ^id, IAimpExtensionPlaylistPreimageFactory ^%factory);
+
+            virtual int GetPreimageFactoryCount();
 
             //******** IAimpExtensionPlaylistManagerListenerExecutor ********
 
-            virtual void OnPlaylistActivated(IAIMPPlaylist* playlist);
+            //virtual void OnPlaylistActivated(IAIMPPlaylist* playlist);
 
-            virtual void OnPlaylistAdded(IAIMPPlaylist* playlist);
+            //virtual void OnPlaylistAdded(IAIMPPlaylist* playlist);
 
-            virtual void OnPlaylistRemoved(IAIMPPlaylist* playlist);
+            //virtual void OnPlaylistRemoved(IAIMPPlaylist* playlist);
+
+        private:
+            virtual AimpActionResult GetService(IAIMPServicePlaylistManager2** service);
         };
     }
 }

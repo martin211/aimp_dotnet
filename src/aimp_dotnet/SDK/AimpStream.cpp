@@ -21,7 +21,17 @@ AimpStream::~AimpStream()
 
 AimpStream::!AimpStream()
 {
-    _aimpObject->Release();
+    if (_aimpObject != nullptr)
+    {
+        try
+        {
+            _aimpObject->Release();
+        }
+        catch (const std::exception& e)
+        {
+            System::Diagnostics::Debugger::Break();
+        }
+    }
 }
 
 AimpStream::AimpStream(IAIMPStream *aimpObject)

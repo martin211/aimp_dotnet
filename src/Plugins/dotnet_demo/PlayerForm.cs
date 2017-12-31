@@ -31,46 +31,46 @@ namespace DemoPlugin
 
             Load += OnActivated;
 
-            _aimpPlayer.PlaylistManager.PlaylistActivated += (name, id) =>
-            {
-                Logger.Instance.AddInfoMessage($"[Event] PlayListManager.PlaylistActivated: {name} {id}");
+            //_aimpPlayer.PlaylistManager.PlaylistActivated += (name, id) =>
+            //{
+            //    Logger.Instance.AddInfoMessage($"[Event] PlayListManager.PlaylistActivated: {name} {id}");
 
-                foreach (var tabPage in tabPlayLists.TabPages)
-                {
-                    var tp = tabPage as TabPage;
-                    if (tp != null && tp.Tag.Equals(id))
-                    {
-                        tabPlayLists.SelectTab(tp);
-                        break;
-                    }
-                }
-            };
+            //    foreach (var tabPage in tabPlayLists.TabPages)
+            //    {
+            //        var tp = tabPage as TabPage;
+            //        if (tp != null && tp.Tag.Equals(id))
+            //        {
+            //            tabPlayLists.SelectTab(tp);
+            //            break;
+            //        }
+            //    }
+            //};
 
-            _aimpPlayer.PlaylistManager.PlaylistAdded += (name, id) =>
-            {
-                Logger.Instance.AddInfoMessage($"[Event] PlayListManager.PlaylistAdded: {name} {id}");
+            //_aimpPlayer.PlaylistManager.PlaylistAdded += (name, id) =>
+            //{
+            //    Logger.Instance.AddInfoMessage($"[Event] PlayListManager.PlaylistAdded: {name} {id}");
 
-                IAimpPlaylist pl;
-                if (_aimpPlayer.PlaylistManager.GetLoadedPlaylistById(id, out pl) == AimpActionResult.Ok)
-                {
-                    AddPlayListTab(id, name, pl);
-                }
-            };
+            //    IAimpPlaylist pl;
+            //    if (_aimpPlayer.PlaylistManager.GetLoadedPlaylistById(id, out pl) == AimpActionResult.Ok)
+            //    {
+            //        AddPlayListTab(id, name, pl);
+            //    }
+            //};
 
-            _aimpPlayer.PlaylistManager.PlaylistRemoved += (name, id) =>
-            {
-                Logger.Instance.AddInfoMessage($"[Event] PlayListManager.PlaylistRemoved: {name} {id}");
+            //_aimpPlayer.PlaylistManager.PlaylistRemoved += (name, id) =>
+            //{
+            //    Logger.Instance.AddInfoMessage($"[Event] PlayListManager.PlaylistRemoved: {name} {id}");
 
-                foreach (var tabPage in tabPlayLists.TabPages)
-                {
-                    var tp = tabPage as TabPage;
-                    if (tp != null && tp.Tag.Equals(id))
-                    {
-                        tabPlayLists.TabPages.Remove(tp);
-                        break;
-                    }
-                }
-            };
+            //    foreach (var tabPage in tabPlayLists.TabPages)
+            //    {
+            //        var tp = tabPage as TabPage;
+            //        if (tp != null && tp.Tag.Equals(id))
+            //        {
+            //            tabPlayLists.TabPages.Remove(tp);
+            //            break;
+            //        }
+            //    }
+            //};
 
             _aimpPlayer.PlaylistManager.PlaylistQueue.ContentChanged += (sender) =>
             {

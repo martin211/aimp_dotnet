@@ -23,9 +23,9 @@
 #endif  // _DEBUG
 
 #include <windows.h>
+#include <exception>
 #include "AimpSdk.h"
-#include <vcclr.h>
-#include <iostream>
+
 
 #ifdef _DEBUG
 #ifndef DBG_NEW

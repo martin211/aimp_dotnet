@@ -123,9 +123,6 @@
     <ClCompile Include="SDK\ManagedAimpCore.cpp">
       <Filter>SDK</Filter>
     </ClCompile>
-    <ClCompile Include="SDK\AimpObjectList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SDK\AimpStream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -336,8 +333,50 @@
     <ClCompile Include="SDK\AimpConfig.cpp">
       <Filter>Source Files\SDK</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageFactory.cpp">
+      <Filter>Source Files\SDK\PlayList</Filter>
+    </ClCompile>
     <ClCompile Include="SDK\AimpPlayer.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\AimpObjectList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\PlayList\Internal\InternalAimpPlaylistPreimage.cpp">
+      <Filter>Source Files\SDK\PlayList</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.cpp">
+      <Filter>Source Files\SDK\PlayList</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageFolders.cpp">
+      <Filter>Source Files\SDK\PlayList</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\PlayList\AimpPlaylistPreimage.cpp">
+      <Filter>Source Files\SDK\PlayList</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\PlayList\AimpExtensionPlaylistPreimageFactory.cpp">
+      <Filter>Source Files\SDK\PlayList</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageListener.cpp">
+      <Filter>Source Files\SDK\PlayList</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\AimpPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\AimpConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\MusicLibrary\InternalAimpMusicLibraryPlaylistPreimage.cpp">
+      <Filter>Source Files\SDK\MusicLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\PlayList\Internal\InternalAimpMLPlaylistPreimage.cpp">
+      <Filter>Source Files\SDK\MusicLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\MusicLibrary\InternalAimpDataFilterGroup.cpp">
+      <Filter>Source Files\SDK\MusicLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\MusicLibrary\InternalAimpDataFilter.cpp">
+      <Filter>Source Files\SDK\MusicLibrary</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -638,9 +677,6 @@
     <ClInclude Include="SDK\Win32\Win32Manager.h">
       <Filter>Header Files\SDK\Win32</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\AimpConverter.h">
       <Filter>Header Files\SDK</Filter>
     </ClInclude>
@@ -667,6 +703,48 @@
     </ClInclude>
     <ClInclude Include="SDK\AimpConfig.h">
       <Filter>Header Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.h">
+      <Filter>Header Files\SDK\PlayList</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayList\AimpPlaylistPreimageFactory.h">
+      <Filter>Header Files\SDK\PlayList</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayList\AimpPlaylistPreimage.h">
+      <Filter>Header Files\SDK\PlayList</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayList\AimpExtensionPlaylistPreimageFactory.h">
+      <Filter>Header Files\SDK\PlayList</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayList\Internal\InternalAimpPlaylistPreimage.h">
+      <Filter>Header Files\SDK\PlayList</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.h">
+      <Filter>Header Files\SDK\PlayList</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayList\AimpPlaylistPreimageListener.h">
+      <Filter>Header Files\SDK\PlayList</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayList\AimpPlaylistPreimageFolders.h">
+      <Filter>Header Files\SDK\PlayList</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AimpConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpMusicLibraryPlaylistPreimage.h">
+      <Filter>Header Files\SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiLyrics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpDataFilter.h">
+      <Filter>Header Files\SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\MusicLibrary\InternalAimpDataFilterGroup.h">
+      <Filter>Header Files\SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayList\Internal\InternalAimpMLPlaylistPreimage.h">
+      <Filter>Header Files\SDK\MusicLibrary</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
