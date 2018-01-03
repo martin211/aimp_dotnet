@@ -3,9 +3,10 @@ variables:
   AimpDotnetProj: "$CI_PROJECT_DIR/Build/AimpDotnet.proj"
 
 stages:
-  - analysis_start
+  #- analysis_start
   - build
-  - analysis_end
+  - analysis
+  #- analysis_end
   - artifacts
   - documentation
   - deploy
@@ -19,6 +20,14 @@ docker_start:
   - Import-Module CiBuildTools
   - Start-DockerContainer -containerName "dev.mysql"
   - Start-DockerContainer -containerName "dev.sonarqube"
+
+analysis:
+  stage: analysis
+  except:
+    - master
+  script:
+  - Import-Module CiBuildTools
+  - Invoke-SonarScanner -projectFile $env:CI_PROJECT_DIR\src\sonar-aimp_sdk.properties -sonarProjectKey $env:SONAR_PROJECT_KEY -sonarProjectName aimp_dotnet -version $env:VERSION -branch $env:CI_COMMIT_REF_NAME
 
 analysis_start:
   stage: analysis_start
