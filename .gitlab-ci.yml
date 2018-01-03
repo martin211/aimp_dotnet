@@ -11,41 +11,42 @@ stages:
   - documentation
   - deploy
 
-docker_start:
-  stage: analysis_start
-  except:
-    - master
-    - tags
-  script:
-  - Import-Module CiBuildTools
-  - Start-DockerContainer -containerName "dev.mysql"
-  - Start-DockerContainer -containerName "dev.sonarqube"
+#docker_start:
+#  stage: analysis_start
+#  except:
+#    - master
+#    - tags
+#  script:
+#  - Import-Module CiBuildTools
+#  - Start-DockerContainer -containerName "dev.mysql"
+#  - Start-DockerContainer -containerName "dev.sonarqube"
 
 analysis:
   stage: analysis
   except:
     - master
+    - tags
   script:
   - Import-Module CiBuildTools
   - Invoke-SonarScanner -projectFile $env:CI_PROJECT_DIR\src\sonar-aimp_sdk.properties -sonarProjectKey $env:SONAR_PROJECT_KEY -sonarProjectName aimp_dotnet -version $env:VERSION -branch $env:CI_COMMIT_REF_NAME
 
-analysis_start:
-  stage: analysis_start
-  except:
-    - master
-  script:
-  - Import-Module CiBuildTools
-  - Invoke-StartSonarQube -solutionPath $env:CI_PROJECT_DIR\src\aimp_dotnet.sln -sonarProjectKey $env:SONAR_PROJECT_KEY -sonarProjectName aimp_dotnet -version $env:VERSION -branch $env:CI_COMMIT_REF_NAME
-  cache:
-    untracked: true
+#analysis_start:
+#  stage: analysis_start
+#  except:
+#    - master
+#  script:
+#  - Import-Module CiBuildTools
+#  - Invoke-StartSonarQube -solutionPath $env:CI_PROJECT_DIR\src\aimp_dotnet.sln -sonarProjectKey $env:SONAR_PROJECT_KEY -sonarProjectName aimp_dotnet -version $env:VERSION -branch $env:CI_COMMIT_REF_NAME
+#  cache:
+#    untracked: true
 
-analysis_end:
-  stage: analysis_end
-  except:
-    - master
-  script:
-  - Import-Module CiBuildTools
-  - Invoke-StopSonarQube
+#analysis_end:
+#  stage: analysis_end
+#  except:
+#    - master
+#  script:
+#  - Import-Module CiBuildTools
+#  - Invoke-StopSonarQube
 
 set_version:
   variables:
