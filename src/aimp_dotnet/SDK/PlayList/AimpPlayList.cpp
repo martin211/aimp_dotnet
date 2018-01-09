@@ -1107,27 +1107,35 @@ namespace AIMP
         AimpActionResult AimpPlayList::AddList(System::Collections::Generic::IList<String^>^ fileUrlList, PlaylistFlags flags, PlaylistFilePosition filePosition)
         {
             AimpActionResult res = AimpActionResult::Fail;
+            IAIMPObjectList *list = nullptr;
 
             if (fileUrlList->Count > 0)
             {
-                IAIMPObjectList *list;
-                ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPObjectList, (void**)&list);
-
-                if (list != NULL)
+                try
                 {
-                    for (int i = 0; i < fileUrlList->Count; i++)
+                    ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPObjectList, (void**)&list);
+
+                    if (list != nullptr)
                     {
-                        IAIMPString *str = AimpConverter::ToAimpString(fileUrlList[i]);
-                        list->Add(str);
-                        str->Release();
-                        str = NULL;
+                        for (int i = 0; i < fileUrlList->Count; i++)
+                        {
+                            IAIMPString *str = AimpConverter::ToAimpString(fileUrlList[i]);
+                            list->Add(str);
+                            str->Release();
+                            str = NULL;
+                        }
+
+                        res = CheckResult(InternalAimpObject->AddList(list, (DWORD)flags, (int)filePosition));
                     }
-
-                    list->Release();
-                    list = NULL;
                 }
-
-                res = CheckResult(InternalAimpObject->AddList(list, (DWORD)flags, (int)filePosition));
+                finally
+                {
+                    if (list != nullptr)
+                    {
+                        list->Release();
+                        list = nullptr;
+                    }
+                }
             }
 
             return res;

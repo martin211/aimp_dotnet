@@ -15,8 +15,8 @@ namespace AIMP.SDK.FileManager
 {
     public interface IAimpServiceFileSystems
     {
-        AimpActionResult Get<TCommand>(string fileUri, out IAimpFileSystemCommand command);
+        AimpActionResult Get<TCommand>(string fileUri, ref TCommand command) where TCommand : IAimpFileSystemCommand;
 
-        AimpActionResult GetDefault<TCommand>(out IAimpFileSystemCommand command);
+        AimpActionResult GetDefault<TCommand>(ref TCommand command) where TCommand : IAimpFileSystemCommand;
     }
 }
