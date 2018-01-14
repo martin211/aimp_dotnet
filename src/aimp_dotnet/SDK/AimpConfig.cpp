@@ -64,7 +64,7 @@ namespace AIMP
             try
             {
                 str = AimpConverter::ToAimpString(keyPath);
-                int val;
+                int val = 0;
                 InternalAimpObject->GetValueAsInt32(str, &val);
                 return val;
             }
@@ -84,7 +84,7 @@ namespace AIMP
             try
             {
                 str = AimpConverter::ToAimpString(keyPath);
-                Int64 val;
+                Int64 val = 0;
                 InternalAimpObject->GetValueAsInt64(str, &val);
                 return val;
             }
