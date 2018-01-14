@@ -136,8 +136,11 @@ build_documentation:
   script:
   - Import-Module CiBuildTools
   - Invoke-BuildDocumentation -docsPath $env:CI_PROJECT_DIR/docs
-  
+  when: manual
+
 deploy_sdk:
+  variables:
+    GIT_STRATEGY: none
   stage: deploy
   script:
   - Import-Module CiBuildTools
@@ -147,4 +150,4 @@ deploy_documentation:
   stage: deploy
   script:
   - Import-Module CiBuildTools
-  when: manual  
+  when: manual

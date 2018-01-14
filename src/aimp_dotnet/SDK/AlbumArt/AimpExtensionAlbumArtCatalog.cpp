@@ -28,13 +28,8 @@ HRESULT WINAPI AimpExtensionAlbumArtCatalog::GetIcon(HICON **Image)
 
 HRESULT WINAPI AimpExtensionAlbumArtCatalog::GetName(IAIMPString **Name)
 {
-    IAIMPString *strObject = NULL;
-    System::String^ str = _managedinstance->GetName();
-    pin_ptr<const WCHAR> strDate = PtrToStringChars(str);
-    _aimpCore->CreateObject(IID_IAIMPString, (void**)&strObject);
-    strObject->SetData((PWCHAR)strDate, str->Length);
+    IAIMPString *strObject = AimpConverter::ToAimpString(_managedinstance->GetName());
     *Name = strObject;
-    strObject->Release();
     return S_OK;
 }
 
@@ -42,9 +37,10 @@ HRESULT WINAPI AimpExtensionAlbumArtCatalog::Show(IAIMPString *FileURI, IAIMPStr
 {
     System::Drawing::Bitmap^ bitmap = nullptr;
     AIMP::AimpActionResult r = _managedinstance->Show(
-        gcnew System::String(Artist->GetData()), 
-        gcnew System::String(Artist->GetData()), 
-        gcnew System::String(Album->GetData()), bitmap);
+        AimpConverter::ToManagedString(FileURI),
+        AimpConverter::ToManagedString(Artist),
+        AimpConverter::ToManagedString(Album),
+        bitmap);
 
     if (r == AIMP::AimpActionResult::Ok && bitmap != nullptr)
     {
