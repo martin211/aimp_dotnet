@@ -25,9 +25,13 @@ namespace DemoPlugin
             _loggerForm = new LoggerForm();
 
             _aimpPlayer.TrackChanged += (sender, args) =>
+            {
+                var cover = _aimpPlayer.CurrentFileInfo.AlbumArt;
+                if (cover != null)
                 {
-                    pictureBox1.Image = _aimpPlayer.CurrentFileInfo.AlbumArt;
-                };
+                    pictureBox1.Image = cover;
+                }
+            };
 
             Load += OnActivated;
 

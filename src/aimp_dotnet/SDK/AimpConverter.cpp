@@ -35,9 +35,9 @@ namespace AIMP
 
         IAIMPImage* AimpConverter::ToAimpImage(System::Drawing::Bitmap^ image)
         {
-            System::IO::MemoryStream ^stream;
-            IAIMPStream *aimpStream = NULL;
-            IAIMPImage *img = NULL;
+            System::IO::MemoryStream ^stream = nullptr;
+            IAIMPStream *aimpStream = nullptr;
+            IAIMPImage *img = nullptr;
 
             try
             {
@@ -66,10 +66,10 @@ namespace AIMP
                     stream->Close();
                 }
                 aimpStream->Release();
-                aimpStream = NULL;
+                aimpStream = nullptr;
             }
 
-            return NULL;
+            return nullptr;
         }
 
         IAIMPCore* AimpConverter::GetCore()
@@ -112,26 +112,28 @@ namespace AIMP
 
         System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImageContainer* imageContainer)
         {
-            IAIMPImage* image = NULL;
+            IAIMPImage* image = nullptr;
             try
             {
-                if (Utils::CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**)&image)) == AimpActionResult::Ok)
+                if (Utils::CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**)&image)) != AimpActionResult::Ok)
                 {
                     return nullptr;
                 }
 
-                imageContainer->CreateImage(&image);
-
-                if (image == NULL)
+                if (Utils::CheckResult(imageContainer->CreateImage(&image)) != AimpActionResult::Ok || image == nullptr)
                 {
                     return nullptr;
                 }
+
                 return ToManagedBitmap(image);
             }
             finally
             {
-                image->Release();
-                image = NULL;
+                if (image != nullptr)
+                {
+                    image->Release();
+                    image = NULL;
+                }
             }
 
             return nullptr;
@@ -149,8 +151,14 @@ namespace AIMP
 
                 System::Drawing::Bitmap^ bmp = gcnew System::Drawing::Bitmap(size.cx, size.cy);
 
-                IAIMPStream *stream;
-                AIMP::SDK::ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&stream);
+                IAIMPStream *stream = nullptr;
+                AimpActionResult res = Utils::CheckResult(AIMP::SDK::ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&stream));
+
+                if (res != AimpActionResult::Ok || stream == nullptr)
+                {
+                    return nullptr;
+                }
+
                 image->SaveToStream(stream, AIMP_IMAGE_FORMAT_PNG);
                 if (stream->GetSize() > 0)
                 {
@@ -175,9 +183,7 @@ namespace AIMP
 
                         delete[] buf;
                         stream->Release();
-                        image->Release();
-                        stream = NULL;
-                        image = NULL;
+                        stream = nullptr;
                     }
                 }
 
@@ -200,7 +206,7 @@ namespace AIMP
                     stream->Seek(0, System::IO::SeekOrigin::Begin);
                     if (Utils::CheckResult(container->SetDataSize((DWORD)stream->Length)) != AimpActionResult::Ok)
                     {
-                        return NULL;
+                        return nullptr;
                     }
 
                     byte *b = container->GetData();
@@ -220,7 +226,7 @@ namespace AIMP
                 }
             }
 
-            return NULL;
+            return nullptr;
         }
 
         String^ AimpConverter::ToManagedString(IAIMPString* value)
