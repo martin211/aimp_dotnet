@@ -24,12 +24,25 @@ namespace DemoPlugin
 
             _loggerForm = new LoggerForm();
 
-            _aimpPlayer.TrackChanged += (sender, args) =>
+            _aimpPlayer.StateChanged += (sender, args) =>
             {
                 var cover = _aimpPlayer.CurrentFileInfo.AlbumArt;
                 if (cover != null)
                 {
                     pictureBox1.Image = cover;
+                }
+            };
+
+            _aimpPlayer.Core.CoreMessage += (param1, param2) =>
+            {
+                //System.Diagnostics.Debug.WriteLine((AimpMessages.AimpCoreMessageType)param1);
+                if (param1 == AimpMessages.AimpCoreMessageType.AIMP_MSG_EVENT_STREAM_START)
+                {
+                    var cover = _aimpPlayer.CurrentFileInfo.AlbumArt;
+                    if (cover != null)
+                    {
+                        pictureBox1.Image = cover;
+                    }
                 }
             };
 

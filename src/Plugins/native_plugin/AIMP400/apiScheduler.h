@@ -1,12 +1,12 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v3.60 build 1455               */
+/*               v4.50 build 2000               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2015                 */
+/*                (C) 2006-2017                 */
 /*                 www.aimp.ru                  */
-/*              ICQ: 345-908-513                */
+/*                                              */
 /*            Mail: support@aimp.ru             */
 /*                                              */
 /************************************************/
@@ -56,8 +56,8 @@ const int AIMP_SHUTDOWN_EVENT_ACTION_SHUTDOWN_WINDOWS_HIBERNATE = 8;
 const int AIMP_SHUTDOWN_EVENT_ACTION_SHUTDOWN_WINDOWS_SLEEP     = 16;
 
 // Custom Messages for IAIMPServiceMessageDispatcher
-#define AIMP_SCHEDULER_MSG_EVENT_COUNTDOWN L"AIMP.Scheduler.MSG.Countdown";
-#define AIMP_SCHEDULER_MSG_EVENT_STATE L"AIMP.Scheduler.MSG.State";
+#define AIMP_SCHEDULER_MSG_EVENT_COUNTDOWN  L"AIMP.Scheduler.MSG.Countdown"
+#define AIMP_SCHEDULER_MSG_EVENT_STATE 		L"AIMP.Scheduler.MSG.State"
 
 
 /* IAIMPSchedulerEvent */

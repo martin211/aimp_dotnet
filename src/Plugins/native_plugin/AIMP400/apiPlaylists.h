@@ -1,10 +1,10 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v4.00 build 1660               */
+/*               v4.50 build 2000               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2015                 */
+/*                (C) 2006-2017                 */
 /*                 www.aimp.ru                  */
 /*                                              */
 /*            Mail: support@aimp.ru             */
@@ -129,6 +129,9 @@ const int AIMP_PLAYLIST_NOTIFY_FILEINFO       = 64;
 const int AIMP_PLAYLIST_NOTIFY_STATISTICS     = 128;
 const int AIMP_PLAYLIST_NOTIFY_PLAYINGSWITCHS = 256;
 const int AIMP_PLAYLIST_NOTIFY_PREIMAGE       = 512;
+const int AIMP_PLAYLIST_NOTIFY_MODIFIED       = 1024;
+const int AIMP_PLAYLIST_NOTIFY_DEADSTATE      = 2048;
+const int AIMP_PLAYLIST_NOTIFY_MAKEVISIBLE    = 4096;
 
 // Properties IDS for IAIMPPlaylistPreimage
 const int AIMP_PLAYLISTPREIMAGE_PROPID_FACTORYID = 1;
@@ -144,9 +147,9 @@ const int AIMP_PLAYLISTPREIMAGE_PLAYLISTBASED_PROPID_URI = 100;
 const int AIMP_PREIMAGEFACTORY_FLAG_CONTEXTDEPENDENT = 1;
 
 // Built-in Preimage Factories
-const static WCHAR* AIMP_PREIMAGEFACTORY_FOLDERS_ID = L"TAIMPPlaylistFoldersPreimage";
-const static WCHAR* AIMP_PREIMAGEFACTORY_MUSICLIBRARY_ID = L"TAIMPMLPlaylistPreimage";
-const static WCHAR* AIMP_PREIMAGEFACTORY_PLAYLIST_ID = L"TAIMPPlaylistBasedPreimage";
+static const WCHAR* AIMP_PREIMAGEFACTORY_FOLDERS_ID = L"TAIMPPlaylistFoldersPreimage";
+static const WCHAR* AIMP_PREIMAGEFACTORY_MUSICLIBRARY_ID = L"TAIMPMLPlaylistPreimage";
+static const WCHAR* AIMP_PREIMAGEFACTORY_PLAYLIST_ID = L"TAIMPPlaylistBasedPreimage";
 
 /* IAIMPPlaylistItem */
 
@@ -332,7 +335,7 @@ class IAIMPExtensionPlaylistPreimageFactory : public IUnknown
 		virtual HRESULT WINAPI CreatePreimage(IAIMPPlaylistPreimage** preimage) = 0;
 		virtual HRESULT WINAPI GetID(IAIMPString** ID) = 0;
 		virtual HRESULT WINAPI GetName(IAIMPString** Name) = 0;
-		virtual DWORD WINAPI GetName() = 0;
+		virtual DWORD WINAPI GetFlags() = 0;
 };
 
 
