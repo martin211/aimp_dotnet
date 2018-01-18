@@ -53,6 +53,76 @@ public:
     }
 };
 
+class AIMPMessageHook : public IUnknownInterfaceImpl<IAIMPMessageHook>
+{
+public:
+    explicit AIMPMessageHook(IAIMPCore* core)
+    {
+        _core = core;
+    }
+
+    virtual void WINAPI CoreMessage(DWORD AMessage, int AParam1, void *AParam2, HRESULT *AResult)
+    {
+        if (AMessage == AIMP_MSG_EVENT_PLAYER_STATE && AParam1 == 2)
+        {
+            IAIMPServicePlayer *service = nullptr;
+            _core->QueryInterface(IID_IAIMPServicePlayer, (void**)&service);
+            if (service != nullptr)
+            {
+                IAIMPFileInfo *fi = nullptr;
+                if (service->GetInfo(&fi) == S_OK && fi != nullptr)
+                {
+                    IAIMPImageContainer* container = nullptr;
+                    HRESULT r = fi->GetValueAsObject(AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImageContainer, (void**)&container);
+                    CheckResult(r);
+                    if (r != S_OK || container == nullptr)
+                    {
+                        IAIMPImage *image = nullptr;
+                        r = fi->GetValueAsObject(AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImage, (void**)&image);
+                        CheckResult(r);
+
+                        if (image != nullptr)
+                        {
+                            DBOUT("not null");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    void CheckResult(HRESULT r)
+    {
+        switch (r)
+        {
+        case E_ACCESSDENIED:
+            DBOUT("E_ACCESSDENIED");
+            break;
+        case E_HANDLE:
+            DBOUT("E_HANDLE");
+            break;
+        case E_INVALIDARG:
+            DBOUT("E_INVALIDARG");
+            break;
+        case E_NOTIMPL:
+            DBOUT("E_NOTIMPL");
+            break;
+        case E_UNEXPECTED:
+            DBOUT("E_UNEXPECTED");
+            break;
+        case E_FAIL:
+            DBOUT("E_FAIL");
+            break;
+        case S_OK:
+            DBOUT("S_OK");
+            break;
+        }
+    }
+
+private:
+    IAIMPCore *_core;
+};
+
 class NativePlugin : public IUnknownInterfaceImpl<IAIMPPlugin>
 {
 public:
@@ -94,8 +164,15 @@ public:
         //HRESULT res = Core->QueryInterface(IID_IAIMPServiceThreadPool, (void**)&service);
         //DBOUT("QueryInterface result " << res);
 
-        IUnknown* demo = new AimpExtensionDataStorage(Core);
-        Core->RegisterExtension(IID_IAIMPServiceMusicLibrary, demo);
+        //IUnknown* demo = new AimpExtensionDataStorage(Core);
+        //Core->RegisterExtension(IID_IAIMPServiceMusicLibrary, demo);
+
+        IAIMPServiceMessageDispatcher* aimp_service_message_dispatcher;
+        Core->QueryInterface(IID_IAIMPServiceMessageDispatcher, reinterpret_cast<void**>(&aimp_service_message_dispatcher));
+        AIMPMessageHook* hook = new AIMPMessageHook(Core);
+        aimp_service_message_dispatcher->Hook(hook);
+
+
 
         return S_OK;
     }
