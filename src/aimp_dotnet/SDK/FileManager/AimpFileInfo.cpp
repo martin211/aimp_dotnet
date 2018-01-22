@@ -29,24 +29,23 @@ System::Drawing::Bitmap^ AimpFileInfo::AlbumArt::get()
 {
     System::Drawing::Bitmap^ bmp = nullptr;
 
-    IAIMPImageContainer *container;
-    ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImageContainer, (void**)&container);
-    _aimpObject->GetValueAsObject(AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImageContainer, (void**)&container);
+    IAIMPImageContainer *container = nullptr;
+    AimpActionResult res = Utils::CheckResult(_aimpObject->GetValueAsObject(AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImageContainer, (void**)&container));
 
-    if (container != NULL)
+    if (res == AimpActionResult::Ok && container != nullptr)
     {
         bmp = AimpConverter::ToManagedBitmap(container);
         container->Release();
     }
     else
     {
-        IAIMPImage *image;
-        ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**)&image);
-        _aimpObject->GetValueAsObject(AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImage, (void**)&image);
-        if (image != NULL)
+        IAIMPImage *image = nullptr;
+        res = Utils::CheckResult(_aimpObject->GetValueAsObject(AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImage, (void**)&image));
+        if (res == AimpActionResult::Ok && image != nullptr)
         {
             bmp = AimpConverter::ToManagedBitmap(image);
             image->Release();
+            image = nullptr;
         }
     }
 

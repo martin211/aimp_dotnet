@@ -429,17 +429,29 @@ bool AimpPlayer::OnCheckUrl(String^ %url)
 
 void AimpPlayer::OnInternalCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2)
 {
-    if (param1 == AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_PLAYER_STATE && _state != this->State)
+    switch (param1)
     {
-        _state = this->State;
-        StateChanged(this, gcnew AIMP::SDK::Player::StateChangedEventArgs(_state));
-    }
-    else if (param1 == AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_LANGUAGE)
-    {
+    case AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_PLAYER_STATE:
+    case AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_STOP:
+        if (_state != this->State)
+        {
+            _state = this->State;
+            StateChanged(this, gcnew AIMP::SDK::Player::StateChangedEventArgs(_state));
+        }
+        break;
+    case AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_LANGUAGE:
         LanguageChanged(this, EventArgs::Empty);
-    }
-    else if (param1 == AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_STREAM_START || param1 == AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_STREAM_START_SUBTRACK)
-    {
+        break;
+    case AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_STREAM_START:
+    case AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_STREAM_START_SUBTRACK:
         TrackChanged(this, EventArgs::Empty);
+        break;
+    //case AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_CMD_STATE:
+    //    System::Diagnostics::Debug::WriteLine((AimpMessages::AimpCoreMessageType)param2);
+    //    if (param2 == (int) AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_CMD_STATE)
+    //    {
+    //        System::Diagnostics::Debug::WriteLine((AimpMessages::AimpCoreMessageType)param2);
+    //    }
+    //    break;
     }
 }

@@ -1,10 +1,10 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v4.00 build 1660               */
+/*               v4.50 build 2000               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2015                 */
+/*                (C) 2006-2017                 */
 /*                 www.aimp.ru                  */
 /*                                              */
 /*            Mail: support@aimp.ru             */
@@ -64,7 +64,7 @@ class IAIMPServiceOptionsDialog: public IUnknown
 {
 	public:
  		virtual HRESULT WINAPI FrameModified(IAIMPOptionsDialogFrame* Frame) = 0;
- 		virtual HRESULT WINAPI FrameShow(IAIMPOptionsDialogFrame* Frame) = 0;
+ 		virtual HRESULT WINAPI FrameShow(IAIMPOptionsDialogFrame* Frame, BOOL ForceShow) = 0;
 };
 
 #endif // !apiOptionsH

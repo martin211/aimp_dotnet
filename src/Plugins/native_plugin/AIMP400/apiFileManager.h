@@ -227,7 +227,7 @@ class IAIMPExtensionFileFormat: public IUnknown
 	public:
 		virtual HRESULT WINAPI GetDescription(IAIMPString **S) = 0;
 		virtual HRESULT WINAPI GetExtList(IAIMPString **S) = 0;
-		virtual HRESULT WINAPI GetFlags(DWORD **S) = 0;
+		virtual HRESULT WINAPI GetFlags(DWORD *S) = 0;
 };
 
 /* IAIMPExtensionFileInfoProvider */
