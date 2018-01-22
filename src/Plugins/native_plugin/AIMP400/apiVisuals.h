@@ -1,12 +1,12 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v3.60 build 1455               */
+/*               v4.50 build 2000               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2015                 */
+/*                (C) 2006-2017                 */
 /*                 www.aimp.ru                  */
-/*              ICQ: 345-908-513                */
+/*                                              */
 /*            Mail: support@aimp.ru             */
 /*                                              */
 /************************************************/
@@ -69,7 +69,7 @@ class IAIMPExtensionEmbeddedVisualization: public IUnknown
 		virtual HRESULT WINAPI GetMaxDisplaySize(int *Width, int *Height) = 0;
 		virtual HRESULT WINAPI GetName(IAIMPString **S) = 0;
 		// Initialization / Finalization
-		virtual void WINAPI Initialize(int Width, int Height) = 0;
+		virtual HRESULT WINAPI Initialize(int Width, int Height) = 0;
 		virtual void WINAPI Finalize() = 0;
 		// Basic functionality
 		virtual void WINAPI Click(int X, int Y, int Button) = 0;

@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Aimp DotNet SDK")]
-[assembly: AssemblyCopyright("Copyright © Evgeniy Bogdan 2016")]
+[assembly: AssemblyCopyright("Copyright © Evgeniy Bogdan 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -40,5 +40,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("3.60.1455.*")]
+[assembly: AssemblyVersion("4.50.2042.*")]
 [assembly: NeutralResourcesLanguage("")]
