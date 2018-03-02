@@ -292,15 +292,4 @@ namespace AIMP
     private:
         void OnInternalCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2);
     };
-
-    private ref class AIMPControllerInitializer : public System::MarshalByRefObject
-    {
-    public:
-        static String^ TypeName = "";
-
-        AimpPlayer^ CreateWithStaticAllocator(ManagedAimpCore^ Ctrl, int PlgUID, int AppDomainID, bool CrossDmn/*, CentralizedEventController^ evCtrl*/)
-        {
-            return gcnew AimpPlayer(Ctrl, PlgUID, AppDomainID, CrossDmn/*, evCtrl*/);
-        }
-    };
 }
