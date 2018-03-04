@@ -31,16 +31,17 @@ public:
 
     void PluginLoadEventReaction(AIMP::SDK::PluginInformation^ sender)
     {
-        //// Each plugin should has his own managed core instance
         _managedCore = gcnew AIMP::SDK::ManagedAimpCore(_core);
+
         AIMP::AimpPlayer^ instance = nullptr;
         if (sender->PluginAppDomainInfo != nullptr)
         {
-            AIMP::AIMPControllerInitializer^ controllerInitializer = (AIMP::AIMPControllerInitializer^)sender->PluginAppDomainInfo->CreateInstanceFromAndUnwrap(System::Reflection::Assembly::GetExecutingAssembly()->Location, AIMP::AIMPControllerInitializer::TypeName);
-            instance = controllerInitializer->CreateWithStaticAllocator(_managedCore, sender->LoadedPlugin->PluginId, sender->PluginAppDomainInfo->Id, true);
+            instance = gcnew AIMP::AimpPlayer(_managedCore, sender->LoadedPlugin->PluginId, sender->PluginAppDomainInfo->Id, true);
         }
         else
+        {
             instance = gcnew AIMP::AimpPlayer(_managedCore, sender->LoadedPlugin->PluginId, System::AppDomain::CurrentDomain->Id, false);
+        }
 
         sender->Initialize(instance);
     }
