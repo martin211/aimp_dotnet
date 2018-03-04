@@ -24,10 +24,17 @@ namespace DemoPlugin
 
             _loggerForm = new LoggerForm();
 
-            _aimpPlayer.TrackChanged += (sender, args) =>
+            _aimpPlayer.Core.CoreMessage += (param1, param2) =>
+            {
+                if (param1 == AimpMessages.AimpCoreMessageType.AIMP_MSG_EVENT_PLAYABLE_FILE_INFO)
                 {
-                    pictureBox1.Image = _aimpPlayer.CurrentFileInfo.AlbumArt;
-                };
+                    var cover = _aimpPlayer.CurrentFileInfo.AlbumArt;
+                    if (cover != null)
+                    {
+                        pictureBox1.Image = cover;
+                    }
+                }
+            };
 
             Load += OnActivated;
 
