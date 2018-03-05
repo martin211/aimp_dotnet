@@ -20,7 +20,8 @@ AimpServiceFileSystems::AimpServiceFileSystems(ManagedAimpCore^ core) : AimpBase
 }
 
 generic<typename TCommand>
-AimpActionResult AimpServiceFileSystems::Get(String ^fileUri, IAimpFileSystemCommand ^%command)
+where TCommand : gcnew()
+AimpActionResult AimpServiceFileSystems::Get(String ^fileUri, TCommand %command)
 {
     IAIMPServiceFileSystems *service = NULL;
     AimpActionResult result = AimpActionResult::Fail;
@@ -64,12 +65,13 @@ AimpActionResult AimpServiceFileSystems::Get(String ^fileUri, IAimpFileSystemCom
         }
     }
 
-    command = nullptr;
+//    command = nullptr;
     return result;
 }
 
 generic<typename TCommand>
-AimpActionResult AimpServiceFileSystems::GetDefault(IAimpFileSystemCommand ^%command)
+where TCommand : gcnew()
+AimpActionResult AimpServiceFileSystems::GetDefault(TCommand %command)
 {
     IAIMPServiceFileSystems *service = nullptr;
     AimpActionResult result = AimpActionResult::Fail;
@@ -80,15 +82,18 @@ AimpActionResult AimpServiceFileSystems::GetDefault(IAimpFileSystemCommand ^%com
         {
             if (service != nullptr)
             {
-                IAimpFileSystemCommandFileInfo^ fileInfoCommand = dynamic_cast<IAimpFileSystemCommandFileInfo^>(command);
-                if (fileInfoCommand != nullptr)
-                {
-                    IAIMPFileSystemCommandFileInfo* cmd = nullptr;
-                    if (CheckResult(service->GetDefault(IID_IAIMPFileSystemCommandFileInfo, (void**)cmd)) == AimpActionResult::Ok && cmd != nullptr)
-                    {
-                        command = gcnew AimpFileSystemCommandFileInfo(cmd);
-                    }
-                }
+				Type^ cmdType = command->GetType();
+				bool v = cmdType->IsGenericType;
+
+                //IAimpFileSystemCommandFileInfo^ fileInfoCommand = dynamic_cast<IAimpFileSystemCommandFileInfo^>(command);
+                //if (fileInfoCommand != nullptr)
+                //{
+                //    IAIMPFileSystemCommandFileInfo* cmd = nullptr;
+                //    if (CheckResult(service->GetDefault(IID_IAIMPFileSystemCommandFileInfo, (void**)cmd)) == AimpActionResult::Ok && cmd != nullptr)
+                //    {
+                //        command = gcnew AimpFileSystemCommandFileInfo(cmd);
+                //    }
+                //}
             }
         }
 
@@ -103,6 +108,6 @@ AimpActionResult AimpServiceFileSystems::GetDefault(IAimpFileSystemCommand ^%com
         }
     }
 
-    command = nullptr;
+    //command = nullptr;
     return result;
 }

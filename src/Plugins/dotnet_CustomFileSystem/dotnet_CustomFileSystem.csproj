@@ -53,6 +53,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)CopyPlugin.cmd "AIMP4.50" "$(ConfigurationName)" "$(SolutionDir)" "$(TargetName)" "$(ProjectName)" "$(OutDir)" "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>$(SolutionDir)CopyPlugin.cmd "AIMP4.51" "$(ConfigurationName)" "$(SolutionDir)" "$(TargetName)" "$(ProjectName)" "$(OutDir)" "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

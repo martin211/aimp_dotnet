@@ -39,6 +39,7 @@ namespace AIMP.SDK.CustomFileSystem
 
         public AimpActionResult GetFileAttrs(string file, out AimpFileAttributes attr)
         {
+            System.Diagnostics.Debugger.Launch();
             attr = new AimpFileAttributes();
             IAimpFileSystemCommandFileInfo command;
             if (GetCommandForDefaultFileSystem<IAimpFileSystemCommandFileInfo>(out command) == AimpActionResult.Ok)
@@ -68,7 +69,7 @@ namespace AIMP.SDK.CustomFileSystem
             where TCommand : IAimpFileSystemCommand
         {
             IAimpFileSystemCommand cmd;
-            var res = _aimpPlayer.ServiceFileSystems.GetDefault<TCommand>(out cmd);
+            var res = _aimpPlayer.ServiceFileSystems.GetDefault(out cmd);
             command = (TCommand)cmd;
             return res;
         }
