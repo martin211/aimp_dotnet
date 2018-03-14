@@ -7,6 +7,7 @@
 #include "AIMP400/apiThreading.h"
 #include "TDemoExplorerViewDataStorage.h"
 #include "IUnknownInterfaceImpl.h"
+#include "TMyMusicFileSystem.h"
 
 
 #define DBOUT( s )            \
@@ -94,8 +95,13 @@ public:
         //HRESULT res = Core->QueryInterface(IID_IAIMPServiceThreadPool, (void**)&service);
         //DBOUT("QueryInterface result " << res);
 
-        IUnknown* demo = new AimpExtensionDataStorage(Core);
-        Core->RegisterExtension(IID_IAIMPServiceMusicLibrary, demo);
+        //IUnknown* demo = new AimpExtensionDataStorage(Core);
+        //Core->RegisterExtension(IID_IAIMPServiceMusicLibrary, demo);
+
+        IUnknown* fs = (IAIMPExtensionFileSystem*)new TMyMusicFileSystem();
+
+        HRESULT res = Core->RegisterExtension(IID_IAIMPExtensionFileSystem, fs);
+        DBOUT("RegisterExtension result " << res);
 
         return S_OK;
     }
@@ -110,4 +116,34 @@ public:
     {
         
     }
+
+    void RegisterMenu(IAIMPCore* core)
+    {
+        IAIMPMenuItem* item = nullptr;
+        IAIMPMenuItem* parentItem = nullptr;
+        IAIMPServiceMenuManager *service = nullptr;
+
+        core->CreateObject(IID_IAIMPMenuItem, (void**)&item);
+        if (item != nullptr)
+        {
+            IAIMPString* id = nullptr;
+            IAIMPString* name = nullptr;
+
+            core->CreateObject(IID_IAIMPString, (void**)&id);
+            core->CreateObject(IID_IAIMPString, (void**)&name);
+
+            id->SetData(L"AIMP_DEMO_MENU", 15);
+            item->SetValueAsObject(AIMP_MENUITEM_PROPID_ID, id);
+
+            name->SetData(L"MyMusic: Add All Files", 23);
+            item->SetValueAsObject(AIMP_MENUITEM_PROPID_NAME, name);
+
+            core->QueryInterface(IID_IAIMPServiceMenuManager, (void**)&service);
+            service->GetBuiltIn(20, &parentItem);
+
+            service->
+        }
+    }
+
+    IAIMPString* GetString()
 };

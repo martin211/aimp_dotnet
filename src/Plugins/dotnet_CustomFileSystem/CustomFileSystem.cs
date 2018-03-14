@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using AIMP.SDK.FileManager;
 using AIMP.SDK.FileManager.Commands;
 using AIMP.SDK.FileManager.Extensions;
@@ -10,7 +12,10 @@ namespace AIMP.SDK.CustomFileSystem
         IAimpExtension,
         IAimpExtensionFileSystem,
         IAimpFileSystemCommandCopyToClipboard,
-        IAimpFileSystemCommandFileInfo
+        IAimpFileSystemCommandDelete,
+        IAimpFileSystemCommandDropSource,
+        IAimpFileSystemCommandFileInfo,
+        IAimpFileSystemCommandStreaming
     {
         private const string sMyScheme = "mymusic";
         public const string sMySchemePrefix = sMyScheme + @":\\";
@@ -29,7 +34,7 @@ namespace AIMP.SDK.CustomFileSystem
 
         public bool ReadOnly
         {
-            get { return false; }
+            get { return true; }
         }
 
         public AimpActionResult CopyToClipboard(IList<string> files)
@@ -42,14 +47,18 @@ namespace AIMP.SDK.CustomFileSystem
             System.Diagnostics.Debugger.Launch();
             attr = new AimpFileAttributes();
             IAimpFileSystemCommandFileInfo command;
-            if (GetCommandForDefaultFileSystem<IAimpFileSystemCommandFileInfo>(out command) == AimpActionResult.Ok)
-            {
-                AimpFileAttributes at;
-                if (command.GetFileAttrs(file, out at) == AimpActionResult.Ok)
-                {
-                    attr = at;
-                }
-            }
+            //if (GetCommandForDefaultFileSystem<IAimpFileSystemCommandFileInfo>(out command) == AimpActionResult.Ok)
+            //{
+            //    AimpFileAttributes at;
+            //    if (command.GetFileAttrs(file, out at) == AimpActionResult.Ok)
+            //    {
+            //        attr = at;
+            //    }
+            //}
+            attr.Attributes = FileAttributes.Normal;
+            attr.TimeCreation = DateTime.Now;
+            attr.TimeLastAccess = DateTime.Now;
+            attr.TimeLastWrite = DateTime.Now;
 
             return AimpActionResult.Ok;
         }
@@ -72,6 +81,31 @@ namespace AIMP.SDK.CustomFileSystem
             var res = _aimpPlayer.ServiceFileSystems.GetDefault(out cmd);
             command = (TCommand)cmd;
             return res;
+        }
+
+        public AimpActionResult CanProcess(string file)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AimpActionResult Process(string file)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AimpActionResult CanDelete(string fileName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AimpActionResult CreateStream(string file, IAimpStream stream)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AimpActionResult CreateStream(string fileName, FileStreamingType flags, long offset, long size, out IAimpStream stream)
+        {
+            throw new NotImplementedException();
         }
     }
 }
