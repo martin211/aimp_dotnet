@@ -9,6 +9,30 @@ class TMyMusicFileSystem :
 {
 public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionFileSystem> Base;
+    IAIMPCore* _core;
+
+    virtual HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void **Value)
+    { 
+        if (PropertyID == AIMP_FILESYSTEM_PROPID_SCHEME)
+        {
+            IAIMPString* s = nullptr;
+            _core->CreateObject(IID_IAIMPString, (void**)&s);
+            s->SetData(L"mymusic:\\", 10);
+            *Value = s;
+        }
+
+        return E_NOTIMPL; 
+    }
+
+    virtual HRESULT WINAPI GetValueAsInt32(int PropertyID, int *Value)
+    {
+        if (PropertyID == AIMP_FILESYSTEM_PROPID_READONLY)
+        {
+            *Value = 1;
+        }
+
+        return E_NOTIMPL;
+    }
 
     virtual HRESULT WINAPI CreateStream(IAIMPString* FileName, const INT64 Offset, const INT64 Size, DWORD Flags, IAIMPStream** Stream)
     {
