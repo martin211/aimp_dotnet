@@ -13,6 +13,7 @@ namespace AIMP.SDK.FileManager
 {
     public enum FileStreamingType
     {
+        None = 0,
         AIMP_SERVICE_FILESTREAMING_FLAG_CREATENEW = 1,
         AIMP_SERVICE_FILESTREAMING_FLAG_READ = 2,
         AIMP_SERVICE_FILESTREAMING_FLAG_READWRITE = 3,

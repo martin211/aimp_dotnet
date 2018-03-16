@@ -82,7 +82,7 @@ public:
             IAIMPString* str = nullptr;
             _core->CreateObject(IID_IAIMPString, (void**)&str);
             System::String^ value = arr[i];
-            pin_ptr<const WCHAR> strDate = PtrToStringChars(arr[i]);
+            pin_ptr<const WCHAR> strDate = PtrToStringChars(L"mymusic:\\\\" + value);
             str->SetData((PWCHAR)strDate, value->Length);
             list->Add(str);
         }

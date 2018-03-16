@@ -17,7 +17,7 @@ public:
         {
             IAIMPString* s = nullptr;
             _core->CreateObject(IID_IAIMPString, (void**)&s);
-            s->SetData(L"mymusic:\\", 10);
+            s->SetData(L"mymusic:\\\\", 12);
             *Value = s;
         }
 

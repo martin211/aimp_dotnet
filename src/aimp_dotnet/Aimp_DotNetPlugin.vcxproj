@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AIMPSDK\AIMP400\apiLyrics.h" />
+    <ClInclude Include="SDK\AimpStream.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpDataFilter.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpDataFilterGroup.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpMusicLibraryPlaylistPreimage.h" />
@@ -111,7 +112,6 @@
     <ClInclude Include="SDK\Action\AimpActionEvent.h" />
     <ClInclude Include="SDK\AimpObjectList.h" />
     <ClInclude Include="SDK\AimpPropertyList.h" />
-    <ClInclude Include="SDK\AimpStream.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileFormats.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileInfo.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileStreaming.h" />

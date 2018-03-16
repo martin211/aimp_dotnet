@@ -85,27 +85,49 @@ namespace AIMP.SDK.CustomFileSystem
 
         public AimpActionResult CanProcess(string file)
         {
-            throw new NotImplementedException();
+            return AimpActionResult.Ok;
         }
 
         public AimpActionResult Process(string file)
         {
-            throw new NotImplementedException();
+            return AimpActionResult.Ok;
         }
 
         public AimpActionResult CanDelete(string fileName)
         {
-            throw new NotImplementedException();
+            return AimpActionResult.Ok;
         }
 
-        public AimpActionResult CreateStream(string file, IAimpStream stream)
+        public AimpActionResult CreateStream(string fileName, FileStreamingType flags, long offset, long size, out Stream stream)
         {
-            throw new NotImplementedException();
+            stream = null;
+
+            var file = fileName.Replace(sMySchemePrefix, string.Empty);
+            using (var fs = new FileStream(file, FileMode.Open))
+            {
+                var ms = new MemoryStream();
+                fs.CopyTo(ms);
+
+                stream = ms;
+
+                return AimpActionResult.Ok;
+            }
         }
 
-        public AimpActionResult CreateStream(string fileName, FileStreamingType flags, long offset, long size, out IAimpStream stream)
+        public AimpActionResult CreateStream(string file, out Stream stream)
         {
-            throw new NotImplementedException();
+            stream = null;
+
+            var fileName = file.Replace(sMySchemePrefix, string.Empty);
+            using (var fs = new FileStream(fileName, FileMode.Open))
+            {
+                var ms = new MemoryStream();
+                fs.CopyTo(ms);
+
+                stream = ms;
+
+                return AimpActionResult.Ok;
+            }
         }
     }
 }
