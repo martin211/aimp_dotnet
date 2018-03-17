@@ -21,14 +21,14 @@ InternalAimpFileSystemCommandDropSource::InternalAimpFileSystemCommandDropSource
 
 HRESULT WINAPI InternalAimpFileSystemCommandDropSource::CreateStream(IAIMPString* FileName, IAIMPStream** Stream)
 {
-    AimpStream^ aimpStream;
-    AimpActionResult result = _instance->CreateStream(AimpConverter::ToManagedString(FileName), aimpStream);
-    if (result == AimpActionResult::Ok)
-    {
-        *Stream = aimpStream->InternalAimpObject;
-    }
+    //System::IO::Stream^ stream = nullptr;
+    //AimpActionResult result = _instance->CreateStream(AimpConverter::ToManagedString(FileName), &stream);
+    //if (result == AimpActionResult::Ok)
+    //{
+    //    *Stream = aimpStream->InternalAimpObject;
+    //}
 
-    return (HRESULT)result;
+    return (HRESULT)S_OK;
 }
 
 ULONG WINAPI InternalAimpFileSystemCommandDropSource::AddRef(void)

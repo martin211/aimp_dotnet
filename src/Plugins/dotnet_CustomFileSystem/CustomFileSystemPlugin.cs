@@ -22,8 +22,6 @@ namespace AIMP.SDK.CustomFileSystem
             Player.Core.RegisterExtension(fileSystem);
         }
 
-
-
         private void Item_OnExecute(object sender, System.EventArgs e)
         {
             var dir = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);

@@ -93,11 +93,16 @@
     <ClInclude Include="AimpSDK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TMyMusicFileSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="AIMP_Exports.def">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="gulpfile.js" />
+    <None Include="package.json" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AimpDotnetPlugin.cpp">
