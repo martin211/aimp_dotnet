@@ -98,20 +98,29 @@ namespace AIMP.SDK.CustomFileSystem
             return AimpActionResult.Ok;
         }
 
-        public AimpActionResult CreateStream(string fileName, FileStreamingType flags, long offset, long size, out Stream stream)
+        public IAimpStream CreateStream(string fileName, FileStreamingType flags, long offset, long size)
         {
-            stream = null;
-
             var file = fileName.Replace(sMySchemePrefix, string.Empty);
-            using (var fs = new FileStream(file, FileMode.Open))
+
+            if (!File.Exists(file))
             {
-                var ms = new MemoryStream();
-                fs.CopyTo(ms);
-
-                stream = ms;
-
-                return AimpActionResult.Ok;
+                return null;
             }
+
+            if (flags.HasFlag(FileStreamingType.AIMP_SERVICE_FILESTREAMING_FLAG_READ))
+            {
+                using (var fs = new FileStream(file, FileMode.Open))
+                {
+                    size = size == -1 ? fs.Length : size;
+                    var stream = _aimpPlayer.Core.CreateStream();
+                    byte[] buffer = new byte[size];
+                    fs.Read(buffer, (int)offset, buffer.Length);
+                    stream.Write(buffer, buffer.Length, out var written);
+                    return stream;
+                }
+            }
+
+            return null;
         }
 
         public AimpActionResult CreateStream(string file, out Stream stream)

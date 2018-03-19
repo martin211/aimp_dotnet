@@ -30,11 +30,11 @@ HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileAttrs(IAIMPString* 
     if (service != nullptr)
     {
         IAIMPFileSystemCommandFileInfo* cmd = nullptr;
-        AimpActionResult res = Utils::CheckResult(service->GetDefault(IID_IAIMPFileSystemCommandFileInfo, (void**)&cmd));
-        if (res == AimpActionResult::Ok && cmd != nullptr)
-        {
+        //AimpActionResult res = Utils::CheckResult(service->GetDefault(IID_IAIMPFileSystemCommandFileInfo, (void**)&cmd));
+        //if (res == AimpActionResult::Ok && cmd != nullptr)
+        //{
 
-        }
+        //}
     }
 
     Attrs = new TAIMPFileAttributes();

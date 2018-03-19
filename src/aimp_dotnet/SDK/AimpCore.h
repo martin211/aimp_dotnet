@@ -111,8 +111,8 @@ namespace AIMP
 
             virtual IAimpStream^ CreateStream()
             {
-                IAIMPStream *stream = NULL;
-                if (_aimpCore->CreateStream(&stream) == AimpActionResult::Ok && stream != NULL)
+                IAIMPStream *stream = nullptr;
+                if (_aimpCore->CreateStream(&stream) == AimpActionResult::Ok && stream != nullptr)
                 {
                     return gcnew AIMP::SDK::AimpStream(stream);
                 }
