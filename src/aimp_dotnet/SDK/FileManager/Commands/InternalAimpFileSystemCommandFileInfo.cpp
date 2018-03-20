@@ -23,7 +23,8 @@ InternalAimpFileSystemCommandFileInfo::InternalAimpFileSystemCommandFileInfo(gcr
 HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileAttrs(IAIMPString* FileName, TAIMPFileAttributes* Attrs)
 {
     AIMP::SDK::FileManager::AimpFileAttributes attr;
-    AimpActionResult result = _instance->GetFileAttrs(AIMP::SDK::AimpConverter::ToManagedString(FileName), attr);
+
+    AimpActionResult result = _instance->GetFileAttrs(IntPtr(FileName), attr);
 
     IAIMPServiceFileSystems* service = nullptr;
     _core->QueryInterface(IID_IAIMPServiceFileSystems, (void**)&service);

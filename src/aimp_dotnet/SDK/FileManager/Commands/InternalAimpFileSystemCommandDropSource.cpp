@@ -21,13 +21,7 @@ InternalAimpFileSystemCommandDropSource::InternalAimpFileSystemCommandDropSource
 
 HRESULT WINAPI InternalAimpFileSystemCommandDropSource::CreateStream(IAIMPString* FileName, IAIMPStream** Stream)
 {
-    //System::IO::Stream^ stream = nullptr;
-    //AimpActionResult result = _instance->CreateStream(AimpConverter::ToManagedString(FileName), &stream);
-    //if (result == AimpActionResult::Ok)
-    //{
-    //    *Stream = aimpStream->InternalAimpObject;
-    //}
-
+    IAimpStream^ stream = _instance->CreateStream(IntPtr(FileName));
     return (HRESULT)S_OK;
 }
 

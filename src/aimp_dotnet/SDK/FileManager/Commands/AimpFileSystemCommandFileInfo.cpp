@@ -17,25 +17,27 @@ using namespace AIMP::SDK;
 AimpFileSystemCommandFileInfo::AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo *aimpObject) : AimpObject(aimpObject)
 {}
 
-AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(String ^file, AimpFileAttributes %attr)
+AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(IntPtr file, AimpFileAttributes %attr)
 {
-    IAIMPString *str = AimpConverter::ToAimpString(file);
-    attr = AimpFileAttributes();
+    //IAIMPString *str = AimpConverter::ToAimpString(file);
+    //attr = AimpFileAttributes();
 
-    try
-    {
-        TAIMPFileAttributes *fattr = NULL;
-        AimpActionResult result = CheckResult(_aimpObject->GetFileAttrs(str, fattr));
-        return result;
-    }
-    finally
-    {
-        if (str != NULL)
-        {
-            str->Release();
-            str = NULL;
-        }
-    }
+    //try
+    //{
+    //    TAIMPFileAttributes *fattr = NULL;
+    //    AimpActionResult result = CheckResult(_aimpObject->GetFileAttrs(str, fattr));
+    //    return result;
+    //}
+    //finally
+    //{
+    //    if (str != NULL)
+    //    {
+    //        str->Release();
+    //        str = NULL;
+    //    }
+    //}
+
+    return AimpActionResult::Fail;
 }
 
 AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(String ^file, long long %size)
