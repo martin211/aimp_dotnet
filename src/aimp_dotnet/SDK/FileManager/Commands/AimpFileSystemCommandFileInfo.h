@@ -25,7 +25,7 @@ namespace AIMP
         public:
             AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo *aimpObject);
 
-            virtual AimpActionResult GetFileAttrs(String ^file, AimpFileAttributes %attr);
+            virtual AimpActionResult GetFileAttrs(IntPtr file, AimpFileAttributes %attr);
 
             virtual AimpActionResult GetFileSize(String ^file, long long %size);
 

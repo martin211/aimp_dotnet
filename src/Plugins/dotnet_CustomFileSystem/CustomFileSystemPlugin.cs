@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using AIMP.SDK.MenuManager;
+using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.CustomFileSystem
 {
@@ -20,6 +22,13 @@ namespace AIMP.SDK.CustomFileSystem
 
             CustomFileSystem fileSystem = new CustomFileSystem(Player);
             Player.Core.RegisterExtension(fileSystem);
+
+            var g = Guid.NewGuid();
+            var ptr = Player.Core.CreateObject(ref g);
+            IAIMPString str = (IAIMPString)Marshal.GetObjectForIUnknown(ptr);
+            str.SetData("test", 4);
+            var a = str.GetLength();
+            //var s = str.GetData();
         }
 
         private void Item_OnExecute(object sender, System.EventArgs e)

@@ -119,6 +119,22 @@ namespace AIMP
 
                 return nullptr;
             }
+
+            virtual System::IntPtr CreateObject(Guid %iid)
+            {
+                IAIMPCore *core = _aimpCore->GetAimpCore();
+                IUnknown *obj;
+                array<Byte>^ guidData = iid.ToByteArray();
+                pin_ptr<Byte> data = &(guidData[0]);
+                //AimpActionResult result = Utils::CheckResult(core->CreateObject(*(_GUID *)data, (void**)&obj));
+                AimpActionResult result = Utils::CheckResult(core->CreateObject(IID_IAIMPString, (void**)&obj));
+                if (result == AimpActionResult::Ok)
+                {
+                    return IntPtr(obj);
+                }
+
+                return IntPtr::Zero;
+            }
         internal:
             virtual event AimpEventsDelegate^ InternalCoreMessage
             {

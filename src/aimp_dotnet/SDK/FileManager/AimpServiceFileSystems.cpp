@@ -23,27 +23,27 @@ generic<typename TCommand>
 where TCommand : gcnew()
 AimpActionResult AimpServiceFileSystems::Get(String ^fileUri, TCommand %command)
 {
-    IAIMPServiceFileSystems *service = NULL;
+    IAIMPServiceFileSystems *service = nullptr;
     AimpActionResult result = AimpActionResult::Fail;
-    IAIMPString *str = NULL;
+    IAIMPString *str = nullptr;
 
     try
     {
         if (GetService(IID_IAIMPServiceFileSystems, &service) == AimpActionResult::Ok)
         {
-            if (service != NULL)
+            if (service != nullptr)
             {
                 //str = AimpConverter::GetAimpString(fileUri);
 
                 //if (IAimpFileSystemCommandFileInfo::GetType() == TCommand)
                 //{
-                //    IAIMPFileSystemCommandFileInfo *cmd;
-                //    result = CheckResult(service->Get(str, IID_IAIMPFileSystemCommandFileInfo, (void**)&cmd));
+                    //IAIMPFileSystemCommandFileInfo *cmd;
+                    //result = CheckResult(service->Get(str, IID_IAIMPFileSystemCommandFileInfo, (void**)&cmd));
 
-                //    if (result == AimpActionResult::Ok)
-                //    {
-                //        command = gcnew AimpFileSystemCommandFileInfo(cmd);
-                //    }
+                    if (result == AimpActionResult::Ok)
+                    {
+                        //command = gcnew AimpFileSystemCommandFileInfo(cmd);
+                    }
                 //}
             }
         }
