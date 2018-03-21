@@ -118,32 +118,75 @@ AimpActionResult AimpString::Find(IAimpString^ str, int %index, AIMPStringFindFl
     return res;
 }
 
-//AimpActionResult AimpString::Find(String^ chars, int charsCount, int %index, AIMPStringFindFlags flags, int startFromIndex)
-//{
-//    return AimpActionResult::Ok;
-//}
-//
-//AimpActionResult AimpString::Insert(int index, IAimpString^ str)
-//{
-//    return AimpActionResult::Ok;
-//}
-//
-//AimpActionResult AimpString::Insert(int index, String^ chars, int charsCount)
-//{
-//    return AimpActionResult::Ok;
-//}
-//
-//AimpActionResult AimpString::Replace(IAimpString^ oldPattern, IAimpString^ newPattern, int flags)
-//{
-//    return AimpActionResult::Ok;
-//}
-//
-//AimpActionResult AimpString::Replace(String^ oldPatternChars, int oldPatternCharsCount, String^ newPatternChars, int newPatternCharsCount, int flags)
-//{
-//    return AimpActionResult::Ok;
-//}
-//
-//IAimpString^ AimpString::SubString(int index, int count)
-//{
-//    return nullptr;
-//}
+AimpActionResult AimpString::Find(String^ chars, int charsCount, int %index, AIMPStringFindFlags flags, int startFromIndex)
+{
+    int i = 0;
+
+    pin_ptr<const WCHAR> strData = PtrToStringChars(chars);
+
+    AimpActionResult res = CheckResult(_aimpObject->Find2(
+        (PWCHAR)strData,
+        charsCount,
+        &i,
+        (int)flags,
+        startFromIndex));
+
+    if (res == AimpActionResult::Ok)
+    {
+        index = i;
+    }
+
+    return res;
+}
+
+AimpActionResult AimpString::Insert(int index, IAimpString^ str)
+{
+    return CheckResult(_aimpObject->Insert(
+        index,
+        ((AimpString^)str)->InternalAimpObject));
+}
+
+AimpActionResult AimpString::Insert(int index, String^ chars, int charsCount)
+{
+    pin_ptr<const WCHAR> strData = PtrToStringChars(chars);
+
+    return CheckResult(_aimpObject->Insert2(
+        index,
+        (PWCHAR)strData,
+        charsCount));
+}
+
+AimpActionResult AimpString::Replace(IAimpString^ oldPattern, IAimpString^ newPattern, int flags)
+{
+    return CheckResult(_aimpObject->Replace(
+        ((AimpString^)oldPattern)->InternalAimpObject,
+        ((AimpString^)newPattern)->InternalAimpObject,
+        flags));
+}
+
+AimpActionResult AimpString::Replace(String^ oldPatternChars, int oldPatternCharsCount, String^ newPatternChars, int newPatternCharsCount, int flags)
+{
+    pin_ptr<const WCHAR> oldPattern = PtrToStringChars(oldPatternChars);
+    pin_ptr<const WCHAR> newPattern = PtrToStringChars(newPatternChars);
+
+    return CheckResult(_aimpObject->Replace2(
+        (PWCHAR)oldPattern,
+        oldPatternCharsCount,
+        (PWCHAR)newPattern,
+        newPatternCharsCount,
+        flags));
+
+    return AimpActionResult::Ok;
+}
+
+AimpActionResult AimpString::SubString(int index, int count, IAimpString ^%str)
+{
+    IAIMPString *subStr = nullptr;
+    AimpActionResult res = CheckResult(_aimpObject->SubString(index, count, &subStr));
+    if (res == AimpActionResult::Ok)
+    {
+        str = gcnew AimpString(subStr);
+    }
+
+    return res;
+}

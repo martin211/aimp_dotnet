@@ -86,16 +86,16 @@ namespace AIMP.SDK.Objects
 
         AimpActionResult Find(IAimpString str, out int index, AIMPStringFindFlags flags, int startFromIndex);
 
-        //AimpActionResult Find(string chars, int charsCount, out int index, AIMPStringFindFlags flags, int startFromIndex);
+        AimpActionResult Find(string chars, int charsCount, out int index, AIMPStringFindFlags flags, int startFromIndex);
 
-        //AimpActionResult Insert(int index, IAimpString str);
+        AimpActionResult Insert(int index, IAimpString str);
 
-        //AimpActionResult Insert(int index, string chars, int charsCount);
+        AimpActionResult Insert(int index, string chars, int charsCount);
 
-        //AimpActionResult Replace(IAimpString oldPattern, IAimpString newPattern, int flags);
+        AimpActionResult Replace(IAimpString oldPattern, IAimpString newPattern, int flags);
 
-        //AimpActionResult Replace(string oldPatternChars, int oldPatternCharsCount, string newPatternChars, int newPatternCharsCount, int flags);
+        AimpActionResult Replace(string oldPatternChars, int oldPatternCharsCount, string newPatternChars, int newPatternCharsCount, int flags);
 
-        //IAimpString SubString(int index, int count);
+        AimpActionResult SubString(int index, int count, out IAimpString str);
     }
 }

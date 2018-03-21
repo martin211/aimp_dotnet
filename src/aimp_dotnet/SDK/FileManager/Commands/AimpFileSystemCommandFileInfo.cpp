@@ -13,14 +13,15 @@
 #include "AimpFileSystemCommandFileInfo.h"
 
 using namespace AIMP::SDK;
+using namespace AIMP::SDK::Objects;
 
 AimpFileSystemCommandFileInfo::AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo *aimpObject) : AimpObject(aimpObject)
 {}
 
-AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(IntPtr file, AimpFileAttributes %attr)
+AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(IAimpString ^file, AimpFileAttributes %attr)
 {
     //IAIMPString *str = AimpConverter::ToAimpString(file);
-    //attr = AimpFileAttributes();
+    attr = AimpFileAttributes();
 
     //try
     //{
@@ -40,22 +41,22 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(IntPtr file, AimpFi
     return AimpActionResult::Fail;
 }
 
-AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(String ^file, long long %size)
+AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(IAimpString ^file, long long %size)
 {
     IAIMPString *str = NULL;
     size = 0;
 
     try
     {
-        str = AimpConverter::ToAimpString(file);
-        INT64 *fSize = 0;
-        AimpActionResult result = CheckResult(_aimpObject->GetFileSize(str, fSize));
-        if (result == AimpActionResult::Ok)
-        {
-            size = (long long)fSize;
-        }
+        //str = AimpConverter::ToAimpString(file);
+        //INT64 *fSize = 0;
+        //AimpActionResult result = CheckResult(_aimpObject->GetFileSize(str, fSize));
+        //if (result == AimpActionResult::Ok)
+        //{
+        //    size = (long long)fSize;
+        //}
 
-        return result;
+        return AimpActionResult::Ok;
     }
     finally
     {
@@ -67,13 +68,15 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(String ^file, long l
     }
 }
 
-AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(String ^file)
+AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(IAimpString ^file)
 {
     IAIMPString *str = NULL;
     try
     {
-        str = AimpConverter::ToAimpString(file);
-        return CheckResult(_aimpObject->IsFileExists(str));
+        //str = AimpConverter::ToAimpString(file);
+        //return CheckResult(_aimpObject->IsFileExists(str));
+
+        return AimpActionResult::Ok;
     }
     finally
     {

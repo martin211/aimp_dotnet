@@ -14,7 +14,7 @@ namespace AIMP.SDK.CustomFileSystem
         IAimpExtension,
         IAimpExtensionFileSystem,
         IAimpFileSystemCommandDropSource,
-        IAimpFileSystemCommandFileInfo
+        IAimpFileSystemCommandOpenFileFolder
     {
         private const string sMyScheme = "mymusic";
         public const string sMySchemePrefix = sMyScheme + @":\\";
@@ -41,14 +41,14 @@ namespace AIMP.SDK.CustomFileSystem
             return AimpActionResult.Ok;
         }
 
-        public AimpActionResult GetFileAttrs(IntPtr fileName, out AimpFileAttributes attr)
+        public AimpActionResult GetFileAttrs(IAimpString fileName, out AimpFileAttributes attr)
         {
             System.Diagnostics.Debugger.Launch();
             attr = new AimpFileAttributes();
 
-            var f = (IAimpString)Marshal.GetObjectForIUnknown(fileName);
-            var a = f.GetLength();
-            var l = f.GetData();
+            //var f = (IAimpString)Marshal.GetObjectForIUnknown(fileName);
+            //var a = f.GetLength();
+            //var l = f.GetData();
             var file = "";
 
             if (File.Exists(file))
@@ -74,10 +74,10 @@ namespace AIMP.SDK.CustomFileSystem
             return AimpActionResult.Fail;
         }
 
-        public AimpActionResult GetFileSize(string fileName, out long size)
+        public AimpActionResult GetFileSize(IAimpString fileName, out long size)
         {
             size = 0;
-            var file = GetFile(fileName);
+            var file = GetFile(fileName.GetData());
 
             if (File.Exists(file))
             {
@@ -89,9 +89,9 @@ namespace AIMP.SDK.CustomFileSystem
             return AimpActionResult.Fail;
         }
 
-        public AimpActionResult IsFileExists(string fileName)
+        public AimpActionResult IsFileExists(IAimpString fileName)
         {
-            var file = GetFile(fileName);
+            var file = GetFile(fileName.GetData());
             return File.Exists(file) ? AimpActionResult.Ok : AimpActionResult.Fail;
         }
 
@@ -152,18 +152,24 @@ namespace AIMP.SDK.CustomFileSystem
             return file.Replace(sMySchemePrefix, string.Empty);
         }
 
-        public IAimpStream CreateStream(IntPtr fileNameHeader)
+        public IAimpStream CreateStream(IAimpString fileName)
         {
             //var stringObject = AimpObjectHelper.GetObject<IAimpString>(fileNameHeader);
             //if (stringObject != null)
             //{
-            //    var fileName = stringObject.GetData();
-            //    var file = fileName.Replace(sMySchemePrefix, string.Empty);
+                var file = fileName.GetData().Replace(sMySchemePrefix, string.Empty);
 
-            //    if (File.Exists(file))
-            //    {
-
-            //    }
+                if (File.Exists(file))
+                {
+                    using (var fs = new FileStream(file, FileMode.Open))
+                    {
+                        var stream = _aimpPlayer.Core.CreateStream();
+                        byte[] buffer = new byte[file.Length];
+                        fs.Read(buffer, 0, buffer.Length);
+                        stream.Write(buffer, buffer.Length, out var written);
+                        return stream;
+                }
+                }
             //}
 
             return null;

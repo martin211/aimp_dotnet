@@ -8,7 +8,7 @@ using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.CustomFileSystem
 {
-    [AimpPlugin("dotnet_CustomFileSystem", "AIMP DOTNET", "1", AimpPluginType = AimpPluginType.Addons)]
+    [AimpPlugin("dotnet_CustomFileSystem", "AIMP DOTNET", "1", AimpPluginType = AimpPluginType.Addons, RequireAppDomain = true)]
     public class CustomFileSystemPlugin : AimpPlugin
     {
         public override void Initialize()
@@ -21,21 +21,24 @@ namespace AIMP.SDK.CustomFileSystem
             Player.MenuManager.Add(item);
 
             CustomFileSystem fileSystem = new CustomFileSystem(Player);
+            ExtensionFileInfo fileInfo = new ExtensionFileInfo();
+
             Player.Core.RegisterExtension(fileSystem);
+            Player.Core.RegisterExtension(fileInfo);
 
-            var g = Guid.NewGuid();
-            var ptr = Player.Core.CreateObject(ref g);
-            IAimpString str = (IAimpString)Marshal.GetObjectForIUnknown(ptr);
-            str.SetData("test", 4);
-            var a = str.GetLength();
-            try
-            {
-                var s = str.GetData();
-            }
-            catch (Exception e)
-            {
+            //var g = Guid.NewGuid();
+            //var ptr = Player.Core.CreateObject(ref g);
+            //IAimpString str = (IAimpString)Marshal.GetObjectForIUnknown(ptr);
+            //str.SetData("test", 4);
+            //var a = str.GetLength();
+            //try
+            //{
+            //    var s = str.GetData();
+            //}
+            //catch (Exception e)
+            //{
 
-            }
+            //}
         }
 
         private void Item_OnExecute(object sender, System.EventArgs e)

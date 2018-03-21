@@ -9,16 +9,30 @@
 // 
 // ----------------------------------------------------
 
-using System;
+using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.FileManager.Commands
 {
     public interface IAimpFileSystemCommandFileInfo : IAimpFileSystemCommand
     {
-        AimpActionResult GetFileAttrs(IntPtr fileName, out AimpFileAttributes attr);
+        /// <summary>
+        /// Gets the file attributes.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="attr">The attribute.</param>
+        AimpActionResult GetFileAttrs(IAimpString fileName, out AimpFileAttributes attr);
 
-        AimpActionResult GetFileSize(string file, out long size);
+        /// <summary>
+        /// Gets the size of the file.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <param name="size">The size.</param>
+        AimpActionResult GetFileSize(IAimpString file, out long size);
 
-        AimpActionResult IsFileExists(string file);
+        /// <summary>
+        /// Determines whether [is file exists] [the specified file].
+        /// </summary>
+        /// <param name="file">The file.</param>
+        AimpActionResult IsFileExists(IAimpString file);
     }
 }

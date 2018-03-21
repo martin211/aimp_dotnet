@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="CustomFileSystem.cs" />
     <Compile Include="CustomFileSystemPlugin.cs" />
+    <Compile Include="ExtensionFileInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

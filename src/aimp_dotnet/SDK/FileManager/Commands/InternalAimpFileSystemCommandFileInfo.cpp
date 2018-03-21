@@ -11,6 +11,7 @@
 
 #include "Stdafx.h"
 #include "InternalAimpFileSystemCommandFileInfo.h"
+#include "../../AimpString.h"
 
 using namespace AIMP::SDK;
 
@@ -24,7 +25,7 @@ HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileAttrs(IAIMPString* 
 {
     AIMP::SDK::FileManager::AimpFileAttributes attr;
 
-    AimpActionResult result = _instance->GetFileAttrs(IntPtr(FileName), attr);
+    AimpActionResult result = _instance->GetFileAttrs(gcnew AimpString(FileName), attr);
 
     IAIMPServiceFileSystems* service = nullptr;
     _core->QueryInterface(IID_IAIMPServiceFileSystems, (void**)&service);
@@ -50,14 +51,14 @@ HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileAttrs(IAIMPString* 
 HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileSize(IAIMPString* FileName, INT64* Size)
 {
     long long size = 0;
-    AimpActionResult result = _instance->GetFileSize(AIMP::SDK::AimpConverter::ToManagedString(FileName), size);
+    AimpActionResult result = _instance->GetFileSize(gcnew AimpString(FileName), size);
     *Size = size;
     return (HRESULT)result;
 }
 
 HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::IsFileExists(IAIMPString* FileName)
 {
-    return (HRESULT)_instance->IsFileExists(AIMP::SDK::AimpConverter::ToManagedString(FileName));
+    return (HRESULT)_instance->IsFileExists(gcnew AimpString(FileName));
 }
 
 ULONG WINAPI InternalAimpFileSystemCommandFileInfo::AddRef(void)

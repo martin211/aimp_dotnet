@@ -53,18 +53,17 @@ namespace AIMP
 
             virtual AimpActionResult Find(IAimpString^ str, int %index, AIMPStringFindFlags flags, int startFromIndex);
 
-            //AimpActionResult Find(String^ chars, int charsCount, int %index, AIMPStringFindFlags flags, int startFromIndex);
+            virtual AimpActionResult Find(String^ chars, int charsCount, int %index, AIMPStringFindFlags flags, int startFromIndex);
 
-            //AimpActionResult Insert(int index, IAimpString^ str);
+            virtual AimpActionResult Insert(int index, IAimpString^ str);
 
-            //AimpActionResult Insert(int index, String^ chars, int charsCount);
+            virtual AimpActionResult Insert(int index, String^ chars, int charsCount);
 
-            //AimpActionResult Replace(IAimpString^ oldPattern, IAimpString^ newPattern, int flags);
+            virtual AimpActionResult Replace(IAimpString^ oldPattern, IAimpString^ newPattern, int flags);
 
-            //AimpActionResult Replace(String^ oldPatternChars, int oldPatternCharsCount, String^ newPatternChars, int newPatternCharsCount, int flags);
+            virtual AimpActionResult Replace(String^ oldPatternChars, int oldPatternCharsCount, String^ newPatternChars, int newPatternCharsCount, int flags);
 
-            //IAimpString^ SubString(int index, int count);
+            virtual AimpActionResult SubString(int index, int count, IAimpString ^%str);
         };
     }
 }
-

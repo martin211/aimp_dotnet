@@ -9,8 +9,7 @@
 // 
 // ----------------------------------------------------
 
-using System;
-using System.IO;
+using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.FileManager.Commands
 {
@@ -20,6 +19,6 @@ namespace AIMP.SDK.FileManager.Commands
         /// 
         /// </summary>
         /// <param name="fileName"></param>
-        IAimpStream CreateStream(IntPtr fileNameHeader);
+        IAimpStream CreateStream(IAimpString fileName);
     }
 }

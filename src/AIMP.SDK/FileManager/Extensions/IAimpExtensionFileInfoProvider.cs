@@ -10,6 +10,7 @@
 // ----------------------------------------------------
 
 using System.IO;
+using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.FileManager.Extensions
 {
@@ -27,7 +28,7 @@ namespace AIMP.SDK.FileManager.Extensions
         /// <param name="fileUri">The virtual file name.</param>
         /// <param name="fileInfo">Out. File information/</param>
         /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetFileInfo(string fileUri, ref IAimpFileInfo fileInfo);
+        AimpActionResult GetFileInfo(IAimpString fileUri, ref IAimpFileInfo fileInfo);
 
         /// <summary>
         /// Returns the file information. This method slowes then get info by file name.

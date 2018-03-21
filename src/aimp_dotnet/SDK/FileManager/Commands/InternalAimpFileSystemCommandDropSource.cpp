@@ -11,6 +11,8 @@
 
 #include "Stdafx.h"
 #include "InternalAimpFileSystemCommandDropSource.h"
+#include "../../../SDK/AimpString.h"
+#include "../../../SDK/AimpStream.h"
 
 using namespace AIMP::SDK;
 
@@ -21,7 +23,12 @@ InternalAimpFileSystemCommandDropSource::InternalAimpFileSystemCommandDropSource
 
 HRESULT WINAPI InternalAimpFileSystemCommandDropSource::CreateStream(IAIMPString* FileName, IAIMPStream** Stream)
 {
-    IAimpStream^ stream = _instance->CreateStream(IntPtr(FileName));
+    IAimpStream^ stream = _instance->CreateStream(gcnew AimpString(FileName));
+    if (stream != nullptr)
+    {
+        *Stream = ((AimpStream^)stream)->InternalAimpObject;
+        return S_OK;
+    }
     return (HRESULT)S_OK;
 }
 
