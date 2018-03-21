@@ -17,6 +17,7 @@
     <ClCompile Include="SDK\Action\AimpActionEvent.cpp" />
     <ClCompile Include="SDK\AimpObjectList.cpp" />
     <ClCompile Include="SDK\AimpStream.cpp" />
+    <ClCompile Include="SDK\AimpString.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpAlbumArtManager.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.cpp" />
     <ClCompile Include="SDK\Configuration\AimpConfigurationManager.cpp" />
@@ -104,6 +105,7 @@
   <ItemGroup>
     <ClInclude Include="AIMPSDK\AIMP400\apiLyrics.h" />
     <ClInclude Include="SDK\AimpStream.h" />
+    <ClInclude Include="SDK\AimpString.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpDataFilter.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpDataFilterGroup.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpMusicLibraryPlaylistPreimage.h" />

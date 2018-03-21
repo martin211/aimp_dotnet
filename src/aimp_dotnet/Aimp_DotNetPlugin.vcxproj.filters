@@ -372,6 +372,9 @@
     <ClCompile Include="SDK\AimpStream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\AimpString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -735,6 +738,9 @@
       <Filter>Header Files\SDK\MusicLibrary</Filter>
     </ClInclude>
     <ClInclude Include="SDK\AimpStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AimpString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

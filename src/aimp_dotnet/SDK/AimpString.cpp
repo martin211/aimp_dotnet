@@ -1,0 +1,149 @@
+#include "Stdafx.h"
+#include "AimpString.h"
+
+using namespace AIMP::SDK;
+
+AimpString::AimpString(IAIMPString *aimpObject)
+{
+    _aimpObject = aimpObject;
+}
+
+AimpActionResult AimpString::GetChar(int index, wchar_t %c)
+{
+    WCHAR* chr = nullptr;
+    AimpActionResult result = CheckResult(_aimpObject->GetChar(index, chr));
+    return result;
+}
+
+String^ AimpString::GetData()
+{
+    return gcnew String(_aimpObject->GetData());
+}
+
+int AimpString::GetLength()
+{
+    return _aimpObject->GetLength();
+}
+
+int AimpString::GetHashCode()
+{
+    return _aimpObject->GetHashCode();
+}
+
+AimpActionResult AimpString::SetChar(int index, wchar_t c)
+{
+    return CheckResult(_aimpObject->SetChar(index, c));
+}
+
+AimpActionResult AimpString::SetData(String ^chars, int charsCount)
+{
+    pin_ptr<const WCHAR> strData = PtrToStringChars(chars);
+    return CheckResult(_aimpObject->SetData((PWCHAR)strData, charsCount));
+}
+
+AimpActionResult AimpString::Add(IAimpString ^str)
+{
+    return CheckResult(_aimpObject->Add(((AimpString^)str)->InternalAimpObject));
+}
+
+AimpActionResult AimpString::Add(String ^chars, int charsCount)
+{
+    pin_ptr<const WCHAR> strData = PtrToStringChars(chars);
+    return CheckResult(_aimpObject->Add2((PWCHAR)strData, charsCount));
+}
+
+AimpActionResult AimpString::ChangeCase(AIMPStringCase mode)
+{
+    return CheckResult(_aimpObject->ChangeCase((int)mode));
+}
+
+AimpActionResult AimpString::Clone(IAimpString ^%str)
+{
+    IAIMPString *s = nullptr;
+    AimpActionResult result = CheckResult(_aimpObject->Clone(&s));
+    if (result == AimpActionResult::Ok && s != nullptr)
+    {
+        str = gcnew AimpString(s);
+    }
+
+    return result;
+}
+
+AimpActionResult AimpString::Compare(IAimpString^ str, int %compareResult, bool ignoreCase)
+{
+    int res = 0;
+    AimpActionResult result = CheckResult(_aimpObject->Compare(((AimpString^)str)->InternalAimpObject, &res, ignoreCase));
+    if (result == AimpActionResult::Ok)
+    {
+        compareResult = res;
+    }
+
+    return result;
+}
+
+AimpActionResult AimpString::Compare(String^ chars, int charsCount, int %compareResult, bool ignoreCase)
+{
+    int res = 0;
+    pin_ptr<const WCHAR> strData = PtrToStringChars(chars);
+
+    AimpActionResult result = CheckResult(_aimpObject->Compare2((PWCHAR)strData, charsCount, &res, ignoreCase));
+    if (result == AimpActionResult::Ok)
+    {
+        compareResult = res;
+    }
+
+    return result;
+}
+
+AimpActionResult AimpString::Delete(int index, int count)
+{
+    return CheckResult(_aimpObject->Delete(index, count));
+}
+
+AimpActionResult AimpString::Find(IAimpString^ str, int %index, AIMPStringFindFlags flags, int startFromIndex)
+{
+    int i = 0;
+
+    AimpActionResult res = CheckResult(_aimpObject->Find(
+        ((AimpString^)str)->InternalAimpObject,
+        &i,
+        (int)flags,
+        startFromIndex));
+
+    if (res == AimpActionResult::Ok)
+    {
+        index = i;
+    }
+
+    return res;
+}
+
+//AimpActionResult AimpString::Find(String^ chars, int charsCount, int %index, AIMPStringFindFlags flags, int startFromIndex)
+//{
+//    return AimpActionResult::Ok;
+//}
+//
+//AimpActionResult AimpString::Insert(int index, IAimpString^ str)
+//{
+//    return AimpActionResult::Ok;
+//}
+//
+//AimpActionResult AimpString::Insert(int index, String^ chars, int charsCount)
+//{
+//    return AimpActionResult::Ok;
+//}
+//
+//AimpActionResult AimpString::Replace(IAimpString^ oldPattern, IAimpString^ newPattern, int flags)
+//{
+//    return AimpActionResult::Ok;
+//}
+//
+//AimpActionResult AimpString::Replace(String^ oldPatternChars, int oldPatternCharsCount, String^ newPatternChars, int newPatternCharsCount, int flags)
+//{
+//    return AimpActionResult::Ok;
+//}
+//
+//IAimpString^ AimpString::SubString(int index, int count)
+//{
+//    return nullptr;
+//}
