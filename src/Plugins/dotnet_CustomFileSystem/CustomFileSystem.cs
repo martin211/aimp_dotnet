@@ -46,9 +46,10 @@ namespace AIMP.SDK.CustomFileSystem
             System.Diagnostics.Debugger.Launch();
             attr = new AimpFileAttributes();
 
-            var f = (IAIMPString)Marshal.GetObjectForIUnknown(fileName);
+            var f = (IAimpString)Marshal.GetObjectForIUnknown(fileName);
             var a = f.GetLength();
-            var file = f.GetData();
+            var l = f.GetData();
+            var file = "";
 
             if (File.Exists(file))
             {

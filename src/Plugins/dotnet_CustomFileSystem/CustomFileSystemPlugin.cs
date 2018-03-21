@@ -25,10 +25,17 @@ namespace AIMP.SDK.CustomFileSystem
 
             var g = Guid.NewGuid();
             var ptr = Player.Core.CreateObject(ref g);
-            IAIMPString str = (IAIMPString)Marshal.GetObjectForIUnknown(ptr);
+            IAimpString str = (IAimpString)Marshal.GetObjectForIUnknown(ptr);
             str.SetData("test", 4);
             var a = str.GetLength();
-            //var s = str.GetData();
+            try
+            {
+                var s = str.GetData();
+            }
+            catch (Exception e)
+            {
+
+            }
         }
 
         private void Item_OnExecute(object sender, System.EventArgs e)

@@ -15,7 +15,7 @@ namespace AIMP.SDK
         {
             Type type = typeof(TObject);
             IntPtr header = IntPtr.Zero;
-            if (type == typeof(IAIMPString))
+            if (type == typeof(IAimpString))
             {
                 var id = new Guid(AimpObject.AimpString);
                 header = core.CreateObject(ref id);
