@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e109fdff-2971-492e-a445-22a25c06cd49" name="Default" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="MyExtensionFileInfoProvider.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Plugins/dotnet_musiclibrary/MyExtensionFileInfoProvider.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="30" selection-start-line="30" selection-end-line="30" />
+              <folding>
+                <marker date="1521712039167" expanded="false" signature="6:123" ph="..." />
+                <marker date="1521712039167" expanded="true" signature="159:857" ph="{...}" />
+                <marker date="1521712039167" expanded="true" signature="255:855" ph="{...}" />
+                <marker date="1521712039167" expanded="true" signature="349:478" ph="{...}" />
+                <marker date="1521712039167" expanded="true" signature="572:670" ph="{...}" />
+                <marker date="1521712039167" expanded="true" signature="758:849" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExtensionFileInfo.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/ExtensionFileInfo.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="6" column="1" lean-forward="true" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+              <folding>
+                <marker date="1521712424259" expanded="false" signature="6:107" ph="..." />
+                <marker date="1521712424259" expanded="true" signature="144:764" ph="{...}" />
+                <marker date="1521712424259" expanded="true" signature="230:762" ph="{...}" />
+                <marker date="1521712424259" expanded="true" signature="329:592" ph="{...}" />
+                <marker date="1521712424259" expanded="true" signature="472:541" ph="{...}" />
+                <marker date="1521712424259" expanded="true" signature="680:756" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InternalAimpFileSystemCommandDropSource.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/aimp_dotnet/SDK/FileManager/Commands/InternalAimpFileSystemCommandDropSource.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="25" column="1" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CustomFileSystem.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/CustomFileSystem.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-982">
+              <caret line="33" lean-forward="true" selection-start-line="32" selection-start-column="9" selection-end-line="33" />
+              <folding>
+                <marker date="1521718044911" expanded="false" signature="6:253" ph="..." />
+                <marker date="1521718044911" expanded="true" signature="290:5764" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="514:5762" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="746:804" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="834:892" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="922:975" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="1045:1105" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="1202:2291" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="1321:1455" ph="/* var f = (IAimpString)Marshal.GetObjectForIUnknown(fileName); ... */" />
+                <marker date="1521718044911" expanded="true" signature="1518:1846" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="2015:2238" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="2042:2224" ph="/* AimpFileAttributes at; ... */" />
+                <marker date="1521718044911" expanded="true" signature="2373:2697" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="2493:2644" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="2765:2921" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="3071:3266" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="3327:3473" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="3531:3677" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="3737:3883" ph="{...}" />
+                <marker date="1521718044911" expanded="false" signature="3990:4773" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="4109:4166" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="4254:4737" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="4337:4723" ph="{...}" />
+                <marker date="1521718044911" expanded="false" signature="4817:4901" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="4964:5756" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="4987:5120" ph="/* var stringObject = AimpObjectHelper.GetObject&lt;IAimpString&gt;(fileNameHeader); ... */" />
+                <marker date="1521718044911" expanded="true" signature="5246:5704" ph="{...}" />
+                <marker date="1521718044911" expanded="true" signature="5337:5686" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CustomFileSystemPlugin.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/CustomFileSystemPlugin.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <marker date="1521707171130" expanded="false" signature="6:173" ph="..." />
+                <marker date="1521707171130" expanded="true" signature="210:2535" ph="{...}" />
+                <marker date="1521707171130" expanded="true" signature="414:2533" ph="{...}" />
+                <marker date="1521707171130" expanded="true" signature="462:1592" ph="{...}" />
+                <marker date="1521707171130" expanded="true" signature="1090:1171" ph="{...}" />
+                <marker date="1521707171130" expanded="true" signature="1185:1582" ph="/* var g = Guid.NewGuid(); ... */" />
+                <marker date="1521707171130" expanded="true" signature="1664:2454" ph="{...}" />
+                <marker date="1521707171130" expanded="true" signature="2141:2444" ph="{...}" />
+                <marker date="1521707171130" expanded="true" signature="2258:2430" ph="{...}" />
+                <marker date="1521707171130" expanded="true" signature="2494:2527" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InternalAimpExtensionFileInfoProvider.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/aimp_dotnet/SDK/FileManager/InternalAimpExtensionFileInfoProvider.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AimpFileInfo.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/aimp_dotnet/SDK/FileManager/AimpFileInfo.h">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="AimpObject.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/aimp_dotnet/SDK/AimpObject.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="645">
+              <caret line="43" column="44" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/aimp_dotnet/SDK/FileManager/AimpFileInfo.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2088B222-B686-4560-A151-B6C60D3B208C/64/a79f40a7/_003CModule_003E.cs" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/CustomFileSystemPlugin.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/aimp_dotnet/SDK/FileManager/InternalAimpExtensionFileInfoProvider.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/aimp_dotnet/SDK/FileManager/Commands/InternalAimpFileSystemCommandDropSource.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/dotnet_musiclibrary/MyExtensionFileInfoProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/aimp_dotnet/SDK/AimpObject.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/CustomFileSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/ExtensionFileInfo.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Plugins/dotnet_musiclibrary/MyExtensionFileInfoProvider.cs" />
+        <option value="$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/ExtensionFileInfo.cs" />
+        <option value="$PROJECT_DIR$/aimp_dotnet/SDK/FileManager/InternalAimpExtensionFileInfoProvider.cpp" />
+        <option value="$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/CustomFileSystem.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <gulpfiles>
+      <GulpfileState>
+        <gulpfile-path>$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/gulpfile.js</gulpfile-path>
+        <tasks>
+          <GulpTaskState>
+            <dependencies>
+              <dependency value="clean" />
+              <dependency value="copy" />
+            </dependencies>
+            <task-name>default</task-name>
+          </GulpTaskState>
+          <GulpTaskState>
+            <dependencies>
+              <dependency value="copy:core" />
+              <dependency value="copy:plugin" />
+              <dependency value="copy:langs" />
+            </dependencies>
+            <task-name>copy</task-name>
+          </GulpTaskState>
+          <GulpTaskState>
+            <task-name>clean</task-name>
+          </GulpTaskState>
+          <GulpTaskState>
+            <task-name>copy:core</task-name>
+          </GulpTaskState>
+          <GulpTaskState>
+            <task-name>copy:plugin</task-name>
+          </GulpTaskState>
+          <GulpTaskState>
+            <task-name>copy:langs</task-name>
+          </GulpTaskState>
+        </tasks>
+      </GulpfileState>
+    </gulpfiles>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/node_modules" />
+    <handled-path value="$PROJECT_DIR$/Plugins/native_plugin/node_modules" />
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="930" />
+    <option name="y" value="3" />
+    <option name="width" value="988" />
+    <option name="height" value="1000" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="SolutionExplorer" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="SolutionExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="aimp_dotnet (11 projects)" type="977d5f41:SolutionExplorerNodeRider" />
+            </path>
+            <path>
+              <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="aimp_dotnet (11 projects)" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="Plugins" type="977d5f41:SolutionExplorerNodeRider" />
+            </path>
+            <path>
+              <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="aimp_dotnet (11 projects)" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="Plugins" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="dotnet_CustomFileSystem" type="977d5f41:SolutionExplorerNodeRider" />
+            </path>
+            <path>
+              <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="aimp_dotnet (11 projects)" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="Aimp_DotNetPlugin" type="977d5f41:SolutionExplorerNodeRider" />
+            </path>
+            <path>
+              <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="aimp_dotnet (11 projects)" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="Aimp_DotNetPlugin" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="SDK" type="977d5f41:SolutionExplorerNodeRider" />
+            </path>
+            <path>
+              <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="aimp_dotnet (11 projects)" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="Aimp_DotNetPlugin" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="SDK" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="FileManager" type="977d5f41:SolutionExplorerNodeRider" />
+            </path>
+            <path>
+              <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="aimp_dotnet (11 projects)" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="Aimp_DotNetPlugin" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="SDK" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="FileManager" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="Commands" type="977d5f41:SolutionExplorerNodeRider" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-file-system" value="false" />
+        <option name="show-all-items" value="false" />
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js.buildTools.gulp.gulp_package_dir" value="$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/node_modules/gulp" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../AIMP4.51/AIMP.exe" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Other File Types" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected=".NET Executable.Unnamed">
+    <configuration name="Default" type="DotNetProject" factoryName=".NET Project">
+      <option name="EXE_PATH" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="PROJECT_PATH" value="" />
+      <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
+      <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
+      <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
+      <option name="PROJECT_KIND" value="None" />
+      <option name="PROJECT_TFM" value="" />
+      <method>
+        <option name="GulpBeforeRunTask" enabled="true">
+          <node-interpreter>project</node-interpreter>
+          <node-options />
+          <gulpfile>$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/gulpfile.js</gulpfile>
+          <tasks>
+            <task>copy</task>
+          </tasks>
+          <arguments />
+          <envs />
+        </option>
+      </method>
+    </configuration>
+    <configuration name="Unnamed" type="RunExe" factoryName=".NET Executable">
+      <option name="EXE_PATH" value="C:\Users\evgeniy.bogdan\Documents\code\AIMP4.51\AIMP.exe" />
+      <option name="PROGRAM_PARAMETERS" value="/DEBUG" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\evgeniy.bogdan\Documents\code\AIMP4.51" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <method>
+        <option name="Build Solution" enabled="true" />
+        <option name="GulpBeforeRunTask" enabled="true">
+          <node-interpreter>project</node-interpreter>
+          <node-options />
+          <gulpfile>$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/gulpfile.js</gulpfile>
+          <tasks>
+            <task>copy</task>
+          </tasks>
+          <arguments />
+          <envs />
+        </option>
+      </method>
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+    </configuration>
+    <configuration name="copy" type="js.build_tools.gulp" factoryName="Gulp.js" temporary="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile>$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/gulpfile.js</gulpfile>
+      <tasks>
+        <task>copy</task>
+      </tasks>
+      <arguments />
+      <envs />
+    </configuration>
+    <list>
+      <item itemvalue=".NET Executable.Unnamed" />
+      <item itemvalue=".NET Project.Default" />
+      <item itemvalue="Gulp.js.copy" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gulp.js.copy" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e109fdff-2971-492e-a445-22a25c06cd49" name="Default" comment="" />
+      <created>1521711873723</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1521711873723</updated>
+      <workItem from="1521711876248" duration="983000" />
+      <workItem from="1521712899464" duration="4141000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="5124000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="930" y="3" width="988" height="1000" extended-state="0" />
+    <layout>
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Errors In Solution" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Unit Tests" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32881355" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3299435" />
+      <window_info anchor="bottom" id="NuGet" order="7" />
+      <window_info id="Gulp" sideWeight="0.24180791" side_tool="true" visible="true" weight="0.28497943" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.75819206" visible="true" weight="0.28497943" />
+      <window_info anchor="bottom" id="Xaml Preview" order="7" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.32943678" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39887005" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Plugins/dotnet_musiclibrary/MyExtensionFileInfoProvider.cs</url>
+          <line>11</line>
+          <properties documentPath="$PROJECT_DIR$/Plugins/dotnet_musiclibrary/MyExtensionFileInfoProvider.cs" initialLine="11">
+            <startOffsets>
+              <startOffset value="358" />
+            </startOffsets>
+            <endOffsets>
+              <endOffset value="359" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/CustomFileSystem.cs</url>
+          <line>156</line>
+          <properties documentPath="$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/CustomFileSystem.cs" initialLine="156">
+            <startOffsets>
+              <startOffset value="4973" />
+            </startOffsets>
+            <endOffsets>
+              <endOffset value="4974" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="3" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Plugins/dotnet_musiclibrary/MyExtensionFileInfoProvider.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
+          <folding>
+            <marker date="1521712039167" expanded="false" signature="6:123" ph="..." />
+            <marker date="1521712039167" expanded="true" signature="159:857" ph="{...}" />
+            <marker date="1521712039167" expanded="true" signature="255:855" ph="{...}" />
+            <marker date="1521712039167" expanded="true" signature="349:478" ph="{...}" />
+            <marker date="1521712039167" expanded="true" signature="572:670" ph="{...}" />
+            <marker date="1521712039167" expanded="true" signature="758:849" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/ExtensionFileInfo.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="25" column="1" lean-forward="true" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
+          <folding>
+            <marker date="1521712424259" expanded="false" signature="6:107" ph="..." />
+            <marker date="1521712424259" expanded="true" signature="144:764" ph="{...}" />
+            <marker date="1521712424259" expanded="true" signature="230:762" ph="{...}" />
+            <marker date="1521712424259" expanded="true" signature="329:592" ph="{...}" />
+            <marker date="1521712424259" expanded="true" signature="472:541" ph="{...}" />
+            <marker date="1521712424259" expanded="true" signature="680:756" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/gulpfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2088B222-B686-4560-A151-B6C60D3B208C/64/a79f40a7/_003CModule_003E.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="6488" column="4" selection-start-line="6488" selection-start-column="4" selection-end-line="6488" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aimp_dotnet/SDK/FileManager/AimpFileInfo.h">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aimp_dotnet/SDK/AimpObject.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="43" column="44" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aimp_dotnet/SDK/FileManager/InternalAimpExtensionFileInfoProvider.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Plugins/dotnet_musiclibrary/MyExtensionFileInfoProvider.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+          <folding>
+            <marker date="1521712039167" expanded="false" signature="6:123" ph="..." />
+            <marker date="1521712039167" expanded="true" signature="159:857" ph="{...}" />
+            <marker date="1521712039167" expanded="true" signature="255:855" ph="{...}" />
+            <marker date="1521712039167" expanded="true" signature="349:478" ph="{...}" />
+            <marker date="1521712039167" expanded="true" signature="572:670" ph="{...}" />
+            <marker date="1521712039167" expanded="true" signature="758:849" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/CustomFileSystemPlugin.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <marker date="1521707171130" expanded="false" signature="6:173" ph="..." />
+            <marker date="1521707171130" expanded="true" signature="210:2535" ph="{...}" />
+            <marker date="1521707171130" expanded="true" signature="414:2533" ph="{...}" />
+            <marker date="1521707171130" expanded="true" signature="462:1592" ph="{...}" />
+            <marker date="1521707171130" expanded="true" signature="1090:1171" ph="{...}" />
+            <marker date="1521707171130" expanded="true" signature="1185:1582" ph="/* var g = Guid.NewGuid(); ... */" />
+            <marker date="1521707171130" expanded="true" signature="1664:2454" ph="{...}" />
+            <marker date="1521707171130" expanded="true" signature="2141:2444" ph="{...}" />
+            <marker date="1521707171130" expanded="true" signature="2258:2430" ph="{...}" />
+            <marker date="1521707171130" expanded="true" signature="2494:2527" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/CustomFileSystem.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-982">
+          <caret line="33" lean-forward="true" selection-start-line="32" selection-start-column="9" selection-end-line="33" />
+          <folding>
+            <marker date="1521718044911" expanded="false" signature="6:253" ph="..." />
+            <marker date="1521718044911" expanded="true" signature="290:5764" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="514:5762" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="746:804" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="834:892" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="922:975" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="1045:1105" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="1202:2291" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="1321:1455" ph="/* var f = (IAimpString)Marshal.GetObjectForIUnknown(fileName); ... */" />
+            <marker date="1521718044911" expanded="true" signature="1518:1846" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="2015:2238" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="2042:2224" ph="/* AimpFileAttributes at; ... */" />
+            <marker date="1521718044911" expanded="true" signature="2373:2697" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="2493:2644" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="2765:2921" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="3071:3266" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="3327:3473" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="3531:3677" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="3737:3883" ph="{...}" />
+            <marker date="1521718044911" expanded="false" signature="3990:4773" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="4109:4166" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="4254:4737" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="4337:4723" ph="{...}" />
+            <marker date="1521718044911" expanded="false" signature="4817:4901" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="4964:5756" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="4987:5120" ph="/* var stringObject = AimpObjectHelper.GetObject&lt;IAimpString&gt;(fileNameHeader); ... */" />
+            <marker date="1521718044911" expanded="true" signature="5246:5704" ph="{...}" />
+            <marker date="1521718044911" expanded="true" signature="5337:5686" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Plugins/dotnet_CustomFileSystem/ExtensionFileInfo.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="6" column="1" lean-forward="true" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+          <folding>
+            <marker date="1521712424259" expanded="false" signature="6:107" ph="..." />
+            <marker date="1521712424259" expanded="true" signature="144:764" ph="{...}" />
+            <marker date="1521712424259" expanded="true" signature="230:762" ph="{...}" />
+            <marker date="1521712424259" expanded="true" signature="329:592" ph="{...}" />
+            <marker date="1521712424259" expanded="true" signature="472:541" ph="{...}" />
+            <marker date="1521712424259" expanded="true" signature="680:756" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aimp_dotnet/SDK/FileManager/Commands/InternalAimpFileSystemCommandDropSource.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="25" column="1" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

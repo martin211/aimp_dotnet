@@ -2,6 +2,7 @@
 using AIMP.SDK;
 using AIMP.SDK.FileManager;
 using AIMP.SDK.FileManager.Extensions;
+using AIMP.SDK.Objects;
 
 namespace AIMP.DotNet.MusicLibrary
 {
@@ -11,6 +12,12 @@ namespace AIMP.DotNet.MusicLibrary
         {
             fileInfo.Artist = "test";
             //fileInfo = null;
+            return AimpActionResult.Ok;
+        }
+
+        public AimpActionResult GetFileInfo(IAimpString fileUri, ref IAimpFileInfo fileInfo)
+        {
+            fileInfo.Artist = "test";
             return AimpActionResult.Ok;
         }
 

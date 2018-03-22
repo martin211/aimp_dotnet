@@ -123,9 +123,6 @@
     <ClCompile Include="SDK\ManagedAimpCore.cpp">
       <Filter>SDK</Filter>
     </ClCompile>
-    <ClCompile Include="SDK\AimpStream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SDK\MusicLibrary\AimpDataFieldFilterByArray.cpp">
       <Filter>Source Files\SDK\MusicLibrary</Filter>
     </ClCompile>
@@ -372,6 +369,12 @@
     <ClCompile Include="SDK\MusicLibrary\InternalAimpDataFilter.cpp">
       <Filter>Source Files\SDK\MusicLibrary</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\AimpStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\AimpString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -514,9 +517,6 @@
     </ClInclude>
     <ClInclude Include="SDK\MusicLibrary\AimpDataFieldFilterByArray.h">
       <Filter>Header Files\SDK\MusicLibrary</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\AimpStream.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\FileManager\AimpServiceFileStreaming.h">
       <Filter>Header Files</Filter>
@@ -736,6 +736,12 @@
     </ClInclude>
     <ClInclude Include="SDK\PlayList\Internal\InternalAimpMLPlaylistPreimage.h">
       <Filter>Header Files\SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AimpStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AimpString.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

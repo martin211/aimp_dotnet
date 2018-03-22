@@ -26,11 +26,13 @@ namespace AIMP
         public:
             AimpServiceFileSystems(ManagedAimpCore^ core);
 
-            generic<typename TCommand>
-            virtual AimpActionResult Get(String ^fileUri, IAimpFileSystemCommand ^%command);
+			generic<typename TCommand>
+			where TCommand : gcnew()
+            virtual AimpActionResult Get(String ^fileUri, TCommand %command);
 
             generic<typename TCommand>
-            virtual AimpActionResult GetDefault(IAimpFileSystemCommand ^%command);
+			where TCommand : gcnew()
+            virtual AimpActionResult GetDefault(TCommand %command);
         };
     }
 }

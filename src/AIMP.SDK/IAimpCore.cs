@@ -9,7 +9,8 @@
 // 
 // ----------------------------------------------------
 
-using AIMP.SDK.ActionManager;
+using System;
+using System.Runtime.InteropServices;
 
 namespace AIMP.SDK
 {
@@ -63,5 +64,8 @@ namespace AIMP.SDK
         /// </summary>
         /// <returns></returns>
         IAimpStream CreateStream();
+
+        [return: MarshalAs(UnmanagedType.IUnknown)]
+        IntPtr CreateObject(ref Guid iid);
     }
 }

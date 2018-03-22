@@ -20,6 +20,7 @@ namespace AIMP
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::ActionManager;
 
+        [System::Serializable]
         public ref class AimpActionManager :
             public AimpBaseManager<IAIMPServiceActionManager>,
             public IAimpServiceActionManager
