@@ -8,7 +8,8 @@ using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.CustomFileSystem
 {
-    [AimpPlugin("dotnet_CustomFileSystem", "AIMP DOTNET", "1", AimpPluginType = AimpPluginType.Addons, RequireAppDomain = true)]
+    [AimpPlugin("dotnet_CustomFileSystem", "AIMP DOTNET", "1", AimpPluginType = AimpPluginType.Addons, RequireAppDomain = false)]
+    [Serializable]
     public class CustomFileSystemPlugin : AimpPlugin
     {
         public override void Initialize()
@@ -24,7 +25,10 @@ namespace AIMP.SDK.CustomFileSystem
             ExtensionFileInfo fileInfo = new ExtensionFileInfo();
 
             Player.Core.RegisterExtension(fileSystem);
-            Player.Core.RegisterExtension(fileInfo);
+            if (Player.Core.RegisterExtension(fileInfo) != AimpActionResult.Ok)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
 
             //var g = Guid.NewGuid();
             //var ptr = Player.Core.CreateObject(ref g);

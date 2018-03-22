@@ -12,7 +12,7 @@ namespace AIMP.SDK.CustomFileSystem
             var file = fileUri.GetData().Replace(CustomFileSystem.sMySchemePrefix, string.Empty);
             if (File.Exists(file))
             {
-                fileInfo = new AimpFileInfo();
+                fileInfo.Album = "test";
             }
 
             return AimpActionResult.Ok;

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
 using AIMP.SDK.FileManager;
 using AIMP.SDK.FileManager.Commands;
 using AIMP.SDK.FileManager.Extensions;
@@ -15,6 +13,7 @@ namespace AIMP.SDK.CustomFileSystem
         IAimpExtensionFileSystem,
         IAimpFileSystemCommandDropSource,
         IAimpFileSystemCommandOpenFileFolder
+        //IAimpFileSystemCommandFileInfo
     {
         private const string sMyScheme = "mymusic";
         public const string sMySchemePrefix = sMyScheme + @":\\";

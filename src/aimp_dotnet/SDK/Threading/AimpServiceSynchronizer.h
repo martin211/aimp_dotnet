@@ -19,6 +19,7 @@ namespace AIMP
     {
         using namespace AIMP::SDK::Threading;
 
+        [System::Serializable]
         public ref class AimpServiceSynchronizer :
             public AimpBaseManager<IAIMPServiceSynchronizer>,
             public IAimpServiceSynchronizer

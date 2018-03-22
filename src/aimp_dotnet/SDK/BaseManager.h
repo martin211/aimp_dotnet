@@ -20,6 +20,7 @@ namespace AIMP
         using namespace AIMP::SDK;
 
         template<typename TAimpService>
+        [System::Serializable]
         public ref class AimpBaseManager abstract
         {
         public:

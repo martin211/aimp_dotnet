@@ -22,6 +22,7 @@ namespace AIMP
     {
         using namespace AIMP::SDK::MenuManager;
 
+        [System::Serializable]
         public ref class AimpMenuManager : public AimpBaseManager<IAIMPServiceMenuManager>, public IAimpServiceMenuManager
         {
         public:

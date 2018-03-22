@@ -21,6 +21,7 @@ namespace AIMP
         using namespace AIMP::SDK::Playlist;
         using namespace AIMP::SDK::Playback;
 
+        [System::Serializable]
         public ref class AimpServicePlaybackQueue : public AimpBaseManager<IAIMPServicePlaybackQueue>, public IAimpPlaybackQueueService
         {
         private:

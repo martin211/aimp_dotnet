@@ -23,6 +23,7 @@ namespace AIMP
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::AlbumArtManager;
 
+        [System::Serializable]
         public ref class AimpAlbumArtManager : public AimpBaseManager<IAIMPServiceAlbumArt>, public IAimpAlbumArtManager
         {
         public:

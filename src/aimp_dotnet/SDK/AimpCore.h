@@ -21,6 +21,7 @@ namespace AIMP
         using namespace System;
         using namespace AIMP::SDK;
 
+        [System::Serializable]
         public ref class AimpCore : public IAimpCore
         {
         private:
