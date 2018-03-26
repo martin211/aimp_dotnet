@@ -152,12 +152,10 @@ namespace AIMP.SDK
                             ApplicationBase = _inPathToAssembly.DirectoryName
                         };
 
-                        PluginAppDomainInfo =
-                            AppDomain.CreateDomain(
+                        PluginAppDomainInfo = AppDomain.CreateDomain(
                                 PluginInfo.Name + "_domain" + Guid.NewGuid().ToString().GetHashCode().ToString("x"),
                                 null, dmnSetup);
-                        LoadedPlugin =
-                            (AimpPlugin) PluginAppDomainInfo.CreateInstanceFromAndUnwrap(_inPathToAssembly.FullName,
+                        LoadedPlugin = (AimpPlugin) PluginAppDomainInfo.CreateInstanceFromAndUnwrap(_inPathToAssembly.FullName,
                                 PluginClassName);
                     }
                     catch (Exception ex)
