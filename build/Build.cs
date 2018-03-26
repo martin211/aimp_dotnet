@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Nuke.Common;
 using Nuke.Common.Git;
@@ -18,7 +19,7 @@ class Build : NukeBuild
 
     // Auto-injection fields:
 
-    // [GitVersion] readonly GitVersion GitVersion;
+    [GitVersion] readonly GitVersion GitVersion;
     // Semantic versioning. Must have 'GitVersion.CommandLine' referenced.
 
     // [GitRepository] readonly GitRepository GitRepository;
@@ -52,11 +53,20 @@ class Build : NukeBuild
     Target Version => _ => _
         .Executes(() =>
         {
-            var properties = GlobDirectories(SourceDirectory, "**/Properties");
+            var version = GitVersionTasks.GitVersion(c => GitVersionTasks.DefaultGitVersion, new ProcessSettings());
 
+
+            var properties = GlobDirectories(SourceDirectory, "**/Properties");
             foreach (var property in properties)
             {
                 ProcessTasks.StartProcess(GitVersionTasks.DefaultGitVersion.ToolPath, $"/updateassemblyinfo {property}/AssemblyInfo.cs");
+            }
+
+            var rcFile = SourceDirectory / "aimp_dotnet/aimp_dotnet.rc";
+            if (File.Exists(rcFile))
+            {
+                var fileContent = File.ReadAllText(rcFile);
+                //fileContent.Replace("1,0,0,1", GitVersion.AssemblySemVer).Replace("1.0.0.1", GitVersion.AssemblySemVer);
             }
         });
 }
