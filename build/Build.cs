@@ -5,6 +5,7 @@ using Nuke.Common;
 using Nuke.Common.Git;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.MSBuild;
+using Nuke.Common.Tools.NuGet;
 using Nuke.Core;
 using Nuke.Core.Tooling;
 using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
@@ -15,7 +16,7 @@ using static Nuke.Core.EnvironmentInfo;
 class Build : NukeBuild
 {
     // Console application entry. Also defines the default target.
-    public static int Main () => Execute<Build>(x => x.Version);
+    public static int Main () => Execute<Build>(x => x.Pack);
 
     // Auto-injection fields:
 
@@ -25,7 +26,7 @@ class Build : NukeBuild
     // [GitRepository] readonly GitRepository GitRepository;
     // Parses origin, branch name and head from git config.
 
-    // [Parameter] readonly string MyGetApiKey;
+    [Parameter] readonly string MyGetApiKey;
     // Returns command-line arguments and environment variables.
 
     Target Clean => _ => _
@@ -53,9 +54,6 @@ class Build : NukeBuild
     Target Version => _ => _
         .Executes(() =>
         {
-            var version = GitVersionTasks.GitVersion(c => GitVersionTasks.DefaultGitVersion, new ProcessSettings());
-
-
             var properties = GlobDirectories(SourceDirectory, "**/Properties");
             foreach (var property in properties)
             {
@@ -66,7 +64,14 @@ class Build : NukeBuild
             if (File.Exists(rcFile))
             {
                 var fileContent = File.ReadAllText(rcFile);
-                //fileContent.Replace("1,0,0,1", GitVersion.AssemblySemVer).Replace("1.0.0.1", GitVersion.AssemblySemVer);
+                fileContent = fileContent.Replace("1,0,0,1", GitVersion.AssemblySemVer).Replace("1.0.0.1", GitVersion.AssemblySemVer);
+                File.WriteAllText(rcFile, fileContent);
             }
+        });
+
+    Target Pack => _ => _
+        .Executes(() =>
+        {
+            NuGetTasks.NuGetPack();
         });
 }
