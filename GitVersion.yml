@@ -1,7 +1,7 @@
 assembly-versioning-scheme: MajorMinorPatchTag
 assembly-file-versioning-scheme: MajorMinorPatchTag
 mode: ContinuousDeployment
-next-version: 2.0.0
+next-version: 4.50.2047
 branches:
   master:
     regex: master
@@ -28,10 +28,10 @@ branches:
     mode: ContinuousDelivery
     tag: 'beta'
     increment: Patch
-    prevent-increment-of-merged-branch-version: true
+    prevent-increment-of-merged-branch-version: false
     track-merge-target: false
     tracks-release-branches: false
     is-release-branch: false
-    commit-message-incrementing: Enabled
+    commit-message-incrementing: Disabled
 ignore:
   sha: []
