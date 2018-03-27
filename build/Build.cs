@@ -1,8 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using Nuke.Common;
-using Nuke.Common.Git;
+﻿using System.IO;
+using Nuke.Common.Tools.DocFx;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
@@ -11,12 +8,11 @@ using Nuke.Core.Tooling;
 using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
 using static Nuke.Core.IO.FileSystemTasks;
 using static Nuke.Core.IO.PathConstruction;
-using static Nuke.Core.EnvironmentInfo;
 
 class Build : NukeBuild
 {
     // Console application entry. Also defines the default target.
-    public static int Main () => Execute<Build>(x => x.Pack);
+    public static int Main () => Execute<Build>(x => x.BuildDocumentation);
 
     // Auto-injection fields:
 
@@ -45,7 +41,8 @@ class Build : NukeBuild
             });
 
     Target Compile => _ => _
-            // .DependsOn(Restore)
+            .DependsOn(Restore)
+            .DependsOn(Version)
             .Executes(() =>
             {
                 MSBuild(s => DefaultMSBuildCompile.SetNodeReuse(false));
@@ -63,6 +60,7 @@ class Build : NukeBuild
             var rcFile = SourceDirectory / "aimp_dotnet/aimp_dotnet.rc";
             if (File.Exists(rcFile))
             {
+                Logger.Info($"Update version for '{rcFile}'");
                 var fileContent = File.ReadAllText(rcFile);
                 fileContent = fileContent.Replace("1,0,0,1", GitVersion.AssemblySemVer).Replace("1.0.0.1", GitVersion.AssemblySemVer);
                 File.WriteAllText(rcFile, fileContent);
@@ -72,6 +70,36 @@ class Build : NukeBuild
     Target Pack => _ => _
         .Executes(() =>
         {
-            NuGetTasks.NuGetPack();
+            Logger.Info("Start build Nuget packages");
+
+            NuGetTasks.NuGetPack(c => NuGetTasks.DefaultNuGetPack
+                .SetTargetPath(RootDirectory / "AimpSDK.nuspec")
+                .SetBasePath(RootDirectory));
+
+            NuGetTasks.NuGetPack(c => NuGetTasks.DefaultNuGetPack
+                .SetTargetPath(RootDirectory / "AimpSDK.symbols.nuspec")
+                .SetBasePath(RootDirectory)
+                .AddProperty("Symbols", string.Empty));
+
+            NuGetTasks.NuGetPack(c => NuGetTasks.DefaultNuGetPack
+                .SetTargetPath(RootDirectory / "AimpSDK.sources.nuspec")
+                .SetBasePath(RootDirectory));
         });
+
+    Target Publish => _ => _
+        .Executes(() =>
+        {
+            Logger.Info("Publish Nuget packages");
+            NuGetTasks.NuGetPush(c => c.SetApiKey(MyGetApiKey));
+        });
+
+    Target BuildDocumentation => _ => _
+        .DependsOn(Compile)
+        .Executes(() =>
+        {
+            DocFxTasks.DocFxBuild(RootDirectory / "docs/docfx.json");
+        });
+
+    Target PublishDocumentation => _ => _
+        .Executes();
 }
