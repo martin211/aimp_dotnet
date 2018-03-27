@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Nuke.Common.Tools.DocFx;
+using Nuke.Common.Tools.Git;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
@@ -12,7 +13,7 @@ using static Nuke.Core.IO.PathConstruction;
 class Build : NukeBuild
 {
     // Console application entry. Also defines the default target.
-    public static int Main () => Execute<Build>(x => x.BuildDocumentation);
+    public static int Main () => Execute<Build>(x => x.Deploy);
 
     // Auto-injection fields:
 
@@ -86,11 +87,21 @@ class Build : NukeBuild
                 .SetBasePath(RootDirectory));
         });
 
-    Target Publish => _ => _
+    Target Deploy => _ => _
         .Executes(() =>
         {
-            Logger.Info("Publish Nuget packages");
-            NuGetTasks.NuGetPush(c => c.SetApiKey(MyGetApiKey));
+            Logger.Info("Deploying Nuget packages");
+
+            var packages = Directory.GetFiles(OutputDirectory, "AimpSDK.*");
+            foreach (var package in packages)
+            {
+                NuGetTasks.NuGetPush(c => c
+                    .SetTargetPath(package)
+                    .SetApiKey(MyGetApiKey)
+                    .SetSymbolApiKey(MyGetApiKey)
+                    .SetSource("https://www.myget.org/F/aimpsdk/api/v2/package")
+                    .SetSymbolSource("https://www.myget.org/F/aimpsdk/symbols/api/v2/package"));
+            }
         });
 
     Target BuildDocumentation => _ => _
@@ -100,6 +111,8 @@ class Build : NukeBuild
             DocFxTasks.DocFxBuild(RootDirectory / "docs/docfx.json");
         });
 
-    Target PublishDocumentation => _ => _
-        .Executes();
+    //Target PublishDocumentation => _ => _
+    //    .Executes(() =>
+    //    {
+    //    });
 }
