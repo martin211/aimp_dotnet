@@ -14,6 +14,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="docfx.console" Version="2.33.0" />
+    <PackageReference Include="NuGet.CommandLine" Version="4.5.1" />
     <PackageReference Include="Nuke.Common" Version="0.3.1" />
     <PackageReference Include="Nuke.CodeGeneration" Version="$(NukeVersion)" Condition="'$(NukeCodeGeneration)' == 'True'" />
     <PackageReference Include="GitVersion.CommandLine" Version="4.0.0-beta0012" />
