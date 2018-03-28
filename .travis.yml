@@ -1,9 +1,8 @@
 language: csharp
-jobs:
-  include:
-    - stage: build
-    script: ./build.ps1 Compile
-    - stage: pack
-    script: ./build.ps1 Pack
-    - stage: deploy
-    script: ./build.ps1 Deploy -MyGetApiKey $ApiKey
+script:
+# Build project
+- ./build.ps1 Compile
+# Pack Nuget
+- ./build.ps1 Pack
+# Publish Nuget packages
+- ./build.ps1 Deploy -MyGetApiKey $ApiKey
