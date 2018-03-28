@@ -1,32 +1,29 @@
-variables:
-  VERSION: "$AIMP_VERSION.$CI_JOB_ID"
-
 stages:
-  - analysis_start
+#  - analysis_start
   - build
-  - analysis_end
-  - zip_publish
+  - deploy
+#  - analysis_end
+#  - zip_publish
   - documentation
-  - publish_documentation
+#  - publish_documentation
 
-analysis_start:
-  stage: analysis_start
-  script:
-  - echo $env:CI_PROJECT_DIR
-  - .\tools\ci-build\start-analysis.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:SONAR_PROJECT_KEY aimp_dotnet $env:VERSION $env:CI_COMMIT_REF_NAME
+#analysis_start:
+#  stage: analysis_start
+#  script:
+#  - echo $env:CI_PROJECT_DIR
+#  - .\tools\ci-build\start-analysis.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:SONAR_PROJECT_KEY aimp_dotnet $env:VERSION $env:CI_COMMIT_REF_NAME
 
-analysis_end:
-  stage: analysis_end
-  script: .\tools\ci-build\stop-analysis.ps1
+#analysis_end:
+#  stage: analysis_end
+#  script: .\tools\ci-build\stop-analysis.ps1
 
 build_master:
   only:
     - master
-    - tags
   except:
     - develop
   stage: build
-  script: .\tools\ci-build\build.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:VERSION $env:CI_COMMIT_REF_NAME Debug
+  script: .\build.ps1 Build -configuration Release
   artifacts:
     paths:
       - src\Release\aimp_dotnet.dll
@@ -35,19 +32,15 @@ build_master:
 build_develop:
   only:
     - develop
-  except:
-    - master
   stage: build
-  script: .\tools\ci-build\build.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:VERSION $env:CI_COMMIT_REF_NAME Release
+  script: .\build.ps1 Build -configuration Release
 
 documentation_build:
-  only:
-    - master
   stage: documentation
-  script: .\docs\build.ps1
+  script: .\build.ps1 BuildDocumentation
 
-documentation_publish:
-  only:
-    - master
-  stage: publish_documentation
-  script: .\docs\publish.ps1
+#documentation_publish:
+#  only:
+#    - master
+#  stage: publish_documentation
+#  script: .\docs\publish.ps1
