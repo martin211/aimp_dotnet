@@ -1,0 +1,37 @@
+assembly-versioning-scheme: MajorMinorPatchTag
+assembly-file-versioning-scheme: MajorMinorPatchTag
+mode: ContinuousDeployment
+next-version: 4.50.2047
+branches:
+  master:
+    regex: master
+    mode: ContinuousDelivery
+    tag: ''
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: false
+    commit-message-incrementing: Enabled
+  develop:
+    regex: dev(elop)?(ment)?$
+    mode: ContinuousDeployment
+    tag: stable
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: true
+    tracks-release-branches: true
+    is-release-branch: false
+    commit-message-incrementing: Disabled
+  feature:
+    regex: feature?[/-]
+    mode: ContinuousDelivery
+    tag: 'beta'
+    increment: Patch
+    prevent-increment-of-merged-branch-version: false
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: false
+    commit-message-incrementing: Disabled
+ignore:
+  sha: []
