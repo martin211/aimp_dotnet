@@ -7,7 +7,4 @@ jobs:
     - stage: pack
     script: ./build.ps1 Pack
     - stage: deploy
-    script: ./build.ps1 Deploy -MyGetApiKey $env:ApiKey
-
-script:
-  - ./build.ps1
+    script: ./build.ps1 Deploy -MyGetApiKey $ApiKey
