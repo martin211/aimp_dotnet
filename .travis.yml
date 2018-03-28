@@ -1,5 +1,4 @@
 language: csharp
-
 jobs:
   include:
     - stage: build
