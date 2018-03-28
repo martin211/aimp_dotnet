@@ -48,8 +48,8 @@ build_feature:
   script: .\build.ps1 Compile -configuration Debug
   artifacts:
     paths:
-      - src\Release\aimp_dotnet.dll
-      - src\Release\AIMP.SDK.dll
+      - src\Debug\aimp_dotnet.dll
+      - src\Debug\AIMP.SDK.dll
 
 documentation_build:
   stage: documentation
