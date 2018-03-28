@@ -23,7 +23,7 @@ build_master:
   except:
     - develop
   stage: build
-  script: .\build.ps1 Build -configuration Release
+  script: .\build.ps1 Compile -configuration Release
   artifacts:
     paths:
       - src\Release\aimp_dotnet.dll
@@ -33,7 +33,7 @@ build_develop:
   only:
     - develop
   stage: build
-  script: .\build.ps1 Build -configuration Release
+  script: .\build.ps1 Compile -configuration Release
   artifacts:
     paths:
       - src\Release\aimp_dotnet.dll
@@ -45,7 +45,7 @@ build_feature:
     - develop
     - tags
   stage: build
-  script: .\build.ps1 Build -configuration Debug
+  script: .\build.ps1 Compile -configuration Debug
   artifacts:
     paths:
       - src\Release\aimp_dotnet.dll
