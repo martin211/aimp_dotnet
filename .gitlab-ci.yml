@@ -34,6 +34,22 @@ build_develop:
     - develop
   stage: build
   script: .\build.ps1 Build -configuration Release
+  artifacts:
+    paths:
+      - src\Release\aimp_dotnet.dll
+      - src\Release\AIMP.SDK.dll
+
+build_feature:
+  except:
+    - master
+    - develop
+    - tags
+  stage: build
+  script: .\build.ps1 Build -configuration Debug
+  artifacts:
+    paths:
+      - src\Release\aimp_dotnet.dll
+      - src\Release\AIMP.SDK.dll
 
 documentation_build:
   stage: documentation

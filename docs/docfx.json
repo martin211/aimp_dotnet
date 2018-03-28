@@ -8,14 +8,14 @@
           "cwd": ".."
         }
       ],
-      "dest": "apidoc"
+      "dest": "../docs/apidoc"
     }
   ],
   "build": {
     "content": [
       {
         "files": [ "**/*.yml" ],
-		"src": "apidoc",
+		"src": "../docs/apidoc",
 		"dest": "api"
       },
 	  {
