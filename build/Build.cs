@@ -1,33 +1,36 @@
 ﻿using System.IO;
+using System.Linq;
+using Nuke.Common.Git;
 using Nuke.Common.Tools.DocFx;
-using Nuke.Common.Tools.Git;
 using Nuke.Common.Tools.GitVersion;
+using Nuke.Common.Tools.InspectCode;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
 using Nuke.Core;
 using Nuke.Core.Tooling;
+using Nuke.Core.Utilities;
+using Nuke.Core.Utilities.Collections;
 using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
 using static Nuke.Core.IO.FileSystemTasks;
 using static Nuke.Core.IO.PathConstruction;
 
 class Build : NukeBuild
 {
+    [Parameter("Indicates to push to nuget.org feed.")] readonly bool NuGet;
+
+    [Parameter("ApiKey for the specified source.")] readonly string ApiKey;
+
+    [GitVersion(DisableOnUnix = true)] readonly GitVersion GitVersion;
+    [GitRepository(Branch = "master")] readonly GitRepository GitRepository;
+
+    private string Source => NuGet
+        ? "https://api.nuget.org/v3/index.json"
+        : "https://www.myget.org/F/aimpsdk/api/v2/package";
+
     // Console application entry. Also defines the default target.
-    public static int Main () => Execute<Build>(x => x.Deploy);
-
-    // Auto-injection fields:
-
-    [GitVersion] readonly GitVersion GitVersion;
-    // Semantic versioning. Must have 'GitVersion.CommandLine' referenced.
-
-    // [GitRepository] readonly GitRepository GitRepository;
-    // Parses origin, branch name and head from git config.
-
-    [Parameter] readonly string MyGetApiKey;
-    // Returns command-line arguments and environment variables.
+    public static int Main () => Execute<Build>(x => x.Compile);
 
     Target Clean => _ => _
-            .OnlyWhen(() => false) // Disabled for safety.
             .Executes(() =>
             {
                 DeleteDirectories(GlobDirectories(SourceDirectory, "**/bin", "**/obj"));
@@ -42,8 +45,8 @@ class Build : NukeBuild
             });
 
     Target Compile => _ => _
-            .DependsOn(Restore)
-            .DependsOn(Version)
+            .DependsOn(Restore, Version)
+            .Requires(() => GitVersion != null)
             .Executes(() =>
             {
                 MSBuild(s => DefaultMSBuildCompile.SetNodeReuse(false));
@@ -58,12 +61,12 @@ class Build : NukeBuild
                 ProcessTasks.StartProcess(GitVersionTasks.DefaultGitVersion.ToolPath, $"/updateassemblyinfo {property}/AssemblyInfo.cs");
             }
 
-            var rcFile = SourceDirectory / "aimp_dotnet/aimp_dotnet.rc";
+            var rcFile = SourceDirectory / "aimp_dotnet"/ "aimp_dotnet.rc";
             if (File.Exists(rcFile))
             {
                 Logger.Info($"Update version for '{rcFile}'");
                 var fileContent = File.ReadAllText(rcFile);
-                fileContent = fileContent.Replace("1,0,0,1", GitVersion.AssemblySemVer).Replace("1.0.0.1", GitVersion.AssemblySemVer);
+                fileContent = fileContent.Replace("1,0,0,1", Nuke.Common.Tools.GitVersion.GitVersion.AssemblySemVer).Replace("1.0.0.1", Nuke.Common.Tools.GitVersion.GitVersion.AssemblySemVer);
                 File.WriteAllText(rcFile, fileContent);
             }
         });
@@ -87,32 +90,42 @@ class Build : NukeBuild
                 .SetBasePath(RootDirectory));
         });
 
-    Target Deploy => _ => _
+    Target Publish => _ => _
+        .Requires(() => ApiKey)
+        .Requires(() => !NuGet || GitVersionAttribute.Bump.HasValue)
+        .Requires(() => !NuGet || Configuration.EqualsOrdinalIgnoreCase("release"))
+        .Requires(() => !NuGet || GitVersion.BranchName.Equals("master"))
         .Executes(() =>
         {
             Logger.Info("Deploying Nuget packages");
 
-            var packages = Directory.GetFiles(OutputDirectory, "AimpSDK.*");
-            foreach (var package in packages)
-            {
-                NuGetTasks.NuGetPush(c => c
-                    .SetTargetPath(package)
-                    .SetApiKey(MyGetApiKey)
-                    .SetSymbolApiKey(MyGetApiKey)
-                    .SetSource("https://www.myget.org/F/aimpsdk/api/v2/package")
-                    .SetSymbolSource("https://www.myget.org/F/aimpsdk/symbols/api/v2/package"));
-            }
+            //var packages = Directory.GetFiles(OutputDirectory, "AimpSDK.*");
+            //foreach (var package in packages)
+            //{
+            //    NuGetTasks.NuGetPush(c => c
+            //        .SetTargetPath(package)
+            //        .SetApiKey(ApiKey)
+            //        .SetSymbolApiKey(ApiKey)
+            //        .SetSource("https://www.myget.org/F/aimpsdk/api/v2/package")
+            //        .SetSymbolSource("https://www.myget.org/F/aimpsdk/symbols/api/v2/package"));
+            //}
+            GlobFiles(OutputDirectory, "*.nupkg").NotEmpty()
+                .Where(c => !c.EndsWith("symbols.nupkg"))
+                .ForEach(c => NuGetTasks.NuGetPush(s => s
+                .SetTargetPath(c)
+                .SetSource(Source)
+                .SetApiKey(ApiKey)));
         });
 
-    Target BuildDocumentation => _ => _
-        .DependsOn(Compile)
+    Target Analysis => _ => _
+        .DependsOn(Restore)
         .Executes(() =>
         {
-            DocFxTasks.DocFxBuild(RootDirectory / "docs/docfx.json");
+            InspectCodeTasks.InspectCode(s => s.AddExtensions(
+                "EtherealCode.ReSpeller",
+                "PowerToys.CyclomaticComplexity",
+                "ReSharper.ImplicitNullability",
+                "ReSharper.SerializationInspections",
+                "ReSharper.XmlDocInspections"));
         });
-
-    //Target PublishDocumentation => _ => _
-    //    .Executes(() =>
-    //    {
-    //    });
 }
