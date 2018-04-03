@@ -5,17 +5,17 @@
         {
           "files": [ "/src/AIMP.SDK/AIMP.SDK.csproj" ],
           "exclude": [ "**/obj/**", "**/bin/**" ],
-		  "cwd": ".."
+          "cwd": ".."
         }
       ],
-      "dest": "apidoc"
+      "dest": "../docs/apidoc"
     }
   ],
   "build": {
     "content": [
       {
         "files": [ "**/*.yml" ],
-		"src": "apidoc",
+		"src": "../docs/apidoc",
 		"dest": "api"
       },
 	  {
@@ -41,14 +41,14 @@
     },
 	"postProcessors": ["ExtractSearchIndex"],
     "fileMetadata": {
-      "priority": {        
+      "priority": {
         "**.md": 2.5
       }
-    },	
+    },
     "dest": "_site",
     "template": [
 		"default",
-		"template"	  
+		"template"
     ]
   }
 }

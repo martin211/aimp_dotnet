@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}"
 EndProject
@@ -36,7 +36,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_musiclibrary", "Plug
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{E560656D-14CC-48E6-A94E-9992D99B5BA0}"
 	ProjectSection(SolutionItems) = preProject
+		..\.travis.yml = ..\.travis.yml
+		..\AimpSDK.nuspec = ..\AimpSDK.nuspec
+		..\AimpSDK.sources.nuspec = ..\AimpSDK.sources.nuspec
+		..\AimpSDK.symbols.nuspec = ..\AimpSDK.symbols.nuspec
 		CopyPlugin.cmd = CopyPlugin.cmd
+		..\GitVersion.yml = ..\GitVersion.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_demo", "Plugins\dotnet_demo\dotnet_demo.csproj", "{72CBA5F8-494D-4EEB-803B-7D1802A91D4A}"
@@ -53,10 +58,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_CustomFileSystem", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "native_plugin", "Plugins\native_plugin\native_plugin.vcxproj", "{7D283154-7CF9-434E-BA5A-5FB3D03AC271}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTest", "IntegrationTest", "{B55E01A4-5EB0-4A4F-8243-9C568021DBEA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_AppDomain", "Plugins\dotnet_AppDomain\dotnet_AppDomain.csproj", "{107E995B-5ECF-43E1-9A6A-FB9752FAF4B7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationFramework", "IntegrationTests\IntegrationFramework\IntegrationFramework.csproj", "{4043FFE4-CE35-4A9A-94CE-9F26913E4C10}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -151,14 +155,14 @@ Global
 		{7D283154-7CF9-434E-BA5A-5FB3D03AC271}.Release|Any CPU.ActiveCfg = Release|Win32
 		{7D283154-7CF9-434E-BA5A-5FB3D03AC271}.Release|x86.ActiveCfg = Release|Win32
 		{7D283154-7CF9-434E-BA5A-5FB3D03AC271}.Release|x86.Build.0 = Release|Win32
-		{4043FFE4-CE35-4A9A-94CE-9F26913E4C10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4043FFE4-CE35-4A9A-94CE-9F26913E4C10}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4043FFE4-CE35-4A9A-94CE-9F26913E4C10}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{4043FFE4-CE35-4A9A-94CE-9F26913E4C10}.Debug|x86.Build.0 = Debug|Any CPU
-		{4043FFE4-CE35-4A9A-94CE-9F26913E4C10}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4043FFE4-CE35-4A9A-94CE-9F26913E4C10}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4043FFE4-CE35-4A9A-94CE-9F26913E4C10}.Release|x86.ActiveCfg = Release|Any CPU
-		{4043FFE4-CE35-4A9A-94CE-9F26913E4C10}.Release|x86.Build.0 = Release|Any CPU
+		{107E995B-5ECF-43E1-9A6A-FB9752FAF4B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{107E995B-5ECF-43E1-9A6A-FB9752FAF4B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{107E995B-5ECF-43E1-9A6A-FB9752FAF4B7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{107E995B-5ECF-43E1-9A6A-FB9752FAF4B7}.Debug|x86.Build.0 = Debug|Any CPU
+		{107E995B-5ECF-43E1-9A6A-FB9752FAF4B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{107E995B-5ECF-43E1-9A6A-FB9752FAF4B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{107E995B-5ECF-43E1-9A6A-FB9752FAF4B7}.Release|x86.ActiveCfg = Release|Any CPU
+		{107E995B-5ECF-43E1-9A6A-FB9752FAF4B7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -173,7 +177,7 @@ Global
 		{2B1CD6EA-5B3B-44FE-A242-F06C1D6A41F9} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
 		{7AD77F60-D0F1-4241-A67D-0733EF4A5DEE} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
 		{7D283154-7CF9-434E-BA5A-5FB3D03AC271} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
-		{4043FFE4-CE35-4A9A-94CE-9F26913E4C10} = {B55E01A4-5EB0-4A4F-8243-9C568021DBEA}
+		{107E995B-5ECF-43E1-9A6A-FB9752FAF4B7} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F89DDEBD-4CC1-4C55-811B-096227CFE66C}
