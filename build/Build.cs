@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using System.Linq;
 using Nuke.Common.Git;
-using Nuke.Common.Tools.DocFx;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.InspectCode;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
+using Nuke.Common.Tools.SonarQube;
 using Nuke.Core;
 using Nuke.Core.Tooling;
 using Nuke.Core.Utilities;
@@ -65,9 +65,9 @@ class Build : NukeBuild
             if (File.Exists(rcFile))
             {
                 Logger.Info($"Update version for '{rcFile}'");
-                var fileContent = File.ReadAllText(rcFile);
-                fileContent = fileContent.Replace("1,0,0,1", Nuke.Common.Tools.GitVersion.GitVersion.AssemblySemVer).Replace("1.0.0.1", Nuke.Common.Tools.GitVersion.GitVersion.AssemblySemVer);
-                File.WriteAllText(rcFile, fileContent);
+                //var fileContent = File.ReadAllText(rcFile);
+                //fileContent = fileContent.Replace("1,0,0,1", Nuke.Common.Tools.GitVersion.GitVersion.AssemblySemVer).Replace("1.0.0.1", Nuke.Common.Tools.GitVersion.GitVersion.AssemblySemVer);
+                //File.WriteAllText(rcFile, fileContent);
             }
         });
 
@@ -127,5 +127,24 @@ class Build : NukeBuild
                 "ReSharper.ImplicitNullability",
                 "ReSharper.SerializationInspections",
                 "ReSharper.XmlDocInspections"));
+        });
+
+    Target SonarQube => _ => _
+        .DependsOn(Restore)
+        .Executes(() =>
+        {
+            SonarQubeTasks.SonarQubeBegin(c => c
+                .SetHostUrl("http://localhost:9000")
+                .SetProjectKey("aimp.test")
+                .SetProjectName("test")
+                .SetUserName("admin")
+                .SetUserPassword("admin")
+                .EnableVerbose(), new ProcessSettings());
+        }, () =>
+        {
+            MSBuild(s => DefaultMSBuildCompile.SetNodeReuse(false));
+        }, () =>
+        {
+            SonarQubeTasks.SonarQubeEnd();
         });
 }
