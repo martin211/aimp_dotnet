@@ -28,7 +28,7 @@ class Build : NukeBuild
         : "https://www.myget.org/F/aimpsdk/api/v2/package";
 
     // Console application entry. Also defines the default target.
-    public static int Main () => Execute<Build>(x => x.Compile);
+    public static int Main () => Execute<Build>(x => x.SonarQube);
 
     Target Clean => _ => _
             .Executes(() =>
@@ -134,6 +134,8 @@ class Build : NukeBuild
         .Executes(() =>
         {
             SonarQubeTasks.SonarQubeBegin(c => c
+                .SetProjectBaseDir(SourceDirectory)
+                .SetWorkingDirectory(SourceDirectory)
                 .SetHostUrl("http://localhost:9000")
                 .SetProjectKey("aimp.test")
                 .SetProjectName("test")
@@ -145,6 +147,10 @@ class Build : NukeBuild
             MSBuild(s => DefaultMSBuildCompile.SetNodeReuse(false));
         }, () =>
         {
-            SonarQubeTasks.SonarQubeEnd();
+            SonarQubeTasks.SonarQubeEnd(c => c
+                .SetUserName("admin")
+                .SetUserPassword("admin")
+                .SetWorkingDirectory(SourceDirectory)
+            );
         });
 }
