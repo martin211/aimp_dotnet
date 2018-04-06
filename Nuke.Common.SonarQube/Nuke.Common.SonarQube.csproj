@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Nuke.Core" Version="0.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="JetBrains.Annotations">
       <HintPath>C:\Users\Evgeniy\.nuget\packages\jetbrains.annotations\10.4.0\lib\net\JetBrains.Annotations.dll</HintPath>
     </Reference>

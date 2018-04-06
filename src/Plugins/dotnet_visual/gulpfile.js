@@ -11,12 +11,12 @@ var concat = require("gulp-concat");
 var clean = require("gulp-clean");
 
 var configuration = "Debug";
-var pluginName = "dotnet_AppDomain";
+var pluginName = "dotnet_visual";
 var aimpFolder = "AIMP4.51";
 
-paths = {
+var paths = {
     plugin: "./bin/" + configuration,
-    output: "../../../" + aimpFolder + "/Plugins/" + pluginName
+    output: "../../../../" + aimpFolder + "/Plugins/" + pluginName
 };
 
 var sdk = {

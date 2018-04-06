@@ -65,9 +65,9 @@ class Build : NukeBuild
             if (File.Exists(rcFile))
             {
                 Logger.Info($"Update version for '{rcFile}'");
-                //var fileContent = File.ReadAllText(rcFile);
-                //fileContent = fileContent.Replace("1,0,0,1", Nuke.Common.Tools.GitVersion.GitVersion.AssemblySemVer).Replace("1.0.0.1", Nuke.Common.Tools.GitVersion.GitVersion.AssemblySemVer);
-                //File.WriteAllText(rcFile, fileContent);
+                var fileContent = File.ReadAllText(rcFile);
+                fileContent = fileContent.Replace("1,0,0,1", GitVersion.AssemblySemVer).Replace("1.0.0.1", GitVersion.AssemblySemVer);
+                File.WriteAllText(rcFile, fileContent);
             }
         });
 
@@ -152,5 +152,12 @@ class Build : NukeBuild
                 .SetUserPassword("admin")
                 .SetWorkingDirectory(SourceDirectory)
             );
+        });
+
+    Target Artifacts => _ => _
+        .DependsOn(Compile)
+        .Executes(() =>
+        {
+            var directories = GlobDirectories(SourceDirectory, $"**/bin/{Configuration}/");
         });
 }

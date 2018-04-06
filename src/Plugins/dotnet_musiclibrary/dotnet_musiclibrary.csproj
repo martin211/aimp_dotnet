@@ -49,8 +49,6 @@
     <Compile Include="ExplorerMusicProvider\CustomAimpGroupingTreeDataProvider.cs" />
     <Compile Include="ExplorerMusicProvider\CustomAimpGroupingTreeDataProviderSelection.cs" />
     <Compile Include="DemoMusicLibrary.cs" />
-    <Compile Include="MusicLibraryDemoPlugin.cs" />
-    <Compile Include="MyExtensionFileInfoProvider.cs" />
     <Compile Include="Preimage\MediaLibraryPreimageFactory.cs" />
     <Compile Include="Preimage\PlaylistManagerListener.cs" />
     <Compile Include="Preimage\TestMediaLibraryPreimage.cs" />
@@ -63,7 +61,9 @@
       <Name>AIMP.SDK</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="gulpfile.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)CopyPlugin.cmd "AIMP4.50" "$(ConfigurationName)" "$(SolutionDir)" "$(TargetName)" "$(ProjectName)" "$(OutDir)" "$(TargetPath)"</PostBuildEvent>
