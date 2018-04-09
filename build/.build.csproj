@@ -27,8 +27,4 @@
     <None Remove="*.csproj.DotSettings;*.ref.*.txt" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Nuke.Common.SonarQube\Nuke.Common.SonarQube.csproj" />
-  </ItemGroup>
-
 </Project>

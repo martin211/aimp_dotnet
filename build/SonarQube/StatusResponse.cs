@@ -1,4 +1,4 @@
-﻿namespace Nuke.Common.Tools.SonarQube
+﻿namespace SonarQube
 {
     public class StatusResponse
     {

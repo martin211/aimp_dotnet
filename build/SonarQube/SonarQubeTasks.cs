@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Nuke.Core.Tooling;
 
-namespace Nuke.Common.Tools.SonarQube
+namespace SonarQube
 {
     public static partial class SonarQubeTasks
     {

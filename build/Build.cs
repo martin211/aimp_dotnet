@@ -5,14 +5,15 @@ using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.InspectCode;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
-using Nuke.Common.Tools.SonarQube;
 using Nuke.Core;
 using Nuke.Core.Tooling;
 using Nuke.Core.Utilities;
 using Nuke.Core.Utilities.Collections;
+using SonarQube;
 using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
 using static Nuke.Core.IO.FileSystemTasks;
 using static Nuke.Core.IO.PathConstruction;
+using SonarQubeTasks = SonarQube.SonarQubeTasks;
 
 class Build : NukeBuild
 {
@@ -48,7 +49,6 @@ class Build : NukeBuild
             .Executes(() =>
             {
                 MSBuild(s => DefaultMSBuildRestore);
-                NuGetTasks.NuGetRestore();
             });
 
     Target Compile => _ => _

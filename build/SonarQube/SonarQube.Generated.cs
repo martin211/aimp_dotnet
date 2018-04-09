@@ -5,21 +5,16 @@
 // Generated with Nuke.CodeGeneration, LOCAL VERSION.
 // Generated from https://github.com/nuke-build/tools/blob/master/metadata/SonarQube.json.
 
-using JetBrains.Annotations;
-using Nuke.Common.Tools;
-using Nuke.Core;
-using Nuke.Core.Execution;
-using Nuke.Core.Tooling;
-using Nuke.Core.Utilities.Collections;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
-using System.Text;
+using JetBrains.Annotations;
+using Nuke.Core;
+using Nuke.Core.Tooling;
+using Nuke.Core.Utilities.Collections;
 
-namespace Nuke.Common.Tools.SonarQube
+namespace SonarQube
 {
     [PublicAPI]
     [ExcludeFromCodeCoverage]
