@@ -30,10 +30,9 @@ pack_debug:
   variables:
     GIT_STRATEGY: none
   only:
-    - master
-    - develop
+    - /^feature/
   stage: deploy
-  script: .\build.ps1 Pack -configuration Release
+  script: .\build.ps1 Pack -configuration Debug
 
 publish_develop:
   variables:
@@ -56,6 +55,11 @@ publish_master:
 analysis:
   variables:
     GIT_STRATEGY: none
-  script: 
+  script:
   - .\build.ps1 Analysis
   - .\build.ps1 SonarQube
+
+artifacts:
+  variables:
+    GIT_STRATEGY: none
+  script: .\build.ps1 Artifacts
