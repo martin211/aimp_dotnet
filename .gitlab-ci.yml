@@ -9,13 +9,15 @@ build_release:
     - master
     - develop
   stage: build
-  script: $env:CI_PROJECT_DIR\build.ps1 Compile -configuration Release
+  script: 
+    - .\build.ps1 Compile -configuration Release
 
 build_feature:
   only:
     - /^feature/
   stage: build
-  script: $env:CI_PROJECT_DIR\build.ps1 Compile -configuration Debug
+  script: 
+    - .\build.ps1 Compile -configuration Debug
 
 pack_release:
   variables:
@@ -24,7 +26,8 @@ pack_release:
     - master
     - develop
   stage: deploy
-  script: .\build.ps1 Pack -configuration Release
+  script: 
+    - .\build.ps1 Pack -configuration Release
 
 pack_debug:
   variables:
@@ -32,7 +35,8 @@ pack_debug:
   only:
     - /^feature/
   stage: deploy
-  script: .\build.ps1 Pack -configuration Debug
+  script: 
+    - .\build.ps1 Pack -configuration Debug
 
 publish_develop:
   variables:
