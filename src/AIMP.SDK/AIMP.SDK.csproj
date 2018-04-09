@@ -88,6 +88,7 @@
     <Compile Include="IAimpObject.cs" />
     <Compile Include="IAimpObjectList.cs" />
     <Compile Include="IAimpStream.cs" />
+    <Compile Include="MusicLibrary\DataStorage\AimpDataField.cs" />
     <Compile Include="Objects\IAimpString.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilter.cs" />
