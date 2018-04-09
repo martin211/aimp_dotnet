@@ -9,13 +9,13 @@ build_release:
     - master
     - develop
   stage: build
-  script: ./build.ps1 Compile -configuration Release
+  script: $env:CI_PROJECT_DIR/build.ps1 Compile -configuration Release
 
 build_feature:
   only:
     - /^feature/
   stage: build
-  script: ./build.ps1 Compile -configuration Debug
+  script: $env:CI_PROJECT_DIR/build.ps1 Compile -configuration Debug
 
 pack_release:
   variables:
