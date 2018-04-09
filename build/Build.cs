@@ -34,7 +34,7 @@ class Build : NukeBuild
         : "https://www.myget.org/F/aimpsdk/api/v2/package";
 
     // Console application entry. Also defines the default target.
-    public static int Main () => Execute<Build>(x => x.Artifacts);
+    public static int Main () => Execute<Build>(x => x.Compile);
 
     Target Clean => _ => _
             .Executes(() =>
@@ -48,6 +48,7 @@ class Build : NukeBuild
             .Executes(() =>
             {
                 MSBuild(s => DefaultMSBuildRestore);
+                NuGetTasks.NuGetRestore();
             });
 
     Target Compile => _ => _

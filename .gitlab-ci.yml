@@ -1,3 +1,6 @@
+variables:
+  GIT_STRATEGY: clone
+
 stages:
   - build
   - deploy
@@ -10,7 +13,6 @@ build_release:
     - develop
   stage: build
   script:
-  - Start-Sleep -s 60
   - .\build.ps1 Compile -configuration Release
 
 build_feature:
