@@ -53,6 +53,7 @@ publish_master:
   script: .\build.ps1 Publish -configuration Release -ApiKey $env:NUGET_ACCESS_TOKEN -NuGet true
 
 analysis:
+  stage: analysis
   variables:
     GIT_STRATEGY: none
   script:
@@ -60,6 +61,7 @@ analysis:
   - .\build.ps1 SonarQube
 
 artifacts:
+  stage: artifacts
   variables:
     GIT_STRATEGY: none
   script: .\build.ps1 Artifacts
