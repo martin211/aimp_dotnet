@@ -38,6 +38,7 @@ Debug
 CSDebug
 Release
 CSRelease
+.tmp
 
 include/boost/*
 *.opendb
