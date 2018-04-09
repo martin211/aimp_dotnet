@@ -9,15 +9,16 @@ build_release:
     - master
     - develop
   stage: build
-  script: 
-    - .\build.ps1 Compile -configuration Release
+  script:
+  - Start-Sleep -s 60
+  - .\build.ps1 Compile -configuration Release
 
 build_feature:
   only:
     - /^feature/
   stage: build
   script: 
-    - .\build.ps1 Compile -configuration Debug
+  - .\build.ps1 Compile -configuration Debug
 
 pack_release:
   variables:
@@ -27,7 +28,7 @@ pack_release:
     - develop
   stage: deploy
   script: 
-    - .\build.ps1 Pack -configuration Release
+  - .\build.ps1 Pack -configuration Release
 
 pack_debug:
   variables:
@@ -36,7 +37,7 @@ pack_debug:
     - /^feature/
   stage: deploy
   script: 
-    - .\build.ps1 Pack -configuration Debug
+  - .\build.ps1 Pack -configuration Debug
 
 publish_develop:
   variables:
@@ -45,7 +46,8 @@ publish_develop:
   only:
     - /^feature/
   stage: deploy
-  script: .\build.ps1 Publish -configuration Release -ApiKey $env:NUGET_ACCESS_TOKEN
+  script: 
+  - .\build.ps1 Publish -configuration Release -ApiKey $env:NUGET_ACCESS_TOKEN
 
 publish_master:
   variables:
@@ -54,7 +56,8 @@ publish_master:
   only:
     - master
   stage: deploy
-  script: .\build.ps1 Publish -configuration Release -ApiKey $env:NUGET_ACCESS_TOKEN -NuGet true
+  script: 
+  - .\build.ps1 Publish -configuration Release -ApiKey $env:NUGET_ACCESS_TOKEN -NuGet true
 
 analysis:
   stage: analysis
