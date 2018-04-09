@@ -5,7 +5,13 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = ".build", ".build.csproj", "{79878E29-2FCB-4076-8404-C81FCDB37E67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuke.Common.SonarQube", "..\Nuke.Common.SonarQube\Nuke.Common.SonarQube.csproj", "{36312F1A-83DA-4C9E-925C-E3BD67E055EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nuke.Common.SonarQube", "..\Nuke.Common.SonarQube\Nuke.Common.SonarQube.csproj", "{36312F1A-83DA-4C9E-925C-E3BD67E055EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{218EE364-BA90-4858-BC2A-9847D61AB457}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitlab-ci.yml = ..\.gitlab-ci.yml
+		..\GitVersion.yml = ..\GitVersion.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,62 +1,61 @@
 stages:
-#  - analysis_start
   - build
   - deploy
-#  - analysis_end
-#  - zip_publish
-  - documentation
-#  - publish_documentation
+  - analysis
+  - artifacts
 
-#analysis_start:
-#  stage: analysis_start
-#  script:
-#  - echo $env:CI_PROJECT_DIR
-#  - .\tools\ci-build\start-analysis.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:SONAR_PROJECT_KEY aimp_dotnet $env:VERSION $env:CI_COMMIT_REF_NAME
-
-#analysis_end:
-#  stage: analysis_end
-#  script: .\tools\ci-build\stop-analysis.ps1
-
-build_master:
+build_release:
   only:
     - master
-  except:
     - develop
   stage: build
   script: .\build.ps1 Compile -configuration Release
-  artifacts:
-    paths:
-      - src\Release\aimp_dotnet.dll
-      - src\Release\AIMP.SDK.dll
-
-build_develop:
-  only:
-    - develop
-  stage: build
-  script: .\build.ps1 Compile -configuration Release
-  artifacts:
-    paths:
-      - src\Release\aimp_dotnet.dll
-      - src\Release\AIMP.SDK.dll
 
 build_feature:
-  except:
-    - master
-    - develop
-    - tags
+  only:
+    - /^feature/
   stage: build
   script: .\build.ps1 Compile -configuration Debug
-  artifacts:
-    paths:
-      - src\Debug\aimp_dotnet.dll
-      - src\Debug\AIMP.SDK.dll
 
-documentation_build:
-  stage: documentation
-  script: .\build.ps1 BuildDocumentation
+pack_release:
+  variables:
+    GIT_STRATEGY: none
+  only:
+    - master
+    - develop
+  stage: deploy
+  script: .\build.ps1 Pack -configuration Release
 
-#documentation_publish:
-#  only:
-#    - master
-#  stage: publish_documentation
-#  script: .\docs\publish.ps1
+pack_debug:
+  variables:
+    GIT_STRATEGY: none
+  only:
+    - master
+    - develop
+  stage: deploy
+  script: .\build.ps1 Pack -configuration Release
+
+publish_develop:
+  variables:
+    GIT_STRATEGY: none
+  when: manual
+  only:
+    - /^feature/
+  stage: deploy
+  script: .\build.ps1 Publish -configuration Release -ApiKey $env:NUGET_ACCESS_TOKEN
+
+publish_master:
+  variables:
+    GIT_STRATEGY: none
+  when: manual
+  only:
+    - master
+  stage: deploy
+  script: .\build.ps1 Publish -configuration Release -ApiKey $env:NUGET_ACCESS_TOKEN -NuGet true
+
+analysis:
+  variables:
+    GIT_STRATEGY: none
+  script: 
+  - .\build.ps1 Analysis
+  - .\build.ps1 SonarQube
