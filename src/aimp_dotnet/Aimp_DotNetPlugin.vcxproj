@@ -324,10 +324,8 @@
       <AdditionalLibraryDirectories>$(NETFXKitsDir)$(DotNetSdk_LibraryPath_x86);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>IF NOT EXIST "$(SolutionDir)$(ConfigurationName)\AIMP.SDK" mkdir "$(SolutionDir)$(ConfigurationName)\AIMP.SDK\SDK"
-copy "$(OutDir)AIMP.SDK.dll" "$(SolutionDir)$(ConfigurationName)\AIMP.SDK\SDK\AIMP.SDK.dll"
-copy "$(TargetPath)" "$(SolutionDir)$(ConfigurationName)\AIMP.SDK\SDK\$(TargetFileName)"
-xcopy "$(ProjectDir)Langs" "$(SolutionDir)$(ConfigurationName)\AIMP.SDK\SDK\Langs" /I /Y</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

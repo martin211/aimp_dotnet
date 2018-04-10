@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using Nuke.Common.Git;
 using Nuke.Common.Tools.GitVersion;
@@ -151,7 +152,6 @@ class Build : NukeBuild
         });
 
     Target Artifacts => _ => _
-        //.DependsOn(Compile)
         .Executes(() =>
         {
             EnsureCleanDirectory(OutputDirectory / "Artifacts");
@@ -198,5 +198,8 @@ class Build : NukeBuild
                 var outFile = OutputDirectory / "Artifacts" / "SDK" / file.Name;
                 file.CopyTo(outFile, true);
             }
+
+            Logger.Info("Compress artifacts");
+            ZipFile.CreateFromDirectory(OutputDirectory / "Artifacts", OutputDirectory / "aimp.sdk.zip");
         });
 }
