@@ -19,8 +19,10 @@ using AIMP.SDK.Options;
 using AIMP.SDK.Playback;
 using AIMP.SDK.Win32;
 using AIMP.SDK.FileManager;
+using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.MusicLibrary;
 using AIMP.SDK.Playlist;
+using AIMP.SDK.TagEditor;
 using AIMP.SDK.Threading;
 
 namespace AIMP.SDK.Player
@@ -45,7 +47,7 @@ namespace AIMP.SDK.Player
     }
 
     /// <summary>
-    /// Interface IAIMPPlayer
+    /// Interface IAimpPlayer
     /// </summary>
     public interface IAimpPlayer : IDisposable
     {
@@ -91,7 +93,15 @@ namespace AIMP.SDK.Player
         /// </summary>
         IAimpPlaybackQueueService PlaybackQueueManager { get; }
 
+        /// <summary>
+        /// Gets the service options dialog.
+        /// </summary>
         IAimpServiceOptionsDialog ServiceOptionsDialog { get; }
+
+        /// <summary>
+        /// Gets the service message dispatcher.
+        /// </summary>
+        IAimpServiceMessageDispatcher ServiceMessageDispatcher { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the volume is mute.
@@ -161,6 +171,8 @@ namespace AIMP.SDK.Player
         /// Gets the file information formatter service.
         /// </summary>
         IAimpServiceFileInfoFormatter ServiceFileInfoFormatter { get; }
+
+        IAimpServiceFileTagEditor ServiceFileTagEditor { get; }
 
         /// <summary>
         /// Occurs when player state has been changed.

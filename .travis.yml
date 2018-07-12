@@ -1,8 +1,0 @@
-language: csharp
-script:
-# Build project
-- ./build.ps1 Compile
-# Pack Nuget
-- ./build.ps1 Pack
-# Publish Nuget packages
-- ./build.ps1 Deploy -MyGetApiKey $ApiKey

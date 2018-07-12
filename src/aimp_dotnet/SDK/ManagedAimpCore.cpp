@@ -106,12 +106,6 @@ namespace AIMP
         ManagedAimpCore::ManagedAimpCore(IAIMPCore* core)
         {
             _core = core;
-            IAIMPServiceMessageDispatcher* aimp_service_message_dispatcher;
-            core->QueryInterface(IID_IAIMPServiceMessageDispatcher, reinterpret_cast<void**>(&aimp_service_message_dispatcher));
-            _hook = new AIMPMessageHook(this);
-            aimp_service_message_dispatcher->Hook(_hook);
-            _messageDispatcher = aimp_service_message_dispatcher;
-
             AimpExtensionPlayerHook *playerHook = new AimpExtensionPlayerHook(this);
             core->RegisterExtension(IID_IAIMPServicePlayer, playerHook);
         }
@@ -119,8 +113,6 @@ namespace AIMP
         ManagedAimpCore::~ManagedAimpCore()
         {
             System::Diagnostics::Debug::WriteLine("Dispose ManagedAimpCore");
-            _messageDispatcher->Unhook(_hook);
-            _messageDispatcher->Release();
             
             if (_optionsFrame != NULL)
             {

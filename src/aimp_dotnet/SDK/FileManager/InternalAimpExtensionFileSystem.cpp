@@ -26,7 +26,7 @@ InternalAimpExtensionFileSystem::InternalAimpExtensionFileSystem(gcroot<AIMP::SD
     IAimpFileSystemCommandStreaming ^streamingCommand = dynamic_cast<IAimpFileSystemCommandStreaming^>(obj);
 
     if (fileInfoCommand != nullptr)
-        _commandFileInfo = new InternalAimpFileSystemCommandFileInfo(fileInfoCommand);
+        _commandFileInfo = new InternalAimpFileSystemCommandFileInfo(fileInfoCommand, core);
 
     if (openFileFolderCommand != nullptr)
         _commandOpenFileFolder = new InternalAimpFileSystemCommandOpenFileFolder(openFileFolderCommand);
@@ -44,28 +44,6 @@ InternalAimpExtensionFileSystem::InternalAimpExtensionFileSystem(gcroot<AIMP::SD
         _commandStreaming = new InternalAimpFileSystemCommandStreaming(streamingCommand);
 }
 
-void WINAPI InternalAimpExtensionFileSystem::BeginUpdate()
-{
-    System::Diagnostics::Debugger::Break();
-}
-
-void WINAPI InternalAimpExtensionFileSystem::EndUpdate()
-{
-    System::Diagnostics::Debugger::Break();
-}
-
-HRESULT WINAPI InternalAimpExtensionFileSystem::Reset()
-{
-    System::Diagnostics::Debugger::Break();
-    return E_NOTIMPL;
-}
-
-HRESULT WINAPI InternalAimpExtensionFileSystem::GetValueAsFloat(int PropertyID, double *Value)
-{
-    System::Diagnostics::Debugger::Break();
-    return E_NOTIMPL;
-}
-
 HRESULT WINAPI InternalAimpExtensionFileSystem::GetValueAsInt32(int PropertyID, int *Value)
 {
     System::Diagnostics::Debugger::Break();
@@ -75,12 +53,6 @@ HRESULT WINAPI InternalAimpExtensionFileSystem::GetValueAsInt32(int PropertyID, 
     }
 
     return S_OK;
-}
-
-HRESULT WINAPI InternalAimpExtensionFileSystem::GetValueAsInt64(int PropertyID, INT64 *Value)
-{
-    System::Diagnostics::Debugger::Break();
-    return E_NOTIMPL;
 }
 
 HRESULT WINAPI InternalAimpExtensionFileSystem::GetValueAsObject(int PropertyID, REFIID IID, void **Value)
@@ -98,48 +70,6 @@ HRESULT WINAPI InternalAimpExtensionFileSystem::GetValueAsObject(int PropertyID,
         //*Value = AIMP::SDK::AimpConverter::GetAimpString(_managed->Schema);
     }
 
-    return S_OK;
-}
-
-HRESULT WINAPI InternalAimpExtensionFileSystem::SetValueAsFloat(int PropertyID, const double Value)
-{
-    System::Diagnostics::Debugger::Break();
-    return E_NOTIMPL;
-}
-
-HRESULT WINAPI InternalAimpExtensionFileSystem::SetValueAsInt32(int PropertyID, int Value)
-{
-    System::Diagnostics::Debugger::Break();
-    return E_NOTIMPL;
-}
-
-HRESULT WINAPI InternalAimpExtensionFileSystem::SetValueAsInt64(int PropertyID, const INT64 Value)
-{
-    System::Diagnostics::Debugger::Break();
-    return E_NOTIMPL;
-}
-
-HRESULT WINAPI InternalAimpExtensionFileSystem::SetValueAsObject(int PropertyID, IUnknown *Value)
-{
-    System::Diagnostics::Debugger::Break();
-    return E_NOTIMPL;
-}
-
-HRESULT WINAPI InternalAimpExtensionFileSystem::GetFileAttrs(IAIMPString* FileName, TAIMPFileAttributes* Attrs)
-{
-    System::Diagnostics::Debug::WriteLine("GetFileAttrs");
-    return S_OK;
-}
-
-HRESULT WINAPI InternalAimpExtensionFileSystem::GetFileSize(IAIMPString* FileName, INT64* Size)
-{
-    System::Diagnostics::Debug::WriteLine("GetFileSize");
-    return S_OK;
-}
-
-HRESULT WINAPI InternalAimpExtensionFileSystem::IsFileExists(IAIMPString* FileName)
-{
-    System::Diagnostics::Debug::WriteLine("IsFileExists");
     return S_OK;
 }
 

@@ -43,6 +43,7 @@ namespace AIMP
         /// <summary>
         /// Wrapper on IAIMPCore interface.
         /// </summary>
+        [Serializable]
         public ref class ManagedAimpCore
         {
 
