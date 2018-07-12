@@ -36,7 +36,8 @@
 #include "SDK\FileManager\AimpServiceFileInfo.h"
 #include "SDK\FileManager\AimpServiceFileSystems.h"
 #include "SDK\FileManager\AimpServiceFileStreaming.h"
-
+#include "SDK\MessageDispatcher\AimpServiceMessageDispatcher.h";
+#include "SDK\TagEditor\AimpServiceFileTagEditor.h"
 
 namespace AIMP
 {
@@ -50,6 +51,8 @@ namespace AIMP
     using namespace AIMP::SDK::Win32;
     using namespace AIMP::SDK::Playback;
     using namespace AIMP::SDK::Threading;
+    using namespace AIMP::SDK::MessageDispatcher;
+    using namespace AIMP::SDK::TagEditor;
 
     private ref class AimpPlayer :
         public MarshalByRefObject,
@@ -81,6 +84,8 @@ namespace AIMP
         IAimpServiceFileSystems ^_serviceFileSystems;
         IAimpServiceFileStreaming ^_serviceFileStreaming;
         IAimpServiceFileInfoFormatter ^_serviceFileInfoFormatter;
+        IAimpServiceMessageDispatcher ^_serviceMessageDispatcher;
+        IAimpServiceFileTagEditor^ _serviceFileTagEditor;
 
         EventHandler<AIMP::SDK::Player::StateChangedEventArgs^> ^_onStateChanged;
         EventHandler ^_onLanguageChanged;
@@ -203,6 +208,11 @@ namespace AIMP
             IAimpServiceOptionsDialog ^get();
         }
 
+        virtual property IAimpServiceMessageDispatcher^ ServiceMessageDispatcher
+        {
+            IAimpServiceMessageDispatcher ^get();
+        }
+
         virtual event EventHandler<Player::StateChangedEventArgs^>^ StateChanged
         {
             void add(EventHandler<Player::StateChangedEventArgs^>^ onAction);
@@ -287,20 +297,14 @@ namespace AIMP
             IAimpServiceFileInfoFormatter ^get();
         }
 
+        virtual property IAimpServiceFileTagEditor^ ServiceFileTagEditor
+        {
+            IAimpServiceFileTagEditor^ get();
+        }
+
         bool OnCheckUrl(String^ %url);
 
     private:
         void OnInternalCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2);
-    };
-
-    private ref class AIMPControllerInitializer : public System::MarshalByRefObject
-    {
-    public:
-        static String^ TypeName = "";
-
-        AimpPlayer^ CreateWithStaticAllocator(ManagedAimpCore^ Ctrl, int PlgUID, int AppDomainID, bool CrossDmn/*, CentralizedEventController^ evCtrl*/)
-        {
-            return gcnew AimpPlayer(Ctrl, PlgUID, AppDomainID, CrossDmn/*, evCtrl*/);
-        }
     };
 }

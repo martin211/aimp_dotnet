@@ -9,12 +9,16 @@
 // 
 // ----------------------------------------------------
 
-using System.IO;
+using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.FileManager.Commands
 {
     public interface IAimpFileSystemCommandDropSource : IAimpFileSystemCommand
     {
-        AimpActionResult CreateStream(string file, IAimpStream stream);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileName"></param>
+        IAimpStream CreateStream(IAimpString fileName);
     }
 }

@@ -29,3 +29,4 @@
 #include "AIMPSDK\AIMP400\apiThreading.h"
 #include "AIMPSDK\AIMP400\apiVisuals.h"
 #include "AIMPSDK\AIMP400\apiMusicLibrary.h"
+#include "AIMPSDK\AIMP400\apiTagEditor.h"

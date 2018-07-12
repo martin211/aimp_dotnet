@@ -347,4 +347,14 @@ namespace AIMP.SDK
 
         Playing
     }
+
+    public enum AimpWindowHandleTypes
+    {
+        MainForm = 0,
+        Application = 1,
+        TrayControl = 2,
+        PlaylistForm = 3,
+        EqualizerForm = 4
+    }
+   
 }

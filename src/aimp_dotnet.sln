@@ -36,7 +36,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_musiclibrary", "Plug
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{E560656D-14CC-48E6-A94E-9992D99B5BA0}"
 	ProjectSection(SolutionItems) = preProject
+		..\.travis.yml = ..\.travis.yml
+		..\AimpSDK.nuspec = ..\AimpSDK.nuspec
+		..\AimpSDK.sources.nuspec = ..\AimpSDK.sources.nuspec
+		..\AimpSDK.symbols.nuspec = ..\AimpSDK.symbols.nuspec
 		CopyPlugin.cmd = CopyPlugin.cmd
+		..\GitVersion.yml = ..\GitVersion.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_demo", "Plugins\dotnet_demo\dotnet_demo.csproj", "{72CBA5F8-494D-4EEB-803B-7D1802A91D4A}"
@@ -60,9 +65,11 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|Any CPU.Build.0 = Debug|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|x86.ActiveCfg = Debug|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|x86.Build.0 = Debug|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Release|Any CPU.ActiveCfg = Release|Win32
+		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Release|Any CPU.Build.0 = Release|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Release|x86.ActiveCfg = Release|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Release|x86.Build.0 = Release|Win32
 		{154C60CF-2DAE-4227-AD2C-CCE7C63CDE5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
