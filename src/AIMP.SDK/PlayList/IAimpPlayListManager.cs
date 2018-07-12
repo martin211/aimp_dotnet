@@ -14,9 +14,6 @@ namespace AIMP.SDK.Playlist
     /// <summary>
     /// The service provides an access to playlist manager.
     /// </summary>
-    /// <seealso cref="IAimpExtensionPlaylistManagerListener" />
-    /// <seealso cref="IAimpExtension" />
-    // TODO: ADN-32
     public interface IAimpPlaylistManager
     {
         IAimpPlaylistQueue PlaylistQueue { get; }

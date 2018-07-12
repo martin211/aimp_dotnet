@@ -10,15 +10,17 @@
 // ----------------------------------------------------
 
 #pragma once
+using namespace AIMP::SDK::FileManager::Commands;
 
 class InternalAimpFileSystemCommandFileInfo : IUnknownInterfaceImpl<IAIMPFileSystemCommandFileInfo>
 {
 private:
     typedef IUnknownInterfaceImpl<IAIMPFileSystemCommandFileInfo> Base;
-    gcroot<AIMP::SDK::FileManager::Commands::IAimpFileSystemCommandFileInfo^> _instance;
+    gcroot<IAimpFileSystemCommandFileInfo^> _instance;
+    IAIMPCore* _core;
 
 public:
-    InternalAimpFileSystemCommandFileInfo(gcroot<AIMP::SDK::FileManager::Commands::IAimpFileSystemCommandFileInfo^> instance);
+    InternalAimpFileSystemCommandFileInfo(gcroot<IAimpFileSystemCommandFileInfo^> instance, IAIMPCore* core);
 
     virtual HRESULT WINAPI GetFileAttrs(IAIMPString* FileName, TAIMPFileAttributes* Attrs);
 

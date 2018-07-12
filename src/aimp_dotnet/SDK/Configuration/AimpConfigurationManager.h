@@ -21,6 +21,7 @@ namespace AIMP
         using namespace System;
         using namespace AIMP::SDK::ConfigurationManager;
 
+        [System::Serializable]
         public ref class AimpServiceConfig :
             public AimpConfig,
             public IAimpServiceConfig

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading;
 using AIMP.SDK.ActionManager;
+using AIMP.SDK.Playlist;
 using DemoPlugin;
 
 namespace TestPlugin
@@ -9,6 +10,24 @@ namespace TestPlugin
     using AIMP.SDK;
     using AIMP.SDK.MenuManager;
     using AIMP.SDK.Options;
+
+    public class ExtensionPlaylistManagerListener : IAimpExtension, IAimpExtensionPlaylistManagerListener
+    {
+        public AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist)
+        {
+            return AimpActionResult.Ok;
+        }
+
+        public AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist)
+        {
+            return AimpActionResult.Ok;
+        }
+
+        public AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist)
+        {
+            return AimpActionResult.Ok;
+        }
+    }
 
     [AimpPlugin("dotnet_demo", "Evgeniy Bogdan", "1", AimpPluginType = AimpPluginType.Addons)]
     public class Program : AimpPlugin
@@ -25,6 +44,10 @@ namespace TestPlugin
             TestWriteConfig();
 
             IAimpMenuItem demoFormItem;
+
+            var listner = new ExtensionPlaylistManagerListener();
+            Player.Core.RegisterExtension(listner);
+
             if (Player.MenuManager.CreateMenuItem(out demoFormItem) == AimpActionResult.Ok)
             {
                 demoFormItem.Name = "Open demo form";

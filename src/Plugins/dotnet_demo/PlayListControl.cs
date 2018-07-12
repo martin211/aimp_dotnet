@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using AIMP.SDK;
+using AIMP.SDK.Player;
 using AIMP.SDK.Playlist;
 
 namespace DemoPlugin
@@ -9,8 +10,9 @@ namespace DemoPlugin
     public partial class PlayListControl : UserControl
     {
         private readonly IAimpPlaylist _playList;
+        private readonly IAimpPlayer _player;
 
-        public PlayListControl(IAimpPlaylist playList)
+        public PlayListControl(IAimpPlaylist playList, IAimpPlayer player)
         {
             InitializeComponent();
 
@@ -21,7 +23,11 @@ namespace DemoPlugin
             listView1.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             listView1.View = View.Details;
 
+            listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
             _playList = playList;
+            _player = player;
 
             LoadTracks();
 
@@ -73,7 +79,7 @@ namespace DemoPlugin
         {
             var trackItem = new ListViewItem { Text = item.PlaybackIndex.ToString() };
             trackItem.SubItems.Add(item.DisplayText);
-            trackItem.SubItems.Add(item.FileInfo.Duration.ToString());
+            trackItem.SubItems.Add(TimeSpan.FromSeconds(item.FileInfo.Duration).ToString());
             // save playlist item to tag.
             trackItem.Tag = item;
 
@@ -88,6 +94,16 @@ namespace DemoPlugin
         private bool FilterFunc(IAimpPlaylistItem aimpPlaylistItem, object o)
         {
             return true;
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                var currentTrack = listView1.SelectedItems[0].Tag as IAimpPlaylistItem;
+                TagEditorForm form = new TagEditorForm(currentTrack, _player);
+                form.ShowDialog(this);
+            }
         }
     }
 }

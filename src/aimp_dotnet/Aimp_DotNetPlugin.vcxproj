@@ -11,12 +11,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SDK\MessageDispatcher\InternalAimpMessageHook.cpp" />
     <ClCompile Include="SDK\AimpPlayer.cpp" />
     <ClCompile Include="SDK\AimpConfig.cpp" />
     <ClCompile Include="SDK\Action\AimpAction.cpp" />
     <ClCompile Include="SDK\Action\AimpActionEvent.cpp" />
     <ClCompile Include="SDK\AimpObjectList.cpp" />
     <ClCompile Include="SDK\AimpStream.cpp" />
+    <ClCompile Include="SDK\AimpString.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpAlbumArtManager.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.cpp" />
     <ClCompile Include="SDK\Configuration\AimpConfigurationManager.cpp" />
@@ -36,6 +38,7 @@
     <ClCompile Include="SDK\FileManager\Commands\InternalAimpFileSystemCustomFileCommand.cpp" />
     <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.cpp" />
     <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileSystem.cpp" />
+    <ClCompile Include="SDK\MessageDispatcher\AimpServiceMessageDispatcher.cpp" />
     <ClCompile Include="SDK\MUI\MUIManager.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpDataField.cpp" />
     <ClCompile Include="SDK\MusicLibrary\AimpDataFieldFilter.cpp" />
@@ -78,6 +81,9 @@
     <ClCompile Include="SDK\PlayList\Internal\InternalAimpPlaylistPreimage.cpp" />
     <ClCompile Include="SDK\PlayList\PlayListManager.cpp" />
     <ClCompile Include="SDK\PropertyListHelper.cpp" />
+    <ClCompile Include="SDK\TagEditor\AimpFileTag.cpp" />
+    <ClCompile Include="SDK\TagEditor\AimpFileTagEditor.cpp" />
+    <ClCompile Include="SDK\TagEditor\AimpServiceFileTagEditor.cpp" />
     <ClCompile Include="SDK\Threading\AimpServiceSynchronizer.cpp" />
     <ClCompile Include="SDK\Threading\AimpServiceThreadPool.cpp" />
     <ClCompile Include="SDK\Threading\AimpTaskOwner.cpp" />
@@ -102,7 +108,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SDK\MessageDispatcher\InternalAimpMessageHook.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiLyrics.h" />
+    <ClInclude Include="SDK\AimpStream.h" />
+    <ClInclude Include="SDK\AimpString.h" />
+    <ClInclude Include="SDK\MessageDispatcher\AimpServiceMessageDispatcher.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpDataFilter.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpDataFilterGroup.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpMusicLibraryPlaylistPreimage.h" />
@@ -111,7 +121,6 @@
     <ClInclude Include="SDK\Action\AimpActionEvent.h" />
     <ClInclude Include="SDK\AimpObjectList.h" />
     <ClInclude Include="SDK\AimpPropertyList.h" />
-    <ClInclude Include="SDK\AimpStream.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileFormats.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileInfo.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileStreaming.h" />
@@ -162,6 +171,9 @@
     <ClInclude Include="SDK\PlayList\Internal\InternalAimpPlaylistPreimage.h" />
     <ClInclude Include="SDK\PlayList\IPlayListQueueEventExecutor.h" />
     <ClInclude Include="SDK\PropertyListHelper.h" />
+    <ClInclude Include="SDK\TagEditor\AimpFileTag.h" />
+    <ClInclude Include="SDK\TagEditor\AimpFileTagEditor.h" />
+    <ClInclude Include="SDK\TagEditor\AimpServiceFileTagEditor.h" />
     <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h" />
     <ClInclude Include="SDK\Threading\AimpTaskOwner.h" />
     <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h" />
@@ -254,6 +266,8 @@
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>true</CLRSupport>
+    <Prefer32bit>true</Prefer32bit>
+    <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -262,6 +276,7 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>true</CLRSupport>
+    <Prefer32bit>true</Prefer32bit>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -319,10 +334,8 @@
       <AdditionalLibraryDirectories>$(NETFXKitsDir)$(DotNetSdk_LibraryPath_x86);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>IF NOT EXIST "$(SolutionDir)$(ConfigurationName)\AIMP.SDK" mkdir "$(SolutionDir)$(ConfigurationName)\AIMP.SDK\SDK"
-copy "$(OutDir)AIMP.SDK.dll" "$(SolutionDir)$(ConfigurationName)\AIMP.SDK\SDK\AIMP.SDK.dll"
-copy "$(TargetPath)" "$(SolutionDir)$(ConfigurationName)\AIMP.SDK\SDK\$(TargetFileName)"
-xcopy "$(ProjectDir)Langs" "$(SolutionDir)$(ConfigurationName)\AIMP.SDK\SDK\Langs" /I /Y</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

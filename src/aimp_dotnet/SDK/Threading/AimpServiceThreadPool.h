@@ -19,6 +19,7 @@ namespace AIMP
     {
         using namespace AIMP::SDK::Threading;
 
+        [System::Serializable]
         public ref class AimpServiceThreadPool : public AimpBaseManager<IAIMPServiceThreadPool>, public IAimpServiceThreadPool
         {
         public:

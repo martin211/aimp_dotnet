@@ -21,6 +21,7 @@ namespace AIMP
         using namespace System;
         using namespace AIMP::SDK;
 
+        [System::Serializable]
         public ref class AimpCore : public IAimpCore
         {
         private:
@@ -111,13 +112,29 @@ namespace AIMP
 
             virtual IAimpStream^ CreateStream()
             {
-                IAIMPStream *stream = NULL;
-                if (_aimpCore->CreateStream(&stream) == AimpActionResult::Ok && stream != NULL)
+                IAIMPStream *stream = nullptr;
+                if (_aimpCore->CreateStream(&stream) == AimpActionResult::Ok && stream != nullptr)
                 {
                     return gcnew AIMP::SDK::AimpStream(stream);
                 }
 
                 return nullptr;
+            }
+
+            virtual System::IntPtr CreateObject(Guid %iid)
+            {
+                IAIMPCore *core = _aimpCore->GetAimpCore();
+                IUnknown *obj;
+                array<Byte>^ guidData = iid.ToByteArray();
+                pin_ptr<Byte> data = &(guidData[0]);
+                //AimpActionResult result = Utils::CheckResult(core->CreateObject(*(_GUID *)data, (void**)&obj));
+                AimpActionResult result = Utils::CheckResult(core->CreateObject(IID_IAIMPString, (void**)&obj));
+                if (result == AimpActionResult::Ok)
+                {
+                    return IntPtr(obj);
+                }
+
+                return IntPtr::Zero;
             }
         internal:
             virtual event AimpEventsDelegate^ InternalCoreMessage
