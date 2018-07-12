@@ -12,7 +12,7 @@ var clean = require("gulp-clean");
 
 var configuration = "Debug";
 var pluginName = "dotnet_AppDomain";
-var aimpFolder = "AIMP4.50";
+var aimpFolder = "AIMP4.51";
 
 paths = {
     plugin: "./bin/" + configuration,

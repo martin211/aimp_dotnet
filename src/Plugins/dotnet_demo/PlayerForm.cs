@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using AIMP.SDK;
 using AIMP.SDK.Player;
@@ -38,7 +39,7 @@ namespace DemoPlugin
 
             Load += OnActivated;
 
-            //_aimpPlayer.PlaylistManager.PlaylistActivated += (name, id) =>
+       //_aimpPlayer.PlaylistManager.PlaylistActivated += (name, id) =>
             //{
             //    Logger.Instance.AddInfoMessage($"[Event] PlayListManager.PlaylistActivated: {name} {id}");
 
@@ -121,7 +122,7 @@ namespace DemoPlugin
                 Tag = playList
             };
 
-            var pl = new PlayListControl(playList);
+            var pl = new PlayListControl(playList, _aimpPlayer);
             tab.Controls.Add(pl);
             tabPlayLists.TabPages.Add(tab);
 
@@ -287,6 +288,18 @@ namespace DemoPlugin
             if (playlist != null)
             {
                 _aimpPlayer.PlaylistManager.SetActivePlaylist(playlist);
+            }
+        }
+
+        private void PlayerForm_Shown(object sender, EventArgs e)
+        {
+            var count = _aimpPlayer.PlaylistManager.GetLoadedPlaylistCount();
+            for (var i = 0; i < count; i++)
+            {
+                if (_aimpPlayer.PlaylistManager.GetLoadedPlaylist(i, out var playlist) == AimpActionResult.Ok && _playLists.All(c => c.Id != playlist.Id))
+                {
+                    AddPlayListTab(playlist.Id, playlist.Name, playlist);
+                }
             }
         }
     }

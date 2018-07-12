@@ -9,7 +9,8 @@
 // 
 // ----------------------------------------------------
 
-using AIMP.SDK.ActionManager;
+using System;
+using System.Runtime.InteropServices;
 
 namespace AIMP.SDK
 {
@@ -56,6 +57,7 @@ namespace AIMP.SDK
         /// <summary>
         /// Occurs when [core message].
         /// </summary>
+        [Obsolete("Use message dispatcher service hook instead.")]
         event AimpEventsDelegate CoreMessage;
 
         /// <summary>
@@ -63,5 +65,8 @@ namespace AIMP.SDK
         /// </summary>
         /// <returns></returns>
         IAimpStream CreateStream();
+
+        [return: MarshalAs(UnmanagedType.IUnknown)]
+        IntPtr CreateObject(ref Guid iid);
     }
 }

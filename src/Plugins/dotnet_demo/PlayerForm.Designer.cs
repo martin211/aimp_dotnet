@@ -234,6 +234,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "PlayerForm";
             this.Text = "PlayerForm";
+            this.Shown += new System.EventHandler(this.PlayerForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

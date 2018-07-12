@@ -15,7 +15,8 @@
 #include "IUnknownInterfaceImpl.h"
 #include "SDK\AimpPlayer.h"
 
-private ref class ManagedFunctionality
+[System::Serializable]
+public ref class ManagedFunctionality
 {
 public:
     ManagedFunctionality(IAIMPCore* core)

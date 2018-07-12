@@ -1107,27 +1107,35 @@ namespace AIMP
         AimpActionResult AimpPlayList::AddList(System::Collections::Generic::IList<String^>^ fileUrlList, PlaylistFlags flags, PlaylistFilePosition filePosition)
         {
             AimpActionResult res = AimpActionResult::Fail;
+            IAIMPObjectList *list = nullptr;
 
             if (fileUrlList->Count > 0)
             {
-                IAIMPObjectList *list;
-                ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPObjectList, (void**)&list);
-
-                if (list != NULL)
+                try
                 {
-                    for (int i = 0; i < fileUrlList->Count; i++)
+                    ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPObjectList, (void**)&list);
+
+                    if (list != nullptr)
                     {
-                        IAIMPString *str = AimpConverter::ToAimpString(fileUrlList[i]);
-                        list->Add(str);
-                        str->Release();
-                        str = NULL;
+                        for (int i = 0; i < fileUrlList->Count; i++)
+                        {
+                            IAIMPString *str = AimpConverter::ToAimpString(fileUrlList[i]);
+                            list->Add(str);
+                            str->Release();
+                            str = NULL;
+                        }
+
+                        res = CheckResult(InternalAimpObject->AddList(list, (DWORD)flags, (int)filePosition));
                     }
-
-                    list->Release();
-                    list = NULL;
                 }
-
-                res = CheckResult(InternalAimpObject->AddList(list, (DWORD)flags, (int)filePosition));
+                finally
+                {
+                    if (list != nullptr)
+                    {
+                        list->Release();
+                        list = nullptr;
+                    }
+                }
             }
 
             return res;
@@ -1441,7 +1449,7 @@ namespace AIMP
         {
             if (this->_scanningBeginHandler == nullptr)
             {
-                _scanningBeginHandler = (AimpPlayListHandler^)Delegate::Combine(_onChanged, onEvent);
+                _scanningBeginHandler = (AimpPlayListHandler^)System::Delegate::Combine(_scanningBeginHandler, onEvent);
             }
         }
 
@@ -1449,7 +1457,7 @@ namespace AIMP
         {
             if (this->_scanningBeginHandler != nullptr)
             {
-                _scanningBeginHandler = (AimpPlayListHandler^)Delegate::Remove(_onChanged, onEvent);
+                _scanningBeginHandler = (AimpPlayListHandler^)System::Delegate::Remove(_scanningBeginHandler, onEvent);
             }
         }
 
@@ -1465,7 +1473,7 @@ namespace AIMP
         {
             if (this->_scanningProgressHandler == nullptr)
             {
-                _scanningProgressHandler = (AimpPlayListHandler<ScanningProgressEventArgs^>^)Delegate::Combine(_onChanged, onEvent);
+                _scanningProgressHandler = (AimpPlayListHandler<ScanningProgressEventArgs^>^)System::Delegate::Combine(_scanningProgressHandler, onEvent);
             }
         }
 
@@ -1473,7 +1481,7 @@ namespace AIMP
         {
             if (this->_scanningProgressHandler != nullptr)
             {
-                _scanningProgressHandler = (AimpPlayListHandler<ScanningProgressEventArgs^>^)Delegate::Remove(_onChanged, onEvent);
+                _scanningProgressHandler = (AimpPlayListHandler<ScanningProgressEventArgs^>^)System::Delegate::Remove(_scanningProgressHandler, onEvent);
             }
         }
 
@@ -1489,7 +1497,7 @@ namespace AIMP
         {
             if (this->_scanningEndHandler == nullptr)
             {
-                _scanningEndHandler = (AimpPlayListHandler<ScanningEndEventArgs^>^)Delegate::Combine(_onChanged, onEvent);
+                _scanningEndHandler = (AimpPlayListHandler<ScanningEndEventArgs^>^)System::Delegate::Combine(_scanningEndHandler, onEvent);
             }
         }
 
@@ -1497,7 +1505,7 @@ namespace AIMP
         {
             if (this->_scanningEndHandler != nullptr)
             {
-                _scanningEndHandler = (AimpPlayListHandler<ScanningEndEventArgs^>^)Delegate::Remove(_onChanged, onEvent);
+                _scanningEndHandler = (AimpPlayListHandler<ScanningEndEventArgs^>^)System::Delegate::Remove(_scanningEndHandler, onEvent);
             }
         }
 

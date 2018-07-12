@@ -29,7 +29,7 @@ namespace AIMP.SDK
     /// <summary>
     /// Base class for AIMP Plugin.
     /// </summary>
-    public abstract class AimpPlugin : MarshalByRefObject, IAimpPlugin
+    public abstract class AimpPlugin : IAimpPlugin
     {
         public IAimpPlayer AimpPlayer;
 
@@ -71,7 +71,7 @@ namespace AIMP.SDK
                 System.Diagnostics.Debugger.Break();
 #endif
             PluginId = unId;
-            AimpPlayer = player;
+            AimpPlayer = (IAimpPlayer)player;
             Initialize();
         }
     }

@@ -12,6 +12,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace AIMP.SDK
 {
@@ -26,6 +27,7 @@ namespace AIMP.SDK
     /// <summary>
     /// Information about plugin.
     /// </summary>
+    [Serializable]
     public class PluginInformation : IDisposable
     {
         private static int _curUniquePluginId = 100;
@@ -157,6 +159,33 @@ namespace AIMP.SDK
                                 null, dmnSetup);
                         LoadedPlugin = (AimpPlugin) PluginAppDomainInfo.CreateInstanceFromAndUnwrap(_inPathToAssembly.FullName,
                                 PluginClassName);
+
+                        PluginAppDomainInfo.AssemblyResolve += (sender, args) =>
+                        {
+                            string projectDir = Path.GetDirectoryName(_inPathToAssembly.DirectoryName);
+
+                            var i = args.Name.IndexOf(',');
+                            if (i != -1)
+                            {
+                                string shortAssemblyName = args.Name.Substring(0, args.Name.IndexOf(','));
+                                string fileName = Path.Combine(projectDir, shortAssemblyName + ".dll");
+                                if (File.Exists(fileName))
+                                {
+                                    Assembly result = Assembly.LoadFrom(fileName);
+                                    return result;
+                                }
+
+                                var assemblyPath = Directory.EnumerateFiles(projectDir, shortAssemblyName + ".dll",
+                                        SearchOption.AllDirectories)
+                                    .FirstOrDefault();
+                                if (assemblyPath != null)
+                                {
+                                    return Assembly.LoadFrom(assemblyPath);
+                                }
+                            }
+
+                            return Assembly.GetExecutingAssembly().FullName == args.Name ? Assembly.GetExecutingAssembly() : null;
+                        };
                     }
                     catch (Exception ex)
                     {

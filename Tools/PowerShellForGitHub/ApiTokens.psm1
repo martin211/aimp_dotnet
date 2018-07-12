@@ -1,1 +1,0 @@
-$global:gitHubApiToken = "7ce6292345b37e1eb3cd3ef98e3564554a58ddcf"

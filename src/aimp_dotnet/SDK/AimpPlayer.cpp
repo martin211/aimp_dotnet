@@ -219,6 +219,16 @@ IAimpServiceOptionsDialog^ AimpPlayer::ServiceOptionsDialog::get()
     return _serviceOptionsDialogManager;
 }
 
+IAimpServiceMessageDispatcher^ AimpPlayer::ServiceMessageDispatcher::get()
+{
+    if (_serviceMessageDispatcher == nullptr)
+    {
+        _serviceMessageDispatcher = gcnew AIMP::SDK::AimpServiceMessageDispatcher((ManagedAimpCore^)_managedAimpCore);
+    }
+
+    return _serviceMessageDispatcher;
+}
+
 void AimpPlayer::StateChanged::add(EventHandler<Player::StateChangedEventArgs^>^ onAction)
 {
     if (this->_onStateChanged == nullptr)
@@ -420,6 +430,16 @@ IAimpServiceFileInfoFormatter^ AimpPlayer::ServiceFileInfoFormatter::get()
         //TODO: Complete it
     }
     return _serviceFileInfoFormatter;
+}
+
+IAimpServiceFileTagEditor^ AimpPlayer::ServiceFileTagEditor::get()
+{
+    if (_serviceFileTagEditor == nullptr)
+    {
+        _serviceFileTagEditor = gcnew AimpServiceFileTagEditor((ManagedAimpCore^)_managedAimpCore);
+    }
+
+    return _serviceFileTagEditor;
 }
 
 bool AimpPlayer::OnCheckUrl(String^ %url)

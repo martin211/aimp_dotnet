@@ -21,8 +21,13 @@ InternalAimpFileSystemCommandStreaming::InternalAimpFileSystemCommandStreaming(g
 
 HRESULT WINAPI InternalAimpFileSystemCommandStreaming::CreateStream(IAIMPString* FileName, const INT64 Offset, const INT64 Size, DWORD Flags, IAIMPStream** Stream)
 {
-    AimpStream^ stream = nullptr;
-    //return (HRESULT)_instance->CreateStream(AIMP::SDK::AimpConverter::GetString(FileName), Offset, Size, Flags, &stream);
+    IAimpStream^ aimpStream = _instance->CreateStream(AIMP::SDK::AimpConverter::ToManagedString(FileName), (FileStreamingType)Flags, Offset, Size);
+    if (aimpStream != nullptr)
+    {
+        *Stream = ((AimpStream^)aimpStream)->InternalAimpObject;
+        return S_OK;
+    }
+
     return S_OK;
 }
 

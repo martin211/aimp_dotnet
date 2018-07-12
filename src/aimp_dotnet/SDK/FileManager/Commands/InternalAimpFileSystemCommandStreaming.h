@@ -16,6 +16,7 @@ class InternalAimpFileSystemCommandStreaming : IUnknownInterfaceImpl<IAIMPFileSy
 private:
     typedef IUnknownInterfaceImpl<IAIMPFileSystemCommandStreaming> Base;
     gcroot<AIMP::SDK::FileManager::Commands::IAimpFileSystemCommandStreaming^> _instance;
+
 public:
     InternalAimpFileSystemCommandStreaming(gcroot<AIMP::SDK::FileManager::Commands::IAimpFileSystemCommandStreaming^> instance);
 

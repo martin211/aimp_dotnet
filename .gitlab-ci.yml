@@ -1,53 +1,106 @@
 variables:
-  VERSION: "$AIMP_VERSION.$CI_JOB_ID"
+  GIT_STRATEGY: clone
 
 stages:
-  - analysis_start
   - build
-  - analysis_end
-  - zip_publish
-  - documentation
-  - publish_documentation
+  - deploy
+  - artifacts
+  - analysis
 
-analysis_start:
-  stage: analysis_start
+build_release:
+  only:
+    - master
+    - develop
+  stage: build
   script:
-  - echo $env:CI_PROJECT_DIR
-  - .\tools\ci-build\start-analysis.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:SONAR_PROJECT_KEY aimp_dotnet $env:VERSION $env:CI_COMMIT_REF_NAME
+  - .\build.ps1 Compile -configuration Release
 
-analysis_end:
-  stage: analysis_end
-  script: .\tools\ci-build\stop-analysis.ps1
+build_feature:
+  only:
+    - /^feature/
+  stage: build
+  script: 
+  - .\build.ps1 Compile -configuration Debug
 
-build_master:
+pack_release:
+  variables:
+    GIT_STRATEGY: none
   only:
     - master
-    - tags
-  except:
     - develop
-  stage: build
-  script: .\tools\ci-build\build.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:VERSION $env:CI_COMMIT_REF_NAME Debug
-  artifacts:
+  stage: deploy
+  script: 
+  - .\build.ps1 Pack -configuration Release
+
+pack_debug:
+  variables:
+    GIT_STRATEGY: none
+  only:
+    - /^feature/
+  stage: deploy
+  script: 
+  - .\build.ps1 Pack -configuration Debug
+  cache:
     paths:
-      - src\Release\aimp_dotnet.dll
-      - src\Release\AIMP.SDK.dll
+    - output/*.nupkg
 
-build_develop:
+publish_develop:
+  variables:
+    GIT_STRATEGY: none
+  when: manual
   only:
+    - /^feature/
+  stage: deploy
+  script: 
+  - .\build.ps1 Publish -configuration Release -ApiKey $env:NUGET_ACCESS_TOKEN
+
+publish_master:
+  variables:
+    GIT_STRATEGY: none
+  when: manual
+  only:
+    - master
     - develop
+  stage: deploy
+  script: 
+  - .\build.ps1 Publish -configuration Release -ApiKey $env:NUGET_ACCESS_TOKEN -NuGet true
+
+Resharper_Analysis:
+  variables:
+    GIT_STRATEGY: none
+  stage: analysis
   except:
-    - master
-  stage: build
-  script: .\tools\ci-build\build.ps1 $env:CI_PROJECT_DIR\src\aimp_dotnet.sln $env:VERSION $env:CI_COMMIT_REF_NAME Release
+    - tags
+  script:
+  - .\build.ps1 Analysis
+  artifacts:
+    when: on_success
+    name: "Analysis result"
+    paths:
+     - $env:CI_PROJECT_DIR/output/Analysis/*
+    expire_in: 1 week
 
-documentation_build:
+SonarQube:
+  variables:
+    GIT_STRATEGY: none
+  when: manual
+  stage: analysis
+  except:
+    - tags
+  script:
+  - .\build.ps1 SonarQube -SonarUrl $env:SONAR_HOST -SonarUser $env:SONAR_USER -SonarPassword $env:SONAR_PASSWORD -SonarProjectKey "AIMP:SDK" -SonarProjectName "AIMPDotNetSDK"
+
+artifacts:
   only:
     - master
-  stage: documentation
-  script: .\docs\build.ps1
-
-documentation_publish:
-  only:
-    - master
-  stage: publish_documentation
-  script: .\docs\publish.ps1
+    - develop
+  stage: artifacts
+  variables:
+    GIT_STRATEGY: none
+  script: .\build.ps1 Artifacts -configuration Release
+  artifacts:
+    when: on_success
+    name: "aimp.sdk"
+    paths:
+     - $env:CI_PROJECT_DIR/output/Artifacts/aimp.sdk/*
+    expire_in: 1 week
