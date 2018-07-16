@@ -19,11 +19,8 @@ InternalAimpMessageHook::InternalAimpMessageHook(gcroot<IAimpMessageHook^> manag
 
 void InternalAimpMessageHook::CoreMessage(DWORD AMessage, int AParam1, void *AParam2, HRESULT *AResult)
 {
-    if (AMessage != (DWORD)AIMP::SDK::AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_QUIT && AMessage != (DWORD)AIMP::SDK::AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_TERMINATING)
-    {
-        AIMP::SDK::AimpActionResult res = _managedCore->CoreMessage((AIMP::SDK::AimpMessages::AimpCoreMessageType)AMessage, AParam1, (int)AParam2);
-        *AResult = (HRESULT)res;
-    }
+    AIMP::SDK::AimpActionResult res = _managedCore->CoreMessage((AIMP::SDK::AimpMessages::AimpCoreMessageType)AMessage, AParam1, (int)AParam2);
+    // do not set AResult here. It breaks a modal dialogs
 }
 
 //HRESULT WINAPI InternalAimpMessageHook::QueryInterface(REFIID riid, LPVOID* ppvObject)
