@@ -10,19 +10,19 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "guiddef.h"
-#include "vcclr.h"
 #include "AIMPSDK\AIMPSDK.h"
 #include "Utils.h"
+#include <combaseapi.h>
 
 namespace AIMP
 {
     namespace SDK
     {
         using namespace System;
-        using namespace System::Collections::Generic;
-        using namespace AIMP::SDK;
-        using namespace AIMP::SDK::FileManager;
+        using namespace System::Drawing;
+        using namespace Collections::Generic;
+        using namespace SDK;
+        using namespace FileManager;
 
         /// <summary>
         /// Aimp Converter helper class.
@@ -41,22 +41,22 @@ namespace AIMP
 
             static String^ ToManagedString(IAIMPString* value);
 
-            static IAIMPImage* ToAimpImage(System::Drawing::Bitmap^ image);
+            static IAIMPImage* ToAimpImage(Bitmap^ image);
 
-            static AIMP::SDK::Visuals::AimpVisualData^ PAIMPVisualDataToManaged(PAIMPVisualData data);
+            static Visuals::AimpVisualData^ PAIMPVisualDataToManaged(PAIMPVisualData data);
 
-            static System::Drawing::Bitmap^ ToManagedBitmap(IAIMPImageContainer* imageContainer);
+            static Bitmap^ ToManagedBitmap(IAIMPImageContainer* imageContainer);
 
-            static System::Drawing::Bitmap^ ToManagedBitmap(IAIMPImage* image);
+            static Bitmap^ ToManagedBitmap(IAIMPImage* image);
 
-            static IAIMPImageContainer* ToAimpImageContainer(System::Drawing::Bitmap ^image);
+            static IAIMPImageContainer* ToAimpImageContainer(Bitmap ^image);
 
             static IUnknown* MakeObject(REFIID objectId);
 
             template<typename TObject>
             static TObject* CreateAimpObject(REFIID objectId);
 
-            static System::Collections::Generic::IList<String^>^ ToStringCollection(IAIMPObjectList* aimpList)
+            static IList<String^>^ ToStringCollection(IAIMPObjectList* aimpList)
             {
                 int count = aimpList->GetCount();
                 System::Collections::Generic::List<String^>^ result = gcnew System::Collections::Generic::List<String^>(count);
@@ -73,7 +73,7 @@ namespace AIMP
                 return result;
             }
 
-            static VARIANT ToNativeVariant(System::Object^ objectValue);
+            static VARIANT ToNativeVariant(Object^ objectValue);
 
             static System::Object^ FromVaiant(VARIANT* variant);
 

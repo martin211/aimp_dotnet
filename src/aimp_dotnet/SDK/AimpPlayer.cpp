@@ -11,6 +11,7 @@
 
 #include "stdafx.h"
 #include "AimpPlayer.h"
+#include "Lyrics/AimpServiceLyrics.h"
 
 using namespace AIMP;
 using namespace AIMP::SDK;
@@ -341,11 +342,21 @@ void AimpPlayer::Play(IAimpPlaylist^ playList)
     _player->Play3(((AimpPlayList^)playList)->InternalAimpObject);
 }
 
+IAimpServiceLyrics^ AimpPlayer::ServiceLyrics::get()
+{
+    if (_serviceLyrics == nullptr)
+    {
+        _serviceLyrics = gcnew AimpServiceLyrics(_managedAimpCore);
+    }
+
+    return _serviceLyrics;
+}
+
 IAimpServiceSynchronizer^ AimpPlayer::ServiceSynchronizer::get()
 {
     if (_serviceSynchronizer == nullptr)
     {
-        _serviceSynchronizer = gcnew AimpServiceSynchronizer((ManagedAimpCore^)_managedAimpCore);
+        _serviceSynchronizer = gcnew AimpServiceSynchronizer(_managedAimpCore);
     }
     return _serviceSynchronizer;
 }

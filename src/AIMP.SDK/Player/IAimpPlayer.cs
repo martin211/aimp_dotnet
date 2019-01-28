@@ -19,6 +19,7 @@ using AIMP.SDK.Options;
 using AIMP.SDK.Playback;
 using AIMP.SDK.Win32;
 using AIMP.SDK.FileManager;
+using AIMP.SDK.Lyrics;
 using AIMP.SDK.MusicLibrary;
 using AIMP.SDK.Playlist;
 using AIMP.SDK.Threading;
@@ -161,6 +162,11 @@ namespace AIMP.SDK.Player
         /// Gets the file information formatter service.
         /// </summary>
         IAimpServiceFileInfoFormatter ServiceFileInfoFormatter { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        IAimpServiceLyrics ServiceLyrics { get; }
 
         /// <summary>
         /// Occurs when player state has been changed.
