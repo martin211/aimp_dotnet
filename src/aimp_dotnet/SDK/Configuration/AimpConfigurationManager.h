@@ -19,7 +19,7 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK::ConfigurationManager;
+        using namespace ConfigurationManager;
 
         [System::Serializable]
         public ref class AimpServiceConfig :

@@ -17,77 +17,71 @@ using namespace AIMP::SDK;
 AimpServiceFileFormats::AimpServiceFileFormats(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceFileFormats>(core)
 { }
 
-AimpActionResult AimpServiceFileFormats::GetFormats(FileFormats flags, String ^%formats)
+AimpActionResult AimpServiceFileFormats::GetFormats(FileFormats flags, String^% formats)
 {
-    IAIMPServiceFileFormats *service = NULL;
+    IAIMPServiceFileFormats* service = nullptr;
     AimpActionResult result = AimpActionResult::Fail;
-    IAIMPString *str = NULL;
+    IAIMPString* str = nullptr;
     formats = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceFileFormats, &service) == AimpActionResult::Ok)
+        if (GetService(IID_IAIMPServiceFileFormats, &service) == AimpActionResult::OK && service != nullptr)
         {
-            if (service != NULL)
-            {
-                result = CheckResult(service->GetFormats((DWORD)flags, &str));
+            result = CheckResult(service->GetFormats(DWORD(flags), &str));
 
-                if (result == AimpActionResult::Ok)
-                {
-                    formats = AimpConverter::ToManagedString(str);
-                }
+            if (result == AimpActionResult::Ok)
+            {
+                formats = AimpConverter::ToManagedString(str);
             }
         }
-
-        return result;
     }
     finally
     {
-        if (service != NULL)
+        if (service != nullptr)
         {
             service->Release();
-            service = NULL;
+            service = nullptr;
         }
 
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
+
+    return result;
 }
 
-AimpActionResult AimpServiceFileFormats::IsSupported(String ^fileName, FileFormats flags)
+AimpActionResult AimpServiceFileFormats::IsSupported(String^ fileName, FileFormats flags)
 {
-    IAIMPServiceFileFormats *service = NULL;
+    IAIMPServiceFileFormats* service = nullptr;
     AimpActionResult result = AimpActionResult::Fail;
-    IAIMPString *str = NULL;
+    IAIMPString* str = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceFileFormats, &service) == AimpActionResult::Ok)
+        if (GetService(IID_IAIMPServiceFileFormats, &service) == AimpActionResult::OK && service != nullptr)
         {
-            if (service != NULL)
-            {
-                str = AimpConverter::ToAimpString(fileName);
-                result = CheckResult(service->IsSupported(str, (DWORD)flags));
-            }
+            str = AimpConverter::ToAimpString(fileName);
+            result = CheckResult(service->IsSupported(str, DWORD(flags)));
         }
-
-        return result;
     }
     finally
     {
-        if (service != NULL)
+        if (service != nullptr)
         {
             service->Release();
-            service = NULL;
+            service = nullptr;
         }
 
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
+
+    return result;
 }

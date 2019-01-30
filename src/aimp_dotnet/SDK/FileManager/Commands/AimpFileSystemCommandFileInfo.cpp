@@ -13,13 +13,14 @@
 #include "AimpFileSystemCommandFileInfo.h"
 
 using namespace AIMP::SDK;
-using namespace AIMP::SDK::Objects;
+using namespace Objects;
 
-AimpFileSystemCommandFileInfo::AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo *aimpObject) : AimpObject(aimpObject)
+AimpFileSystemCommandFileInfo::AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject) : AimpObject(aimpObject)
 {}
 
-AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(IAimpString ^file, AimpFileAttributes %attr)
+AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(IAimpString^ file, AimpFileAttributes% attr)
 {
+    // TODO: Complete it
     //IAIMPString *str = AimpConverter::ToAimpString(file);
     attr = AimpFileAttributes();
 
@@ -41,9 +42,11 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(IAimpString ^file, 
     return AimpActionResult::Fail;
 }
 
-AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(IAimpString ^file, long long %size)
+AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(IAimpString^ file, long long% size)
 {
-    IAIMPString *str = NULL;
+    // TODO: Complete it
+
+    IAIMPString* str = nullptr;
     size = 0;
 
     try
@@ -60,17 +63,18 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(IAimpString ^file, l
     }
     finally
     {
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
 }
 
 AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(IAimpString ^file)
 {
-    IAIMPString *str = NULL;
+    // TODO: Complete it
+    IAIMPString *str = nullptr;
     try
     {
         //str = AimpConverter::ToAimpString(file);
@@ -80,10 +84,10 @@ AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(IAimpString ^file)
     }
     finally
     {
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
 }

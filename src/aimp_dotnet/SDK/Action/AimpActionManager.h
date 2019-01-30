@@ -16,9 +16,9 @@ namespace AIMP
 {
     namespace SDK
     {
-        using namespace System::Windows::Input;
-        using namespace AIMP::SDK;
-        using namespace AIMP::SDK::ActionManager;
+        using namespace Windows::Input;
+        using namespace SDK;
+        using namespace ActionManager;
 
         [System::Serializable]
         public ref class AimpActionManager :
@@ -28,15 +28,15 @@ namespace AIMP
         public:
             explicit AimpActionManager(ManagedAimpCore^ core);
 
-            virtual AimpActionResult GetById(String ^id, IAimpAction ^%action);
+            virtual AimpActionResult GetById(String^ id, IAimpAction^% action);
 
             virtual int MakeHotkey(ModifierKeys modifiers, unsigned int key);
 
-            virtual AimpActionResult Register(IAimpAction ^action);
+            virtual AimpActionResult Register(IAimpAction^ action);
 
-            virtual AimpActionResult Register(System::Collections::Generic::ICollection<AIMP::SDK::ActionManager::IAimpAction^>^ actions);
+            virtual AimpActionResult Register(Generic::ICollection<IAimpAction^>^ actions);
 
-            virtual IAimpAction ^CreateAction();
+            virtual IAimpAction^ CreateAction();
         };
     }
 }

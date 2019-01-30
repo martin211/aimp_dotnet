@@ -9,6 +9,8 @@
 // 
 // ----------------------------------------------------
 
+using System;
+
 namespace AIMP.SDK
 {
     public enum AimpActionResult : uint
@@ -16,7 +18,13 @@ namespace AIMP.SDK
         /// <summary>
         /// Operation successful complete.
         /// </summary>
+        [Obsolete("Use AimpActionResult.OK instead")]
         Ok = 0x00000000,
+
+        /// <summary>
+        /// Operation successful complete.
+        /// </summary>
+        OK = AimpActionResult.Ok,
 
         /// <summary>
         /// General access denied error.

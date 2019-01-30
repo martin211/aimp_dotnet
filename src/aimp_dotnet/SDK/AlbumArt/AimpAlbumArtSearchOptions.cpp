@@ -14,7 +14,7 @@
 
 using namespace AIMP::SDK;
 
-AimpAlbumArtSearchOptions::AimpAlbumArtSearchOptions(IAIMPPropertyList *properties, IAIMPCore* core)
+AimpAlbumArtSearchOptions::AimpAlbumArtSearchOptions(IAIMPPropertyList* properties, IAIMPCore* core)
 {
     _properties = properties;
     _core = core;
@@ -45,18 +45,18 @@ void AimpAlbumArtSearchOptions::FindInInternet::set(bool value)
     _properties->SetValueAsInt32(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_INTERNET, value ? 1 : 0);
 }
 
-array<System::String^>^ AimpAlbumArtSearchOptions::FileMasks::get()
+array<String^>^ AimpAlbumArtSearchOptions::FileMasks::get()
 {
     IAIMPString *str;
-    _properties->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, IID_IAIMPString, (void**)&str);
+    _properties->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, IID_IAIMPString, reinterpret_cast<void**>(&str));
     String^ result = gcnew String(str->GetData());
     str->Release();
-    return result->Split(gcnew array<WCHAR>{';'}, System::StringSplitOptions::RemoveEmptyEntries);
+    return result->Split(gcnew array<WCHAR>{';'}, StringSplitOptions::RemoveEmptyEntries);
 }
 
-void AimpAlbumArtSearchOptions::FileMasks::set(array<System::String^>^ value)
+void AimpAlbumArtSearchOptions::FileMasks::set(array<String^>^ value)
 {
-    String^ str;
+    auto str = String::Empty;
     for (int i = 0; i < value->Length; i++)
     {
         str += value[i] + ";";
@@ -64,25 +64,27 @@ void AimpAlbumArtSearchOptions::FileMasks::set(array<System::String^>^ value)
     _properties->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, AimpConverter::ToAimpString(str));
 }
 
-array<System::String^>^ AimpAlbumArtSearchOptions::FileExtensions::get()
+array<String^>^ AimpAlbumArtSearchOptions::FileExtensions::get()
 {
-    IAIMPString *str;
-    _properties->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, IID_IAIMPString, (void**)&str);
-    String^ result = gcnew String(str->GetData());
+    IAIMPString* str;
+    _properties->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, IID_IAIMPString, reinterpret_cast<void**>(&str));
+    auto result = gcnew String(str->GetData());
     str->Release();
-    return result->Split(gcnew array<WCHAR>{';'}, System::StringSplitOptions::RemoveEmptyEntries);
+    str = nullptr;
+    return result->Split(gcnew array<WCHAR>{';'}, StringSplitOptions::RemoveEmptyEntries);
 }
 
-void AimpAlbumArtSearchOptions::FileExtensions::set(array<System::String^>^ value)
+void AimpAlbumArtSearchOptions::FileExtensions::set(array<String^>^ value)
 {
-    String^ str;
+    auto str = String::Empty;
     for (int i = 0; i < value->Length; i++)
     {
         str += value[i] + ";";
     }
-    IAIMPString *s = AimpConverter::ToAimpString(str);
+    auto s = AimpConverter::ToAimpString(str);
     _properties->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, s);
     s->Release();
+    s = nullptr;
 }
 
 int AimpAlbumArtSearchOptions::MaxFileSize::get()

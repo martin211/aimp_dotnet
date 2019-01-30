@@ -13,13 +13,15 @@
 #include "AimpActionEvent.h"
 
 
-AimpActionEvent::AimpActionEvent(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> managedInstance, AIMP::SDK::AimpActionEventCallback cb)
+using namespace AIMP::SDK;
+
+AimpActionEvent::AimpActionEvent(gcroot<ActionManager::IAimpActionEvent^> managedInstance, AimpActionEventCallback cb)
 {
     _cb = cb;
     _managedInstance = managedInstance;
 }
 
-void WINAPI AimpActionEvent::OnExecute(IUnknown *Data)
+void WINAPI AimpActionEvent::OnExecute(IUnknown* Data)
 {
     _cb(_managedInstance, Data);
 }
@@ -32,7 +34,7 @@ HRESULT WINAPI AimpActionEvent::QueryInterface(REFIID riid, LPVOID* ppvObject)
         return S_OK;
     }
 
-    ppvObject = NULL;
+    ppvObject = nullptr;
     return E_NOTIMPL;
 }
 

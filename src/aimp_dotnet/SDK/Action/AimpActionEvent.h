@@ -16,9 +16,9 @@ namespace AIMP
 {
     namespace SDK
     {
-        public delegate void AimpActionEventDelegate(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> sender, IUnknown *data);
+        public delegate void AimpActionEventDelegate(gcroot<ActionManager::IAimpActionEvent^> sender, IUnknown* data);
 
-        typedef void(__stdcall *AimpActionEventCallback)(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> sender, IUnknown *data);
+        typedef void(__stdcall *AimpActionEventCallback)(gcroot<ActionManager::IAimpActionEvent^> sender, IUnknown* data);
     }
 }
 
@@ -34,7 +34,7 @@ public:
     /// <param name="executeCallback">The execute callback.</param>
     AimpActionEvent(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> managedInstance, AIMP::SDK::AimpActionEventCallback callback);
 
-    virtual void WINAPI OnExecute(IUnknown *Data);
+    virtual void WINAPI OnExecute(IUnknown* Data);
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
 
