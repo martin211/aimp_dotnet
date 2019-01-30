@@ -1,75 +1,91 @@
-﻿using System.IO;
+using System.Diagnostics;
+using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using Aimp.DotNet.Build;
+using AutoMapper.Mappers;
+using Nuke.Common;
 using Nuke.Common.Git;
+using Nuke.Common.ProjectModel;
+using Nuke.Common.Tooling;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.InspectCode;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
-using Nuke.Core;
-using Nuke.Core.Tooling;
-using Nuke.Core.Utilities;
-using Nuke.Core.Utilities.Collections;
-using SonarQube;
-using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
-using static Nuke.Core.IO.FileSystemTasks;
-using static Nuke.Core.IO.PathConstruction;
-using SonarQubeTasks = SonarQube.SonarQubeTasks;
+using Nuke.Common.Tools.SonarScanner;
+using Nuke.Common.Utilities;
+using Nuke.Common.Utilities.Collections;
+using static Nuke.Common.IO.FileSystemTasks;
+using static Nuke.Common.IO.PathConstruction;
 
 class Build : NukeBuild
 {
     [Parameter("Indicates to push to nuget.org feed.")] readonly bool NuGet;
-
     [Parameter("ApiKey for the specified source.")] readonly string ApiKey;
-
-    [GitVersion(DisableOnUnix = true)] readonly GitVersion GitVersion;
-    [GitRepository(Branch = "master")] readonly GitRepository GitRepository;
-
     [Parameter] readonly string SonarUrl;
     [Parameter] readonly string SonarUser;
     [Parameter] readonly string SonarPassword;
     [Parameter] readonly string SonarProjectKey;
     [Parameter] readonly string SonarProjectName;
-
     private string Source => NuGet
         ? "https://api.nuget.org/v3/index.json"
         : "https://www.myget.org/F/aimpsdk/api/v2/package";
 
-    // Console application entry. Also defines the default target.
-    public static int Main () => Execute<Build>(x => x.Compile);
+    readonly string MasterBranch = "master";
+    readonly string DevelopBranch = "develop";
+    readonly string ReleaseBranchPrefix = "release";
+    readonly string HotfixBranchPrefix = "hotfix";
+
+    public static int Main() => Execute<Build>(x => x.Compile);
+
+    [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
+    readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
+
+    [Solution] readonly Solution Solution;
+    [GitRepository] readonly GitRepository GitRepository;
+    [GitVersion] readonly GitVersion GitVersion;
+
+    AbsolutePath SourceDirectory => RootDirectory / "src";
+    AbsolutePath OutputDirectory => RootDirectory / "output";
 
     Target Clean => _ => _
-            .Executes(() =>
-            {
-                DeleteDirectories(GlobDirectories(SourceDirectory, "**/bin", "**/obj"));
-                EnsureCleanDirectory(OutputDirectory);
-            });
+        .Executes(() =>
+        {
+            DeleteDirectories(GlobDirectories(SourceDirectory, "**/bin", "**/obj"));
+            EnsureCleanDirectory(OutputDirectory);
+        });
 
     Target Restore => _ => _
-            .DependsOn(Clean)
-            .Executes(() =>
-            {
-                MSBuild(s => DefaultMSBuildRestore);
-            });
+        .DependsOn(Clean)
+        .Executes(() =>
+        {
+            MSBuildTasks.MSBuild(s => s.SetRestore(true));
+        });
 
     Target Compile => _ => _
-            .DependsOn(Restore, Version)
-            .Requires(() => GitVersion != null)
-            .Executes(() =>
-            {
-                MSBuild(s => DefaultMSBuildCompile.SetNodeReuse(false));
-            });
+        .DependsOn(Restore, Version)
+        .Requires(() => GitVersion != null)
+        .Executes(() =>
+        {
+            MSBuildTasks.MSBuild(s => s
+                .SetNodeReuse(false)
+                .SetProjectFile(Solution)
+                .SetAssemblyVersion(GitVersion.GetNormalizedAssemblyVersion())
+                .SetFileVersion(GitVersion.GetNormalizedFileVersion())
+                .SetInformationalVersion(GitVersion.InformationalVersion)
+                .SetConfiguration(Configuration));
+        });
 
     Target Version => _ => _
         .Executes(() =>
         {
-            var properties = GlobDirectories(SourceDirectory, "**/Properties");
-            foreach (var property in properties)
-            {
-                ProcessTasks.StartProcess(GitVersionTasks.DefaultGitVersion.ToolPath, $"/updateassemblyinfo {property}/AssemblyInfo.cs");
-            }
+            //var properties = GlobDirectories(SourceDirectory, "**/Properties");
+            //foreach (var property in properties)
+            //{
+            //    ProcessTasks.StartProcess(GitVersionTasks.GitVersionPath, $"/updateassemblyinfo {property}/AssemblyInfo.cs");
+            //}
 
-            var rcFile = SourceDirectory / "aimp_dotnet"/ "aimp_dotnet.rc";
+            var rcFile = SourceDirectory / "aimp_dotnet" / "aimp_dotnet.rc";
             if (File.Exists(rcFile))
             {
                 Logger.Info($"Update version for '{rcFile}'");
@@ -84,33 +100,37 @@ class Build : NukeBuild
         {
             Logger.Info("Start build Nuget packages");
 
-            NuGetTasks.NuGetPack(c => NuGetTasks.DefaultNuGetPack
+
+            NuGetTasks.NuGetPack(c => c
                 .SetTargetPath(RootDirectory / "AimpSDK.nuspec")
                 .SetBasePath(RootDirectory));
 
-            NuGetTasks.NuGetPack(c => NuGetTasks.DefaultNuGetPack
+            NuGetTasks.NuGetPack(c => c
                 .SetTargetPath(RootDirectory / "AimpSDK.symbols.nuspec")
                 .SetBasePath(RootDirectory)
                 .AddProperty("Symbols", string.Empty));
 
-            NuGetTasks.NuGetPack(c => NuGetTasks.DefaultNuGetPack
+            NuGetTasks.NuGetPack(c => c
                 .SetTargetPath(RootDirectory / "AimpSDK.sources.nuspec")
                 .SetBasePath(RootDirectory));
         });
 
     Target Publish => _ => _
         .Requires(() => ApiKey)
-        .Requires(() => !NuGet || GitVersionAttribute.Bump.HasValue)
-        .Requires(() => !NuGet || Configuration.EqualsOrdinalIgnoreCase("release"))
+        .Requires(() => Configuration.Equals(Configuration.Release))
+        .Requires(() => GitRepository.Branch.EqualsOrdinalIgnoreCase(MasterBranch) ||
+                        GitRepository.Branch.EqualsOrdinalIgnoreCase(DevelopBranch) ||
+                        GitRepository.Branch.EqualsOrdinalIgnoreCase(ReleaseBranchPrefix) ||
+                        GitRepository.Branch.EqualsOrdinalIgnoreCase(HotfixBranchPrefix))
         .Executes(() =>
         {
             Logger.Info("Deploying Nuget packages");
             GlobFiles(OutputDirectory, "*.nupkg").NotEmpty()
                 .Where(c => !c.EndsWith("symbols.nupkg"))
                 .ForEach(c => NuGetTasks.NuGetPush(s => s
-                .SetTargetPath(c)
-                .SetSource(Source)
-                .SetApiKey(ApiKey)));
+                    .SetTargetPath(c)
+                    .SetSource(Source)
+                    .SetApiKey(ApiKey)));
         });
 
     Target Analysis => _ => _
@@ -126,30 +146,39 @@ class Build : NukeBuild
         });
 
     Target SonarQube => _ => _
-        .DependsOn(Restore)
-        .Requires(() => SonarUrl, () => SonarUser)
-        .Executes(() =>
-        {
-            SonarQubeTasks.SonarQubeBegin(c => c
-                .SetProjectBaseDir(SourceDirectory)
-                .SetWorkingDirectory(SourceDirectory)
-                .SetHostUrl(SonarUrl)
-                .SetProjectKey(SonarProjectKey)
-                .SetProjectName(SonarProjectName)
-                .SetUserName(SonarUser)
-                .SetUserPassword(SonarPassword)
-                .EnableVerbose(), new ProcessSettings());
-        }, () =>
-        {
-            MSBuild(s => DefaultMSBuildCompile.SetNodeReuse(false));
-        }, () =>
-        {
-            SonarQubeTasks.SonarQubeEnd(c => c
-                .SetUserName(SonarUser)
-                .SetUserPassword(SonarPassword)
-                .SetWorkingDirectory(SourceDirectory)
-            );
-        });
+      .DependsOn(Restore)
+      .Requires(() => SonarUrl, () => SonarUser)
+      .Executes(() =>
+      {
+          var configuration = new SonarBeginSettings();
+          configuration
+              .SetProjectKey(SonarProjectKey)
+              .SetIssueTrackerUrl(SonarUrl)
+              .SetServer(SonarUrl)
+              //.SetHomepage(SonarUrl)
+              .SetLogin(SonarUser)
+              .SetPassword(SonarPassword)
+              .SetName(SonarProjectName)
+              .SetWorkingDirectory(SourceDirectory)
+              .SetVerbose(true);
+
+          configuration = configuration.SetProjectBaseDir(SourceDirectory);
+
+          SonarScannerTasks.SonarScannerBegin(c => configuration);
+      }, () =>
+      {
+          MSBuildTasks.MSBuild(c => c
+              .SetConfiguration(Configuration)
+              .SetTargets("Rebuild")
+              .SetNodeReuse(true));
+      }, () =>
+      {
+          SonarScannerTasks.SonarScannerEnd(c => c
+              .SetLogin(SonarUser)
+              .SetPassword(SonarPassword)
+              .SetWorkingDirectory(SourceDirectory)
+          );
+      });
 
     Target Artifacts => _ => _
         .Executes(() =>
@@ -201,5 +230,28 @@ class Build : NukeBuild
 
             Logger.Info("Compress artifacts");
             ZipFile.CreateFromDirectory(OutputDirectory / "Artifacts", OutputDirectory / "aimp.sdk.zip");
+        });
+
+    Target PvsStudio => _ => _
+        .Executes(() =>
+        {
+            Logger.Info("Create new branch for Pvs Analysis");
+
+            ProcessTasks.StartProcess("git", $"checkout {DevelopBranch}");
+            ProcessTasks.StartProcess("git", $"branch -d pvs_{GitVersion.AssemblySemVer}");
+            ProcessTasks.StartProcess(
+                "git",
+                $"checkout -b pvs_{GitVersion.AssemblySemVer}",
+                SourceDirectory,
+                null,
+                null,
+                true);
+            ProcessTasks.StartProcess(
+                "PVS-Studio_Cmd",
+                $"--target {Solution} --configuration {Configuration} --output {OutputDirectory / "dot_net.plog"}",
+                SourceDirectory,
+                null,
+                null,
+                true);
         });
 }

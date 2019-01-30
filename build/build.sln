@@ -1,15 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = ".build", ".build.csproj", "{79878E29-2FCB-4076-8404-C81FCDB37E67}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{218EE364-BA90-4858-BC2A-9847D61AB457}"
-	ProjectSection(SolutionItems) = preProject
-		..\.gitlab-ci.yml = ..\.gitlab-ci.yml
-		..\GitVersion.yml = ..\GitVersion.yml
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "build", "build.csproj", "{30C41EC3-C24F-45C0-9B4D-FA36264EEC27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,15 +11,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{79878E29-2FCB-4076-8404-C81FCDB37E67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79878E29-2FCB-4076-8404-C81FCDB37E67}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79878E29-2FCB-4076-8404-C81FCDB37E67}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79878E29-2FCB-4076-8404-C81FCDB37E67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30C41EC3-C24F-45C0-9B4D-FA36264EEC27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30C41EC3-C24F-45C0-9B4D-FA36264EEC27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30C41EC3-C24F-45C0-9B4D-FA36264EEC27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {A41DC86D-ACD3-49D5-BF17-EE48814AA209}
+		SolutionGuid = {EAE5D021-7FA6-47BF-ACA3-D6062C096219}
 	EndGlobalSection
 EndGlobal

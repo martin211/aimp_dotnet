@@ -62,12 +62,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_AppDomain", "Plugins
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationFramework", "IntegrationTests\IntegrationFramework\IntegrationFramework.csproj", "{4043FFE4-CE35-4A9A-94CE-9F26913E4C10}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "build", "..\build\build.csproj", "{650D6F5C-8C0E-464B-80F2-94E47DAA4A5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{650D6F5C-8C0E-464B-80F2-94E47DAA4A5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{650D6F5C-8C0E-464B-80F2-94E47DAA4A5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Debug|Any CPU.Build.0 = Debug|Win32
 		{8D30D1F5-1925-4926-83F2-F0B21B45646F}.Release|Any CPU.ActiveCfg = Release|Win32
