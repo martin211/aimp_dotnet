@@ -22,19 +22,23 @@ AimpFileList::AimpFileList(IAIMPMLFileList* aimpObject) : AimpObject(aimpObject)
 
 AimpActionResult AimpFileList::Add(Object^ id, String^ fileName)
 {
-    IAIMPString *sFileName = AimpConverter::ToAimpString(fileName);
+    IAIMPString* sFileName = AimpConverter::ToAimpString(fileName);
+    AimpActionResult result = AimpActionResult::Fail;
+
     try
     {
-        return CheckResult(InternalAimpObject->Add(&AimpConverter::ToNativeVariant(id), sFileName));
+        result = CheckResult(InternalAimpObject->Add(&AimpConverter::ToNativeVariant(id), sFileName));
     }
     finally
     {
-        if (sFileName != NULL)
+        if (sFileName != nullptr)
         {
             sFileName->Release();
-            sFileName = NULL;
+            sFileName = nullptr;
         }
     }
+
+    return result;
 }
 
 AimpActionResult AimpFileList::Clear()
@@ -49,20 +53,23 @@ AimpActionResult AimpFileList::Delete(int index)
 
 AimpActionResult AimpFileList::Insert(int index, Object^ id, String^ fileName)
 {
-    IAIMPString *sFileName = AimpConverter::ToAimpString(fileName);
+    IAIMPString* sFileName = AimpConverter::ToAimpString(fileName);
+    AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
-        return CheckResult(InternalAimpObject->Insert(index, &AimpConverter::ToNativeVariant(id), sFileName));
+        result = CheckResult(InternalAimpObject->Insert(index, &AimpConverter::ToNativeVariant(id), sFileName));
     }
     finally
     {
-        if (sFileName != NULL)
+        if (sFileName != nullptr)
         {
             sFileName->Release();
-            sFileName = NULL;
+            sFileName = nullptr;
         }
     }
+
+    return result;
 }
 
 int AimpFileList::GetCount()
@@ -72,68 +79,73 @@ int AimpFileList::GetCount()
 
 AimpActionResult AimpFileList::GetFileName(int index, String^% fileName)
 {
-    IAIMPString* str = NULL;
+    IAIMPString* str = nullptr;
     fileName = nullptr;
+    AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
-        AimpActionResult res = CheckResult(InternalAimpObject->GetFileName(index, &str));
+        result = CheckResult(InternalAimpObject->GetFileName(index, &str));
 
-        if (res == AimpActionResult::Ok && str != NULL)
+        if (result == AimpActionResult::OK && str != nullptr)
         {
             fileName = AimpConverter::ToManagedString(str);
         }
 
-        return res;
+        return result;
     }
     finally
     {
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
 }
 
 AimpActionResult AimpFileList::SetFileName(int index, String^ fileName)
 {
-    IAIMPString *sFileName = AimpConverter::ToAimpString(fileName);
+    IAIMPString* sFileName = AimpConverter::ToAimpString(fileName);
+    AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
-        return CheckResult(InternalAimpObject->SetFileName(index, sFileName));
+        result = CheckResult(InternalAimpObject->SetFileName(index, sFileName));
     }
     finally
     {
-        if (sFileName != NULL)
+        if (sFileName != nullptr)
         {
             sFileName->Release();
-            sFileName = NULL;
+            sFileName = nullptr;
         }
     }
+
+    return result;
 }
 
 AimpActionResult AimpFileList::GetId(int index, Object^% id)
 {
     VARIANT* idVar;
     id = nullptr;
+    AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
-        AimpActionResult res = CheckResult(InternalAimpObject->GetID(index, &idVar));
+        result = CheckResult(InternalAimpObject->GetID(index, &idVar));
 
-        if (res == AimpActionResult::Ok)
+        if (result == AimpActionResult::OK)
         {
             id = AimpConverter::FromVaiant(idVar);
         }
-
-        return res;
     }
     finally
     {
-        idVar = NULL;
+        idVar = nullptr;
     }
+
+    return result;
 }
 
 AimpActionResult AimpFileList::SetId(int index, Object^ id)
@@ -145,24 +157,24 @@ AimpActionResult AimpFileList::Clone(IAimpFileList^% list)
 {
     list = nullptr;
 
-    IAIMPMLFileList* cloneList = NULL;
+    IAIMPMLFileList* cloneList = nullptr;
     AimpActionResult res = AimpActionResult::Fail;
 
     try
     {
-        res = CheckResult(InternalAimpObject->Clone((void**)&cloneList));
+        res = CheckResult(InternalAimpObject->Clone(reinterpret_cast<void**>(&cloneList)));
 
-        if (res == AimpActionResult::Ok)
+        if (res == AimpActionResult::OK)
         {
             list = gcnew AimpFileList(cloneList);
         }
     }
     finally
     {
-        if (cloneList != NULL)
+        if (cloneList != nullptr)
         {
             cloneList->Release();
-            cloneList = NULL;
+            cloneList = nullptr;
         }
     }
 

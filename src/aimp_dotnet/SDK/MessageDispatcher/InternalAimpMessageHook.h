@@ -20,7 +20,7 @@ public:
     typedef IUnknownInterfaceImpl<IAIMPMessageHook> Base;
 
     InternalAimpMessageHook(gcroot<IAimpMessageHook^> managedCore);
-    virtual void WINAPI CoreMessage(DWORD AMessage, int AParam1, void *AParam2, HRESULT *AResult);
+    virtual void WINAPI CoreMessage(DWORD aMessage, int aParam1, void *aParam2, HRESULT *aResult);
 
     //virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
     //virtual ULONG WINAPI AddRef(void);

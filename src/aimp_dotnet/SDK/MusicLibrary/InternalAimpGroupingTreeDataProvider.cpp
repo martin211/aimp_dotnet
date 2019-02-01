@@ -14,7 +14,7 @@
 
 using namespace AIMP::SDK;
 
-InternalAimpGroupingTreeDataProvider::InternalAimpGroupingTreeDataProvider(gcroot<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^> managedInstance)
+InternalAimpGroupingTreeDataProvider::InternalAimpGroupingTreeDataProvider(gcroot<IAimpGroupingTreeDataProvider^> managedInstance)
 {
     _managedInstance = managedInstance;
 }
@@ -28,56 +28,58 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProvider::AppendFilter(IAIMPMLDataFil
     {
         dataFilterGroup = gcnew AimpDataFilterGroup(Filter);
         selection = gcnew AimpGroupingTreeSelection(Selection);
-
-        AIMP::SDK::AimpActionResult result = _managedInstance->AppendFilter(dataFilterGroup, selection);
-        return (HRESULT)S_OK;
+        _managedInstance->AppendFilter(dataFilterGroup, selection);
     }
     finally
     {
         delete dataFilterGroup;
         delete selection;
     }
+
+    return HRESULT(S_OK);
 }
 
 DWORD WINAPI InternalAimpGroupingTreeDataProvider::GetCapabilities()
 {
-    return (DWORD)_managedInstance->GetCapabilities();
+    return DWORD(_managedInstance->GetCapabilities());
 }
 
 HRESULT WINAPI InternalAimpGroupingTreeDataProvider::GetData(IAIMPMLGroupingTreeSelection* Selection, IAIMPMLGroupingTreeDataProviderSelection** Data)
 {
     IAimpGroupingTreeSelection^ selection = nullptr;
     IAimpGroupingTreeDataProviderSelection^ dataProviderSelection = nullptr;
+    AimpActionResult result = AimpActionResult::Fail;
+
 
     try
     {
         selection = gcnew AimpGroupingTreeSelection(Selection);
-        AimpActionResult result = _managedInstance->GetData(selection, dataProviderSelection);
+        result = _managedInstance->GetData(selection, dataProviderSelection);
 
         if (result == AimpActionResult::Ok)
         {
             *Data = new InternalAimpGroupingTreeDataProviderSelection(dataProviderSelection);
         }
-
-        return (HRESULT)result;
     }
     finally
     {
     }
+
+    return HRESULT(result);
 }
 
 HRESULT WINAPI InternalAimpGroupingTreeDataProvider::GetFieldForAlphabeticIndex(IAIMPString** FieldName)
 {
-    System::String^ str;
+    String^ str;
 
     AimpActionResult result = _managedInstance->GetFieldForAlphabeticIndex(str);
 
     if (result == AimpActionResult::Ok)
     {
-        *FieldName = AIMP::SDK::AimpConverter::ToAimpString(str);
+        *FieldName = AimpConverter::ToAimpString(str);
     }
 
-    return (HRESULT)result;
+    return HRESULT(result);
 }
 
 ULONG WINAPI InternalAimpGroupingTreeDataProvider::AddRef(void)

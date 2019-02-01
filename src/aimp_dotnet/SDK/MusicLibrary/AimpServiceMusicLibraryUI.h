@@ -11,14 +11,13 @@
 
 #pragma once
 #include "SDK\BaseManager.h"
-#include "AimpFileList.h"
 
 namespace AIMP
 {
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK::MusicLibrary;
+        using namespace MusicLibrary;
 
         public ref class AimpServiceMusicLibraryUI :
             public AimpBaseManager<IAIMPServiceMusicLibraryUI>,

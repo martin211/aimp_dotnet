@@ -11,10 +11,12 @@
 
 #include "Stdafx.h"
 #include "AimpGroupingPresetStandard.h"
+#include "SDK/AimpObjectList.h"
+#include "AimpDataFilterGroup.h"
 
 using namespace AIMP::SDK;
 
-AimpGroupingPresetStandard::AimpGroupingPresetStandard(IAIMPMLGroupingPresetStandard *aimpObject) : AimpGroupingPreset(aimpObject)
+AimpGroupingPresetStandard::AimpGroupingPresetStandard(IAIMPMLGroupingPresetStandard* aimpObject) : AimpGroupingPreset(aimpObject)
 {}
 
 IAimpObjectList<String^>^ AimpGroupingPresetStandard::Fields::get()
@@ -42,7 +44,7 @@ IAimpObjectList<String^>^ AimpGroupingPresetStandard::Fields::get()
 
 void AimpGroupingPresetStandard::Fields::set(IAimpObjectList<String^>^ value)
 {
-    System::Collections::Generic::IList<String^>^ result;
+    Generic::IList<String^>^ result;
     IAIMPObjectList *fields = AimpConverter::CreateAimpObject<IAIMPObjectList>(IID_IAIMPObjectList);
     int count = value->Count;
 
@@ -56,12 +58,12 @@ void AimpGroupingPresetStandard::Fields::set(IAimpObjectList<String^>^ value)
 
 AimpActionResult AimpGroupingPresetStandard::GetFilter(IAimpDataFilterGroup ^%filter)
 {
-    IAIMPMLDataFilterGroup *f;
+    IAIMPMLDataFilterGroup* f = nullptr;
     filter = nullptr;
 
-    AimpActionResult result = CheckResult(((IAIMPMLGroupingPresetStandard*)InternalAimpObject)->GetFilter(&f));
+    const AimpActionResult result = CheckResult(static_cast<IAIMPMLGroupingPresetStandard*>(InternalAimpObject)->GetFilter(&f));
 
-    if (result == AimpActionResult::Ok)
+    if (result == AimpActionResult::OK)
     {
         filter = gcnew AimpDataFilterGroup(f);
     }

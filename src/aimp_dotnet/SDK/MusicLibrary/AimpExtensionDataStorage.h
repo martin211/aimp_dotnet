@@ -38,18 +38,18 @@ public:
 class AimpDataStorageCommandAddFiles : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandAddFiles>
 {
 private:
-    gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandAddFiles^> _instance;
+    gcroot<IAimpDataStorageCommandAddFiles^> _instance;
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandAddFiles> Base;
 
-    AimpDataStorageCommandAddFiles(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandAddFiles^> instance)
+    AimpDataStorageCommandAddFiles(gcroot<IAimpDataStorageCommandAddFiles^> instance)
     {
         _instance = instance;
     }
 
     virtual HRESULT WINAPI Add(IAIMPObjectList* Files)
     {
-        return (HRESULT)_instance->Add(nullptr);
+        return HRESULT(_instance->Add(nullptr));
     }
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
@@ -79,11 +79,11 @@ public:
 class AimpDataStorageCommandAddFilesDialog : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandAddFilesDialog>
 {
 private:
-    gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandAddFilesDialog^> _instance;
+    gcroot<IAimpDataStorageCommandAddFilesDialog^> _instance;
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandAddFilesDialog> Base;
 
-    AimpDataStorageCommandAddFilesDialog(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandAddFilesDialog^> instance);
+    AimpDataStorageCommandAddFilesDialog(gcroot<IAimpDataStorageCommandAddFilesDialog^> instance);
 
     virtual HRESULT WINAPI Execute(HWND OwnerHandle);
 
@@ -97,11 +97,11 @@ public:
 class AimpDataStorageCommandDeleteFiles : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandDeleteFiles>
 {
 private:
-    gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandDeleteFiles^> _instance;
+    gcroot<IAimpDataStorageCommandDeleteFiles^> _instance;
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandDeleteFiles> Base;
 
-    AimpDataStorageCommandDeleteFiles(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandDeleteFiles^> instance);
+    AimpDataStorageCommandDeleteFiles(gcroot<IAimpDataStorageCommandDeleteFiles^> instance);
 
     virtual BOOL WINAPI CanDelete(BOOL Physically);
 
@@ -117,11 +117,11 @@ public:
 class AimpDataStorageCommandDropData : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandDropData>
 {
 private:
-    gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandDropData^> _instance;
+    gcroot<IAimpDataStorageCommandDropData^> _instance;
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandDropData> Base;
 
-    AimpDataStorageCommandDropData(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandDropData^> instance);
+    AimpDataStorageCommandDropData(gcroot<IAimpDataStorageCommandDropData^> instance);
 
     virtual HRESULT WINAPI DropData();
 
@@ -135,11 +135,11 @@ public:
 class AimpDataStorageCommandReloadTags : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandReloadTags>
 {
 private:
-    gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandReloadTags^> _instance;
+    gcroot<IAimpDataStorageCommandReloadTags^> _instance;
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandReloadTags> Base;
 
-    AimpDataStorageCommandReloadTags(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandReloadTags^> instance);
+    AimpDataStorageCommandReloadTags(gcroot<IAimpDataStorageCommandReloadTags^> instance);
 
     virtual HRESULT WINAPI ReloadTags(IAIMPMLFileList* Files);
 
@@ -153,12 +153,12 @@ public:
 class AimpDataStorageCommandReportDialog : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandReportDialog>
 {
 private:
-    gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandReportDialog^> _instance;
+    gcroot<IAimpDataStorageCommandReportDialog^> _instance;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandReportDialog> Base;
 
-    AimpDataStorageCommandReportDialog(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandReportDialog^> instance);
+    AimpDataStorageCommandReportDialog(gcroot<IAimpDataStorageCommandReportDialog^> instance);
 
     virtual HRESULT WINAPI Execute(HWND OwnerHandle);
 
@@ -172,12 +172,12 @@ public:
 class AimpDataStorageCommandUserMark : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandUserMark>
 {
 private:
-    gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandUserMark^> _instance;
+    gcroot<IAimpDataStorageCommandUserMark^> _instance;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandUserMark> Base;
 
-    AimpDataStorageCommandUserMark(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandUserMark^> instance);
+    AimpDataStorageCommandUserMark(gcroot<IAimpDataStorageCommandUserMark^> instance);
 
     virtual HRESULT WINAPI SetMark(VARIANT* ID, const DOUBLE Value);
 
@@ -193,13 +193,13 @@ class AimpExtensionDataStorage :
 {
 private:
     AimpDataProvider* _aimpDataProvider;
-    AimpDataStorageCommandAddFiles* _addFilesCommand = NULL;
-    AimpDataStorageCommandAddFilesDialog* _addFilesDialogCommand = NULL;
-    AimpDataStorageCommandDeleteFiles* _deleteFilesCommand = NULL;
-    AimpDataStorageCommandDropData* _dropDataCommand = NULL;
-    AimpDataStorageCommandReloadTags* _reloadTagsCommand = NULL;
-    AimpDataStorageCommandReportDialog* _reportDialogCommand = NULL;
-    AimpDataStorageCommandUserMark* _userMarkCommand = NULL;
+    AimpDataStorageCommandAddFiles* _addFilesCommand = nullptr;
+    AimpDataStorageCommandAddFilesDialog* _addFilesDialogCommand = nullptr;
+    AimpDataStorageCommandDeleteFiles* _deleteFilesCommand = nullptr;
+    AimpDataStorageCommandDropData* _dropDataCommand = nullptr;
+    AimpDataStorageCommandReloadTags* _reloadTagsCommand = nullptr;
+    AimpDataStorageCommandReportDialog* _reportDialogCommand = nullptr;
+    AimpDataStorageCommandUserMark* _userMarkCommand = nullptr;
     gcroot<AIMP::SDK::AimpGroupingPresets^> _managedPresets;
 
 public:
