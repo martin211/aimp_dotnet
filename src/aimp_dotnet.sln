@@ -37,11 +37,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{E560656D-14CC-48E6-A94E-9992D99B5BA0}"
 	ProjectSection(SolutionItems) = preProject
 		..\.travis.yml = ..\.travis.yml
-		..\AimpSDK.nuspec = ..\AimpSDK.nuspec
-		..\AimpSDK.sources.nuspec = ..\AimpSDK.sources.nuspec
-		..\AimpSDK.symbols.nuspec = ..\AimpSDK.symbols.nuspec
-		CopyPlugin.cmd = CopyPlugin.cmd
+		..\Nuget\AimpSDK.nuspec = ..\Nuget\AimpSDK.nuspec
+		..\Nuget\AimpSDK.sources.nuspec = ..\Nuget\AimpSDK.sources.nuspec
+		..\Nuget\AimpSDK.symbols.nuspec = ..\Nuget\AimpSDK.symbols.nuspec
 		..\GitVersion.yml = ..\GitVersion.yml
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_demo", "Plugins\dotnet_demo\dotnet_demo.csproj", "{72CBA5F8-494D-4EEB-803B-7D1802A91D4A}"

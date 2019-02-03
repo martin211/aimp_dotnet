@@ -54,7 +54,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\Tools\CopyPlugin.ps1">
+      <Link>CopyPlugin.ps1</Link>
+    </None>
     <None Include="App.config" />
+    <None Include="commands.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AIMP.SDK\AIMP.SDK.csproj">
@@ -65,9 +69,6 @@
       <Project>{8d30d1f5-1925-4926-83f2-f0b21b45646f}</Project>
       <Name>aimp_dotnet</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="gulpfile.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

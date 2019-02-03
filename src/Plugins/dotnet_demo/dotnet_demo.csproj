@@ -107,6 +107,10 @@
     <EmbeddedResource Include="UI\PlayListEditor.resx">
       <DependentUpon>PlayListEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="..\..\..\Tools\CopyPlugin.ps1">
+      <Link>CopyPlugin.ps1</Link>
+    </None>
+    <None Include="commands.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -129,9 +133,6 @@
       <Project>{8d30d1f5-1925-4926-83f2-f0b21b45646f}</Project>
       <Name>aimp_dotnet</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="gulpfile.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

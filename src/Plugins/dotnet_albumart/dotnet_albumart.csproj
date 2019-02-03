@@ -69,10 +69,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\Tools\CopyPlugin.ps1">
+      <Link>CopyPlugin.ps1</Link>
+    </None>
+    <None Include="commands.json" />
     <None Include="Resources\1451438429_lastfm.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="gulpfile.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
