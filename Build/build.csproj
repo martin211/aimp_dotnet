@@ -10,9 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nuke.Common" Version="0.16.0-alpha0017" />
+    <PackageReference Include="JetBrains.ReSharper.CommandLineTools" Version="2018.3.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Nuke.Common" Version="0.16.0" />
     <PackageReference Include="GitVersion.CommandLine.DotNetCore" Version="4.0.1-beta1-49" />
-    <PackageReference Include="Nuke.MSBuildLocator" Version="0.15.0" />
+    <PackageReference Include="Nuke.MSBuildLocator" Version="0.16.0" />
   </ItemGroup>
 
   <ItemGroup>

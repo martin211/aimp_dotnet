@@ -1,9 +1,8 @@
-using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Aimp.DotNet.Build;
-using AutoMapper.Mappers;
 using Nuke.Common;
 using Nuke.Common.Git;
 using Nuke.Common.ProjectModel;
@@ -27,6 +26,7 @@ class Build : NukeBuild
     [Parameter] readonly string SonarPassword;
     [Parameter] readonly string SonarProjectKey;
     [Parameter] readonly string SonarProjectName;
+    [Parameter] readonly string VmWareMachine;
     private string Source => NuGet
         ? "https://api.nuget.org/v3/index.json"
         : "https://www.myget.org/F/aimpsdk/api/v2/package";
@@ -59,7 +59,9 @@ class Build : NukeBuild
         .DependsOn(Clean)
         .Executes(() =>
         {
-            MSBuildTasks.MSBuild(s => s.SetRestore(true));
+            MSBuildTasks.MSBuild(s => s
+                .SetRestore(true)
+                .SetSolutionFile(Solution));
         });
 
     Target Compile => _ => _
@@ -79,11 +81,11 @@ class Build : NukeBuild
     Target Version => _ => _
         .Executes(() =>
         {
-            //var properties = GlobDirectories(SourceDirectory, "**/Properties");
-            //foreach (var property in properties)
-            //{
-            //    ProcessTasks.StartProcess(GitVersionTasks.GitVersionPath, $"/updateassemblyinfo {property}/AssemblyInfo.cs");
-            //}
+            var properties = GlobDirectories(SourceDirectory, "**/Properties");
+            foreach (var property in properties)
+            {
+                ProcessTasks.StartProcess(GitVersionTasks.GitVersionPath, $"/updateassemblyinfo {property}/AssemblyInfo.cs");
+            }
 
             var rcFile = SourceDirectory / "aimp_dotnet" / "aimp_dotnet.rc";
             if (File.Exists(rcFile))
@@ -143,11 +145,11 @@ class Build : NukeBuild
                 "ReSharper.ImplicitNullability",
                 "ReSharper.SerializationInspections",
                 "ReSharper.XmlDocInspections"));
-        });
+        }
+      );
 
     Target SonarQube => _ => _
-      .DependsOn(Restore)
-      .Requires(() => SonarUrl, () => SonarUser)
+      .DependsOn(Restore).Requires(() => SonarUrl, () => SonarUser)
       .Executes(() =>
       {
           var configuration = new SonarBeginSettings();
@@ -235,23 +237,61 @@ class Build : NukeBuild
     Target PvsStudio => _ => _
         .Executes(() =>
         {
-            Logger.Info("Create new branch for Pvs Analysis");
-
             ProcessTasks.StartProcess("git", $"checkout {DevelopBranch}");
             ProcessTasks.StartProcess("git", $"branch -d pvs_{GitVersion.AssemblySemVer}");
             ProcessTasks.StartProcess(
                 "git",
                 $"checkout -b pvs_{GitVersion.AssemblySemVer}",
-                SourceDirectory,
-                null,
-                null,
-                true);
+                SourceDirectory);
+
             ProcessTasks.StartProcess(
                 "PVS-Studio_Cmd",
                 $"--target {Solution} --configuration {Configuration} --output {OutputDirectory / "dot_net.plog"}",
-                SourceDirectory,
-                null,
-                null,
-                true);
+                SourceDirectory).WaitForExit();
+        });
+
+    Target RunVmWare => _ => _
+        .Executes(() =>
+        {
+            bool CheckVmRunning()
+            {
+                bool isRunning = true;
+                bool checkVm = false;
+
+                ProcessTasks.StartProcess(
+                        "vmrun.exe",
+                        "list",
+                        null,
+                        null,
+                        null,
+                        true,
+                        ((type, s) =>
+                        {
+                            var m = Regex.Match(s, @"^.+: (\d)$");
+                            if (m.Success)
+                            {
+                                var count = int.Parse(m.Groups[1].Value);
+                                checkVm = count > 0;
+                            }
+
+                            if (checkVm && s.Contains(VmWareMachine))
+                            {
+                                isRunning = false;
+                            }
+                        }))
+                    ?.WaitForExit();
+
+                return isRunning;
+            }
+
+            if (!CheckVmRunning())
+            {
+                Logger.Info($"Starting Virtual Machine: {VmWareMachine}");
+                ProcessTasks.StartProcess("vmrun.exe", $"start \"{VmWareMachine}\" nogui")?.WaitForExit();
+                if (!CheckVmRunning())
+                {
+                    Logger.Error($"Unable run machine: {VmWareMachine}");
+                }
+            }
         });
 }

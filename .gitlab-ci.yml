@@ -73,7 +73,9 @@ analysis:
   variables:
     GIT_STRATEGY: none
   script:
+  - .\build.ps1 RunVmWare
   - .\build.ps1 Analysis
+  - .\build.ps1 PvsStudio
   - .\build.ps1 SonarQube
 
 artifacts:
@@ -85,7 +87,7 @@ artifacts:
   script: .\build.ps1 Artifacts -configuration Release
   artifacts:
     when: on_success
-    name: "dotnet_diskcover"
+    name: "aimp_dotnet"
     paths:
-     - $env:CI_PROJECT_DIR/artifacts/dotnet_diskcover.zip
+     - $env:CI_PROJECT_DIR/artifacts/aimp_dotnet.zip
     expire_in: 1 week
