@@ -102,19 +102,32 @@ class Build : NukeBuild
         {
             Logger.Info("Start build Nuget packages");
 
+            var nugetFolder = RootDirectory / "Nuget";
+            var version = GitRepository.Branch.Equals(MasterBranch) || GitRepository.Branch.Equals(DevelopBranch)
+                ? GitVersion.NuGetVersionV2
+                : $"{GitVersion.AssemblySemVer}-beta";
 
             NuGetTasks.NuGetPack(c => c
-                .SetTargetPath(RootDirectory / "AimpSDK.nuspec")
-                .SetBasePath(RootDirectory));
-
-            NuGetTasks.NuGetPack(c => c
-                .SetTargetPath(RootDirectory / "AimpSDK.symbols.nuspec")
+                .SetTargetPath(nugetFolder / "AimpSDK.nuspec")
                 .SetBasePath(RootDirectory)
+                .SetConfiguration(Configuration)
+                .SetVersion(version)
+                .SetOutputDirectory(OutputDirectory));
+
+            NuGetTasks.NuGetPack(c => c
+                .SetTargetPath(nugetFolder / "AimpSDK.symbols.nuspec")
+                .SetBasePath(RootDirectory)
+                .SetVersion(version)
+                .SetConfiguration(Configuration)
+                .SetOutputDirectory(OutputDirectory)
                 .AddProperty("Symbols", string.Empty));
 
             NuGetTasks.NuGetPack(c => c
-                .SetTargetPath(RootDirectory / "AimpSDK.sources.nuspec")
-                .SetBasePath(RootDirectory));
+                .SetTargetPath(nugetFolder / "AimpSDK.sources.nuspec")
+                .SetVersion(version)
+                .SetConfiguration(Configuration)
+                .SetBasePath(RootDirectory)
+                .SetOutputDirectory(OutputDirectory));
         });
 
     Target Publish => _ => _

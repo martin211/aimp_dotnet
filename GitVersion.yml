@@ -16,7 +16,7 @@ branches:
   develop:
     regex: dev(elop)?(ment)?$
     mode: ContinuousDeployment
-    tag: stable
+    tag: 'beta'
     increment: Patch
     prevent-increment-of-merged-branch-version: true
     track-merge-target: true
