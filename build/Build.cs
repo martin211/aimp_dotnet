@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -27,6 +28,8 @@ class Build : NukeBuild
     [Parameter] readonly string SonarProjectKey;
     [Parameter] readonly string SonarProjectName;
     [Parameter] readonly string VmWareMachine;
+    [Parameter] readonly string BuildConfiguration;
+
     private string Source => NuGet
         ? "https://api.nuget.org/v3/index.json"
         : "https://www.myget.org/F/aimpsdk/api/v2/package";
@@ -39,7 +42,11 @@ class Build : NukeBuild
     public static int Main() => Execute<Build>(x => x.Compile);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
-    readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
+    private Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
+
+    //readonly Configuration Configuration = string.IsNullOrWhiteSpace(BuildConfiguration)
+    //    ? (IsLocalBuild ? Configuration.Debug : Configuration.Release)
+    //    : BuildConfiguration.Equals("release", StringComparison.InvariantCultureIgnoreCase) ? Configuration.Release : Configuration.Debug;
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
@@ -55,22 +62,23 @@ class Build : NukeBuild
             EnsureCleanDirectory(OutputDirectory);
         });
 
-    Target Restore => _ => _
-        .DependsOn(Clean)
+    Target SetConfiguration => _ => _
         .Executes(() =>
         {
-            MSBuildTasks.MSBuild(s => s
-                .SetRestore(true)
-                .SetSolutionFile(Solution));
+            Configuration = !string.IsNullOrWhiteSpace(BuildConfiguration) &&
+                            BuildConfiguration.Equals("release", StringComparison.OrdinalIgnoreCase)
+                ? Configuration.Release
+                : Configuration.Debug;
         });
 
     Target Compile => _ => _
-        .DependsOn(Restore, Version)
+        .DependsOn(SetConfiguration, Version)
         .Requires(() => GitVersion != null)
         .Executes(() =>
         {
             MSBuildTasks.MSBuild(s => s
                 .SetNodeReuse(false)
+                .SetRestore(true)
                 .SetProjectFile(Solution)
                 .SetAssemblyVersion(GitVersion.GetNormalizedAssemblyVersion())
                 .SetFileVersion(GitVersion.GetNormalizedFileVersion())
@@ -79,6 +87,7 @@ class Build : NukeBuild
         });
 
     Target Version => _ => _
+        .DependsOn(SetConfiguration)
         .Executes(() =>
         {
             var properties = GlobDirectories(SourceDirectory, "**/Properties");
@@ -98,6 +107,7 @@ class Build : NukeBuild
         });
 
     Target Pack => _ => _
+        .DependsOn(SetConfiguration)
         .Executes(() =>
         {
             Logger.Info("Start build Nuget packages");
@@ -131,6 +141,7 @@ class Build : NukeBuild
         });
 
     Target Publish => _ => _
+        .DependsOn(SetConfiguration)
         .Requires(() => ApiKey)
         .Requires(() => Configuration.Equals(Configuration.Release))
         .Requires(() => GitRepository.Branch.EqualsOrdinalIgnoreCase(MasterBranch) ||
@@ -149,7 +160,7 @@ class Build : NukeBuild
         });
 
     Target Analysis => _ => _
-        .DependsOn(Restore)
+        .DependsOn(SetConfiguration)
         .Executes(() =>
         {
             InspectCodeTasks.InspectCode(s => s.AddExtensions(
@@ -162,7 +173,8 @@ class Build : NukeBuild
       );
 
     Target SonarQube => _ => _
-      .DependsOn(Restore).Requires(() => SonarUrl, () => SonarUser)
+      .DependsOn(SetConfiguration)
+      .Requires(() => SonarUrl, () => SonarUser)
       .Executes(() =>
       {
           var configuration = new SonarBeginSettings();
@@ -196,6 +208,7 @@ class Build : NukeBuild
       });
 
     Target Artifacts => _ => _
+        .DependsOn(SetConfiguration)
         .Executes(() =>
         {
             EnsureCleanDirectory(OutputDirectory / "Artifacts");
@@ -248,6 +261,7 @@ class Build : NukeBuild
         });
 
     Target PvsStudio => _ => _
+        .DependsOn(SetConfiguration)
         .Executes(() =>
         {
             ProcessTasks.StartProcess("git", $"checkout {DevelopBranch}");
