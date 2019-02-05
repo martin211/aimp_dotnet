@@ -53,6 +53,8 @@ class Build : NukeBuild
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath OutputDirectory => RootDirectory / "output";
 
+    string DocFxFile => RootDirectory / "documentation" / "docfx.json";
+
     Target Clean => _ => _
         .Executes(() =>
         {
@@ -342,9 +344,16 @@ class Build : NukeBuild
     /// </summary>
     Target BuildDocumentation => _ => _
         //.Requires(() => GitRepository.Branch.Equals(MasterBranch))
-        .DependsOn(Compile)
+        //.DependsOn(Compile)
         .Executes(() =>
         {
-            DocFXTasks.DocFXBuild(c => c.SetConfigFile(RootDirectory / "build/documentation/docfx.json"));
+            DocFXTasks.DocFXBuild(c => c
+                .SetConfigFile(DocFxFile)
+                .SetWorkingDirectory(OutputDirectory)
+                .SetLogLevel(DocFXLogLevel.Verbose)
+                .SetServe(InvokedTargets.Contains(BuildDocumentation)));
         });
+
+    Target PublishDocumentation => _ => _
+        .Executes();
 }

@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+
+  <PropertyGroup>
+    <TargetFrameworks>net46</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="**/*" Exclude="obj/**;bin/**;*.csproj" />
+  </ItemGroup>
+
+</Project>

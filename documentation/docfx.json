@@ -1,0 +1,54 @@
+{
+  "build": {
+    "content": [
+      {
+        "src": "source/api",
+        "files": [
+          "**/**.yml"
+        ],
+        "dest": "api"
+      },
+      {
+        "src": "source",
+        "files": [
+          "*.md",
+          "toc.yml",
+          "docs/**/*.md",
+          "docs/**/toc.yml"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "src": "source",
+        "files": [
+          "images/**",
+          "favicons/**"
+        ]
+      }
+    ],
+    "overwrite": [
+      {
+        "src": "source",
+        "files": [
+          "overwrites/**/*.md",
+          "disclaimers/*.md"
+        ]
+      }
+    ],
+    "template": [
+      "default"
+    ],
+    "dest": "output/site",
+    "globalMetadata": {
+      "_appTitle": "AIMP DotNet SDK",
+      "_enableSearch": true,
+      "_gitContribute": {
+        "branch": "develop",
+        "apiSpecFolder": "source/overwrites"
+      }
+    },
+    "noLangKeyword": false,
+    "xrefService": [ "https://xref.docs.microsoft.com/query?uid={uid}" ]
+  }
+}

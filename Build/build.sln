@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		..\GitVersion.yml = ..\GitVersion.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{E7D67174-4BCF-4489-B59C-61DBCE0A8675}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "source", "..\documentation\source.csproj", "{AFBBF1F0-F8E6-4A4D-AB17-9E48C02B87A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,9 +27,16 @@ Global
 		{30C41EC3-C24F-45C0-9B4D-FA36264EEC27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{30C41EC3-C24F-45C0-9B4D-FA36264EEC27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30C41EC3-C24F-45C0-9B4D-FA36264EEC27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFBBF1F0-F8E6-4A4D-AB17-9E48C02B87A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFBBF1F0-F8E6-4A4D-AB17-9E48C02B87A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFBBF1F0-F8E6-4A4D-AB17-9E48C02B87A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFBBF1F0-F8E6-4A4D-AB17-9E48C02B87A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AFBBF1F0-F8E6-4A4D-AB17-9E48C02B87A5} = {E7D67174-4BCF-4489-B59C-61DBCE0A8675}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EAE5D021-7FA6-47BF-ACA3-D6062C096219}
