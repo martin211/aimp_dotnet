@@ -338,22 +338,4 @@ class Build : NukeBuild
                     .SetSymbolSource("https://api.nuget.org/v3/index.json"));
             }
         });
-
-    /// <summary>
-    /// Create DocFx documentation only for master branch
-    /// </summary>
-    Target BuildDocumentation => _ => _
-        //.Requires(() => GitRepository.Branch.Equals(MasterBranch))
-        //.DependsOn(Compile)
-        .Executes(() =>
-        {
-            DocFXTasks.DocFXBuild(c => c
-                .SetConfigFile(DocFxFile)
-                .SetWorkingDirectory(OutputDirectory)
-                .SetLogLevel(DocFXLogLevel.Verbose)
-                .SetServe(InvokedTargets.Contains(BuildDocumentation)));
-        });
-
-    Target PublishDocumentation => _ => _
-        .Executes();
 }
