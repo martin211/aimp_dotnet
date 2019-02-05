@@ -13,7 +13,7 @@
 #include "../PlayList/Internal/InternalAimpPlaylistPreimage.h"
 
 using namespace AIMP::SDK;
-using namespace AIMP::SDK::MusicLibrary;
+using namespace MusicLibrary;
 
 namespace AIMP
 {
@@ -22,10 +22,10 @@ namespace AIMP
         class InternalAimpMusicLibraryPlaylistPreimage :
             //IUnknownInterfaceImpl<IAIMPMLPlaylistPreimage>
             public IAIMPMLPlaylistPreimage,
-            public AIMP::SDK::InternalAimpPlaylistPreimage
+            public InternalAimpPlaylistPreimage
         {
         private:
-            gcroot<AIMP::SDK::MusicLibrary::IAimpMusicLibraryPlaylistPreimage^> _managedInstance;
+            gcroot<IAimpMusicLibraryPlaylistPreimage^> _managedInstance;
         public:
             typedef IUnknownInterfaceImpl<IAIMPMLPlaylistPreimage> Base;
 

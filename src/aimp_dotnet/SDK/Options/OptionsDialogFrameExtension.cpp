@@ -14,7 +14,7 @@
 
 using namespace AIMP::SDK;
 
-OptionsDialogFrameExtension::OptionsDialogFrameExtension(IAIMPCore *aimpCore, gcroot<AIMP::SDK::Options::IAimpOptionsDialogFrame^> managedFrame) : AimpExtension(aimpCore)
+OptionsDialogFrameExtension::OptionsDialogFrameExtension(IAIMPCore *aimpCore, gcroot<Options::IAimpOptionsDialogFrame^> managedFrame) : AimpExtension(aimpCore)
 {
     _managedFrame = managedFrame;
 }
@@ -53,7 +53,7 @@ ULONG WINAPI OptionsDialogFrameExtension::Release(void)
     return Base::Release();
 }
 
-HRESULT WINAPI OptionsDialogFrameExtension::GetName(IAIMPString **S)
+HRESULT WINAPI OptionsDialogFrameExtension::GetName(IAIMPString** S)
 {
     IAIMPString *strObject = NULL;
     System::String^ str = _managedFrame->GetName();

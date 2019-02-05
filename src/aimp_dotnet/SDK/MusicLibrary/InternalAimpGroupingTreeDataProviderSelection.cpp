@@ -29,12 +29,12 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetDisplayValue(IA
         *S = AimpConverter::ToAimpString(str);
     }
 
-    return (HRESULT)result;
+    return HRESULT(result);
 }
 
 DWORD WINAPI InternalAimpGroupingTreeDataProviderSelection::GetFlags()
 {
-    return (DWORD)_managedInstance->GetFlags();
+    return DWORD(_managedInstance->GetFlags());
 }
 
 HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetImageIndex(int* Index)
@@ -44,10 +44,10 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetImageIndex(int*
 
     if (result == AimpActionResult::Ok)
     {
-        *Index = (int)index;
+        *Index = int(index);
     }
 
-    return (HRESULT)result;
+    return HRESULT(result);
 }
 
 HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetValue(IAIMPString** FieldName, VARIANT* Value)
@@ -64,12 +64,12 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetValue(IAIMPStri
         VariantCopyInd(Value, &v);
     }
 
-    return (HRESULT)result;
+    return HRESULT(result);
 }
 
 BOOL WINAPI InternalAimpGroupingTreeDataProviderSelection::NextRow()
 {
-    return (BOOL)_managedInstance->NextRow();
+    return BOOL(_managedInstance->NextRow());
 }
 
 ULONG WINAPI InternalAimpGroupingTreeDataProviderSelection::AddRef(void)
@@ -93,6 +93,6 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::QueryInterface(REF
         return S_OK;
     }
 
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     return res;
 }

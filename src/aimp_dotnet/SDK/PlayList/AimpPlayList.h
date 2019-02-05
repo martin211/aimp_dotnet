@@ -10,23 +10,20 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "AimpPlayListItem.h"
 #include "SDK\FileManager\AimpFileInfo.h"
 #include "AimpExtensionPlaylistPreimageFactory.h"
-#include "AimpPlaylistPreimage.h"
 #include "SDK/PlayList/Internal/InternalAimpPlaylistPreimage.h"
-#include "AimpPlaylistPreimageFolders.h"
 
 namespace AIMP
 {
     namespace SDK
     {
         using namespace System;
-        using namespace System::Collections::Generic;
-        using namespace System::Runtime::InteropServices;
+        using namespace Generic;
+        using namespace Runtime::InteropServices;
 
-        using namespace AIMP::SDK;
-        using namespace AIMP::SDK::Playlist;
+        using namespace SDK;
+        using namespace Playlist;
 
         public interface class IPlayListListnerExecutor
         {

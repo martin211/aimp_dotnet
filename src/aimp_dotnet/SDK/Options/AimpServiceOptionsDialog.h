@@ -11,14 +11,13 @@
 
 #pragma once
 #include "SDK\BaseManager.h"
-#include "SDK\Options\OptionsDialogFrameExtension.h"
 
 namespace AIMP
 {
     namespace SDK
     {
-        using namespace AIMP::SDK;
-        using namespace AIMP::SDK::Options;
+        using namespace SDK;
+        using namespace Options;
 
         public ref class AimpServiceOptionsDialog : public AimpBaseManager<IAIMPServiceOptionsDialog>, public IAimpServiceOptionsDialog
         {
@@ -26,11 +25,11 @@ namespace AIMP
                 IAIMPServiceOptionsDialog *_service;
 
             public:
-                explicit AimpServiceOptionsDialog(ManagedAimpCore ^core);
+                explicit AimpServiceOptionsDialog(ManagedAimpCore^ core);
 
-                virtual AimpActionResult FrameModified(IAimpOptionsDialogFrame ^frame);
+                virtual AimpActionResult FrameModified(IAimpOptionsDialogFrame^ frame);
 
-                virtual AimpActionResult FrameShow(IAimpOptionsDialogFrame ^frame, bool forceShow);
+                virtual AimpActionResult FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow);
         };
     }
 }

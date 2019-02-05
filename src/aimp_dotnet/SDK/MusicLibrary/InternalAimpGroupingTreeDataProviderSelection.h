@@ -17,9 +17,9 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK;
-        using namespace AIMP::SDK::MusicLibrary::DataFilter;
-        using namespace AIMP::SDK::MusicLibrary::DataStorage;
+        using namespace SDK;
+        using namespace MusicLibrary::DataFilter;
+        using namespace MusicLibrary::DataStorage;
 
         class InternalAimpGroupingTreeDataProviderSelection : public IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProviderSelection>
         {

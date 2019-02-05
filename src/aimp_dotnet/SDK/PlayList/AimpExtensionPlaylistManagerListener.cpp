@@ -20,21 +20,17 @@ AimpExtensionPlaylistManagerListener::AimpExtensionPlaylistManagerListener(gcroo
 
 void WINAPI AimpExtensionPlaylistManagerListener::PlaylistActivated(IAIMPPlaylist* Playlist)
 {
-    //_managedInstance->On();
     _managedInstance->OnPlaylistActivated(gcnew AimpPlayList(Playlist));
-    //System::Diagnostics::Debugger::Break();
 }
 
 void WINAPI AimpExtensionPlaylistManagerListener::PlaylistAdded(IAIMPPlaylist* Playlist)
 {
     _managedInstance->OnPlaylistAdded(gcnew AimpPlayList(Playlist));
-    //System::Diagnostics::Debugger::Break();
 }
 
 void WINAPI AimpExtensionPlaylistManagerListener::PlaylistRemoved(IAIMPPlaylist* Playlist)
 {
     _managedInstance->OnPlaylistRemoved(gcnew AimpPlayList(Playlist));
-    //System::Diagnostics::Debugger::Break();
 }
 
 HRESULT WINAPI AimpExtensionPlaylistManagerListener::QueryInterface(REFIID riid, LPVOID* ppvObject)
@@ -47,7 +43,7 @@ HRESULT WINAPI AimpExtensionPlaylistManagerListener::QueryInterface(REFIID riid,
         return S_OK;
     }
 
-    ppvObject = NULL;
+    ppvObject = nullptr;
     return res;
 }
 
