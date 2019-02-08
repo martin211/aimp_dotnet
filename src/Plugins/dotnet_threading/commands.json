@@ -1,0 +1,10 @@
+{
+  "commands": {
+    "CopyPlugin": {
+      "fileName": "powershell.exe",
+      "workingDirectory": ".",
+      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File ..\\..\\..\\Tools\\CopyPlugin.ps1 $(ConfigurationName) $(TargetName) $(TargetDir) $(SolutionDir) $(ProjectDir)"
+    }
+  },
+  "-vs-binding": { "AfterBuild": [ "CopyPlugin" ] }
+}
