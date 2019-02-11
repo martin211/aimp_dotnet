@@ -11,6 +11,7 @@
 
 #include "stdafx.h"
 #include "AimpPlayer.h"
+#include "Playback/AimpPlaybackQueueItem.h"
 
 using namespace AIMP;
 using namespace AIMP::SDK;

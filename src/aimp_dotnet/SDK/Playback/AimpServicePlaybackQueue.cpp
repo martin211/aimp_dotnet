@@ -11,6 +11,7 @@
 
 #include "Stdafx.h"
 #include "AimpServicePlaybackQueue.h"
+#include "AimpPlaybackQueueItem.h"
 
 using namespace AIMP::SDK;
 using namespace Playlist;
