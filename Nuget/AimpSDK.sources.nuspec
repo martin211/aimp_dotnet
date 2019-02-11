@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>AimpSDK.Sources</id>
+    <version>$version$</version>
+    <title>Aimp DotNet SDK</title>
+    <authors>Evgeniy Bogdan</authors>
+    <owners>Evgeniy Bogdan</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/martin211/aimp_dotnet</projectUrl>
+    <description>Aimp DotNet allows you to create a plugin for AIMP media player on .Net</description>
+    <tags>AIMP SDK DotNet</tags>
+  </metadata>
+  <files>
+    <file src="src\AIMP.SDK\**\*.cs" target="src\AIMP.SDK" />
+    <file src="src\AIMP.SDK\**\*.csproj" target="src\AIMP.SDK" />
+    <file src="src\aimp_dotnet\**\*.h" target="src\aimp_dotnet" />
+    <file src="src\aimp_dotnet\**\*.cpp" target="src\aimp_dotnet" />
+    <file src="src\aimp_dotnet\**\*.def" target="src\aimp_dotnet" />
+    <file src="src\aimp_dotnet\**\*.filters" target="src\aimp_dotnet" />
+    <file src="src\aimp_dotnet\**\*.vcxproj" target="src\aimp_dotnet" />
+  </files>
+</package>

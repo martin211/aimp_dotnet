@@ -2,13 +2,23 @@
 [![Github All Releases](https://img.shields.io/github/downloads/martin211/aimp_dotnet/latest/aimp.sdk.zip.svg)](https://github.com/martin211/aimp_dotnet/releases/latest)
 [![test](https://img.shields.io/github/tag/martin211/aimp_dotnet.svg)](https://img.shields.io/github/tag/martin211/aimp_dotnet.svg)
 
-| Branch     |    Package    |  SonarQube |
-| ---------- | ------------- | ---------- |
-| **master** |[![masterstatus](https://img.shields.io/appveyor/ci/martin211/aimp-dotnet-c4e4m/master.svg?label=master)](https://ci.appveyor.com/api/projects/martin211/aimp-dotnet-c4e4m/artifacts/AIMP.SDK.zip?branch=master) | [![Quality Gate](https://sonar.uginnet.com/api/badges/gate?key=AIMP:SDK:master)](https://sonar.uginnet.com/dashboard/index/AIMP:SDK:master)
-|  **develop**   |[![developstatus](https://img.shields.io/appveyor/ci/martin211/aimp-dotnet-c4e4m/develop.svg?label=develop)](https://ci.appveyor.com/api/projects/martin211/aimp-dotnet-c4e4m/artifacts/AIMP.SDK.zip?branch=develop) |  [![Quality Gate](https://sonar.uginnet.com/api/badges/gate?key=AIMP:SDK:develop)](https://sonar.uginnet.com/dashboard/index/AIMP:SDK:develop)
-
 ## What is it?
-*Aimp DotNet* allows you to create a plugin for [AIMP](http://www.aimp.ru) media player on .Net
+*AIMP DotNet* allows you to create a plugin for [AIMP](http://www.aimp.ru) media player on .Net
+
+### Description
+AIMP DotNet SDK this is a proxy plugin written on C++ CLI and C++. It provide ability to call AIMP methods directly from C# code.
+SDK contain two parts:
+1. AIMP.SDK library.
+   Contains a definitions for SDK interfaces.
+2. aimp_dotnet library
+   Contains implementations of interfaces from AIMP.SDK library. All code written on C++ CLI and some native parts on C++
+
+For more information you can use demo plugins.
+
+### How to write plugin
+1. Use [NuGet package](https://www.nuget.org/packages/AimpSDK/)
+2. Optional. Install [Command Task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.CommandTaskRunner) extension for Visual Studio
+3. Remember that a aimp_dotnet.dll this is a entry point for AIMP plugin. And it shuld be called as your plugin. You can use CopyPlugin.ps1 script to get correct plugin structure.
 
 ## How to build
 ### Prerequisites
@@ -16,7 +26,8 @@
 2. Following components should be installed: 
 	- VS++ 2017 v141
 	- Visual C++ ATL support
-	- C++/CLI support 
+	- C++/CLI support
+    - Windows SDK Version: 10.0.17763.0
 
 ## License
 *AIMP DotNet* is licensed under the [Apache 2.0](LICENSE).
