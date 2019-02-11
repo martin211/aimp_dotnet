@@ -116,6 +116,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TagEditControl.resx">
+      <DependentUpon>TagEditControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TagEditorForm.resx">
       <DependentUpon>TagEditorForm.cs</DependentUpon>
     </EmbeddedResource>
