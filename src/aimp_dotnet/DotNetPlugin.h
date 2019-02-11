@@ -74,7 +74,7 @@ public:
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
     {
-        *ppvObject = NULL;
+        *ppvObject = nullptr;
         if (riid == IID_IAIMPExternalSettingsDialog)
         {
             *ppvObject = this;
@@ -131,8 +131,8 @@ private:
     bool _optionsLoaded;
     gcroot<ManagedFunctionality^> _managedExtension;
     gcroot<AIMP::SDK::AimpDotNetPlugin^> _dotNetPlugin;
-    IAIMPServiceConfig *_configService = NULL;
-    IAIMPExtensionPlayerHook *_playerHook = NULL;
-    AimpExternalSettingsDialog *_externalSettingsDialog = NULL;
+    IAIMPServiceConfig *_configService = nullptr;
+    IAIMPExtensionPlayerHook *_playerHook = nullptr;
+    AimpExternalSettingsDialog *_externalSettingsDialog = nullptr;
     typedef IUnknownInterfaceImpl<IAIMPPlugin> Base;
 };

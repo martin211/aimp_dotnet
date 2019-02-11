@@ -28,7 +28,7 @@ AimpActionResult PropertyListExtension::SetString(IAIMPPropertyList* propertyLis
         return AimpActionResult::InvalidArguments;
     }
 
-    IAIMPString *str = NULL;
+    IAIMPString *str = nullptr;
     try
     {
         str = AimpConverter::ToAimpString(value);
@@ -37,7 +37,7 @@ AimpActionResult PropertyListExtension::SetString(IAIMPPropertyList* propertyLis
     finally
     {
         str->Release();
-        str = NULL;
+        str = nullptr;
     }
 
     return AimpActionResult::Unexpected;
@@ -65,35 +65,35 @@ AimpActionResult PropertyListExtension::SetBool(IAIMPPropertyList* propertyList,
 
 AimpActionResult PropertyListExtension::GetString(IAIMPPropertyList* propertyList, int propertyId, String^% value)
 {
-    IAIMPString* str = NULL;
+    IAIMPString* str = nullptr;
     String ^val = String::Empty;
 
     try
     {
-        AimpActionResult result = Utils::CheckResult(propertyList->GetValueAsObject(propertyId, IID_IAIMPString, (void**)&str));
-        if (result != AimpActionResult::Ok)
+        AimpActionResult result = Utils::CheckResult(propertyList->GetValueAsObject(propertyId, IID_IAIMPString, reinterpret_cast<void**>(&str)));
+        if (result != AimpActionResult::OK)
         {
             value = String::Empty;
             return result;
         }
 
-        if (str != NULL)
+        if (str != nullptr)
         {
             result = GetString(str, val);
             value = val;
             return result;
         }
     }
-    catch (System::Exception ^ex)
+    catch (Exception ^ex)
     {
         return AimpActionResult::Fail;
     }
     finally
     {
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
 
@@ -103,7 +103,7 @@ AimpActionResult PropertyListExtension::GetString(IAIMPPropertyList* propertyLis
 AimpActionResult PropertyListExtension::GetString(IAIMPString* aimpString, String^% value)
 {
     value = gcnew String(aimpString->GetData());
-    return AimpActionResult::Ok;
+    return AimpActionResult::OK;
 }
 
 AimpActionResult PropertyListExtension::GetObject(IAIMPPropertyList* propertyList, int propertyId, REFIID objectId, void** value)
@@ -147,7 +147,7 @@ AimpActionResult PropertyListExtension::GetBool(IAIMPPropertyList* propertyList,
 String^ PropertyListExtension::GetString(IAIMPPropertyList *propertyList, int propertyId)
 {
     String^ val = String::Empty;
-    if (GetString(propertyList, propertyId, *&val) == AimpActionResult::Ok)
+    if (GetString(propertyList, propertyId, *&val) == AimpActionResult::OK)
     {
         return val;
     }
@@ -158,7 +158,7 @@ String^ PropertyListExtension::GetString(IAIMPPropertyList *propertyList, int pr
 int PropertyListExtension::GetInt32(IAIMPPropertyList *propertyList, int propertyId)
 {
     int val = 0;
-    if (GetInt32(propertyList, propertyId, val) == AimpActionResult::Ok)
+    if (GetInt32(propertyList, propertyId, val) == AimpActionResult::OK)
     {
         return val;
     }
@@ -169,7 +169,7 @@ int PropertyListExtension::GetInt32(IAIMPPropertyList *propertyList, int propert
 Int64 PropertyListExtension::GetInt64(IAIMPPropertyList *propertyList, int propertyId)
 {
     Int64 val;
-    if (GetInt64(propertyList, propertyId, val) == AimpActionResult::Ok)
+    if (GetInt64(propertyList, propertyId, val) == AimpActionResult::OK)
     {
         return val;
     }
@@ -180,7 +180,7 @@ Int64 PropertyListExtension::GetInt64(IAIMPPropertyList *propertyList, int prope
 double PropertyListExtension::GetFloat(IAIMPPropertyList *propertyList, int propertyId)
 {
     double val;
-    if (GetFloat(propertyList, propertyId, val) == AimpActionResult::Ok)
+    if (GetFloat(propertyList, propertyId, val) == AimpActionResult::OK)
     {
         return val;
     }
@@ -191,7 +191,7 @@ double PropertyListExtension::GetFloat(IAIMPPropertyList *propertyList, int prop
 bool PropertyListExtension::GetBool(IAIMPPropertyList *propertyList, int propertyId)
 {
     bool val = false;
-    if (GetBool(propertyList, propertyId, val) == AimpActionResult::Ok)
+    if (GetBool(propertyList, propertyId, val) == AimpActionResult::OK)
     {
         return val;
     }
@@ -201,7 +201,7 @@ bool PropertyListExtension::GetBool(IAIMPPropertyList *propertyList, int propert
 
 AimpActionResult PropertyListExtension::GetVariant(IAIMPPropertyList2 *propertyList, int propertyId, Object^% value)
 {
-    VARIANT *val = NULL;
+    VARIANT *val = nullptr;
     AimpActionResult result = Utils::CheckResult(propertyList->GetValueAsVariant(propertyId, val));
     value = AimpConverter::FromVaiant(val);
     return result;

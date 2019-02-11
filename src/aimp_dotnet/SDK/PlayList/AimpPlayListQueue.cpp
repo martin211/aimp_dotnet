@@ -23,37 +23,37 @@ AimpPlaylistQueue::AimpPlaylistQueue(IAIMPPlaylistQueue *queue, IAIMPPlaylistQue
 bool AimpPlaylistQueue::IsSuspended::get()
 {
     IAIMPPropertyList *properties;
-    _aimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
+    _aimpObject->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&properties));
     return PropertyListExtension::GetBool(properties, AIMP_PLAYLISTQUEUE_PROPID_SUSPENDED);
 }
 
 void AimpPlaylistQueue::IsSuspended::set(bool value)
 {
     IAIMPPropertyList *properties;
-    _aimpObject->QueryInterface(IID_IAIMPPropertyList, (void**)&properties);
+    _aimpObject->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&properties));
     PropertyListExtension::SetBool(properties, AIMP_PLAYLISTQUEUE_PROPID_SUSPENDED, value);
 }
 
 AimpActionResult AimpPlaylistQueue::Add(IAimpPlaylistItem^ item, bool insertAtBeginning)
 {
-    return CheckResult(InternalAimpObject->Add(((AimpPlaylistItem^)item)->InternalAimpObject, insertAtBeginning));
+    return CheckResult(InternalAimpObject->Add(static_cast<AimpPlaylistItem^>(item)->InternalAimpObject, insertAtBeginning));
 }
 
-AimpActionResult AimpPlaylistQueue::AddList(System::Collections::Generic::IList<IAimpPlaylistItem^>^ items, bool insertAtBeginning)
+AimpActionResult AimpPlaylistQueue::AddList(Generic::IList<IAimpPlaylistItem^>^ items, bool insertAtBeginning)
 {
     AimpActionResult result = AimpActionResult::Fail;
     if (items->Count > 0)
     {
         IAIMPObjectList *list;
-        ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPObjectList, (void**)&list);
-        if (list != NULL)
+        ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPObjectList, reinterpret_cast<void**>(&list));
+        if (list != nullptr)
         {
             for (int i = 0; i < items->Count; i++)
             {
                 AimpPlaylistItem ^newItem = gcnew AimpPlaylistItem(items[i]);
                 result = CheckResult(list->Add(newItem->InternalAimpObject));
 
-                if (result != AimpActionResult::Ok)
+                if (result != AimpActionResult::OK)
                 {
                     return result;
                 }
@@ -71,17 +71,17 @@ int AimpPlaylistQueue::GetItemCount()
 
 AimpActionResult AimpPlaylistQueue::Delete(IAimpPlaylist^ playList)
 {
-    return CheckResult(InternalAimpObject->Delete2(((AimpPlayList^)playList)->InternalAimpObject));
+    return CheckResult(InternalAimpObject->Delete2(static_cast<AimpPlayList^>(playList)->InternalAimpObject));
 }
 
 AimpActionResult AimpPlaylistQueue::Delete(IAimpPlaylistItem^ item)
 {
-    return CheckResult(InternalAimpObject->Delete(((AimpPlaylistItem^)item)->InternalAimpObject));
+    return CheckResult(InternalAimpObject->Delete(static_cast<AimpPlaylistItem^>(item)->InternalAimpObject));
 }
 
 AimpActionResult AimpPlaylistQueue::Move(IAimpPlaylistItem^ item, int index)
 {
-    return CheckResult(InternalAimpObject->Move(((AimpPlaylistItem^)item)->InternalAimpObject, index));
+    return CheckResult(InternalAimpObject->Move(static_cast<AimpPlaylistItem^>(item)->InternalAimpObject, index));
 }
 
 AimpActionResult AimpPlaylistQueue::Move(int index, int targetIndex)
@@ -91,13 +91,13 @@ AimpActionResult AimpPlaylistQueue::Move(int index, int targetIndex)
 
 AimpActionResult AimpPlaylistQueue::GetItem(int index, IAimpPlaylistItem ^%item)
 {
-    void** itm = NULL;
+    void** itm = nullptr;
     IAIMPPlaylistItem *it = nullptr;
     item = nullptr;
 
     AimpActionResult res = CheckResult(InternalAimpObject->GetItem(index, IID_IAIMPPlaylistItem, itm));
 
-    if (res == AimpActionResult::Ok && itm != NULL)
+    if (res == AimpActionResult::OK && itm != nullptr)
     {
         item = gcnew AimpPlaylistItem(it);
     }
@@ -110,7 +110,7 @@ void AimpPlaylistQueue::ContentChanged::add(AimpPlaylistQueueListenerHandler ^on
 {
     if (_contentChanged == nullptr)
     {
-        _contentChanged = (AimpPlaylistQueueListenerHandler^)Delegate::Combine(_contentChanged, onEvent);
+        _contentChanged = static_cast<AimpPlaylistQueueListenerHandler^>(Delegate::Combine(_contentChanged, onEvent));
     }
 }
 
@@ -118,7 +118,7 @@ void AimpPlaylistQueue::ContentChanged::remove(AimpPlaylistQueueListenerHandler 
 {
     if (_contentChanged != nullptr)
     {
-        _contentChanged = (AimpPlaylistQueueListenerHandler^)Delegate::Remove(_contentChanged, onEvent);
+        _contentChanged = static_cast<AimpPlaylistQueueListenerHandler^>(Delegate::Remove(_contentChanged, onEvent));
     }
 }
 
@@ -135,7 +135,7 @@ void AimpPlaylistQueue::StateChanged::add(AimpPlaylistQueueListenerHandler ^onEv
 {
     if (_stateChanged == nullptr)
     {
-        _stateChanged = (AimpPlaylistQueueListenerHandler^)Delegate::Combine(_stateChanged, onEvent);
+        _stateChanged = static_cast<AimpPlaylistQueueListenerHandler^>(Delegate::Combine(_stateChanged, onEvent));
     }
 }
 
@@ -143,7 +143,7 @@ void AimpPlaylistQueue::StateChanged::remove(AimpPlaylistQueueListenerHandler ^o
 {
     if (_stateChanged != nullptr)
     {
-        _stateChanged = (AimpPlaylistQueueListenerHandler^)Delegate::Remove(_stateChanged, onEvent);
+        _stateChanged = static_cast<AimpPlaylistQueueListenerHandler^>(Delegate::Remove(_stateChanged, onEvent));
     }
 }
 

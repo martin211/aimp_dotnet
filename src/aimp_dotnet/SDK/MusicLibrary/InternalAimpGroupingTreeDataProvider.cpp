@@ -56,7 +56,7 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProvider::GetData(IAIMPMLGroupingTree
         selection = gcnew AimpGroupingTreeSelection(Selection);
         result = _managedInstance->GetData(selection, dataProviderSelection);
 
-        if (result == AimpActionResult::Ok)
+        if (result == AimpActionResult::OK)
         {
             *Data = new InternalAimpGroupingTreeDataProviderSelection(dataProviderSelection);
         }
@@ -74,7 +74,7 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProvider::GetFieldForAlphabeticIndex(
 
     AimpActionResult result = _managedInstance->GetFieldForAlphabeticIndex(str);
 
-    if (result == AimpActionResult::Ok)
+    if (result == AimpActionResult::OK)
     {
         *FieldName = AimpConverter::ToAimpString(str);
     }

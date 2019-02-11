@@ -30,7 +30,7 @@ AimpActionResult AimpServiceFileFormats::GetFormats(FileFormats flags, String^% 
         {
             result = CheckResult(service->GetFormats(DWORD(flags), &str));
 
-            if (result == AimpActionResult::Ok)
+            if (result == AimpActionResult::OK)
             {
                 formats = AimpConverter::ToManagedString(str);
             }

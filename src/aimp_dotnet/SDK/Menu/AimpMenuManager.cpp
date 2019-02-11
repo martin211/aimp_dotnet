@@ -142,7 +142,7 @@ namespace AIMP
                         return AimpActionResult::Fail;
                     }
 
-                    //if (CheckResult(ManagedAimpCore::GetAimpCore()->UnregisterExtension(aimpMenuItem)) != AimpActionResult::Ok)
+                    //if (CheckResult(ManagedAimpCore::GetAimpCore()->UnregisterExtension(aimpMenuItem)) != AimpActionResult::OK)
                     //{
                     //    System::Diagnostics::Debugger::Break();
                     //}

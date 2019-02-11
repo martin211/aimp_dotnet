@@ -15,7 +15,7 @@
 #include "AimpFileTag.h"
 
 using namespace AIMP::SDK;
-using namespace AIMP::SDK::TagEditor;
+using namespace TagEditor;
 
 AimpFileTagEditor::AimpFileTagEditor(IAIMPFileTagEditor* aimpObject) : AimpObject(aimpObject)
 { }
@@ -31,9 +31,9 @@ AimpActionResult AimpFileTagEditor::GetMixedInfo(IAimpFileInfo^% fileInfo)
 AimpActionResult AimpFileTagEditor::GetTag(int index, IAimpFileTag^% fileTag)
 {
     IAIMPFileTag* aimpTag = nullptr;
-    AimpActionResult result = CheckResult(InternalAimpObject->GetTag(index, IID_IAIMPFileTag, (void**)&aimpTag));
+    AimpActionResult result = CheckResult(InternalAimpObject->GetTag(index, IID_IAIMPFileTag, reinterpret_cast<void**>(&aimpTag)));
 
-    if (result == AimpActionResult::Ok && aimpTag != nullptr)
+    if (result == AimpActionResult::OK && aimpTag != nullptr)
     {
         fileTag = gcnew AimpFileTag(aimpTag);
     }
@@ -48,7 +48,7 @@ int AimpFileTagEditor::GetTagCount()
 
 AimpActionResult AimpFileTagEditor::SetToAll(IAimpFileInfo^ fileInfo)
 {
-    IAIMPFileInfo* fi = ((AimpFileInfo^)fileInfo)->InternalAimpObject;
+    IAIMPFileInfo* fi = static_cast<AimpFileInfo^>(fileInfo)->InternalAimpObject;
     return CheckResult(InternalAimpObject->SetToAll(fi));
 }
 

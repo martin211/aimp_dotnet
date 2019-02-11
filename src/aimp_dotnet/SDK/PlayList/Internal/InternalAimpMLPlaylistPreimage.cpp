@@ -33,7 +33,7 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetFilter(IAIMPMLDataFilter** Fil
         IAimpDataFieldFilter^ f = nullptr;
         res = preimage->GetFilter(*&f);
 
-        if (res == AimpActionResult::Ok && f != nullptr)
+        if (res == AimpActionResult::OK && f != nullptr)
         {
             *Filter = new InternalAimpDataFilter(nullptr);
         }
@@ -169,7 +169,7 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::QueryInterface(REFIID riid, LPVOI
         return S_OK;
     }
 
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     return res;
 }
 
@@ -211,7 +211,7 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, D
         System::Collections::IList ^collection;
         res = dp->GetFiles(gcnew AimpTaskOwner(Owner), *&flags, *&collection);
 
-        if (res == AimpActionResult::Ok)
+        if (res == AimpActionResult::OK)
         {
             *Flags = (DWORD*)flags;
             System::Type^ t = collection->GetType()->GetGenericArguments()[0];

@@ -114,7 +114,7 @@ void AimpPlaylistItem::Selected::set(bool value)
 IAimpFileInfo^ AimpPlaylistItem::FileInfo::get()
 {
     IAIMPFileInfo *fileInfo;
-    if (CheckResult(_aimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_FILEINFO, IID_IAIMPFileInfo, (void**)&fileInfo)) != AimpActionResult::Ok)
+    if (CheckResult(_aimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_FILEINFO, IID_IAIMPFileInfo, reinterpret_cast<void**>(&fileInfo))) != AimpActionResult::OK)
     {
         return nullptr;
     }
@@ -128,7 +128,7 @@ IAimpPlaylistGroup^ AimpPlaylistItem::Group::get()
     if (_group == nullptr)
     {
         IAIMPPlaylistGroup *group;
-        if (PropertyListExtension::GetObject(_aimpObject, AIMP_PLAYLISTITEM_PROPID_GROUP, IID_IAIMPPlaylistGroup, (void**)&group) != AimpActionResult::Ok)
+        if (PropertyListExtension::GetObject(_aimpObject, AIMP_PLAYLISTITEM_PROPID_GROUP, IID_IAIMPPlaylistGroup, reinterpret_cast<void**>(&group)) != AimpActionResult::OK)
         {
             return nullptr;
         }
@@ -142,7 +142,7 @@ IAimpPlaylistGroup^ AimpPlaylistItem::Group::get()
 IAimpPlaylist^ AimpPlaylistItem::PlayList::get()
 {
     IAIMPPlaylist *obj;
-    if (CheckResult(_aimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_PLAYLIST, IID_IAIMPPlaylist, (void**)&obj)) != AimpActionResult::Ok)
+    if (CheckResult(_aimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_PLAYLIST, IID_IAIMPPlaylist, reinterpret_cast<void**>(&obj))) != AimpActionResult::OK)
     {
         return nullptr;
     }

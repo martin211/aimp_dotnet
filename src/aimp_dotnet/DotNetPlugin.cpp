@@ -72,7 +72,7 @@ PWCHAR WINAPI DotNetPlugin::InfoGet(int index)
     }
     }
 
-    return NULL;
+    return nullptr;
 }
 
 DWORD WINAPI DotNetPlugin::InfoGetCategories()
@@ -156,7 +156,7 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
         return E_POINTER;
     }
 
-    if (riid == IID_IAIMPExternalSettingsDialog && _externalSettingsDialog != NULL)
+    if (riid == IID_IAIMPExternalSettingsDialog && _externalSettingsDialog != nullptr)
     {
         return _externalSettingsDialog->QueryInterface(riid, ppvObj);
     }

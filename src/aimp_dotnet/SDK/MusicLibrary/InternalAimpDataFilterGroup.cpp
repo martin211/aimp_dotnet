@@ -120,7 +120,7 @@ HRESULT WINAPI InternalAimpDataFilterGroup::QueryInterface(REFIID riid, LPVOID* 
         return S_OK;
     }
 
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     return res;
 }
 

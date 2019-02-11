@@ -41,13 +41,13 @@ IAIMPImage* AimpConverter::ToAimpImage(System::Drawing::Bitmap^ image)
         image->Save(stream, System::Drawing::Imaging::ImageFormat::Png);
         array<Byte>^ buffer = stream->ToArray();
 
-        if (Utils::CheckResult(GetCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&aimpStream)) == AIMP::SDK::AimpActionResult::Ok
-            && Utils::CheckResult(GetCore()->CreateObject(IID_IAIMPImage, (void**)&img)) == AIMP::SDK::AimpActionResult::Ok)
+        if (Utils::CheckResult(GetCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&aimpStream)) == AIMP::SDK::AimpActionResult::OK
+            && Utils::CheckResult(GetCore()->CreateObject(IID_IAIMPImage, (void**)&img)) == AIMP::SDK::AimpActionResult::OK)
         {
             aimpStream->SetSize(stream->Length);
             pin_ptr<System::Byte> p = &buffer[0];
             unsigned char* pby = p;
-            if (Utils::CheckResult(aimpStream->Write(pby, (int)stream->Length, nullptr)) == AIMP::SDK::AimpActionResult::Ok)
+            if (Utils::CheckResult(aimpStream->Write(pby, (int)stream->Length, nullptr)) == AIMP::SDK::AimpActionResult::OK)
             {
                 img->LoadFromStream(aimpStream);
             }
@@ -111,12 +111,12 @@ System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImageContainer* ima
     IAIMPImage* image = nullptr;
     try
     {
-        if (Utils::CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**)&image)) != AimpActionResult::Ok)
+        if (Utils::CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**)&image)) != AimpActionResult::OK)
         {
             return nullptr;
         }
 
-        if (Utils::CheckResult(imageContainer->CreateImage(&image)) != AimpActionResult::Ok || image == nullptr)
+        if (Utils::CheckResult(imageContainer->CreateImage(&image)) != AimpActionResult::OK || image == nullptr)
         {
             return nullptr;
         }
@@ -138,7 +138,7 @@ System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImageContainer* ima
 System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImage* image)
 {
     SIZE size;
-    if (Utils::CheckResult(image->GetSize(&size)) == AimpActionResult::Ok)
+    if (Utils::CheckResult(image->GetSize(&size)) == AimpActionResult::OK)
     {
         if (size.cx == 0 || size.cy == 0)
         {
@@ -150,7 +150,7 @@ System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImage* image)
         IAIMPStream *stream = nullptr;
         AimpActionResult res = Utils::CheckResult(AIMP::SDK::ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&stream));
 
-        if (res != AimpActionResult::Ok || stream == nullptr)
+        if (res != AimpActionResult::OK || stream == nullptr)
         {
             return nullptr;
         }
@@ -192,7 +192,7 @@ System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImage* image)
 IAIMPImageContainer* AimpConverter::ToAimpImageContainer(System::Drawing::Bitmap ^image)
 {
     IAIMPImageContainer *container;
-    if (Utils::CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImageContainer, (void**)&container)) == AimpActionResult::Ok)
+    if (Utils::CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImageContainer, (void**)&container)) == AimpActionResult::OK)
     {
         System::IO::Stream ^stream = nullptr;
         try
@@ -200,7 +200,7 @@ IAIMPImageContainer* AimpConverter::ToAimpImageContainer(System::Drawing::Bitmap
             stream = gcnew System::IO::MemoryStream();
             image->Save(stream, System::Drawing::Imaging::ImageFormat::Jpeg);
             stream->Seek(0, System::IO::SeekOrigin::Begin);
-            if (Utils::CheckResult(container->SetDataSize((DWORD)stream->Length)) != AimpActionResult::Ok)
+            if (Utils::CheckResult(container->SetDataSize((DWORD)stream->Length)) != AimpActionResult::OK)
             {
                 return nullptr;
             }
@@ -258,10 +258,10 @@ IAIMPMLDataField* AimpConverter::GetAimpDataField()
 }
 
 template<typename TObject>
-TObject* AIMP::SDK::AimpConverter::CreateAimpObject(REFIID objectId)
+TObject* AimpConverter::CreateAimpObject(REFIID objectId)
 {
-    TObject *obj = NULL;
-    HRESULT r = ManagedAimpCore::GetAimpCore()->CreateObject(objectId, (void**)&obj);
+    TObject *obj = nullptr;
+    HRESULT r = ManagedAimpCore::GetAimpCore()->CreateObject(objectId, reinterpret_cast<void**>(&obj));
     return obj;
 }
 

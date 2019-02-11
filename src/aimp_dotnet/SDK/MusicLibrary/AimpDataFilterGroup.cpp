@@ -98,7 +98,7 @@ AimpActionResult AimpDataFilterGroup::Add(
         count,
         &nativeObj));
 
-    if (result == AimpActionResult::Ok && nativeObj != nullptr)
+    if (result == AimpActionResult::OK && nativeObj != nullptr)
     {
         filter = gcnew AimpDataFieldFilterByArray(nativeObj);
     }
@@ -140,7 +140,7 @@ AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFilterGroup^%
     group = nullptr;
     IAIMPMLDataFilterGroup* child = nullptr;
     const auto result = CheckResult(_aimpObject->GetChild(index, IID_IAIMPMLDataFilterGroup, reinterpret_cast<void**>(&child)));
-    if (result == AimpActionResult::Ok && child != nullptr)
+    if (result == AimpActionResult::OK && child != nullptr)
     {
         group = gcnew AimpDataFilterGroup(child);
     }

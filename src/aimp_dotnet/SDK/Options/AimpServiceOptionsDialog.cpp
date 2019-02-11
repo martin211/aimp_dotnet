@@ -16,7 +16,7 @@ using namespace AIMP::SDK;
 
 AimpServiceOptionsDialog::AimpServiceOptionsDialog(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceOptionsDialog>(core)
 {
-    IAIMPServiceOptionsDialog *service;
+    IAIMPServiceOptionsDialog* service;
     core->GetService(IID_IAIMPServiceOptionsDialog, reinterpret_cast<void**>(&service));
     _service = service;
 }

@@ -381,7 +381,7 @@ void AimpAlbumArtManager::Cancel(IntPtr taskId, AimpFindCovertArtType flags)
 {
     if (taskId != IntPtr::Zero)
     {
-        IAIMPServiceAlbumArt *service = nullptr;
+        IAIMPServiceAlbumArt* service = nullptr;
         try
         {
             if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::OK && service != nullptr)

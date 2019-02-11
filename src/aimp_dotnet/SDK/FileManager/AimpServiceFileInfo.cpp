@@ -34,7 +34,7 @@ AimpActionResult AimpServiceFileInfo::GetFileInfoFromFileUri(String^ fileUri, Se
             str = AimpConverter::ToAimpString(fileUri);
             result = CheckResult(service->GetFileInfoFromFileURI(str, DWORD(fileInfoFlags), fi));
 
-            if (result == AimpActionResult::Ok)
+            if (result == AimpActionResult::OK)
             {
                 fileInfo = gcnew AimpFileInfo(fi);
             }

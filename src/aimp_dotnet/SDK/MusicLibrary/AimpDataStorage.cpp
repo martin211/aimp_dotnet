@@ -85,10 +85,10 @@ IAimpGroupingPreset^ AimpDataStorage::GroupingPreset::get()
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::Ok)
+        if (GetProperties(&properties) == AimpActionResult::OK)
         {
             IAIMPMLGroupingPreset *preset = nullptr;
-            if (PropertyListExtension::GetObject(properties, AIMPML_DATASTORAGE_PROPID_GROUPINGPRESET, IID_IAIMPMLGroupingPreset, reinterpret_cast<void**>(&preset)) == AimpActionResult::Ok)
+            if (PropertyListExtension::GetObject(properties, AIMPML_DATASTORAGE_PROPID_GROUPINGPRESET, IID_IAIMPMLGroupingPreset, reinterpret_cast<void**>(&preset)) == AimpActionResult::OK)
             {
                 if (preset != nullptr)
                 {
@@ -114,7 +114,7 @@ void AimpDataStorage::GroupingPreset::set(IAimpGroupingPreset ^value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::Ok)
+        if (GetProperties(&properties) == AimpActionResult::OK)
         {
             IAIMPMLGroupingPreset* preset = static_cast<AimpGroupingPreset^>(value)->InternalAimpObject;
             PropertyListExtension::SetObject(properties, AIMPML_DATASTORAGE_PROPID_GROUPINGPRESET, preset);

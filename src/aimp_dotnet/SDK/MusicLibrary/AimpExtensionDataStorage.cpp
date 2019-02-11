@@ -337,27 +337,27 @@ void WINAPI AimpExtensionDataStorage::Finalize()
 {
     _managedInstance->Terminate();
     _aimpDataProvider->Release();
-    _aimpDataProvider = NULL;
+    _aimpDataProvider = nullptr;
 
-    if (_addFilesCommand != NULL)
+    if (_addFilesCommand != nullptr)
         _addFilesCommand->Release();
 
-    if (_addFilesDialogCommand != NULL)
+    if (_addFilesDialogCommand != nullptr)
         _addFilesDialogCommand->Release();
 
-    if (_deleteFilesCommand != NULL)
+    if (_deleteFilesCommand != nullptr)
         _deleteFilesCommand->Release();
 
-    if (_dropDataCommand != NULL)
+    if (_dropDataCommand != nullptr)
         _dropDataCommand->Release();
 
-    if (_reloadTagsCommand != NULL)
+    if (_reloadTagsCommand != nullptr)
         _reloadTagsCommand->Release();
 
-    if (_reportDialogCommand != NULL)
+    if (_reportDialogCommand != nullptr)
         _reportDialogCommand->Release();
 
-    if (_userMarkCommand != NULL)
+    if (_userMarkCommand != nullptr)
         _userMarkCommand->Release();
 
     _managedInstance = nullptr;

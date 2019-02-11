@@ -124,7 +124,7 @@ IAIMPServicePlayer* AimpPlayer::ServicePlayer::get()
 bool AimpPlayer::IsMute::get()
 {
     bool value;
-    if (Utils::CheckResult(_player->GetMute(&value)) == AimpActionResult::Ok)
+    if (Utils::CheckResult(_player->GetMute(&value)) == AimpActionResult::OK)
     {
         return value;
     }
@@ -139,7 +139,7 @@ void AimpPlayer::IsMute::set(bool value)
 float AimpPlayer::Volume::get()
 {
     float value;
-    if (Utils::CheckResult(_player->GetVolume(&value)) == AimpActionResult::Ok)
+    if (Utils::CheckResult(_player->GetVolume(&value)) == AimpActionResult::OK)
     {
         return value;
     }
@@ -154,7 +154,7 @@ void AimpPlayer::Volume::set(float value)
 double AimpPlayer::Duration::get()
 {
     double value;
-    if (Utils::CheckResult(_player->GetDuration(&value)) == AimpActionResult::Ok)
+    if (Utils::CheckResult(_player->GetDuration(&value)) == AimpActionResult::OK)
     {
         return value;
     }
@@ -164,7 +164,7 @@ double AimpPlayer::Duration::get()
 double AimpPlayer::Position::get()
 {
     double value;
-    if (Utils::CheckResult(_player->GetPosition(&value)) == AimpActionResult::Ok)
+    if (Utils::CheckResult(_player->GetPosition(&value)) == AimpActionResult::OK)
     {
         return value;
     }
@@ -184,8 +184,8 @@ AimpPlayerState AimpPlayer::State::get()
 
 IAimpFileInfo^ AimpPlayer::CurrentFileInfo::get()
 {
-    IAIMPFileInfo* fi = NULL;
-    if (Utils::CheckResult(_player->GetInfo(&fi)) == AimpActionResult::Ok && fi != NULL)
+    IAIMPFileInfo* fi = nullptr;
+    if (Utils::CheckResult(_player->GetInfo(&fi)) == AimpActionResult::OK && fi != nullptr)
     {
         return gcnew AimpFileInfo(fi);
     }
@@ -194,8 +194,8 @@ IAimpFileInfo^ AimpPlayer::CurrentFileInfo::get()
 
 IAimpPlaylistItem^ AimpPlayer::CurrentPlaylistItem::get()
 {
-    IAIMPPlaylistItem* item = NULL;
-    if (Utils::CheckResult(_player->GetPlaylistItem(&item)) == AimpActionResult::Ok && item != NULL)
+    IAIMPPlaylistItem* item = nullptr;
+    if (Utils::CheckResult(_player->GetPlaylistItem(&item)) == AimpActionResult::OK && item != nullptr)
     {
         return gcnew AimpPlaylistItem(item);
     }

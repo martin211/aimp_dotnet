@@ -91,8 +91,8 @@ namespace AIMP
             AimpPlayListHandler<ScanningProgressEventArgs^> ^_scanningProgressHandler;
             AimpPlayListHandler<ScanningEndEventArgs^> ^_scanningEndHandler;
 
-            AimpPlaylistListener *_listner = NULL;
-            InternalAimpPlaylistPreimage *_internalPreImage = NULL;
+            AimpPlaylistListener *_listner = nullptr;
+            InternalAimpPlaylistPreimage *_internalPreImage = nullptr;
             bool _disposed;
 
         internal:

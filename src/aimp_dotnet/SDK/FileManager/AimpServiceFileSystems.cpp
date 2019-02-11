@@ -39,7 +39,7 @@ AimpActionResult AimpServiceFileSystems::Get(String^ fileUri, TCommand% command)
                 //IAIMPFileSystemCommandFileInfo *cmd;
                 //result = CheckResult(service->Get(str, IID_IAIMPFileSystemCommandFileInfo, (void**)&cmd));
 
-                if (result == AimpActionResult::Ok)
+                if (result == AimpActionResult::OK)
                 {
                     //command = gcnew AimpFileSystemCommandFileInfo(cmd);
                 }
@@ -71,12 +71,12 @@ generic<typename TCommand>
 where TCommand : gcnew()
 AimpActionResult AimpServiceFileSystems::GetDefault(TCommand %command)
 {
-    IAIMPServiceFileSystems *service = nullptr;
+    IAIMPServiceFileSystems* service = nullptr;
     AimpActionResult result = AimpActionResult::Fail;
     
     try
     {
-        if (GetService(IID_IAIMPServiceFileSystems, &service) == AimpActionResult::Ok)
+        if (GetService(IID_IAIMPServiceFileSystems, &service) == AimpActionResult::OK)
         {
             if (service != nullptr)
             {
@@ -87,7 +87,7 @@ AimpActionResult AimpServiceFileSystems::GetDefault(TCommand %command)
                 //if (fileInfoCommand != nullptr)
                 //{
                 //    IAIMPFileSystemCommandFileInfo* cmd = nullptr;
-                //    if (CheckResult(service->GetDefault(IID_IAIMPFileSystemCommandFileInfo, (void**)cmd)) == AimpActionResult::Ok && cmd != nullptr)
+                //    if (CheckResult(service->GetDefault(IID_IAIMPFileSystemCommandFileInfo, (void**)cmd)) == AimpActionResult::OK && cmd != nullptr)
                 //    {
                 //        command = gcnew AimpFileSystemCommandFileInfo(cmd);
                 //    }

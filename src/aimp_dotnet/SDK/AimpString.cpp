@@ -61,7 +61,7 @@ AimpActionResult AimpString::Clone(IAimpString ^%str)
 {
     IAIMPString *s = nullptr;
     AimpActionResult result = CheckResult(_aimpObject->Clone(&s));
-    if (result == AimpActionResult::Ok && s != nullptr)
+    if (result == AimpActionResult::OK && s != nullptr)
     {
         str = gcnew AimpString(s);
     }
@@ -73,7 +73,7 @@ AimpActionResult AimpString::Compare(IAimpString^ str, int %compareResult, bool 
 {
     int res = 0;
     AimpActionResult result = CheckResult(_aimpObject->Compare(((AimpString^)str)->InternalAimpObject, &res, ignoreCase));
-    if (result == AimpActionResult::Ok)
+    if (result == AimpActionResult::OK)
     {
         compareResult = res;
     }
@@ -87,7 +87,7 @@ AimpActionResult AimpString::Compare(String^ chars, int charsCount, int %compare
     pin_ptr<const WCHAR> strData = PtrToStringChars(chars);
 
     AimpActionResult result = CheckResult(_aimpObject->Compare2((PWCHAR)strData, charsCount, &res, ignoreCase));
-    if (result == AimpActionResult::Ok)
+    if (result == AimpActionResult::OK)
     {
         compareResult = res;
     }
@@ -110,7 +110,7 @@ AimpActionResult AimpString::Find(IAimpString^ str, int %index, AIMPStringFindFl
         (int)flags,
         startFromIndex));
 
-    if (res == AimpActionResult::Ok)
+    if (res == AimpActionResult::OK)
     {
         index = i;
     }
@@ -131,7 +131,7 @@ AimpActionResult AimpString::Find(String^ chars, int charsCount, int %index, AIM
         (int)flags,
         startFromIndex));
 
-    if (res == AimpActionResult::Ok)
+    if (res == AimpActionResult::OK)
     {
         index = i;
     }
@@ -176,14 +176,14 @@ AimpActionResult AimpString::Replace(String^ oldPatternChars, int oldPatternChar
         newPatternCharsCount,
         flags));
 
-    return AimpActionResult::Ok;
+    return AimpActionResult::OK;
 }
 
 AimpActionResult AimpString::SubString(int index, int count, IAimpString ^%str)
 {
     IAIMPString *subStr = nullptr;
     AimpActionResult res = CheckResult(_aimpObject->SubString(index, count, &subStr));
-    if (res == AimpActionResult::Ok)
+    if (res == AimpActionResult::OK)
     {
         str = gcnew AimpString(subStr);
     }

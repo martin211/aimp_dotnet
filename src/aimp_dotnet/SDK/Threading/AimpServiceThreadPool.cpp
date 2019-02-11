@@ -11,6 +11,7 @@
 
 #include "Stdafx.h"
 #include "AimpServiceThreadPool.h"
+#include "InternalAimpTask.h"
 
 using namespace AIMP::SDK;
 
@@ -21,75 +22,75 @@ AimpServiceThreadPool::AimpServiceThreadPool(ManagedAimpCore^ core) : AimpBaseMa
 
 AimpActionResult AimpServiceThreadPool::Cancel(UIntPtr taskHandle, AimpServiceThreadPoolType flags)
 {
-    IAIMPServiceThreadPool *service = NULL;
+    IAIMPServiceThreadPool* service = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceThreadPool, &service) == AimpActionResult::Ok && service != NULL)
+        if (GetService(IID_IAIMPServiceThreadPool, &service) == AimpActionResult::OK && service != nullptr)
         {
-            return CheckResult(service->Cancel((DWORD_PTR)taskHandle.ToPointer(), (DWORD)flags));
+            return CheckResult(service->Cancel(DWORD_PTR(taskHandle.ToPointer()), DWORD(flags)));
         }
-
-        return AimpActionResult::Fail;
     }
     finally
     {
-        if (service != NULL)
+        if (service != nullptr)
         {
             service->Release();
-            service = NULL;
+            service = nullptr;
         }
     }
+
+    return AimpActionResult::Fail;
 }
 
 AimpActionResult AimpServiceThreadPool::Execute(IAimpTask ^task, UIntPtr %handle)
 {
-    IAIMPServiceThreadPool *service = NULL;
-    handle = UIntPtr((void*)0);
+    IAIMPServiceThreadPool* service = nullptr;
+    handle = UIntPtr(static_cast<void*>(0));
 
     try
     {
         DWORD_PTR h;
 
-        if (GetService(IID_IAIMPServiceThreadPool, &service) == AimpActionResult::Ok && service != NULL)
+        if (GetService(IID_IAIMPServiceThreadPool, &service) == AimpActionResult::OK && service != nullptr)
         {
             InternalAimpTask *internalTask = new InternalAimpTask(task);
             AimpActionResult result = CheckResult(service->Execute(internalTask, &h));
-            handle = UIntPtr((void*)h);
+            handle = UIntPtr(reinterpret_cast<void*>(h));
             return result;
         }
-
-        return AimpActionResult::Fail;
     }
     finally
     {
-        if (service != NULL)
+        if (service != nullptr)
         {
             service->Release();
-            service = NULL;
+            service = nullptr;
         }
     }
+
+    return AimpActionResult::Fail;
 }
 
 AimpActionResult AimpServiceThreadPool::WaitFor(UIntPtr handle)
 {
-    IAIMPServiceThreadPool *service = NULL;
+    IAIMPServiceThreadPool* service = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceThreadPool, &service) == AimpActionResult::Ok && service != NULL)
+        if (GetService(IID_IAIMPServiceThreadPool, &service) == AimpActionResult::OK && service != nullptr)
         {
-            return CheckResult(service->WaitFor((DWORD_PTR)handle.ToPointer()));
+            return CheckResult(service->WaitFor(reinterpret_cast<DWORD_PTR>(handle.ToPointer())));
         }
-
-        return AimpActionResult::Fail;
     }
     finally
     {
-        if (service != NULL)
+        if (service != nullptr)
         {
             service->Release();
-            service = NULL;
+            service = nullptr;
         }
     }
+
+    return AimpActionResult::Fail;
 }

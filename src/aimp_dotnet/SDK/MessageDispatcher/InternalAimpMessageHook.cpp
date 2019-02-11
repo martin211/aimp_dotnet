@@ -39,7 +39,7 @@ void InternalAimpMessageHook::CoreMessage(DWORD message, int param1, void* param
 //        return S_OK;
 //    }
 //
-//    ppvObject = NULL;
+//    ppvObject = nullptr;
 //    return res;
 //}
 //

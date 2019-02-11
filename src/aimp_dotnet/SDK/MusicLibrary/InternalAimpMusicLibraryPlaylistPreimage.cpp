@@ -25,7 +25,7 @@ HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetFilter(IAIMPMLDataFi
     AimpActionResult res = AimpActionResult::Fail;
     //res = _managedInstance->GetFilter(&dataFilter);
 
-    //if (res == AimpActionResult::Ok)
+    //if (res == AimpActionResult::OK)
     //{
     //    *Filter = gcnew AimpDataFieldFilter();
     //}
@@ -66,6 +66,6 @@ HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetStorage(IUnknown** S
 //        return S_OK;
 //    }
 //
-//    *ppvObject = NULL;
+//    *ppvObject = nullptr;
 //    return res;
 //}

@@ -54,7 +54,7 @@ public:
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
     {
-        *ppvObject = NULL;
+        *ppvObject = nullptr;
         if (riid == IID_IAIMPMLDataStorageCommandAddFiles)
         {
             *ppvObject = this;

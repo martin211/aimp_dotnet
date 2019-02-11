@@ -21,17 +21,17 @@ AimpGroupingPresetStandard::AimpGroupingPresetStandard(IAIMPMLGroupingPresetStan
 
 IAimpObjectList<String^>^ AimpGroupingPresetStandard::Fields::get()
 {
-    IAIMPObjectList* fields = NULL;
+    IAIMPObjectList* fields = nullptr;
 
-    if (CheckResult(InternalAimpObject->GetValueAsObject(AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList, (void**)&fields)) == AimpActionResult::Ok)
+    if (CheckResult(InternalAimpObject->GetValueAsObject(AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList, reinterpret_cast<void**>(&fields))) == AimpActionResult::OK)
     {
         return gcnew AimpObjectList<String^>(fields);
     }
 
     // TODO: Check GetObject
-    //if (PropertyListExtension::GetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList, (void**)&fields) == AimpActionResult::Ok)
+    //if (PropertyListExtension::GetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList, (void**)&fields) == AimpActionResult::OK)
     //{
-    //    if (fields == NULL)
+    //    if (fields == nullptr)
     //    {
     //        //fields = AimpConverter::MakeObject<IAIMPObjectList>(IID_IAIMPObjectList);
     //        //PropertyListExtension::SetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, fields);

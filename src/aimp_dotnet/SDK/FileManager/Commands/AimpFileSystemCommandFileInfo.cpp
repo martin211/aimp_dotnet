@@ -26,16 +26,16 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(IAimpString^ file, 
 
     //try
     //{
-    //    TAIMPFileAttributes *fattr = NULL;
+    //    TAIMPFileAttributes *fattr = nullptr;
     //    AimpActionResult result = CheckResult(_aimpObject->GetFileAttrs(str, fattr));
     //    return result;
     //}
     //finally
     //{
-    //    if (str != NULL)
+    //    if (str != nullptr)
     //    {
     //        str->Release();
-    //        str = NULL;
+    //        str = nullptr;
     //    }
     //}
 
@@ -54,12 +54,12 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(IAimpString^ file, l
         //str = AimpConverter::ToAimpString(file);
         //INT64 *fSize = 0;
         //AimpActionResult result = CheckResult(_aimpObject->GetFileSize(str, fSize));
-        //if (result == AimpActionResult::Ok)
+        //if (result == AimpActionResult::OK)
         //{
         //    size = (long long)fSize;
         //}
 
-        return AimpActionResult::Ok;
+        return AimpActionResult::OK;
     }
     finally
     {
@@ -80,7 +80,7 @@ AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(IAimpString ^file)
         //str = AimpConverter::ToAimpString(file);
         //return CheckResult(_aimpObject->IsFileExists(str));
 
-        return AimpActionResult::Ok;
+        return AimpActionResult::OK;
     }
     finally
     {

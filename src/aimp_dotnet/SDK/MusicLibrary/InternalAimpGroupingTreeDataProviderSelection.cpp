@@ -24,7 +24,7 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetDisplayValue(IA
     String^ str;
     AimpActionResult result = _managedInstance->GetDisplayValue(str);
 
-    if (result == AimpActionResult::Ok)
+    if (result == AimpActionResult::OK)
     {
         *S = AimpConverter::ToAimpString(str);
     }
@@ -42,7 +42,7 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetImageIndex(int*
     FieldImageIndex index;
     AimpActionResult result = _managedInstance->GetImageIndex(index);
 
-    if (result == AimpActionResult::Ok)
+    if (result == AimpActionResult::OK)
     {
         *Index = int(index);
     }
@@ -57,7 +57,7 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetValue(IAIMPStri
 
     AimpActionResult result = _managedInstance->GetValue(fieldName, val);
 
-    if (result == AimpActionResult::Ok)
+    if (result == AimpActionResult::OK)
     {
         *FieldName = AimpConverter::ToAimpString(fieldName);
         VARIANT v = AimpConverter::ToNativeVariant(val);

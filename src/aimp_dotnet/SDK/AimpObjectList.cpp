@@ -54,13 +54,13 @@ generic<typename T>
 AimpActionResult AimpObjectList<T>::GetObject(int index, T% item)
 {
     IAIMPString* str;
-    AimpActionResult result = Utils::CheckResult(_nativeObject->GetObject(index, IID_IAIMPString, (void**)&str));
+    AimpActionResult result = Utils::CheckResult(_nativeObject->GetObject(index, IID_IAIMPString, reinterpret_cast<void**>(&str)));
 
-    if (result == AimpActionResult::Ok && str != NULL)
+    if (result == AimpActionResult::OK && str != nullptr)
     {
         item = (T)AimpConverter::ToManagedString(str);
         str->Release();
-        str = NULL;
+        str = nullptr;
     }
 
     return result;

@@ -32,7 +32,7 @@ bool AimpPlaylistPreimage::AutoSync::get()
 
 void AimpPlaylistPreimage::AutoSync::set(bool value)
 {
-    if (PropertyListExtension::SetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC, value) != AimpActionResult::Ok)
+    if (PropertyListExtension::SetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC, value) != AimpActionResult::OK)
     {
         System::Diagnostics::Debugger::Break();
     }

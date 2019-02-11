@@ -11,8 +11,9 @@
 
 #include "Stdafx.h"
 #include "InternalAimpTask.h"
+#include "AimpTaskOwner.h"
 
-InternalAimpTask::InternalAimpTask(gcroot<AIMP::SDK::Threading::IAimpTask^> instance)
+InternalAimpTask::InternalAimpTask(gcroot<IAimpTask^> instance)
 {
     _instance = instance;
 }
@@ -43,6 +44,6 @@ HRESULT WINAPI InternalAimpTask::QueryInterface(REFIID riid, LPVOID* ppvObject)
         return S_OK;
     }
 
-    ppvObject = NULL;
+    ppvObject = nullptr;
     return res;
 }
