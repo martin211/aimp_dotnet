@@ -9,7 +9,6 @@
 // 
 // ----------------------------------------------------
 
-#pragma once
 #include "Stdafx.h"
 #include "PropertyListHelper.h"
 

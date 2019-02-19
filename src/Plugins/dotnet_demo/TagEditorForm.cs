@@ -39,7 +39,7 @@ namespace DemoPlugin
                             Tag = tag
                         };
 
-                        var editorControl = new TagEditControl();
+                        var editorControl = new TagEditControl(tag);
                         tab.Controls.Add(editorControl);
                         tabControl1.TabPages.Add(tab);
                     }
