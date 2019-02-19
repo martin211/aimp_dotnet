@@ -11,15 +11,13 @@
 
 #pragma once
 #include "SDK\BaseManager.h"
-#include "InternalAimpTask.h"
 
 namespace AIMP
 {
     namespace SDK
     {
-        using namespace AIMP::SDK::Threading;
+        using namespace Threading;
 
-        [System::Serializable]
         public ref class AimpServiceThreadPool : public AimpBaseManager<IAIMPServiceThreadPool>, public IAimpServiceThreadPool
         {
         public:
@@ -27,7 +25,7 @@ namespace AIMP
 
             virtual AimpActionResult Cancel(UIntPtr taskHandle, AimpServiceThreadPoolType flags);
 
-            virtual AimpActionResult Execute(IAimpTask ^task, UIntPtr %handle);
+            virtual AimpActionResult Execute(IAimpTask^ task, UIntPtr% handle);
 
             virtual AimpActionResult WaitFor(UIntPtr handle);
         };

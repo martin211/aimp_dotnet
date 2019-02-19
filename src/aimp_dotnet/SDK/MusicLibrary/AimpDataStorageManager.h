@@ -15,16 +15,16 @@ namespace AIMP
 {
     namespace SDK
     {
-        using namespace AIMP::SDK::MusicLibrary;
+        using namespace MusicLibrary;
 
         public ref class AimpDataStorageManager :
             public AimpObject<IAIMPMLDataStorageManager>,
             public IAimpDataStorageManager
         {
         public:
-            explicit AimpDataStorageManager(IAIMPMLDataStorageManager *manager);
+            explicit AimpDataStorageManager(IAIMPMLDataStorageManager* manager);
 
-            virtual AimpActionResult BackgroundTaskStarted(int id, System::String ^cartion, AIMP::SDK::ActionManager::IAimpActionEvent ^cancelEvent);
+            virtual AimpActionResult BackgroundTaskStarted(int id, String^ caption, ActionManager::IAimpActionEvent^ cancelEvent);
 
             virtual AimpActionResult BackgroundTaskFinished(int id);
 

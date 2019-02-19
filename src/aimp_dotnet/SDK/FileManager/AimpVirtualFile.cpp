@@ -11,10 +11,11 @@
 
 #include "Stdafx.h"
 #include "AimpVirtualFile.h"
+#include "AimpFileInfo.h"
 
 using namespace AIMP::SDK;
 
-AimpVirtualFile::AimpVirtualFile(IAIMPVirtualFile *aimpObject) : AimpObject(aimpObject)
+AimpVirtualFile::AimpVirtualFile(IAIMPVirtualFile* aimpObject) : AimpObject(aimpObject)
 {
 }
 
@@ -48,17 +49,17 @@ void AimpVirtualFile::ClipFinish::set(double value)
     PropertyListExtension::SetFloat(_aimpObject, AIMP_VIRTUALFILE_PROPID_CLIPFINISH, value);
 }
 
-System::String^ AimpVirtualFile::AudioSourceFile::get()
+String^ AimpVirtualFile::AudioSourceFile::get()
 {
     return PropertyListExtension::GetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_AUDIOSOURCEFILE);
 }
 
-void AimpVirtualFile::AudioSourceFile::set(System::String^ value)
+void AimpVirtualFile::AudioSourceFile::set(String^ value)
 {
     PropertyListExtension::SetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_AUDIOSOURCEFILE, value);
 }
 
-System::String^ AimpVirtualFile::FileFormat::get()
+String^ AimpVirtualFile::FileFormat::get()
 {
     return PropertyListExtension::GetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_FILEFORMAT);
 }
@@ -68,28 +69,30 @@ void AimpVirtualFile::FileFormat::set(System::String^ value)
     PropertyListExtension::SetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_FILEFORMAT, value);
 }
 
-System::String^ AimpVirtualFile::FileUri::get()
+String^ AimpVirtualFile::FileUri::get()
 {
     return PropertyListExtension::GetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_FILEURI);
 }
 
-void AimpVirtualFile::FileUri::set(System::String^ value)
+void AimpVirtualFile::FileUri::set(String^ value)
 {
     PropertyListExtension::SetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_FILEURI, value);
 }
 
-AimpActionResult AimpVirtualFile::CreateStream(System::IO::Stream ^%stream)
+AimpActionResult AimpVirtualFile::CreateStream(IO::Stream^% stream)
 {
+    // TODO Complete it
     stream = nullptr;
-    return AimpActionResult::Ok;
+    return AimpActionResult::OK;
 }
 
-AimpActionResult AimpVirtualFile::GetFileInfo(IAimpFileInfo ^%fileInfo)
+AimpActionResult AimpVirtualFile::GetFileInfo(IAimpFileInfo^% fileInfo)
 {
-    IAIMPFileInfo *fi = NULL;
+    IAIMPFileInfo *fi = nullptr;
     fileInfo = nullptr;
     AimpActionResult result = CheckResult(_aimpObject->GetFileInfo(fi));
-    if (result == AimpActionResult::Ok)
+
+    if (result == AimpActionResult::OK && fi != nullptr)
     {
         fileInfo = gcnew AimpFileInfo(fi);
     }

@@ -15,19 +15,19 @@ namespace AIMP
 {
     namespace SDK
     {
-        using namespace AIMP::SDK;
-        using namespace AIMP::SDK::Playlist;
+        using namespace SDK;
+        using namespace Playlist;
 
         class InternalAimpExtensionPlaylistPreimageFactory : 
             public IUnknownInterfaceImpl<IAIMPExtensionPlaylistPreimageFactory>
             //public IAIMPPlaylistPreimageDataProvider
         {
         private:
-            gcroot<AIMP::SDK::Playlist::IAimpExtensionPlaylistPreimageFactory^> _managedInstance;
+            gcroot<IAimpExtensionPlaylistPreimageFactory^> _managedInstance;
         public:
             typedef IUnknownInterfaceImpl<IAIMPExtensionPlaylistPreimageFactory> Base;
 
-            InternalAimpExtensionPlaylistPreimageFactory(gcroot<AIMP::SDK::Playlist::IAimpExtensionPlaylistPreimageFactory^> managedInstance);
+            InternalAimpExtensionPlaylistPreimageFactory(gcroot<IAimpExtensionPlaylistPreimageFactory^> managedInstance);
 
             virtual HRESULT WINAPI CreatePreimage(IAIMPPlaylistPreimage** preimage);
 

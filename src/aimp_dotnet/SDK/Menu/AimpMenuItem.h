@@ -16,10 +16,10 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace System::Drawing;
-        using namespace System::Runtime::InteropServices;
-        using namespace AIMP::SDK::MenuManager;
-        using namespace AIMP::SDK::ActionManager;
+        using namespace Drawing;
+        using namespace Runtime::InteropServices;
+        using namespace MenuManager;
+        using namespace ActionManager;
 
         public ref class AimpMenuItem : public AimpObject<IAIMPMenuItem>, public IAimpMenuItem
         {
@@ -33,14 +33,14 @@ namespace AIMP
             GCHandle _executeHandler;
 
         internal:
-            static void Execute(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> sender, IUnknown *data)
+            static void Execute(gcroot<IAimpActionEvent^> sender, IUnknown *data)
             {
                 Object ^obj = sender;
                 AimpMenuItem ^item = dynamic_cast<AimpMenuItem^>(obj);
                 item->OnExecute(sender, EventArgs::Empty);
             }
 
-            static void Show(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> sender, IUnknown *data)
+            static void Show(gcroot<IAimpActionEvent^> sender, IUnknown *data)
             {
                 Object ^obj = sender;
                 AimpMenuItem ^item = dynamic_cast<AimpMenuItem^>(obj);

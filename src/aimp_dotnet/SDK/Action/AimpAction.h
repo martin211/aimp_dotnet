@@ -16,42 +16,42 @@ namespace AIMP
 {
     namespace SDK
     {
-        using namespace System::Runtime::InteropServices;
-        using namespace AIMP::SDK::ActionManager;
+        using namespace Runtime::InteropServices;
+        using namespace ActionManager;
 
         public ref class AimpAction : public AimpObject<IAIMPAction>, public IAimpAction
         {
         private:
-            EventHandler ^_onExecuteHandler;
-            IAIMPActionEvent *_onExecuteEvent;
+            EventHandler^ _onExecuteHandler;
+            IAIMPActionEvent* _onExecuteEvent;
             GCHandle _executeHandler;
         public:
-            explicit AimpAction(IAIMPAction *action);
+            explicit AimpAction(IAIMPAction* action);
 
             ~AimpAction();
 
-            virtual property String ^Id
+            virtual property String^ Id
             {
-                String ^get();
-                void set(String ^value);
+                String^ get();
+                void set(String^ value);
             }
 
-            virtual property String ^CustomData
+            virtual property String^ CustomData
             {
-                String ^get();
-                void set(String ^value);
+                String^ get();
+                void set(String^ value);
             }
 
-            virtual property String ^Name
+            virtual property String^ Name
             {
-                String ^get();
-                void set(String ^value);
+                String^ get();
+                void set(String^ value);
             }
 
-            virtual property String ^GroupName
+            virtual property String^ GroupName
             {
-                String ^get();
-                void set(String ^value);
+                String^ get();
+                void set(String^ value);
             }
 
             virtual property bool Enabled
@@ -78,15 +78,15 @@ namespace AIMP
                 void set(int value);
             }
 
-            virtual event EventHandler ^OnExecute
+            virtual event EventHandler^ OnExecute
             {
-                virtual void add(EventHandler ^onEvent);
-                virtual void remove(EventHandler ^onEvent);
-                virtual void raise(Object ^sender, EventArgs ^args);
+                virtual void add(EventHandler^ onEvent);
+                virtual void remove(EventHandler^ onEvent);
+                virtual void raise(Object^ sender, EventArgs^ args);
             }
 
         internal:
-            static void Execute(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> sender, IUnknown *data);
+            static void Execute(gcroot<IAimpActionEvent^> sender, IUnknown* data);
         };
     }
 }

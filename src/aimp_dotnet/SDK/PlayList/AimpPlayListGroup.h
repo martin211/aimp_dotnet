@@ -15,7 +15,7 @@ namespace AIMP
 {
     namespace SDK
     {
-        using namespace AIMP::SDK::Playlist;
+        using namespace Playlist;
 
         public ref class AimpPlayListGroup : public AimpObject<IAIMPPlaylistGroup>, public IAimpPlaylistGroup
         {
@@ -29,11 +29,11 @@ namespace AIMP
             }
             AimpPlayListGroup();
 
-            explicit AimpPlayListGroup(IAIMPPlaylistGroup *item);
+            explicit AimpPlayListGroup(IAIMPPlaylistGroup* item);
 
-            virtual property System::String^ Name
+            virtual property String^ Name
             {
-                System::String^ get();
+                String^ get();
             }
 
             virtual property bool Expanded
@@ -64,7 +64,7 @@ namespace AIMP
                 int get();
             }
 
-            virtual IAimpPlaylistItem ^GetItem(int index);
+            virtual IAimpPlaylistItem^ GetItem(int index);
         };
     }
 }

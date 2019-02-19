@@ -23,7 +23,7 @@ HRESULT AimpExtensionEmbeddedVisualization::GetMaxDisplaySize(int *Width, int *H
     int w = 0;
     int h = 0;
 
-    if (_managedObject->GetMaxDisplaySize(*&w, *&h) == AimpActionResult::Ok)
+    if (_managedObject->GetMaxDisplaySize(*&w, *&h) == AimpActionResult::OK)
     {
         *Width = w;
         *Height = h;
@@ -35,19 +35,19 @@ HRESULT AimpExtensionEmbeddedVisualization::GetMaxDisplaySize(int *Width, int *H
 
 HRESULT AimpExtensionEmbeddedVisualization::GetName(IAIMPString **S)
 {
-    IAIMPString *strObject = NULL;
+    IAIMPString *strObject = nullptr;
     System::String ^str;
-    if (_managedObject->GetName(*&str) != AimpActionResult::Ok)
+    if (_managedObject->GetName(*&str) != AimpActionResult::OK)
     {
         return E_FAIL;
     }
 
     pin_ptr<const WCHAR> strDate = PtrToStringChars(str);
-    HRESULT r = _aimpCore->CreateObject(IID_IAIMPString, (void**)&strObject);
+    HRESULT r = _aimpCore->CreateObject(IID_IAIMPString, reinterpret_cast<void**>(&strObject));
 
     if (r == S_OK)
     {
-        r = strObject->SetData((PWCHAR)strDate, str->Length);
+        r = strObject->SetData(PWCHAR(strDate), str->Length);
         *S = strObject;
     }
 
@@ -56,7 +56,7 @@ HRESULT AimpExtensionEmbeddedVisualization::GetName(IAIMPString **S)
 
 HRESULT AimpExtensionEmbeddedVisualization::Initialize(int Width, int Height)
 {
-    return (HRESULT)_managedObject->Initialize(Width, Height);
+    return HRESULT(_managedObject->Initialize(Width, Height));
 }
 
 void AimpExtensionEmbeddedVisualization::Finalize()
@@ -66,12 +66,12 @@ void AimpExtensionEmbeddedVisualization::Finalize()
 
 void AimpExtensionEmbeddedVisualization::Click(int X, int Y, int Button)
 {
-    _managedObject->Click(X, Y, (AIMP::SDK::Visuals::AimpVisualClickButtonType)Button);
+    _managedObject->Click(X, Y, static_cast<Visuals::AimpVisualClickButtonType>(Button));
 }
 
 void AimpExtensionEmbeddedVisualization::Draw(HDC DC, PAIMPVisualData Data)
 {
-    AIMP::SDK::Visuals::AimpVisualData ^data = AIMP::SDK::AimpConverter::PAIMPVisualDataToManaged(Data);
+    AIMP::SDK::Visuals::AimpVisualData ^data = AimpConverter::PAIMPVisualDataToManaged(Data);
     _managedObject->Draw(System::IntPtr(DC), data);
 }
 
@@ -90,7 +90,7 @@ HRESULT WINAPI AimpExtensionEmbeddedVisualization::QueryInterface(REFIID riid, L
         return S_OK;
     }
 
-    ppvObject = NULL;
+    ppvObject = nullptr;
     return res;
 }
 

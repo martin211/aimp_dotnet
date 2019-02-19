@@ -22,12 +22,12 @@ namespace AIMP
             public AimpPropertyList
         {
         private:
-            gcroot<AIMP::SDK::Playlist::IAimpPlaylistPreimage^> _managedInstance;
+            gcroot<Playlist::IAimpPlaylistPreimage^> _managedInstance;
 
         public:
             typedef IUnknownInterfaceImpl<IAIMPPlaylistPreimage> Base;
 
-            InternalAimpPlaylistPreimage(gcroot<AIMP::SDK::Playlist::IAimpPlaylistPreimage^> managedInstance);
+            InternalAimpPlaylistPreimage(gcroot<Playlist::IAimpPlaylistPreimage^> managedInstance);
 
             virtual void WINAPI Finalize();
             virtual void WINAPI Initialize(IAIMPPlaylistPreimageListener* Listener);
@@ -40,8 +40,8 @@ namespace AIMP
             virtual HRESULT WINAPI GetFiles(IAIMPTaskOwner* Owner, DWORD** Flags, IAIMPObjectList** List);
 
             // Read
-            HRESULT WINAPI GetValueAsInt32(int PropertyID, int *Value) override;
-            HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void **Value) override;
+            HRESULT WINAPI GetValueAsInt32(int PropertyID, int* Value) override;
+            HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void** Value) override;
         };
     }
 }

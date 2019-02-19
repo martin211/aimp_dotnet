@@ -16,7 +16,7 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK::MusicLibrary::DataStorage;
+        using namespace MusicLibrary::DataStorage;
 
         private ref class AimpDataField :
             public AimpObject<IAIMPMLDataField>,

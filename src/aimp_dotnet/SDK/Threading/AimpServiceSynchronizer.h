@@ -10,16 +10,14 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "InternalAimpTask.h"
 #include "SDK\BaseManager.h"
 
 namespace AIMP
 {
     namespace SDK
     {
-        using namespace AIMP::SDK::Threading;
+        using namespace Threading;
 
-        [System::Serializable]
         public ref class AimpServiceSynchronizer :
             public AimpBaseManager<IAIMPServiceSynchronizer>,
             public IAimpServiceSynchronizer

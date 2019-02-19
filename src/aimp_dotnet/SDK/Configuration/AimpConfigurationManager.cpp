@@ -22,6 +22,5 @@ AimpServiceConfig::~AimpServiceConfig()
 
 AimpActionResult AimpServiceConfig::FlushCache()
 {
-    IAIMPServiceConfig* service = NULL;
-    return CheckResult(((IAIMPServiceConfig*)InternalAimpObject)->FlushCache());
+    return CheckResult(static_cast<IAIMPServiceConfig*>(InternalAimpObject)->FlushCache());
 }

@@ -18,9 +18,8 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK::MUIManager;
+        using namespace MUIManager;
 
-        [System::Serializable]
         public ref class AimpMIUManager : public AimpBaseManager<IAIMPServiceMUI>, public IAimpMUIManager
         {
         public:

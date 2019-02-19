@@ -17,13 +17,13 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK::MusicLibrary::DataStorage;
-        using namespace AIMP::SDK::MusicLibrary::Presets;
+        using namespace MusicLibrary::DataStorage;
+        using namespace MusicLibrary::Presets;
 
         public ref class AimpDataStorage : public AimpObject<IAIMPMLDataStorage>, public IAimpDataStorage
         {
         public:
-            explicit AimpDataStorage(IAIMPMLDataStorage *aimpDataStorage);
+            explicit AimpDataStorage(IAIMPMLDataStorage* aimpDataStorage);
 
             !AimpDataStorage();
 
@@ -31,18 +31,18 @@ namespace AIMP
 
             virtual property String ^Id
             {
-                String ^get();
+                String^ get();
             }
 
-            virtual property String ^Caption
+            virtual property String^ Caption
             {
-                String ^get();
+                String^ get();
             }
 
-            virtual property IAimpGroupingPreset ^GroupingPreset
+            virtual property IAimpGroupingPreset^ GroupingPreset
             {
-                IAimpGroupingPreset ^get();
-                void set(IAimpGroupingPreset ^value);
+                IAimpGroupingPreset^ get();
+                void set(IAimpGroupingPreset^ value);
             }
 
         private:

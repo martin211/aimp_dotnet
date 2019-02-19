@@ -25,14 +25,14 @@ public:
     InternalAimpDataFilter(gcroot<AIMP::SDK::MusicLibrary::IAimpDataFilter^> managedInstance);
 
     virtual HRESULT WINAPI Assign(IAIMPMLDataFilter* Source);
-    virtual HRESULT WINAPI Clone(void **Filter);
+    virtual HRESULT WINAPI Clone(void** Filter);
 
     virtual ULONG WINAPI AddRef(void);
     virtual ULONG WINAPI Release(void);
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
 
-    HRESULT WINAPI GetValueAsInt32(int PropertyID, int *Value) override;
-    HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void **Value) override;
+    HRESULT WINAPI GetValueAsInt32(int PropertyID, int* Value) override;
+    HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void** Value) override;
     HRESULT WINAPI SetValueAsInt32(int PropertyID, int Value) override;
-    HRESULT WINAPI SetValueAsObject(int PropertyID, IUnknown *Value) override;
+    HRESULT WINAPI SetValueAsObject(int PropertyID, IUnknown* Value) override;
 };

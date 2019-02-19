@@ -17,21 +17,21 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK;
-        using namespace AIMP::SDK::Playlist;
+        using namespace SDK;
+        using namespace Playlist;
 
         public ref class AimpExtensionPlaylistPreimageFactory :
             public AimpObject<IAIMPExtensionPlaylistPreimageFactory>,
-            public AIMP::SDK::Playlist::IAimpExtensionPlaylistPreimageFactory
+            public IAimpExtensionPlaylistPreimageFactory
         {
         public:
-            explicit AimpExtensionPlaylistPreimageFactory(IAIMPExtensionPlaylistPreimageFactory *aimpObject);
+            explicit AimpExtensionPlaylistPreimageFactory(IAIMPExtensionPlaylistPreimageFactory* aimpObject);
 
-            virtual AimpActionResult CreatePreimage(IAimpPlaylistPreimage ^%preimage);
+            virtual AimpActionResult CreatePreimage(IAimpPlaylistPreimage^% preimage);
 
-            virtual AimpActionResult GetName(String ^%name);
+            virtual AimpActionResult GetName(String^% name);
 
-            virtual AimpActionResult GetId(String ^%id);
+            virtual AimpActionResult GetId(String^% id);
 
             virtual PreimageFactoryFlags GetFlags();
         };

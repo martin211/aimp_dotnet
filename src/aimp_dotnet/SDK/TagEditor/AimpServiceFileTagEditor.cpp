@@ -28,12 +28,12 @@ AimpActionResult AimpServiceFileTagEditor::EditFile(String^ filePath, IAimpFileT
     try
     {
         result = GetService(IID_IAIMPServiceFileTagEditor, &service);
-        if (result == AimpActionResult::Ok && service != nullptr)
+        if (result == AimpActionResult::OK && service != nullptr)
         {
             IAIMPFileTagEditor* aimpEditor = nullptr;
-            result = CheckResult(service->EditFile(str, IID_IAIMPFileTagEditor, (void**)&aimpEditor));
+            result = CheckResult(service->EditFile(str, IID_IAIMPFileTagEditor, reinterpret_cast<void**>(&aimpEditor)));
 
-            if (result == AimpActionResult::Ok && aimpEditor != nullptr)
+            if (result == AimpActionResult::OK && aimpEditor != nullptr)
             {
                 editor = gcnew AimpFileTagEditor(aimpEditor);
             }
@@ -62,18 +62,18 @@ AimpActionResult AimpServiceFileTagEditor::EditFile(String^ filePath, IAimpFileT
 AimpActionResult AimpServiceFileTagEditor::EditFile(IAimpStream^ fileStream, IAimpFileTagEditor^% editor)
 {
     IAIMPServiceFileTagEditor* service = nullptr;
-    IAIMPStream* stream = ((AimpStream^)fileStream)->InternalAimpObject;
+    IAIMPStream* stream = static_cast<AimpStream^>(fileStream)->InternalAimpObject;
     AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
         result = GetService(IID_IAIMPServiceFileTagEditor, &service);
-        if (result == AimpActionResult::Ok && service != nullptr)
+        if (result == AimpActionResult::OK && service != nullptr)
         {
             IAIMPFileTagEditor* aimpEditor = nullptr;
-            result = CheckResult(service->EditFile(stream, IID_IAIMPFileTagEditor, (void**)&aimpEditor));
+            result = CheckResult(service->EditFile(stream, IID_IAIMPFileTagEditor, reinterpret_cast<void**>(&aimpEditor)));
 
-            if (result == AimpActionResult::Ok && aimpEditor != nullptr)
+            if (result == AimpActionResult::OK && aimpEditor != nullptr)
             {
                 editor = gcnew AimpFileTagEditor(aimpEditor);
             }
@@ -100,18 +100,16 @@ AimpActionResult AimpServiceFileTagEditor::EditTag(String^ filePath, TagType tag
     try
     {
         result = GetService(IID_IAIMPServiceFileTagEditor, &service);
-        if (result == AimpActionResult::Ok && service != nullptr)
+        if (result == AimpActionResult::OK && service != nullptr)
         {
             IAIMPFileInfo* aimpFileInfo = nullptr;
-            result = CheckResult(service->EditTag(str, (int)tag, IID_IAIMPFileInfo, (void**)&aimpFileInfo));
+            result = CheckResult(service->EditTag(str, int(tag), IID_IAIMPFileInfo, reinterpret_cast<void**>(&aimpFileInfo)));
 
-            if (result == AimpActionResult::Ok && aimpFileInfo != nullptr)
+            if (result == AimpActionResult::OK && aimpFileInfo != nullptr)
             {
                 fileInfo = gcnew AimpFileInfo(aimpFileInfo);
             }
         }
-
-        return result;
     }
     finally
     {
@@ -127,29 +125,29 @@ AimpActionResult AimpServiceFileTagEditor::EditTag(String^ filePath, TagType tag
             str = nullptr;
         }
     }
+
+    return result;
 }
 
 AimpActionResult AimpServiceFileTagEditor::EditTag(IAimpStream^ fileStream, TagType tag, IAimpFileInfo^% fileInfo)
 {
     IAIMPServiceFileTagEditor* service = nullptr;
-    IAIMPStream* stream = ((AimpStream^)fileStream)->InternalAimpObject;
+    IAIMPStream* stream = static_cast<AimpStream^>(fileStream)->InternalAimpObject;
     AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
         result = GetService(IID_IAIMPServiceFileTagEditor, &service);
-        if (result == AimpActionResult::Ok && service != nullptr)
+        if (result == AimpActionResult::OK && service != nullptr)
         {
             IAIMPFileInfo* aimpFileInfo = nullptr;
-            result = CheckResult(service->EditTag(stream, (int)tag, IID_IAIMPFileInfo, (void**)&aimpFileInfo));
+            result = CheckResult(service->EditTag(stream, int(tag), IID_IAIMPFileInfo, reinterpret_cast<void**>(&aimpFileInfo)));
 
-            if (result == AimpActionResult::Ok && aimpFileInfo != nullptr)
+            if (result == AimpActionResult::OK && aimpFileInfo != nullptr)
             {
                 fileInfo = gcnew AimpFileInfo(aimpFileInfo);
             }
         }
-
-        return result;
     }
     finally
     {
@@ -159,4 +157,6 @@ AimpActionResult AimpServiceFileTagEditor::EditTag(IAimpStream^ fileStream, TagT
             service = nullptr;
         }
     }
+
+    return result;
 }
