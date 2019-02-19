@@ -32,7 +32,7 @@ namespace AIMP
             AimpActionResult CheckResult(HRESULT result)
             {
                 AimpActionResult res = Utils::CheckResult(result);
-                if (res != AimpActionResult::Ok)
+                if (res != AimpActionResult::OK)
                 {
                     //AIMP::SDK::InternalLogger::Instance->Write("Invalid operation: result " + result);
                 }
@@ -45,7 +45,7 @@ namespace AIMP
                 TAimpService *s;
                 AimpActionResult result = CheckResult(_core->GetService(id, (void**)&s));
 
-                if (result == AimpActionResult::Ok)
+                if (result == AimpActionResult::OK)
                 {
                     *service = s;
                 }

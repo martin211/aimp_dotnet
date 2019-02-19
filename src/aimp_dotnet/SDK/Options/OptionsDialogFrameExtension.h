@@ -16,7 +16,7 @@ class AimpExtension
 protected:
     IAIMPCore *_aimpCore;
 public:
-    AimpExtension(IAIMPCore *aimpCore)
+    AimpExtension(IAIMPCore* aimpCore)
     {
         _aimpCore = aimpCore;
     }
@@ -33,7 +33,7 @@ public:
 private:
     gcroot<AIMP::SDK::Options::IAimpOptionsDialogFrame^> _managedFrame;
 public:
-    explicit OptionsDialogFrameExtension(IAIMPCore *aimpCore, gcroot<AIMP::SDK::Options::IAimpOptionsDialogFrame^> managedFrame);
+    explicit OptionsDialogFrameExtension(IAIMPCore* aimpCore, gcroot<AIMP::SDK::Options::IAimpOptionsDialogFrame^> managedFrame);
 
     GUID ExtensionId();
 
@@ -43,7 +43,7 @@ public:
 
     virtual ULONG WINAPI Release(void);
 
-    virtual HRESULT WINAPI GetName(IAIMPString **S);
+    virtual HRESULT WINAPI GetName(IAIMPString** S);
 
     virtual HWND WINAPI CreateFrame(HWND ParentWnd);
 

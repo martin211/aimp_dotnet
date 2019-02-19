@@ -19,7 +19,7 @@ private:
     gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^> _managedinstance;
     IAIMPCore *_aimpCore;
 public:
-    AimpExtensionAlbumArtProvider(IAIMPCore *aimpCore, gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^> instance)
+    AimpExtensionAlbumArtProvider(IAIMPCore* aimpCore, gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^> instance)
     {
         _managedinstance = instance;
         _aimpCore = aimpCore;
@@ -27,11 +27,11 @@ public:
 
     typedef IUnknownInterfaceImpl<IAIMPExtensionAlbumArtProvider> Base;
 
-    virtual HRESULT WINAPI Get(IAIMPString *FileURI, IAIMPString *Artist, IAIMPString *Album, IAIMPPropertyList *Options, IAIMPImageContainer **Image);
+    virtual HRESULT WINAPI Get(IAIMPString* FileURI, IAIMPString* Artist, IAIMPString* Album, IAIMPPropertyList* Options, IAIMPImageContainer** Image);
 
     virtual DWORD WINAPI GetCategory();
 
-    virtual HRESULT WINAPI Get2(IAIMPFileInfo *FileInfo, IAIMPPropertyList *Options, IAIMPImageContainer **Image);
+    virtual HRESULT WINAPI Get2(IAIMPFileInfo* FileInfo, IAIMPPropertyList* Options, IAIMPImageContainer** Image);
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
     {

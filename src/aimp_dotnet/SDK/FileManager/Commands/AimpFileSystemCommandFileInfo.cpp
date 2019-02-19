@@ -13,37 +13,40 @@
 #include "AimpFileSystemCommandFileInfo.h"
 
 using namespace AIMP::SDK;
-using namespace AIMP::SDK::Objects;
+using namespace Objects;
 
-AimpFileSystemCommandFileInfo::AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo *aimpObject) : AimpObject(aimpObject)
+AimpFileSystemCommandFileInfo::AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject) : AimpObject(aimpObject)
 {}
 
-AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(IAimpString ^file, AimpFileAttributes %attr)
+AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(IAimpString^ file, AimpFileAttributes% attr)
 {
+    // TODO: Complete it
     //IAIMPString *str = AimpConverter::ToAimpString(file);
     attr = AimpFileAttributes();
 
     //try
     //{
-    //    TAIMPFileAttributes *fattr = NULL;
+    //    TAIMPFileAttributes *fattr = nullptr;
     //    AimpActionResult result = CheckResult(_aimpObject->GetFileAttrs(str, fattr));
     //    return result;
     //}
     //finally
     //{
-    //    if (str != NULL)
+    //    if (str != nullptr)
     //    {
     //        str->Release();
-    //        str = NULL;
+    //        str = nullptr;
     //    }
     //}
 
     return AimpActionResult::Fail;
 }
 
-AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(IAimpString ^file, long long %size)
+AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(IAimpString^ file, long long% size)
 {
-    IAIMPString *str = NULL;
+    // TODO: Complete it
+
+    IAIMPString* str = nullptr;
     size = 0;
 
     try
@@ -51,39 +54,40 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(IAimpString ^file, l
         //str = AimpConverter::ToAimpString(file);
         //INT64 *fSize = 0;
         //AimpActionResult result = CheckResult(_aimpObject->GetFileSize(str, fSize));
-        //if (result == AimpActionResult::Ok)
+        //if (result == AimpActionResult::OK)
         //{
         //    size = (long long)fSize;
         //}
 
-        return AimpActionResult::Ok;
+        return AimpActionResult::OK;
     }
     finally
     {
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
 }
 
 AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(IAimpString ^file)
 {
-    IAIMPString *str = NULL;
+    // TODO: Complete it
+    IAIMPString *str = nullptr;
     try
     {
         //str = AimpConverter::ToAimpString(file);
         //return CheckResult(_aimpObject->IsFileExists(str));
 
-        return AimpActionResult::Ok;
+        return AimpActionResult::OK;
     }
     finally
     {
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
 }

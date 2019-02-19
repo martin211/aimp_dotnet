@@ -17,15 +17,15 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK;
-        using namespace AIMP::SDK::MusicLibrary::DataFilter;
+        using namespace SDK;
+        using namespace MusicLibrary::DataFilter;
 
         public ref class AimpDataFieldFilter :
             public AimpObject<IAIMPMLDataFieldFilter>,
             public IAimpDataFieldFilter
         {
         private:
-            AIMP::SDK::AimpDataField^ _dataField;
+            SDK::AimpDataField^ _dataField;
 
         public:
             explicit AimpDataFieldFilter(IAIMPMLDataFieldFilter *aimpDataFieldFilter);
@@ -46,16 +46,16 @@ namespace AIMP
                 void set(FieldFilterOperationType value);
             }
 
-            virtual property System::Object^ Value1
+            virtual property Object^ Value1
             {
-                System::Object^ get();
-                void set(System::Object^ value);
+                Object^ get();
+                void set(Object^ value);
             }
 
-            virtual property System::Object^ Value2
+            virtual property Object^ Value2
             {
-                System::Object^ get();
-                void set(System::Object^ value);
+                Object^ get();
+                void set(Object^ value);
             }
         };
     }

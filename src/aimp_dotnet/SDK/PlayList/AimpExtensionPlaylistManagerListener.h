@@ -11,13 +11,6 @@
 
 #pragma once
 
-//public interface class IAimpExtensionPlaylistManagerListenerExecutor
-//{
-//    void OnPlaylistActivated(IAIMPPlaylist* playlist);
-//    void OnPlaylistAdded(IAIMPPlaylist* playlist);
-//    void OnPlaylistRemoved(IAIMPPlaylist* playlist);
-//};
-
 using namespace AIMP::SDK::Playlist;
 
 class AimpExtensionPlaylistManagerListener : public IUnknownInterfaceImpl<IAIMPExtensionPlaylistManagerListener>

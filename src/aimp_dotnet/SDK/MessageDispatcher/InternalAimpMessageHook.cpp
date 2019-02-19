@@ -17,10 +17,10 @@ InternalAimpMessageHook::InternalAimpMessageHook(gcroot<IAimpMessageHook^> manag
     _managedCore = managedCore;
 }
 
-void InternalAimpMessageHook::CoreMessage(DWORD AMessage, int AParam1, void *AParam2, HRESULT *AResult)
+void InternalAimpMessageHook::CoreMessage(DWORD message, int param1, void* param2, HRESULT* result)
 {
-    AIMP::SDK::AimpActionResult res = _managedCore->CoreMessage((AIMP::SDK::AimpMessages::AimpCoreMessageType)AMessage, AParam1, (int)AParam2);
-    // do not set AResult here. It breaks a modal dialogs
+    AIMP::SDK::AimpActionResult res = _managedCore->CoreMessage(static_cast<AIMP::SDK::AimpMessages::AimpCoreMessageType>(message), param1, (int)param2);
+    // do not set AResult here. It breaks a modal dialog
 }
 
 //HRESULT WINAPI InternalAimpMessageHook::QueryInterface(REFIID riid, LPVOID* ppvObject)
@@ -39,7 +39,7 @@ void InternalAimpMessageHook::CoreMessage(DWORD AMessage, int AParam1, void *APa
 //        return S_OK;
 //    }
 //
-//    ppvObject = NULL;
+//    ppvObject = nullptr;
 //    return res;
 //}
 //

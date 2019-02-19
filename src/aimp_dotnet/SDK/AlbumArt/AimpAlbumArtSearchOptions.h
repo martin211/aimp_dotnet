@@ -15,7 +15,7 @@ namespace AIMP
 {
     namespace SDK
     {
-        ref class AimpAlbumArtSearchOptions : public AIMP::SDK::AlbumArtManager::IAimpAlbumArtSearchOptions
+        ref class AimpAlbumArtSearchOptions : public AlbumArtManager::IAimpAlbumArtSearchOptions
         {
         private:
             bool _findInFiles;
@@ -23,7 +23,7 @@ namespace AIMP
             IAIMPCore *_core;
 
         public:
-            AimpAlbumArtSearchOptions(IAIMPPropertyList *properties, IAIMPCore* core);
+            AimpAlbumArtSearchOptions(IAIMPPropertyList* properties, IAIMPCore* core);
 
             virtual property bool FindInFiles
             {
@@ -37,16 +37,16 @@ namespace AIMP
                 void set(bool value);
             }
 
-            virtual property array<System::String^>^ FileMasks
+            virtual property array<String^>^ FileMasks
             {
-                array<System::String^>^ get();
-                void set(array<System::String^>^ value);
+                array<String^>^ get();
+                void set(array<String^>^ value);
             }
 
-            virtual property array<System::String^>^ FileExtensions
+            virtual property array<String^>^ FileExtensions
             {
-                array<System::String^>^ get();
-                void set(array<System::String^>^ value);
+                array<String^>^ get();
+                void set(array<String^>^ value);
             }
 
             virtual property int MaxFileSize

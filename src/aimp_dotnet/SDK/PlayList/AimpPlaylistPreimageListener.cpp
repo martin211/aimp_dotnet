@@ -21,7 +21,7 @@ void AimpPlaylistPreimageListener::DataChanged::add(AimpPlaylistPreimageListener
 {
     if (_dataChangedHandler == nullptr)
     {
-        _dataChangedHandler = (AimpPlaylistPreimageListenerHandler^)Delegate::Combine(_dataChangedHandler, onEvent);
+        _dataChangedHandler = static_cast<AimpPlaylistPreimageListenerHandler^>(Delegate::Combine(_dataChangedHandler, onEvent));
     }
 }
 
@@ -29,7 +29,7 @@ void AimpPlaylistPreimageListener::DataChanged::remove(AimpPlaylistPreimageListe
 {
     if (_dataChangedHandler != nullptr)
     {
-        _dataChangedHandler = (AimpPlaylistPreimageListenerHandler^)Delegate::Remove(_dataChangedHandler, onEvent);
+        _dataChangedHandler = static_cast<AimpPlaylistPreimageListenerHandler^>(Delegate::Remove(_dataChangedHandler, onEvent));
     }
 }
 
@@ -45,7 +45,7 @@ void AimpPlaylistPreimageListener::SettingsChanged::add(AimpPlaylistPreimageList
 {
     if (_settingsChangedHandler == nullptr)
     {
-        _settingsChangedHandler = (AimpPlaylistPreimageListenerHandler^)Delegate::Combine(_settingsChangedHandler, onEvent);
+        _settingsChangedHandler = static_cast<AimpPlaylistPreimageListenerHandler^>(Delegate::Combine(_settingsChangedHandler, onEvent));
     }
 }
 
@@ -53,7 +53,7 @@ void AimpPlaylistPreimageListener::SettingsChanged::remove(AimpPlaylistPreimageL
 {
     if (_settingsChangedHandler != nullptr)
     {
-        _settingsChangedHandler = (AimpPlaylistPreimageListenerHandler^)Delegate::Remove(_settingsChangedHandler, onEvent);
+        _settingsChangedHandler = static_cast<AimpPlaylistPreimageListenerHandler^>(Delegate::Remove(_settingsChangedHandler, onEvent));
     }
 }
 

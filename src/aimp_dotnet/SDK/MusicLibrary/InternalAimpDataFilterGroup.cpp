@@ -2,10 +2,10 @@
 #include "InternalAimpDataFilterGroup.h"
 
 using namespace AIMP::SDK;
-using namespace AIMP::SDK::MusicLibrary;
-using namespace AIMP::SDK::MusicLibrary::DataFilter;
+using namespace MusicLibrary;
+using namespace DataFilter;
 
-InternalAimpDataFilterGroup::InternalAimpDataFilterGroup(gcroot<AIMP::SDK::MusicLibrary::DataFilter::IAimpDataFilterGroup^> managed)
+InternalAimpDataFilterGroup::InternalAimpDataFilterGroup(gcroot<IAimpDataFilterGroup^> managed)
 {
     _managed = managed;
 }
@@ -15,14 +15,14 @@ HRESULT WINAPI InternalAimpDataFilterGroup::Add(IUnknown* Field, VARIANT* Value1
     AimpActionResult res = AimpActionResult::Fail;
 
     IAimpDataFieldFilter^ filter = nullptr;
-    res = _managed->Add(AimpConverter::ToManagedString((IAIMPString*)Field), AimpConverter::FromVaiant(Value1), AimpConverter::FromVaiant(Value2), (FieldFilterOperationType)Operation, filter);
+    res = _managed->Add(AimpConverter::ToManagedString(static_cast<IAIMPString*>(Field)), AimpConverter::FromVaiant(Value1), AimpConverter::FromVaiant(Value2), FieldFilterOperationType(Operation), filter);
 
-    if (res == AimpActionResult::Ok && filter != nullptr)
+    if (res == AimpActionResult::OK && filter != nullptr)
     {
         // todo implement internal IAIMPMLDataFieldFilter
     }
 
-    return (HRESULT)res;
+    return HRESULT(res);
 }
 
 HRESULT WINAPI InternalAimpDataFilterGroup::Add2(IUnknown* Field, VARIANT* Values, int Count, IAIMPMLDataFieldFilterByArray** Filter)
@@ -30,14 +30,14 @@ HRESULT WINAPI InternalAimpDataFilterGroup::Add2(IUnknown* Field, VARIANT* Value
     AimpActionResult res = AimpActionResult::Fail;
     array<Object^>^ values = gcnew array<Object^>(Count);
     IAimpDataFieldFilterByArray^ filter;
-    res = _managed->Add(AimpConverter::ToManagedString((IAIMPString*)Field), values, Count, filter);
+    res = _managed->Add(AimpConverter::ToManagedString(static_cast<IAIMPString*>(Field)), values, Count, filter);
 
-    if (res == AimpActionResult::Ok && filter != nullptr)
+    if (res == AimpActionResult::OK && filter != nullptr)
     {
         // todo implement IAIMPMLDataFieldFilterByArray
     }
 
-    return (HRESULT)res;
+    return HRESULT(res);
 }
 
 HRESULT WINAPI InternalAimpDataFilterGroup::AddGroup(IAIMPMLDataFilterGroup** Group)
@@ -46,25 +46,25 @@ HRESULT WINAPI InternalAimpDataFilterGroup::AddGroup(IAIMPMLDataFilterGroup** Gr
     IAimpDataFilterGroup^ group = nullptr;
 
     res = _managed->AddGroup(group);
-    if (res == AimpActionResult::Ok && group != nullptr)
+    if (res == AimpActionResult::OK && group != nullptr)
     {
         *Group = new InternalAimpDataFilterGroup(group);
     }
 
-    return (HRESULT)res;
+    return HRESULT(res);
 }
 
 HRESULT WINAPI InternalAimpDataFilterGroup::Clear()
 {
-    return (HRESULT)_managed->Clear();
+    return HRESULT(_managed->Clear());
 }
 
 HRESULT WINAPI InternalAimpDataFilterGroup::Delete(int Index)
 {
-    return (HRESULT)_managed->Delete(Index);
+    return HRESULT(_managed->Delete(Index));
 }
 
-HRESULT WINAPI InternalAimpDataFilterGroup::GetChild(int Index, REFIID IID, void **Obj)
+HRESULT WINAPI InternalAimpDataFilterGroup::GetChild(int Index, REFIID IID, void** Obj)
 {
     AimpActionResult res = AimpActionResult::Fail;
 
@@ -73,7 +73,7 @@ HRESULT WINAPI InternalAimpDataFilterGroup::GetChild(int Index, REFIID IID, void
         IAimpDataFilterGroup^ group = nullptr;
         res = _managed->GetChild(Index, group);
 
-        if (res == AimpActionResult::Ok && group != nullptr)
+        if (res == AimpActionResult::OK && group != nullptr)
         {
             *Obj = new InternalAimpDataFilterGroup(group);
         }
@@ -84,13 +84,14 @@ HRESULT WINAPI InternalAimpDataFilterGroup::GetChild(int Index, REFIID IID, void
         IAimpDataFieldFilter^ filter = nullptr;
         res = _managed->GetChild(Index, filter);
 
-        if (res == AimpActionResult::Ok && filter != nullptr)
+        if (res == AimpActionResult::OK && filter != nullptr)
         {
+            // TODO complete it
             //*Obj = new Interna
         }
     }
 
-    return (HRESULT)res;
+    return HRESULT(res);
 }
 
 int WINAPI InternalAimpDataFilterGroup::GetChildCount()
@@ -110,7 +111,7 @@ ULONG WINAPI InternalAimpDataFilterGroup::Release(void)
 
 HRESULT WINAPI InternalAimpDataFilterGroup::QueryInterface(REFIID riid, LPVOID* ppvObject)
 {
-    HRESULT res = Base::QueryInterface(riid, ppvObject);
+    const HRESULT res = Base::QueryInterface(riid, ppvObject);
 
     if (riid == IID_IAIMPMLDataFilterGroup)
     {
@@ -119,14 +120,14 @@ HRESULT WINAPI InternalAimpDataFilterGroup::QueryInterface(REFIID riid, LPVOID* 
         return S_OK;
     }
 
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     return res;
 }
 
 HRESULT WINAPI InternalAimpDataFilterGroup::GetValueAsInt32(int PropertyID, int *Value)
 {
     if (PropertyID == AIMPML_FILTERGROUP_OPERATION)
-        *Value = (int)_managed->Operation;
+        *Value = int(_managed->Operation);
 
     return S_OK;
 }
@@ -134,7 +135,7 @@ HRESULT WINAPI InternalAimpDataFilterGroup::GetValueAsInt32(int PropertyID, int 
 HRESULT WINAPI InternalAimpDataFilterGroup::SetValueAsInt32(int PropertyID, int Value)
 {
     if (PropertyID == AIMPML_FILTERGROUP_OPERATION)
-        _managed->Operation = (AIMP::SDK::MusicLibrary::DataFilter::FilterGroupOperationType)Value;
+        _managed->Operation = static_cast<FilterGroupOperationType>(Value);
 
     return S_OK;
 }

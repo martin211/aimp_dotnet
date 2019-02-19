@@ -11,6 +11,7 @@
 
 #include "Stdafx.h"
 #include "AimpServiceSynchronizer.h"
+#include "InternalAimpTask.h"
 
 using namespace AIMP::SDK;
 
@@ -21,27 +22,27 @@ AimpServiceSynchronizer::AimpServiceSynchronizer(ManagedAimpCore^ core) : AimpBa
 
 AimpActionResult AimpServiceSynchronizer::ExecuteInMainThread(IAimpTask^ task, bool executeNow)
 {
-    IAIMPServiceSynchronizer *service = NULL;
+    IAIMPServiceSynchronizer* service = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceSynchronizer, &service) == AimpActionResult::Ok)
+        if (GetService(IID_IAIMPServiceSynchronizer, &service) == AimpActionResult::OK)
         {
-            if (service != NULL)
+            if (service != nullptr)
             {
                 InternalAimpTask *internalTask = new InternalAimpTask(task);
-                return CheckResult(service->ExecuteInMainThread(internalTask, (BOOL)executeNow));
+                return CheckResult(service->ExecuteInMainThread(internalTask, BOOL(executeNow)));
             }
         }
     }
     finally
     {
-        if (service != NULL)
+        if (service != nullptr)
         {
             service->Release();
-            service = NULL;
+            service = nullptr;
         }
     }
 
-    return AIMP::SDK::AimpActionResult::Fail;
+    return AimpActionResult::Fail;
 }

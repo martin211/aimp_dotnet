@@ -18,9 +18,9 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK::MusicLibrary;
-        using namespace AIMP::SDK::MusicLibrary::DataStorage;
-        using namespace AIMP::SDK::MusicLibrary::Presets;
+        using namespace MusicLibrary;
+        using namespace DataStorage;
+        using namespace Presets;
 
         public ref class AimpServiceMusicLibrary : public AimpBaseManager<IAIMPServiceMusicLibrary>, public IAimpServiceMusicLibrary
         {
@@ -30,21 +30,21 @@ namespace AIMP
 
             }
 
-            virtual AimpActionResult GetActiveStorage(IAimpDataStorage ^%storage);
+            virtual AimpActionResult GetActiveStorage(IAimpDataStorage^% storage);
 
-            virtual AimpActionResult GetActiveStorage(IAimpGroupingPresets ^%presets);
+            virtual AimpActionResult GetActiveStorage(IAimpGroupingPresets^% presets);
 
-            virtual AimpActionResult SetActiveStorage(IAimpDataStorage ^storage);
+            virtual AimpActionResult SetActiveStorage(IAimpDataStorage^ storage);
 
-            virtual AimpActionResult SetActiveStorage(IAimpGroupingPresets ^preset);
+            virtual AimpActionResult SetActiveStorage(IAimpGroupingPresets^ preset);
 
-            virtual AimpActionResult GetStorage(int index, IAimpDataStorage ^%storage);
+            virtual AimpActionResult GetStorage(int index, IAimpDataStorage^% storage);
 
-            virtual AimpActionResult GetStorage(int index, IAimpGroupingPresets ^%preset);
+            virtual AimpActionResult GetStorage(int index, IAimpGroupingPresets^% preset);
 
-            virtual AimpActionResult GetStorageById(String ^id, IAimpDataStorage ^%storage);
+            virtual AimpActionResult GetStorageById(String^ id, IAimpDataStorage^% storage);
 
-            virtual AimpActionResult GetStorageById(String ^id, IAimpGroupingPresets ^%preset);
+            virtual AimpActionResult GetStorageById(String^ id, IAimpGroupingPresets^% preset);
 
             virtual int GetStorageCount();
         };

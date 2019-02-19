@@ -17,20 +17,20 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK::FileManager;
-        using namespace AIMP::SDK::FileManager::Commands;
-        using namespace AIMP::SDK::Objects;
+        using namespace FileManager;
+        using namespace Commands;
+        using namespace Objects;
 
         public ref class AimpFileSystemCommandFileInfo : AimpObject<IAIMPFileSystemCommandFileInfo>, IAimpFileSystemCommandFileInfo
         {
         public:
-            AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo *aimpObject);
+            AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject);
 
-            virtual AimpActionResult GetFileAttrs(IAimpString ^file, AimpFileAttributes %attr);
+            virtual AimpActionResult GetFileAttrs(IAimpString^ file, AimpFileAttributes% attr);
 
-            virtual AimpActionResult GetFileSize(IAimpString ^file, long long %size);
+            virtual AimpActionResult GetFileSize(IAimpString^ file, long long% size);
 
-            virtual AimpActionResult IsFileExists(IAimpString ^file);
+            virtual AimpActionResult IsFileExists(IAimpString^ file);
         };
     }
 }

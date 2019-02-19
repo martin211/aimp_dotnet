@@ -57,7 +57,7 @@ namespace AIMP
             virtual String^ GetPath(AimpMessages::AimpCorePathType pathType)
             {
                 String ^path;
-                if (_aimpCore->GetPath(pathType, path) == AIMP::SDK::AimpActionResult::Ok)
+                if (_aimpCore->GetPath(pathType, path) == AIMP::SDK::AimpActionResult::OK)
                 {
                     return path;
                 }
@@ -113,7 +113,7 @@ namespace AIMP
             virtual IAimpStream^ CreateStream()
             {
                 IAIMPStream *stream = nullptr;
-                if (_aimpCore->CreateStream(&stream) == AimpActionResult::Ok && stream != nullptr)
+                if (_aimpCore->CreateStream(&stream) == AimpActionResult::OK && stream != nullptr)
                 {
                     return gcnew AIMP::SDK::AimpStream(stream);
                 }
@@ -128,8 +128,8 @@ namespace AIMP
                 array<Byte>^ guidData = iid.ToByteArray();
                 pin_ptr<Byte> data = &(guidData[0]);
                 //AimpActionResult result = Utils::CheckResult(core->CreateObject(*(_GUID *)data, (void**)&obj));
-                AimpActionResult result = Utils::CheckResult(core->CreateObject(IID_IAIMPString, (void**)&obj));
-                if (result == AimpActionResult::Ok)
+                AimpActionResult result = Utils::CheckResult(core->CreateObject(IID_IAIMPString, reinterpret_cast<void**>(&obj)));
+                if (result == AimpActionResult::OK)
                 {
                     return IntPtr(obj);
                 }

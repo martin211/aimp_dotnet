@@ -11,7 +11,6 @@
 
 #include "Stdafx.h"
 #include "AimpDataFilter.h"
-#include "AimpDataFieldFilter.h"
 
 using namespace AIMP::SDK;
 
@@ -52,12 +51,12 @@ void AimpDataFilter::SortBy::set(String^ value)
 
 SortDirectionType AimpDataFilter::SortDirection::get()
 {
-    return (SortDirectionType)PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_SORTDIRECTION);
+    return SortDirectionType(PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_SORTDIRECTION));
 }
 
 void  AimpDataFilter::SortDirection::set(SortDirectionType value)
 {
-    PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_SORTDIRECTION, (int)value);
+    PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_SORTDIRECTION, int(value));
 }
 
 String^ AimpDataFilter::SearchString::get()
@@ -82,20 +81,22 @@ void AimpDataFilter::AlphaBeticIndex::set(int value)
 
 AimpActionResult AimpDataFilter::Assign(IAimpDataFilter^ source)
 {
-    IAIMPMLDataFilter* filter = ((AimpDataFilter^)source)->InternalDataFilter;
+    IAIMPMLDataFilter* filter = static_cast<AimpDataFilter^>(source)->InternalDataFilter;
     return Utils::CheckResult(InternalDataFilter->Assign(filter));
 }
 
 AimpActionResult AimpDataFilter::Clone(IAimpDataFilter^% source)
 {
     source = nullptr;
-    IAIMPMLDataFilter* clone = NULL;
+    IAIMPMLDataFilter* clone = nullptr;
 
-    AimpActionResult result = Utils::CheckResult(InternalDataFilter->Clone((void**)&clone));
-    if (result == AimpActionResult::Ok && clone != NULL)
+    const AimpActionResult result = Utils::CheckResult(InternalDataFilter->Clone(reinterpret_cast<void**>(&clone)));
+    if (result == AimpActionResult::OK && clone != nullptr)
     {
         source = gcnew AimpDataFilter(clone);
     }
+
+    // TODO: clone release?
 
     return result;
 }

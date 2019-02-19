@@ -17,32 +17,32 @@ using namespace AIMP::SDK;
 
 #pragma region AimpDataProvider
 
-AimpDataProvider::AimpDataProvider(gcroot<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^> instance)
+AimpDataProvider::AimpDataProvider(gcroot<Extension::IAimpExtensionDataStorage^> instance)
 {
     _instance = instance;
 }
 
 HRESULT WINAPI AimpDataProvider::GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* Filter, IUnknown** Data)
 {
-    System::Object^ obj = _instance;
+    Object^ obj = _instance;
 
     IAimpDataProvider^ provider = dynamic_cast<IAimpDataProvider^>(obj);
     if (provider != nullptr)
     {
-        System::Object^ o;
-        AimpActionResult result = provider->GetData(AimpConverter::ToStringCollection(Fields), gcnew AimpDataFilter(Filter), o);
+        Object^ o;
+        const AimpActionResult result = provider->GetData(AimpConverter::ToStringCollection(Fields), gcnew AimpDataFilter(Filter), o);
 
-        if (result == AimpActionResult::Ok)
+        if (result == AimpActionResult::OK)
         {
             IAimpDataProviderSelection^ selection = dynamic_cast<IAimpDataProviderSelection^>(o);
 
             if (selection != nullptr)
             {
-                *Data = new InternalAimpDataProviderSelection((IAimpDataProviderSelection^)o);
+                *Data = new InternalAimpDataProviderSelection(static_cast<IAimpDataProviderSelection^>(o));
             }
             else
             {
-                *Data = AIMP::SDK::AimpConverter::ToAimpString(o->ToString());
+                *Data = AimpConverter::ToAimpString(o->ToString());
             }
         }
     }
@@ -63,20 +63,20 @@ ULONG WINAPI AimpDataProvider::Release(void)
 #pragma endregion
 
 #pragma region AimpDataStorageCommandAddFilesDialog
-AimpDataStorageCommandAddFilesDialog::AimpDataStorageCommandAddFilesDialog(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandAddFilesDialog^> instance)
+AimpDataStorageCommandAddFilesDialog::AimpDataStorageCommandAddFilesDialog(gcroot<IAimpDataStorageCommandAddFilesDialog^> instance)
 {
     _instance = instance;
 }
 
 HRESULT WINAPI AimpDataStorageCommandAddFilesDialog::Execute(HWND OwnerHandle)
 {
-    System::IntPtr ownerHandle(OwnerHandle);
-    return (HRESULT)_instance->Execute(ownerHandle);
+    IntPtr ownerHandle(OwnerHandle);
+    return HRESULT(_instance->Execute(ownerHandle));
 }
 
 HRESULT WINAPI AimpDataStorageCommandAddFilesDialog::QueryInterface(REFIID riid, LPVOID* ppvObject)
 {
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     if (riid == IID_IAIMPMLDataStorageCommandAddFilesDialog)
     {
         *ppvObject = this;
@@ -99,7 +99,7 @@ ULONG WINAPI AimpDataStorageCommandAddFilesDialog::Release(void)
 #pragma endregion
 
 #pragma region AimpDataStorageCommandDeleteFiles
-AimpDataStorageCommandDeleteFiles::AimpDataStorageCommandDeleteFiles(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandDeleteFiles^> instance)
+AimpDataStorageCommandDeleteFiles::AimpDataStorageCommandDeleteFiles(gcroot<IAimpDataStorageCommandDeleteFiles^> instance)
 {
     _instance = instance;
 }
@@ -111,12 +111,12 @@ BOOL WINAPI AimpDataStorageCommandDeleteFiles::CanDelete(BOOL Physically)
 
 HRESULT WINAPI AimpDataStorageCommandDeleteFiles::Delete(IAIMPMLFileList* Files, BOOL Physically)
 {
-    return (HRESULT)_instance->Delete(gcnew AimpFileList(Files), Physically);
+    return HRESULT(_instance->Delete(gcnew AimpFileList(Files), Physically));
 }
 
 HRESULT WINAPI AimpDataStorageCommandDeleteFiles::QueryInterface(REFIID riid, LPVOID* ppvObject)
 {
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     if (riid == IID_IAIMPMLDataStorageCommandDeleteFiles)
     {
         *ppvObject = this;
@@ -146,12 +146,12 @@ AimpDataStorageCommandDropData::AimpDataStorageCommandDropData(gcroot<AIMP::SDK:
 
 HRESULT WINAPI AimpDataStorageCommandDropData::DropData()
 {
-    return (HRESULT)_instance->DropData();
+    return HRESULT(_instance->DropData());
 }
 
 HRESULT WINAPI AimpDataStorageCommandDropData::QueryInterface(REFIID riid, LPVOID* ppvObject)
 {
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     if (riid == IID_IAIMPMLDataStorageCommandDropData)
     {
         *ppvObject = this;
@@ -174,19 +174,19 @@ ULONG WINAPI AimpDataStorageCommandDropData::Release(void)
 #pragma endregion
 
 #pragma region AimpDataStorageCommandReloadTags
-AimpDataStorageCommandReloadTags::AimpDataStorageCommandReloadTags(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandReloadTags^> instance)
+AimpDataStorageCommandReloadTags::AimpDataStorageCommandReloadTags(gcroot<IAimpDataStorageCommandReloadTags^> instance)
 {
     _instance = instance;
 }
 
 HRESULT WINAPI AimpDataStorageCommandReloadTags::ReloadTags(IAIMPMLFileList* Files)
 {
-    return (HRESULT)_instance->ReloadTags(gcnew AimpFileList(Files));
+    return HRESULT(_instance->ReloadTags(gcnew AimpFileList(Files)));
 }
 
 HRESULT WINAPI AimpDataStorageCommandReloadTags::QueryInterface(REFIID riid, LPVOID* ppvObject)
 {
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     if (riid == IID_IAIMPMLDataStorageCommandReloadTags)
     {
         *ppvObject = this;
@@ -209,20 +209,20 @@ ULONG WINAPI AimpDataStorageCommandReloadTags::Release(void)
 #pragma endregion
 
 #pragma region AimpDataStorageCommandReportDialog
-AimpDataStorageCommandReportDialog::AimpDataStorageCommandReportDialog(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandReportDialog^> instance)
+AimpDataStorageCommandReportDialog::AimpDataStorageCommandReportDialog(gcroot<IAimpDataStorageCommandReportDialog^> instance)
 {
     _instance = instance;
 }
 
 HRESULT WINAPI AimpDataStorageCommandReportDialog::Execute(HWND OwnerHandle)
 {
-    System::IntPtr ownerHandle(OwnerHandle);
-    return (HRESULT)_instance->Execute(ownerHandle);
+    IntPtr ownerHandle(OwnerHandle);
+    return HRESULT(_instance->Execute(ownerHandle));
 }
 
 HRESULT WINAPI AimpDataStorageCommandReportDialog::QueryInterface(REFIID riid, LPVOID* ppvObject)
 {
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     if (riid == IID_IAIMPMLDataStorageCommandReportDialog)
     {
         *ppvObject = this;
@@ -245,19 +245,19 @@ ULONG WINAPI AimpDataStorageCommandReportDialog::Release(void)
 #pragma endregion
 
 #pragma region AimpDataStorageCommandUserMark
-AimpDataStorageCommandUserMark::AimpDataStorageCommandUserMark(gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandUserMark^> instance)
+AimpDataStorageCommandUserMark::AimpDataStorageCommandUserMark(gcroot<IAimpDataStorageCommandUserMark^> instance)
 {
     _instance = instance;
 }
 
 HRESULT WINAPI AimpDataStorageCommandUserMark::SetMark(VARIANT* ID, const DOUBLE Value)
 {
-    return (HRESULT)_instance->SetMark(AIMP::SDK::AimpConverter::FromVaiant(ID), Value);
+    return HRESULT(_instance->SetMark(AimpConverter::FromVaiant(ID), Value));
 }
 
 HRESULT WINAPI AimpDataStorageCommandUserMark::QueryInterface(REFIID riid, LPVOID* ppvObject)
 {
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     if (riid == IID_IAIMPMLDataStorageCommandUserMark)
     {
         *ppvObject = this;
@@ -280,7 +280,7 @@ ULONG WINAPI AimpDataStorageCommandUserMark::Release(void)
 #pragma endregion
 
 #pragma region AimpExtensionDataStorage
-AimpExtensionDataStorage::AimpExtensionDataStorage(IAIMPCore *aimpCore, gcroot<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^> instance)
+AimpExtensionDataStorage::AimpExtensionDataStorage(IAIMPCore *aimpCore, gcroot<Extension::IAimpExtensionDataStorage^> instance)
 {
     _managedInstance = instance;
     _aimpCore = aimpCore;
@@ -337,27 +337,27 @@ void WINAPI AimpExtensionDataStorage::Finalize()
 {
     _managedInstance->Terminate();
     _aimpDataProvider->Release();
-    _aimpDataProvider = NULL;
+    _aimpDataProvider = nullptr;
 
-    if (_addFilesCommand != NULL)
+    if (_addFilesCommand != nullptr)
         _addFilesCommand->Release();
 
-    if (_addFilesDialogCommand != NULL)
+    if (_addFilesDialogCommand != nullptr)
         _addFilesDialogCommand->Release();
 
-    if (_deleteFilesCommand != NULL)
+    if (_deleteFilesCommand != nullptr)
         _deleteFilesCommand->Release();
 
-    if (_dropDataCommand != NULL)
+    if (_dropDataCommand != nullptr)
         _dropDataCommand->Release();
 
-    if (_reloadTagsCommand != NULL)
+    if (_reloadTagsCommand != nullptr)
         _reloadTagsCommand->Release();
 
-    if (_reportDialogCommand != NULL)
+    if (_reportDialogCommand != nullptr)
         _reportDialogCommand->Release();
 
-    if (_userMarkCommand != NULL)
+    if (_userMarkCommand != nullptr)
         _userMarkCommand->Release();
 
     _managedInstance = nullptr;
@@ -369,52 +369,52 @@ void WINAPI AimpExtensionDataStorage::Initialize(IAIMPMLDataStorageManager* Mana
     _managedInstance->Initialize(manager);
 }
 
-HRESULT WINAPI AimpExtensionDataStorage::ConfigLoad(IAIMPConfig *Config, IAIMPString* Section)
+HRESULT WINAPI AimpExtensionDataStorage::ConfigLoad(IAIMPConfig* Config, IAIMPString* Section)
 {
     IAimpConfig ^cfg = gcnew AimpConfig(Config);
-    return (HRESULT)_managedInstance->ConfigLoad(cfg, AIMP::SDK::AimpConverter::ToManagedString(Section));
+    return HRESULT(_managedInstance->ConfigLoad(cfg, AimpConverter::ToManagedString(Section)));
 }
 
-HRESULT WINAPI AimpExtensionDataStorage::ConfigSave(IAIMPConfig *Config, IAIMPString* Section)
+HRESULT WINAPI AimpExtensionDataStorage::ConfigSave(IAIMPConfig* Config, IAIMPString* Section)
 {
     IAimpConfig ^cfg = gcnew AimpConfig(Config);
-    return (HRESULT)_managedInstance->ConfigSave(cfg, AIMP::SDK::AimpConverter::ToManagedString(Section));
+    return HRESULT(_managedInstance->ConfigSave(cfg, AimpConverter::ToManagedString(Section)));
 }
 
 HRESULT WINAPI AimpExtensionDataStorage::GetFields(int Schema, IAIMPObjectList** List)
 {
-    IAIMPObjectList *L = AIMP::SDK::AimpConverter::GetAimpObjectList();
+    IAIMPObjectList* L = AimpConverter::GetAimpObjectList();
 
-    System::Collections::IList ^collection;
-    AimpActionResult result = _managedInstance->GetFields((AIMP::SDK::MusicLibrary::Extension::SchemaType)Schema, collection);
+    Collections::IList ^collection;
+    AimpActionResult result = _managedInstance->GetFields(static_cast<Extension::SchemaType>(Schema), collection);
 
     if (collection == nullptr)
     {
-        return (HRESULT)result;
+        return HRESULT(result);
     }
 
-    System::Type^ t = collection->GetType()->GetGenericArguments()[0];
-    if (t == AIMP::SDK::MusicLibrary::DataStorage::IAimpDataField::typeid)
+    auto t = collection->GetType()->GetGenericArguments()[0];
+    if (t == IAimpDataField::typeid)
     {
         for (int i = 0; i < collection->Count; i++)
         {
-            AIMP::SDK::MusicLibrary::DataStorage::IAimpDataField ^dataField = (AIMP::SDK::MusicLibrary::DataStorage::IAimpDataField^)collection[i];
-            IAIMPMLDataField *df = AIMP::SDK::AimpConverter::GetAimpDataField();
+            auto dataField = static_cast<IAimpDataField^>(collection[i]);
+            IAIMPMLDataField *df = AimpConverter::GetAimpDataField();
 
-            AIMP::SDK::PropertyListExtension::SetInt32(df, AIMPML_FIELD_PROPID_TYPE, (int)dataField->Type);
-            AIMP::SDK::PropertyListExtension::SetString(df, AIMPML_FIELD_PROPID_NAME, dataField->Name);
-            AIMP::SDK::PropertyListExtension::SetInt32(df, AIMPML_FIELD_PROPID_FLAGS, (int)dataField->Flags);
+            PropertyListExtension::SetInt32(df, AIMPML_FIELD_PROPID_TYPE, int(dataField->Type));
+            PropertyListExtension::SetString(df, AIMPML_FIELD_PROPID_NAME, dataField->Name);
+            PropertyListExtension::SetInt32(df, AIMPML_FIELD_PROPID_FLAGS, int(dataField->Flags));
 
             L->Add(df);
             df->Release();
         }
     }
-    else if (t == System::String::typeid)
+    else if (t == String::typeid)
     {
         for (int i = 0; i < collection->Count; i++)
         {
-            System::String^ str = (System::String^)collection[i];
-            IAIMPString *s = AIMP::SDK::AimpConverter::ToAimpString(str);
+            auto str = static_cast<String^>(collection[i]);
+            IAIMPString* s = AimpConverter::ToAimpString(str);
             L->Add(s);
             s->Release();
         }
@@ -427,8 +427,8 @@ HRESULT WINAPI AimpExtensionDataStorage::GetFields(int Schema, IAIMPObjectList**
 
 HRESULT WINAPI AimpExtensionDataStorage::GetGroupingPresets(int Schema, IAIMPMLGroupingPresets* Presets)
 {
-    _managedPresets = gcnew AIMP::SDK::AimpGroupingPresets(Presets);
-    return (HRESULT)_managedInstance->GetGroupingPresets((AIMP::SDK::MusicLibrary::Extension::GroupingPresetsSchemaType)Schema, _managedPresets);
+    _managedPresets = gcnew AimpGroupingPresets(Presets);
+    return HRESULT(_managedInstance->GetGroupingPresets(static_cast<Extension::GroupingPresetsSchemaType>(Schema), _managedPresets));
 }
 
 void WINAPI AimpExtensionDataStorage::FlushCache(int Reserved)
@@ -460,7 +460,7 @@ HRESULT WINAPI AimpExtensionDataStorage::GetValueAsInt32(int PropertyID, int *Va
 {
     if (PropertyID == AIMPML_DATASTORAGE_PROPID_CAPABILITIES)
     {
-        *Value = (int)_managedInstance->Capabilities;
+        *Value = int(_managedInstance->Capabilities);
     }
 
     return S_OK;
@@ -475,12 +475,12 @@ HRESULT WINAPI AimpExtensionDataStorage::GetValueAsObject(int PropertyID, REFIID
 {
     if (PropertyID == AIMPML_DATASTORAGE_PROPID_ID)
     {
-        *Value = AIMP::SDK::AimpConverter::ToAimpString(_managedInstance->Id);
+        *Value = AimpConverter::ToAimpString(_managedInstance->Id);
     }
 
     if (PropertyID == AIMPML_DATASTORAGE_PROPID_CAPTION)
     {
-        *Value = AIMP::SDK::AimpConverter::ToAimpString(_managedInstance->Caption);
+        *Value = AimpConverter::ToAimpString(_managedInstance->Caption);
     }
 
     return S_OK;
@@ -503,6 +503,7 @@ HRESULT WINAPI AimpExtensionDataStorage::SetValueAsInt64(int PropertyID, const I
 
 HRESULT WINAPI AimpExtensionDataStorage::SetValueAsObject(int PropertyID, IUnknown *Value)
 {
+    // TODO complete it
     return S_OK;
 
     if (PropertyID == AIMPML_DATASTORAGE_PROPID_ID)
@@ -539,37 +540,37 @@ HRESULT WINAPI AimpExtensionDataStorage::QueryInterface(REFIID riid, LPVOID* ppv
         return S_OK;
     }
 
-    if (riid == IID_IAIMPMLDataStorageCommandAddFilesDialog && _addFilesDialogCommand != NULL)
+    if (riid == IID_IAIMPMLDataStorageCommandAddFilesDialog && _addFilesDialogCommand != nullptr)
     {
         return _addFilesDialogCommand->QueryInterface(riid, ppvObject);
     }
 
-    if (riid == IID_IAIMPMLDataStorageCommandDeleteFiles && _deleteFilesCommand != NULL)
+    if (riid == IID_IAIMPMLDataStorageCommandDeleteFiles && _deleteFilesCommand != nullptr)
     {
         return _deleteFilesCommand->QueryInterface(riid, ppvObject);
     }
 
-    if (riid == IID_IAIMPMLDataStorageCommandAddFiles && _addFilesCommand != NULL)
+    if (riid == IID_IAIMPMLDataStorageCommandAddFiles && _addFilesCommand != nullptr)
     {
         return _addFilesCommand->QueryInterface(riid, ppvObject);
     }
 
-    if (riid == IID_IAIMPMLDataStorageCommandDropData && _dropDataCommand != NULL)
+    if (riid == IID_IAIMPMLDataStorageCommandDropData && _dropDataCommand != nullptr)
     {
         return _dropDataCommand->QueryInterface(riid, ppvObject);
     }
 
-    if (riid == IID_IAIMPMLDataStorageCommandReloadTags && _reloadTagsCommand != NULL)
+    if (riid == IID_IAIMPMLDataStorageCommandReloadTags && _reloadTagsCommand != nullptr)
     {
         return _reloadTagsCommand->QueryInterface(riid, ppvObject);
     }
 
-    if (riid == IID_IAIMPMLDataStorageCommandUserMark && _userMarkCommand != NULL)
+    if (riid == IID_IAIMPMLDataStorageCommandUserMark && _userMarkCommand != nullptr)
     {
         return _userMarkCommand->QueryInterface(riid, ppvObject);
     }
 
-    if (riid == IID_IAIMPMLDataStorageCommandReportDialog && _reportDialogCommand != NULL)
+    if (riid == IID_IAIMPMLDataStorageCommandReportDialog && _reportDialogCommand != nullptr)
     {
         return _reportDialogCommand->QueryInterface(riid, ppvObject);
     }
