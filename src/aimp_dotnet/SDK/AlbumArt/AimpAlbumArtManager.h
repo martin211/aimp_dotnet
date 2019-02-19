@@ -19,11 +19,10 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace System::IO;
-        using namespace AIMP::SDK;
-        using namespace AIMP::SDK::AlbumArtManager;
+        using namespace IO;
+        using namespace SDK;
+        using namespace AlbumArtManager;
 
-        [System::Serializable]
         public ref class AimpAlbumArtManager : public AimpBaseManager<IAIMPServiceAlbumArt>, public IAimpAlbumArtManager
         {
         public:
@@ -37,7 +36,7 @@ namespace AIMP
                 {
                     if (this->_onComplete == nullptr)
                     {
-                        this->_onComplete = (EventHandler<AimpGetAlbumArtEventArgs^>^)Delegate::Combine(this->_onComplete, onCompleted);
+                        this->_onComplete = static_cast<EventHandler<AimpGetAlbumArtEventArgs^>^>(Delegate::Combine(this->_onComplete, onCompleted));
                     }
                 }
                 virtual void remove(EventHandler<AimpGetAlbumArtEventArgs^>^ onCompleted)

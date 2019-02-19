@@ -16,9 +16,8 @@ namespace AIMP
 {
     namespace SDK
     {
-        using namespace AIMP::SDK::TagEditor;
+        using namespace TagEditor;
 
-        [System::Serializable]
         public ref class AimpServiceFileTagEditor : public AimpBaseManager<IAIMPServiceFileTagEditor>, public IAimpServiceFileTagEditor
         {
         public:

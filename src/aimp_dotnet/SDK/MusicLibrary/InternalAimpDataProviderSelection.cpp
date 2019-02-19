@@ -37,7 +37,7 @@ WCHAR* WINAPI InternalAimpDataProviderSelection::GetValueAsString(int FieldIndex
     System::String^ str = _instance->GetValueAsString(FieldIndex);
     pin_ptr<const wchar_t> str1 = PtrToStringChars(str);
     *Length = str->Length;
-    return (PWCHAR)str1;
+    return PWCHAR(str1);
 }
 
 BOOL WINAPI InternalAimpDataProviderSelection::NextRow()

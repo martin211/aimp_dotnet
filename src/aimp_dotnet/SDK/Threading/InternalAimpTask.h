@@ -12,16 +12,15 @@
 #pragma once
 #include "AimpSdk.h"
 #include "AimpServiceSynchronizer.h"
-#include "AimpTaskOwner.h"
 
 class InternalAimpTask : public IUnknownInterfaceImpl<IAIMPTask>
 {
 private:
-    gcroot<AIMP::SDK::Threading::IAimpTask^> _instance;
+    gcroot<IAimpTask^> _instance;
 public:
     typedef IUnknownInterfaceImpl<IAIMPTask> Base;
 
-    InternalAimpTask(gcroot<AIMP::SDK::Threading::IAimpTask^> instance);
+    InternalAimpTask(gcroot<IAimpTask^> instance);
 
     virtual void WINAPI Execute(IAIMPTaskOwner* Owner);
 

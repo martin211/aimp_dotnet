@@ -15,9 +15,9 @@ namespace AIMP
 {
     namespace SDK
     {
-        using namespace AIMP::SDK;
-        using namespace AIMP::SDK::MusicLibrary::DataFilter;
-        using namespace AIMP::SDK::MusicLibrary::DataStorage;
+        using namespace SDK;
+        using namespace MusicLibrary::DataFilter;
+        using namespace MusicLibrary::DataStorage;
 
         public ref class AimpGroupingTreeSelection :
             public AimpObject<IAIMPMLGroupingTreeSelection>,
@@ -32,7 +32,7 @@ namespace AIMP
 
             virtual int GetCount();
 
-            virtual AimpActionResult GetValue(int index, System::String^% fieldName, System::Object^% value);
+            virtual AimpActionResult GetValue(int index, String^% fieldName, Object^% value);
         };
     }
 }

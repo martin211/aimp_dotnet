@@ -10,7 +10,6 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\PlayList\AimpPlayListItem.h"
 
 namespace AIMP
 {
@@ -21,7 +20,7 @@ namespace AIMP
         public ref class AimpPlaybackQueueItem : public AimpObject<IAIMPPlaybackQueueItem>, public AIMP::SDK::Playback::IAimpPlaybackQueueItem
         {
         public:
-            explicit AimpPlaybackQueueItem(IAIMPPlaybackQueueItem *aimpItem);
+            explicit AimpPlaybackQueueItem(IAIMPPlaybackQueueItem* aimpItem);
 
             virtual property Object ^UserData
             {
@@ -29,10 +28,10 @@ namespace AIMP
                 void set(Object^ value);
             }
 
-            virtual property IAimpPlaylistItem^ PlaylistItem
+            virtual property Playlist::IAimpPlaylistItem^ PlaylistItem
             {
-                IAimpPlaylistItem^ get();
-                void set(IAimpPlaylistItem^ value);
+                Playlist::IAimpPlaylistItem^ get();
+                void set(Playlist::IAimpPlaylistItem^ value);
             }
         };
     }

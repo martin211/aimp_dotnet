@@ -17,7 +17,7 @@
 
 using namespace AIMP::SDK;
 
-InternalAimpPlaylistPreimage::InternalAimpPlaylistPreimage(gcroot<AIMP::SDK::Playlist::IAimpPlaylistPreimage^> managedInstance)
+InternalAimpPlaylistPreimage::InternalAimpPlaylistPreimage(gcroot<IAimpPlaylistPreimage^> managedInstance)
 {
     _managedInstance = managedInstance;
 }
@@ -34,18 +34,18 @@ void WINAPI InternalAimpPlaylistPreimage::Initialize(IAIMPPlaylistPreimageListen
 
 HRESULT WINAPI InternalAimpPlaylistPreimage::ConfigLoad(IAIMPStream* Stream)
 {
-    return (HRESULT)_managedInstance->ConfigLoad(gcnew AimpStream(Stream));
+    return HRESULT(_managedInstance->ConfigLoad(gcnew AimpStream(Stream)));
 }
 
 HRESULT WINAPI InternalAimpPlaylistPreimage::ConfigSave(IAIMPStream* Stream)
 {
-    return (HRESULT)_managedInstance->ConfigSave(gcnew AimpStream(Stream));
+    return HRESULT(_managedInstance->ConfigSave(gcnew AimpStream(Stream)));
 }
 
 HRESULT WINAPI InternalAimpPlaylistPreimage::ExecuteDialog(HWND OwnerWndHanle)
 {
-    System::IntPtr ownerHandle(OwnerWndHanle);
-    return (HRESULT)_managedInstance->ExecuteDialog(ownerHandle);
+    IntPtr ownerHandle(OwnerWndHanle);
+    return HRESULT(_managedInstance->ExecuteDialog(ownerHandle));
 }
 
 HRESULT WINAPI InternalAimpPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, DWORD** Flags, IAIMPObjectList** List)
@@ -56,30 +56,30 @@ HRESULT WINAPI InternalAimpPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, DWO
     if (dp != nullptr)
     {
         int flags = 0;
-        IAIMPObjectList *L = AIMP::SDK::AimpConverter::GetAimpObjectList();
-        System::Collections::IList ^collection;
+        IAIMPObjectList* L = AimpConverter::GetAimpObjectList();
+        Collections::IList ^collection;
         res = dp->GetFiles(gcnew AimpTaskOwner(Owner), *&flags, *&collection);
 
-        if (res == AimpActionResult::Ok)
+        if (res == AimpActionResult::OK)
         {
             *Flags = (DWORD*)flags;
-            System::Type^ t = collection->GetType()->GetGenericArguments()[0];
-            if (t == AIMP::SDK::FileManager::IAimpFileInfo::typeid)
+            Type^ t = collection->GetType()->GetGenericArguments()[0];
+            if (t == IAimpFileInfo::typeid)
             {
                 for (int i = 0; i < collection->Count; i++)
                 {
-                    IAIMPFileInfo* fi = AIMP::SDK::AimpConverter::ToAimpObject((IAimpFileInfo^)collection[i]);
+                    IAIMPFileInfo* fi = AimpConverter::ToAimpObject(static_cast<IAimpFileInfo^>(collection[i]));
                     L->Add(fi);
                     fi->Release();
                     fi = nullptr;
                 }
             }
-            else if (t == System::String::typeid)
+            else if (t == String::typeid)
             {
                 for (int i = 0; i < collection->Count; i++)
                 {
-                    System::String^ str = (System::String^)collection[i];
-                    IAIMPString *s = AIMP::SDK::AimpConverter::ToAimpString(str);
+                    String^ str = static_cast<String^>(collection[i]);
+                    auto s = AimpConverter::ToAimpString(str);
                     L->Add(s);
                     s->Release();
                 }
@@ -89,11 +89,11 @@ HRESULT WINAPI InternalAimpPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, DWO
         *List = L;
     }
 
-    return (HRESULT)res;
+    return static_cast<HRESULT>(res);
 }
 
 
-HRESULT WINAPI InternalAimpPlaylistPreimage::GetValueAsInt32(int PropertyID, int *Value)
+HRESULT WINAPI InternalAimpPlaylistPreimage::GetValueAsInt32(int PropertyID, int* Value)
 {
     HRESULT res = AimpPropertyList::GetValueAsInt32(PropertyID, Value);
 
@@ -116,7 +116,7 @@ HRESULT WINAPI InternalAimpPlaylistPreimage::GetValueAsInt32(int PropertyID, int
     return res;
 }
 
-HRESULT WINAPI InternalAimpPlaylistPreimage::GetValueAsObject(int PropertyID, REFIID IID, void **Value)
+HRESULT WINAPI InternalAimpPlaylistPreimage::GetValueAsObject(int PropertyID, REFIID IID, void** Value)
 {
     HRESULT res = AimpPropertyList::GetValueAsObject(PropertyID, IID, Value);
 
@@ -163,6 +163,6 @@ HRESULT WINAPI InternalAimpPlaylistPreimage::QueryInterface(REFIID riid, LPVOID*
         return S_OK;
     }
 
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     return res;
 }

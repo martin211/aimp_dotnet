@@ -13,15 +13,16 @@
 #include "InternalAimpMessageHook.h"
 
 using namespace AIMP::SDK;
-using namespace System::Runtime::InteropServices;
+using namespace Runtime::InteropServices;
 
 AimpServiceMessageDispatcher::AimpServiceMessageDispatcher(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceMessageDispatcher>(core)
 {
+    _hook = nullptr;
 }
 
 AimpServiceMessageDispatcher::~AimpServiceMessageDispatcher()
 {
-
+    _hook = nullptr;
 }
 
 AimpActionResult AimpServiceMessageDispatcher::Send(int message, int param1, IntPtr param2)
@@ -31,13 +32,13 @@ AimpActionResult AimpServiceMessageDispatcher::Send(int message, int param1, Int
 
     try
     {
-        if (GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::Ok && service != nullptr)
+        if (GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::OK && service != nullptr)
         {
             HWND handle = nullptr;
-            result = CheckResult(service->Send((DWORD)message, (int)param1, &handle));
-            if (result == AimpActionResult::Ok)
+            result = CheckResult(service->Send(DWORD(message), int(param1), &handle));
+            if (result == AimpActionResult::OK)
             {
-                param2 = System::IntPtr(handle);
+                param2 = IntPtr(handle);
             }
         }
     }
@@ -59,11 +60,10 @@ int AimpServiceMessageDispatcher::Register(String^ message)
 
     try
     {
-        if (GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::Ok && service != nullptr)
+        if (GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::OK && service != nullptr)
         {
-            HWND handle = nullptr;
-            pin_ptr<const WCHAR> strDate = PtrToStringChars(message);
-            return service->Register((PWCHAR)strDate);
+            const pin_ptr<const WCHAR> strDate = PtrToStringChars(message);
+            return service->Register(PWCHAR(strDate));
         }
     }
     finally
@@ -85,7 +85,7 @@ AimpActionResult AimpServiceMessageDispatcher::Hook(IAimpMessageHook^ hook)
 
     try
     {
-        if (_hook == nullptr && GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::Ok && service != nullptr)
+        if (_hook == nullptr && GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::OK && service != nullptr)
         {
             _hook = new InternalAimpMessageHook(hook);
             result = CheckResult(service->Hook(_hook));
@@ -110,7 +110,7 @@ AimpActionResult AimpServiceMessageDispatcher::Unhook(IAimpMessageHook^ hook)
 
     try
     {
-        if (_hook != nullptr && GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::Ok && service != nullptr)
+        if (_hook != nullptr && GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::OK && service != nullptr)
         {
             result = CheckResult(service->Unhook(_hook));
         }

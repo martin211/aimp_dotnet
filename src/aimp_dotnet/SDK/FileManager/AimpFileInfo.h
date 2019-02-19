@@ -18,16 +18,16 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK::FileManager;
+        using namespace FileManager;
 
         public ref class AimpFileInfo : public AimpObject<IAIMPFileInfo>, public IAimpFileInfo
         {
         public:
             AimpFileInfo();
 
-            AimpFileInfo(IAimpFileInfo ^item);
+            AimpFileInfo(IAimpFileInfo^ item);
 
-            AimpFileInfo(IAIMPFileInfo *aimpItem);
+            AimpFileInfo(IAIMPFileInfo* aimpItem);
 
             virtual property String^ CustomData
             {

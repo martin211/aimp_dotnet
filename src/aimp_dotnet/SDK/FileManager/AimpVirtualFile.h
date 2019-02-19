@@ -12,19 +12,18 @@
 #pragma once
 #include "SDK\AimpObject.h"
 #include "SDK\ManagedAimpCore.h"
-#include "AimpFileInfo.h"
 
 namespace AIMP
 {
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK::FileManager;
+        using namespace FileManager;
 
         public ref class AimpVirtualFile : public AimpObject<IAIMPVirtualFile>, public IAimpVirtualFile
         {
         public:
-            AimpVirtualFile(IAIMPVirtualFile *aimpObject);
+            AimpVirtualFile(IAIMPVirtualFile* aimpObject);
 
             virtual property int IndexInSet
             {
@@ -44,31 +43,31 @@ namespace AIMP
                 void set(double value);
             }
 
-            virtual property String ^AudioSourceFile
+            virtual property String^ AudioSourceFile
             {
-                String ^get();
-                void set(String ^value);
+                String^ get();
+                void set(String^ value);
             }
 
-            virtual property String ^FileFormat
+            virtual property String^ FileFormat
             {
-                String ^get();
-                void set(String ^value);
+                String^ get();
+                void set(String^ value);
             }
 
-            virtual property String ^FileUri
+            virtual property String^ FileUri
             {
-                String ^get();
-                void set(String ^value);
+                String^ get();
+                void set(String^ value);
             }
 
-            virtual AimpActionResult CreateStream(System::IO::Stream ^%stream);
+            virtual AimpActionResult CreateStream(IO::Stream^% stream);
 
-            virtual AimpActionResult GetFileInfo(IAimpFileInfo ^%fileInfo);
+            virtual AimpActionResult GetFileInfo(IAimpFileInfo^% fileInfo);
 
             virtual bool IsExists();
 
-            virtual AimpActionResult IsInSameStream(IAimpVirtualFile ^virtualFile);
+            virtual AimpActionResult IsInSameStream(IAimpVirtualFile^ virtualFile);
 
             virtual AimpActionResult Synchronize();
         };

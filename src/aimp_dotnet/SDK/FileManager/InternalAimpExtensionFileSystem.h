@@ -25,12 +25,12 @@ private:
     gcroot<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileSystem^> _managed;
     IAIMPCore *_core;
 
-    InternalAimpFileSystemCommandFileInfo *_commandFileInfo = NULL;
-    InternalAimpFileSystemCommandOpenFileFolder *_commandOpenFileFolder = NULL;
-    InternalAimpFileSystemCommandCopyToClipboard *_commandCopyToClipboard = NULL;
-    InternalAimpFileSystemCommandDelete *_commandDelete = NULL;
-    InternalAimpFileSystemCommandDropSource *_commandDropSource = NULL;
-    InternalAimpFileSystemCommandStreaming *_commandStreaming = NULL;
+    InternalAimpFileSystemCommandFileInfo *_commandFileInfo = nullptr;
+    InternalAimpFileSystemCommandOpenFileFolder *_commandOpenFileFolder = nullptr;
+    InternalAimpFileSystemCommandCopyToClipboard *_commandCopyToClipboard = nullptr;
+    InternalAimpFileSystemCommandDelete *_commandDelete = nullptr;
+    InternalAimpFileSystemCommandDropSource *_commandDropSource = nullptr;
+    InternalAimpFileSystemCommandStreaming *_commandStreaming = nullptr;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionFileSystem> Base;

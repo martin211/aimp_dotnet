@@ -12,7 +12,7 @@
 #include "Stdafx.h"
 #include "AimpPlaylistPreimageFactory.h"
 
-AimpPlaylistPreimageFactory::AimpPlaylistPreimageFactory(gcroot<Playlist::IAimpExtensionPlaylistPreimageFactory^> managedObject)
+AimpPlaylistPreimageFactory::AimpPlaylistPreimageFactory(gcroot<IAimpExtensionPlaylistPreimageFactory^> managedObject)
 {
     _managedObject = managedObject;
 }
@@ -41,7 +41,7 @@ HRESULT WINAPI AimpPlaylistPreimageFactory::GetName(IAIMPString** Name)
 
 DWORD WINAPI AimpPlaylistPreimageFactory::GetFlags()
 {
-    return (DWORD)_managedObject->GetFlags();
+    return DWORD(_managedObject->GetFlags());
 }
 
 ULONG WINAPI AimpPlaylistPreimageFactory::AddRef(void)
@@ -65,6 +65,6 @@ HRESULT WINAPI AimpPlaylistPreimageFactory::QueryInterface(REFIID riid, LPVOID* 
         return S_OK;
     }
 
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     return E_NOINTERFACE;
 }
