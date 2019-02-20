@@ -26,9 +26,9 @@ public:
         _managedInstance = managedInstance;
     }
 
-    virtual HRESULT WINAPI GetFileInfo(IAIMPString *FileURI, IAIMPFileInfo *Info);
+    virtual HRESULT WINAPI GetFileInfo(IAIMPString* FileURI, IAIMPFileInfo* Info);
 
-    virtual HRESULT WINAPI GetFileInfo(IAIMPStream *Stream, IAIMPFileInfo *Info);
+    virtual HRESULT WINAPI GetFileInfo(IAIMPStream* Stream, IAIMPFileInfo* Info);
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
     {
@@ -50,6 +50,7 @@ public:
             return S_OK;
         }
 
+        *ppvObject = nullptr;
         return E_NOINTERFACE;
     }
 

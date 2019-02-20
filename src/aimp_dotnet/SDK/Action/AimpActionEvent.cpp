@@ -34,7 +34,7 @@ HRESULT WINAPI AimpActionEvent::QueryInterface(REFIID riid, LPVOID* ppvObject)
         return S_OK;
     }
 
-    ppvObject = nullptr;
+    *ppvObject = nullptr;
     return E_NOTIMPL;
 }
 

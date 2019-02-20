@@ -92,7 +92,7 @@ HRESULT WINAPI AimpExtensionAlbumArtCatalog::QueryInterface(REFIID riid, LPVOID*
         return S_OK;
     }
 
-    ppvObject = nullptr;
+    *ppvObject = nullptr;
     return res;
 }
 

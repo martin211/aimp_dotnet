@@ -44,6 +44,6 @@ HRESULT WINAPI InternalAimpTask::QueryInterface(REFIID riid, LPVOID* ppvObject)
         return S_OK;
     }
 
-    ppvObject = nullptr;
+    *ppvObject = nullptr;
     return res;
 }

@@ -90,7 +90,7 @@ HRESULT WINAPI AimpExtensionEmbeddedVisualization::QueryInterface(REFIID riid, L
         return S_OK;
     }
 
-    ppvObject = nullptr;
+    *ppvObject = nullptr;
     return res;
 }
 
