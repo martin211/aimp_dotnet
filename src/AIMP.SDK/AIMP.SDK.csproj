@@ -88,6 +88,8 @@
     <Compile Include="IAimpObject.cs" />
     <Compile Include="IAimpObjectList.cs" />
     <Compile Include="IAimpStream.cs" />
+    <Compile Include="Lyrics\IAimpLyrics.cs" />
+    <Compile Include="Lyrics\IAimpServiceLyrics.cs" />
     <Compile Include="MessageDispatcher\IAimpMessageHook.cs" />
     <Compile Include="MessageDispatcher\IAimpServiceMessageDispatcher.cs" />
     <Compile Include="MusicLibrary\DataStorage\AimpDataField.cs" />
