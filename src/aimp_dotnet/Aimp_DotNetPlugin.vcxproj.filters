@@ -118,6 +118,12 @@
     <Filter Include="Source Files\SDK\MessageDispatcher">
       <UniqueIdentifier>{5710d4cf-d89c-4d62-9aa9-d2b3efd01f1e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\SDK\Lyrics">
+      <UniqueIdentifier>{60dec139-03a7-4b07-bafe-200c49ea4461}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SDK\Lyrics">
+      <UniqueIdentifier>{58691b41-52ee-46c3-8a2d-6302097cfd3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DotNetPlugin.cpp">
@@ -395,6 +401,12 @@
     </ClCompile>
     <ClCompile Include="SDK\TagEditor\AimpFileTag.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Lyrics\AimpServiceLyrics.cpp">
+      <Filter>Source Files\SDK\Lyrics</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Lyrics\AimpLyrics.cpp">
+      <Filter>Source Files\SDK\Lyrics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -778,6 +790,12 @@
     </ClInclude>
     <ClInclude Include="SDK\TagEditor\AimpFileTag.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Lyrics\AimpServiceLyrics.h">
+      <Filter>Header Files\SDK\Lyrics</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Lyrics\AimpLyrics.h">
+      <Filter>Header Files\SDK\Lyrics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

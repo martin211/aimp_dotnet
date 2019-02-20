@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SDK\Lyrics\AimpLyrics.cpp" />
+    <ClCompile Include="SDK\Lyrics\AimpServiceLyrics.cpp" />
     <ClCompile Include="SDK\MessageDispatcher\InternalAimpMessageHook.cpp" />
     <ClCompile Include="SDK\AimpPlayer.cpp" />
     <ClCompile Include="SDK\AimpConfig.cpp" />
@@ -108,6 +110,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SDK\Lyrics\AimpLyrics.h" />
+    <ClInclude Include="SDK\Lyrics\AimpServiceLyrics.h" />
     <ClInclude Include="SDK\MessageDispatcher\InternalAimpMessageHook.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiLyrics.h" />
     <ClInclude Include="SDK\AimpStream.h" />
