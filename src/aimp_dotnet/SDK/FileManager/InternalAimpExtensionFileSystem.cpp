@@ -125,7 +125,7 @@ HRESULT WINAPI InternalAimpExtensionFileSystem::QueryInterface(REFIID riid, LPVO
             return _commandDelete->QueryInterface(riid, ppvObject);
     }
 
-    ppvObject = nullptr;
+    *ppvObject = nullptr;
     return res;
 }
 

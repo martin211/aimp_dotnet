@@ -10,19 +10,14 @@
 // ----------------------------------------------------
 
 #include "Stdafx.h"
-
-//#include <vld.h>
-
 #include "DotNetPlugin.h"
-//#include "vcclr.h"
-#include "SDK/Options/OptionsDialogFrameExtension.h"
 
 DotNetPlugin::DotNetPlugin()
 {
     _optionsLoaded = false;
-    System::String ^path = System::IO::Path::GetDirectoryName(System::Reflection::Assembly::GetExecutingAssembly()->Location);
-    AIMP::SDK::CustomAssemblyResolver::Initialize(path);
-    _dotNetPlugin = AIMP::SDK::PluginInfoLoader::LoadPlugin(path);
+    auto path = Path::GetDirectoryName(Reflection::Assembly::GetExecutingAssembly()->Location);
+    CustomAssemblyResolver::Initialize(path);
+    _dotNetPlugin = PluginInfoLoader::LoadPlugin(path);
 }
 
 // TODO: Add finalizer.
@@ -32,7 +27,7 @@ PWCHAR WINAPI DotNetPlugin::InfoGet(int index)
     {
     case AIMP_PLUGIN_INFO_NAME:
     {
-        if (System::Object::ReferenceEquals(_dotNetPlugin, nullptr))
+        if (Object::ReferenceEquals(_dotNetPlugin, nullptr))
         {
             return L"AIMP DotNet proxy";
         }

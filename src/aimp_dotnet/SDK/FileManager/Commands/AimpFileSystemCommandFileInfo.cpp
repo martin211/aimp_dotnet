@@ -74,20 +74,24 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(IAimpString^ file, l
 AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(IAimpString ^file)
 {
     // TODO: Complete it
-    IAIMPString *str = nullptr;
-    try
-    {
-        //str = AimpConverter::ToAimpString(file);
-        //return CheckResult(_aimpObject->IsFileExists(str));
+    //IAIMPString *str = nullptr;
+    AimpActionResult result = AimpActionResult::Fail;
 
-        return AimpActionResult::OK;
-    }
-    finally
-    {
-        if (str != nullptr)
-        {
-            str->Release();
-            str = nullptr;
-        }
-    }
+    //try
+    //{
+    //    //str = AimpConverter::ToAimpString(file);
+    //    //return CheckResult(_aimpObject->IsFileExists(str));
+
+    //    return AimpActionResult::OK;
+    //}
+    //finally
+    //{
+    //    //if (str != nullptr)
+    //    //{
+    //    //    str->Release();
+    //    //    str = nullptr;
+    //    //}
+    //}
+
+    return result;
 }
