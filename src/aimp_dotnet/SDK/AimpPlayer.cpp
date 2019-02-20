@@ -12,6 +12,7 @@
 #include "stdafx.h"
 #include "AimpPlayer.h"
 #include "Playback/AimpPlaybackQueueItem.h"
+#include "Lyrics/AimpServiceLyrics.h"
 
 using namespace AIMP;
 using namespace AIMP::SDK;
@@ -475,4 +476,14 @@ void AimpPlayer::OnInternalCoreMessage(AimpMessages::AimpCoreMessageType param1,
     //    }
     //    break;
     }
+}
+
+IAimpServiceLyrics^ AimpPlayer::ServiceLyrics::get()
+{
+    if (_serviceLyrics == nullptr)
+    {
+        _serviceLyrics = gcnew AimpServiceLyrics(_managedAimpCore);
+    }
+
+    return _serviceLyrics;
 }
