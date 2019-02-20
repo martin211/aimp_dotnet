@@ -14,26 +14,30 @@
 
 using namespace AIMP::SDK;
 
-AimpDataStorageManager::AimpDataStorageManager(IAIMPMLDataStorageManager *manager) : AimpObject(manager)
+AimpDataStorageManager::AimpDataStorageManager(IAIMPMLDataStorageManager* manager) : AimpObject(manager)
 {
 }
 
-AimpActionResult AimpDataStorageManager::BackgroundTaskStarted(int id, System::String ^cartion, ActionManager::IAimpActionEvent ^cancelEvent)
+AimpActionResult AimpDataStorageManager::BackgroundTaskStarted(int id, System::String^ caption, ActionManager::IAimpActionEvent^ cancelEvent)
 {
     //todo complete it
-    IAIMPString *str = AimpConverter::ToAimpString(cartion);
+    auto str = AimpConverter::ToAimpString(caption);
+    auto result = AimpActionResult::Fail;
+
     try
     {
-        return Utils::CheckResult(this->InternalAimpObject->BackgroundTaskStarted(id, str, NULL));
+        result = Utils::CheckResult(this->InternalAimpObject->BackgroundTaskStarted(id, str, nullptr));
     }
     finally
     {
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
+
+    return result;
 }
 
 AimpActionResult AimpDataStorageManager::BackgroundTaskFinished(int id)

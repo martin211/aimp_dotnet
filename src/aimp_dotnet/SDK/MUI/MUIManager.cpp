@@ -12,70 +12,65 @@
 #include "Stdafx.h"
 #include "MUIManager.h"
 
-
-AIMP::SDK::AimpMIUManager::AimpMIUManager(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceMUI>(core)
+AimpMIUManager::AimpMIUManager(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceMUI>(core)
 {
 }
 
-AIMP::SDK::AimpMIUManager::~AimpMIUManager()
+AimpMIUManager::~AimpMIUManager()
 {
 }
 
-System::String^ AIMP::SDK::AimpMIUManager::GetName()
+String^ AimpMIUManager::GetName()
 {
-    IAIMPString *str = NULL;
-    IAIMPServiceMUI* service = NULL;
+    IAIMPString *str = nullptr;
+    IAIMPServiceMUI* service = nullptr;
+
     try
     {
-        if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
+        if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::OK && service != nullptr)
         {
-            if (service != NULL)
-            {
-                service->GetName(&str);
+            service->GetName(&str);
 
-                if (str != NULL)
-                    return gcnew String(str->GetData());
+            if (str != nullptr)
+            {
+                return gcnew String(str->GetData());
             }
         }
     }
     finally
     {
-        if (service != NULL)
+        if (service != nullptr)
         {
             service->Release();
-            service = NULL;
+            service = nullptr;
         }
 
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
 
     return String::Empty;
 }
 
-System::String^ AIMP::SDK::AimpMIUManager::GetValue(String^ key)
+String^ AimpMIUManager::GetValue(String^ key)
 {
-    IAIMPString *str = NULL;
-    IAIMPServiceMUI* service = NULL;
+    IAIMPString* str = nullptr;
+    IAIMPServiceMUI* service = nullptr;
     try
     {
-        if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
+        if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::OK && service != nullptr)
         {
-            if (service == NULL)
-            {
-                return String::Empty;
-            }
-
-            IAIMPString* strKey = AimpConverter::ToAimpString(key);
+            auto strKey = AimpConverter::ToAimpString(key);
 
             if (service->GetValue(strKey, &str) == S_OK)
             {
                 strKey->Release();
+                strKey = nullptr;
 
-                if (str == NULL)
+                if (str == nullptr)
                 {
                     return String::Empty;
                 }
@@ -86,39 +81,37 @@ System::String^ AIMP::SDK::AimpMIUManager::GetValue(String^ key)
     }
     finally
     {
-        if (service != NULL)
+        if (service != nullptr)
         {
             service->Release();
-            service = NULL;
+            service = nullptr;
         }
 
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
 
     return String::Empty;
 }
 
-System::String^ AIMP::SDK::AimpMIUManager::GetValuePart(String^ key, int index)
+String^ AimpMIUManager::GetValuePart(String^ key, int index)
 {
-    IAIMPString *str = NULL;
-    IAIMPServiceMUI* service = NULL;
+    IAIMPString* str = nullptr;
+    IAIMPServiceMUI* service = nullptr;
     try
     {
-        if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::Ok)
+        if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::OK && service == nullptr)
         {
-            if (service == NULL)
-                return nullptr;
-
-            IAIMPString* strKey = AimpConverter::ToAimpString(key);
+            auto strKey = AimpConverter::ToAimpString(key);
             service->GetValuePart(strKey, index, &str);
 
             strKey->Release();
+            strKey = nullptr;
 
-            if (str == NULL)
+            if (str == nullptr)
             {
                 return String::Empty;
             }
@@ -128,16 +121,16 @@ System::String^ AIMP::SDK::AimpMIUManager::GetValuePart(String^ key, int index)
     }
     finally
     {
-        if (service != NULL)
+        if (service != nullptr)
         {
             service->Release();
-            service = NULL;
+            service = nullptr;
         }
 
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
 

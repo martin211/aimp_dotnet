@@ -18,7 +18,7 @@ using System.Reflection;
 namespace AIMP.SDK
 {
     [Serializable]
-    public struct PluginShortInfoForLoad
+    public struct PluginShortInfoForLoad : IEquatable<PluginShortInfoForLoad>
     {
         /// <summary>
         /// Gets or sets the name of the assembly file.
@@ -39,6 +39,14 @@ namespace AIMP.SDK
         /// Gets or sets the plugin loc information.
         /// </summary>
         public AimpPluginAttribute PluginLocInfo { get; set; }
+
+        public bool Equals(PluginShortInfoForLoad other)
+        {
+            return AssemblyFileName == other.AssemblyFileName &&
+                   AssemblyFullName == other.AssemblyFileName &&
+                   ClassName == other.ClassName &&
+                   PluginLocInfo.Equals(other.PluginLocInfo);
+        }
     }
 
     public abstract class PluginLoadingStrategy : MarshalByRefObject

@@ -1,34 +1,34 @@
-#include "Stdafx.h"....................
+#include "Stdafx.h"
 #include "InternalAimpDataFilter.h"
 #include "AimpDataFilter.h"
 
 using namespace AIMP::SDK;
-using namespace AIMP::SDK::MusicLibrary;
+using namespace MusicLibrary;
 
-InternalAimpDataFilter::InternalAimpDataFilter(gcroot<IAimpDataFilter^> managedInstance) : InternalAimpDataFilterGroup((IAimpDataFilterGroup^)managedInstance)
+InternalAimpDataFilter::InternalAimpDataFilter(gcroot<IAimpDataFilter^> managedInstance) : InternalAimpDataFilterGroup(static_cast<IAimpDataFilterGroup^>(managedInstance))
 {
     _managedInstance = managedInstance;
 }
 
 HRESULT InternalAimpDataFilter::Assign(IAIMPMLDataFilter* Source)
 {
-    return (HRESULT)_managedInstance->Assign(gcnew AimpDataFilter(Source));
+    return HRESULT(_managedInstance->Assign(gcnew AimpDataFilter(Source)));
 }
 
-HRESULT InternalAimpDataFilter::Clone(void **Filter)
+HRESULT InternalAimpDataFilter::Clone(void** Filter)
 {
-    AimpActionResult res = AimpActionResult::Fail;
+    auto res = AimpActionResult::Fail;
     IAimpDataFilter^ clone = nullptr;
     res = _managedInstance->Clone(clone);
-    if (res == AimpActionResult::Ok && clone != nullptr)
+    if (res == AimpActionResult::OK && clone != nullptr)
     {
         *Filter = new InternalAimpDataFilter(clone);
     }
 
-    return (HRESULT)res;
+    return HRESULT(res);
 }
 
-HRESULT WINAPI InternalAimpDataFilter::GetValueAsInt32(int PropertyID, int *Value)
+HRESULT WINAPI InternalAimpDataFilter::GetValueAsInt32(int PropertyID, int* Value)
 {
     InternalAimpDataFilterGroup::GetValueAsInt32(PropertyID, Value);
 
@@ -39,7 +39,7 @@ HRESULT WINAPI InternalAimpDataFilter::GetValueAsInt32(int PropertyID, int *Valu
         *Value = _managedInstance->Limit;
 
     if (PropertyID == AIMPML_FILTER_SORTDIRECTION)
-        *Value = (int)_managedInstance->SortDirection;
+        *Value = int(_managedInstance->SortDirection);
 
     if (PropertyID == AIMPML_FILTER_ALPHABETICINDEX)
         *Value = _managedInstance->AlphaBeticIndex;
@@ -58,7 +58,7 @@ HRESULT WINAPI InternalAimpDataFilter::SetValueAsInt32(int PropertyID, int Value
         _managedInstance->Limit = Value;
 
     if (PropertyID == AIMPML_FILTER_SORTDIRECTION)
-        _managedInstance->SortDirection = (AIMP::SDK::MusicLibrary::SortDirectionType)Value;
+        _managedInstance->SortDirection = SortDirectionType(Value);
 
     if (PropertyID == AIMPML_FILTER_ALPHABETICINDEX)
         _managedInstance->AlphaBeticIndex = Value;
@@ -66,7 +66,7 @@ HRESULT WINAPI InternalAimpDataFilter::SetValueAsInt32(int PropertyID, int Value
     return S_OK;
 }
 
-HRESULT WINAPI InternalAimpDataFilter::GetValueAsObject(int PropertyID, REFIID IID, void **Value)
+HRESULT WINAPI InternalAimpDataFilter::GetValueAsObject(int PropertyID, REFIID IID, void** Value)
 {
     if (PropertyID == AIMPML_FILTER_SORTBY)
     {
@@ -87,13 +87,13 @@ HRESULT WINAPI InternalAimpDataFilter::GetValueAsObject(int PropertyID, REFIID I
     return S_OK;
 }
 
-HRESULT WINAPI InternalAimpDataFilter::SetValueAsObject(int PropertyID, IUnknown *Value)
+HRESULT WINAPI InternalAimpDataFilter::SetValueAsObject(int PropertyID, IUnknown* Value)
 {
     if (PropertyID == AIMPML_FILTER_SORTBY)
-        _managedInstance->SortBy = AimpConverter::ToManagedString((IAIMPString*)Value);
+        _managedInstance->SortBy = AimpConverter::ToManagedString(static_cast<IAIMPString*>(Value));
 
     if (PropertyID == AIMPML_FILTER_SEARCHSTRING)
-        _managedInstance->SearchString = AimpConverter::ToManagedString((IAIMPString*)Value);
+        _managedInstance->SearchString = AimpConverter::ToManagedString(static_cast<IAIMPString*>(Value));
 
     return S_OK;
 }
@@ -119,6 +119,6 @@ HRESULT WINAPI InternalAimpDataFilter::QueryInterface(REFIID riid, LPVOID* ppvOb
         return S_OK;
     }
 
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     return res;
 }

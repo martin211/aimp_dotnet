@@ -18,8 +18,8 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK;
-        using namespace AIMP::SDK::MessageDispatcher;
+        using namespace SDK;
+        using namespace MessageDispatcher;
 
         public ref class AimpServiceMessageDispatcher : public AimpBaseManager<IAIMPServiceMessageDispatcher>, public IAimpServiceMessageDispatcher
         {
@@ -33,7 +33,7 @@ namespace AIMP
             virtual AimpActionResult Hook(IAimpMessageHook^ hook);
             virtual AimpActionResult Unhook(IAimpMessageHook^ hook);
         private:
-            InternalAimpMessageHook * _hook;
+            InternalAimpMessageHook* _hook;
         };
     }
 }

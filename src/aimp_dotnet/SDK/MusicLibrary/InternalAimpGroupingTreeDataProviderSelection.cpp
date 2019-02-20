@@ -24,17 +24,17 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetDisplayValue(IA
     String^ str;
     AimpActionResult result = _managedInstance->GetDisplayValue(str);
 
-    if (result == AimpActionResult::Ok)
+    if (result == AimpActionResult::OK)
     {
         *S = AimpConverter::ToAimpString(str);
     }
 
-    return (HRESULT)result;
+    return HRESULT(result);
 }
 
 DWORD WINAPI InternalAimpGroupingTreeDataProviderSelection::GetFlags()
 {
-    return (DWORD)_managedInstance->GetFlags();
+    return DWORD(_managedInstance->GetFlags());
 }
 
 HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetImageIndex(int* Index)
@@ -42,12 +42,12 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetImageIndex(int*
     FieldImageIndex index;
     AimpActionResult result = _managedInstance->GetImageIndex(index);
 
-    if (result == AimpActionResult::Ok)
+    if (result == AimpActionResult::OK)
     {
-        *Index = (int)index;
+        *Index = int(index);
     }
 
-    return (HRESULT)result;
+    return HRESULT(result);
 }
 
 HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetValue(IAIMPString** FieldName, VARIANT* Value)
@@ -57,19 +57,19 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetValue(IAIMPStri
 
     AimpActionResult result = _managedInstance->GetValue(fieldName, val);
 
-    if (result == AimpActionResult::Ok)
+    if (result == AimpActionResult::OK)
     {
         *FieldName = AimpConverter::ToAimpString(fieldName);
         VARIANT v = AimpConverter::ToNativeVariant(val);
         VariantCopyInd(Value, &v);
     }
 
-    return (HRESULT)result;
+    return HRESULT(result);
 }
 
 BOOL WINAPI InternalAimpGroupingTreeDataProviderSelection::NextRow()
 {
-    return (BOOL)_managedInstance->NextRow();
+    return BOOL(_managedInstance->NextRow());
 }
 
 ULONG WINAPI InternalAimpGroupingTreeDataProviderSelection::AddRef(void)
@@ -93,6 +93,6 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::QueryInterface(REF
         return S_OK;
     }
 
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     return res;
 }

@@ -24,10 +24,10 @@ AimpActionResult AimpPlaylistPreimageFolders::ItemsAdd(String^ path, bool recurs
     AimpActionResult res = AimpActionResult::Fail;
     IAIMPString* str = AimpConverter::ToAimpString(path);
 
-    IAIMPPlaylistPreimageFolders* folders = (IAIMPPlaylistPreimageFolders*)InternalAimpObject;
+    IAIMPPlaylistPreimageFolders* folders = static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject);
     if (folders != nullptr)
     {
-        res = CheckResult(folders->ItemsAdd(str, (BOOL)recursive));
+        res = CheckResult(folders->ItemsAdd(str, BOOL(recursive)));
     }
 
     str->Release();
@@ -36,19 +36,19 @@ AimpActionResult AimpPlaylistPreimageFolders::ItemsAdd(String^ path, bool recurs
 
 AimpActionResult AimpPlaylistPreimageFolders::ItemsDelete(int index)
 {
-    return CheckResult(((IAIMPPlaylistPreimageFolders*)InternalAimpObject)->ItemsDelete(index));
+    return CheckResult(static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsDelete(index));
 }
 
 AimpActionResult AimpPlaylistPreimageFolders::ItemsDeleteAll()
 {
-    return CheckResult(((IAIMPPlaylistPreimageFolders*)InternalAimpObject)->ItemsDeleteAll());
+    return CheckResult(static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsDeleteAll());
 }
 
 AimpActionResult AimpPlaylistPreimageFolders::ItemsGet(int index, String^% path, bool% recursive)
 {
-    IAIMPString *str = NULL;
-    BOOL *b = NULL;
-    AimpActionResult res = CheckResult(((IAIMPPlaylistPreimageFolders*)InternalAimpObject)->ItemsGet(index, str, b));
+    IAIMPString *str = nullptr;
+    BOOL *b = nullptr;
+    AimpActionResult res = CheckResult(static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsGet(index, str, b));
     path = AimpConverter::ToManagedString(str);
     recursive = b;
     str->Release();
@@ -57,5 +57,5 @@ AimpActionResult AimpPlaylistPreimageFolders::ItemsGet(int index, String^% path,
 
 int AimpPlaylistPreimageFolders::ItemsGetCount()
 {
-    return ((IAIMPPlaylistPreimageFolders*)InternalAimpObject)->ItemsGetCount();
+    return static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsGetCount();
 }

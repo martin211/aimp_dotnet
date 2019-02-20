@@ -34,6 +34,6 @@ internal:
 			return AIMP::SDK::AimpActionResult::Fail;
 		}
 
-		return AIMP::SDK::AimpActionResult::Ok;
+		return AIMP::SDK::AimpActionResult::OK;
 	}
 };

@@ -50,6 +50,6 @@ HRESULT WINAPI InternalAimpFileSystemCommandOpenFileFolder::QueryInterface(REFII
         return S_OK;
     }
 
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     return res;
 }

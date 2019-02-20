@@ -31,7 +31,7 @@ namespace AIMP.SDK
     /// </summary>
     public abstract class AimpPlugin : IAimpPlugin
     {
-        public IAimpPlayer AimpPlayer;
+        public IAimpPlayer AimpPlayer { get; set; }
 
         /// <summary>
         /// Gets or sets the plugin identifier.

@@ -52,6 +52,6 @@ HRESULT WINAPI InternalAimpFileSystemCommandStreaming::QueryInterface(REFIID rii
         return S_OK;
     }
 
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     return res;
 }

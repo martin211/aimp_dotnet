@@ -12,232 +12,264 @@
 #include "Stdafx.h"
 #include "AimpConfig.h"
 
-namespace AIMP
+using namespace AIMP::SDK;
+
+AimpConfig::AimpConfig(IAIMPConfig *aimpPlayList) : AimpObject(aimpPlayList)
 {
-    namespace SDK
+}
+
+AimpActionResult AimpConfig::Delete(String ^keyPath)
+{
+    IAIMPString *str = nullptr;
+    auto result = AimpActionResult::Fail;
+
+    try
     {
-        AimpConfig::AimpConfig(IAIMPConfig *aimpPlayList) : AimpObject(aimpPlayList)
+        str = AimpConverter::ToAimpString(keyPath);
+        result = CheckResult(InternalAimpObject->Delete(str));
+    }
+    finally
+    {
+        if (str != nullptr)
         {
-        }
-
-        AimpActionResult AimpConfig::Delete(String ^keyPath)
-        {
-            IAIMPString *str = NULL;
-            try
-            {
-                str = AimpConverter::ToAimpString(keyPath);
-                return CheckResult(InternalAimpObject->Delete(str));
-            }
-            finally
-            {
-                if (str != NULL)
-                {
-                    str->Release();
-                    str = NULL;
-                }
-            }
-        }
-
-        float AimpConfig::GetValueAsFloat(String ^keyPath)
-        {
-            IAIMPString *str = NULL;
-            try
-            {
-                str = AimpConverter::ToAimpString(keyPath);
-                double val = 0;
-                InternalAimpObject->GetValueAsFloat(str, &val);
-                return val;
-            }
-            finally
-            {
-                if (str != NULL)
-                {
-                    str->Release();
-                    str = NULL;
-                }
-            }
-        }
-
-        int AimpConfig::GetValueAsInt32(String ^keyPath)
-        {
-            IAIMPString *str = NULL;
-            try
-            {
-                str = AimpConverter::ToAimpString(keyPath);
-                int val = 0;
-                InternalAimpObject->GetValueAsInt32(str, &val);
-                return val;
-            }
-            finally
-            {
-                if (str != NULL)
-                {
-                    str->Release();
-                    str = NULL;
-                }
-            }
-        }
-
-        Int64 AimpConfig::GetValueAsInt64(String ^keyPath)
-        {
-            IAIMPString *str = NULL;
-            try
-            {
-                str = AimpConverter::ToAimpString(keyPath);
-                Int64 val = 0;
-                InternalAimpObject->GetValueAsInt64(str, &val);
-                return val;
-            }
-            finally
-            {
-                if (str != NULL)
-                {
-                    str->Release();
-                    str = NULL;
-                }
-            }
-        }
-
-        IAimpStream ^AimpConfig::GetValueAsStream(String ^keyPath)
-        {
-            IAIMPString *str = NULL;
-            IAIMPStream *stream = NULL;
-            try
-            {
-                str = AimpConverter::ToAimpString(keyPath);
-                if (CheckResult(InternalAimpObject->GetValueAsStream(str, &stream)) == AimpActionResult::Ok && stream != NULL)
-                {
-                    return gcnew AimpStream(stream);
-                }
-
-                return nullptr;
-            }
-            finally
-            {
-                if (str != NULL)
-                {
-                    str->Release();
-                    str = NULL;
-                }
-            }
-        }
-
-        String ^AimpConfig::GetValueAsString(String ^keyPath)
-        {
-            IAIMPString *str = NULL;
-            try
-            {
-                str = AimpConverter::ToAimpString(keyPath);
-                IAIMPString* val = NULL;
-                InternalAimpObject->GetValueAsString(str, &val);
-                return val != NULL ? gcnew String(val->GetData()) : String::Empty;
-            }
-            finally
-            {
-                if (str != NULL)
-                {
-                    str->Release();
-                    str = NULL;
-                }
-            }
-        }
-
-        AimpActionResult AimpConfig::SetValueAsFloat(String ^keyPath, float value)
-        {
-            IAIMPString *str = NULL;
-            try
-            {
-                str = AimpConverter::ToAimpString(keyPath);
-                return CheckResult(InternalAimpObject->SetValueAsFloat(str, value));
-            }
-            finally
-            {
-                if (str != NULL)
-                {
-                    str->Release();
-                    str = NULL;
-                }
-            }
-        }
-
-        AimpActionResult AimpConfig::SetValueAsInt32(String ^keyPath, int value)
-        {
-            IAIMPString *str = NULL;
-            try
-            {
-                str = AimpConverter::ToAimpString(keyPath);
-                return CheckResult(InternalAimpObject->SetValueAsInt32(str, value));
-            }
-            finally
-            {
-                if (str != NULL)
-                {
-                    str->Release();
-                    str = NULL;
-                }
-            }
-        }
-
-        AimpActionResult AimpConfig::SetValueAsInt64(String ^keyPath, Int64 value)
-        {
-            IAIMPString *str = NULL;
-            try
-            {
-                str = AimpConverter::ToAimpString(keyPath);
-                return CheckResult(InternalAimpObject->SetValueAsInt64(str, value));
-            }
-            finally
-            {
-                if (str != NULL)
-                {
-                    str->Release();
-                    str = NULL;
-                }
-            }
-        }
-
-        AimpActionResult AimpConfig::SetValueAsStream(String ^keyPath, IAimpStream ^stream)
-        {
-            IAIMPString *str = NULL;
-            try
-            {
-                str = AimpConverter::ToAimpString(keyPath);
-                return CheckResult(InternalAimpObject->SetValueAsStream(str, ((AimpStream^)stream)->InternalAimpObject));
-            }
-            finally
-            {
-                if (str != NULL)
-                {
-                    str->Release();
-                    str = NULL;
-                }
-            }
-        }
-
-        AimpActionResult AimpConfig::SetValueAsString(String ^keyPath, String ^value)
-        {
-            IAIMPString *str = NULL;
-            IAIMPString *val = NULL;
-            try
-            {
-                str = AimpConverter::ToAimpString(keyPath);
-                val = AimpConverter::ToAimpString(value);
-                return CheckResult(InternalAimpObject->SetValueAsString(str, val));
-            }
-            finally
-            {
-                if (str != NULL)
-                {
-                    str->Release();
-                    str = NULL;
-                }
-
-                if (val != NULL)
-                {
-                    val->Release();
-                    val = NULL;
-                }
-            }
+            str->Release();
+            str = nullptr;
         }
     }
+
+    return result;
+}
+
+float AimpConfig::GetValueAsFloat(String ^keyPath)
+{
+    IAIMPString *str = nullptr;
+    double val = 0;
+
+    try
+    {
+        str = AimpConverter::ToAimpString(keyPath);
+        InternalAimpObject->GetValueAsFloat(str, &val);
+    }
+    finally
+    {
+        if (str != nullptr)
+        {
+            str->Release();
+            str = nullptr;
+        }
+    }
+
+    return val;
+}
+
+int AimpConfig::GetValueAsInt32(String ^keyPath)
+{
+    IAIMPString *str = nullptr;
+    int val = 0;
+
+    try
+    {
+        str = AimpConverter::ToAimpString(keyPath);
+        InternalAimpObject->GetValueAsInt32(str, &val);
+    }
+    finally
+    {
+        if (str != nullptr)
+        {
+            str->Release();
+            str = nullptr;
+        }
+    }
+
+    return val;
+}
+
+Int64 AimpConfig::GetValueAsInt64(String ^keyPath)
+{
+    IAIMPString *str = nullptr;
+    Int64 val = 0;
+
+    try
+    {
+        str = AimpConverter::ToAimpString(keyPath);
+        InternalAimpObject->GetValueAsInt64(str, &val);
+    }
+    finally
+    {
+        if (str != nullptr)
+        {
+            str->Release();
+            str = nullptr;
+        }
+    }
+
+    return val;
+}
+
+IAimpStream ^AimpConfig::GetValueAsStream(String ^keyPath)
+{
+    IAIMPString *str = nullptr;
+    IAIMPStream *stream = nullptr;
+    try
+    {
+        str = AimpConverter::ToAimpString(keyPath);
+        if (CheckResult(InternalAimpObject->GetValueAsStream(str, &stream)) == AimpActionResult::OK && stream != nullptr)
+        {
+            return gcnew AimpStream(stream);
+        }
+    }
+    finally
+    {
+        if (str != nullptr)
+        {
+            str->Release();
+            str = nullptr;
+        }
+    }
+
+    return nullptr;
+}
+
+String ^AimpConfig::GetValueAsString(String ^keyPath)
+{
+    IAIMPString *str = nullptr;
+    IAIMPString* val = nullptr;
+
+    try
+    {
+        str = AimpConverter::ToAimpString(keyPath);
+        if (CheckResult(InternalAimpObject->GetValueAsString(str, &val)) == AimpActionResult::OK && val != nullptr)
+        {
+            return gcnew String(val->GetData());
+        }
+    }
+    finally
+    {
+        // TODO Release val?
+        if (str != nullptr)
+        {
+            str->Release();
+            str = nullptr;
+        }
+    }
+
+    return String::Empty;
+}
+
+AimpActionResult AimpConfig::SetValueAsFloat(String ^keyPath, float value)
+{
+    IAIMPString *str = nullptr;
+    auto result = AimpActionResult::Fail;
+
+    try
+    {
+        str = AimpConverter::ToAimpString(keyPath);
+        result = CheckResult(InternalAimpObject->SetValueAsFloat(str, value));
+    }
+    finally
+    {
+        if (str != nullptr)
+        {
+            str->Release();
+            str = nullptr;
+        }
+    }
+
+    return result;
+}
+
+AimpActionResult AimpConfig::SetValueAsInt32(String ^keyPath, int value)
+{
+    IAIMPString *str = nullptr;
+    auto result = AimpActionResult::Fail;
+
+    try
+    {
+        str = AimpConverter::ToAimpString(keyPath);
+        result = CheckResult(InternalAimpObject->SetValueAsInt32(str, value));
+    }
+    finally
+    {
+        if (str != nullptr)
+        {
+            str->Release();
+            str = nullptr;
+        }
+    }
+
+    return result;
+}
+
+AimpActionResult AimpConfig::SetValueAsInt64(String ^keyPath, Int64 value)
+{
+    IAIMPString *str = nullptr;
+    auto result = AimpActionResult::Fail;
+
+    try
+    {
+        str = AimpConverter::ToAimpString(keyPath);
+        result = CheckResult(InternalAimpObject->SetValueAsInt64(str, value));
+    }
+    finally
+    {
+        if (str != nullptr)
+        {
+            str->Release();
+            str = nullptr;
+        }
+    }
+
+    return result;
+}
+
+AimpActionResult AimpConfig::SetValueAsStream(String ^keyPath, IAimpStream ^stream)
+{
+    IAIMPString *str = nullptr;
+    auto result = AimpActionResult::Fail;
+
+    try
+    {
+        str = AimpConverter::ToAimpString(keyPath);
+        result = CheckResult(InternalAimpObject->SetValueAsStream(str, static_cast<AimpStream^>(stream)->InternalAimpObject));
+    }
+    finally
+    {
+        if (str != nullptr)
+        {
+            str->Release();
+            str = nullptr;
+        }
+    }
+
+    return result;
+}
+
+AimpActionResult AimpConfig::SetValueAsString(String ^keyPath, String ^value)
+{
+    IAIMPString *str = nullptr;
+    IAIMPString *val = nullptr;
+    auto result = AimpActionResult::Fail;
+
+    try
+    {
+        str = AimpConverter::ToAimpString(keyPath);
+        val = AimpConverter::ToAimpString(value);
+        result = CheckResult(InternalAimpObject->SetValueAsString(str, val));
+    }
+    finally
+    {
+        if (str != nullptr)
+        {
+            str->Release();
+            str = nullptr;
+        }
+
+        if (val != nullptr)
+        {
+            val->Release();
+            val = nullptr;
+        }
+    }
+
+    return result;
 }

@@ -11,45 +11,43 @@
 
 #include "Stdafx.h"
 #include "AimpServicePlaybackQueue.h"
+#include "AimpPlaybackQueueItem.h"
 
 using namespace AIMP::SDK;
-using namespace AIMP::SDK::Playlist;
-using namespace AIMP::SDK::Playback;
+using namespace Playlist;
+using namespace Playback;
 
-AimpServicePlaybackQueue::AimpServicePlaybackQueue(ManagedAimpCore ^core) : AimpBaseManager<IAIMPServicePlaybackQueue>(core)
+AimpServicePlaybackQueue::AimpServicePlaybackQueue(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServicePlaybackQueue>(core)
 {
 
 }
 
 IAimpPlaybackQueueItem^ AimpServicePlaybackQueue::GetNextTrack()
 {
-    IAIMPPlaybackQueueItem *item = NULL;
-    IAIMPServicePlaybackQueue *service = NULL;
+    IAIMPPlaybackQueueItem* item = nullptr;
+    IAIMPServicePlaybackQueue* service = nullptr;
     try
     {
-        if (CheckResult(_core->GetService(IID_IAIMPServicePlaybackQueue, (void**)&service)) == AimpActionResult::Ok)
+        if (CheckResult(_core->GetService(IID_IAIMPServicePlaybackQueue, reinterpret_cast<void**>(&service))) == AimpActionResult::OK && service != nullptr)
         {
-            if (service != NULL)
+            if (CheckResult(service->GetNextTrack(&item)) == AimpActionResult::OK)
             {
-                if (CheckResult(service->GetNextTrack(&item)) == AimpActionResult::Ok)
-                {
-                    return gcnew AimpPlaybackQueueItem(item);
-                }
+                return gcnew AimpPlaybackQueueItem(item);
             }
         }
     }
     finally
     {
-        if (service != NULL)
+        if (service != nullptr)
         {
             service->Release();
-            service = NULL;
+            service = nullptr;
         }
 
-        if (item != NULL)
+        if (item != nullptr)
         {
             item->Release();
-            item = NULL;
+            item = nullptr;
         }
     }
 
@@ -58,19 +56,14 @@ IAimpPlaybackQueueItem^ AimpServicePlaybackQueue::GetNextTrack()
 
 IAimpPlaybackQueueItem^ AimpServicePlaybackQueue::GetPrevTrack()
 {
-    IAIMPPlaybackQueueItem *item = NULL;
-    IAIMPServicePlaybackQueue *service = NULL;
+    IAIMPPlaybackQueueItem* item = nullptr;
+    IAIMPServicePlaybackQueue* service = nullptr;
 
     try
     {
-        if (CheckResult(_core->GetService(IID_IAIMPServicePlaybackQueue, (void**)&service)) == AimpActionResult::Ok)
+        if (CheckResult(_core->GetService(IID_IAIMPServicePlaybackQueue, reinterpret_cast<void**>(&service))) == AimpActionResult::OK && service != nullptr)
         {
-            if (service == NULL)
-            {
-                return nullptr;
-            }
-
-            if (CheckResult(service->GetPrevTrack(&item)) == AimpActionResult::Ok)
+            if (CheckResult(service->GetPrevTrack(&item)) == AimpActionResult::OK)
             {
                 return gcnew AimpPlaybackQueueItem(item);
             }
@@ -78,43 +71,43 @@ IAimpPlaybackQueueItem^ AimpServicePlaybackQueue::GetPrevTrack()
     }
     finally
     {
-        if (service != NULL)
+        if (service != nullptr)
         {
             service->Release();
-            service = NULL;
+            service = nullptr;
         }
 
-        if (item != NULL)
+        if (item != nullptr)
         {
             item->Release();
-            item = NULL;
+            item = nullptr;
         }
     }
 
     return nullptr;
 }
 
-void AimpServicePlaybackQueue::OnCheckURL::add(AimpCheckUrl ^onEvent)
+void AimpServicePlaybackQueue::OnCheckURL::add(AimpCheckUrl^ onEvent)
 {
-    bool tmp = _checkUrlHandler == nullptr;
+    const bool tmp = _checkUrlHandler == nullptr;
     if (tmp)
     {
-        _checkUrlHandler = (AimpCheckUrl^)System::Delegate::Combine(_checkUrlHandler, onEvent);
+        _checkUrlHandler = static_cast<AimpCheckUrl^>(Delegate::Combine(_checkUrlHandler, onEvent));
     }
 }
 
-void AimpServicePlaybackQueue::OnCheckURL::remove(AimpCheckUrl ^onEvent)
+void AimpServicePlaybackQueue::OnCheckURL::remove(AimpCheckUrl^ onEvent)
 {
-    bool tmp = _checkUrlHandler != nullptr;
+    const bool tmp = _checkUrlHandler != nullptr;
     if (tmp)
     {
-        _checkUrlHandler = (AimpCheckUrl^)System::Delegate::Remove(_checkUrlHandler, onEvent);
+        _checkUrlHandler = static_cast<AimpCheckUrl^>(Delegate::Remove(_checkUrlHandler, onEvent));
     }
 }
 
-bool AimpServicePlaybackQueue::RaiseCheckUrl(String^ %url)
+bool AimpServicePlaybackQueue::RaiseCheckUrl(String^% url)
 {
-    bool tmp = this->_checkUrlHandler != nullptr;
+    const bool tmp = this->_checkUrlHandler != nullptr;
     if (tmp)
     {
         return _checkUrlHandler(url);

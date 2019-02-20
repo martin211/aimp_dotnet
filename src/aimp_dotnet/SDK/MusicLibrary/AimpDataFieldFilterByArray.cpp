@@ -29,11 +29,13 @@ void AimpDataFieldFilterByArray::Field::set(String^ value)
 
 AimpActionResult AimpDataFieldFilterByArray::GetData(IList<Object^>^ values)
 {
+    // TODO: Complete it
     values = nullptr;
     return AimpActionResult::NotImplemented;
 }
 
 AimpActionResult AimpDataFieldFilterByArray::SetData(IList<Object^>^ values)
 {
+    // TODO: Complete it
     return AimpActionResult::NotImplemented;
 }

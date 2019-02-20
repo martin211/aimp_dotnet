@@ -12,88 +12,82 @@
 #include "stdafx.h"
 #include "AimpServiceFileStreaming.h"
 
-AimpActionResult AimpServiceFileStreaming::CreateStreamForFile(String ^fileName, FileStreamingType flags, long long ofset, long long size, IAimpStream ^%stream)
+AimpActionResult AimpServiceFileStreaming::CreateStreamForFile(String^ fileName, FileStreamingType flags, long long offset, long long size, IAimpStream^% stream)
 {
-    IAIMPServiceFileStreaming *service = NULL;
-    IAIMPString *str = NULL;
-    IAIMPStream *aimpStream = NULL;
+    IAIMPServiceFileStreaming* service = nullptr;
+    IAIMPString* str = nullptr;
+    IAIMPStream* aimpStream = nullptr;
     AimpActionResult result = AimpActionResult::Fail;
     stream = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceFileStreaming, &service) == AimpActionResult::Ok)
+        if (GetService(IID_IAIMPServiceFileStreaming, &service) == AimpActionResult::OK && service != nullptr)
         {
-            if (service != NULL)
-            {
-                str = AimpConverter::ToAimpString(fileName);
-                result = CheckResult(service->CreateStreamForFile(str, (DWORD)flags, ofset, size, &aimpStream));
+            str = AimpConverter::ToAimpString(fileName);
+            result = CheckResult(service->CreateStreamForFile(str, DWORD(flags), offset, size, &aimpStream));
 
-                if (result == AimpActionResult::Ok)
-                {
-                    stream = gcnew AimpStream(aimpStream);
-                }
+            if (result == AimpActionResult::OK)
+            {
+                stream = gcnew AimpStream(aimpStream);
             }
         }
-
-        return result;
     }
     finally
     {
-        if (service != NULL)
+        if (service != nullptr)
         {
             service->Release();
-            service = NULL;
+            service = nullptr;
         }
 
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
+
+    return result;
 }
 
-AimpActionResult AimpServiceFileStreaming::CreateStreamForFileUri(String ^fileUrl, IAimpVirtualFile ^%virtualFile, IAimpStream ^%stream)
+AimpActionResult AimpServiceFileStreaming::CreateStreamForFileUri(String^ fileUrl, IAimpVirtualFile^% virtualFile, IAimpStream^% stream)
 {
-    IAIMPServiceFileStreaming *service = NULL;
-    IAIMPString *str = NULL;
-    IAIMPStream *aimpStream = NULL;
+    IAIMPServiceFileStreaming* service = nullptr;
+    IAIMPString* str = nullptr;
+    IAIMPStream* aimpStream = nullptr;
     AimpActionResult result = AimpActionResult::Fail;
-    IAIMPVirtualFile *vf = NULL;
+    IAIMPVirtualFile* vf = nullptr;
     stream = nullptr;
     virtualFile = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceFileStreaming, &service) == AimpActionResult::Ok)
+        if (GetService(IID_IAIMPServiceFileStreaming, &service) == AimpActionResult::OK && service != nullptr)
         {
-            if (service != NULL)
-            {
-                str = AimpConverter::ToAimpString(fileUrl);
-                result = CheckResult(service->CreateStreamForFileURI(str, &vf, &aimpStream));
+            str = AimpConverter::ToAimpString(fileUrl);
+            result = CheckResult(service->CreateStreamForFileURI(str, &vf, &aimpStream));
 
-                if (result == AimpActionResult::Ok)
-                {
-                    stream = gcnew AimpStream(aimpStream);
-                }
+            if (result == AimpActionResult::OK && aimpStream != nullptr)
+            {
+                stream = gcnew AimpStream(aimpStream);
             }
         }
-
-        return result;
     }
     finally
     {
-        if (service != NULL)
+        if (service != nullptr)
         {
             service->Release();
-            service = NULL;
+            service = nullptr;
         }
 
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
+
+    return result;
 }

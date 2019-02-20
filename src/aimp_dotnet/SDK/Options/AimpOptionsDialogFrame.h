@@ -16,7 +16,7 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK::Options;
+        using namespace Options;
 
         public ref class AimpOptionsDialogFrame :
             public AimpObject<IAIMPOptionsDialogFrame>,

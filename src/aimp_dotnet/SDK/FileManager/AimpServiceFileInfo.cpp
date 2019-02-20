@@ -11,6 +11,7 @@
 
 #include "Stdafx.h"
 #include "AimpServiceFileInfo.h"
+#include "AimpVirtualFile.h"
 
 using namespace AIMP::SDK;
 AimpServiceFileInfo::AimpServiceFileInfo(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceFileInfo>(core)
@@ -18,92 +19,87 @@ AimpServiceFileInfo::AimpServiceFileInfo(ManagedAimpCore^ core) : AimpBaseManage
 
 }
 
-AimpActionResult AimpServiceFileInfo::GetFileInfoFromFileUri(String ^fileUri, ServiceFileInfoFlags fileInfoFlags, IAimpFileInfo ^%fileInfo)
+AimpActionResult AimpServiceFileInfo::GetFileInfoFromFileUri(String^ fileUri, ServiceFileInfoFlags fileInfoFlags, IAimpFileInfo^% fileInfo)
 {
-    IAIMPServiceFileInfo *service = NULL;
-    IAIMPString *str = NULL;
+    IAIMPServiceFileInfo* service = nullptr;
+    IAIMPString* str = nullptr;
     AimpActionResult result = AimpActionResult::Fail;
     fileInfo = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceFileInfo, &service) == AimpActionResult::Ok)
+        if (GetService(IID_IAIMPServiceFileInfo, &service) == AimpActionResult::OK && service != nullptr)
         {
-            if (service != NULL)
-            {
-                IAIMPFileInfo *fi = NULL;
-                str = AimpConverter::ToAimpString(fileUri);
-                result = CheckResult(service->GetFileInfoFromFileURI(str, (DWORD)fileInfoFlags, fi));
+            IAIMPFileInfo* fi = nullptr;
+            str = AimpConverter::ToAimpString(fileUri);
+            result = CheckResult(service->GetFileInfoFromFileURI(str, DWORD(fileInfoFlags), fi));
 
-                if (result == AimpActionResult::Ok)
-                {
-                    fileInfo = gcnew AIMP::SDK::AimpFileInfo(fi);
-                }
+            if (result == AimpActionResult::OK)
+            {
+                fileInfo = gcnew AimpFileInfo(fi);
             }
         }
-
-        return result;
     }
     finally
     {
-        if (service != NULL)
+        if (service != nullptr)
         {
             service->Release();
-            service = NULL;
+            service = nullptr;
         }
 
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
+
+    return result;
 }
 
-AimpActionResult AimpServiceFileInfo::GetFileInfoFromStream(IAimpStream ^fileStream, ServiceFileInfoFlags fileInfoFlags, IAimpFileInfo ^% fileInfo)
+AimpActionResult AimpServiceFileInfo::GetFileInfoFromStream(IAimpStream^ fileStream, ServiceFileInfoFlags fileInfoFlags, IAimpFileInfo^% fileInfo)
 {
+    // TODO Complete it
     fileInfo = nullptr;
     return AimpActionResult::NotImplemented;
 }
 
-AimpActionResult AimpServiceFileInfo::GetVirtualFile(String ^fileUri, IAimpVirtualFile ^%virtualFile)
+AimpActionResult AimpServiceFileInfo::GetVirtualFile(String^ fileUri, IAimpVirtualFile^% virtualFile)
 {
-    IAIMPServiceFileInfo *service = NULL;
-    IAIMPString *str = NULL;
+    IAIMPServiceFileInfo* service = nullptr;
+    IAIMPString* str = nullptr;
     AimpActionResult result = AimpActionResult::Fail;
     virtualFile = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceFileInfo, &service) == AimpActionResult::Ok)
+        if (GetService(IID_IAIMPServiceFileInfo, &service) == AimpActionResult::OK && service != nullptr)
         {
-            if (service != NULL)
-            {
-                IAIMPVirtualFile *vf;
-                str = AimpConverter::ToAimpString(fileUri);
-                result = CheckResult(service->GetVirtualFile(str, 0, &vf));
+            IAIMPVirtualFile* vf;
+            str = AimpConverter::ToAimpString(fileUri);
+            result = CheckResult(service->GetVirtualFile(str, 0, &vf));
 
-                if (result == AimpActionResult::Ok)
-                {
-                    virtualFile = gcnew AIMP::SDK::AimpVirtualFile(vf);
-                }
+            if (result == AimpActionResult::OK && vf != nullptr)
+            {
+                virtualFile = gcnew AimpVirtualFile(vf);
             }
         }
-
-        return result;
     }
     finally
     {
-        if (service != NULL)
+        if (service != nullptr)
         {
             service->Release();
-            service = NULL;
+            service = nullptr;
         }
 
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
+
+    return result;
 }

@@ -36,30 +36,32 @@ int AimpGroupingTreeSelection::GetCount()
 
 AimpActionResult AimpGroupingTreeSelection::GetValue(int index, System::String^% fieldName, System::Object^% value)
 {
-    IAIMPString* str = NULL;
+    IAIMPString* str = nullptr;
     VARIANT val;
 
     fieldName = nullptr;
     value = nullptr;
 
-    AimpActionResult result = CheckResult(InternalAimpObject->GetValue(index, &str, &val));
+    const AimpActionResult result = CheckResult(InternalAimpObject->GetValue(index, &str, &val));
 
     try
     {
-        if (result == AimpActionResult::Ok)
+        if (result == AimpActionResult::OK)
         {
-            if (str != NULL)
+            if (str != nullptr)
+            {
                 fieldName = AimpConverter::ToManagedString(str);
+            }
 
             value = AimpConverter::FromVaiant(&val);
         }
     }
     finally
     {
-        if (str != NULL)
+        if (str != nullptr)
         {
             str->Release();
-            str = NULL;
+            str = nullptr;
         }
     }
 

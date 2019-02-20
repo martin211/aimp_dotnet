@@ -19,6 +19,7 @@ using AIMP.SDK.Options;
 using AIMP.SDK.Playback;
 using AIMP.SDK.Win32;
 using AIMP.SDK.FileManager;
+using AIMP.SDK.Lyrics;
 using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.MusicLibrary;
 using AIMP.SDK.Playlist;
@@ -173,6 +174,8 @@ namespace AIMP.SDK.Player
         IAimpServiceFileInfoFormatter ServiceFileInfoFormatter { get; }
 
         IAimpServiceFileTagEditor ServiceFileTagEditor { get; }
+
+        IAimpServiceLyrics ServiceLyrics { get; }
 
         /// <summary>
         /// Occurs when player state has been changed.

@@ -10,10 +10,7 @@
 // ----------------------------------------------------
 
 #pragma once
-#include <guiddef.h>
-#include <vcclr.h>
 #include "AIMPSDK\AIMPSDK.h"
-#include "Utils.h"
 
 namespace AIMP
 {

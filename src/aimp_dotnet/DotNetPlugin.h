@@ -15,7 +15,6 @@
 #include "IUnknownInterfaceImpl.h"
 #include "SDK\AimpPlayer.h"
 
-[System::Serializable]
 public ref class ManagedFunctionality
 {
 public:
@@ -30,9 +29,9 @@ public:
         delete _managedCore;
     }
 
-    void PluginLoadEventReaction(AIMP::SDK::PluginInformation^ sender)
+    void PluginLoadEventReaction(PluginInformation^ sender)
     {
-        _managedCore = gcnew AIMP::SDK::ManagedAimpCore(_core);
+        _managedCore = gcnew ManagedAimpCore(_core);
 
         AIMP::AimpPlayer^ instance = nullptr;
         if (sender->PluginAppDomainInfo != nullptr)
@@ -41,28 +40,28 @@ public:
         }
         else
         {
-            instance = gcnew AIMP::AimpPlayer(_managedCore, sender->LoadedPlugin->PluginId, System::AppDomain::CurrentDomain->Id, false);
+            instance = gcnew AIMP::AimpPlayer(_managedCore, sender->LoadedPlugin->PluginId, AppDomain::CurrentDomain->Id, false);
         }
 
         sender->Initialize(instance);
     }
 
-    void PluginUnloadEventReaction(AIMP::SDK::PluginInformation^ sender)
+    void PluginUnloadEventReaction(PluginInformation^ sender)
     {
 
     }
 private:
     IAIMPCore* _core;
-    AIMP::SDK::ManagedAimpCore ^_managedCore;
+    ManagedAimpCore ^_managedCore;
 };
 
 class AimpExternalSettingsDialog : public IUnknownInterfaceImpl<IAIMPExternalSettingsDialog>
 {
 private:
-    gcroot<AIMP::SDK::IAimpExternalSettingsDialog^> _instance;
+    gcroot<IAimpExternalSettingsDialog^> _instance;
     typedef IUnknownInterfaceImpl<IAIMPExternalSettingsDialog> Base;
 public:
-    AimpExternalSettingsDialog(gcroot<AIMP::SDK::IAimpExternalSettingsDialog^> instance)
+    AimpExternalSettingsDialog(gcroot<IAimpExternalSettingsDialog^> instance)
     {
         _instance = instance;
     }
@@ -74,7 +73,7 @@ public:
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
     {
-        *ppvObject = NULL;
+        *ppvObject = nullptr;
         if (riid == IID_IAIMPExternalSettingsDialog)
         {
             *ppvObject = this;
@@ -131,8 +130,8 @@ private:
     bool _optionsLoaded;
     gcroot<ManagedFunctionality^> _managedExtension;
     gcroot<AIMP::SDK::AimpDotNetPlugin^> _dotNetPlugin;
-    IAIMPServiceConfig *_configService = NULL;
-    IAIMPExtensionPlayerHook *_playerHook = NULL;
-    AimpExternalSettingsDialog *_externalSettingsDialog = NULL;
+    IAIMPServiceConfig *_configService = nullptr;
+    IAIMPExtensionPlayerHook *_playerHook = nullptr;
+    AimpExternalSettingsDialog *_externalSettingsDialog = nullptr;
     typedef IUnknownInterfaceImpl<IAIMPPlugin> Base;
 };
