@@ -92,7 +92,6 @@
     <Compile Include="MessageDispatcher\IAimpServiceMessageDispatcher.cs" />
     <Compile Include="MusicLibrary\DataStorage\AimpDataField.cs" />
     <Compile Include="Objects\IAimpString.cs" />
-    <Compile Include="Logger\ILogger.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilter.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilterByArray.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFilterGroup.cs" />
@@ -151,7 +150,6 @@
     <Compile Include="Threading\IAimpTaskPriority.cs" />
     <Compile Include="AIMPPluginAttribute.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="Logger\Logger.cs" />
     <Compile Include="IAimpCore.cs" />
     <Compile Include="Options\IAimpOptionsDialogFrame.cs" />
     <Compile Include="Player\IAimpPlayer.cs" />

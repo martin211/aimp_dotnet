@@ -39,7 +39,7 @@ HRESULT WINAPI OptionsDialogFrameExtension::QueryInterface(REFIID riid, LPVOID* 
         return S_OK;
     }
 
-    ppvObject = nullptr;
+    *ppvObject = nullptr;
     return res;
 }
 
@@ -56,7 +56,7 @@ ULONG WINAPI OptionsDialogFrameExtension::Release(void)
 HRESULT WINAPI OptionsDialogFrameExtension::GetName(IAIMPString** S)
 {
     IAIMPString *strObject = nullptr;
-    System::String^ str = _managedFrame->GetName();
+    String^ str = _managedFrame->GetName();
     pin_ptr<const WCHAR> strDate = PtrToStringChars(str);
     _aimpCore->CreateObject(IID_IAIMPString, reinterpret_cast<void**>(&strObject));
     strObject->SetData(PWCHAR(strDate), str->Length);

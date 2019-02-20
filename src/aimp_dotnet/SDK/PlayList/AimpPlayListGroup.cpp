@@ -18,7 +18,6 @@ using namespace Playlist;
 
 AimpPlayListGroup::AimpPlayListGroup()
 {
-    IAIMPPlaylistGroup *group = static_cast<IAIMPPlaylistGroup*>(ManagedAimpCore::QueryInterface(IID_IAIMPPlaylistGroup));
 }
 
 AimpPlayListGroup::AimpPlayListGroup(IAIMPPlaylistGroup *item) : AimpObject(item)
@@ -26,7 +25,7 @@ AimpPlayListGroup::AimpPlayListGroup(IAIMPPlaylistGroup *item) : AimpObject(item
     _item = nullptr;
 }
 
-System::String^ AimpPlayListGroup::Name::get()
+String^ AimpPlayListGroup::Name::get()
 {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_NAME);
 }
@@ -75,7 +74,7 @@ IAimpPlaylistItem ^AimpPlayListGroup::GetItem(int index)
 {
     if (_item == nullptr)
     {
-        IAIMPPlaylistItem *item;
+        IAIMPPlaylistItem* item = nullptr;
         InternalAimpObject->GetItem(index, IID_IAIMPPlaylistItem, reinterpret_cast<void**>(&item));
         _item = gcnew AimpPlaylistItem(item);
         item->Release();
