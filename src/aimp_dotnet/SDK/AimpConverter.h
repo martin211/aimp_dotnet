@@ -56,26 +56,26 @@ namespace AIMP
             template<typename TObject>
             static TObject* CreateAimpObject(REFIID objectId);
 
-            static System::Collections::Generic::IList<String^>^ ToStringCollection(IAIMPObjectList* aimpList)
+            static IList<String^>^ ToStringCollection(IAIMPObjectList* aimpList)
             {
                 int count = aimpList->GetCount();
-                System::Collections::Generic::List<String^>^ result = gcnew System::Collections::Generic::List<String^>(count);
+                List<String^>^ result = gcnew List<String^>(count);
                 for (int i = 0; i < count; i++)
                 {
                     IAIMPString* str;
-                    HRESULT res = aimpList->GetObject(i, IID_IAIMPString, (void**)&str);
-                    if (Utils::CheckResult(res) == AimpActionResult::Ok)
+                    HRESULT res = aimpList->GetObject(i, IID_IAIMPString, reinterpret_cast<void**>(&str));
+                    if (Utils::CheckResult(res) == AimpActionResult::OK)
                     {
-                        result->Add(AimpConverter::ToManagedString(str));
+                        result->Add(ToManagedString(str));
                     }
                 }
 
                 return result;
             }
 
-            static VARIANT ToNativeVariant(System::Object^ objectValue);
+            static VARIANT ToNativeVariant(Object^ objectValue);
 
-            static System::Object^ FromVaiant(VARIANT* variant);
+            static Object^ FromVaiant(VARIANT* variant);
 
             static IAIMPObjectList* GetAimpObjectList();
 

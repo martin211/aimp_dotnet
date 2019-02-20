@@ -86,6 +86,7 @@ namespace AIMP
         IAimpServiceFileInfoFormatter ^_serviceFileInfoFormatter;
         IAimpServiceMessageDispatcher ^_serviceMessageDispatcher;
         IAimpServiceFileTagEditor^ _serviceFileTagEditor;
+        Lyrics::IAimpServiceLyrics^ _serviceLyrics;
 
         EventHandler<AIMP::SDK::Player::StateChangedEventArgs^> ^_onStateChanged;
         EventHandler ^_onLanguageChanged;
@@ -300,6 +301,11 @@ namespace AIMP
         virtual property IAimpServiceFileTagEditor^ ServiceFileTagEditor
         {
             IAimpServiceFileTagEditor^ get();
+        }
+
+        virtual property Lyrics::IAimpServiceLyrics^ ServiceLyrics
+        {
+            Lyrics::IAimpServiceLyrics^ get();
         }
 
         bool OnCheckUrl(String^ %url);

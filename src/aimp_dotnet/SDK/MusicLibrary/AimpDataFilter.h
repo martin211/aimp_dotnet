@@ -17,7 +17,7 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace AIMP::SDK::MusicLibrary;
+        using namespace MusicLibrary;
 
         public ref class AimpDataFilter :
             public AimpDataFilterGroup,

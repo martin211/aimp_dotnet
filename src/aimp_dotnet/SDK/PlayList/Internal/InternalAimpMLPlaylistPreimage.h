@@ -21,11 +21,11 @@ namespace AIMP
             public IAIMPPlaylistPreimageDataProvider
         {
         private:
-            gcroot<AIMP::SDK::Playlist::IAimpPlaylistPreimage^> _managedInstance;
+            gcroot<Playlist::IAimpPlaylistPreimage^> _managedInstance;
         public:
             typedef IUnknownInterfaceImpl<IAIMPMLPlaylistPreimage> Base;
 
-            InternalAimpMLPlaylistPreimage(gcroot<AIMP::SDK::Playlist::IAimpPlaylistPreimage^> managedInstance);
+            InternalAimpMLPlaylistPreimage(gcroot<Playlist::IAimpPlaylistPreimage^> managedInstance);
 
             virtual HRESULT WINAPI GetFilter(IAIMPMLDataFilter** Filter);
             virtual HRESULT WINAPI GetStorage(IUnknown** Storage);

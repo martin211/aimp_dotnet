@@ -17,6 +17,5 @@
 
 #include "Utils.h"
 #include "SDK\AimpObject.h"
-#include "DataConversion.h"
 #include "IUnknownInterfaceImpl.h"
 #include "SDK\AimpStream.h"

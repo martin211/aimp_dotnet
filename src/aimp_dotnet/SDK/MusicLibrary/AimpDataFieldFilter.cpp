@@ -42,34 +42,34 @@ void AimpDataFieldFilter::Field::set(String^ value)
 FieldFilterOperationType AimpDataFieldFilter::Operation::get()
 {
     int str = PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FIELDFILTER_OPERATION);
-    return (FieldFilterOperationType)str;
+    return FieldFilterOperationType(str);
 }
 
 void AimpDataFieldFilter::Operation::set(FieldFilterOperationType value)
 {
-    PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FIELDFILTER_OPERATION, (int)value);
+    PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FIELDFILTER_OPERATION, int(value));
 }
 
-System::Object^ AimpDataFieldFilter::Value1::get()
+Object^ AimpDataFieldFilter::Value1::get()
 {
-    System::String^ v;
+    String^ v;
     PropertyListExtension::GetString(InternalAimpObject, AIMPML_FIELDFILTER_VALUE1, v);
     return v;
 }
 
-void AimpDataFieldFilter::Value1::set(System::Object^ value)
+void AimpDataFieldFilter::Value1::set(Object^ value)
 {
     PropertyListExtension::SetString(InternalAimpObject, AIMPML_FIELDFILTER_VALUE2, value->ToString());
 }
 
-System::Object^ AimpDataFieldFilter::Value2::get()
+Object^ AimpDataFieldFilter::Value2::get()
 {
-    System::String^ v;
+    String^ v;
     PropertyListExtension::GetString(InternalAimpObject, AIMPML_FIELDFILTER_VALUE2, v);
     return v;
 }
 
-void AimpDataFieldFilter::Value2::set(System::Object^ value)
+void AimpDataFieldFilter::Value2::set(Object^ value)
 {
     PropertyListExtension::SetString(InternalAimpObject, AIMPML_FIELDFILTER_VALUE2, value->ToString());
 }

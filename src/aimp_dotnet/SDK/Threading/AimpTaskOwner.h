@@ -16,13 +16,13 @@ namespace AIMP
 {
     namespace SDK
     {
-        using namespace AIMP::SDK;
-        using namespace AIMP::SDK::Threading;
+        using namespace SDK;
+        using namespace Threading;
 
         public ref class AimpTaskOwner : public AimpObject<IAIMPTaskOwner>, public IAimpTaskOwner
         {
         public:
-            explicit AimpTaskOwner(IAIMPTaskOwner *taskOwner);
+            explicit AimpTaskOwner(IAIMPTaskOwner* taskOwner);
 
             virtual property bool IsCanceled
             {

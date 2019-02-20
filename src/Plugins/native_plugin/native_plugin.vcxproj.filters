@@ -101,8 +101,8 @@
     <None Include="AIMP_Exports.def">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="gulpfile.js" />
-    <None Include="package.json" />
+    <None Include="..\dotnet_visual\commands.json" />
+    <None Include="..\..\..\tools\copyplugin.ps1" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AimpDotnetPlugin.cpp">

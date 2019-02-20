@@ -11,9 +11,7 @@
 
 #include "Stdafx.h"
 #include "InternalAimpExtensionPlaylistPreimageFactory.h"
-#include "SDK/PlayList/AimpPlaylistPreimage.h"
 #include "InternalAimpPlaylistPreimage.h"
-#include "SDK/AimpObjectList.h"
 #include "SDK/Threading/AimpTaskOwner.h"
 #include "InternalAimpMLPlaylistPreimage.h"
 
@@ -29,7 +27,7 @@ HRESULT InternalAimpExtensionPlaylistPreimageFactory::CreatePreimage(IAIMPPlayli
     IAimpPlaylistPreimage^ preImage = nullptr;
 
     AimpActionResult res = _managedInstance->CreatePreimage(preImage);
-    AIMP::SDK::MusicLibrary::IAimpMusicLibraryPlaylistPreimage^ mlPreimage = dynamic_cast<AIMP::SDK::MusicLibrary::IAimpMusicLibraryPlaylistPreimage^>(preImage);
+    const auto mlPreimage = dynamic_cast<MusicLibrary::IAimpMusicLibraryPlaylistPreimage^>(preImage);
     if (mlPreimage != nullptr)
     {
         *preimage = new InternalAimpMLPlaylistPreimage(mlPreimage);
@@ -39,36 +37,36 @@ HRESULT InternalAimpExtensionPlaylistPreimageFactory::CreatePreimage(IAIMPPlayli
         *preimage = new InternalAimpPlaylistPreimage(preImage);
     }
 
-    return (HRESULT)res;
+    return HRESULT(res);
 }
 
 HRESULT WINAPI InternalAimpExtensionPlaylistPreimageFactory::GetID(IAIMPString** ID)
 {
     System::String^ id;
     AimpActionResult res = _managedInstance->GetId(id);
-    if (res == AimpActionResult::Ok)
+    if (res == AimpActionResult::OK)
     {
         *ID = AimpConverter::ToAimpString(id);
     }
 
-    return (HRESULT)res;
+    return HRESULT(res);
 }
 
 HRESULT WINAPI InternalAimpExtensionPlaylistPreimageFactory::GetName(IAIMPString** Name)
 {
-    System::String^ name;
+    String^ name;
     AimpActionResult res = _managedInstance->GetName(name);
-    if (res == AimpActionResult::Ok)
+    if (res == AimpActionResult::OK)
     {
         *Name = AimpConverter::ToAimpString(name);
     }
 
-    return (HRESULT)res;
+    return HRESULT(res);
 }
 
 DWORD WINAPI InternalAimpExtensionPlaylistPreimageFactory::GetFlags()
 {
-    return (DWORD)_managedInstance->GetFlags();
+    return DWORD(_managedInstance->GetFlags());
 }
 
 ULONG WINAPI InternalAimpExtensionPlaylistPreimageFactory::Release(void)
@@ -99,6 +97,6 @@ HRESULT WINAPI InternalAimpExtensionPlaylistPreimageFactory::QueryInterface(REFI
         return S_OK;
     }
 
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     return res;
 }

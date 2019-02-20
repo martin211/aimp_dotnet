@@ -14,19 +14,21 @@
 #include "SDK\FileManager\AimpFileInfo.h"
 #include "SDK\AlbumArt\AimpAlbumArtSearchOptions.h"
 
-HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString *FileURI, IAIMPString *Artist, IAIMPString *Album, IAIMPPropertyList *Options, IAIMPImageContainer **Image)
+HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString* FileURI, IAIMPString* Artist, IAIMPString* Album, IAIMPPropertyList* Options, IAIMPImageContainer** Image)
 {
-    System::Drawing::Bitmap ^bitmap;
-    AIMP::SDK::AlbumArtManager::IAimpAlbumArtSearchOptions ^searchOptions = gcnew AIMP::SDK::AimpAlbumArtSearchOptions(Options, AIMP::SDK::ManagedAimpCore::GetAimpCore());
-    AIMP::AimpActionResult r = _managedinstance->Get(
-        gcnew System::String(FileURI->GetData()),
-        gcnew System::String(Artist->GetData()),
-        gcnew System::String(Album->GetData()),
+    Drawing::Bitmap^ bitmap;
+    AlbumArtManager::IAimpAlbumArtSearchOptions^ searchOptions = gcnew AimpAlbumArtSearchOptions(Options, ManagedAimpCore::GetAimpCore());
+    const auto r = _managedinstance->Get(
+        gcnew String(FileURI->GetData()),
+        gcnew String(Artist->GetData()),
+        gcnew String(Album->GetData()),
         searchOptions,
         bitmap);
+
+    if (r == AimpActionResult::OK && bitmap != nullptr)
     {
-        IAIMPImageContainer *container = AIMP::SDK::AimpConverter::ToAimpImageContainer(bitmap);
-        if (container == NULL)
+        const auto container = AimpConverter::ToAimpImageContainer(bitmap);
+        if (container == nullptr)
         {
             return E_UNEXPECTED;
         }
@@ -35,24 +37,24 @@ HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString *FileURI, IAIMPStr
         return S_OK;
     }
 
-    return E_UNEXPECTED;
+    return E_FAIL;
 }
 
 DWORD WINAPI AimpExtensionAlbumArtProvider::GetCategory()
 {
-    return (DWORD)_managedinstance->GetCategory();
+    return DWORD(_managedinstance->GetCategory());
 }
 
-HRESULT WINAPI AimpExtensionAlbumArtProvider::Get2(IAIMPFileInfo *FileInfo, IAIMPPropertyList *Options, IAIMPImageContainer **Image)
+HRESULT WINAPI AimpExtensionAlbumArtProvider::Get2(IAIMPFileInfo* FileInfo, IAIMPPropertyList* Options, IAIMPImageContainer** Image)
 {
-    System::Drawing::Bitmap^ bitmap;
-    AIMP::SDK::FileManager::IAimpFileInfo ^fi = gcnew AIMP::SDK::AimpFileInfo(FileInfo);
-    AIMP::SDK::AlbumArtManager::IAimpAlbumArtSearchOptions ^searchOptions = gcnew AIMP::SDK::AimpAlbumArtSearchOptions(Options, AIMP::SDK::ManagedAimpCore::GetAimpCore());
-    AIMP::AimpActionResult r = _managedinstance->Get(fi, searchOptions, bitmap);
-    if (r == AIMP::AimpActionResult::Ok && bitmap != nullptr)
+    Drawing::Bitmap^ bitmap;
+    IAimpFileInfo^ fi = gcnew AimpFileInfo(FileInfo);
+    AlbumArtManager::IAimpAlbumArtSearchOptions^ searchOptions = gcnew AimpAlbumArtSearchOptions(Options, ManagedAimpCore::GetAimpCore());
+    const auto r = _managedinstance->Get(fi, searchOptions, bitmap);
+    if (r == AimpActionResult::OK && bitmap != nullptr)
     {
-        IAIMPImageContainer *container = AIMP::SDK::AimpConverter::ToAimpImageContainer(bitmap);
-        if (container == NULL)
+        const auto container = AimpConverter::ToAimpImageContainer(bitmap);
+        if (container == nullptr)
         {
             return E_UNEXPECTED;
         }

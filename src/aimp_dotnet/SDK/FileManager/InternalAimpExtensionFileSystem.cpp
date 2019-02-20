@@ -60,11 +60,11 @@ HRESULT WINAPI InternalAimpExtensionFileSystem::GetValueAsObject(int PropertyID,
     //System::Diagnostics::Debugger::Launch();
     if (PropertyID == AIMP_FILESYSTEM_PROPID_SCHEME)
     {
-        IAIMPString *strObject = NULL;
+        IAIMPString *strObject = nullptr;
         System::String ^str = _managed->Schema;
         pin_ptr<const WCHAR> strDate = PtrToStringChars(str);
-        _core->CreateObject(IID_IAIMPString, (void**)&strObject);
-        strObject->SetData((PWCHAR)strDate, str->Length);
+        _core->CreateObject(IID_IAIMPString, reinterpret_cast<void**>(&strObject));
+        strObject->SetData(PWCHAR(strDate), str->Length);
         *Value = strObject;
         //ManagedAimpCore->GetAimpCore()->CreateObject(IID_IAIMPString, (void**)&str);
         //*Value = AIMP::SDK::AimpConverter::GetAimpString(_managed->Schema);
@@ -91,41 +91,41 @@ HRESULT WINAPI InternalAimpExtensionFileSystem::QueryInterface(REFIID riid, LPVO
 
     if (riid == IID_IAIMPFileSystemCommandFileInfo)
     {
-        if (_commandFileInfo != NULL)
+        if (_commandFileInfo != nullptr)
             return _commandFileInfo->QueryInterface(riid, ppvObject);
     }
 
     if (riid == IID_IAIMPFileSystemCommandOpenFileFolder)
     {
-        if (_commandOpenFileFolder != NULL)
+        if (_commandOpenFileFolder != nullptr)
             return _commandOpenFileFolder->QueryInterface(riid, ppvObject);
     }
 
     if (riid == IID_IAIMPFileSystemCommandCopyToClipboard)
     {
-        if (_commandCopyToClipboard != NULL)
+        if (_commandCopyToClipboard != nullptr)
             return _commandCopyToClipboard->QueryInterface(riid, ppvObject);
     }
 
     if (riid == IID_IAIMPFileSystemCommandDropSource)
     {
-        if (_commandDropSource != NULL)
+        if (_commandDropSource != nullptr)
             return _commandDropSource->QueryInterface(riid, ppvObject);
     }
 
     if (riid == IID_IAIMPFileSystemCommandStreaming)
     {
-        if (_commandStreaming != NULL)
+        if (_commandStreaming != nullptr)
             return _commandStreaming->QueryInterface(riid, ppvObject);
     }
 
     if (riid == IID_IAIMPFileSystemCommandDelete)
     {
-        if (_commandDelete != NULL)
+        if (_commandDelete != nullptr)
             return _commandDelete->QueryInterface(riid, ppvObject);
     }
 
-    ppvObject = NULL;
+    *ppvObject = nullptr;
     return res;
 }
 

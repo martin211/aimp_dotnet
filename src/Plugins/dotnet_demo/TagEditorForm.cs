@@ -15,7 +15,7 @@ namespace DemoPlugin
             fileName = fileName.EndsWith(":0") ? fileName.Replace(":0", string.Empty) : fileName;
             if (player.ServiceFileTagEditor.EditFile(fileName, out var editor) == AimpActionResult.Ok)
             {
-                if (editor.GetMixedInfo(out var fileInfo) == AimpActionResult.Ok)
+                if (editor.GetMixedInfo(out var fileInfo) == AimpActionResult.OK)
                 {
                     lTitle.Text = fileInfo.Title;
                     lAlbum.Text = fileInfo.Album;
@@ -31,7 +31,7 @@ namespace DemoPlugin
                 var count = editor.GetTagCount();
                 for (var i = 0; i < count; i++)
                 {
-                    if (editor.GetTag(i, out var tag) == AimpActionResult.Ok)
+                    if (editor.GetTag(i, out var tag) == AimpActionResult.OK)
                     {
                         var tab = new TabPage(tag.TagId.ToString())
                         {
@@ -39,7 +39,7 @@ namespace DemoPlugin
                             Tag = tag
                         };
 
-                        var editorControl = new TagEditControl();
+                        var editorControl = new TagEditControl(tag);
                         tab.Controls.Add(editorControl);
                         tabControl1.TabPages.Add(tab);
                     }

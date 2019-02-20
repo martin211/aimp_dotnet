@@ -14,7 +14,7 @@
 
 using namespace AIMP::SDK;
 
-OptionsDialogFrameExtension::OptionsDialogFrameExtension(IAIMPCore *aimpCore, gcroot<AIMP::SDK::Options::IAimpOptionsDialogFrame^> managedFrame) : AimpExtension(aimpCore)
+OptionsDialogFrameExtension::OptionsDialogFrameExtension(IAIMPCore *aimpCore, gcroot<Options::IAimpOptionsDialogFrame^> managedFrame) : AimpExtension(aimpCore)
 {
     _managedFrame = managedFrame;
 }
@@ -39,7 +39,7 @@ HRESULT WINAPI OptionsDialogFrameExtension::QueryInterface(REFIID riid, LPVOID* 
         return S_OK;
     }
 
-    ppvObject = NULL;
+    *ppvObject = nullptr;
     return res;
 }
 
@@ -53,13 +53,13 @@ ULONG WINAPI OptionsDialogFrameExtension::Release(void)
     return Base::Release();
 }
 
-HRESULT WINAPI OptionsDialogFrameExtension::GetName(IAIMPString **S)
+HRESULT WINAPI OptionsDialogFrameExtension::GetName(IAIMPString** S)
 {
-    IAIMPString *strObject = NULL;
-    System::String^ str = _managedFrame->GetName();
+    IAIMPString *strObject = nullptr;
+    String^ str = _managedFrame->GetName();
     pin_ptr<const WCHAR> strDate = PtrToStringChars(str);
-    _aimpCore->CreateObject(IID_IAIMPString, (void**)&strObject);
-    strObject->SetData((PWCHAR)strDate, str->Length);
+    _aimpCore->CreateObject(IID_IAIMPString, reinterpret_cast<void**>(&strObject));
+    strObject->SetData(PWCHAR(strDate), str->Length);
     *S = strObject;
     //strObject->Release();
     return S_OK;
@@ -67,9 +67,9 @@ HRESULT WINAPI OptionsDialogFrameExtension::GetName(IAIMPString **S)
 
 HWND WINAPI OptionsDialogFrameExtension::CreateFrame(HWND ParentWnd)
 {
-    System::IntPtr parentWindow(ParentWnd);
-    System::IntPtr childWindow = _managedFrame->CreateFrame(parentWindow);
-    return (HWND)childWindow.ToPointer();
+    IntPtr parentWindow(ParentWnd);
+    auto childWindow = _managedFrame->CreateFrame(parentWindow);
+    return HWND(childWindow.ToPointer());
 }
 
 void WINAPI OptionsDialogFrameExtension::DestroyFrame()
@@ -79,7 +79,7 @@ void WINAPI OptionsDialogFrameExtension::DestroyFrame()
 
 void WINAPI OptionsDialogFrameExtension::Notification(int ID)
 {
-    _managedFrame->Notification((AIMP::SDK::Options::OptionsDialogFrameNotificationType)ID);
+    _managedFrame->Notification(static_cast<Options::OptionsDialogFrameNotificationType>(ID));
 }
 
 BOOL WINAPI OptionsDialogFrameExtension::DialogChar(WCHAR CharCode, int Unused)

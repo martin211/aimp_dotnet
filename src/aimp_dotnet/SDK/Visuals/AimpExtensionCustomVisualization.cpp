@@ -12,7 +12,7 @@
 #include "Stdafx.h"
 #include "AimpExtensionCustomVisualization.h"
 
-AimpExtensionCustomVisualization::AimpExtensionCustomVisualization(IAIMPCore *aimpCore, gcroot<AIMP::SDK::Visuals::IAimpExtensionCustomVisualization^> instance)
+AimpExtensionCustomVisualization::AimpExtensionCustomVisualization(IAIMPCore *aimpCore, gcroot<Visuals::IAimpExtensionCustomVisualization^> instance)
 {
     _managedObject = instance;
     _aimpCore = aimpCore;
@@ -25,7 +25,7 @@ int AimpExtensionCustomVisualization::GetFlags()
 
 void AimpExtensionCustomVisualization::Draw(PAIMPVisualData Data)
 {
-    AIMP::SDK::Visuals::AimpVisualData ^data = AIMP::SDK::AimpConverter::PAIMPVisualDataToManaged(Data);
+    auto data = AimpConverter::PAIMPVisualDataToManaged(Data);
     _managedObject->Draw(data);
 }
 
@@ -40,7 +40,7 @@ HRESULT WINAPI AimpExtensionCustomVisualization::QueryInterface(REFIID riid, LPV
         return S_OK;
     }
 
-    ppvObject = NULL;
+    *ppvObject = nullptr;
     return res;
 }
 

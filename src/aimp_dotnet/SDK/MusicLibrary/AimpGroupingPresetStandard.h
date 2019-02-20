@@ -11,36 +11,33 @@
 
 #pragma once
 #include "AimpGroupingPreset.h"
-#include "AimpDataFilterGroup.h"
-#include "SDK\AimpObject.h"
-#include "SDK\AimpObjectList.h"
 #include "AIMPSDK\AIMPSDK.h"
 
 namespace AIMP
 {
     namespace SDK
     {
-        using namespace AIMP::SDK::MusicLibrary::Presets;
+        using namespace MusicLibrary::Presets;
         using namespace System;
-        using namespace System::Collections;
-        using namespace System::Collections::Generic;
-        using namespace AIMP::SDK::MusicLibrary::DataFilter;
+        using namespace Collections;
+        using namespace Generic;
+        using namespace MusicLibrary::DataFilter;
 
         public ref class AimpGroupingPresetStandard :
             public AimpGroupingPreset,
             public IAimpGroupingPresetStandard
         {
         public:
-            AimpGroupingPresetStandard(IAIMPMLGroupingPresetStandard *aimpObject);
+            AimpGroupingPresetStandard(IAIMPMLGroupingPresetStandard* aimpObject);
 
-            virtual property AIMP::SDK::IAimpObjectList<String^>^ Fields
+            virtual property IAimpObjectList<String^>^ Fields
             {
-                AIMP::SDK::IAimpObjectList<String^>^ get();
+                IAimpObjectList<String^>^ get();
 
-                void set(AIMP::SDK::IAimpObjectList<String^>^ value);
+                void set(IAimpObjectList<String^>^ value);
             }
 
-            virtual AimpActionResult GetFilter(IAimpDataFilterGroup ^%filter);
+            virtual AimpActionResult GetFilter(IAimpDataFilterGroup^% filter);
         };
     }
 }

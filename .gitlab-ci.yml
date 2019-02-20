@@ -4,8 +4,8 @@ variables:
 stages:
   - build
   - deploy
-  - artifacts
   - analysis
+  - artifacts
 
 build_release:
   only:
@@ -31,6 +31,9 @@ pack_release:
   stage: deploy
   script: 
   - .\build.ps1 Pack -configuration Release
+  cache:
+    paths:
+    - output/*.nupkg
 
 pack_debug:
   variables:
@@ -65,42 +68,26 @@ publish_master:
   script: 
   - .\build.ps1 Publish -configuration Release -ApiKey $env:NUGET_ACCESS_TOKEN -NuGet true
 
-Resharper_Analysis:
+analysis:
+  stage: analysis
   variables:
     GIT_STRATEGY: none
-  stage: analysis
-  except:
-    - tags
   script:
+  - .\build.ps1 RunVmWare
   - .\build.ps1 Analysis
-  artifacts:
-    when: on_success
-    name: "Analysis result"
-    paths:
-     - $env:CI_PROJECT_DIR/output/Analysis/*
-    expire_in: 1 week
-
-SonarQube:
-  variables:
-    GIT_STRATEGY: none
-  when: manual
-  stage: analysis
-  except:
-    - tags
-  script:
-  - .\build.ps1 SonarQube -SonarUrl $env:SONAR_HOST -SonarUser $env:SONAR_USER -SonarPassword $env:SONAR_PASSWORD -SonarProjectKey "AIMP:SDK" -SonarProjectName "AIMPDotNetSDK"
+  - .\build.ps1 PvsStudio
+  - .\build.ps1 SonarQube
 
 artifacts:
   only:
     - master
-    - develop
   stage: artifacts
   variables:
     GIT_STRATEGY: none
   script: .\build.ps1 Artifacts -configuration Release
   artifacts:
     when: on_success
-    name: "aimp.sdk"
+    name: "aimp_dotnet"
     paths:
-     - $env:CI_PROJECT_DIR/output/Artifacts/aimp.sdk/*
+     - $env:CI_PROJECT_DIR/artifacts/aimp_dotnet.zip
     expire_in: 1 week

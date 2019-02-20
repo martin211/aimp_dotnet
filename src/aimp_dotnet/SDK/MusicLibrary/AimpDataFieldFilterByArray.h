@@ -16,8 +16,8 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace System::Collections::Generic;
-        using namespace AIMP::SDK::MusicLibrary::DataFilter;
+        using namespace Collections::Generic;
+        using namespace MusicLibrary::DataFilter;
 
         public ref class AimpDataFieldFilterByArray : public IAimpDataFieldFilterByArray, public AimpObject<IAIMPMLDataFieldFilterByArray>
         {

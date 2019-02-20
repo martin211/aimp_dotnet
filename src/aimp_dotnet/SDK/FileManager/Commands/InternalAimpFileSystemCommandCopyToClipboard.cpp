@@ -52,6 +52,6 @@ HRESULT WINAPI InternalAimpFileSystemCommandCopyToClipboard::QueryInterface(REFI
         return S_OK;
     }
 
-    *ppvObject = NULL;
+    *ppvObject = nullptr;
     return res;
 }
