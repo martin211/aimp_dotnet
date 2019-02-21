@@ -113,9 +113,7 @@ class Build : NukeBuild
             Logger.Info("Start build Nuget packages");
 
             var nugetFolder = RootDirectory / "Nuget";
-            var version = GitRepository.Branch.Equals(MasterBranch) || GitRepository.Branch.Equals(DevelopBranch)
-                ? GitVersion.NuGetVersionV2
-                : $"{GitVersion.AssemblySemVer}-beta";
+            var version = GitVersion.AssemblySemVer;
 
             NuGetTasks.NuGetPack(c => c
                 .SetTargetPath(nugetFolder / "AimpSDK.nuspec")
