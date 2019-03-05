@@ -10,6 +10,7 @@
     <projectUrl>https://github.com/martin211/aimp_dotnet</projectUrl>
     <description>Aimp DotNet allows you to create a plugin for AIMP media player on .Net</description>
     <tags>AIMP SDK DotNet</tags>
+	<license type="file">LICENSE.md</license>
   </metadata>
   <files>
     <file src="src\AIMP.SDK\**\*.cs" target="src\AIMP.SDK" />
@@ -19,5 +20,6 @@
     <file src="src\aimp_dotnet\**\*.def" target="src\aimp_dotnet" />
     <file src="src\aimp_dotnet\**\*.filters" target="src\aimp_dotnet" />
     <file src="src\aimp_dotnet\**\*.vcxproj" target="src\aimp_dotnet" />
+	<file src="LICENSE.md" target="" />
   </files>
 </package>
