@@ -22,13 +22,14 @@ namespace AIMP.SDK.CustomFileSystem
             Player.MenuManager.Add(item);
 
             CustomFileSystem fileSystem = new CustomFileSystem(Player);
-            ExtensionFileInfo fileInfo = new ExtensionFileInfo();
+            //ExtensionFileInfo fileInfo = new ExtensionFileInfo();
 
             Player.Core.RegisterExtension(fileSystem);
-            if (Player.Core.RegisterExtension(fileInfo) != AimpActionResult.Ok)
-            {
-                System.Diagnostics.Debugger.Break();
-            }
+
+            //if (Player.Core.RegisterExtension(fileInfo) != AimpActionResult.OK)
+            //{
+            //    System.Diagnostics.Debugger.Break();
+            //}
 
             //var g = Guid.NewGuid();
             //var ptr = Player.Core.CreateObject(ref g);

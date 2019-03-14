@@ -11,9 +11,9 @@ namespace AIMP.SDK.CustomFileSystem
     public class CustomFileSystem :
         IAimpExtension,
         IAimpExtensionFileSystem,
-        IAimpFileSystemCommandDropSource,
-        IAimpFileSystemCommandOpenFileFolder
-        //IAimpFileSystemCommandFileInfo
+        //IAimpFileSystemCommandDropSource,
+        //IAimpFileSystemCommandOpenFileFolder,
+        IAimpFileSystemCommandFileInfo
     {
         private const string sMyScheme = "mymusic";
         public const string sMySchemePrefix = sMyScheme + @":\\";
@@ -25,15 +25,9 @@ namespace AIMP.SDK.CustomFileSystem
             _aimpPlayer = aimpPlayer;
         }
 
-        public string Schema
-        {
-            get { return sMyScheme; }
-        }
+        public string Schema => sMyScheme;
 
-        public bool ReadOnly
-        {
-            get { return true; }
-        }
+        public bool ReadOnly => true;
 
         public AimpActionResult CopyToClipboard(IList<string> files)
         {
@@ -44,6 +38,15 @@ namespace AIMP.SDK.CustomFileSystem
         {
             System.Diagnostics.Debugger.Launch();
             attr = new AimpFileAttributes();
+
+            if (GetCommandForDefaultFileSystem(FileCommandType.FileInfo, out IAimpFileSystemCommandFileInfo command) == AimpActionResult.OK)
+            {
+                AimpFileAttributes at;
+                if (command.GetFileAttrs(fileName, out at) == AimpActionResult.OK)
+                {
+                    attr = at;
+                }
+            }
 
             //var f = (IAimpString)Marshal.GetObjectForIUnknown(fileName);
             //var a = f.GetLength();
@@ -60,15 +63,7 @@ namespace AIMP.SDK.CustomFileSystem
                 return AimpActionResult.Ok;
             }
 
-            IAimpFileSystemCommandFileInfo command;
-            if (GetCommandForDefaultFileSystem<IAimpFileSystemCommandFileInfo>(out command) == AimpActionResult.Ok)
-            {
-            //    AimpFileAttributes at;
-            //    if (command.GetFileAttrs(file, out at) == AimpActionResult.Ok)
-            //    {
-            //        attr = at;
-            //    }
-            }
+
 
             return AimpActionResult.Fail;
         }
@@ -94,11 +89,11 @@ namespace AIMP.SDK.CustomFileSystem
             return File.Exists(file) ? AimpActionResult.Ok : AimpActionResult.Fail;
         }
 
-        private AimpActionResult GetCommandForDefaultFileSystem<TCommand>(out TCommand command) 
+        private AimpActionResult GetCommandForDefaultFileSystem<TCommand>(FileCommandType commandType, out TCommand command) 
             where TCommand : IAimpFileSystemCommand
         {
             IAimpFileSystemCommand cmd;
-            var res = _aimpPlayer.ServiceFileSystems.GetDefault(out cmd);
+            var res = _aimpPlayer.ServiceFileSystems.GetDefault(commandType, out cmd);
             command = (TCommand)cmd;
             return res;
         }

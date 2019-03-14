@@ -20,45 +20,18 @@ AimpServiceFileSystems::AimpServiceFileSystems(ManagedAimpCore^ core) : AimpBase
 {
 }
 
-generic<typename TCommand>
-where TCommand : gcnew()
-AimpActionResult AimpServiceFileSystems::Get(FileCommandType commandType, String^ fileUri, TCommand% command)
+AimpActionResult AimpServiceFileSystems::Get(FileCommandType commandType, String^ fileUri, IAimpFileSystemCommand^% command)
 {
     IAIMPServiceFileSystems* service = nullptr;
     auto result = AimpActionResult::Fail;
     IAIMPString *str = nullptr;
-    GUID commandId;
+    GUID commandId = GetCommandId(commandType);
 
     try
     {
         // TODO Complete it
         if (GetService(IID_IAIMPServiceFileSystems, &service) == AimpActionResult::OK && service != nullptr)
         {
-            switch (commandType)
-            {
-            case FileCommandType::FileInfo:
-                commandId = IID_IAIMPFileSystemCommandFileInfo;
-                break;
-            case FileCommandType::CopyToClipboard:
-                commandId = IID_IAIMPFileSystemCommandCopyToClipboard;
-                break;
-            case FileCommandType::Delete:
-                commandId = IID_IAIMPFileSystemCommandDelete;
-                break;
-            case FileCommandType::DropSource:
-                commandId = IID_IAIMPFileSystemCommandDropSource;
-                break;
-            case FileCommandType::FileExists:
-                commandId = IID_IAIMPFileSystemCommandFileExists;
-                break;
-            case FileCommandType::OpenFileFolder:
-                commandId = IID_IAIMPFileSystemCommandFileInfo;
-                break;
-            case FileCommandType::Streaming:
-                commandId = IID_IAIMPFileSystemCommandStreaming;
-                break;
-            }
-
             str = AimpConverter::ToAimpString(fileUri);
             IAIMPFileSystemCommandFileInfo* cmd = nullptr;
             result = CheckResult(service->Get(str, IID_IAIMPFileSystemCommandFileInfo, reinterpret_cast<void**>(&cmd)));
@@ -68,7 +41,7 @@ AimpActionResult AimpServiceFileSystems::Get(FileCommandType commandType, String
                 switch (commandType)
                 {
                     case FileCommandType::FileInfo:
-                    command = (TCommand)gcnew AimpFileSystemCommandFileInfo(cmd);
+                    command = gcnew AimpFileSystemCommandFileInfo(cmd);
                     break;
                 }
             }
@@ -92,32 +65,40 @@ AimpActionResult AimpServiceFileSystems::Get(FileCommandType commandType, String
     return result;
 }
 
-generic<typename TCommand>
-where TCommand : gcnew()
-AimpActionResult AimpServiceFileSystems::GetDefault(FileCommandType commandType, TCommand %command)
+AimpActionResult AimpServiceFileSystems::GetDefault(FileCommandType commandType, IAimpFileSystemCommand^% command)
 {
     IAIMPServiceFileSystems* service = nullptr;
-    AimpActionResult result = AimpActionResult::Fail;
-    
+    auto result = AimpActionResult::Fail;
+    GUID commandId = GetCommandId(commandType);
+
     try
     {
-        if (GetService(IID_IAIMPServiceFileSystems, &service) == AimpActionResult::OK)
+        if (GetService(IID_IAIMPServiceFileSystems, &service) == AimpActionResult::OK && service != nullptr)
         {
-            if (service != nullptr)
+            switch (commandType)
             {
-				Type^ cmdType = command->GetType();
-				bool v = cmdType->IsGenericType;
-
-                //IAimpFileSystemCommandFileInfo^ fileInfoCommand = dynamic_cast<IAimpFileSystemCommandFileInfo^>(command);
-                //if (fileInfoCommand != nullptr)
-                //{
-                //    IAIMPFileSystemCommandFileInfo* cmd = nullptr;
-                //    if (CheckResult(service->GetDefault(IID_IAIMPFileSystemCommandFileInfo, (void**)cmd)) == AimpActionResult::OK && cmd != nullptr)
-                //    {
-                //        command = gcnew AimpFileSystemCommandFileInfo(cmd);
-                //    }
-                //}
+            case FileCommandType::FileInfo:
+                IAIMPFileSystemCommandFileInfo* cmd = nullptr;
+                result = CheckResult(service->GetDefault(commandId, reinterpret_cast<void**>(&cmd)));
+                if (result == AimpActionResult::OK && cmd != nullptr)
+                {
+                    command = gcnew AimpFileSystemCommandFileInfo(cmd);
+                }
+                break;
             }
+
+				//Type^ cmdType = command->GetType();
+				//bool v = cmdType->IsGenericType;
+
+    //            //IAimpFileSystemCommandFileInfo^ fileInfoCommand = dynamic_cast<IAimpFileSystemCommandFileInfo^>(command);
+    //            //if (fileInfoCommand != nullptr)
+    //            //{
+    //            //    IAIMPFileSystemCommandFileInfo* cmd = nullptr;
+    //            //    if (CheckResult(service->GetDefault(IID_IAIMPFileSystemCommandFileInfo, (void**)cmd)) == AimpActionResult::OK && cmd != nullptr)
+    //            //    {
+    //            //        command = gcnew AimpFileSystemCommandFileInfo(cmd);
+    //            //    }
+    //            //}
         }
 
         return result;
@@ -133,4 +114,27 @@ AimpActionResult AimpServiceFileSystems::GetDefault(FileCommandType commandType,
 
     //command = nullptr;
     return result;
+}
+
+GUID AimpServiceFileSystems::GetCommandId(FileCommandType commandType)
+{
+    switch (commandType)
+    {
+        case FileCommandType::FileInfo:
+            return IID_IAIMPFileSystemCommandFileInfo;
+        case FileCommandType::CopyToClipboard:
+            return IID_IAIMPFileSystemCommandCopyToClipboard;
+        case FileCommandType::Delete:
+            return IID_IAIMPFileSystemCommandDelete;
+        case FileCommandType::DropSource:
+            return IID_IAIMPFileSystemCommandDropSource;
+        case FileCommandType::FileExists:
+            return IID_IAIMPFileSystemCommandFileExists;
+        case FileCommandType::OpenFileFolder:
+            return IID_IAIMPFileSystemCommandFileInfo;
+        case FileCommandType::Streaming:
+            return IID_IAIMPFileSystemCommandStreaming;
+    }
+
+    throw gcnew ArgumentException("Invalid commandType");
 }

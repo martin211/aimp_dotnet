@@ -24,13 +24,11 @@ namespace AIMP
         public:
             AimpServiceFileSystems(ManagedAimpCore^ core);
 
-            generic<typename TCommand>
-            where TCommand : gcnew()
-            virtual AimpActionResult Get(FileCommandType commandType, String^ fileUri, TCommand% command);
+            virtual AimpActionResult Get(FileCommandType commandType, String^ fileUri, IAimpFileSystemCommand^% command);
 
-            generic<typename TCommand>
-            where TCommand : gcnew()
-            virtual AimpActionResult GetDefault(FileCommandType commandType, TCommand% command);
+            virtual AimpActionResult GetDefault(FileCommandType commandType, IAimpFileSystemCommand^% command);
+        private:
+            static GUID GetCommandId(FileCommandType commandType);
         };
     }
 }

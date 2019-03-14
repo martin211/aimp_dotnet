@@ -9,6 +9,8 @@
 // 
 // ----------------------------------------------------
 
+using AIMP.SDK.FileManager.Commands;
+
 namespace AIMP.SDK.FileManager
 {
     /// <summary>
@@ -19,20 +21,18 @@ namespace AIMP.SDK.FileManager
         /// <summary>
         /// Get the interface of specified command.
         /// </summary>
-        /// <typeparam name="TCommand">The command interface.</typeparam>
         /// <param name="commandType">The command type <see cref="FileCommandType"/>.</param>
         /// <param name="fileUri">The name of virtual file.</param>
         /// <param name="command">The command.</param>
         /// <returns></returns>
-        AimpActionResult Get<TCommand>(FileCommandType commandType, string fileUri, out TCommand command);
+        AimpActionResult Get(FileCommandType commandType, string fileUri, out IAimpFileSystemCommand command);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="TCommand"></typeparam>
         /// <param name="commandType"></param>
         /// <param name="command"></param>
         /// <returns></returns>
-        AimpActionResult GetDefault<TCommand>(FileCommandType commandType, out TCommand command);
+        AimpActionResult GetDefault(FileCommandType commandType, out IAimpFileSystemCommand command);
     }
 }
