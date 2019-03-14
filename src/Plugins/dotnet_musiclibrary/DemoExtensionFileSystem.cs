@@ -7,7 +7,7 @@ namespace AIMP.DotNet.MusicLibrary
     {
         public string Schema => "myschema";
 
-        public bool ReadOnly => true;
+        public bool ReadOnly => false;
 
         public AimpActionResult CreateStream(string file, out IAimpStream stream)
         {

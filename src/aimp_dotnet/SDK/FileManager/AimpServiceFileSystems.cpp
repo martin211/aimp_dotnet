@@ -11,6 +11,7 @@
 
 #include "Stdafx.h"
 #include "AimpServiceFileSystems.h"
+#include "Commands/AimpFileSystemCommandFileInfo.h"
 
 using namespace AIMP::SDK;
 using namespace Commands;
@@ -21,32 +22,57 @@ AimpServiceFileSystems::AimpServiceFileSystems(ManagedAimpCore^ core) : AimpBase
 
 generic<typename TCommand>
 where TCommand : gcnew()
-AimpActionResult AimpServiceFileSystems::Get(String^ fileUri, TCommand% command)
+AimpActionResult AimpServiceFileSystems::Get(FileCommandType commandType, String^ fileUri, TCommand% command)
 {
     IAIMPServiceFileSystems* service = nullptr;
-    const auto result = AimpActionResult::Fail;
+    auto result = AimpActionResult::Fail;
     IAIMPString *str = nullptr;
+    GUID commandId;
 
     try
     {
         // TODO Complete it
         if (GetService(IID_IAIMPServiceFileSystems, &service) == AimpActionResult::OK && service != nullptr)
         {
-            //str = AimpConverter::GetAimpString(fileUri);
+            switch (commandType)
+            {
+            case FileCommandType::FileInfo:
+                commandId = IID_IAIMPFileSystemCommandFileInfo;
+                break;
+            case FileCommandType::CopyToClipboard:
+                commandId = IID_IAIMPFileSystemCommandCopyToClipboard;
+                break;
+            case FileCommandType::Delete:
+                commandId = IID_IAIMPFileSystemCommandDelete;
+                break;
+            case FileCommandType::DropSource:
+                commandId = IID_IAIMPFileSystemCommandDropSource;
+                break;
+            case FileCommandType::FileExists:
+                commandId = IID_IAIMPFileSystemCommandFileExists;
+                break;
+            case FileCommandType::OpenFileFolder:
+                commandId = IID_IAIMPFileSystemCommandFileInfo;
+                break;
+            case FileCommandType::Streaming:
+                commandId = IID_IAIMPFileSystemCommandStreaming;
+                break;
+            }
 
-            //if (IAimpFileSystemCommandFileInfo::GetType() == TCommand)
-            //{
-                //IAIMPFileSystemCommandFileInfo *cmd;
-                //result = CheckResult(service->Get(str, IID_IAIMPFileSystemCommandFileInfo, (void**)&cmd));
+            str = AimpConverter::ToAimpString(fileUri);
+            IAIMPFileSystemCommandFileInfo* cmd = nullptr;
+            result = CheckResult(service->Get(str, IID_IAIMPFileSystemCommandFileInfo, reinterpret_cast<void**>(&cmd)));
 
-                if (result == AimpActionResult::OK)
+            if (result == AimpActionResult::OK && cmd != nullptr)
+            {
+                switch (commandType)
                 {
-                    //command = gcnew AimpFileSystemCommandFileInfo(cmd);
+                    case FileCommandType::FileInfo:
+                    command = (TCommand)gcnew AimpFileSystemCommandFileInfo(cmd);
+                    break;
                 }
-            //}
+            }
         }
-
-        return result;
     }
     finally
     {
@@ -63,13 +89,12 @@ AimpActionResult AimpServiceFileSystems::Get(String^ fileUri, TCommand% command)
         }
     }
 
-//    command = nullptr;
     return result;
 }
 
 generic<typename TCommand>
 where TCommand : gcnew()
-AimpActionResult AimpServiceFileSystems::GetDefault(TCommand %command)
+AimpActionResult AimpServiceFileSystems::GetDefault(FileCommandType commandType, TCommand %command)
 {
     IAIMPServiceFileSystems* service = nullptr;
     AimpActionResult result = AimpActionResult::Fail;

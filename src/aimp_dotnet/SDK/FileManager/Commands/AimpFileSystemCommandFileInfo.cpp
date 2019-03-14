@@ -21,25 +21,31 @@ AimpFileSystemCommandFileInfo::AimpFileSystemCommandFileInfo(IAIMPFileSystemComm
 AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(IAimpString^ file, AimpFileAttributes% attr)
 {
     // TODO: Complete it
-    //IAIMPString *str = AimpConverter::ToAimpString(file);
-    attr = AimpFileAttributes();
+    //auto str = AimpConverter::ToAimpString(file);
+    AimpActionResult result = AimpActionResult::Fail;
+    //attr = AimpFileAttributes();
 
-    //try
-    //{
-    //    TAIMPFileAttributes *fattr = nullptr;
-    //    AimpActionResult result = CheckResult(_aimpObject->GetFileAttrs(str, fattr));
-    //    return result;
-    //}
-    //finally
-    //{
-    //    if (str != nullptr)
-    //    {
-    //        str->Release();
-    //        str = nullptr;
-    //    }
-    //}
+    try
+    {
+        //TAIMPFileAttributes* fattr = nullptr;
+        //AimpActionResult result = CheckResult(InternalAimpObject->GetFileAttrs(str, fattr));
+        //if (result == AimpActionResult::OK)
+        //{
+        //    auto atr = AimpFileAttributes();
+        //    //atr.TimeCreation = gcnew System::DateTime(fattr->TimeCreation);
+        //    attr = atr;
+        //}
+    }
+    finally
+    {
+        //if (str != nullptr)
+        //{
+        //    str->Release();
+        //    str = nullptr;
+        //}
+    }
 
-    return AimpActionResult::Fail;
+    return result;
 }
 
 AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(IAimpString^ file, long long% size)

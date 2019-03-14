@@ -74,6 +74,7 @@
     <Compile Include="FileManager\Extensions\IAimpExtensionFileFormat.cs" />
     <Compile Include="FileManager\Extensions\IAimpExtensionFileInfoProvider.cs" />
     <Compile Include="FileManager\Extensions\IAimpExtensionFileSystem.cs" />
+    <Compile Include="FileManager\FileCommandType.cs" />
     <Compile Include="FileManager\IAimpServiceFileFormats.cs" />
     <Compile Include="FileManager\IAimpServiceFileInfo.cs" />
     <Compile Include="FileManager\IAimpServiceFileInfoFormatter.cs" />

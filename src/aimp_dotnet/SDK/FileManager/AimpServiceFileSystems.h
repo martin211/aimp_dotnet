@@ -26,11 +26,11 @@ namespace AIMP
 
             generic<typename TCommand>
             where TCommand : gcnew()
-            virtual AimpActionResult Get(String^ fileUri, TCommand% command);
+            virtual AimpActionResult Get(FileCommandType commandType, String^ fileUri, TCommand% command);
 
             generic<typename TCommand>
             where TCommand : gcnew()
-            virtual AimpActionResult GetDefault(TCommand% command);
+            virtual AimpActionResult GetDefault(FileCommandType commandType, TCommand% command);
         };
     }
 }
