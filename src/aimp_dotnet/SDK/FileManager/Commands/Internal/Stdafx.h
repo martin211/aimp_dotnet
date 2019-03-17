@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------
+// ----------------------------------------------------
 // 
 // AIMP DotNet SDK
 //  
@@ -9,9 +9,5 @@
 // 
 // ----------------------------------------------------
 
-namespace AIMP.SDK.FileManager.Commands
-{
-    public interface IAimpFileSystemCustomFileCommand : IAimpFileSystemCommand
-    {
-    }
-}
+#pragma once
+#include "Stdafx.h"

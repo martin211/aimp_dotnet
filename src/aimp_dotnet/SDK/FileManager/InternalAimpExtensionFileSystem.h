@@ -10,12 +10,12 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "Commands\InternalAimpFileSystemCommandFileInfo.h"
-#include "Commands\InternalAimpFileSystemCommandOpenFileFolder.h"
-#include "Commands\InternalAimpFileSystemCommandCopyToClipboard.h"
-#include "Commands\InternalAimpFileSystemCommandDelete.h"
-#include "Commands\InternalAimpFileSystemCommandDropSource.h"
-#include "Commands\InternalAimpFileSystemCommandStreaming.h"
+#include "Commands/Internal/InternalAimpFileSystemCommandFileInfo.h"
+#include "Commands/Internal/InternalAimpFileSystemCommandOpenFileFolder.h"
+#include "Commands/Internal/InternalAimpFileSystemCommandCopyToClipboard.h"
+#include "Commands/Internal/InternalAimpFileSystemCommandDelete.h"
+#include "Commands/Internal/InternalAimpFileSystemCommandDropSource.h"
+#include "Commands/Internal/InternalAimpFileSystemCommandStreaming.h"
 
 using namespace AIMP::SDK::FileManager::Commands;
 
@@ -23,23 +23,23 @@ class InternalAimpExtensionFileSystem : public IUnknownInterfaceImpl<IAIMPExtens
 {
 private:
     gcroot<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileSystem^> _managed;
-    IAIMPCore *_core;
+    IAIMPCore* _core = nullptr;
 
-    InternalAimpFileSystemCommandFileInfo *_commandFileInfo = nullptr;
-    InternalAimpFileSystemCommandOpenFileFolder *_commandOpenFileFolder = nullptr;
-    InternalAimpFileSystemCommandCopyToClipboard *_commandCopyToClipboard = nullptr;
-    InternalAimpFileSystemCommandDelete *_commandDelete = nullptr;
-    InternalAimpFileSystemCommandDropSource *_commandDropSource = nullptr;
-    InternalAimpFileSystemCommandStreaming *_commandStreaming = nullptr;
+    InternalAimpFileSystemCommandFileInfo* _commandFileInfo = nullptr;
+    InternalAimpFileSystemCommandOpenFileFolder* _commandOpenFileFolder = nullptr;
+    InternalAimpFileSystemCommandCopyToClipboard* _commandCopyToClipboard = nullptr;
+    InternalAimpFileSystemCommandDelete* _commandDelete = nullptr;
+    InternalAimpFileSystemCommandDropSource* _commandDropSource = nullptr;
+    InternalAimpFileSystemCommandStreaming* _commandStreaming = nullptr;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionFileSystem> Base;
 
     InternalAimpExtensionFileSystem(gcroot<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileSystem^> managed, IAIMPCore *core);
 
-    virtual HRESULT WINAPI GetValueAsInt32(int PropertyID, int *Value);
+    virtual HRESULT WINAPI GetValueAsInt32(int propertyId, int* value);
 
-    virtual HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void **Value);
+    virtual HRESULT WINAPI GetValueAsObject(int propertyId, REFIID IID, void** value);
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
 

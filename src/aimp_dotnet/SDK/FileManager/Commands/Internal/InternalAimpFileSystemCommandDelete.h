@@ -17,14 +17,14 @@ class InternalAimpFileSystemCommandDelete : IUnknownInterfaceImpl<IAIMPFileSyste
 {
 private:
     typedef IUnknownInterfaceImpl<IAIMPFileSystemCommandDelete> Base;
-    gcroot<IAimpFileSystemCommandDelete^> _instance;
+    gcroot<IAimpFileSystemCommandDelete^> _managedInstance;
 
 public:
     InternalAimpFileSystemCommandDelete(gcroot<IAimpFileSystemCommandDelete^> instance);
 
-    virtual HRESULT WINAPI CanProcess(IAIMPString* FileName);
+    virtual HRESULT WINAPI CanProcess(IAIMPString* fileName);
 
-    virtual HRESULT WINAPI Process(IAIMPString* FileName);
+    virtual HRESULT WINAPI Process(IAIMPString* fileName);
 
     virtual ULONG WINAPI AddRef(void);
 

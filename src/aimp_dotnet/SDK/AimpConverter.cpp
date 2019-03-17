@@ -205,7 +205,7 @@ IAIMPImageContainer* AimpConverter::ToAimpImageContainer(System::Drawing::Bitmap
                 return nullptr;
             }
 
-            byte *b = container->GetData();
+            byte* b = container->GetData();
             for (int i = 0; i < stream->Length - 1; i++)
             {
                 b[i] = stream->ReadByte();
@@ -306,3 +306,24 @@ IAIMPFileInfo* AimpConverter::ToAimpObject(IAimpFileInfo^ managedObject)
     result->TrackTotal = managedObject->TrackTotal;
     return result->InternalAimpObject;
 }
+
+IAIMPObjectList* AimpConverter::ToAimpObjectList(List<String^>^ collection)
+{
+    IAIMPObjectList* list = GetAimpObjectList();
+
+    for (int i = 0; i < collection->Count; i++)
+    {
+        list->Add(ToAimpString(collection[i]));
+    }
+
+    return list;
+}
+
+IAIMPString* AimpConverter::ToAimpString(Objects::IAimpString^ string)
+{
+    IAIMPString *strObject = CreateAimpObject<IAIMPString>(IID_IAIMPString);
+    const pin_ptr<const WCHAR> strDate = PtrToStringChars(string->GetData());
+    strObject->SetData(PWCHAR(strDate), string->GetLength());
+    return strObject;
+}
+

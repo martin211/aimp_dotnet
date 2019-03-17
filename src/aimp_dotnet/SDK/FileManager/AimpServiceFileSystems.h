@@ -29,6 +29,8 @@ namespace AIMP
             virtual AimpActionResult GetDefault(FileCommandType commandType, IAimpFileSystemCommand^% command);
         private:
             static GUID GetCommandId(FileCommandType commandType);
+
+            AimpActionResult GetCommand(FileCommandType commandType, GUID commandId, IAIMPServiceFileSystems* service, String^ value, IAimpFileSystemCommand^% command, bool isDefault);
         };
     }
 }

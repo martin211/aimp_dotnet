@@ -13,5 +13,8 @@ namespace AIMP.SDK.FileManager.Commands
 {
     public interface IAimpFileSystemCommandOpenFileFolder : IAimpFileSystemCustomFileCommand
     {
+        AimpActionResult CanProcess(string file);
+
+        AimpActionResult Process(string file);
     }
 }

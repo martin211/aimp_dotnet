@@ -24,7 +24,7 @@ namespace AIMP
         public ref class AimpFileSystemCommandFileInfo : AimpObject<IAIMPFileSystemCommandFileInfo>, IAimpFileSystemCommandFileInfo
         {
         public:
-            AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject);
+            explicit AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject);
 
             virtual AimpActionResult GetFileAttrs(IAimpString^ file, AimpFileAttributes% attr);
 

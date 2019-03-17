@@ -18,8 +18,4 @@ private:
 
 public:
     InternalAimpFileSystemCustomFileCommand(gcroot<AIMP::SDK::FileManager::Commands::IAimpFileSystemCustomFileCommand^> instance);
-
-    virtual HRESULT WINAPI CanProcess(IAIMPString* FileName);
-
-    virtual HRESULT WINAPI Process(IAIMPString* FileName);
 };

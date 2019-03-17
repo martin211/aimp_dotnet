@@ -11,8 +11,7 @@
 
 #include "Stdafx.h"
 #include "InternalAimpFileSystemCommandDropSource.h"
-#include "../../../SDK/AimpString.h"
-#include "../../../SDK/AimpStream.h"
+#include "SDK/AimpString.h"
 
 using namespace AIMP::SDK;
 

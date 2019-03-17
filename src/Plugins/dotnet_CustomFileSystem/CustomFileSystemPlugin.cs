@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using AIMP.SDK.MenuManager;
-using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.CustomFileSystem
 {
     [AimpPlugin("dotnet_CustomFileSystem", "AIMP DOTNET", "1", AimpPluginType = AimpPluginType.Addons, RequireAppDomain = false)]
     [Serializable]
+    // ReSharper disable UnusedMember.Global
     public class CustomFileSystemPlugin : AimpPlugin
+    // ReSharper restore UnusedMember.Global
     {
         public override void Initialize()
         {
@@ -24,26 +23,8 @@ namespace AIMP.SDK.CustomFileSystem
             CustomFileSystem fileSystem = new CustomFileSystem(Player);
             //ExtensionFileInfo fileInfo = new ExtensionFileInfo();
 
+            // Register custom file system
             Player.Core.RegisterExtension(fileSystem);
-
-            //if (Player.Core.RegisterExtension(fileInfo) != AimpActionResult.OK)
-            //{
-            //    System.Diagnostics.Debugger.Break();
-            //}
-
-            //var g = Guid.NewGuid();
-            //var ptr = Player.Core.CreateObject(ref g);
-            //IAimpString str = (IAimpString)Marshal.GetObjectForIUnknown(ptr);
-            //str.SetData("test", 4);
-            //var a = str.GetLength();
-            //try
-            //{
-            //    var s = str.GetData();
-            //}
-            //catch (Exception e)
-            //{
-
-            //}
         }
 
         private void Item_OnExecute(object sender, System.EventArgs e)
@@ -56,7 +37,7 @@ namespace AIMP.SDK.CustomFileSystem
                 .Select(f => $"{CustomFileSystem.sMySchemePrefix}{f}").ToList();
             if (filesToPlaylist.Any())
             {
-                if (Player.PlaylistManager.GetActivePlaylist(out var activePl) == AimpActionResult.Ok)
+                if (Player.PlaylistManager.GetActivePlaylist(out var activePl) == AimpActionResult.OK)
                 {
                     activePl.AddList(filesToPlaylist, Playlist.PlaylistFlags.NOCHECKFORMAT, Playlist.PlaylistFilePosition.EndPosition);
                 }
