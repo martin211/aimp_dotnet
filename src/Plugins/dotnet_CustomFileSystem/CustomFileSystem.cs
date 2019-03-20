@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Windows;
 using AIMP.SDK.FileManager;
 using AIMP.SDK.FileManager.Commands;
 using AIMP.SDK.FileManager.Extensions;
@@ -12,10 +15,10 @@ namespace AIMP.SDK.CustomFileSystem
         IAimpExtension,
         IAimpExtensionFileSystem,
         IAimpFileSystemCommandCopyToClipboard,
-        IAimpFileSystemCommandDelete,
+        //IAimpFileSystemCommandDelete
         IAimpFileSystemCommandDropSource,
         IAimpFileSystemCommandOpenFileFolder,
-        IAimpFileSystemCommandFileInfo,
+        //IAimpFileSystemCommandFileInfo,
         IAimpFileSystemCommandStreaming
     {
         private const string sMyScheme = "mymusic";
@@ -31,17 +34,6 @@ namespace AIMP.SDK.CustomFileSystem
         public string Schema => sMyScheme;
 
         public bool ReadOnly => true;
-
-        public AimpActionResult CopyToClipboard(IList<string> files)
-        {
-            var result = GetCommandForDefaultFileSystem(FileCommandType.CopyToClipboard, out IAimpFileSystemCommandCopyToClipboard cmd);
-            if (result == AimpActionResult.OK)
-            {
-                cmd?.CopyToClipboard(files);
-            }
-
-            return result;
-        }
 
         public AimpActionResult GetFileAttrs(IAimpString fileName, out AimpFileAttributes attr)
         {
@@ -82,55 +74,50 @@ namespace AIMP.SDK.CustomFileSystem
             return result;
         }
 
-        AimpActionResult IAimpFileSystemCommandDelete.CanProcess(string fileName)
-        {
-            var result = GetCommandForDefaultFileSystem(FileCommandType.Delete, out IAimpFileSystemCommandDelete cmd);
-            if (result == AimpActionResult.OK && cmd != null)
-            {
-                result = cmd.CanProcess(fileName);
-            }
+        //AimpActionResult IAimpFileSystemCommandDelete.CanProcess(string fileName)
+        //{
+        //    var result = GetCommandForDefaultFileSystem(FileCommandType.Delete, out IAimpFileSystemCommandDelete cmd);
+        //    if (result == AimpActionResult.OK && cmd != null)
+        //    {
+        //        result = cmd.CanProcess(fileName);
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
-        AimpActionResult IAimpFileSystemCommandDelete.Process(string fileName)
-        {
-            var result = GetCommandForDefaultFileSystem(FileCommandType.Delete, out IAimpFileSystemCommandDelete cmd);
-            if (result == AimpActionResult.OK && cmd != null)
-            {
-                result = cmd.Process(fileName);
-            }
+        //AimpActionResult IAimpFileSystemCommandDelete.Process(string fileName)
+        //{
+        //    var result = GetCommandForDefaultFileSystem(FileCommandType.Delete, out IAimpFileSystemCommandDelete cmd);
+        //    if (result == AimpActionResult.OK && cmd != null)
+        //    {
+        //        result = cmd.Process(fileName);
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
         public IAimpStream CreateStream(string fileName, FileStreamingType flags, long offset, long size)
         {
-            var result = GetCommandForDefaultFileSystem(FileCommandType.Streaming, out IAimpFileSystemCommandStreaming cmd);
-            if (result == AimpActionResult.OK && cmd != null)
+            var file = fileName.Replace(sMySchemePrefix, string.Empty);
+
+            if (!File.Exists(file))
             {
-                return cmd.CreateStream(fileName, flags, offset, size);
+                return null;
             }
 
-            //var file = fileName.Replace(sMySchemePrefix, string.Empty);
-
-            //if (!File.Exists(file))
-            //{
-            //    return null;
-            //}
-
-            //if (flags.HasFlag(FileStreamingType.AIMP_SERVICE_FILESTREAMING_FLAG_READ))
-            //{
-            //    using (var fs = new FileStream(file, FileMode.Open))
-            //    {
-            //        size = size == -1 ? fs.Length : size;
-            //        var stream = _aimpPlayer.Core.CreateStream();
-            //        byte[] buffer = new byte[size];
-            //        fs.Read(buffer, (int)offset, buffer.Length);
-            //        stream.Write(buffer, buffer.Length, out var written);
-            //        return stream;
-            //    }
-            //}
+            if (flags.HasFlag(FileStreamingType.AIMP_SERVICE_FILESTREAMING_FLAG_READ))
+            {
+                using (var fs = new FileStream(file, FileMode.Open))
+                {
+                    offset = offset == -1 ? 0 : offset;
+                    size = size == -1 ? fs.Length : size;
+                    var stream = _aimpPlayer.Core.CreateStream();
+                    byte[] buffer = new byte[size];
+                    fs.Read(buffer, (int)offset, buffer.Length);
+                    stream.Write(buffer, buffer.Length, out var written);
+                    return stream;
+                }
+            }
 
             return null;
         }
@@ -166,10 +153,11 @@ namespace AIMP.SDK.CustomFileSystem
 
         AimpActionResult IAimpFileSystemCommandOpenFileFolder.CanProcess(string fileName)
         {
-            var result = GetCommandForDefaultFileSystem(FileCommandType.OpenFileFolder, out IAimpFileSystemCommandOpenFileFolder cmd);
+            var file = fileName.Replace(@"mymusic:\\", string.Empty);
+            var result = _aimpPlayer.ServiceFileSystems.Get(FileCommandType.OpenFileFolder, file, out var cmd);
             if (result == AimpActionResult.OK && cmd != null)
             {
-                result = cmd.CanProcess(fileName);
+                result = (cmd as IAimpFileSystemCommandOpenFileFolder).CanProcess(file);
             }
 
             return result;
@@ -177,13 +165,20 @@ namespace AIMP.SDK.CustomFileSystem
 
         AimpActionResult IAimpFileSystemCommandOpenFileFolder.Process(string fileName)
         {
-            var result = GetCommandForDefaultFileSystem(FileCommandType.OpenFileFolder, out IAimpFileSystemCommandOpenFileFolder cmd);
+            var file = fileName.Replace(@"mymusic:\\", string.Empty);
+            var result = _aimpPlayer.ServiceFileSystems.Get(FileCommandType.OpenFileFolder, file, out var cmd);
             if (result == AimpActionResult.OK && cmd != null)
             {
-                result = cmd.Process(fileName);
+                result = (cmd as IAimpFileSystemCommandOpenFileFolder).Process(file);
             }
 
             return result;
+        }
+
+        public AimpActionResult CopyToClipboard(List<string> files)
+        {
+            Clipboard.SetText(string.Join(",", files));
+            return AimpActionResult.OK;
         }
 
         private AimpActionResult GetCommandForDefaultFileSystem<TCommand>(FileCommandType commandType, out TCommand command)

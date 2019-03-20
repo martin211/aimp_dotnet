@@ -20,7 +20,7 @@ private:
 public:
     InternalAimpFileSystemCommandStreaming(gcroot<AIMP::SDK::FileManager::Commands::IAimpFileSystemCommandStreaming^> instance);
 
-    virtual HRESULT WINAPI CreateStream(IAIMPString* FileName, const INT64 Offset, const INT64 Size, DWORD Flags, IAIMPStream** Stream);
+    virtual HRESULT WINAPI CreateStream(IAIMPString* fileName, const INT64 offset, const INT64 size, DWORD flags, IAIMPStream** stream);
 
     virtual ULONG WINAPI AddRef(void);
 

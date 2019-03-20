@@ -54,7 +54,6 @@ AimpActionResult AimpServiceFileSystems::GetDefault(FileCommandType commandType,
 {
     IAIMPServiceFileSystems* service = nullptr;
     auto result = AimpActionResult::Fail;
-    GUID commandId = GetCommandId(commandType);
 
     try
     {
@@ -92,7 +91,7 @@ GUID AimpServiceFileSystems::GetCommandId(FileCommandType commandType)
         case FileCommandType::FileExists:
             return IID_IAIMPFileSystemCommandFileExists;
         case FileCommandType::OpenFileFolder:
-            return IID_IAIMPFileSystemCommandFileInfo;
+            return IID_IAIMPFileSystemCommandOpenFileFolder;
         case FileCommandType::Streaming:
             return IID_IAIMPFileSystemCommandStreaming;
     }
@@ -132,7 +131,7 @@ AimpActionResult AimpServiceFileSystems::GetCommand(FileCommandType commandType,
                 if (result == AimpActionResult::OK && cmd != nullptr)
                 {
                     command = gcnew AimpFileSystemCommandCopyToClipboard(cmd);
-                }
+                } 
                 break;
             }
             case FileCommandType::Delete:
@@ -186,8 +185,11 @@ AimpActionResult AimpServiceFileSystems::GetCommand(FileCommandType commandType,
     }
     finally
     {
-        str->Release();
-        str = nullptr;
+        if (str != nullptr)
+        {
+            str->Release();
+            str = nullptr;
+        }
     }
 
     return result;
