@@ -25,7 +25,7 @@ AimpStream::!AimpStream()
     {
         try
         {
-            _aimpObject->Release();
+            //_aimpObject->Release();
         }
         catch (const std::exception& e)
         {

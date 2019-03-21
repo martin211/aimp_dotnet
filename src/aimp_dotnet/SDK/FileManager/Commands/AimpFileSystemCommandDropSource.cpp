@@ -8,7 +8,7 @@ AimpFileSystemCommandDropSource::AimpFileSystemCommandDropSource(IAIMPFileSystem
 {
 }
 
-IAimpStream^ AimpFileSystemCommandDropSource::CreateStream(IAimpString^ fileName)
+IAimpStream^ AimpFileSystemCommandDropSource::CreateStream(String^ fileName)
 {
     auto str = AimpConverter::ToAimpString(fileName);
 

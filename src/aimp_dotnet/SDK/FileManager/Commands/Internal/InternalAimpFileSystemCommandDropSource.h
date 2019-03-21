@@ -22,7 +22,7 @@ private:
 public:
     InternalAimpFileSystemCommandDropSource(gcroot<IAimpFileSystemCommandDropSource^> instance);
 
-    virtual HRESULT WINAPI CreateStream(IAIMPString* FileName, IAIMPStream** Stream);
+    virtual HRESULT WINAPI CreateStream(IAIMPString* fileName, IAIMPStream** stream);
 
     virtual ULONG WINAPI AddRef(void);
 

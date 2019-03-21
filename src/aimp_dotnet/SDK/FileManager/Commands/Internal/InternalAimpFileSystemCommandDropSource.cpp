@@ -20,12 +20,12 @@ InternalAimpFileSystemCommandDropSource::InternalAimpFileSystemCommandDropSource
     _instance = instance;
 }
 
-HRESULT WINAPI InternalAimpFileSystemCommandDropSource::CreateStream(IAIMPString* FileName, IAIMPStream** Stream)
+HRESULT WINAPI InternalAimpFileSystemCommandDropSource::CreateStream(IAIMPString* fileName, IAIMPStream** stream)
 {
-    IAimpStream^ stream = _instance->CreateStream(gcnew AimpString(FileName));
+    IAimpStream^ s = _instance->CreateStream(AimpConverter::ToManagedString(fileName));
     if (stream != nullptr)
     {
-        *Stream = ((AimpStream^)stream)->InternalAimpObject;
+        *stream = static_cast<AimpStream^>(s)->InternalAimpObject;
         return S_OK;
     }
     return (HRESULT)S_OK;

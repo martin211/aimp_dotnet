@@ -18,7 +18,7 @@ using namespace Objects;
 AimpFileSystemCommandFileInfo::AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject) : AimpObject(aimpObject)
 {}
 
-AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(IAimpString^ file, AimpFileAttributes% attr)
+AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(String^ file, AimpFileAttributes% attr)
 {
     // TODO: Complete it
     //auto str = AimpConverter::ToAimpString(file);
@@ -48,7 +48,7 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(IAimpString^ file, 
     return result;
 }
 
-AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(IAimpString^ file, long long% size)
+AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(String^ file, long long% size)
 {
     // TODO: Complete it
 
@@ -77,7 +77,7 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(IAimpString^ file, l
     }
 }
 
-AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(IAimpString ^file)
+AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(String ^file)
 {
     // TODO: Complete it
     //IAIMPString *str = nullptr;
