@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -38,9 +48,9 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 
     public abstract class TDemoExplorerViewCustomDataProviderSelection : TDemoExplorerViewAbstractDataProviderSelection
     {
-        protected string _rootPath;
         protected int _index;
         protected List<string> _items = new List<string>();
+        protected string _rootPath;
         protected string CurrentItem;
 
         protected TDemoExplorerViewCustomDataProviderSelection(string apath)
@@ -112,9 +122,9 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 
     public class TDemoExplorerViewGroupingTreeDrivesProvider : TDemoExplorerViewAbstractDataProviderSelection
     {
+        private DriveInfo _currentDrive;
         private DriveInfo[] _drivers;
         private int _index = 0;
-        private DriveInfo _currentDrive;
 
         public TDemoExplorerViewGroupingTreeDrivesProvider()
         {
@@ -158,9 +168,9 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 
     public class TDemoExplorerViewDataProviderSelection : TDemoExplorerViewCustomDataProviderSelection
     {
+        private const string _ext = "*.aiff;*.aif;*.ogg;*.oga;*.wav;*.mp3;*.mp2;*.mp1;*.mpga;*.umx;*.mod;*.mo3;*.it;*.s3m;*.mtm;*.xm;*.w64;*.cda;*.iso;*.dff;*.dsf;*.aac;*.m4a;*.m4b;*.mp4;*.ac3;*.ape;*.mac;*.flac;*.fla;*.midi;*.mid;*.rmi;*.kar;*.mpc;*.mp+;*.mpp;*.opus;*.spx;*.tta;*.wma;*.wv;*.tak;";
         private readonly string[] _fields;
 
-        private const string _ext = "*.aiff;*.aif;*.ogg;*.oga;*.wav;*.mp3;*.mp2;*.mp1;*.mpga;*.umx;*.mod;*.mo3;*.it;*.s3m;*.mtm;*.xm;*.w64;*.cda;*.iso;*.dff;*.dsf;*.aac;*.m4a;*.m4b;*.mp4;*.ac3;*.ape;*.mac;*.flac;*.fla;*.midi;*.mid;*.rmi;*.kar;*.mpc;*.mp+;*.mpp;*.opus;*.spx;*.tta;*.wma;*.wv;*.tak;";
         private readonly IEnumerable<string> _fileExtensions  = _ext.Split(new [] {';'}, StringSplitOptions.RemoveEmptyEntries)
             .Select(c => c.Replace("*", string.Empty));
 

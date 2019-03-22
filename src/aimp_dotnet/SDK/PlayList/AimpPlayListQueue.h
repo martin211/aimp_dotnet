@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -29,7 +29,7 @@ namespace AIMP
             public IPlayListQueueEventExecutor
         {
         public:
-            explicit AimpPlaylistQueue(IAIMPPlaylistQueue *queue, IAIMPPlaylistQueue2 *queue2);
+            explicit AimpPlaylistQueue(IAIMPPlaylistQueue* queue, IAIMPPlaylistQueue2* queue2);
 
             virtual property bool IsSuspended
             {
@@ -39,7 +39,8 @@ namespace AIMP
 
             virtual AimpActionResult Add(IAimpPlaylistItem^ item, bool insertAtBeginning);
 
-            virtual AimpActionResult AddList(System::Collections::Generic::IList<IAimpPlaylistItem^>^ items, bool insertAtBeginning);
+            virtual AimpActionResult AddList(System::Collections::Generic::IList<IAimpPlaylistItem^>^ items,
+                                             bool insertAtBeginning);
 
             virtual int GetItemCount();
 
@@ -51,20 +52,20 @@ namespace AIMP
 
             virtual AimpActionResult Move(int index, int targetIndex);
 
-            virtual AimpActionResult GetItem(int index, IAimpPlaylistItem ^%item);
+            virtual AimpActionResult GetItem(int index, IAimpPlaylistItem^% item);
 
-            virtual event AimpPlaylistQueueListenerHandler ^ContentChanged
+            virtual event AimpPlaylistQueueListenerHandler^ ContentChanged
             {
-                void add(AimpPlaylistQueueListenerHandler ^onEvent);
-                void remove(AimpPlaylistQueueListenerHandler ^onEvent);
-                void raise(IAimpPlaylistQueue ^sender);
+                void add(AimpPlaylistQueueListenerHandler^ onEvent);
+                void remove(AimpPlaylistQueueListenerHandler^ onEvent);
+                void raise(IAimpPlaylistQueue^ sender);
             }
 
-            virtual event AimpPlaylistQueueListenerHandler ^StateChanged
+            virtual event AimpPlaylistQueueListenerHandler^ StateChanged
             {
-                void add(AimpPlaylistQueueListenerHandler ^onEvent);
-                void remove(AimpPlaylistQueueListenerHandler ^onEvent);
-                void raise(IAimpPlaylistQueue ^sender);
+                void add(AimpPlaylistQueueListenerHandler^ onEvent);
+                void remove(AimpPlaylistQueueListenerHandler^ onEvent);
+                void raise(IAimpPlaylistQueue^ sender);
             }
 
             virtual void OnContentChanged()
@@ -76,10 +77,11 @@ namespace AIMP
             {
                 StateChanged(this);
             }
+
         private:
-            IAIMPPlaylistQueue2 *_queue2;
-            AimpPlaylistQueueListenerHandler ^_contentChanged;
-            AimpPlaylistQueueListenerHandler ^_stateChanged;
+            IAIMPPlaylistQueue2* _queue2;
+            AimpPlaylistQueueListenerHandler^ _contentChanged;
+            AimpPlaylistQueueListenerHandler^ _stateChanged;
             AimpPlaylistQueueListener* _listner;
         };
     }

@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -49,11 +49,11 @@ namespace AIMP
 
             static System::Drawing::Bitmap^ ToManagedBitmap(IAIMPImage* image);
 
-            static IAIMPImageContainer* ToAimpImageContainer(System::Drawing::Bitmap ^image);
+            static IAIMPImageContainer* ToAimpImageContainer(System::Drawing::Bitmap^ image);
 
             static IUnknown* MakeObject(REFIID objectId);
 
-            template<typename TObject>
+            template <typename TObject>
             static TObject* CreateAimpObject(REFIID objectId);
 
             static List<String^>^ ToStringCollection(IAIMPObjectList* aimpList)
@@ -69,7 +69,7 @@ namespace AIMP
                         result->Add(ToManagedString(str));
                     }
                 }
-                
+
                 return result;
             }
 

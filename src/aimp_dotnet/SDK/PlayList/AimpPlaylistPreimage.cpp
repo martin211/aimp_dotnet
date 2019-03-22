@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -15,7 +15,8 @@
 using namespace AIMP::SDK;
 
 AimpPlaylistPreimage::AimpPlaylistPreimage(IAIMPPlaylistPreimage* aimpObject) : AimpObject(aimpObject)
-{}
+{
+}
 
 String^ AimpPlaylistPreimage::FactoryId::get()
 {
@@ -32,7 +33,8 @@ bool AimpPlaylistPreimage::AutoSync::get()
 
 void AimpPlaylistPreimage::AutoSync::set(bool value)
 {
-    if (PropertyListExtension::SetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC, value) != AimpActionResult::OK)
+    if (PropertyListExtension::SetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC, value) != AimpActionResult::
+        OK)
     {
         System::Diagnostics::Debugger::Break();
     }
@@ -81,7 +83,6 @@ AimpActionResult AimpPlaylistPreimage::ExecuteDialog(IntPtr ownerHandle)
 
 void AimpPlaylistPreimage::Initialize(IAimpPlaylistPreimageListener^ listener)
 {
-    
 }
 
 void AimpPlaylistPreimage::FinalizeObject()

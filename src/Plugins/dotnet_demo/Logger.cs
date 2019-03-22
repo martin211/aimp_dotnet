@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+using System;
 using System.Collections.Generic;
 
 namespace DemoPlugin
@@ -7,14 +17,16 @@ namespace DemoPlugin
     {
         private static Logger _instance;
 
-        public static Logger Instance => _instance ?? (_instance = new Logger());
-
         private List<string> _items;
+
+        public EventHandler<string> OnLogChanged;
 
         public Logger()
         {
             _items = new List<string>();
         }
+
+        public static Logger Instance => _instance ?? (_instance = new Logger());
 
         public void AddInfoMessage(string message)
         {
@@ -22,7 +34,5 @@ namespace DemoPlugin
             _items.Add(msg);
             OnLogChanged?.Invoke(this, msg);
         }
-
-        public EventHandler<string> OnLogChanged;
     }
 }

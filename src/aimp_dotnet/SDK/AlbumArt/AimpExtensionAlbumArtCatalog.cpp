@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -13,7 +13,9 @@
 #include "AimpExtensionAlbumArtCatalog.h"
 #include "SDK\FileManager\AimpFileInfo.h"
 
-AimpExtensionAlbumArtCatalog::AimpExtensionAlbumArtCatalog(IAIMPCore* aimpCore, gcroot<AlbumArtManager::IAimpExtensionAlbumArtCatalog^> instance)
+AimpExtensionAlbumArtCatalog::AimpExtensionAlbumArtCatalog(IAIMPCore* aimpCore,
+                                                           gcroot<AlbumArtManager::IAimpExtensionAlbumArtCatalog^>
+                                                           instance)
 {
     _managedinstance = instance;
     _aimpCore = aimpCore;
@@ -33,7 +35,8 @@ HRESULT WINAPI AimpExtensionAlbumArtCatalog::GetName(IAIMPString** Name)
     return S_OK;
 }
 
-HRESULT WINAPI AimpExtensionAlbumArtCatalog::Show(IAIMPString* FileURI, IAIMPString* Artist, IAIMPString* Album, IAIMPImageContainer** Image)
+HRESULT WINAPI AimpExtensionAlbumArtCatalog::Show(IAIMPString* FileURI, IAIMPString* Artist, IAIMPString* Album,
+                                                  IAIMPImageContainer** Image)
 {
     Drawing::Bitmap^ bitmap = nullptr;
     auto r = _managedinstance->Show(
@@ -81,12 +84,14 @@ HRESULT WINAPI AimpExtensionAlbumArtCatalog::QueryInterface(REFIID riid, LPVOID*
 {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPExtensionAlbumArtCatalog) {
+    if (riid == IID_IAIMPExtensionAlbumArtCatalog)
+    {
         *ppvObject = this;
         AddRef();
         return S_OK;
     }
-    if (riid == IID_IAIMPExtensionAlbumArtCatalog2) {
+    if (riid == IID_IAIMPExtensionAlbumArtCatalog2)
+    {
         *ppvObject = static_cast<IAIMPExtensionAlbumArtCatalog2*>(this);
         AddRef();
         return S_OK;

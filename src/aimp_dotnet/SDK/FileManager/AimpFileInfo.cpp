@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -30,7 +30,8 @@ Drawing::Bitmap^ AimpFileInfo::AlbumArt::get()
     Drawing::Bitmap^ bmp = nullptr;
 
     IAIMPImageContainer* container = nullptr;
-    AimpActionResult res = Utils::CheckResult(_aimpObject->GetValueAsObject(AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImageContainer, reinterpret_cast<void**>(&container)));
+    AimpActionResult res = Utils::CheckResult(_aimpObject->GetValueAsObject(
+        AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImageContainer, reinterpret_cast<void**>(&container)));
 
     if (res == AimpActionResult::OK && container != nullptr)
     {
@@ -40,7 +41,8 @@ Drawing::Bitmap^ AimpFileInfo::AlbumArt::get()
     else
     {
         IAIMPImage* image = nullptr;
-        res = Utils::CheckResult(_aimpObject->GetValueAsObject(AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImage, reinterpret_cast<void**>(&image)));
+        res = Utils::CheckResult(_aimpObject->GetValueAsObject(AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImage,
+                                                               reinterpret_cast<void**>(&image)));
         if (res == AimpActionResult::OK && image != nullptr)
         {
             bmp = AimpConverter::ToManagedBitmap(image);
@@ -450,12 +452,11 @@ void AimpFileInfo::Assign(IAimpFileInfo^ source)
     _aimpObject->Assign(static_cast<AimpFileInfo^>(source)->InternalAimpObject);
 }
 
-AimpFileInfo::AimpFileInfo(IAIMPFileInfo *aimpItem) : AimpObject(aimpItem)
+AimpFileInfo::AimpFileInfo(IAIMPFileInfo* aimpItem) : AimpObject(aimpItem)
 {
-
 }
 
-AimpFileInfo::AimpFileInfo(IAimpFileInfo ^item)
+AimpFileInfo::AimpFileInfo(IAimpFileInfo^ item)
 {
     _aimpObject = static_cast<IAIMPFileInfo*>(AimpConverter::MakeObject(IID_IAIMPFileInfo));
     this->Album = item->Album;
@@ -496,7 +497,7 @@ AimpFileInfo::AimpFileInfo(IAimpFileInfo ^item)
 
 AimpFileInfo::AimpFileInfo()
 {
-    IAIMPFileInfo *fileInfo;
+    IAIMPFileInfo* fileInfo;
     ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPFileInfo, reinterpret_cast<void**>(&fileInfo));
     _aimpObject = fileInfo;
 }

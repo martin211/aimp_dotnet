@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -14,12 +14,14 @@
 
 using namespace AIMP::SDK;
 
-InternalAimpGroupingTreeDataProvider::InternalAimpGroupingTreeDataProvider(gcroot<IAimpGroupingTreeDataProvider^> managedInstance)
+InternalAimpGroupingTreeDataProvider::InternalAimpGroupingTreeDataProvider(
+    gcroot<IAimpGroupingTreeDataProvider^> managedInstance)
 {
     _managedInstance = managedInstance;
 }
 
-HRESULT WINAPI InternalAimpGroupingTreeDataProvider::AppendFilter(IAIMPMLDataFilterGroup* Filter, IAIMPMLGroupingTreeSelection* Selection)
+HRESULT WINAPI InternalAimpGroupingTreeDataProvider::AppendFilter(IAIMPMLDataFilterGroup* Filter,
+                                                                  IAIMPMLGroupingTreeSelection* Selection)
 {
     AimpDataFilterGroup^ dataFilterGroup = nullptr;
     IAimpGroupingTreeSelection^ selection = nullptr;
@@ -44,7 +46,8 @@ DWORD WINAPI InternalAimpGroupingTreeDataProvider::GetCapabilities()
     return DWORD(_managedInstance->GetCapabilities());
 }
 
-HRESULT WINAPI InternalAimpGroupingTreeDataProvider::GetData(IAIMPMLGroupingTreeSelection* Selection, IAIMPMLGroupingTreeDataProviderSelection** Data)
+HRESULT WINAPI InternalAimpGroupingTreeDataProvider::GetData(IAIMPMLGroupingTreeSelection* Selection,
+                                                             IAIMPMLGroupingTreeDataProviderSelection** Data)
 {
     IAimpGroupingTreeSelection^ selection = nullptr;
     IAimpGroupingTreeDataProviderSelection^ dataProviderSelection = nullptr;

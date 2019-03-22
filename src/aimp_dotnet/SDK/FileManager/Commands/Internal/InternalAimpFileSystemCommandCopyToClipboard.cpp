@@ -1,27 +1,20 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
 
-/*
- * AIMP DotNet SDK
- * 
- * (C) 2017
- * Mail: mail4evgeniy@gmail.com
- * https://github.com/martin211/aimp_dotnet
- * 
- */
 #include "Stdafx.h"
 #include "InternalAimpFileSystemCommandCopyToClipboard.h"
 
 
-InternalAimpFileSystemCommandCopyToClipboard::InternalAimpFileSystemCommandCopyToClipboard(gcroot<IAimpFileSystemCommandCopyToClipboard^> instance)
+InternalAimpFileSystemCommandCopyToClipboard::InternalAimpFileSystemCommandCopyToClipboard(
+    gcroot<IAimpFileSystemCommandCopyToClipboard^> instance)
 {
     _instance = instance;
 }

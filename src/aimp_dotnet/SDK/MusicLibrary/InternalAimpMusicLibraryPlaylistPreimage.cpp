@@ -1,22 +1,22 @@
 // ----------------------------------------------------
-//
+// 
 // AIMP DotNet SDK
-//
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-//
+// 
 // Mail: mail4evgeniy@gmail.com
-//
+// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
 #include "InternalAimpMusicLibraryPlaylistPreimage.h"
 #include "../MusicLibrary/AimpDataFieldFilter.h"
 
-        //InternalAimpMusicLibraryPlaylistPreimage::InternalAimpMusicLibraryPlaylistPreimage(gcroot<AIMP::SDK::MusicLibrary::IAimpMusicLibraryPlaylistPreimage^> managedInstance)
-        //{
-        //    _managedInstance = managedInstance;
-        //}
+//InternalAimpMusicLibraryPlaylistPreimage::InternalAimpMusicLibraryPlaylistPreimage(gcroot<AIMP::SDK::MusicLibrary::IAimpMusicLibraryPlaylistPreimage^> managedInstance)
+//{
+//    _managedInstance = managedInstance;
+//}
 
 HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetFilter(IAIMPMLDataFilter** Filter)
 {
@@ -37,6 +37,7 @@ HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetStorage(IUnknown** S
 {
     return S_OK;
 }
+
 //
 //ULONG WINAPI InternalAimpMusicLibraryPlaylistPreimage::Release(void)
 //{

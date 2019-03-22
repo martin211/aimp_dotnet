@@ -1,3 +1,14 @@
+// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
 #pragma once
 #include <Windows.h>
 #include <iostream>
@@ -32,7 +43,8 @@ public:
             return E_POINTER;
         }
 
-        if (riid == IID_IAIMPTask) {
+        if (riid == IID_IAIMPTask)
+        {
             *ppvObject = this;
             AddRef();
             return S_OK;
@@ -68,7 +80,7 @@ public:
         _core = core;
     }
 
-    virtual void WINAPI OnExecute(IUnknown *Data)
+    virtual void WINAPI OnExecute(IUnknown* Data)
     {
         System::Diagnostics::Debugger::Launch();
 
@@ -125,21 +137,21 @@ public:
         switch (Index)
         {
         case AIMP_PLUGIN_INFO_NAME:
-        {
-            return L"AIMP native plugin";
-        }
+            {
+                return L"AIMP native plugin";
+            }
         case AIMP_PLUGIN_INFO_AUTHOR:
-        {
-            return L"Evgeniy Bogdan";
-        }
+            {
+                return L"Evgeniy Bogdan";
+            }
         case AIMP_PLUGIN_INFO_SHORT_DESCRIPTION:
-        {
-            return L"AIMP native plugin";
-        }
+            {
+                return L"AIMP native plugin";
+            }
         case AIMP_PLUGIN_INFO_FULL_DESCRIPTION:
-        {
-            return L"AIMP native plugin";
-        }
+            {
+                return L"AIMP native plugin";
+            }
         }
 
         return NULL;
@@ -179,14 +191,13 @@ public:
     // System Notifications
     virtual void WINAPI SystemNotification(int NotifyID, IUnknown* Data)
     {
-        
     }
 
     void RegisterMenu(IAIMPCore* core)
     {
         IAIMPMenuItem* item = nullptr;
         IAIMPMenuItem* parentItem = nullptr;
-        IAIMPServiceMenuManager *service = nullptr;
+        IAIMPServiceMenuManager* service = nullptr;
 
         core->CreateObject(IID_IAIMPMenuItem, (void**)&item);
         if (item != nullptr)

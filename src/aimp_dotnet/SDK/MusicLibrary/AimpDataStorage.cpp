@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -14,6 +14,7 @@
 #include "AimpGroupingPreset.h"
 
 using namespace AIMP::SDK;
+
 AimpDataStorage::!AimpDataStorage()
 {
     _aimpObject->Release();
@@ -27,7 +28,8 @@ AimpDataStorage::~AimpDataStorage()
 AimpActionResult AimpDataStorage::GetProperties(IAIMPPropertyList** properties)
 {
     IAIMPPropertyList* prop = nullptr;
-    const auto result = CheckResult(InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&prop)));
+    const auto result = CheckResult(
+        InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&prop)));
     *properties = prop;
     return result;
 }
@@ -87,8 +89,10 @@ IAimpGroupingPreset^ AimpDataStorage::GroupingPreset::get()
     {
         if (GetProperties(&properties) == AimpActionResult::OK)
         {
-            IAIMPMLGroupingPreset *preset = nullptr;
-            if (PropertyListExtension::GetObject(properties, AIMPML_DATASTORAGE_PROPID_GROUPINGPRESET, IID_IAIMPMLGroupingPreset, reinterpret_cast<void**>(&preset)) == AimpActionResult::OK)
+            IAIMPMLGroupingPreset* preset = nullptr;
+            if (PropertyListExtension::GetObject(properties, AIMPML_DATASTORAGE_PROPID_GROUPINGPRESET,
+                                                 IID_IAIMPMLGroupingPreset, reinterpret_cast<void**>(&preset)) ==
+                AimpActionResult::OK)
             {
                 if (preset != nullptr)
                 {
@@ -109,7 +113,7 @@ IAimpGroupingPreset^ AimpDataStorage::GroupingPreset::get()
     return nullptr;
 }
 
-void AimpDataStorage::GroupingPreset::set(IAimpGroupingPreset ^value)
+void AimpDataStorage::GroupingPreset::set(IAimpGroupingPreset^ value)
 {
     IAIMPPropertyList* properties = nullptr;
     try

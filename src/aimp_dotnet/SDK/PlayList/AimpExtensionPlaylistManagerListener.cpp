@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -13,7 +13,8 @@
 #include "AimpExtensionPlaylistManagerListener.h"
 #include "AimpPlayList.h"
 
-AimpExtensionPlaylistManagerListener::AimpExtensionPlaylistManagerListener(gcroot<IAimpExtensionPlaylistManagerListener^> instance)
+AimpExtensionPlaylistManagerListener::AimpExtensionPlaylistManagerListener(
+    gcroot<IAimpExtensionPlaylistManagerListener^> instance)
 {
     _managedInstance = instance;
 }
@@ -37,7 +38,8 @@ HRESULT WINAPI AimpExtensionPlaylistManagerListener::QueryInterface(REFIID riid,
 {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPExtensionPlaylistManagerListener) {
+    if (riid == IID_IAIMPExtensionPlaylistManagerListener)
+    {
         *ppvObject = this;
         AddRef();
         return S_OK;

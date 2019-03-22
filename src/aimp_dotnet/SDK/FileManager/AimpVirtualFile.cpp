@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -88,7 +88,7 @@ AimpActionResult AimpVirtualFile::CreateStream(IO::Stream^% stream)
 
 AimpActionResult AimpVirtualFile::GetFileInfo(IAimpFileInfo^% fileInfo)
 {
-    IAIMPFileInfo *fi = nullptr;
+    IAIMPFileInfo* fi = nullptr;
     fileInfo = nullptr;
     AimpActionResult result = CheckResult(_aimpObject->GetFileInfo(fi));
 
@@ -105,7 +105,7 @@ bool AimpVirtualFile::IsExists()
     return _aimpObject->IsExists();
 }
 
-AimpActionResult AimpVirtualFile::IsInSameStream(IAimpVirtualFile ^virtualFile)
+AimpActionResult AimpVirtualFile::IsInSameStream(IAimpVirtualFile^ virtualFile)
 {
     return AimpActionResult::NotImplemented;
 }

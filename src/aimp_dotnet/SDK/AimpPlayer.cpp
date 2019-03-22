@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -17,7 +17,7 @@
 using namespace AIMP;
 using namespace AIMP::SDK;
 
-AimpPlayer::AimpPlayer(ManagedAimpCore ^core, int pluginId, int applicationDomainId, bool isCrossDomain)
+AimpPlayer::AimpPlayer(ManagedAimpCore^ core, int pluginId, int applicationDomainId, bool isCrossDomain)
 {
     _managedAimpCore = core;
     IAIMPServicePlayer* ps;
@@ -25,7 +25,8 @@ AimpPlayer::AimpPlayer(ManagedAimpCore ^core, int pluginId, int applicationDomai
     _player = ps;
 
     _aimpCore = gcnew AimpCore(_managedAimpCore);
-    ((AimpCore^)_aimpCore)->InternalCoreMessage += gcnew AimpEventsDelegate(this, &AIMP::AimpPlayer::OnInternalCoreMessage);
+    ((AimpCore^)_aimpCore)->InternalCoreMessage += gcnew AimpEventsDelegate(
+        this, &AIMP::AimpPlayer::OnInternalCoreMessage);
 }
 
 AimpPlayer::~AimpPlayer()
@@ -112,7 +113,8 @@ IAimpPlaybackQueueService^ AimpPlayer::PlaybackQueueManager::get()
     if (_playbackQueueManager == nullptr)
     {
         _playbackQueueManager = gcnew AIMP::SDK::AimpServicePlaybackQueue((ManagedAimpCore^)_managedAimpCore);
-        ((ManagedAimpCore^)_managedAimpCore)->CheckUrl += gcnew AIMP::SDK::Playback::AimpCheckUrl(this, &AIMP::AimpPlayer::OnCheckUrl);
+        ((ManagedAimpCore^)_managedAimpCore)->CheckUrl += gcnew AIMP::SDK::Playback::AimpCheckUrl(
+            this, &AIMP::AimpPlayer::OnCheckUrl);
     }
     return _playbackQueueManager;
 }
@@ -248,7 +250,7 @@ void AimpPlayer::StateChanged::remove(EventHandler<Player::StateChangedEventArgs
     }
 }
 
-void AimpPlayer::StateChanged::raise(Object ^sender, Player::StateChangedEventArgs^ state)
+void AimpPlayer::StateChanged::raise(Object^ sender, Player::StateChangedEventArgs^ state)
 {
     if (this->_onStateChanged != nullptr)
     {
@@ -274,7 +276,7 @@ void AimpPlayer::LanguageChanged::remove(EventHandler^ onAction)
     }
 }
 
-void AimpPlayer::LanguageChanged::raise(Object ^sender, EventArgs ^e)
+void AimpPlayer::LanguageChanged::raise(Object^ sender, EventArgs^ e)
 {
     if (_onLanguageChanged != nullptr)
     {
@@ -300,7 +302,7 @@ void AimpPlayer::TrackChanged::remove(EventHandler^ onAction)
     }
 }
 
-void AimpPlayer::TrackChanged::raise(Object ^sender, EventArgs ^e)
+void AimpPlayer::TrackChanged::raise(Object^ sender, EventArgs^ e)
 {
     if (_onTrackChanged != nullptr)
     {
@@ -338,12 +340,12 @@ void AimpPlayer::GoToPrev()
     _player->GoToPrev();
 }
 
-void AimpPlayer::Play(IAimpPlaybackQueueItem ^queueItem)
+void AimpPlayer::Play(IAimpPlaybackQueueItem^ queueItem)
 {
     _player->Play(((AimpPlaybackQueueItem^)queueItem)->InternalAimpObject);
 }
 
-void AimpPlayer::Play(IAimpPlaylistItem ^playListItem)
+void AimpPlayer::Play(IAimpPlaylistItem^ playListItem)
 {
     _player->Play2(((AimpPlaylistItem^)playListItem)->InternalAimpObject);
 }
@@ -444,7 +446,7 @@ IAimpServiceFileTagEditor^ AimpPlayer::ServiceFileTagEditor::get()
     return _serviceFileTagEditor;
 }
 
-bool AimpPlayer::OnCheckUrl(String^ %url)
+bool AimpPlayer::OnCheckUrl(String^ % url)
 {
     return ((AIMP::SDK::AimpServicePlaybackQueue^)this->_playbackQueueManager)->RaiseCheckUrl(url);
 }
@@ -468,13 +470,13 @@ void AimpPlayer::OnInternalCoreMessage(AimpMessages::AimpCoreMessageType param1,
     case AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_STREAM_START_SUBTRACK:
         TrackChanged(this, EventArgs::Empty);
         break;
-    //case AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_CMD_STATE:
-    //    System::Diagnostics::Debug::WriteLine((AimpMessages::AimpCoreMessageType)param2);
-    //    if (param2 == (int) AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_CMD_STATE)
-    //    {
-    //        System::Diagnostics::Debug::WriteLine((AimpMessages::AimpCoreMessageType)param2);
-    //    }
-    //    break;
+        //case AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_CMD_STATE:
+        //    System::Diagnostics::Debug::WriteLine((AimpMessages::AimpCoreMessageType)param2);
+        //    if (param2 == (int) AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_CMD_STATE)
+        //    {
+        //        System::Diagnostics::Debug::WriteLine((AimpMessages::AimpCoreMessageType)param2);
+        //    }
+        //    break;
     }
 }
 

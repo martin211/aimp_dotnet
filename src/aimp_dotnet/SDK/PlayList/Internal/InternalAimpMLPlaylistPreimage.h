@@ -1,12 +1,12 @@
 // ----------------------------------------------------
-//
+// 
 // AIMP DotNet SDK
-//
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-//
+// 
 // Mail: mail4evgeniy@gmail.com
-//
+// 
 // ----------------------------------------------------
 
 #pragma once
@@ -43,15 +43,15 @@ namespace AIMP
             virtual HRESULT WINAPI Reset();
 
             // Read
-            virtual HRESULT WINAPI GetValueAsFloat(int PropertyID, double *Value);
-            virtual HRESULT WINAPI GetValueAsInt32(int PropertyID, int *Value);
-            virtual HRESULT WINAPI GetValueAsInt64(int PropertyID, INT64 *Value);
-            virtual HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void **Value);
+            virtual HRESULT WINAPI GetValueAsFloat(int PropertyID, double* Value);
+            virtual HRESULT WINAPI GetValueAsInt32(int PropertyID, int* Value);
+            virtual HRESULT WINAPI GetValueAsInt64(int PropertyID, INT64* Value);
+            virtual HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void** Value);
             // Write
             virtual HRESULT WINAPI SetValueAsFloat(int PropertyID, const double Value);
             virtual HRESULT WINAPI SetValueAsInt32(int PropertyID, int Value);
             virtual HRESULT WINAPI SetValueAsInt64(int PropertyID, const INT64 Value);
-            virtual HRESULT WINAPI SetValueAsObject(int PropertyID, IUnknown *Value);
+            virtual HRESULT WINAPI SetValueAsObject(int PropertyID, IUnknown* Value);
 
             virtual ULONG WINAPI AddRef(void);
             virtual ULONG WINAPI Release(void);

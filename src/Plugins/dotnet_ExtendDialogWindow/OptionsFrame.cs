@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+using System;
 using AIMP.SDK.Options;
 using AIMP.SDK.Player;
 
@@ -6,8 +16,8 @@ namespace dotnet_ExtendDialogWindow
 {
     public class OptionsFrame : IAimpOptionsDialogFrame, IAimpOptionsDialogFrameKeyboardHelper
     {
-        private SettingsForm _settingsForm;
         private IAimpPlayer _player;
+        private SettingsForm _settingsForm;
 
         public OptionsFrame(IAimpPlayer player)
         {

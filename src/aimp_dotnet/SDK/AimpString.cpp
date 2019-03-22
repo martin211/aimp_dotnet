@@ -1,14 +1,25 @@
+// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
 #include "Stdafx.h"
 #include "AimpString.h"
 
 using namespace AIMP::SDK;
 
-AimpString::AimpString(IAIMPString *aimpObject)
+AimpString::AimpString(IAIMPString* aimpObject)
 {
     _aimpObject = aimpObject;
 }
 
-AimpActionResult AimpString::GetChar(int index, wchar_t %c)
+AimpActionResult AimpString::GetChar(int index, wchar_t% c)
 {
     WCHAR* chr = nullptr;
     AimpActionResult result = CheckResult(_aimpObject->GetChar(index, chr));
@@ -35,18 +46,18 @@ AimpActionResult AimpString::SetChar(int index, wchar_t c)
     return CheckResult(_aimpObject->SetChar(index, c));
 }
 
-AimpActionResult AimpString::SetData(String ^chars, int charsCount)
+AimpActionResult AimpString::SetData(String^ chars, int charsCount)
 {
     pin_ptr<const WCHAR> strData = PtrToStringChars(chars);
     return CheckResult(_aimpObject->SetData((PWCHAR)strData, charsCount));
 }
 
-AimpActionResult AimpString::Add(IAimpString ^str)
+AimpActionResult AimpString::Add(IAimpString^ str)
 {
     return CheckResult(_aimpObject->Add(((AimpString^)str)->InternalAimpObject));
 }
 
-AimpActionResult AimpString::Add(String ^chars, int charsCount)
+AimpActionResult AimpString::Add(String^ chars, int charsCount)
 {
     pin_ptr<const WCHAR> strData = PtrToStringChars(chars);
     return CheckResult(_aimpObject->Add2((PWCHAR)strData, charsCount));
@@ -57,9 +68,9 @@ AimpActionResult AimpString::ChangeCase(AIMPStringCase mode)
     return CheckResult(_aimpObject->ChangeCase((int)mode));
 }
 
-AimpActionResult AimpString::Clone(IAimpString ^%str)
+AimpActionResult AimpString::Clone(IAimpString^% str)
 {
-    IAIMPString *s = nullptr;
+    IAIMPString* s = nullptr;
     AimpActionResult result = CheckResult(_aimpObject->Clone(&s));
     if (result == AimpActionResult::OK && s != nullptr)
     {
@@ -69,10 +80,11 @@ AimpActionResult AimpString::Clone(IAimpString ^%str)
     return result;
 }
 
-AimpActionResult AimpString::Compare(IAimpString^ str, int %compareResult, bool ignoreCase)
+AimpActionResult AimpString::Compare(IAimpString^ str, int% compareResult, bool ignoreCase)
 {
     int res = 0;
-    AimpActionResult result = CheckResult(_aimpObject->Compare(((AimpString^)str)->InternalAimpObject, &res, ignoreCase));
+    AimpActionResult result = CheckResult(
+        _aimpObject->Compare(((AimpString^)str)->InternalAimpObject, &res, ignoreCase));
     if (result == AimpActionResult::OK)
     {
         compareResult = res;
@@ -81,7 +93,7 @@ AimpActionResult AimpString::Compare(IAimpString^ str, int %compareResult, bool 
     return result;
 }
 
-AimpActionResult AimpString::Compare(String^ chars, int charsCount, int %compareResult, bool ignoreCase)
+AimpActionResult AimpString::Compare(String^ chars, int charsCount, int% compareResult, bool ignoreCase)
 {
     int res = 0;
     pin_ptr<const WCHAR> strData = PtrToStringChars(chars);
@@ -100,7 +112,7 @@ AimpActionResult AimpString::Delete(int index, int count)
     return CheckResult(_aimpObject->Delete(index, count));
 }
 
-AimpActionResult AimpString::Find(IAimpString^ str, int %index, AIMPStringFindFlags flags, int startFromIndex)
+AimpActionResult AimpString::Find(IAimpString^ str, int% index, AIMPStringFindFlags flags, int startFromIndex)
 {
     int i = 0;
 
@@ -118,7 +130,8 @@ AimpActionResult AimpString::Find(IAimpString^ str, int %index, AIMPStringFindFl
     return res;
 }
 
-AimpActionResult AimpString::Find(String^ chars, int charsCount, int %index, AIMPStringFindFlags flags, int startFromIndex)
+AimpActionResult AimpString::Find(String^ chars, int charsCount, int% index, AIMPStringFindFlags flags,
+                                  int startFromIndex)
 {
     int i = 0;
 
@@ -164,7 +177,8 @@ AimpActionResult AimpString::Replace(IAimpString^ oldPattern, IAimpString^ newPa
         flags));
 }
 
-AimpActionResult AimpString::Replace(String^ oldPatternChars, int oldPatternCharsCount, String^ newPatternChars, int newPatternCharsCount, int flags)
+AimpActionResult AimpString::Replace(String^ oldPatternChars, int oldPatternCharsCount, String^ newPatternChars,
+                                     int newPatternCharsCount, int flags)
 {
     pin_ptr<const WCHAR> oldPattern = PtrToStringChars(oldPatternChars);
     pin_ptr<const WCHAR> newPattern = PtrToStringChars(newPatternChars);
@@ -179,9 +193,9 @@ AimpActionResult AimpString::Replace(String^ oldPatternChars, int oldPatternChar
     return AimpActionResult::OK;
 }
 
-AimpActionResult AimpString::SubString(int index, int count, IAimpString ^%str)
+AimpActionResult AimpString::SubString(int index, int count, IAimpString^% str)
 {
-    IAIMPString *subStr = nullptr;
+    IAIMPString* subStr = nullptr;
     AimpActionResult res = CheckResult(_aimpObject->SubString(index, count, &subStr));
     if (res == AimpActionResult::OK)
     {

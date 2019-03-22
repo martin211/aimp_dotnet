@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -18,22 +28,6 @@ namespace Aimp.DotNet.SmartPlaylist
             _factory = factory;
             _factory.Preimages.Add(this);
             AutoSync = true;
-        }
-
-        ~TestPreimage()
-        {
-            FinalizeObject();
-        }
-
-        public AimpActionResult GetFiles(IAimpTaskOwner owner, out int preimageFlags, out IList dataList)
-        {
-            preimageFlags = (int)PreimageFlags.None;
-            dataList = new List<string>
-            {
-                Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)
-            };
-
-            return AimpActionResult.Ok;
         }
 
         public string FactoryId
@@ -78,6 +72,22 @@ namespace Aimp.DotNet.SmartPlaylist
         public void FinalizeObject()
         {
             _factory.Preimages.Remove(this);
+        }
+
+        public AimpActionResult GetFiles(IAimpTaskOwner owner, out int preimageFlags, out IList dataList)
+        {
+            preimageFlags = (int)PreimageFlags.None;
+            dataList = new List<string>
+            {
+                Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)
+            };
+
+            return AimpActionResult.Ok;
+        }
+
+        ~TestPreimage()
+        {
+            FinalizeObject();
         }
     }
 }

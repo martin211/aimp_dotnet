@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -10,7 +10,7 @@
 // ----------------------------------------------------
 
 #pragma once
-namespace AIMP 
+namespace AIMP
 {
     namespace SDK
     {
@@ -23,9 +23,9 @@ namespace AIMP
             public IAimpString
         {
         public:
-            explicit AimpString(IAIMPString *aimpObject);
+            explicit AimpString(IAIMPString* aimpObject);
 
-            virtual AimpActionResult GetChar(int index, wchar_t %c);
+            virtual AimpActionResult GetChar(int index, wchar_t% c);
 
             virtual String^ GetData();
 
@@ -35,25 +35,26 @@ namespace AIMP
 
             virtual AimpActionResult SetChar(int index, wchar_t c);
 
-            virtual AimpActionResult SetData(String ^chars, int charsCount);
+            virtual AimpActionResult SetData(String^ chars, int charsCount);
 
-            virtual AimpActionResult Add(IAimpString ^str);
+            virtual AimpActionResult Add(IAimpString^ str);
 
-            virtual AimpActionResult Add(String ^chars, int charsCount);
+            virtual AimpActionResult Add(String^ chars, int charsCount);
 
             virtual AimpActionResult ChangeCase(AIMPStringCase mode);
 
-            virtual AimpActionResult Clone(IAimpString ^%str);
+            virtual AimpActionResult Clone(IAimpString^% str);
 
-            virtual AimpActionResult Compare(IAimpString^ str, int %compareResult, bool ignoreCase);
+            virtual AimpActionResult Compare(IAimpString^ str, int% compareResult, bool ignoreCase);
 
-            virtual AimpActionResult Compare(String^ chars, int charsCount, int %compareResult, bool ignoreCase);
+            virtual AimpActionResult Compare(String^ chars, int charsCount, int% compareResult, bool ignoreCase);
 
             virtual AimpActionResult Delete(int index, int count);
 
-            virtual AimpActionResult Find(IAimpString^ str, int %index, AIMPStringFindFlags flags, int startFromIndex);
+            virtual AimpActionResult Find(IAimpString^ str, int% index, AIMPStringFindFlags flags, int startFromIndex);
 
-            virtual AimpActionResult Find(String^ chars, int charsCount, int %index, AIMPStringFindFlags flags, int startFromIndex);
+            virtual AimpActionResult Find(String^ chars, int charsCount, int% index, AIMPStringFindFlags flags,
+                                          int startFromIndex);
 
             virtual AimpActionResult Insert(int index, IAimpString^ str);
 
@@ -61,9 +62,10 @@ namespace AIMP
 
             virtual AimpActionResult Replace(IAimpString^ oldPattern, IAimpString^ newPattern, int flags);
 
-            virtual AimpActionResult Replace(String^ oldPatternChars, int oldPatternCharsCount, String^ newPatternChars, int newPatternCharsCount, int flags);
+            virtual AimpActionResult Replace(String^ oldPatternChars, int oldPatternCharsCount, String^ newPatternChars,
+                                             int newPatternCharsCount, int flags);
 
-            virtual AimpActionResult SubString(int index, int count, IAimpString ^%str);
+            virtual AimpActionResult SubString(int index, int count, IAimpString^% str);
         };
     }
 }

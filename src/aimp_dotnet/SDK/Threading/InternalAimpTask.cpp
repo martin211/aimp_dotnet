@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -20,7 +20,7 @@ InternalAimpTask::InternalAimpTask(gcroot<IAimpTask^> instance)
 
 void WINAPI InternalAimpTask::Execute(IAIMPTaskOwner* Owner)
 {
-    AimpTaskOwner ^owner = gcnew AimpTaskOwner(Owner);
+    AimpTaskOwner^ owner = gcnew AimpTaskOwner(Owner);
     _instance->Execute(owner);
 }
 

@@ -2,7 +2,7 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -16,8 +16,10 @@
 
 using namespace AIMP::SDK;
 
-AimpServiceFileTagEditor::AimpServiceFileTagEditor(ManagedAimpCore ^core) : AimpBaseManager<IAIMPServiceFileTagEditor>(core)
-{}
+AimpServiceFileTagEditor::
+AimpServiceFileTagEditor(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceFileTagEditor>(core)
+{
+}
 
 AimpActionResult AimpServiceFileTagEditor::EditFile(String^ filePath, IAimpFileTagEditor^% editor)
 {
@@ -71,7 +73,8 @@ AimpActionResult AimpServiceFileTagEditor::EditFile(IAimpStream^ fileStream, IAi
         if (result == AimpActionResult::OK && service != nullptr)
         {
             IAIMPFileTagEditor* aimpEditor = nullptr;
-            result = CheckResult(service->EditFile(stream, IID_IAIMPFileTagEditor, reinterpret_cast<void**>(&aimpEditor)));
+            result = CheckResult(service->EditFile(stream, IID_IAIMPFileTagEditor,
+                                                   reinterpret_cast<void**>(&aimpEditor)));
 
             if (result == AimpActionResult::OK && aimpEditor != nullptr)
             {
@@ -103,7 +106,8 @@ AimpActionResult AimpServiceFileTagEditor::EditTag(String^ filePath, TagType tag
         if (result == AimpActionResult::OK && service != nullptr)
         {
             IAIMPFileInfo* aimpFileInfo = nullptr;
-            result = CheckResult(service->EditTag(str, int(tag), IID_IAIMPFileInfo, reinterpret_cast<void**>(&aimpFileInfo)));
+            result = CheckResult(service->EditTag(str, int(tag), IID_IAIMPFileInfo,
+                                                  reinterpret_cast<void**>(&aimpFileInfo)));
 
             if (result == AimpActionResult::OK && aimpFileInfo != nullptr)
             {
@@ -141,7 +145,8 @@ AimpActionResult AimpServiceFileTagEditor::EditTag(IAimpStream^ fileStream, TagT
         if (result == AimpActionResult::OK && service != nullptr)
         {
             IAIMPFileInfo* aimpFileInfo = nullptr;
-            result = CheckResult(service->EditTag(stream, int(tag), IID_IAIMPFileInfo, reinterpret_cast<void**>(&aimpFileInfo)));
+            result = CheckResult(service->EditTag(stream, int(tag), IID_IAIMPFileInfo,
+                                                  reinterpret_cast<void**>(&aimpFileInfo)));
 
             if (result == AimpActionResult::OK && aimpFileInfo != nullptr)
             {

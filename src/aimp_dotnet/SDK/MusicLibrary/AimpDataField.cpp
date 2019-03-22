@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -15,7 +15,8 @@
 using namespace AIMP::SDK;
 
 AIMP::SDK::AimpDataField::AimpDataField(IAIMPMLDataField* aimpObject) : AimpObject(aimpObject)
-{}
+{
+}
 
 String^ AIMP::SDK::AimpDataField::Custom::get()
 {
@@ -39,7 +40,8 @@ void AIMP::SDK::AimpDataField::Name::set(String^ value)
 
 AimpDataFieldType AIMP::SDK::AimpDataField::Type::get()
 {
-    return static_cast<AimpDataFieldType>(PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FIELD_PROPID_TYPE));
+    return static_cast<AimpDataFieldType>(PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FIELD_PROPID_TYPE)
+    );
 }
 
 void AIMP::SDK::AimpDataField::Type::set(AimpDataFieldType value)
@@ -49,7 +51,8 @@ void AIMP::SDK::AimpDataField::Type::set(AimpDataFieldType value)
 
 AimpDataFieldFlagsType AIMP::SDK::AimpDataField::Flags::get()
 {
-    return static_cast<AimpDataFieldFlagsType>(PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FIELD_PROPID_FLAGS));
+    return static_cast<AimpDataFieldFlagsType>(PropertyListExtension::GetInt32(
+        InternalAimpObject, AIMPML_FIELD_PROPID_FLAGS));
 }
 
 void AIMP::SDK::AimpDataField::Flags::set(AimpDataFieldFlagsType value)

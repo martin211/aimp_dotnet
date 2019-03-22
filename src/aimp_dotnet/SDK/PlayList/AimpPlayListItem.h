@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -24,15 +24,15 @@ namespace AIMP
         public ref class AimpPlaylistItem : public AimpObject<IAIMPPlaylistItem>, public IAimpPlaylistItem
         {
         private:
-            IAimpPlaylistGroup ^_group;
+            IAimpPlaylistGroup^ _group;
             bool _disposed;
 
         internal:
-            AimpPlaylistItem(IAIMPPlaylistItem *aimpItem) : AimpObject(aimpItem)
+            AimpPlaylistItem(IAIMPPlaylistItem* aimpItem) : AimpObject(aimpItem)
             {
             }
 
-            AimpPlaylistItem(IAimpPlaylistItem ^item);
+            AimpPlaylistItem(IAimpPlaylistItem^ item);
         public:
             AimpPlaylistItem();
 
@@ -49,7 +49,7 @@ namespace AIMP
             virtual property System::String^ FileName
             {
                 System::String^ get();
-                void set(System::String ^value);
+                void set(System::String^ value);
             }
 
             virtual property int Index

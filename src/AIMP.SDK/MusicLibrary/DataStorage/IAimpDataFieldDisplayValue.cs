@@ -1,4 +1,14 @@
-﻿namespace AIMP.SDK.MusicLibrary.DataStorage
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+namespace AIMP.SDK.MusicLibrary.DataStorage
 {
     /// <summary>
     /// Providers an ability to customize display value for specified field.

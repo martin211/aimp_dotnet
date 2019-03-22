@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+using System;
 using System.IO;
 using System.Linq;
 using AIMP.SDK.MenuManager;
@@ -34,7 +44,7 @@ namespace AIMP.SDK.CustomFileSystem
 
             var filesToPlaylist = files
                 .Where(file => Player.ServiceFileFormats.IsSupported(file, FileManager.FileFormats.AIMP_SERVICE_FILEFORMATS_CATEGORY_AUDIO) == AimpActionResult.Ok)
-                .Select(f => $"{CustomFileSystem.sMySchemePrefix}{f}").ToList();
+                .Select(f => $"{CustomFileSystem.MySchemePrefix}{f}").ToList();
             if (filesToPlaylist.Any())
             {
                 if (Player.PlaylistManager.GetActivePlaylist(out var activePl) == AimpActionResult.OK)

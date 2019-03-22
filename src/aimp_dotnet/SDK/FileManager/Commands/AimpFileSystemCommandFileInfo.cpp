@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -15,8 +15,10 @@
 using namespace AIMP::SDK;
 using namespace Objects;
 
-AimpFileSystemCommandFileInfo::AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject) : AimpObject(aimpObject)
-{}
+AimpFileSystemCommandFileInfo::
+AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject) : AimpObject(aimpObject)
+{
+}
 
 AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(String^ file, AimpFileAttributes% attr)
 {
@@ -77,7 +79,7 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(String^ file, long l
     }
 }
 
-AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(String ^file)
+AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(String^ file)
 {
     // TODO: Complete it
     //IAIMPString *str = nullptr;

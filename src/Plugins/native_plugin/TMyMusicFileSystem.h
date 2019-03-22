@@ -1,3 +1,14 @@
+// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
 #pragma once
 #include "IUnknownInterfaceImpl.h"
 #include "AimpSDK.h"
@@ -11,8 +22,8 @@ public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionFileSystem> Base;
     IAIMPCore* _core;
 
-    virtual HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void **Value)
-    { 
+    virtual HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void** Value)
+    {
         if (PropertyID == AIMP_FILESYSTEM_PROPID_SCHEME)
         {
             IAIMPString* s = nullptr;
@@ -21,10 +32,10 @@ public:
             *Value = s;
         }
 
-        return E_NOTIMPL; 
+        return E_NOTIMPL;
     }
 
-    virtual HRESULT WINAPI GetValueAsInt32(int PropertyID, int *Value)
+    virtual HRESULT WINAPI GetValueAsInt32(int PropertyID, int* Value)
     {
         if (PropertyID == AIMP_FILESYSTEM_PROPID_READONLY)
         {
@@ -34,7 +45,8 @@ public:
         return E_NOTIMPL;
     }
 
-    virtual HRESULT WINAPI CreateStream(IAIMPString* FileName, const INT64 Offset, const INT64 Size, DWORD Flags, IAIMPStream** Stream)
+    virtual HRESULT WINAPI CreateStream(IAIMPString* FileName, const INT64 Offset, const INT64 Size, DWORD Flags,
+                                        IAIMPStream** Stream)
     {
         return S_OK;
     }

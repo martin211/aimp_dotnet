@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -17,9 +17,10 @@ class AimpExtensionAlbumArtProvider :
 {
 private:
     gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^> _managedinstance;
-    IAIMPCore *_aimpCore;
+    IAIMPCore* _aimpCore;
 public:
-    AimpExtensionAlbumArtProvider(IAIMPCore* aimpCore, gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^> instance)
+    AimpExtensionAlbumArtProvider(IAIMPCore* aimpCore,
+                                  gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^> instance)
     {
         _managedinstance = instance;
         _aimpCore = aimpCore;
@@ -27,7 +28,8 @@ public:
 
     typedef IUnknownInterfaceImpl<IAIMPExtensionAlbumArtProvider> Base;
 
-    virtual HRESULT WINAPI Get(IAIMPString* FileURI, IAIMPString* Artist, IAIMPString* Album, IAIMPPropertyList* Options, IAIMPImageContainer** Image);
+    virtual HRESULT WINAPI Get(IAIMPString* FileURI, IAIMPString* Artist, IAIMPString* Album,
+                               IAIMPPropertyList* Options, IAIMPImageContainer** Image);
 
     virtual DWORD WINAPI GetCategory();
 
@@ -40,12 +42,14 @@ public:
             return E_POINTER;
         }
 
-        if (riid == IID_IAIMPExtensionAlbumArtProvider) {
+        if (riid == IID_IAIMPExtensionAlbumArtProvider)
+        {
             *ppvObject = this;
             AddRef();
             return S_OK;
         }
-        if (riid == IID_IAIMPExtensionAlbumArtProvider2) {
+        if (riid == IID_IAIMPExtensionAlbumArtProvider2)
+        {
             *ppvObject = static_cast<IAIMPExtensionAlbumArtProvider2*>(this);
             AddRef();
             return S_OK;

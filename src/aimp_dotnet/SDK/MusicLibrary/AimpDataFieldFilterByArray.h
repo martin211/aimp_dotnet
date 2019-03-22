@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -19,10 +19,11 @@ namespace AIMP
         using namespace Collections::Generic;
         using namespace MusicLibrary::DataFilter;
 
-        public ref class AimpDataFieldFilterByArray : public IAimpDataFieldFilterByArray, public AimpObject<IAIMPMLDataFieldFilterByArray>
+        public ref class AimpDataFieldFilterByArray : public IAimpDataFieldFilterByArray,
+                                                      public AimpObject<IAIMPMLDataFieldFilterByArray>
         {
         public:
-            explicit AimpDataFieldFilterByArray(IAIMPMLDataFieldFilterByArray *aimpObject);
+            explicit AimpDataFieldFilterByArray(IAIMPMLDataFieldFilterByArray* aimpObject);
 
             virtual property String^ Field
             {

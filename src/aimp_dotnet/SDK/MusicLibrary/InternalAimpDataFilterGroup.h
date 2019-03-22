@@ -1,12 +1,12 @@
 // ----------------------------------------------------
-//
+// 
 // AIMP DotNet SDK
-//
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-//
+// 
 // Mail: mail4evgeniy@gmail.com
-//
+// 
 // ----------------------------------------------------
 
 #pragma once
@@ -25,7 +25,8 @@ public:
 
     InternalAimpDataFilterGroup(gcroot<IAimpDataFilterGroup^> managed);
 
-    virtual HRESULT WINAPI Add(IUnknown* Field, VARIANT* Value1, VARIANT* Value2, int Operation, IAIMPMLDataFieldFilter** Filter);
+    virtual HRESULT WINAPI Add(IUnknown* Field, VARIANT* Value1, VARIANT* Value2, int Operation,
+                               IAIMPMLDataFieldFilter** Filter);
     virtual HRESULT WINAPI Add2(IUnknown* Field, VARIANT* Values, int Count, IAIMPMLDataFieldFilterByArray** Filter);
     virtual HRESULT WINAPI AddGroup(IAIMPMLDataFilterGroup** Group);
     virtual HRESULT WINAPI Clear();

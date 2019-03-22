@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -14,38 +14,39 @@
 
 using namespace AIMP::SDK;
 
-InternalAimpFileSystemCommandFileInfo::InternalAimpFileSystemCommandFileInfo(gcroot<IAimpFileSystemCommandFileInfo^> instance, IAIMPCore* core)
+InternalAimpFileSystemCommandFileInfo::InternalAimpFileSystemCommandFileInfo(
+    gcroot<IAimpFileSystemCommandFileInfo^> instance, IAIMPCore* core)
 {
     _instance = instance;
     _core = core;
 }
 
-HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileAttrs(IAIMPString* FileName, TAIMPFileAttributes* Attrs)
+HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileAttrs(IAIMPString* fileName, TAIMPFileAttributes* attrs)
 {
     AimpFileAttributes attr;
 
-    AimpActionResult result = _instance->GetFileAttrs(AimpConverter::ToManagedString(FileName), attr);
+    AimpActionResult result = _instance->GetFileAttrs(AimpConverter::ToManagedString(fileName), attr);
 
-    Attrs = new TAIMPFileAttributes();
-    Attrs->Attributes = DWORD(attr.Attributes);
-    Attrs->TimeCreation = attr.TimeCreation.ToOADate();
-    Attrs->TimeLastAccess = attr.TimeLastAccess.ToOADate();
-    Attrs->TimeLastWrite = attr.TimeLastWrite.ToOADate();
+    attrs = new TAIMPFileAttributes();
+    attrs->Attributes = DWORD(attr.Attributes);
+    attrs->TimeCreation = attr.TimeCreation.ToOADate();
+    attrs->TimeLastAccess = attr.TimeLastAccess.ToOADate();
+    attrs->TimeLastWrite = attr.TimeLastWrite.ToOADate();
 
     return HRESULT(result);
 }
 
-HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileSize(IAIMPString* FileName, INT64* Size)
+HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileSize(IAIMPString* fileName, INT64* size)
 {
-    long long size = 0;
-    AimpActionResult result = _instance->GetFileSize(AimpConverter::ToManagedString(FileName), size);
-    *Size = size;
+    long long sizeValur = 0;
+    AimpActionResult result = _instance->GetFileSize(AimpConverter::ToManagedString(fileName), sizeValur);
+    *size = sizeValur;
     return HRESULT(result);
 }
 
-HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::IsFileExists(IAIMPString* FileName)
+HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::IsFileExists(IAIMPString* fileName)
 {
-    return HRESULT(_instance->IsFileExists(AimpConverter::ToManagedString(FileName)));
+    return HRESULT(_instance->IsFileExists(AimpConverter::ToManagedString(fileName)));
 }
 
 ULONG WINAPI InternalAimpFileSystemCommandFileInfo::AddRef(void)

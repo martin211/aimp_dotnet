@@ -1,14 +1,13 @@
 ﻿// ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
-
 using System;
 using System.Diagnostics;
 
@@ -38,8 +37,7 @@ namespace AIMP.SDK.Annotations
         AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class CanBeNullAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// Indicates that the value of the marked element could never be <c>null</c>
@@ -54,8 +52,7 @@ namespace AIMP.SDK.Annotations
         AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class NotNullAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// Indicates that collection or enumerable value does not contain null elements
@@ -65,8 +62,7 @@ namespace AIMP.SDK.Annotations
         AttributeTargets.Delegate | AttributeTargets.Field)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class ItemNotNullAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// Indicates that collection or enumerable value can contain null elements
@@ -76,8 +72,7 @@ namespace AIMP.SDK.Annotations
         AttributeTargets.Delegate | AttributeTargets.Field)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class ItemCanBeNullAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// Indicates that the marked method builds string by format pattern and (optional) arguments.
@@ -138,8 +133,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Parameter)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class InvokerParameterNameAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// Indicates that the method is contained in a type that implements
@@ -303,8 +297,7 @@ namespace AIMP.SDK.Annotations
         AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Struct)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class CannotApplyEqualityOperatorAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// When applied to a target attribute, specifies a requirement for any type marked
@@ -471,8 +464,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Parameter)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class InstantHandleAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// Indicates that a method does not make any observable state changes.
@@ -488,8 +480,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Method)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class PureAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// Indicates that a parameter is a path to a file or a folder within a web project.
@@ -655,8 +646,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Parameter)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class AspMvcMasterAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// ASP.NET MVC attribute. Indicates that a parameter is an MVC model type. Use this attribute
@@ -665,8 +655,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Parameter)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class AspMvcModelTypeAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter is an MVC
@@ -677,8 +666,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class AspMvcPartialViewAttribute : PathReferenceAttribute
-    {
-    }
+    {}
 
     /// <summary>
     /// ASP.NET MVC attribute. Allows disabling inspections for MVC views within a class or a method
@@ -686,8 +674,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class AspMvcSupressViewErrorAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// ASP.NET MVC attribute. Indicates that a parameter is an MVC display template.
@@ -697,8 +684,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Parameter)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class AspMvcDisplayTemplateAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// ASP.NET MVC attribute. Indicates that a parameter is an MVC editor template.
@@ -708,8 +694,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Parameter)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class AspMvcEditorTemplateAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// ASP.NET MVC attribute. Indicates that a parameter is an MVC template.
@@ -719,8 +704,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Parameter)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class AspMvcTemplateAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter
@@ -731,8 +715,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class AspMvcViewAttribute : PathReferenceAttribute
-    {
-    }
+    {}
 
     /// <summary>
     /// ASP.NET MVC attribute. When applied to a parameter of an attribute,
@@ -748,8 +731,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class AspMvcActionSelectorAttribute : Attribute
-    {
-    }
+    {}
 
     [AttributeUsage(
         AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Field)]
@@ -790,8 +772,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class RazorSectionAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// Indicates how method invocation affects content of the collection
@@ -832,8 +813,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Method)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class AssertionMethodAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// Indicates the condition parameter of the assertion method. The method itself should be
@@ -879,8 +859,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Method)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class TerminatesProgramAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// Indicates that method is pure LINQ method, with postponed enumeration (like Enumerable.Select,
@@ -890,8 +869,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Method)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class LinqTunnelAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// Indicates that IEnumerable, passed as parameter, is not enumerated.
@@ -899,8 +877,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Parameter)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class NoEnumerationAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// Indicates that parameter is regular expression pattern.
@@ -908,8 +885,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Parameter)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class RegexPatternAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// XAML attribute. Indicates the type that has <c>ItemsSource</c> property and should be
@@ -919,8 +895,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Class)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class XamlItemsControlAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// XAML attibute. Indicates the property of some <c>BindingBase</c>-derived type, that
@@ -934,8 +909,7 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Property)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class XamlItemBindingOfItemsControlAttribute : Attribute
-    {
-    }
+    {}
 
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
@@ -954,20 +928,17 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class AspDataFieldAttribute : Attribute
-    {
-    }
+    {}
 
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class AspDataFieldsAttribute : Attribute
-    {
-    }
+    {}
 
     [AttributeUsage(AttributeTargets.Property)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class AspMethodPropertyAttribute : Attribute
-    {
-    }
+    {}
 
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
@@ -1022,32 +993,27 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.Method)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class RazorHelperCommonAttribute : Attribute
-    {
-    }
+    {}
 
     [AttributeUsage(AttributeTargets.Property)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class RazorLayoutAttribute : Attribute
-    {
-    }
+    {}
 
     [AttributeUsage(AttributeTargets.Method)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class RazorWriteLiteralMethodAttribute : Attribute
-    {
-    }
+    {}
 
     [AttributeUsage(AttributeTargets.Method)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class RazorWriteMethodAttribute : Attribute
-    {
-    }
+    {}
 
     [AttributeUsage(AttributeTargets.Parameter)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class RazorWriteMethodParameterAttribute : Attribute
-    {
-    }
+    {}
 
     /// <summary>
     /// Prevents the Member Reordering feature from tossing members of the marked class.
@@ -1058,6 +1024,5 @@ namespace AIMP.SDK.Annotations
     [AttributeUsage(AttributeTargets.All)]
     [Conditional("JETBRAINS_ANNOTATIONS")]
     public sealed class NoReorder : Attribute
-    {
-    }
+    {}
 }

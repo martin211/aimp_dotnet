@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -129,8 +129,9 @@ array<String^>^ AimpAlbumArtManager::FileMasks::get()
         if (GetService(IID_IAIMPServiceAlbumArt, &service) == AimpActionResult::OK && service != nullptr)
         {
             service->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&prop));
-            IAIMPString *str;
-            prop->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, IID_IAIMPString, reinterpret_cast<void**>(&str));
+            IAIMPString* str;
+            prop->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, IID_IAIMPString,
+                                   reinterpret_cast<void**>(&str));
             String^ result = gcnew String(str->GetData());
             str->Release();
             return result->Split(gcnew array<WCHAR>{';'});
@@ -189,7 +190,8 @@ array<String^>^ AimpAlbumArtManager::FileExtensions::get()
         {
             service->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&prop));
             IAIMPString* str;
-            prop->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, IID_IAIMPString, reinterpret_cast<void**>(&str));
+            prop->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, IID_IAIMPString,
+                                   reinterpret_cast<void**>(&str));
             auto result = gcnew String(str->GetData());
             str->Release();
             return result->Split(gcnew array<WCHAR>{';'});
@@ -306,7 +308,8 @@ void AimpAlbumArtManager::OnAlbumArtReceive(IAIMPImage* image, IAIMPImageContain
     Completed(this, args);
 }
 
-IntPtr AimpAlbumArtManager::GetImage(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags, Object^ userData)
+IntPtr AimpAlbumArtManager::GetImage(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags,
+                                     Object^ userData)
 {
     void* taskId;
     _findCallback = gcnew OnFindCoverCallback(this, &AIMP::AimpAlbumArtManager::OnAlbumArtReceive);

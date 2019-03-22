@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -17,12 +17,13 @@ class AimpExtensionEmbeddedVisualization : public IUnknownInterfaceImpl<IAIMPExt
 {
 private:
     gcroot<AIMP::SDK::Visuals::IAimpExtensionEmbeddedVisualization^> _managedObject;
-    IAIMPCore *_aimpCore;
+    IAIMPCore* _aimpCore;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionEmbeddedVisualization> Base;
 
-    AimpExtensionEmbeddedVisualization(IAIMPCore *aimpCore, gcroot<AIMP::SDK::Visuals::IAimpExtensionEmbeddedVisualization^> instance)
+    AimpExtensionEmbeddedVisualization(IAIMPCore* aimpCore,
+                                       gcroot<AIMP::SDK::Visuals::IAimpExtensionEmbeddedVisualization^> instance)
     {
         _managedObject = instance;
         _aimpCore = aimpCore;
@@ -30,9 +31,9 @@ public:
 
     virtual int WINAPI GetFlags();
 
-    virtual HRESULT WINAPI GetMaxDisplaySize(int *Width, int *Height);
+    virtual HRESULT WINAPI GetMaxDisplaySize(int* Width, int* Height);
 
-    virtual HRESULT WINAPI GetName(IAIMPString **S);
+    virtual HRESULT WINAPI GetName(IAIMPString** S);
 
     virtual HRESULT WINAPI Initialize(int Width, int Height);
 

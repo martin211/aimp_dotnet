@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -14,10 +14,12 @@
 #include "SDK\FileManager\AimpFileInfo.h"
 #include "SDK\AlbumArt\AimpAlbumArtSearchOptions.h"
 
-HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString* FileURI, IAIMPString* Artist, IAIMPString* Album, IAIMPPropertyList* Options, IAIMPImageContainer** Image)
+HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString* FileURI, IAIMPString* Artist, IAIMPString* Album,
+                                                  IAIMPPropertyList* Options, IAIMPImageContainer** Image)
 {
     Drawing::Bitmap^ bitmap;
-    AlbumArtManager::IAimpAlbumArtSearchOptions^ searchOptions = gcnew AimpAlbumArtSearchOptions(Options, ManagedAimpCore::GetAimpCore());
+    AlbumArtManager::IAimpAlbumArtSearchOptions^ searchOptions = gcnew AimpAlbumArtSearchOptions(
+        Options, ManagedAimpCore::GetAimpCore());
     const auto r = _managedinstance->Get(
         gcnew String(FileURI->GetData()),
         gcnew String(Artist->GetData()),
@@ -45,11 +47,13 @@ DWORD WINAPI AimpExtensionAlbumArtProvider::GetCategory()
     return DWORD(_managedinstance->GetCategory());
 }
 
-HRESULT WINAPI AimpExtensionAlbumArtProvider::Get2(IAIMPFileInfo* FileInfo, IAIMPPropertyList* Options, IAIMPImageContainer** Image)
+HRESULT WINAPI AimpExtensionAlbumArtProvider::Get2(IAIMPFileInfo* FileInfo, IAIMPPropertyList* Options,
+                                                   IAIMPImageContainer** Image)
 {
     Drawing::Bitmap^ bitmap;
     IAimpFileInfo^ fi = gcnew AimpFileInfo(FileInfo);
-    AlbumArtManager::IAimpAlbumArtSearchOptions^ searchOptions = gcnew AimpAlbumArtSearchOptions(Options, ManagedAimpCore::GetAimpCore());
+    AlbumArtManager::IAimpAlbumArtSearchOptions^ searchOptions = gcnew AimpAlbumArtSearchOptions(
+        Options, ManagedAimpCore::GetAimpCore());
     const auto r = _managedinstance->Get(fi, searchOptions, bitmap);
     if (r == AimpActionResult::OK && bitmap != nullptr)
     {

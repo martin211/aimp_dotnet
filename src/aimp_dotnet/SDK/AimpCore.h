@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -25,13 +25,13 @@ namespace AIMP
         public ref class AimpCore : public IAimpCore
         {
         private:
-            ManagedAimpCore ^_aimpCore;
-            AimpEventsDelegate ^_coreMessageHandler;
-            AimpEventsDelegate ^_internalCoreMessageHandler;
+            ManagedAimpCore^ _aimpCore;
+            AimpEventsDelegate^ _coreMessageHandler;
+            AimpEventsDelegate^ _internalCoreMessageHandler;
             bool _disposed;
 
         public:
-            AimpCore(ManagedAimpCore ^core)
+            AimpCore(ManagedAimpCore^ core)
             {
                 _aimpCore = core;
             }
@@ -56,7 +56,7 @@ namespace AIMP
 
             virtual String^ GetPath(AimpMessages::AimpCorePathType pathType)
             {
-                String ^path;
+                String^ path;
                 if (_aimpCore->GetPath(pathType, path) == AIMP::SDK::AimpActionResult::OK)
                 {
                     return path;
@@ -65,17 +65,18 @@ namespace AIMP
                 return String::Empty;
             }
 
-            virtual AimpActionResult SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value, Object ^obj)
+            virtual AimpActionResult SendMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType message, int value,
+                                                 Object^ obj)
             {
                 return Utils::CheckResult(_aimpCore->SendMessage(message, value, obj));
             }
 
-            virtual AimpActionResult RegisterExtension(AIMP::IAimpExtension ^extension)
+            virtual AimpActionResult RegisterExtension(AIMP::IAimpExtension^ extension)
             {
                 return Utils::CheckResult(_aimpCore->RegisterExtension(IID_IAIMPOptionsDialogFrame, extension));
             }
 
-            virtual AimpActionResult UnregisterExtension(AIMP::IAimpExtension ^extension)
+            virtual AimpActionResult UnregisterExtension(AIMP::IAimpExtension^ extension)
             {
                 return Utils::CheckResult(_aimpCore->UnregisterExtension(extension));
             }
@@ -112,7 +113,7 @@ namespace AIMP
 
             virtual IAimpStream^ CreateStream()
             {
-                IAIMPStream *stream = nullptr;
+                IAIMPStream* stream = nullptr;
                 if (_aimpCore->CreateStream(&stream) == AimpActionResult::OK && stream != nullptr)
                 {
                     return gcnew AIMP::SDK::AimpStream(stream);
@@ -121,14 +122,15 @@ namespace AIMP
                 return nullptr;
             }
 
-            virtual System::IntPtr CreateObject(Guid %iid)
+            virtual System::IntPtr CreateObject(Guid% iid)
             {
-                IAIMPCore *core = _aimpCore->GetAimpCore();
-                IUnknown *obj;
+                IAIMPCore* core = _aimpCore->GetAimpCore();
+                IUnknown* obj;
                 array<Byte>^ guidData = iid.ToByteArray();
                 pin_ptr<Byte> data = &(guidData[0]);
                 //AimpActionResult result = Utils::CheckResult(core->CreateObject(*(_GUID *)data, (void**)&obj));
-                AimpActionResult result = Utils::CheckResult(core->CreateObject(IID_IAIMPString, reinterpret_cast<void**>(&obj)));
+                AimpActionResult result = Utils::CheckResult(
+                    core->CreateObject(IID_IAIMPString, reinterpret_cast<void**>(&obj)));
                 if (result == AimpActionResult::OK)
                 {
                     return IntPtr(obj);
@@ -136,18 +138,23 @@ namespace AIMP
 
                 return IntPtr::Zero;
             }
+
         internal:
             virtual event AimpEventsDelegate^ InternalCoreMessage
             {
                 virtual void add(AimpEventsDelegate^ onEvent)
                 {
-                    _internalCoreMessageHandler = (AimpEventsDelegate^)Delegate::Combine(_internalCoreMessageHandler, onEvent);
-                    _aimpCore->InternalCoreMessage += gcnew AimpEventsDelegate(this, &AIMP::SDK::AimpCore::OnInternalCoreMessage);
+                    _internalCoreMessageHandler = (AimpEventsDelegate^)Delegate::Combine(
+                        _internalCoreMessageHandler, onEvent);
+                    _aimpCore->InternalCoreMessage += gcnew AimpEventsDelegate(
+                        this, &AIMP::SDK::AimpCore::OnInternalCoreMessage);
                 }
                 virtual void remove(AimpEventsDelegate^ onEvent)
                 {
-                    _internalCoreMessageHandler = (AimpEventsDelegate^)Delegate::Remove(_internalCoreMessageHandler, onEvent);
-                    _aimpCore->InternalCoreMessage -= gcnew AimpEventsDelegate(this, &AIMP::SDK::AimpCore::OnInternalCoreMessage);
+                    _internalCoreMessageHandler = (AimpEventsDelegate^)Delegate::Remove(
+                        _internalCoreMessageHandler, onEvent);
+                    _aimpCore->InternalCoreMessage -= gcnew AimpEventsDelegate(
+                        this, &AIMP::SDK::AimpCore::OnInternalCoreMessage);
                 }
                 void raise(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2)
                 {

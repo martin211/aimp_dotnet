@@ -1,3 +1,14 @@
+// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
 #include "IUnknownInterfaceImpl.h"
 #include "AimpSDK.h"
 
@@ -25,7 +36,7 @@ private:
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage> Base;
 
-    AimpExtensionDataStorage(IAIMPCore *aimpCore)
+    AimpExtensionDataStorage(IAIMPCore* aimpCore)
     {
         _aimpCore = aimpCore;
     }
@@ -38,12 +49,12 @@ public:
     {
     }
 
-    virtual HRESULT WINAPI ConfigLoad(IAIMPConfig *Config, IAIMPString* Section)
+    virtual HRESULT WINAPI ConfigLoad(IAIMPConfig* Config, IAIMPString* Section)
     {
         return S_OK;
     }
 
-    virtual HRESULT WINAPI ConfigSave(IAIMPConfig *Config, IAIMPString* Section)
+    virtual HRESULT WINAPI ConfigSave(IAIMPConfig* Config, IAIMPString* Section)
     {
         return S_OK;
     }
@@ -114,16 +125,15 @@ public:
     }
 
     virtual void WINAPI FlushCache(int Reserved /*= 0*/)
-    {}
+    {
+    }
 
     virtual void WINAPI BeginUpdate()
     {
-
     }
 
     virtual void WINAPI EndUpdate()
     {
-
     }
 
     virtual HRESULT WINAPI Reset()
@@ -132,12 +142,12 @@ public:
     }
 
     // Read
-    virtual HRESULT WINAPI GetValueAsFloat(int PropertyID, double *Value)
+    virtual HRESULT WINAPI GetValueAsFloat(int PropertyID, double* Value)
     {
         return S_OK;
     }
 
-    virtual HRESULT WINAPI GetValueAsInt32(int PropertyID, int *Value)
+    virtual HRESULT WINAPI GetValueAsInt32(int PropertyID, int* Value)
     {
         //if (PropertyID == AIMPML_DATASTORAGE_PROPID_CAPABILITIES)
         //{
@@ -147,16 +157,16 @@ public:
         return S_OK;
     }
 
-    virtual HRESULT WINAPI GetValueAsInt64(int PropertyID, INT64 *Value)
+    virtual HRESULT WINAPI GetValueAsInt64(int PropertyID, INT64* Value)
     {
         return S_OK;
     }
 
-    virtual HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void **Value)
+    virtual HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void** Value)
     {
         if (PropertyID == AIMPML_DATASTORAGE_PROPID_ID)
         {
-           // *Value = MakeString(L"ID");
+            // *Value = MakeString(L"ID");
         }
 
         if (PropertyID == AIMPML_DATASTORAGE_PROPID_CAPTION)
@@ -166,6 +176,7 @@ public:
 
         return S_OK;
     }
+
     // Write
     virtual HRESULT WINAPI SetValueAsFloat(int PropertyID, const double Value)
     {
@@ -182,7 +193,7 @@ public:
         return S_OK;
     }
 
-    virtual HRESULT WINAPI SetValueAsObject(int PropertyID, IUnknown *Value)
+    virtual HRESULT WINAPI SetValueAsObject(int PropertyID, IUnknown* Value)
     {
         return S_OK;
     }
@@ -271,5 +282,5 @@ public:
     }
 
 private:
-    IAIMPCore *_aimpCore;
+    IAIMPCore* _aimpCore;
 };

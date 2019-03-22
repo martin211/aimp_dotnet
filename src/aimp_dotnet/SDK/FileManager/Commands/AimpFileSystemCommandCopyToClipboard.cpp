@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -15,8 +15,10 @@
 using namespace AIMP::SDK;
 using namespace Objects;
 
-AimpFileSystemCommandCopyToClipboard::AimpFileSystemCommandCopyToClipboard(IAIMPFileSystemCommandCopyToClipboard* aimpObject) : AimpObject(aimpObject)
-{}
+AimpFileSystemCommandCopyToClipboard::AimpFileSystemCommandCopyToClipboard(
+    IAIMPFileSystemCommandCopyToClipboard* aimpObject) : AimpObject(aimpObject)
+{
+}
 
 AimpActionResult AimpFileSystemCommandCopyToClipboard::CopyToClipboard(List<String^>^ files)
 {

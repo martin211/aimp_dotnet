@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -205,15 +205,16 @@ private:
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage> Base;
 
-    AimpExtensionDataStorage(IAIMPCore *aimpCore, gcroot<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^> instance);
+    AimpExtensionDataStorage(IAIMPCore* aimpCore,
+                             gcroot<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^> instance);
 
     virtual void WINAPI Finalize();
 
     virtual void WINAPI Initialize(IAIMPMLDataStorageManager* Manager);
 
-    virtual HRESULT WINAPI ConfigLoad(IAIMPConfig *Config, IAIMPString* Section);
+    virtual HRESULT WINAPI ConfigLoad(IAIMPConfig* Config, IAIMPString* Section);
 
-    virtual HRESULT WINAPI ConfigSave(IAIMPConfig *Config, IAIMPString* Section);
+    virtual HRESULT WINAPI ConfigSave(IAIMPConfig* Config, IAIMPString* Section);
 
     virtual HRESULT WINAPI GetFields(int Schema, IAIMPObjectList** List);
 
@@ -228,13 +229,13 @@ public:
     virtual HRESULT WINAPI Reset();
 
     // Read
-    virtual HRESULT WINAPI GetValueAsFloat(int PropertyID, double *Value);
+    virtual HRESULT WINAPI GetValueAsFloat(int PropertyID, double* Value);
 
-    virtual HRESULT WINAPI GetValueAsInt32(int PropertyID, int *Value);
+    virtual HRESULT WINAPI GetValueAsInt32(int PropertyID, int* Value);
 
-    virtual HRESULT WINAPI GetValueAsInt64(int PropertyID, INT64 *Value);
+    virtual HRESULT WINAPI GetValueAsInt64(int PropertyID, INT64* Value);
 
-    virtual HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void **Value);
+    virtual HRESULT WINAPI GetValueAsObject(int PropertyID, REFIID IID, void** Value);
     // Write
     virtual HRESULT WINAPI SetValueAsFloat(int PropertyID, const double Value);
 
@@ -242,7 +243,7 @@ public:
 
     virtual HRESULT WINAPI SetValueAsInt64(int PropertyID, const INT64 Value);
 
-    virtual HRESULT WINAPI SetValueAsObject(int PropertyID, IUnknown *Value);
+    virtual HRESULT WINAPI SetValueAsObject(int PropertyID, IUnknown* Value);
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
 
@@ -252,5 +253,5 @@ public:
 
 private:
     gcroot<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^> _managedInstance;
-    IAIMPCore *_aimpCore;
+    IAIMPCore* _aimpCore;
 };

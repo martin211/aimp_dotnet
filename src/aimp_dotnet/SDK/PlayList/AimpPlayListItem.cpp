@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -61,7 +61,7 @@ String^ AimpPlaylistItem::FileName::get()
     return PropertyListExtension::GetString(_aimpObject, AIMP_PLAYLISTITEM_PROPID_FILENAME);
 }
 
-void AimpPlaylistItem::FileName::set(String ^value)
+void AimpPlaylistItem::FileName::set(String^ value)
 {
     PropertyListExtension::SetString(_aimpObject, AIMP_PLAYLISTITEM_PROPID_FILENAME, value);
 }
@@ -113,8 +113,9 @@ void AimpPlaylistItem::Selected::set(bool value)
 
 IAimpFileInfo^ AimpPlaylistItem::FileInfo::get()
 {
-    IAIMPFileInfo *fileInfo;
-    if (CheckResult(_aimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_FILEINFO, IID_IAIMPFileInfo, reinterpret_cast<void**>(&fileInfo))) != AimpActionResult::OK)
+    IAIMPFileInfo* fileInfo;
+    if (CheckResult(_aimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_FILEINFO, IID_IAIMPFileInfo,
+                                                  reinterpret_cast<void**>(&fileInfo))) != AimpActionResult::OK)
     {
         return nullptr;
     }
@@ -127,8 +128,9 @@ IAimpPlaylistGroup^ AimpPlaylistItem::Group::get()
 {
     if (_group == nullptr)
     {
-        IAIMPPlaylistGroup *group;
-        if (PropertyListExtension::GetObject(_aimpObject, AIMP_PLAYLISTITEM_PROPID_GROUP, IID_IAIMPPlaylistGroup, reinterpret_cast<void**>(&group)) != AimpActionResult::OK)
+        IAIMPPlaylistGroup* group;
+        if (PropertyListExtension::GetObject(_aimpObject, AIMP_PLAYLISTITEM_PROPID_GROUP, IID_IAIMPPlaylistGroup,
+                                             reinterpret_cast<void**>(&group)) != AimpActionResult::OK)
         {
             return nullptr;
         }
@@ -141,8 +143,9 @@ IAimpPlaylistGroup^ AimpPlaylistItem::Group::get()
 
 IAimpPlaylist^ AimpPlaylistItem::PlayList::get()
 {
-    IAIMPPlaylist *obj;
-    if (CheckResult(_aimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_PLAYLIST, IID_IAIMPPlaylist, reinterpret_cast<void**>(&obj))) != AimpActionResult::OK)
+    IAIMPPlaylist* obj;
+    if (CheckResult(_aimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_PLAYLIST, IID_IAIMPPlaylist,
+                                                  reinterpret_cast<void**>(&obj))) != AimpActionResult::OK)
     {
         return nullptr;
     }

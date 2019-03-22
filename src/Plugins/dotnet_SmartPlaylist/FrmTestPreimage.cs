@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,9 +21,9 @@ namespace Aimp.DotNet.SmartPlaylist
 {
     public partial class FrmTestPreimage : Form, IAimpExtensionPlaylistManagerListener, IAimpExtension
     {
-        private readonly IAimpPlaylistManager2 _manager;
         private readonly IAimpCore _core;
         private readonly TestPreimageFactory _factory;
+        private readonly IAimpPlaylistManager2 _manager;
         private readonly IList<string> _playlists;
 
         public FrmTestPreimage()
@@ -40,6 +50,31 @@ namespace Aimp.DotNet.SmartPlaylist
                     PlAdded(pl);
                 }
             }
+        }
+
+        public AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist)
+        {
+            return AimpActionResult.Ok;
+        }
+
+        public AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist)
+        {
+            listView1.Items.Add(new ListViewItem
+            {
+                Text = playlist.Name,
+                Tag = playlist.Id
+            });
+            return AimpActionResult.Ok;
+        }
+
+        public AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist)
+        {
+            var item = listView1.Items.Cast<ListViewItem>().FirstOrDefault(c => c.Tag == playlist.Id);
+            if (item != null)
+            {
+                listView1.Items.Remove(item);
+            }
+            return AimpActionResult.Ok;
         }
 
         private void PlAdded(IAimpPlaylist pl)
@@ -72,31 +107,6 @@ namespace Aimp.DotNet.SmartPlaylist
             }
 
             return null;
-        }
-
-        public AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist)
-        {
-            return AimpActionResult.Ok;
-        }
-
-        public AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist)
-        {
-            listView1.Items.Add(new ListViewItem
-            {
-                Text = playlist.Name,
-                Tag = playlist.Id
-            });
-            return AimpActionResult.Ok;
-        }
-
-        public AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist)
-        {
-            var item = listView1.Items.Cast<ListViewItem>().FirstOrDefault(c => c.Tag == playlist.Id);
-            if (item != null)
-            {
-                listView1.Items.Remove(item);
-            }
-            return AimpActionResult.Ok;
         }
 
         private void button1_Click(object sender, EventArgs e)

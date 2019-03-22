@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -14,7 +14,7 @@
 class AimpExtension
 {
 protected:
-    IAIMPCore *_aimpCore;
+    IAIMPCore* _aimpCore;
 public:
     AimpExtension(IAIMPCore* aimpCore)
     {
@@ -23,8 +23,8 @@ public:
 };
 
 class OptionsDialogFrameExtension :
-    public IUnknownInterfaceImpl<IAIMPOptionsDialogFrame>, 
-    public IAIMPOptionsDialogFrameKeyboardHelper, 
+    public IUnknownInterfaceImpl<IAIMPOptionsDialogFrame>,
+    public IAIMPOptionsDialogFrameKeyboardHelper,
     public AimpExtension
 {
 public:
@@ -33,7 +33,8 @@ public:
 private:
     gcroot<AIMP::SDK::Options::IAimpOptionsDialogFrame^> _managedFrame;
 public:
-    explicit OptionsDialogFrameExtension(IAIMPCore* aimpCore, gcroot<AIMP::SDK::Options::IAimpOptionsDialogFrame^> managedFrame);
+    explicit OptionsDialogFrameExtension(IAIMPCore* aimpCore,
+                                         gcroot<AIMP::SDK::Options::IAimpOptionsDialogFrame^> managedFrame);
 
     GUID ExtensionId();
 

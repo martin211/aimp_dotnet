@@ -1,3 +1,14 @@
+// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
 #include "Stdafx.h"
 #include "InternalAimpDataFilterGroup.h"
 
@@ -10,12 +21,15 @@ InternalAimpDataFilterGroup::InternalAimpDataFilterGroup(gcroot<IAimpDataFilterG
     _managed = managed;
 }
 
-HRESULT WINAPI InternalAimpDataFilterGroup::Add(IUnknown* Field, VARIANT* Value1, VARIANT* Value2, int Operation, IAIMPMLDataFieldFilter** Filter)
+HRESULT WINAPI InternalAimpDataFilterGroup::Add(IUnknown* Field, VARIANT* Value1, VARIANT* Value2, int Operation,
+                                                IAIMPMLDataFieldFilter** Filter)
 {
     AimpActionResult res = AimpActionResult::Fail;
 
     IAimpDataFieldFilter^ filter = nullptr;
-    res = _managed->Add(AimpConverter::ToManagedString(static_cast<IAIMPString*>(Field)), AimpConverter::FromVaiant(Value1), AimpConverter::FromVaiant(Value2), FieldFilterOperationType(Operation), filter);
+    res = _managed->Add(AimpConverter::ToManagedString(static_cast<IAIMPString*>(Field)),
+                        AimpConverter::FromVaiant(Value1), AimpConverter::FromVaiant(Value2),
+                        FieldFilterOperationType(Operation), filter);
 
     if (res == AimpActionResult::OK && filter != nullptr)
     {
@@ -25,7 +39,8 @@ HRESULT WINAPI InternalAimpDataFilterGroup::Add(IUnknown* Field, VARIANT* Value1
     return HRESULT(res);
 }
 
-HRESULT WINAPI InternalAimpDataFilterGroup::Add2(IUnknown* Field, VARIANT* Values, int Count, IAIMPMLDataFieldFilterByArray** Filter)
+HRESULT WINAPI InternalAimpDataFilterGroup::Add2(IUnknown* Field, VARIANT* Values, int Count,
+                                                 IAIMPMLDataFieldFilterByArray** Filter)
 {
     AimpActionResult res = AimpActionResult::Fail;
     array<Object^>^ values = gcnew array<Object^>(Count);
@@ -124,7 +139,7 @@ HRESULT WINAPI InternalAimpDataFilterGroup::QueryInterface(REFIID riid, LPVOID* 
     return res;
 }
 
-HRESULT WINAPI InternalAimpDataFilterGroup::GetValueAsInt32(int PropertyID, int *Value)
+HRESULT WINAPI InternalAimpDataFilterGroup::GetValueAsInt32(int PropertyID, int* Value)
 {
     if (PropertyID == AIMPML_FILTERGROUP_OPERATION)
         *Value = int(_managed->Operation);

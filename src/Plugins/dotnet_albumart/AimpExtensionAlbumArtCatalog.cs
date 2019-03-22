@@ -1,4 +1,14 @@
-﻿using AIMP.SDK.FileManager;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+using AIMP.SDK.FileManager;
 
 namespace dotnet_albumart
 {
@@ -9,6 +19,16 @@ namespace dotnet_albumart
 
     public class AimpExtensionAlbumArtCatalog : IAimpExtensionAlbumArtCatalog
     {
+        #region Implementation of IAimpExtensionAlbumArtCatalog2
+
+        public AimpActionResult Show(IAimpFileInfo fileInfo, out Bitmap image)
+        {
+            image = Properties.Resources.front;
+            return AimpActionResult.Ok;
+        }
+
+        #endregion
+
         #region Implementation of IAimpExtensionAlbumArtCatalog
 
         public Bitmap GetIcon()
@@ -22,16 +42,6 @@ namespace dotnet_albumart
         }
 
         public AimpActionResult Show(string fileUrl, string artist, string album, out Bitmap image)
-        {
-            image = Properties.Resources.front;
-            return AimpActionResult.Ok;
-        }
-
-        #endregion
-
-        #region Implementation of IAimpExtensionAlbumArtCatalog2
-
-        public AimpActionResult Show(IAimpFileInfo fileInfo, out Bitmap image)
         {
             image = Properties.Resources.front;
             return AimpActionResult.Ok;

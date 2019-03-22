@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -30,7 +30,8 @@ AimpGroupingPresets::!AimpGroupingPresets()
     _aimpObject->Release();
 }
 
-AimpActionResult AimpGroupingPresets::Add(String^ id, String^ name, String^ fieldName, IAimpGroupingPresetStandard^% preset)
+AimpActionResult AimpGroupingPresets::Add(String^ id, String^ name, String^ fieldName,
+                                          IAimpGroupingPresetStandard^% preset)
 {
     IAIMPMLGroupingPresetStandard* standartPreset;
 
@@ -38,7 +39,8 @@ AimpActionResult AimpGroupingPresets::Add(String^ id, String^ name, String^ fiel
     IAIMPString* aimpName = AimpConverter::ToAimpString(name);
     IAIMPString* aimpFieldName = AimpConverter::ToAimpString(name);
 
-    AimpActionResult result = CheckResult(InternalAimpObject->Add3(aimpId, aimpName, 0, aimpFieldName, &standartPreset));
+    AimpActionResult result =
+        CheckResult(InternalAimpObject->Add3(aimpId, aimpName, 0, aimpFieldName, &standartPreset));
 
     aimpId->Release();
     aimpName->Release();
@@ -53,7 +55,8 @@ AimpActionResult AimpGroupingPresets::Add(String^ id, String^ name, String^ fiel
     return result;
 }
 
-AimpActionResult AimpGroupingPresets::Add(String^ id, String^ name, IAimpGroupingTreeDataProvider^ provider, IAimpGroupingPreset^% preset)
+AimpActionResult AimpGroupingPresets::Add(String^ id, String^ name, IAimpGroupingTreeDataProvider^ provider,
+                                          IAimpGroupingPreset^% preset)
 {
     preset = nullptr;
 
@@ -76,7 +79,8 @@ AimpActionResult AimpGroupingPresets::Add(String^ id, String^ name, IAimpGroupin
     return result;
 }
 
-AimpActionResult AimpGroupingPresets::Add(String^ id, String^ name, Generic::IList<String^>^ fieldNames, IAimpGroupingPresetStandard^% preset)
+AimpActionResult AimpGroupingPresets::Add(String^ id, String^ name, Generic::IList<String^>^ fieldNames,
+                                          IAimpGroupingPresetStandard^% preset)
 {
     IAIMPObjectList* fields = AimpConverter::CreateAimpObject<IAIMPObjectList>(IID_IAIMPObjectList);
 
@@ -130,7 +134,8 @@ AimpActionResult AimpGroupingPresets::Get(int index, IAimpGroupingPresetStandard
 {
     IAIMPMLGroupingPresetStandard* p = nullptr;
     preset = nullptr;
-    AimpActionResult result = CheckResult(InternalAimpObject->Get(index, IID_IAIMPMLGroupingPresetStandard, reinterpret_cast<void**>(&p)));
+    AimpActionResult result = CheckResult(
+        InternalAimpObject->Get(index, IID_IAIMPMLGroupingPresetStandard, reinterpret_cast<void**>(&p)));
 
     if (result == AimpActionResult::OK)
     {
@@ -145,7 +150,8 @@ AimpActionResult AimpGroupingPresets::Get(int index, IAimpGroupingPreset^% prese
     IAIMPMLGroupingPreset* p = nullptr;
     preset = nullptr;
 
-    AimpActionResult result = CheckResult(InternalAimpObject->Get(index, IID_IAIMPMLGroupingPreset, reinterpret_cast<void**>(&p)));
+    AimpActionResult result = CheckResult(
+        InternalAimpObject->Get(index, IID_IAIMPMLGroupingPreset, reinterpret_cast<void**>(&p)));
     if (result == AimpActionResult::OK)
     {
         preset = gcnew AimpGroupingPreset(p);
@@ -160,7 +166,8 @@ AimpActionResult AimpGroupingPresets::GetById(String^ id, IAimpGroupingPresetSta
     preset = nullptr;
 
     IAIMPString* aimpId = AimpConverter::ToAimpString(id);
-    AimpActionResult result = CheckResult(InternalAimpObject->GetByID(aimpId, IID_IAIMPMLGroupingPresetStandard, reinterpret_cast<void**>(&p)));
+    AimpActionResult result = CheckResult(
+        InternalAimpObject->GetByID(aimpId, IID_IAIMPMLGroupingPresetStandard, reinterpret_cast<void**>(&p)));
     aimpId->Release();
 
     if (result == AimpActionResult::OK)
@@ -177,7 +184,8 @@ AimpActionResult AimpGroupingPresets::GetById(String^ id, IAimpGroupingPreset^% 
     preset = nullptr;
 
     IAIMPString* aimpId = AimpConverter::ToAimpString(id);
-    AimpActionResult result = CheckResult(InternalAimpObject->GetByID(aimpId, IID_IAIMPMLGroupingPreset, reinterpret_cast<void**>(&p)));
+    AimpActionResult result = CheckResult(
+        InternalAimpObject->GetByID(aimpId, IID_IAIMPMLGroupingPreset, reinterpret_cast<void**>(&p)));
     aimpId->Release();
 
     if (result == AimpActionResult::OK)

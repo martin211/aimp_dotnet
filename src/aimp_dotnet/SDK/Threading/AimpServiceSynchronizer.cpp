@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -15,9 +15,9 @@
 
 using namespace AIMP::SDK;
 
-AimpServiceSynchronizer::AimpServiceSynchronizer(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceSynchronizer>(core)
+AimpServiceSynchronizer::
+AimpServiceSynchronizer(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceSynchronizer>(core)
 {
-
 }
 
 AimpActionResult AimpServiceSynchronizer::ExecuteInMainThread(IAimpTask^ task, bool executeNow)
@@ -30,7 +30,7 @@ AimpActionResult AimpServiceSynchronizer::ExecuteInMainThread(IAimpTask^ task, b
         {
             if (service != nullptr)
             {
-                InternalAimpTask *internalTask = new InternalAimpTask(task);
+                InternalAimpTask* internalTask = new InternalAimpTask(task);
                 return CheckResult(service->ExecuteInMainThread(internalTask, BOOL(executeNow)));
             }
         }

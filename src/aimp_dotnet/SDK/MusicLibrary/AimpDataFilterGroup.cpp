@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -84,7 +84,7 @@ AimpActionResult AimpDataFilterGroup::Add(
 {
     IAIMPMLDataFieldFilterByArray* nativeObj = nullptr;
     int cnt = values->Length;
-    VARIANT *variants = new VARIANT[cnt];
+    VARIANT* variants = new VARIANT[cnt];
     filter = nullptr;
 
     for (int i = 0; i < values->Length; i++)
@@ -139,7 +139,8 @@ AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFilterGroup^%
 {
     group = nullptr;
     IAIMPMLDataFilterGroup* child = nullptr;
-    const auto result = CheckResult(_aimpObject->GetChild(index, IID_IAIMPMLDataFilterGroup, reinterpret_cast<void**>(&child)));
+    const auto result = CheckResult(
+        _aimpObject->GetChild(index, IID_IAIMPMLDataFilterGroup, reinterpret_cast<void**>(&child)));
     if (result == AimpActionResult::OK && child != nullptr)
     {
         group = gcnew AimpDataFilterGroup(child);
@@ -152,7 +153,8 @@ AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFieldFilter^%
 {
     fieldFilter = nullptr;
     IAIMPMLDataFieldFilter* child = nullptr;
-    const auto result = CheckResult(_aimpObject->GetChild(index, IID_IAIMPMLDataFieldFilter, reinterpret_cast<void**>(&child)));
+    const auto result = CheckResult(
+        _aimpObject->GetChild(index, IID_IAIMPMLDataFieldFilter, reinterpret_cast<void**>(&child)));
     if (result == AimpActionResult::OK && child != nullptr)
     {
         fieldFilter = gcnew AimpDataFieldFilter(child);
