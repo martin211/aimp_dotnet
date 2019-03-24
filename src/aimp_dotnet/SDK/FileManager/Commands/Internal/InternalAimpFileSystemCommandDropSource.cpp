@@ -29,7 +29,8 @@ HRESULT WINAPI InternalAimpFileSystemCommandDropSource::CreateStream(IAIMPString
         *stream = static_cast<AimpStream^>(s)->InternalAimpObject;
         return S_OK;
     }
-    return (HRESULT)S_OK;
+
+    return HRESULT(S_OK);
 }
 
 ULONG WINAPI InternalAimpFileSystemCommandDropSource::AddRef(void)

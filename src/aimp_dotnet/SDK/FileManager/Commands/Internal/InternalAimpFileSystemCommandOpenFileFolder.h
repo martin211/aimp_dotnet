@@ -10,7 +10,6 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "InternalAimpFileSystemCustomFileCommand.h"
 
 using namespace AIMP::SDK::FileManager::Commands;
 
@@ -18,7 +17,7 @@ class InternalAimpFileSystemCommandOpenFileFolder : public IUnknownInterfaceImpl
 {
 private:
     typedef IUnknownInterfaceImpl<IAIMPFileSystemCommandOpenFileFolder> Base;
-    gcroot<AIMP::SDK::FileManager::Commands::IAimpFileSystemCommandOpenFileFolder^> _instance;
+    gcroot<IAimpFileSystemCommandOpenFileFolder^> _instance;
 
 public:
     InternalAimpFileSystemCommandOpenFileFolder(gcroot<IAimpFileSystemCommandOpenFileFolder^> instance);
