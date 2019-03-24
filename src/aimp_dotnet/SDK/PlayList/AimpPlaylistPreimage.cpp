@@ -20,20 +20,20 @@ AimpPlaylistPreimage::AimpPlaylistPreimage(IAIMPPlaylistPreimage* aimpObject) : 
 
 String^ AimpPlaylistPreimage::FactoryId::get()
 {
-    return PropertyListExtension::GetString(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_FACTORYID);
+    return PropertyListExtension::GetString(InternalAimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_FACTORYID);
 }
 
 bool AimpPlaylistPreimage::AutoSync::get()
 {
-    int value = PropertyListExtension::GetInt32(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC);
+    int value = PropertyListExtension::GetInt32(InternalAimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC);
     return value > 0;
 
-    //return PropertyListExtension::GetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC);
+    //return PropertyListExtension::GetBool(InternalAimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC);
 }
 
 void AimpPlaylistPreimage::AutoSync::set(bool value)
 {
-    if (PropertyListExtension::SetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC, value) != AimpActionResult::
+    if (PropertyListExtension::SetBool(InternalAimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC, value) != AimpActionResult::
         OK)
     {
         System::Diagnostics::Debugger::Break();
@@ -42,27 +42,27 @@ void AimpPlaylistPreimage::AutoSync::set(bool value)
 
 bool AimpPlaylistPreimage::AutoSyncOnStartup::get()
 {
-    return PropertyListExtension::GetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC_ON_STARTUP);
+    return PropertyListExtension::GetBool(InternalAimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC_ON_STARTUP);
 }
 
 void AimpPlaylistPreimage::AutoSyncOnStartup::set(bool value)
 {
-    PropertyListExtension::SetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC_ON_STARTUP, value);
+    PropertyListExtension::SetBool(InternalAimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC_ON_STARTUP, value);
 }
 
 bool AimpPlaylistPreimage::HasDialog::get()
 {
-    return PropertyListExtension::GetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_HASDIALOG);
+    return PropertyListExtension::GetBool(InternalAimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_HASDIALOG);
 }
 
 void AimpPlaylistPreimage::HasDialog::set(bool value)
 {
-    PropertyListExtension::SetBool(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_HASDIALOG, value);
+    PropertyListExtension::SetBool(InternalAimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_HASDIALOG, value);
 }
 
 String^ AimpPlaylistPreimage::SortTemplate::get()
 {
-    return PropertyListExtension::GetString(_aimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_SORTTEMPLATE);
+    return PropertyListExtension::GetString(InternalAimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_SORTTEMPLATE);
 }
 
 AimpActionResult AimpPlaylistPreimage::ConfigLoad(IAimpStream^ stream)
@@ -77,7 +77,7 @@ AimpActionResult AimpPlaylistPreimage::ConfigSave(IAimpStream^ stream)
 
 AimpActionResult AimpPlaylistPreimage::ExecuteDialog(IntPtr ownerHandle)
 {
-    //_aimpObject->ExecuteDialog()
+    //InternalAimpObject->ExecuteDialog()
     return AimpActionResult::Unexpected;
 }
 
@@ -87,5 +87,5 @@ void AimpPlaylistPreimage::Initialize(IAimpPlaylistPreimageListener^ listener)
 
 void AimpPlaylistPreimage::FinalizeObject()
 {
-    _aimpObject->Finalize();
+    InternalAimpObject->Finalize();
 }

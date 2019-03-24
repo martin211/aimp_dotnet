@@ -33,7 +33,7 @@ namespace AIMP
 
             !AimpDataFilterGroup()
             {
-                //_aimpObject->Release();
+                //InternalAimpObject->Release();
             }
 
             virtual property FilterGroupOperationType Operation

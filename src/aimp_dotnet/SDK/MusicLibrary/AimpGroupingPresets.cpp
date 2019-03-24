@@ -27,7 +27,7 @@ AimpGroupingPresets::~AimpGroupingPresets()
 
 AimpGroupingPresets::!AimpGroupingPresets()
 {
-    _aimpObject->Release();
+    InternalAimpObject->Release();
 }
 
 AimpActionResult AimpGroupingPresets::Add(String^ id, String^ name, String^ fieldName,

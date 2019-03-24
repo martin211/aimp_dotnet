@@ -17,7 +17,7 @@ using namespace AIMP::SDK;
 
 AimpDataStorage::!AimpDataStorage()
 {
-    _aimpObject->Release();
+    InternalAimpObject->Release();
 }
 
 AimpDataStorage::~AimpDataStorage()

@@ -27,9 +27,9 @@ public:
         _managedInstance = managedInstance;
     }
 
-    virtual HRESULT WINAPI GetFileInfo(IAIMPString* FileURI, IAIMPFileInfo* Info);
+    virtual HRESULT WINAPI GetFileInfo(IAIMPString* fileURI, IAIMPFileInfo* info);
 
-    virtual HRESULT WINAPI GetFileInfo(IAIMPStream* Stream, IAIMPFileInfo* Info);
+    virtual HRESULT WINAPI GetFileInfo(IAIMPStream* stream, IAIMPFileInfo* info);
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
     {

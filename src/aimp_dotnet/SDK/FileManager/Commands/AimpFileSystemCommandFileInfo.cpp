@@ -61,7 +61,7 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(String^ file, long l
     {
         //str = AimpConverter::ToAimpString(file);
         //INT64 *fSize = 0;
-        //AimpActionResult result = CheckResult(_aimpObject->GetFileSize(str, fSize));
+        //AimpActionResult result = CheckResult(InternalAimpObject->GetFileSize(str, fSize));
         //if (result == AimpActionResult::OK)
         //{
         //    size = (long long)fSize;
@@ -88,7 +88,7 @@ AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(String^ file)
     //try
     //{
     //    //str = AimpConverter::ToAimpString(file);
-    //    //return CheckResult(_aimpObject->IsFileExists(str));
+    //    //return CheckResult(InternalAimpObject->IsFileExists(str));
 
     //    return AimpActionResult::OK;
     //}

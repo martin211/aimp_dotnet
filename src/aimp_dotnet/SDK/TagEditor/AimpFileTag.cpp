@@ -21,20 +21,20 @@ AimpFileTag::AimpFileTag(IAIMPFileTag* aimpObject) : AimpFileInfo(aimpObject)
 
 TagType AimpFileTag::TagId::get()
 {
-    return TagType(PropertyListExtension::GetInt32(_aimpObject, AIMP_FILETAG_PROPID_TAG_ID));
+    return TagType(PropertyListExtension::GetInt32(InternalAimpObject, AIMP_FILETAG_PROPID_TAG_ID));
 }
 
 void AimpFileTag::TagId::set(TagType value)
 {
-    PropertyListExtension::SetInt32(_aimpObject, AIMP_FILETAG_PROPID_TAG_ID, int(value));
+    PropertyListExtension::SetInt32(InternalAimpObject, AIMP_FILETAG_PROPID_TAG_ID, int(value));
 }
 
 bool AimpFileTag::DeleteOnSaving::get()
 {
-    return PropertyListExtension::GetBool(_aimpObject, AIMP_FILETAG_PROPID_DELETE_ON_SAVING);
+    return PropertyListExtension::GetBool(InternalAimpObject, AIMP_FILETAG_PROPID_DELETE_ON_SAVING);
 }
 
 void AimpFileTag::DeleteOnSaving::set(bool value)
 {
-    PropertyListExtension::SetBool(_aimpObject, AIMP_FILETAG_PROPID_DELETE_ON_SAVING, value);
+    PropertyListExtension::SetBool(InternalAimpObject, AIMP_FILETAG_PROPID_DELETE_ON_SAVING, value);
 }

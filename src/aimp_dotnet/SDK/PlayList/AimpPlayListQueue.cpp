@@ -23,14 +23,14 @@ AimpPlaylistQueue::AimpPlaylistQueue(IAIMPPlaylistQueue* queue, IAIMPPlaylistQue
 bool AimpPlaylistQueue::IsSuspended::get()
 {
     IAIMPPropertyList* properties;
-    _aimpObject->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&properties));
+    InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&properties));
     return PropertyListExtension::GetBool(properties, AIMP_PLAYLISTQUEUE_PROPID_SUSPENDED);
 }
 
 void AimpPlaylistQueue::IsSuspended::set(bool value)
 {
     IAIMPPropertyList* properties;
-    _aimpObject->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&properties));
+    InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&properties));
     PropertyListExtension::SetBool(properties, AIMP_PLAYLISTQUEUE_PROPID_SUSPENDED, value);
 }
 
@@ -67,7 +67,7 @@ AimpActionResult AimpPlaylistQueue::AddList(Generic::IList<IAimpPlaylistItem^>^ 
 
 int AimpPlaylistQueue::GetItemCount()
 {
-    return _aimpObject->GetItemCount();
+    return InternalAimpObject->GetItemCount();
 }
 
 AimpActionResult AimpPlaylistQueue::Delete(IAimpPlaylist^ playList)

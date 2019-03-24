@@ -26,7 +26,7 @@ AimpDataFieldFilter::~AimpDataFieldFilter()
 
 AimpDataFieldFilter::!AimpDataFieldFilter()
 {
-    _aimpObject->Release();
+    InternalAimpObject->Release();
 }
 
 String^ AimpDataFieldFilter::Field::get()

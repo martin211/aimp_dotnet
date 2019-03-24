@@ -24,11 +24,11 @@ AimpPlayList::~AimpPlayList()
 
 AimpPlayList::!AimpPlayList()
 {
-    if (_aimpObject != nullptr)
+    if (InternalAimpObject != nullptr)
     {
         try
         {
-            _aimpObject->Release();
+            InternalAimpObject->Release();
             _aimpObject = nullptr;
         }
         catch (const std::exception&)

@@ -25,7 +25,7 @@ AimpGroupingTreeSelection::~AimpGroupingTreeSelection()
 
 AimpGroupingTreeSelection::!AimpGroupingTreeSelection()
 {
-    _aimpObject->Release();
+    InternalAimpObject->Release();
 }
 
 int AimpGroupingTreeSelection::GetCount()

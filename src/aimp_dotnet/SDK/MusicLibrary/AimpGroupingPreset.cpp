@@ -25,7 +25,7 @@ AimpGroupingPreset::~AimpGroupingPreset()
 
 AimpGroupingPreset::!AimpGroupingPreset()
 {
-    _aimpObject->Release();
+    InternalAimpObject->Release();
 }
 
 String^ AimpGroupingPreset::Custom::get()
@@ -41,7 +41,7 @@ void AimpGroupingPreset::Custom::set(String^ value)
 
 String^ AimpGroupingPreset::Id::get()
 {
-    return PropertyListExtension::GetString(_aimpObject, AIMPML_GROUPINGPRESET_PROPID_ID);
+    return PropertyListExtension::GetString(InternalAimpObject, AIMPML_GROUPINGPRESET_PROPID_ID);
 }
 
 void AimpGroupingPreset::Id::set(String^ value)

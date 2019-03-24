@@ -14,20 +14,20 @@
 #include "AimpFileInfo.h"
 #include "../../SDK/AimpString.h"
 
-HRESULT WINAPI InternalAimpExtensionFileInfoProvider::GetFileInfo(IAIMPString* FileURI, IAIMPFileInfo* Info)
+HRESULT WINAPI InternalAimpExtensionFileInfoProvider::GetFileInfo(IAIMPString* fileURI, IAIMPFileInfo* info)
 {
-    IAimpFileInfo^ aimpFileInfo = gcnew AimpFileInfo(Info);
-    IAimpString^ str = gcnew AimpString(FileURI);
+    IAimpFileInfo^ aimpFileInfo = gcnew AimpFileInfo(info);
+    IAimpString^ str = gcnew AimpString(fileURI);
     AimpActionResult result = _managedInstance->GetFileInfo(str, aimpFileInfo);
-    Info = static_cast<AimpFileInfo^>(aimpFileInfo)->InternalAimpObject;
+    info = static_cast<AimpFileInfo^>(aimpFileInfo)->InternalAimpObject;
 
     return HRESULT(result);
 }
 
-HRESULT WINAPI InternalAimpExtensionFileInfoProvider::GetFileInfo(IAIMPStream* Stream, IAIMPFileInfo* Info)
+HRESULT WINAPI InternalAimpExtensionFileInfoProvider::GetFileInfo(IAIMPStream* stream, IAIMPFileInfo* info)
 {
     // TODO: Complete it
-    IAimpFileInfo^ aimpFileInfo = gcnew AimpFileInfo(Info);
+    IAimpFileInfo^ aimpFileInfo = gcnew AimpFileInfo(info);
     //return (HRESULT)_managedInstance->GetFileInfo(null, aimpFileInfo);
     return E_NOTIMPL;
 }
