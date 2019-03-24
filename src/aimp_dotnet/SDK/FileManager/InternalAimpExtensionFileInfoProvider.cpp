@@ -26,8 +26,42 @@ HRESULT WINAPI InternalAimpExtensionFileInfoProvider::GetFileInfo(IAIMPString* f
 
 HRESULT WINAPI InternalAimpExtensionFileInfoProvider::GetFileInfo(IAIMPStream* stream, IAIMPFileInfo* info)
 {
-    // TODO: Complete it
     IAimpFileInfo^ aimpFileInfo = gcnew AimpFileInfo(info);
-    //return (HRESULT)_managedInstance->GetFileInfo(null, aimpFileInfo);
-    return E_NOTIMPL;
+    const auto result = _managedInstance->GetFileInfo(gcnew AimpStream(stream), aimpFileInfo);
+    info = static_cast<AimpFileInfo^>(aimpFileInfo)->InternalAimpObject;
+
+    return HRESULT(result);
 }
+
+ULONG InternalAimpExtensionFileInfoProvider::AddRef()
+{
+    return Base::AddRef();
+}
+
+ULONG InternalAimpExtensionFileInfoProvider::Release()
+{
+    return Base::Release();
+}
+
+HRESULT InternalAimpExtensionFileInfoProvider::QueryInterface(const IID& riid, LPVOID* ppvObject)
+{
+    HRESULT res = Base::QueryInterface(riid, ppvObject);
+
+    if (riid == IID_IAIMPExtensionFileInfoProvider)
+    {
+        *ppvObject = this;
+        AddRef();
+        return S_OK;
+    }
+
+    if (riid == IID_IAIMPExtensionFileInfoProviderEx)
+    {
+        *ppvObject = static_cast<IAIMPExtensionFileInfoProviderEx*>(this);
+        AddRef();
+        return S_OK;
+    }
+
+    *ppvObject = nullptr;
+    return res;
+}
+

@@ -20,10 +20,8 @@ InternalAimpExtensionFileSystem::InternalAimpExtensionFileSystem(
     System::Object^ obj = managed;
 
     IAimpFileSystemCommandFileInfo^ fileInfoCommand = dynamic_cast<IAimpFileSystemCommandFileInfo^>(obj);
-    IAimpFileSystemCommandOpenFileFolder^ openFileFolderCommand = dynamic_cast<IAimpFileSystemCommandOpenFileFolder^>(
-        obj);
-    IAimpFileSystemCommandCopyToClipboard^ copyToClipboardCommand = dynamic_cast<IAimpFileSystemCommandCopyToClipboard^>
-        (obj);
+    IAimpFileSystemCommandOpenFileFolder^ openFileFolderCommand = dynamic_cast<IAimpFileSystemCommandOpenFileFolder^>(obj);
+    IAimpFileSystemCommandCopyToClipboard^ copyToClipboardCommand = dynamic_cast<IAimpFileSystemCommandCopyToClipboard^>(obj);
     IAimpFileSystemCommandDelete^ deleteCommand = dynamic_cast<IAimpFileSystemCommandDelete^>(obj);
     IAimpFileSystemCommandDropSource^ dropSourceCommand = dynamic_cast<IAimpFileSystemCommandDropSource^>(obj);
     IAimpFileSystemCommandStreaming^ streamingCommand = dynamic_cast<IAimpFileSystemCommandStreaming^>(obj);
@@ -89,11 +87,6 @@ HRESULT WINAPI InternalAimpExtensionFileSystem::GetValueAsObject(int propertyId,
 HRESULT WINAPI InternalAimpExtensionFileSystem::QueryInterface(REFIID riid, LPVOID* ppvObject)
 {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
-
-    if (!ppvObject)
-    {
-        return E_POINTER;
-    }
 
     if (riid == IID_IAIMPExtensionFileSystem)
     {

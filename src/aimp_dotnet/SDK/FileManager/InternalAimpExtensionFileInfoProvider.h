@@ -31,38 +31,9 @@ public:
 
     virtual HRESULT WINAPI GetFileInfo(IAIMPStream* stream, IAIMPFileInfo* info);
 
-    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
-    {
-        if (!ppvObject)
-        {
-            return E_POINTER;
-        }
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
 
-        if (riid == IID_IAIMPExtensionFileInfoProvider)
-        {
-            *ppvObject = this;
-            AddRef();
-            return S_OK;
-        }
+    virtual ULONG WINAPI AddRef(void);
 
-        if (riid == IID_IAIMPExtensionFileInfoProviderEx)
-        {
-            *ppvObject = static_cast<IAIMPExtensionFileInfoProviderEx*>(this);
-            AddRef();
-            return S_OK;
-        }
-
-        *ppvObject = nullptr;
-        return E_NOINTERFACE;
-    }
-
-    virtual ULONG WINAPI AddRef(void)
-    {
-        return Base::AddRef();
-    }
-
-    virtual ULONG WINAPI Release(void)
-    {
-        return Base::Release();
-    }
+    virtual ULONG WINAPI Release(void);
 };

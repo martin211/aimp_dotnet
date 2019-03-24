@@ -35,8 +35,7 @@ private:
 public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionFileSystem> Base;
 
-    InternalAimpExtensionFileSystem(gcroot<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileSystem^> managed,
-                                    IAIMPCore* core);
+    InternalAimpExtensionFileSystem(gcroot<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileSystem^> managed, IAIMPCore* core);
 
     virtual HRESULT WINAPI GetValueAsInt32(int propertyId, int* value);
 
