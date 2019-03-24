@@ -50,13 +50,12 @@ namespace AIMP.SDK.FileManager
         /// </summary>
         string FileUri { get; set; }
 
-        //TODO: ADN-26
         /// <summary>
         /// Create the instance of the <see cref="IAimpStream"/>.
         /// </summary>
         /// <param name="stream"></param>
         /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult CreateStream(out Stream stream);
+        AimpActionResult CreateStream(out IAimpStream stream);
 
         /// <summary>
         /// Gets the file info.

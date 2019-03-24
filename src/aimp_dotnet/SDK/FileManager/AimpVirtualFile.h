@@ -61,7 +61,7 @@ namespace AIMP
                 void set(String^ value);
             }
 
-            virtual AimpActionResult CreateStream(IO::Stream^% stream);
+            virtual AimpActionResult CreateStream(IAimpStream^% stream);
 
             virtual AimpActionResult GetFileInfo(IAimpFileInfo^% fileInfo);
 
