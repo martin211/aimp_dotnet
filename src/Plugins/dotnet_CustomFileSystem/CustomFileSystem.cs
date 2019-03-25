@@ -49,7 +49,7 @@ namespace AIMP.SDK.CustomFileSystem
 
         AimpActionResult IAimpFileSystemCommandDelete.CanProcess(string fileName)
         {
-            var result = GetCommand(FileCommandType.Delete, fileName, out IAimpFileSystemCommandDelete cmd);
+            var result = GetCommand<IAimpFileSystemCommandDelete>(FileCommandType.Delete, fileName, out IAimpFileSystemCommandDelete cmd);
             if (result == AimpActionResult.OK && cmd != null)
             {
                 result = cmd.CanProcess(fileName);
@@ -122,7 +122,7 @@ namespace AIMP.SDK.CustomFileSystem
 
         AimpActionResult IAimpFileSystemCommandOpenFileFolder.CanProcess(string fileName)
         {
-            var result = GetCommand(FileCommandType.Delete, fileName, out IAimpFileSystemCommandOpenFileFolder cmd);
+            var result = GetCommand(FileCommandType.OpenFileFolder, fileName, out IAimpFileSystemCommandOpenFileFolder cmd);
             if (result == AimpActionResult.OK && cmd != null)
             {
                 result = cmd.CanProcess(GetFile(fileName));
@@ -133,7 +133,7 @@ namespace AIMP.SDK.CustomFileSystem
 
         AimpActionResult IAimpFileSystemCommandOpenFileFolder.Process(string fileName)
         {
-            var result = GetCommand(FileCommandType.Delete, fileName, out IAimpFileSystemCommandOpenFileFolder cmd);
+            var result = GetCommand(FileCommandType.OpenFileFolder, fileName, out IAimpFileSystemCommandOpenFileFolder cmd);
             if (result == AimpActionResult.OK && cmd != null)
             {
                 result = cmd.Process(GetFile(fileName));

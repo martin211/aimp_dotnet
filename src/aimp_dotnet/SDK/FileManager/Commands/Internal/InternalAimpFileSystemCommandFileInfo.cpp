@@ -29,9 +29,9 @@ HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileAttrs(IAIMPString* 
 
     attrs = new TAIMPFileAttributes();
     attrs->Attributes = DWORD(attr.Attributes);
-    attrs->TimeCreation = attr.TimeCreation.ToOADate();
-    attrs->TimeLastAccess = attr.TimeLastAccess.ToOADate();
-    attrs->TimeLastWrite = attr.TimeLastWrite.ToOADate();
+    attrs->TimeCreation = attr.TimeCreation;
+    attrs->TimeLastAccess = attr.TimeLastAccess;
+    attrs->TimeLastWrite = attr.TimeLastWrite;
 
     return HRESULT(result);
 }

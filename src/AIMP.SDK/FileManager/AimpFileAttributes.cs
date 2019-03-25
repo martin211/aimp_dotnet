@@ -17,11 +17,11 @@ namespace AIMP.SDK.FileManager
     {
         public FileAttributes Attributes { get; set; }
 
-        public DateTime TimeLastAccess { get; set; }
+        public double TimeLastAccess { get; set; }
 
-        public DateTime TimeLastWrite { get; set; }
+        public double TimeLastWrite { get; set; }
 
-        public DateTime TimeCreation { get; set; }
+        public double TimeCreation { get; set; }
 
         public bool Equals(AimpFileAttributes other)
         {

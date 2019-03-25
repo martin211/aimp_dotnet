@@ -22,52 +22,23 @@ AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject) : Aimp
 
 AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(String^ file, AimpFileAttributes% attr)
 {
-    // TODO: Complete it
-    //auto str = AimpConverter::ToAimpString(file);
-    AimpActionResult result = AimpActionResult::Fail;
-    //attr = AimpFileAttributes();
+    auto str = AimpConverter::ToAimpString(file);
+    auto result = AimpActionResult::Fail;
+    auto atr = AimpFileAttributes();
 
     try
     {
-        //TAIMPFileAttributes* fattr = nullptr;
-        //AimpActionResult result = CheckResult(InternalAimpObject->GetFileAttrs(str, fattr));
-        //if (result == AimpActionResult::OK)
-        //{
-        //    auto atr = AimpFileAttributes();
-        //    //atr.TimeCreation = gcnew System::DateTime(fattr->TimeCreation);
-        //    attr = atr;
-        //}
-    }
-    finally
-    {
-        //if (str != nullptr)
-        //{
-        //    str->Release();
-        //    str = nullptr;
-        //}
-    }
+        TAIMPFileAttributes* fattr = nullptr;
+        result = CheckResult(InternalAimpObject->GetFileAttrs(str, fattr));
 
-    return result;
-}
-
-AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(String^ file, long long% size)
-{
-    // TODO: Complete it
-
-    IAIMPString* str = nullptr;
-    size = 0;
-
-    try
-    {
-        //str = AimpConverter::ToAimpString(file);
-        //INT64 *fSize = 0;
-        //AimpActionResult result = CheckResult(InternalAimpObject->GetFileSize(str, fSize));
-        //if (result == AimpActionResult::OK)
-        //{
-        //    size = (long long)fSize;
-        //}
-
-        return AimpActionResult::OK;
+        if (result == AimpActionResult::OK)
+        {
+            atr.TimeCreation = fattr->TimeCreation;
+            atr.TimeLastAccess = fattr->TimeLastAccess;
+            atr.TimeLastWrite = fattr->TimeLastWrite;
+            atr.Attributes = static_cast<IO::FileAttributes>(fattr->Attributes);
+            attr = atr;
+        }
     }
     finally
     {
@@ -77,29 +48,56 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(String^ file, long l
             str = nullptr;
         }
     }
+
+    return result;
+}
+
+AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(String^ file, long long% size)
+{
+    IAIMPString* str = nullptr;
+    size = 0;
+    AimpActionResult result = AimpActionResult::Fail;
+
+    try
+    {
+        str = AimpConverter::ToAimpString(file);
+        INT64* fSize = 0;
+        result = CheckResult(InternalAimpObject->GetFileSize(str, fSize));
+        if (result == AimpActionResult::OK)
+        {
+            size = reinterpret_cast<long long>(fSize);
+        }
+    }
+    finally
+    {
+        if (str != nullptr)
+        {
+            str->Release();
+            str = nullptr;
+        }
+    }
+
+    return result;
 }
 
 AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(String^ file)
 {
-    // TODO: Complete it
-    //IAIMPString *str = nullptr;
+    IAIMPString* str = nullptr;
     AimpActionResult result = AimpActionResult::Fail;
 
-    //try
-    //{
-    //    //str = AimpConverter::ToAimpString(file);
-    //    //return CheckResult(InternalAimpObject->IsFileExists(str));
-
-    //    return AimpActionResult::OK;
-    //}
-    //finally
-    //{
-    //    //if (str != nullptr)
-    //    //{
-    //    //    str->Release();
-    //    //    str = nullptr;
-    //    //}
-    //}
+    try
+    {
+        str = AimpConverter::ToAimpString(file);
+        result = CheckResult(InternalAimpObject->IsFileExists(str));
+    }
+    finally
+    {
+        if (str != nullptr)
+        {
+            str->Release();
+            str = nullptr;
+        }
+    }
 
     return result;
 }
