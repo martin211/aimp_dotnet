@@ -28,7 +28,7 @@ namespace AIMP.SDK.CustomFileSystem
         IAimpFileSystemCommandStreaming
     {
         private const string MyScheme = "mymusic";
-        public const string MySchemePrefix = MyScheme + @":\\";
+        public static string MySchemePrefix = MyScheme + @":\\";
 
         private readonly IAimpPlayer _aimpPlayer;
 
@@ -49,7 +49,7 @@ namespace AIMP.SDK.CustomFileSystem
 
         AimpActionResult IAimpFileSystemCommandDelete.CanProcess(string fileName)
         {
-            var result = GetCommand<IAimpFileSystemCommandDelete>(FileCommandType.Delete, fileName, out IAimpFileSystemCommandDelete cmd);
+            var result = GetCommand(FileCommandType.Delete, fileName, out IAimpFileSystemCommandDelete cmd);
             if (result == AimpActionResult.OK && cmd != null)
             {
                 result = cmd.CanProcess(fileName);
