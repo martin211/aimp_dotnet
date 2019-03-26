@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -14,12 +14,13 @@
 #include "AimpVirtualFile.h"
 
 using namespace AIMP::SDK;
+
 AimpServiceFileInfo::AimpServiceFileInfo(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceFileInfo>(core)
 {
-
 }
 
-AimpActionResult AimpServiceFileInfo::GetFileInfoFromFileUri(String^ fileUri, ServiceFileInfoFlags fileInfoFlags, IAimpFileInfo^% fileInfo)
+AimpActionResult AimpServiceFileInfo::GetFileInfoFromFileUri(String^ fileUri, ServiceFileInfoFlags fileInfoFlags,
+                                                             IAimpFileInfo^% fileInfo)
 {
     IAIMPServiceFileInfo* service = nullptr;
     IAIMPString* str = nullptr;
@@ -34,7 +35,7 @@ AimpActionResult AimpServiceFileInfo::GetFileInfoFromFileUri(String^ fileUri, Se
             str = AimpConverter::ToAimpString(fileUri);
             result = CheckResult(service->GetFileInfoFromFileURI(str, DWORD(fileInfoFlags), fi));
 
-            if (result == AimpActionResult::OK)
+            if (result == AimpActionResult::OK && fi != nullptr)
             {
                 fileInfo = gcnew AimpFileInfo(fi);
             }
@@ -58,11 +59,39 @@ AimpActionResult AimpServiceFileInfo::GetFileInfoFromFileUri(String^ fileUri, Se
     return result;
 }
 
-AimpActionResult AimpServiceFileInfo::GetFileInfoFromStream(IAimpStream^ fileStream, ServiceFileInfoFlags fileInfoFlags, IAimpFileInfo^% fileInfo)
+AimpActionResult AimpServiceFileInfo::GetFileInfoFromStream(IAimpStream^ fileStream, ServiceFileInfoFlags fileInfoFlags,
+                                                            IAimpFileInfo^% fileInfo)
 {
-    // TODO Complete it
+    IAIMPServiceFileInfo* service = nullptr;
+    AimpActionResult result = AimpActionResult::Fail;
     fileInfo = nullptr;
-    return AimpActionResult::NotImplemented;
+
+    try
+    {
+        if (GetService(IID_IAIMPServiceFileInfo, &service) == AimpActionResult::OK && service != nullptr)
+        {
+            IAIMPFileInfo* fi = nullptr;
+            result = CheckResult(service->GetFileInfoFromStream(
+                static_cast<AimpStream^>(fileStream)->InternalAimpObject,
+                DWORD(fileInfoFlags),
+                fi));
+
+            if (result == AimpActionResult::OK && fi != nullptr)
+            {
+                fileInfo = gcnew AimpFileInfo(fi);
+            }
+        }
+    }
+    finally
+    {
+        if (service != nullptr)
+        {
+            service->Release();
+            service = nullptr;
+        }
+    }
+
+    return result;
 }
 
 AimpActionResult AimpServiceFileInfo::GetVirtualFile(String^ fileUri, IAimpVirtualFile^% virtualFile)

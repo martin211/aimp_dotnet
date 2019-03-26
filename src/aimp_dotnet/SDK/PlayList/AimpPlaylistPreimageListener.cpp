@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -14,22 +14,26 @@
 
 using namespace AIMP::SDK;
 
-AimpPlaylistPreimageListener::AimpPlaylistPreimageListener(IAIMPPlaylistPreimageListener * aimpObject) : AimpObject(aimpObject)
-{ }
+AimpPlaylistPreimageListener::
+AimpPlaylistPreimageListener(IAIMPPlaylistPreimageListener* aimpObject) : AimpObject(aimpObject)
+{
+}
 
-void AimpPlaylistPreimageListener::DataChanged::add(AimpPlaylistPreimageListenerHandler ^onEvent)
+void AimpPlaylistPreimageListener::DataChanged::add(AimpPlaylistPreimageListenerHandler^ onEvent)
 {
     if (_dataChangedHandler == nullptr)
     {
-        _dataChangedHandler = static_cast<AimpPlaylistPreimageListenerHandler^>(Delegate::Combine(_dataChangedHandler, onEvent));
+        _dataChangedHandler = static_cast<AimpPlaylistPreimageListenerHandler^>(Delegate::Combine(
+            _dataChangedHandler, onEvent));
     }
 }
 
-void AimpPlaylistPreimageListener::DataChanged::remove(AimpPlaylistPreimageListenerHandler ^onEvent)
+void AimpPlaylistPreimageListener::DataChanged::remove(AimpPlaylistPreimageListenerHandler^ onEvent)
 {
     if (_dataChangedHandler != nullptr)
     {
-        _dataChangedHandler = static_cast<AimpPlaylistPreimageListenerHandler^>(Delegate::Remove(_dataChangedHandler, onEvent));
+        _dataChangedHandler = static_cast<AimpPlaylistPreimageListenerHandler^>(Delegate::Remove(
+            _dataChangedHandler, onEvent));
     }
 }
 
@@ -41,19 +45,21 @@ void AimpPlaylistPreimageListener::DataChanged::raise()
     }
 }
 
-void AimpPlaylistPreimageListener::SettingsChanged::add(AimpPlaylistPreimageListenerHandler ^onEvent)
+void AimpPlaylistPreimageListener::SettingsChanged::add(AimpPlaylistPreimageListenerHandler^ onEvent)
 {
     if (_settingsChangedHandler == nullptr)
     {
-        _settingsChangedHandler = static_cast<AimpPlaylistPreimageListenerHandler^>(Delegate::Combine(_settingsChangedHandler, onEvent));
+        _settingsChangedHandler = static_cast<AimpPlaylistPreimageListenerHandler^>(Delegate::Combine(
+            _settingsChangedHandler, onEvent));
     }
 }
 
-void AimpPlaylistPreimageListener::SettingsChanged::remove(AimpPlaylistPreimageListenerHandler ^onEvent)
+void AimpPlaylistPreimageListener::SettingsChanged::remove(AimpPlaylistPreimageListenerHandler^ onEvent)
 {
     if (_settingsChangedHandler != nullptr)
     {
-        _settingsChangedHandler = static_cast<AimpPlaylistPreimageListenerHandler^>(Delegate::Remove(_settingsChangedHandler, onEvent));
+        _settingsChangedHandler = static_cast<AimpPlaylistPreimageListenerHandler^>(Delegate::Remove(
+            _settingsChangedHandler, onEvent));
     }
 }
 

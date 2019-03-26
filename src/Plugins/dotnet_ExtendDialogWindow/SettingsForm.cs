@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -12,16 +22,11 @@ namespace dotnet_ExtendDialogWindow
 {
     internal partial class SettingsForm : Form
     {
-        //public PluginSettings Settings { get; set; }
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
-
         public static string _settingButtonText = "Options";
 
-        private IAimpPlayer _player;
-
         private IAimpOptionsDialogFrame _parentFrame;
+
+        private IAimpPlayer _player;
 
         public SettingsForm(IntPtr parentWindow, IAimpPlayer player, IAimpOptionsDialogFrame parentFrame)
             : this()
@@ -34,14 +39,18 @@ namespace dotnet_ExtendDialogWindow
             WindowState = FormWindowState.Maximized;
         }
 
-        private void CbDebugModeOnCheckedChanged(object sender, EventArgs eventArgs)
-        {
-            //Settings.IsDebugMode = cbDebugMode.Checked;
-        }
-
         public SettingsForm()
         {
             InitializeComponent();
+        }
+        //public PluginSettings Settings { get; set; }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
+        private void CbDebugModeOnCheckedChanged(object sender, EventArgs eventArgs)
+        {
+            //Settings.IsDebugMode = cbDebugMode.Checked;
         }
 
         private void SetLocaleText(IAimpMUIManager muiManager)
@@ -54,6 +63,16 @@ namespace dotnet_ExtendDialogWindow
             {
                 _settingButtonText = setText;
             }
+        }
+
+        private void SettingsForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            _player.ServiceOptionsDialog.FrameModified(_parentFrame);
         }
 
         internal class DisplayableForPlugins
@@ -75,16 +94,6 @@ namespace dotnet_ExtendDialogWindow
                     " (" + plugInfo.PluginInfo.Author + ")\n" +
                     "[" + plugInfo.AssemblyFileName + "] " + plugInfo.PluginInfo.Description; ;
             }
-        }
-
-        private void SettingsForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            _player.ServiceOptionsDialog.FrameModified(_parentFrame);
         }
     }
 }

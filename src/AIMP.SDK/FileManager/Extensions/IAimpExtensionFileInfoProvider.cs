@@ -1,15 +1,13 @@
 ﻿// ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
-
-using System.IO;
 using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.FileManager.Extensions
@@ -31,11 +29,11 @@ namespace AIMP.SDK.FileManager.Extensions
         AimpActionResult GetFileInfo(IAimpString fileUri, ref IAimpFileInfo fileInfo);
 
         /// <summary>
-        /// Returns the file information. This method slowes then get info by file name.
+        /// Returns the file information. This method slowest then get info by file name.
         /// </summary>
-        /// <param name="stream">The file stream.</param>
+        /// <param name="stream">The file stream <see cref="IAimpStream"/>.</param>
         /// <param name="fileInfo">Out. File information/</param>
         /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetFileInfo(Stream stream, ref IAimpFileInfo fileInfo);
+        AimpActionResult GetFileInfo(IAimpStream stream, ref IAimpFileInfo fileInfo);
     }
 }

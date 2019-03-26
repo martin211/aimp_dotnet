@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -49,21 +49,21 @@ namespace AIMP
 
             static System::Drawing::Bitmap^ ToManagedBitmap(IAIMPImage* image);
 
-            static IAIMPImageContainer* ToAimpImageContainer(System::Drawing::Bitmap ^image);
+            static IAIMPImageContainer* ToAimpImageContainer(System::Drawing::Bitmap^ image);
 
             static IUnknown* MakeObject(REFIID objectId);
 
-            template<typename TObject>
+            template <typename TObject>
             static TObject* CreateAimpObject(REFIID objectId);
 
-            static IList<String^>^ ToStringCollection(IAIMPObjectList* aimpList)
+            static List<String^>^ ToStringCollection(IAIMPObjectList* aimpList)
             {
                 int count = aimpList->GetCount();
                 List<String^>^ result = gcnew List<String^>(count);
                 for (int i = 0; i < count; i++)
                 {
                     IAIMPString* str;
-                    HRESULT res = aimpList->GetObject(i, IID_IAIMPString, reinterpret_cast<void**>(&str));
+                    auto res = aimpList->GetObject(i, IID_IAIMPString, reinterpret_cast<void**>(&str));
                     if (Utils::CheckResult(res) == AimpActionResult::OK)
                     {
                         result->Add(ToManagedString(str));
@@ -87,7 +87,11 @@ namespace AIMP
                 return list;
             }
 
+            static IAIMPObjectList* ToAimpObjectList(List<String^>^ collection);
+
             static IAIMPFileInfo* ToAimpObject(IAimpFileInfo^ managedObject);
+
+            static IAIMPString* ToAimpString(Objects::IAimpString^ string);
         private:
             static IAIMPCore* GetCore();
         };

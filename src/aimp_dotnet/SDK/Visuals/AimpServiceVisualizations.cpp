@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -16,7 +16,8 @@ HRESULT WINAPI AimpServiceVisualizations::QueryInterface(REFIID riid, LPVOID* pp
 {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPExtensionEmbeddedVisualization) {
+    if (riid == IID_IAIMPExtensionEmbeddedVisualization)
+    {
         *ppvObject = this;
         AddRef();
         return S_OK;

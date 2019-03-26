@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -14,8 +14,11 @@
 #include "AimpPlaylistPreimage.h"
 #include "AimpPlaylistPreimageFolders.h"
 
-AimpExtensionPlaylistPreimageFactory::AimpExtensionPlaylistPreimageFactory(IAIMPExtensionPlaylistPreimageFactory* aimpObject) : AimpObject<IAIMPExtensionPlaylistPreimageFactory>(aimpObject)
-{ }
+AimpExtensionPlaylistPreimageFactory::
+AimpExtensionPlaylistPreimageFactory(IAIMPExtensionPlaylistPreimageFactory* aimpObject) : AimpObject<
+    IAIMPExtensionPlaylistPreimageFactory>(aimpObject)
+{
+}
 
 AimpActionResult AimpExtensionPlaylistPreimageFactory::CreatePreimage(IAimpPlaylistPreimage^% preimage)
 {

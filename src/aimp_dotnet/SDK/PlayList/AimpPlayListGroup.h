@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -20,13 +20,14 @@ namespace AIMP
         public ref class AimpPlayListGroup : public AimpObject<IAIMPPlaylistGroup>, public IAimpPlaylistGroup
         {
         private:
-            IAimpPlaylistItem ^_item;
+            IAimpPlaylistItem^ _item;
 
         public:
             ~AimpPlayListGroup()
             {
                 _item = nullptr;
             }
+
             AimpPlayListGroup();
 
             explicit AimpPlayListGroup(IAIMPPlaylistGroup* item);

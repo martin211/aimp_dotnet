@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -12,7 +12,8 @@
 #include "stdafx.h"
 #include "AimpServiceFileStreaming.h"
 
-AimpActionResult AimpServiceFileStreaming::CreateStreamForFile(String^ fileName, FileStreamingType flags, long long offset, long long size, IAimpStream^% stream)
+AimpActionResult AimpServiceFileStreaming::CreateStreamForFile(String^ fileName, FileStreamingType flags,
+                                                               long long offset, long long size, IAimpStream^% stream)
 {
     IAIMPServiceFileStreaming* service = nullptr;
     IAIMPString* str = nullptr;
@@ -51,7 +52,8 @@ AimpActionResult AimpServiceFileStreaming::CreateStreamForFile(String^ fileName,
     return result;
 }
 
-AimpActionResult AimpServiceFileStreaming::CreateStreamForFileUri(String^ fileUrl, IAimpVirtualFile^% virtualFile, IAimpStream^% stream)
+AimpActionResult AimpServiceFileStreaming::CreateStreamForFileUri(String^ fileUrl, IAimpVirtualFile^% virtualFile,
+                                                                  IAimpStream^% stream)
 {
     IAIMPServiceFileStreaming* service = nullptr;
     IAIMPString* str = nullptr;

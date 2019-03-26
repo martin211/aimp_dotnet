@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -11,11 +21,10 @@ namespace DemoPlugin
 {
     public partial class PlayerForm : Form
     {
-        private List<IAimpPlaylist> _playLists;
-
         private readonly IAimpPlayer _aimpPlayer;
 
         private readonly LoggerForm _loggerForm;
+        private List<IAimpPlaylist> _playLists;
 
         public PlayerForm(IAimpPlayer player)
         {

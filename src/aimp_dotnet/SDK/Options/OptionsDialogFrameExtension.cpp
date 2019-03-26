@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -14,7 +14,9 @@
 
 using namespace AIMP::SDK;
 
-OptionsDialogFrameExtension::OptionsDialogFrameExtension(IAIMPCore *aimpCore, gcroot<Options::IAimpOptionsDialogFrame^> managedFrame) : AimpExtension(aimpCore)
+OptionsDialogFrameExtension::OptionsDialogFrameExtension(IAIMPCore* aimpCore,
+                                                         gcroot<Options::IAimpOptionsDialogFrame^> managedFrame) :
+    AimpExtension(aimpCore)
 {
     _managedFrame = managedFrame;
 }
@@ -28,12 +30,14 @@ HRESULT WINAPI OptionsDialogFrameExtension::QueryInterface(REFIID riid, LPVOID* 
 {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPOptionsDialogFrame) {
+    if (riid == IID_IAIMPOptionsDialogFrame)
+    {
         *ppvObject = this;
         AddRef();
         return S_OK;
     }
-    if (riid == IID_IAIMPOptionsDialogFrameKeyboardHelper) {
+    if (riid == IID_IAIMPOptionsDialogFrameKeyboardHelper)
+    {
         *ppvObject = static_cast<IAIMPOptionsDialogFrameKeyboardHelper*>(this);
         AddRef();
         return S_OK;
@@ -55,7 +59,7 @@ ULONG WINAPI OptionsDialogFrameExtension::Release(void)
 
 HRESULT WINAPI OptionsDialogFrameExtension::GetName(IAIMPString** S)
 {
-    IAIMPString *strObject = nullptr;
+    IAIMPString* strObject = nullptr;
     String^ str = _managedFrame->GetName();
     pin_ptr<const WCHAR> strDate = PtrToStringChars(str);
     _aimpCore->CreateObject(IID_IAIMPString, reinterpret_cast<void**>(&strObject));

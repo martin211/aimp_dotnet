@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+using System;
 using System.Diagnostics;
 using System.Threading;
 using AIMP.SDK.ActionManager;
@@ -32,12 +42,11 @@ namespace TestPlugin
     [AimpPlugin("dotnet_demo", "Evgeniy Bogdan", "1", AimpPluginType = AimpPluginType.Addons)]
     public class Program : AimpPlugin
     {
+        private bool _checked;
         private PlayerForm _demoForm;
-        private IAimpOptionsDialogFrame _optionsFrame;
 
         private IAimpMenuItem _menuItem;
-
-        private bool _checked;
+        private IAimpOptionsDialogFrame _optionsFrame;
 
         public override void Initialize()
         {

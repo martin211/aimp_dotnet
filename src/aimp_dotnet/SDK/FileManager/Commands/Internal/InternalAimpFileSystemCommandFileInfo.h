@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -22,11 +22,11 @@ private:
 public:
     InternalAimpFileSystemCommandFileInfo(gcroot<IAimpFileSystemCommandFileInfo^> instance, IAIMPCore* core);
 
-    virtual HRESULT WINAPI GetFileAttrs(IAIMPString* FileName, TAIMPFileAttributes* Attrs);
+    virtual HRESULT WINAPI GetFileAttrs(IAIMPString* fileName, TAIMPFileAttributes* attrs);
 
-    virtual HRESULT WINAPI GetFileSize(IAIMPString* FileName, INT64* Size);
+    virtual HRESULT WINAPI GetFileSize(IAIMPString* fileName, INT64* size);
 
-    virtual HRESULT WINAPI IsFileExists(IAIMPString* FileName);
+    virtual HRESULT WINAPI IsFileExists(IAIMPString* fileName);
 
     virtual ULONG WINAPI AddRef(void);
 

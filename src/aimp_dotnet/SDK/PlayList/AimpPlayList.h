@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -83,37 +83,37 @@ namespace AIMP
         {
         private:
             Func<IAimpPlaylistItem^, IAimpPlaylistItem^, Object^, PlaylistSortComapreResult>^ _compareFunc;
-            Func<IAimpPlaylistItem^, Object^, bool> ^_deleteFilterFunc;
-            PlayListChangedHandler ^_onChanged;
-            AimpPlayListHandler ^_onActivated;
-            AimpPlayListHandler ^_onRemoved;
-            AimpPlayListHandler ^_scanningBeginHandler;
-            AimpPlayListHandler<ScanningProgressEventArgs^> ^_scanningProgressHandler;
-            AimpPlayListHandler<ScanningEndEventArgs^> ^_scanningEndHandler;
+            Func<IAimpPlaylistItem^, Object^, bool>^ _deleteFilterFunc;
+            PlayListChangedHandler^ _onChanged;
+            AimpPlayListHandler^ _onActivated;
+            AimpPlayListHandler^ _onRemoved;
+            AimpPlayListHandler^ _scanningBeginHandler;
+            AimpPlayListHandler<ScanningProgressEventArgs^>^ _scanningProgressHandler;
+            AimpPlayListHandler<ScanningEndEventArgs^>^ _scanningEndHandler;
 
-            AimpPlaylistListener *_listner = nullptr;
-            InternalAimpPlaylistPreimage *_internalPreImage = nullptr;
+            AimpPlaylistListener* _listner = nullptr;
+            InternalAimpPlaylistPreimage* _internalPreImage = nullptr;
             bool _disposed;
 
         internal:
-            AimpPlayList(IAimpPlaylist ^item);
+            AimpPlayList(IAimpPlaylist^ item);
 
         public:
-            explicit AimpPlayList(IAIMPPlaylist *aimpPlayList);
+            explicit AimpPlayList(IAIMPPlaylist* aimpPlayList);
 
             ~AimpPlayList();
 
             !AimpPlayList();
 
-            virtual property String ^Id
+            virtual property String^ Id
             {
-                String ^get();
+                String^ get();
             }
 
-            virtual property String ^Name
+            virtual property String^ Name
             {
-                String ^get();
-                void set(String ^value);
+                String^ get();
+                void set(String^ value);
             }
 
             virtual property bool ReadOnly
@@ -122,10 +122,10 @@ namespace AIMP
                 void set(bool value);
             }
 
-            virtual property Object ^FocusedObject
+            virtual property Object^ FocusedObject
             {
-                Object ^get();
-                void set(Object ^value);
+                Object^ get();
+                void set(Object^ value);
             }
 
             virtual property bool GroupingOverridden
@@ -146,10 +146,10 @@ namespace AIMP
                 void set(bool value);
             }
 
-            virtual property String ^GroupingTemplate
+            virtual property String^ GroupingTemplate
             {
-                String ^get();
-                void set(String ^value);
+                String^ get();
+                void set(String^ value);
             }
 
             virtual property bool FormatingOverride
@@ -158,16 +158,16 @@ namespace AIMP
                 void set(bool value);
             }
 
-            virtual property String ^FormattingLine1Template
+            virtual property String^ FormattingLine1Template
             {
-                String ^get();
-                void set(String ^value);
+                String^ get();
+                void set(String^ value);
             }
 
-            virtual property String ^FormattingLine2Template
+            virtual property String^ FormattingLine2Template
             {
-                String ^get();
-                void set(String ^value);
+                String^ get();
+                void set(String^ value);
             }
 
             virtual property bool ViewOverride
@@ -246,10 +246,10 @@ namespace AIMP
                 double get();
             }
 
-            virtual property IAimpPlaylistPreimage ^PreImage
+            virtual property IAimpPlaylistPreimage^ PreImage
             {
-                IAimpPlaylistPreimage ^get();
-                void set(IAimpPlaylistPreimage ^value);
+                IAimpPlaylistPreimage^ get();
+                void set(IAimpPlaylistPreimage^ value);
             }
 
             virtual void OnChanged(DWORD flags);
@@ -265,27 +265,34 @@ namespace AIMP
             virtual void OnScanningEnd(bool hasChanges, bool canceled);
 
         public:
-            virtual AimpActionResult Add(IAimpFileInfo^ fileInfo, PlaylistFlags flags, PlaylistFilePosition filePosition);
+            virtual AimpActionResult Add(IAimpFileInfo^ fileInfo, PlaylistFlags flags,
+                                         PlaylistFilePosition filePosition);
 
-            virtual AimpActionResult Add(System::String^ fileUrl, PlaylistFlags flags, PlaylistFilePosition filePosition);
+            virtual AimpActionResult Add(System::String^ fileUrl, PlaylistFlags flags,
+                                         PlaylistFilePosition filePosition);
 
-            virtual AimpActionResult AddList(System::Collections::Generic::IList<IAimpFileInfo^>^ fileUrlList, PlaylistFlags flags, PlaylistFilePosition filePosition);
+            virtual AimpActionResult AddList(System::Collections::Generic::IList<IAimpFileInfo^>^ fileUrlList,
+                                             PlaylistFlags flags, PlaylistFilePosition filePosition);
 
-            virtual AimpActionResult AddList(System::Collections::Generic::IList<System::String^>^ fileUrlList, PlaylistFlags flags, PlaylistFilePosition filePosition);
+            virtual AimpActionResult AddList(System::Collections::Generic::IList<System::String^>^ fileUrlList,
+                                             PlaylistFlags flags, PlaylistFilePosition filePosition);
 
-            virtual AimpActionResult Delete(IAimpPlaylistItem ^item);
+            virtual AimpActionResult Delete(IAimpPlaylistItem^ item);
 
             virtual AimpActionResult Delete(int index);
 
             virtual AimpActionResult DeleteAll();
 
-            virtual AimpActionResult Delete(PlaylistDeleteFlags deleteFlags, System::Object ^customFilterData, System::Func<IAimpPlaylistItem^, System::Object^, bool> ^filterFunc);
+            virtual AimpActionResult Delete(PlaylistDeleteFlags deleteFlags, System::Object^ customFilterData,
+                                            System::Func<IAimpPlaylistItem^, System::Object^, bool>^ filterFunc);
 
             virtual AimpActionResult Sort(PlaylistSort sort);
 
-            virtual AimpActionResult Sort(Object ^customSortData, Func<IAimpPlaylistItem^, IAimpPlaylistItem^, Object^, PlaylistSortComapreResult>^ compareFunc);
+            virtual AimpActionResult Sort(Object^ customSortData,
+                                          Func<IAimpPlaylistItem^, IAimpPlaylistItem^, Object^,
+                                               PlaylistSortComapreResult>^ compareFunc);
 
-            virtual AimpActionResult Sort(String ^templateString);
+            virtual AimpActionResult Sort(String^ templateString);
 
             virtual AimpActionResult BeginUpdate();
 
@@ -293,78 +300,79 @@ namespace AIMP
 
             virtual AimpActionResult Close(PlaylistCloseFlag closeFlag);
 
-            virtual AimpActionResult GetFiles(PlaylistGetFilesFlag filesFlag, System::Collections::Generic::IList<String^> ^%files);
+            virtual AimpActionResult GetFiles(PlaylistGetFilesFlag filesFlag,
+                                              System::Collections::Generic::IList<String^>^% files);
 
             virtual AimpActionResult ReloadFromPreimage();
 
             virtual AimpActionResult ReloadInfo(bool fullReload);
 
-            virtual IAimpPlaylistItem ^GetItem(int index);
+            virtual IAimpPlaylistItem^ GetItem(int index);
 
             virtual int GetItemCount();
 
-            virtual IAimpPlaylistGroup ^GetGroup(int index);
+            virtual IAimpPlaylistGroup^ GetGroup(int index);
 
             virtual int GetGroupCount();
 
-            virtual AimpActionResult MergeGroup(IAimpPlaylistGroup ^playlistGroup);
+            virtual AimpActionResult MergeGroup(IAimpPlaylistGroup^ playlistGroup);
 
-            virtual event AimpPlayListHandler ^Activated
+            virtual event AimpPlayListHandler^ Activated
             {
-                void add(AimpPlayListHandler ^onEvent);
-                void remove(AimpPlayListHandler ^onEvent);
-                void raise(IAimpPlaylist ^sender);
+                void add(AimpPlayListHandler^ onEvent);
+                void remove(AimpPlayListHandler^ onEvent);
+                void raise(IAimpPlaylist^ sender);
             }
 
-            virtual event AimpPlayListHandler ^Removed
+            virtual event AimpPlayListHandler^ Removed
             {
-                void add(AimpPlayListHandler ^onEvent);
-                void remove(AimpPlayListHandler ^onEvent);
-                void raise(IAimpPlaylist ^sender);
+                void add(AimpPlayListHandler^ onEvent);
+                void remove(AimpPlayListHandler^ onEvent);
+                void raise(IAimpPlaylist^ sender);
             }
 
-            virtual event PlayListChangedHandler ^Changed
+            virtual event PlayListChangedHandler^ Changed
             {
-                void add(PlayListChangedHandler ^onEvent);
-                void remove(PlayListChangedHandler ^onEvent);
-                void raise(IAimpPlaylist ^esnder, PlaylistNotifyType notifyType);
+                void add(PlayListChangedHandler^ onEvent);
+                void remove(PlayListChangedHandler^ onEvent);
+                void raise(IAimpPlaylist^ esnder, PlaylistNotifyType notifyType);
             }
 
-            virtual event AimpPlayListHandler ^ScanningBegin
+            virtual event AimpPlayListHandler^ ScanningBegin
             {
-                void add(AimpPlayListHandler ^onEvent);
-                void remove(AimpPlayListHandler ^onEvent);
-                void raise(IAimpPlaylist ^sender);
+                void add(AimpPlayListHandler^ onEvent);
+                void remove(AimpPlayListHandler^ onEvent);
+                void raise(IAimpPlaylist^ sender);
             }
 
-            virtual event AimpPlayListHandler<ScanningProgressEventArgs^> ^ScanningProgress
+            virtual event AimpPlayListHandler<ScanningProgressEventArgs^>^ ScanningProgress
             {
-                void add(AimpPlayListHandler<ScanningProgressEventArgs^> ^onEvent);
-                void remove(AimpPlayListHandler<ScanningProgressEventArgs^> ^onEvent);
-                void raise(IAimpPlaylist ^sender, ScanningProgressEventArgs^ args);
+                void add(AimpPlayListHandler<ScanningProgressEventArgs^>^ onEvent);
+                void remove(AimpPlayListHandler<ScanningProgressEventArgs^>^ onEvent);
+                void raise(IAimpPlaylist^ sender, ScanningProgressEventArgs^ args);
             }
 
-            virtual event AimpPlayListHandler<ScanningEndEventArgs^> ^ScanningEnd
+            virtual event AimpPlayListHandler<ScanningEndEventArgs^>^ ScanningEnd
             {
-                void add(AimpPlayListHandler<ScanningEndEventArgs^> ^onEvent);
-                void remove(AimpPlayListHandler<ScanningEndEventArgs^> ^onEvent);
-                void raise(IAimpPlaylist ^sender, ScanningEndEventArgs^ args);
+                void add(AimpPlayListHandler<ScanningEndEventArgs^>^ onEvent);
+                void remove(AimpPlayListHandler<ScanningEndEventArgs^>^ onEvent);
+                void raise(IAimpPlaylist^ sender, ScanningEndEventArgs^ args);
             }
 
         private:
             AimpActionResult GetProperties(IAIMPPropertyList** properties);
-            AimpFileInfo ^CreateFileInfo(IAimpFileInfo ^fi);
+            AimpFileInfo^ CreateFileInfo(IAimpFileInfo^ fi);
 
             void RegisterListner();
 
-            delegate int OnSortCallback(IAIMPPlaylistItem *item1, IAIMPPlaylistItem *item2, void *userData);
-            delegate bool OnDeleteCallback(IAIMPPlaylistItem *item1, void *customFilterData);
-            OnSortCallback ^_sortCallback;
-            OnDeleteCallback ^_deleteCallback;
+            delegate int OnSortCallback(IAIMPPlaylistItem* item1, IAIMPPlaylistItem* item2, void* userData);
+            delegate bool OnDeleteCallback(IAIMPPlaylistItem* item1, void* customFilterData);
+            OnSortCallback^ _sortCallback;
+            OnDeleteCallback^ _deleteCallback;
 
             int OnSortReceive(IAIMPPlaylistItem* item1, IAIMPPlaylistItem* item2, void* userData);
 
-            bool OnDeleteReceive(IAIMPPlaylistItem *item1, void *customFilterData);
+            bool OnDeleteReceive(IAIMPPlaylistItem* item1, void* customFilterData);
         };
     }
 }

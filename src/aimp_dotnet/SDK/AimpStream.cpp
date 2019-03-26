@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -21,11 +21,11 @@ AimpStream::~AimpStream()
 
 AimpStream::!AimpStream()
 {
-    if (_aimpObject != nullptr)
+    if (InternalAimpObject != nullptr)
     {
         try
         {
-            _aimpObject->Release();
+            //InternalAimpObject->Release();
         }
         catch (const std::exception& e)
         {
@@ -34,35 +34,35 @@ AimpStream::!AimpStream()
     }
 }
 
-AimpStream::AimpStream(IAIMPStream *aimpObject)
+AimpStream::AimpStream(IAIMPStream* aimpObject)
 {
     _aimpObject = aimpObject;
 }
 
 long long AimpStream::GetSize()
 {
-    return _aimpObject->GetSize();
+    return InternalAimpObject->GetSize();
 }
 
 AimpActionResult AimpStream::SetSize(long long value)
 {
-    return CheckResult(_aimpObject->SetSize(value));
+    return CheckResult(InternalAimpObject->SetSize(value));
 }
 
 long long AimpStream::GetPosition()
 {
-    return _aimpObject->GetPosition();
+    return InternalAimpObject->GetPosition();
 }
 
 AimpActionResult AimpStream::Seek(long long offset, System::IO::SeekOrigin mode)
 {
-    return CheckResult(_aimpObject->Seek(offset, (int)mode));
+    return CheckResult(InternalAimpObject->Seek(offset, (int)mode));
 }
 
-int AimpStream::Read(array<unsigned char, 1> ^buffer, int count)
+int AimpStream::Read(array<unsigned char, 1>^ buffer, int count)
 {
-    unsigned char *buf = new unsigned char[count];
-    int read = _aimpObject->Read(buf, (unsigned int)count);
+    unsigned char* buf = new unsigned char[count];
+    int read = InternalAimpObject->Read(buf, (unsigned int)count);
 
     for (int i = 0; i < read; i++)
     {
@@ -72,12 +72,12 @@ int AimpStream::Read(array<unsigned char, 1> ^buffer, int count)
     return read;
 }
 
-AimpActionResult AimpStream::Write(array<unsigned char, 1> ^buffer, int count, int %writen)
+AimpActionResult AimpStream::Write(array<unsigned char, 1>^ buffer, int count, int% writen)
 {
     unsigned int writenCount;
     writen = 0;
 
-    pin_ptr<unsigned char>buff = &buffer[0];
+    pin_ptr<unsigned char> buff = &buffer[0];
     AimpActionResult res = CheckResult(InternalAimpObject->Write(buff, count, &writenCount));
     writen = writenCount;
     return res;

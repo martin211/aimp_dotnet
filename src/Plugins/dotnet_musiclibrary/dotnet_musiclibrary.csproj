@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AimpExtensionFileInfoProvider.cs" />
     <Compile Include="DemoExtensionFileSystem.cs" />
     <Compile Include="ExplorerGroupingProvider\DataProviderGroupingTree.cs" />
     <Compile Include="ExplorerGroupingProvider\DataProviderGroupingTreeData.cs" />
@@ -49,6 +50,8 @@
     <Compile Include="ExplorerMusicProvider\CustomAimpGroupingTreeDataProvider.cs" />
     <Compile Include="ExplorerMusicProvider\CustomAimpGroupingTreeDataProviderSelection.cs" />
     <Compile Include="DemoMusicLibrary.cs" />
+    <Compile Include="MusicLibraryDemoPlugin.cs" />
+    <Compile Include="MyExtensionFileInfoProvider.cs" />
     <Compile Include="Preimage\MediaLibraryPreimageFactory.cs" />
     <Compile Include="Preimage\PlaylistManagerListener.cs" />
     <Compile Include="Preimage\TestMediaLibraryPreimage.cs" />
@@ -70,6 +73,9 @@
       <Link>CopyPlugin.ps1</Link>
     </None>
     <None Include="commands.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FileManager\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

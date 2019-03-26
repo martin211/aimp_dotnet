@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -21,76 +21,83 @@ AimpVirtualFile::AimpVirtualFile(IAIMPVirtualFile* aimpObject) : AimpObject(aimp
 
 int AimpVirtualFile::IndexInSet::get()
 {
-    return PropertyListExtension::GetInt32(_aimpObject, AIMP_VIRTUALFILE_PROPID_INDEXINSET);
+    return PropertyListExtension::GetInt32(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_INDEXINSET);
 }
 
 void AimpVirtualFile::IndexInSet::set(int value)
 {
-    PropertyListExtension::SetInt32(_aimpObject, AIMP_VIRTUALFILE_PROPID_INDEXINSET, value);
+    PropertyListExtension::SetInt32(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_INDEXINSET, value);
 }
 
 double AimpVirtualFile::ClipStart::get()
 {
-    return PropertyListExtension::GetFloat(_aimpObject, AIMP_VIRTUALFILE_PROPID_CLIPSTART);
+    return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_CLIPSTART);
 }
 
 void AimpVirtualFile::ClipStart::set(double value)
 {
-    PropertyListExtension::SetFloat(_aimpObject, AIMP_VIRTUALFILE_PROPID_CLIPSTART, value);
+    PropertyListExtension::SetFloat(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_CLIPSTART, value);
 }
 
 double AimpVirtualFile::ClipFinish::get()
 {
-    return PropertyListExtension::GetFloat(_aimpObject, AIMP_VIRTUALFILE_PROPID_CLIPFINISH);
+    return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_CLIPFINISH);
 }
 
 void AimpVirtualFile::ClipFinish::set(double value)
 {
-    PropertyListExtension::SetFloat(_aimpObject, AIMP_VIRTUALFILE_PROPID_CLIPFINISH, value);
+    PropertyListExtension::SetFloat(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_CLIPFINISH, value);
 }
 
 String^ AimpVirtualFile::AudioSourceFile::get()
 {
-    return PropertyListExtension::GetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_AUDIOSOURCEFILE);
+    return PropertyListExtension::GetString(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_AUDIOSOURCEFILE);
 }
 
 void AimpVirtualFile::AudioSourceFile::set(String^ value)
 {
-    PropertyListExtension::SetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_AUDIOSOURCEFILE, value);
+    PropertyListExtension::SetString(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_AUDIOSOURCEFILE, value);
 }
 
 String^ AimpVirtualFile::FileFormat::get()
 {
-    return PropertyListExtension::GetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_FILEFORMAT);
+    return PropertyListExtension::GetString(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_FILEFORMAT);
 }
 
 void AimpVirtualFile::FileFormat::set(System::String^ value)
 {
-    PropertyListExtension::SetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_FILEFORMAT, value);
+    PropertyListExtension::SetString(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_FILEFORMAT, value);
 }
 
 String^ AimpVirtualFile::FileUri::get()
 {
-    return PropertyListExtension::GetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_FILEURI);
+    return PropertyListExtension::GetString(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_FILEURI);
 }
 
 void AimpVirtualFile::FileUri::set(String^ value)
 {
-    PropertyListExtension::SetString(_aimpObject, AIMP_VIRTUALFILE_PROPID_FILEURI, value);
+    PropertyListExtension::SetString(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_FILEURI, value);
 }
 
-AimpActionResult AimpVirtualFile::CreateStream(IO::Stream^% stream)
+AimpActionResult AimpVirtualFile::CreateStream(IAimpStream^% stream)
 {
-    // TODO Complete it
     stream = nullptr;
-    return AimpActionResult::OK;
+    IAIMPStream* aimpStream = nullptr;
+
+    const auto result = CheckResult(InternalAimpObject->CreateStream(&aimpStream));
+    if (result == AimpActionResult::OK && aimpStream != nullptr)
+    {
+        stream = gcnew AimpStream(aimpStream);
+    }
+
+    return result;
 }
 
 AimpActionResult AimpVirtualFile::GetFileInfo(IAimpFileInfo^% fileInfo)
 {
-    IAIMPFileInfo *fi = nullptr;
+    IAIMPFileInfo* fi = nullptr;
     fileInfo = nullptr;
-    AimpActionResult result = CheckResult(_aimpObject->GetFileInfo(fi));
+    const auto result = CheckResult(InternalAimpObject->GetFileInfo(fi));
 
     if (result == AimpActionResult::OK && fi != nullptr)
     {
@@ -102,15 +109,15 @@ AimpActionResult AimpVirtualFile::GetFileInfo(IAimpFileInfo^% fileInfo)
 
 bool AimpVirtualFile::IsExists()
 {
-    return _aimpObject->IsExists();
+    return InternalAimpObject->IsExists();
 }
 
-AimpActionResult AimpVirtualFile::IsInSameStream(IAimpVirtualFile ^virtualFile)
+AimpActionResult AimpVirtualFile::IsInSameStream(IAimpVirtualFile^ virtualFile)
 {
-    return AimpActionResult::NotImplemented;
+    return CheckResult(InternalAimpObject->IsInSameStream(static_cast<AimpVirtualFile^>(virtualFile)->InternalAimpObject));
 }
 
 AimpActionResult AimpVirtualFile::Synchronize()
 {
-    return CheckResult(_aimpObject->Synchronize());
+    return CheckResult(InternalAimpObject->Synchronize());
 }

@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -20,7 +20,7 @@ AimpPlayListGroup::AimpPlayListGroup()
 {
 }
 
-AimpPlayListGroup::AimpPlayListGroup(IAIMPPlaylistGroup *item) : AimpObject(item)
+AimpPlayListGroup::AimpPlayListGroup(IAIMPPlaylistGroup* item) : AimpObject(item)
 {
     _item = nullptr;
 }
@@ -70,7 +70,7 @@ int AimpPlayListGroup::Count::get()
     return InternalAimpObject->GetItemCount();
 }
 
-IAimpPlaylistItem ^AimpPlayListGroup::GetItem(int index)
+IAimpPlaylistItem^ AimpPlayListGroup::GetItem(int index)
 {
     if (_item == nullptr)
     {

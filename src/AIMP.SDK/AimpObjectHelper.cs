@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+using System;
 using System.Runtime.InteropServices;
 using AIMP.SDK.Objects;
 
@@ -6,11 +16,6 @@ namespace AIMP.SDK
 {
     public static class AimpObjectHelper
     {
-        public class AimpObject
-        {
-            public const string AimpString = "41494D50-5374-7269-6E67-000000000000";
-        }
-
         public static TObject GetObject<TObject>(IAimpCore core)
         {
             Type type = typeof(TObject);
@@ -32,6 +37,11 @@ namespace AIMP.SDK
         public static TObject GetObject<TObject>(IntPtr header)
         {
             return (TObject)Marshal.GetObjectForIUnknown(header);
+        }
+
+        public class AimpObject
+        {
+            public const string AimpString = "41494D50-5374-7269-6E67-000000000000";
         }
     }
 }

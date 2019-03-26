@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -18,9 +18,11 @@ private:
     gcroot<AIMP::SDK::FileManager::Commands::IAimpFileSystemCommandStreaming^> _instance;
 
 public:
-    InternalAimpFileSystemCommandStreaming(gcroot<AIMP::SDK::FileManager::Commands::IAimpFileSystemCommandStreaming^> instance);
+    InternalAimpFileSystemCommandStreaming(
+        gcroot<AIMP::SDK::FileManager::Commands::IAimpFileSystemCommandStreaming^> instance);
 
-    virtual HRESULT WINAPI CreateStream(IAIMPString* FileName, const INT64 Offset, const INT64 Size, DWORD Flags, IAIMPStream** Stream);
+    virtual HRESULT WINAPI CreateStream(IAIMPString* fileName, const INT64 offset, const INT64 size, DWORD flags,
+                                        IAIMPStream** stream);
 
     virtual ULONG WINAPI AddRef(void);
 

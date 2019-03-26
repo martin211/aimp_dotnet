@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -19,18 +19,21 @@ namespace AIMP
         using namespace FileManager;
         using namespace Commands;
 
-        public ref class AimpServiceFileSystems : public AimpBaseManager<IAIMPServiceFileSystems>, public IAimpServiceFileSystems
+        public ref class AimpServiceFileSystems : public AimpBaseManager<IAIMPServiceFileSystems>,
+                                                  public IAimpServiceFileSystems
         {
         public:
             AimpServiceFileSystems(ManagedAimpCore^ core);
 
-            generic<typename TCommand>
-            where TCommand : gcnew()
-            virtual AimpActionResult Get(String^ fileUri, TCommand% command);
+            virtual AimpActionResult Get(FileCommandType commandType, String^ fileUri,
+                                         IAimpFileSystemCommand^% command);
 
-            generic<typename TCommand>
-            where TCommand : gcnew()
-            virtual AimpActionResult GetDefault(TCommand% command);
+            virtual AimpActionResult GetDefault(FileCommandType commandType, IAimpFileSystemCommand^% command);
+        private:
+            static GUID GetCommandId(FileCommandType commandType);
+
+            AimpActionResult GetCommand(FileCommandType commandType, GUID commandId, IAIMPServiceFileSystems* service,
+                                        String^ value, IAimpFileSystemCommand^% command, bool isDefault);
         };
     }
 }

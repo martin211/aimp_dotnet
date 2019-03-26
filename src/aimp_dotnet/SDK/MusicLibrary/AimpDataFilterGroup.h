@@ -1,12 +1,12 @@
 // ----------------------------------------------------
-//
+// 
 // AIMP DotNet SDK
-//
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-//
+// 
 // Mail: mail4evgeniy@gmail.com
-//
+// 
 // ----------------------------------------------------
 
 #pragma once
@@ -24,7 +24,7 @@ namespace AIMP
             public IAimpDataFilterGroup
         {
         public:
-            explicit AimpDataFilterGroup(IAIMPMLDataFilterGroup *filterGroup);
+            explicit AimpDataFilterGroup(IAIMPMLDataFilterGroup* filterGroup);
 
             ~AimpDataFilterGroup()
             {
@@ -33,7 +33,7 @@ namespace AIMP
 
             !AimpDataFilterGroup()
             {
-                //_aimpObject->Release();
+                //InternalAimpObject->Release();
             }
 
             virtual property FilterGroupOperationType Operation
@@ -42,9 +42,11 @@ namespace AIMP
                 void set(FilterGroupOperationType value);
             }
 
-            virtual AimpActionResult Add(String^ field, Object^ value1, Object^ value2, FieldFilterOperationType operation, IAimpDataFieldFilter^% filter);
+            virtual AimpActionResult Add(String^ field, Object^ value1, Object^ value2,
+                                         FieldFilterOperationType operation, IAimpDataFieldFilter^% filter);
 
-            virtual AimpActionResult Add(String^ field, array<Object^>^ values, int count, IAimpDataFieldFilterByArray^% filter);
+            virtual AimpActionResult Add(String^ field, array<Object^>^ values, int count,
+                                         IAimpDataFieldFilterByArray^% filter);
 
             virtual AimpActionResult AddGroup(IAimpDataFilterGroup^% group);
 

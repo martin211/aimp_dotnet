@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+using System;
 using System.Runtime.InteropServices;
 
 namespace AIMP.SDK.Objects
@@ -25,11 +35,6 @@ namespace AIMP.SDK.Objects
         {
         }
 
-        public static ICustomMarshaler GetInstance(string value)
-        {
-            return new MyOwnMarshalPtrToStringUni(value);
-        }
-
         public object MarshalNativeToManaged(IntPtr pNativeData)
         {
             throw new NotImplementedException();
@@ -53,6 +58,11 @@ namespace AIMP.SDK.Objects
         public int GetNativeDataSize()
         {
             throw new NotImplementedException();
+        }
+
+        public static ICustomMarshaler GetInstance(string value)
+        {
+            return new MyOwnMarshalPtrToStringUni(value);
         }
     }
 

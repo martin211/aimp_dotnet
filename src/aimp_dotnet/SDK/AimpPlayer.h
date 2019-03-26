@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -62,35 +62,35 @@ namespace AIMP
         IAIMPMessageHook* aimp_message_hook_;
         IAIMPServicePlayer* _player;
 
-        ManagedAimpCore ^_managedAimpCore;
-        IAimpCore ^_aimpCore;
+        ManagedAimpCore^ _managedAimpCore;
+        IAimpCore^ _aimpCore;
         AimpEventsDelegate^ _coreMessage;
         IAimpServiceMenuManager^ _menuManager;
         IAimpServiceActionManager^ _actionManager;
         IAimpMUIManager^ _muiManager;
         IAimpAlbumArtManager^ _artManager;
         IAimpServiceConfig^ _serviceConfig;
-        IWin32Manager ^_win32Manager;
-        IAimpPlaylistManager2 ^_playListManager;
-        IAimpPlaybackQueueService ^_playbackQueueManager;
-        IAimpServiceOptionsDialog ^_serviceOptionsDialogManager;
+        IWin32Manager^ _win32Manager;
+        IAimpPlaylistManager2^ _playListManager;
+        IAimpPlaybackQueueService^ _playbackQueueManager;
+        IAimpServiceOptionsDialog^ _serviceOptionsDialogManager;
         AimpPlayerState _state;
-        IAimpServiceSynchronizer ^_serviceSynchronizer;
-        IAimpServiceThreadPool ^_serviceThreadPool;
-        IAimpServiceMusicLibrary ^_serviceMusicLibrary;
-        IAimpServiceMusicLibraryUI ^_serviceMusicLibraryUi;
-        IAimpServiceFileFormats ^_serviceFileFormats;
-        IAimpServiceFileInfo ^_serviceFileInfo;
-        IAimpServiceFileSystems ^_serviceFileSystems;
-        IAimpServiceFileStreaming ^_serviceFileStreaming;
-        IAimpServiceFileInfoFormatter ^_serviceFileInfoFormatter;
-        IAimpServiceMessageDispatcher ^_serviceMessageDispatcher;
+        IAimpServiceSynchronizer^ _serviceSynchronizer;
+        IAimpServiceThreadPool^ _serviceThreadPool;
+        IAimpServiceMusicLibrary^ _serviceMusicLibrary;
+        IAimpServiceMusicLibraryUI^ _serviceMusicLibraryUi;
+        IAimpServiceFileFormats^ _serviceFileFormats;
+        IAimpServiceFileInfo^ _serviceFileInfo;
+        IAimpServiceFileSystems^ _serviceFileSystems;
+        IAimpServiceFileStreaming^ _serviceFileStreaming;
+        IAimpServiceFileInfoFormatter^ _serviceFileInfoFormatter;
+        IAimpServiceMessageDispatcher^ _serviceMessageDispatcher;
         IAimpServiceFileTagEditor^ _serviceFileTagEditor;
         Lyrics::IAimpServiceLyrics^ _serviceLyrics;
 
-        EventHandler<AIMP::SDK::Player::StateChangedEventArgs^> ^_onStateChanged;
-        EventHandler ^_onLanguageChanged;
-        EventHandler ^_onTrackChanged;
+        EventHandler<AIMP::SDK::Player::StateChangedEventArgs^>^ _onStateChanged;
+        EventHandler^ _onLanguageChanged;
+        EventHandler^ _onTrackChanged;
 
     public:
         /// <summary>
@@ -100,7 +100,7 @@ namespace AIMP
         /// <param name="pluginId">The plugin identifier.</param>
         /// <param name="applicationDomainId">The application domain identifier.</param>
         /// <param name="isCrossDomain">The is cross domain.</param>
-        AimpPlayer(ManagedAimpCore ^core, int pluginId, int applicationDomainId, bool isCrossDomain);
+        AimpPlayer(ManagedAimpCore^ core, int pluginId, int applicationDomainId, bool isCrossDomain);
 
         ~AimpPlayer();
 
@@ -146,14 +146,14 @@ namespace AIMP
             IAimpServiceConfig^ get();
         }
 
-        virtual property IAimpPlaylistManager2 ^PlaylistManager
+        virtual property IAimpPlaylistManager2^ PlaylistManager
         {
-            IAimpPlaylistManager2 ^get();
+            IAimpPlaylistManager2^ get();
         }
 
-        virtual property IAimpPlaybackQueueService ^PlaybackQueueManager
+        virtual property IAimpPlaybackQueueService^ PlaybackQueueManager
         {
-            IAimpPlaybackQueueService ^get();
+            IAimpPlaybackQueueService^ get();
         }
 
         virtual property IAIMPServicePlayer* ServicePlayer
@@ -199,40 +199,40 @@ namespace AIMP
             IAimpPlaylistItem^ get();
         }
 
-        virtual property IWin32Manager ^Win32Manager
+        virtual property IWin32Manager^ Win32Manager
         {
-            IWin32Manager ^get();
+            IWin32Manager^ get();
         }
 
-        virtual property IAimpServiceOptionsDialog ^ServiceOptionsDialog
+        virtual property IAimpServiceOptionsDialog^ ServiceOptionsDialog
         {
-            IAimpServiceOptionsDialog ^get();
+            IAimpServiceOptionsDialog^ get();
         }
 
         virtual property IAimpServiceMessageDispatcher^ ServiceMessageDispatcher
         {
-            IAimpServiceMessageDispatcher ^get();
+            IAimpServiceMessageDispatcher^ get();
         }
 
         virtual event EventHandler<Player::StateChangedEventArgs^>^ StateChanged
         {
             void add(EventHandler<Player::StateChangedEventArgs^>^ onAction);
             void remove(EventHandler<Player::StateChangedEventArgs^>^ onAction);
-            void raise(Object ^sender, AIMP::SDK::Player::StateChangedEventArgs^ state);
+            void raise(Object^ sender, AIMP::SDK::Player::StateChangedEventArgs^ state);
         }
 
-        virtual event EventHandler ^LanguageChanged
+        virtual event EventHandler^ LanguageChanged
         {
-            void add(EventHandler ^onAction);
-            void remove(EventHandler ^onAction);
-            void raise(Object ^sender, EventArgs ^e);
+            void add(EventHandler^ onAction);
+            void remove(EventHandler^ onAction);
+            void raise(Object^ sender, EventArgs^ e);
         }
 
-        virtual event EventHandler ^TrackChanged
+        virtual event EventHandler^ TrackChanged
         {
-            void add(EventHandler ^onAction);
-            void remove(EventHandler ^onAction);
-            void raise(Object ^sender, EventArgs ^e);
+            void add(EventHandler^ onAction);
+            void remove(EventHandler^ onAction);
+            void raise(Object^ sender, EventArgs^ e);
         }
 
         virtual void Pause();
@@ -247,55 +247,55 @@ namespace AIMP
 
         virtual void GoToPrev();
 
-        virtual void Play(IAimpPlaybackQueueItem ^queueItem);
+        virtual void Play(IAimpPlaybackQueueItem^ queueItem);
 
-        virtual void Play(IAimpPlaylistItem ^playListItem);
+        virtual void Play(IAimpPlaylistItem^ playListItem);
 
         virtual void Play(IAimpPlaylist^ playList);
 
-        virtual property IAimpServiceSynchronizer ^ServiceSynchronizer
+        virtual property IAimpServiceSynchronizer^ ServiceSynchronizer
         {
-            IAimpServiceSynchronizer ^get();
+            IAimpServiceSynchronizer^ get();
         }
 
-        virtual property IAimpServiceThreadPool ^ServiceThreadPool
+        virtual property IAimpServiceThreadPool^ ServiceThreadPool
         {
-            IAimpServiceThreadPool ^get();
+            IAimpServiceThreadPool^ get();
         }
 
-        virtual property IAimpServiceMusicLibrary ^ServiceMusicLibrary
+        virtual property IAimpServiceMusicLibrary^ ServiceMusicLibrary
         {
-            IAimpServiceMusicLibrary ^get();
+            IAimpServiceMusicLibrary^ get();
         }
 
-        virtual property IAimpServiceMusicLibraryUI ^ServiceMusicLibraryUi
+        virtual property IAimpServiceMusicLibraryUI^ ServiceMusicLibraryUi
         {
-            IAimpServiceMusicLibraryUI ^get();
+            IAimpServiceMusicLibraryUI^ get();
         }
 
-        virtual property IAimpServiceFileFormats ^ServiceFileFormats
+        virtual property IAimpServiceFileFormats^ ServiceFileFormats
         {
-            IAimpServiceFileFormats ^get();
+            IAimpServiceFileFormats^ get();
         }
 
-        virtual property IAimpServiceFileInfo ^ServiceFileInfo
+        virtual property IAimpServiceFileInfo^ ServiceFileInfo
         {
-            IAimpServiceFileInfo ^get();
+            IAimpServiceFileInfo^ get();
         }
 
-        virtual property IAimpServiceFileSystems ^ServiceFileSystems
+        virtual property IAimpServiceFileSystems^ ServiceFileSystems
         {
-            IAimpServiceFileSystems ^get();
+            IAimpServiceFileSystems^ get();
         }
 
-        virtual property IAimpServiceFileStreaming ^ServiceFileStreaming
+        virtual property IAimpServiceFileStreaming^ ServiceFileStreaming
         {
-            IAimpServiceFileStreaming ^get();
+            IAimpServiceFileStreaming^ get();
         }
 
-        virtual property IAimpServiceFileInfoFormatter ^ServiceFileInfoFormatter
+        virtual property IAimpServiceFileInfoFormatter^ ServiceFileInfoFormatter
         {
-            IAimpServiceFileInfoFormatter ^get();
+            IAimpServiceFileInfoFormatter^ get();
         }
 
         virtual property IAimpServiceFileTagEditor^ ServiceFileTagEditor
@@ -308,7 +308,7 @@ namespace AIMP
             Lyrics::IAimpServiceLyrics^ get();
         }
 
-        bool OnCheckUrl(String^ %url);
+        bool OnCheckUrl(String^ % url);
 
     private:
         void OnInternalCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2);

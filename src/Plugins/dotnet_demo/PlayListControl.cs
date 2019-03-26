@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using AIMP.SDK;
@@ -9,8 +19,8 @@ namespace DemoPlugin
 {
     public partial class PlayListControl : UserControl
     {
-        private readonly IAimpPlaylist _playList;
         private readonly IAimpPlayer _player;
+        private readonly IAimpPlaylist _playList;
 
         public PlayListControl(IAimpPlaylist playList, IAimpPlayer player)
         {

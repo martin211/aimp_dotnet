@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -17,7 +17,6 @@ using namespace AIMP::SDK;
 
 AimpServiceThreadPool::AimpServiceThreadPool(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceThreadPool>(core)
 {
-
 }
 
 AimpActionResult AimpServiceThreadPool::Cancel(UIntPtr taskHandle, AimpServiceThreadPoolType flags)
@@ -43,7 +42,7 @@ AimpActionResult AimpServiceThreadPool::Cancel(UIntPtr taskHandle, AimpServiceTh
     return AimpActionResult::Fail;
 }
 
-AimpActionResult AimpServiceThreadPool::Execute(IAimpTask ^task, UIntPtr %handle)
+AimpActionResult AimpServiceThreadPool::Execute(IAimpTask^ task, UIntPtr% handle)
 {
     IAIMPServiceThreadPool* service = nullptr;
     handle = UIntPtr(static_cast<void*>(0));
@@ -54,7 +53,7 @@ AimpActionResult AimpServiceThreadPool::Execute(IAimpTask ^task, UIntPtr %handle
 
         if (GetService(IID_IAIMPServiceThreadPool, &service) == AimpActionResult::OK && service != nullptr)
         {
-            InternalAimpTask *internalTask = new InternalAimpTask(task);
+            InternalAimpTask* internalTask = new InternalAimpTask(task);
             AimpActionResult result = CheckResult(service->Execute(internalTask, &h));
             handle = UIntPtr(reinterpret_cast<void*>(h));
             return result;

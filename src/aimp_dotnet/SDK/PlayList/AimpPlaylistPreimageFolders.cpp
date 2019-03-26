@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -14,8 +14,8 @@
 
 using namespace AIMP::SDK;
 
-AimpPlaylistPreimageFolders::AimpPlaylistPreimageFolders(IAIMPPlaylistPreimageFolders* aimpObject) 
-: AimpPlaylistPreimage(aimpObject)
+AimpPlaylistPreimageFolders::AimpPlaylistPreimageFolders(IAIMPPlaylistPreimageFolders* aimpObject)
+    : AimpPlaylistPreimage(aimpObject)
 {
 }
 
@@ -46,9 +46,10 @@ AimpActionResult AimpPlaylistPreimageFolders::ItemsDeleteAll()
 
 AimpActionResult AimpPlaylistPreimageFolders::ItemsGet(int index, String^% path, bool% recursive)
 {
-    IAIMPString *str = nullptr;
-    BOOL *b = nullptr;
-    AimpActionResult res = CheckResult(static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsGet(index, str, b));
+    IAIMPString* str = nullptr;
+    BOOL* b = nullptr;
+    AimpActionResult res = CheckResult(
+        static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsGet(index, str, b));
     path = AimpConverter::ToManagedString(str);
     recursive = b;
     str->Release();

@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -17,7 +17,7 @@ namespace AIMP
     {
         using namespace AIMP::SDK;
 
-        generic<class TObject>
+        generic <class TObject>
         public ref class AimpObjectList :
             public IAimpObjectList<TObject>
         {
@@ -36,7 +36,7 @@ namespace AIMP
             virtual AimpActionResult Insert(int index, TObject entry);
 
             virtual property int Count
-            { 
+            {
                 int get();
             }
 
@@ -49,7 +49,8 @@ namespace AIMP
         {
         public:
             explicit AimpObjectList2(IAIMPObjectList* nativeObject) : AimpObject(nativeObject)
-            {}
+            {
+            }
 
             virtual AimpActionResult Add(Object^ entry)
             {

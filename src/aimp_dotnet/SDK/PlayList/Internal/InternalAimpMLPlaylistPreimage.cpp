@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -46,7 +46,8 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetStorage(IUnknown** Storage)
 {
     AimpActionResult res = AimpActionResult::Fail;
     Object^ obj = _managedInstance;
-    MusicLibrary::IAimpMusicLibraryPlaylistPreimage^ preimage = dynamic_cast<MusicLibrary::IAimpMusicLibraryPlaylistPreimage^>(obj);
+    MusicLibrary::IAimpMusicLibraryPlaylistPreimage^ preimage = dynamic_cast<MusicLibrary::
+        IAimpMusicLibraryPlaylistPreimage^>(obj);
 
     if (preimage != nullptr)
     {
@@ -56,12 +57,12 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetStorage(IUnknown** Storage)
     return HRESULT(res);
 }
 
-HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetValueAsFloat(int PropertyID, double *Value)
+HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetValueAsFloat(int PropertyID, double* Value)
 {
     return E_NOTIMPL;
 }
 
-HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetValueAsInt64(int PropertyID, INT64 *Value)
+HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetValueAsInt64(int PropertyID, INT64* Value)
 {
     return E_NOTIMPL;
 }
@@ -81,12 +82,12 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::SetValueAsInt64(int PropertyID, c
     return E_NOTIMPL;
 }
 
-HRESULT WINAPI InternalAimpMLPlaylistPreimage::SetValueAsObject(int PropertyID, IUnknown *Value)
+HRESULT WINAPI InternalAimpMLPlaylistPreimage::SetValueAsObject(int PropertyID, IUnknown* Value)
 {
     return E_NOTIMPL;
 }
 
-HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetValueAsInt32(int PropertyID, int *Value)
+HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetValueAsInt32(int PropertyID, int* Value)
 {
     switch (PropertyID)
     {
@@ -99,14 +100,14 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetValueAsInt32(int PropertyID, i
     case AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC_ON_STARTUP:
         *Value = _managedInstance->AutoSyncOnStartup ? 1 : 0;
         break;
-    default: 
+    default:
         *Value = 0;
     }
 
     return S_OK;
 }
 
-HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetValueAsObject(int PropertyID, REFIID IID, void **Value)
+HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetValueAsObject(int PropertyID, REFIID IID, void** Value)
 {
     switch (PropertyID)
     {
@@ -122,16 +123,17 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetValueAsObject(int PropertyID, 
 }
 
 void WINAPI InternalAimpMLPlaylistPreimage::BeginUpdate()
-{ }
+{
+}
 
 void WINAPI InternalAimpMLPlaylistPreimage::EndUpdate()
-{ }
+{
+}
 
 HRESULT WINAPI InternalAimpMLPlaylistPreimage::Reset()
 {
     return E_NOTIMPL;
 }
-
 
 
 ULONG WINAPI InternalAimpMLPlaylistPreimage::Release(void)
@@ -207,8 +209,8 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, D
     if (dp != nullptr)
     {
         int flags = 0;
-        IAIMPObjectList *L = AIMP::SDK::AimpConverter::GetAimpObjectList();
-        System::Collections::IList ^collection;
+        IAIMPObjectList* L = AIMP::SDK::AimpConverter::GetAimpObjectList();
+        System::Collections::IList^ collection;
         res = dp->GetFiles(gcnew AimpTaskOwner(Owner), *&flags, *&collection);
 
         if (res == AimpActionResult::OK)
@@ -230,7 +232,7 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, D
                 for (int i = 0; i < collection->Count; i++)
                 {
                     System::String^ str = (System::String^)collection[i];
-                    IAIMPString *s = AIMP::SDK::AimpConverter::ToAimpString(str);
+                    IAIMPString* s = AIMP::SDK::AimpConverter::ToAimpString(str);
                     L->Add(s);
                     s->Release();
                 }

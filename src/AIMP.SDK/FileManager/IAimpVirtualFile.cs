@@ -1,14 +1,13 @@
 ﻿// ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
-
 using System.IO;
 
 namespace AIMP.SDK.FileManager
@@ -51,13 +50,12 @@ namespace AIMP.SDK.FileManager
         /// </summary>
         string FileUri { get; set; }
 
-        //TODO: ADN-26
         /// <summary>
         /// Create the instance of the <see cref="IAimpStream"/>.
         /// </summary>
         /// <param name="stream"></param>
         /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult CreateStream(out Stream stream);
+        AimpActionResult CreateStream(out IAimpStream stream);
 
         /// <summary>
         /// Gets the file info.

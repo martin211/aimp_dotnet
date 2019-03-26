@@ -1,15 +1,13 @@
-/************************************************/
-/*                                              */
-/*          AIMP Programming Interface          */
-/*               v4.50 build 2000               */
-/*                                              */
-/*                Artem Izmaylov                */
-/*                (C) 2006-2017                 */
-/*                 www.aimp.ru                  */
-/*                                              */
-/*            Mail: support@aimp.ru             */
-/*                                              */
-/************************************************/
+// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
 
 #ifndef apiMUIH
 #define apiMUIH
@@ -22,12 +20,12 @@ static const GUID IID_IAIMPServiceMUI = {0x41494D50, 0x5372, 0x764D, 0x55, 0x49,
 
 /* IAIMPServiceMUI */
 
-class IAIMPServiceMUI: public IUnknown
+class IAIMPServiceMUI : public IUnknown
 {
-	public:
- 		virtual HRESULT WINAPI GetName(IAIMPString **Value) = 0;
-		virtual HRESULT WINAPI GetValue(IAIMPString *KeyPath, IAIMPString **Value) = 0;
-		virtual HRESULT WINAPI GetValuePart(IAIMPString *KeyPath, int Part, IAIMPString **Value) = 0;
+public:
+    virtual HRESULT WINAPI GetName(IAIMPString** Value) = 0;
+    virtual HRESULT WINAPI GetValue(IAIMPString* KeyPath, IAIMPString** Value) = 0;
+    virtual HRESULT WINAPI GetValuePart(IAIMPString* KeyPath, int Part, IAIMPString** Value) = 0;
 };
 
 #endif // !apiMUIH
