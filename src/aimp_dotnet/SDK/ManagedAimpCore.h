@@ -28,17 +28,17 @@
 namespace AIMP
 {
     using namespace System;
-    using namespace AIMP::SDK;
+    using namespace SDK;
 
     namespace SDK
     {
         using namespace System;
-        using namespace System::Collections::Generic;
+        using namespace Generic;
 
-        using namespace AIMP::SDK;
-        using namespace AIMP::SDK::Playlist;
+        using namespace SDK;
+        using namespace Playlist;
 
-        delegate void ChangeHandler(AimpMessages::AimpCoreMessageType, int);
+        delegate void ChangeHandler(MessageDispatcher::AimpCoreMessageType, int);
 
         /// <summary>
         /// Wrapper on IAIMPCore interface.
@@ -58,25 +58,17 @@ namespace AIMP
             /// </summary>
             ~ManagedAimpCore();
 
-            virtual AimpActionResult GetPath(AimpMessages::AimpCorePathType pathType, String^% path);
+            virtual AimpActionResult GetPath(MessageDispatcher::AimpCorePathType pathType, String^% path);
 
-            virtual HRESULT SendMessage(AimpMessages::AimpCoreMessageType message, int value, Object^ obj);
+            virtual HRESULT SendMessage(MessageDispatcher::AimpCoreMessageType message, int value, Object^ obj);
 
-            virtual event AimpEventsDelegate^ CoreMessage;
+            virtual event PlayListHandler^ PlaylistActivated;
 
-            virtual event AimpEventsDelegate^ InternalCoreMessage;
+            virtual event PlayListHandler^ PlaylistAdded;
 
-            virtual event AIMP::SDK::Playlist::PlayListHandler^ PlaylistActivated;
+            virtual event PlayListHandler^ PlaylistRemoved;
 
-            virtual event AIMP::SDK::Playlist::PlayListHandler^ PlaylistAdded;
-
-            virtual event AIMP::SDK::Playlist::PlayListHandler^ PlaylistRemoved;
-
-            virtual event AIMP::SDK::Playback::AimpCheckUrl^ CheckUrl;
-
-            void OnCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2);
-
-            void OnInternalCoreMessage(AIMP::SDK::AimpMessages::AimpCoreMessageType param1, int param2);
+            virtual event Playback::AimpCheckUrl^ CheckUrl;
 
         internal:
             IAIMPActionEvent* CreateActionEvent();

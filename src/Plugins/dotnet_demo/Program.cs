@@ -10,8 +10,8 @@
 // ----------------------------------------------------
 using System;
 using System.Diagnostics;
-using System.Threading;
 using AIMP.SDK.ActionManager;
+using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.Playlist;
 using DemoPlugin;
 
@@ -20,6 +20,19 @@ namespace TestPlugin
     using AIMP.SDK;
     using AIMP.SDK.MenuManager;
     using AIMP.SDK.Options;
+
+    public delegate AimpActionResult HookMessage(AimpCoreMessageType message, int param1, int param2);
+
+    public class MessageHook : IAimpMessageHook
+    {
+        public AimpActionResult CoreMessage(AimpCoreMessageType message, int param1, int param2)
+        {
+            OnCoreMessage?.Invoke(message, param1, param2);
+            return AimpActionResult.OK;
+        }
+
+        public event HookMessage OnCoreMessage;
+    }
 
     public class ExtensionPlaylistManagerListener : IAimpExtension, IAimpExtensionPlaylistManagerListener
     {
@@ -47,6 +60,7 @@ namespace TestPlugin
 
         private IAimpMenuItem _menuItem;
         private IAimpOptionsDialogFrame _optionsFrame;
+        private MessageHook _hook;
 
         public override void Initialize()
         {
@@ -57,7 +71,7 @@ namespace TestPlugin
             var listner = new ExtensionPlaylistManagerListener();
             Player.Core.RegisterExtension(listner);
 
-            if (Player.MenuManager.CreateMenuItem(out demoFormItem) == AimpActionResult.Ok)
+            if (Player.MenuManager.CreateMenuItem(out demoFormItem) == AimpActionResult.OK)
             {
                 demoFormItem.Name = "Open demo form";
                 demoFormItem.Id = "demo_form";
@@ -73,17 +87,20 @@ namespace TestPlugin
                 Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, demoFormItem);
             }
 
-            _demoForm = new PlayerForm(Player);
+            _demoForm = new PlayerForm(Player, _hook);
 
             CreateMenuWithAction();
 
             TestReadConfig();
+
+            _hook = new MessageHook();
+            Player.ServiceMessageDispatcher.Hook(_hook);
         }
 
         private void DemoFormItemOnOnExecute(object sender, EventArgs eventArgs)
         {
             if (_demoForm.IsDisposed)
-                _demoForm = new PlayerForm(Player);
+                _demoForm = new PlayerForm(Player, _hook);
 
             var item = sender as IAimpMenuItem;
             Logger.Instance.AddInfoMessage($"Event: [Execute] {item.Id}");
@@ -96,6 +113,7 @@ namespace TestPlugin
             _demoForm.Dispose();
             System.Diagnostics.Debug.WriteLine("Dispose");
             //Player.MenuManager.Delete(_menuItem);
+            Player.ServiceMessageDispatcher.Unhook(_hook);
         }
 
         private void CreateMenuWithAction()

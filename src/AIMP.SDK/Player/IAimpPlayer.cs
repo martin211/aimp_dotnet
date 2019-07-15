@@ -182,16 +182,6 @@ namespace AIMP.SDK.Player
         event EventHandler<StateChangedEventArgs> StateChanged;
 
         /// <summary>
-        /// Occurs when AIMP language has been changed.
-        /// </summary>
-        event EventHandler LanguageChanged;
-
-        /// <summary>
-        /// Occurs when track was changed.
-        /// </summary>
-        event EventHandler TrackChanged;
-
-        /// <summary>
         /// Pauses player.
         /// </summary>
         void Pause();

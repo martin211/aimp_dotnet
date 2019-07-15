@@ -17,7 +17,7 @@ namespace AIMP.SDK.MusicLibrary.Extension.Command
         /// <summary>
         /// Adds the specified files.
         /// </summary>
-        /// <param name="files">List of the filenames.</param>
+        /// <param name="files">List of the file names.</param>
         /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
         AimpActionResult Add(IList<string> files);
     }
