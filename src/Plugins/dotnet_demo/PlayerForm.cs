@@ -13,9 +13,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using AIMP.SDK;
+using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.Player;
 using AIMP.SDK.Playlist;
 using DemoPlugin.UI;
+using TestPlugin;
 
 namespace DemoPlugin
 {
@@ -26,7 +28,7 @@ namespace DemoPlugin
         private readonly LoggerForm _loggerForm;
         private List<IAimpPlaylist> _playLists;
 
-        public PlayerForm(IAimpPlayer player)
+        public PlayerForm(IAimpPlayer player, MessageHook coreMessage)
         {
             _playLists = new List<IAimpPlaylist>();
             _aimpPlayer = player;
@@ -34,9 +36,9 @@ namespace DemoPlugin
 
             _loggerForm = new LoggerForm();
 
-            _aimpPlayer.Core.CoreMessage += (param1, param2) =>
+            coreMessage.OnCoreMessage += (message, param1, param2) =>
             {
-                if (param1 == AimpMessages.AimpCoreMessageType.AIMP_MSG_EVENT_PLAYABLE_FILE_INFO)
+                if (message == AimpCoreMessageType.AIMP_MSG_EVENT_PLAYABLE_FILE_INFO)
                 {
                     var cover = _aimpPlayer.CurrentFileInfo.AlbumArt;
                     if (cover != null)
@@ -44,6 +46,8 @@ namespace DemoPlugin
                         pictureBox1.Image = cover;
                     }
                 }
+
+                return AimpActionResult.OK;
             };
 
             Load += OnActivated;
@@ -154,7 +158,7 @@ namespace DemoPlugin
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _aimpPlayer.Core.SendMessage(AimpMessages.AimpCoreMessageType.AIMP_MSG_CMD_SHOW_NOTIFICATION, 0, "Play Play Play");
+            _aimpPlayer.Core.SendMessage(AimpCoreMessageType.AIMP_MSG_CMD_SHOW_NOTIFICATION, 0, "Play Play Play");
         }
 
         private void button2_Click(object sender, EventArgs e)

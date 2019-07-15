@@ -19,8 +19,7 @@ InternalAimpMessageHook::InternalAimpMessageHook(gcroot<IAimpMessageHook^> manag
 
 void InternalAimpMessageHook::CoreMessage(DWORD message, int param1, void* param2, HRESULT* result)
 {
-    AIMP::SDK::AimpActionResult res = _managedCore->CoreMessage(
-        static_cast<AIMP::SDK::AimpMessages::AimpCoreMessageType>(message), param1, (int)param2);
+    AIMP::SDK::AimpActionResult res = _managedCore->CoreMessage(static_cast<AimpCoreMessageType>(message), param1, (int)param2);
     // do not set AResult here. It breaks a modal dialog
 }
 

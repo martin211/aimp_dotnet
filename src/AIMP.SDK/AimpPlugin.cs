@@ -37,15 +37,18 @@ namespace AIMP.SDK
         /// </summary>
         public int PluginId { get; set; }
 
+        /// <summary>
+        /// Gets the main player interface <see cref="IAimpPlayer"/>.
+        /// </summary>
         public IAimpPlayer Player => AimpPlayer;
 
         /// <summary>
-        /// Inside this function, plugin should perform all initialization
+        /// Inside this function, plugin should perform all initialization.
         /// </summary>
         public abstract void Initialize();
 
         /// <summary>
-        /// Inside this function, plugin should dispose all resources
+        /// Inside this function, plugin should dispose all resources.
         /// </summary>
         public abstract void Dispose();
 
