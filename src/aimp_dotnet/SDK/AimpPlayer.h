@@ -85,11 +85,6 @@ namespace AIMP
         IAimpServiceMessageDispatcher^ _serviceMessageDispatcher;
         IAimpServiceFileTagEditor^ _serviceFileTagEditor;
         Lyrics::IAimpServiceLyrics^ _serviceLyrics;
-
-        EventHandler<AIMP::SDK::Player::StateChangedEventArgs^>^ _onStateChanged;
-        EventHandler^ _onLanguageChanged;
-        EventHandler^ _onTrackChanged;
-
     public:
         /// <summary>
         /// Initializes a new instance of the <see cref="AIMP3Controller{TConvAlloc}" /> class.
@@ -210,13 +205,6 @@ namespace AIMP
         virtual property IAimpServiceMessageDispatcher^ ServiceMessageDispatcher
         {
             IAimpServiceMessageDispatcher^ get();
-        }
-
-        virtual event EventHandler<Player::StateChangedEventArgs^>^ StateChanged
-        {
-            void add(EventHandler<Player::StateChangedEventArgs^>^ onAction);
-            void remove(EventHandler<Player::StateChangedEventArgs^>^ onAction);
-            void raise(Object^ sender, Player::StateChangedEventArgs^ state);
         }
 
         virtual void Pause();

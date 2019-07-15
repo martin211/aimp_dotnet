@@ -233,31 +233,6 @@ IAimpServiceMessageDispatcher^ AimpPlayer::ServiceMessageDispatcher::get()
     return _serviceMessageDispatcher;
 }
 
-void AimpPlayer::StateChanged::add(EventHandler<Player::StateChangedEventArgs^>^ onAction)
-{
-    if (this->_onStateChanged == nullptr)
-    {
-        _onStateChanged = static_cast<EventHandler<Player::StateChangedEventArgs^>^>(Delegate::Combine(_onStateChanged, onAction));
-    }
-}
-
-void AimpPlayer::StateChanged::remove(EventHandler<Player::StateChangedEventArgs^>^ onAction)
-{
-    const bool tmp = this->_onStateChanged != nullptr;
-    if (tmp)
-    {
-        _onStateChanged = static_cast<EventHandler<Player::StateChangedEventArgs^>^>(Delegate::Remove(_onStateChanged, onAction));
-    }
-}
-
-void AimpPlayer::StateChanged::raise(Object^ sender, Player::StateChangedEventArgs^ state)
-{
-    if (this->_onStateChanged != nullptr)
-    {
-        _onStateChanged(sender, state);
-    }
-}
-
 void AimpPlayer::Pause()
 {
     _player->Pause();

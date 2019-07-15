@@ -28,25 +28,6 @@ using AIMP.SDK.Threading;
 namespace AIMP.SDK.Player
 {
     /// <summary>
-    /// Player state changed event.
-    /// </summary>
-    public class StateChangedEventArgs : EventArgs
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:System.EventArgs"/> class.
-        /// </summary>
-        public StateChangedEventArgs(AimpPlayerState playerState)
-        {
-            PlayerState = playerState;
-        }
-
-        /// <summary>
-        /// Gets the state of the player.
-        /// </summary>
-        public AimpPlayerState PlayerState { get; private set; }
-    }
-
-    /// <summary>
     /// Interface IAimpPlayer
     /// </summary>
     public interface IAimpPlayer : IDisposable
@@ -175,11 +156,6 @@ namespace AIMP.SDK.Player
         IAimpServiceFileTagEditor ServiceFileTagEditor { get; }
 
         IAimpServiceLyrics ServiceLyrics { get; }
-
-        /// <summary>
-        /// Occurs when player state has been changed.
-        /// </summary>
-        event EventHandler<StateChangedEventArgs> StateChanged;
 
         /// <summary>
         /// Pauses player.

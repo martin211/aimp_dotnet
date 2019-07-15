@@ -46,6 +46,23 @@ namespace DemoPlugin
                         pictureBox1.Image = cover;
                     }
                 }
+                else if (message == AimpCoreMessageType.AIMP_MSG_EVENT_PLAYER_STATE)
+                {
+                    Logger.Instance.AddInfoMessage($"[Event] AimpPlayer.StateChanged: {param1}");
+
+                    switch ((AimpPlayerState)param1)
+                    {
+                        case AimpPlayerState.Stopped:
+                            Text = "State: stopped";
+                            break;
+                        case AimpPlayerState.Pause:
+                            Text = "State: pause";
+                            break;
+                        case AimpPlayerState.Playing:
+                            Text = "State: playing";
+                            break;
+                    }
+                }
 
                 return AimpActionResult.OK;
             };
@@ -101,24 +118,6 @@ namespace DemoPlugin
             _aimpPlayer.PlaylistManager.PlaylistQueue.StateChanged += (sender) =>
             {
                 Logger.Instance.AddInfoMessage($"[Event] PlaylistQueue.StateChanged");
-            };
-
-            _aimpPlayer.StateChanged += (sender, args) =>
-            {
-                Logger.Instance.AddInfoMessage($"[Event] AimpPlayer.StateChanged: {args.PlayerState}");
-
-                switch (args.PlayerState)
-                {
-                    case AimpPlayerState.Stopped:
-                        Text = "State: stopped";
-                        break;
-                    case AimpPlayerState.Pause:
-                        Text = "State: pause";
-                        break;
-                    case AimpPlayerState.Playing:
-                        Text = "State: playing";
-                        break;
-                }
             };
         }
 

@@ -87,14 +87,14 @@ namespace TestPlugin
                 Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, demoFormItem);
             }
 
+            _hook = new MessageHook();
+            Player.ServiceMessageDispatcher.Hook(_hook);
+
             _demoForm = new PlayerForm(Player, _hook);
 
             CreateMenuWithAction();
 
             TestReadConfig();
-
-            _hook = new MessageHook();
-            Player.ServiceMessageDispatcher.Hook(_hook);
         }
 
         private void DemoFormItemOnOnExecute(object sender, EventArgs eventArgs)
