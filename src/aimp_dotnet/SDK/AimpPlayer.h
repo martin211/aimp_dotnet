@@ -11,8 +11,6 @@
 
 #pragma once
 
-#include <vcclr.h>
-
 #include "SDK\Menu\AimpMenuManager.h"
 #include "SDK\Action\AimpActionManager.h"
 #include "SDK\MUI\MUIManager.h"
@@ -42,21 +40,21 @@
 namespace AIMP
 {
     using namespace System;
-    using namespace System::Runtime::InteropServices;
-    using namespace AIMP::SDK;
-    using namespace AIMP::SDK::ActionManager;
-    using namespace AIMP::SDK::AlbumArtManager;
-    using namespace AIMP::SDK::ConfigurationManager;
-    using namespace AIMP::SDK::Playlist;
-    using namespace AIMP::SDK::Win32;
-    using namespace AIMP::SDK::Playback;
-    using namespace AIMP::SDK::Threading;
-    using namespace AIMP::SDK::MessageDispatcher;
-    using namespace AIMP::SDK::TagEditor;
+    using namespace Runtime::InteropServices;
+    using namespace SDK;
+    using namespace ActionManager;
+    using namespace AlbumArtManager;
+    using namespace ConfigurationManager;
+    using namespace Playlist;
+    using namespace SDK::Win32;
+    using namespace Playback;
+    using namespace Threading;
+    using namespace MessageDispatcher;
+    using namespace TagEditor;
 
     private ref class AimpPlayer :
         public MarshalByRefObject,
-        public AIMP::SDK::Player::IAimpPlayer
+        public Player::IAimpPlayer
     {
     private:
         IAIMPMessageHook* aimp_message_hook_;
@@ -87,11 +85,6 @@ namespace AIMP
         IAimpServiceMessageDispatcher^ _serviceMessageDispatcher;
         IAimpServiceFileTagEditor^ _serviceFileTagEditor;
         Lyrics::IAimpServiceLyrics^ _serviceLyrics;
-
-        EventHandler<AIMP::SDK::Player::StateChangedEventArgs^>^ _onStateChanged;
-        EventHandler^ _onLanguageChanged;
-        EventHandler^ _onTrackChanged;
-
     public:
         /// <summary>
         /// Initializes a new instance of the <see cref="AIMP3Controller{TConvAlloc}" /> class.
@@ -214,27 +207,6 @@ namespace AIMP
             IAimpServiceMessageDispatcher^ get();
         }
 
-        virtual event EventHandler<Player::StateChangedEventArgs^>^ StateChanged
-        {
-            void add(EventHandler<Player::StateChangedEventArgs^>^ onAction);
-            void remove(EventHandler<Player::StateChangedEventArgs^>^ onAction);
-            void raise(Object^ sender, AIMP::SDK::Player::StateChangedEventArgs^ state);
-        }
-
-        virtual event EventHandler^ LanguageChanged
-        {
-            void add(EventHandler^ onAction);
-            void remove(EventHandler^ onAction);
-            void raise(Object^ sender, EventArgs^ e);
-        }
-
-        virtual event EventHandler^ TrackChanged
-        {
-            void add(EventHandler^ onAction);
-            void remove(EventHandler^ onAction);
-            void raise(Object^ sender, EventArgs^ e);
-        }
-
         virtual void Pause();
 
         virtual void Stop();
@@ -309,8 +281,5 @@ namespace AIMP
         }
 
         bool OnCheckUrl(String^ % url);
-
-    private:
-        void OnInternalCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2);
     };
 }

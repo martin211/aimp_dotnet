@@ -44,12 +44,27 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         AimpActionResult GetDisplayValue(out string displayValue);
 
         /// <summary>
-        /// Gets the tree node flags.
+        /// Gets the tree node flags <see cref="GroupingTreeNodeFlags"/>.
+        /// <note>
+        /// AIMPML_GROUPINGTREENODE_FLAG_HASCHILDREN - current node has children.
+        /// AIMPML_GROUPINGTREENODE_FLAG_STANDALONE <see cref="IAimpGroupingTreeSelection"/>.
+        /// </note>
         /// </summary>
         GroupingTreeNodeFlags GetFlags();
 
+        /// <summary>
+        /// Return the node image <see cref="FieldImageIndex"/>.
+        /// </summary>
+        /// <param name="imageIndex">Out. The image index <see cref="FieldImageIndex"/>.</param>
+        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
         AimpActionResult GetImageIndex(out FieldImageIndex imageIndex);
 
+        /// <summary>
+        /// Returns the value for specified field name.
+        /// </summary>
+        /// <param name="fieldName">THe current field name.</param>
+        /// <param name="value"></param>
+        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
         AimpActionResult GetValue(out string fieldName, out object value);
 
         /// <summary>

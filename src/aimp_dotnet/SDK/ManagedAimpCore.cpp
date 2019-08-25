@@ -38,8 +38,6 @@ namespace AIMP
 
             virtual void WINAPI CoreMessage(DWORD AMessage, int AParam1, void* AParam2, HRESULT* AResult)
             {
-                _managedCore->OnCoreMessage((AIMP::SDK::AimpMessages::AimpCoreMessageType)AMessage, AParam1);
-                _managedCore->OnInternalCoreMessage((AIMP::SDK::AimpMessages::AimpCoreMessageType)AMessage, AParam1);
             }
 
         private:
@@ -201,8 +199,7 @@ namespace AIMP
         /// <param name="pathType">Path type.</param>
         /// <param name="pathResult"></param>
         /// <returns></returns>
-        AIMP::SDK::AimpActionResult ManagedAimpCore::GetPath(AIMP::SDK::AimpMessages::AimpCorePathType pathType,
-                                                             String^% pathResult)
+        AIMP::SDK::AimpActionResult ManagedAimpCore::GetPath(MessageDispatcher::AimpCorePathType pathType, String^% pathResult)
         {
             IAIMPString* res;
             _core->GetPath((int)pathType, &res);
@@ -460,21 +457,6 @@ namespace AIMP
             return _core->UnregisterExtension(extension);
         }
 
-        /// <summary>
-        /// Called when [core message].
-        /// </summary>
-        /// <param name="param1">The param1.</param>
-        /// <param name="param2">The param2.</param>
-        void ManagedAimpCore::OnCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2)
-        {
-            CoreMessage(param1, param2);
-        }
-
-        void ManagedAimpCore::OnInternalCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2)
-        {
-            InternalCoreMessage(param1, param2);
-        }
-
 
         //******** IAimpExtensionPlaylistManagerListenerExecutor ********
 
@@ -496,17 +478,6 @@ namespace AIMP
         bool ManagedAimpCore::OnCheckUrl(String^ % url)
         {
             return this->CheckUrl(url);
-        }
-
-        /// <summary>
-        /// Core message event proxy.
-        /// </summary>
-        /// <param name="This">The this.</param>
-        /// <param name="param">The parameter.</param>
-        /// <param name="param1">The param1.</param>
-        void CoreMessageEventProxy(gcroot<ManagedAimpCore^> This, DWORD param, int param1)
-        {
-            This->OnCoreMessage(AimpMessages::AimpCoreMessageType(param), param1);
         }
 
         /// <summary>
@@ -552,11 +523,11 @@ namespace AIMP
             return actionEvent;
         }
 
-        HRESULT ManagedAimpCore::SendMessage(AimpMessages::AimpCoreMessageType message, int value, Object^ obj)
+        HRESULT ManagedAimpCore::SendMessage(MessageDispatcher::AimpCoreMessageType message, int value, Object^ obj)
         {
             HRESULT r;
 
-            if (message == AIMP::SDK::AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION)
+            if (message == MessageDispatcher::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION)
             {
                 r = ShowNotification(value == 0, static_cast<String^>(obj));
             }
@@ -572,7 +543,7 @@ namespace AIMP
         {
             IAIMPString* str = AimpConverter::ToAimpString(notification);
             HRESULT r = _messageDispatcher->Send(
-                DWORD(AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION), autoHide ? 0 : 1,
+                DWORD(MessageDispatcher::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION), autoHide ? 0 : 1,
                 str->GetData());
             str->Release();
             return r;

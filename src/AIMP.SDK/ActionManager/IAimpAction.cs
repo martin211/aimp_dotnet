@@ -16,7 +16,7 @@ namespace AIMP.SDK.ActionManager
     public interface IAimpAction : IAimpActionEvent
     {
         /// <summary>
-        /// Gets or sets the unique action identificator, must be unique for all plugins.
+        /// Gets or sets the unique action identity, must be unique for all plugins.
         /// </summary>
         string Id { get; set; }
 

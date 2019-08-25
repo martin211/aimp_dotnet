@@ -12,6 +12,9 @@ using System;
 
 namespace AIMP.SDK
 {
+    /// <summary>
+    /// AIMP Operation Result.
+    /// </summary>
     public enum AimpActionResult : uint
     {
         /// <summary>
