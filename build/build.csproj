@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -47,6 +47,9 @@
     <None Include="..\appveyor.yml" Condition="Exists('..\appveyor.yml')" />
     <None Include="..\.travis.yml" Condition="Exists('..\.travis.yml')" />
     <None Include="..\GitVersion.yml" Condition="Exists('..\GitVersion.yml')" />
+    <None Include="..\Nuget\AimpSDK.nuspec" Link="AimpSDK.nuspec" />
+    <None Include="..\Nuget\AimpSDK.sources.nuspec" Link="AimpSDK.sources.nuspec" />
+    <None Include="..\Nuget\AimpSDK.symbols.nuspec" Link="AimpSDK.symbols.nuspec" />
   </ItemGroup>
 
 </Project>
