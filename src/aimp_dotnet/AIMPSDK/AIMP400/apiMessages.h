@@ -1,13 +1,15 @@
-// ----------------------------------------------------
-// 
-// AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// 
-// Mail: mail4evgeniy@gmail.com
-// 
-// ----------------------------------------------------
+/************************************************/
+/*                                              */
+/*          AIMP Programming Interface          */
+/*               v4.50 build 2000               */
+/*                                              */
+/*                Artem Izmaylov                */
+/*                (C) 2006-2017                 */
+/*                 www.aimp.ru                  */
+/*                                              */
+/*            Mail: support@aimp.ru             */
+/*                                              */
+/************************************************/
 
 #ifndef apiMessagesH
 #define apiMessagesH
@@ -107,11 +109,11 @@ const int AIMP_MSG_CMD_OPEN_FOLDERS = AIMP_MSG_CMD_BASE + 22;
 
 // Execute "Open Playlist" dialog
 // AParam1, AParam2: unused
-const int AIMP_MSG_CMD_OPEN_PLAYLISTS = AIMP_MSG_CMD_BASE + 23;
+const int AIMP_MSG_CMD_OPEN_PLAYLISTS  = AIMP_MSG_CMD_BASE + 23;
 
 // Execute "Save Playlist" dialog
 // AParam1, AParam2: unused
-const int AIMP_MSG_CMD_SAVE_PLAYLISTS = AIMP_MSG_CMD_BASE + 24;
+const int AIMP_MSG_CMD_SAVE_PLAYLISTS  = AIMP_MSG_CMD_BASE + 24;
 
 // Execute "Bookmarks" dialog
 // AParam1, AParam2: unused
@@ -124,7 +126,7 @@ const int AIMP_MSG_CMD_BOOKMARKS_ADD = AIMP_MSG_CMD_BASE + 26;
 
 // Rescan tags in active playlist
 // AParam1, AParam2: unused
-const int AIMP_MSG_CMD_PLS_RESCAN = AIMP_MSG_CMD_BASE + 27;
+const int AIMP_MSG_CMD_PLS_RESCAN  = AIMP_MSG_CMD_BASE + 27;
 
 // Jump focus in playlist to now playing file
 // AParam1, AParam2: unused
@@ -235,7 +237,7 @@ const int AIMP_MSG_CMD_VISUAL_STOP = AIMP_MSG_CMD_BASE + 58;
 
 // Rescan tags for selected files in active playlist
 // AParam1, AParam2: unused
-const int AIMP_MSG_CMD_PLS_RESCAN_SELECTED = AIMP_MSG_CMD_BASE + 59;
+const int AIMP_MSG_CMD_PLS_RESCAN_SELECTED  = AIMP_MSG_CMD_BASE + 59;
 
 //==============================================================================
 // Properties
@@ -362,11 +364,11 @@ const int AIMP_MSG_PROPERTY_SHUFFLE = AIMP_MSG_PROPERTY_BASE + 21;
 // AParam1: One of AIMP_MPH_XXX flags
 // AParam2: Pointer to HWND
 const int AIMP_MSG_PROPERTY_HWND = AIMP_MSG_PROPERTY_BASE + 22;
-const int AIMP_MPH_MAINFORM = 0;
-const int AIMP_MPH_APPLICATION = 1;
-const int AIMP_MPH_TRAYCONTROL = 2;
-const int AIMP_MPH_PLAYLISTFORM = 3;
-const int AIMP_MPH_EQUALIZERFORM = 4;
+	const int AIMP_MPH_MAINFORM      = 0;
+    const int AIMP_MPH_APPLICATION   = 1;
+    const int AIMP_MPH_TRAYCONTROL   = 2;
+    const int AIMP_MPH_PLAYLISTFORM  = 3;
+    const int AIMP_MPH_EQUALIZERFORM = 4;
 
 // AParam1: AIMP_MSG_PROPVALUE_GET / AIMP_MSG_PROPVALUE_SET
 // AParam2: Pointer to LongBool (32-bit boolean value) variable
@@ -391,8 +393,7 @@ const int AIMP_MSG_PROPERTY_REPEAT_SINGLE_FILE_PLAYLISTS = AIMP_MSG_PROPERTY_BAS
 //   2 - Do nothing
 const int AIMP_MSG_PROPERTY_ACTION_ON_END_OF_PLAYLIST = AIMP_MSG_PROPERTY_BASE + 27;
 
-// AParam1: AIMP_MSG_PROPVALUE_GET / AIMP_MSG_PROPVALUE_SET
-// AParam2: Pointer to LongBool (32-bit boolean value) variable
+// WARNING: DEPRECATED, USE THE AIMP_MSG_PROPERTY_ACTION_ON_END_OF_TRACK INSTEAD
 const int AIMP_MSG_PROPERTY_STOP_AFTER_TRACK = AIMP_MSG_PROPERTY_BASE + 28;
 
 // Start / Stop Internet Radio capture
@@ -414,6 +415,22 @@ const int AIMP_MSG_PROPERTY_VISUAL_FULLSCREEN = AIMP_MSG_PROPERTY_BASE + 31;
 // AParam2: Pointer to Single (32-bit floating point value) variable, [0..100]%
 const int AIMP_MSG_PROPERTY_PLAYER_BUFFERING = AIMP_MSG_PROPERTY_BASE + 32;
 
+// Toggles the Internet Radio capture mode - single track only / all tracks
+// AParam1: AIMP_MSG_PROPVALUE_GET / AIMP_MSG_PROPVALUE_SET
+// AParam2: Pointer to LongBool (32-bit boolean value) variable
+const int AIMP_MSG_PROPERTY_RADIOCAP_SINGLE_TRACK = AIMP_MSG_PROPERTY_BASE + 33;
+
+// State of cross-mixing feature
+// AParam1: AIMP_MSG_PROPVALUE_GET / AIMP_MSG_PROPVALUE_SET
+// AParam2: Pointer to LongBool (32-bit boolean value) variable
+const int AIMP_MSG_PROPERTY_CROSSMIXING = AIMP_MSG_PROPERTY_BASE + 34;
+
+// AParam1: AIMP_MSG_PROPVALUE_GET / AIMP_MSG_PROPVALUE_SET
+// AParam2: Pointer to Integer variable
+//   0 - Default Action
+//   1 - Jump to next track and stop playback
+//   2 - Jump to next track and pause playback
+const int AIMP_MSG_PROPERTY_ACTION_ON_END_OF_TRACK = AIMP_MSG_PROPERTY_BASE + 35;
 //==============================================================================
 // Events
 //==============================================================================
@@ -432,9 +449,9 @@ const int AIMP_MSG_EVENT_STREAM_START = AIMP_MSG_EVENT_BASE + 3;
 const int AIMP_MSG_EVENT_STREAM_START_SUBTRACK = AIMP_MSG_EVENT_BASE + 4;
 // Called, when audio stream has been finished
 const int AIMP_MSG_EVENT_STREAM_END = AIMP_MSG_EVENT_BASE + 5;
-// AParam1 contains combination of next flags:
-const int AIMP_MES_END_OF_QUEUE = 1;
-const int AIMP_MES_END_OF_PLAYLIST = 2;
+  // AParam1 contains combination of next flags:
+    const int AIMP_MES_END_OF_QUEUE    = 1;
+    const int AIMP_MES_END_OF_PLAYLIST = 2;
 
 // Called, when player state has been changed (Played / Paused / Stopped)
 // AParam1: 0 = Stopped; 1 = Paused; 2 = Playing
@@ -492,7 +509,7 @@ const int AIMP_MSG_EVENT_TERMINATING = AIMP_MSG_EVENT_BASE + 19;
 
 // Called, when information about playable file changed (album, title, album art and etc)
 // AParam1, AParam2: unused
-const int AIMP_MSG_EVENT_PLAYABLE_FILE_INFO = AIMP_MSG_EVENT_BASE + 20;
+const int AIMP_MSG_EVENT_PLAYABLE_FILE_INFO	= AIMP_MSG_EVENT_BASE + 20;
 
 // High resolution version of the AIMP_MSG_EVENT_PLAYER_UPDATE_POSITION event
 // Called few times per second by a timer (is about 10 fps, real FPS is depended from some internal and external factors)
@@ -507,29 +524,27 @@ const int AIMP_MSG_EVENT_EQUALIZER_PRESET_NAME = AIMP_MSG_EVENT_BASE + 22;
 //==============================================================================
 
 static const GUID IID_IAIMPMessageHook = {0xFC6FB524, 0xA959, 0x4089, 0xAA, 0x0A, 0xEA, 0x40, 0xAB, 0x73, 0x74, 0xCD};
-static const GUID IID_IAIMPServiceMessageDispatcher = {
-    0x41494D50, 0x5372, 0x764D, 0x73, 0x67, 0x44, 0x73, 0x70, 0x72, 0x00, 0x00
-};
+static const GUID IID_IAIMPServiceMessageDispatcher = {0x41494D50, 0x5372, 0x764D, 0x73, 0x67, 0x44, 0x73, 0x70, 0x72, 0x00, 0x00};
 
 /* IAIMPMessageHook */
-
-class IAIMPMessageHook : public IUnknown
+  
+class IAIMPMessageHook: public IUnknown
 {
-public:
-    virtual void WINAPI CoreMessage(DWORD AMessage, int AParam1, void* AParam2, HRESULT* AResult) = 0;
+	public:
+		virtual void WINAPI CoreMessage(DWORD AMessage, int AParam1, void *AParam2, HRESULT *AResult) = 0;
 };
 
 /* IAIMPServiceMessageDispatcher */
 
-class IAIMPServiceMessageDispatcher : public IUnknown
+class IAIMPServiceMessageDispatcher: public IUnknown
 {
-public:
-    virtual HRESULT WINAPI Send(DWORD AMessage, int AParam1, void* AParam2) = 0;
-    // Custom Messages
-    virtual DWORD WINAPI Register(PWCHAR AMessageName) = 0;
-    // Hook
-    virtual HRESULT WINAPI Hook(IAIMPMessageHook* AHook) = 0;
-    virtual HRESULT WINAPI Unhook(IAIMPMessageHook* AHook) = 0;
+	public:
+		virtual HRESULT WINAPI Send(DWORD AMessage, int AParam1, void *AParam2) = 0;
+		// Custom Messages
+		virtual DWORD   WINAPI Register(PWCHAR AMessageName) = 0;
+		// Hook
+		virtual HRESULT WINAPI Hook(IAIMPMessageHook *AHook) = 0;
+		virtual HRESULT WINAPI Unhook(IAIMPMessageHook *AHook) = 0;
 };
 
 #endif // !apiMessagesH

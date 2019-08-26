@@ -28,7 +28,8 @@ AimpPlayList::!AimpPlayList()
     {
         try
         {
-            InternalAimpObject->Release();
+            // TODO: investigate dispose issue
+            //InternalAimpObject->Release();
             _aimpObject = nullptr;
         }
         catch (const std::exception&)
