@@ -19,6 +19,7 @@
     <file src="src\$configuration$\aimp_dotnet.dll" target="lib\net462\aimp_dotnet.dll" />
     <file src="src\$configuration$\AIMP.SDK.pdb" target="lib\net462\AIMP.SDK.pdb" />
     <file src="src\$configuration$\aimp_dotnet.pdb" target="lib\net462\aimp_dotnet.pdb" />
-	<file src="LICENSE.md" target="" />
+    <file src="LICENSE.md" target="" />
+    <file src="src\$configuration$\AIMP.SDK.xml" target="lib\net462\AIMP.SDK.xml" />
   </files>
 </package>

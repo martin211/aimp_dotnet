@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -22,13 +22,15 @@ private:
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProvider> Base;
 
-    InternalAimpGroupingTreeDataProvider(gcroot<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^> managedInstance);
+    InternalAimpGroupingTreeDataProvider(
+        gcroot<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^> managedInstance);
 
     virtual HRESULT WINAPI AppendFilter(IAIMPMLDataFilterGroup* Filter, IAIMPMLGroupingTreeSelection* Selection);
 
     virtual DWORD WINAPI GetCapabilities();
 
-    virtual HRESULT WINAPI GetData(IAIMPMLGroupingTreeSelection* Selection, IAIMPMLGroupingTreeDataProviderSelection** Data);
+    virtual HRESULT WINAPI GetData(IAIMPMLGroupingTreeSelection* Selection,
+                                   IAIMPMLGroupingTreeDataProviderSelection** Data);
 
     virtual HRESULT WINAPI GetFieldForAlphabeticIndex(IAIMPString** FieldName);
 

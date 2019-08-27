@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -18,7 +18,7 @@ int AimpExtensionEmbeddedVisualization::GetFlags()
     return (int)_managedObject->GetFlags();
 }
 
-HRESULT AimpExtensionEmbeddedVisualization::GetMaxDisplaySize(int *Width, int *Height)
+HRESULT AimpExtensionEmbeddedVisualization::GetMaxDisplaySize(int* Width, int* Height)
 {
     int w = 0;
     int h = 0;
@@ -33,10 +33,10 @@ HRESULT AimpExtensionEmbeddedVisualization::GetMaxDisplaySize(int *Width, int *H
     return E_FAIL;
 }
 
-HRESULT AimpExtensionEmbeddedVisualization::GetName(IAIMPString **S)
+HRESULT AimpExtensionEmbeddedVisualization::GetName(IAIMPString** S)
 {
-    IAIMPString *strObject = nullptr;
-    System::String ^str;
+    IAIMPString* strObject = nullptr;
+    System::String^ str;
     if (_managedObject->GetName(*&str) != AimpActionResult::OK)
     {
         return E_FAIL;
@@ -71,7 +71,7 @@ void AimpExtensionEmbeddedVisualization::Click(int X, int Y, int Button)
 
 void AimpExtensionEmbeddedVisualization::Draw(HDC DC, PAIMPVisualData Data)
 {
-    AIMP::SDK::Visuals::AimpVisualData ^data = AimpConverter::PAIMPVisualDataToManaged(Data);
+    AIMP::SDK::Visuals::AimpVisualData^ data = AimpConverter::PAIMPVisualDataToManaged(Data);
     _managedObject->Draw(System::IntPtr(DC), data);
 }
 
@@ -84,7 +84,8 @@ HRESULT WINAPI AimpExtensionEmbeddedVisualization::QueryInterface(REFIID riid, L
 {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPExtensionEmbeddedVisualization) {
+    if (riid == IID_IAIMPExtensionEmbeddedVisualization)
+    {
         *ppvObject = this;
         AddRef();
         return S_OK;

@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -36,11 +36,13 @@ public:
         AIMP::AimpPlayer^ instance = nullptr;
         if (sender->PluginAppDomainInfo != nullptr)
         {
-            instance = gcnew AIMP::AimpPlayer(_managedCore, sender->LoadedPlugin->PluginId, sender->PluginAppDomainInfo->Id, true);
+            instance = gcnew AIMP::AimpPlayer(_managedCore, sender->LoadedPlugin->PluginId,
+                                              sender->PluginAppDomainInfo->Id, true);
         }
         else
         {
-            instance = gcnew AIMP::AimpPlayer(_managedCore, sender->LoadedPlugin->PluginId, AppDomain::CurrentDomain->Id, false);
+            instance = gcnew AIMP::AimpPlayer(_managedCore, sender->LoadedPlugin->PluginId,
+                                              AppDomain::CurrentDomain->Id, false);
         }
 
         sender->Initialize(instance);
@@ -48,11 +50,11 @@ public:
 
     void PluginUnloadEventReaction(PluginInformation^ sender)
     {
-
     }
+
 private:
     IAIMPCore* _core;
-    ManagedAimpCore ^_managedCore;
+    ManagedAimpCore^ _managedCore;
 };
 
 class AimpExternalSettingsDialog : public IUnknownInterfaceImpl<IAIMPExternalSettingsDialog>
@@ -100,7 +102,7 @@ public:
 /// </summary>
 class DotNetPlugin : public IUnknownInterfaceImpl<IAIMPPlugin>, IAIMPExternalSettingsDialog
 {
-public: 
+public:
     DotNetPlugin();
 
     virtual PWCHAR WINAPI InfoGet(int index);
@@ -130,8 +132,8 @@ private:
     bool _optionsLoaded;
     gcroot<ManagedFunctionality^> _managedExtension;
     gcroot<AIMP::SDK::AimpDotNetPlugin^> _dotNetPlugin;
-    IAIMPServiceConfig *_configService = nullptr;
-    IAIMPExtensionPlayerHook *_playerHook = nullptr;
-    AimpExternalSettingsDialog *_externalSettingsDialog = nullptr;
+    IAIMPServiceConfig* _configService = nullptr;
+    IAIMPExtensionPlayerHook* _playerHook = nullptr;
+    AimpExternalSettingsDialog* _externalSettingsDialog = nullptr;
     typedef IUnknownInterfaceImpl<IAIMPPlugin> Base;
 };

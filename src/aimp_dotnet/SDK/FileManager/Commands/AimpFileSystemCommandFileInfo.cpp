@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -15,51 +15,30 @@
 using namespace AIMP::SDK;
 using namespace Objects;
 
-AimpFileSystemCommandFileInfo::AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject) : AimpObject(aimpObject)
-{}
-
-AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(IAimpString^ file, AimpFileAttributes% attr)
+AimpFileSystemCommandFileInfo::
+AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject) : AimpObject(aimpObject)
 {
-    // TODO: Complete it
-    //IAIMPString *str = AimpConverter::ToAimpString(file);
-    attr = AimpFileAttributes();
-
-    //try
-    //{
-    //    TAIMPFileAttributes *fattr = nullptr;
-    //    AimpActionResult result = CheckResult(_aimpObject->GetFileAttrs(str, fattr));
-    //    return result;
-    //}
-    //finally
-    //{
-    //    if (str != nullptr)
-    //    {
-    //        str->Release();
-    //        str = nullptr;
-    //    }
-    //}
-
-    return AimpActionResult::Fail;
 }
 
-AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(IAimpString^ file, long long% size)
+AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(String^ file, AimpFileAttributes% attr)
 {
-    // TODO: Complete it
-
-    IAIMPString* str = nullptr;
-    size = 0;
+    auto str = AimpConverter::ToAimpString(file);
+    auto result = AimpActionResult::Fail;
+    auto atr = AimpFileAttributes();
 
     try
     {
-        //str = AimpConverter::ToAimpString(file);
-        //INT64 *fSize = 0;
-        //AimpActionResult result = CheckResult(_aimpObject->GetFileSize(str, fSize));
-        //if (result == AimpActionResult::OK)
-        //{
-        //    size = (long long)fSize;
-        //}
+        TAIMPFileAttributes* fattr = nullptr;
+        result = CheckResult(InternalAimpObject->GetFileAttrs(str, fattr));
 
-        return AimpActionResult::OK;
+        if (result == AimpActionResult::OK)
+        {
+            atr.TimeCreation = fattr->TimeCreation;
+            atr.TimeLastAccess = fattr->TimeLastAccess;
+            atr.TimeLastWrite = fattr->TimeLastWrite;
+            atr.Attributes = static_cast<IO::FileAttributes>(fattr->Attributes);
+            attr = atr;
+        }
     }
     finally
     {
@@ -69,29 +48,56 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(IAimpString^ file, l
             str = nullptr;
         }
     }
+
+    return result;
 }
 
-AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(IAimpString ^file)
+AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(String^ file, long long% size)
 {
-    // TODO: Complete it
-    //IAIMPString *str = nullptr;
+    IAIMPString* str = nullptr;
+    size = 0;
     AimpActionResult result = AimpActionResult::Fail;
 
-    //try
-    //{
-    //    //str = AimpConverter::ToAimpString(file);
-    //    //return CheckResult(_aimpObject->IsFileExists(str));
+    try
+    {
+        str = AimpConverter::ToAimpString(file);
+        INT64* fSize = 0;
+        result = CheckResult(InternalAimpObject->GetFileSize(str, fSize));
+        if (result == AimpActionResult::OK)
+        {
+            size = reinterpret_cast<long long>(fSize);
+        }
+    }
+    finally
+    {
+        if (str != nullptr)
+        {
+            str->Release();
+            str = nullptr;
+        }
+    }
 
-    //    return AimpActionResult::OK;
-    //}
-    //finally
-    //{
-    //    //if (str != nullptr)
-    //    //{
-    //    //    str->Release();
-    //    //    str = nullptr;
-    //    //}
-    //}
+    return result;
+}
+
+AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(String^ file)
+{
+    IAIMPString* str = nullptr;
+    AimpActionResult result = AimpActionResult::Fail;
+
+    try
+    {
+        str = AimpConverter::ToAimpString(file);
+        result = CheckResult(InternalAimpObject->IsFileExists(str));
+    }
+    finally
+    {
+        if (str != nullptr)
+        {
+            str->Release();
+            str = nullptr;
+        }
+    }
 
     return result;
 }

@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -26,45 +26,45 @@ PWCHAR WINAPI DotNetPlugin::InfoGet(int index)
     switch (index)
     {
     case AIMP_PLUGIN_INFO_NAME:
-    {
-        if (Object::ReferenceEquals(_dotNetPlugin, nullptr))
         {
-            return L"AIMP DotNet proxy";
-        }
+            if (Object::ReferenceEquals(_dotNetPlugin, nullptr))
+            {
+                return L"AIMP DotNet proxy";
+            }
 
-        pin_ptr<const wchar_t> str1 = PtrToStringChars(_dotNetPlugin->Name);
-        return (PWCHAR)str1;
-    }
+            pin_ptr<const wchar_t> str1 = PtrToStringChars(_dotNetPlugin->Name);
+            return (PWCHAR)str1;
+        }
     case AIMP_PLUGIN_INFO_AUTHOR:
-    {
-        if (System::Object::ReferenceEquals(_dotNetPlugin, nullptr))
         {
-            return L"Evgeniy Bogdan";
-        }
+            if (System::Object::ReferenceEquals(_dotNetPlugin, nullptr))
+            {
+                return L"Evgeniy Bogdan";
+            }
 
-        pin_ptr<const wchar_t> str1 = PtrToStringChars(_dotNetPlugin->Author);
-        return (PWCHAR)str1;
-    }
+            pin_ptr<const wchar_t> str1 = PtrToStringChars(_dotNetPlugin->Author);
+            return (PWCHAR)str1;
+        }
     case AIMP_PLUGIN_INFO_SHORT_DESCRIPTION:
-    {
-        if (System::Object::ReferenceEquals(_dotNetPlugin, nullptr))
         {
-            return L"AIMP DotNet proxy plugin";
-        }
+            if (System::Object::ReferenceEquals(_dotNetPlugin, nullptr))
+            {
+                return L"AIMP DotNet proxy plugin";
+            }
 
-        pin_ptr<const wchar_t> str1 = PtrToStringChars(_dotNetPlugin->Description);
-        return (PWCHAR)str1;
-    }
+            pin_ptr<const wchar_t> str1 = PtrToStringChars(_dotNetPlugin->Description);
+            return (PWCHAR)str1;
+        }
     case AIMP_PLUGIN_INFO_FULL_DESCRIPTION:
-    {
-        if (System::Object::ReferenceEquals(_dotNetPlugin, nullptr))
         {
-            return L"AIMP DotNet proxy plugin";
-        }
+            if (System::Object::ReferenceEquals(_dotNetPlugin, nullptr))
+            {
+                return L"AIMP DotNet proxy plugin";
+            }
 
-        pin_ptr<const wchar_t> str1 = PtrToStringChars(_dotNetPlugin->FullDescription);
-        return (PWCHAR)str1;
-    }
+            pin_ptr<const wchar_t> str1 = PtrToStringChars(_dotNetPlugin->FullDescription);
+            return (PWCHAR)str1;
+        }
     }
 
     return nullptr;
@@ -84,9 +84,9 @@ HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
 {
     System::Diagnostics::Debug::WriteLine("BEGIN: Initialize DotNet plugin");
 
-//#ifdef _DEBUG
-//    _CrtSetBreakAlloc(230);
-//#endif
+    //#ifdef _DEBUG
+    //    _CrtSetBreakAlloc(230);
+    //#endif
 
     if (System::Object::ReferenceEquals(_dotNetPlugin, nullptr))
     {
@@ -95,10 +95,13 @@ HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
 
     _managedExtension = gcnew ManagedFunctionality(core);
 
-    _dotNetPlugin->PluginInformation->PluginLoadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
-    _dotNetPlugin->PluginInformation->PluginUnloadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
+    _dotNetPlugin->PluginInformation->PluginLoadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(
+        _managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
+    _dotNetPlugin->PluginInformation->PluginUnloadEvent += gcnew AIMP::SDK::PluginLoadUnloadEvent(
+        _managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
     _dotNetPlugin->PluginInformation->Load();
-    AIMP::SDK::IAimpExternalSettingsDialog^ externalSettingsDialog = dynamic_cast<AIMP::SDK::IAimpExternalSettingsDialog^>(_dotNetPlugin->PluginInformation->LoadedPlugin);
+    AIMP::SDK::IAimpExternalSettingsDialog^ externalSettingsDialog = dynamic_cast<AIMP::SDK::IAimpExternalSettingsDialog
+        ^>(_dotNetPlugin->PluginInformation->LoadedPlugin);
 
     if (externalSettingsDialog != nullptr && _dotNetPlugin->PluginInformation->PluginInfo->IsExternalSettingsDialog)
     {
@@ -118,8 +121,10 @@ HRESULT WINAPI DotNetPlugin::Finalize()
     }
 
     _dotNetPlugin->PluginInformation->Unload();
-    _dotNetPlugin->PluginInformation->PluginLoadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
-    _dotNetPlugin->PluginInformation->PluginUnloadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
+    _dotNetPlugin->PluginInformation->PluginLoadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(
+        _managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
+    _dotNetPlugin->PluginInformation->PluginUnloadEvent -= gcnew AIMP::SDK::PluginLoadUnloadEvent(
+        _managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
 
     delete _managedExtension;
 
@@ -135,7 +140,6 @@ HRESULT WINAPI DotNetPlugin::Finalize()
 
 void WINAPI DotNetPlugin::SystemNotification(int NotifyID, IUnknown* Data)
 {
-
 }
 
 HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
@@ -147,7 +151,8 @@ HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
         return E_NOINTERFACE;
     }
 
-    if (!ppvObj) {
+    if (!ppvObj)
+    {
         return E_POINTER;
     }
 

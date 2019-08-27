@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -19,7 +19,7 @@ namespace AIMP
     {
         using namespace AIMP::SDK;
 
-        template<typename TAimpService>
+        template <typename TAimpService>
         [System::Serializable]
         public ref class AimpBaseManager abstract
         {
@@ -28,10 +28,11 @@ namespace AIMP
             {
                 _core = core;
             }
+
         protected:
             AimpActionResult CheckResult(HRESULT result)
             {
-                AimpActionResult res = Utils::CheckResult(result);
+                const AimpActionResult res = Utils::CheckResult(result);
                 if (res != AimpActionResult::OK)
                 {
                     //AIMP::SDK::InternalLogger::Instance->Write("Invalid operation: result " + result);
@@ -40,12 +41,12 @@ namespace AIMP
                 return res;
             }
 
-            AimpActionResult GetService(const IID id, TAimpService **service)
+            AimpActionResult GetService(const IID id, TAimpService** service)
             {
-                TAimpService *s;
-                AimpActionResult result = CheckResult(_core->GetService(id, (void**)&s));
+                TAimpService* s = nullptr;
+                const AimpActionResult result = CheckResult(_core->GetService(id, reinterpret_cast<void**>(&s)));
 
-                if (result == AimpActionResult::OK)
+                if (result == AimpActionResult::OK && s != nullptr)
                 {
                     *service = s;
                 }

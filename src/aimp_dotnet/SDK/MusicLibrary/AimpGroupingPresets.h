@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -37,11 +37,14 @@ namespace AIMP
 
             !AimpGroupingPresets();
 
-            virtual AimpActionResult Add(String^ id, String^ name, IAimpGroupingTreeDataProvider^ provider, IAimpGroupingPreset^% preset);
+            virtual AimpActionResult Add(String^ id, String^ name, IAimpGroupingTreeDataProvider^ provider,
+                                         IAimpGroupingPreset^% preset);
 
-            virtual AimpActionResult Add(String^ id, String^ name, Generic::IList<String^>^ fieldNames, IAimpGroupingPresetStandard^% preset);
+            virtual AimpActionResult Add(String^ id, String^ name, Generic::IList<String^>^ fieldNames,
+                                         IAimpGroupingPresetStandard^% preset);
 
-            virtual AimpActionResult Add(System::String^ id, String^ name, String^ fieldName, IAimpGroupingPresetStandard^% preset);
+            virtual AimpActionResult Add(System::String^ id, String^ name, String^ fieldName,
+                                         IAimpGroupingPresetStandard^% preset);
 
             virtual void BeginUpdate();
 

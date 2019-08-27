@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -12,9 +12,6 @@
 #pragma once
 
 #include <Unknwn.h>
-#ifdef _DEBUG
-#include <atlbase.h>
-#endif
 
 //! Helper implements IUnknown interface.
 template <typename T>
@@ -27,15 +24,12 @@ public:
         _LinkCounter = 1;
     }
 
-    virtual ~IUnknownInterfaceImpl() {}
+    virtual ~IUnknownInterfaceImpl()
+    {
+    }
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
     {
-#ifdef _DEBUG
-        CComBSTR guidBstr(riid);
-        System::Diagnostics::Debug::WriteLine("QueryInterface: " + gcnew System::String(guidBstr));
-#endif
-
         return E_NOTIMPL;
     }
 
@@ -45,11 +39,12 @@ public:
         return _LinkCounter;
     }
 
-    virtual ULONG WINAPI Release(void) 
+    virtual ULONG WINAPI Release(void)
     {
         _LinkCounter--;
 
-        if (_LinkCounter == 0) {
+        if (_LinkCounter == 0)
+        {
             delete this;
             return 0;
         }

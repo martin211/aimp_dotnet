@@ -1,3 +1,14 @@
+// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
 #pragma once
 
 template <typename T>
@@ -10,7 +21,9 @@ public:
         _LinkCounter = 1;
     }
 
-    virtual ~IUnknownInterfaceImpl() {}
+    virtual ~IUnknownInterfaceImpl()
+    {
+    }
 
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
     {
@@ -27,10 +40,12 @@ public:
         return _LinkCounter;
     }
 
-    virtual ULONG WINAPI Release(void) {
+    virtual ULONG WINAPI Release(void)
+    {
         _LinkCounter--;
 
-        if (_LinkCounter == 0) {
+        if (_LinkCounter == 0)
+        {
             delete this;
             return 0;
         }

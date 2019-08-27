@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -17,9 +17,9 @@ using namespace AIMP::SDK;
 using namespace Playlist;
 using namespace Playback;
 
-AimpServicePlaybackQueue::AimpServicePlaybackQueue(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServicePlaybackQueue>(core)
+AimpServicePlaybackQueue::
+AimpServicePlaybackQueue(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServicePlaybackQueue>(core)
 {
-
 }
 
 IAimpPlaybackQueueItem^ AimpServicePlaybackQueue::GetNextTrack()
@@ -28,7 +28,8 @@ IAimpPlaybackQueueItem^ AimpServicePlaybackQueue::GetNextTrack()
     IAIMPServicePlaybackQueue* service = nullptr;
     try
     {
-        if (CheckResult(_core->GetService(IID_IAIMPServicePlaybackQueue, reinterpret_cast<void**>(&service))) == AimpActionResult::OK && service != nullptr)
+        if (CheckResult(_core->GetService(IID_IAIMPServicePlaybackQueue, reinterpret_cast<void**>(&service))) ==
+            AimpActionResult::OK && service != nullptr)
         {
             if (CheckResult(service->GetNextTrack(&item)) == AimpActionResult::OK)
             {
@@ -61,7 +62,8 @@ IAimpPlaybackQueueItem^ AimpServicePlaybackQueue::GetPrevTrack()
 
     try
     {
-        if (CheckResult(_core->GetService(IID_IAIMPServicePlaybackQueue, reinterpret_cast<void**>(&service))) == AimpActionResult::OK && service != nullptr)
+        if (CheckResult(_core->GetService(IID_IAIMPServicePlaybackQueue, reinterpret_cast<void**>(&service))) ==
+            AimpActionResult::OK && service != nullptr)
         {
             if (CheckResult(service->GetPrevTrack(&item)) == AimpActionResult::OK)
             {

@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -47,8 +47,9 @@ void AimpAlbumArtSearchOptions::FindInInternet::set(bool value)
 
 array<String^>^ AimpAlbumArtSearchOptions::FileMasks::get()
 {
-    IAIMPString *str;
-    _properties->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, IID_IAIMPString, reinterpret_cast<void**>(&str));
+    IAIMPString* str;
+    _properties->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, IID_IAIMPString,
+                                  reinterpret_cast<void**>(&str));
     String^ result = gcnew String(str->GetData());
     str->Release();
     return result->Split(gcnew array<WCHAR>{';'}, StringSplitOptions::RemoveEmptyEntries);
@@ -67,7 +68,8 @@ void AimpAlbumArtSearchOptions::FileMasks::set(array<String^>^ value)
 array<String^>^ AimpAlbumArtSearchOptions::FileExtensions::get()
 {
     IAIMPString* str;
-    _properties->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, IID_IAIMPString, reinterpret_cast<void**>(&str));
+    _properties->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, IID_IAIMPString,
+                                  reinterpret_cast<void**>(&str));
     auto result = gcnew String(str->GetData());
     str->Release();
     str = nullptr;

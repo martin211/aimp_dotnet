@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -16,14 +16,17 @@
 
 using namespace AIMP::SDK;
 
-AimpGroupingPresetStandard::AimpGroupingPresetStandard(IAIMPMLGroupingPresetStandard* aimpObject) : AimpGroupingPreset(aimpObject)
-{}
+AimpGroupingPresetStandard::
+AimpGroupingPresetStandard(IAIMPMLGroupingPresetStandard* aimpObject) : AimpGroupingPreset(aimpObject)
+{
+}
 
 IAimpObjectList<String^>^ AimpGroupingPresetStandard::Fields::get()
 {
     IAIMPObjectList* fields = nullptr;
 
-    if (CheckResult(InternalAimpObject->GetValueAsObject(AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList, reinterpret_cast<void**>(&fields))) == AimpActionResult::OK)
+    if (CheckResult(InternalAimpObject->GetValueAsObject(AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList,
+                                                         reinterpret_cast<void**>(&fields))) == AimpActionResult::OK)
     {
         return gcnew AimpObjectList<String^>(fields);
     }
@@ -45,7 +48,7 @@ IAimpObjectList<String^>^ AimpGroupingPresetStandard::Fields::get()
 void AimpGroupingPresetStandard::Fields::set(IAimpObjectList<String^>^ value)
 {
     Generic::IList<String^>^ result;
-    IAIMPObjectList *fields = AimpConverter::CreateAimpObject<IAIMPObjectList>(IID_IAIMPObjectList);
+    IAIMPObjectList* fields = AimpConverter::CreateAimpObject<IAIMPObjectList>(IID_IAIMPObjectList);
     int count = value->Count;
 
     for (int i = 0; i < count; i++)
@@ -56,12 +59,13 @@ void AimpGroupingPresetStandard::Fields::set(IAimpObjectList<String^>^ value)
     PropertyListExtension::SetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, fields);
 }
 
-AimpActionResult AimpGroupingPresetStandard::GetFilter(IAimpDataFilterGroup ^%filter)
+AimpActionResult AimpGroupingPresetStandard::GetFilter(IAimpDataFilterGroup^% filter)
 {
     IAIMPMLDataFilterGroup* f = nullptr;
     filter = nullptr;
 
-    const AimpActionResult result = CheckResult(static_cast<IAIMPMLGroupingPresetStandard*>(InternalAimpObject)->GetFilter(&f));
+    const AimpActionResult result = CheckResult(
+        static_cast<IAIMPMLGroupingPresetStandard*>(InternalAimpObject)->GetFilter(&f));
 
     if (result == AimpActionResult::OK)
     {

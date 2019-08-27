@@ -1,14 +1,13 @@
 ﻿// ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
-
 using System;
 
 namespace AIMP.SDK
@@ -38,15 +37,18 @@ namespace AIMP.SDK
         /// </summary>
         public int PluginId { get; set; }
 
+        /// <summary>
+        /// Gets the main player interface <see cref="IAimpPlayer"/>.
+        /// </summary>
         public IAimpPlayer Player => AimpPlayer;
 
         /// <summary>
-        /// Inside this function, plugin should perform all initialization
+        /// Inside this function, plugin should perform all initialization.
         /// </summary>
         public abstract void Initialize();
 
         /// <summary>
-        /// Inside this function, plugin should dispose all resources
+        /// Inside this function, plugin should dispose all resources.
         /// </summary>
         public abstract void Dispose();
 

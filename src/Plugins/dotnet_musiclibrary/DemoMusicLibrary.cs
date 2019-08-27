@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider;
@@ -40,21 +50,113 @@ namespace AIMP.DotNet.MusicLibrary
         public const string EVDS_FileSize = "FileSize";
         public const string EVDS_Fake = "Fake";
         public const string FieldNode = "Node";
-
-        public string Id => "AimpDemoMusicLibrary";
-
-        public string Caption => "Explorer media library";
+        private readonly IAimpPlayer _aimpPlayer;
 
         private readonly DataProviderGroupingTreeData _data = new DataProviderGroupingTreeData();
-        private readonly IAimpPlayer _aimpPlayer;
         IAimpGroupingPresetStandard _groupingPresetStandard;
 
-        public CapabilitiesType Capabilities => CapabilitiesType.AIMPML_DATASTORAGE_CAP_FILTERING | CapabilitiesType.AIMPML_DATASTORAGE_CAP_GROUPINGPRESETS | CapabilitiesType.AIMPML_DATASTORAGE_CAP_PREIMAGES | CapabilitiesType.AIMPML_DATASTORAGE_CAP_FILTERING;
+        private IAimpGroupingPreset _outPreset;
 
         public DemoMusicLibrary(IAimpPlayer aimpPlayer)
         {
             _aimpPlayer = aimpPlayer;
         }
+
+        AimpActionResult IAimpDataProvider.GetData(IList<string> fields, IAimpDataFilter filter, out object data)
+        {
+            string s;
+            if (fields.Count == 1 && fields[0] == EVDS_Fake)
+            {
+                if (GetRootPath(filter, out s))
+                {
+                    data = new TDemoExplorerViewGroupingTreeFoldersProvider(s);
+                }
+                else
+                {
+                    data = new TDemoExplorerViewGroupingTreeDrivesProvider();
+                }
+            }
+            else
+            {
+                if (GetRootPath(filter, out s))
+                {
+                    data = new TDemoExplorerViewDataProviderSelection(s, fields);
+                }
+                else
+                {
+                    data = "No data";
+                }
+            }
+
+            return AimpActionResult.Ok;
+        }
+
+        #region Implementation of IAimpDataStorageCommandAddFiles
+
+        public AimpActionResult Add(IList<string> files)
+        {
+            System.Diagnostics.Debug.WriteLine("IAimpDataStorageCommandAddFiles.Add");
+            return AimpActionResult.Ok;
+        }
+
+        #endregion
+
+        #region Implementation of IAimpDataStorageCommandAddFilesDialog
+
+        AimpActionResult IAimpDataStorageCommandAddFilesDialog.Execute(IntPtr ownerHandle)
+        {
+            System.Diagnostics.Debug.WriteLine($"IAimpDataStorageCommandAddFilesDialog.Execute: {ownerHandle}");
+            return AimpActionResult.Ok;
+        }
+
+        #endregion
+
+        public bool CanDelete(bool physically)
+        {
+            System.Diagnostics.Debug.WriteLine("IAimpDataStorageCommandDeleteFiles.CanDelete");
+            return true;
+        }
+
+        public AimpActionResult Delete(IAimpFileList files, bool physically)
+        {
+            System.Diagnostics.Debug.WriteLine("IAimpDataStorageCommandDeleteFiles.Delete");
+            return AimpActionResult.Ok;
+        }
+
+        public AimpActionResult DropData()
+        {
+            System.Diagnostics.Debug.WriteLine("IAimpDataStorageCommandDropData.DropData");
+            return AimpActionResult.Ok;
+        }
+
+        public AimpActionResult ReloadTags(IAimpFileList files)
+        {
+            System.Diagnostics.Debug.WriteLine("IAimpDataStorageCommandReloadTags.ReloadTags");
+            return AimpActionResult.Ok;
+        }
+
+        //public AimpActionResult Execute(IntPtr ownerHandle)
+        //{
+        //    System.Diagnostics.Debug.WriteLine($"IAimpDataStorageCommandReportDialog.Execute: {ownerHandle}");
+        //    return AimpActionResult.Ok;
+        //}
+        AimpActionResult IAimpDataStorageCommandReportDialog.Execute(IntPtr ownerHandle)
+        {
+            System.Diagnostics.Debug.WriteLine($"IAimpDataStorageCommandReportDialog.Execute: {ownerHandle}");
+            return AimpActionResult.Ok;
+        }
+
+        public AimpActionResult SetMark(object id, double value)
+        {
+            System.Diagnostics.Debug.WriteLine($"IAimpDataStorageCommandUserMark.SetMark: {id} {value}");
+            return AimpActionResult.Ok;
+        }
+
+        public string Id => "AimpDemoMusicLibrary";
+
+        public string Caption => "Explorer media library";
+
+        public CapabilitiesType Capabilities => CapabilitiesType.AIMPML_DATASTORAGE_CAP_FILTERING | CapabilitiesType.AIMPML_DATASTORAGE_CAP_GROUPINGPRESETS | CapabilitiesType.AIMPML_DATASTORAGE_CAP_PREIMAGES | CapabilitiesType.AIMPML_DATASTORAGE_CAP_FILTERING;
 
         void IAimpExtensionDataStorage.Initialize(IAimpDataStorageManager manager)
         {
@@ -124,8 +226,6 @@ namespace AIMP.DotNet.MusicLibrary
             return AimpActionResult.Ok;
         }
 
-        private IAimpGroupingPreset _outPreset;
-
         AimpActionResult IAimpExtensionDataStorage.GetGroupingPresets(GroupingPresetsSchemaType schema, IAimpGroupingPresets presets)
         {
             if (schema == GroupingPresetsSchemaType.AIMPML_GROUPINGPRESETS_SCHEMA_BUILTIN)
@@ -135,35 +235,6 @@ namespace AIMP.DotNet.MusicLibrary
             else if (schema == GroupingPresetsSchemaType.AIMPML_GROUPINGPRESETS_SCHEMA_DEFAULT)
             {
                 presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset", EVDS_Fake, out _groupingPresetStandard);
-            }
-
-            return AimpActionResult.Ok;
-        }
-
-        AimpActionResult IAimpDataProvider.GetData(IList<string> fields, IAimpDataFilter filter, out object data)
-        {
-            string s;
-            if (fields.Count == 1 && fields[0] == EVDS_Fake)
-            {
-                if (GetRootPath(filter, out s))
-                {
-                    data = new TDemoExplorerViewGroupingTreeFoldersProvider(s);
-                }
-                else
-                {
-                    data = new TDemoExplorerViewGroupingTreeDrivesProvider();
-                }
-            }
-            else
-            {
-                if (GetRootPath(filter, out s))
-                {
-                    data = new TDemoExplorerViewDataProviderSelection(s, fields);
-                }
-                else
-                {
-                    data = "No data";
-                }
             }
 
             return AimpActionResult.Ok;
@@ -220,67 +291,6 @@ namespace AIMP.DotNet.MusicLibrary
             }
 
             return result;
-        }
-
-        #region Implementation of IAimpDataStorageCommandAddFiles
-
-        public AimpActionResult Add(IList<string> files)
-        {
-            System.Diagnostics.Debug.WriteLine("IAimpDataStorageCommandAddFiles.Add");
-            return AimpActionResult.Ok;
-        }
-
-        #endregion
-
-        #region Implementation of IAimpDataStorageCommandAddFilesDialog
-
-        AimpActionResult IAimpDataStorageCommandAddFilesDialog.Execute(IntPtr ownerHandle)
-        {
-            System.Diagnostics.Debug.WriteLine($"IAimpDataStorageCommandAddFilesDialog.Execute: {ownerHandle}");
-            return AimpActionResult.Ok;
-        }
-
-        #endregion
-
-        public bool CanDelete(bool physically)
-        {
-            System.Diagnostics.Debug.WriteLine("IAimpDataStorageCommandDeleteFiles.CanDelete");
-            return true;
-        }
-
-        public AimpActionResult Delete(IAimpFileList files, bool physically)
-        {
-            System.Diagnostics.Debug.WriteLine("IAimpDataStorageCommandDeleteFiles.Delete");
-            return AimpActionResult.Ok;
-        }
-
-        public AimpActionResult DropData()
-        {
-            System.Diagnostics.Debug.WriteLine("IAimpDataStorageCommandDropData.DropData");
-            return AimpActionResult.Ok;
-        }
-
-        public AimpActionResult ReloadTags(IAimpFileList files)
-        {
-            System.Diagnostics.Debug.WriteLine("IAimpDataStorageCommandReloadTags.ReloadTags");
-            return AimpActionResult.Ok;
-        }
-
-        //public AimpActionResult Execute(IntPtr ownerHandle)
-        //{
-        //    System.Diagnostics.Debug.WriteLine($"IAimpDataStorageCommandReportDialog.Execute: {ownerHandle}");
-        //    return AimpActionResult.Ok;
-        //}
-        AimpActionResult IAimpDataStorageCommandReportDialog.Execute(IntPtr ownerHandle)
-        {
-            System.Diagnostics.Debug.WriteLine($"IAimpDataStorageCommandReportDialog.Execute: {ownerHandle}");
-            return AimpActionResult.Ok;
-        }
-
-        public AimpActionResult SetMark(object id, double value)
-        {
-            System.Diagnostics.Debug.WriteLine($"IAimpDataStorageCommandUserMark.SetMark: {id} {value}");
-            return AimpActionResult.Ok;
         }
     }
 }

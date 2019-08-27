@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -18,10 +18,11 @@ namespace AIMP
     {
         using namespace TagEditor;
 
-        public ref class AimpServiceFileTagEditor : public AimpBaseManager<IAIMPServiceFileTagEditor>, public IAimpServiceFileTagEditor
+        public ref class AimpServiceFileTagEditor : public AimpBaseManager<IAIMPServiceFileTagEditor>,
+                                                    public IAimpServiceFileTagEditor
         {
         public:
-            explicit AimpServiceFileTagEditor(ManagedAimpCore ^core);
+            explicit AimpServiceFileTagEditor(ManagedAimpCore^ core);
 
             virtual AimpActionResult EditFile(String^ filePath, IAimpFileTagEditor^% editor);
 

@@ -1,14 +1,13 @@
 ﻿// ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
-
 namespace AIMP.SDK.ActionManager
 {
     /// <summary>
@@ -17,7 +16,7 @@ namespace AIMP.SDK.ActionManager
     public interface IAimpAction : IAimpActionEvent
     {
         /// <summary>
-        /// Gets or sets the unique action identificator, must be unique for all plugins.
+        /// Gets or sets the unique action identity, must be unique for all plugins.
         /// </summary>
         string Id { get; set; }
 

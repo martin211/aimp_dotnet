@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -14,19 +14,20 @@
 
 using namespace AIMP::SDK;
 
-InternalAimpFileSystemCommandOpenFileFolder::InternalAimpFileSystemCommandOpenFileFolder(gcroot<IAimpFileSystemCommandOpenFileFolder^> instance)
+InternalAimpFileSystemCommandOpenFileFolder::InternalAimpFileSystemCommandOpenFileFolder(
+    gcroot<IAimpFileSystemCommandOpenFileFolder^> instance)
 {
     _instance = instance;
 }
 
 HRESULT WINAPI InternalAimpFileSystemCommandOpenFileFolder::CanProcess(IAIMPString* FileName)
 {
-    return (HRESULT)_instance->CanProcess(AimpConverter::ToManagedString(FileName));
+    return HRESULT(_instance->CanProcess(AimpConverter::ToManagedString(FileName)));
 }
 
 HRESULT WINAPI InternalAimpFileSystemCommandOpenFileFolder::Process(IAIMPString* FileName)
 {
-    return (HRESULT)_instance->Process(AimpConverter::ToManagedString(FileName));
+    return HRESULT(_instance->Process(AimpConverter::ToManagedString(FileName)));
 }
 
 ULONG WINAPI InternalAimpFileSystemCommandOpenFileFolder::AddRef(void)

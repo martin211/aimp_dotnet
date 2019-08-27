@@ -1,13 +1,14 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 #include "Stdafx.h"
 #include "AimpServiceMessageDispatcher.h"
 #include "InternalAimpMessageHook.h"
@@ -15,7 +16,8 @@
 using namespace AIMP::SDK;
 using namespace Runtime::InteropServices;
 
-AimpServiceMessageDispatcher::AimpServiceMessageDispatcher(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceMessageDispatcher>(core)
+AimpServiceMessageDispatcher::
+AimpServiceMessageDispatcher(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceMessageDispatcher>(core)
 {
     _hook = nullptr;
 }
@@ -85,7 +87,8 @@ AimpActionResult AimpServiceMessageDispatcher::Hook(IAimpMessageHook^ hook)
 
     try
     {
-        if (_hook == nullptr && GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::OK && service != nullptr)
+        if (_hook == nullptr && GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::OK &&
+            service != nullptr)
         {
             _hook = new InternalAimpMessageHook(hook);
             result = CheckResult(service->Hook(_hook));
@@ -110,7 +113,8 @@ AimpActionResult AimpServiceMessageDispatcher::Unhook(IAimpMessageHook^ hook)
 
     try
     {
-        if (_hook != nullptr && GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::OK && service != nullptr)
+        if (_hook != nullptr && GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::OK &&
+            service != nullptr)
         {
             result = CheckResult(service->Unhook(_hook));
         }

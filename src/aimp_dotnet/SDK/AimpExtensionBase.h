@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -26,15 +26,15 @@ namespace AIMP
                 virtual GUID get() abstract;
             }
 
-            property String ^Name
+            property String^ Name
             {
-                virtual String ^get() abstract;
+                virtual String^ get() abstract;
             }
 
-            property IUnknown *InternalProxyExtension
+            property IUnknown* InternalProxyExtension
             {
-                virtual IUnknown *get() abstract;
-                virtual void set(IUnknown *value) abstract;
+                virtual IUnknown* get() abstract;
+                virtual void set(IUnknown* value) abstract;
             }
         };
     }

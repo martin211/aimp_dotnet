@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -21,7 +21,8 @@ namespace AIMP
         using namespace MusicLibrary::DataFilter;
         using namespace MusicLibrary::DataStorage;
 
-        class InternalAimpGroupingTreeDataProviderSelection : public IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProviderSelection>
+        class InternalAimpGroupingTreeDataProviderSelection : public IUnknownInterfaceImpl<
+                IAIMPMLGroupingTreeDataProviderSelection>
         {
         private:
             ULONG _LinkCounter = 1;
@@ -30,7 +31,8 @@ namespace AIMP
         public:
             typedef IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProviderSelection> Base;
 
-            explicit InternalAimpGroupingTreeDataProviderSelection(gcroot<IAimpGroupingTreeDataProviderSelection^> managedInstance);
+            explicit InternalAimpGroupingTreeDataProviderSelection(
+                gcroot<IAimpGroupingTreeDataProviderSelection^> managedInstance);
 
             virtual HRESULT WINAPI GetDisplayValue(IAIMPString** S);
 

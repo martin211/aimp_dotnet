@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -22,12 +22,12 @@ AimpDataFilterGroup::AimpDataFilterGroup(IAIMPMLDataFilterGroup* filterGroup) : 
 
 FilterGroupOperationType AimpDataFilterGroup::Operation::get()
 {
-    return FilterGroupOperationType(PropertyListExtension::GetInt32(_aimpObject, AIMPML_FILTERGROUP_OPERATION));
+    return FilterGroupOperationType(PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTERGROUP_OPERATION));
 }
 
 void AimpDataFilterGroup::Operation::set(FilterGroupOperationType val)
 {
-    PropertyListExtension::SetInt32(_aimpObject, AIMPML_FILTERGROUP_OPERATION, int(val));
+    PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTERGROUP_OPERATION, int(val));
 }
 
 AimpActionResult AimpDataFilterGroup::Add(
@@ -52,7 +52,7 @@ AimpActionResult AimpDataFilterGroup::Add(
 
     try
     {
-        result = CheckResult(_aimpObject->Add(
+        result = CheckResult(InternalAimpObject->Add(
             sField,
             &val1,
             &val2,
@@ -84,7 +84,7 @@ AimpActionResult AimpDataFilterGroup::Add(
 {
     IAIMPMLDataFieldFilterByArray* nativeObj = nullptr;
     int cnt = values->Length;
-    VARIANT *variants = new VARIANT[cnt];
+    VARIANT* variants = new VARIANT[cnt];
     filter = nullptr;
 
     for (int i = 0; i < values->Length; i++)
@@ -109,7 +109,7 @@ AimpActionResult AimpDataFilterGroup::Add(
 AimpActionResult AimpDataFilterGroup::AddGroup(IAimpDataFilterGroup^% group)
 {
     IAIMPMLDataFilterGroup* nativeGroup = nullptr;
-    const AimpActionResult result = CheckResult(_aimpObject->AddGroup(&nativeGroup));
+    const AimpActionResult result = CheckResult(InternalAimpObject->AddGroup(&nativeGroup));
     group = nullptr;
 
     if (result == AimpActionResult::OK && nativeGroup != nullptr)
@@ -122,24 +122,25 @@ AimpActionResult AimpDataFilterGroup::AddGroup(IAimpDataFilterGroup^% group)
 
 AimpActionResult AimpDataFilterGroup::Clear()
 {
-    return CheckResult(_aimpObject->Clear());
+    return CheckResult(InternalAimpObject->Clear());
 }
 
 AimpActionResult AimpDataFilterGroup::Delete(int index)
 {
-    return CheckResult(_aimpObject->Delete(index));
+    return CheckResult(InternalAimpObject->Delete(index));
 }
 
 int AimpDataFilterGroup::GetChildCount()
 {
-    return _aimpObject->GetChildCount();
+    return InternalAimpObject->GetChildCount();
 }
 
 AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFilterGroup^% group)
 {
     group = nullptr;
     IAIMPMLDataFilterGroup* child = nullptr;
-    const auto result = CheckResult(_aimpObject->GetChild(index, IID_IAIMPMLDataFilterGroup, reinterpret_cast<void**>(&child)));
+    const auto result = CheckResult(
+        InternalAimpObject->GetChild(index, IID_IAIMPMLDataFilterGroup, reinterpret_cast<void**>(&child)));
     if (result == AimpActionResult::OK && child != nullptr)
     {
         group = gcnew AimpDataFilterGroup(child);
@@ -152,7 +153,8 @@ AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFieldFilter^%
 {
     fieldFilter = nullptr;
     IAIMPMLDataFieldFilter* child = nullptr;
-    const auto result = CheckResult(_aimpObject->GetChild(index, IID_IAIMPMLDataFieldFilter, reinterpret_cast<void**>(&child)));
+    const auto result = CheckResult(
+        InternalAimpObject->GetChild(index, IID_IAIMPMLDataFieldFilter, reinterpret_cast<void**>(&child)));
     if (result == AimpActionResult::OK && child != nullptr)
     {
         fieldFilter = gcnew AimpDataFieldFilter(child);
@@ -163,10 +165,10 @@ AimpActionResult AimpDataFilterGroup::GetChild(int index, IAimpDataFieldFilter^%
 
 void AimpDataFilterGroup::BeginUpdate()
 {
-    _aimpObject->BeginUpdate();
+    InternalAimpObject->BeginUpdate();
 }
 
 void AimpDataFilterGroup::EndUpdate()
 {
-    _aimpObject->EndUpdate();
+    InternalAimpObject->EndUpdate();
 }

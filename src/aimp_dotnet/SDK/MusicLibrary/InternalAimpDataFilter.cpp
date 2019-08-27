@@ -1,3 +1,14 @@
+// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
 #include "Stdafx.h"
 #include "InternalAimpDataFilter.h"
 #include "AimpDataFilter.h"
@@ -5,7 +16,8 @@
 using namespace AIMP::SDK;
 using namespace MusicLibrary;
 
-InternalAimpDataFilter::InternalAimpDataFilter(gcroot<IAimpDataFilter^> managedInstance) : InternalAimpDataFilterGroup(static_cast<IAimpDataFilterGroup^>(managedInstance))
+InternalAimpDataFilter::InternalAimpDataFilter(gcroot<IAimpDataFilter^> managedInstance) : InternalAimpDataFilterGroup(
+    static_cast<IAimpDataFilterGroup^>(managedInstance))
 {
     _managedInstance = managedInstance;
 }
@@ -70,7 +82,7 @@ HRESULT WINAPI InternalAimpDataFilter::GetValueAsObject(int PropertyID, REFIID I
 {
     if (PropertyID == AIMPML_FILTER_SORTBY)
     {
-        IAIMPString *str = AimpConverter::ToAimpString(_managedInstance->SortBy);
+        IAIMPString* str = AimpConverter::ToAimpString(_managedInstance->SortBy);
         *Value = str;
         str->Release();
         str = nullptr;
@@ -78,7 +90,7 @@ HRESULT WINAPI InternalAimpDataFilter::GetValueAsObject(int PropertyID, REFIID I
 
     if (PropertyID == AIMPML_FILTER_SEARCHSTRING)
     {
-        IAIMPString *str = AimpConverter::ToAimpString(_managedInstance->SearchString);
+        IAIMPString* str = AimpConverter::ToAimpString(_managedInstance->SearchString);
         *Value = str;
         str->Release();
         str = nullptr;

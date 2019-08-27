@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -36,7 +36,8 @@ namespace AIMP
                 {
                     if (this->_onComplete == nullptr)
                     {
-                        this->_onComplete = static_cast<EventHandler<AimpGetAlbumArtEventArgs^>^>(Delegate::Combine(this->_onComplete, onCompleted));
+                        this->_onComplete = static_cast<EventHandler<AimpGetAlbumArtEventArgs^>^>(Delegate::Combine(
+                            this->_onComplete, onCompleted));
                     }
                 }
                 virtual void remove(EventHandler<AimpGetAlbumArtEventArgs^>^ onCompleted)
@@ -85,13 +86,15 @@ namespace AIMP
 
             void OnAlbumArtReceive(IAIMPImage* image, IAIMPImageContainer* image_container, void* user_data);
 
-            virtual IntPtr GetImage(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags, Object^ userData);
+            virtual IntPtr GetImage(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags,
+                                    Object^ userData);
 
-            virtual IntPtr GetImage(AIMP::SDK::FileManager::IAimpFileInfo^ fileInfo, AimpFindCovertArtType flags, Object^ userData);
+            virtual IntPtr GetImage(AIMP::SDK::FileManager::IAimpFileInfo^ fileInfo, AimpFindCovertArtType flags,
+                                    Object^ userData);
 
             virtual void Cancel(IntPtr taskId, AimpFindCovertArtType flags);
         private:
-            delegate void OnFindCoverCallback(IAIMPImage *image, IAIMPImageContainer *imageContainer, void *UserData);
+            delegate void OnFindCoverCallback(IAIMPImage* image, IAIMPImageContainer* imageContainer, void* UserData);
             OnFindCoverCallback^ _findCallback;
             EventHandler<AimpGetAlbumArtEventArgs^>^ _onComplete;
         };

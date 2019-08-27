@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -23,22 +23,22 @@ namespace AIMP
             public IAimpPlaylistPreimageListener
         {
         private:
-            AimpPlaylistPreimageListenerHandler ^_dataChangedHandler;
-            AimpPlaylistPreimageListenerHandler ^_settingsChangedHandler;
+            AimpPlaylistPreimageListenerHandler^ _dataChangedHandler;
+            AimpPlaylistPreimageListenerHandler^ _settingsChangedHandler;
         public:
-            explicit AimpPlaylistPreimageListener(IAIMPPlaylistPreimageListener *aimpObject);
+            explicit AimpPlaylistPreimageListener(IAIMPPlaylistPreimageListener* aimpObject);
 
-            virtual event AimpPlaylistPreimageListenerHandler ^DataChanged
+            virtual event AimpPlaylistPreimageListenerHandler^ DataChanged
             {
-                void add(AimpPlaylistPreimageListenerHandler ^onEvent);
-                void remove(AimpPlaylistPreimageListenerHandler ^onEvent);
+                void add(AimpPlaylistPreimageListenerHandler^ onEvent);
+                void remove(AimpPlaylistPreimageListenerHandler^ onEvent);
                 void raise();
             }
 
-            virtual event AimpPlaylistPreimageListenerHandler ^SettingsChanged
+            virtual event AimpPlaylistPreimageListenerHandler^ SettingsChanged
             {
-                void add(AimpPlaylistPreimageListenerHandler ^onEvent);
-                void remove(AimpPlaylistPreimageListenerHandler ^onEvent);
+                void add(AimpPlaylistPreimageListenerHandler^ onEvent);
+                void remove(AimpPlaylistPreimageListenerHandler^ onEvent);
                 void raise();
             }
         };

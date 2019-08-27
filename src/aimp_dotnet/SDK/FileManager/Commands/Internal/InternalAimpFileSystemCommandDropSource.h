@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -22,7 +22,7 @@ private:
 public:
     InternalAimpFileSystemCommandDropSource(gcroot<IAimpFileSystemCommandDropSource^> instance);
 
-    virtual HRESULT WINAPI CreateStream(IAIMPString* FileName, IAIMPStream** Stream);
+    virtual HRESULT WINAPI CreateStream(IAIMPString* fileName, IAIMPStream** stream);
 
     virtual ULONG WINAPI AddRef(void);
 

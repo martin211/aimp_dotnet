@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -18,7 +18,8 @@ namespace AIMP
     {
         public delegate void AimpActionEventDelegate(gcroot<ActionManager::IAimpActionEvent^> sender, IUnknown* data);
 
-        typedef void(__stdcall *AimpActionEventCallback)(gcroot<ActionManager::IAimpActionEvent^> sender, IUnknown* data);
+        typedef void (__stdcall *AimpActionEventCallback)(gcroot<ActionManager::IAimpActionEvent^> sender,
+                                                          IUnknown* data);
     }
 }
 
@@ -32,7 +33,8 @@ public:
     /// </summary>
     /// <param name="managedInstance">The managed instance. Will be returned as a sender to main context.</param>
     /// <param name="executeCallback">The execute callback.</param>
-    AimpActionEvent(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> managedInstance, AIMP::SDK::AimpActionEventCallback callback);
+    AimpActionEvent(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> managedInstance,
+                    AIMP::SDK::AimpActionEventCallback callback);
 
     virtual void WINAPI OnExecute(IUnknown* Data);
 

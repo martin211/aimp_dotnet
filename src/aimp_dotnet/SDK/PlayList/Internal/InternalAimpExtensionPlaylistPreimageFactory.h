@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -18,7 +18,7 @@ namespace AIMP
         using namespace SDK;
         using namespace Playlist;
 
-        class InternalAimpExtensionPlaylistPreimageFactory : 
+        class InternalAimpExtensionPlaylistPreimageFactory :
             public IUnknownInterfaceImpl<IAIMPExtensionPlaylistPreimageFactory>
             //public IAIMPPlaylistPreimageDataProvider
         {
@@ -27,7 +27,8 @@ namespace AIMP
         public:
             typedef IUnknownInterfaceImpl<IAIMPExtensionPlaylistPreimageFactory> Base;
 
-            InternalAimpExtensionPlaylistPreimageFactory(gcroot<IAimpExtensionPlaylistPreimageFactory^> managedInstance);
+            InternalAimpExtensionPlaylistPreimageFactory(
+                gcroot<IAimpExtensionPlaylistPreimageFactory^> managedInstance);
 
             virtual HRESULT WINAPI CreatePreimage(IAIMPPlaylistPreimage** preimage);
 

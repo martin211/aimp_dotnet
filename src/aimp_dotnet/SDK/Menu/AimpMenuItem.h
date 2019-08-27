@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -24,56 +24,56 @@ namespace AIMP
         public ref class AimpMenuItem : public AimpObject<IAIMPMenuItem>, public IAimpMenuItem
         {
         private:
-            EventHandler ^_onExecuteHandler;
-            EventHandler ^_onShowHandler;
-            IAIMPActionEvent *_onExecuteEvent;
-            IAIMPActionEvent *_onShowEvent;
-            String ^_id;
+            EventHandler^ _onExecuteHandler;
+            EventHandler^ _onShowHandler;
+            IAIMPActionEvent* _onExecuteEvent;
+            IAIMPActionEvent* _onShowEvent;
+            String^ _id;
             GCHandle _showHandler;
             GCHandle _executeHandler;
 
         internal:
-            static void Execute(gcroot<IAimpActionEvent^> sender, IUnknown *data)
+            static void Execute(gcroot<IAimpActionEvent^> sender, IUnknown* data)
             {
-                Object ^obj = sender;
-                AimpMenuItem ^item = dynamic_cast<AimpMenuItem^>(obj);
+                Object^ obj = sender;
+                AimpMenuItem^ item = dynamic_cast<AimpMenuItem^>(obj);
                 item->OnExecute(sender, EventArgs::Empty);
             }
 
-            static void Show(gcroot<IAimpActionEvent^> sender, IUnknown *data)
+            static void Show(gcroot<IAimpActionEvent^> sender, IUnknown* data)
             {
-                Object ^obj = sender;
-                AimpMenuItem ^item = dynamic_cast<AimpMenuItem^>(obj);
+                Object^ obj = sender;
+                AimpMenuItem^ item = dynamic_cast<AimpMenuItem^>(obj);
                 item->OnShow(sender, EventArgs::Empty);
             }
 
         public:
-            explicit AimpMenuItem(IAIMPMenuItem *menuItem);
+            explicit AimpMenuItem(IAIMPMenuItem* menuItem);
 
             ~AimpMenuItem();
 
-            virtual property String ^Custom
+            virtual property String^ Custom
             {
                 String^ get();
-                void set(String ^value);
+                void set(String^ value);
             }
 
-            virtual property IAimpAction ^Action
+            virtual property IAimpAction^ Action
             {
-                IAimpAction ^get();
-                void set(IAimpAction ^value);
+                IAimpAction^ get();
+                void set(IAimpAction^ value);
             }
 
-            virtual property String ^Id
+            virtual property String^ Id
             {
-                String ^get();
-                void set(String ^value);
+                String^ get();
+                void set(String^ value);
             }
 
-            virtual property String ^Name
+            virtual property String^ Name
             {
-                String ^get();
-                void set(String ^value);
+                String^ get();
+                void set(String^ value);
             }
 
             virtual property bool Checked
@@ -94,16 +94,16 @@ namespace AIMP
                 void set(bool value);
             }
 
-            virtual property Bitmap ^Glyph
+            virtual property Bitmap^ Glyph
             {
-                Bitmap ^get();
-                void set(Bitmap ^value);
+                Bitmap^ get();
+                void set(Bitmap^ value);
             }
 
-            virtual property IAimpMenuItem ^Parent
+            virtual property IAimpMenuItem^ Parent
             {
-                IAimpMenuItem ^get();
-                void set(IAimpMenuItem ^value);
+                IAimpMenuItem^ get();
+                void set(IAimpMenuItem^ value);
             }
 
             virtual property AimpMenuItemStyle Style
@@ -112,18 +112,18 @@ namespace AIMP
                 void set(AimpMenuItemStyle value);
             }
 
-            virtual event EventHandler ^OnExecute
+            virtual event EventHandler^ OnExecute
             {
-                virtual void add(EventHandler ^onEvent);
-                virtual void remove(EventHandler ^onEvent);
-                virtual void raise(Object ^sender, EventArgs ^args);
+                virtual void add(EventHandler^ onEvent);
+                virtual void remove(EventHandler^ onEvent);
+                virtual void raise(Object^ sender, EventArgs^ args);
             }
 
-            virtual event EventHandler ^OnShow
+            virtual event EventHandler^ OnShow
             {
-                virtual void add(EventHandler ^onEvent);
-                virtual void remove(EventHandler ^onEvent);
-                virtual void raise(Object ^sender, EventArgs ^args);
+                virtual void add(EventHandler^ onEvent);
+                virtual void remove(EventHandler^ onEvent);
+                virtual void raise(Object^ sender, EventArgs^ args);
             }
 
             virtual property bool IsDefault

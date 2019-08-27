@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -11,25 +11,26 @@
 
 #include "Stdafx.h"
 #include "InternalAimpFileSystemCommandDropSource.h"
-#include "../../../SDK/AimpString.h"
-#include "../../../SDK/AimpStream.h"
+#include "SDK/AimpString.h"
 
 using namespace AIMP::SDK;
 
-InternalAimpFileSystemCommandDropSource::InternalAimpFileSystemCommandDropSource(gcroot<IAimpFileSystemCommandDropSource^> instance)
+InternalAimpFileSystemCommandDropSource::InternalAimpFileSystemCommandDropSource(
+    gcroot<IAimpFileSystemCommandDropSource^> instance)
 {
     _instance = instance;
 }
 
-HRESULT WINAPI InternalAimpFileSystemCommandDropSource::CreateStream(IAIMPString* FileName, IAIMPStream** Stream)
+HRESULT WINAPI InternalAimpFileSystemCommandDropSource::CreateStream(IAIMPString* fileName, IAIMPStream** stream)
 {
-    IAimpStream^ stream = _instance->CreateStream(gcnew AimpString(FileName));
+    IAimpStream^ s = _instance->CreateStream(AimpConverter::ToManagedString(fileName));
     if (stream != nullptr)
     {
-        *Stream = ((AimpStream^)stream)->InternalAimpObject;
+        *stream = static_cast<AimpStream^>(s)->InternalAimpObject;
         return S_OK;
     }
-    return (HRESULT)S_OK;
+
+    return HRESULT(S_OK);
 }
 
 ULONG WINAPI InternalAimpFileSystemCommandDropSource::AddRef(void)

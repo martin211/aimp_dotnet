@@ -33,6 +33,8 @@
     <Prefer32bit>false</Prefer32bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,8 +47,13 @@
   <ItemGroup>
     <Compile Include="CustomFileSystem.cs" />
     <Compile Include="CustomFileSystemPlugin.cs" />
-    <Compile Include="ExtensionFileInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\tools\CopyPlugin.ps1">
+      <Link>CopyPlugin.ps1</Link>
+    </None>
+    <None Include="commands.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AIMP.SDK\AIMP.SDK.csproj">
@@ -57,12 +64,6 @@
       <Project>{8d30d1f5-1925-4926-83f2-f0b21b45646f}</Project>
       <Name>aimp_dotnet</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="gulpfile.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="package.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

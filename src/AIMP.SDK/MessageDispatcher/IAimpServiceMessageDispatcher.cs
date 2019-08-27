@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+using System;
 
 namespace AIMP.SDK.MessageDispatcher
 {
@@ -26,7 +36,7 @@ namespace AIMP.SDK.MessageDispatcher
         /// <summary>
         /// Sends the specified message.
         /// </summary>
-        /// <param name="message">The message <see cref="AimpMessages.AimpCoreMessageType"/>.</param>
+        /// <param name="message">The message <see cref="AimpCoreMessageType"/>.</param>
         /// <param name="param1">The message direction <see cref="MessageDirectionType"/>.</param>
         /// <param name="param2">The param2.</param>
         AimpActionResult Send(int message, int param1, IntPtr param2);

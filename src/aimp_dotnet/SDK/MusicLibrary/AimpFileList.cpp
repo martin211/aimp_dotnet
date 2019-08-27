@@ -1,6 +1,17 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+z // ----------------------------------------------------
+// 
+// AIMP DotNet SDK
 //  
 // Copyright (c) 2014 - 2017 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
@@ -8,6 +19,8 @@
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
+
 
 #include "Stdafx.h"
 #include "AimpFileList.h"
@@ -17,7 +30,6 @@ using namespace AIMP::SDK;
 
 AimpFileList::AimpFileList(IAIMPMLFileList* aimpObject) : AimpObject(aimpObject)
 {
-
 }
 
 AimpActionResult AimpFileList::Add(Object^ id, String^ fileName)

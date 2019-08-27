@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -19,19 +19,18 @@ namespace AIMP
         using namespace SDK;
         using namespace Options;
 
-        public ref class AimpServiceOptionsDialog : public AimpBaseManager<IAIMPServiceOptionsDialog>, public IAimpServiceOptionsDialog
+        public ref class AimpServiceOptionsDialog : public AimpBaseManager<IAIMPServiceOptionsDialog>,
+                                                    public IAimpServiceOptionsDialog
         {
-            private:
-                IAIMPServiceOptionsDialog *_service;
+        private:
+            IAIMPServiceOptionsDialog* _service;
 
-            public:
-                explicit AimpServiceOptionsDialog(ManagedAimpCore^ core);
+        public:
+            explicit AimpServiceOptionsDialog(ManagedAimpCore^ core);
 
-                virtual AimpActionResult FrameModified(IAimpOptionsDialogFrame^ frame);
+            virtual AimpActionResult FrameModified(IAimpOptionsDialogFrame^ frame);
 
-                virtual AimpActionResult FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow);
+            virtual AimpActionResult FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow);
         };
     }
 }
-
-

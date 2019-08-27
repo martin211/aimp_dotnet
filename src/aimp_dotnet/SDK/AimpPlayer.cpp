@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -15,17 +15,16 @@
 #include "Lyrics/AimpServiceLyrics.h"
 
 using namespace AIMP;
-using namespace AIMP::SDK;
+using namespace SDK;
 
-AimpPlayer::AimpPlayer(ManagedAimpCore ^core, int pluginId, int applicationDomainId, bool isCrossDomain)
+AimpPlayer::AimpPlayer(ManagedAimpCore^ core, int pluginId, int applicationDomainId, bool isCrossDomain)
 {
     _managedAimpCore = core;
     IAIMPServicePlayer* ps;
-    ((ManagedAimpCore^)_managedAimpCore)->GetService(IID_IAIMPServicePlayer, reinterpret_cast<void**>(&ps));
+    static_cast<ManagedAimpCore^>(_managedAimpCore)->GetService(IID_IAIMPServicePlayer, reinterpret_cast<void**>(&ps));
     _player = ps;
 
     _aimpCore = gcnew AimpCore(_managedAimpCore);
-    ((AimpCore^)_aimpCore)->InternalCoreMessage += gcnew AimpEventsDelegate(this, &AIMP::AimpPlayer::OnInternalCoreMessage);
 }
 
 AimpPlayer::~AimpPlayer()
@@ -65,7 +64,7 @@ IAimpServiceActionManager^ AimpPlayer::ActionManager::get()
 {
     if (_actionManager == nullptr)
     {
-        _actionManager = gcnew AIMP::AimpActionManager((ManagedAimpCore^)_managedAimpCore);
+        _actionManager = gcnew AimpActionManager(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }
     return _actionManager;
 }
@@ -74,7 +73,7 @@ IAimpMUIManager^ AimpPlayer::MUIManager::get()
 {
     if (_muiManager == nullptr)
     {
-        _muiManager = gcnew AIMP::AimpMIUManager((ManagedAimpCore^)_managedAimpCore);
+        _muiManager = gcnew AimpMIUManager(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }
     return _muiManager;
 }
@@ -83,7 +82,7 @@ IAimpAlbumArtManager^ AimpPlayer::AlbumArtManager::get()
 {
     if (_artManager == nullptr)
     {
-        _artManager = gcnew AIMP::AimpAlbumArtManager((ManagedAimpCore^)_managedAimpCore);
+        _artManager = gcnew AimpAlbumArtManager(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }
     return _artManager;
 }
@@ -92,8 +91,8 @@ IAimpServiceConfig^ AimpPlayer::ServiceConfig::get()
 {
     if (_serviceConfig == nullptr)
     {
-        IAIMPServiceConfig* config = (IAIMPServiceConfig*)_managedAimpCore->QueryInterface(IID_IAIMPServiceConfig);
-        _serviceConfig = gcnew AIMP::AimpServiceConfig(config);
+        IAIMPServiceConfig* config = static_cast<IAIMPServiceConfig*>(_managedAimpCore->QueryInterface(IID_IAIMPServiceConfig));
+        _serviceConfig = gcnew AimpServiceConfig(config);
     }
     return _serviceConfig;
 }
@@ -102,7 +101,7 @@ IAimpPlaylistManager2^ AimpPlayer::PlaylistManager::get()
 {
     if (_playListManager == nullptr)
     {
-        _playListManager = gcnew AIMP::SDK::PlayListManager((ManagedAimpCore^)_managedAimpCore);
+        _playListManager = gcnew PlayListManager(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }
     return _playListManager;
 }
@@ -111,8 +110,8 @@ IAimpPlaybackQueueService^ AimpPlayer::PlaybackQueueManager::get()
 {
     if (_playbackQueueManager == nullptr)
     {
-        _playbackQueueManager = gcnew AIMP::SDK::AimpServicePlaybackQueue((ManagedAimpCore^)_managedAimpCore);
-        ((ManagedAimpCore^)_managedAimpCore)->CheckUrl += gcnew AIMP::SDK::Playback::AimpCheckUrl(this, &AIMP::AimpPlayer::OnCheckUrl);
+        _playbackQueueManager = gcnew AimpServicePlaybackQueue(static_cast<ManagedAimpCore^>(_managedAimpCore));
+        static_cast<ManagedAimpCore^>(_managedAimpCore)->CheckUrl += gcnew AimpCheckUrl(this, &AimpPlayer::OnCheckUrl);
     }
     return _playbackQueueManager;
 }
@@ -180,7 +179,7 @@ void AimpPlayer::Position::set(double value)
 AimpPlayerState AimpPlayer::State::get()
 {
     int state = _player->GetState();
-    return (AimpPlayerState)state;
+    return static_cast<AimpPlayerState>(state);
 }
 
 IAimpFileInfo^ AimpPlayer::CurrentFileInfo::get()
@@ -190,6 +189,7 @@ IAimpFileInfo^ AimpPlayer::CurrentFileInfo::get()
     {
         return gcnew AimpFileInfo(fi);
     }
+
     return nullptr;
 }
 
@@ -200,6 +200,7 @@ IAimpPlaylistItem^ AimpPlayer::CurrentPlaylistItem::get()
     {
         return gcnew AimpPlaylistItem(item);
     }
+
     return nullptr;
 }
 
@@ -209,6 +210,7 @@ IWin32Manager^ AimpPlayer::Win32Manager::get()
     {
         _win32Manager = gcnew AIMP::Win32::Win32Manager();
     }
+
     return _win32Manager;
 }
 
@@ -216,7 +218,7 @@ IAimpServiceOptionsDialog^ AimpPlayer::ServiceOptionsDialog::get()
 {
     if (_serviceOptionsDialogManager == nullptr)
     {
-        _serviceOptionsDialogManager = gcnew AIMP::SDK::AimpServiceOptionsDialog((ManagedAimpCore^)_managedAimpCore);
+        _serviceOptionsDialogManager = gcnew AimpServiceOptionsDialog(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }
     return _serviceOptionsDialogManager;
 }
@@ -225,87 +227,10 @@ IAimpServiceMessageDispatcher^ AimpPlayer::ServiceMessageDispatcher::get()
 {
     if (_serviceMessageDispatcher == nullptr)
     {
-        _serviceMessageDispatcher = gcnew AIMP::SDK::AimpServiceMessageDispatcher((ManagedAimpCore^)_managedAimpCore);
+        _serviceMessageDispatcher = gcnew AimpServiceMessageDispatcher(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }
 
     return _serviceMessageDispatcher;
-}
-
-void AimpPlayer::StateChanged::add(EventHandler<Player::StateChangedEventArgs^>^ onAction)
-{
-    if (this->_onStateChanged == nullptr)
-    {
-        _onStateChanged = (EventHandler<Player::StateChangedEventArgs^>^)Delegate::Combine(_onStateChanged, onAction);
-    }
-}
-
-void AimpPlayer::StateChanged::remove(EventHandler<Player::StateChangedEventArgs^>^ onAction)
-{
-    bool tmp = this->_onStateChanged != nullptr;
-    if (tmp)
-    {
-        _onStateChanged = (EventHandler<Player::StateChangedEventArgs^>^)Delegate::Remove(_onStateChanged, onAction);
-    }
-}
-
-void AimpPlayer::StateChanged::raise(Object ^sender, Player::StateChangedEventArgs^ state)
-{
-    if (this->_onStateChanged != nullptr)
-    {
-        _onStateChanged(sender, state);
-    }
-}
-
-void AimpPlayer::LanguageChanged::add(EventHandler^ onAction)
-{
-    bool tmp = _onLanguageChanged == nullptr;
-    if (tmp)
-    {
-        _onLanguageChanged = (EventHandler^)Delegate::Combine(_onLanguageChanged, onAction);
-    }
-}
-
-void AimpPlayer::LanguageChanged::remove(EventHandler^ onAction)
-{
-    bool tmp = _onLanguageChanged != nullptr;
-    if (tmp)
-    {
-        _onLanguageChanged = (EventHandler^)Delegate::Remove(_onLanguageChanged, onAction);
-    }
-}
-
-void AimpPlayer::LanguageChanged::raise(Object ^sender, EventArgs ^e)
-{
-    if (_onLanguageChanged != nullptr)
-    {
-        _onLanguageChanged(sender, e);
-    }
-}
-
-void AimpPlayer::TrackChanged::add(EventHandler^ onAction)
-{
-    bool tmp = _onTrackChanged == nullptr;
-    if (tmp)
-    {
-        _onTrackChanged = (EventHandler^)Delegate::Combine(_onTrackChanged, onAction);
-    }
-}
-
-void AimpPlayer::TrackChanged::remove(EventHandler^ onAction)
-{
-    bool tmp = _onTrackChanged != nullptr;
-    if (tmp)
-    {
-        _onTrackChanged = (EventHandler^)Delegate::Remove(_onTrackChanged, onAction);
-    }
-}
-
-void AimpPlayer::TrackChanged::raise(Object ^sender, EventArgs ^e)
-{
-    if (_onTrackChanged != nullptr)
-    {
-        _onTrackChanged(sender, e);
-    }
 }
 
 void AimpPlayer::Pause()
@@ -338,27 +263,28 @@ void AimpPlayer::GoToPrev()
     _player->GoToPrev();
 }
 
-void AimpPlayer::Play(IAimpPlaybackQueueItem ^queueItem)
+void AimpPlayer::Play(IAimpPlaybackQueueItem^ queueItem)
 {
-    _player->Play(((AimpPlaybackQueueItem^)queueItem)->InternalAimpObject);
+    _player->Play(static_cast<AimpPlaybackQueueItem^>(queueItem)->InternalAimpObject);
 }
 
-void AimpPlayer::Play(IAimpPlaylistItem ^playListItem)
+void AimpPlayer::Play(IAimpPlaylistItem^ playListItem)
 {
-    _player->Play2(((AimpPlaylistItem^)playListItem)->InternalAimpObject);
+    _player->Play2(static_cast<AimpPlaylistItem^>(playListItem)->InternalAimpObject);
 }
 
 void AimpPlayer::Play(IAimpPlaylist^ playList)
 {
-    _player->Play3(((AimpPlayList^)playList)->InternalAimpObject);
+    _player->Play3(static_cast<AimpPlayList^>(playList)->InternalAimpObject);
 }
 
 IAimpServiceSynchronizer^ AimpPlayer::ServiceSynchronizer::get()
 {
     if (_serviceSynchronizer == nullptr)
     {
-        _serviceSynchronizer = gcnew AimpServiceSynchronizer((ManagedAimpCore^)_managedAimpCore);
+        _serviceSynchronizer = gcnew AimpServiceSynchronizer(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }
+
     return _serviceSynchronizer;
 }
 
@@ -366,8 +292,9 @@ IAimpServiceThreadPool^ AimpPlayer::ServiceThreadPool::get()
 {
     if (_serviceThreadPool == nullptr)
     {
-        _serviceThreadPool = gcnew AimpServiceThreadPool((ManagedAimpCore^)_managedAimpCore);
+        _serviceThreadPool = gcnew AimpServiceThreadPool(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }
+
     return _serviceThreadPool;
 }
 
@@ -375,7 +302,7 @@ IAimpServiceMusicLibrary^ AimpPlayer::ServiceMusicLibrary::get()
 {
     if (_serviceMusicLibrary == nullptr)
     {
-        _serviceMusicLibrary = gcnew AIMP::SDK::AimpServiceMusicLibrary((ManagedAimpCore^)_managedAimpCore);
+        _serviceMusicLibrary = gcnew AIMP::SDK::AimpServiceMusicLibrary(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }
     return _serviceMusicLibrary;
 }
@@ -384,7 +311,7 @@ IAimpServiceMusicLibraryUI^ AimpPlayer::ServiceMusicLibraryUi::get()
 {
     if (_serviceMusicLibraryUi == nullptr)
     {
-        _serviceMusicLibraryUi = gcnew AimpServiceMusicLibraryUI((ManagedAimpCore^)_managedAimpCore);
+        _serviceMusicLibraryUi = gcnew AimpServiceMusicLibraryUI(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }
     return _serviceMusicLibraryUi;
 }
@@ -393,7 +320,7 @@ IAimpServiceFileFormats^ AimpPlayer::ServiceFileFormats::get()
 {
     if (_serviceFileFormats == nullptr)
     {
-        _serviceFileFormats = gcnew AimpServiceFileFormats((ManagedAimpCore^)_managedAimpCore);
+        _serviceFileFormats = gcnew AimpServiceFileFormats(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }
     return _serviceFileFormats;
 }
@@ -402,7 +329,7 @@ IAimpServiceFileInfo^ AimpPlayer::ServiceFileInfo::get()
 {
     if (_serviceFileInfo == nullptr)
     {
-        _serviceFileInfo = gcnew AimpServiceFileInfo((ManagedAimpCore^)_managedAimpCore);
+        _serviceFileInfo = gcnew AimpServiceFileInfo(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }
     return _serviceFileInfo;
 }
@@ -411,7 +338,7 @@ IAimpServiceFileSystems^ AimpPlayer::ServiceFileSystems::get()
 {
     if (_serviceFileSystems == nullptr)
     {
-        _serviceFileSystems = gcnew AimpServiceFileSystems((ManagedAimpCore^)_managedAimpCore);
+        _serviceFileSystems = gcnew AimpServiceFileSystems(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }
     return _serviceFileSystems;
 }
@@ -420,7 +347,7 @@ IAimpServiceFileStreaming^ AimpPlayer::ServiceFileStreaming::get()
 {
     if (_serviceFileStreaming == nullptr)
     {
-        _serviceFileStreaming = gcnew AimpServiceFileStreaming((ManagedAimpCore^)_managedAimpCore);
+        _serviceFileStreaming = gcnew AimpServiceFileStreaming(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }
     return _serviceFileStreaming;
 }
@@ -438,44 +365,15 @@ IAimpServiceFileTagEditor^ AimpPlayer::ServiceFileTagEditor::get()
 {
     if (_serviceFileTagEditor == nullptr)
     {
-        _serviceFileTagEditor = gcnew AimpServiceFileTagEditor((ManagedAimpCore^)_managedAimpCore);
+        _serviceFileTagEditor = gcnew AimpServiceFileTagEditor(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }
 
     return _serviceFileTagEditor;
 }
 
-bool AimpPlayer::OnCheckUrl(String^ %url)
+bool AimpPlayer::OnCheckUrl(String^ % url)
 {
-    return ((AIMP::SDK::AimpServicePlaybackQueue^)this->_playbackQueueManager)->RaiseCheckUrl(url);
-}
-
-void AimpPlayer::OnInternalCoreMessage(AimpMessages::AimpCoreMessageType param1, int param2)
-{
-    switch (param1)
-    {
-    case AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_PLAYER_STATE:
-    case AimpMessages::AimpCoreMessageType::AIMP_MSG_CMD_STOP:
-        if (_state != this->State)
-        {
-            _state = this->State;
-            StateChanged(this, gcnew AIMP::SDK::Player::StateChangedEventArgs(_state));
-        }
-        break;
-    case AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_LANGUAGE:
-        LanguageChanged(this, EventArgs::Empty);
-        break;
-    case AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_STREAM_START:
-    case AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_STREAM_START_SUBTRACK:
-        TrackChanged(this, EventArgs::Empty);
-        break;
-    //case AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_CMD_STATE:
-    //    System::Diagnostics::Debug::WriteLine((AimpMessages::AimpCoreMessageType)param2);
-    //    if (param2 == (int) AimpMessages::AimpCoreMessageType::AIMP_MSG_EVENT_CMD_STATE)
-    //    {
-    //        System::Diagnostics::Debug::WriteLine((AimpMessages::AimpCoreMessageType)param2);
-    //    }
-    //    break;
-    }
+    return static_cast<AimpServicePlaybackQueue^>(this->_playbackQueueManager)->RaiseCheckUrl(url);
 }
 
 IAimpServiceLyrics^ AimpPlayer::ServiceLyrics::get()

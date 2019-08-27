@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -21,7 +21,7 @@ AimpLyrics::AimpLyrics(IAIMPLyrics* lyrics) : AimpObject(lyrics)
 AimpActionResult AimpLyrics::Assign(IAimpLyrics^ source)
 {
     //TODO Complete it
-    return AimpActionResult::Fail;// CheckResult(InternalAimpObject->Assign());
+    return AimpActionResult::Fail; // CheckResult(InternalAimpObject->Assign());
 }
 
 AimpActionResult AimpLyrics::Clone(IAimpLyrics^% lyrics)
@@ -205,4 +205,3 @@ void AimpLyrics::Offset::set(int value)
 {
     PropertyListExtension::SetInt32(InternalAimpObject, AIMP_LYRICS_PROPID_TYPE, value);
 }
-

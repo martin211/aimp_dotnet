@@ -1,8 +1,8 @@
 // ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2017 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2019 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -14,13 +14,13 @@
 
 using namespace AIMP::SDK;
 
-AimpConfig::AimpConfig(IAIMPConfig *aimpPlayList) : AimpObject(aimpPlayList)
+AimpConfig::AimpConfig(IAIMPConfig* aimpPlayList) : AimpObject(aimpPlayList)
 {
 }
 
-AimpActionResult AimpConfig::Delete(String ^keyPath)
+AimpActionResult AimpConfig::Delete(String^ keyPath)
 {
-    IAIMPString *str = nullptr;
+    IAIMPString* str = nullptr;
     auto result = AimpActionResult::Fail;
 
     try
@@ -40,9 +40,9 @@ AimpActionResult AimpConfig::Delete(String ^keyPath)
     return result;
 }
 
-float AimpConfig::GetValueAsFloat(String ^keyPath)
+float AimpConfig::GetValueAsFloat(String^ keyPath)
 {
-    IAIMPString *str = nullptr;
+    IAIMPString* str = nullptr;
     double val = 0;
 
     try
@@ -62,9 +62,9 @@ float AimpConfig::GetValueAsFloat(String ^keyPath)
     return val;
 }
 
-int AimpConfig::GetValueAsInt32(String ^keyPath)
+int AimpConfig::GetValueAsInt32(String^ keyPath)
 {
-    IAIMPString *str = nullptr;
+    IAIMPString* str = nullptr;
     int val = 0;
 
     try
@@ -84,9 +84,9 @@ int AimpConfig::GetValueAsInt32(String ^keyPath)
     return val;
 }
 
-Int64 AimpConfig::GetValueAsInt64(String ^keyPath)
+Int64 AimpConfig::GetValueAsInt64(String^ keyPath)
 {
-    IAIMPString *str = nullptr;
+    IAIMPString* str = nullptr;
     Int64 val = 0;
 
     try
@@ -106,14 +106,15 @@ Int64 AimpConfig::GetValueAsInt64(String ^keyPath)
     return val;
 }
 
-IAimpStream ^AimpConfig::GetValueAsStream(String ^keyPath)
+IAimpStream^ AimpConfig::GetValueAsStream(String^ keyPath)
 {
-    IAIMPString *str = nullptr;
-    IAIMPStream *stream = nullptr;
+    IAIMPString* str = nullptr;
+    IAIMPStream* stream = nullptr;
     try
     {
         str = AimpConverter::ToAimpString(keyPath);
-        if (CheckResult(InternalAimpObject->GetValueAsStream(str, &stream)) == AimpActionResult::OK && stream != nullptr)
+        if (CheckResult(InternalAimpObject->GetValueAsStream(str, &stream)) == AimpActionResult::OK && stream != nullptr
+        )
         {
             return gcnew AimpStream(stream);
         }
@@ -130,9 +131,9 @@ IAimpStream ^AimpConfig::GetValueAsStream(String ^keyPath)
     return nullptr;
 }
 
-String ^AimpConfig::GetValueAsString(String ^keyPath)
+String^ AimpConfig::GetValueAsString(String^ keyPath)
 {
-    IAIMPString *str = nullptr;
+    IAIMPString* str = nullptr;
     IAIMPString* val = nullptr;
 
     try
@@ -156,9 +157,9 @@ String ^AimpConfig::GetValueAsString(String ^keyPath)
     return String::Empty;
 }
 
-AimpActionResult AimpConfig::SetValueAsFloat(String ^keyPath, float value)
+AimpActionResult AimpConfig::SetValueAsFloat(String^ keyPath, float value)
 {
-    IAIMPString *str = nullptr;
+    IAIMPString* str = nullptr;
     auto result = AimpActionResult::Fail;
 
     try
@@ -178,9 +179,9 @@ AimpActionResult AimpConfig::SetValueAsFloat(String ^keyPath, float value)
     return result;
 }
 
-AimpActionResult AimpConfig::SetValueAsInt32(String ^keyPath, int value)
+AimpActionResult AimpConfig::SetValueAsInt32(String^ keyPath, int value)
 {
-    IAIMPString *str = nullptr;
+    IAIMPString* str = nullptr;
     auto result = AimpActionResult::Fail;
 
     try
@@ -200,9 +201,9 @@ AimpActionResult AimpConfig::SetValueAsInt32(String ^keyPath, int value)
     return result;
 }
 
-AimpActionResult AimpConfig::SetValueAsInt64(String ^keyPath, Int64 value)
+AimpActionResult AimpConfig::SetValueAsInt64(String^ keyPath, Int64 value)
 {
-    IAIMPString *str = nullptr;
+    IAIMPString* str = nullptr;
     auto result = AimpActionResult::Fail;
 
     try
@@ -222,15 +223,16 @@ AimpActionResult AimpConfig::SetValueAsInt64(String ^keyPath, Int64 value)
     return result;
 }
 
-AimpActionResult AimpConfig::SetValueAsStream(String ^keyPath, IAimpStream ^stream)
+AimpActionResult AimpConfig::SetValueAsStream(String^ keyPath, IAimpStream^ stream)
 {
-    IAIMPString *str = nullptr;
+    IAIMPString* str = nullptr;
     auto result = AimpActionResult::Fail;
 
     try
     {
         str = AimpConverter::ToAimpString(keyPath);
-        result = CheckResult(InternalAimpObject->SetValueAsStream(str, static_cast<AimpStream^>(stream)->InternalAimpObject));
+        result = CheckResult(
+            InternalAimpObject->SetValueAsStream(str, static_cast<AimpStream^>(stream)->InternalAimpObject));
     }
     finally
     {
@@ -244,10 +246,10 @@ AimpActionResult AimpConfig::SetValueAsStream(String ^keyPath, IAimpStream ^stre
     return result;
 }
 
-AimpActionResult AimpConfig::SetValueAsString(String ^keyPath, String ^value)
+AimpActionResult AimpConfig::SetValueAsString(String^ keyPath, String^ value)
 {
-    IAIMPString *str = nullptr;
-    IAIMPString *val = nullptr;
+    IAIMPString* str = nullptr;
+    IAIMPString* val = nullptr;
     auto result = AimpActionResult::Fail;
 
     try
