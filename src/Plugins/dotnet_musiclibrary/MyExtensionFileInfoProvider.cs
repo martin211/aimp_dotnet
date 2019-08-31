@@ -37,13 +37,18 @@ namespace AIMP.DotNet.MusicLibrary
         {
             fileInfo.Artist = "test";
             //fileInfo = null;
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
+        }
+
+        public AimpActionResult GetFileInfo(IAimpStream stream, ref IAimpFileInfo fileInfo)
+        {
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult GetFileInfo(Stream stream, ref IAimpFileInfo fileInfo)
         {
             //fileInfo = null;
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
     }
 }

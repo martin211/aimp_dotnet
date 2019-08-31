@@ -15,7 +15,6 @@ using Nuke.Common.Tools.NuGet;
 using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
-using Nuke.DocFX;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 
@@ -58,7 +57,7 @@ class Build : NukeBuild
     Target Clean => _ => _
         .Executes(() =>
         {
-            DeleteDirectories(GlobDirectories(SourceDirectory, "**/bin", "**/obj"));
+            //DeleteDirectories(GlobDirectories(SourceDirectory, "**/bin", "**/obj"));
             EnsureCleanDirectory(OutputDirectory);
         });
 
@@ -290,6 +289,7 @@ class Build : NukeBuild
                         null,
                         null,
                         true,
+                        false,
                         ((type, s) =>
                         {
                             var m = Regex.Match(s, @"^.+: (\d)$");
