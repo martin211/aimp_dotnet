@@ -31,7 +31,7 @@ namespace AIMP.SDK.MessageDispatcher
     /// <summary>
     /// Provides an access to the messaging mechanism.
     /// </summary>
-    public interface IAimpServiceMessageDispatcher
+    public interface IAimpServiceMessageDispatcher : IAimpService
     {
         /// <summary>
         /// Sends the specified message.

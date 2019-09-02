@@ -15,7 +15,7 @@
 AimpActionResult AimpServiceFileStreaming::CreateStreamForFile(String^ fileName, FileStreamingType flags,
                                                                long long offset, long long size, IAimpStream^% stream)
 {
-    IAIMPServiceFileStreaming* service = nullptr;
+    IAIMPServiceFileStreaming* service = GetAimpService();
     IAIMPString* str = nullptr;
     IAIMPStream* aimpStream = nullptr;
     AimpActionResult result = AimpActionResult::Fail;
@@ -23,7 +23,7 @@ AimpActionResult AimpServiceFileStreaming::CreateStreamForFile(String^ fileName,
 
     try
     {
-        if (GetService(IID_IAIMPServiceFileStreaming, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             str = AimpConverter::ToAimpString(fileName);
             result = CheckResult(service->CreateStreamForFile(str, DWORD(flags), offset, size, &aimpStream));
@@ -36,17 +36,8 @@ AimpActionResult AimpServiceFileStreaming::CreateStreamForFile(String^ fileName,
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
-
-        if (str != nullptr)
-        {
-            str->Release();
-            str = nullptr;
-        }
+        ReleaseObject(service);
+        ReleaseObject(str);
     }
 
     return result;
@@ -55,7 +46,7 @@ AimpActionResult AimpServiceFileStreaming::CreateStreamForFile(String^ fileName,
 AimpActionResult AimpServiceFileStreaming::CreateStreamForFileUri(String^ fileUrl, IAimpVirtualFile^% virtualFile,
                                                                   IAimpStream^% stream)
 {
-    IAIMPServiceFileStreaming* service = nullptr;
+    IAIMPServiceFileStreaming* service = GetAimpService();
     IAIMPString* str = nullptr;
     IAIMPStream* aimpStream = nullptr;
     AimpActionResult result = AimpActionResult::Fail;
@@ -65,7 +56,7 @@ AimpActionResult AimpServiceFileStreaming::CreateStreamForFileUri(String^ fileUr
 
     try
     {
-        if (GetService(IID_IAIMPServiceFileStreaming, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             str = AimpConverter::ToAimpString(fileUrl);
             result = CheckResult(service->CreateStreamForFileURI(str, &vf, &aimpStream));
@@ -78,18 +69,16 @@ AimpActionResult AimpServiceFileStreaming::CreateStreamForFileUri(String^ fileUr
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
-
-        if (str != nullptr)
-        {
-            str->Release();
-            str = nullptr;
-        }
+        ReleaseObject(service);
+        ReleaseObject(str);
     }
 
     return result;
+}
+
+IAIMPServiceFileStreaming* AimpServiceFileStreaming::GetAimpService()
+{
+    IAIMPServiceFileStreaming* service = nullptr;
+    GetService(IID_IAIMPServiceFileStreaming, &service);
+    return service;
 }

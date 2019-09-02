@@ -23,7 +23,7 @@ void AimpServiceLyrics::OnAimpServiceLyricsReceive(IAIMPLyrics* lyrics, void* us
     LyricsReceive(l, nullptr);
 }
 
-AimpServiceLyrics::AimpServiceLyrics(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceLyrics>(core)
+AimpServiceLyrics::AimpServiceLyrics(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceLyrics>(core)
 {
 }
 
@@ -34,24 +34,22 @@ AimpServiceLyrics::~AimpServiceLyrics()
 
 AimpActionResult AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Object^ userData, IntPtr% taskId)
 {
-    IAIMPServiceLyrics* service = nullptr;
+    IAIMPServiceLyrics* service = GetAimpService();
     AimpActionResult result = AimpActionResult::Fail;
     taskId = IntPtr(0);
 
     try
     {
-        result = GetService(IID_IAIMPServiceLyrics, &service);
-        if (result == AimpActionResult::Ok && service != nullptr)
+        if (service != nullptr)
         {
-            _callBack = gcnew OnAimpServiceLyricsReceiveCallback(
-                this, &AIMP::AimpServiceLyrics::OnAimpServiceLyricsReceive);
+            _callBack = gcnew OnAimpServiceLyricsReceiveCallback(this, &AIMP::AimpServiceLyrics::OnAimpServiceLyricsReceive);
             IntPtr procPtr = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_callBack);
             void** task = nullptr;
 
             result = CheckResult(service->Get(
                 static_cast<AimpFileInfo^>(fileInfo)->InternalAimpObject,
-                (DWORD)flags,
-                (TAIMPServiceLyricsReceiveProc(_stdcall *))procPtr.ToPointer(),
+                static_cast<DWORD>(flags),
+                static_cast<TAIMPServiceLyricsReceiveProc(_stdcall *)>(procPtr.ToPointer()),
                 reinterpret_cast<void*>(&userData),
                 task
             ));
@@ -64,11 +62,7 @@ AimpActionResult AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags fla
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
 
     return result;
@@ -76,29 +70,22 @@ AimpActionResult AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags fla
 
 AimpActionResult AimpServiceLyrics::Cancel(IntPtr taskId, LyricsFlags flags)
 {
-    IAIMPServiceLyrics* service = nullptr;
+    IAIMPServiceLyrics* service = GetAimpService();
     AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
-        result = GetService(IID_IAIMPServiceLyrics, &service);
-        if (result == AimpActionResult::Ok && service != nullptr)
+        if (service != nullptr)
         {
-            result = CheckResult(service->Cancel(static_cast<void**>(taskId.ToPointer()), (DWORD)flags));
+            result = CheckResult(service->Cancel(static_cast<void**>(taskId.ToPointer()), static_cast<DWORD>(flags)));
         }
 
         return result;
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
-
-    return result;
 }
 
 void AimpServiceLyrics::LyricsReceive::raise(IAimpLyrics^ lyrics, Object^ userData)
@@ -121,4 +108,11 @@ void AimpServiceLyrics::LyricsReceive::add(AimpServiceLyricsReceive^ handler)
     {
         _eventCallBack = static_cast<AimpServiceLyricsReceive^>(Delegate::Combine(this->_eventCallBack, handler));
     }
+}
+
+IAIMPServiceLyrics* AimpServiceLyrics::GetAimpService()
+{
+    IAIMPServiceLyrics* service = nullptr;
+    GetService(IID_IAIMPServiceLyrics, &service);
+    return service;
 }

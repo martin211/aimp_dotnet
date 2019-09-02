@@ -18,7 +18,7 @@ namespace AIMP
     {
         using namespace Threading;
 
-        public ref class AimpServiceThreadPool : public AimpBaseManager<IAIMPServiceThreadPool>,
+        public ref class AimpServiceThreadPool : public BaseAimpService<IAIMPServiceThreadPool>,
                                                  public IAimpServiceThreadPool
         {
         public:
@@ -29,6 +29,8 @@ namespace AIMP
             virtual AimpActionResult Execute(IAimpTask^ task, UIntPtr% handle);
 
             virtual AimpActionResult WaitFor(UIntPtr handle);
+        protected:
+            IAIMPServiceThreadPool* GetAimpService() override;
         };
     }
 }

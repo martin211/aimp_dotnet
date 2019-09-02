@@ -16,7 +16,7 @@ namespace AIMP.SDK.ActionManager
     /// <summary>
     /// The service provides an access to actions.
     /// </summary>
-    public interface IAimpServiceActionManager
+    public interface IAimpServiceActionManager : IAimpService
     {
         /// <summary>
         /// Gets the by identifier.

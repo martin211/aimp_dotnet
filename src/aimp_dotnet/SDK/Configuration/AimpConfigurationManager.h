@@ -12,7 +12,6 @@
 #pragma once
 
 #include "SDK\BaseManager.h"
-#include "SDK\AimpConfig.h"
 
 namespace AIMP
 {
@@ -21,17 +20,40 @@ namespace AIMP
         using namespace System;
         using namespace ConfigurationManager;
 
-        [System::Serializable]
         public ref class AimpServiceConfig :
-            public AimpConfig,
+            public BaseAimpService<IAIMPServiceConfig>,
             public IAimpServiceConfig
         {
         public:
-            explicit AimpServiceConfig(IAIMPServiceConfig* aimpObject);
+            explicit AimpServiceConfig(ManagedAimpCore^ core);
 
             ~AimpServiceConfig();
 
             virtual AimpActionResult FlushCache();
+
+            virtual AimpActionResult Delete(String^ keyPath);
+
+            virtual float GetValueAsFloat(String^ keyPath);
+
+            virtual int GetValueAsInt32(String^ keyPath);
+
+            virtual Int64 GetValueAsInt64(String^ keyPath);
+
+            virtual IAimpStream^ GetValueAsStream(String^ keyPath);
+
+            virtual String^ GetValueAsString(String^ keyPath);
+
+            virtual AimpActionResult SetValueAsFloat(String^ keyPath, float value);
+
+            virtual AimpActionResult SetValueAsInt32(String^ keyPath, int value);
+
+            virtual AimpActionResult SetValueAsInt64(String^ keyPath, Int64 value);
+
+            virtual AimpActionResult SetValueAsStream(String^ keyPath, IAimpStream^ stream);
+
+            virtual AimpActionResult SetValueAsString(String^ keyPath, String^ value);
+        protected:
+            IAIMPServiceConfig* GetAimpService() override;
         };
     }
 }

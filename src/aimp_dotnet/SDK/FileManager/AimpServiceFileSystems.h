@@ -19,7 +19,7 @@ namespace AIMP
         using namespace FileManager;
         using namespace Commands;
 
-        public ref class AimpServiceFileSystems : public AimpBaseManager<IAIMPServiceFileSystems>,
+        public ref class AimpServiceFileSystems : public BaseAimpService<IAIMPServiceFileSystems>,
                                                   public IAimpServiceFileSystems
         {
         public:
@@ -34,6 +34,8 @@ namespace AIMP
 
             AimpActionResult GetCommand(FileCommandType commandType, GUID commandId, IAIMPServiceFileSystems* service,
                                         String^ value, IAimpFileSystemCommand^% command, bool isDefault);
+        protected:
+            IAIMPServiceFileSystems* GetAimpService() override;
         };
     }
 }

@@ -21,12 +21,15 @@ namespace AIMP
 
         template <typename TAimpService>
         [System::Serializable]
-        public ref class AimpBaseManager abstract
+        public ref class BaseAimpService abstract : IAimpService
         {
+        private:
+            bool _isExist;
         public:
-            AimpBaseManager(ManagedAimpCore^ core)
+            BaseAimpService(ManagedAimpCore^ core)
             {
                 _core = core;
+                _isExist = false;
             }
 
         protected:
@@ -49,11 +52,32 @@ namespace AIMP
                 if (result == AimpActionResult::OK && s != nullptr)
                 {
                     *service = s;
+                    _isExist = true;
                 }
 
                 return result;
             }
 
+            void ReleaseObject(IUnknown* object)
+            {
+                if (object != nullptr)
+                {
+                    object->Release();
+                    object = nullptr;
+                }
+            }
+
+            virtual TAimpService* GetAimpService() = 0;
+
+        public:
+            property bool IsExists
+            {
+                virtual bool get()
+                {
+                    return _isExist;
+                }
+            }
+        protected:
             ManagedAimpCore^ _core;
         };
     }

@@ -157,6 +157,8 @@ namespace DemoPlugin
 
         private void button1_Click(object sender, EventArgs e)
         {
+            _aimpPlayer.PlaylistManager.GetActivePlaylist(out var pl);
+            _aimpPlayer.Play(pl);
             _aimpPlayer.Core.SendMessage(AimpCoreMessageType.AIMP_MSG_CMD_SHOW_NOTIFICATION, 0, "Play Play Play");
         }
 

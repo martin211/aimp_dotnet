@@ -10,17 +10,13 @@
 // ----------------------------------------------------
 
 #include "Stdafx.h"
-#include "MUIManager.h"
+#include "AimpServiceMUI.h"
 
-AimpMIUManager::AimpMIUManager(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceMUI>(core)
+AimpServiceMUI::AimpServiceMUI(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceMUI>(core)
 {
 }
 
-AimpMIUManager::~AimpMIUManager()
-{
-}
-
-String^ AimpMIUManager::GetName()
+String^ AimpServiceMUI::GetName()
 {
     IAIMPString* str = nullptr;
     IAIMPServiceMUI* service = nullptr;
@@ -55,7 +51,7 @@ String^ AimpMIUManager::GetName()
     return String::Empty;
 }
 
-String^ AimpMIUManager::GetValue(String^ key)
+String^ AimpServiceMUI::GetValue(String^ key)
 {
     IAIMPString* str = nullptr;
     IAIMPServiceMUI* service = nullptr;
@@ -97,7 +93,7 @@ String^ AimpMIUManager::GetValue(String^ key)
     return String::Empty;
 }
 
-String^ AimpMIUManager::GetValuePart(String^ key, int index)
+String^ AimpServiceMUI::GetValuePart(String^ key, int index)
 {
     IAIMPString* str = nullptr;
     IAIMPServiceMUI* service = nullptr;
@@ -135,4 +131,11 @@ String^ AimpMIUManager::GetValuePart(String^ key, int index)
     }
 
     return String::Empty;
+}
+
+IAIMPServiceMUI* AimpServiceMUI::GetAimpService()
+{
+    IAIMPServiceMUI* service = nullptr;
+    GetService(IID_IAIMPServiceMUI, &service);
+    return service;
 }

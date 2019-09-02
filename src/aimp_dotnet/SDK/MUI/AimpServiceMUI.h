@@ -20,18 +20,18 @@ namespace AIMP
         using namespace System;
         using namespace MUIManager;
 
-        public ref class AimpMIUManager : public AimpBaseManager<IAIMPServiceMUI>, public IAimpMUIManager
+        public ref class AimpServiceMUI : public BaseAimpService<IAIMPServiceMUI>, public IAimpMUIManager
         {
         public:
-            explicit AimpMIUManager(ManagedAimpCore^ core);
-
-            ~AimpMIUManager();
+            explicit AimpServiceMUI(ManagedAimpCore^ core);
 
             virtual String^ GetName();
 
             virtual String^ GetValue(String^ key);
 
             virtual String^ GetValuePart(String^ key, int index);
+        protected:
+            IAIMPServiceMUI* GetAimpService() override;
         };
     }
 }

@@ -20,7 +20,7 @@ namespace AIMP
         using namespace Playlist;
         using namespace Playback;
 
-        public ref class AimpServicePlaybackQueue : public AimpBaseManager<IAIMPServicePlaybackQueue>,
+        public ref class AimpServicePlaybackQueue : public BaseAimpService<IAIMPServicePlaybackQueue>,
                                                     public IAimpPlaybackQueueService
         {
         private:
@@ -40,6 +40,8 @@ namespace AIMP
             }
         internal:
             bool RaiseCheckUrl(String^% url);
+        protected:
+            IAIMPServicePlaybackQueue* GetAimpService() override;
         };
     }
 }

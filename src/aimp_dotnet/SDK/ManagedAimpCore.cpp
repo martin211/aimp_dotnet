@@ -12,7 +12,6 @@
 #include "Stdafx.h"
 #include "ManagedAimpCore.h"
 #include "IUnknownInterfaceImpl.h"
-#include "PlayList\AimpPlayList.h"
 #include "AimpSdk.h"
 #include "SDK\Options\OptionsDialogFrameExtension.h"
 #include "SDK\AlbumArt\AimpExtensionAlbumArtCatalog.h"
@@ -109,6 +108,12 @@ namespace AIMP
             _core = core;
             AimpExtensionPlayerHook* playerHook = new AimpExtensionPlayerHook(this);
             core->RegisterExtension(IID_IAIMPServicePlayer, playerHook);
+
+            IAIMPServiceMessageDispatcher* aimp_service_message_dispatcher;
+            core->QueryInterface(IID_IAIMPServiceMessageDispatcher, reinterpret_cast<void**>(&aimp_service_message_dispatcher));
+            _hook = new AIMPMessageHook(this);
+            aimp_service_message_dispatcher->Hook(_hook);
+            _messageDispatcher = aimp_service_message_dispatcher;
         }
 
         ManagedAimpCore::~ManagedAimpCore()

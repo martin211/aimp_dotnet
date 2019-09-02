@@ -23,8 +23,8 @@ namespace AIMP
         using namespace SDK;
         using namespace Playlist;
 
-        public ref class PlayListManager :
-            public AimpBaseManager<IAIMPServicePlaylistManager2>,
+        public ref class AimpServicePlaylistManager :
+            public BaseAimpService<IAIMPServicePlaylistManager2>,
             public IAimpPlaylistManager2
         {
         private:
@@ -33,11 +33,7 @@ namespace AIMP
             PlayListHandler^ _onPlaylistRemoved;
 
         public:
-            explicit PlayListManager(ManagedAimpCore^ core);
-
-            ~PlayListManager();
-
-            !PlayListManager();
+            explicit AimpServicePlaylistManager(ManagedAimpCore^ core);
 
             virtual property IAimpPlaylistQueue^ PlaylistQueue
             {
@@ -98,8 +94,8 @@ namespace AIMP
 
             //virtual void OnPlaylistRemoved(IAIMPPlaylist* playlist);
 
-        private:
-            virtual AimpActionResult GetService(IAIMPServicePlaylistManager2** service);
+        protected:
+            IAIMPServicePlaylistManager2* GetAimpService() override;
         };
     }
 }

@@ -31,7 +31,7 @@ namespace AIMP.SDK.Lyrics
     /// <summary>
     /// Allowed access to the song text.
     /// </summary>
-    public interface IAimpServiceLyrics
+    public interface IAimpServiceLyrics : IAimpService
     {
         /// <summary>
         /// Gets a lyrics for file.

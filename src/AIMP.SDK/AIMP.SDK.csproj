@@ -56,6 +56,8 @@
     <Compile Include="ActionManager\IAimpAction.cs" />
     <Compile Include="ActionManager\IAimpActionEvent.cs" />
     <Compile Include="ActionManager\IAimpServiceActionManager.cs" />
+    <Compile Include="AlbumArtManager\IAimpServiceAlbumArtCache.cs" />
+    <Compile Include="IAimpService.cs" />
     <Compile Include="MessageDispatcher\AimpMessages.cs" />
     <Compile Include="AimpObjectHelper.cs" />
     <Compile Include="AlbumArtManager\IAimpAlbumArtSearchOptions.cs" />

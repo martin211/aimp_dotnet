@@ -22,7 +22,7 @@ namespace AIMP.SDK.FileManager
     /// <summary>
     /// Provide acccess to registered file types.
     /// </summary>
-    public interface IAimpServiceFileFormats
+    public interface IAimpServiceFileFormats : IAimpService
     {
         /// <summary>
         /// Gets the availabel file formats.

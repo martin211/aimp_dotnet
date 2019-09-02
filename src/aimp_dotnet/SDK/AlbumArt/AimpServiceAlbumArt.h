@@ -23,12 +23,12 @@ namespace AIMP
         using namespace SDK;
         using namespace AlbumArtManager;
 
-        public ref class AimpAlbumArtManager : public AimpBaseManager<IAIMPServiceAlbumArt>, public IAimpAlbumArtManager
+        public ref class AimpServiceAlbumArt : public BaseAimpService<IAIMPServiceAlbumArt>, public IAimpAlbumArtManager
         {
         public:
-            explicit AimpAlbumArtManager(ManagedAimpCore^ core);
+            explicit AimpServiceAlbumArt(ManagedAimpCore^ core);
 
-            ~AimpAlbumArtManager();
+            ~AimpServiceAlbumArt();
 
             event EventHandler<AimpGetAlbumArtEventArgs^>^ Completed
             {
@@ -66,16 +66,16 @@ namespace AIMP
                 void set(bool value);
             }
 
-            virtual property array<System::String^>^ FileMasks
+            virtual property array<String^>^ FileMasks
             {
-                array<System::String^>^ get();
-                void set(array<System::String^>^ val);
+                array<String^>^ get();
+                void set(array<String^>^ val);
             }
 
-            virtual property array<System::String^>^ FileExtensions
+            virtual property array<String^>^ FileExtensions
             {
-                array<System::String^>^ get();
-                void set(array<System::String^>^ val);
+                array<String^>^ get();
+                void set(array<String^>^ val);
             }
 
             virtual property int MaxFileSize
@@ -86,13 +86,13 @@ namespace AIMP
 
             void OnAlbumArtReceive(IAIMPImage* image, IAIMPImageContainer* image_container, void* user_data);
 
-            virtual IntPtr GetImage(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags,
-                                    Object^ userData);
+            virtual IntPtr GetImage(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags, Object^ userData);
 
-            virtual IntPtr GetImage(AIMP::SDK::FileManager::IAimpFileInfo^ fileInfo, AimpFindCovertArtType flags,
-                                    Object^ userData);
+            virtual IntPtr GetImage(IAimpFileInfo^ fileInfo, AimpFindCovertArtType flags, Object^ userData);
 
             virtual void Cancel(IntPtr taskId, AimpFindCovertArtType flags);
+        protected:
+            IAIMPServiceAlbumArt* GetAimpService() override;
         private:
             delegate void OnFindCoverCallback(IAIMPImage* image, IAIMPImageContainer* imageContainer, void* UserData);
             OnFindCoverCallback^ _findCallback;

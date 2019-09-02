@@ -18,15 +18,13 @@ namespace AIMP
     {
         using namespace MenuManager;
 
-        public ref class AimpMenuManager : public AimpBaseManager<IAIMPServiceMenuManager>,
+        public ref class AimpServiceMenuManager : public BaseAimpService<IAIMPServiceMenuManager>,
                                            public IAimpServiceMenuManager
         {
         public:
-            explicit AimpMenuManager(ManagedAimpCore^ core);
+            explicit AimpServiceMenuManager(ManagedAimpCore^ core);
 
             virtual AimpActionResult CreateMenuItem(IAimpMenuItem^% item);
-
-            ~AimpMenuManager();
 
             virtual AimpActionResult Add(IAimpMenuItem^ item);
 
@@ -42,6 +40,8 @@ namespace AIMP
 
         private:
             HRESULT UnregisterMenu(IAIMPMenuItem* menuItem);
+        protected:
+            IAIMPServiceMenuManager* GetAimpService() override;
         };
     }
 }

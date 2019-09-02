@@ -18,18 +18,17 @@ using namespace Playlist;
 using namespace Playback;
 
 AimpServicePlaybackQueue::
-AimpServicePlaybackQueue(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServicePlaybackQueue>(core)
+AimpServicePlaybackQueue(ManagedAimpCore^ core) : BaseAimpService<IAIMPServicePlaybackQueue>(core)
 {
 }
 
 IAimpPlaybackQueueItem^ AimpServicePlaybackQueue::GetNextTrack()
 {
     IAIMPPlaybackQueueItem* item = nullptr;
-    IAIMPServicePlaybackQueue* service = nullptr;
+    IAIMPServicePlaybackQueue* service = GetAimpService();
     try
     {
-        if (CheckResult(_core->GetService(IID_IAIMPServicePlaybackQueue, reinterpret_cast<void**>(&service))) ==
-            AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             if (CheckResult(service->GetNextTrack(&item)) == AimpActionResult::OK)
             {
@@ -39,17 +38,8 @@ IAimpPlaybackQueueItem^ AimpServicePlaybackQueue::GetNextTrack()
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
-
-        if (item != nullptr)
-        {
-            item->Release();
-            item = nullptr;
-        }
+        ReleaseObject(service);
+        ReleaseObject(item);
     }
 
     return nullptr;
@@ -58,12 +48,11 @@ IAimpPlaybackQueueItem^ AimpServicePlaybackQueue::GetNextTrack()
 IAimpPlaybackQueueItem^ AimpServicePlaybackQueue::GetPrevTrack()
 {
     IAIMPPlaybackQueueItem* item = nullptr;
-    IAIMPServicePlaybackQueue* service = nullptr;
+    IAIMPServicePlaybackQueue* service = GetAimpService();
 
     try
     {
-        if (CheckResult(_core->GetService(IID_IAIMPServicePlaybackQueue, reinterpret_cast<void**>(&service))) ==
-            AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             if (CheckResult(service->GetPrevTrack(&item)) == AimpActionResult::OK)
             {
@@ -73,17 +62,8 @@ IAimpPlaybackQueueItem^ AimpServicePlaybackQueue::GetPrevTrack()
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
-
-        if (item != nullptr)
-        {
-            item->Release();
-            item = nullptr;
-        }
+        ReleaseObject(service);
+        ReleaseObject(item);
     }
 
     return nullptr;
@@ -116,4 +96,11 @@ bool AimpServicePlaybackQueue::RaiseCheckUrl(String^% url)
     }
 
     return false;
+}
+
+IAIMPServicePlaybackQueue* AimpServicePlaybackQueue::GetAimpService()
+{
+    IAIMPServicePlaybackQueue* service = nullptr;
+    GetService(IID_IAIMPServicePlaybackQueue, &service);
+    return service;
 }

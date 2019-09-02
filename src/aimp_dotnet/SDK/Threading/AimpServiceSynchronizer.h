@@ -19,13 +19,15 @@ namespace AIMP
         using namespace Threading;
 
         public ref class AimpServiceSynchronizer :
-            public AimpBaseManager<IAIMPServiceSynchronizer>,
+            public BaseAimpService<IAIMPServiceSynchronizer>,
             public IAimpServiceSynchronizer
         {
         public:
             explicit AimpServiceSynchronizer(ManagedAimpCore^ core);
 
             virtual AimpActionResult ExecuteInMainThread(IAimpTask^ task, bool executeNow);
+        protected:
+            IAIMPServiceSynchronizer* GetAimpService() override;
         };
     }
 }

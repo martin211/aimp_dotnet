@@ -29,7 +29,7 @@ namespace AIMP.SDK.Threading
     /// Make sure that all your tasks is completed or canceled during plugin finalization.
     /// </para>
     /// </summary>
-    public interface IAimpServiceThreadPool
+    public interface IAimpServiceThreadPool : IAimpService
     {
         /// <summary>
         /// Cancels the specified task.

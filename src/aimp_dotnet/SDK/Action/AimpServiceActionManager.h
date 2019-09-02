@@ -21,12 +21,12 @@ namespace AIMP
         using namespace ActionManager;
 
         [System::Serializable]
-        public ref class AimpActionManager :
-            public AimpBaseManager<IAIMPServiceActionManager>,
+        public ref class AimpServiceActionManager :
+            public BaseAimpService<IAIMPServiceActionManager>,
             public IAimpServiceActionManager
         {
         public:
-            explicit AimpActionManager(ManagedAimpCore^ core);
+            explicit AimpServiceActionManager(ManagedAimpCore^ core);
 
             virtual AimpActionResult GetById(String^ id, IAimpAction^% action);
 
@@ -37,6 +37,9 @@ namespace AIMP
             virtual AimpActionResult Register(Generic::ICollection<IAimpAction^>^ actions);
 
             virtual IAimpAction^ CreateAction();
+
+        protected:
+            IAIMPServiceActionManager* GetAimpService() override;
         };
     }
 }

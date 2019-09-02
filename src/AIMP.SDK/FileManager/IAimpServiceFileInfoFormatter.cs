@@ -13,7 +13,7 @@ namespace AIMP.SDK.FileManager
     /// <summary>
     /// Service provides an ability to format file information with specified template.
     /// </summary>
-    public interface IAimpServiceFileInfoFormatter
+    public interface IAimpServiceFileInfoFormatter : IAimpService
     {
         /// <summary>
         /// Formats the specified template.

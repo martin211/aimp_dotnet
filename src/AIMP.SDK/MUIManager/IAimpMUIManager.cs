@@ -14,7 +14,7 @@ namespace AIMP.SDK.MUIManager
     /// MUI manager.
     /// </summary>
     // ReSharper disable InconsistentNaming
-    public interface IAimpMUIManager
+    public interface IAimpMUIManager : IAimpService
         // ReSharper restore InconsistentNaming
     {
         /// <summary>

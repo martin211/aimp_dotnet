@@ -19,11 +19,11 @@ namespace AIMP
         using namespace System;
         using namespace FileManager;
 
-        public ref class AimpServiceFileStreaming : public AimpBaseManager<IAIMPServiceFileStreaming>,
+        public ref class AimpServiceFileStreaming : public BaseAimpService<IAIMPServiceFileStreaming>,
                                                     public IAimpServiceFileStreaming
         {
         public:
-            AimpServiceFileStreaming(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceFileStreaming>(core)
+            AimpServiceFileStreaming(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceFileStreaming>(core)
             {
             }
 
@@ -32,6 +32,8 @@ namespace AIMP
 
             virtual AimpActionResult CreateStreamForFileUri(String^ fileUrl, IAimpVirtualFile^% virtualFile,
                                                             IAimpStream^% stream);
+        protected:
+            IAIMPServiceFileStreaming* GetAimpService() override;
         };
     }
 }

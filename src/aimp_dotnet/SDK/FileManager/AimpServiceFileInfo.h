@@ -21,7 +21,7 @@ namespace AIMP
         using namespace IO;
         using namespace FileManager;
 
-        public ref class AimpServiceFileInfo : public AimpBaseManager<IAIMPServiceFileInfo>, public IAimpServiceFileInfo
+        public ref class AimpServiceFileInfo : public BaseAimpService<IAIMPServiceFileInfo>, public IAimpServiceFileInfo
         {
         public:
             AimpServiceFileInfo(ManagedAimpCore^ core);
@@ -33,6 +33,8 @@ namespace AIMP
                                                            IAimpFileInfo^% fileInfo);
 
             virtual AimpActionResult GetVirtualFile(String^ fileUri, IAimpVirtualFile^% virtualFile);
+        protected:
+            IAIMPServiceFileInfo* GetAimpService() override;
         };
     }
 }

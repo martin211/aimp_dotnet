@@ -18,7 +18,7 @@ namespace AIMP.SDK.FileManager
     /// <summary>
     /// Provide access to get information about virtual file.
     /// </summary>
-    public interface IAimpServiceFileInfo
+    public interface IAimpServiceFileInfo : IAimpService
     {
         /// <summary>
         /// Gets the file information from virtual file.

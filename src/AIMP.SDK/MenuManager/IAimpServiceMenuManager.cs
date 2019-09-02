@@ -83,7 +83,7 @@ namespace AIMP.SDK.MenuManager
     /// <summary>
     /// Menu manager interface.
     /// </summary>
-    public interface IAimpServiceMenuManager
+    public interface IAimpServiceMenuManager : IAimpService
     {
         AimpActionResult CreateMenuItem(out IAimpMenuItem item);
 

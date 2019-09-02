@@ -16,33 +16,33 @@
 using namespace AIMP::SDK;
 
 AimpServiceSynchronizer::
-AimpServiceSynchronizer(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceSynchronizer>(core)
+AimpServiceSynchronizer(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceSynchronizer>(core)
 {
 }
 
 AimpActionResult AimpServiceSynchronizer::ExecuteInMainThread(IAimpTask^ task, bool executeNow)
 {
-    IAIMPServiceSynchronizer* service = nullptr;
+    IAIMPServiceSynchronizer* service = GetAimpService();
 
     try
     {
-        if (GetService(IID_IAIMPServiceSynchronizer, &service) == AimpActionResult::OK)
+        if (service != nullptr)
         {
-            if (service != nullptr)
-            {
-                InternalAimpTask* internalTask = new InternalAimpTask(task);
-                return CheckResult(service->ExecuteInMainThread(internalTask, BOOL(executeNow)));
-            }
+            InternalAimpTask* internalTask = new InternalAimpTask(task);
+            return CheckResult(service->ExecuteInMainThread(internalTask, BOOL(executeNow)));
         }
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
 
     return AimpActionResult::Fail;
+}
+
+IAIMPServiceSynchronizer* AimpServiceSynchronizer::GetAimpService()
+{
+    IAIMPServiceSynchronizer* service = nullptr;
+    GetService(IID_IAIMPServiceSynchronizer, &service);
+    return service;
 }
