@@ -13,8 +13,8 @@
 	<license type="file">LICENSE.md</license>
   </metadata>
   <files>
-    <file src="src\Tools\CopyPlugin.ps1" target="content\CopyPlugin.ps1" />
-    <file src="src\Tools\commands.json" target="content\commands.json" />
+    <file src="Tools\CopyPlugin.ps1" target="content\CopyPlugin.ps1" />
+    <file src="Tools\commands.json" target="content\commands.json" />
     <file src="src\$configuration$\AIMP.SDK.dll" target="lib\net462\AIMP.SDK.dll" />
     <file src="src\$configuration$\aimp_dotnet.dll" target="lib\net462\aimp_dotnet.dll" />
     <file src="LICENSE.md" target="" />
