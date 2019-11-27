@@ -4,8 +4,8 @@ branches:
   master:
     regex: master
     mode: ContinuousDelivery
-    tag: ''
-    increment: Patch
+    tag: stable
+    increment: None
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
     tracks-release-branches: false
