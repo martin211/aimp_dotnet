@@ -24,14 +24,13 @@ AimpMenuItem::AimpMenuItem(IAIMPMenuItem* menuItem) : AimpObject(menuItem)
     _onShowEvent = nullptr;
 }
 
-AimpMenuItem::~AimpMenuItem()
+void AimpMenuItem::FreeResources()
 {
     _onExecuteHandler = nullptr;
     _onExecuteEvent = nullptr;
     _showHandler.Free();
     _executeHandler.Free();
 }
-
 
 String^ AimpMenuItem::Custom::get()
 {

@@ -15,16 +15,6 @@
 
 using namespace AIMP::SDK;
 
-AimpDataStorage::!AimpDataStorage()
-{
-    InternalAimpObject->Release();
-}
-
-AimpDataStorage::~AimpDataStorage()
-{
-    this->!AimpDataStorage();
-}
-
 AimpActionResult AimpDataStorage::GetProperties(IAIMPPropertyList** properties)
 {
     IAIMPPropertyList* prop = nullptr;

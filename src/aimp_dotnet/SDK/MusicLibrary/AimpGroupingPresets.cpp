@@ -20,16 +20,6 @@ AimpGroupingPresets::AimpGroupingPresets(IAIMPMLGroupingPresets* aimpObject) : A
     _internalProvider = nullptr;
 }
 
-AimpGroupingPresets::~AimpGroupingPresets()
-{
-    this->!AimpGroupingPresets();
-}
-
-AimpGroupingPresets::!AimpGroupingPresets()
-{
-    InternalAimpObject->Release();
-}
-
 AimpActionResult AimpGroupingPresets::Add(String^ id, String^ name, String^ fieldName,
                                           IAimpGroupingPresetStandard^% preset)
 {

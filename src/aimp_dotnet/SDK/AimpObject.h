@@ -23,10 +23,26 @@ public:
     AimpObject(TAimpObject *aimpObject) : _aimpObject(aimpObject)
     {
     }
+
+    !AimpObject()
+    {
+        FreeResources();
+        _aimpObject->Release();
+    }
+
+    ~AimpObject()
+    {
+        this->!AimpObject();
+    }
 protected:
     AIMP::SDK::AimpActionResult CheckResult(HRESULT result)
     {
         return Utils::CheckResult(result);
+    }
+
+    virtual void FreeResources()
+    {
+        
     }
 internal:
     property TAimpObject *InternalAimpObject

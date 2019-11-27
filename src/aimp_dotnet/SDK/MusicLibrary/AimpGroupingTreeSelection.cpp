@@ -18,16 +18,6 @@ AimpGroupingTreeSelection::AimpGroupingTreeSelection(IAIMPMLGroupingTreeSelectio
 {
 }
 
-AimpGroupingTreeSelection::~AimpGroupingTreeSelection()
-{
-    this->!AimpGroupingTreeSelection();
-}
-
-AimpGroupingTreeSelection::!AimpGroupingTreeSelection()
-{
-    InternalAimpObject->Release();
-}
-
 int AimpGroupingTreeSelection::GetCount()
 {
     return InternalAimpObject->GetCount();

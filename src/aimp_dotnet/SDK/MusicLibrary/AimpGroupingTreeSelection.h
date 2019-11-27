@@ -26,10 +26,6 @@ namespace AIMP
         public:
             explicit AimpGroupingTreeSelection(IAIMPMLGroupingTreeSelection* aimpObject);
 
-            ~AimpGroupingTreeSelection();
-
-            !AimpGroupingTreeSelection();
-
             virtual int GetCount();
 
             virtual AimpActionResult GetValue(int index, String^% fieldName, Object^% value);

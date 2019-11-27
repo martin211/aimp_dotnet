@@ -33,10 +33,6 @@ namespace AIMP
         public:
             explicit AimpGroupingPresets(IAIMPMLGroupingPresets* aimpObject);
 
-            ~AimpGroupingPresets();
-
-            !AimpGroupingPresets();
-
             virtual AimpActionResult Add(String^ id, String^ name, IAimpGroupingTreeDataProvider^ provider,
                                          IAimpGroupingPreset^% preset);
 

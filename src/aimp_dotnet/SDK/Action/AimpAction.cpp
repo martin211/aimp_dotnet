@@ -137,14 +137,14 @@ void AimpAction::OnExecute::raise(Object^ sender, EventArgs^ args)
     }
 }
 
-AimpAction::~AimpAction()
-{
-    _executeHandler.Free();
-}
-
 void AimpAction::Execute(const gcroot<IAimpActionEvent^> sender, IUnknown* data)
 {
     Object^ obj = sender;
     AimpAction^ action = dynamic_cast<AimpAction^>(obj);
     action->OnExecute(obj, EventArgs::Empty);
+}
+
+void AimpAction::FreeResources()
+{
+    _executeHandler.Free();
 }
