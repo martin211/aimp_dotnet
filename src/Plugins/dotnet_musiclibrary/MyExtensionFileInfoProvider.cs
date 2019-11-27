@@ -30,7 +30,7 @@ namespace AIMP.DotNet.MusicLibrary
         //{
         //    fileInfo.Artist = "test";
         //    //fileInfo = null;
-        //    return AimpActionResult.Ok;
+        //    return AimpActionResult.OK;
         //}
 
         public AimpActionResult GetFileInfo(IAimpString fileUri, ref IAimpFileInfo fileInfo)

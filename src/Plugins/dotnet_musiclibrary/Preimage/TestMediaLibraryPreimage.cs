@@ -52,17 +52,17 @@ namespace AIMP.DotNet.MusicLibrary.Preimage
 
         public AimpActionResult ConfigLoad(IAimpStream stream)
         {
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult ConfigSave(IAimpStream stream)
         {
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult ExecuteDialog(IntPtr ownerHandle)
         {
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public void Initialize(IAimpPlaylistPreimageListener listener)
@@ -78,13 +78,13 @@ namespace AIMP.DotNet.MusicLibrary.Preimage
         public AimpActionResult GetFilter(out IAimpDataFieldFilter filter)
         {
             filter = null;
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult GetStorage(out IAimpDataStorage storage)
         {
             storage = null;
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult GetFiles(IAimpTaskOwner owner, out int preimageFlags, out IList dataList)
@@ -95,7 +95,7 @@ namespace AIMP.DotNet.MusicLibrary.Preimage
                 Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)
             };
 
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
     }
 }

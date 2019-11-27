@@ -37,21 +37,21 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 
             if (count > 0)
             {
-                if (selection.GetValue(0, out name, out value) == AimpActionResult.Ok)
+                if (selection.GetValue(0, out name, out value) == AimpActionResult.OK)
                 {
-                    return AimpActionResult.Ok;
+                    return AimpActionResult.OK;
                 }
             }
 
             data = new CustomAimpGroupingTreeDataProviderSelection();
 
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult GetFieldForAlphabeticIndex(out string fieldName)
         {
             fieldName = "Test";
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
     }
 }

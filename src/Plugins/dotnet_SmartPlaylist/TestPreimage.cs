@@ -50,18 +50,18 @@ namespace Aimp.DotNet.SmartPlaylist
 
         public AimpActionResult ConfigLoad(IAimpStream stream)
         {
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult ConfigSave(IAimpStream stream)
         {
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult ExecuteDialog(IntPtr ownerHandle)
         {
             MessageBox.Show("!!!");
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public void Initialize(IAimpPlaylistPreimageListener listener)
@@ -82,7 +82,7 @@ namespace Aimp.DotNet.SmartPlaylist
                 Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)
             };
 
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         ~TestPreimage()

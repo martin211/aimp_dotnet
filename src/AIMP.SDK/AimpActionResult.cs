@@ -8,7 +8,6 @@
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
-using System;
 
 namespace AIMP.SDK
 {
@@ -20,13 +19,7 @@ namespace AIMP.SDK
         /// <summary>
         /// Operation successful complete.
         /// </summary>
-        [Obsolete("Use AimpActionResult.OK instead")]
-        Ok = 0x00000000,
-
-        /// <summary>
-        /// Operation successful complete.
-        /// </summary>
-        OK = AimpActionResult.Ok,
+        OK = 0x00000000,
 
         /// <summary>
         /// General access denied error.

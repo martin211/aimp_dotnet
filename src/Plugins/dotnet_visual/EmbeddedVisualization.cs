@@ -40,20 +40,20 @@ namespace dotnet_visual
             Debug.WriteLine("GetMaxDisplaySize");
             width = 100;
             height = 100;
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult GetName(out string name)
         {
             Debug.WriteLine("GetName");
             name = "Test Visualization";
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult Initialize(int width, int height)
         {
             Debug.WriteLine("Initialize");
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public void OnFinalize()

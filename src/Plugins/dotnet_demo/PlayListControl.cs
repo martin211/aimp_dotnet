@@ -69,7 +69,7 @@ namespace DemoPlugin
         public void LoadTracks()
         {
             IList<string> files;
-            if (Utils.CheckResult(_playList.GetFiles(PlaylistGetFilesFlag.All, out files)) == AimpActionResult.Ok)
+            if (Utils.CheckResult(_playList.GetFiles(PlaylistGetFilesFlag.All, out files)) == AimpActionResult.OK)
             {
                 int count = _playList.GetItemCount();
                 for (var i = 0; i < count; i++)

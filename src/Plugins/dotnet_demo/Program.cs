@@ -119,7 +119,7 @@ namespace TestPlugin
         private void CreateMenuWithAction()
         {
             IAimpMenuItem actionMenuItem;
-            if (Player.MenuManager.CreateMenuItem(out actionMenuItem) == AimpActionResult.Ok)
+            if (Player.MenuManager.CreateMenuItem(out actionMenuItem) == AimpActionResult.OK)
             {
 
                 IAimpAction action = Player.ActionManager.CreateAction();

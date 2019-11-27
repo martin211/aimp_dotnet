@@ -24,7 +24,7 @@ namespace dotnet_albumart
         public AimpActionResult Show(IAimpFileInfo fileInfo, out Bitmap image)
         {
             image = Properties.Resources.front;
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         #endregion
@@ -44,7 +44,7 @@ namespace dotnet_albumart
         public AimpActionResult Show(string fileUrl, string artist, string album, out Bitmap image)
         {
             image = Properties.Resources.front;
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         #endregion

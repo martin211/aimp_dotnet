@@ -54,7 +54,7 @@ AimpActionResult AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags fla
                 task
             ));
 
-            if (result == AimpActionResult::Ok)
+            if (result == AimpActionResult::OK)
             {
                 taskId = IntPtr(task);
             }

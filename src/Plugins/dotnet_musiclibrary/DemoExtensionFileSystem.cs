@@ -27,12 +27,12 @@ namespace AIMP.DotNet.MusicLibrary
 
         public AimpActionResult CanProcess(string file)
         {
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult Process(string file)
         {
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
     }
 }

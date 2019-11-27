@@ -25,7 +25,7 @@ namespace AIMP.SDK
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     [Serializable]
-    public class AimpPluginAttribute : Attribute
+    public sealed class AimpPluginAttribute : Attribute
     {
         /// <summary>
         /// Mark AIMP plugin class

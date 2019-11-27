@@ -28,7 +28,7 @@ namespace dotnet_threading
                 System.Threading.Thread.Sleep(TimeSpan.FromSeconds(10));
             }
 
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
     }
 }

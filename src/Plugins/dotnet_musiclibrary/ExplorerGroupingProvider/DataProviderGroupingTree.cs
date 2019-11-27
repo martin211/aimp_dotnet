@@ -51,7 +51,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                 {
                     string fName;
                     object fValue;
-                    if (selection.GetValue(i, out fName, out fValue) == AimpActionResult.Ok)
+                    if (selection.GetValue(i, out fName, out fValue) == AimpActionResult.OK)
                     {
                         IAimpDataFieldFilter fFilter;
                         fValue = fValue.ToString()
@@ -66,7 +66,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                 filter.EndUpdate();
             }
 
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public CapabilitiesFlags GetCapabilities()
@@ -80,7 +80,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
             object outValue;
             data = null;
 
-            if (LogResult(selection.GetValue(0, out outFieldName, out outValue)) == AimpActionResult.Ok)
+            if (LogResult(selection.GetValue(0, out outFieldName, out outValue)) == AimpActionResult.OK)
             {
                 try
                 {
@@ -89,7 +89,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                         var pathParts = outValue.ToString().Split(new[] {"\\"}, StringSplitOptions.RemoveEmptyEntries);
                         var category = (DataStorageCategoryType) Enum.Parse(typeof(DataStorageCategoryType), pathParts[1]);
                         data = new DataProviderGroupingTreeSelection(_dataProviders[category](outValue.ToString()));
-                        return AimpActionResult.Ok;
+                        return AimpActionResult.OK;
                     }
                 }
                 catch (Exception)
@@ -100,14 +100,14 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
 
             data = new DataProviderGroupingTreeSelection(PopulateRoot());
 
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult GetFieldForAlphabeticIndex(out string fieldName)
         {
             System.Diagnostics.Debug.WriteLine("GetFieldForAlphabeticIndex");
             fieldName = string.Empty;
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         private DataProviderGroupingTreeData PopulateRoot()

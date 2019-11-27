@@ -45,7 +45,7 @@ namespace Aimp.DotNet.SmartPlaylist
             for (int i = 0; i < _manager.GetLoadedPlaylistCount(); i++)
             {
                 IAimpPlaylist pl;
-                if (_manager.GetLoadedPlaylist(i, out pl) == AimpActionResult.Ok)
+                if (_manager.GetLoadedPlaylist(i, out pl) == AimpActionResult.OK)
                 {
                     PlAdded(pl);
                 }
@@ -54,7 +54,7 @@ namespace Aimp.DotNet.SmartPlaylist
 
         public AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist)
         {
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist)
@@ -64,7 +64,7 @@ namespace Aimp.DotNet.SmartPlaylist
                 Text = playlist.Name,
                 Tag = playlist.Id
             });
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist)
@@ -74,7 +74,7 @@ namespace Aimp.DotNet.SmartPlaylist
             {
                 listView1.Items.Remove(item);
             }
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         private void PlAdded(IAimpPlaylist pl)
@@ -137,7 +137,7 @@ namespace Aimp.DotNet.SmartPlaylist
             var pl = GetSelectedPlaylist();
             if (pl != null)
             {
-                if (_manager.GetPreimageFactoryByID(Constants.PreimageFactory.FoldersId, out var factory) == AimpActionResult.Ok)
+                if (_manager.GetPreimageFactoryByID(Constants.PreimageFactory.FoldersId, out var factory) == AimpActionResult.OK)
                 {
                     factory.CreatePreimage(out var preimage);
                     if (preimage is IAimpPlaylistPreimageFolders filePreimage)
