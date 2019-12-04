@@ -4,8 +4,8 @@ branches:
   master:
     regex: master
     mode: ContinuousDelivery
-    tag: ''
-    increment: Patch
+    tag: stable
+    increment: None
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
     tracks-release-branches: false
@@ -14,7 +14,7 @@ branches:
     regex: releases?[/-]
     mode: ContinuousDelivery
     tag: beta
-    increment: Patch
+    increment: None
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
     tracks-release-branches: false
@@ -22,8 +22,8 @@ branches:
   feature:
     regex: features?[/-]
     mode: ContinuousDelivery
-    tag: useBranchName
-    increment: Inherit
+    tag: alpha
+    increment: None
     prevent-increment-of-merged-branch-version: false
     track-merge-target: false
     tracks-release-branches: false
@@ -31,8 +31,8 @@ branches:
   develop:
     regex: dev(elop)?(ment)?$
     mode: ContinuousDeployment
-    tag: unstable
-    increment: Minor
+    tag: beta
+    increment: None
     prevent-increment-of-merged-branch-version: false
     track-merge-target: true
     tracks-release-branches: true

@@ -27,7 +27,6 @@ public:
     !AimpObject()
     {
         FreeResources();
-        _aimpObject->Release();
     }
 
     ~AimpObject()

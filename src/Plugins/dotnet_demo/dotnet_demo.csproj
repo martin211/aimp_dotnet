@@ -64,6 +64,13 @@
     <Compile Include="LoggerForm.Designer.cs">
       <DependentUpon>LoggerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="OptionsFrame\AimpOptionsDialogFrame.cs" />
+    <Compile Include="OptionsFrame\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionsFrame\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PlayerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +156,7 @@
       <Name>aimp_dotnet</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
