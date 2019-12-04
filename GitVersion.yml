@@ -21,7 +21,7 @@ branches:
     is-release-branch: true
   feature:
     regex: features?[/-]
-    mode: ContinuousDelivery
+    mode: ContinuousDeployment
     tag: alpha
     increment: None
     prevent-increment-of-merged-branch-version: false
