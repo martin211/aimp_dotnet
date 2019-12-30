@@ -18,7 +18,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
         public AimpActionResult GetDisplayValue(out string displayValue)
         {
             displayValue = "Test value";
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public GroupingTreeNodeFlags GetFlags()
@@ -29,7 +29,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
         public AimpActionResult GetImageIndex(out FieldImageIndex imageIndex)
         {
             imageIndex = FieldImageIndex.AIMPML_FIELDIMAGE_FOLDER;
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult GetValue(out string fieldName, out object value)
@@ -37,7 +37,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
             fieldName = "fn";
             value = 1;
 
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public bool NextRow()

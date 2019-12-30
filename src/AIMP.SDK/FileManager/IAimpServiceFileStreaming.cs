@@ -21,7 +21,7 @@ namespace AIMP.SDK.FileManager
         AIMP_SERVICE_FILESTREAMING_FLAG_MAPTOMEMORY = 4
     }
 
-    public interface IAimpServiceFileStreaming
+    public interface IAimpServiceFileStreaming : IAimpService
     {
         AimpActionResult CreateStreamForFile(string fileName, FileStreamingType flags, long offset, long size,
             out IAimpStream stream);

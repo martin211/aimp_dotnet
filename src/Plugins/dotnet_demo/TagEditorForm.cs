@@ -23,7 +23,7 @@ namespace DemoPlugin
 
             var fileName = item.FileName;
             fileName = fileName.EndsWith(":0") ? fileName.Replace(":0", string.Empty) : fileName;
-            if (player.ServiceFileTagEditor.EditFile(fileName, out var editor) == AimpActionResult.Ok)
+            if (player.ServiceFileTagEditor.EditFile(fileName, out var editor) == AimpActionResult.OK)
             {
                 if (editor.GetMixedInfo(out var fileInfo) == AimpActionResult.OK)
                 {

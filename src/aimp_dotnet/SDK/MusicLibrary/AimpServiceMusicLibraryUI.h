@@ -20,7 +20,7 @@ namespace AIMP
         using namespace MusicLibrary;
 
         public ref class AimpServiceMusicLibraryUI :
-            public AimpBaseManager<IAIMPServiceMusicLibraryUI>,
+            public BaseAimpService<IAIMPServiceMusicLibraryUI>,
             public IAimpServiceMusicLibraryUI
         {
         public:
@@ -33,6 +33,8 @@ namespace AIMP
             virtual AimpActionResult GetGroupingFilterPath(String^% path);
 
             virtual AimpActionResult SetGroupingFilterPath(String^ path);
+        protected:
+            IAIMPServiceMusicLibraryUI* GetAimpService() override;
         };
     }
 }

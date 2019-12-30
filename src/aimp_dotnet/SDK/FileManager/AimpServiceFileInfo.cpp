@@ -15,21 +15,20 @@
 
 using namespace AIMP::SDK;
 
-AimpServiceFileInfo::AimpServiceFileInfo(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceFileInfo>(core)
+AimpServiceFileInfo::AimpServiceFileInfo(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceFileInfo>(core)
 {
 }
 
-AimpActionResult AimpServiceFileInfo::GetFileInfoFromFileUri(String^ fileUri, ServiceFileInfoFlags fileInfoFlags,
-                                                             IAimpFileInfo^% fileInfo)
+AimpActionResult AimpServiceFileInfo::GetFileInfoFromFileUri(String^ fileUri, ServiceFileInfoFlags fileInfoFlags, IAimpFileInfo^% fileInfo)
 {
-    IAIMPServiceFileInfo* service = nullptr;
+    IAIMPServiceFileInfo* service = GetAimpService();
     IAIMPString* str = nullptr;
     AimpActionResult result = AimpActionResult::Fail;
     fileInfo = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceFileInfo, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             IAIMPFileInfo* fi = nullptr;
             str = AimpConverter::ToAimpString(fileUri);
@@ -43,32 +42,22 @@ AimpActionResult AimpServiceFileInfo::GetFileInfoFromFileUri(String^ fileUri, Se
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
-
-        if (str != nullptr)
-        {
-            str->Release();
-            str = nullptr;
-        }
+        ReleaseObject(service);
+        ReleaseObject(str);
     }
 
     return result;
 }
 
-AimpActionResult AimpServiceFileInfo::GetFileInfoFromStream(IAimpStream^ fileStream, ServiceFileInfoFlags fileInfoFlags,
-                                                            IAimpFileInfo^% fileInfo)
+AimpActionResult AimpServiceFileInfo::GetFileInfoFromStream(IAimpStream^ fileStream, ServiceFileInfoFlags fileInfoFlags, IAimpFileInfo^% fileInfo)
 {
-    IAIMPServiceFileInfo* service = nullptr;
+    IAIMPServiceFileInfo* service = GetAimpService();
     AimpActionResult result = AimpActionResult::Fail;
     fileInfo = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceFileInfo, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             IAIMPFileInfo* fi = nullptr;
             result = CheckResult(service->GetFileInfoFromStream(
@@ -84,11 +73,7 @@ AimpActionResult AimpServiceFileInfo::GetFileInfoFromStream(IAimpStream^ fileStr
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
 
     return result;
@@ -96,16 +81,16 @@ AimpActionResult AimpServiceFileInfo::GetFileInfoFromStream(IAimpStream^ fileStr
 
 AimpActionResult AimpServiceFileInfo::GetVirtualFile(String^ fileUri, IAimpVirtualFile^% virtualFile)
 {
-    IAIMPServiceFileInfo* service = nullptr;
+    IAIMPServiceFileInfo* service = GetAimpService();
     IAIMPString* str = nullptr;
     AimpActionResult result = AimpActionResult::Fail;
     virtualFile = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceFileInfo, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
-            IAIMPVirtualFile* vf;
+            IAIMPVirtualFile* vf = nullptr;
             str = AimpConverter::ToAimpString(fileUri);
             result = CheckResult(service->GetVirtualFile(str, 0, &vf));
 
@@ -117,18 +102,16 @@ AimpActionResult AimpServiceFileInfo::GetVirtualFile(String^ fileUri, IAimpVirtu
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
-
-        if (str != nullptr)
-        {
-            str->Release();
-            str = nullptr;
-        }
+        ReleaseObject(service);
+        ReleaseObject(str); 
     }
 
     return result;
+}
+
+IAIMPServiceFileInfo* AimpServiceFileInfo::GetAimpService()
+{
+    IAIMPServiceFileInfo* service = nullptr;
+    GetService(IID_IAIMPServiceFileInfo, &service);
+    return service;
 }

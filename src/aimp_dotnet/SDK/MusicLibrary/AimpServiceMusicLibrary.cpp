@@ -18,13 +18,13 @@ using namespace AIMP::SDK;
 
 AimpActionResult AimpServiceMusicLibrary::GetActiveStorage(IAimpDataStorage^% storage)
 {
-    IAIMPServiceMusicLibrary* service = nullptr;
+    IAIMPServiceMusicLibrary* service = GetAimpService();
     AimpActionResult result = AimpActionResult::Fail;
     storage = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             IAIMPMLDataStorage* aimpStorage = nullptr;
             result = CheckResult(
@@ -37,11 +37,7 @@ AimpActionResult AimpServiceMusicLibrary::GetActiveStorage(IAimpDataStorage^% st
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
 
     return result;
@@ -49,13 +45,13 @@ AimpActionResult AimpServiceMusicLibrary::GetActiveStorage(IAimpDataStorage^% st
 
 AimpActionResult AimpServiceMusicLibrary::GetActiveStorage(IAimpGroupingPresets^% presets)
 {
-    IAIMPServiceMusicLibrary* service = nullptr;
+    IAIMPServiceMusicLibrary* service = GetAimpService();
     AimpActionResult result = AimpActionResult::Fail;
     presets = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             IAIMPMLGroupingPresets* aimpPresets = nullptr;
             result = CheckResult(
@@ -68,11 +64,7 @@ AimpActionResult AimpServiceMusicLibrary::GetActiveStorage(IAimpGroupingPresets^
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
 
     return result;
@@ -80,13 +72,13 @@ AimpActionResult AimpServiceMusicLibrary::GetActiveStorage(IAimpGroupingPresets^
 
 AimpActionResult AimpServiceMusicLibrary::SetActiveStorage(IAimpDataStorage^ storage)
 {
-    IAIMPServiceMusicLibrary* service = nullptr;
-    AimpActionResult result = AimpActionResult::Fail;
+    IAIMPServiceMusicLibrary* service = GetAimpService();
+    const AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
         // TODO complete it
-        if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             IAIMPMLGroupingPresets* storage;
             //result = CheckResult(service->SetActiveStorage(IID_IAIMPMLGroupingPresets));
@@ -94,11 +86,7 @@ AimpActionResult AimpServiceMusicLibrary::SetActiveStorage(IAimpDataStorage^ sto
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
 
     return result;
@@ -106,13 +94,13 @@ AimpActionResult AimpServiceMusicLibrary::SetActiveStorage(IAimpDataStorage^ sto
 
 AimpActionResult AimpServiceMusicLibrary::SetActiveStorage(IAimpGroupingPresets^ preset)
 {
-    IAIMPServiceMusicLibrary* service = nullptr;
-    AimpActionResult result = AimpActionResult::Fail;
+    IAIMPServiceMusicLibrary* service = GetAimpService();
+    const AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
         // TODO complete it
-        if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             IAIMPMLGroupingPresets* storage;
             //result = CheckResult(service->SetActiveStorage(IID_IAIMPMLGroupingPresets));
@@ -120,11 +108,7 @@ AimpActionResult AimpServiceMusicLibrary::SetActiveStorage(IAimpGroupingPresets^
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
 
     return result;
@@ -132,13 +116,13 @@ AimpActionResult AimpServiceMusicLibrary::SetActiveStorage(IAimpGroupingPresets^
 
 AimpActionResult AimpServiceMusicLibrary::GetStorage(int index, IAimpDataStorage^% storage)
 {
-    IAIMPServiceMusicLibrary* service = nullptr;
+    IAIMPServiceMusicLibrary* service = GetAimpService();
     AimpActionResult result = AimpActionResult::Fail;
     storage = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             IAIMPMLDataStorage* aimpStorage = nullptr;
             result = CheckResult(service->GetStorage(index, IID_IAIMPMLDataStorage,
@@ -151,11 +135,7 @@ AimpActionResult AimpServiceMusicLibrary::GetStorage(int index, IAimpDataStorage
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
 
     return result;
@@ -163,12 +143,12 @@ AimpActionResult AimpServiceMusicLibrary::GetStorage(int index, IAimpDataStorage
 
 AimpActionResult AimpServiceMusicLibrary::GetStorage(int index, IAimpGroupingPresets^% storage)
 {
-    IAIMPServiceMusicLibrary* service = nullptr;
+    IAIMPServiceMusicLibrary* service = GetAimpService();
     AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
-        if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             IAIMPMLGroupingPresets* aimpPresets = nullptr;
             result = CheckResult(service->GetStorage(index, IID_IAIMPMLGroupingPresets,
@@ -182,11 +162,7 @@ AimpActionResult AimpServiceMusicLibrary::GetStorage(int index, IAimpGroupingPre
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
 
     return result;
@@ -194,14 +170,14 @@ AimpActionResult AimpServiceMusicLibrary::GetStorage(int index, IAimpGroupingPre
 
 AimpActionResult AimpServiceMusicLibrary::GetStorageById(String^ id, IAimpDataStorage^% storage)
 {
-    IAIMPServiceMusicLibrary* service = nullptr;
+    IAIMPServiceMusicLibrary* service = GetAimpService();
     AimpActionResult result = AimpActionResult::Fail;
     IAIMPString* aimpId = nullptr;
     storage = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             IAIMPMLDataStorage* aimpStorage = nullptr;
             aimpId = AimpConverter::ToAimpString(id);
@@ -216,11 +192,7 @@ AimpActionResult AimpServiceMusicLibrary::GetStorageById(String^ id, IAimpDataSt
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            aimpId->Release();
-        }
+        ReleaseObject(service);
     }
 
     return result;
@@ -228,14 +200,14 @@ AimpActionResult AimpServiceMusicLibrary::GetStorageById(String^ id, IAimpDataSt
 
 AimpActionResult AimpServiceMusicLibrary::GetStorageById(String^ id, IAimpGroupingPresets^% storage)
 {
-    IAIMPServiceMusicLibrary* service = nullptr;
+    IAIMPServiceMusicLibrary* service = GetAimpService();
     AimpActionResult result = AimpActionResult::Fail;
     IAIMPString* aimpId = nullptr;
     storage = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             IAIMPMLGroupingPresets* aimpStorage = nullptr;
             aimpId = AimpConverter::ToAimpString(id);
@@ -250,11 +222,7 @@ AimpActionResult AimpServiceMusicLibrary::GetStorageById(String^ id, IAimpGroupi
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            aimpId->Release();
-        }
+        ReleaseObject(service);
     }
 
     return result;
@@ -262,23 +230,26 @@ AimpActionResult AimpServiceMusicLibrary::GetStorageById(String^ id, IAimpGroupi
 
 int AimpServiceMusicLibrary::GetStorageCount()
 {
-    IAIMPServiceMusicLibrary* service = nullptr;
+    IAIMPServiceMusicLibrary* service = GetAimpService();
 
     try
     {
-        if (GetService(IID_IAIMPServiceMusicLibrary, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             return service->GetStorageCount();
         }
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
 
     return 0;
+}
+
+IAIMPServiceMusicLibrary* AimpServiceMusicLibrary::GetAimpService()
+{
+    IAIMPServiceMusicLibrary* service = nullptr;
+    GetService(IID_IAIMPServiceMusicLibrary, &service);
+    return service;
 }

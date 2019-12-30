@@ -13,7 +13,7 @@ namespace AIMP.SDK.Threading
     /// <summary>
     /// This service provides an ability to run specified task in main thread of the application.
     /// </summary>
-    public interface IAimpServiceSynchronizer
+    public interface IAimpServiceSynchronizer : IAimpService
     {
         /// <summary>
         /// Executes the in main thread.

@@ -101,10 +101,6 @@ namespace AIMP
         public:
             explicit AimpPlayList(IAIMPPlaylist* aimpPlayList);
 
-            ~AimpPlayList();
-
-            !AimpPlayList();
-
             virtual property String^ Id
             {
                 String^ get();
@@ -373,6 +369,10 @@ namespace AIMP
             int OnSortReceive(IAIMPPlaylistItem* item1, IAIMPPlaylistItem* item2, void* userData);
 
             bool OnDeleteReceive(IAIMPPlaylistItem* item1, void* customFilterData);
+
+        protected:
+
+            void FreeResources() override;
         };
     }
 }

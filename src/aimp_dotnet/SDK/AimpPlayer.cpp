@@ -13,6 +13,11 @@
 #include "AimpPlayer.h"
 #include "Playback/AimpPlaybackQueueItem.h"
 #include "Lyrics/AimpServiceLyrics.h"
+#include "SDK/Action/AimpServiceActionManager.h"
+#include "AlbumArt/AimpServiceAlbumArtCache.h"
+#include "FileManager/AimpServiceFileInfoFormatter.h"
+#include "MUI/AimpServiceMUI.h"
+#include "Menu/AimpServiceMenuManager.h"
 
 using namespace AIMP;
 using namespace SDK;
@@ -44,6 +49,8 @@ AimpPlayer::~AimpPlayer()
     delete _serviceMusicLibraryUi;
     delete _serviceFileFormats;
     delete _serviceFileInfo;
+    delete _serviceFileInfoFormatter;
+    delete _serviceAlbumArtCache;
 }
 
 IAimpCore^ AimpPlayer::Core::get()
@@ -51,11 +58,11 @@ IAimpCore^ AimpPlayer::Core::get()
     return _aimpCore;
 }
 
-IAimpServiceMenuManager^ AimpPlayer::MenuManager::get()
+MenuManager::IAimpServiceMenuManager^ AimpPlayer::MenuManager::get()
 {
     if (_menuManager == nullptr)
     {
-        _menuManager = gcnew AimpMenuManager(_managedAimpCore);
+        _menuManager = gcnew AimpServiceMenuManager(_managedAimpCore);
     }
     return _menuManager;
 }
@@ -64,7 +71,7 @@ IAimpServiceActionManager^ AimpPlayer::ActionManager::get()
 {
     if (_actionManager == nullptr)
     {
-        _actionManager = gcnew AimpActionManager(static_cast<ManagedAimpCore^>(_managedAimpCore));
+        _actionManager = gcnew AimpServiceActionManager(_managedAimpCore);
     }
     return _actionManager;
 }
@@ -73,7 +80,7 @@ IAimpMUIManager^ AimpPlayer::MUIManager::get()
 {
     if (_muiManager == nullptr)
     {
-        _muiManager = gcnew AimpMIUManager(static_cast<ManagedAimpCore^>(_managedAimpCore));
+        _muiManager = gcnew AimpServiceMUI(_managedAimpCore);
     }
     return _muiManager;
 }
@@ -82,7 +89,7 @@ IAimpAlbumArtManager^ AimpPlayer::AlbumArtManager::get()
 {
     if (_artManager == nullptr)
     {
-        _artManager = gcnew AimpAlbumArtManager(static_cast<ManagedAimpCore^>(_managedAimpCore));
+        _artManager = gcnew AimpServiceAlbumArt(_managedAimpCore);
     }
     return _artManager;
 }
@@ -91,8 +98,8 @@ IAimpServiceConfig^ AimpPlayer::ServiceConfig::get()
 {
     if (_serviceConfig == nullptr)
     {
-        IAIMPServiceConfig* config = static_cast<IAIMPServiceConfig*>(_managedAimpCore->QueryInterface(IID_IAIMPServiceConfig));
-        _serviceConfig = gcnew AimpServiceConfig(config);
+        //IAIMPServiceConfig* config = static_cast<IAIMPServiceConfig*>(_managedAimpCore->QueryInterface(IID_IAIMPServiceConfig));
+        _serviceConfig = gcnew AimpServiceConfig(_managedAimpCore);
     }
     return _serviceConfig;
 }
@@ -101,7 +108,7 @@ IAimpPlaylistManager2^ AimpPlayer::PlaylistManager::get()
 {
     if (_playListManager == nullptr)
     {
-        _playListManager = gcnew PlayListManager(static_cast<ManagedAimpCore^>(_managedAimpCore));
+        _playListManager = gcnew AimpServicePlaylistManager(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }
     return _playListManager;
 }
@@ -282,7 +289,7 @@ IAimpServiceSynchronizer^ AimpPlayer::ServiceSynchronizer::get()
 {
     if (_serviceSynchronizer == nullptr)
     {
-        _serviceSynchronizer = gcnew AimpServiceSynchronizer(static_cast<ManagedAimpCore^>(_managedAimpCore));
+        _serviceSynchronizer = gcnew AimpServiceSynchronizer(_managedAimpCore);
     }
 
     return _serviceSynchronizer;
@@ -292,7 +299,7 @@ IAimpServiceThreadPool^ AimpPlayer::ServiceThreadPool::get()
 {
     if (_serviceThreadPool == nullptr)
     {
-        _serviceThreadPool = gcnew AimpServiceThreadPool(static_cast<ManagedAimpCore^>(_managedAimpCore));
+        _serviceThreadPool = gcnew AimpServiceThreadPool(_managedAimpCore);
     }
 
     return _serviceThreadPool;
@@ -302,7 +309,7 @@ IAimpServiceMusicLibrary^ AimpPlayer::ServiceMusicLibrary::get()
 {
     if (_serviceMusicLibrary == nullptr)
     {
-        _serviceMusicLibrary = gcnew AIMP::SDK::AimpServiceMusicLibrary(static_cast<ManagedAimpCore^>(_managedAimpCore));
+        _serviceMusicLibrary = gcnew AimpServiceMusicLibrary(_managedAimpCore);
     }
     return _serviceMusicLibrary;
 }
@@ -311,7 +318,7 @@ IAimpServiceMusicLibraryUI^ AimpPlayer::ServiceMusicLibraryUi::get()
 {
     if (_serviceMusicLibraryUi == nullptr)
     {
-        _serviceMusicLibraryUi = gcnew AimpServiceMusicLibraryUI(static_cast<ManagedAimpCore^>(_managedAimpCore));
+        _serviceMusicLibraryUi = gcnew AimpServiceMusicLibraryUI(_managedAimpCore);
     }
     return _serviceMusicLibraryUi;
 }
@@ -320,7 +327,7 @@ IAimpServiceFileFormats^ AimpPlayer::ServiceFileFormats::get()
 {
     if (_serviceFileFormats == nullptr)
     {
-        _serviceFileFormats = gcnew AimpServiceFileFormats(static_cast<ManagedAimpCore^>(_managedAimpCore));
+        _serviceFileFormats = gcnew AimpServiceFileFormats(_managedAimpCore);
     }
     return _serviceFileFormats;
 }
@@ -329,7 +336,7 @@ IAimpServiceFileInfo^ AimpPlayer::ServiceFileInfo::get()
 {
     if (_serviceFileInfo == nullptr)
     {
-        _serviceFileInfo = gcnew AimpServiceFileInfo(static_cast<ManagedAimpCore^>(_managedAimpCore));
+        _serviceFileInfo = gcnew AimpServiceFileInfo(_managedAimpCore);
     }
     return _serviceFileInfo;
 }
@@ -338,7 +345,7 @@ IAimpServiceFileSystems^ AimpPlayer::ServiceFileSystems::get()
 {
     if (_serviceFileSystems == nullptr)
     {
-        _serviceFileSystems = gcnew AimpServiceFileSystems(static_cast<ManagedAimpCore^>(_managedAimpCore));
+        _serviceFileSystems = gcnew AimpServiceFileSystems(_managedAimpCore);
     }
     return _serviceFileSystems;
 }
@@ -347,7 +354,7 @@ IAimpServiceFileStreaming^ AimpPlayer::ServiceFileStreaming::get()
 {
     if (_serviceFileStreaming == nullptr)
     {
-        _serviceFileStreaming = gcnew AimpServiceFileStreaming(static_cast<ManagedAimpCore^>(_managedAimpCore));
+        _serviceFileStreaming = gcnew AimpServiceFileStreaming(_managedAimpCore);
     }
     return _serviceFileStreaming;
 }
@@ -356,6 +363,7 @@ IAimpServiceFileInfoFormatter^ AimpPlayer::ServiceFileInfoFormatter::get()
 {
     if (_serviceFileInfoFormatter == nullptr)
     {
+        _serviceFileInfoFormatter = gcnew AimpServiceFileInfoFormatter(_managedAimpCore);
         //TODO: Complete it
     }
     return _serviceFileInfoFormatter;
@@ -365,7 +373,7 @@ IAimpServiceFileTagEditor^ AimpPlayer::ServiceFileTagEditor::get()
 {
     if (_serviceFileTagEditor == nullptr)
     {
-        _serviceFileTagEditor = gcnew AimpServiceFileTagEditor(static_cast<ManagedAimpCore^>(_managedAimpCore));
+        _serviceFileTagEditor = gcnew AimpServiceFileTagEditor(_managedAimpCore);
     }
 
     return _serviceFileTagEditor;
@@ -384,4 +392,14 @@ IAimpServiceLyrics^ AimpPlayer::ServiceLyrics::get()
     }
 
     return _serviceLyrics;
+}
+
+IAimpServiceAlbumArtCache^ AimpPlayer::ServiceAlbumArtCache::get()
+{
+    if(_serviceAlbumArtCache == nullptr)
+    {
+        _serviceAlbumArtCache = gcnew AimpServiceAlbumArtCache(_managedAimpCore);
+    }
+
+    return _serviceAlbumArtCache;
 }

@@ -19,7 +19,7 @@ namespace AIMP
         using namespace System;
         using namespace FileManager;
 
-        public ref class AimpServiceFileFormats : public AimpBaseManager<IAIMPServiceFileFormats>,
+        public ref class AimpServiceFileFormats : public BaseAimpService<IAIMPServiceFileFormats>,
                                                   public IAimpServiceFileFormats
         {
         public:
@@ -28,6 +28,8 @@ namespace AIMP
             virtual AimpActionResult GetFormats(FileFormats flags, String^% formats);
 
             virtual AimpActionResult IsSupported(String^ fileName, FileFormats flags);
+        protected:
+            IAIMPServiceFileFormats* GetAimpService() override;
         };
     }
 }

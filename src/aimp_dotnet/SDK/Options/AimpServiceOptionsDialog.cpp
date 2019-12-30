@@ -15,19 +15,38 @@
 using namespace AIMP::SDK;
 
 AimpServiceOptionsDialog::
-AimpServiceOptionsDialog(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceOptionsDialog>(core)
-{
-    IAIMPServiceOptionsDialog* service;
-    core->GetService(IID_IAIMPServiceOptionsDialog, reinterpret_cast<void**>(&service));
-    _service = service;
-}
+AimpServiceOptionsDialog(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceOptionsDialog>(core)
+{ }
 
 AimpActionResult AimpServiceOptionsDialog::FrameModified(IAimpOptionsDialogFrame^ frame)
 {
-    return CheckResult(_service->FrameModified(_core->GetOptionsFrame()));
+    auto service = GetAimpService();
+    try
+    {
+        return CheckResult(service->FrameModified(_core->GetOptionsFrame()));
+    }
+    finally
+    {
+        ReleaseObject(service);
+    }
 }
 
 AimpActionResult AimpServiceOptionsDialog::FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow)
 {
-    return CheckResult(_service->FrameShow(_core->GetOptionsFrame(), forceShow));
+    auto service = GetAimpService();
+    try
+    {
+        return CheckResult(service->FrameShow(_core->GetOptionsFrame(), forceShow));
+    }
+    finally
+    {
+        ReleaseObject(service);
+    }
+}
+
+IAIMPServiceOptionsDialog* AimpServiceOptionsDialog::GetAimpService()
+{
+    IAIMPServiceOptionsDialog* service = nullptr;
+    GetService(IID_IAIMPServiceOptionsDialog, &service);
+    return service;
 }

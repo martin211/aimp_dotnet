@@ -18,7 +18,7 @@ namespace AIMP.SDK.AlbumArtManager
     /// Service provides an ability to get album art for specified file or/and album.
     /// AlbumArt search process will run in separate thread, and plugin will receive a notification about the end of operation via callback function.
     /// </summary>
-    public interface IAimpAlbumArtManager : IAimpAlbumArtSearchOptions
+    public interface IAimpAlbumArtManager : IAimpAlbumArtSearchOptions, IAimpService
     {
         /// <summary>
         /// Occurs when search was completed.

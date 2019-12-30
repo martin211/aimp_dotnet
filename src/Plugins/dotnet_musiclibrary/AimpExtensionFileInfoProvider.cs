@@ -21,7 +21,7 @@ namespace AIMP.DotNet.MusicLibrary
         {
             fileInfo = null;
             System.Diagnostics.Debugger.Break();
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult GetFileInfo(IAimpStream stream, ref IAimpFileInfo fileInfo)

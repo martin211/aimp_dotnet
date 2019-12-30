@@ -11,16 +11,14 @@
 
 #pragma once
 
-#include "SDK\Menu\AimpMenuManager.h"
-#include "SDK\Action\AimpActionManager.h"
-#include "SDK\MUI\MUIManager.h"
-#include "SDK\AlbumArt\AimpAlbumArtManager.h"
+#include "SDK\Action\AimpServiceActionManager.h"
+#include "SDK\AlbumArt\AimpServiceAlbumArt.h"
 #include "SDK\Configuration\AimpConfigurationManager.h"
 #include "SDK\FileManager\AimpFileInfo.h"
 #include "SDK\Win32\Win32Manager.h"
 #include "SDK\PlayList\AimpPlayListItem.h"
 #include "SDK\PlayList\AimpPlayList.h"
-#include "SDK\PlayList\PlayListManager.h"
+#include "SDK\PlayList\AimpServicePlaylistManager.h"
 #include "SDK\Playback\AimpServicePlaybackQueue.h"
 #include "SDK\Threading\AimpServiceSynchronizer.h"
 #include "AimpCore.h"
@@ -36,6 +34,7 @@
 #include "SDK\FileManager\AimpServiceFileStreaming.h"
 #include "SDK\MessageDispatcher\AimpServiceMessageDispatcher.h";
 #include "SDK\TagEditor\AimpServiceFileTagEditor.h"
+#include "SDK\Action\AimpServiceActionManager.h";
 
 namespace AIMP
 {
@@ -63,9 +62,9 @@ namespace AIMP
         ManagedAimpCore^ _managedAimpCore;
         IAimpCore^ _aimpCore;
         AimpEventsDelegate^ _coreMessage;
-        IAimpServiceMenuManager^ _menuManager;
+        MenuManager::IAimpServiceMenuManager^ _menuManager;
         IAimpServiceActionManager^ _actionManager;
-        IAimpMUIManager^ _muiManager;
+        MUIManager::IAimpMUIManager^ _muiManager;
         IAimpAlbumArtManager^ _artManager;
         IAimpServiceConfig^ _serviceConfig;
         IWin32Manager^ _win32Manager;
@@ -85,6 +84,7 @@ namespace AIMP
         IAimpServiceMessageDispatcher^ _serviceMessageDispatcher;
         IAimpServiceFileTagEditor^ _serviceFileTagEditor;
         Lyrics::IAimpServiceLyrics^ _serviceLyrics;
+        IAimpServiceAlbumArtCache^ _serviceAlbumArtCache;
     public:
         /// <summary>
         /// Initializes a new instance of the <see cref="AIMP3Controller{TConvAlloc}" /> class.
@@ -108,9 +108,9 @@ namespace AIMP
         /// <summary>
         /// Gets player menu manager.
         /// </summary>
-        virtual property IAimpServiceMenuManager^ MenuManager
+        virtual property MenuManager::IAimpServiceMenuManager^ MenuManager
         {
-            IAimpServiceMenuManager^ get();
+            SDK::MenuManager::IAimpServiceMenuManager^ get();
         }
 
         /// <summary>
@@ -124,9 +124,9 @@ namespace AIMP
         /// <summary>
         /// Gets the MUI manager.
         /// </summary>
-        virtual property IAimpMUIManager^ MUIManager
+        virtual property MUIManager::IAimpMUIManager^ MUIManager
         {
-            IAimpMUIManager^ get();
+            SDK::MUIManager::IAimpMUIManager^ get();
         }
 
         virtual property IAimpAlbumArtManager^ AlbumArtManager
@@ -278,6 +278,11 @@ namespace AIMP
         virtual property Lyrics::IAimpServiceLyrics^ ServiceLyrics
         {
             Lyrics::IAimpServiceLyrics^ get();
+        }
+
+        virtual property IAimpServiceAlbumArtCache^ ServiceAlbumArtCache
+        {
+            IAimpServiceAlbumArtCache^ get();
         }
 
         bool OnCheckUrl(String^ % url);

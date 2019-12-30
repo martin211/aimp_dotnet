@@ -17,20 +17,19 @@
 using namespace AIMP::SDK;
 
 AimpServiceFileTagEditor::
-AimpServiceFileTagEditor(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceFileTagEditor>(core)
+AimpServiceFileTagEditor(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceFileTagEditor>(core)
 {
 }
 
 AimpActionResult AimpServiceFileTagEditor::EditFile(String^ filePath, IAimpFileTagEditor^% editor)
 {
-    IAIMPServiceFileTagEditor* service = nullptr;
+    IAIMPServiceFileTagEditor* service = GetAimpService();
     IAIMPString* str = AimpConverter::ToAimpString(filePath);
     AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
-        result = GetService(IID_IAIMPServiceFileTagEditor, &service);
-        if (result == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             IAIMPFileTagEditor* aimpEditor = nullptr;
             result = CheckResult(service->EditFile(str, IID_IAIMPFileTagEditor, reinterpret_cast<void**>(&aimpEditor)));
@@ -45,32 +44,20 @@ AimpActionResult AimpServiceFileTagEditor::EditFile(String^ filePath, IAimpFileT
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
-
-        if (str != nullptr)
-        {
-            str->Release();
-            str = nullptr;
-        }
+        ReleaseObject(service);
+        ReleaseObject(str);
     }
-
-    return result;
 }
 
 AimpActionResult AimpServiceFileTagEditor::EditFile(IAimpStream^ fileStream, IAimpFileTagEditor^% editor)
 {
-    IAIMPServiceFileTagEditor* service = nullptr;
+    IAIMPServiceFileTagEditor* service = GetAimpService();
     IAIMPStream* stream = static_cast<AimpStream^>(fileStream)->InternalAimpObject;
     AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
-        result = GetService(IID_IAIMPServiceFileTagEditor, &service);
-        if (result == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             IAIMPFileTagEditor* aimpEditor = nullptr;
             result = CheckResult(service->EditFile(stream, IID_IAIMPFileTagEditor,
@@ -81,29 +68,24 @@ AimpActionResult AimpServiceFileTagEditor::EditFile(IAimpStream^ fileStream, IAi
                 editor = gcnew AimpFileTagEditor(aimpEditor);
             }
         }
-
-        return result;
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
+
+    return result;
 }
 
 AimpActionResult AimpServiceFileTagEditor::EditTag(String^ filePath, TagType tag, IAimpFileInfo^% fileInfo)
 {
-    IAIMPServiceFileTagEditor* service = nullptr;
+    IAIMPServiceFileTagEditor* service = GetAimpService();
     IAIMPString* str = AimpConverter::ToAimpString(filePath);
     AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
-        result = GetService(IID_IAIMPServiceFileTagEditor, &service);
-        if (result == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             IAIMPFileInfo* aimpFileInfo = nullptr;
             result = CheckResult(service->EditTag(str, int(tag), IID_IAIMPFileInfo,
@@ -117,17 +99,8 @@ AimpActionResult AimpServiceFileTagEditor::EditTag(String^ filePath, TagType tag
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
-
-        if (str != nullptr)
-        {
-            str->Release();
-            str = nullptr;
-        }
+        ReleaseObject(service);
+        ReleaseObject(str);
     }
 
     return result;
@@ -135,14 +108,13 @@ AimpActionResult AimpServiceFileTagEditor::EditTag(String^ filePath, TagType tag
 
 AimpActionResult AimpServiceFileTagEditor::EditTag(IAimpStream^ fileStream, TagType tag, IAimpFileInfo^% fileInfo)
 {
-    IAIMPServiceFileTagEditor* service = nullptr;
+    IAIMPServiceFileTagEditor* service = GetAimpService();
     IAIMPStream* stream = static_cast<AimpStream^>(fileStream)->InternalAimpObject;
     AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
-        result = GetService(IID_IAIMPServiceFileTagEditor, &service);
-        if (result == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             IAIMPFileInfo* aimpFileInfo = nullptr;
             result = CheckResult(service->EditTag(stream, int(tag), IID_IAIMPFileInfo,
@@ -156,12 +128,15 @@ AimpActionResult AimpServiceFileTagEditor::EditTag(IAimpStream^ fileStream, TagT
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
 
     return result;
+}
+
+IAIMPServiceFileTagEditor* AimpServiceFileTagEditor::GetAimpService()
+{
+    IAIMPServiceFileTagEditor* service = nullptr;
+    GetService(IID_IAIMPServiceFileTagEditor, &service);
+    return service;
 }

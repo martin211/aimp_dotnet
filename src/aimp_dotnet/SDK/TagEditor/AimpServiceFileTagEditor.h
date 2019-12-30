@@ -18,7 +18,7 @@ namespace AIMP
     {
         using namespace TagEditor;
 
-        public ref class AimpServiceFileTagEditor : public AimpBaseManager<IAIMPServiceFileTagEditor>,
+        public ref class AimpServiceFileTagEditor : public BaseAimpService<IAIMPServiceFileTagEditor>,
                                                     public IAimpServiceFileTagEditor
         {
         public:
@@ -31,6 +31,8 @@ namespace AIMP
             virtual AimpActionResult EditTag(String^ filePath, TagType tag, IAimpFileInfo^% fileInfo);
 
             virtual AimpActionResult EditTag(IAimpStream^ fileStream, TagType tag, IAimpFileInfo^% fileInfo);
+        protected:
+            IAIMPServiceFileTagEditor* GetAimpService() override;
         };
     }
 }

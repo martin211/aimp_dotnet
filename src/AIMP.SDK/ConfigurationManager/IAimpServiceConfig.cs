@@ -13,7 +13,7 @@ namespace AIMP.SDK.ConfigurationManager
     /// <summary>
     /// Configuration manager.
     /// </summary>
-    public interface IAimpServiceConfig : IAimpConfig
+    public interface IAimpServiceConfig : IAimpConfig, IAimpService
     {
         /// <summary>
         /// Flushes the cache.

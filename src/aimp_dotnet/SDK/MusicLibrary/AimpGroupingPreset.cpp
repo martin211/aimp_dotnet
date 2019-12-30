@@ -18,16 +18,6 @@ AimpGroupingPreset::AimpGroupingPreset(IAIMPMLGroupingPreset* preset) : AimpObje
 {
 }
 
-AimpGroupingPreset::~AimpGroupingPreset()
-{
-    this->!AimpGroupingPreset();
-}
-
-AimpGroupingPreset::!AimpGroupingPreset()
-{
-    InternalAimpObject->Release();
-}
-
 String^ AimpGroupingPreset::Custom::get()
 {
     return PropertyListExtension::GetString(InternalAimpObject, AIMPML_GROUPINGPRESET_PROPID_CUSTOM);

@@ -20,7 +20,7 @@ namespace AIMP.SDK.MusicLibrary
     /// <summary>
     /// Provides an access to data of UI elements for an active data storage that uses by the user.
     /// </summary>
-    public interface IAimpServiceMusicLibraryUI
+    public interface IAimpServiceMusicLibraryUI : IAimpService
     {
         /// <summary>
         /// Gets the file list from table view.

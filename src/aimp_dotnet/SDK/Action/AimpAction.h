@@ -28,8 +28,6 @@ namespace AIMP
         public:
             explicit AimpAction(IAIMPAction* action);
 
-            ~AimpAction();
-
             virtual property String^ Id
             {
                 String^ get();
@@ -87,6 +85,9 @@ namespace AIMP
 
         internal:
             static void Execute(gcroot<IAimpActionEvent^> sender, IUnknown* data);
+
+        protected:
+            void FreeResources() override;
         };
     }
 }

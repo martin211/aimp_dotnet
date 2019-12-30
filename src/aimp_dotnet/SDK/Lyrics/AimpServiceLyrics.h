@@ -18,10 +18,10 @@ namespace AIMP
 {
     namespace SDK
     {
-        using namespace AIMP::SDK::Lyrics;
+        using namespace Lyrics;
 
         public ref class AimpServiceLyrics :
-            public AimpBaseManager<IAIMPServiceLyrics>,
+            public BaseAimpService<IAIMPServiceLyrics>,
             public IAimpServiceLyrics
         {
         public:
@@ -45,6 +45,8 @@ namespace AIMP
             AimpServiceLyricsReceive^ _eventCallBack;
 
             void OnAimpServiceLyricsReceive(IAIMPLyrics* lyrics, void* userData);
+        protected:
+            IAIMPServiceLyrics* GetAimpService() override;
         };
     }
 }

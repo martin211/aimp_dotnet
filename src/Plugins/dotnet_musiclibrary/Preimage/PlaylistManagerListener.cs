@@ -17,17 +17,17 @@ namespace AIMP.DotNet.MusicLibrary.Preimage
     {
         public AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist)
         {
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist)
         {
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist)
         {
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
     }
 }

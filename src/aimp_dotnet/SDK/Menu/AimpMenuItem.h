@@ -50,8 +50,6 @@ namespace AIMP
         public:
             explicit AimpMenuItem(IAIMPMenuItem* menuItem);
 
-            ~AimpMenuItem();
-
             virtual property String^ Custom
             {
                 String^ get();
@@ -142,6 +140,9 @@ namespace AIMP
             {
                 return CheckResult(InternalAimpObject->DeleteChildren());
             }
+
+        protected:
+            void FreeResources() override;
         };
     }
 }

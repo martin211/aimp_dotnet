@@ -79,7 +79,7 @@ namespace AIMP.SDK.FileManager
 
         /// <summary>
         /// Plugin must validate state of all internal data that refer with source.
-        /// If internal data is not valid, plugin must return any error code except AimpActionResult.Ok.
+        /// If internal data is not valid, plugin must return any error code except AimpActionResult.OK.
         /// In this case, the application will automatically reload virtual files for current file-container via one of the IAimpExtensionFileExpander extensions.
         /// <para>
         /// The method called by the application before call the CreateStream method.

@@ -15,7 +15,7 @@ namespace AIMP.SDK.FileManager
     /// <summary>
     /// Provide ability to work with files.
     /// </summary>
-    public interface IAimpServiceFileSystems
+    public interface IAimpServiceFileSystems : IAimpService
     {
         /// <summary>
         /// Get the interface of specified command.

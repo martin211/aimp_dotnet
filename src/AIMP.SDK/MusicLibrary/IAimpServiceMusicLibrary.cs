@@ -16,7 +16,7 @@ namespace AIMP.SDK.MusicLibrary
     /// <summary>
     /// Provides an access to data storages of Music Library.
     /// </summary>
-    public interface IAimpServiceMusicLibrary
+    public interface IAimpServiceMusicLibrary : IAimpService
     {
         /// <summary>
         /// Gets the active data storage.

@@ -17,7 +17,7 @@ namespace DemoPlugin
     {
         public static AimpActionResult CheckResult(AimpActionResult actionResult)
         {
-            if (actionResult != AimpActionResult.Ok)
+            if (actionResult != AimpActionResult.OK)
             {
                 Logger.Instance.AddInfoMessage($"{Environment.StackTrace}: {actionResult}");
             }

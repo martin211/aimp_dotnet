@@ -17,7 +17,7 @@ using namespace AIMP::SDK;
 using namespace Runtime::InteropServices;
 
 AimpServiceMessageDispatcher::
-AimpServiceMessageDispatcher(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceMessageDispatcher>(core)
+AimpServiceMessageDispatcher(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceMessageDispatcher>(core)
 {
     _hook = nullptr;
 }
@@ -29,12 +29,12 @@ AimpServiceMessageDispatcher::~AimpServiceMessageDispatcher()
 
 AimpActionResult AimpServiceMessageDispatcher::Send(int message, int param1, IntPtr param2)
 {
-    IAIMPServiceMessageDispatcher* service = nullptr;
+    IAIMPServiceMessageDispatcher* service = GetAimpService();
     AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
-        if (GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             HWND handle = nullptr;
             result = CheckResult(service->Send(DWORD(message), int(param1), &handle));
@@ -46,11 +46,7 @@ AimpActionResult AimpServiceMessageDispatcher::Send(int message, int param1, Int
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
 
     return result;
@@ -58,11 +54,11 @@ AimpActionResult AimpServiceMessageDispatcher::Send(int message, int param1, Int
 
 int AimpServiceMessageDispatcher::Register(String^ message)
 {
-    IAIMPServiceMessageDispatcher* service = nullptr;
+    IAIMPServiceMessageDispatcher* service = GetAimpService();
 
     try
     {
-        if (GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             const pin_ptr<const WCHAR> strDate = PtrToStringChars(message);
             return service->Register(PWCHAR(strDate));
@@ -70,11 +66,7 @@ int AimpServiceMessageDispatcher::Register(String^ message)
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
 
     return 0;
@@ -82,13 +74,12 @@ int AimpServiceMessageDispatcher::Register(String^ message)
 
 AimpActionResult AimpServiceMessageDispatcher::Hook(IAimpMessageHook^ hook)
 {
-    IAIMPServiceMessageDispatcher* service = nullptr;
+    IAIMPServiceMessageDispatcher* service = GetAimpService();
     AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
-        if (_hook == nullptr && GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::OK &&
-            service != nullptr)
+        if (service != nullptr)
         {
             _hook = new InternalAimpMessageHook(hook);
             result = CheckResult(service->Hook(_hook));
@@ -96,11 +87,7 @@ AimpActionResult AimpServiceMessageDispatcher::Hook(IAimpMessageHook^ hook)
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
 
     return result;
@@ -108,25 +95,27 @@ AimpActionResult AimpServiceMessageDispatcher::Hook(IAimpMessageHook^ hook)
 
 AimpActionResult AimpServiceMessageDispatcher::Unhook(IAimpMessageHook^ hook)
 {
-    IAIMPServiceMessageDispatcher* service = nullptr;
+    IAIMPServiceMessageDispatcher* service = GetAimpService();
     AimpActionResult result = AimpActionResult::Fail;
 
     try
     {
-        if (_hook != nullptr && GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::OK &&
-            service != nullptr)
+        if (service != nullptr)
         {
             result = CheckResult(service->Unhook(_hook));
         }
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
 
     return result;
+}
+
+IAIMPServiceMessageDispatcher* AimpServiceMessageDispatcher::GetAimpService()
+{
+    IAIMPServiceMessageDispatcher* service = nullptr;
+    GetService(IID_IAIMPServiceMessageDispatcher, &service);
+    return service;
 }

@@ -29,7 +29,7 @@ AimpActionResult AimpLyrics::Clone(IAimpLyrics^% lyrics)
     IAIMPLyrics** target = nullptr;
     auto result = Utils::CheckResult(InternalAimpObject->Clone(target));
 
-    if (result == AimpActionResult::Ok)
+    if (result == AimpActionResult::OK)
     {
         lyrics = gcnew AimpLyrics(*target);
     }
@@ -58,7 +58,7 @@ AimpActionResult AimpLyrics::Find(int time, int index, String^% text)
     auto result = AimpActionResult::Fail;
     //auto  result = Utils::CheckResult(InternalAimpObject->Find(time, index, &str));
 
-    if (result == AimpActionResult::Ok)
+    if (result == AimpActionResult::OK)
     {
         text = AimpConverter::ToManagedString(str);
     }

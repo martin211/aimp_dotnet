@@ -10,7 +10,7 @@
 // ----------------------------------------------------
 namespace AIMP.SDK.Options
 {
-    public interface IAimpServiceOptionsDialog
+    public interface IAimpServiceOptionsDialog : IAimpService
     {
         AimpActionResult FrameModified(IAimpOptionsDialogFrame frame);
 

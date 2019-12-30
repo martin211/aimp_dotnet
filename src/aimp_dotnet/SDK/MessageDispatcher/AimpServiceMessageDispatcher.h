@@ -21,7 +21,7 @@ namespace AIMP
         using namespace SDK;
         using namespace MessageDispatcher;
 
-        public ref class AimpServiceMessageDispatcher : public AimpBaseManager<IAIMPServiceMessageDispatcher>,
+        public ref class AimpServiceMessageDispatcher : public BaseAimpService<IAIMPServiceMessageDispatcher>,
                                                         public IAimpServiceMessageDispatcher
         {
         public:
@@ -33,6 +33,8 @@ namespace AIMP
             virtual int Register(String^ message);
             virtual AimpActionResult Hook(IAimpMessageHook^ hook);
             virtual AimpActionResult Unhook(IAimpMessageHook^ hook);
+        protected:
+            IAIMPServiceMessageDispatcher* GetAimpService() override;
         private:
             InternalAimpMessageHook* _hook;
         };

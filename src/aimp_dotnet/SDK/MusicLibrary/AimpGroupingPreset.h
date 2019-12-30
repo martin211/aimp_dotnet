@@ -25,10 +25,6 @@ namespace AIMP
         public:
             explicit AimpGroupingPreset(IAIMPMLGroupingPreset* preset);
 
-            ~AimpGroupingPreset();
-
-            !AimpGroupingPreset();
-
             virtual property String^ Custom
             {
                 String^ get();

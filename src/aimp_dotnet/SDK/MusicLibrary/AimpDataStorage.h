@@ -25,10 +25,6 @@ namespace AIMP
         public:
             explicit AimpDataStorage(IAIMPMLDataStorage* aimpDataStorage);
 
-            !AimpDataStorage();
-
-            ~AimpDataStorage();
-
             virtual property String^ Id
             {
                 String^ get();

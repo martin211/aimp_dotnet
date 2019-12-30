@@ -21,31 +21,26 @@
 using namespace AIMP::SDK;
 using namespace Commands;
 
-AimpServiceFileSystems::AimpServiceFileSystems(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceFileSystems>(core)
+AimpServiceFileSystems::AimpServiceFileSystems(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceFileSystems>(core)
 {
 }
 
-AimpActionResult AimpServiceFileSystems::Get(FileCommandType commandType, String^ fileUri,
-                                             IAimpFileSystemCommand^% command)
+AimpActionResult AimpServiceFileSystems::Get(FileCommandType commandType, String^ fileUri, IAimpFileSystemCommand^% command)
 {
-    IAIMPServiceFileSystems* service = nullptr;
+    IAIMPServiceFileSystems* service = GetAimpService();
     auto result = AimpActionResult::Fail;
     command = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceFileSystems, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             result = GetCommand(commandType, GetCommandId(commandType), service, fileUri, command, false);
         }
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
 
     return result;
@@ -53,12 +48,12 @@ AimpActionResult AimpServiceFileSystems::Get(FileCommandType commandType, String
 
 AimpActionResult AimpServiceFileSystems::GetDefault(FileCommandType commandType, IAimpFileSystemCommand^% command)
 {
-    IAIMPServiceFileSystems* service = nullptr;
+    IAIMPServiceFileSystems* service = GetAimpService();
     auto result = AimpActionResult::Fail;
 
     try
     {
-        if (GetService(IID_IAIMPServiceFileSystems, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             result = GetCommand(commandType, GetCommandId(commandType), service, nullptr, command, true);
         }
@@ -67,14 +62,8 @@ AimpActionResult AimpServiceFileSystems::GetDefault(FileCommandType commandType,
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+        ReleaseObject(service);
     }
-
-    return result;
 }
 
 GUID AimpServiceFileSystems::GetCommandId(FileCommandType commandType)
@@ -189,12 +178,15 @@ AimpActionResult AimpServiceFileSystems::GetCommand(FileCommandType commandType,
     }
     finally
     {
-        if (str != nullptr)
-        {
-            str->Release();
-            str = nullptr;
-        }
+        ReleaseObject(str);
     }
 
     return result;
+}
+
+IAIMPServiceFileSystems* AimpServiceFileSystems::GetAimpService()
+{
+    IAIMPServiceFileSystems* service = nullptr;
+    GetService(IID_IAIMPServiceFileSystems, &service);
+    return service;
 }

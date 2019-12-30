@@ -17,40 +17,6 @@
 #include "AimpPlaylistPreimage.h"
 #include "AimpPlaylistPreimageFolders.h"
 
-AimpPlayList::~AimpPlayList()
-{
-    this->!AimpPlayList();
-}
-
-AimpPlayList::!AimpPlayList()
-{
-    if (InternalAimpObject != nullptr)
-    {
-        try
-        {
-            InternalAimpObject->Release();
-            _aimpObject = nullptr;
-        }
-        catch (const std::exception&)
-        {
-        }
-        catch (AccessViolationException^)
-        {
-        }
-    }
-    if (_internalPreImage != nullptr)
-    {
-        delete _internalPreImage;
-        _internalPreImage = nullptr;
-    }
-
-    if (_listner != nullptr)
-    {
-        delete _listner;
-        _listner = nullptr;
-    }
-}
-
 AimpActionResult AimpPlayList::GetProperties(IAIMPPropertyList** properties)
 {
     IAIMPPropertyList* prop = nullptr;
@@ -1572,6 +1538,23 @@ bool AimpPlayList::OnDeleteReceive(IAIMPPlaylistItem* item1, void* customFilterD
     Object^ customData = h.Target;
     h.Free();
     return bool(_deleteFilterFunc(gcnew AimpPlaylistItem(item1), customData));
+}
+
+void AimpPlayList::FreeResources()
+{
+    if (_internalPreImage != nullptr)
+    {
+        _internalPreImage->Release();
+        delete _internalPreImage;
+        _internalPreImage = nullptr;
+    }
+
+    if (_listner != nullptr)
+    {
+        _listner->Release();
+        delete _listner;
+        _listner = nullptr;
+    }
 }
 
 #pragma region AimpPlaylistListener

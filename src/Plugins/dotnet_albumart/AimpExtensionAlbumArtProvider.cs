@@ -23,7 +23,7 @@ namespace dotnet_albumart
         public AimpActionResult Get(IAimpFileInfo fileInfo, IAimpAlbumArtSearchOptions options, out Bitmap image)
         {
             image = Properties.Resources.front;
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         #endregion
@@ -33,7 +33,7 @@ namespace dotnet_albumart
         public AimpActionResult Get(string fileUrl, string artist, string album, IAimpAlbumArtSearchOptions options, out Bitmap image)
         {
             image = Properties.Resources.front;
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         #endregion

@@ -19,18 +19,17 @@ namespace AIMP
         using namespace SDK;
         using namespace Options;
 
-        public ref class AimpServiceOptionsDialog : public AimpBaseManager<IAIMPServiceOptionsDialog>,
+        public ref class AimpServiceOptionsDialog : public BaseAimpService<IAIMPServiceOptionsDialog>,
                                                     public IAimpServiceOptionsDialog
         {
-        private:
-            IAIMPServiceOptionsDialog* _service;
-
         public:
             explicit AimpServiceOptionsDialog(ManagedAimpCore^ core);
 
             virtual AimpActionResult FrameModified(IAimpOptionsDialogFrame^ frame);
 
             virtual AimpActionResult FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow);
+        protected:
+            IAIMPServiceOptionsDialog* GetAimpService() override;
         };
     }
 }

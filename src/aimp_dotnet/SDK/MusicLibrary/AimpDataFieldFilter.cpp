@@ -19,16 +19,6 @@ AimpDataFieldFilter::AimpDataFieldFilter(IAIMPMLDataFieldFilter* aimpDataFieldFi
     _dataField = nullptr;
 }
 
-AimpDataFieldFilter::~AimpDataFieldFilter()
-{
-    this->!AimpDataFieldFilter();
-}
-
-AimpDataFieldFilter::!AimpDataFieldFilter()
-{
-    InternalAimpObject->Release();
-}
-
 String^ AimpDataFieldFilter::Field::get()
 {
     return PropertyListExtension::GetString(InternalAimpObject, AIMPML_FIELDFILTER_FIELD);

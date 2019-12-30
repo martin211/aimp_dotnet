@@ -14,20 +14,20 @@
 
 using namespace AIMP::SDK;
 
-AimpServiceFileFormats::AimpServiceFileFormats(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceFileFormats>(core)
+AimpServiceFileFormats::AimpServiceFileFormats(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceFileFormats>(core)
 {
 }
 
 AimpActionResult AimpServiceFileFormats::GetFormats(FileFormats flags, String^% formats)
 {
-    IAIMPServiceFileFormats* service = nullptr;
+    IAIMPServiceFileFormats* service = GetAimpService();
     AimpActionResult result = AimpActionResult::Fail;
     IAIMPString* str = nullptr;
     formats = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceFileFormats, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             result = CheckResult(service->GetFormats(DWORD(flags), &str));
 
@@ -39,17 +39,8 @@ AimpActionResult AimpServiceFileFormats::GetFormats(FileFormats flags, String^% 
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
-
-        if (str != nullptr)
-        {
-            str->Release();
-            str = nullptr;
-        }
+        ReleaseObject(service);
+        ReleaseObject(str);
     }
 
     return result;
@@ -57,13 +48,13 @@ AimpActionResult AimpServiceFileFormats::GetFormats(FileFormats flags, String^% 
 
 AimpActionResult AimpServiceFileFormats::IsSupported(String^ fileName, FileFormats flags)
 {
-    IAIMPServiceFileFormats* service = nullptr;
+    IAIMPServiceFileFormats* service = GetAimpService();
     AimpActionResult result = AimpActionResult::Fail;
     IAIMPString* str = nullptr;
 
     try
     {
-        if (GetService(IID_IAIMPServiceFileFormats, &service) == AimpActionResult::OK && service != nullptr)
+        if (service != nullptr)
         {
             str = AimpConverter::ToAimpString(fileName);
             result = CheckResult(service->IsSupported(str, DWORD(flags)));
@@ -71,18 +62,16 @@ AimpActionResult AimpServiceFileFormats::IsSupported(String^ fileName, FileForma
     }
     finally
     {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
-
-        if (str != nullptr)
-        {
-            str->Release();
-            str = nullptr;
-        }
+        ReleaseObject(service);
+        ReleaseObject(str);
     }
 
     return result;
+}
+
+IAIMPServiceFileFormats* AimpServiceFileFormats::GetAimpService()
+{
+    IAIMPServiceFileFormats* service = nullptr;
+    GetService(IID_IAIMPServiceFileFormats, &service);
+    return service;
 }

@@ -26,7 +26,7 @@ namespace AIMP.SDK.TagEditor
     /// <summary>
     /// Provide possibility to access an file tag editor service.
     /// </summary>
-    public interface IAimpServiceFileTagEditor
+    public interface IAimpServiceFileTagEditor : IAimpService
     {
         AimpActionResult EditFile(string filePath, out IAimpFileTagEditor editor);
 

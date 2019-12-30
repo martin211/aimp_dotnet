@@ -26,19 +26,19 @@ namespace Aimp.DotNet.SmartPlaylist
         public AimpActionResult CreatePreimage(out IAimpPlaylistPreimage preimage)
         {
             preimage = new TestPreimage(this);
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult GetId(out string id)
         {
             id = nameof(TestPreimageFactory);
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult GetName(out string name)
         {
             name = "Test Preimage";
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public PreimageFactoryFlags GetFlags()

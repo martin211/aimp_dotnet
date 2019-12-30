@@ -14,6 +14,7 @@ using AIMP.SDK.ActionManager;
 using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.Playlist;
 using DemoPlugin;
+using DemoPlugin.OptionsFrame;
 
 namespace TestPlugin
 {
@@ -38,17 +39,17 @@ namespace TestPlugin
     {
         public AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist)
         {
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist)
         {
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
 
         public AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist)
         {
-            return AimpActionResult.Ok;
+            return AimpActionResult.OK;
         }
     }
 
@@ -61,6 +62,7 @@ namespace TestPlugin
         private IAimpMenuItem _menuItem;
         private IAimpOptionsDialogFrame _optionsFrame;
         private MessageHook _hook;
+        private OptionsDialogFrame _aimpOptionsDialogFrame;
 
         public override void Initialize()
         {
@@ -95,6 +97,9 @@ namespace TestPlugin
             CreateMenuWithAction();
 
             TestReadConfig();
+
+            _aimpOptionsDialogFrame = new OptionsDialogFrame();
+            Player.Core.RegisterExtension(_aimpOptionsDialogFrame);
         }
 
         private void DemoFormItemOnOnExecute(object sender, EventArgs eventArgs)
@@ -119,7 +124,7 @@ namespace TestPlugin
         private void CreateMenuWithAction()
         {
             IAimpMenuItem actionMenuItem;
-            if (Player.MenuManager.CreateMenuItem(out actionMenuItem) == AimpActionResult.Ok)
+            if (Player.MenuManager.CreateMenuItem(out actionMenuItem) == AimpActionResult.OK)
             {
 
                 IAimpAction action = Player.ActionManager.CreateAction();

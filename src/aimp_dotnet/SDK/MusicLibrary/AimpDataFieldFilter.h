@@ -30,10 +30,6 @@ namespace AIMP
         public:
             explicit AimpDataFieldFilter(IAIMPMLDataFieldFilter* aimpDataFieldFilter);
 
-            ~AimpDataFieldFilter();
-
-            !AimpDataFieldFilter();
-
             virtual property String^ Field
             {
                 String^ get();

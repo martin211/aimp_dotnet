@@ -22,11 +22,11 @@ namespace AIMP
         using namespace DataStorage;
         using namespace Presets;
 
-        public ref class AimpServiceMusicLibrary : public AimpBaseManager<IAIMPServiceMusicLibrary>,
+        public ref class AimpServiceMusicLibrary : public BaseAimpService<IAIMPServiceMusicLibrary>,
                                                    public IAimpServiceMusicLibrary
         {
         public:
-            explicit AimpServiceMusicLibrary(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceMusicLibrary>(core)
+            explicit AimpServiceMusicLibrary(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceMusicLibrary>(core)
             {
             }
 
@@ -47,6 +47,8 @@ namespace AIMP
             virtual AimpActionResult GetStorageById(String^ id, IAimpGroupingPresets^% preset);
 
             virtual int GetStorageCount();
+        protected:
+            IAIMPServiceMusicLibrary* GetAimpService() override;
         };
     }
 }
