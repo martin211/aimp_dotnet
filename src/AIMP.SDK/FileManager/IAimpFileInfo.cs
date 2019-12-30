@@ -10,6 +10,7 @@
 // ----------------------------------------------------
 using System;
 using System.Drawing;
+using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.FileManager
 {
@@ -209,7 +210,7 @@ namespace AIMP.SDK.FileManager
         /// <summary>
         /// Gets or sets the album art.
         /// </summary>
-        Bitmap AlbumArt { get; set; }
+        IAimpImage AlbumArt { get; set; }
 
         /// <summary>
         /// Copies all properties from source.

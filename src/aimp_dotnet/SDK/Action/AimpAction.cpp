@@ -9,10 +9,13 @@
 // 
 // ----------------------------------------------------
 
+#include "pch.h"
 #include "Stdafx.h"
 #include "AimpAction.h"
-#include "../Action/AimpActionEvent.h"
+#include "../AimpObject.h"
+#include "../../AIMPSDK/AIMP400/apiActions.h"
 
+using namespace System;
 using namespace AIMP::SDK;
 
 AimpAction::AimpAction(IAIMPAction* action) : AimpObject(action)
@@ -22,42 +25,42 @@ AimpAction::AimpAction(IAIMPAction* action) : AimpObject(action)
 
 String^ AimpAction::Id::get()
 {
-    return PropertyListExtension::GetString(InternalAimpObject, AIMP_ACTION_PROPID_ID);
+    //return PropertyListExtension::GetString(InternalAimpObject, AIMP_ACTION_PROPID_ID);
 }
 
 void AimpAction::Id::set(String^ value)
 {
-    PropertyListExtension::SetString(InternalAimpObject, AIMP_ACTION_PROPID_ID, value);
+    //PropertyListExtension::SetString(InternalAimpObject, AIMP_ACTION_PROPID_ID, value);
 }
 
 String^ AimpAction::CustomData::get()
 {
-    return PropertyListExtension::GetString(InternalAimpObject, AIMP_ACTION_PROPID_CUSTOM);
+    //return PropertyListExtension::GetString(InternalAimpObject, AIMP_ACTION_PROPID_CUSTOM);
 }
 
 void AimpAction::CustomData::set(String^ value)
 {
-    PropertyListExtension::SetString(InternalAimpObject, AIMP_ACTION_PROPID_CUSTOM, value);
+    //PropertyListExtension::SetString(InternalAimpObject, AIMP_ACTION_PROPID_CUSTOM, value);
 }
 
 String^ AimpAction::Name::get()
 {
-    return PropertyListExtension::GetString(InternalAimpObject, AIMP_ACTION_PROPID_NAME);
+    //return PropertyListExtension::GetString(InternalAimpObject, AIMP_ACTION_PROPID_NAME);
 }
 
 void AimpAction::Name::set(String^ value)
 {
-    PropertyListExtension::SetString(InternalAimpObject, AIMP_ACTION_PROPID_NAME, value);
+    //PropertyListExtension::SetString(InternalAimpObject, AIMP_ACTION_PROPID_NAME, value);
 }
 
 String^ AimpAction::GroupName::get()
 {
-    return PropertyListExtension::GetString(InternalAimpObject, AIMP_ACTION_PROPID_GROUPNAME);
+    //return PropertyListExtension::GetString(InternalAimpObject, AIMP_ACTION_PROPID_GROUPNAME);
 }
 
 void AimpAction::GroupName::set(String^ value)
 {
-    PropertyListExtension::SetString(InternalAimpObject, AIMP_ACTION_PROPID_GROUPNAME, value);
+    //PropertyListExtension::SetString(InternalAimpObject, AIMP_ACTION_PROPID_GROUPNAME, value);
 }
 
 bool AimpAction::Enabled::get()
@@ -69,64 +72,64 @@ bool AimpAction::Enabled::get()
 
 void AimpAction::Enabled::set(bool value)
 {
-    PropertyListExtension::SetBool(InternalAimpObject, AIMP_ACTION_PROPID_ENABLED, value);
+    //PropertyListExtension::SetBool(InternalAimpObject, AIMP_ACTION_PROPID_ENABLED, value);
 }
 
 int AimpAction::DefaultLocalHotKey::get()
 {
-    return PropertyListExtension::GetInt32(InternalAimpObject, AIMP_ACTION_PROPID_DEFAULTLOCALHOTKEY);
+    //return PropertyListExtension::GetInt32(InternalAimpObject, AIMP_ACTION_PROPID_DEFAULTLOCALHOTKEY);
 }
 
 void AimpAction::DefaultLocalHotKey::set(int value)
 {
-    PropertyListExtension::SetInt32(InternalAimpObject, AIMP_ACTION_PROPID_DEFAULTLOCALHOTKEY, value);
+    //PropertyListExtension::SetInt32(InternalAimpObject, AIMP_ACTION_PROPID_DEFAULTLOCALHOTKEY, value);
 }
 
 int AimpAction::DefaultGlobalHotKey::get()
 {
-    return PropertyListExtension::GetInt32(InternalAimpObject, AIMP_ACTION_PROPID_DEFAULTGLOBALHOTKEY);
+    //return PropertyListExtension::GetInt32(InternalAimpObject, AIMP_ACTION_PROPID_DEFAULTGLOBALHOTKEY);
 }
 
 void AimpAction::DefaultGlobalHotKey::set(int value)
 {
-    PropertyListExtension::SetInt32(InternalAimpObject, AIMP_ACTION_PROPID_DEFAULTGLOBALHOTKEY, value);
+    //PropertyListExtension::SetInt32(InternalAimpObject, AIMP_ACTION_PROPID_DEFAULTGLOBALHOTKEY, value);
 }
 
 int AimpAction::AlternativeGlobalHotKey::get()
 {
-    return PropertyListExtension::GetInt32(InternalAimpObject, AIMP_ACTION_PROPID_DEFAULTGLOBALHOTKEY2);
+    //return PropertyListExtension::GetInt32(InternalAimpObject, AIMP_ACTION_PROPID_DEFAULTGLOBALHOTKEY2);
 }
 
 void AimpAction::AlternativeGlobalHotKey::set(int value)
 {
-    PropertyListExtension::SetInt32(InternalAimpObject, AIMP_ACTION_PROPID_DEFAULTGLOBALHOTKEY2, value);
+    //PropertyListExtension::SetInt32(InternalAimpObject, AIMP_ACTION_PROPID_DEFAULTGLOBALHOTKEY2, value);
 }
 
 void AimpAction::OnExecute::add(EventHandler^ onEvent)
 {
-    if (_onExecuteHandler == nullptr)
-    {
-        AimpActionEventDelegate^ fp = gcnew AimpActionEventDelegate(this->Execute);
-        _executeHandler = GCHandle::Alloc(fp);
-        IntPtr ip = Marshal::GetFunctionPointerForDelegate(fp);
-        auto callback = static_cast<AimpActionEventCallback>(ip.ToPointer());
-        _onExecuteEvent = new AimpActionEvent(this, callback);
-        GC::Collect();
-        _onExecuteHandler = static_cast<EventHandler^>(Delegate::Combine(_onExecuteHandler, onEvent));
-        InternalAimpObject->SetValueAsObject(AIMP_ACTION_PROPID_EVENT, _onExecuteEvent);
-    }
+    //if (_onExecuteHandler == nullptr)
+    //{
+    //    AimpActionEventDelegate^ fp = gcnew AimpActionEventDelegate(this->Execute);
+    //    _executeHandler = GCHandle::Alloc(fp);
+    //    IntPtr ip = Marshal::GetFunctionPointerForDelegate(fp);
+    //    auto callback = static_cast<AimpActionEventCallback>(ip.ToPointer());
+    //    _onExecuteEvent = new AimpActionEvent(this, callback);
+    //    GC::Collect();
+    //    _onExecuteHandler = static_cast<EventHandler^>(Delegate::Combine(_onExecuteHandler, onEvent));
+    //    InternalAimpObject->SetValueAsObject(AIMP_ACTION_PROPID_EVENT, _onExecuteEvent);
+    //}
 }
 
 void AimpAction::OnExecute::remove(EventHandler^ onEvent)
 {
-    if (_onExecuteHandler != nullptr)
-    {
-        _onExecuteHandler = static_cast<EventHandler^>(Delegate::Remove(_onExecuteHandler, onEvent));
-        InternalAimpObject->SetValueAsObject(AIMP_ACTION_PROPID_EVENT, nullptr);
-        _executeHandler.Free();
-        _onExecuteEvent->Release();
-        _onExecuteEvent = nullptr;
-    }
+    //if (_onExecuteHandler != nullptr)
+    //{
+    //    _onExecuteHandler = static_cast<EventHandler^>(Delegate::Remove(_onExecuteHandler, onEvent));
+    //    InternalAimpObject->SetValueAsObject(AIMP_ACTION_PROPID_EVENT, nullptr);
+    //    _executeHandler.Free();
+    //    _onExecuteEvent->Release();
+    //    _onExecuteEvent = nullptr;
+    //}
 }
 
 void AimpAction::OnExecute::raise(Object^ sender, EventArgs^ args)
@@ -146,5 +149,5 @@ void AimpAction::Execute(const gcroot<IAimpActionEvent^> sender, IUnknown* data)
 
 void AimpAction::FreeResources()
 {
-    _executeHandler.Free();
+    //_executeHandler.Free();
 }

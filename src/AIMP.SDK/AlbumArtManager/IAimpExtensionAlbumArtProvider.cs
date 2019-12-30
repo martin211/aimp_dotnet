@@ -8,6 +8,9 @@
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
+using AIMP.SDK.Objects;
+
 namespace AIMP.SDK.AlbumArtManager
 {
     using System.Drawing;
@@ -38,7 +41,7 @@ namespace AIMP.SDK.AlbumArtManager
         /// <param name="image">Out. The album art image.</param>
         /// <returns>The <see cref="AimpActionResult"/> result.</returns>
         AimpActionResult Get(string fileUrl, string artist, string album, IAimpAlbumArtSearchOptions options,
-            out Bitmap image);
+            out IAimpImage image);
 
         /// <summary>
         /// Gets the category of provider.

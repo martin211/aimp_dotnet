@@ -9,6 +9,7 @@
 // 
 // ----------------------------------------------------
 
+#include "pch.h"
 #include "Stdafx.h"
 #include "PropertyListHelper.h"
 
@@ -30,8 +31,8 @@ AimpActionResult PropertyListExtension::SetString(IAIMPPropertyList* propertyLis
     IAIMPString* str = nullptr;
     try
     {
-        str = AimpConverter::ToAimpString(value);
-        return SetObject(propertyList, propertyId, str);
+        //str = AimpConverter::ToAimpString(value);
+        //return SetObject(propertyList, propertyId, str);
     }
     finally
     {
@@ -202,10 +203,11 @@ bool PropertyListExtension::GetBool(IAIMPPropertyList* propertyList, int propert
 
 AimpActionResult PropertyListExtension::GetVariant(IAIMPPropertyList2* propertyList, int propertyId, Object^% value)
 {
-    VARIANT* val = nullptr;
-    AimpActionResult result = Utils::CheckResult(propertyList->GetValueAsVariant(propertyId, val));
-    value = AimpConverter::FromVaiant(val);
-    return result;
+    //VARIANT* val = nullptr;
+    //AimpActionResult result = Utils::CheckResult(propertyList->GetValueAsVariant(propertyId, val));
+    //value = AimpConverter::FromVaiant(val);
+    //return result;
+    return AimpActionResult::NotImplemented;
 }
 
 AimpActionResult PropertyListExtension::SetVariant(IAIMPPropertyList2* propertyList, int propertyId, Object^% val)

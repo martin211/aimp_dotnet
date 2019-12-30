@@ -9,6 +9,7 @@
 // 
 // ----------------------------------------------------
 using AIMP.SDK.FileManager;
+using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.AlbumArtManager
 {
@@ -26,6 +27,6 @@ namespace AIMP.SDK.AlbumArtManager
         /// <param name="options">The search options <seealso cref="IAimpAlbumArtSearchOptions"/>.</param>
         /// <param name="image">Out. The album art image.</param>
         /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Get(IAimpFileInfo fileInfo, IAimpAlbumArtSearchOptions options, out Bitmap image);
+        AimpActionResult Get(IAimpFileInfo fileInfo, IAimpAlbumArtSearchOptions options, out IAimpImage image);
     }
 }

@@ -9,6 +9,7 @@
 // 
 // ----------------------------------------------------
 using System;
+using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.MenuManager
 {
@@ -80,7 +81,7 @@ namespace AIMP.SDK.MenuManager
         /// Menu item glyph (optional).
         /// Note that image must be 32-bit with correct alpha channel.
         /// </summary>
-        Bitmap Glyph { get; set; }
+        IAimpImage Glyph { get; set; }
 
         /// <summary>
         /// Gets or sets the parent menu item.

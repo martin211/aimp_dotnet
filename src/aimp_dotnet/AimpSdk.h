@@ -11,11 +11,12 @@
 
 #pragma once
 
+#include <windows.h>
 #include "AIMPSDK\AIMPSDK.h"
-#include "SDK\AimpConverter.h"
-#include "SDK\PropertyListHelper.h"
-
-#include "Utils.h"
-#include "SDK\AimpObject.h"
-#include "IUnknownInterfaceImpl.h"
-#include "SDK\AimpStream.h"
+//#include "SDK\AimpConverter.h"
+//#include "SDK\PropertyListHelper.h"
+//
+//#include "Utils.h"
+//#include "SDK\AimpObject.h"
+//#include "IUnknownInterfaceImpl.h"
+//#include "SDK\AimpStream.h"

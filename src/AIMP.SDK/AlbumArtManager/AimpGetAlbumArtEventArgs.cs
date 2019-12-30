@@ -8,10 +8,12 @@
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
+using AIMP.SDK.Objects;
+
 namespace AIMP.SDK.AlbumArtManager
 {
     using System;
-    using System.Drawing;
 
     /// <summary>
     /// Get album event arguments.
@@ -21,6 +23,6 @@ namespace AIMP.SDK.AlbumArtManager
         /// <summary>
         /// Gets or sets the cover image.
         /// </summary>
-        public Bitmap CoverImage { get; set; }
+        public IAimpImage CoverImage { get; set; }
     }
 }

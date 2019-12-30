@@ -162,9 +162,10 @@ namespace AIMP.SDK
 
             try
             {
-                AppDomainSetup domainSet = new AppDomainSetup {ApplicationBase = path};
-                loadDomain = AppDomain.CreateDomain(
-                    "PluginLoadDomain" + new Guid().ToString().GetHashCode().ToString("x"), null, domainSet);
+                //AppDomainSetup domainSet = new AppDomainSetup {ApplicationBase = path};
+                //loadDomain = AppDomain.CreateDomain(
+                //    "PluginLoadDomain" + new Guid().ToString().GetHashCode().ToString("x"), null, domainSet);
+                loadDomain = AppDomain.CurrentDomain;
 
                 PluginLoadingStrategy strat =
                     (PluginLoadingStrategy) loadDomain.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName,
@@ -190,7 +191,7 @@ namespace AIMP.SDK
 #if DEBUG
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show(e.Message);
+                //System.Windows.Forms.MessageBox.Show(e.Message);
             }
 #endif
             finally

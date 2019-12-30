@@ -147,15 +147,16 @@ namespace AIMP.SDK
                 {
                     try
                     {
-                        AppDomainSetup dmnSetup = new AppDomainSetup
-                        {
-                            ApplicationName = PluginInfo.Name,
-                            ApplicationBase = _inPathToAssembly.DirectoryName
-                        };
+                        //AppDomainSetup dmnSetup = new AppDomainSetup
+                        //{
+                        //    ApplicationName = PluginInfo.Name,
+                        //    ApplicationBase = _inPathToAssembly.DirectoryName
+                        //};
 
-                        PluginAppDomainInfo = AppDomain.CreateDomain(
-                                PluginInfo.Name + "_domain" + Guid.NewGuid().ToString().GetHashCode().ToString("x"),
-                                null, dmnSetup);
+                        //PluginAppDomainInfo = AppDomain.CreateDomain(
+                        //        PluginInfo.Name + "_domain" + Guid.NewGuid().ToString().GetHashCode().ToString("x"),
+                        //        null, dmnSetup);
+                        PluginAppDomainInfo = AppDomain.CurrentDomain;
                         LoadedPlugin = (AimpPlugin) PluginAppDomainInfo.CreateInstanceFromAndUnwrap(_inPathToAssembly.FullName,
                                 PluginClassName);
 
@@ -196,7 +197,7 @@ namespace AIMP.SDK
 
                         LoadedPlugin = null;
 #if DEBUG
-                        System.Windows.Forms.MessageBox.Show(ex.Message);
+                        //System.Windows.Forms.MessageBox.Show(ex.Message);
 #endif
                     }
                 }
@@ -211,7 +212,7 @@ namespace AIMP.SDK
                     catch (Exception ex)
                     {
 #if DEBUG
-                        System.Windows.Forms.MessageBox.Show(ex.Message);
+                        //System.Windows.Forms.MessageBox.Show(ex.Message);
 #endif
                     }
 
@@ -224,7 +225,7 @@ namespace AIMP.SDK
                         catch (Exception ex)
                         {
 #if DEBUG
-                            System.Windows.Forms.MessageBox.Show(ex.Message);
+                            //System.Windows.Forms.MessageBox.Show(ex.Message);
 #endif
                         }
                     }
@@ -239,7 +240,7 @@ namespace AIMP.SDK
                         catch (Exception ex)
                         {
 #if DEBUG
-                            System.Windows.Forms.MessageBox.Show(ex.Message);
+                            //System.Windows.Forms.MessageBox.Show(ex.Message);
 #endif
                         }
                     }
@@ -296,7 +297,7 @@ namespace AIMP.SDK
                 catch (Exception ex)
                 {
 #if DEBUG
-                    System.Windows.Forms.MessageBox.Show(ex.Message);
+                    //System.Windows.Forms.MessageBox.Show(ex.Message);
 #endif
                 }
             }

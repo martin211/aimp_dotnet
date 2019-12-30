@@ -32,7 +32,7 @@ namespace AIMP.SDK.ActionManager
         /// <param name="modifiers">The key modifiers <see cref="ModifierKeys"/>.</param>
         /// <param name="key">The key.</param>
         /// <returns>The <see cref="AimpActionResult"/>result.</returns>
-        int MakeHotkey(ModifierKeys modifiers, uint key);
+        int MakeHotkey(int modifiers, uint key);
 
         /// <summary>
         /// Registers the specified action.
