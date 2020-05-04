@@ -12,6 +12,7 @@ using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
 using Nuke.Common.Tools.SonarScanner;
+using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.EnvironmentInfo;
 using static Nuke.Common.IO.FileSystemTasks;
@@ -42,10 +43,18 @@ class Build : NukeBuild
     [Parameter] readonly string SonarProjectName = "Aimp_DotNetSDK";
     [Parameter] readonly string VmWareMachine;
 
+    string Source => NuGet
+        ? "https://api.nuget.org/v3/index.json"
+        : "https://www.myget.org/F/aimpsdk/api/v2/package";
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
     [GitVersion] readonly GitVersion GitVersion;
+
+    readonly string MasterBranch = "master";
+    readonly string DevelopBranch = "develop";
+    readonly string ReleaseBranchPrefix = "release";
+    readonly string HotfixBranchPrefix = "hotfix";
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath OutputDirectory => RootDirectory / "output";
@@ -147,4 +156,53 @@ class Build : NukeBuild
                     .SetFramework(framework)
                     .SetToolPath(path));
             });
+
+    Target Pack => _ => _
+        .Executes(() =>
+        {
+            Logger.Info("Start build Nuget packages");
+
+            var nugetFolder = RootDirectory / "Nuget";
+            var version = GitVersion.AssemblySemVer;
+
+            NuGetTasks.NuGetPack(c => c
+                .SetTargetPath(nugetFolder / "AimpSDK.nuspec")
+                .SetBasePath(RootDirectory)
+                .SetConfiguration(Configuration)
+                .SetVersion(version)
+                .SetOutputDirectory(OutputDirectory));
+
+            NuGetTasks.NuGetPack(c => c
+                .SetTargetPath(nugetFolder / "AimpSDK.symbols.nuspec")
+                .SetBasePath(RootDirectory)
+                .SetVersion(version)
+                .SetConfiguration(Configuration)
+                .SetOutputDirectory(OutputDirectory)
+                .AddProperty("Symbols", string.Empty));
+
+            NuGetTasks.NuGetPack(c => c
+                .SetTargetPath(nugetFolder / "AimpSDK.sources.nuspec")
+                .SetVersion(version)
+                .SetConfiguration(Configuration)
+                .SetBasePath(RootDirectory)
+                .SetOutputDirectory(OutputDirectory));
+        });
+
+    Target Publish => _ => _
+        .Requires(() => ApiKey)
+        .Requires(() => Configuration.Equals(Configuration.Release))
+        .Requires(() => GitRepository.Branch.EqualsOrdinalIgnoreCase(MasterBranch) ||
+                        GitRepository.Branch.EqualsOrdinalIgnoreCase(DevelopBranch) ||
+                        GitRepository.Branch.EqualsOrdinalIgnoreCase(ReleaseBranchPrefix) ||
+                        GitRepository.Branch.EqualsOrdinalIgnoreCase(HotfixBranchPrefix))
+        .Executes(() =>
+        {
+            Logger.Info("Deploying Nuget packages");
+            GlobFiles(OutputDirectory, "*.nupkg").NotEmpty()
+                .Where(c => !c.EndsWith("symbols.nupkg"))
+                .ForEach(c => NuGetTasks.NuGetPush(s => s
+                    .SetTargetPath(c)
+                    .SetSource(Source)
+                    .SetApiKey(ApiKey)));
+        });
 }
