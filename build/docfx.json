@@ -6,7 +6,7 @@
           "files": [
             "**.csproj"
           ],
-          "src": "Z:\\Code\\AIMP\\aimp_dotnet\\build"
+          "src": "Z:\\AIMP\\aimp_dotnet\\build"
         }
       ],
       "dest": "api",

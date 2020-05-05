@@ -10,8 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="docfx.console" Version="2.52.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Mono.Cecil" Version="0.11.2" />
     <PackageReference Include="MSBuild.SonarQube.Runner.Tool" Version="4.8.0" />
-    <PackageReference Include="Nuke.Common" Version="0.24.10" />
+    <PackageReference Include="Nuke.Common" Version="0.24.8" />
     <PackageDownload Include="GitVersion.Tool" Version="[5.1.1]" />
   </ItemGroup>
 
