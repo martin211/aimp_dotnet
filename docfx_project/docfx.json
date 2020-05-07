@@ -3,9 +3,9 @@
     {
       "src": [
         {
-          "files": [
-            "src/AIMP.SDK/AIMP.SDK.csproj"
-          ]
+          "files": ["AIMP.SDK.csproj"],
+		  "exclude": [ "**/bin/**", "**/obj/**" ],
+		  "src": "../src/AIMP.SDK"
         }
       ],
       "dest": "api",
@@ -52,7 +52,8 @@
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
-      "default"
+      "default",
+	  "template"
     ],
     "postProcessors": [],
     "markdownEngineName": "markdig",

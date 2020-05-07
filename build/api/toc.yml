@@ -1,0 +1,8 @@
+### YamlMime:TableOfContent
+- uid: Aimp.DotNet.Build
+  name: Aimp.DotNet.Build
+  items:
+  - uid: Aimp.DotNet.Build.SonarBeginSettings
+    name: SonarBeginSettings
+  - uid: Aimp.DotNet.Build.SonarBeginSettingsExtensions
+    name: SonarBeginSettingsExtensions

@@ -9,6 +9,7 @@ using Nuke.Common.Utilities.Collections;
 using static CustomTocWriter;
 using static CustomDocFx;
 using static Nuke.Common.IO.PathConstruction;
+using static Nuke.Common.IO.FileSystemTasks;
 
 partial class Build
 {
@@ -22,61 +23,53 @@ partial class Build
     string DocFxFile => DocumentationRoot / "docfx.json";
 
     IEnumerable<ApiProject> Projects =>
-        SerializationTasks.YamlDeserializeFromFile<List<ApiProject>>(RootDirectory / "projects.yml");
+        SerializationTasks.YamlDeserializeFromFile<List<ApiProject>>(DocumentationRoot / "projects.yml");
+
+    Target CleanDocumentation => _ => _
+        .Executes(() =>
+        {
+            //SourceDirectory.GlobDirectories("**/_site").ForEach(DeleteDirectory);
+        });
 
     Target Clone => _ => _
         .Before(Restore)
         .Executes(() =>
         {
-            Projects.Select(x => x.Repository)
-                .ForEachLazy(x => Logger.Info($"Cloning repository '{x.HttpsUrl}'..."))
-                .ForEach(x => ProcessTasks.StartProcess(
-                        ToolPathResolver.GetPathExecutable("git"),
-                        $"clone {x.HttpsUrl.Replace("{auth}@", string.Empty)} {RepositoriesDirectory / x.Identifier}")
-                    .AssertZeroExitCode());
+            //Projects.Select(x => x.Repository)
+            //    .ForEachLazy(x => Logger.Info($"Cloning repository '{x.HttpsUrl}'..."))
+            //    .ForEach(x => ProcessTasks.StartProcess(
+            //            ToolPathResolver.GetPathExecutable("git"),
+            //            $"clone {x.HttpsUrl.Replace("{auth}@", string.Empty)} {RepositoriesDirectory / x.Identifier}")
+            //        .AssertZeroExitCode());
         });
 
     Target Metadata => _ => _
-        .DependsOn(CustomDocFx)
+        //.DependsOn(CustomDocFx)
         .WhenSkipped(DependencyBehavior.Skip)
         .Executes(() =>
         {
             DocFXTasks.DocFXMetadata(s => s
+                .SetWorkingDirectory(DocumentationRoot)
                 .SetProjects(DocFxFile)
                 .SetLogLevel(DocFXLogLevel.Verbose));
         });
 
     Target CustomToc => _ => _
-        //.DependsOn(Restore)
         .After(Metadata)
         .Executes(() =>
         {
             GlobFiles(ApiDirectory, "**/toc.yml").ForEach(File.Delete);
             WriteCustomTocs(ApiDirectory, DocumentationRoot, GlobFiles(SourceDirectory / Configuration, "AIMP.SDK.dll"));
-            //WriteCustomToc(ApiDirectory / "toc.yml", GlobFiles(RepositoriesDirectory, "**/*.sln"));
-        });
-
-    Target t => _ => _
-        .Executes(() =>
-        {
-            WriteCustomTocs(ApiDirectory, BuildProjectDirectory, GlobFiles(GenerationDirectory, "**/lib/net4*/AIMP.SDK.dll"));
-        });
-
-    Target CustomDocFx => _ => _
-        .DependsOn(Clone /*, DownloadPackages*/)
-        .Executes(() =>
-        {
-            WriteCustomDocFx(DocFxFile, BuildProjectDirectory / "docfx.template.json", DocumentationRoot,
-                ApiDirectory);
         });
 
     Target BuildSite => _ => _
-        .DependsOn(Clean, Metadata, CustomToc)
+        .DependsOn(CleanDocumentation, Metadata, CustomToc)
         .Executes(() =>
         {
             DocFXTasks.DocFXBuild(s => s
+                .SetWorkingDirectory(DocumentationRoot)
                 .SetConfigFile(DocFxFile)
                 .SetLogLevel(DocFXLogLevel.Verbose)
-                .SetServe(InvokedTargets.Contains(BuildSite)));
+                .SetServe(true));
         });
 }

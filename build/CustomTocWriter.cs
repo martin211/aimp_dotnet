@@ -22,7 +22,7 @@ static class CustomTocWriter
         public string Icon { get; set; }
         public string TopicUid { get; set; }
         public string Separator { get; set; }
-        public Item[] Items { get; set; }
+        public IList<Item> Items { get; set; }
         public string Namespace { get; set; }
     }
 
@@ -39,28 +39,59 @@ static class CustomTocWriter
                 .GroupBy(c => c.Namespace)
                 .ToDictionary(c => c.Key, c => c.ToList());
 
+
             void ApplyName(Item item)
             {
                 if (!string.IsNullOrWhiteSpace(item.Namespace))
                 {
-                    var childItems = typeDefinitions.Where(c => c.Key.Contains(item.Namespace)).SelectMany(c => c.Value);
+                    var childItems = typeDefinitions
+                        .Where(c => c.Key.Equals(item.Namespace))
+                        .SelectMany(c => c.Value);
+
                     item.Items = childItems.Select(c => new Item
                     {
                         Name = c.Name,
-                        Uid = c.FullName
+                        Uid = c.FullName,
+                        Namespace = c.Namespace
                     })
-                        .ToArray();
+                        .ToList();
                 }
-
-                if (item.Items == null)
-                    return;
-
-                foreach (var subItem in item.Items)
-                    ApplyName(subItem);
             }
 
             var items = YamlDeserializeFromFile<Item[]>(projectDirectory / "toc.template.yml");
-            items.ForEach(ApplyName);
+
+            foreach (var item in items)
+            {
+                var subItems = item.Items != null
+                    ? item.Items.ToList()
+                    : new List<Item>();
+
+                ApplyName(item);
+
+                if (subItems.Any())
+                {
+                    foreach (var subItem in subItems)
+                    {
+                        var itemSubItems = subItem.Items != null
+                            ? subItem.Items.ToList()
+                            : new List<Item>();
+
+                        ApplyName(subItem);
+                        item.Items.Insert(0, subItem);
+
+                        if (itemSubItems.Any())
+                        {
+                            foreach (var subItemItem in itemSubItems)
+                            {
+                                ApplyName(subItemItem);
+                                subItem.Items.Insert(0, subItemItem);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //items.ForEach(ApplyName);
             YamlSerializeToFile(items, apiDirectory / "toc.yml");
         }
         finally

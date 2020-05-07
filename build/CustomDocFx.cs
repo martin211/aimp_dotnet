@@ -20,10 +20,10 @@ static class CustomDocFx
         dynamic json = JObject.Parse(ReadAllText(docFxTemplateFile));
 
         var metadata = new JArray();
-        Directory.GetDirectories(generationDirectory)
-            .ForEachLazy(x => Info($"Processing {x}..."))
-            .Select(directory => CreateMetadataItem(directory, apiDirectory))
-            .ForEach(metadata.Add);
+        //Directory.GetDirectories(generationDirectory)
+        //    .ForEachLazy(x => Info($"Processing {x}..."))
+        //    .Select(directory => CreateMetadataItem(directory, apiDirectory))
+        //    .ForEach(metadata.Add);
 
         json.metadata = metadata;
         WriteAllText(docFxFile, json.ToString(Formatting.Indented));

@@ -36,6 +36,9 @@
 
     <None Include="..\.teamcity\settings.kts" LinkBase="ci" Condition="Exists('..\.teamcity\settings.kts')" />
     <None Include="..\.github\workflows\*.yml" LinkBase="ci" />
+    <None Remove="docfx.json" />
+    <Content Include="..\docfx_project\docfx.json" Link="docfx.json" />
+    <Content Include="..\docfx_project\docfx.template.json" Link="docfx.template.json" />
     <None Include="..\azure-pipelines.yml" LinkBase="ci" Condition="Exists('..\azure-pipelines.yml')" />
     <None Include="..\Jenkinsfile" LinkBase="ci" Condition="Exists('..\Jenkinsfile')" />
     <None Include="..\appveyor.yml" LinkBase="ci" Condition="Exists('..\appveyor.yml')" />

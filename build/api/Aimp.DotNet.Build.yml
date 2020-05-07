@@ -1,0 +1,35 @@
+### YamlMime:ManagedReference
+items:
+- uid: Aimp.DotNet.Build
+  commentId: N:Aimp.DotNet.Build
+  id: Aimp.DotNet.Build
+  children:
+  - Aimp.DotNet.Build.SonarBeginSettings
+  - Aimp.DotNet.Build.SonarBeginSettingsExtensions
+  langs:
+  - csharp
+  - vb
+  name: Aimp.DotNet.Build
+  nameWithType: Aimp.DotNet.Build
+  fullName: Aimp.DotNet.Build
+  type: Namespace
+  assemblies:
+  - _build
+references:
+- uid: Aimp.DotNet.Build.SonarBeginSettings
+  commentId: T:Aimp.DotNet.Build.SonarBeginSettings
+  parent: Aimp.DotNet.Build
+  name: SonarBeginSettings
+  nameWithType: SonarBeginSettings
+  fullName: Aimp.DotNet.Build.SonarBeginSettings
+- uid: Aimp.DotNet.Build.SonarBeginSettingsExtensions
+  commentId: T:Aimp.DotNet.Build.SonarBeginSettingsExtensions
+  parent: Aimp.DotNet.Build
+  name: SonarBeginSettingsExtensions
+  nameWithType: SonarBeginSettingsExtensions
+  fullName: Aimp.DotNet.Build.SonarBeginSettingsExtensions
+- uid: Aimp.DotNet.Build
+  commentId: N:Aimp.DotNet.Build
+  name: Aimp.DotNet.Build
+  nameWithType: Aimp.DotNet.Build
+  fullName: Aimp.DotNet.Build

@@ -1,0 +1,10 @@
+{
+  "Aimp.DotNet.Build": "Aimp.DotNet.Build.yml",
+  "Aimp.DotNet.Build.SonarBeginSettings": "Aimp.DotNet.Build.SonarBeginSettings.yml",
+  "Aimp.DotNet.Build.SonarBeginSettings.ConfigureArguments(Nuke.Common.Tooling.Arguments)": "Aimp.DotNet.Build.SonarBeginSettings.yml",
+  "Aimp.DotNet.Build.SonarBeginSettings.ProjectBaseDir": "Aimp.DotNet.Build.SonarBeginSettings.yml",
+  "Aimp.DotNet.Build.SonarBeginSettings.Verbose": "Aimp.DotNet.Build.SonarBeginSettings.yml",
+  "Aimp.DotNet.Build.SonarBeginSettingsExtensions": "Aimp.DotNet.Build.SonarBeginSettingsExtensions.yml",
+  "Aimp.DotNet.Build.SonarBeginSettingsExtensions.SetProjectBaseDir(Aimp.DotNet.Build.SonarBeginSettings,System.String)": "Aimp.DotNet.Build.SonarBeginSettingsExtensions.yml",
+  "Aimp.DotNet.Build.SonarBeginSettingsExtensions.SetVerbose2(Aimp.DotNet.Build.SonarBeginSettings,System.Boolean)": "Aimp.DotNet.Build.SonarBeginSettingsExtensions.yml"
+}
