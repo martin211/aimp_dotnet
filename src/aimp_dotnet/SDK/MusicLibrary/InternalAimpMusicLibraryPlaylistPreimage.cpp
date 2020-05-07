@@ -22,10 +22,10 @@ HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetFilter(IAIMPMLDataFi
 {
     // TODO Complete it
     IAimpDataFieldFilter^ dataFilter = nullptr;
-    AimpActionResult res = AimpActionResult::Fail;
+    ActionResultType res = ActionResultType::Fail;
     //res = _managedInstance->GetFilter(&dataFilter);
 
-    //if (res == AimpActionResult::OK)
+    //if (res == ActionResultType::OK)
     //{
     //    *Filter = gcnew AimpDataFieldFilter();
     //}

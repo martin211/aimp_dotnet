@@ -34,7 +34,7 @@ public:
         this->!AimpObject();
     }
 protected:
-    AIMP::SDK::AimpActionResult CheckResult(HRESULT result)
+    AIMP::SDK::ActionResultType CheckResult(HRESULT result)
     {
         return Utils::CheckResult(result);
     }

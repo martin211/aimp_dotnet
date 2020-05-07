@@ -21,6 +21,6 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
     {
         int GetCount();
 
-        AimpActionResult GetValue(int index, out string fieldName, out object value);
+        ActionResultType GetValue(int index, out string fieldName, out object value);
     }
 }

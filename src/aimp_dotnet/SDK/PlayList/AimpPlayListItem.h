@@ -97,7 +97,7 @@ namespace AIMP
                 void set(IAimpPlaylist^ val);
             }
 
-            virtual AimpActionResult ReloadInfo();
+            virtual ActionResultType ReloadInfo();
         };
     }
 }

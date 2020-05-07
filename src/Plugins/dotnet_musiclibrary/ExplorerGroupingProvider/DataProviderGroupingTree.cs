@@ -41,7 +41,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
         {
         }
 
-        public AimpActionResult AppendFilter(IAimpDataFilterGroup filter, IAimpGroupingTreeSelection selection)
+        public ActionResultType AppendFilter(IAimpDataFilterGroup filter, IAimpGroupingTreeSelection selection)
         {
             filter.BeginUpdate();
             try
@@ -51,7 +51,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                 {
                     string fName;
                     object fValue;
-                    if (selection.GetValue(i, out fName, out fValue) == AimpActionResult.OK)
+                    if (selection.GetValue(i, out fName, out fValue) == ActionResultType.OK)
                     {
                         IAimpDataFieldFilter fFilter;
                         fValue = fValue.ToString()
@@ -66,7 +66,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                 filter.EndUpdate();
             }
 
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
         public CapabilitiesFlags GetCapabilities()
@@ -74,13 +74,13 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
             return CapabilitiesFlags.HideAllData | CapabilitiesFlags.DontSort;
         }
 
-        public AimpActionResult GetData(IAimpGroupingTreeSelection selection, out IAimpGroupingTreeDataProviderSelection data)
+        public ActionResultType GetData(IAimpGroupingTreeSelection selection, out IAimpGroupingTreeDataProviderSelection data)
         {
             string outFieldName;
             object outValue;
             data = null;
 
-            if (LogResult(selection.GetValue(0, out outFieldName, out outValue)) == AimpActionResult.OK)
+            if (LogResult(selection.GetValue(0, out outFieldName, out outValue)) == ActionResultType.OK)
             {
                 try
                 {
@@ -89,25 +89,25 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                         var pathParts = outValue.ToString().Split(new[] {"\\"}, StringSplitOptions.RemoveEmptyEntries);
                         var category = (DataStorageCategoryType) Enum.Parse(typeof(DataStorageCategoryType), pathParts[1]);
                         data = new DataProviderGroupingTreeSelection(_dataProviders[category](outValue.ToString()));
-                        return AimpActionResult.OK;
+                        return ActionResultType.OK;
                     }
                 }
                 catch (Exception)
                 {
-                    return AimpActionResult.Fail;
+                    return ActionResultType.Fail;
                 }
             }
 
             data = new DataProviderGroupingTreeSelection(PopulateRoot());
 
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult GetFieldForAlphabeticIndex(out string fieldName)
+        public ActionResultType GetFieldForAlphabeticIndex(out string fieldName)
         {
             System.Diagnostics.Debug.WriteLine("GetFieldForAlphabeticIndex");
             fieldName = string.Empty;
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
         private DataProviderGroupingTreeData PopulateRoot()
@@ -174,7 +174,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
             return new DataProviderGroupingTreeData();
         }
 
-        private AimpActionResult LogResult(AimpActionResult actionResult)
+        private ActionResultType LogResult(ActionResultType actionResult)
         {
             System.Diagnostics.Debug.WriteLine(actionResult);
             return actionResult;

@@ -25,8 +25,8 @@ namespace AIMP.SDK.MusicLibrary.Presets
         /// <param name="name">Template name.</param>
         /// <param name="provider">Custom data provider <seealso cref="IAimpGroupingTreeDataProvider"/>.</param>
         /// <param name="preset">Created preset <seealso cref="IAimpGroupingPreset"/>.</param>
-        /// <returns>The operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult Add(string id, string name, IAimpGroupingTreeDataProvider provider,
+        /// <returns>The operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType Add(string id, string name, IAimpGroupingTreeDataProvider provider,
             out IAimpGroupingPreset preset);
 
         /// <summary>
@@ -36,8 +36,8 @@ namespace AIMP.SDK.MusicLibrary.Presets
         /// <param name="name">Template name.</param>
         /// <param name="fieldNames">The list of fields</param>
         /// <param name="preset">Created preset <seealso cref="IAimpGroupingPresetStandard"/>.</param>
-        /// <returns>The operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult Add(string id, string name, IList<string> fieldNames, out IAimpGroupingPresetStandard preset);
+        /// <returns>The operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType Add(string id, string name, IList<string> fieldNames, out IAimpGroupingPresetStandard preset);
 
         /// <summary>
         /// Adds new grouping template with default data provider.
@@ -46,8 +46,8 @@ namespace AIMP.SDK.MusicLibrary.Presets
         /// <param name="name">Template name.</param>
         /// <param name="fieldName">The field name.</param>
         /// <param name="preset">Created preset <seealso cref="IAimpGroupingPresetStandard"/>.</param>
-        /// <returns>The operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult Add(string id, string name, string fieldName, out IAimpGroupingPresetStandard preset);
+        /// <returns>The operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType Add(string id, string name, string fieldName, out IAimpGroupingPresetStandard preset);
 
         /// <summary>
         /// Adds blocking on sending notifications during changes.
@@ -64,40 +64,40 @@ namespace AIMP.SDK.MusicLibrary.Presets
         /// Removes a template by idex.
         /// </summary>
         /// <param name="index">Index.</param>
-        /// <returns>The operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult Delete(int index);
+        /// <returns>The operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType Delete(int index);
 
         /// <summary>
         /// Gets the grouping preset by index.
         /// </summary>
         /// <param name="index">Index.</param>
         /// <param name="preset">The grouping preset <seealso cref="IAimpGroupingPreset"/>.</param>
-        /// <returns>The operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult Get(int index, out IAimpGroupingPreset preset);
+        /// <returns>The operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType Get(int index, out IAimpGroupingPreset preset);
 
         /// <summary>
         /// Gets the standard grouping preset by index.
         /// </summary>
         /// <param name="index">Index.</param>
         /// <param name="preset">The snadart grouping preset <seealso cref="IAimpGroupingPresetStandard"/></param>
-        /// <returns>The operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult Get(int index, out IAimpGroupingPresetStandard preset);
+        /// <returns>The operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType Get(int index, out IAimpGroupingPresetStandard preset);
 
         /// <summary>
         /// Gets the grouping preset by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="preset">The grouping preset <seealso cref="IAimpGroupingPreset"/>.</param>
-        /// <returns>The operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetById(string id, out IAimpGroupingPreset preset);
+        /// <returns>The operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetById(string id, out IAimpGroupingPreset preset);
 
         /// <summary>
         /// Gets the standard grouping preset by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="preset">The snadart grouping preset <seealso cref="IAimpGroupingPresetStandard"/></param>
-        /// <returns>The operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetById(string id, out IAimpGroupingPresetStandard preset);
+        /// <returns>The operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetById(string id, out IAimpGroupingPresetStandard preset);
 
         /// <summary>
         /// Gets the count of presets.

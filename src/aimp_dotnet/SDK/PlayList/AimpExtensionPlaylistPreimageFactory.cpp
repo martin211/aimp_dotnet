@@ -20,12 +20,12 @@ AimpExtensionPlaylistPreimageFactory(IAIMPExtensionPlaylistPreimageFactory* aimp
 {
 }
 
-AimpActionResult AimpExtensionPlaylistPreimageFactory::CreatePreimage(IAimpPlaylistPreimage^% preimage)
+ActionResultType AimpExtensionPlaylistPreimageFactory::CreatePreimage(IAimpPlaylistPreimage^% preimage)
 {
     IAIMPPlaylistPreimage* image = nullptr;
     IAIMPPlaylistPreimageFolders* folders = nullptr;
-    AimpActionResult res = CheckResult(InternalAimpObject->CreatePreimage(&image));
-    if (res == AimpActionResult::OK && image != nullptr)
+    ActionResultType res = CheckResult(InternalAimpObject->CreatePreimage(&image));
+    if (res == ActionResultType::OK && image != nullptr)
     {
         if (image->QueryInterface(IID_IAIMPPlaylistPreimageFolders, reinterpret_cast<void**>(&folders)) == S_OK)
         {
@@ -40,11 +40,11 @@ AimpActionResult AimpExtensionPlaylistPreimageFactory::CreatePreimage(IAimpPlayl
     return res;
 }
 
-AimpActionResult AimpExtensionPlaylistPreimageFactory::GetName(String^% name)
+ActionResultType AimpExtensionPlaylistPreimageFactory::GetName(String^% name)
 {
     IAIMPString* aimpString = nullptr;
-    AimpActionResult res = CheckResult(InternalAimpObject->GetName(&aimpString));
-    if (res == AimpActionResult::OK && aimpString != nullptr)
+    ActionResultType res = CheckResult(InternalAimpObject->GetName(&aimpString));
+    if (res == ActionResultType::OK && aimpString != nullptr)
     {
         name = AimpConverter::ToManagedString(aimpString);
         aimpString->Release();
@@ -54,11 +54,11 @@ AimpActionResult AimpExtensionPlaylistPreimageFactory::GetName(String^% name)
     return res;
 }
 
-AimpActionResult AimpExtensionPlaylistPreimageFactory::GetId(String^% id)
+ActionResultType AimpExtensionPlaylistPreimageFactory::GetId(String^% id)
 {
     IAIMPString* aimpString = nullptr;
-    AimpActionResult res = CheckResult(InternalAimpObject->GetID(&aimpString));
-    if (res == AimpActionResult::OK && aimpString != nullptr)
+    ActionResultType res = CheckResult(InternalAimpObject->GetID(&aimpString));
+    if (res == ActionResultType::OK && aimpString != nullptr)
     {
         id = AimpConverter::ToManagedString(aimpString);
         aimpString->Release();

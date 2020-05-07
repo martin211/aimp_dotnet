@@ -27,7 +27,7 @@ namespace AIMP
         public:
             explicit AimpFileSystemCommandCopyToClipboard(IAIMPFileSystemCommandCopyToClipboard* aimpObject);
 
-            virtual AimpActionResult CopyToClipboard(List<String^>^ files);
+            virtual ActionResultType CopyToClipboard(List<String^>^ files);
         };
     }
 }

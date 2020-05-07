@@ -79,31 +79,31 @@ namespace AIMP
                 void set(int value);
             }
 
-            virtual AimpActionResult Assign(IAimpLyrics^ source);
+            virtual ActionResultType Assign(IAimpLyrics^ source);
 
-            virtual AimpActionResult Clone(IAimpLyrics^% lyrics);
+            virtual ActionResultType Clone(IAimpLyrics^% lyrics);
 
-            virtual AimpActionResult Add(int timeStart, int timeFinish, String^ text);
+            virtual ActionResultType Add(int timeStart, int timeFinish, String^ text);
 
-            virtual AimpActionResult Delete(int index);
+            virtual ActionResultType Delete(int index);
 
-            virtual AimpActionResult Find(int time, int index, String^% text);
+            virtual ActionResultType Find(int time, int index, String^% text);
 
-            virtual AimpActionResult Get(int index, int timeStart, int timeFinish, String^% text);
+            virtual ActionResultType Get(int index, int timeStart, int timeFinish, String^% text);
 
-            virtual AimpActionResult GetCount(int% value);
+            virtual ActionResultType GetCount(int% value);
 
-            virtual AimpActionResult LoadFromFile(String^ virtualFileName);
+            virtual ActionResultType LoadFromFile(String^ virtualFileName);
 
-            virtual AimpActionResult LoadFromStream(IAimpStream^ stream, LyricsFormat format);
+            virtual ActionResultType LoadFromStream(IAimpStream^ stream, LyricsFormat format);
 
-            virtual AimpActionResult LoadFromString(String^ lyrics, LyricsFormat format);
+            virtual ActionResultType LoadFromString(String^ lyrics, LyricsFormat format);
 
-            virtual AimpActionResult SaveToFile(String^ fileUri);
+            virtual ActionResultType SaveToFile(String^ fileUri);
 
-            virtual AimpActionResult SaveToStream(IAimpStream^ stream, LyricsFormat format);
+            virtual ActionResultType SaveToStream(IAimpStream^ stream, LyricsFormat format);
 
-            virtual AimpActionResult SaveToString(String^% lyrics, LyricsFormat format);
+            virtual ActionResultType SaveToString(String^% lyrics, LyricsFormat format);
         };
     }
 }

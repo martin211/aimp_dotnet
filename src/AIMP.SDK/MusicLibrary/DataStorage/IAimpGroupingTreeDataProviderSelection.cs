@@ -40,8 +40,8 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         /// Returns text to display to end user (optionally).
         /// </summary>
         /// <param name="displayValue">The display value.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetDisplayValue(out string displayValue);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetDisplayValue(out string displayValue);
 
         /// <summary>
         /// Gets the tree node flags <see cref="GroupingTreeNodeFlags"/>.
@@ -56,16 +56,16 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         /// Return the node image <see cref="FieldImageIndex"/>.
         /// </summary>
         /// <param name="imageIndex">Out. The image index <see cref="FieldImageIndex"/>.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetImageIndex(out FieldImageIndex imageIndex);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetImageIndex(out FieldImageIndex imageIndex);
 
         /// <summary>
         /// Returns the value for specified field name.
         /// </summary>
         /// <param name="fieldName">THe current field name.</param>
         /// <param name="value"></param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetValue(out string fieldName, out object value);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetValue(out string fieldName, out object value);
 
         /// <summary>
         /// Jumps to the next record. Returns False if current node is last.

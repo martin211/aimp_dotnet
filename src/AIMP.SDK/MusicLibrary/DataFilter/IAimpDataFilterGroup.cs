@@ -36,42 +36,42 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
         /// <param name="value2">The value2.</param>
         /// <param name="operation">The rule processing results from subsidiaries filters.</param>
         /// <param name="filter">[out] The added filter.</param>
-        AimpActionResult Add(string field, object value1, object value2, FieldFilterOperationType operation, out IAimpDataFieldFilter filter);
+        ActionResultType Add(string field, object value1, object value2, FieldFilterOperationType operation, out IAimpDataFieldFilter filter);
 
-        AimpActionResult Add(string field, object[] values, int count, out IAimpDataFieldFilterByArray filter);
+        ActionResultType Add(string field, object[] values, int count, out IAimpDataFieldFilterByArray filter);
 
         /// <summary>
         /// Adds the child group.
         /// </summary>
         /// <param name="group">The group.</param>
-        AimpActionResult AddGroup(out IAimpDataFilterGroup group);
+        ActionResultType AddGroup(out IAimpDataFilterGroup group);
 
         /// <summary>
         /// Clears the filter.
         /// </summary>
-        AimpActionResult Clear();
+        ActionResultType Clear();
 
         /// <summary>
         /// Deletes the filter by specified index.
         /// </summary>
         /// <param name="index">The index.</param>
-        AimpActionResult Delete(int index);
+        ActionResultType Delete(int index);
 
         /// <summary>
         /// Gets the child group by index.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="group">The filter group <seealso cref="IAimpDataFilterGroup"/>.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetChild(int index, out IAimpDataFilterGroup group);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetChild(int index, out IAimpDataFilterGroup group);
 
         /// <summary>
         /// Gets the child field filter by index.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="fieldFilter">The field filter <seealso cref="IAimpDataFieldFilter"/>.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetChild(int index, out IAimpDataFieldFilter fieldFilter);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetChild(int index, out IAimpDataFieldFilter fieldFilter);
 
         /// <summary>
         /// Gets the child count.

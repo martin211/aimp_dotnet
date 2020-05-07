@@ -30,21 +30,21 @@ namespace AIMP
             {
             }
 
-            virtual AimpActionResult GetActiveStorage(IAimpDataStorage^% storage);
+            virtual ActionResultType GetActiveStorage(IAimpDataStorage^% storage);
 
-            virtual AimpActionResult GetActiveStorage(IAimpGroupingPresets^% presets);
+            virtual ActionResultType GetActiveStorage(IAimpGroupingPresets^% presets);
 
-            virtual AimpActionResult SetActiveStorage(IAimpDataStorage^ storage);
+            virtual ActionResultType SetActiveStorage(IAimpDataStorage^ storage);
 
-            virtual AimpActionResult SetActiveStorage(IAimpGroupingPresets^ preset);
+            virtual ActionResultType SetActiveStorage(IAimpGroupingPresets^ preset);
 
-            virtual AimpActionResult GetStorage(int index, IAimpDataStorage^% storage);
+            virtual ActionResultType GetStorage(int index, IAimpDataStorage^% storage);
 
-            virtual AimpActionResult GetStorage(int index, IAimpGroupingPresets^% preset);
+            virtual ActionResultType GetStorage(int index, IAimpGroupingPresets^% preset);
 
-            virtual AimpActionResult GetStorageById(String^ id, IAimpDataStorage^% storage);
+            virtual ActionResultType GetStorageById(String^ id, IAimpDataStorage^% storage);
 
-            virtual AimpActionResult GetStorageById(String^ id, IAimpGroupingPresets^% preset);
+            virtual ActionResultType GetStorageById(String^ id, IAimpGroupingPresets^% preset);
 
             virtual int GetStorageCount();
         protected:

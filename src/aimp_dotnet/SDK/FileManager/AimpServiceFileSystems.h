@@ -25,14 +25,14 @@ namespace AIMP
         public:
             AimpServiceFileSystems(ManagedAimpCore^ core);
 
-            virtual AimpActionResult Get(FileCommandType commandType, String^ fileUri,
+            virtual ActionResultType Get(FileCommandType commandType, String^ fileUri,
                                          IAimpFileSystemCommand^% command);
 
-            virtual AimpActionResult GetDefault(FileCommandType commandType, IAimpFileSystemCommand^% command);
+            virtual ActionResultType GetDefault(FileCommandType commandType, IAimpFileSystemCommand^% command);
         private:
             static GUID GetCommandId(FileCommandType commandType);
 
-            AimpActionResult GetCommand(FileCommandType commandType, GUID commandId, IAIMPServiceFileSystems* service,
+            ActionResultType GetCommand(FileCommandType commandType, GUID commandId, IAIMPServiceFileSystems* service,
                                         String^ value, IAimpFileSystemCommand^% command, bool isDefault);
         protected:
             IAIMPServiceFileSystems* GetAimpService() override;

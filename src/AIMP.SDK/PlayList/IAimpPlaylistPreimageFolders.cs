@@ -12,13 +12,13 @@ namespace AIMP.SDK.Playlist
 {
     public interface IAimpPlaylistPreimageFolders : IAimpPlaylistPreimage
     {
-        AimpActionResult ItemsAdd(string path, bool recursive);
+        ActionResultType ItemsAdd(string path, bool recursive);
 
-        AimpActionResult ItemsDelete(int index);
+        ActionResultType ItemsDelete(int index);
 
-        AimpActionResult ItemsDeleteAll();
+        ActionResultType ItemsDeleteAll();
 
-        AimpActionResult ItemsGet(int index, out string path, out bool recursive);
+        ActionResultType ItemsGet(int index, out string path, out bool recursive);
 
         int ItemsGetCount();
     }

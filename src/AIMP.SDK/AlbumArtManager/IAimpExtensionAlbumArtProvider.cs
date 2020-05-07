@@ -36,8 +36,8 @@ namespace AIMP.SDK.AlbumArtManager
         /// <param name="album">Optional.The album.</param>
         /// <param name="options">The search options <seealso cref="IAimpAlbumArtSearchOptions"/>.</param>
         /// <param name="image">Out. The album art image.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Get(string fileUrl, string artist, string album, IAimpAlbumArtSearchOptions options,
+        /// <returns>The <see cref="ActionResultType"/> result.</returns>
+        ActionResultType Get(string fileUrl, string artist, string album, IAimpAlbumArtSearchOptions options,
             out Bitmap image);
 
         /// <summary>

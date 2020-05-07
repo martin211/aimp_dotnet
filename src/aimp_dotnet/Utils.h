@@ -14,26 +14,26 @@
 public ref class Utils
 {
 internal:
-    static AIMP::SDK::AimpActionResult CheckResult(HRESULT result)
+    static AIMP::SDK::ActionResultType CheckResult(HRESULT result)
     {
         System::Diagnostics::Debug::WriteLineIf(result != S_OK, "CheckResult: " + result);
 
         switch (result)
         {
         case E_ACCESSDENIED:
-            return AIMP::SDK::AimpActionResult::AccessDenied;
+            return AIMP::SDK::ActionResultType::AccessDenied;
         case E_HANDLE:
-            return AIMP::SDK::AimpActionResult::Handle;
+            return AIMP::SDK::ActionResultType::Handle;
         case E_INVALIDARG:
-            return AIMP::SDK::AimpActionResult::InvalidArguments;
+            return AIMP::SDK::ActionResultType::InvalidArguments;
         case E_NOTIMPL:
-            return AIMP::SDK::AimpActionResult::NotImplemented;
+            return AIMP::SDK::ActionResultType::NotImplemented;
         case E_UNEXPECTED:
-            return AIMP::SDK::AimpActionResult::Unexpected;
+            return AIMP::SDK::ActionResultType::Unexpected;
         case E_FAIL:
-            return AIMP::SDK::AimpActionResult::Fail;
+            return AIMP::SDK::ActionResultType::Fail;
         }
 
-        return AIMP::SDK::AimpActionResult::OK;
+        return AIMP::SDK::ActionResultType::OK;
     }
 };

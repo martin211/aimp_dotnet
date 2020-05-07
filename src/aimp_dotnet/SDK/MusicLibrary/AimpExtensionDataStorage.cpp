@@ -30,10 +30,10 @@ HRESULT WINAPI AimpDataProvider::GetData(IAIMPObjectList* Fields, IAIMPMLDataFil
     if (provider != nullptr)
     {
         Object^ o;
-        const AimpActionResult result = provider->GetData(AimpConverter::ToStringCollection(Fields),
+        const ActionResultType result = provider->GetData(AimpConverter::ToStringCollection(Fields),
                                                           gcnew AimpDataFilter(Filter), o);
 
-        if (result == AimpActionResult::OK)
+        if (result == ActionResultType::OK)
         {
             IAimpDataProviderSelection^ selection = dynamic_cast<IAimpDataProviderSelection^>(o);
 
@@ -393,7 +393,7 @@ HRESULT WINAPI AimpExtensionDataStorage::GetFields(int Schema, IAIMPObjectList**
     IAIMPObjectList* L = AimpConverter::GetAimpObjectList();
 
     Collections::IList^ collection;
-    AimpActionResult result = _managedInstance->GetFields(static_cast<Extension::SchemaType>(Schema), collection);
+    ActionResultType result = _managedInstance->GetFields(static_cast<Extension::SchemaType>(Schema), collection);
 
     if (collection == nullptr)
     {

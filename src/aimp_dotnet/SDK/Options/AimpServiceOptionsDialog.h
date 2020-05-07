@@ -25,9 +25,9 @@ namespace AIMP
         public:
             explicit AimpServiceOptionsDialog(ManagedAimpCore^ core);
 
-            virtual AimpActionResult FrameModified(IAimpOptionsDialogFrame^ frame);
+            virtual ActionResultType FrameModified(IAimpOptionsDialogFrame^ frame);
 
-            virtual AimpActionResult FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow);
+            virtual ActionResultType FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow);
         protected:
             IAIMPServiceOptionsDialog* GetAimpService() override;
         };

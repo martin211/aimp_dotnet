@@ -28,8 +28,8 @@ namespace AIMP.SDK.Playlist
         /// </param>
         /// <param name="isActive">If set to <c>true</c> playlist will be active.</param>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
-        AimpActionResult CreatePlaylist(string name, bool isActive, out IAimpPlaylist playList);
+        /// <returns>The <see cref="ActionResultType"/>result.</returns>
+        ActionResultType CreatePlaylist(string name, bool isActive, out IAimpPlaylist playList);
 
         /// <summary>
         /// Creates the playlist from file.
@@ -42,52 +42,52 @@ namespace AIMP.SDK.Playlist
         /// </param>
         /// <param name="isActive">If set to <c>true</c> playlist will be active.</param>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
-        AimpActionResult CreatePlaylistFromFile(string fileName, bool isActive, out IAimpPlaylist playList);
+        /// <returns>The <see cref="ActionResultType"/>result.</returns>
+        ActionResultType CreatePlaylistFromFile(string fileName, bool isActive, out IAimpPlaylist playList);
 
         /// <summary>
         /// Gets the current active playlist.
         /// </summary>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
-        AimpActionResult GetActivePlaylist(out IAimpPlaylist playList);
+        /// <returns>The <see cref="ActionResultType"/>result.</returns>
+        ActionResultType GetActivePlaylist(out IAimpPlaylist playList);
 
         /// <summary>
         /// Sets the playlist as active.
         /// </summary>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        AimpActionResult SetActivePlaylist(IAimpPlaylist playList);
+        ActionResultType SetActivePlaylist(IAimpPlaylist playList);
 
         /// <summary>
         /// Gets the playable playlist.
         /// </summary>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
-        AimpActionResult GetPlayablePlaylist(out IAimpPlaylist playList);
+        /// <returns>The <see cref="ActionResultType"/>result.</returns>
+        ActionResultType GetPlayablePlaylist(out IAimpPlaylist playList);
 
         /// <summary>
         /// Gets the loaded playlist.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
-        AimpActionResult GetLoadedPlaylist(int index, out IAimpPlaylist playList);
+        /// <returns>The <see cref="ActionResultType"/>result.</returns>
+        ActionResultType GetLoadedPlaylist(int index, out IAimpPlaylist playList);
 
         /// <summary>
         /// Gets the loaded playlist by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
-        AimpActionResult GetLoadedPlaylistById(string id, out IAimpPlaylist playList);
+        /// <returns>The <see cref="ActionResultType"/>result.</returns>
+        ActionResultType GetLoadedPlaylistById(string id, out IAimpPlaylist playList);
 
         /// <summary>
         /// Gets the loaded playlist by name.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
-        AimpActionResult GetLoadedPlaylistByName(string name, out IAimpPlaylist playList);
+        /// <returns>The <see cref="ActionResultType"/>result.</returns>
+        ActionResultType GetLoadedPlaylistByName(string name, out IAimpPlaylist playList);
 
         /// <summary>
         /// Gets the loaded playlist count.

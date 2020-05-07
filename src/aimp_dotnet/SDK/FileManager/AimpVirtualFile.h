@@ -61,15 +61,15 @@ namespace AIMP
                 void set(String^ value);
             }
 
-            virtual AimpActionResult CreateStream(IAimpStream^% stream);
+            virtual ActionResultType CreateStream(IAimpStream^% stream);
 
-            virtual AimpActionResult GetFileInfo(IAimpFileInfo^% fileInfo);
+            virtual ActionResultType GetFileInfo(IAimpFileInfo^% fileInfo);
 
             virtual bool IsExists();
 
-            virtual AimpActionResult IsInSameStream(IAimpVirtualFile^ virtualFile);
+            virtual ActionResultType IsInSameStream(IAimpVirtualFile^ virtualFile);
 
-            virtual AimpActionResult Synchronize();
+            virtual ActionResultType Synchronize();
         };
     }
 }

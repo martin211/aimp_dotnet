@@ -27,7 +27,7 @@ HRESULT InternalAimpExtensionPlaylistPreimageFactory::CreatePreimage(IAIMPPlayli
 {
     IAimpPlaylistPreimage^ preImage = nullptr;
 
-    AimpActionResult res = _managedInstance->CreatePreimage(preImage);
+    ActionResultType res = _managedInstance->CreatePreimage(preImage);
     const auto mlPreimage = dynamic_cast<MusicLibrary::IAimpMusicLibraryPlaylistPreimage^>(preImage);
     if (mlPreimage != nullptr)
     {
@@ -44,8 +44,8 @@ HRESULT InternalAimpExtensionPlaylistPreimageFactory::CreatePreimage(IAIMPPlayli
 HRESULT WINAPI InternalAimpExtensionPlaylistPreimageFactory::GetID(IAIMPString** ID)
 {
     System::String^ id;
-    AimpActionResult res = _managedInstance->GetId(id);
-    if (res == AimpActionResult::OK)
+    ActionResultType res = _managedInstance->GetId(id);
+    if (res == ActionResultType::OK)
     {
         *ID = AimpConverter::ToAimpString(id);
     }
@@ -56,8 +56,8 @@ HRESULT WINAPI InternalAimpExtensionPlaylistPreimageFactory::GetID(IAIMPString**
 HRESULT WINAPI InternalAimpExtensionPlaylistPreimageFactory::GetName(IAIMPString** Name)
 {
     String^ name;
-    AimpActionResult res = _managedInstance->GetName(name);
-    if (res == AimpActionResult::OK)
+    ActionResultType res = _managedInstance->GetName(name);
+    if (res == ActionResultType::OK)
     {
         *Name = AimpConverter::ToAimpString(name);
     }

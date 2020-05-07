@@ -14,18 +14,18 @@ namespace AIMP.SDK
 {
     public class AimpErrorArgs : EventArgs
     {
-        public AimpErrorArgs(AimpActionResult aimpActionResult, string message)
+        public AimpErrorArgs(ActionResultType aimpActionResult, string message)
         {
-            AimpActionResult = aimpActionResult;
+            ActionResultType = aimpActionResult;
             Message = message;
         }
 
-        public AimpErrorArgs(AimpActionResult aimpActionResult, string message, string stackTrace) : this(aimpActionResult, message)
+        public AimpErrorArgs(ActionResultType aimpActionResult, string message, string stackTrace) : this(aimpActionResult, message)
         {
             StackTrace = stackTrace;
         }
 
-        public AimpActionResult AimpActionResult { get; }
+        public ActionResultType ActionResultType { get; }
 
         public string Message { get; }
 

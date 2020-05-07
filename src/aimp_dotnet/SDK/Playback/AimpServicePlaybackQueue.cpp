@@ -30,7 +30,7 @@ IAimpPlaybackQueueItem^ AimpServicePlaybackQueue::GetNextTrack()
     {
         if (service != nullptr)
         {
-            if (CheckResult(service->GetNextTrack(&item)) == AimpActionResult::OK)
+            if (CheckResult(service->GetNextTrack(&item)) == ActionResultType::OK)
             {
                 return gcnew AimpPlaybackQueueItem(item);
             }
@@ -54,7 +54,7 @@ IAimpPlaybackQueueItem^ AimpServicePlaybackQueue::GetPrevTrack()
     {
         if (service != nullptr)
         {
-            if (CheckResult(service->GetPrevTrack(&item)) == AimpActionResult::OK)
+            if (CheckResult(service->GetPrevTrack(&item)) == ActionResultType::OK)
             {
                 return gcnew AimpPlaybackQueueItem(item);
             }

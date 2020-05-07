@@ -42,7 +42,7 @@ namespace AIMP
             }
 
         private:
-            AimpActionResult GetProperties(IAIMPPropertyList** properties);
+            ActionResultType GetProperties(IAIMPPropertyList** properties);
         };
     }
 }

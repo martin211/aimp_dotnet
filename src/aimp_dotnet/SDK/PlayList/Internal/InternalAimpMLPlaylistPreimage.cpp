@@ -25,7 +25,7 @@ InternalAimpMLPlaylistPreimage::InternalAimpMLPlaylistPreimage(gcroot<IAimpPlayl
 
 HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetFilter(IAIMPMLDataFilter** Filter)
 {
-    AimpActionResult res = AimpActionResult::Fail;
+    ActionResultType res = ActionResultType::Fail;
     Object^ obj = _managedInstance;
     auto preimage = dynamic_cast<MusicLibrary::IAimpMusicLibraryPlaylistPreimage^>(obj);
     if (preimage != nullptr)
@@ -33,7 +33,7 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetFilter(IAIMPMLDataFilter** Fil
         IAimpDataFieldFilter^ f = nullptr;
         res = preimage->GetFilter(*&f);
 
-        if (res == AimpActionResult::OK && f != nullptr)
+        if (res == ActionResultType::OK && f != nullptr)
         {
             *Filter = new InternalAimpDataFilter(nullptr);
         }
@@ -44,7 +44,7 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetFilter(IAIMPMLDataFilter** Fil
 
 HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetStorage(IUnknown** Storage)
 {
-    AimpActionResult res = AimpActionResult::Fail;
+    ActionResultType res = ActionResultType::Fail;
     Object^ obj = _managedInstance;
     MusicLibrary::IAimpMusicLibraryPlaylistPreimage^ preimage = dynamic_cast<MusicLibrary::
         IAimpMusicLibraryPlaylistPreimage^>(obj);
@@ -203,7 +203,7 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::ExecuteDialog(HWND OwnerWndHanle)
 
 HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, DWORD** Flags, IAIMPObjectList** List)
 {
-    AimpActionResult res = AimpActionResult::Fail;
+    ActionResultType res = ActionResultType::Fail;
     Object^ obj = _managedInstance;
     IAimpPlaylistPreimageDataProvider^ dp = dynamic_cast<IAimpPlaylistPreimageDataProvider^>(obj);
     if (dp != nullptr)
@@ -213,7 +213,7 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, D
         System::Collections::IList^ collection;
         res = dp->GetFiles(gcnew AimpTaskOwner(Owner), *&flags, *&collection);
 
-        if (res == AimpActionResult::OK)
+        if (res == ActionResultType::OK)
         {
             *Flags = (DWORD*)flags;
             System::Type^ t = collection->GetType()->GetGenericArguments()[0];

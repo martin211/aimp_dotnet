@@ -26,13 +26,13 @@ namespace AIMP
         public:
             explicit AimpPlaylistPreimageFolders(IAIMPPlaylistPreimageFolders* aimpObject);
 
-            virtual AimpActionResult ItemsAdd(String^ path, bool recursive);
+            virtual ActionResultType ItemsAdd(String^ path, bool recursive);
 
-            virtual AimpActionResult ItemsDelete(int index);
+            virtual ActionResultType ItemsDelete(int index);
 
-            virtual AimpActionResult ItemsDeleteAll();
+            virtual ActionResultType ItemsDeleteAll();
 
-            virtual AimpActionResult ItemsGet(int index, String^% path, bool% recursive);
+            virtual ActionResultType ItemsGet(int index, String^% path, bool% recursive);
 
             virtual int ItemsGetCount();
         };

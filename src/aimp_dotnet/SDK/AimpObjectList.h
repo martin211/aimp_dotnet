@@ -27,22 +27,22 @@ namespace AIMP
         public:
             AimpObjectList(IAIMPObjectList* nativeObject);
 
-            virtual AimpActionResult Add(TObject entry);
+            virtual ActionResultType Add(TObject entry);
 
-            virtual AimpActionResult Clear();
+            virtual ActionResultType Clear();
 
-            virtual AimpActionResult Delete(int index);
+            virtual ActionResultType Delete(int index);
 
-            virtual AimpActionResult Insert(int index, TObject entry);
+            virtual ActionResultType Insert(int index, TObject entry);
 
             virtual property int Count
             {
                 int get();
             }
 
-            virtual AimpActionResult GetObject(int index, TObject% item);
+            virtual ActionResultType GetObject(int index, TObject% item);
 
-            virtual AimpActionResult SetObject(int index, TObject item);
+            virtual ActionResultType SetObject(int index, TObject item);
         };
 
         public ref class AimpObjectList2 : public IAimpObjectList, public AimpObject<IAIMPObjectList>
@@ -52,7 +52,7 @@ namespace AIMP
             {
             }
 
-            virtual AimpActionResult Add(Object^ entry)
+            virtual ActionResultType Add(Object^ entry)
             {
                 String^ s = dynamic_cast<String^>(entry);
                 if (s != nullptr)
@@ -63,19 +63,19 @@ namespace AIMP
                 return Utils::CheckResult(InternalAimpObject->Add(AimpConverter::ToAimpString((String^)entry)));
             }
 
-            virtual AimpActionResult Clear()
+            virtual ActionResultType Clear()
             {
-                return AimpActionResult::Fail;
+                return ActionResultType::Fail;
             }
 
-            virtual AimpActionResult Delete(int index)
+            virtual ActionResultType Delete(int index)
             {
-                return AimpActionResult::Fail;
+                return ActionResultType::Fail;
             }
 
-            virtual AimpActionResult Insert(int index, Object^ entry)
+            virtual ActionResultType Insert(int index, Object^ entry)
             {
-                return AimpActionResult::Fail;
+                return ActionResultType::Fail;
             }
 
             virtual property int Count
@@ -86,14 +86,14 @@ namespace AIMP
                 }
             }
 
-            virtual AimpActionResult GetObject(int index, Object^% item)
+            virtual ActionResultType GetObject(int index, Object^% item)
             {
-                return AimpActionResult::Fail;
+                return ActionResultType::Fail;
             }
 
-            virtual AimpActionResult SetObject(int index, Object^ item)
+            virtual ActionResultType SetObject(int index, Object^ item)
             {
-                return AimpActionResult::Fail;
+                return ActionResultType::Fail;
             }
         };
     }

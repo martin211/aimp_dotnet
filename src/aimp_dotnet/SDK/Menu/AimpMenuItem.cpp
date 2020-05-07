@@ -46,7 +46,7 @@ IAimpAction^ AimpMenuItem::Action::get()
 {
     IAIMPAction* action;
     if (PropertyListExtension::GetObject(InternalAimpObject, AIMP_MENUITEM_PROPID_ACTION, IID_IAIMPAction,
-                                         reinterpret_cast<void**>(&action)) == AimpActionResult::OK)
+                                         reinterpret_cast<void**>(&action)) == ActionResultType::OK)
     {
         return gcnew AimpAction(action);
     }

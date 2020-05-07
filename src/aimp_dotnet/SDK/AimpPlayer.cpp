@@ -131,7 +131,7 @@ IAIMPServicePlayer* AimpPlayer::ServicePlayer::get()
 bool AimpPlayer::IsMute::get()
 {
     bool value;
-    if (Utils::CheckResult(_player->GetMute(&value)) == AimpActionResult::OK)
+    if (Utils::CheckResult(_player->GetMute(&value)) == ActionResultType::OK)
     {
         return value;
     }
@@ -146,7 +146,7 @@ void AimpPlayer::IsMute::set(bool value)
 float AimpPlayer::Volume::get()
 {
     float value;
-    if (Utils::CheckResult(_player->GetVolume(&value)) == AimpActionResult::OK)
+    if (Utils::CheckResult(_player->GetVolume(&value)) == ActionResultType::OK)
     {
         return value;
     }
@@ -161,7 +161,7 @@ void AimpPlayer::Volume::set(float value)
 double AimpPlayer::Duration::get()
 {
     double value;
-    if (Utils::CheckResult(_player->GetDuration(&value)) == AimpActionResult::OK)
+    if (Utils::CheckResult(_player->GetDuration(&value)) == ActionResultType::OK)
     {
         return value;
     }
@@ -171,7 +171,7 @@ double AimpPlayer::Duration::get()
 double AimpPlayer::Position::get()
 {
     double value;
-    if (Utils::CheckResult(_player->GetPosition(&value)) == AimpActionResult::OK)
+    if (Utils::CheckResult(_player->GetPosition(&value)) == ActionResultType::OK)
     {
         return value;
     }
@@ -192,7 +192,7 @@ AimpPlayerState AimpPlayer::State::get()
 IAimpFileInfo^ AimpPlayer::CurrentFileInfo::get()
 {
     IAIMPFileInfo* fi = nullptr;
-    if (Utils::CheckResult(_player->GetInfo(&fi)) == AimpActionResult::OK && fi != nullptr)
+    if (Utils::CheckResult(_player->GetInfo(&fi)) == ActionResultType::OK && fi != nullptr)
     {
         return gcnew AimpFileInfo(fi);
     }
@@ -203,7 +203,7 @@ IAimpFileInfo^ AimpPlayer::CurrentFileInfo::get()
 IAimpPlaylistItem^ AimpPlayer::CurrentPlaylistItem::get()
 {
     IAIMPPlaylistItem* item = nullptr;
-    if (Utils::CheckResult(_player->GetPlaylistItem(&item)) == AimpActionResult::OK && item != nullptr)
+    if (Utils::CheckResult(_player->GetPlaylistItem(&item)) == ActionResultType::OK && item != nullptr)
     {
         return gcnew AimpPlaylistItem(item);
     }

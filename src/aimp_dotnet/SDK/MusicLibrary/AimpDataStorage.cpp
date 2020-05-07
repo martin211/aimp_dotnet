@@ -15,7 +15,7 @@
 
 using namespace AIMP::SDK;
 
-AimpActionResult AimpDataStorage::GetProperties(IAIMPPropertyList** properties)
+ActionResultType AimpDataStorage::GetProperties(IAIMPPropertyList** properties)
 {
     IAIMPPropertyList* prop = nullptr;
     const auto result = CheckResult(
@@ -33,7 +33,7 @@ String^ AimpDataStorage::Id::get()
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
         {
             return PropertyListExtension::GetString(properties, AIMPML_DATASTORAGE_PROPID_ID);
         }
@@ -55,7 +55,7 @@ String^ AimpDataStorage::Caption::get()
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
         {
             return PropertyListExtension::GetString(properties, AIMPML_DATASTORAGE_PROPID_CAPTION);
         }
@@ -77,12 +77,12 @@ IAimpGroupingPreset^ AimpDataStorage::GroupingPreset::get()
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
         {
             IAIMPMLGroupingPreset* preset = nullptr;
             if (PropertyListExtension::GetObject(properties, AIMPML_DATASTORAGE_PROPID_GROUPINGPRESET,
                                                  IID_IAIMPMLGroupingPreset, reinterpret_cast<void**>(&preset)) ==
-                AimpActionResult::OK)
+                ActionResultType::OK)
             {
                 if (preset != nullptr)
                 {
@@ -108,7 +108,7 @@ void AimpDataStorage::GroupingPreset::set(IAimpGroupingPreset^ value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
         {
             IAIMPMLGroupingPreset* preset = static_cast<AimpGroupingPreset^>(value)->InternalAimpObject;
             PropertyListExtension::SetObject(properties, AIMPML_DATASTORAGE_PROPID_GROUPINGPRESET, preset);

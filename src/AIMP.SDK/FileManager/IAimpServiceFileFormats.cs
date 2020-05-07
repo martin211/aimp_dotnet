@@ -29,15 +29,15 @@ namespace AIMP.SDK.FileManager
         /// </summary>
         /// <param name="flags"></param>
         /// <param name="formats">Out. File formats.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetFormats(FileFormats flags, out string formats);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetFormats(FileFormats flags, out string formats);
 
         /// <summary>
         /// Check is the file extension supported.
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="flags"></param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult IsSupported(string fileName, FileFormats flags);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType IsSupported(string fileName, FileFormats flags);
     }
 }

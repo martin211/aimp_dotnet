@@ -18,7 +18,7 @@ AimpServiceOptionsDialog::
 AimpServiceOptionsDialog(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceOptionsDialog>(core)
 { }
 
-AimpActionResult AimpServiceOptionsDialog::FrameModified(IAimpOptionsDialogFrame^ frame)
+ActionResultType AimpServiceOptionsDialog::FrameModified(IAimpOptionsDialogFrame^ frame)
 {
     auto service = GetAimpService();
     try
@@ -31,7 +31,7 @@ AimpActionResult AimpServiceOptionsDialog::FrameModified(IAimpOptionsDialogFrame
     }
 }
 
-AimpActionResult AimpServiceOptionsDialog::FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow)
+ActionResultType AimpServiceOptionsDialog::FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow)
 {
     auto service = GetAimpService();
     try

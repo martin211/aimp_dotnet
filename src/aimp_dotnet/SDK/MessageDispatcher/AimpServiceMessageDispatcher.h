@@ -29,10 +29,10 @@ namespace AIMP
 
             ~AimpServiceMessageDispatcher();
 
-            virtual AimpActionResult Send(int message, int param1, IntPtr param2);
+            virtual ActionResultType Send(int message, int param1, IntPtr param2);
             virtual int Register(String^ message);
-            virtual AimpActionResult Hook(IAimpMessageHook^ hook);
-            virtual AimpActionResult Unhook(IAimpMessageHook^ hook);
+            virtual ActionResultType Hook(IAimpMessageHook^ hook);
+            virtual ActionResultType Unhook(IAimpMessageHook^ hook);
         protected:
             IAIMPServiceMessageDispatcher* GetAimpService() override;
         private:

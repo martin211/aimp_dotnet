@@ -28,7 +28,7 @@ namespace AIMP
 
             virtual int GetCount();
 
-            virtual AimpActionResult GetValue(int index, String^% fieldName, Object^% value);
+            virtual ActionResultType GetValue(int index, String^% fieldName, Object^% value);
         };
     }
 }

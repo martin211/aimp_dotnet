@@ -12,8 +12,8 @@ namespace AIMP.SDK.Options
 {
     public interface IAimpServiceOptionsDialog : IAimpService
     {
-        AimpActionResult FrameModified(IAimpOptionsDialogFrame frame);
+        ActionResultType FrameModified(IAimpOptionsDialogFrame frame);
 
-        AimpActionResult FrameShow(IAimpOptionsDialogFrame frame, bool forceShow);
+        ActionResultType FrameShow(IAimpOptionsDialogFrame frame, bool forceShow);
     }
 }

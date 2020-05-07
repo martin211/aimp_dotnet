@@ -39,9 +39,9 @@ namespace AIMP.DotNet.MusicLibrary
             
         }
 
-        private void CheckActionResult(AimpActionResult result)
+        private void CheckActionResult(ActionResultType result)
         {
-            if (result != AimpActionResult.OK)
+            if (result != ActionResultType.OK)
             {
                 System.Diagnostics.Debugger.Break();
             }

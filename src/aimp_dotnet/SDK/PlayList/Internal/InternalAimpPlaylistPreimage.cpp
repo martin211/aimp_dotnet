@@ -50,7 +50,7 @@ HRESULT WINAPI InternalAimpPlaylistPreimage::ExecuteDialog(HWND OwnerWndHanle)
 
 HRESULT WINAPI InternalAimpPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, DWORD** Flags, IAIMPObjectList** List)
 {
-    AimpActionResult res = AimpActionResult::Fail;
+    ActionResultType res = ActionResultType::Fail;
     Object^ obj = _managedInstance;
     IAimpPlaylistPreimageDataProvider^ dp = dynamic_cast<IAimpPlaylistPreimageDataProvider^>(obj);
     if (dp != nullptr)
@@ -60,7 +60,7 @@ HRESULT WINAPI InternalAimpPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, DWO
         Collections::IList^ collection;
         res = dp->GetFiles(gcnew AimpTaskOwner(Owner), *&flags, *&collection);
 
-        if (res == AimpActionResult::OK)
+        if (res == ActionResultType::OK)
         {
             *Flags = (DWORD*)flags;
             Type^ t = collection->GetType()->GetGenericArguments()[0];

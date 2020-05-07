@@ -29,10 +29,10 @@ HRESULT InternalAimpDataFilter::Assign(IAIMPMLDataFilter* Source)
 
 HRESULT InternalAimpDataFilter::Clone(void** Filter)
 {
-    auto res = AimpActionResult::Fail;
+    auto res = ActionResultType::Fail;
     IAimpDataFilter^ clone = nullptr;
     res = _managedInstance->Clone(clone);
-    if (res == AimpActionResult::OK && clone != nullptr)
+    if (res == ActionResultType::OK && clone != nullptr)
     {
         *Filter = new InternalAimpDataFilter(clone);
     }

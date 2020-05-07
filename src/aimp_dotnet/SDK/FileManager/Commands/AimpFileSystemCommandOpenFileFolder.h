@@ -27,9 +27,9 @@ namespace AIMP
         public:
             explicit AimpFileSystemCommandOpenFileFolder(IAIMPFileSystemCommandOpenFileFolder* aimpObject);
 
-            virtual AimpActionResult CanProcess(String^ file);
+            virtual ActionResultType CanProcess(String^ file);
 
-            virtual AimpActionResult Process(String^ file);
+            virtual ActionResultType Process(String^ file);
         };
     }
 }

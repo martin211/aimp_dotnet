@@ -28,12 +28,12 @@ namespace AIMP.SDK.TagEditor
     /// </summary>
     public interface IAimpServiceFileTagEditor : IAimpService
     {
-        AimpActionResult EditFile(string filePath, out IAimpFileTagEditor editor);
+        ActionResultType EditFile(string filePath, out IAimpFileTagEditor editor);
 
-        AimpActionResult EditFile(IAimpStream fileStream, out IAimpFileTagEditor editor);
+        ActionResultType EditFile(IAimpStream fileStream, out IAimpFileTagEditor editor);
 
-        AimpActionResult EditTag(string filePath, TagType tag, out IAimpFileInfo fileInfo);
+        ActionResultType EditTag(string filePath, TagType tag, out IAimpFileInfo fileInfo);
 
-        AimpActionResult EditTag(IAimpStream fileStream, TagType tag, out IAimpFileInfo fileInfo);
+        ActionResultType EditTag(IAimpStream fileStream, TagType tag, out IAimpFileInfo fileInfo);
     }
 }

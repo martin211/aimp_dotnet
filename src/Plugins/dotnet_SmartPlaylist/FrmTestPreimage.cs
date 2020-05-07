@@ -45,36 +45,36 @@ namespace Aimp.DotNet.SmartPlaylist
             for (int i = 0; i < _manager.GetLoadedPlaylistCount(); i++)
             {
                 IAimpPlaylist pl;
-                if (_manager.GetLoadedPlaylist(i, out pl) == AimpActionResult.OK)
+                if (_manager.GetLoadedPlaylist(i, out pl) == ActionResultType.OK)
                 {
                     PlAdded(pl);
                 }
             }
         }
 
-        public AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist)
+        public ActionResultType OnPlaylistActivated(IAimpPlaylist playlist)
         {
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist)
+        public ActionResultType OnPlaylistAdded(IAimpPlaylist playlist)
         {
             listView1.Items.Add(new ListViewItem
             {
                 Text = playlist.Name,
                 Tag = playlist.Id
             });
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist)
+        public ActionResultType OnPlaylistRemoved(IAimpPlaylist playlist)
         {
             var item = listView1.Items.Cast<ListViewItem>().FirstOrDefault(c => c.Tag == playlist.Id);
             if (item != null)
             {
                 listView1.Items.Remove(item);
             }
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
         private void PlAdded(IAimpPlaylist pl)
@@ -137,7 +137,7 @@ namespace Aimp.DotNet.SmartPlaylist
             var pl = GetSelectedPlaylist();
             if (pl != null)
             {
-                if (_manager.GetPreimageFactoryByID(Constants.PreimageFactory.FoldersId, out var factory) == AimpActionResult.OK)
+                if (_manager.GetPreimageFactoryByID(Constants.PreimageFactory.FoldersId, out var factory) == ActionResultType.OK)
                 {
                     factory.CreatePreimage(out var preimage);
                     if (preimage is IAimpPlaylistPreimageFolders filePreimage)

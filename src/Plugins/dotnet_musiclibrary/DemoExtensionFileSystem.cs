@@ -19,20 +19,20 @@ namespace AIMP.DotNet.MusicLibrary
 
         public bool ReadOnly => false;
 
-        public AimpActionResult CreateStream(string file, out IAimpStream stream)
+        public ActionResultType CreateStream(string file, out IAimpStream stream)
         {
             stream = null;
-            return AimpActionResult.NotImplemented;
+            return ActionResultType.NotImplemented;
         }
 
-        public AimpActionResult CanProcess(string file)
+        public ActionResultType CanProcess(string file)
         {
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult Process(string file)
+        public ActionResultType Process(string file)
         {
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
     }
 }

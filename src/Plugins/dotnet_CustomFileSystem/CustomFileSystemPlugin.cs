@@ -43,11 +43,11 @@ namespace AIMP.SDK.CustomFileSystem
             var files = Directory.GetFiles(dir, "*.mp3");
 
             var filesToPlaylist = files
-                .Where(file => Player.ServiceFileFormats.IsSupported(file, FileManager.FileFormats.AIMP_SERVICE_FILEFORMATS_CATEGORY_AUDIO) == AimpActionResult.OK)
+                .Where(file => Player.ServiceFileFormats.IsSupported(file, FileManager.FileFormats.AIMP_SERVICE_FILEFORMATS_CATEGORY_AUDIO) == ActionResultType.OK)
                 .Select(f => $"{CustomFileSystem.MySchemePrefix}{f}").ToList();
             if (filesToPlaylist.Any())
             {
-                if (Player.PlaylistManager.GetActivePlaylist(out var activePl) == AimpActionResult.OK)
+                if (Player.PlaylistManager.GetActivePlaylist(out var activePl) == ActionResultType.OK)
                 {
                     activePl.AddList(filesToPlaylist, Playlist.PlaylistFlags.NOCHECKFORMAT, Playlist.PlaylistFilePosition.EndPosition);
                 }

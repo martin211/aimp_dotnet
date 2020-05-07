@@ -723,7 +723,7 @@ namespace AIMP.SDK.Annotations
     /// </summary>
     /// <example><code>
     /// [ActionName("Foo")]
-    /// public AimpActionResult Login(string returnUrl) {
+    /// public ActionResultType Login(string returnUrl) {
     ///   ViewBag.ReturnUrl = Url.Action("Foo"); // OK
     ///   return RedirectToAction("Bar"); // Error: Cannot resolve action
     /// }

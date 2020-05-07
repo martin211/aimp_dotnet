@@ -28,13 +28,13 @@ namespace AIMP
         public:
             explicit AimpServiceActionManager(ManagedAimpCore^ core);
 
-            virtual AimpActionResult GetById(String^ id, IAimpAction^% action);
+            virtual ActionResultType GetById(String^ id, IAimpAction^% action);
 
             virtual int MakeHotkey(ModifierKeys modifiers, unsigned int key);
 
-            virtual AimpActionResult Register(IAimpAction^ action);
+            virtual ActionResultType Register(IAimpAction^ action);
 
-            virtual AimpActionResult Register(Generic::ICollection<IAimpAction^>^ actions);
+            virtual ActionResultType Register(Generic::ICollection<IAimpAction^>^ actions);
 
             virtual IAimpAction^ CreateAction();
 

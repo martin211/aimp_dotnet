@@ -35,7 +35,7 @@ namespace AIMP.SDK.Playlist
         /// <param name="owner">The owner.</param>
         /// <param name="preimageFlags">The preimage flags.</param>
         /// <param name="dataList">The data list.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult GetFiles(IAimpTaskOwner owner, out int preimageFlags, out IList dataList);
+        /// <returns>The <see cref="ActionResultType"/> result.</returns>
+        ActionResultType GetFiles(IAimpTaskOwner owner, out int preimageFlags, out IList dataList);
     }
 }

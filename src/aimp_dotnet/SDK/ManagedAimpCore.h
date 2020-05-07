@@ -58,7 +58,7 @@ namespace AIMP
             /// </summary>
             ~ManagedAimpCore();
 
-            virtual AimpActionResult GetPath(MessageDispatcher::AimpCorePathType pathType, String^% path);
+            virtual ActionResultType GetPath(MessageDispatcher::AimpCorePathType pathType, String^% path);
 
             virtual HRESULT SendMessage(MessageDispatcher::AimpCoreMessageType message, int value, Object^ obj);
 
@@ -87,9 +87,9 @@ namespace AIMP
 
             HRESULT ShowNotification(bool autoHide, String^ notification);
 
-            AimpActionResult CreateStream(IAIMPStream** stream);
+            ActionResultType CreateStream(IAIMPStream** stream);
 
-            AimpActionResult CreateAction(IAIMPAction** action);
+            ActionResultType CreateAction(IAIMPAction** action);
 
             bool OnCheckUrl(String^ % url);
 

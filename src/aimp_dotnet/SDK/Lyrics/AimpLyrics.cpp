@@ -18,18 +18,18 @@ AimpLyrics::AimpLyrics(IAIMPLyrics* lyrics) : AimpObject(lyrics)
 {
 }
 
-AimpActionResult AimpLyrics::Assign(IAimpLyrics^ source)
+ActionResultType AimpLyrics::Assign(IAimpLyrics^ source)
 {
     //TODO Complete it
-    return AimpActionResult::Fail; // CheckResult(InternalAimpObject->Assign());
+    return ActionResultType::Fail; // CheckResult(InternalAimpObject->Assign());
 }
 
-AimpActionResult AimpLyrics::Clone(IAimpLyrics^% lyrics)
+ActionResultType AimpLyrics::Clone(IAimpLyrics^% lyrics)
 {
     IAIMPLyrics** target = nullptr;
     auto result = Utils::CheckResult(InternalAimpObject->Clone(target));
 
-    if (result == AimpActionResult::OK)
+    if (result == ActionResultType::OK)
     {
         lyrics = gcnew AimpLyrics(*target);
     }
@@ -37,7 +37,7 @@ AimpActionResult AimpLyrics::Clone(IAimpLyrics^% lyrics)
     return result;
 }
 
-AimpActionResult AimpLyrics::Add(int timeStart, int timeFinish, String^ text)
+ActionResultType AimpLyrics::Add(int timeStart, int timeFinish, String^ text)
 {
     auto str = AimpConverter::ToAimpString(text);
     auto result = Utils::CheckResult(InternalAimpObject->Add(timeStart, timeFinish, str));
@@ -47,18 +47,18 @@ AimpActionResult AimpLyrics::Add(int timeStart, int timeFinish, String^ text)
     return result;
 }
 
-AimpActionResult AimpLyrics::Delete(int index)
+ActionResultType AimpLyrics::Delete(int index)
 {
     return Utils::CheckResult(InternalAimpObject->Delete(index));
 }
 
-AimpActionResult AimpLyrics::Find(int time, int index, String^% text)
+ActionResultType AimpLyrics::Find(int time, int index, String^% text)
 {
     IAIMPString* str = nullptr;
-    auto result = AimpActionResult::Fail;
+    auto result = ActionResultType::Fail;
     //auto  result = Utils::CheckResult(InternalAimpObject->Find(time, index, &str));
 
-    if (result == AimpActionResult::OK)
+    if (result == ActionResultType::OK)
     {
         text = AimpConverter::ToManagedString(str);
     }
@@ -66,32 +66,32 @@ AimpActionResult AimpLyrics::Find(int time, int index, String^% text)
     return result;
 }
 
-AimpActionResult AimpLyrics::Get(int index, int timeStart, int timeFinish, String^% text)
+ActionResultType AimpLyrics::Get(int index, int timeStart, int timeFinish, String^% text)
 {
-    return AimpActionResult::Fail;
+    return ActionResultType::Fail;
 }
 
-AimpActionResult AimpLyrics::GetCount(int% value)
+ActionResultType AimpLyrics::GetCount(int% value)
 {
-    return AimpActionResult::Fail;
+    return ActionResultType::Fail;
 }
 
-AimpActionResult AimpLyrics::LoadFromFile(String^ virtualFileName)
+ActionResultType AimpLyrics::LoadFromFile(String^ virtualFileName)
 {
-    return AimpActionResult::Fail;
+    return ActionResultType::Fail;
 }
 
-AimpActionResult AimpLyrics::LoadFromStream(IAimpStream^ stream, LyricsFormat format)
+ActionResultType AimpLyrics::LoadFromStream(IAimpStream^ stream, LyricsFormat format)
 {
-    return AimpActionResult::Fail;
+    return ActionResultType::Fail;
 }
 
-AimpActionResult AimpLyrics::LoadFromString(String^ lyrics, LyricsFormat format)
+ActionResultType AimpLyrics::LoadFromString(String^ lyrics, LyricsFormat format)
 {
-    return AimpActionResult::Fail;
+    return ActionResultType::Fail;
 }
 
-AimpActionResult AimpLyrics::SaveToFile(String^ fileUri)
+ActionResultType AimpLyrics::SaveToFile(String^ fileUri)
 {
     auto str = AimpConverter::ToAimpString(fileUri);
     auto result = Utils::CheckResult(InternalAimpObject->SaveToFile(str));
@@ -100,12 +100,12 @@ AimpActionResult AimpLyrics::SaveToFile(String^ fileUri)
     return result;
 }
 
-AimpActionResult AimpLyrics::SaveToStream(IAimpStream^ stream, LyricsFormat format)
+ActionResultType AimpLyrics::SaveToStream(IAimpStream^ stream, LyricsFormat format)
 {
-    return AimpActionResult::Fail;
+    return ActionResultType::Fail;
 }
 
-AimpActionResult AimpLyrics::SaveToString(String^% lyrics, LyricsFormat format)
+ActionResultType AimpLyrics::SaveToString(String^% lyrics, LyricsFormat format)
 {
     IAIMPString* str = AimpConverter::ToAimpString(lyrics);
     auto result = Utils::CheckResult(InternalAimpObject->SaveToString(&str, static_cast<int>(format)));

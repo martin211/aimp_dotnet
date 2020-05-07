@@ -6,10 +6,10 @@ using namespace AIMP::SDK;
 AimpServiceAlbumArtCache::AimpServiceAlbumArtCache(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceAlbumArtCache>(core)
 { }
 
-AimpActionResult AimpServiceAlbumArtCache::Flush(String^ album, String^ artist)
+ActionResultType AimpServiceAlbumArtCache::Flush(String^ album, String^ artist)
 {
     auto service = GetAimpService();
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
 
     try
     {
@@ -30,10 +30,10 @@ AimpActionResult AimpServiceAlbumArtCache::Flush(String^ album, String^ artist)
     return result;
 }
 
-AimpActionResult AimpServiceAlbumArtCache::Flush2(String^ fileUri)
+ActionResultType AimpServiceAlbumArtCache::Flush2(String^ fileUri)
 {
     auto service = GetAimpService();
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
 
     try
     {
@@ -52,10 +52,10 @@ AimpActionResult AimpServiceAlbumArtCache::Flush2(String^ fileUri)
     return result;
 }
 
-AimpActionResult AimpServiceAlbumArtCache::FlushAll()
+ActionResultType AimpServiceAlbumArtCache::FlushAll()
 {
     auto service = GetAimpService();
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
 
     try
     {

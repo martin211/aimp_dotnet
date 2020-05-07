@@ -23,7 +23,7 @@ HRESULT AimpExtensionEmbeddedVisualization::GetMaxDisplaySize(int* Width, int* H
     int w = 0;
     int h = 0;
 
-    if (_managedObject->GetMaxDisplaySize(*&w, *&h) == AimpActionResult::OK)
+    if (_managedObject->GetMaxDisplaySize(*&w, *&h) == ActionResultType::OK)
     {
         *Width = w;
         *Height = h;
@@ -37,7 +37,7 @@ HRESULT AimpExtensionEmbeddedVisualization::GetName(IAIMPString** S)
 {
     IAIMPString* strObject = nullptr;
     System::String^ str;
-    if (_managedObject->GetName(*&str) != AimpActionResult::OK)
+    if (_managedObject->GetName(*&str) != ActionResultType::OK)
     {
         return E_FAIL;
     }

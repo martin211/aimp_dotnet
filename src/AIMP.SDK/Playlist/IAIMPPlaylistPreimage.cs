@@ -51,17 +51,17 @@ namespace AIMP.SDK.Playlist
         /// Loads the configuration.
         /// </summary>
         /// <param name="stream">The stream.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult ConfigLoad(IAimpStream stream);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType ConfigLoad(IAimpStream stream);
 
         /// <summary>
         /// Saves the configuration.
         /// </summary>
         /// <param name="stream">The stream.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult ConfigSave(IAimpStream stream);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType ConfigSave(IAimpStream stream);
 
-        AimpActionResult ExecuteDialog(IntPtr ownerHandle);
+        ActionResultType ExecuteDialog(IntPtr ownerHandle);
 
         /// <summary>
         /// Initializes the specified listener.

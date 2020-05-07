@@ -12,13 +12,13 @@
 #include "stdafx.h"
 #include "AimpServiceFileStreaming.h"
 
-AimpActionResult AimpServiceFileStreaming::CreateStreamForFile(String^ fileName, FileStreamingType flags,
+ActionResultType AimpServiceFileStreaming::CreateStreamForFile(String^ fileName, FileStreamingType flags,
                                                                long long offset, long long size, IAimpStream^% stream)
 {
     IAIMPServiceFileStreaming* service = GetAimpService();
     IAIMPString* str = nullptr;
     IAIMPStream* aimpStream = nullptr;
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
     stream = nullptr;
 
     try
@@ -28,7 +28,7 @@ AimpActionResult AimpServiceFileStreaming::CreateStreamForFile(String^ fileName,
             str = AimpConverter::ToAimpString(fileName);
             result = CheckResult(service->CreateStreamForFile(str, DWORD(flags), offset, size, &aimpStream));
 
-            if (result == AimpActionResult::OK)
+            if (result == ActionResultType::OK)
             {
                 stream = gcnew AimpStream(aimpStream);
             }
@@ -43,13 +43,13 @@ AimpActionResult AimpServiceFileStreaming::CreateStreamForFile(String^ fileName,
     return result;
 }
 
-AimpActionResult AimpServiceFileStreaming::CreateStreamForFileUri(String^ fileUrl, IAimpVirtualFile^% virtualFile,
+ActionResultType AimpServiceFileStreaming::CreateStreamForFileUri(String^ fileUrl, IAimpVirtualFile^% virtualFile,
                                                                   IAimpStream^% stream)
 {
     IAIMPServiceFileStreaming* service = GetAimpService();
     IAIMPString* str = nullptr;
     IAIMPStream* aimpStream = nullptr;
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
     IAIMPVirtualFile* vf = nullptr;
     stream = nullptr;
     virtualFile = nullptr;
@@ -61,7 +61,7 @@ AimpActionResult AimpServiceFileStreaming::CreateStreamForFileUri(String^ fileUr
             str = AimpConverter::ToAimpString(fileUrl);
             result = CheckResult(service->CreateStreamForFileURI(str, &vf, &aimpStream));
 
-            if (result == AimpActionResult::OK && aimpStream != nullptr)
+            if (result == ActionResultType::OK && aimpStream != nullptr)
             {
                 stream = gcnew AimpStream(aimpStream);
             }

@@ -55,13 +55,13 @@ namespace AIMP.SDK.MusicLibrary
         /// Note: source filter must be assigned to same data storage.
         /// </summary>
         /// <param name="source">The source.</param>
-        /// <returns><see cref="AimpActionResult"/></returns>
-        AimpActionResult Assign(IAimpDataFilter source);
+        /// <returns><see cref="ActionResultType"/></returns>
+        ActionResultType Assign(IAimpDataFilter source);
 
         /// <summary>
         /// Clones to the specified source.
         /// </summary>
         /// <param name="source">The source.</param>
-        AimpActionResult Clone(out IAimpDataFilter source);
+        ActionResultType Clone(out IAimpDataFilter source);
     }
 }

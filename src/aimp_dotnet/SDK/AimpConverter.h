@@ -64,7 +64,7 @@ namespace AIMP
                 {
                     IAIMPString* str;
                     auto res = aimpList->GetObject(i, IID_IAIMPString, reinterpret_cast<void**>(&str));
-                    if (Utils::CheckResult(res) == AimpActionResult::OK)
+                    if (Utils::CheckResult(res) == ActionResultType::OK)
                     {
                         result->Add(ToManagedString(str));
                     }

@@ -24,7 +24,7 @@ namespace AIMP.SDK.FileManager
         /// <param name="fileUri">The name of virtual file.</param>
         /// <param name="command">The command.</param>
         /// <returns></returns>
-        AimpActionResult Get(FileCommandType commandType, string fileUri, out IAimpFileSystemCommand command);
+        ActionResultType Get(FileCommandType commandType, string fileUri, out IAimpFileSystemCommand command);
 
         /// <summary>
         /// 
@@ -32,6 +32,6 @@ namespace AIMP.SDK.FileManager
         /// <param name="commandType"></param>
         /// <param name="command"></param>
         /// <returns></returns>
-        AimpActionResult GetDefault(FileCommandType commandType, out IAimpFileSystemCommand command);
+        ActionResultType GetDefault(FileCommandType commandType, out IAimpFileSystemCommand command);
     }
 }

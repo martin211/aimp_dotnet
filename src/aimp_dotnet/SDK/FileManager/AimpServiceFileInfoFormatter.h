@@ -9,7 +9,7 @@ namespace AIMP
         {
         public:
             explicit AimpServiceFileInfoFormatter(ManagedAimpCore^ core);
-            virtual AimpActionResult Format(String^ tmpl, IAimpFileInfo^ fileInfo, String^% formattedResult);
+            virtual ActionResultType Format(String^ tmpl, IAimpFileInfo^ fileInfo, String^% formattedResult);
         protected:
             IAIMPServiceFileInfoFormatter* GetAimpService() override;
         };

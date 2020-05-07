@@ -27,9 +27,9 @@ namespace AIMP
         public:
             explicit AimpFileSystemCommandDelete(IAIMPFileSystemCommandDelete* aimpObject);
 
-            virtual AimpActionResult CanProcess(String^ file);
+            virtual ActionResultType CanProcess(String^ file);
 
-            virtual AimpActionResult Process(String^ file);
+            virtual ActionResultType Process(String^ file);
         };
     }
 }

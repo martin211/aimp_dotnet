@@ -39,7 +39,7 @@ namespace AIMP.SDK.MessageDispatcher
         /// <param name="message">The message <see cref="AimpCoreMessageType"/>.</param>
         /// <param name="param1">The message direction <see cref="MessageDirectionType"/>.</param>
         /// <param name="param2">The param2.</param>
-        AimpActionResult Send(int message, int param1, IntPtr param2);
+        ActionResultType Send(int message, int param1, IntPtr param2);
 
         /// <summary>
         /// Registers the specified message.
@@ -52,12 +52,12 @@ namespace AIMP.SDK.MessageDispatcher
         /// Setup the specified message hook.
         /// </summary>
         /// <param name="hook">The message hook.</param>
-        AimpActionResult Hook(IAimpMessageHook hook);
+        ActionResultType Hook(IAimpMessageHook hook);
 
         /// <summary>
         /// Unhooks the specified hook.
         /// </summary>
         /// <param name="hook">The message hook.</param>
-        AimpActionResult Unhook(IAimpMessageHook hook);
+        ActionResultType Unhook(IAimpMessageHook hook);
     }
 }

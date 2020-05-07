@@ -26,29 +26,29 @@ namespace AIMP.DotNet.MusicLibrary
             _player = player;
         }
 
-        //public AimpActionResult GetFileInfo(string fileUri, ref IAimpFileInfo fileInfo)
+        //public ActionResultType GetFileInfo(string fileUri, ref IAimpFileInfo fileInfo)
         //{
         //    fileInfo.Artist = "test";
         //    //fileInfo = null;
-        //    return AimpActionResult.OK;
+        //    return ActionResultType.OK;
         //}
 
-        public AimpActionResult GetFileInfo(IAimpString fileUri, ref IAimpFileInfo fileInfo)
+        public ActionResultType GetFileInfo(IAimpString fileUri, ref IAimpFileInfo fileInfo)
         {
             fileInfo.Artist = "test";
             //fileInfo = null;
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult GetFileInfo(IAimpStream stream, ref IAimpFileInfo fileInfo)
+        public ActionResultType GetFileInfo(IAimpStream stream, ref IAimpFileInfo fileInfo)
         {
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult GetFileInfo(Stream stream, ref IAimpFileInfo fileInfo)
+        public ActionResultType GetFileInfo(Stream stream, ref IAimpFileInfo fileInfo)
         {
             //fileInfo = null;
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
     }
 }

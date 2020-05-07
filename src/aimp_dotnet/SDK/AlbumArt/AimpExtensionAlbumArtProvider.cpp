@@ -27,7 +27,7 @@ HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString* FileURI, IAIMPStr
         searchOptions,
         bitmap);
 
-    if (r == AimpActionResult::OK && bitmap != nullptr)
+    if (r == ActionResultType::OK && bitmap != nullptr)
     {
         const auto container = AimpConverter::ToAimpImageContainer(bitmap);
         if (container == nullptr)
@@ -55,7 +55,7 @@ HRESULT WINAPI AimpExtensionAlbumArtProvider::Get2(IAIMPFileInfo* FileInfo, IAIM
     AlbumArtManager::IAimpAlbumArtSearchOptions^ searchOptions = gcnew AimpAlbumArtSearchOptions(
         Options, ManagedAimpCore::GetAimpCore());
     const auto r = _managedinstance->Get(fi, searchOptions, bitmap);
-    if (r == AimpActionResult::OK && bitmap != nullptr)
+    if (r == ActionResultType::OK && bitmap != nullptr)
     {
         const auto container = AimpConverter::ToAimpImageContainer(bitmap);
         if (container == nullptr)

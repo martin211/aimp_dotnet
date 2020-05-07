@@ -26,8 +26,8 @@ namespace AIMP.SDK.FileManager
         /// <param name="fileUri">The virtual file name.</param>
         /// <param name="fileInfoFlags">The file info flags.</param>
         /// <param name="fileInfo">Out. The file info <see cref="IAimpFileInfo"/>.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetFileInfoFromFileUri(string fileUri, ServiceFileInfoFlags fileInfoFlags,
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetFileInfoFromFileUri(string fileUri, ServiceFileInfoFlags fileInfoFlags,
             out IAimpFileInfo fileInfo);
 
         /// <summary>
@@ -36,8 +36,8 @@ namespace AIMP.SDK.FileManager
         /// <param name="fileStream">The file stream.</param>
         /// <param name="fileInfoFlags">The file info flags.</param>
         /// <param name="fileInfo">Out. The file info <see cref="IAimpFileInfo"/>.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetFileInfoFromStream(IAimpStream fileStream, ServiceFileInfoFlags fileInfoFlags,
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetFileInfoFromStream(IAimpStream fileStream, ServiceFileInfoFlags fileInfoFlags,
             out IAimpFileInfo fileInfo);
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace AIMP.SDK.FileManager
         /// </summary>
         /// <param name="fileUri">The virtual file name.</param>
         /// <param name="virtualFile">Out. Virtual file <see cref="IAimpVirtualFile"/>.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetVirtualFile(string fileUri, out IAimpVirtualFile virtualFile);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetVirtualFile(string fileUri, out IAimpVirtualFile virtualFile);
     }
 }

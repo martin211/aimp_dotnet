@@ -19,7 +19,7 @@ AimpServiceThreadPool::AimpServiceThreadPool(ManagedAimpCore^ core) : BaseAimpSe
 {
 }
 
-AimpActionResult AimpServiceThreadPool::Cancel(UIntPtr taskHandle, AimpServiceThreadPoolType flags)
+ActionResultType AimpServiceThreadPool::Cancel(UIntPtr taskHandle, AimpServiceThreadPoolType flags)
 {
     IAIMPServiceThreadPool* service = GetAimpService();
 
@@ -35,10 +35,10 @@ AimpActionResult AimpServiceThreadPool::Cancel(UIntPtr taskHandle, AimpServiceTh
         ReleaseObject(service);
     }
 
-    return AimpActionResult::Fail;
+    return ActionResultType::Fail;
 }
 
-AimpActionResult AimpServiceThreadPool::Execute(IAimpTask^ task, UIntPtr% handle)
+ActionResultType AimpServiceThreadPool::Execute(IAimpTask^ task, UIntPtr% handle)
 {
     IAIMPServiceThreadPool* service = GetAimpService();
     handle = UIntPtr(static_cast<void*>(0));
@@ -50,7 +50,7 @@ AimpActionResult AimpServiceThreadPool::Execute(IAimpTask^ task, UIntPtr% handle
         if (service != nullptr)
         {
             InternalAimpTask* internalTask = new InternalAimpTask(task);
-            AimpActionResult result = CheckResult(service->Execute(internalTask, &h));
+            ActionResultType result = CheckResult(service->Execute(internalTask, &h));
             handle = UIntPtr(reinterpret_cast<void*>(h));
             return result;
         }
@@ -60,10 +60,10 @@ AimpActionResult AimpServiceThreadPool::Execute(IAimpTask^ task, UIntPtr% handle
         ReleaseObject(service);
     }
 
-    return AimpActionResult::Fail;
+    return ActionResultType::Fail;
 }
 
-AimpActionResult AimpServiceThreadPool::WaitFor(UIntPtr handle)
+ActionResultType AimpServiceThreadPool::WaitFor(UIntPtr handle)
 {
     IAIMPServiceThreadPool* service = GetAimpService();
 
@@ -79,7 +79,7 @@ AimpActionResult AimpServiceThreadPool::WaitFor(UIntPtr handle)
         ReleaseObject(service);
     }
 
-    return AimpActionResult::Fail;
+    return ActionResultType::Fail;
 }
 
 IAIMPServiceThreadPool* AimpServiceThreadPool::GetAimpService()

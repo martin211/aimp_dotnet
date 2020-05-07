@@ -21,17 +21,17 @@ namespace AIMP
         public ref class PropertyListExtension sealed
         {
         public:
-            static AimpActionResult SetObject(IAIMPPropertyList* propertyList, int propertyId, IUnknown* value);
+            static ActionResultType SetObject(IAIMPPropertyList* propertyList, int propertyId, IUnknown* value);
 
-            static AimpActionResult SetString(IAIMPPropertyList* propertyList, int propertyId, String^ value);
+            static ActionResultType SetString(IAIMPPropertyList* propertyList, int propertyId, String^ value);
 
-            static AimpActionResult SetInt32(IAIMPPropertyList* propertyList, int propertyId, int value);
+            static ActionResultType SetInt32(IAIMPPropertyList* propertyList, int propertyId, int value);
 
-            static AimpActionResult SetInt64(IAIMPPropertyList* propertyList, int propertyId, Int64 value);
+            static ActionResultType SetInt64(IAIMPPropertyList* propertyList, int propertyId, Int64 value);
 
-            static AimpActionResult SetFloat(IAIMPPropertyList* propertyList, int propertyId, double value);
+            static ActionResultType SetFloat(IAIMPPropertyList* propertyList, int propertyId, double value);
 
-            static AimpActionResult SetBool(IAIMPPropertyList* propertyList, int propertyId, bool value);
+            static ActionResultType SetBool(IAIMPPropertyList* propertyList, int propertyId, bool value);
 
             static String^ GetString(IAIMPPropertyList* propertyList, int propertyId);
 
@@ -43,25 +43,25 @@ namespace AIMP
 
             static bool GetBool(IAIMPPropertyList* propertyList, int propertyId);
 
-            static AimpActionResult GetString(IAIMPPropertyList* propertyList, int propertyId, String^% value);
+            static ActionResultType GetString(IAIMPPropertyList* propertyList, int propertyId, String^% value);
 
-            static AimpActionResult GetString(IAIMPString* aimpString, String^% value);
+            static ActionResultType GetString(IAIMPString* aimpString, String^% value);
 
-            static AimpActionResult GetObject(IAIMPPropertyList* propertyList, int propertyId, REFIID objectId,
+            static ActionResultType GetObject(IAIMPPropertyList* propertyList, int propertyId, REFIID objectId,
                                               void** value);
 
-            static AimpActionResult GetInt32(IAIMPPropertyList* propertyList, int propertyId, int% value);
+            static ActionResultType GetInt32(IAIMPPropertyList* propertyList, int propertyId, int% value);
 
-            static AimpActionResult GetInt64(IAIMPPropertyList* propertyList, int propertyId, Int64% value);
+            static ActionResultType GetInt64(IAIMPPropertyList* propertyList, int propertyId, Int64% value);
 
-            static AimpActionResult GetFloat(IAIMPPropertyList* propertyList, int propertyId, double% value);
+            static ActionResultType GetFloat(IAIMPPropertyList* propertyList, int propertyId, double% value);
 
-            static AimpActionResult GetBool(IAIMPPropertyList* propertyList, int propertyId, bool% value);
+            static ActionResultType GetBool(IAIMPPropertyList* propertyList, int propertyId, bool% value);
 
-            static AimpActionResult GetVariant(IAIMPPropertyList2* propertyList, int propertyId,
+            static ActionResultType GetVariant(IAIMPPropertyList2* propertyList, int propertyId,
                                                System::Object^% value);
 
-            static AimpActionResult SetVariant(IAIMPPropertyList2* propertyList, int propertyId,
+            static ActionResultType SetVariant(IAIMPPropertyList2* propertyList, int propertyId,
                                                System::Object^% value);
         };
     }

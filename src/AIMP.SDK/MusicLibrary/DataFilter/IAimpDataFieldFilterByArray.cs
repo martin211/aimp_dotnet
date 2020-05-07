@@ -19,8 +19,8 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
         /// </summary>
         string Field { get; set; }
 
-        AimpActionResult GetData(IList<object> values);
+        ActionResultType GetData(IList<object> values);
 
-        AimpActionResult SetData(IList<object> values);
+        ActionResultType SetData(IList<object> values);
     }
 }

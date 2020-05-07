@@ -31,7 +31,7 @@ IAimpStream^ AimpFileSystemCommandStreaming::CreateStream(String^ fileName, File
         auto result = CheckResult(
             InternalAimpObject->CreateStream(str, offset, size, DWORD(flags),
                                              reinterpret_cast<IAIMPStream**>(&aimpStream)));
-        if (result == AimpActionResult::OK && aimpStream != nullptr)
+        if (result == ActionResultType::OK && aimpStream != nullptr)
         {
             return gcnew AimpStream(aimpStream);
         }

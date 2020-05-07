@@ -113,7 +113,7 @@ namespace AIMP.SDK.MenuManager
         /// <summary>
         /// Deletes the children.
         /// </summary>
-        AimpActionResult DeleteChildren();
+        ActionResultType DeleteChildren();
 
         event EventHandler OnShow;
     }

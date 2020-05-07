@@ -25,11 +25,11 @@ AimpServiceFileInfoFormatter::AimpServiceFileInfoFormatter(ManagedAimpCore^ core
 /// <param name="fileInfo">The file information.</param>
 /// <param name="formattedResult">The formatted result.</param>
 /// <returns>[Unknown].</returns>
-AimpActionResult AimpServiceFileInfoFormatter::Format(String^ tmpl, IAimpFileInfo^ fileInfo, String^% formattedResult)
+ActionResultType AimpServiceFileInfoFormatter::Format(String^ tmpl, IAimpFileInfo^ fileInfo, String^% formattedResult)
 {
     auto service = GetAimpService();
     IAIMPString* t = nullptr;
-    AimpActionResult res = AimpActionResult::Fail;
+    ActionResultType res = ActionResultType::Fail;
 
     try
     {
@@ -39,7 +39,7 @@ AimpActionResult AimpServiceFileInfoFormatter::Format(String^ tmpl, IAimpFileInf
             auto fi = static_cast<AimpFileInfo^>(fileInfo)->InternalAimpObject;
             IAIMPString* result = nullptr;
             res = CheckResult(service->Format(t, fi, 0, nullptr, &result));
-            if (res == AimpActionResult::OK && result != nullptr)
+            if (res == ActionResultType::OK && result != nullptr)
             {
                 formattedResult = AimpConverter::ToManagedString(result);
             }

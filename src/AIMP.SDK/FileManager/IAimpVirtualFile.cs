@@ -54,15 +54,15 @@ namespace AIMP.SDK.FileManager
         /// Create the instance of the <see cref="IAimpStream"/>.
         /// </summary>
         /// <param name="stream"></param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult CreateStream(out IAimpStream stream);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType CreateStream(out IAimpStream stream);
 
         /// <summary>
         /// Gets the file info.
         /// </summary>
         /// <param name="fileInfo">Out. File info <see cref="IAimpFileInfo"/>.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetFileInfo(out IAimpFileInfo fileInfo);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetFileInfo(out IAimpFileInfo fileInfo);
 
         /// <summary>
         /// Check is the source exists.
@@ -74,18 +74,18 @@ namespace AIMP.SDK.FileManager
         ///
         /// </summary>
         /// <param name="virtualFile"></param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult IsInSameStream(IAimpVirtualFile virtualFile);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType IsInSameStream(IAimpVirtualFile virtualFile);
 
         /// <summary>
         /// Plugin must validate state of all internal data that refer with source.
-        /// If internal data is not valid, plugin must return any error code except AimpActionResult.OK.
+        /// If internal data is not valid, plugin must return any error code except ActionResultType.OK.
         /// In this case, the application will automatically reload virtual files for current file-container via one of the IAimpExtensionFileExpander extensions.
         /// <para>
         /// The method called by the application before call the CreateStream method.
         /// </para>
         /// </summary>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult Synchronize();
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType Synchronize();
     }
 }

@@ -33,7 +33,7 @@ bool AimpPlaylistPreimage::AutoSync::get()
 
 void AimpPlaylistPreimage::AutoSync::set(bool value)
 {
-    if (PropertyListExtension::SetBool(InternalAimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC, value) != AimpActionResult::
+    if (PropertyListExtension::SetBool(InternalAimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC, value) != ActionResultType::
         OK)
     {
         System::Diagnostics::Debugger::Break();
@@ -65,20 +65,20 @@ String^ AimpPlaylistPreimage::SortTemplate::get()
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_SORTTEMPLATE);
 }
 
-AimpActionResult AimpPlaylistPreimage::ConfigLoad(IAimpStream^ stream)
+ActionResultType AimpPlaylistPreimage::ConfigLoad(IAimpStream^ stream)
 {
     return CheckResult(InternalAimpObject->ConfigLoad(((AimpStream^)stream)->InternalAimpObject));
 }
 
-AimpActionResult AimpPlaylistPreimage::ConfigSave(IAimpStream^ stream)
+ActionResultType AimpPlaylistPreimage::ConfigSave(IAimpStream^ stream)
 {
     return CheckResult(InternalAimpObject->ConfigSave(((AimpStream^)stream)->InternalAimpObject));
 }
 
-AimpActionResult AimpPlaylistPreimage::ExecuteDialog(IntPtr ownerHandle)
+ActionResultType AimpPlaylistPreimage::ExecuteDialog(IntPtr ownerHandle)
 {
     //InternalAimpObject->ExecuteDialog()
-    return AimpActionResult::Unexpected;
+    return ActionResultType::Unexpected;
 }
 
 void AimpPlaylistPreimage::Initialize(IAimpPlaylistPreimageListener^ listener)

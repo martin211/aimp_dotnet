@@ -20,7 +20,7 @@ AimpFileSystemCommandOpenFileFolder::AimpFileSystemCommandOpenFileFolder(
 {
 }
 
-AimpActionResult AimpFileSystemCommandOpenFileFolder::CanProcess(String^ file)
+ActionResultType AimpFileSystemCommandOpenFileFolder::CanProcess(String^ file)
 {
     auto str = AimpConverter::ToAimpString(file);
     auto result = CheckResult(InternalAimpObject->CanProcess(str));
@@ -29,7 +29,7 @@ AimpActionResult AimpFileSystemCommandOpenFileFolder::CanProcess(String^ file)
     return result;
 }
 
-AimpActionResult AimpFileSystemCommandOpenFileFolder::Process(String^ file)
+ActionResultType AimpFileSystemCommandOpenFileFolder::Process(String^ file)
 {
     auto str = AimpConverter::ToAimpString(file);
     auto result = CheckResult(InternalAimpObject->Process(str));

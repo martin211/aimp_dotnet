@@ -21,10 +21,10 @@ namespace dotnet_albumart
     {
         #region Implementation of IAimpExtensionAlbumArtCatalog2
 
-        public AimpActionResult Show(IAimpFileInfo fileInfo, out Bitmap image)
+        public ActionResultType Show(IAimpFileInfo fileInfo, out Bitmap image)
         {
             image = Properties.Resources.front;
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
         #endregion
@@ -41,10 +41,10 @@ namespace dotnet_albumart
             return "Test catalog";
         }
 
-        public AimpActionResult Show(string fileUrl, string artist, string album, out Bitmap image)
+        public ActionResultType Show(string fileUrl, string artist, string album, out Bitmap image)
         {
             image = Properties.Resources.front;
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
         #endregion

@@ -15,9 +15,9 @@ namespace DemoPlugin
 {
     internal static class Utils
     {
-        public static AimpActionResult CheckResult(AimpActionResult actionResult)
+        public static ActionResultType CheckResult(ActionResultType actionResult)
         {
-            if (actionResult != AimpActionResult.OK)
+            if (actionResult != ActionResultType.OK)
             {
                 Logger.Instance.AddInfoMessage($"{Environment.StackTrace}: {actionResult}");
             }

@@ -20,20 +20,20 @@ namespace dotnet_albumart
     {
         #region Implementation of IAimpExtensionAlbumArtProvider2
 
-        public AimpActionResult Get(IAimpFileInfo fileInfo, IAimpAlbumArtSearchOptions options, out Bitmap image)
+        public ActionResultType Get(IAimpFileInfo fileInfo, IAimpAlbumArtSearchOptions options, out Bitmap image)
         {
             image = Properties.Resources.front;
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
         #endregion
 
         #region Implementation of IAimpExtensionAlbumArtProvider
 
-        public AimpActionResult Get(string fileUrl, string artist, string album, IAimpAlbumArtSearchOptions options, out Bitmap image)
+        public ActionResultType Get(string fileUrl, string artist, string album, IAimpAlbumArtSearchOptions options, out Bitmap image)
         {
             image = Properties.Resources.front;
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
         #endregion

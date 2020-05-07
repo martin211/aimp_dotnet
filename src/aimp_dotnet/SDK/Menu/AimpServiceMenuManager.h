@@ -24,19 +24,19 @@ namespace AIMP
         public:
             explicit AimpServiceMenuManager(ManagedAimpCore^ core);
 
-            virtual AimpActionResult CreateMenuItem(IAimpMenuItem^% item);
+            virtual ActionResultType CreateMenuItem(IAimpMenuItem^% item);
 
-            virtual AimpActionResult Add(IAimpMenuItem^ item);
+            virtual ActionResultType Add(IAimpMenuItem^ item);
 
-            virtual AimpActionResult Add(ParentMenuType parentMenuType, IAimpMenuItem^ item);
+            virtual ActionResultType Add(ParentMenuType parentMenuType, IAimpMenuItem^ item);
 
-            virtual AimpActionResult Delete(IAimpMenuItem^ item);
+            virtual ActionResultType Delete(IAimpMenuItem^ item);
 
-            virtual AimpActionResult Delete(String^ id);
+            virtual ActionResultType Delete(String^ id);
 
-            virtual AimpActionResult GetById(String^ id, IAimpMenuItem^% item);
+            virtual ActionResultType GetById(String^ id, IAimpMenuItem^% item);
 
-            virtual AimpActionResult GetBuiltIn(ParentMenuType parentMenuType, IAimpMenuItem^% item);
+            virtual ActionResultType GetBuiltIn(ParentMenuType parentMenuType, IAimpMenuItem^% item);
 
         private:
             HRESULT UnregisterMenu(IAIMPMenuItem* menuItem);

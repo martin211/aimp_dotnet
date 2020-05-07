@@ -44,7 +44,7 @@ long long AimpStream::GetSize()
     return InternalAimpObject->GetSize();
 }
 
-AimpActionResult AimpStream::SetSize(long long value)
+ActionResultType AimpStream::SetSize(long long value)
 {
     return CheckResult(InternalAimpObject->SetSize(value));
 }
@@ -54,7 +54,7 @@ long long AimpStream::GetPosition()
     return InternalAimpObject->GetPosition();
 }
 
-AimpActionResult AimpStream::Seek(long long offset, System::IO::SeekOrigin mode)
+ActionResultType AimpStream::Seek(long long offset, System::IO::SeekOrigin mode)
 {
     return CheckResult(InternalAimpObject->Seek(offset, (int)mode));
 }
@@ -72,13 +72,13 @@ int AimpStream::Read(array<unsigned char, 1>^ buffer, int count)
     return read;
 }
 
-AimpActionResult AimpStream::Write(array<unsigned char, 1>^ buffer, int count, int% writen)
+ActionResultType AimpStream::Write(array<unsigned char, 1>^ buffer, int count, int% writen)
 {
     unsigned int writenCount;
     writen = 0;
 
     pin_ptr<unsigned char> buff = &buffer[0];
-    AimpActionResult res = CheckResult(InternalAimpObject->Write(buff, count, &writenCount));
+    ActionResultType res = CheckResult(InternalAimpObject->Write(buff, count, &writenCount));
     writen = writenCount;
     return res;
 }

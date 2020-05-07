@@ -18,7 +18,7 @@ namespace AIMP.SDK
         /// Deletes the value or section from config (section or section\value name).
         /// </summary>
         /// <param name="keyPath">The key path (section\value name).</param>
-        AimpActionResult Delete(string keyPath);
+        ActionResultType Delete(string keyPath);
 
         /// <summary>
         /// Gets the value as float.
@@ -55,34 +55,34 @@ namespace AIMP.SDK
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="keyPath">The key path (section\value name).</param>
-        AimpActionResult SetValueAsFloat(string keyPath, float value);
+        ActionResultType SetValueAsFloat(string keyPath, float value);
 
         /// <summary>
         /// Sets the value as int32.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="keyPath">The key path (section\value name).</param>
-        AimpActionResult SetValueAsInt32(string keyPath, int value);
+        ActionResultType SetValueAsInt32(string keyPath, int value);
 
         /// <summary>
         /// Sets the value as int64.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="keyPath">The key path (section\value name).</param>
-        AimpActionResult SetValueAsInt64(string keyPath, Int64 value);
+        ActionResultType SetValueAsInt64(string keyPath, Int64 value);
 
         /// <summary>
         /// Sets the value as stream.
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="keyPath">The key path (section\value name).</param>
-        AimpActionResult SetValueAsStream(string keyPath, IAimpStream stream);
+        ActionResultType SetValueAsStream(string keyPath, IAimpStream stream);
 
         /// <summary>
         /// Sets the value as string.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="keyPath">The key path (section\value name).</param>
-        AimpActionResult SetValueAsString(string keyPath, string value);
+        ActionResultType SetValueAsString(string keyPath, string value);
     }
 }

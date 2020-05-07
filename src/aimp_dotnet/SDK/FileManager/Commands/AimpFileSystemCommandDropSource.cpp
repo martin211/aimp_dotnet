@@ -28,7 +28,7 @@ IAimpStream^ AimpFileSystemCommandDropSource::CreateStream(String^ fileName)
     {
         IAIMPStream* aimpStream = nullptr;
         auto result = CheckResult(InternalAimpObject->CreateStream(str, reinterpret_cast<IAIMPStream**>(&aimpStream)));
-        if (result == AimpActionResult::OK && aimpStream != nullptr)
+        if (result == ActionResultType::OK && aimpStream != nullptr)
         {
             return gcnew AimpStream(aimpStream);
         }

@@ -16,9 +16,9 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 {
     public class CustomAimpGroupingTreeDataProvider : IAimpGroupingTreeDataProvider
     {
-        public AimpActionResult AppendFilter(IAimpDataFilterGroup filter, IAimpGroupingTreeSelection selection)
+        public ActionResultType AppendFilter(IAimpDataFilterGroup filter, IAimpGroupingTreeSelection selection)
         {
-            return AimpActionResult.NotImplemented;
+            return ActionResultType.NotImplemented;
         }
 
         public CapabilitiesFlags GetCapabilities()
@@ -26,7 +26,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
             return CapabilitiesFlags.None;
         }
 
-        public AimpActionResult GetData(IAimpGroupingTreeSelection selection, out IAimpGroupingTreeDataProviderSelection data)
+        public ActionResultType GetData(IAimpGroupingTreeSelection selection, out IAimpGroupingTreeDataProviderSelection data)
         {
             data = null;
 
@@ -37,21 +37,21 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 
             if (count > 0)
             {
-                if (selection.GetValue(0, out name, out value) == AimpActionResult.OK)
+                if (selection.GetValue(0, out name, out value) == ActionResultType.OK)
                 {
-                    return AimpActionResult.OK;
+                    return ActionResultType.OK;
                 }
             }
 
             data = new CustomAimpGroupingTreeDataProviderSelection();
 
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult GetFieldForAlphabeticIndex(out string fieldName)
+        public ActionResultType GetFieldForAlphabeticIndex(out string fieldName)
         {
             fieldName = "Test";
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
     }
 }

@@ -68,7 +68,7 @@ namespace AIMP.SDK.Objects
 
     public interface IAimpString
     {
-        AimpActionResult GetChar(int index, out char c);
+        ActionResultType GetChar(int index, out char c);
 
         string GetData();
 
@@ -76,36 +76,36 @@ namespace AIMP.SDK.Objects
 
         int GetHashCode();
 
-        AimpActionResult SetChar(int index, char c);
+        ActionResultType SetChar(int index, char c);
 
-        AimpActionResult SetData(string chars, int charsCount);
+        ActionResultType SetData(string chars, int charsCount);
 
-        AimpActionResult Add(IAimpString str);
+        ActionResultType Add(IAimpString str);
 
-        AimpActionResult Add(string chars, int charsCount);
+        ActionResultType Add(string chars, int charsCount);
 
-        AimpActionResult ChangeCase(AIMPStringCase mode);
+        ActionResultType ChangeCase(AIMPStringCase mode);
 
-        AimpActionResult Clone(out IAimpString str);
+        ActionResultType Clone(out IAimpString str);
 
-        AimpActionResult Compare(IAimpString str, out int compareResult, bool ignoreCase);
+        ActionResultType Compare(IAimpString str, out int compareResult, bool ignoreCase);
 
-        AimpActionResult Compare(string chars, int charsCount, out int compareResult, bool ignoreCase);
+        ActionResultType Compare(string chars, int charsCount, out int compareResult, bool ignoreCase);
 
-        AimpActionResult Delete(int index, int count);
+        ActionResultType Delete(int index, int count);
 
-        AimpActionResult Find(IAimpString str, out int index, AIMPStringFindFlags flags, int startFromIndex);
+        ActionResultType Find(IAimpString str, out int index, AIMPStringFindFlags flags, int startFromIndex);
 
-        AimpActionResult Find(string chars, int charsCount, out int index, AIMPStringFindFlags flags, int startFromIndex);
+        ActionResultType Find(string chars, int charsCount, out int index, AIMPStringFindFlags flags, int startFromIndex);
 
-        AimpActionResult Insert(int index, IAimpString str);
+        ActionResultType Insert(int index, IAimpString str);
 
-        AimpActionResult Insert(int index, string chars, int charsCount);
+        ActionResultType Insert(int index, string chars, int charsCount);
 
-        AimpActionResult Replace(IAimpString oldPattern, IAimpString newPattern, int flags);
+        ActionResultType Replace(IAimpString oldPattern, IAimpString newPattern, int flags);
 
-        AimpActionResult Replace(string oldPatternChars, int oldPatternCharsCount, string newPatternChars, int newPatternCharsCount, int flags);
+        ActionResultType Replace(string oldPatternChars, int oldPatternCharsCount, string newPatternChars, int newPatternCharsCount, int flags);
 
-        AimpActionResult SubString(int index, int count, out IAimpString str);
+        ActionResultType SubString(int index, int count, out IAimpString str);
     }
 }

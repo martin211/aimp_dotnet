@@ -261,47 +261,47 @@ namespace AIMP
             virtual void OnScanningEnd(bool hasChanges, bool canceled);
 
         public:
-            virtual AimpActionResult Add(IAimpFileInfo^ fileInfo, PlaylistFlags flags,
+            virtual ActionResultType Add(IAimpFileInfo^ fileInfo, PlaylistFlags flags,
                                          PlaylistFilePosition filePosition);
 
-            virtual AimpActionResult Add(System::String^ fileUrl, PlaylistFlags flags,
+            virtual ActionResultType Add(System::String^ fileUrl, PlaylistFlags flags,
                                          PlaylistFilePosition filePosition);
 
-            virtual AimpActionResult AddList(System::Collections::Generic::IList<IAimpFileInfo^>^ fileUrlList,
+            virtual ActionResultType AddList(System::Collections::Generic::IList<IAimpFileInfo^>^ fileUrlList,
                                              PlaylistFlags flags, PlaylistFilePosition filePosition);
 
-            virtual AimpActionResult AddList(System::Collections::Generic::IList<System::String^>^ fileUrlList,
+            virtual ActionResultType AddList(System::Collections::Generic::IList<System::String^>^ fileUrlList,
                                              PlaylistFlags flags, PlaylistFilePosition filePosition);
 
-            virtual AimpActionResult Delete(IAimpPlaylistItem^ item);
+            virtual ActionResultType Delete(IAimpPlaylistItem^ item);
 
-            virtual AimpActionResult Delete(int index);
+            virtual ActionResultType Delete(int index);
 
-            virtual AimpActionResult DeleteAll();
+            virtual ActionResultType DeleteAll();
 
-            virtual AimpActionResult Delete(PlaylistDeleteFlags deleteFlags, System::Object^ customFilterData,
+            virtual ActionResultType Delete(PlaylistDeleteFlags deleteFlags, System::Object^ customFilterData,
                                             System::Func<IAimpPlaylistItem^, System::Object^, bool>^ filterFunc);
 
-            virtual AimpActionResult Sort(PlaylistSort sort);
+            virtual ActionResultType Sort(PlaylistSort sort);
 
-            virtual AimpActionResult Sort(Object^ customSortData,
+            virtual ActionResultType Sort(Object^ customSortData,
                                           Func<IAimpPlaylistItem^, IAimpPlaylistItem^, Object^,
                                                PlaylistSortComapreResult>^ compareFunc);
 
-            virtual AimpActionResult Sort(String^ templateString);
+            virtual ActionResultType Sort(String^ templateString);
 
-            virtual AimpActionResult BeginUpdate();
+            virtual ActionResultType BeginUpdate();
 
-            virtual AimpActionResult EndUpdate();
+            virtual ActionResultType EndUpdate();
 
-            virtual AimpActionResult Close(PlaylistCloseFlag closeFlag);
+            virtual ActionResultType Close(PlaylistCloseFlag closeFlag);
 
-            virtual AimpActionResult GetFiles(PlaylistGetFilesFlag filesFlag,
+            virtual ActionResultType GetFiles(PlaylistGetFilesFlag filesFlag,
                                               System::Collections::Generic::IList<String^>^% files);
 
-            virtual AimpActionResult ReloadFromPreimage();
+            virtual ActionResultType ReloadFromPreimage();
 
-            virtual AimpActionResult ReloadInfo(bool fullReload);
+            virtual ActionResultType ReloadInfo(bool fullReload);
 
             virtual IAimpPlaylistItem^ GetItem(int index);
 
@@ -311,7 +311,7 @@ namespace AIMP
 
             virtual int GetGroupCount();
 
-            virtual AimpActionResult MergeGroup(IAimpPlaylistGroup^ playlistGroup);
+            virtual ActionResultType MergeGroup(IAimpPlaylistGroup^ playlistGroup);
 
             virtual event AimpPlayListHandler^ Activated
             {
@@ -356,7 +356,7 @@ namespace AIMP
             }
 
         private:
-            AimpActionResult GetProperties(IAIMPPropertyList** properties);
+            ActionResultType GetProperties(IAIMPPropertyList** properties);
             AimpFileInfo^ CreateFileInfo(IAimpFileInfo^ fi);
 
             void RegisterListner();

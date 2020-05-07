@@ -61,27 +61,27 @@ namespace AIMP
                 void raise(String^ playListName, String^ playListId);
             }
 
-            virtual AimpActionResult CreatePlaylist(String^ name, bool isActive, IAimpPlaylist^% playList);
+            virtual ActionResultType CreatePlaylist(String^ name, bool isActive, IAimpPlaylist^% playList);
 
-            virtual AimpActionResult CreatePlaylistFromFile(String^ fileName, bool isActive, IAimpPlaylist^% playList);
+            virtual ActionResultType CreatePlaylistFromFile(String^ fileName, bool isActive, IAimpPlaylist^% playList);
 
-            virtual AimpActionResult GetActivePlaylist(IAimpPlaylist^% playList);
+            virtual ActionResultType GetActivePlaylist(IAimpPlaylist^% playList);
 
-            virtual AimpActionResult GetLoadedPlaylist(int index, IAimpPlaylist^% playList);
+            virtual ActionResultType GetLoadedPlaylist(int index, IAimpPlaylist^% playList);
 
-            virtual AimpActionResult GetPlayablePlaylist(IAimpPlaylist^% playList);
+            virtual ActionResultType GetPlayablePlaylist(IAimpPlaylist^% playList);
 
-            virtual AimpActionResult GetLoadedPlaylistById(String^ id, IAimpPlaylist^% playList);
+            virtual ActionResultType GetLoadedPlaylistById(String^ id, IAimpPlaylist^% playList);
 
-            virtual AimpActionResult GetLoadedPlaylistByName(String^ name, IAimpPlaylist^% playList);
+            virtual ActionResultType GetLoadedPlaylistByName(String^ name, IAimpPlaylist^% playList);
 
             virtual int GetLoadedPlaylistCount();
 
-            virtual AimpActionResult SetActivePlaylist(IAimpPlaylist^ playList);
+            virtual ActionResultType SetActivePlaylist(IAimpPlaylist^ playList);
 
-            virtual AimpActionResult GetPreimageFactory(int index, IAimpExtensionPlaylistPreimageFactory^% factory);
+            virtual ActionResultType GetPreimageFactory(int index, IAimpExtensionPlaylistPreimageFactory^% factory);
 
-            virtual AimpActionResult
+            virtual ActionResultType
             GetPreimageFactoryByID(String^ id, IAimpExtensionPlaylistPreimageFactory^% factory);
 
             virtual int GetPreimageFactoryCount();

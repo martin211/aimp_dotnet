@@ -26,7 +26,7 @@ namespace AIMP.SDK.MusicLibrary.Presets
         /// Gets the used filter.
         /// </summary>
         /// <param name="filter">The filter.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetFilter(out IAimpDataFilterGroup filter);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetFilter(out IAimpDataFilterGroup filter);
     }
 }

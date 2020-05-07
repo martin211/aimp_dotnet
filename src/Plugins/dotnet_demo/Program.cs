@@ -22,14 +22,14 @@ namespace TestPlugin
     using AIMP.SDK.MenuManager;
     using AIMP.SDK.Options;
 
-    public delegate AimpActionResult HookMessage(AimpCoreMessageType message, int param1, int param2);
+    public delegate ActionResultType HookMessage(AimpCoreMessageType message, int param1, int param2);
 
     public class MessageHook : IAimpMessageHook
     {
-        public AimpActionResult CoreMessage(AimpCoreMessageType message, int param1, int param2)
+        public ActionResultType CoreMessage(AimpCoreMessageType message, int param1, int param2)
         {
             OnCoreMessage?.Invoke(message, param1, param2);
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
         public event HookMessage OnCoreMessage;
@@ -37,19 +37,19 @@ namespace TestPlugin
 
     public class ExtensionPlaylistManagerListener : IAimpExtension, IAimpExtensionPlaylistManagerListener
     {
-        public AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist)
+        public ActionResultType OnPlaylistActivated(IAimpPlaylist playlist)
         {
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist)
+        public ActionResultType OnPlaylistAdded(IAimpPlaylist playlist)
         {
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist)
+        public ActionResultType OnPlaylistRemoved(IAimpPlaylist playlist)
         {
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
     }
 
@@ -73,7 +73,7 @@ namespace TestPlugin
             var listner = new ExtensionPlaylistManagerListener();
             Player.Core.RegisterExtension(listner);
 
-            if (Player.MenuManager.CreateMenuItem(out demoFormItem) == AimpActionResult.OK)
+            if (Player.MenuManager.CreateMenuItem(out demoFormItem) == ActionResultType.OK)
             {
                 demoFormItem.Name = "Open demo form";
                 demoFormItem.Id = "demo_form";
@@ -124,7 +124,7 @@ namespace TestPlugin
         private void CreateMenuWithAction()
         {
             IAimpMenuItem actionMenuItem;
-            if (Player.MenuManager.CreateMenuItem(out actionMenuItem) == AimpActionResult.OK)
+            if (Player.MenuManager.CreateMenuItem(out actionMenuItem) == ActionResultType.OK)
             {
 
                 IAimpAction action = Player.ActionManager.CreateAction();

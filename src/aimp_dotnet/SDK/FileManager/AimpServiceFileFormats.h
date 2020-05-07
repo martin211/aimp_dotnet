@@ -25,9 +25,9 @@ namespace AIMP
         public:
             explicit AimpServiceFileFormats(ManagedAimpCore^ core);
 
-            virtual AimpActionResult GetFormats(FileFormats flags, String^% formats);
+            virtual ActionResultType GetFormats(FileFormats flags, String^% formats);
 
-            virtual AimpActionResult IsSupported(String^ fileName, FileFormats flags);
+            virtual ActionResultType IsSupported(String^ fileName, FileFormats flags);
         protected:
             IAIMPServiceFileFormats* GetAimpService() override;
         };

@@ -28,21 +28,21 @@ namespace AIMP.SDK.FileManager.Extensions
         /// Returns the short description. Ex. Ogg Vorbis
         /// </summary>
         /// <param name="fileFormat">Out. The description.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetDescription(string fileFormat);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetDescription(string fileFormat);
 
         /// <summary>
         /// Returns the supported extensions. Ex. *.ogg;*.oga;
         /// </summary>
         /// <param name="extensions">Out. Supported extensions.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetExtList(string extensions);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetExtList(string extensions);
 
         /// <summary>
         /// Gets the supported flags.
         /// </summary>
         /// <param name="formatsCategoryTypes">Out. Supported flags <see cref="FileFormatsCategoryTypes"/>.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetFlags(out FileFormatsCategoryTypes formatsCategoryTypes);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetFlags(out FileFormatsCategoryTypes formatsCategoryTypes);
     }
 }

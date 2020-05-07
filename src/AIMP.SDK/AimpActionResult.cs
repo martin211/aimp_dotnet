@@ -14,7 +14,7 @@ namespace AIMP.SDK
     /// <summary>
     /// AIMP Operation Result.
     /// </summary>
-    public enum AimpActionResult : uint
+    public enum ActionResultType : uint
     {
         /// <summary>
         /// Operation successful complete.
@@ -51,4 +51,24 @@ namespace AIMP.SDK
         /// </summary>
         Fail = 0x80004005
     }
+
+    //public class aActionResultType
+    //{
+    //    public ActionResultType(ActionResultType resultType)
+    //    {
+    //        ResultType = resultType;
+    //    }
+
+    //    public ActionResultType ResultType { get; }
+    //}
+
+    //public class aActionResultType<TObject> : ActionResultType
+    //{
+    //    public ActionResultType(ActionResultType resultType, TObject result) : base(resultType)
+    //    {
+    //        Result = result;
+    //    }
+
+    //    public TObject Result { get; }
+    //}
 }

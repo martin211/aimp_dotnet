@@ -25,7 +25,7 @@ HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileAttrs(IAIMPString* 
 {
     AimpFileAttributes attr;
 
-    AimpActionResult result = _instance->GetFileAttrs(AimpConverter::ToManagedString(fileName), attr);
+    ActionResultType result = _instance->GetFileAttrs(AimpConverter::ToManagedString(fileName), attr);
 
     attrs = new TAIMPFileAttributes();
     attrs->Attributes = DWORD(attr.Attributes);
@@ -39,7 +39,7 @@ HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileAttrs(IAIMPString* 
 HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileSize(IAIMPString* fileName, INT64* size)
 {
     long long sizeValur = 0;
-    AimpActionResult result = _instance->GetFileSize(AimpConverter::ToManagedString(fileName), sizeValur);
+    ActionResultType result = _instance->GetFileSize(AimpConverter::ToManagedString(fileName), sizeValur);
     *size = sizeValur;
     return HRESULT(result);
 }

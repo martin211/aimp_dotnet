@@ -23,10 +23,10 @@ namespace AIMP.SDK.FileManager
 
     public interface IAimpServiceFileStreaming : IAimpService
     {
-        AimpActionResult CreateStreamForFile(string fileName, FileStreamingType flags, long offset, long size,
+        ActionResultType CreateStreamForFile(string fileName, FileStreamingType flags, long offset, long size,
             out IAimpStream stream);
 
-        AimpActionResult CreateStreamForFileUri(string fileUrl, out IAimpVirtualFile virtualFile,
+        ActionResultType CreateStreamForFileUri(string fileUrl, out IAimpVirtualFile virtualFile,
             out IAimpStream stream);
     }
 }

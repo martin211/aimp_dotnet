@@ -23,7 +23,7 @@ String^ AimpServiceMUI::GetName()
 
     try
     {
-        if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::OK && service != nullptr)
+        if (GetService(IID_IAIMPServiceMUI, &service) == ActionResultType::OK && service != nullptr)
         {
             service->GetName(&str);
 
@@ -57,7 +57,7 @@ String^ AimpServiceMUI::GetValue(String^ key)
     IAIMPServiceMUI* service = nullptr;
     try
     {
-        if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::OK && service != nullptr)
+        if (GetService(IID_IAIMPServiceMUI, &service) == ActionResultType::OK && service != nullptr)
         {
             auto strKey = AimpConverter::ToAimpString(key);
 
@@ -99,7 +99,7 @@ String^ AimpServiceMUI::GetValuePart(String^ key, int index)
     IAIMPServiceMUI* service = nullptr;
     try
     {
-        if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::OK && service == nullptr)
+        if (GetService(IID_IAIMPServiceMUI, &service) == ActionResultType::OK && service == nullptr)
         {
             auto strKey = AimpConverter::ToAimpString(key);
             service->GetValuePart(strKey, index, &str);

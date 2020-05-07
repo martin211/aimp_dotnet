@@ -17,10 +17,10 @@
 #include "AimpPlaylistPreimage.h"
 #include "AimpPlaylistPreimageFolders.h"
 
-AimpActionResult AimpPlayList::GetProperties(IAIMPPropertyList** properties)
+ActionResultType AimpPlayList::GetProperties(IAIMPPropertyList** properties)
 {
     IAIMPPropertyList* prop = nullptr;
-    AimpActionResult result = CheckResult(
+    ActionResultType result = CheckResult(
         InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&prop)));
     *properties = prop;
     return result;
@@ -62,7 +62,7 @@ String^ AimpPlayList::Id::get()
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
         {
             return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_ID);
         }
@@ -84,7 +84,7 @@ String^ AimpPlayList::Name::get()
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
         {
             return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_NAME);
         }
@@ -106,7 +106,7 @@ void AimpPlayList::Name::set(String^ value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
         {
             PropertyListExtension::SetString(properties, AIMP_PLAYLIST_PROPID_NAME, value);
         }
@@ -126,7 +126,7 @@ bool AimpPlayList::ReadOnly::get()
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_READONLY);
     }
     finally
@@ -146,7 +146,7 @@ void AimpPlayList::ReadOnly::set(bool value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
         {
             PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_READONLY, value);
         }
@@ -179,7 +179,7 @@ bool AimpPlayList::GroupingOverridden::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING_OVERRIDEN);
     }
     finally
@@ -199,7 +199,7 @@ void AimpPlayList::GroupingOverridden::set(bool value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
         {
             PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING_OVERRIDEN, value);
         }
@@ -221,7 +221,7 @@ bool AimpPlayList::Grouping::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING);
     }
     finally
@@ -241,7 +241,7 @@ void AimpPlayList::Grouping::set(bool value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
         {
             PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING, value);
         }
@@ -263,7 +263,7 @@ String^ AimpPlayList::GroupingTemplate::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_GROUPPING_TEMPLATE);
     }
     finally
@@ -283,7 +283,7 @@ void AimpPlayList::GroupingTemplate::set(String^ value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::SetString(properties, AIMP_PLAYLIST_PROPID_GROUPPING_TEMPLATE, value);
     }
     finally
@@ -303,7 +303,7 @@ bool AimpPlayList::GroupingAutomerg::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING_AUTOMERGING);
     }
     finally
@@ -324,7 +324,7 @@ void AimpPlayList::GroupingAutomerg::set(bool value)
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_GROUPPING_AUTOMERGING, value);
     }
     finally
@@ -344,7 +344,7 @@ bool AimpPlayList::FormatingOverride::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_FORMATING_OVERRIDEN);
     }
     finally
@@ -364,7 +364,7 @@ void AimpPlayList::FormatingOverride::set(bool value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_FORMATING_OVERRIDEN, value);
     }
     finally
@@ -384,7 +384,7 @@ String^ AimpPlayList::FormattingLine1Template::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE1_TEMPLATE);
     }
     finally
@@ -404,7 +404,7 @@ void AimpPlayList::FormattingLine1Template::set(String^ value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::SetString(properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE1_TEMPLATE, value);
     }
     finally
@@ -424,7 +424,7 @@ String^ AimpPlayList::FormattingLine2Template::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetString(properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE2_TEMPLATE);
     }
     finally
@@ -444,7 +444,7 @@ void AimpPlayList::FormattingLine2Template::set(String^ value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::SetString(properties, AIMP_PLAYLIST_PROPID_FORMATING_LINE2_TEMPLATE, value);
     }
     finally
@@ -464,7 +464,7 @@ bool AimpPlayList::ViewOverride::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_OVERRIDEN);
     }
     finally
@@ -484,7 +484,7 @@ void AimpPlayList::ViewOverride::set(bool value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_OVERRIDEN, value);
     }
     finally
@@ -504,7 +504,7 @@ bool AimpPlayList::ViewDuration::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_DURATION);
     }
     finally
@@ -524,7 +524,7 @@ void AimpPlayList::ViewDuration::set(bool value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_DURATION, value);
     }
     finally
@@ -544,7 +544,7 @@ bool AimpPlayList::ViewExpandButtons::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_EXPAND_BUTTONS);
     }
     finally
@@ -564,7 +564,7 @@ void AimpPlayList::ViewExpandButtons::set(bool value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_EXPAND_BUTTONS, value);
     }
     finally
@@ -584,7 +584,7 @@ bool AimpPlayList::ViewMarks::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_MARKS);
     }
     finally
@@ -604,7 +604,7 @@ void AimpPlayList::ViewMarks::set(bool value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_MARKS, value);
     }
     finally
@@ -624,7 +624,7 @@ bool AimpPlayList::ViewNumbers::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS);
     }
     finally
@@ -644,7 +644,7 @@ void AimpPlayList::ViewNumbers::set(bool value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS, value);
     }
     finally
@@ -664,7 +664,7 @@ bool AimpPlayList::ViewAbsoluteNumbers::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS_ABSOLUTE);
     }
     finally
@@ -684,7 +684,7 @@ void AimpPlayList::ViewAbsoluteNumbers::set(bool value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_NUMBERS_ABSOLUTE, value);
     }
     finally
@@ -704,7 +704,7 @@ bool AimpPlayList::ViewSecondLine::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_SECOND_LINE);
     }
     finally
@@ -724,7 +724,7 @@ void AimpPlayList::ViewSecondLine::set(bool value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_SECOND_LINE, value);
     }
     finally
@@ -744,7 +744,7 @@ bool AimpPlayList::ViewSwitches::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_SWITCHES);
     }
     finally
@@ -764,7 +764,7 @@ void AimpPlayList::ViewSwitches::set(bool value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::SetBool(properties, AIMP_PLAYLIST_PROPID_VIEW_SWITCHES, value);
     }
     finally
@@ -784,7 +784,7 @@ int AimpPlayList::FocusIndex::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetInt32(properties, AIMP_PLAYLIST_PROPID_FOCUSINDEX);
     }
     finally
@@ -804,7 +804,7 @@ void AimpPlayList::FocusIndex::set(int value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::SetInt32(properties, AIMP_PLAYLIST_PROPID_FOCUSINDEX, value);
     }
     finally
@@ -824,7 +824,7 @@ int AimpPlayList::PlaybackCursor::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetInt32(properties, AIMP_PLAYLIST_PROPID_PLAYBACKCURSOR);
     }
     finally
@@ -844,7 +844,7 @@ void AimpPlayList::PlaybackCursor::set(int value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::SetInt32(properties, AIMP_PLAYLIST_PROPID_PLAYBACKCURSOR, value);
     }
     finally
@@ -864,7 +864,7 @@ int AimpPlayList::PlayingIndex::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetInt32(properties, AIMP_PLAYLIST_PROPID_PLAYINGINDEX);
     }
     finally
@@ -884,7 +884,7 @@ void AimpPlayList::PlayingIndex::set(int value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::SetInt32(properties, AIMP_PLAYLIST_PROPID_PLAYINGINDEX, value);
     }
     finally
@@ -904,7 +904,7 @@ double AimpPlayList::Duration::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             return PropertyListExtension::GetFloat(properties, AIMP_PLAYLIST_PROPID_DURATION);
     }
     finally
@@ -927,7 +927,7 @@ double AimpPlayList::Size::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
             PropertyListExtension::GetFloat(properties, AIMP_PLAYLIST_PROPID_SIZE, *&size);
     }
     finally
@@ -948,12 +948,12 @@ IAimpPlaylistPreimage^ AimpPlayList::PreImage::get()
 
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
         {
             IAIMPPlaylistPreimage* preImage = nullptr;
-            AimpActionResult res = Utils::CheckResult(properties->GetValueAsObject(
+            ActionResultType res = Utils::CheckResult(properties->GetValueAsObject(
                 AIMP_PLAYLIST_PROPID_PREIMAGE, IID_IAIMPPlaylistPreimage, reinterpret_cast<void**>(&preImage)));
-            if (res == AimpActionResult::OK && preImage != nullptr)
+            if (res == ActionResultType::OK && preImage != nullptr)
             {
                 IAIMPPlaylistPreimageFolders* preimageFolders = static_cast<IAIMPPlaylistPreimageFolders*>(preImage);
                 if (preimageFolders != nullptr)
@@ -981,7 +981,7 @@ void AimpPlayList::PreImage::set(IAimpPlaylistPreimage^ value)
     IAIMPPropertyList* properties = nullptr;
     try
     {
-        if (GetProperties(&properties) == AimpActionResult::OK)
+        if (GetProperties(&properties) == ActionResultType::OK)
         {
             IAIMPPlaylistPreimage* preImage = nullptr;
 
@@ -993,22 +993,22 @@ void AimpPlayList::PreImage::set(IAimpPlaylistPreimage^ value)
                 {
                     IAIMPPlaylistPreimageFolders* f = static_cast<IAIMPPlaylistPreimageFolders*>(folders->
                         InternalAimpObject);
-                    AimpActionResult res = Utils::CheckResult(
+                    ActionResultType res = Utils::CheckResult(
                         properties->SetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, f));
                 }
                 else
                 {
                     preImage = static_cast<AimpPlaylistPreimage^>(value)->InternalAimpObject;
-                    AimpActionResult res = Utils::CheckResult(
+                    ActionResultType res = Utils::CheckResult(
                         properties->SetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, preImage));
                 }
             }
             else
             {
                 IAIMPPlaylistPreimage* preImage = nullptr;
-                AimpActionResult res = Utils::CheckResult(properties->GetValueAsObject(
+                ActionResultType res = Utils::CheckResult(properties->GetValueAsObject(
                     AIMP_PLAYLIST_PROPID_PREIMAGE, IID_IAIMPPlaylistPreimage, reinterpret_cast<void**>(&preImage)));
-                if (res == AimpActionResult::OK && preImage != nullptr)
+                if (res == ActionResultType::OK && preImage != nullptr)
                 {
                     preImage->Release();
                     preImage = nullptr;
@@ -1028,28 +1028,28 @@ void AimpPlayList::PreImage::set(IAimpPlaylistPreimage^ value)
 }
 
 
-AimpActionResult AimpPlayList::Add(IAimpFileInfo^ fileInfo, PlaylistFlags flags, PlaylistFilePosition filePosition)
+ActionResultType AimpPlayList::Add(IAimpFileInfo^ fileInfo, PlaylistFlags flags, PlaylistFilePosition filePosition)
 {
     AimpFileInfo^ file = CreateFileInfo(fileInfo);
-    AimpActionResult result = CheckResult(
+    ActionResultType result = CheckResult(
         InternalAimpObject->Add(file->InternalAimpObject, DWORD(flags), int(filePosition)));
     file->InternalAimpObject->Release();
     return result;
 }
 
-AimpActionResult AimpPlayList::Add(String^ fileUrl, PlaylistFlags flags, PlaylistFilePosition filePosition)
+ActionResultType AimpPlayList::Add(String^ fileUrl, PlaylistFlags flags, PlaylistFilePosition filePosition)
 {
     IAIMPString* url = AimpConverter::ToAimpString(fileUrl);
-    AimpActionResult res = CheckResult(InternalAimpObject->Add(url, DWORD(flags), int(filePosition)));
+    ActionResultType res = CheckResult(InternalAimpObject->Add(url, DWORD(flags), int(filePosition)));
     url->Release();
     url = nullptr;
     return res;
 }
 
-AimpActionResult AimpPlayList::AddList(Generic::IList<IAimpFileInfo^>^ files, PlaylistFlags flags,
+ActionResultType AimpPlayList::AddList(Generic::IList<IAimpFileInfo^>^ files, PlaylistFlags flags,
                                        PlaylistFilePosition filePosition)
 {
-    AimpActionResult res = AimpActionResult::Fail;
+    ActionResultType res = ActionResultType::Fail;
 
     if (files->Count > 0)
     {
@@ -1075,10 +1075,10 @@ AimpActionResult AimpPlayList::AddList(Generic::IList<IAimpFileInfo^>^ files, Pl
     return res;
 }
 
-AimpActionResult AimpPlayList::AddList(Generic::IList<String^>^ fileUrlList, PlaylistFlags flags,
+ActionResultType AimpPlayList::AddList(Generic::IList<String^>^ fileUrlList, PlaylistFlags flags,
                                        PlaylistFilePosition filePosition)
 {
-    AimpActionResult res = AimpActionResult::Fail;
+    ActionResultType res = ActionResultType::Fail;
     IAIMPObjectList* list = nullptr;
 
     if (fileUrlList->Count > 0)
@@ -1113,22 +1113,22 @@ AimpActionResult AimpPlayList::AddList(Generic::IList<String^>^ fileUrlList, Pla
     return res;
 }
 
-AimpActionResult AimpPlayList::Delete(IAimpPlaylistItem^ item)
+ActionResultType AimpPlayList::Delete(IAimpPlaylistItem^ item)
 {
     return CheckResult(InternalAimpObject->Delete(static_cast<AimpPlaylistItem^>(item)->InternalAimpObject));
 }
 
-AimpActionResult AimpPlayList::Delete(int index)
+ActionResultType AimpPlayList::Delete(int index)
 {
     return CheckResult(InternalAimpObject->Delete2(index));
 }
 
-AimpActionResult AimpPlayList::DeleteAll()
+ActionResultType AimpPlayList::DeleteAll()
 {
     return CheckResult(InternalAimpObject->DeleteAll());
 }
 
-AimpActionResult AimpPlayList::Delete(PlaylistDeleteFlags deleteFlags, Object^ customFilterData,
+ActionResultType AimpPlayList::Delete(PlaylistDeleteFlags deleteFlags, Object^ customFilterData,
                                       Func<IAimpPlaylistItem^, Object^, bool>^ filterFunc)
 {
     void* customData = GCHandle::ToIntPtr(GCHandle::Alloc(customFilterData)).ToPointer();
@@ -1140,12 +1140,12 @@ AimpActionResult AimpPlayList::Delete(PlaylistDeleteFlags deleteFlags, Object^ c
                                                        ToPointer()), customData));
 }
 
-AimpActionResult AimpPlayList::Sort(PlaylistSort sort)
+ActionResultType AimpPlayList::Sort(PlaylistSort sort)
 {
     return CheckResult(InternalAimpObject->Sort(int(sort)));
 }
 
-AimpActionResult AimpPlayList::Sort(Object^ customSortData,
+ActionResultType AimpPlayList::Sort(Object^ customSortData,
                                     Func<IAimpPlaylistItem^, IAimpPlaylistItem^, Object^, PlaylistSortComapreResult>^
                                     compareFunc)
 {
@@ -1158,26 +1158,26 @@ AimpActionResult AimpPlayList::Sort(Object^ customSortData,
                                   customData));
 }
 
-AimpActionResult AimpPlayList::Sort(String^ templateString)
+ActionResultType AimpPlayList::Sort(String^ templateString)
 {
     IAIMPString* templateStr = AimpConverter::ToAimpString(templateString);
-    const AimpActionResult res = CheckResult(InternalAimpObject->Sort2(templateStr));
+    const ActionResultType res = CheckResult(InternalAimpObject->Sort2(templateStr));
     templateStr->Release();
     templateStr = nullptr;
     return res;
 }
 
-AimpActionResult AimpPlayList::BeginUpdate()
+ActionResultType AimpPlayList::BeginUpdate()
 {
     return CheckResult(InternalAimpObject->BeginUpdate());
 }
 
-AimpActionResult AimpPlayList::EndUpdate()
+ActionResultType AimpPlayList::EndUpdate()
 {
     return CheckResult(InternalAimpObject->EndUpdate());
 }
 
-AimpActionResult AimpPlayList::Close(PlaylistCloseFlag closeFlag)
+ActionResultType AimpPlayList::Close(PlaylistCloseFlag closeFlag)
 {
     if (_listner != nullptr)
     {
@@ -1189,14 +1189,14 @@ AimpActionResult AimpPlayList::Close(PlaylistCloseFlag closeFlag)
     return CheckResult(InternalAimpObject->Close(DWORD(closeFlag)));
 }
 
-AimpActionResult AimpPlayList::GetFiles(PlaylistGetFilesFlag filesFlag, Generic::IList<String^>^% files)
+ActionResultType AimpPlayList::GetFiles(PlaylistGetFilesFlag filesFlag, Generic::IList<String^>^% files)
 {
     IAIMPObjectList* collection = nullptr;
-    AimpActionResult actionResult = AimpActionResult::Fail;
+    ActionResultType actionResult = ActionResultType::Fail;
     actionResult = CheckResult(InternalAimpObject->GetFiles(DWORD(filesFlag), &collection));
     files = nullptr;
 
-    if (actionResult == AimpActionResult::OK)
+    if (actionResult == ActionResultType::OK)
     {
         files = gcnew List<String^>();
 
@@ -1217,12 +1217,12 @@ AimpActionResult AimpPlayList::GetFiles(PlaylistGetFilesFlag filesFlag, Generic:
     return actionResult;
 }
 
-AimpActionResult AimpPlayList::ReloadFromPreimage()
+ActionResultType AimpPlayList::ReloadFromPreimage()
 {
     return CheckResult(InternalAimpObject->ReloadFromPreimage());
 }
 
-AimpActionResult AimpPlayList::ReloadInfo(bool fullReload)
+ActionResultType AimpPlayList::ReloadInfo(bool fullReload)
 {
     return CheckResult(InternalAimpObject->ReloadInfo(fullReload));
 }
@@ -1245,7 +1245,7 @@ int AimpPlayList::GetItemCount()
     return InternalAimpObject->GetItemCount();
 }
 
-AimpActionResult AimpPlayList::MergeGroup(IAimpPlaylistGroup^ playlistGroup)
+ActionResultType AimpPlayList::MergeGroup(IAimpPlaylistGroup^ playlistGroup)
 {
     return CheckResult(
         InternalAimpObject->MergeGroup(dynamic_cast<AimpPlayListGroup^>(playlistGroup)->InternalAimpObject));
@@ -1259,7 +1259,7 @@ IAimpPlaylistGroup^ AimpPlayList::GetGroup(int index)
     try
     {
         if (CheckResult(InternalAimpObject->GetGroup(index, IID_IAIMPPlaylistGroup, reinterpret_cast<void**>(&group)))
-            == AimpActionResult::OK)
+            == ActionResultType::OK)
         {
             result = gcnew AimpPlayListGroup(group);
         }

@@ -136,7 +136,7 @@ namespace AIMP
                 void set(int value);
             }
 
-            virtual AimpActionResult DeleteChildren()
+            virtual ActionResultType DeleteChildren()
             {
                 return CheckResult(InternalAimpObject->DeleteChildren());
             }

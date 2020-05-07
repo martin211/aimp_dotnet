@@ -25,7 +25,7 @@ namespace AIMP.SDK.AlbumArtManager
         /// <param name="fileInfo">The file information.</param>
         /// <param name="options">The search options <seealso cref="IAimpAlbumArtSearchOptions"/>.</param>
         /// <param name="image">Out. The album art image.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Get(IAimpFileInfo fileInfo, IAimpAlbumArtSearchOptions options, out Bitmap image);
+        /// <returns>The <see cref="ActionResultType"/> result.</returns>
+        ActionResultType Get(IAimpFileInfo fileInfo, IAimpAlbumArtSearchOptions options, out Bitmap image);
     }
 }

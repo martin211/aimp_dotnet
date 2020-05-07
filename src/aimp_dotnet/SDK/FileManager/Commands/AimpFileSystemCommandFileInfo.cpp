@@ -20,10 +20,10 @@ AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject) : Aimp
 {
 }
 
-AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(String^ file, AimpFileAttributes% attr)
+ActionResultType AimpFileSystemCommandFileInfo::GetFileAttrs(String^ file, AimpFileAttributes% attr)
 {
     auto str = AimpConverter::ToAimpString(file);
-    auto result = AimpActionResult::Fail;
+    auto result = ActionResultType::Fail;
     auto atr = AimpFileAttributes();
 
     try
@@ -31,7 +31,7 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(String^ file, AimpF
         TAIMPFileAttributes* fattr = nullptr;
         result = CheckResult(InternalAimpObject->GetFileAttrs(str, fattr));
 
-        if (result == AimpActionResult::OK)
+        if (result == ActionResultType::OK)
         {
             atr.TimeCreation = fattr->TimeCreation;
             atr.TimeLastAccess = fattr->TimeLastAccess;
@@ -52,18 +52,18 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileAttrs(String^ file, AimpF
     return result;
 }
 
-AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(String^ file, long long% size)
+ActionResultType AimpFileSystemCommandFileInfo::GetFileSize(String^ file, long long% size)
 {
     IAIMPString* str = nullptr;
     size = 0;
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
 
     try
     {
         str = AimpConverter::ToAimpString(file);
         INT64* fSize = 0;
         result = CheckResult(InternalAimpObject->GetFileSize(str, fSize));
-        if (result == AimpActionResult::OK)
+        if (result == ActionResultType::OK)
         {
             size = reinterpret_cast<long long>(fSize);
         }
@@ -80,10 +80,10 @@ AimpActionResult AimpFileSystemCommandFileInfo::GetFileSize(String^ file, long l
     return result;
 }
 
-AimpActionResult AimpFileSystemCommandFileInfo::IsFileExists(String^ file)
+ActionResultType AimpFileSystemCommandFileInfo::IsFileExists(String^ file)
 {
     IAIMPString* str = nullptr;
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
 
     try
     {

@@ -17,9 +17,9 @@ AimpServiceActionManager::AimpServiceActionManager(ManagedAimpCore^ core) : Base
 {
 }
 
-AimpActionResult AimpServiceActionManager::GetById(String^ id, IAimpAction^% action)
+ActionResultType AimpServiceActionManager::GetById(String^ id, IAimpAction^% action)
 {
-    auto result = AimpActionResult::Fail;
+    auto result = ActionResultType::Fail;
     IAIMPServiceActionManager* service = GetAimpService();
     action = nullptr;
 
@@ -30,7 +30,7 @@ AimpActionResult AimpServiceActionManager::GetById(String^ id, IAimpAction^% act
             IAIMPAction* resAction = nullptr;
             IAIMPString* strId = AimpConverter::ToAimpString(id);
             result = CheckResult(service->GetByID(strId, &resAction));
-            if (result == AimpActionResult::OK)
+            if (result == ActionResultType::OK)
             {
                 action = gcnew AimpAction(resAction);
             }
@@ -65,21 +65,21 @@ int AimpServiceActionManager::MakeHotkey(ModifierKeys modifiers, unsigned int ke
     return 0;
 }
 
-AimpActionResult AimpServiceActionManager::Register(IAimpAction^ action)
+ActionResultType AimpServiceActionManager::Register(IAimpAction^ action)
 {
     return CheckResult(_core->GetAimpCore()->RegisterExtension(IID_IAIMPServiceActionManager,
                                                                static_cast<AimpAction^>(action)->InternalAimpObject));
 }
 
-AimpActionResult AimpServiceActionManager::Register(Generic::ICollection<IAimpAction^>^ actions)
+ActionResultType AimpServiceActionManager::Register(Generic::ICollection<IAimpAction^>^ actions)
 {
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
 
     for each (IAimpAction^ item in actions)
     {
         result = Register(item);
 
-        if (result != AimpActionResult::OK)
+        if (result != ActionResultType::OK)
         {
             return result;
         }
@@ -91,7 +91,7 @@ AimpActionResult AimpServiceActionManager::Register(Generic::ICollection<IAimpAc
 IAimpAction^ AimpServiceActionManager::CreateAction()
 {
     IAIMPAction* action = nullptr;
-    if (_core->CreateAction(&action) == AimpActionResult::OK && action != nullptr)
+    if (_core->CreateAction(&action) == ActionResultType::OK && action != nullptr)
     {
         return gcnew AimpAction(action);
     }

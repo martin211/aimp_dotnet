@@ -54,7 +54,7 @@ namespace AIMP
             virtual String^ GetPath(MessageDispatcher::AimpCorePathType pathType)
             {
                 String^ path;
-                if (_aimpCore->GetPath(pathType, path) == AIMP::SDK::AimpActionResult::OK)
+                if (_aimpCore->GetPath(pathType, path) == AIMP::SDK::ActionResultType::OK)
                 {
                     return path;
                 }
@@ -62,17 +62,17 @@ namespace AIMP
                 return String::Empty;
             }
 
-            virtual AimpActionResult SendMessage(MessageDispatcher::AimpCoreMessageType message, int value, Object^ obj)
+            virtual ActionResultType SendMessage(MessageDispatcher::AimpCoreMessageType message, int value, Object^ obj)
             {
                 return Utils::CheckResult(_aimpCore->SendMessage(message, value, obj));
             }
 
-            virtual AimpActionResult RegisterExtension(AIMP::IAimpExtension^ extension)
+            virtual ActionResultType RegisterExtension(AIMP::IAimpExtension^ extension)
             {
                 return Utils::CheckResult(_aimpCore->RegisterExtension(IID_IAIMPOptionsDialogFrame, extension));
             }
 
-            virtual AimpActionResult UnregisterExtension(AIMP::IAimpExtension^ extension)
+            virtual ActionResultType UnregisterExtension(AIMP::IAimpExtension^ extension)
             {
                 return Utils::CheckResult(_aimpCore->UnregisterExtension(extension));
             }
@@ -80,7 +80,7 @@ namespace AIMP
             virtual IAimpStream^ CreateStream()
             {
                 IAIMPStream* stream = nullptr;
-                if (_aimpCore->CreateStream(&stream) == AimpActionResult::OK && stream != nullptr)
+                if (_aimpCore->CreateStream(&stream) == ActionResultType::OK && stream != nullptr)
                 {
                     return gcnew AIMP::SDK::AimpStream(stream);
                 }
@@ -94,10 +94,10 @@ namespace AIMP
                 IUnknown* obj;
                 array<Byte>^ guidData = iid.ToByteArray();
                 pin_ptr<Byte> data = &(guidData[0]);
-                //AimpActionResult result = Utils::CheckResult(core->CreateObject(*(_GUID *)data, (void**)&obj));
-                AimpActionResult result = Utils::CheckResult(
+                //ActionResultType result = Utils::CheckResult(core->CreateObject(*(_GUID *)data, (void**)&obj));
+                ActionResultType result = Utils::CheckResult(
                     core->CreateObject(IID_IAIMPString, reinterpret_cast<void**>(&obj)));
-                if (result == AimpActionResult::OK)
+                if (result == ActionResultType::OK)
                 {
                     return IntPtr(obj);
                 }

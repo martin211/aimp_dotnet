@@ -23,15 +23,15 @@ namespace AIMP
         public:
             explicit AimpFileTagEditor(IAIMPFileTagEditor* aimpObject);
 
-            virtual AimpActionResult GetMixedInfo(IAimpFileInfo^% fileInfo);
+            virtual ActionResultType GetMixedInfo(IAimpFileInfo^% fileInfo);
 
-            virtual AimpActionResult GetTag(int index, IAimpFileTag^% fileTag);
+            virtual ActionResultType GetTag(int index, IAimpFileTag^% fileTag);
 
             virtual int GetTagCount();
 
-            virtual AimpActionResult SetToAll(IAimpFileInfo^ fileInfo);
+            virtual ActionResultType SetToAll(IAimpFileInfo^ fileInfo);
 
-            virtual AimpActionResult Save();
+            virtual ActionResultType Save();
         };
     }
 }

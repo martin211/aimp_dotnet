@@ -204,13 +204,13 @@ namespace AIMP
         /// <param name="pathType">Path type.</param>
         /// <param name="pathResult"></param>
         /// <returns></returns>
-        AIMP::SDK::AimpActionResult ManagedAimpCore::GetPath(MessageDispatcher::AimpCorePathType pathType, String^% pathResult)
+        AIMP::SDK::ActionResultType ManagedAimpCore::GetPath(MessageDispatcher::AimpCorePathType pathType, String^% pathResult)
         {
             IAIMPString* res;
             _core->GetPath((int)pathType, &res);
             pathResult = AimpConverter::ToManagedString(res);
             res->Release();
-            return AIMP::SDK::AimpActionResult::OK;
+            return AIMP::SDK::ActionResultType::OK;
         }
 
         /// <summary>
@@ -557,19 +557,19 @@ namespace AIMP
         /// <summary>
         /// Creates the new AIMP stream.
         /// </summary>
-        AimpActionResult ManagedAimpCore::CreateStream(IAIMPStream** stream)
+        ActionResultType ManagedAimpCore::CreateStream(IAIMPStream** stream)
         {
             IAIMPStream* s = nullptr;
-            AimpActionResult result = Utils::CheckResult(
+            ActionResultType result = Utils::CheckResult(
                 _core->CreateObject(IID_IAIMPMemoryStream, reinterpret_cast<void**>(&s)));
             *stream = s;
             return result;
         }
 
-        AIMP::SDK::AimpActionResult ManagedAimpCore::CreateAction(IAIMPAction** action)
+        AIMP::SDK::ActionResultType ManagedAimpCore::CreateAction(IAIMPAction** action)
         {
             IAIMPAction* a = nullptr;
-            AimpActionResult result = Utils::CheckResult(
+            ActionResultType result = Utils::CheckResult(
                 _core->CreateObject(IID_IAIMPAction, reinterpret_cast<void**>(&a)));
             *action = a;
             return result;

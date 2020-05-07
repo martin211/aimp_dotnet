@@ -54,11 +54,11 @@ namespace AIMP
                 String^ get();
             }
 
-            virtual AimpActionResult ConfigLoad(IAimpStream^ stream);
+            virtual ActionResultType ConfigLoad(IAimpStream^ stream);
 
-            virtual AimpActionResult ConfigSave(IAimpStream^ stream);
+            virtual ActionResultType ConfigSave(IAimpStream^ stream);
 
-            virtual AimpActionResult ExecuteDialog(IntPtr ownerHandle);
+            virtual ActionResultType ExecuteDialog(IntPtr ownerHandle);
 
             virtual void Initialize(IAimpPlaylistPreimageListener^ listener);
 

@@ -20,7 +20,7 @@ AimpServiceConfig::~AimpServiceConfig()
 {
 }
 
-AimpActionResult AimpServiceConfig::FlushCache()
+ActionResultType AimpServiceConfig::FlushCache()
 {
     IAIMPServiceConfig* service = GetAimpService();
 
@@ -36,14 +36,14 @@ AimpActionResult AimpServiceConfig::FlushCache()
         ReleaseObject(service);
     }
 
-    return AimpActionResult::Fail;
+    return ActionResultType::Fail;
 }
 
-AimpActionResult AimpServiceConfig::Delete(String^ keyPath)
+ActionResultType AimpServiceConfig::Delete(String^ keyPath)
 {
     IAIMPString* str = nullptr;
     IAIMPServiceConfig* service = GetAimpService();
-    auto result = AimpActionResult::Fail;
+    auto result = ActionResultType::Fail;
 
     try
     {
@@ -151,7 +151,7 @@ IAimpStream^ AimpServiceConfig::GetValueAsStream(String^ keyPath)
         if (service != nullptr)
         {
             str = AimpConverter::ToAimpString(keyPath);
-            if (CheckResult(service->GetValueAsStream(str, &stream)) == AimpActionResult::OK && stream != nullptr)
+            if (CheckResult(service->GetValueAsStream(str, &stream)) == ActionResultType::OK && stream != nullptr)
             {
                 return gcnew AimpStream(stream);
             }
@@ -177,7 +177,7 @@ String^ AimpServiceConfig::GetValueAsString(String^ keyPath)
         if (service != nullptr)
         {
             str = AimpConverter::ToAimpString(keyPath);
-            if (CheckResult(service->GetValueAsString(str, &val)) == AimpActionResult::OK && val != nullptr)
+            if (CheckResult(service->GetValueAsString(str, &val)) == ActionResultType::OK && val != nullptr)
             {
                 return gcnew String(val->GetData());
             }
@@ -193,10 +193,10 @@ String^ AimpServiceConfig::GetValueAsString(String^ keyPath)
     return String::Empty;
 }
 
-AimpActionResult AimpServiceConfig::SetValueAsFloat(String^ keyPath, float value)
+ActionResultType AimpServiceConfig::SetValueAsFloat(String^ keyPath, float value)
 {
     IAIMPString* str = nullptr;
-    auto result = AimpActionResult::Fail;
+    auto result = ActionResultType::Fail;
     IAIMPServiceConfig* service = GetAimpService();
 
     try
@@ -216,10 +216,10 @@ AimpActionResult AimpServiceConfig::SetValueAsFloat(String^ keyPath, float value
     return result;
 }
 
-AimpActionResult AimpServiceConfig::SetValueAsInt32(String^ keyPath, int value)
+ActionResultType AimpServiceConfig::SetValueAsInt32(String^ keyPath, int value)
 {
     IAIMPString* str = nullptr;
-    auto result = AimpActionResult::Fail;
+    auto result = ActionResultType::Fail;
     IAIMPServiceConfig* service = GetAimpService();
 
     try
@@ -239,10 +239,10 @@ AimpActionResult AimpServiceConfig::SetValueAsInt32(String^ keyPath, int value)
     return result;
 }
 
-AimpActionResult AimpServiceConfig::SetValueAsInt64(String^ keyPath, Int64 value)
+ActionResultType AimpServiceConfig::SetValueAsInt64(String^ keyPath, Int64 value)
 {
     IAIMPString* str = nullptr;
-    auto result = AimpActionResult::Fail;
+    auto result = ActionResultType::Fail;
     IAIMPServiceConfig* service = GetAimpService();
 
     try
@@ -262,10 +262,10 @@ AimpActionResult AimpServiceConfig::SetValueAsInt64(String^ keyPath, Int64 value
     return result;
 }
 
-AimpActionResult AimpServiceConfig::SetValueAsStream(String^ keyPath, IAimpStream^ stream)
+ActionResultType AimpServiceConfig::SetValueAsStream(String^ keyPath, IAimpStream^ stream)
 {
     IAIMPString* str = nullptr;
-    auto result = AimpActionResult::Fail;
+    auto result = ActionResultType::Fail;
     IAIMPServiceConfig* service = GetAimpService();
 
     try
@@ -285,11 +285,11 @@ AimpActionResult AimpServiceConfig::SetValueAsStream(String^ keyPath, IAimpStrea
     return result;
 }
 
-AimpActionResult AimpServiceConfig::SetValueAsString(String^ keyPath, String^ value)
+ActionResultType AimpServiceConfig::SetValueAsString(String^ keyPath, String^ value)
 {
     IAIMPString* str = nullptr;
     IAIMPString* val = nullptr;
-    auto result = AimpActionResult::Fail;
+    auto result = ActionResultType::Fail;
     IAIMPServiceConfig* service = GetAimpService();
 
     try

@@ -37,7 +37,7 @@ namespace AIMP
                 void set(IAimpObjectList<String^>^ value);
             }
 
-            virtual AimpActionResult GetFilter(IAimpDataFilterGroup^% filter);
+            virtual ActionResultType GetFilter(IAimpDataFilterGroup^% filter);
         };
     }
 }
