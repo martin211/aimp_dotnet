@@ -18,7 +18,7 @@ AimpConfig::AimpConfig(IAIMPConfig* aimpPlayList) : AimpObject(aimpPlayList)
 {
 }
 
-ActionResultType AimpConfig::Delete(String^ keyPath)
+VoidResult AimpConfig::Delete(String^ keyPath)
 {
     IAIMPString* str = nullptr;
     auto result = ActionResultType::Fail;
@@ -37,13 +37,14 @@ ActionResultType AimpConfig::Delete(String^ keyPath)
         }
     }
 
-    return result;
+    return gcnew AimpActionResult(result);
 }
 
-float AimpConfig::GetValueAsFloat(String^ keyPath)
+FloatResult AimpConfig::GetValueAsFloat(String^ keyPath)
 {
     IAIMPString* str = nullptr;
     double val = 0;
+    auto result = ActionResultType::Fail;
 
     try
     {
@@ -59,13 +60,14 @@ float AimpConfig::GetValueAsFloat(String^ keyPath)
         }
     }
 
-    return val;
+    return gcnew AimpActionResult<float>(result, val);
 }
 
-int AimpConfig::GetValueAsInt32(String^ keyPath)
+IntResult AimpConfig::GetValueAsInt32(String^ keyPath)
 {
     IAIMPString* str = nullptr;
     int val = 0;
+    auto result = ActionResultType::Fail;
 
     try
     {
@@ -81,13 +83,14 @@ int AimpConfig::GetValueAsInt32(String^ keyPath)
         }
     }
 
-    return val;
+    return gcnew AimpActionResult<int>(result, val);
 }
 
-Int64 AimpConfig::GetValueAsInt64(String^ keyPath)
+Int64Result AimpConfig::GetValueAsInt64(String^ keyPath)
 {
     IAIMPString* str = nullptr;
     Int64 val = 0;
+    auto result = ActionResultType::Fail;
 
     try
     {
@@ -103,21 +106,19 @@ Int64 AimpConfig::GetValueAsInt64(String^ keyPath)
         }
     }
 
-    return val;
+    return gcnew AimpActionResult<long long>(result, val);
 }
 
-IAimpStream^ AimpConfig::GetValueAsStream(String^ keyPath)
+StreamResult AimpConfig::GetValueAsStream(String^ keyPath)
 {
     IAIMPString* str = nullptr;
     IAIMPStream* stream = nullptr;
+    auto result = ActionResultType::Fail;
+
     try
     {
         str = AimpConverter::ToAimpString(keyPath);
-        if (CheckResult(InternalAimpObject->GetValueAsStream(str, &stream)) == ActionResultType::OK && stream != nullptr
-        )
-        {
-            return gcnew AimpStream(stream);
-        }
+        result = CheckResult(InternalAimpObject->GetValueAsStream(str, &stream));
     }
     finally
     {
@@ -128,21 +129,19 @@ IAimpStream^ AimpConfig::GetValueAsStream(String^ keyPath)
         }
     }
 
-    return nullptr;
+    return gcnew AimpActionResult<IAimpStream^>(result, gcnew AimpStream(stream));
 }
 
-String^ AimpConfig::GetValueAsString(String^ keyPath)
+StringResult AimpConfig::GetValueAsString(String^ keyPath)
 {
     IAIMPString* str = nullptr;
     IAIMPString* val = nullptr;
+    auto result = ActionResultType::Fail;
 
     try
     {
         str = AimpConverter::ToAimpString(keyPath);
-        if (CheckResult(InternalAimpObject->GetValueAsString(str, &val)) == ActionResultType::OK && val != nullptr)
-        {
-            return gcnew String(val->GetData());
-        }
+        result = CheckResult(InternalAimpObject->GetValueAsString(str, &val));
     }
     finally
     {
@@ -154,10 +153,10 @@ String^ AimpConfig::GetValueAsString(String^ keyPath)
         }
     }
 
-    return String::Empty;
+    return gcnew AimpActionResult<String^>(result, gcnew String(val->GetData()));
 }
 
-ActionResultType AimpConfig::SetValueAsFloat(String^ keyPath, float value)
+VoidResult AimpConfig::SetValueAsFloat(String^ keyPath, float value)
 {
     IAIMPString* str = nullptr;
     auto result = ActionResultType::Fail;
@@ -176,10 +175,10 @@ ActionResultType AimpConfig::SetValueAsFloat(String^ keyPath, float value)
         }
     }
 
-    return result;
+    return VOID_RESULT(result)
 }
 
-ActionResultType AimpConfig::SetValueAsInt32(String^ keyPath, int value)
+VoidResult AimpConfig::SetValueAsInt32(String^ keyPath, int value)
 {
     IAIMPString* str = nullptr;
     auto result = ActionResultType::Fail;
@@ -198,10 +197,10 @@ ActionResultType AimpConfig::SetValueAsInt32(String^ keyPath, int value)
         }
     }
 
-    return result;
+    return VOID_RESULT(result)
 }
 
-ActionResultType AimpConfig::SetValueAsInt64(String^ keyPath, Int64 value)
+VoidResult AimpConfig::SetValueAsInt64(String^ keyPath, Int64 value)
 {
     IAIMPString* str = nullptr;
     auto result = ActionResultType::Fail;
@@ -220,10 +219,10 @@ ActionResultType AimpConfig::SetValueAsInt64(String^ keyPath, Int64 value)
         }
     }
 
-    return result;
+    return VOID_RESULT(result)
 }
 
-ActionResultType AimpConfig::SetValueAsStream(String^ keyPath, IAimpStream^ stream)
+VoidResult AimpConfig::SetValueAsStream(String^ keyPath, IAimpStream^ stream)
 {
     IAIMPString* str = nullptr;
     auto result = ActionResultType::Fail;
@@ -243,10 +242,10 @@ ActionResultType AimpConfig::SetValueAsStream(String^ keyPath, IAimpStream^ stre
         }
     }
 
-    return result;
+    return VOID_RESULT(result);
 }
 
-ActionResultType AimpConfig::SetValueAsString(String^ keyPath, String^ value)
+VoidResult AimpConfig::SetValueAsString(String^ keyPath, String^ value)
 {
     IAIMPString* str = nullptr;
     IAIMPString* val = nullptr;
@@ -273,5 +272,5 @@ ActionResultType AimpConfig::SetValueAsString(String^ keyPath, String^ value)
         }
     }
 
-    return result;
+    return VOID_RESULT(result);
 }

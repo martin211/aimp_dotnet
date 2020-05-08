@@ -29,29 +29,29 @@ namespace AIMP
 
             ~AimpServiceConfig();
 
-            virtual ActionResultType FlushCache();
+            virtual VoidResult FlushCache();
 
-            virtual ActionResultType Delete(String^ keyPath);
+            virtual VoidResult Delete(String^ keyPath);
 
-            virtual float GetValueAsFloat(String^ keyPath);
+            virtual FloatResult GetValueAsFloat(String^ keyPath);
 
-            virtual int GetValueAsInt32(String^ keyPath);
+            virtual IntResult GetValueAsInt32(String^ keyPath);
 
-            virtual Int64 GetValueAsInt64(String^ keyPath);
+            virtual Int64Result GetValueAsInt64(String^ keyPath);
 
-            virtual IAimpStream^ GetValueAsStream(String^ keyPath);
+            virtual StreamResult GetValueAsStream(String^ keyPath);
 
-            virtual String^ GetValueAsString(String^ keyPath);
+            virtual StringResult GetValueAsString(String^ keyPath);
 
-            virtual ActionResultType SetValueAsFloat(String^ keyPath, float value);
+            virtual VoidResult SetValueAsFloat(String^ keyPath, float value);
 
-            virtual ActionResultType SetValueAsInt32(String^ keyPath, int value);
+            virtual VoidResult SetValueAsInt32(String^ keyPath, int value);
 
-            virtual ActionResultType SetValueAsInt64(String^ keyPath, Int64 value);
+            virtual VoidResult SetValueAsInt64(String^ keyPath, Int64 value);
 
-            virtual ActionResultType SetValueAsStream(String^ keyPath, IAimpStream^ stream);
+            virtual VoidResult SetValueAsStream(String^ keyPath, IAimpStream^ stream);
 
-            virtual ActionResultType SetValueAsString(String^ keyPath, String^ value);
+            virtual VoidResult SetValueAsString(String^ keyPath, String^ value);
         protected:
             IAIMPServiceConfig* GetAimpService() override;
         };

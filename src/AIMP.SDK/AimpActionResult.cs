@@ -66,7 +66,10 @@ namespace AIMP.SDK
     {
         public AimpActionResult(ActionResultType resultType, TObject result) : base(resultType)
         {
-            Result = result;
+            if (resultType == ActionResultType.OK && result != null)
+            {
+                Result = result;
+            }
         }
 
         public TObject Result { get; }

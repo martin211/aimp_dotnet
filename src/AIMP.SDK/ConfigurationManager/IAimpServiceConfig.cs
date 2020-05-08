@@ -18,6 +18,6 @@ namespace AIMP.SDK.ConfigurationManager
         /// <summary>
         /// Flushes the cache.
         /// </summary>
-        ActionResultType FlushCache();
+        AimpActionResult FlushCache();
     }
 }
