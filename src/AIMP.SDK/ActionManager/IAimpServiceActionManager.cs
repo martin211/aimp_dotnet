@@ -24,7 +24,7 @@ namespace AIMP.SDK.ActionManager
         /// <param name="id">The identifier.</param>
         /// <param name="action">The action.</param>
         /// <returns>The <see cref="ActionResultType"/>result.</returns>
-        ActionResultType GetById(string id, out IAimpAction action);
+        AimpActionResult<IAimpAction> GetById(string id);
 
         /// <summary>
         /// Makes the hotkey.
@@ -39,14 +39,14 @@ namespace AIMP.SDK.ActionManager
         /// </summary>
         /// <param name="action">The action <see cref="IAimpAction"/>.</param>
         /// <returns>The <see cref="ActionResultType"/>result.</returns>
-        ActionResultType Register(IAimpAction action);
+        AimpActionResult Register(IAimpAction action);
 
         /// <summary>
         /// Registers the specified actions.
         /// </summary>
         /// <param name="actions">The collection of <see cref="IAimpAction"/>.</param>
         /// <returns>The <see cref="ActionResultType"/>result.</returns>
-        ActionResultType Register(ICollection<IAimpAction> actions);
+        AimpActionResult Register(ICollection<IAimpAction> actions);
 
         /// <summary>
         /// Creates the Aimp action instance.

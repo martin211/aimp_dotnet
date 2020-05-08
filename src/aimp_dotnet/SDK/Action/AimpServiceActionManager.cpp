@@ -17,11 +17,12 @@ AimpServiceActionManager::AimpServiceActionManager(ManagedAimpCore^ core) : Base
 {
 }
 
-ActionResultType AimpServiceActionManager::GetById(String^ id, IAimpAction^% action)
+AimpActionResult<IAimpAction^>^ AimpServiceActionManager::GetById(String^ id)
 {
-    auto result = ActionResultType::Fail;
+    auto res = ActionResultType::Fail;
     IAIMPServiceActionManager* service = GetAimpService();
-    action = nullptr;
+    IAimpAction^ action = nullptr;
+    AimpActionResult<IAimpAction^>^ result = nullptr;
 
     try
     {
@@ -29,8 +30,8 @@ ActionResultType AimpServiceActionManager::GetById(String^ id, IAimpAction^% act
         {
             IAIMPAction* resAction = nullptr;
             IAIMPString* strId = AimpConverter::ToAimpString(id);
-            result = CheckResult(service->GetByID(strId, &resAction));
-            if (result == ActionResultType::OK)
+            const auto res = CheckResult(service->GetByID(strId, &resAction));
+            if (res != ActionResultType::OK)
             {
                 action = gcnew AimpAction(resAction);
             }
@@ -43,7 +44,7 @@ ActionResultType AimpServiceActionManager::GetById(String^ id, IAimpAction^% act
         ReleaseObject(service);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpAction^>(res, action);
 }
 
 int AimpServiceActionManager::MakeHotkey(ModifierKeys modifiers, unsigned int key)
@@ -65,27 +66,27 @@ int AimpServiceActionManager::MakeHotkey(ModifierKeys modifiers, unsigned int ke
     return 0;
 }
 
-ActionResultType AimpServiceActionManager::Register(IAimpAction^ action)
+AimpActionResult^ AimpServiceActionManager::Register(IAimpAction^ action)
 {
-    return CheckResult(_core->GetAimpCore()->RegisterExtension(IID_IAIMPServiceActionManager,
+    return GetResult(_core->GetAimpCore()->RegisterExtension(IID_IAIMPServiceActionManager,
                                                                static_cast<AimpAction^>(action)->InternalAimpObject));
 }
 
-ActionResultType AimpServiceActionManager::Register(Generic::ICollection<IAimpAction^>^ actions)
+AimpActionResult^ AimpServiceActionManager::Register(Generic::ICollection<IAimpAction^>^ actions)
 {
     ActionResultType result = ActionResultType::Fail;
 
     for each (IAimpAction^ item in actions)
     {
-        result = Register(item);
+        const auto res = Register(item);
 
-        if (result != ActionResultType::OK)
+        if (res->ResultType != ActionResultType::OK)
         {
-            return result;
+            return GetResult(result);
         }
     }
 
-    return result;
+    return GetResult(result);
 }
 
 IAimpAction^ AimpServiceActionManager::CreateAction()

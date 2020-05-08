@@ -52,23 +52,23 @@ namespace AIMP.SDK
         Fail = 0x80004005
     }
 
-    //public class aActionResultType
-    //{
-    //    public ActionResultType(ActionResultType resultType)
-    //    {
-    //        ResultType = resultType;
-    //    }
+    public class AimpActionResult
+    {
+        public AimpActionResult(ActionResultType resultType)
+        {
+            ResultType = resultType;
+        }
 
-    //    public ActionResultType ResultType { get; }
-    //}
+        public ActionResultType ResultType { get; }
+    }
 
-    //public class aActionResultType<TObject> : ActionResultType
-    //{
-    //    public ActionResultType(ActionResultType resultType, TObject result) : base(resultType)
-    //    {
-    //        Result = result;
-    //    }
+    public class AimpActionResult<TObject> : AimpActionResult
+    {
+        public AimpActionResult(ActionResultType resultType, TObject result) : base(resultType)
+        {
+            Result = result;
+        }
 
-    //    public TObject Result { get; }
-    //}
+        public TObject Result { get; }
+    }
 }

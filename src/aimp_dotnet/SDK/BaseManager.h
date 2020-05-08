@@ -44,6 +44,16 @@ namespace AIMP
                 return res;
             }
 
+            AimpActionResult^ GetResult(HRESULT result)
+            {
+                return gcnew AimpActionResult(CheckResult(result));
+            }
+
+            AimpActionResult^ GetResult(ActionResultType result)
+            {
+                return gcnew AimpActionResult(result);
+            }
+
             ActionResultType GetService(const IID id, TAimpService** service)
             {
                 TAimpService* s = nullptr;
