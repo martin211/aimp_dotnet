@@ -26,6 +26,6 @@ namespace AIMP.SDK.AlbumArtManager
         /// <param name="image">Image instance, can be null if catalog does not provides an ability to select album art immediately.
         /// For example, if the extension just open external link via Internet browser.</param>
         /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType Show(IAimpFileInfo fileInfo, out Bitmap image);
+        AimpActionResult<Bitmap> Show(IAimpFileInfo fileInfo);
     }
 }

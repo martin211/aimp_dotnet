@@ -15,11 +15,11 @@ namespace AIMP
         public:
             explicit AimpServiceAlbumArtCache(ManagedAimpCore^ core);
 
-            virtual ActionResultType Flush(String^ album, String^ artist);
+            virtual AimpActionResult^ Flush(String^ album, String^ artist);
 
-            virtual ActionResultType Flush2(String^ fileUri);
+            virtual AimpActionResult^ Flush2(String^ fileUri);
 
-            virtual ActionResultType FlushAll();
+            virtual AimpActionResult^ FlushAll();
         protected:
             IAIMPServiceAlbumArtCache* GetAimpService() override;
         };

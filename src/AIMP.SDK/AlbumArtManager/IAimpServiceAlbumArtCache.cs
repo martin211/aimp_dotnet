@@ -11,19 +11,19 @@
         /// <param name="album">The album.</param>
         /// <param name="artist">The artist.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType Flush(string album, string artist);
+        AimpActionResult Flush(string album, string artist);
 
         /// <summary>
         /// Flushes cache for specified FileURI. FileURI can include wildcard characters, for example, an asterisk (*) or a question mark (?). 
         /// </summary>
         /// <param name="fileUri">The file URI.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType Flush2(string fileUri);
+        AimpActionResult Flush2(string fileUri);
 
         /// <summary>
         /// Flushes all cache.
         /// </summary>
         /// <returns>ActionResultType.</returns>
-        ActionResultType FlushAll();
+        AimpActionResult FlushAll();
     }
 }

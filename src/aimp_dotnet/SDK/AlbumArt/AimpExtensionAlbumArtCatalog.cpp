@@ -38,16 +38,14 @@ HRESULT WINAPI AimpExtensionAlbumArtCatalog::GetName(IAIMPString** Name)
 HRESULT WINAPI AimpExtensionAlbumArtCatalog::Show(IAIMPString* FileURI, IAIMPString* Artist, IAIMPString* Album,
                                                   IAIMPImageContainer** Image)
 {
-    Drawing::Bitmap^ bitmap = nullptr;
     auto r = _managedinstance->Show(
         AimpConverter::ToManagedString(FileURI),
         AimpConverter::ToManagedString(Artist),
-        AimpConverter::ToManagedString(Album),
-        bitmap);
+        AimpConverter::ToManagedString(Album));
 
-    if (r == ActionResultType::OK && bitmap != nullptr)
+    if (r->ResultType == ActionResultType::OK && r->Result != nullptr)
     {
-        const auto container = AimpConverter::ToAimpImageContainer(bitmap);
+        const auto container = AimpConverter::ToAimpImageContainer(r->Result);
         if (container == nullptr)
         {
             return E_UNEXPECTED;
@@ -62,12 +60,11 @@ HRESULT WINAPI AimpExtensionAlbumArtCatalog::Show(IAIMPString* FileURI, IAIMPStr
 
 HRESULT WINAPI AimpExtensionAlbumArtCatalog::Show2(IAIMPFileInfo* FileInfo, IAIMPImageContainer** Image)
 {
-    Drawing::Bitmap^ bitmap = nullptr;
     IAimpFileInfo^ fi = gcnew AimpFileInfo(FileInfo);
-    auto r = _managedinstance->Show(fi, bitmap);
-    if (r == ActionResultType::OK && bitmap != nullptr)
+    auto r = _managedinstance->Show(fi);
+    if (r->ResultType == ActionResultType::OK && r->Result != nullptr)
     {
-        IAIMPImageContainer* container = AimpConverter::ToAimpImageContainer(bitmap);
+        IAIMPImageContainer* container = AimpConverter::ToAimpImageContainer(r->Result);
         if (container == nullptr)
         {
             return E_UNEXPECTED;

@@ -17,19 +17,17 @@
 HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString* FileURI, IAIMPString* Artist, IAIMPString* Album,
                                                   IAIMPPropertyList* Options, IAIMPImageContainer** Image)
 {
-    Drawing::Bitmap^ bitmap;
     AlbumArtManager::IAimpAlbumArtSearchOptions^ searchOptions = gcnew AimpAlbumArtSearchOptions(
         Options, ManagedAimpCore::GetAimpCore());
     const auto r = _managedinstance->Get(
         gcnew String(FileURI->GetData()),
         gcnew String(Artist->GetData()),
         gcnew String(Album->GetData()),
-        searchOptions,
-        bitmap);
+        searchOptions);
 
-    if (r == ActionResultType::OK && bitmap != nullptr)
+    if (r->ResultType == ActionResultType::OK && r->Result != nullptr)
     {
-        const auto container = AimpConverter::ToAimpImageContainer(bitmap);
+        const auto container = AimpConverter::ToAimpImageContainer(r->Result);
         if (container == nullptr)
         {
             return E_UNEXPECTED;
@@ -50,14 +48,13 @@ DWORD WINAPI AimpExtensionAlbumArtProvider::GetCategory()
 HRESULT WINAPI AimpExtensionAlbumArtProvider::Get2(IAIMPFileInfo* FileInfo, IAIMPPropertyList* Options,
                                                    IAIMPImageContainer** Image)
 {
-    Drawing::Bitmap^ bitmap;
     IAimpFileInfo^ fi = gcnew AimpFileInfo(FileInfo);
     AlbumArtManager::IAimpAlbumArtSearchOptions^ searchOptions = gcnew AimpAlbumArtSearchOptions(
         Options, ManagedAimpCore::GetAimpCore());
-    const auto r = _managedinstance->Get(fi, searchOptions, bitmap);
-    if (r == ActionResultType::OK && bitmap != nullptr)
+    const auto r = _managedinstance->Get(fi, searchOptions);
+    if (r->ResultType == ActionResultType::OK && r->Result != nullptr)
     {
-        const auto container = AimpConverter::ToAimpImageContainer(bitmap);
+        const auto container = AimpConverter::ToAimpImageContainer(r->Result);
         if (container == nullptr)
         {
             return E_UNEXPECTED;

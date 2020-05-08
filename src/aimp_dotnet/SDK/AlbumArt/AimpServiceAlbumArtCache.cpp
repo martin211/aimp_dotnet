@@ -6,7 +6,7 @@ using namespace AIMP::SDK;
 AimpServiceAlbumArtCache::AimpServiceAlbumArtCache(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceAlbumArtCache>(core)
 { }
 
-ActionResultType AimpServiceAlbumArtCache::Flush(String^ album, String^ artist)
+AimpActionResult^ AimpServiceAlbumArtCache::Flush(String^ album, String^ artist)
 {
     auto service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
@@ -27,10 +27,10 @@ ActionResultType AimpServiceAlbumArtCache::Flush(String^ album, String^ artist)
         ReleaseObject(service);
     }
 
-    return result;
+    return GetResult(result);
 }
 
-ActionResultType AimpServiceAlbumArtCache::Flush2(String^ fileUri)
+AimpActionResult^ AimpServiceAlbumArtCache::Flush2(String^ fileUri)
 {
     auto service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
@@ -49,10 +49,10 @@ ActionResultType AimpServiceAlbumArtCache::Flush2(String^ fileUri)
         ReleaseObject(service);
     }
 
-    return result;
+    return GetResult(result);
 }
 
-ActionResultType AimpServiceAlbumArtCache::FlushAll()
+AimpActionResult^ AimpServiceAlbumArtCache::FlushAll()
 {
     auto service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
@@ -69,7 +69,7 @@ ActionResultType AimpServiceAlbumArtCache::FlushAll()
         ReleaseObject(service);
     }
 
-    return result;
+    return GetResult(result);
 }
 
 IAIMPServiceAlbumArtCache* AimpServiceAlbumArtCache::GetAimpService()
