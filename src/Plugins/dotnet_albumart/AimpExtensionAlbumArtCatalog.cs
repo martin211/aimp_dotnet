@@ -19,17 +19,11 @@ namespace dotnet_albumart
 
     public class AimpExtensionAlbumArtCatalog : IAimpExtensionAlbumArtCatalog
     {
-        #region Implementation of IAimpExtensionAlbumArtCatalog2
-
-        public ActionResultType Show(IAimpFileInfo fileInfo, out Bitmap image)
+        public AimpActionResult<Bitmap> Show(IAimpFileInfo fileInfo)
         {
-            image = Properties.Resources.front;
-            return ActionResultType.OK;
+            var image = Properties.Resources.front;
+            return new AimpActionResult<Bitmap>(ActionResultType.OK, image);
         }
-
-        #endregion
-
-        #region Implementation of IAimpExtensionAlbumArtCatalog
 
         public Bitmap GetIcon()
         {
@@ -41,12 +35,10 @@ namespace dotnet_albumart
             return "Test catalog";
         }
 
-        public ActionResultType Show(string fileUrl, string artist, string album, out Bitmap image)
+        public AimpActionResult<Bitmap> Show(string fileUrl, string artist, string album)
         {
-            image = Properties.Resources.front;
-            return ActionResultType.OK;
+            var image = Properties.Resources.front;
+            return new AimpActionResult<Bitmap>(ActionResultType.OK, image);
         }
-
-        #endregion
     }
 }

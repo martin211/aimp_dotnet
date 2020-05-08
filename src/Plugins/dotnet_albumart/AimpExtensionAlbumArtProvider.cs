@@ -18,33 +18,21 @@ namespace dotnet_albumart
 
     public class AimpExtensionAlbumArtProvider : IAimpExtensionAlbumArtProvider
     {
-        #region Implementation of IAimpExtensionAlbumArtProvider2
-
-        public ActionResultType Get(IAimpFileInfo fileInfo, IAimpAlbumArtSearchOptions options, out Bitmap image)
+        public AimpActionResult<Bitmap> Get(IAimpFileInfo fileInfo, IAimpAlbumArtSearchOptions options)
         {
-            image = Properties.Resources.front;
-            return ActionResultType.OK;
+            var image = Properties.Resources.front;
+            return new AimpActionResult<Bitmap>(ActionResultType.OK, image);
         }
 
-        #endregion
-
-        #region Implementation of IAimpExtensionAlbumArtProvider
-
-        public ActionResultType Get(string fileUrl, string artist, string album, IAimpAlbumArtSearchOptions options, out Bitmap image)
+        public AimpActionResult<Bitmap> Get(string fileUrl, string artist, string album, IAimpAlbumArtSearchOptions options)
         {
-            image = Properties.Resources.front;
-            return ActionResultType.OK;
+            var image = Properties.Resources.front;
+            return new AimpActionResult<Bitmap>(ActionResultType.OK, image);
         }
-
-        #endregion
-
-        #region Implementation of IAimpExtensionAlbumArtProvider
 
         public AimpAlbumArtProviderCategory GetCategory()
         {
             return AimpAlbumArtProviderCategory.AIMP_ALBUMART_PROVIDER_CATEGORY_INTERNET;
         }
-
-        #endregion
     }
 }
