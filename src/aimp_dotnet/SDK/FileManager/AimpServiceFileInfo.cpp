@@ -19,12 +19,12 @@ AimpServiceFileInfo::AimpServiceFileInfo(ManagedAimpCore^ core) : BaseAimpServic
 {
 }
 
-ActionResultType AimpServiceFileInfo::GetFileInfoFromFileUri(String^ fileUri, ServiceFileInfoFlags fileInfoFlags, IAimpFileInfo^% fileInfo)
+FileInfoResult AimpServiceFileInfo::GetFileInfoFromFileUri(String^ fileUri, ServiceFileInfoFlags fileInfoFlags)
 {
     IAIMPServiceFileInfo* service = GetAimpService();
     IAIMPString* str = nullptr;
     ActionResultType result = ActionResultType::Fail;
-    fileInfo = nullptr;
+    IAimpFileInfo^ fileInfo = nullptr;
 
     try
     {
@@ -46,14 +46,14 @@ ActionResultType AimpServiceFileInfo::GetFileInfoFromFileUri(String^ fileUri, Se
         ReleaseObject(str);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpFileInfo^>(result, fileInfo);
 }
 
-ActionResultType AimpServiceFileInfo::GetFileInfoFromStream(IAimpStream^ fileStream, ServiceFileInfoFlags fileInfoFlags, IAimpFileInfo^% fileInfo)
+FileInfoResult AimpServiceFileInfo::GetFileInfoFromStream(IAimpStream^ fileStream, ServiceFileInfoFlags fileInfoFlags)
 {
     IAIMPServiceFileInfo* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
-    fileInfo = nullptr;
+    IAimpFileInfo^ fileInfo = nullptr;
 
     try
     {
@@ -76,15 +76,15 @@ ActionResultType AimpServiceFileInfo::GetFileInfoFromStream(IAimpStream^ fileStr
         ReleaseObject(service);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpFileInfo^>(result, fileInfo);
 }
 
-ActionResultType AimpServiceFileInfo::GetVirtualFile(String^ fileUri, IAimpVirtualFile^% virtualFile)
+VirtualFileResult AimpServiceFileInfo::GetVirtualFile(String^ fileUri)
 {
     IAIMPServiceFileInfo* service = GetAimpService();
     IAIMPString* str = nullptr;
     ActionResultType result = ActionResultType::Fail;
-    virtualFile = nullptr;
+    IAimpVirtualFile^ virtualFile = nullptr;
 
     try
     {
@@ -106,7 +106,7 @@ ActionResultType AimpServiceFileInfo::GetVirtualFile(String^ fileUri, IAimpVirtu
         ReleaseObject(str); 
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpVirtualFile^>(result, virtualFile);
 }
 
 IAIMPServiceFileInfo* AimpServiceFileInfo::GetAimpService()

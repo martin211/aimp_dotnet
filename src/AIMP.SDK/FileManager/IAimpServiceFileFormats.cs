@@ -30,7 +30,7 @@ namespace AIMP.SDK.FileManager
         /// <param name="flags"></param>
         /// <param name="formats">Out. File formats.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType GetFormats(FileFormats flags, out string formats);
+        AimpActionResult<string> GetFormats(FileFormats flags);
 
         /// <summary>
         /// Check is the file extension supported.
@@ -38,6 +38,6 @@ namespace AIMP.SDK.FileManager
         /// <param name="fileName"></param>
         /// <param name="flags"></param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType IsSupported(string fileName, FileFormats flags);
+        AimpActionResult IsSupported(string fileName, FileFormats flags);
     }
 }

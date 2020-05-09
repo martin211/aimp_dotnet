@@ -13,12 +13,14 @@
 
 using namespace AIMP::SDK;
 
+typedef AimpActionResult^ VoidResult;
 typedef AimpActionResult<System::String^>^ StringResult;
 typedef AimpActionResult<float>^ FloatResult;
 typedef AimpActionResult<int>^ IntResult;
 typedef AimpActionResult<System::Int64>^ Int64Result;
 typedef AimpActionResult<IAimpStream^>^ StreamResult;
-typedef AimpActionResult^ VoidResult;
+typedef AimpActionResult<FileManager::IAimpFileInfo^>^ FileInfoResult;
+typedef AimpActionResult<FileManager::IAimpVirtualFile^>^ VirtualFileResult;
 
 #define VOID_RESULT(resultType) gcnew AimpActionResult(resultType);
 

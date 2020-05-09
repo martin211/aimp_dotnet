@@ -26,13 +26,11 @@ namespace AIMP
         public:
             AimpServiceFileInfo(ManagedAimpCore^ core);
 
-            virtual ActionResultType GetFileInfoFromFileUri(String^ fileUri, ServiceFileInfoFlags fileInfoFlags,
-                                                            IAimpFileInfo^% fileInfo);
+            virtual FileInfoResult GetFileInfoFromFileUri(String^ fileUri, ServiceFileInfoFlags fileInfoFlags);
 
-            virtual ActionResultType GetFileInfoFromStream(IAimpStream^ fileStream, ServiceFileInfoFlags fileInfoFlags,
-                                                           IAimpFileInfo^% fileInfo);
+            virtual FileInfoResult GetFileInfoFromStream(IAimpStream^ fileStream, ServiceFileInfoFlags fileInfoFlags);
 
-            virtual ActionResultType GetVirtualFile(String^ fileUri, IAimpVirtualFile^% virtualFile);
+            virtual VirtualFileResult GetVirtualFile(String^ fileUri);
         protected:
             IAIMPServiceFileInfo* GetAimpService() override;
         };

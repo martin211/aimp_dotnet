@@ -18,12 +18,12 @@ AimpServiceFileFormats::AimpServiceFileFormats(ManagedAimpCore^ core) : BaseAimp
 {
 }
 
-ActionResultType AimpServiceFileFormats::GetFormats(FileFormats flags, String^% formats)
+StringResult AimpServiceFileFormats::GetFormats(FileFormats flags)
 {
     IAIMPServiceFileFormats* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
     IAIMPString* str = nullptr;
-    formats = nullptr;
+    String^ formats = nullptr;
 
     try
     {
@@ -43,10 +43,10 @@ ActionResultType AimpServiceFileFormats::GetFormats(FileFormats flags, String^% 
         ReleaseObject(str);
     }
 
-    return result;
+    return gcnew AimpActionResult<String^>(result, formats);
 }
 
-ActionResultType AimpServiceFileFormats::IsSupported(String^ fileName, FileFormats flags)
+VoidResult AimpServiceFileFormats::IsSupported(String^ fileName, FileFormats flags)
 {
     IAIMPServiceFileFormats* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
@@ -66,7 +66,7 @@ ActionResultType AimpServiceFileFormats::IsSupported(String^ fileName, FileForma
         ReleaseObject(str);
     }
 
-    return result;
+    return VOID_RESULT(result);
 }
 
 IAIMPServiceFileFormats* AimpServiceFileFormats::GetAimpService()
