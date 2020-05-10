@@ -8,7 +8,6 @@
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
-using System.IO;
 
 namespace AIMP.SDK.FileManager
 {
@@ -55,14 +54,14 @@ namespace AIMP.SDK.FileManager
         /// </summary>
         /// <param name="stream"></param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType CreateStream(out IAimpStream stream);
+        AimpActionResult<IAimpStream> CreateStream();
 
         /// <summary>
         /// Gets the file info.
         /// </summary>
         /// <param name="fileInfo">Out. File info <see cref="IAimpFileInfo"/>.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType GetFileInfo(out IAimpFileInfo fileInfo);
+        AimpActionResult<IAimpFileInfo> GetFileInfo();
 
         /// <summary>
         /// Check is the source exists.
@@ -75,7 +74,7 @@ namespace AIMP.SDK.FileManager
         /// </summary>
         /// <param name="virtualFile"></param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType IsInSameStream(IAimpVirtualFile virtualFile);
+        AimpActionResult IsInSameStream(IAimpVirtualFile virtualFile);
 
         /// <summary>
         /// Plugin must validate state of all internal data that refer with source.
@@ -86,6 +85,6 @@ namespace AIMP.SDK.FileManager
         /// </para>
         /// </summary>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType Synchronize();
+        AimpActionResult Synchronize();
     }
 }

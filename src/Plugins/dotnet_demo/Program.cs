@@ -163,14 +163,14 @@ namespace TestPlugin
         private void TestReadConfig()
         {
             var floatValue = Player.ServiceConfig.GetValueAsFloat("AIMP.DOTNET.DEMO\\FLOAT");
-            Debug.Assert(floatValue == 0.2f);
+            Debug.Assert(floatValue.Result == 0.2f);
             var int32Value = Player.ServiceConfig.GetValueAsInt32("AIMP.DOTNET.DEMO\\INT32");
-            Debug.Assert(int32Value == 10);
+            Debug.Assert(int32Value.Result == 10);
             var int64Value = Player.ServiceConfig.GetValueAsInt64("AIMP.DOTNET.DEMO\\INT64");
-            Debug.Assert(int64Value == 20);
+            Debug.Assert(int64Value.Result == 20);
             var stringValue = Player.ServiceConfig.GetValueAsString("AIMP.DOTNET.DEMO\\STRING");
             Debug.Assert(stringValue.Equals("STRING"));
-            using (var streamValue = Player.ServiceConfig.GetValueAsStream("AIMP.DOTNET.DEMO\\STREAM"))
+            using (var streamValue = Player.ServiceConfig.GetValueAsStream("AIMP.DOTNET.DEMO\\STREAM").Result)
             {
                 long count = streamValue.GetSize();
                 var buf = new byte[count];

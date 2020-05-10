@@ -25,10 +25,9 @@ namespace AIMP
         public:
             AimpServiceFileSystems(ManagedAimpCore^ core);
 
-            virtual ActionResultType Get(FileCommandType commandType, String^ fileUri,
-                                         IAimpFileSystemCommand^% command);
+            virtual FileSystemCommandResult Get(FileCommandType commandType, String^ fileUri);
 
-            virtual ActionResultType GetDefault(FileCommandType commandType, IAimpFileSystemCommand^% command);
+            virtual FileSystemCommandResult GetDefault(FileCommandType commandType);
         private:
             static GUID GetCommandId(FileCommandType commandType);
 

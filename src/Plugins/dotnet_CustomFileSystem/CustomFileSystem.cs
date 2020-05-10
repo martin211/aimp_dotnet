@@ -155,9 +155,9 @@ namespace AIMP.SDK.CustomFileSystem
 
         private ActionResultType GetCommand<TCommand>(FileCommandType commandType, string file, out TCommand command)
         {
-            var res = _aimpPlayer.ServiceFileSystems.Get(commandType, GetFile(file), out var cmd);
-            command = (TCommand)cmd;
-            return res;
+            var res = _aimpPlayer.ServiceFileSystems.Get(commandType, GetFile(file));
+            command = (TCommand)res.Result;
+            return res.ResultType;
         }
 
         private string GetFile(string file)

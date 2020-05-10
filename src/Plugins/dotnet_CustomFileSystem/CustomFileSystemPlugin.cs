@@ -43,7 +43,7 @@ namespace AIMP.SDK.CustomFileSystem
             var files = Directory.GetFiles(dir, "*.mp3");
 
             var filesToPlaylist = files
-                .Where(file => Player.ServiceFileFormats.IsSupported(file, FileManager.FileFormats.AIMP_SERVICE_FILEFORMATS_CATEGORY_AUDIO) == ActionResultType.OK)
+                .Where(file => Player.ServiceFileFormats.IsSupported(file, FileManager.FileFormats.AIMP_SERVICE_FILEFORMATS_CATEGORY_AUDIO).ResultType == ActionResultType.OK)
                 .Select(f => $"{CustomFileSystem.MySchemePrefix}{f}").ToList();
             if (filesToPlaylist.Any())
             {

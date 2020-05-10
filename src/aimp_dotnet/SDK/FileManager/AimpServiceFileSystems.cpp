@@ -25,11 +25,11 @@ AimpServiceFileSystems::AimpServiceFileSystems(ManagedAimpCore^ core) : BaseAimp
 {
 }
 
-ActionResultType AimpServiceFileSystems::Get(FileCommandType commandType, String^ fileUri, IAimpFileSystemCommand^% command)
+FileSystemCommandResult AimpServiceFileSystems::Get(FileCommandType commandType, String^ fileUri)
 {
     IAIMPServiceFileSystems* service = GetAimpService();
     auto result = ActionResultType::Fail;
-    command = nullptr;
+    IAimpFileSystemCommand^ command = nullptr;
 
     try
     {
@@ -43,13 +43,14 @@ ActionResultType AimpServiceFileSystems::Get(FileCommandType commandType, String
         ReleaseObject(service);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpFileSystemCommand^>(result, command);
 }
 
-ActionResultType AimpServiceFileSystems::GetDefault(FileCommandType commandType, IAimpFileSystemCommand^% command)
+FileSystemCommandResult AimpServiceFileSystems::GetDefault(FileCommandType commandType)
 {
     IAIMPServiceFileSystems* service = GetAimpService();
     auto result = ActionResultType::Fail;
+    IAimpFileSystemCommand^ command = nullptr;
 
     try
     {
@@ -58,7 +59,7 @@ ActionResultType AimpServiceFileSystems::GetDefault(FileCommandType commandType,
             result = GetCommand(commandType, GetCommandId(commandType), service, nullptr, command, true);
         }
 
-        return result;
+        return gcnew AimpActionResult<IAimpFileSystemCommand^>(result, command);
     }
     finally
     {

@@ -21,12 +21,23 @@ namespace AIMP.SDK.FileManager
         AIMP_SERVICE_FILESTREAMING_FLAG_MAPTOMEMORY = 4
     }
 
+    public class CeateStreamResult
+    {
+        public CeateStreamResult(IAimpVirtualFile virtualFile, IAimpStream stream)
+        {
+            VirtualFile = virtualFile;
+            Stream = stream;
+        }
+
+        public IAimpVirtualFile VirtualFile { get; }
+
+        public IAimpStream Stream { get; }
+    }
+
     public interface IAimpServiceFileStreaming : IAimpService
     {
-        ActionResultType CreateStreamForFile(string fileName, FileStreamingType flags, long offset, long size,
-            out IAimpStream stream);
+        AimpActionResult<IAimpStream> CreateStreamForFile(string fileName, FileStreamingType flags, long offset, long size);
 
-        ActionResultType CreateStreamForFileUri(string fileUrl, out IAimpVirtualFile virtualFile,
-            out IAimpStream stream);
+        AimpActionResult<CeateStreamResult> CreateStreamForFileUri(string fileUrl);
     }
 }

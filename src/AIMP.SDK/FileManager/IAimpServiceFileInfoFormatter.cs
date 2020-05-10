@@ -22,6 +22,6 @@ namespace AIMP.SDK.FileManager
         /// <param name="fileInfo">Put null to generate preview string.</param>
         /// <param name="formattedResult">The formatted string.</param>
         /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType Format(string template, IAimpFileInfo fileInfo, out string formattedResult);
+        AimpActionResult<string> Format(string template, IAimpFileInfo fileInfo);
     }
 }

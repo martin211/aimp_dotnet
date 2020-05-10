@@ -27,11 +27,9 @@ namespace AIMP
             {
             }
 
-            virtual ActionResultType CreateStreamForFile(String^ fileName, FileStreamingType flags, long long offset,
-                                                         long long size, IAimpStream^% stream);
+            virtual StreamResult CreateStreamForFile(String^ fileName, FileStreamingType flags, long long offset, long long size);
 
-            virtual ActionResultType CreateStreamForFileUri(String^ fileUrl, IAimpVirtualFile^% virtualFile,
-                                                            IAimpStream^% stream);
+            virtual AimpActionResult<CeateStreamResult^>^ CreateStreamForFileUri(String^ fileUrl);
         protected:
             IAIMPServiceFileStreaming* GetAimpService() override;
         };

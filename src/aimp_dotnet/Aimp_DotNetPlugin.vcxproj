@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK\AlbumArt\AimpServiceAlbumArtCache.cpp" />
-    <ClCompile Include="SDK\FileManager\AimpServiceFileInfoFormattercpp.cpp" />
+    <ClCompile Include="SDK\FileManager\AimpServiceFileInfoFormatter.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandCopyToClipboard.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandDelete.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandDropSource.cpp" />

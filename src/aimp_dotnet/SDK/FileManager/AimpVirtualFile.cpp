@@ -79,9 +79,9 @@ void AimpVirtualFile::FileUri::set(String^ value)
     PropertyListExtension::SetString(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_FILEURI, value);
 }
 
-ActionResultType AimpVirtualFile::CreateStream(IAimpStream^% stream)
+StreamResult AimpVirtualFile::CreateStream()
 {
-    stream = nullptr;
+    IAimpStream^ stream = nullptr;
     IAIMPStream* aimpStream = nullptr;
 
     const auto result = CheckResult(InternalAimpObject->CreateStream(&aimpStream));
@@ -90,13 +90,13 @@ ActionResultType AimpVirtualFile::CreateStream(IAimpStream^% stream)
         stream = gcnew AimpStream(aimpStream);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpStream^>(result, stream);
 }
 
-ActionResultType AimpVirtualFile::GetFileInfo(IAimpFileInfo^% fileInfo)
+FileInfoResult AimpVirtualFile::GetFileInfo()
 {
     IAIMPFileInfo* fi = nullptr;
-    fileInfo = nullptr;
+    IAimpFileInfo^ fileInfo = nullptr;
     const auto result = CheckResult(InternalAimpObject->GetFileInfo(fi));
 
     if (result == ActionResultType::OK && fi != nullptr)
@@ -104,7 +104,7 @@ ActionResultType AimpVirtualFile::GetFileInfo(IAimpFileInfo^% fileInfo)
         fileInfo = gcnew AimpFileInfo(fi);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpFileInfo^>(result, fileInfo);
 }
 
 bool AimpVirtualFile::IsExists()
@@ -112,12 +112,12 @@ bool AimpVirtualFile::IsExists()
     return InternalAimpObject->IsExists();
 }
 
-ActionResultType AimpVirtualFile::IsInSameStream(IAimpVirtualFile^ virtualFile)
+VoidResult AimpVirtualFile::IsInSameStream(IAimpVirtualFile^ virtualFile)
 {
-    return CheckResult(InternalAimpObject->IsInSameStream(static_cast<AimpVirtualFile^>(virtualFile)->InternalAimpObject));
+    return VOID_RESULT(CheckResult(InternalAimpObject->IsInSameStream(static_cast<AimpVirtualFile^>(virtualFile)->InternalAimpObject)));
 }
 
-ActionResultType AimpVirtualFile::Synchronize()
+VoidResult AimpVirtualFile::Synchronize()
 {
-    return CheckResult(InternalAimpObject->Synchronize());
+    return VOID_RESULT(CheckResult(InternalAimpObject->Synchronize()));
 }

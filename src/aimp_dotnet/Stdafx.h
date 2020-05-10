@@ -21,6 +21,7 @@ typedef AimpActionResult<System::Int64>^ Int64Result;
 typedef AimpActionResult<IAimpStream^>^ StreamResult;
 typedef AimpActionResult<FileManager::IAimpFileInfo^>^ FileInfoResult;
 typedef AimpActionResult<FileManager::IAimpVirtualFile^>^ VirtualFileResult;
+typedef AimpActionResult<FileManager::Commands::IAimpFileSystemCommand^>^ FileSystemCommandResult;
 
 #define VOID_RESULT(resultType) gcnew AimpActionResult(resultType);
 
