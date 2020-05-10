@@ -17,6 +17,7 @@ typedef AimpActionResult^ VoidResult;
 typedef AimpActionResult<System::String^>^ StringResult;
 typedef AimpActionResult<float>^ FloatResult;
 typedef AimpActionResult<int>^ IntResult;
+typedef AimpActionResult<long long>^ LongResult;
 typedef AimpActionResult<System::Int64>^ Int64Result;
 typedef AimpActionResult<IAimpStream^>^ StreamResult;
 typedef AimpActionResult<FileManager::IAimpFileInfo^>^ FileInfoResult;

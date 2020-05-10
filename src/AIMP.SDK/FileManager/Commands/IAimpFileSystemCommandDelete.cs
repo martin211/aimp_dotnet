@@ -12,8 +12,8 @@ namespace AIMP.SDK.FileManager.Commands
 {
     public interface IAimpFileSystemCommandDelete : IAimpFileSystemCustomFileCommand
     {
-        ActionResultType CanProcess(string file);
+        AimpActionResult CanProcess(string file);
 
-        ActionResultType Process(string file);
+        AimpActionResult Process(string file);
     }
 }

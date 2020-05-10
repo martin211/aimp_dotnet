@@ -20,20 +20,20 @@ AimpFileSystemCommandOpenFileFolder::AimpFileSystemCommandOpenFileFolder(
 {
 }
 
-ActionResultType AimpFileSystemCommandOpenFileFolder::CanProcess(String^ file)
+VoidResult AimpFileSystemCommandOpenFileFolder::CanProcess(String^ file)
 {
     auto str = AimpConverter::ToAimpString(file);
     auto result = CheckResult(InternalAimpObject->CanProcess(str));
     str->Release();
     str = nullptr;
-    return result;
+    return VOID_RESULT(result);
 }
 
-ActionResultType AimpFileSystemCommandOpenFileFolder::Process(String^ file)
+VoidResult AimpFileSystemCommandOpenFileFolder::Process(String^ file)
 {
     auto str = AimpConverter::ToAimpString(file);
     auto result = CheckResult(InternalAimpObject->Process(str));
     str->Release();
     str = nullptr;
-    return result;
+    return VOID_RESULT(result);
 }

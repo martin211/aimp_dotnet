@@ -14,6 +14,6 @@ namespace AIMP.SDK.FileManager.Commands
 {
     public interface IAimpFileSystemCommandCopyToClipboard : IAimpFileSystemCommand
     {
-        ActionResultType CopyToClipboard(List<string> files);
+        AimpActionResult CopyToClipboard(List<string> files);
     }
 }

@@ -27,7 +27,7 @@ namespace AIMP
         public:
             explicit AimpFileSystemCommandDropSource(IAIMPFileSystemCommandDropSource* aimpObject);
 
-            virtual IAimpStream^ CreateStream(String^ fileName);
+            virtual StreamResult CreateStream(String^ fileName);
         };
     }
 }

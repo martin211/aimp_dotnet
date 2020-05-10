@@ -19,19 +19,19 @@ namespace AIMP.SDK.FileManager.Commands
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="attr">The attribute.</param>
-        ActionResultType GetFileAttrs(string fileName, out AimpFileAttributes attr);
+        AimpActionResult<AimpFileAttributes> GetFileAttrs(string fileName);
 
         /// <summary>
         /// Gets the size of the file.
         /// </summary>
         /// <param name="file">The file.</param>
         /// <param name="size">The size.</param>
-        ActionResultType GetFileSize(string file, out long size);
+        AimpActionResult<long> GetFileSize(string file);
 
         /// <summary>
         /// Determines whether [is file exists] [the specified file].
         /// </summary>
         /// <param name="file">The file.</param>
-        ActionResultType IsFileExists(string file);
+        AimpActionResult IsFileExists(string file);
     }
 }

@@ -18,6 +18,6 @@ namespace AIMP.SDK.FileManager.Commands
         /// 
         /// </summary>
         /// <param name="fileName"></param>
-        IAimpStream CreateStream(string fileName);
+        AimpActionResult<IAimpStream> CreateStream(string fileName);
     }
 }

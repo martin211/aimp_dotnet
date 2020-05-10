@@ -27,11 +27,11 @@ namespace AIMP
         public:
             explicit AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject);
 
-            virtual ActionResultType GetFileSize(String^ file, long long% size);
+            virtual LongResult GetFileSize(String^ file);
 
-            virtual ActionResultType IsFileExists(String^ file);
+            virtual VoidResult IsFileExists(String^ file);
 
-            virtual ActionResultType GetFileAttrs(String^ fileName, AimpFileAttributes% attr);
+            virtual AimpActionResult<AimpFileAttributes>^ GetFileAttrs(String^ fileName);
         };
     }
 }

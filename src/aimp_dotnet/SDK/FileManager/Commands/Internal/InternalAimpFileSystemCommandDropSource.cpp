@@ -23,14 +23,13 @@ InternalAimpFileSystemCommandDropSource::InternalAimpFileSystemCommandDropSource
 
 HRESULT WINAPI InternalAimpFileSystemCommandDropSource::CreateStream(IAIMPString* fileName, IAIMPStream** stream)
 {
-    IAimpStream^ s = _instance->CreateStream(AimpConverter::ToManagedString(fileName));
+    const auto res = _instance->CreateStream(AimpConverter::ToManagedString(fileName));
     if (stream != nullptr)
     {
-        *stream = static_cast<AimpStream^>(s)->InternalAimpObject;
-        return S_OK;
+        *stream = static_cast<AimpStream^>(res->Result)->InternalAimpObject;
     }
 
-    return HRESULT(S_OK);
+    return HRESULT(res->ResultType);
 }
 
 ULONG WINAPI InternalAimpFileSystemCommandDropSource::AddRef(void)

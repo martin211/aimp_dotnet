@@ -14,6 +14,6 @@ namespace AIMP.SDK.FileManager.Commands
 {
     public interface IAimpFileSystemCommandStreaming : IAimpFileSystemCommand
     {
-        IAimpStream CreateStream(string fileName, FileStreamingType flags, long offset, long size);
+        AimpActionResult<IAimpStream> CreateStream(string fileName, FileStreamingType flags, long offset, long size);
     }
 }

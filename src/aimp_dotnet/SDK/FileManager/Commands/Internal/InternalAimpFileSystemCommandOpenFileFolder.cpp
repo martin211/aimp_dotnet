@@ -22,12 +22,12 @@ InternalAimpFileSystemCommandOpenFileFolder::InternalAimpFileSystemCommandOpenFi
 
 HRESULT WINAPI InternalAimpFileSystemCommandOpenFileFolder::CanProcess(IAIMPString* FileName)
 {
-    return HRESULT(_instance->CanProcess(AimpConverter::ToManagedString(FileName)));
+    return HRESULT(_instance->CanProcess(AimpConverter::ToManagedString(FileName))->ResultType);
 }
 
 HRESULT WINAPI InternalAimpFileSystemCommandOpenFileFolder::Process(IAIMPString* FileName)
 {
-    return HRESULT(_instance->Process(AimpConverter::ToManagedString(FileName)));
+    return HRESULT(_instance->Process(AimpConverter::ToManagedString(FileName))->ResultType);
 }
 
 ULONG WINAPI InternalAimpFileSystemCommandOpenFileFolder::AddRef(void)

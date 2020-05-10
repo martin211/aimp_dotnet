@@ -20,7 +20,7 @@ AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject) : Aimp
 {
 }
 
-ActionResultType AimpFileSystemCommandFileInfo::GetFileAttrs(String^ file, AimpFileAttributes% attr)
+AimpActionResult<AimpFileAttributes>^ AimpFileSystemCommandFileInfo::GetFileAttrs(String^ file)
 {
     auto str = AimpConverter::ToAimpString(file);
     auto result = ActionResultType::Fail;
@@ -37,7 +37,6 @@ ActionResultType AimpFileSystemCommandFileInfo::GetFileAttrs(String^ file, AimpF
             atr.TimeLastAccess = fattr->TimeLastAccess;
             atr.TimeLastWrite = fattr->TimeLastWrite;
             atr.Attributes = static_cast<IO::FileAttributes>(fattr->Attributes);
-            attr = atr;
         }
     }
     finally
@@ -49,13 +48,13 @@ ActionResultType AimpFileSystemCommandFileInfo::GetFileAttrs(String^ file, AimpF
         }
     }
 
-    return result;
+    return gcnew AimpActionResult<AimpFileAttributes>(result, atr);
 }
 
-ActionResultType AimpFileSystemCommandFileInfo::GetFileSize(String^ file, long long% size)
+LongResult AimpFileSystemCommandFileInfo::GetFileSize(String^ file)
 {
     IAIMPString* str = nullptr;
-    size = 0;
+    long long size = 0;
     ActionResultType result = ActionResultType::Fail;
 
     try
@@ -77,10 +76,10 @@ ActionResultType AimpFileSystemCommandFileInfo::GetFileSize(String^ file, long l
         }
     }
 
-    return result;
+    return gcnew AimpActionResult<long long>(result, size);
 }
 
-ActionResultType AimpFileSystemCommandFileInfo::IsFileExists(String^ file)
+VoidResult AimpFileSystemCommandFileInfo::IsFileExists(String^ file)
 {
     IAIMPString* str = nullptr;
     ActionResultType result = ActionResultType::Fail;
@@ -99,5 +98,5 @@ ActionResultType AimpFileSystemCommandFileInfo::IsFileExists(String^ file)
         }
     }
 
-    return result;
+    return VOID_RESULT(result);
 }
