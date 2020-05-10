@@ -20,9 +20,9 @@ AimpFileSystemCommandCopyToClipboard::AimpFileSystemCommandCopyToClipboard(
 {
 }
 
-ActionResultType AimpFileSystemCommandCopyToClipboard::CopyToClipboard(List<String^>^ files)
+VoidResult AimpFileSystemCommandCopyToClipboard::CopyToClipboard(List<String^>^ files)
 {
     auto collection = AimpConverter::ToAimpObjectList(files);
     auto result = CheckResult(InternalAimpObject->CopyToClipboard(collection));
-    return result;
+    return VOID_RESULT(result);
 }
