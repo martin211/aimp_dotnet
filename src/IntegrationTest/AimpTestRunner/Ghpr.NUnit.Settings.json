@@ -1,0 +1,34 @@
+﻿{
+  "default": {
+    "outputPath": "C:\\_GHPReporter_NUnit_Report",
+    "dataServiceFile": "Ghpr.LocalFileSystem.dll",
+    "loggerFile": "",
+    "sprint": "",
+    "reportName": "GHP Report",
+    "projectName": "Awesome project",
+    "runName": "",
+    "runGuid": "",
+    "realTimeGeneration": "True",
+    "runsToDisplay": "5",
+    "testsToDisplay": "5",
+    "escapeTestOutput": true,
+    "retention": {
+      "amount": 1000,
+      "till": "2010-08-20 10:00:00"
+    }
+  },
+  "projects": [
+    {
+      "pattern": "*CoolTests.dll",
+      "settings": {
+        "outputPath": "C:\\_GHPReporter_NUnit_Report\\CoolTests"
+      }
+    },
+    {
+      "pattern": "*AwesomeTests.dll",
+      "settings": {
+        "outputPath": "C:\\_GHPReporter_NUnit_Report\\AwesomeTests"
+      }
+    }
+  ]
+}
