@@ -11,6 +11,11 @@
 
 #pragma once
 
+//using namespace System::Runtime::CompilerServices;
+////using namespace System;
+//
+//[assembly:InternalsVisibleTo("AimpTestRunner")];
+
 using namespace AIMP::SDK;
 
 typedef AimpActionResult^ VoidResult;
@@ -25,6 +30,8 @@ typedef AimpActionResult<FileManager::IAimpVirtualFile^>^ VirtualFileResult;
 typedef AimpActionResult<FileManager::Commands::IAimpFileSystemCommand^>^ FileSystemCommandResult;
 
 #define VOID_RESULT(resultType) gcnew AimpActionResult(resultType);
+#define INT_RESULT(result, resultInt) gcnew AimpActionResult<int>(result, resultInt);
+#define ARGUMENT_NULL(name, message) throw gcnew System::ArgumentNullException(name, message);
 
 //-V122_NOPTR
 

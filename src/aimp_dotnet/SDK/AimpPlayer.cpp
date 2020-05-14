@@ -85,7 +85,7 @@ IAimpMUIManager^ AimpPlayer::MUIManager::get()
     return _muiManager;
 }
 
-IAimpAlbumArtManager^ AimpPlayer::AlbumArtManager::get()
+IAimpServiceAlbumArt^ AimpPlayer::ServiceAlbumArt::get()
 {
     if (_artManager == nullptr)
     {

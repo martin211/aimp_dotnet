@@ -57,7 +57,7 @@ namespace AIMP.SDK.Player
         /// <summary>
         /// Gets the album art manager.
         /// </summary>
-        IAimpAlbumArtManager AlbumArtManager { get; }
+        IAimpServiceAlbumArt ServiceAlbumArt { get; }
 
         IAimpServiceAlbumArtCache ServiceAlbumArtCache { get; }
 

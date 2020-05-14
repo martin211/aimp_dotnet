@@ -23,16 +23,26 @@ AimpExtensionAlbumArtCatalog::AimpExtensionAlbumArtCatalog(IAIMPCore* aimpCore,
 
 HRESULT WINAPI AimpExtensionAlbumArtCatalog::GetIcon(HICON** Image)
 {
-    Drawing::Bitmap^ bitmap = _managedinstance->GetIcon();
-    *Image = static_cast<HICON*>(bitmap->GetHicon().ToPointer());
-    return S_OK;
+    const auto result = _managedinstance->GetIcon();
+    if (result->ResultType == ActionResultType::OK)
+    {
+        *Image = static_cast<HICON*>(result->Result->GetHicon().ToPointer());
+    }
+
+    return HRESULT(result->ResultType);
 }
 
 HRESULT WINAPI AimpExtensionAlbumArtCatalog::GetName(IAIMPString** Name)
 {
-    IAIMPString* strObject = AimpConverter::ToAimpString(_managedinstance->GetName());
-    *Name = strObject;
-    return S_OK;
+    const auto result = _managedinstance->GetName();
+
+    if (result->ResultType == ActionResultType::OK)
+    {
+        IAIMPString* strObject = AimpConverter::ToAimpString(result->Result);
+        *Name = strObject;
+    }
+
+    return HRESULT(result->ResultType);
 }
 
 HRESULT WINAPI AimpExtensionAlbumArtCatalog::Show(IAIMPString* FileURI, IAIMPString* Artist, IAIMPString* Album,

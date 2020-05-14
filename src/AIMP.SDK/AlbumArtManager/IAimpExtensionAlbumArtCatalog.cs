@@ -24,12 +24,12 @@ namespace AIMP.SDK.AlbumArtManager
         /// <summary>
         /// Gets icon for menu item, icon must be 16x16.
         /// </summary>
-        Bitmap GetIcon();
+        AimpActionResult<Bitmap> GetIcon();
 
         /// <summary>
         /// Gets the catalog name.
         /// </summary>
-        string GetName();
+        AimpActionResult<string> GetName();
 
         /// <summary>
         /// This method will be called on menu item click.

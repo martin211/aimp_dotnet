@@ -25,14 +25,14 @@ namespace dotnet_albumart
             return new AimpActionResult<Bitmap>(ActionResultType.OK, image);
         }
 
-        public Bitmap GetIcon()
+        public AimpActionResult<Bitmap> GetIcon()
         {
-            return Properties.Resources.lastfm;
+            return new AimpActionResult<Bitmap>(ActionResultType.OK, Properties.Resources.lastfm);
         }
 
-        public string GetName()
+        public AimpActionResult<string> GetName()
         {
-            return "Test catalog";
+            return new AimpActionResult<string>(ActionResultType.OK,"Test catalog");
         }
 
         public AimpActionResult<Bitmap> Show(string fileUrl, string artist, string album)

@@ -35,7 +35,7 @@ namespace AIMP.SDK.AlbumArtManager
         string[] FileMasks { get; set; }
 
         /// <summary>
-        /// Gets or sets the availabel cover file extensions.
+        /// Gets or sets the available cover file extensions.
         /// <para>
         /// List of extensions that are supported. 
         /// Each value must be separated from others via ";".
@@ -44,7 +44,7 @@ namespace AIMP.SDK.AlbumArtManager
         string[] FileExtensions { get; set; }
 
         /// <summary>
-        /// Gets or sets the maximum size of the file wich can be downloaded from internet.
+        /// Gets or sets the maximum size of the file which can be downloaded from internet.
         /// 0 - size is unlimited.
         /// </summary>
         int MaxFileSize { get; set; }

@@ -259,7 +259,7 @@ namespace AIMP.SDK
                     {
                         PluginLoadEvent(this);
                     }
-                    catch
+                    catch (Exception e)
                     {
                         System.Diagnostics.Debugger.Break();
                         Unload();

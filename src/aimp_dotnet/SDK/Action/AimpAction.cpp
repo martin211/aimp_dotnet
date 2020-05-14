@@ -47,7 +47,11 @@ String^ AimpAction::Name::get()
 
 void AimpAction::Name::set(String^ value)
 {
-    PropertyListExtension::SetString(InternalAimpObject, AIMP_ACTION_PROPID_NAME, value);
+    const auto res = PropertyListExtension::SetString(InternalAimpObject, AIMP_ACTION_PROPID_NAME, value);
+    if (res != ActionResultType::OK)
+    {
+        throw gcnew System::ApplicationException("Unable set data");
+    }
 }
 
 String^ AimpAction::GroupName::get()
@@ -146,5 +150,8 @@ void AimpAction::Execute(const gcroot<IAimpActionEvent^> sender, IUnknown* data)
 
 void AimpAction::FreeResources()
 {
-    _executeHandler.Free();
+    if (_executeHandler.IsAllocated)
+    {
+        _executeHandler.Free();
+    }
 }

@@ -65,7 +65,7 @@ namespace AIMP
         MenuManager::IAimpServiceMenuManager^ _menuManager;
         IAimpServiceActionManager^ _actionManager;
         MUIManager::IAimpMUIManager^ _muiManager;
-        IAimpAlbumArtManager^ _artManager;
+        IAimpServiceAlbumArt^ _artManager;
         IAimpServiceConfig^ _serviceConfig;
         IWin32Manager^ _win32Manager;
         IAimpPlaylistManager2^ _playListManager;
@@ -129,9 +129,9 @@ namespace AIMP
             SDK::MUIManager::IAimpMUIManager^ get();
         }
 
-        virtual property IAimpAlbumArtManager^ AlbumArtManager
+        virtual property IAimpServiceAlbumArt^ ServiceAlbumArt
         {
-            IAimpAlbumArtManager^ get();
+            IAimpServiceAlbumArt^ get();
         }
 
         virtual property IAimpServiceConfig^ ServiceConfig

@@ -285,29 +285,33 @@ void AimpServiceAlbumArt::OnAlbumArtReceive(IAIMPImage* image, IAIMPImageContain
     Completed(this, args);
 }
 
-IntPtr AimpServiceAlbumArt::GetImage(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags, Object^ userData)
+IntResult AimpServiceAlbumArt::Get(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags, Object^ userData)
 {
+    if (String::IsNullOrEmpty(fileUrl))
+    {
+        ARGUMENT_NULL("fileUrl", "Parameter fileUrl cannot be empty")
+    }
+
     void* taskId;
     _findCallback = gcnew OnFindCoverCallback(this, &AIMP::AimpServiceAlbumArt::OnAlbumArtReceive);
     IntPtr thunk = Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_findCallback);
-    auto sFileUrl = AimpConverter::ToAimpString(fileUrl);
-    auto sArtist = AimpConverter::ToAimpString(artist);
-    auto sAlbum = AimpConverter::ToAimpString(album);
+    const auto sFileUrl = AimpConverter::ToAimpString(fileUrl);
+    const auto sArtist = AimpConverter::ToAimpString(artist);
+    const auto sAlbum = AimpConverter::ToAimpString(album);
+    auto result = ActionResultType::Fail;
 
     IAIMPServiceAlbumArt* service = GetAimpService();
     try
     {
         if (service != nullptr)
         {
-            service->Get(
+            result = CheckResult(service->Get(
                 sFileUrl,
                 sArtist,
                 sAlbum,
                 DWORD(flags),
                 static_cast<TAIMPServiceAlbumArtReceiveProc(_stdcall *)>(thunk.ToPointer()),
-                reinterpret_cast<void*>(&userData), &taskId);
-
-            return IntPtr(taskId);
+                reinterpret_cast<void*>(&userData), &taskId));
         }
     }
     finally
@@ -318,29 +322,29 @@ IntPtr AimpServiceAlbumArt::GetImage(String^ fileUrl, String^ artist, String^ al
         ReleaseObject(sArtist);
     }
 
-    return IntPtr::Zero;
+    return INT_RESULT(result, reinterpret_cast<int>(taskId));
+    //return INT_RESULT(result, IntPtr(taskId).ToInt32());
 }
 
-IntPtr AimpServiceAlbumArt::GetImage(IAimpFileInfo^ fileInfo, AimpFindCovertArtType flags, Object^ userData)
+IntResult AimpServiceAlbumArt::Get2(IAimpFileInfo^ fileInfo, AimpFindCovertArtType flags, Object^ userData)
 {
     void* taskId = nullptr;
     _findCallback = gcnew OnFindCoverCallback(this, &AIMP::AimpServiceAlbumArt::OnAlbumArtReceive);
     IntPtr thunk = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_findCallback);
     //AimpFileInfo^ fi = static_cast<AimpFileInfo^>(fileInfo);
+    auto result = ActionResultType::Fail;
 
     IAIMPServiceAlbumArt* service = GetAimpService();
     try
     {
         if (service != nullptr)
         {
-            service->Get2(
+            result = CheckResult(service->Get2(
                 static_cast<AimpFileInfo^>(fileInfo)->InternalAimpObject,
                 DWORD(flags),
                 static_cast<TAIMPServiceAlbumArtReceiveProc(_stdcall *)>(thunk.ToPointer()),
                 reinterpret_cast<void*>(&userData),
-                &taskId);
-
-            return IntPtr(taskId);
+                &taskId));
         }
     }
     finally
@@ -348,26 +352,27 @@ IntPtr AimpServiceAlbumArt::GetImage(IAimpFileInfo^ fileInfo, AimpFindCovertArtT
         ReleaseObject(service);
     }
 
-    return IntPtr::Zero;
+    return INT_RESULT(result, reinterpret_cast<int>(taskId));
 }
 
-void AimpServiceAlbumArt::Cancel(IntPtr taskId, AimpFindCovertArtType flags)
+VoidResult AimpServiceAlbumArt::Cancel(int taskId, AimpFindCovertArtType flags)
 {
-    if (taskId != IntPtr::Zero)
+    IAIMPServiceAlbumArt* service = GetAimpService();
+    auto result = ActionResultType::Fail;
+
+    try
     {
-        IAIMPServiceAlbumArt* service = GetAimpService();
-        try
+        if (service != nullptr)
         {
-            if (service != nullptr)
-            {
-                service->Cancel(static_cast<void*>(taskId), DWORD(flags));
-            }
-        }
-        finally
-        {
-            ReleaseObject(service);
+            result = CheckResult(service->Cancel(reinterpret_cast<void*>(taskId), DWORD(flags)));
         }
     }
+    finally
+    {
+        ReleaseObject(service);
+    }
+
+    return VOID_RESULT(result);
 }
 
 IAIMPServiceAlbumArt* AimpServiceAlbumArt::GetAimpService()
