@@ -75,13 +75,13 @@ namespace AIMP.SDK.Lyrics
         /// Copy values from source.
         /// </summary>
         /// <param name="source">The source lyrics.</param>
-        AimpActionResult Assign(IAimpLyrics source);
+        ActionResultType Assign(IAimpLyrics source);
 
         /// <summary>
         /// Creates a copy of current instance.
         /// </summary>
         /// <param name="lyrics"></param>
-        AimpActionResult Clone(out IAimpLyrics lyrics);
+        ActionResultType Clone(out IAimpLyrics lyrics);
 
         /// <summary>
         /// Adds time interval.
@@ -89,14 +89,14 @@ namespace AIMP.SDK.Lyrics
         /// <param name="timeStart">In milliseconds.</param>
         /// <param name="timeFinish">In milliseconds.</param>
         /// <param name="text"></param>
-        AimpActionResult Add(int timeStart, int timeFinish, string text);
+        ActionResultType Add(int timeStart, int timeFinish, string text);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        AimpActionResult Delete(int index);
+        ActionResultType Delete(int index);
 
         /// <summary>
         /// 
@@ -105,7 +105,7 @@ namespace AIMP.SDK.Lyrics
         /// <param name="index"></param>
         /// <param name="text"></param>
         /// <returns></returns>
-        AimpActionResult<string> Find(int time, int index);
+        ActionResultType Find(int time, int index, out string text);
 
         /// <summary>
         /// 
@@ -115,21 +115,21 @@ namespace AIMP.SDK.Lyrics
         /// <param name="timeFinish"></param>
         /// <param name="text"></param>
         /// <returns></returns>
-        AimpActionResult<string> Get(int index, int timeStart, int timeFinish);
+        ActionResultType Get(int index, int timeStart, int timeFinish, out string text);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        AimpActionResult<int> GetCount(ref int value);
+        ActionResultType GetCount(ref int value);
 
         /// <summary>
         /// Loads lyrics from file.
         /// </summary>
         /// <param name="virtualFileName">Virtual file name.</param>
         /// <returns></returns>
-        AimpActionResult LoadFromFile(string virtualFileName);
+        ActionResultType LoadFromFile(string virtualFileName);
 
         /// <summary>
         /// Loads lyrics from stream.
@@ -137,7 +137,7 @@ namespace AIMP.SDK.Lyrics
         /// <param name="stream">File stream.</param>
         /// <param name="format">Lyrics format <seealso cref="LyricsFormat"/>.</param>
         /// <returns></returns>
-        AimpActionResult LoadFromStream(IAimpStream stream, LyricsFormat format);
+        ActionResultType LoadFromStream(IAimpStream stream, LyricsFormat format);
 
         /// <summary>
         /// Loads lyrics from string.
@@ -145,14 +145,14 @@ namespace AIMP.SDK.Lyrics
         /// <param name="lyrics">String with lyrics.</param>
         /// <param name="format">Lyrics format <seealso cref="LyricsFormat"/>.</param>
         /// <returns></returns>
-        AimpActionResult LoadFromString(string lyrics, LyricsFormat format);
+        ActionResultType LoadFromString(string lyrics, LyricsFormat format);
 
         /// <summary>
         /// Saves lyrics to file.
         /// </summary>
         /// <param name="fileUri">File.</param>
         /// <returns></returns>
-        AimpActionResult SaveToFile(string fileUri);
+        ActionResultType SaveToFile(string fileUri);
 
         /// <summary>
         /// Saves lyrics to stream.
@@ -160,7 +160,7 @@ namespace AIMP.SDK.Lyrics
         /// <param name="stream"></param>
         /// <param name="format">Lyrics format <seealso cref="LyricsFormat"/>.</param>
         /// <returns></returns>
-        AimpActionResult SaveToStream(IAimpStream stream, LyricsFormat format);
+        ActionResultType SaveToStream(IAimpStream stream, LyricsFormat format);
 
         /// <summary>
         /// Saves lyrics to string.
@@ -168,6 +168,6 @@ namespace AIMP.SDK.Lyrics
         /// <param name="lyrics"></param>
         /// <param name="format">Lyrics format <seealso cref="LyricsFormat"/>.</param>
         /// <returns></returns>
-        AimpActionResult SaveToString(out string lyrics, LyricsFormat format);
+        ActionResultType SaveToString(out string lyrics, LyricsFormat format);
     }
 }

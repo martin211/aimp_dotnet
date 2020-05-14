@@ -39,13 +39,13 @@ namespace AIMP.SDK.Lyrics
         /// <param name="fileInfo"></param>
         /// <param name=""></param>
         /// <returns></returns>
-        AimpActionResult<int> Get(IAimpFileInfo fileInfo, LyricsFlags flags, object userData);
+        ActionResultType Get(IAimpFileInfo fileInfo, LyricsFlags flags, object userData, out IntPtr taskId);
 
         /// <summary>
         /// Aborts a current active task.
         /// </summary>
         /// <returns></returns>
-        AimpActionResult Cancel(int taskId, LyricsFlags flags);
+        ActionResultType Cancel(IntPtr taskId, LyricsFlags flags);
 
         /// <summary>
         /// 

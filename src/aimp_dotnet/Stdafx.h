@@ -31,7 +31,10 @@ typedef AimpActionResult<FileManager::Commands::IAimpFileSystemCommand^>^ FileSy
 
 #define VOID_RESULT(resultType) gcnew AimpActionResult(resultType);
 #define INT_RESULT(result, resultInt) gcnew AimpActionResult<int>(result, resultInt);
+#define STRING_RESULT(result, object) gcnew AimpActionResult<String^>(result, object);
+
 #define ARGUMENT_NULL(name, message) throw gcnew System::ArgumentNullException(name, message);
+
 
 //-V122_NOPTR
 

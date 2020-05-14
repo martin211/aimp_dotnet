@@ -32,11 +32,11 @@ AimpServiceLyrics::~AimpServiceLyrics()
     delete _callBack;
 }
 
-IntResult AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Object^ userData)
+ActionResultType AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Object^ userData, IntPtr% taskId)
 {
     IAIMPServiceLyrics* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
-    int taskId = 0;
+    taskId = IntPtr(0);
 
     try
     {
@@ -56,7 +56,7 @@ IntResult AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Obj
 
             if (result == ActionResultType::OK)
             {
-                taskId = reinterpret_cast<int>(task);
+                taskId = IntPtr(task);
             }
         }
     }
@@ -65,10 +65,10 @@ IntResult AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Obj
         ReleaseObject(service);
     }
 
-    return INT_RESULT(result, taskId);
+    return result;
 }
 
-VoidResult AimpServiceLyrics::Cancel(IntPtr taskId, LyricsFlags flags)
+ActionResultType AimpServiceLyrics::Cancel(IntPtr taskId, LyricsFlags flags)
 {
     IAIMPServiceLyrics* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
@@ -79,13 +79,13 @@ VoidResult AimpServiceLyrics::Cancel(IntPtr taskId, LyricsFlags flags)
         {
             result = CheckResult(service->Cancel(static_cast<void**>(taskId.ToPointer()), static_cast<DWORD>(flags)));
         }
+
+        return result;
     }
     finally
     {
         ReleaseObject(service);
     }
-
-    return VOID_RESULT(result);
 }
 
 void AimpServiceLyrics::LyricsReceive::raise(IAimpLyrics^ lyrics, Object^ userData)
