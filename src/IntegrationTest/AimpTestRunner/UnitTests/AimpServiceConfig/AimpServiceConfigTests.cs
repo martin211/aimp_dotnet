@@ -1,5 +1,4 @@
-﻿using System.Web.UI;
-using AIMP.SDK;
+﻿using AIMP.SDK;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
@@ -13,7 +12,7 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
             ExecuteInMainThread(() =>
             {
                 var result = Player.ServiceConfig.FlushCache();
-                Assert.AreEqual(ActionResultType.OK, result.ResultType);
+                this.AreEqual(ActionResultType.OK, () => result.ResultType);
                 return result.ResultType;
             });
         }
@@ -50,13 +49,14 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
                     var buf = (byte[]) value;
                     var stream = Player.Core.CreateStream();
                     var r = stream.Write(buf, buf.Length, out var written);
-                    Assert.AreEqual(ActionResultType.OK, r);
 
+                    this.AreEqual(ActionResultType.OK, () => r);
                     result = Player.ServiceConfig.SetValueAsStream(path, stream);
                 }
 
-                Assert.NotNull(result);
-                Assert.AreEqual(ActionResultType.OK, result.ResultType);
+                this.NotNull(() => result);
+                this.AreEqual(ActionResultType.OK, () => result.ResultType);
+
                 return result.ResultType;
             });
         }
@@ -75,43 +75,43 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
                 if (path.EndsWith("Float"))
                 {
                     var result = Player.ServiceConfig.GetValueAsFloat(path);
-                    Assert.NotNull(result);
-                    Assert.AreEqual((float)1.1, result.Result);
+                    this.NotNull(() => result);
+                    this.AreEqual((float)1.1, () => result.Result);
                     r = result.ResultType;
                 }
                 else if (path.EndsWith("Int"))
                 {
                     var result = Player.ServiceConfig.GetValueAsInt32(path);
-                    Assert.NotNull(result);
-                    Assert.AreEqual(1, result.Result);
+                    this.NotNull(() => result);
+                    this.AreEqual(1, () => result.Result);
                     r = result.ResultType;
                 }
                 else if (path.EndsWith("Int64"))
                 {
                     var result = Player.ServiceConfig.GetValueAsInt64(path);
-                    Assert.NotNull(result);
-                    Assert.AreEqual(2, result.Result);
+                    this.NotNull(() => result);
+                    this.AreEqual(2, () => result.Result);
                     r = result.ResultType;
                 }
                 else if (path.EndsWith("String"))
                 {
                     var result = Player.ServiceConfig.GetValueAsString(path);
-                    Assert.NotNull(result);
-                    Assert.AreEqual("SomeString", result.Result);
+                    this.NotNull(() => result);
+                    this.AreEqual("SomeString", () => result.Result);
                     r = result.ResultType;
                 }
                 else if (path.EndsWith("Stream"))
                 {
                     var result = Player.ServiceConfig.GetValueAsStream(path);
-                    Assert.NotNull(result);
-                    Assert.NotNull(result.Result);
+                    this.NotNull(() => result);
+                    this.NotNull(() => result.Result);
                     byte[] buf = new byte[result.Result.GetSize()];
                     result.Result.Read(buf, buf.Length);
-                    Assert.AreEqual(3, buf.Length);
+                    this.AreEqual(3, buf.Length);
                     r = result.ResultType;
                 }
 
-                Assert.AreEqual(ActionResultType.OK, r);
+                this.AreEqual(ActionResultType.OK, r);
                 return r;
             });
         }
@@ -126,8 +126,8 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
             ExecuteInMainThread(() =>
             {
                 var result = Player.ServiceConfig.Delete(path);
-                Assert.NotNull(result);
-                Assert.AreEqual(ActionResultType.OK, result.ResultType);
+                this.NotNull(result);
+                this.AreEqual(ActionResultType.OK, () => result.ResultType);
                 return result.ResultType;
             });
         }

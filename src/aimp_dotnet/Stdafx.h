@@ -28,12 +28,14 @@ typedef AimpActionResult<IAimpStream^>^ StreamResult;
 typedef AimpActionResult<FileManager::IAimpFileInfo^>^ FileInfoResult;
 typedef AimpActionResult<FileManager::IAimpVirtualFile^>^ VirtualFileResult;
 typedef AimpActionResult<FileManager::Commands::IAimpFileSystemCommand^>^ FileSystemCommandResult;
+typedef AimpActionResult<Playlist::IAimpPlaylist^>^ PlaylistResult;
 
 #define VOID_RESULT(resultType) gcnew AimpActionResult(resultType);
 #define INT_RESULT(result, resultInt) gcnew AimpActionResult<int>(result, resultInt);
 #define STRING_RESULT(result, object) gcnew AimpActionResult<String^>(result, object);
-
 #define ARGUMENT_NULL(name, message) throw gcnew System::ArgumentNullException(name, message);
+#define ACTION_ERROR2(result, message) throw gcnew AimpActionException(result, message);
+#define ACTION_ERROR(result) throw gcnew AimpActionException(result);
 
 
 //-V122_NOPTR

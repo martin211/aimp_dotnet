@@ -240,49 +240,49 @@ IAimpServiceMessageDispatcher^ AimpPlayer::ServiceMessageDispatcher::get()
     return _serviceMessageDispatcher;
 }
 
-void AimpPlayer::Pause()
+VoidResult AimpPlayer::Pause()
 {
-    _player->Pause();
+    return VOID_RESULT(Utils::CheckResult(_player->Pause()));
 }
 
-void AimpPlayer::Stop()
+VoidResult AimpPlayer::Stop()
 {
-    _player->Stop();
+    return VOID_RESULT(Utils::CheckResult(_player->Stop()));
 }
 
-void AimpPlayer::Resume()
+VoidResult AimpPlayer::Resume()
 {
-    _player->Resume();
+    return VOID_RESULT(Utils::CheckResult(_player->Resume()));
 }
 
-void AimpPlayer::StopAfterTrack()
+VoidResult AimpPlayer::StopAfterTrack()
 {
-    _player->StopAfterTrack();
+    return VOID_RESULT(Utils::CheckResult(_player->StopAfterTrack()));
 }
 
-void AimpPlayer::GoToNext()
+VoidResult AimpPlayer::GoToNext()
 {
-    _player->GoToNext();
+    return VOID_RESULT(Utils::CheckResult(_player->GoToNext()));
 }
 
-void AimpPlayer::GoToPrev()
+VoidResult AimpPlayer::GoToPrev()
 {
-    _player->GoToPrev();
+    return VOID_RESULT(Utils::CheckResult(_player->GoToPrev()));
 }
 
-void AimpPlayer::Play(IAimpPlaybackQueueItem^ queueItem)
+VoidResult AimpPlayer::Play(IAimpPlaybackQueueItem^ queueItem)
 {
-    _player->Play(static_cast<AimpPlaybackQueueItem^>(queueItem)->InternalAimpObject);
+    return VOID_RESULT(Utils::CheckResult(_player->Play(static_cast<AimpPlaybackQueueItem^>(queueItem)->InternalAimpObject)));
 }
 
-void AimpPlayer::Play(IAimpPlaylistItem^ playListItem)
+VoidResult AimpPlayer::Play(IAimpPlaylistItem^ playListItem)
 {
-    _player->Play2(static_cast<AimpPlaylistItem^>(playListItem)->InternalAimpObject);
+    return VOID_RESULT(Utils::CheckResult(_player->Play2(static_cast<AimpPlaylistItem^>(playListItem)->InternalAimpObject)));
 }
 
-void AimpPlayer::Play(IAimpPlaylist^ playList)
+VoidResult AimpPlayer::Play(IAimpPlaylist^ playList)
 {
-    _player->Play3(static_cast<AimpPlayList^>(playList)->InternalAimpObject);
+    return VOID_RESULT(Utils::CheckResult(_player->Play3(static_cast<AimpPlayList^>(playList)->InternalAimpObject)));
 }
 
 IAimpServiceSynchronizer^ AimpPlayer::ServiceSynchronizer::get()

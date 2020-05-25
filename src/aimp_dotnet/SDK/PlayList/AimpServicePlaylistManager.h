@@ -61,11 +61,11 @@ namespace AIMP
                 void raise(String^ playListName, String^ playListId);
             }
 
-            virtual ActionResultType CreatePlaylist(String^ name, bool isActive, IAimpPlaylist^% playList);
+            virtual PlaylistResult CreatePlaylist(String^ name, bool isActive);
 
-            virtual ActionResultType CreatePlaylistFromFile(String^ fileName, bool isActive, IAimpPlaylist^% playList);
+            virtual PlaylistResult CreatePlaylistFromFile(String^ fileName, bool isActive);
 
-            virtual ActionResultType GetActivePlaylist(IAimpPlaylist^% playList);
+            virtual PlaylistResult GetActivePlaylist();
 
             virtual ActionResultType GetLoadedPlaylist(int index, IAimpPlaylist^% playList);
 

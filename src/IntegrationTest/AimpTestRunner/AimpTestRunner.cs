@@ -13,8 +13,24 @@ namespace Aimp.TestRunner
     [AimpPlugin("AimpTestRunner", "Evgeniy Bogdan", "1", AimpPluginType = AimpPluginType.Addons)]
     public class AimpTestRunnerPlugin : AimpPlugin, ITestEventListener
     {
+        public class Hook : IAimpMessageHook
+        {
+            private readonly Func<AimpCoreMessageType, int, int, ActionResultType> _hook;
+
+            public Hook(Func<AimpCoreMessageType, int, int, ActionResultType> hook)
+            {
+                _hook = hook;
+            }
+
+            public ActionResultType CoreMessage(AimpCoreMessageType message, int param1, int param2)
+            {
+                return _hook(message, param1, param2);
+            }
+        }
+
         private ITestEngine _engine;
         private TextWriter _writer;
+        private bool _inProgress;
 
         public override void Initialize()
         {
@@ -34,14 +50,22 @@ namespace Aimp.TestRunner
             AimpTestContext.Instance.AimpPlayer = Player;
             _writer = new StreamWriter(Path.Combine(path, "test_output.log"));
 
-            XmlNode testResult = runner.Run(this, TestFilter.Empty);
-            using (var writer = new StreamWriter(Path.Combine(path, "test.log")))
+            Player.ServiceMessageDispatcher.Hook(new Hook((type, i, arg3) =>
             {
-                var reporter = new ResultReporter(testResult, new ExtendedTextWrapper(writer));
-                reporter.ReportResults();
-            }
+                if (type == AimpCoreMessageType.AIMP_MSG_EVENT_LOADED && !_inProgress)
+                {
+                    _inProgress = true;
+                    XmlNode testResult = runner.Run(this, TestFilter.Empty);
+                    using (var writer = new StreamWriter(Path.Combine(path, "test.log")))
+                    {
+                        var reporter = new ResultReporter(testResult, new ExtendedTextWrapper(writer));
+                        reporter.ReportResults();
+                    }
+                }
 
-            Terminate();
+                return ActionResultType.OK;
+            }));
+            //Terminate();
         }
 
         public override void Dispose()

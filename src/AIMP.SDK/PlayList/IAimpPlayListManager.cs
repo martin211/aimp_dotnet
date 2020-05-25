@@ -29,7 +29,7 @@ namespace AIMP.SDK.Playlist
         /// <param name="isActive">If set to <c>true</c> playlist will be active.</param>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
         /// <returns>The <see cref="ActionResultType"/>result.</returns>
-        ActionResultType CreatePlaylist(string name, bool isActive, out IAimpPlaylist playList);
+        AimpActionResult<IAimpPlaylist> CreatePlaylist(string name, bool isActive);
 
         /// <summary>
         /// Creates the playlist from file.
@@ -43,14 +43,14 @@ namespace AIMP.SDK.Playlist
         /// <param name="isActive">If set to <c>true</c> playlist will be active.</param>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
         /// <returns>The <see cref="ActionResultType"/>result.</returns>
-        ActionResultType CreatePlaylistFromFile(string fileName, bool isActive, out IAimpPlaylist playList);
+        AimpActionResult<IAimpPlaylist> CreatePlaylistFromFile(string fileName, bool isActive);
 
         /// <summary>
         /// Gets the current active playlist.
         /// </summary>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
         /// <returns>The <see cref="ActionResultType"/>result.</returns>
-        ActionResultType GetActivePlaylist(out IAimpPlaylist playList);
+        AimpActionResult<IAimpPlaylist> GetActivePlaylist();
 
         /// <summary>
         /// Sets the playlist as active.

@@ -162,49 +162,49 @@ namespace AIMP.SDK.Player
         /// <summary>
         /// Pauses player.
         /// </summary>
-        void Pause();
+        AimpActionResult Pause();
 
         /// <summary>
         /// Resumes player.
         /// </summary>
-        void Resume();
+        AimpActionResult Resume();
 
         /// <summary>
         /// Stops player.
         /// </summary>
-        void Stop();
+        AimpActionResult Stop();
 
         /// <summary>
         /// Stops the after track.
         /// </summary>
-        void StopAfterTrack();
+        AimpActionResult StopAfterTrack();
 
         /// <summary>
         /// Goes to next track.
         /// </summary>
-        void GoToNext();
+        AimpActionResult GoToNext();
 
         /// <summary>
         /// Goes to previous track.
         /// </summary>
-        void GoToPrev();
+        AimpActionResult GoToPrev();
 
         /// <summary>
         /// Plays the specified queue item.
         /// </summary>
         /// <param name="queueItem">The queue item.</param>
-        void Play(IAimpPlaybackQueueItem queueItem);
+        AimpActionResult Play(IAimpPlaybackQueueItem queueItem);
 
         /// <summary>
         /// Plays the specified play list item.
         /// </summary>
         /// <param name="playlistItem">The play list item.</param>
-        void Play(IAimpPlaylistItem playlistItem);
+        AimpActionResult Play(IAimpPlaylistItem playlistItem);
 
         /// <summary>
         /// Plays the specified play list.
         /// </summary>
         /// <param name="playList">The play list.</param>
-        void Play(IAimpPlaylist playList);
+        AimpActionResult Play(IAimpPlaylist playList);
     }
 }

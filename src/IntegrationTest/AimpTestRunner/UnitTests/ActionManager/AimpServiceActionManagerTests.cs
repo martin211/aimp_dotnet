@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AIMP.SDK;
 using NUnit.Framework;
 
@@ -20,10 +21,13 @@ namespace Aimp.TestRunner.UnitTests.ActionManager
             ExecuteInMainThread(() =>
             {
                 var action = Player.ActionManager.CreateAction();
-                var ex = Assert.Throws<ArgumentNullException>(() => Player.ActionManager.Register(action));
-                Assert.True(ex.Message.Contains("Action name cannot be empty"));
+                this.Throw<ArgumentNullException>(() => Player.ActionManager.Register(action));
+
                 return ActionResultType.OK;
             });
+
+            Validate();
+            Assert.True((Asserts.First() as ThrowAssert<ArgumentNullException>)?.CatchedException.Message.Contains("Action name cannot be empty"));
         }
 
         [Test]
@@ -33,10 +37,12 @@ namespace Aimp.TestRunner.UnitTests.ActionManager
             {
                 var action = Player.ActionManager.CreateAction();
                 action.Name = "Test";
-                var ex = Assert.Throws<ArgumentNullException>(() => Player.ActionManager.Register(action));
-                Assert.True(ex.Message.Contains("Action id cannot be empty"));
+                this.Throw<ArgumentNullException>(() => Player.ActionManager.Register(action));
                 return ActionResultType.OK;
             });
+
+            Validate();
+            Assert.True((Asserts.First() as ThrowAssert<ArgumentNullException>)?.CatchedException.Message.Contains("Action id cannot be empty"));
         }
 
         [Test(Description = "Set and get all properties. Ensure that they all are correct.")]
@@ -52,11 +58,10 @@ namespace Aimp.TestRunner.UnitTests.ActionManager
                 action.OnExecute += (sender, args) => { };
                 action.CustomData = "custom data";
 
-                Assert.AreEqual("Test", action.Name);
-                Assert.AreEqual("integration.action.1", action.Id);
-                Assert.AreEqual("integration", action.GroupName);
-                Assert.AreEqual("custom data", action.CustomData);
-                Assert.IsFalse(action.Enabled);
+                this.AreEqual("Test", () => action.Name);
+                this.AreEqual("integration.action.1", () => action.Id);
+                this.AreEqual("integration", () => action.GroupName);
+                this.AreEqual("custom data", () => action.CustomData);
 
                 return ActionResultType.OK;
             });
@@ -72,7 +77,9 @@ namespace Aimp.TestRunner.UnitTests.ActionManager
                 action.Id = "integration.test";
 
                 var result = Player.ActionManager.Register(action);
-                Assert.AreEqual(ActionResultType.OK, result.ResultType);
+
+                this.AreEqual(ActionResultType.OK, () => result.ResultType);
+
                 return result.ResultType;
             });
         }
@@ -83,10 +90,12 @@ namespace Aimp.TestRunner.UnitTests.ActionManager
             ExecuteInMainThread(() =>
             {
                 var actionResult = Player.ActionManager.GetById("integration.test");
-                Assert.AreEqual(ActionResultType.OK, actionResult.ResultType);
-                Assert.NotNull(actionResult.Result);
-                Assert.AreEqual("integration.test", actionResult.Result.Id);
-                Assert.AreEqual("test action", actionResult.Result.Name);
+
+                this.AreEqual(ActionResultType.OK, () => actionResult.ResultType);
+                this.NotNull(() => actionResult.Result);
+                this.AreEqual("integration.test", () => actionResult.Result.Id);
+                this.AreEqual("test action", () => actionResult.Result.Name);
+
                 return actionResult.ResultType;
             });
         }

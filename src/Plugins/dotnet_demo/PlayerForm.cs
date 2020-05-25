@@ -157,8 +157,8 @@ namespace DemoPlugin
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _aimpPlayer.PlaylistManager.GetActivePlaylist(out var pl);
-            _aimpPlayer.Play(pl);
+            var pl = _aimpPlayer.PlaylistManager.GetActivePlaylist();
+            _aimpPlayer.Play(pl.Result);
             _aimpPlayer.Core.SendMessage(AimpCoreMessageType.AIMP_MSG_CMD_SHOW_NOTIFICATION, 0, "Play Play Play");
         }
 
@@ -201,9 +201,11 @@ namespace DemoPlugin
         private void button7_Click(object sender, EventArgs e)
         {
             IAimpPlaylist pl;
-            if (_aimpPlayer.PlaylistManager.GetActivePlaylist(out pl) == ActionResultType.OK)
+            var result = _aimpPlayer.PlaylistManager.GetActivePlaylist();
+
+            if (result.ResultType == ActionResultType.OK)
             {
-                pl.Sort("test", (item, playlistItem, arg3) => PlaylistSortComapreResult.TheSame);
+                result.Result.Sort("test", (item, playlistItem, arg3) => PlaylistSortComapreResult.TheSame);
             }
         }
 
@@ -261,10 +263,10 @@ namespace DemoPlugin
 
         private void button9_Click(object sender, EventArgs e)
         {
-            IAimpPlaylist playList;
-            if (_aimpPlayer.PlaylistManager.GetActivePlaylist(out playList) == ActionResultType.OK)
+            var result = _aimpPlayer.PlaylistManager.GetActivePlaylist();
+            if (result.ResultType == ActionResultType.OK)
             {
-                playList?.Close(PlaylistCloseFlag.ForceRemove);
+                result.Result?.Close(PlaylistCloseFlag.ForceRemove);
             }
         }
 

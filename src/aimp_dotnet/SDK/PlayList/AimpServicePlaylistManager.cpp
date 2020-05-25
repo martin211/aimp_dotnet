@@ -28,12 +28,21 @@ IAimpPlaylistQueue^ AimpServicePlaylistManager::PlaylistQueue::get()
         if (service != nullptr)
         {
             IAIMPPlaylistQueue* playListQueue = nullptr;
-            if (CheckResult(service->QueryInterface(IID_IAIMPPlaylistQueue, reinterpret_cast<void**>(&playListQueue))) == ActionResultType::OK)
+            auto result = CheckResult(service->QueryInterface(IID_IAIMPPlaylistQueue, reinterpret_cast<void**>(&playListQueue)));
+
+            if (result != ActionResultType::OK)
             {
-                IAIMPPlaylistQueue2* playListQueue2;
-                service->QueryInterface(IID_IAIMPPlaylistQueue2, reinterpret_cast<void**>(&playListQueue2));
-                return gcnew AimpPlaylistQueue(playListQueue, playListQueue2);
+                ACTION_ERROR(result)
             }
+
+            IAIMPPlaylistQueue2* playListQueue2;
+            result = CheckResult(service->QueryInterface(IID_IAIMPPlaylistQueue2, reinterpret_cast<void**>(&playListQueue2)));
+            if (result != ActionResultType::OK)
+            {
+                ACTION_ERROR(result)
+            }
+
+            return gcnew AimpPlaylistQueue(playListQueue, playListQueue2);
         }
     }
     finally
@@ -104,9 +113,9 @@ void AimpServicePlaylistManager::PlaylistRemoved::raise(String^ playListName, St
     }
 }
 
-ActionResultType AimpServicePlaylistManager::CreatePlaylist(String^ name, bool isActive, IAimpPlaylist^% playList)
+PlaylistResult AimpServicePlaylistManager::CreatePlaylist(String^ name, bool isActive)
 {
-    playList = nullptr;
+    IAimpPlaylist^ playList = nullptr;
     ActionResultType res = ActionResultType::Fail;
 
     IAIMPPlaylist* pl = nullptr;
@@ -117,7 +126,11 @@ ActionResultType AimpServicePlaylistManager::CreatePlaylist(String^ name, bool i
     {
         if (service != nullptr)
         {
-            str = AimpConverter::ToAimpString(name);
+            if (!String::IsNullOrEmpty(name))
+            {
+                str = AimpConverter::ToAimpString(name);
+            }
+
             res = CheckResult(service->CreatePlaylist(str, BOOL(isActive), &pl));
 
             if (res == ActionResultType::OK && pl != nullptr)
@@ -132,12 +145,14 @@ ActionResultType AimpServicePlaylistManager::CreatePlaylist(String^ name, bool i
         ReleaseObject(str);
     }
 
-    return res;
+    return gcnew AimpActionResult<IAimpPlaylist^>(res, playList);
 }
 
-ActionResultType AimpServicePlaylistManager::CreatePlaylistFromFile(String^ fileName, bool isActive, IAimpPlaylist^% playList)
+PlaylistResult AimpServicePlaylistManager::CreatePlaylistFromFile(String^ fileName, bool isActive)
 {
-    playList = nullptr;
+    Assert::NotNull(fileName, "fileName");
+
+    IAimpPlaylist^ playList = nullptr;
     IAIMPPlaylist* pl = nullptr;
     IAIMPString* str = nullptr;
     IAIMPServicePlaylistManager2* service = GetAimpService();
@@ -162,12 +177,12 @@ ActionResultType AimpServicePlaylistManager::CreatePlaylistFromFile(String^ file
         ReleaseObject(str);
     }
 
-    return res;
+    return gcnew AimpActionResult<IAimpPlaylist^>(res, playList);
 }
 
-ActionResultType AimpServicePlaylistManager::GetActivePlaylist(IAimpPlaylist^% playList)
+PlaylistResult AimpServicePlaylistManager::GetActivePlaylist()
 {
-    playList = nullptr;
+    IAimpPlaylist^ playList = nullptr;
     IAIMPPlaylist* pl = nullptr;
     IAIMPServicePlaylistManager2* service = GetAimpService();
     ActionResultType res = ActionResultType::Fail;
@@ -188,7 +203,7 @@ ActionResultType AimpServicePlaylistManager::GetActivePlaylist(IAimpPlaylist^% p
         ReleaseObject(service);
     }
 
-    return res;
+    return gcnew AimpActionResult<IAimpPlaylist^>(res, playList);
 }
 
 ActionResultType AimpServicePlaylistManager::GetLoadedPlaylist(int index, IAimpPlaylist^% playList)

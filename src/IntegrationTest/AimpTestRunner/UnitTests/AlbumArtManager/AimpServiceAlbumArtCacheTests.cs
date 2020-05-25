@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AIMP.SDK;
 using NUnit.Framework;
 
@@ -12,8 +13,8 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
         {
             ExecuteInMainThread(() =>
             {
-                var ex = Assert.Throws<ArgumentNullException>(() => Player.ServiceAlbumArtCache.Flush(string.Empty, string.Empty));
-                Assert.True(ex.Message.Contains("Parameter album cannot be empty"));
+                var ex = this.Throw<ArgumentNullException>(() => Player.ServiceAlbumArtCache.Flush(string.Empty, string.Empty));
+                this.True(ex.Message.Contains("Parameter album cannot be empty"));
                 return ActionResultType.OK;
             });
         }
@@ -23,8 +24,8 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
         {
             ExecuteInMainThread(() =>
             {
-                var ex = Assert.Throws<ArgumentNullException>(() => Player.ServiceAlbumArtCache.Flush("album", string.Empty));
-                Assert.True(ex.Message.Contains("Parameter artist cannot be empty"));
+                var ex = this.Throw<ArgumentNullException>(() => Player.ServiceAlbumArtCache.Flush("album", string.Empty));
+                this.True(ex.Message.Contains("Parameter artist cannot be empty"));
                 return ActionResultType.OK;
             });
         }
@@ -35,7 +36,7 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
             ExecuteInMainThread(() =>
             {
                 var res = Player.ServiceAlbumArtCache.Flush("album", "artist");
-                Assert.AreEqual(ActionResultType.OK, res.ResultType);
+                this.AreEqual(ActionResultType.OK, res.ResultType);
                 return ActionResultType.OK;
             });
         }
@@ -45,8 +46,8 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
         {
             ExecuteInMainThread(() =>
             {
-                var ex = Assert.Throws<ArgumentNullException>(() => Player.ServiceAlbumArtCache.Flush2(string.Empty));
-                Assert.True(ex.Message.Contains("Parameter fileUri cannot be empty"));
+                var ex = this.Throw<ArgumentNullException>(() => Player.ServiceAlbumArtCache.Flush2(string.Empty));
+                this.True(ex.Message.Contains("Parameter fileUri cannot be empty"));
                 return ActionResultType.OK;
             });
         }
@@ -57,8 +58,8 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
             ExecuteInMainThread(() =>
             {
                 var res = Player.ServiceAlbumArtCache.Flush2("some_uri");
-                Assert.AreEqual(ActionResultType.OK, res.ResultType);
-                return ActionResultType.OK;
+                this.AreEqual(ActionResultType.OK, res.ResultType);
+                return res.ResultType;
             });
         }
 
@@ -68,8 +69,8 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
             ExecuteInMainThread(() =>
             {
                 var res = Player.ServiceAlbumArtCache.FlushAll();
-                Assert.AreEqual(ActionResultType.OK, res.ResultType);
-                return ActionResultType.OK;
+                this.AreEqual(ActionResultType.OK, res.ResultType);
+                return res.ResultType;
             });
         }
     }

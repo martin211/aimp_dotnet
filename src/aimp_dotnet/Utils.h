@@ -37,3 +37,15 @@ internal:
         return AIMP::SDK::ActionResultType::OK;
     }
 };
+
+private ref class Assert
+{
+internal:
+    static void NotNull(System::String^ value, System::String^ field)
+    {
+        if (System::String::IsNullOrEmpty(value))
+        {
+            ARGUMENT_NULL(field, "")
+        }
+    }
+};
