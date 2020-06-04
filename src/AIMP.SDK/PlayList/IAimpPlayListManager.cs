@@ -63,31 +63,29 @@ namespace AIMP.SDK.Playlist
         /// </summary>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
         /// <returns>The <see cref="ActionResultType"/>result.</returns>
-        ActionResultType GetPlayablePlaylist(out IAimpPlaylist playList);
+        AimpActionResult<IAimpPlaylist> GetPlayablePlaylist();
 
         /// <summary>
-        /// Gets the loaded playlist.
+        /// Gets the loaded playlist by index.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns>The <see cref="ActionResultType"/>result.</returns>
-        ActionResultType GetLoadedPlaylist(int index, out IAimpPlaylist playList);
+        /// <returns>The <see cref="IAimpPlaylist"/>result.</returns>
+        AimpActionResult<IAimpPlaylist> GetLoadedPlaylist(int index);
 
         /// <summary>
         /// Gets the loaded playlist by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns>The <see cref="ActionResultType"/>result.</returns>
-        ActionResultType GetLoadedPlaylistById(string id, out IAimpPlaylist playList);
+        /// <returns>The <see cref="IAimpPlaylist"/>result.</returns>
+        AimpActionResult<IAimpPlaylist> GetLoadedPlaylistById(string id);
 
         /// <summary>
         /// Gets the loaded playlist by name.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <param name="playList">The playlist <see cref="IAimpPlaylist"/>.</param>
-        /// <returns>The <see cref="ActionResultType"/>result.</returns>
-        ActionResultType GetLoadedPlaylistByName(string name, out IAimpPlaylist playList);
+        /// <returns>The <see cref="AimpActionResult"/>result.</returns>
+        AimpActionResult<IAimpPlaylist> GetLoadedPlaylistByName(string name);
 
         /// <summary>
         /// Gets the loaded playlist count.

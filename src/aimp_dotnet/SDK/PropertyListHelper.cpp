@@ -12,81 +12,77 @@
 #include "Stdafx.h"
 #include "PropertyListHelper.h"
 
+
+#define VALIDATE_RESULT(result, message) { if (result != ActionResultType::OK) { ACTION_ERROR2(result, message) } }
+
+
 using namespace AIMP::SDK;
 
-ActionResultType PropertyListExtension::SetObject(IAIMPPropertyList* propertyList, int propertyId, IUnknown* value)
+void PropertyListExtension::SetObject(IAIMPPropertyList* propertyList, int propertyId, IUnknown* value)
 {
-    return Utils::CheckResult(propertyList->SetValueAsObject(propertyId, value));
+    const auto result = Utils::CheckResult(propertyList->SetValueAsObject(propertyId, value));
+    VALIDATE_RESULT(result, "Unable to set Object property.")
 }
 
-ActionResultType PropertyListExtension::SetString(IAIMPPropertyList* propertyList, int propertyId, String^ value)
+void PropertyListExtension::SetString(IAIMPPropertyList* propertyList, int propertyId, String^ value)
 {
-    // No need to process empty value
-    if (String::IsNullOrWhiteSpace(value))
-    {
-        return ActionResultType::InvalidArguments;
-    }
+    Assert::NotNull(value, "value");
 
     IAIMPString* str = nullptr;
     try
     {
         str = AimpConverter::ToAimpString(value);
-        return SetObject(propertyList, propertyId, str);
+        SetObject(propertyList, propertyId, str);
     }
     finally
     {
         str->Release();
         str = nullptr;
     }
-
-    return ActionResultType::Unexpected;
 }
 
-ActionResultType PropertyListExtension::SetInt32(IAIMPPropertyList* propertyList, int propertyId, int value)
+void PropertyListExtension::SetInt32(IAIMPPropertyList* propertyList, int propertyId, int value)
 {
-    return Utils::CheckResult(propertyList->SetValueAsInt32(propertyId, value));
+    const auto result = Utils::CheckResult(propertyList->SetValueAsInt32(propertyId, value));
+
+    VALIDATE_RESULT(result, "Unable to set Int32 property.")
 }
 
-ActionResultType PropertyListExtension::SetInt64(IAIMPPropertyList* propertyList, int propertyId, Int64 value)
+void PropertyListExtension::SetInt64(IAIMPPropertyList* propertyList, int propertyId, Int64 value)
 {
-    return Utils::CheckResult(propertyList->SetValueAsInt64(propertyId, value));
+    const auto result = Utils::CheckResult(propertyList->SetValueAsInt64(propertyId, value));
+
+    VALIDATE_RESULT(result, "Unable to set Int64 property.")
 }
 
-ActionResultType PropertyListExtension::SetFloat(IAIMPPropertyList* propertyList, int propertyId, double value)
+void PropertyListExtension::SetFloat(IAIMPPropertyList* propertyList, int propertyId, double value)
 {
-    return Utils::CheckResult(propertyList->SetValueAsFloat(propertyId, value));
+    const auto result = Utils::CheckResult(propertyList->SetValueAsFloat(propertyId, value));
+
+    VALIDATE_RESULT(result, "Unable to set Float property.")
 }
 
-ActionResultType PropertyListExtension::SetBool(IAIMPPropertyList* propertyList, int propertyId, bool value)
+void PropertyListExtension::SetBool(IAIMPPropertyList* propertyList, int propertyId, bool value)
 {
-    return SetInt32(propertyList, propertyId, value ? 1 : 0);
+    SetInt32(propertyList, propertyId, value ? 1 : 0);
 }
 
-ActionResultType PropertyListExtension::GetString(IAIMPPropertyList* propertyList, int propertyId, String^% value)
+void PropertyListExtension::GetString(IAIMPPropertyList* propertyList, int propertyId, String^% value)
 {
     IAIMPString* str = nullptr;
     String^ val = String::Empty;
 
     try
     {
-        ActionResultType result = Utils::CheckResult(
-            propertyList->GetValueAsObject(propertyId, IID_IAIMPString, reinterpret_cast<void**>(&str)));
-        if (result != ActionResultType::OK)
-        {
-            value = String::Empty;
-            return result;
-        }
+        const auto result = Utils::CheckResult(propertyList->GetValueAsObject(propertyId, IID_IAIMPString, reinterpret_cast<void**>(&str)));
+
+        VALIDATE_RESULT(result, "Unable to get string property.")
 
         if (str != nullptr)
         {
-            result = GetString(str, val);
+            GetString(str, val);
             value = val;
-            return result;
         }
-    }
-    catch (Exception^ ex)
-    {
-        return ActionResultType::Fail;
     }
     finally
     {
@@ -96,27 +92,25 @@ ActionResultType PropertyListExtension::GetString(IAIMPPropertyList* propertyLis
             str = nullptr;
         }
     }
-
-    return ActionResultType::Unexpected;
 }
 
-ActionResultType PropertyListExtension::GetString(IAIMPString* aimpString, String^% value)
+void PropertyListExtension::GetString(IAIMPString* aimpString, String^% value)
 {
     value = gcnew String(aimpString->GetData());
-    return ActionResultType::OK;
 }
 
-ActionResultType PropertyListExtension::GetObject(IAIMPPropertyList* propertyList, int propertyId, REFIID objectId,
-                                                  void** value)
+ActionResultType PropertyListExtension::GetObject(IAIMPPropertyList* propertyList, int propertyId, REFIID objectId, void** value)
 {
-    ActionResultType result = Utils::CheckResult(propertyList->GetValueAsObject(propertyId, objectId, value));
+    const auto result = Utils::CheckResult(propertyList->GetValueAsObject(propertyId, objectId, value));
+    VALIDATE_RESULT(result, "Unable to get a object property.")
     return result;
 }
 
 ActionResultType PropertyListExtension::GetInt32(IAIMPPropertyList* propertyList, int propertyId, int% value)
 {
     int val = 0;
-    ActionResultType result = Utils::CheckResult(propertyList->GetValueAsInt32(propertyId, &val));
+    const auto result = Utils::CheckResult(propertyList->GetValueAsInt32(propertyId, &val));
+    VALIDATE_RESULT(result, "Unable to get a Int32 property.")
     value = val;
     return result;
 }
@@ -124,7 +118,8 @@ ActionResultType PropertyListExtension::GetInt32(IAIMPPropertyList* propertyList
 ActionResultType PropertyListExtension::GetInt64(IAIMPPropertyList* propertyList, int propertyId, Int64% value)
 {
     Int64 val = 0;
-    ActionResultType result = Utils::CheckResult(propertyList->GetValueAsInt64(propertyId, &val));
+    const auto result = Utils::CheckResult(propertyList->GetValueAsInt64(propertyId, &val));
+    VALIDATE_RESULT(result, "Unable to get a Int64 property.")
     value = val;
     return result;
 }
@@ -132,7 +127,8 @@ ActionResultType PropertyListExtension::GetInt64(IAIMPPropertyList* propertyList
 ActionResultType PropertyListExtension::GetFloat(IAIMPPropertyList* propertyList, int propertyId, double% value)
 {
     double val = 0;
-    ActionResultType result = Utils::CheckResult(propertyList->GetValueAsFloat(propertyId, &val));
+    const auto result = Utils::CheckResult(propertyList->GetValueAsFloat(propertyId, &val));
+    VALIDATE_RESULT(result, "Unable to get a Float property.")
     value = val;
     return result;
 }
@@ -140,7 +136,8 @@ ActionResultType PropertyListExtension::GetFloat(IAIMPPropertyList* propertyList
 ActionResultType PropertyListExtension::GetBool(IAIMPPropertyList* propertyList, int propertyId, bool% value)
 {
     int val = 0;
-    ActionResultType result = Utils::CheckResult(propertyList->GetValueAsInt32(propertyId, &val));
+    const auto result = Utils::CheckResult(propertyList->GetValueAsInt32(propertyId, &val));
+    VALIDATE_RESULT(result, "Unable to get a Bool property.")
     value = val > 0;
     return result;
 }
@@ -148,62 +145,43 @@ ActionResultType PropertyListExtension::GetBool(IAIMPPropertyList* propertyList,
 String^ PropertyListExtension::GetString(IAIMPPropertyList* propertyList, int propertyId)
 {
     String^ val = String::Empty;
-    if (GetString(propertyList, propertyId, *&val) == ActionResultType::OK)
-    {
-        return val;
-    }
-
+    GetString(propertyList, propertyId, *&val);
     return val;
 }
 
 int PropertyListExtension::GetInt32(IAIMPPropertyList* propertyList, int propertyId)
 {
     int val = 0;
-    if (GetInt32(propertyList, propertyId, val) == ActionResultType::OK)
-    {
-        return val;
-    }
-
-    return 0;
+    GetInt32(propertyList, propertyId, val);
+    return val;
 }
 
 Int64 PropertyListExtension::GetInt64(IAIMPPropertyList* propertyList, int propertyId)
 {
-    Int64 val;
-    if (GetInt64(propertyList, propertyId, val) == ActionResultType::OK)
-    {
-        return val;
-    }
-
-    return 0;
+    Int64 val = 0;
+    GetInt64(propertyList, propertyId, val);
+    return val;
 }
 
 double PropertyListExtension::GetFloat(IAIMPPropertyList* propertyList, int propertyId)
 {
-    double val;
-    if (GetFloat(propertyList, propertyId, val) == ActionResultType::OK)
-    {
-        return val;
-    }
-
-    return 0;
+    double val = 0;
+    GetFloat(propertyList, propertyId, val);
+    return val;
 }
 
 bool PropertyListExtension::GetBool(IAIMPPropertyList* propertyList, int propertyId)
 {
     bool val = false;
-    if (GetBool(propertyList, propertyId, val) == ActionResultType::OK)
-    {
-        return val;
-    }
-
-    return false;
+    GetBool(propertyList, propertyId, val);
+    return val;
 }
 
 ActionResultType PropertyListExtension::GetVariant(IAIMPPropertyList2* propertyList, int propertyId, Object^% value)
 {
     VARIANT* val = nullptr;
-    ActionResultType result = Utils::CheckResult(propertyList->GetValueAsVariant(propertyId, val));
+    const auto result = Utils::CheckResult(propertyList->GetValueAsVariant(propertyId, val));
+    VALIDATE_RESULT(result, "Unable to get a Variant property.")
     value = AimpConverter::FromVaiant(val);
     return result;
 }

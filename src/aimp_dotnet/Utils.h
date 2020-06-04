@@ -16,8 +16,6 @@ public ref class Utils
 internal:
     static AIMP::SDK::ActionResultType CheckResult(HRESULT result)
     {
-        System::Diagnostics::Debug::WriteLineIf(result != S_OK, "CheckResult: " + result);
-
         switch (result)
         {
         case E_ACCESSDENIED:
@@ -45,7 +43,15 @@ internal:
     {
         if (System::String::IsNullOrEmpty(value))
         {
-            ARGUMENT_NULL(field, "")
+            ARGUMENT_NULL(field, field)
+        }
+    }
+
+    static void NotNull(System::Collections::IEnumerable^ value, System::String^ field)
+    {
+        if (value == nullptr || !value->GetEnumerator()->MoveNext())
+        {
+            ARGUMENT_NULL(field, field)
         }
     }
 };

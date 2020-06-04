@@ -21,17 +21,17 @@ namespace AIMP
         public ref class PropertyListExtension sealed
         {
         public:
-            static ActionResultType SetObject(IAIMPPropertyList* propertyList, int propertyId, IUnknown* value);
+            static void SetObject(IAIMPPropertyList* propertyList, int propertyId, IUnknown* value);
 
-            static ActionResultType SetString(IAIMPPropertyList* propertyList, int propertyId, String^ value);
+            static void SetString(IAIMPPropertyList* propertyList, int propertyId, String^ value);
 
-            static ActionResultType SetInt32(IAIMPPropertyList* propertyList, int propertyId, int value);
+            static void SetInt32(IAIMPPropertyList* propertyList, int propertyId, int value);
 
-            static ActionResultType SetInt64(IAIMPPropertyList* propertyList, int propertyId, Int64 value);
+            static void SetInt64(IAIMPPropertyList* propertyList, int propertyId, Int64 value);
 
-            static ActionResultType SetFloat(IAIMPPropertyList* propertyList, int propertyId, double value);
+            static void SetFloat(IAIMPPropertyList* propertyList, int propertyId, double value);
 
-            static ActionResultType SetBool(IAIMPPropertyList* propertyList, int propertyId, bool value);
+            static void SetBool(IAIMPPropertyList* propertyList, int propertyId, bool value);
 
             static String^ GetString(IAIMPPropertyList* propertyList, int propertyId);
 
@@ -43,9 +43,9 @@ namespace AIMP
 
             static bool GetBool(IAIMPPropertyList* propertyList, int propertyId);
 
-            static ActionResultType GetString(IAIMPPropertyList* propertyList, int propertyId, String^% value);
+            static void GetString(IAIMPPropertyList* propertyList, int propertyId, String^% value);
 
-            static ActionResultType GetString(IAIMPString* aimpString, String^% value);
+            static void GetString(IAIMPString* aimpString, String^% value);
 
             static ActionResultType GetObject(IAIMPPropertyList* propertyList, int propertyId, REFIID objectId,
                                               void** value);

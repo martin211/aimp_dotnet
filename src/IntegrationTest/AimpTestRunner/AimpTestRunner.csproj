@@ -98,6 +98,7 @@
     <Compile Include="UnitTests\AlbumArtManager\AimpServiceAlbumArtCacheTests.cs" />
     <Compile Include="UnitTests\Player\AimpPlayerTests.cs" />
     <Compile Include="UnitTests\Playlist\AimpPlaylistManagerTests.cs" />
+    <Compile Include="UnitTests\Playlist\AimpPlaylistTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AIMP.SDK\AIMP.SDK.csproj">

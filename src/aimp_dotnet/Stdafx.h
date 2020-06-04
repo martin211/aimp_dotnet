@@ -36,6 +36,7 @@ typedef AimpActionResult<Playlist::IAimpPlaylist^>^ PlaylistResult;
 #define ARGUMENT_NULL(name, message) throw gcnew System::ArgumentNullException(name, message);
 #define ACTION_ERROR2(result, message) throw gcnew AimpActionException(result, message);
 #define ACTION_ERROR(result) throw gcnew AimpActionException(result);
+#define NULL_REFERENCE() throw gcnew System::NullReferenceException();
 
 
 //-V122_NOPTR

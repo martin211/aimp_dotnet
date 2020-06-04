@@ -98,7 +98,7 @@ namespace DemoPlugin
 
         private void toolStripMenuItem1_Click(object sender, System.EventArgs e)
         {
-            _playList.Delete(PlaylistDeleteFlags.AIMP_PLAYLIST_DELETE_FLAGS_PHYSICALLY, "test", FilterFunc);
+            _playList.Delete(PlaylistDeleteFlags.Physically, "test", FilterFunc);
         }
 
         private bool FilterFunc(IAimpPlaylistItem aimpPlaylistItem, object o)

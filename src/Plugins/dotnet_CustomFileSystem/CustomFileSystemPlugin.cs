@@ -49,7 +49,7 @@ namespace AIMP.SDK.CustomFileSystem
             {
                 if (Player.PlaylistManager.GetActivePlaylist(out var activePl) == ActionResultType.OK)
                 {
-                    activePl.AddList(filesToPlaylist, Playlist.PlaylistFlags.NOCHECKFORMAT, Playlist.PlaylistFilePosition.EndPosition);
+                    activePl.AddList(filesToPlaylist, Playlist.PlaylistFlags.NoCheckFormat, Playlist.PlaylistFilePosition.EndPosition);
                 }
             }
         }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq.Expressions;
 using AIMP.SDK;
+using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.Player;
 using AIMP.SDK.Threading;
 using NUnit.Framework;
@@ -21,7 +23,8 @@ namespace Aimp.TestRunner.UnitTests
             string fieldName = null,
             string message = null)
         {
-            testClass.Asserts.Add(new EqualAssert(fieldName, current, expected, message));
+            var assert = new EqualAssert(fieldName, current, expected, message);
+            testClass.Asserts.Add(assert);
         }
 
         public static void NotNull<TResult>(this AimpIntegrationTest testClass, Expression<Func<TResult>> current, string message = null)
@@ -62,6 +65,11 @@ namespace Aimp.TestRunner.UnitTests
             return (TException) assert.CatchedException;
         }
 
+        public static void Null<TResult>(this AimpIntegrationTest testClass, Expression<Func<TResult>> current)
+        {
+            testClass.Asserts.Add(new NullAssert(current.GetExpressionMemberName(), current.GetExpressionValue(), null));
+        }
+
         private static string GetExpressionMemberName<TResult>(this Expression<Func<TResult>> expression)
         {
             string memberName = string.Empty;
@@ -90,7 +98,15 @@ namespace Aimp.TestRunner.UnitTests
         private static object GetExpressionValue<TResult>(this Expression<Func<TResult>> expression)
         {
             var valueGetter = expression.Compile();
-            return valueGetter();
+            try
+            {
+                return valueGetter();
+            }
+            catch (Exception ex)
+            {
+                TestContext.Error.WriteLine(ex.ToString());
+                return default;
+            }
         }
     }
 
@@ -123,7 +139,7 @@ namespace Aimp.TestRunner.UnitTests
 
         protected MemberAssert(string name, TValue value, string message)
         {
-            FieldName = name;
+            FieldName = name ?? "Field";
             Value = value;
             Message = message;
         }
@@ -140,6 +156,18 @@ namespace Aimp.TestRunner.UnitTests
         public override void Validate()
         {
             Assert.NotNull(Value, FieldName);
+        }
+    }
+
+    public class NullAssert : MemberAssert
+    {
+        public NullAssert(string name, object value, string message) : base(name, value, message)
+        {
+        }
+
+        public override void Validate()
+        {
+            Assert.Null(Value, FieldName);
         }
     }
 
@@ -215,6 +243,18 @@ namespace Aimp.TestRunner.UnitTests
 
     public abstract class AimpIntegrationTest
     {
+        internal string RootPath { get; }
+
+        internal string PlaylistPath { get; }
+
+        internal string TrackPath1 { get; }
+
+        internal string TrackPath2 { get; }
+
+        internal string TrackPath3 { get; }
+
+        internal string TrackPath4 { get; }
+
         internal IList<AimpAssert> Asserts { get; set; }
 
         protected IAimpPlayer Player { get; }
@@ -222,6 +262,12 @@ namespace Aimp.TestRunner.UnitTests
         protected AimpIntegrationTest()
         {
             Player = AimpTestContext.Instance.AimpPlayer;
+            RootPath = Path.Combine(Player.Core.GetPath(AimpCorePathType.AIMP_CORE_PATH_PLUGINS), "AimpTestRunner");
+            PlaylistPath = Path.Combine(RootPath, "resources", "IntegrationTests.aimppl4");
+            TrackPath1 = Path.Combine(RootPath, "resources", "01_atmosphere.mp3");
+            TrackPath2 = Path.Combine(RootPath, "resources", "02_loop-mix.mp3");
+            TrackPath3 = Path.Combine(RootPath, "resources", "03_atmosphere.mp3");
+            TrackPath4 = Path.Combine(RootPath, "resources", "04_loop-mix.mp3");
         }
 
         [OneTimeSetUp]

@@ -206,9 +206,9 @@ PlaylistResult AimpServicePlaylistManager::GetActivePlaylist()
     return gcnew AimpActionResult<IAimpPlaylist^>(res, playList);
 }
 
-ActionResultType AimpServicePlaylistManager::GetLoadedPlaylist(int index, IAimpPlaylist^% playList)
+PlaylistResult AimpServicePlaylistManager::GetLoadedPlaylist(int index)
 {
-    playList = nullptr;
+    IAimpPlaylist^ playList = nullptr;
     IAIMPPlaylist* pl = nullptr;
     IAIMPServicePlaylistManager2* service = GetAimpService();
     ActionResultType res = ActionResultType::Fail;
@@ -229,12 +229,12 @@ ActionResultType AimpServicePlaylistManager::GetLoadedPlaylist(int index, IAimpP
         ReleaseObject(service);
     }
 
-    return res;
+    return gcnew AimpActionResult<IAimpPlaylist^>(res, playList);
 }
 
-ActionResultType AimpServicePlaylistManager::GetPlayablePlaylist(IAimpPlaylist^% playList)
+PlaylistResult AimpServicePlaylistManager::GetPlayablePlaylist()
 {
-    playList = nullptr;
+    IAimpPlaylist^ playList = nullptr;
     IAIMPPlaylist* pl = nullptr;
     IAIMPServicePlaylistManager2* service = GetAimpService();
     ActionResultType res = ActionResultType::Fail;
@@ -255,12 +255,12 @@ ActionResultType AimpServicePlaylistManager::GetPlayablePlaylist(IAimpPlaylist^%
         ReleaseObject(service);
     }
 
-    return res;
+    return gcnew AimpActionResult<IAimpPlaylist^>(res, playList);
 }
 
-ActionResultType AimpServicePlaylistManager::GetLoadedPlaylistById(System::String^ id, IAimpPlaylist^% playList)
+PlaylistResult AimpServicePlaylistManager::GetLoadedPlaylistById(System::String^ id)
 {
-    playList = nullptr;
+    IAimpPlaylist^ playList = nullptr;
     IAIMPPlaylist* pl = nullptr;
     IAIMPString* key = nullptr;
     IAIMPServicePlaylistManager2* service = GetAimpService();
@@ -284,15 +284,15 @@ ActionResultType AimpServicePlaylistManager::GetLoadedPlaylistById(System::Strin
         ReleaseObject(service);
     }
 
-    return res;
+    return gcnew AimpActionResult<IAimpPlaylist^>(res, playList);
 }
 
-ActionResultType AimpServicePlaylistManager::GetLoadedPlaylistByName(String^ name, IAimpPlaylist^% playList)
+PlaylistResult AimpServicePlaylistManager::GetLoadedPlaylistByName(String^ name)
 {
-    playList = nullptr;
+    IAimpPlaylist^ playList = nullptr;
     IAIMPPlaylist* pl = nullptr;
     IAIMPString* key = nullptr;
-    IAIMPServicePlaylistManager2* service = nullptr;
+    IAIMPServicePlaylistManager2* service = GetAimpService();
     ActionResultType res = ActionResultType::Fail;
 
     try
@@ -314,7 +314,7 @@ ActionResultType AimpServicePlaylistManager::GetLoadedPlaylistByName(String^ nam
         ReleaseObject(service);
     }
 
-    return res;
+    return gcnew AimpActionResult<IAimpPlaylist^>(res, playList);
 }
 
 int AimpServicePlaylistManager::GetLoadedPlaylistCount()

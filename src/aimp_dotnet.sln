@@ -36,11 +36,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet_musiclibrary", "Plug
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{E560656D-14CC-48E6-A94E-9992D99B5BA0}"
 	ProjectSection(SolutionItems) = preProject
-		..\.travis.yml = ..\.travis.yml
 		..\AimpSDK.nuspec = ..\AimpSDK.nuspec
 		..\AimpSDK.sources.nuspec = ..\AimpSDK.sources.nuspec
 		..\AimpSDK.symbols.nuspec = ..\AimpSDK.symbols.nuspec
-		CopyPlugin.cmd = CopyPlugin.cmd
+		..\tools\CopyPlugin.ps1 = ..\tools\CopyPlugin.ps1
 		..\GitVersion.yml = ..\GitVersion.yml
 	EndProjectSection
 EndProject

@@ -118,10 +118,16 @@ namespace AIMP
                 void set(bool value);
             }
 
-            virtual property Object^ FocusedObject
+            virtual property IAimpPlaylistItem^ FocusedItem
             {
-                Object^ get();
-                void set(Object^ value);
+                IAimpPlaylistItem^ get();
+                void set(IAimpPlaylistItem^ value);
+            }
+
+            virtual property IAimpPlaylistGroup^ FocusedGroup
+            {
+                IAimpPlaylistGroup^ get();
+                void set(IAimpPlaylistGroup^ value);
             }
 
             virtual property bool GroupingOverridden
@@ -148,7 +154,7 @@ namespace AIMP
                 void set(String^ value);
             }
 
-            virtual property bool FormatingOverride
+            virtual property bool FormattingOverride
             {
                 bool get();
                 void set(bool value);
@@ -261,49 +267,47 @@ namespace AIMP
             virtual void OnScanningEnd(bool hasChanges, bool canceled);
 
         public:
-            virtual ActionResultType Add(IAimpFileInfo^ fileInfo, PlaylistFlags flags,
+            virtual VoidResult Add(IAimpFileInfo^ fileInfo, PlaylistFlags flags,
                                          PlaylistFilePosition filePosition);
 
-            virtual ActionResultType Add(System::String^ fileUrl, PlaylistFlags flags,
+            virtual VoidResult Add(String^ fileUrl, PlaylistFlags flags,
                                          PlaylistFilePosition filePosition);
 
-            virtual ActionResultType AddList(System::Collections::Generic::IList<IAimpFileInfo^>^ fileUrlList,
+            virtual VoidResult AddList(Generic::IList<IAimpFileInfo^>^ fileUrlList,
                                              PlaylistFlags flags, PlaylistFilePosition filePosition);
 
-            virtual ActionResultType AddList(System::Collections::Generic::IList<System::String^>^ fileUrlList,
-                                             PlaylistFlags flags, PlaylistFilePosition filePosition);
+            virtual VoidResult AddList(Generic::IList<String^>^ fileUrlList, PlaylistFlags flags, PlaylistFilePosition filePosition);
 
-            virtual ActionResultType Delete(IAimpPlaylistItem^ item);
+            virtual VoidResult Delete(IAimpPlaylistItem^ item);
 
-            virtual ActionResultType Delete(int index);
+            virtual VoidResult Delete(int index);
 
-            virtual ActionResultType DeleteAll();
+            virtual VoidResult DeleteAll();
 
-            virtual ActionResultType Delete(PlaylistDeleteFlags deleteFlags, System::Object^ customFilterData,
+            virtual VoidResult Delete(PlaylistDeleteFlags deleteFlags, System::Object^ customFilterData,
                                             System::Func<IAimpPlaylistItem^, System::Object^, bool>^ filterFunc);
 
-            virtual ActionResultType Sort(PlaylistSort sort);
+            virtual VoidResult Sort(PlaylistSort sort);
 
-            virtual ActionResultType Sort(Object^ customSortData,
+            virtual VoidResult Sort(Object^ customSortData,
                                           Func<IAimpPlaylistItem^, IAimpPlaylistItem^, Object^,
                                                PlaylistSortComapreResult>^ compareFunc);
 
-            virtual ActionResultType Sort(String^ templateString);
+            virtual VoidResult Sort(String^ templateString);
 
-            virtual ActionResultType BeginUpdate();
+            virtual VoidResult BeginUpdate();
 
-            virtual ActionResultType EndUpdate();
+            virtual VoidResult EndUpdate();
 
-            virtual ActionResultType Close(PlaylistCloseFlag closeFlag);
+            virtual VoidResult Close(PlaylistCloseFlag closeFlag);
 
-            virtual ActionResultType GetFiles(PlaylistGetFilesFlag filesFlag,
-                                              System::Collections::Generic::IList<String^>^% files);
+            virtual AimpActionResult<Generic::IList<String^>^>^ GetFiles(PlaylistGetFilesFlag filesFlag);
 
             virtual ActionResultType ReloadFromPreimage();
 
             virtual ActionResultType ReloadInfo(bool fullReload);
 
-            virtual IAimpPlaylistItem^ GetItem(int index);
+            virtual AimpActionResult<IAimpPlaylistItem^>^ GetItem(int index);
 
             virtual int GetItemCount();
 

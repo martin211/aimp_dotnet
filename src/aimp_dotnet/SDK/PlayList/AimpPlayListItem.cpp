@@ -30,7 +30,7 @@ AimpPlaylistItem::~AimpPlaylistItem()
 
 AimpPlaylistItem::!AimpPlaylistItem()
 {
-    InternalAimpObject->Release();
+    //InternalAimpObject->Release();
 }
 
 AimpPlaylistItem::AimpPlaylistItem(IAimpPlaylistItem^ item)

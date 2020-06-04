@@ -67,13 +67,13 @@ namespace AIMP
 
             virtual PlaylistResult GetActivePlaylist();
 
-            virtual ActionResultType GetLoadedPlaylist(int index, IAimpPlaylist^% playList);
+            virtual PlaylistResult GetLoadedPlaylist(int index);
 
-            virtual ActionResultType GetPlayablePlaylist(IAimpPlaylist^% playList);
+            virtual PlaylistResult GetPlayablePlaylist();
 
-            virtual ActionResultType GetLoadedPlaylistById(String^ id, IAimpPlaylist^% playList);
+            virtual PlaylistResult GetLoadedPlaylistById(String^ id);
 
-            virtual ActionResultType GetLoadedPlaylistByName(String^ name, IAimpPlaylist^% playList);
+            virtual PlaylistResult GetLoadedPlaylistByName(String^ name);
 
             virtual int GetLoadedPlaylistCount();
 

@@ -47,11 +47,7 @@ String^ AimpAction::Name::get()
 
 void AimpAction::Name::set(String^ value)
 {
-    const auto res = PropertyListExtension::SetString(InternalAimpObject, AIMP_ACTION_PROPID_NAME, value);
-    if (res != ActionResultType::OK)
-    {
-        throw gcnew System::ApplicationException("Unable set data");
-    }
+    PropertyListExtension::SetString(InternalAimpObject, AIMP_ACTION_PROPID_NAME, value);
 }
 
 String^ AimpAction::GroupName::get()

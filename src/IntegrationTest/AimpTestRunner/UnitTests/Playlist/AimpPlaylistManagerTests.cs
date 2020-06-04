@@ -95,15 +95,12 @@ namespace Aimp.TestRunner.UnitTests.Playlist
             });
         }
 
-
         [Test(Description = "Should create a playlist from file. It should not be active.")]
         public void CreatePlaylistFromFile_FileNameNotEmptyAndNotActive_ShouldCreatePlaylist()
         {
-            var pathToFile = Path.Combine(Player.Core.GetPath(AimpCorePathType.AIMP_CORE_PATH_PLUGINS), "AimpTestRunner", "TestPlaylist.aimppl4");
-
             ExecuteInMainThread(() =>
             {
-                var res = Player.PlaylistManager.CreatePlaylistFromFile(pathToFile, false);
+                var res = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, false);
 
                 this.AreEqual(ActionResultType.OK, res.ResultType);
                 this.NotNull(res.Result);
@@ -129,11 +126,9 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         [Test(Description = "Should create a playlist from file. It should be active.")]
         public void CreatePlaylistFromFile_FileNameNotEmptyAndIsActive_ShouldBeActive()
         {
-            var pathToFile = Path.Combine(Player.Core.GetPath(AimpCorePathType.AIMP_CORE_PATH_PLUGINS), "AimpTestRunner", "TestPlaylist.aimppl4");
-
             ExecuteInMainThread(() =>
             {
-                var result = Player.PlaylistManager.CreatePlaylistFromFile(pathToFile, true);
+                var result = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
 
                 if (result.ResultType != ActionResultType.OK)
                 {
@@ -182,17 +177,98 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
+                var oldCount = Player.PlaylistManager.GetLoadedPlaylistCount();
                 var result = Player.PlaylistManager.CreatePlaylist("New playlist", false);
 
                 this.AreEqual(ActionResultType.OK, result.ResultType);
                 this.NotNull(result.Result);
 
                 var count = Player.PlaylistManager.GetLoadedPlaylistCount();
-                this.AreEqual(2, count);
+                this.AreEqual(oldCount + 1, count);
 
                 result.Result.Close(PlaylistCloseFlag.ForceRemove);
 
                 return result.ResultType;
+            });
+        }
+
+        [Test]
+        public void GetPlayablePlaylist_ShouldReturnPlaylist()
+        {
+            ExecuteInMainThread(() =>
+            {
+                var result = Player.PlaylistManager.GetPlayablePlaylist();
+
+                this.AreEqual(ActionResultType.OK, result.ResultType);
+                this.NotNull(result.Result);
+
+                return result.ResultType;
+            });
+        }
+
+        [Test]
+        public void GetLoadedPlaylist_ShouldReturnPlaylist()
+        {
+            ExecuteInMainThread(() =>
+            {
+                var result = Player.PlaylistManager.GetLoadedPlaylist(0);
+                this.AreEqual(ActionResultType.OK, result.ResultType);
+                this.NotNull(result.Result);
+
+                return result.ResultType;
+            });
+        }
+
+        [Test(Description = "Should return InvalidArgument result")]
+        public void GetLoadedPlaylist_WrongIndex_InvalidArgument()
+        {
+            ExecuteInMainThread(() =>
+            {
+                var result = Player.PlaylistManager.GetLoadedPlaylist(100);
+                this.AreEqual(ActionResultType.InvalidArguments, () => result.ResultType);
+                this.Null(() => result.Result);
+
+                return result.ResultType;
+            });
+        }
+
+        [Test(Description = "Create a new playlist and get it by id.")]
+        public void GetLoadedPlaylistById_ShouldReturnPlaylist()
+        {
+            ExecuteInMainThread(() =>
+            {
+                var result = Player.PlaylistManager.CreatePlaylist(null, false);
+                this.AreEqual(ActionResultType.OK, result.ResultType);
+                this.NotNull(result.Result);
+
+                var getResult = Player.PlaylistManager.GetLoadedPlaylistById(result.Result.Id);
+                this.AreEqual(ActionResultType.OK, getResult.ResultType);
+                this.NotNull(getResult.Result);
+                this.AreEqual(result.Result.Id, getResult.Result.Id);
+
+                result.Result.Close(PlaylistCloseFlag.ForceRemove);
+
+                return getResult.ResultType;
+            });
+        }
+
+        [Test(Description = "Create a new playlist and get it by name")]
+        public void GetLoadedPlaylistByName_ShouldReturnPlaylist()
+        {
+            ExecuteInMainThread(() =>
+            {
+                var result = Player.PlaylistManager.CreatePlaylist("Get by name", false);
+                this.AreEqual(ActionResultType.OK, () => result.ResultType);
+                this.NotNull(result.Result);
+
+                var getResult = Player.PlaylistManager.GetLoadedPlaylistByName("Get by name");
+                this.AreEqual(ActionResultType.OK, () => getResult.ResultType);
+                this.NotNull(getResult.Result);
+                this.AreEqual(result.Result.Name, () => getResult.Result.Name);
+
+                result.Result.Close(PlaylistCloseFlag.ForceRemove);
+
+                return getResult.ResultType;
             });
         }
     }
