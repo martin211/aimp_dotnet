@@ -50,6 +50,6 @@ namespace AIMP.SDK.Playlist
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns></returns>
-        IAimpPlaylistItem GetItem(int index);
+        AimpActionResult<IAimpPlaylistItem> GetItem(int index);
     }
 }

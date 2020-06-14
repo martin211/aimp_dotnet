@@ -65,7 +65,7 @@ namespace AIMP
                 int get();
             }
 
-            virtual IAimpPlaylistItem^ GetItem(int index);
+            virtual AimpActionResult<IAimpPlaylistItem^>^ GetItem(int index);
         };
     }
 }

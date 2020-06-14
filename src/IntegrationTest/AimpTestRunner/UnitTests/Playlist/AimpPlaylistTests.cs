@@ -241,7 +241,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         }
 
         [Test]
-        public void FocusedItem_OK()
+        public void FocusedItem_ShouldReturnPlaylistItem()
         {
             ExecuteInMainThread(() =>
             {
@@ -254,9 +254,71 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
                 this.NotNull(item);
 
+                playlistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
 
                 return ActionResultType.OK;
             });
+        }
+
+        [Test, Ignore("Need investigation")]
+        public void FocusedGroup_ShouldReturnSelectedFocusedGroup()
+        {
+            ExecuteInMainThread(() =>
+            {
+                var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+                this.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
+                this.NotNull(playlistResult.Result, "playlistResult.Result");
+
+                playlistResult.Result.FocusIndex = 0;
+                var item = playlistResult.Result.FocusedGroup;
+
+                this.NotNull(item);
+
+                playlistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
+
+                return ActionResultType.OK;
+            });
+        }
+
+        [Test]
+        public void GetGroupCount_ShouldReturnGroupsCount()
+        {
+            ExecuteInMainThread(() =>
+            {
+                var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+                this.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
+                this.NotNull(playlistResult.Result, "playlistResult.Result");
+
+                var count = playlistResult.Result.GetGroupCount();
+
+                this.AreEqual(1, count);
+
+                return ActionResultType.OK;
+            });
+        }
+
+        [Test]
+        public void GetGroup_ShouldReturnGroup()
+        {
+            ExecuteInMainThread(() =>
+            {
+                var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+                this.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
+                this.NotNull(playlistResult.Result, "playlistResult.Result");
+
+                var group = playlistResult.Result.GetGroup(1);
+
+                this.AreEqual(ActionResultType.OK, group.ResultType);
+                this.NotNull(group.Result);
+
+                return group.ResultType;
+            });
+        }
+
+        [Test]
+        public void Group_ShouldReturnCorrectData()
+        {
+
         }
     }
 }

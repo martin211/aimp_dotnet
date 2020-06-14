@@ -1350,20 +1350,20 @@ ActionResultType AimpPlayList::MergeGroup(IAimpPlaylistGroup^ playlistGroup)
         InternalAimpObject->MergeGroup(dynamic_cast<AimpPlayListGroup^>(playlistGroup)->InternalAimpObject));
 }
 
-IAimpPlaylistGroup^ AimpPlayList::GetGroup(int index)
+AimpActionResult<IAimpPlaylistGroup^>^ AimpPlayList::GetGroup(int index)
 {
-    IAimpPlaylistGroup^ result = nullptr;
+    IAimpPlaylistGroup^ aimpGroup = nullptr;
     IAIMPPlaylistGroup* group = nullptr;
+    auto result = ActionResultType::Fail;
 
     try
     {
-        if (CheckResult(InternalAimpObject->GetGroup(index, IID_IAIMPPlaylistGroup, reinterpret_cast<void**>(&group)))
-            == ActionResultType::OK)
-        {
-            result = gcnew AimpPlayListGroup(group);
-        }
+        result = CheckResult(InternalAimpObject->GetGroup(index, IID_IAIMPPlaylistGroup, reinterpret_cast<void**>(&group)));
 
-        return nullptr;
+        if (result == ActionResultType::OK)
+        {
+            aimpGroup = gcnew AimpPlayListGroup(group);
+        }
     }
     finally
     {
@@ -1374,7 +1374,7 @@ IAimpPlaylistGroup^ AimpPlayList::GetGroup(int index)
         }
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpPlaylistGroup^>(result, aimpGroup);
 }
 
 int AimpPlayList::GetGroupCount()

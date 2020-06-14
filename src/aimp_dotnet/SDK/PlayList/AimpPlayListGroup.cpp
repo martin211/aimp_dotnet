@@ -70,16 +70,18 @@ int AimpPlayListGroup::Count::get()
     return InternalAimpObject->GetItemCount();
 }
 
-IAimpPlaylistItem^ AimpPlayListGroup::GetItem(int index)
+AimpActionResult<IAimpPlaylistItem^>^ AimpPlayListGroup::GetItem(int index)
 {
+    ActionResultType result = ActionResultType::Fail;
+
     if (_item == nullptr)
     {
         IAIMPPlaylistItem* item = nullptr;
-        InternalAimpObject->GetItem(index, IID_IAIMPPlaylistItem, reinterpret_cast<void**>(&item));
+        result = CheckResult(InternalAimpObject->GetItem(index, IID_IAIMPPlaylistItem, reinterpret_cast<void**>(&item)));
         _item = gcnew AimpPlaylistItem(item);
         item->Release();
         item = nullptr;
     }
 
-    return _item;
+    return gcnew AimpActionResult<IAimpPlaylistItem^>(result, _item);
 }

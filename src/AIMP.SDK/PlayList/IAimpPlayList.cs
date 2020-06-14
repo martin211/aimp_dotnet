@@ -510,7 +510,7 @@ namespace AIMP.SDK.Playlist
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns></returns>
-        IAimpPlaylistGroup GetGroup(int index);
+        AimpActionResult<IAimpPlaylistGroup> GetGroup(int index);
 
         /// <summary>
         /// Gets the group count.

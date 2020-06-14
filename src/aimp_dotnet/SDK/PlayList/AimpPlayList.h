@@ -311,7 +311,7 @@ namespace AIMP
 
             virtual int GetItemCount();
 
-            virtual IAimpPlaylistGroup^ GetGroup(int index);
+            virtual AimpActionResult<IAimpPlaylistGroup^>^ GetGroup(int index);
 
             virtual int GetGroupCount();
 

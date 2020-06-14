@@ -58,6 +58,7 @@ partial class Build : NukeBuild
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath OutputDirectory => RootDirectory / "output";
+    AbsolutePath TestOutput => RootDirectory / "tests";
     
     Target Clean => _ => _
         .Before(Restore)
