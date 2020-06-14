@@ -22,11 +22,13 @@ protected:
 public:
     AimpObject(TAimpObject *aimpObject) : _aimpObject(aimpObject)
     {
+        AimpMemoryManager::getInstance().AddObject(this->GetHashCode(), aimpObject);
     }
 
     !AimpObject()
     {
         FreeResources();
+        AimpMemoryManager::getInstance().Release(this->GetHashCode());
     }
 
     ~AimpObject()
@@ -34,7 +36,7 @@ public:
         this->!AimpObject();
     }
 protected:
-    AIMP::SDK::ActionResultType CheckResult(HRESULT result)
+    ActionResultType CheckResult(HRESULT result)
     {
         return Utils::CheckResult(result);
     }

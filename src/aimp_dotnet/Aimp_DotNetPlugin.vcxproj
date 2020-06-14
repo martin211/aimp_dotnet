@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AimpMemoryManager.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpServiceAlbumArtCache.cpp" />
     <ClCompile Include="SDK\FileManager\AimpServiceFileInfoFormatter.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandCopyToClipboard.cpp" />
@@ -117,6 +118,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AimpMemoryManager.h" />
     <ClInclude Include="SDK\AlbumArt\AimpServiceAlbumArtCache.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileInfoFormatter.h" />
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandCopyToClipboard.h" />

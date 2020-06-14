@@ -130,6 +130,7 @@ HRESULT WINAPI DotNetPlugin::Finalize()
 
     AIMP::SDK::CustomAssemblyResolver::Deinitialize();
     System::GC::Collect();
+    AimpMemoryManager::getInstance().ReleaseAll();
 
 #ifdef _DEBUG
     _CrtDumpMemoryLeaks();

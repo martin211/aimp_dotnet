@@ -11,6 +11,7 @@
 
 #pragma once
 
+#include "AimpMemoryManager.h"
 #include "AIMPSDK\AIMPSDK.h"
 #include "SDK\AimpConverter.h"
 #include "SDK\PropertyListHelper.h"

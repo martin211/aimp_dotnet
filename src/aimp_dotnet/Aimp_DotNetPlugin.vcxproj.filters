@@ -429,6 +429,9 @@
     <ClCompile Include="SDK\FileManager\AimpServiceFileInfoFormatter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AimpMemoryManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -838,6 +841,9 @@
     </ClInclude>
     <ClInclude Include="SDK\PlayList\Internal\InternalAimpPlaylistPreimage.h">
       <Filter>Header Files\SDK\PlayList</Filter>
+    </ClInclude>
+    <ClInclude Include="AimpMemoryManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
