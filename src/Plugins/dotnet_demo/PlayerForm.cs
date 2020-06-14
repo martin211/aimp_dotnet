@@ -214,9 +214,10 @@ namespace DemoPlugin
             var frm = new PlaylistEditor();
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
-                IAimpPlaylist playList;
-                if (_aimpPlayer.PlaylistManager.CreatePlaylist(frm.PlaylistName, true, out playList) == ActionResultType.OK)
+                var result = _aimpPlayer.PlaylistManager.CreatePlaylist(frm.PlaylistName, true);
+                if (result.ResultType == ActionResultType.OK)
                 {
+                    var playList = result.Result;
                     _playLists.Add(playList);
 
                     //CheckResult(playList.Add("http://xstream1.somafm.com:2800", PlaylistFlags.NOEXPAND, PlaylistFilePosition.EndPosition));
@@ -312,9 +313,10 @@ namespace DemoPlugin
             var count = _aimpPlayer.PlaylistManager.GetLoadedPlaylistCount();
             for (var i = 0; i < count; i++)
             {
-                if (_aimpPlayer.PlaylistManager.GetLoadedPlaylist(i, out var playlist) == ActionResultType.OK && _playLists.All(c => c.Id != playlist.Id))
+                var result = _aimpPlayer.PlaylistManager.GetLoadedPlaylist(i);
+                if (result.ResultType == ActionResultType.OK && _playLists.All(c => c.Id != result.Result.Id))
                 {
-                    AddPlayListTab(playlist.Id, playlist.Name, playlist);
+                    AddPlayListTab(result.Result.Id, result.Result.Name, result.Result);
                 }
             }
         }

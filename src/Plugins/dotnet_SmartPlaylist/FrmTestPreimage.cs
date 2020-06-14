@@ -45,9 +45,11 @@ namespace Aimp.DotNet.SmartPlaylist
             for (int i = 0; i < _manager.GetLoadedPlaylistCount(); i++)
             {
                 IAimpPlaylist pl;
-                if (_manager.GetLoadedPlaylist(i, out pl) == ActionResultType.OK)
+                var result = _manager.GetLoadedPlaylist(i);
+
+                if (result.ResultType == ActionResultType.OK)
                 {
-                    PlAdded(pl);
+                    PlAdded(result.Result);
                 }
             }
         }
@@ -102,8 +104,8 @@ namespace Aimp.DotNet.SmartPlaylist
             if (listView1.SelectedItems.Count > 0)
             {
                 var item = listView1.SelectedItems[0];
-                _manager.GetLoadedPlaylistById(item.Tag.ToString(), out var pl);
-                return pl;
+                var result = _manager.GetLoadedPlaylistById(item.Tag.ToString());
+                return result.Result;
             }
 
             return null;

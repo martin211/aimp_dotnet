@@ -57,30 +57,30 @@ namespace DemoPlugin
             for (var i = 0; i < count; i++)
             {
                 var item = _playList.GetItem(i);
-                if (item == null)
+                if (item.ResultType != ActionResultType.OK)
                 {
                     continue;
                 }
 
-                listView1.Items.Add(GetTrack(item));
+                listView1.Items.Add(GetTrack(item.Result));
             }
         }
 
         public void LoadTracks()
         {
-            IList<string> files;
-            if (Utils.CheckResult(_playList.GetFiles(PlaylistGetFilesFlag.All, out files)) == ActionResultType.OK)
+            var result = _playList.GetFiles(PlaylistGetFilesFlag.All);
+            if (result.ResultType == ActionResultType.OK)
             {
                 int count = _playList.GetItemCount();
                 for (var i = 0; i < count; i++)
                 {
                     var item = _playList.GetItem(i);
-                    if (item == null)
+                    if (item.ResultType != ActionResultType.OK)
                     {
                         continue;
                     }
 
-                    listView1.Items.Add(GetTrack(item));
+                    listView1.Items.Add(GetTrack(item.Result));
                 }
             }
         }
