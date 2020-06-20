@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO;
 using AIMP.SDK;
-using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.Playlist;
 using NUnit.Framework;
 

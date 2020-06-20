@@ -13,7 +13,7 @@
 
 public interface class IPlayListQueueEventExecutor
 {
-    void OnContentChanged();
+    virtual void OnContentChanged();
 
-    void OnStateChanged();
+    virtual void OnStateChanged();
 };

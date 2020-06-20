@@ -57,6 +57,11 @@ namespace Aimp.TestRunner.UnitTests
             testClass.Asserts.Add(new TrueAssert(null, value, null));
         }
 
+        public static void False(this AimpIntegrationTest testClass, bool value)
+        {
+            testClass.Asserts.Add(new FalseAssert(null, value, null));
+        }
+
         public static TException Throw<TException>(this AimpIntegrationTest testClass, TestDelegate action)
             where TException : Exception
         {
@@ -236,10 +241,22 @@ namespace Aimp.TestRunner.UnitTests
 
         public override void Validate()
         {
-            Assert.True(Value, "Expected 'true' but was 'false'");
+            Assert.True(Value, $"Expected 'true' but was '{Value}'");
         }
     }
 
+    public class FalseAssert : MemberAssert<bool>
+    {
+        public FalseAssert(string name, bool value, string message)
+            : base(name, value, message)
+        {
+        }
+
+        public override void Validate()
+        {
+            Assert.False(Value, $"Expected 'true' but was '{Value}'");
+        }
+    }
 
     public abstract class AimpIntegrationTest
     {

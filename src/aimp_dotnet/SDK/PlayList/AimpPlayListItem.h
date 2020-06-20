@@ -26,7 +26,6 @@ namespace AIMP
         private:
             IAimpPlaylistGroup^ _group;
             bool _disposed;
-
         internal:
             AimpPlaylistItem(IAIMPPlaylistItem* aimpItem) : AimpObject(aimpItem)
             {
@@ -35,10 +34,6 @@ namespace AIMP
             AimpPlaylistItem(IAimpPlaylistItem^ item);
         public:
             AimpPlaylistItem();
-
-            ~AimpPlaylistItem();
-
-            !AimpPlaylistItem();
 
             virtual property System::String^ DisplayText
             {
@@ -98,6 +93,11 @@ namespace AIMP
             }
 
             virtual ActionResultType ReloadInfo();
+
+        protected:
+            void RegisterAtMemoryManager() override;
+
+            void ReleaseFromMemoryManager() override;
         };
     }
 }

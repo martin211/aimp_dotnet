@@ -19,13 +19,9 @@ namespace AIMP
 
         public ref class AimpPlayListGroup : public AimpObject<IAIMPPlaylistGroup>, public IAimpPlaylistGroup
         {
-        private:
-            IAimpPlaylistItem^ _item;
-
         public:
             ~AimpPlayListGroup()
             {
-                _item = nullptr;
             }
 
             AimpPlayListGroup();
@@ -46,7 +42,6 @@ namespace AIMP
             virtual property double Duration
             {
                 double get();
-                void set(double value);
             }
 
             virtual property int Index

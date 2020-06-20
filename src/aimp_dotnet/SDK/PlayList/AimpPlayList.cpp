@@ -1356,22 +1356,11 @@ AimpActionResult<IAimpPlaylistGroup^>^ AimpPlayList::GetGroup(int index)
     IAIMPPlaylistGroup* group = nullptr;
     auto result = ActionResultType::Fail;
 
-    try
-    {
-        result = CheckResult(InternalAimpObject->GetGroup(index, IID_IAIMPPlaylistGroup, reinterpret_cast<void**>(&group)));
+    result = CheckResult(InternalAimpObject->GetGroup(index, IID_IAIMPPlaylistGroup, reinterpret_cast<void**>(&group)));
 
-        if (result == ActionResultType::OK)
-        {
-            aimpGroup = gcnew AimpPlayListGroup(group);
-        }
-    }
-    finally
+    if (result == ActionResultType::OK)
     {
-        if (group != nullptr)
-        {
-            group->Release();
-            group = nullptr;
-        }
+        aimpGroup = gcnew AimpPlayListGroup(group);
     }
 
     return gcnew AimpActionResult<IAimpPlaylistGroup^>(result, aimpGroup);

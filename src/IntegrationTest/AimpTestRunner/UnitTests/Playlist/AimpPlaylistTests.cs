@@ -109,14 +109,16 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
-                this.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
-                this.NotNull(playlistResult.Result, "playlistResult.Result");
+                ActionResultType result = ActionResultType.Fail;
+                var pl = CreatePlaylistFromFile(ref result, false);
 
-                var result = playlistResult.Result.Delete(-1);
-                this.AreEqual(ActionResultType.InvalidArguments, playlistResult.ResultType, "playlistResult.ResultType");
+                if (pl != null)
+                {
+                    result = pl.Delete(-1).ResultType;
+                    this.AreEqual(ActionResultType.InvalidArguments, result);
+                }
 
-                return result.ResultType;
+                return result;
             });
         }
 
@@ -143,16 +145,18 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
-                this.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
-                this.NotNull(playlistResult.Result, "playlistResult.Result");
+                ActionResultType result = ActionResultType.Fail;
+                var pl = CreatePlaylistFromFile(ref result);
 
-                var result = playlistResult.Result.DeleteAll();
-                this.AreEqual(ActionResultType.OK, result.ResultType, "result.ResultType");
+                if (pl != null)
+                {
+                    result = pl.DeleteAll().ResultType;
+                    this.AreEqual(ActionResultType.OK, result, "result");
 
-                playlistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
+                    pl.Close(PlaylistCloseFlag.ForceRemove);
+                }
 
-                return result.ResultType;
+                return result;
             });
         }
 
@@ -163,21 +167,23 @@ namespace Aimp.TestRunner.UnitTests.Playlist
             {
                 var executed = false;
 
-                var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
-                this.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
-                this.NotNull(playlistResult.Result, "playlistResult.Result");
+                ActionResultType result = ActionResultType.Fail;
+                var pl = CreatePlaylistFromFile(ref result);
 
-                playlistResult.Result.Delete(PlaylistDeleteFlags.None, "track", (item, o) =>
+                if (pl != null)
                 {
-                    executed = true;
-                    return false;
-                });
+                    result = pl.Delete(PlaylistDeleteFlags.None, "track", (item, o) =>
+                    {
+                        executed = true;
+                        return false;
+                    }).ResultType;
 
-                this.True(executed);
+                    this.True(executed);
 
-                playlistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
+                    pl.Close(PlaylistCloseFlag.ForceRemove);
+                }
 
-                return ActionResultType.OK;
+                return result;
             });
         }
 
@@ -186,18 +192,21 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
-                this.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
-                this.NotNull(playlistResult.Result, "playlistResult.Result");
+                ActionResultType result = ActionResultType.Fail;
+                var pl = CreatePlaylistFromFile(ref result);
 
-                var result = playlistResult.Result.GetFiles(PlaylistGetFilesFlag.All);
-                this.AreEqual(ActionResultType.OK, result.ResultType, "result.ResultType");
-                this.NotNull(result.Result);
-                this.AreEqual(4, result.Result.Count);
+                if (pl != null)
+                {
+                    var getFilesResult = pl.GetFiles(PlaylistGetFilesFlag.All);
+                    result = getFilesResult.ResultType;
+                    this.AreEqual(ActionResultType.OK, getFilesResult.ResultType, "result.ResultType");
+                    this.NotNull(getFilesResult.Result);
+                    this.AreEqual(4, getFilesResult.Result.Count);
 
-                playlistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
+                    pl.Close(PlaylistCloseFlag.ForceRemove);
+                }
 
-                return result.ResultType;
+                return result;
             });
         }
 
@@ -206,16 +215,19 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
-                this.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
-                this.NotNull(playlistResult.Result, "playlistResult.Result");
+                ActionResultType result = ActionResultType.Fail;
+                var pl = CreatePlaylistFromFile(ref result);
 
-                var result = playlistResult.Result.GetItemCount();
-                this.AreEqual(4, result);
+                if (pl != null)
+                {
 
-                playlistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
+                    var items = pl.GetItemCount();
+                    this.AreEqual(4, items);
 
-                return ActionResultType.OK;
+                    pl.Close(PlaylistCloseFlag.ForceRemove);
+                }
+
+                return result;
             });
         }
 
@@ -229,14 +241,16 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
-                this.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
-                this.NotNull(playlistResult.Result, "playlistResult.Result");
+                ActionResultType result = ActionResultType.Fail;
+                var pl = CreatePlaylistFromFile(ref result);
 
-                var result = playlistResult.Result.Sort(sort);
-                this.AreEqual(ActionResultType.OK, result.ResultType);
+                if (pl != null)
+                {
+                    result = pl.Sort(sort).ResultType;
+                    this.AreEqual(ActionResultType.OK, result);
+                }
 
-                return result.ResultType;
+                return result;
             });
         }
 
@@ -245,18 +259,19 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
-                this.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
-                this.NotNull(playlistResult.Result, "playlistResult.Result");
+                ActionResultType result = ActionResultType.Fail;
+                var pl = CreatePlaylistFromFile(ref result);
 
-                playlistResult.Result.FocusIndex = 1;
-                var item = playlistResult.Result.FocusedItem;
+                if (pl != null)
+                {
+                    pl.FocusIndex = 1;
+                    var item = pl.FocusedItem;
+                    this.NotNull(item);
 
-                this.NotNull(item);
+                    pl.Close(PlaylistCloseFlag.ForceRemove);
+                }
 
-                playlistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return ActionResultType.OK;
+                return result;
             });
         }
 
@@ -265,22 +280,24 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
-                this.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
-                this.NotNull(playlistResult.Result, "playlistResult.Result");
+                ActionResultType result = ActionResultType.Fail;
+                var pl = CreatePlaylistFromFile(ref result);
+                if (pl != null)
+                {
+                    pl.FocusIndex = 0;
+                    var item = pl.FocusedGroup;
 
-                playlistResult.Result.FocusIndex = 0;
-                var item = playlistResult.Result.FocusedGroup;
+                    this.NotNull(item);
 
-                this.NotNull(item);
+                    pl.Close(PlaylistCloseFlag.ForceRemove);
+                }
 
-                playlistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return ActionResultType.OK;
+                return result;
             });
         }
 
         [Test]
+        [Category("groups")]
         public void GetGroupCount_ShouldReturnGroupsCount()
         {
             ExecuteInMainThread(() =>
@@ -298,27 +315,138 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         }
 
         [Test]
+        [Category("groups")]
         public void GetGroup_ShouldReturnGroup()
         {
             ExecuteInMainThread(() =>
             {
-                var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
-                this.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
-                this.NotNull(playlistResult.Result, "playlistResult.Result");
+                ActionResultType result = ActionResultType.Fail;
+                var pl = CreatePlaylistFromFile(ref result);
+                if (pl != null)
+                {
+                    var group = GetGroup(pl, 0, ref result);
 
-                var group = playlistResult.Result.GetGroup(1);
+                    if (group != null)
+                    {
+                        this.True(group.Name.EndsWith(@"Plugins\AimpTestRunner\resources"));
+                        this.AreEqual(0, group.Index);
+                        this.AreEqual(4, group.Count);
+                        this.False(group.Selected);
+                        this.True(group.Expanded);
+                    }
 
-                this.AreEqual(ActionResultType.OK, group.ResultType);
-                this.NotNull(group.Result);
+                    pl.Close(PlaylistCloseFlag.ForceRemove);
+                }
 
-                return group.ResultType;
+                return result;
             });
         }
 
         [Test]
-        public void Group_ShouldReturnCorrectData()
+        [Category("groups")]
+        public void Group_Select_ShouldToggleSelect()
         {
+            ExecuteInMainThread(() =>
+            {
+                ActionResultType result = ActionResultType.Fail;
+                var pl = CreatePlaylistFromFile(ref result);
+                if (pl != null)
+                {
+                    var getGroupResult = pl.GetGroup(0);
 
+                    this.AreEqual(ActionResultType.OK, getGroupResult.ResultType);
+                    this.NotNull(getGroupResult.Result);
+
+                    this.False(getGroupResult.Result.Selected);
+                    getGroupResult.Result.Selected = true;
+                    this.True(getGroupResult.Result.Selected);
+
+                    pl.Close(PlaylistCloseFlag.ForceRemove);
+                }
+
+                return result;
+            });
+        }
+
+        [Test]
+        [Category("groups")]
+        public void Group_Expanded_ShouldToggleGroup()
+        {
+            ExecuteInMainThread(() =>
+            {
+                ActionResultType result = ActionResultType.Fail;
+                var pl = CreatePlaylistFromFile(ref result);
+
+                if (pl != null)
+                {
+                    var group = GetGroup(pl, 0, ref result);
+
+                    if (group != null)
+                    {
+                        this.True(group.Expanded);
+                        group.Expanded = !group.Expanded;
+                        this.False(group.Expanded);
+                    }
+
+                    pl.Close(PlaylistCloseFlag.ForceRemove);
+                }
+
+                return result;
+            });
+        }
+
+        [Test]
+        [Category("groups")]
+        public void Group_GetItem()
+        {
+            ExecuteInMainThread(() =>
+            {
+                ActionResultType result = ActionResultType.Fail;
+                var pl = CreatePlaylistFromFile(ref result);
+
+                if (pl != null)
+                {
+                    var group = GetGroup(pl, 0, ref result);
+
+                    if (group != null)
+                    {
+                        var getItemResult = group.GetItem(0);
+                        this.AreEqual(ActionResultType.OK, getItemResult.ResultType);
+                        this.NotNull(getItemResult.Result);
+                    }
+
+                    pl.Close(PlaylistCloseFlag.ForceRemove);
+                }
+
+                return result;
+            });
+        }
+
+        private IAimpPlaylist CreatePlaylistFromFile(ref ActionResultType result, bool isActive = true)
+        {
+            var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, isActive);
+
+            this.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
+            this.NotNull(playlistResult.Result, "playlistResult.Result");
+
+            result = playlistResult.ResultType;
+
+            return playlistResult.ResultType == ActionResultType.OK
+                ? playlistResult.Result
+                : default;
+        }
+
+        private IAimpPlaylistGroup GetGroup(IAimpPlaylist playlist, int index, ref ActionResultType result)
+        {
+            var getGroupResult = playlist.GetGroup(index);
+            this.AreEqual(ActionResultType.OK, getGroupResult.ResultType);
+            this.NotNull(getGroupResult.Result);
+
+            result = getGroupResult.ResultType;
+
+            return getGroupResult.ResultType == ActionResultType.OK
+                ? getGroupResult.Result
+                : default;
         }
     }
 }

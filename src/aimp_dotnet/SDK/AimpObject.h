@@ -22,13 +22,13 @@ protected:
 public:
     AimpObject(TAimpObject *aimpObject) : _aimpObject(aimpObject)
     {
-        AimpMemoryManager::getInstance().AddObject(this->GetHashCode(), aimpObject);
+        RegisterAtMemoryManager();
     }
 
     !AimpObject()
     {
         FreeResources();
-        AimpMemoryManager::getInstance().Release(this->GetHashCode());
+        ReleaseFromMemoryManager();
     }
 
     ~AimpObject()
@@ -44,6 +44,16 @@ protected:
     virtual void FreeResources()
     {
         
+    }
+
+    virtual void RegisterAtMemoryManager()
+    {
+        AimpMemoryManager::getInstance().AddObject(this->GetHashCode(), InternalAimpObject);
+    }
+
+    virtual void ReleaseFromMemoryManager()
+    {
+        AimpMemoryManager::getInstance().Release(this->GetHashCode());
     }
 internal:
     property TAimpObject *InternalAimpObject

@@ -14,7 +14,6 @@ using Nuke.Common.Tools.NuGet;
 using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
-using static Nuke.Common.EnvironmentInfo;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
@@ -36,11 +35,11 @@ partial class Build : NukeBuild
 
     [Parameter("Indicates to push to nuget.org feed.")] readonly bool NuGet;
     [Parameter("ApiKey for the specified source.")] readonly string ApiKey;
-    [Parameter] readonly string SonarUrl = "http://sonar.uginnet.loc";
-    [Parameter] readonly string SonarUser = "aadec67d1212daad96c8fccdb2a03724cb91a4e1";
+    [Parameter] readonly string SonarUrl;
+    [Parameter] readonly string SonarUser;
     [Parameter] readonly string SonarPassword;
-    [Parameter] readonly string SonarProjectKey = "AimpDotNetSDK";
-    [Parameter] readonly string SonarProjectName = "Aimp_DotNetSDK";
+    [Parameter] readonly string SonarProjectKey;
+    [Parameter] readonly string SonarProjectName;
     [Parameter] readonly string VmWareMachine;
 
     string Source => NuGet

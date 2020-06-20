@@ -22,7 +22,6 @@ AimpPlayListGroup::AimpPlayListGroup()
 
 AimpPlayListGroup::AimpPlayListGroup(IAIMPPlaylistGroup* item) : AimpObject(item)
 {
-    _item = nullptr;
 }
 
 String^ AimpPlayListGroup::Name::get()
@@ -43,11 +42,6 @@ void AimpPlayListGroup::Expanded::set(bool value)
 double AimpPlayListGroup::Duration::get()
 {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_DURATION);
-}
-
-void AimpPlayListGroup::Duration::set(double value)
-{
-    PropertyListExtension::SetFloat(InternalAimpObject, AIMP_PLAYLISTGROUP_PROPID_DURATION, value);
 }
 
 int AimpPlayListGroup::Index::get()
@@ -74,14 +68,9 @@ AimpActionResult<IAimpPlaylistItem^>^ AimpPlayListGroup::GetItem(int index)
 {
     ActionResultType result = ActionResultType::Fail;
 
-    if (_item == nullptr)
-    {
-        IAIMPPlaylistItem* item = nullptr;
-        result = CheckResult(InternalAimpObject->GetItem(index, IID_IAIMPPlaylistItem, reinterpret_cast<void**>(&item)));
-        _item = gcnew AimpPlaylistItem(item);
-        item->Release();
-        item = nullptr;
-    }
+    IAIMPPlaylistItem* item = nullptr;
+    result = CheckResult(InternalAimpObject->GetItem(index, IID_IAIMPPlaylistItem, reinterpret_cast<void**>(&item)));
+    auto plItem = gcnew AimpPlaylistItem(item);
 
-    return gcnew AimpActionResult<IAimpPlaylistItem^>(result, _item);
+    return gcnew AimpActionResult<IAimpPlaylistItem^>(result, plItem);
 }

@@ -23,14 +23,14 @@ AimpPlaylistItem::AimpPlaylistItem()
     _aimpObject = static_cast<IAIMPPlaylistItem*>(AimpConverter::MakeObject(IID_IAIMPPlaylistItem));
 }
 
-AimpPlaylistItem::~AimpPlaylistItem()
+void AimpPlaylistItem::RegisterAtMemoryManager()
 {
-    this->!AimpPlaylistItem();
+
 }
 
-AimpPlaylistItem::!AimpPlaylistItem()
+void AimpPlaylistItem::ReleaseFromMemoryManager()
 {
-    //InternalAimpObject->Release();
+
 }
 
 AimpPlaylistItem::AimpPlaylistItem(IAimpPlaylistItem^ item)

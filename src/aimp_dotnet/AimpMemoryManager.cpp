@@ -25,11 +25,22 @@ void AimpMemoryManager::AddObject(int key, void* obj)
 void AimpMemoryManager::Release(int key)
 {
     const auto obj = instance->objects[key];
-    if (!obj->disposed) {
-        static_cast<IUnknown*>(obj->object)->Release();
-        obj->disposed = true;
+
+    try
+    {
+        if (obj != nullptr && !obj->disposed) {
+            static_cast<IUnknown*>(obj->object)->Release();
+            obj->disposed = true;
+        }
+        else
+        {
+            System::Diagnostics::Debug::WriteLine("KEY not found");
+        }
     }
-}
+    catch (...)
+    {
+    }
+ }
 
 void AimpMemoryManager::ReleaseAll()
 {

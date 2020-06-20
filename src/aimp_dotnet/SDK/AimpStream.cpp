@@ -14,6 +14,11 @@
 
 using namespace AIMP::SDK;
 
+AimpStream::AimpStream(IAIMPStream* aimpObject) : AimpObject(aimpObject)
+{
+    _aimpObject = aimpObject;
+}
+
 AimpStream::~AimpStream()
 {
     this->!AimpStream();
@@ -32,11 +37,6 @@ AimpStream::!AimpStream()
             System::Diagnostics::Debugger::Break();
         }
     }
-}
-
-AimpStream::AimpStream(IAIMPStream* aimpObject)
-{
-    _aimpObject = aimpObject;
 }
 
 long long AimpStream::GetSize()
