@@ -10,25 +10,25 @@
 public ref class Utils
 {
 internal:
-    static AIMP::SDK::ActionResultType CheckResult(HRESULT result)
+    static ActionResultType CheckResult(HRESULT result)
     {
         switch (result)
         {
         case E_ACCESSDENIED:
-            return AIMP::SDK::ActionResultType::AccessDenied;
+            return ActionResultType::AccessDenied;
         case E_HANDLE:
-            return AIMP::SDK::ActionResultType::Handle;
+            return ActionResultType::Handle;
         case E_INVALIDARG:
-            return AIMP::SDK::ActionResultType::InvalidArguments;
+            return ActionResultType::InvalidArguments;
         case E_NOTIMPL:
-            return AIMP::SDK::ActionResultType::NotImplemented;
+            return ActionResultType::NotImplemented;
         case E_UNEXPECTED:
-            return AIMP::SDK::ActionResultType::Unexpected;
+            return ActionResultType::Unexpected;
         case E_FAIL:
-            return AIMP::SDK::ActionResultType::Fail;
+            return ActionResultType::Fail;
+        default:
+            return ActionResultType::OK;
         }
-
-        return AIMP::SDK::ActionResultType::OK;
     }
 };
 

@@ -63,12 +63,12 @@ namespace Aimp.TestRunner.UnitTests
             testClass.Asserts.Add(new NotEqualAssert(current.GetExpressionMemberName(), current.GetExpressionValue(), expected, message));
         }
 
-        public static void True(this AimpIntegrationTest testClass, bool value)
+        public static void IsTrue(this AimpIntegrationTest testClass, bool value)
         {
             testClass.Asserts.Add(new TrueAssert(null, value, null));
         }
 
-        public static void False(this AimpIntegrationTest testClass, bool value)
+        public static void IsFalse(this AimpIntegrationTest testClass, bool value)
         {
             testClass.Asserts.Add(new FalseAssert(null, value, null));
         }
@@ -265,7 +265,7 @@ namespace Aimp.TestRunner.UnitTests
 
         public override void Validate()
         {
-            Assert.False(Value, $"Expected 'true' but was '{Value}'");
+            Assert.False(Value, $"Expected 'False' but was '{Value}'");
         }
     }
 

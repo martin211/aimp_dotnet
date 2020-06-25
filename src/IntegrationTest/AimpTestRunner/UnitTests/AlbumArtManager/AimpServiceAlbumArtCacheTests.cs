@@ -25,7 +25,7 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
             ExecuteInMainThread(() =>
             {
                 var ex = this.Throw<ArgumentNullException>(() => Player.ServiceAlbumArtCache.Flush(string.Empty, string.Empty));
-                this.True(ex.Message.Contains("Parameter album cannot be empty"));
+                this.IsTrue(ex.Message.Contains("Parameter album cannot be empty"));
                 return ActionResultType.OK;
             });
         }
@@ -36,7 +36,7 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
             ExecuteInMainThread(() =>
             {
                 var ex = this.Throw<ArgumentNullException>(() => Player.ServiceAlbumArtCache.Flush("album", string.Empty));
-                this.True(ex.Message.Contains("Parameter artist cannot be empty"));
+                this.IsTrue(ex.Message.Contains("Parameter artist cannot be empty"));
                 return ActionResultType.OK;
             });
         }
@@ -58,7 +58,7 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
             ExecuteInMainThread(() =>
             {
                 var ex = this.Throw<ArgumentNullException>(() => Player.ServiceAlbumArtCache.Flush2(string.Empty));
-                this.True(ex.Message.Contains("Parameter fileUri cannot be empty"));
+                this.IsTrue(ex.Message.Contains("Parameter fileUri cannot be empty"));
                 return ActionResultType.OK;
             });
         }

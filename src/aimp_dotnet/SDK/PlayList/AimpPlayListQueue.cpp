@@ -11,30 +11,8 @@
 AimpPlaylistQueue::AimpPlaylistQueue(IAIMPPlaylistQueue* queue, IAIMPPlaylistQueue2* queue2) : AimpObject(queue)
 {
     _listner = new AimpPlaylistQueueListener(this);
-    HRESULT res = queue2->ListenerAdd(_listner);
-    //System::Diagnostics::Debug::WriteLine(res);
-    //_queue2 = queue2;
+    queue2->ListenerAdd(_listner);
 }
-
-//AimpPlaylistQueue::AimpPlaylistQueue(ManagedAimpCore^ core) : BaseAimpService<IAIMPPlaylistQueue>(core)
-//{
-//    IAIMPPlaylistQueue* service = nullptr;
-//    GetService(IID_IAIMPPlaylistQueue, &service);
-//    if (service != nullptr)
-//    {
-//        _service = service;
-//        IAIMPPropertyList* prop = nullptr;
-//        service->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&prop));
-//        _properties = prop;
-//    }
-//    IAIMPPlaylistQueue2* service2 = nullptr;
-//    GetService(IID_IAIMPPlaylistQueue2, &service);
-//    if (service2 != nullptr)
-//    {
-//        _listner = new AimpPlaylistQueueListener(this);
-//        service2->ListenerAdd(_listner);
-//    }
-//}
 
 bool AimpPlaylistQueue::IsSuspended::get()
 {
@@ -125,15 +103,18 @@ VoidResult AimpPlaylistQueue::Move(int index, int targetIndex)
 
 AimpActionResult<IAimpPlaylistItem^>^ AimpPlaylistQueue::GetItem(int index)
 {
-    void** itm = nullptr;
-    IAIMPPlaylistItem* it = nullptr;
+    IAIMPPlaylistItem* aimpItem = nullptr;
     IAimpPlaylistItem^ item = nullptr;
 
-    ActionResultType res = CheckResult(InternalAimpObject->GetItem(index, IID_IAIMPPlaylistItem, itm));
+    const auto res = CheckResult(InternalAimpObject->GetItem(
+        index,
+        IID_IAIMPPlaylistItem,
+        reinterpret_cast<void**>(&aimpItem))
+    );
 
-    if (res == ActionResultType::OK && itm != nullptr)
+    if (res == ActionResultType::OK && aimpItem != nullptr)
     {
-        item = gcnew AimpPlaylistItem(it);
+        item = gcnew AimpPlaylistItem(aimpItem);
     }
 
     return gcnew AimpActionResult<IAimpPlaylistItem^>(res, item);
@@ -188,10 +169,3 @@ void AimpPlaylistQueue::StateChanged::raise(IAimpPlaylistQueue^ sender)
         _stateChanged(sender);
     }
 }
-
-//IAIMPPlaylistQueue* AimpPlaylistQueue::GetAimpService()
-//{
-//    IAIMPPlaylistQueue* service = nullptr;
-//    GetService(IID_IAIMPPlaylistQueue, &service);
-//    return service;
-//}

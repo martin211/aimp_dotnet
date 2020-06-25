@@ -39,7 +39,7 @@ protected:
 
     virtual void FreeResources()
     {
-        
+
     }
 
     virtual void RegisterAtMemoryManager()

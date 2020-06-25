@@ -115,7 +115,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
             });
         }
 
-        [Test, NUnit.Framework.Ignore("For some reason it works.")]
+        [Test]
         public void Delete_IncorrectIndex_IncorrectArgument()
         {
             ExecuteInMainThread(() =>
@@ -127,7 +127,29 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 {
                     result = pl.Delete(-1).ResultType;
                     this.AreEqual(ActionResultType.InvalidArguments, result);
+                    pl.Close(PlaylistCloseFlag.ForceRemove);
                 }
+
+                return result;
+            });
+        }
+
+        [Test]
+        public void Delete_PlayListItem_ShouldReturnOK()
+        {
+            ExecuteInMainThread(() =>
+            {
+                ActionResultType result = ActionResultType.Fail;
+                var pl = CreatePlaylistFromFile(ref result, false);
+                var getItemResult = pl.GetItem(0);
+
+                this.AreEqual(ActionResultType.OK, getItemResult.ResultType, "Unable to get item from playlist");
+
+                result = pl.Delete(getItemResult.Result).ResultType;
+
+                this.AreEqual(ActionResultType.OK, result, "Unable delete playlist item from playlist");
+
+                pl.Close(PlaylistCloseFlag.ForceRemove);
 
                 return result;
             });
@@ -189,7 +211,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                         return false;
                     }).ResultType;
 
-                    this.True(executed);
+                    this.IsTrue(executed);
 
                     pl.Close(PlaylistCloseFlag.ForceRemove);
                 }
@@ -339,11 +361,11 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
                     if (group != null)
                     {
-                        this.True(group.Name.EndsWith(@"Plugins\AimpTestRunner\resources"));
+                        this.IsTrue(group.Name.EndsWith(@"Plugins\AimpTestRunner\resources"));
                         this.AreEqual(0, group.Index);
                         this.AreEqual(4, group.Count);
-                        this.False(group.Selected);
-                        this.True(group.Expanded);
+                        this.IsFalse(group.Selected);
+                        this.IsTrue(group.Expanded);
                     }
 
                     pl.Close(PlaylistCloseFlag.ForceRemove);
@@ -368,9 +390,9 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                     this.AreEqual(ActionResultType.OK, getGroupResult.ResultType);
                     this.NotNull(getGroupResult.Result);
 
-                    this.False(getGroupResult.Result.Selected);
+                    this.IsFalse(getGroupResult.Result.Selected);
                     getGroupResult.Result.Selected = true;
-                    this.True(getGroupResult.Result.Selected);
+                    this.IsTrue(getGroupResult.Result.Selected);
 
                     pl.Close(PlaylistCloseFlag.ForceRemove);
                 }
@@ -394,9 +416,9 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
                     if (group != null)
                     {
-                        this.True(group.Expanded);
+                        this.IsTrue(group.Expanded);
                         group.Expanded = !group.Expanded;
-                        this.False(group.Expanded);
+                        this.IsFalse(group.Expanded);
                     }
 
                     pl.Close(PlaylistCloseFlag.ForceRemove);

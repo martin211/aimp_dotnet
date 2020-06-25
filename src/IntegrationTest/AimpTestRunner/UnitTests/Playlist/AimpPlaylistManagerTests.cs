@@ -10,6 +10,7 @@
 // ----------------------------------------------------
 
 using System;
+using System.Threading;
 using AIMP.SDK;
 using AIMP.SDK.Playlist;
 using NUnit.Framework;
@@ -204,12 +205,27 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         [Test]
         public void GetPlayablePlaylist_ShouldReturnPlaylist()
         {
+            IAimpPlaylist playlist = null;
+
+            ExecuteInMainThread(() =>
+            {
+                var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+                this.AreEqual(ActionResultType.OK, playlistResult.ResultType);
+                playlist = playlistResult.Result;
+
+                return playlistResult.ResultType;
+            });
+
+            Thread.Sleep(1000);
+
             ExecuteInMainThread(() =>
             {
                 var result = Player.PlaylistManager.GetPlayablePlaylist();
 
                 this.AreEqual(ActionResultType.OK, result.ResultType);
                 this.NotNull(result.Result);
+
+                playlist.Close(PlaylistCloseFlag.ForceRemove);
 
                 return result.ResultType;
             });
