@@ -190,6 +190,15 @@ namespace AIMP
                 _extensionPlaylistPreimageFactory = nullptr;
             }
 
+            if (_extensionLyricsProvider != nullptr)
+            {
+                _core->UnregisterExtension(
+                    static_cast<AimpExtensionLyricsProvider::Base*>(_extensionLyricsProvider)
+                );
+                _extensionLyricsProvider->Release();
+                _extensionLyricsProvider = nullptr;
+            }
+
             _core->Release();
             _core = nullptr;
         }
@@ -372,13 +381,27 @@ namespace AIMP
             }
 #pragma endregion PlaylistExtension
 
+            Lyrics::IAimpExtensionLyricsProvider^ lyricsProviderExtension = dynamic_cast<Lyrics::IAimpExtensionLyricsProvider^>(extension);
+            if (lyricsProviderExtension != nullptr)
+            {
+                if (_extensionLyricsProvider != nullptr)
+                {
+                    return E_FAIL;
+                }
+
+                AimpExtensionLyricsProvider* ext = new AimpExtensionLyricsProvider(lyricsProviderExtension);
+                _extensionLyricsProvider = ext;
+                return _core->RegisterExtension(IID_IAIMPExtensionLyricsProvider,
+                    static_cast<AimpExtensionLyricsProvider::Base*>(ext));
+            }
+
+
             return E_UNEXPECTED;
         }
 
         HRESULT ManagedAimpCore::UnregisterExtension(IAimpExtension^ extension)
         {
-            AIMP::SDK::Options::IAimpOptionsDialogFrame^ optionsFrameExtension = dynamic_cast<AIMP::SDK::Options::
-                IAimpOptionsDialogFrame^>(extension);
+            auto optionsFrameExtension = dynamic_cast<Options::IAimpOptionsDialogFrame^>(extension);
             if (optionsFrameExtension != nullptr)
             {
                 HRESULT r = _core->UnregisterExtension(static_cast<IAIMPOptionsDialogFrame*>(_optionsFrame));
@@ -387,8 +410,7 @@ namespace AIMP
                 return r;
             }
 
-            AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^ albumArtCatalogExtension = dynamic_cast<AIMP::SDK
-                ::AlbumArtManager::IAimpExtensionAlbumArtCatalog^>(extension);
+            auto albumArtCatalogExtension = dynamic_cast<AlbumArtManager::IAimpExtensionAlbumArtCatalog^>(extension);
             if (albumArtCatalogExtension != nullptr)
             {
                 HRESULT r = _core->UnregisterExtension(
@@ -398,8 +420,7 @@ namespace AIMP
                 return r;
             }
 
-            AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^ albumArtProviderExtension = dynamic_cast<AIMP::
-                SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^>(extension);
+            auto albumArtProviderExtension = dynamic_cast<AlbumArtManager::IAimpExtensionAlbumArtProvider^>(extension);
             if (albumArtProviderExtension != nullptr)
             {
                 HRESULT r = _core->UnregisterExtension(
@@ -409,8 +430,7 @@ namespace AIMP
                 return r;
             }
 
-            AIMP::SDK::Visuals::IAimpExtensionEmbeddedVisualization^ embeddedVisualization = dynamic_cast<AIMP::SDK::
-                Visuals::IAimpExtensionEmbeddedVisualization^>(extension);
+            auto embeddedVisualization = dynamic_cast<Visuals::IAimpExtensionEmbeddedVisualization^>(extension);
             if (embeddedVisualization != nullptr)
             {
                 HRESULT r = _core->UnregisterExtension(_embeddedVisualization);
@@ -419,7 +439,7 @@ namespace AIMP
                 return r;
             }
 
-            AIMP::SDK::Visuals::IAimpExtensionCustomVisualization^ customVisualization = dynamic_cast<AIMP::SDK::Visuals
+            Visuals::IAimpExtensionCustomVisualization^ customVisualization = dynamic_cast<Visuals
                 ::IAimpExtensionCustomVisualization^>(extension);
             if (customVisualization != nullptr)
             {
@@ -429,9 +449,8 @@ namespace AIMP
                 return r;
             }
 
-            AIMP::SDK::Playlist::IAimpExtensionPlaylistManagerListener^ playlistManagerListener = dynamic_cast<AIMP::SDK
-                ::Playlist::IAimpExtensionPlaylistManagerListener^>(extension);
-            if (customVisualization != nullptr)
+            auto playlistManagerListener = dynamic_cast<IAimpExtensionPlaylistManagerListener^>(extension);
+            if (playlistManagerListener != nullptr)
             {
                 HRESULT r = _core->UnregisterExtension(_playlistManagerListener);
                 _playlistManagerListener->Release();
@@ -447,6 +466,15 @@ namespace AIMP
                     ));
                 _extensionPlaylistPreimageFactory->Release();
                 _extensionPlaylistPreimageFactory = nullptr;
+                return r;
+            }
+
+            auto extensionLyricsProvider = dynamic_cast<Lyrics::IAimpExtensionLyricsProvider^>(extension);
+            if (extensionLyricsProvider != nullptr)
+            {
+                HRESULT r = _core->UnregisterExtension(static_cast<AimpExtensionLyricsProvider::Base*>(_extensionLyricsProvider));
+                _extensionLyricsProvider->Release();
+                _extensionLyricsProvider = nullptr;
                 return r;
             }
 

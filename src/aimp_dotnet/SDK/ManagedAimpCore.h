@@ -20,6 +20,7 @@
 #include "SDK\FileManager\InternalAimpExtensionFileSystem.h"
 #include "SDK\Visuals\AimpServiceVisualizations.h"
 #include "SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.h"
+#include "SDK\Lyrics\AimpExtensionLyricsProvider.h"
 
 namespace AIMP
 {
@@ -120,6 +121,7 @@ namespace AIMP
             InternalAimpExtensionFileInfoProvider* _fileInfoExtensionProvider = nullptr;
             InternalAimpExtensionFileSystem* _extensionFileSystem = nullptr;
             InternalAimpExtensionPlaylistPreimageFactory* _extensionPlaylistPreimageFactory = nullptr;
+            AimpExtensionLyricsProvider* _extensionLyricsProvider = nullptr;
 
             AIMP::SDK::Playlist::PlayListHandler^ _playlistAdded;
             AIMP::SDK::Playlist::PlayListHandler^ _playlistRemoved;

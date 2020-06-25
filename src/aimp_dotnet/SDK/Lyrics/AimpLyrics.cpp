@@ -10,61 +10,83 @@
 
 using namespace AIMP::SDK;
 
+void AimpLyrics::RegisterAtMemoryManager()
+{
+}
+
+void AimpLyrics::ReleaseFromMemoryManager()
+{
+}
+
 AimpLyrics::AimpLyrics(IAIMPLyrics* lyrics) : AimpObject(lyrics)
 {
 }
 
-ActionResultType AimpLyrics::Assign(IAimpLyrics^ source)
+VoidResult AimpLyrics::Assign(IAimpLyrics^ source)
 {
     //TODO Complete it
-    return ActionResultType::Fail; // CheckResult(InternalAimpObject->Assign());
+    return VOID_RESULT(ActionResultType::NotImplemented); // CheckResult(InternalAimpObject->Assign());
 }
 
-ActionResultType AimpLyrics::Clone(IAimpLyrics^% lyrics)
+AimpActionResult<IAimpLyrics^>^ AimpLyrics::Clone()
 {
     IAIMPLyrics** target = nullptr;
-    auto result = Utils::CheckResult(InternalAimpObject->Clone(target));
+    IAimpLyrics^ lyrics = nullptr;
+    const auto result = Utils::CheckResult(InternalAimpObject->Clone(target));
 
     if (result == ActionResultType::OK)
     {
         lyrics = gcnew AimpLyrics(*target);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpLyrics^>(result, lyrics);
 }
 
-ActionResultType AimpLyrics::Add(int timeStart, int timeFinish, String^ text)
+VoidResult AimpLyrics::Add(int timeStart, int timeFinish, String^ text)
 {
     auto str = AimpConverter::ToAimpString(text);
-    auto result = Utils::CheckResult(InternalAimpObject->Add(timeStart, timeFinish, str));
+    const auto result = Utils::CheckResult(InternalAimpObject->Add(timeStart, timeFinish, str));
     str->Release();
     str = nullptr;
 
-    return result;
+    return VOID_RESULT(result);
 }
 
-ActionResultType AimpLyrics::Delete(int index)
+VoidResult AimpLyrics::Delete(int index)
 {
-    return Utils::CheckResult(InternalAimpObject->Delete(index));
+    return VOID_RESULT(Utils::CheckResult(InternalAimpObject->Delete(index)));
 }
 
-ActionResultType AimpLyrics::Find(int time, int index, String^% text)
+AimpActionResult<String^>^ AimpLyrics::Find(int time, int index)
 {
     IAIMPString* str = nullptr;
-    auto result = ActionResultType::Fail;
-    //auto  result = Utils::CheckResult(InternalAimpObject->Find(time, index, &str));
+    String^ text = "";
+    const auto result = Utils::CheckResult(InternalAimpObject->Find(time, &index, &str));
 
     if (result == ActionResultType::OK)
     {
         text = AimpConverter::ToManagedString(str);
+        str->Release();
+        str = nullptr;
     }
 
-    return result;
+    return gcnew AimpActionResult<String^>(result, text);
 }
 
-ActionResultType AimpLyrics::Get(int index, int timeStart, int timeFinish, String^% text)
+AimpActionResult<String^>^ AimpLyrics::Get(int index, int timeStart, int timeFinish)
 {
-    return ActionResultType::Fail;
+    IAIMPString* str = nullptr;
+    String^ text = "";
+
+    const auto result = Utils::CheckResult(InternalAimpObject->Get(index, &timeStart, &timeFinish, &str));
+    if (result == ActionResultType::OK)
+    {
+        text = AimpConverter::ToManagedString(str);
+        str->Release();
+        str = nullptr;
+    }
+
+    return gcnew AimpActionResult<String^>(result, text);
 }
 
 ActionResultType AimpLyrics::GetCount(int% value)
@@ -72,42 +94,58 @@ ActionResultType AimpLyrics::GetCount(int% value)
     return ActionResultType::Fail;
 }
 
-ActionResultType AimpLyrics::LoadFromFile(String^ virtualFileName)
+VoidResult AimpLyrics::LoadFromFile(String^ virtualFileName)
 {
-    return ActionResultType::Fail;
-}
-
-ActionResultType AimpLyrics::LoadFromStream(IAimpStream^ stream, LyricsFormat format)
-{
-    return ActionResultType::Fail;
-}
-
-ActionResultType AimpLyrics::LoadFromString(String^ lyrics, LyricsFormat format)
-{
-    return ActionResultType::Fail;
-}
-
-ActionResultType AimpLyrics::SaveToFile(String^ fileUri)
-{
-    auto str = AimpConverter::ToAimpString(fileUri);
-    auto result = Utils::CheckResult(InternalAimpObject->SaveToFile(str));
+    IAIMPString* str = AimpConverter::ToAimpString(virtualFileName);
+    const auto res = CheckResult(InternalAimpObject->LoadFromFile(str));
     str->Release();
     str = nullptr;
-    return result;
+    return VOID_RESULT(res);
 }
 
-ActionResultType AimpLyrics::SaveToStream(IAimpStream^ stream, LyricsFormat format)
+VoidResult AimpLyrics::LoadFromStream(IAimpStream^ stream, LyricsFormat format)
 {
-    return ActionResultType::Fail;
+    return VOID_RESULT(ActionResultType::NotImplemented);
 }
 
-ActionResultType AimpLyrics::SaveToString(String^% lyrics, LyricsFormat format)
+VoidResult AimpLyrics::LoadFromString(String^ lyrics, LyricsFormat format)
 {
     IAIMPString* str = AimpConverter::ToAimpString(lyrics);
-    auto result = Utils::CheckResult(InternalAimpObject->SaveToString(&str, static_cast<int>(format)));
+    const auto res = CheckResult(InternalAimpObject->LoadFromString(str, static_cast<int>(format)));
     str->Release();
     str = nullptr;
-    return result;
+    return VOID_RESULT(res);
+}
+
+VoidResult AimpLyrics::SaveToFile(String^ fileUri)
+{
+    auto str = AimpConverter::ToAimpString(fileUri);
+    const auto result = Utils::CheckResult(InternalAimpObject->SaveToFile(str));
+    str->Release();
+    str = nullptr;
+    return VOID_RESULT(result);
+}
+
+VoidResult AimpLyrics::SaveToStream(IAimpStream^ stream, LyricsFormat format)
+{
+    return VOID_RESULT(ActionResultType::NotImplemented);
+}
+
+AimpActionResult<String^>^ AimpLyrics::SaveToString(LyricsFormat format)
+{
+    String^ lyrics = "";
+    IAIMPString* str = AimpConverter::ToAimpString(lyrics);
+    const auto result = Utils::CheckResult(InternalAimpObject->SaveToString(&str, static_cast<int>(format)));
+
+    if (result == ActionResultType::OK)
+    {
+        lyrics = AimpConverter::ToManagedString(str);
+    }
+
+    str->Release();
+    str = nullptr;
+
+    return gcnew AimpActionResult<String^>(result, lyrics);
 }
 
 String^ AimpLyrics::Text::get()

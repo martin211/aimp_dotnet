@@ -432,6 +432,9 @@
     <ClCompile Include="AimpMemoryManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\Lyrics\AimpExtensionLyricsProvider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -843,6 +846,9 @@
       <Filter>Header Files\SDK\PlayList</Filter>
     </ClInclude>
     <ClInclude Include="AimpMemoryManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Lyrics\AimpExtensionLyricsProvider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

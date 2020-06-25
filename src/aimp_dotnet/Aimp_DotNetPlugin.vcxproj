@@ -19,6 +19,7 @@
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandDropSource.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandOpenFileFolder.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandStreaming.cpp" />
+    <ClCompile Include="SDK\Lyrics\AimpExtensionLyricsProvider.cpp" />
     <ClCompile Include="SDK\Lyrics\AimpLyrics.cpp" />
     <ClCompile Include="SDK\Lyrics\AimpServiceLyrics.cpp" />
     <ClCompile Include="SDK\MessageDispatcher\InternalAimpMessageHook.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandOpenFileFolder.h" />
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandStreaming.h" />
     <ClInclude Include="SDK\FileManager\Commands\Internal\Stdafx.h" />
+    <ClInclude Include="SDK\Lyrics\AimpExtensionLyricsProvider.h" />
     <ClInclude Include="SDK\Lyrics\AimpLyrics.h" />
     <ClInclude Include="SDK\Lyrics\AimpServiceLyrics.h" />
     <ClInclude Include="SDK\MessageDispatcher\InternalAimpMessageHook.h" />
