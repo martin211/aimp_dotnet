@@ -89,7 +89,7 @@ partial class Build : NukeBuild
         });
 
     Target Compile => _ => _
-        .DependsOn(Restore, Version)
+        .DependsOn(Clean, Restore, Version)
         .Executes(() =>
         {
             MSBuild(_ => _
