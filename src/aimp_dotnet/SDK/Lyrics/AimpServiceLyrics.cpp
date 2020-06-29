@@ -76,7 +76,7 @@ VoidResult AimpServiceLyrics::Cancel(IntPtr taskId, LyricsFlags flags)
             result = CheckResult(service->Cancel(static_cast<void**>(taskId.ToPointer()), static_cast<DWORD>(flags)));
         }
 
-        return VOID_RESULT(result);
+        return ACTION_RESULT(result);
     }
     finally
     {

@@ -1128,7 +1128,7 @@ VoidResult AimpPlayList::Add(IAimpFileInfo^ fileInfo, PlaylistFlags flags, Playl
     const auto result = CheckResult(
         InternalAimpObject->Add(file->InternalAimpObject, DWORD(flags), static_cast<int>(filePosition)));
     file->InternalAimpObject->Release();
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 VoidResult AimpPlayList::Add(String^ fileUrl, PlaylistFlags flags, PlaylistFilePosition filePosition)
@@ -1139,7 +1139,7 @@ VoidResult AimpPlayList::Add(String^ fileUrl, PlaylistFlags flags, PlaylistFileP
     const auto res = CheckResult(InternalAimpObject->Add(url, DWORD(flags), static_cast<int>(filePosition)));
     url->Release();
     url = nullptr;
-    return VOID_RESULT(res);
+    return ACTION_RESULT(res);
 }
 
 VoidResult AimpPlayList::AddList(Generic::IList<IAimpFileInfo^>^ files, PlaylistFlags flags, PlaylistFilePosition filePosition)
@@ -1167,7 +1167,7 @@ VoidResult AimpPlayList::AddList(Generic::IList<IAimpFileInfo^>^ files, Playlist
         }
     }
 
-    return VOID_RESULT(res);
+    return ACTION_RESULT(res);
 }
 
 VoidResult AimpPlayList::AddList(Generic::IList<String^>^ fileUrlList, PlaylistFlags flags,
@@ -1207,22 +1207,22 @@ VoidResult AimpPlayList::AddList(Generic::IList<String^>^ fileUrlList, PlaylistF
         }
     }
 
-    return VOID_RESULT(res);
+    return ACTION_RESULT(res);
 }
 
 VoidResult AimpPlayList::Delete(IAimpPlaylistItem^ item)
 {
-    return VOID_RESULT(CheckResult(InternalAimpObject->Delete(static_cast<AimpPlaylistItem^>(item)->InternalAimpObject)));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->Delete(static_cast<AimpPlaylistItem^>(item)->InternalAimpObject)));
 }
 
 VoidResult AimpPlayList::Delete(int index)
 {
-    return VOID_RESULT(CheckResult(InternalAimpObject->Delete2(index)));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->Delete2(index)));
 }
 
 VoidResult AimpPlayList::DeleteAll()
 {
-    return VOID_RESULT(CheckResult(InternalAimpObject->DeleteAll()));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->DeleteAll()));
 }
 
 VoidResult AimpPlayList::Delete(PlaylistDeleteFlags deleteFlags, Object^ customFilterData, Func<IAimpPlaylistItem^, Object^, bool>^ filterFunc)
@@ -1231,14 +1231,14 @@ VoidResult AimpPlayList::Delete(PlaylistDeleteFlags deleteFlags, Object^ customF
     _deleteFilterFunc = filterFunc;
     _deleteCallback = gcnew OnDeleteCallback(this, &AimpPlayList::OnDeleteReceive);
     IntPtr functionHandle = Marshal::GetFunctionPointerForDelegate(_deleteCallback);
-    return VOID_RESULT(CheckResult(InternalAimpObject->Delete3(DWORD(deleteFlags),
+    return ACTION_RESULT(CheckResult(InternalAimpObject->Delete3(DWORD(deleteFlags),
                                                    static_cast<TAIMPPlaylistDeleteProc(_stdcall*)>(functionHandle.
                                                        ToPointer()), customData)));
 }
 
 VoidResult AimpPlayList::Sort(PlaylistSort sort)
 {
-    return VOID_RESULT(CheckResult(InternalAimpObject->Sort(static_cast<int>(sort))));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->Sort(static_cast<int>(sort))));
 }
 
 VoidResult AimpPlayList::Sort(Object^ customSortData,
@@ -1249,7 +1249,7 @@ VoidResult AimpPlayList::Sort(Object^ customSortData,
     _compareFunc = compareFunc;
     _sortCallback = gcnew OnSortCallback(this, &AimpPlayList::OnSortReceive);
     IntPtr functionHandle = Marshal::GetFunctionPointerForDelegate(_sortCallback);
-    return VOID_RESULT(CheckResult(
+    return ACTION_RESULT(CheckResult(
         InternalAimpObject->Sort3(static_cast<TAIMPPlaylistCompareProc(_stdcall*)>(functionHandle.ToPointer()),
                                   customData)));
 }
@@ -1260,17 +1260,17 @@ VoidResult AimpPlayList::Sort(String^ templateString)
     const ActionResultType res = CheckResult(InternalAimpObject->Sort2(templateStr));
     templateStr->Release();
     templateStr = nullptr;
-    return VOID_RESULT(res);
+    return ACTION_RESULT(res);
 }
 
 VoidResult AimpPlayList::BeginUpdate()
 {
-    return VOID_RESULT(CheckResult(InternalAimpObject->BeginUpdate()));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->BeginUpdate()));
 }
 
 VoidResult AimpPlayList::EndUpdate()
 {
-    return VOID_RESULT(CheckResult(InternalAimpObject->EndUpdate()));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->EndUpdate()));
 }
 
 VoidResult AimpPlayList::Close(PlaylistCloseFlag closeFlag)
@@ -1282,7 +1282,7 @@ VoidResult AimpPlayList::Close(PlaylistCloseFlag closeFlag)
         _listner = nullptr;
     }
 
-    return VOID_RESULT(CheckResult(InternalAimpObject->Close(DWORD(closeFlag))));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->Close(DWORD(closeFlag))));
 }
 
 AimpActionResult<Generic::IList<String^>^>^ AimpPlayList::GetFiles(PlaylistGetFilesFlag filesFlag)

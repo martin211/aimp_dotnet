@@ -22,7 +22,7 @@ VoidResult AimpFileSystemCommandDelete::CanProcess(String^ file)
     auto result = CheckResult(InternalAimpObject->CanProcess(str));
     str->Release();
     str = nullptr;
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 VoidResult AimpFileSystemCommandDelete::Process(String^ file)
@@ -31,5 +31,5 @@ VoidResult AimpFileSystemCommandDelete::Process(String^ file)
     auto result = CheckResult(InternalAimpObject->Process(str));
     str->Release();
     str = nullptr;
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }

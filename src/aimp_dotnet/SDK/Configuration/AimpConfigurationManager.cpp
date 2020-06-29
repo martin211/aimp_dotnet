@@ -209,7 +209,7 @@ VoidResult AimpServiceConfig::SetValueAsFloat(String^ keyPath, float value)
         ReleaseObject(service);
     }
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 VoidResult AimpServiceConfig::SetValueAsInt32(String^ keyPath, int value)
@@ -232,7 +232,7 @@ VoidResult AimpServiceConfig::SetValueAsInt32(String^ keyPath, int value)
         ReleaseObject(service);
     }
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 VoidResult AimpServiceConfig::SetValueAsInt64(String^ keyPath, Int64 value)
@@ -255,7 +255,7 @@ VoidResult AimpServiceConfig::SetValueAsInt64(String^ keyPath, Int64 value)
         ReleaseObject(service);
     }
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 VoidResult AimpServiceConfig::SetValueAsStream(String^ keyPath, IAimpStream^ stream)
@@ -278,7 +278,7 @@ VoidResult AimpServiceConfig::SetValueAsStream(String^ keyPath, IAimpStream^ str
         ReleaseObject(service);
     }
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 VoidResult AimpServiceConfig::SetValueAsString(String^ keyPath, String^ value)
@@ -304,7 +304,7 @@ VoidResult AimpServiceConfig::SetValueAsString(String^ keyPath, String^ value)
         ReleaseObject(service);
     }
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 IAIMPServiceConfig* AimpServiceConfig::GetAimpService()

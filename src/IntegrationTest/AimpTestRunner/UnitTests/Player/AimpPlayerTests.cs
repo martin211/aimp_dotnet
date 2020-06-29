@@ -50,7 +50,7 @@ namespace Aimp.TestRunner.UnitTests.Player
         //[Test, Order(3)]
         public void Resume_ShouldReturnOK()
         {
-            ExecuteIInThread(() =>
+            ExecuteInThread(() =>
             {
                 var result = Player.Resume();
                 Assert.AreEqual(ActionResultType.OK, result.ResultType);
@@ -63,7 +63,7 @@ namespace Aimp.TestRunner.UnitTests.Player
         //[Test, Order(4)]
         public void Stop_ShouldReturnOK()
         {
-            ExecuteIInThread(() =>
+            ExecuteInThread(() =>
             {
                 var result = Player.Stop();
                 Assert.AreEqual(ActionResultType.OK, result.ResultType);

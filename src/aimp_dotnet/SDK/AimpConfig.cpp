@@ -171,7 +171,7 @@ VoidResult AimpConfig::SetValueAsFloat(String^ keyPath, float value)
         }
     }
 
-    return VOID_RESULT(result)
+    return ACTION_RESULT(result)
 }
 
 VoidResult AimpConfig::SetValueAsInt32(String^ keyPath, int value)
@@ -193,7 +193,7 @@ VoidResult AimpConfig::SetValueAsInt32(String^ keyPath, int value)
         }
     }
 
-    return VOID_RESULT(result)
+    return ACTION_RESULT(result)
 }
 
 VoidResult AimpConfig::SetValueAsInt64(String^ keyPath, Int64 value)
@@ -215,7 +215,7 @@ VoidResult AimpConfig::SetValueAsInt64(String^ keyPath, Int64 value)
         }
     }
 
-    return VOID_RESULT(result)
+    return ACTION_RESULT(result)
 }
 
 VoidResult AimpConfig::SetValueAsStream(String^ keyPath, IAimpStream^ stream)
@@ -238,7 +238,7 @@ VoidResult AimpConfig::SetValueAsStream(String^ keyPath, IAimpStream^ stream)
         }
     }
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 VoidResult AimpConfig::SetValueAsString(String^ keyPath, String^ value)
@@ -268,5 +268,5 @@ VoidResult AimpConfig::SetValueAsString(String^ keyPath, String^ value)
         }
     }
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }

@@ -37,7 +37,7 @@ namespace AIMP.SDK
         /// <param name="message">The message.</param>
         /// <param name="param">The parameter.</param>
         /// <param name="objectParameter">The object parameter.</param>
-        ActionResultType SendMessage(AimpCoreMessageType message, int param, object objectParameter);
+        AimpActionResult SendMessage(AimpCoreMessageType message, int param, object objectParameter);
 
         /// <summary>
         /// Method provides an ability to register extension.
@@ -45,7 +45,7 @@ namespace AIMP.SDK
         /// All extensions will be automatically unregistered from the application before plugin finalization.
         /// </summary>
         /// <param name="extension">The Aimp extension.</param>
-        ActionResultType RegisterExtension(IAimpExtension extension);
+        AimpActionResult RegisterExtension(IAimpExtension extension);
 
         /// <summary>
         /// Method provides an ability to unregister specified extension manually.
@@ -53,13 +53,13 @@ namespace AIMP.SDK
         /// Note 2: extension may be used at the current time, in this case it will be completely unregistered only the after release
         /// </summary>
         /// <param name="extension">The Aimp extension.</param>
-        ActionResultType UnregisterExtension(IAimpExtension extension);
+        AimpActionResult UnregisterExtension(IAimpExtension extension);
 
         /// <summary>
         /// Creates the Aimp stream instance.
         /// </summary>
         /// <returns></returns>
-        IAimpStream CreateStream();
+        AimpActionResult<IAimpStream> CreateStream();
 
         [return: MarshalAs(UnmanagedType.IUnknown)]
         [Obsolete("DO NOT USE. Work in progress")]

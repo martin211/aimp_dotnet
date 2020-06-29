@@ -216,7 +216,11 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 return playlistResult.ResultType;
             });
 
-            Thread.Sleep(1000);
+            ExecuteInThread(() =>
+            {
+                Thread.Sleep(10000);
+                return ActionResultType.OK;
+            });
 
             ExecuteInMainThread(() =>
             {

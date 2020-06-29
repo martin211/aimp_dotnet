@@ -94,5 +94,5 @@ VoidResult AimpFileSystemCommandFileInfo::IsFileExists(String^ file)
         }
     }
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }

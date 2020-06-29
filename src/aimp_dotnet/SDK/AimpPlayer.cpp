@@ -109,12 +109,11 @@ IAimpPlaylistManager2^ AimpPlayer::PlaylistManager::get()
     return _playListManager;
 }
 
-IAimpPlaybackQueueService^ AimpPlayer::PlaybackQueueManager::get()
+IAimpServicePlaybackQueue^ AimpPlayer::ServicePlaybackQueue::get()
 {
     if (_playbackQueueManager == nullptr)
     {
         _playbackQueueManager = gcnew AimpServicePlaybackQueue(static_cast<ManagedAimpCore^>(_managedAimpCore));
-        static_cast<ManagedAimpCore^>(_managedAimpCore)->CheckUrl += gcnew AimpCheckUrl(this, &AimpPlayer::OnCheckUrl);
     }
     return _playbackQueueManager;
 }
@@ -238,47 +237,47 @@ IAimpServiceMessageDispatcher^ AimpPlayer::ServiceMessageDispatcher::get()
 
 VoidResult AimpPlayer::Pause()
 {
-    return VOID_RESULT(Utils::CheckResult(_player->Pause()));
+    return ACTION_RESULT(Utils::CheckResult(_player->Pause()));
 }
 
 VoidResult AimpPlayer::Stop()
 {
-    return VOID_RESULT(Utils::CheckResult(_player->Stop()));
+    return ACTION_RESULT(Utils::CheckResult(_player->Stop()));
 }
 
 VoidResult AimpPlayer::Resume()
 {
-    return VOID_RESULT(Utils::CheckResult(_player->Resume()));
+    return ACTION_RESULT(Utils::CheckResult(_player->Resume()));
 }
 
 VoidResult AimpPlayer::StopAfterTrack()
 {
-    return VOID_RESULT(Utils::CheckResult(_player->StopAfterTrack()));
+    return ACTION_RESULT(Utils::CheckResult(_player->StopAfterTrack()));
 }
 
 VoidResult AimpPlayer::GoToNext()
 {
-    return VOID_RESULT(Utils::CheckResult(_player->GoToNext()));
+    return ACTION_RESULT(Utils::CheckResult(_player->GoToNext()));
 }
 
 VoidResult AimpPlayer::GoToPrev()
 {
-    return VOID_RESULT(Utils::CheckResult(_player->GoToPrev()));
+    return ACTION_RESULT(Utils::CheckResult(_player->GoToPrev()));
 }
 
 VoidResult AimpPlayer::Play(IAimpPlaybackQueueItem^ queueItem)
 {
-    return VOID_RESULT(Utils::CheckResult(_player->Play(static_cast<AimpPlaybackQueueItem^>(queueItem)->InternalAimpObject)));
+    return ACTION_RESULT(Utils::CheckResult(_player->Play(static_cast<AimpPlaybackQueueItem^>(queueItem)->InternalAimpObject)));
 }
 
 VoidResult AimpPlayer::Play(IAimpPlaylistItem^ playListItem)
 {
-    return VOID_RESULT(Utils::CheckResult(_player->Play2(static_cast<AimpPlaylistItem^>(playListItem)->InternalAimpObject)));
+    return ACTION_RESULT(Utils::CheckResult(_player->Play2(static_cast<AimpPlaylistItem^>(playListItem)->InternalAimpObject)));
 }
 
 VoidResult AimpPlayer::Play(IAimpPlaylist^ playList)
 {
-    return VOID_RESULT(Utils::CheckResult(_player->Play3(static_cast<AimpPlayList^>(playList)->InternalAimpObject)));
+    return ACTION_RESULT(Utils::CheckResult(_player->Play3(static_cast<AimpPlayList^>(playList)->InternalAimpObject)));
 }
 
 IAimpServiceSynchronizer^ AimpPlayer::ServiceSynchronizer::get()
@@ -373,11 +372,6 @@ IAimpServiceFileTagEditor^ AimpPlayer::ServiceFileTagEditor::get()
     }
 
     return _serviceFileTagEditor;
-}
-
-bool AimpPlayer::OnCheckUrl(String^ % url)
-{
-    return static_cast<AimpServicePlaybackQueue^>(this->_playbackQueueManager)->RaiseCheckUrl(url);
 }
 
 IAimpServiceLyrics^ AimpPlayer::ServiceLyrics::get()

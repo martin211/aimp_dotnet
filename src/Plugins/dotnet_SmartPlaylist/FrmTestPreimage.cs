@@ -161,7 +161,7 @@ namespace Aimp.DotNet.SmartPlaylist
                 var pi = GetPlaylistPreimage(pl);
                 if (pi != null)
                 {
-                    var stream = _core.CreateStream();
+                    var stream = _core.CreateStream().Result;
                     pi.ConfigSave(stream);
                     //pi.Reset() TODO
                     stream.Seek(0, SeekOrigin.Begin);

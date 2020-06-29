@@ -65,7 +65,7 @@ namespace AIMP
         IAimpServiceConfig^ _serviceConfig;
         IWin32Manager^ _win32Manager;
         IAimpPlaylistManager2^ _playListManager;
-        IAimpPlaybackQueueService^ _playbackQueueManager;
+        IAimpServicePlaybackQueue^ _playbackQueueManager;
         IAimpServiceOptionsDialog^ _serviceOptionsDialogManager;
         AimpPlayerState _state;
         IAimpServiceSynchronizer^ _serviceSynchronizer;
@@ -140,9 +140,9 @@ namespace AIMP
             IAimpPlaylistManager2^ get();
         }
 
-        virtual property IAimpPlaybackQueueService^ PlaybackQueueManager
+        virtual property IAimpServicePlaybackQueue^ ServicePlaybackQueue
         {
-            IAimpPlaybackQueueService^ get();
+            IAimpServicePlaybackQueue^ get();
         }
 
         virtual property IAIMPServicePlayer* ServicePlayer
@@ -280,7 +280,5 @@ namespace AIMP
         {
             IAimpServiceAlbumArtCache^ get();
         }
-
-        bool OnCheckUrl(String^ % url);
     };
 }

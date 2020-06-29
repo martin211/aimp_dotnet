@@ -368,7 +368,7 @@ VoidResult AimpServiceAlbumArt::Cancel(int taskId, AimpFindCovertArtType flags)
         ReleaseObject(service);
     }
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 IAIMPServiceAlbumArt* AimpServiceAlbumArt::GetAimpService()

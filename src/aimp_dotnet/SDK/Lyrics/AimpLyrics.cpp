@@ -25,7 +25,7 @@ AimpLyrics::AimpLyrics(IAIMPLyrics* lyrics) : AimpObject(lyrics)
 VoidResult AimpLyrics::Assign(IAimpLyrics^ source)
 {
     //TODO Complete it
-    return VOID_RESULT(ActionResultType::NotImplemented); // CheckResult(InternalAimpObject->Assign());
+    return ACTION_RESULT(ActionResultType::NotImplemented); // CheckResult(InternalAimpObject->Assign());
 }
 
 AimpActionResult<IAimpLyrics^>^ AimpLyrics::Clone()
@@ -49,12 +49,12 @@ VoidResult AimpLyrics::Add(int timeStart, int timeFinish, String^ text)
     str->Release();
     str = nullptr;
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 VoidResult AimpLyrics::Delete(int index)
 {
-    return VOID_RESULT(Utils::CheckResult(InternalAimpObject->Delete(index)));
+    return ACTION_RESULT(Utils::CheckResult(InternalAimpObject->Delete(index)));
 }
 
 AimpActionResult<String^>^ AimpLyrics::Find(int time, int index)
@@ -100,12 +100,12 @@ VoidResult AimpLyrics::LoadFromFile(String^ virtualFileName)
     const auto res = CheckResult(InternalAimpObject->LoadFromFile(str));
     str->Release();
     str = nullptr;
-    return VOID_RESULT(res);
+    return ACTION_RESULT(res);
 }
 
 VoidResult AimpLyrics::LoadFromStream(IAimpStream^ stream, LyricsFormat format)
 {
-    return VOID_RESULT(ActionResultType::NotImplemented);
+    return ACTION_RESULT(ActionResultType::NotImplemented);
 }
 
 VoidResult AimpLyrics::LoadFromString(String^ lyrics, LyricsFormat format)
@@ -114,7 +114,7 @@ VoidResult AimpLyrics::LoadFromString(String^ lyrics, LyricsFormat format)
     const auto res = CheckResult(InternalAimpObject->LoadFromString(str, static_cast<int>(format)));
     str->Release();
     str = nullptr;
-    return VOID_RESULT(res);
+    return ACTION_RESULT(res);
 }
 
 VoidResult AimpLyrics::SaveToFile(String^ fileUri)
@@ -123,12 +123,12 @@ VoidResult AimpLyrics::SaveToFile(String^ fileUri)
     const auto result = Utils::CheckResult(InternalAimpObject->SaveToFile(str));
     str->Release();
     str = nullptr;
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 VoidResult AimpLyrics::SaveToStream(IAimpStream^ stream, LyricsFormat format)
 {
-    return VOID_RESULT(ActionResultType::NotImplemented);
+    return ACTION_RESULT(ActionResultType::NotImplemented);
 }
 
 AimpActionResult<String^>^ AimpLyrics::SaveToString(LyricsFormat format)

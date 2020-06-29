@@ -24,18 +24,22 @@ namespace Aimp.TestRunner.UnitTests
 {
     public static class AssertExtension
     {
-        public static void AreEqual<TResult>(this AimpIntegrationTest testClass, object expected, Expression<Func<TResult>> current, string message = null)
+        public static EqualAssert AreEqual<TResult>(this AimpIntegrationTest testClass, object expected, Expression<Func<TResult>> current, string message = null)
         {
-            testClass.Asserts.Add(new EqualAssert(current.GetExpressionMemberName(), current.GetExpressionValue(), expected, message));
+            var assert = new EqualAssert(current.GetExpressionMemberName(), current.GetExpressionValue(), expected,
+                message);
+            testClass.Asserts.Add(assert);
+            return assert;
         }
 
-        public static void AreEqual(this AimpIntegrationTest testClass, object expected,
+        public static EqualAssert AreEqual(this AimpIntegrationTest testClass, object expected,
             object current,
             string fieldName = null,
             string message = null)
         {
             var assert = new EqualAssert(fieldName, current, expected, message);
             testClass.Asserts.Add(assert);
+            return assert;
         }
 
         public static void NotNull<TResult>(this AimpIntegrationTest testClass, Expression<Func<TResult>> current, string message = null)
@@ -283,6 +287,8 @@ namespace Aimp.TestRunner.UnitTests
 
         internal string TrackPath4 { get; }
 
+        internal string TrackUrl1 { get; }
+
         internal IList<AimpAssert> Asserts { get; set; }
 
         protected IAimpPlayer Player { get; }
@@ -296,6 +302,7 @@ namespace Aimp.TestRunner.UnitTests
             TrackPath2 = Path.Combine(RootPath, "resources", "02_loop-mix.mp3");
             TrackPath3 = Path.Combine(RootPath, "resources", "03_atmosphere.mp3");
             TrackPath4 = Path.Combine(RootPath, "resources", "04_loop-mix.mp3");
+            TrackUrl1 = "https://freesound.org/data/previews/514/514101_4397472-lq.mp3";
         }
 
         [OneTimeSetUp]
@@ -333,7 +340,7 @@ namespace Aimp.TestRunner.UnitTests
             return Player.ServiceSynchronizer.ExecuteInMainThread(task, true);
         }
 
-        protected ActionResultType ExecuteIInThread(Func<ActionResultType> func)
+        protected ActionResultType ExecuteInThread(Func<ActionResultType> func)
         {
             var t =  new AimpTask(func);
             return Player.ServiceThreadPool.Execute(t, out _);
@@ -343,7 +350,7 @@ namespace Aimp.TestRunner.UnitTests
         {
             var t = new AimpTask(func);
             var r = Player.ServiceThreadPool.Execute(t, out var id);
-            Player.ServiceThreadPool.WaitFor(id);
+            r = Player.ServiceThreadPool.WaitFor(id);
             return r;
         }
 
@@ -353,6 +360,11 @@ namespace Aimp.TestRunner.UnitTests
             {
                 fieldValidator.Validate();
             }
+        }
+
+        protected AimpAssert AssertOKResult(ActionResultType current, string message = null)
+        {
+            return this.AreEqual(ActionResultType.OK, current, null, message);
         }
 
         private class AimpTask : IAimpTask

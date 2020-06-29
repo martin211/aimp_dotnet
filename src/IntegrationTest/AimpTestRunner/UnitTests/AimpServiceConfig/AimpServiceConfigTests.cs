@@ -58,11 +58,11 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
                 else if (path.EndsWith("Stream"))
                 {
                     var buf = (byte[]) value;
-                    var stream = Player.Core.CreateStream();
-                    var r = stream.Write(buf, buf.Length, out var written);
+                    var streamResult = Player.Core.CreateStream();
+                    var r = streamResult.Result.Write(buf, buf.Length, out var written);
 
                     this.AreEqual(ActionResultType.OK, () => r);
-                    result = Player.ServiceConfig.SetValueAsStream(path, stream);
+                    result = Player.ServiceConfig.SetValueAsStream(path, streamResult.Result);
                 }
 
                 this.NotNull(() => result);

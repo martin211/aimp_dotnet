@@ -62,7 +62,7 @@ VoidResult AimpServiceFileFormats::IsSupported(String^ fileName, FileFormats fla
         ReleaseObject(str);
     }
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 IAIMPServiceFileFormats* AimpServiceFileFormats::GetAimpService()

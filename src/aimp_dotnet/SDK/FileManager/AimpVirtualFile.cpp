@@ -110,10 +110,10 @@ bool AimpVirtualFile::IsExists()
 
 VoidResult AimpVirtualFile::IsInSameStream(IAimpVirtualFile^ virtualFile)
 {
-    return VOID_RESULT(CheckResult(InternalAimpObject->IsInSameStream(static_cast<AimpVirtualFile^>(virtualFile)->InternalAimpObject)));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->IsInSameStream(static_cast<AimpVirtualFile^>(virtualFile)->InternalAimpObject)));
 }
 
 VoidResult AimpVirtualFile::Synchronize()
 {
-    return VOID_RESULT(CheckResult(InternalAimpObject->Synchronize()));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->Synchronize()));
 }

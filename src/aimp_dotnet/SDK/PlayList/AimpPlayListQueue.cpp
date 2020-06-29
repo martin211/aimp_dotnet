@@ -47,7 +47,7 @@ VoidResult AimpPlaylistQueue::Add(IAimpPlaylistItem^ item, bool insertAtBeginnin
         NULL_REFERENCE()
     }
 
-    return VOID_RESULT(CheckResult(InternalAimpObject->Add(internalObj, insertAtBeginning)));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->Add(internalObj, insertAtBeginning)));
 }
 
 VoidResult AimpPlaylistQueue::AddList(Generic::IList<IAimpPlaylistItem^>^ items, bool insertAtBeginning)
@@ -65,7 +65,7 @@ VoidResult AimpPlaylistQueue::AddList(Generic::IList<IAimpPlaylistItem^>^ items,
 
                 if (result != ActionResultType::OK)
                 {
-                    return VOID_RESULT(result);
+                    return ACTION_RESULT(result);
                 }
             }
 
@@ -73,7 +73,7 @@ VoidResult AimpPlaylistQueue::AddList(Generic::IList<IAimpPlaylistItem^>^ items,
         }
     }
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 int AimpPlaylistQueue::GetItemCount()
@@ -83,22 +83,22 @@ int AimpPlaylistQueue::GetItemCount()
 
 VoidResult AimpPlaylistQueue::Delete(IAimpPlaylist^ playList)
 {
-    return VOID_RESULT(CheckResult(InternalAimpObject->Delete2(static_cast<AimpPlayList^>(playList)->InternalAimpObject)));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->Delete2(static_cast<AimpPlayList^>(playList)->InternalAimpObject)));
 }
 
 VoidResult AimpPlaylistQueue::Delete(IAimpPlaylistItem^ item)
 {
-    return VOID_RESULT(CheckResult(InternalAimpObject->Delete(static_cast<AimpPlaylistItem^>(item)->InternalAimpObject)));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->Delete(static_cast<AimpPlaylistItem^>(item)->InternalAimpObject)));
 }
 
 VoidResult AimpPlaylistQueue::Move(IAimpPlaylistItem^ item, int index)
 {
-    return VOID_RESULT(CheckResult(InternalAimpObject->Move(static_cast<AimpPlaylistItem^>(item)->InternalAimpObject, index)));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->Move(static_cast<AimpPlaylistItem^>(item)->InternalAimpObject, index)));
 }
 
 VoidResult AimpPlaylistQueue::Move(int index, int targetIndex)
 {
-    return VOID_RESULT(CheckResult(InternalAimpObject->Move2(index, targetIndex)));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->Move2(index, targetIndex)));
 }
 
 AimpActionResult<IAimpPlaylistItem^>^ AimpPlaylistQueue::GetItem(int index)

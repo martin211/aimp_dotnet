@@ -9,6 +9,8 @@
 // 
 // ----------------------------------------------------
 
+using System.Diagnostics;
+
 namespace AIMP.SDK
 {
     /// <summary>
@@ -52,6 +54,7 @@ namespace AIMP.SDK
         Fail = 0x80004005
     }
 
+    [DebuggerDisplay("{ResultType}")]
     public class AimpActionResult
     {
         public AimpActionResult(ActionResultType resultType)
@@ -62,6 +65,7 @@ namespace AIMP.SDK
         public ActionResultType ResultType { get; }
     }
 
+    [DebuggerDisplay("{ResultType, Result}")]
     public class AimpActionResult<TObject> : AimpActionResult
     {
         public AimpActionResult(ActionResultType resultType, TObject result) : base(resultType)

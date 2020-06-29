@@ -152,7 +152,7 @@ namespace TestPlugin
             Player.ServiceConfig.SetValueAsInt32("AIMP.DOTNET.DEMO\\INT32", 10);
             Player.ServiceConfig.SetValueAsInt64("AIMP.DOTNET.DEMO\\INT64", 20);
             Player.ServiceConfig.SetValueAsString("AIMP.DOTNET.DEMO\\STRING", "STRING");
-            using (var stream = Player.Core.CreateStream())
+            using (var stream = Player.Core.CreateStream().Result)
             {
                 var buf = System.Text.Encoding.Default.GetBytes("STREAMDATA");
                 int written;

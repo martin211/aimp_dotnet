@@ -20,5 +20,5 @@ VoidResult AimpFileSystemCommandCopyToClipboard::CopyToClipboard(List<String^>^ 
 {
     auto collection = AimpConverter::ToAimpObjectList(files);
     auto result = CheckResult(InternalAimpObject->CopyToClipboard(collection));
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }

@@ -22,7 +22,7 @@ VoidResult AimpFileSystemCommandOpenFileFolder::CanProcess(String^ file)
     auto result = CheckResult(InternalAimpObject->CanProcess(str));
     str->Release();
     str = nullptr;
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 VoidResult AimpFileSystemCommandOpenFileFolder::Process(String^ file)
@@ -31,5 +31,5 @@ VoidResult AimpFileSystemCommandOpenFileFolder::Process(String^ file)
     auto result = CheckResult(InternalAimpObject->Process(str));
     str->Release();
     str = nullptr;
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
