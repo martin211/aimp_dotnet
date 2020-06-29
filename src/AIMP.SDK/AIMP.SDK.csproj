@@ -128,6 +128,7 @@
     <Compile Include="MusicLibrary\IAimpServiceMusicLibrary.cs" />
     <Compile Include="MusicLibrary\IAimpServiceMusicLibraryUI.cs" />
     <Compile Include="MusicLibrary\Presets\IAimpGroupingPresetStandard.cs" />
+    <Compile Include="Playback\IAimpExtensionPlaybackQueue.cs" />
     <Compile Include="Playlist\Constants.cs" />
     <Compile Include="Playlist\IAimpExtensionPlaylistPreimageFactory.cs" />
     <Compile Include="Playlist\IAimpPlaylistListener.cs" />

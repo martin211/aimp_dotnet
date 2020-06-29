@@ -77,6 +77,8 @@
     <ClCompile Include="SDK\Options\AimpOptionsDialogFrame.cpp" />
     <ClCompile Include="SDK\Options\AimpServiceOptionsDialog.cpp" />
     <ClCompile Include="SDK\Options\OptionsDialogFrameExtension.cpp" />
+    <ClCompile Include="SDK\Playback\AimpExtensionPlaybackQueue.cpp" />
+    <ClCompile Include="SDK\Playback\AimpExtensionPlayerHook.cpp" />
     <ClCompile Include="SDK\Playback\AimpPlaybackQueueItem.cpp" />
     <ClCompile Include="SDK\Playback\AimpServicePlaybackQueue.cpp" />
     <ClCompile Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.cpp" />
@@ -173,6 +175,8 @@
     <ClInclude Include="SDK\AimpConverter.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiGUI.h" />
     <ClInclude Include="AIMPSDK\AIMPSDK.h" />
+    <ClInclude Include="SDK\Playback\AimpExtensionPlaybackQueue.h" />
+    <ClInclude Include="SDK\Playback\AimpExtensionPlayerHook.h" />
     <ClInclude Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibraryUI.h" />

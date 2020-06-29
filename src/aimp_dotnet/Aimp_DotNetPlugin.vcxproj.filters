@@ -435,6 +435,12 @@
     <ClCompile Include="SDK\Lyrics\AimpExtensionLyricsProvider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\Playback\AimpExtensionPlaybackQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Playback\AimpExtensionPlayerHook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -849,6 +855,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Lyrics\AimpExtensionLyricsProvider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Playback\AimpExtensionPlaybackQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Playback\AimpExtensionPlayerHook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -11,10 +11,10 @@
 
 namespace AIMP.SDK.Playback
 {
-    public interface IAimpPlaybackQueueService : IAimpExtensionPlayerHook, IAimpService
+    public interface IAimpServicePlaybackQueue : IAimpService
     {
-        IAimpPlaybackQueueItem GetNextTrack();
+        AimpActionResult<IAimpPlaybackQueueItem> GetNextTrack();
 
-        IAimpPlaybackQueueItem GetPrevTrack();
+        AimpActionResult<IAimpPlaybackQueueItem> GetPrevTrack();
     }
 }

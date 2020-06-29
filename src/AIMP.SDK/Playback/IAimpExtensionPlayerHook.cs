@@ -11,10 +11,8 @@
 
 namespace AIMP.SDK.Playback
 {
-    public delegate bool AimpCheckUrl(ref string url);
-
-    public interface IAimpExtensionPlayerHook
+    public interface IAimpExtensionPlayerHook : IAimpExtension
     {
-        event AimpCheckUrl OnCheckURL;
+        bool OnCheckURL(ref string url);
     }
 }

@@ -75,7 +75,7 @@ namespace AIMP.SDK.Player
         /// <summary>
         /// Gets the playback queue manager.
         /// </summary>
-        IAimpPlaybackQueueService PlaybackQueueManager { get; }
+        IAimpServicePlaybackQueue ServicePlaybackQueue { get; }
 
         /// <summary>
         /// Gets the service options dialog.
