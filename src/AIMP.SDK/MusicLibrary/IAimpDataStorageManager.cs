@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using AIMP.SDK.ActionManager;
 
 namespace AIMP.SDK.MusicLibrary
@@ -26,15 +27,15 @@ namespace AIMP.SDK.MusicLibrary
         /// <param name="id">The identifier.</param>
         /// <param name="caption">The caption.</param>
         /// <param name="cancelEvent">The cancel event.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult BackgroundTaskStarted(int id, string caption, IAimpActionEvent cancelEvent);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType BackgroundTaskStarted(int id, string caption, IAimpActionEvent cancelEvent);
 
         /// <summary>
         /// Notifies about the background task that has been finished.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult BackgroundTaskFinished(int id);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType BackgroundTaskFinished(int id);
 
         /// <summary>
         /// Notifies the manager that data in data storage has been changed.

@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -28,13 +24,13 @@ namespace AIMP
         public:
             explicit AimpServiceActionManager(ManagedAimpCore^ core);
 
-            virtual AimpActionResult GetById(String^ id, IAimpAction^% action);
+            virtual AimpActionResult<IAimpAction^>^ GetById(String^ id);
 
             virtual int MakeHotkey(ModifierKeys modifiers, unsigned int key);
 
-            virtual AimpActionResult Register(IAimpAction^ action);
+            virtual AimpActionResult^ Register(IAimpAction^ action);
 
-            virtual AimpActionResult Register(Generic::ICollection<IAimpAction^>^ actions);
+            virtual AimpActionResult^ Register(Generic::ICollection<IAimpAction^>^ actions);
 
             virtual IAimpAction^ CreateAction();
 

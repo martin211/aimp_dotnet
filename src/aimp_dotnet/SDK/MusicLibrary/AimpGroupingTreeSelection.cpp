@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -23,7 +19,7 @@ int AimpGroupingTreeSelection::GetCount()
     return InternalAimpObject->GetCount();
 }
 
-AimpActionResult AimpGroupingTreeSelection::GetValue(int index, System::String^% fieldName, System::Object^% value)
+ActionResultType AimpGroupingTreeSelection::GetValue(int index, System::String^% fieldName, System::Object^% value)
 {
     IAIMPString* str = nullptr;
     VARIANT val;
@@ -31,11 +27,11 @@ AimpActionResult AimpGroupingTreeSelection::GetValue(int index, System::String^%
     fieldName = nullptr;
     value = nullptr;
 
-    const AimpActionResult result = CheckResult(InternalAimpObject->GetValue(index, &str, &val));
+    const ActionResultType result = CheckResult(InternalAimpObject->GetValue(index, &str, &val));
 
     try
     {
-        if (result == AimpActionResult::OK)
+        if (result == ActionResultType::OK)
         {
             if (str != nullptr)
             {

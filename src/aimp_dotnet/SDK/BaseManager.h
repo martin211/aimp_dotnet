@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -33,10 +29,10 @@ namespace AIMP
             }
 
         protected:
-            AimpActionResult CheckResult(HRESULT result)
+            ActionResultType CheckResult(HRESULT result)
             {
-                const AimpActionResult res = Utils::CheckResult(result);
-                if (res != AimpActionResult::OK)
+                const ActionResultType res = Utils::CheckResult(result);
+                if (res != ActionResultType::OK)
                 {
                     //AIMP::SDK::InternalLogger::Instance->Write("Invalid operation: result " + result);
                 }
@@ -44,12 +40,22 @@ namespace AIMP
                 return res;
             }
 
-            AimpActionResult GetService(const IID id, TAimpService** service)
+            AimpActionResult^ GetResult(HRESULT result)
+            {
+                return gcnew AimpActionResult(CheckResult(result));
+            }
+
+            AimpActionResult^ GetResult(ActionResultType result)
+            {
+                return gcnew AimpActionResult(result);
+            }
+
+            ActionResultType GetService(const IID id, TAimpService** service)
             {
                 TAimpService* s = nullptr;
-                const AimpActionResult result = CheckResult(_core->GetService(id, reinterpret_cast<void**>(&s)));
+                const ActionResultType result = CheckResult(_core->GetService(id, reinterpret_cast<void**>(&s)));
 
-                if (result == AimpActionResult::OK && s != nullptr)
+                if (result == ActionResultType::OK && s != nullptr)
                 {
                     *service = s;
                     _isExist = true;

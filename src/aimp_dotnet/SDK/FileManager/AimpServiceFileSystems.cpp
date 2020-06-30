@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -25,11 +21,11 @@ AimpServiceFileSystems::AimpServiceFileSystems(ManagedAimpCore^ core) : BaseAimp
 {
 }
 
-AimpActionResult AimpServiceFileSystems::Get(FileCommandType commandType, String^ fileUri, IAimpFileSystemCommand^% command)
+FileSystemCommandResult AimpServiceFileSystems::Get(FileCommandType commandType, String^ fileUri)
 {
     IAIMPServiceFileSystems* service = GetAimpService();
-    auto result = AimpActionResult::Fail;
-    command = nullptr;
+    auto result = ActionResultType::Fail;
+    IAimpFileSystemCommand^ command = nullptr;
 
     try
     {
@@ -43,13 +39,14 @@ AimpActionResult AimpServiceFileSystems::Get(FileCommandType commandType, String
         ReleaseObject(service);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpFileSystemCommand^>(result, command);
 }
 
-AimpActionResult AimpServiceFileSystems::GetDefault(FileCommandType commandType, IAimpFileSystemCommand^% command)
+FileSystemCommandResult AimpServiceFileSystems::GetDefault(FileCommandType commandType)
 {
     IAIMPServiceFileSystems* service = GetAimpService();
-    auto result = AimpActionResult::Fail;
+    auto result = ActionResultType::Fail;
+    IAimpFileSystemCommand^ command = nullptr;
 
     try
     {
@@ -58,7 +55,7 @@ AimpActionResult AimpServiceFileSystems::GetDefault(FileCommandType commandType,
             result = GetCommand(commandType, GetCommandId(commandType), service, nullptr, command, true);
         }
 
-        return result;
+        return gcnew AimpActionResult<IAimpFileSystemCommand^>(result, command);
     }
     finally
     {
@@ -89,14 +86,14 @@ GUID AimpServiceFileSystems::GetCommandId(FileCommandType commandType)
     throw gcnew ArgumentException("Invalid commandType");
 }
 
-AimpActionResult AimpServiceFileSystems::GetCommand(FileCommandType commandType, GUID commandId,
+ActionResultType AimpServiceFileSystems::GetCommand(FileCommandType commandType, GUID commandId,
                                                     IAIMPServiceFileSystems* service, String^ value,
                                                     IAimpFileSystemCommand^% command, bool isDefault)
 {
     IAIMPString* str = isDefault
                            ? nullptr
                            : AimpConverter::ToAimpString(value);
-    auto result = AimpActionResult::Fail;
+    auto result = ActionResultType::Fail;
 
     try
     {
@@ -108,7 +105,7 @@ AimpActionResult AimpServiceFileSystems::GetCommand(FileCommandType commandType,
                 result = isDefault
                              ? CheckResult(service->GetDefault(commandId, reinterpret_cast<void**>(&cmd)))
                              : CheckResult(service->Get(str, commandId, reinterpret_cast<void**>(&cmd)));
-                if (result == AimpActionResult::OK && cmd != nullptr)
+                if (result == ActionResultType::OK && cmd != nullptr)
                 {
                     command = gcnew AimpFileSystemCommandFileInfo(cmd);
                 }
@@ -120,7 +117,7 @@ AimpActionResult AimpServiceFileSystems::GetCommand(FileCommandType commandType,
                 result = isDefault
                              ? CheckResult(service->GetDefault(commandId, reinterpret_cast<void**>(&cmd)))
                              : CheckResult(service->Get(str, commandId, reinterpret_cast<void**>(&cmd)));
-                if (result == AimpActionResult::OK && cmd != nullptr)
+                if (result == ActionResultType::OK && cmd != nullptr)
                 {
                     command = gcnew AimpFileSystemCommandCopyToClipboard(cmd);
                 }
@@ -132,7 +129,7 @@ AimpActionResult AimpServiceFileSystems::GetCommand(FileCommandType commandType,
                 result = isDefault
                              ? CheckResult(service->GetDefault(commandId, reinterpret_cast<void**>(&cmd)))
                              : CheckResult(service->Get(str, commandId, reinterpret_cast<void**>(&cmd)));
-                if (result == AimpActionResult::OK && cmd != nullptr)
+                if (result == ActionResultType::OK && cmd != nullptr)
                 {
                     command = gcnew AimpFileSystemCommandDelete(cmd);
                 }
@@ -144,7 +141,7 @@ AimpActionResult AimpServiceFileSystems::GetCommand(FileCommandType commandType,
                 result = isDefault
                              ? CheckResult(service->GetDefault(commandId, reinterpret_cast<void**>(&cmd)))
                              : CheckResult(service->Get(str, commandId, reinterpret_cast<void**>(&cmd)));
-                if (result == AimpActionResult::OK && cmd != nullptr)
+                if (result == ActionResultType::OK && cmd != nullptr)
                 {
                     command = gcnew AimpFileSystemCommandDropSource(cmd);
                 }
@@ -156,7 +153,7 @@ AimpActionResult AimpServiceFileSystems::GetCommand(FileCommandType commandType,
                 result = isDefault
                              ? CheckResult(service->GetDefault(commandId, reinterpret_cast<void**>(&cmd)))
                              : CheckResult(service->Get(str, commandId, reinterpret_cast<void**>(&cmd)));
-                if (result == AimpActionResult::OK && cmd != nullptr)
+                if (result == ActionResultType::OK && cmd != nullptr)
                 {
                     command = gcnew AimpFileSystemCommandOpenFileFolder(cmd);
                 }
@@ -168,7 +165,7 @@ AimpActionResult AimpServiceFileSystems::GetCommand(FileCommandType commandType,
                 result = isDefault
                              ? CheckResult(service->GetDefault(commandId, reinterpret_cast<void**>(&cmd)))
                              : CheckResult(service->Get(str, commandId, reinterpret_cast<void**>(&cmd)));
-                if (result == AimpActionResult::OK && cmd != nullptr)
+                if (result == ActionResultType::OK && cmd != nullptr)
                 {
                     command = gcnew AimpFileSystemCommandStreaming(cmd);
                 }

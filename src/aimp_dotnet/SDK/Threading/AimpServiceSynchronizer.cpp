@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -20,7 +16,7 @@ AimpServiceSynchronizer(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceSyn
 {
 }
 
-AimpActionResult AimpServiceSynchronizer::ExecuteInMainThread(IAimpTask^ task, bool executeNow)
+ActionResultType AimpServiceSynchronizer::ExecuteInMainThread(IAimpTask^ task, bool executeNow)
 {
     IAIMPServiceSynchronizer* service = GetAimpService();
 
@@ -37,7 +33,7 @@ AimpActionResult AimpServiceSynchronizer::ExecuteInMainThread(IAimpTask^ task, b
         ReleaseObject(service);
     }
 
-    return AimpActionResult::Fail;
+    return ActionResultType::Fail;
 }
 
 IAIMPServiceSynchronizer* AimpServiceSynchronizer::GetAimpService()

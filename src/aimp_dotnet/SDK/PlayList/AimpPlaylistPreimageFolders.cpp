@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -19,9 +15,9 @@ AimpPlaylistPreimageFolders::AimpPlaylistPreimageFolders(IAIMPPlaylistPreimageFo
 {
 }
 
-AimpActionResult AimpPlaylistPreimageFolders::ItemsAdd(String^ path, bool recursive)
+ActionResultType AimpPlaylistPreimageFolders::ItemsAdd(String^ path, bool recursive)
 {
-    AimpActionResult res = AimpActionResult::Fail;
+    ActionResultType res = ActionResultType::Fail;
     IAIMPString* str = AimpConverter::ToAimpString(path);
 
     IAIMPPlaylistPreimageFolders* folders = static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject);
@@ -34,21 +30,21 @@ AimpActionResult AimpPlaylistPreimageFolders::ItemsAdd(String^ path, bool recurs
     return res;
 }
 
-AimpActionResult AimpPlaylistPreimageFolders::ItemsDelete(int index)
+ActionResultType AimpPlaylistPreimageFolders::ItemsDelete(int index)
 {
     return CheckResult(static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsDelete(index));
 }
 
-AimpActionResult AimpPlaylistPreimageFolders::ItemsDeleteAll()
+ActionResultType AimpPlaylistPreimageFolders::ItemsDeleteAll()
 {
     return CheckResult(static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsDeleteAll());
 }
 
-AimpActionResult AimpPlaylistPreimageFolders::ItemsGet(int index, String^% path, bool% recursive)
+ActionResultType AimpPlaylistPreimageFolders::ItemsGet(int index, String^% path, bool% recursive)
 {
     IAIMPString* str = nullptr;
     BOOL* b = nullptr;
-    AimpActionResult res = CheckResult(
+    ActionResultType res = CheckResult(
         static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsGet(index, str, b));
     path = AimpConverter::ToManagedString(str);
     recursive = b;

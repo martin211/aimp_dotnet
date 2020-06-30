@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 namespace AIMP.SDK.Playlist
 {
     /// <summary>
@@ -25,16 +26,16 @@ namespace AIMP.SDK.Playlist
         /// <summary>
         /// Occurs when playlist activated.
         /// </summary>
-        AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist);
+        ActionResultType OnPlaylistActivated(IAimpPlaylist playlist);
 
         /// <summary>
         /// Occurs when playlist added.
         /// </summary>
-        AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist);
+        ActionResultType OnPlaylistAdded(IAimpPlaylist playlist);
 
         /// <summary>
         /// Occurs when playlist removed.
         /// </summary>
-        AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist);
+        ActionResultType OnPlaylistRemoved(IAimpPlaylist playlist);
     }
 }

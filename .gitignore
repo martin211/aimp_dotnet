@@ -54,3 +54,7 @@ node_modules
 docs/*.log
 .sonarqube
 *.log
+
+packages
+.integrationTests/*
+build/api/*

@@ -14,14 +14,14 @@ namespace Aimp.DotNet.MemoryLeaks
             _player = player;
         }
 
-        public AimpActionResult CoreMessage(AimpCoreMessageType message, int param1, int param2)
+        public ActionResultType CoreMessage(AimpCoreMessageType message, int param1, int param2)
         {
             if (message == AimpCoreMessageType.AIMP_MSG_EVENT_PLAYER_STATE && param1 == 2)
             {
                 var cfi = _player.CurrentFileInfo;
             }
 
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
     }
 

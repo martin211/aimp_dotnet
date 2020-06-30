@@ -1,0 +1,47 @@
+- name: Actions
+  namespace: AIMP.SDK.ActionManager
+- name: AlbumArt
+  namespace: AIMP.SDK.AlbumArtManager
+- name: Core
+  namespace: AIMP.SDK
+- name: File Manager
+  namespace: AIMP.SDK.FileManager
+  items:
+    - name: Commands
+      namespace: AIMP.SDK.FileManager.Commands
+    - name: Extensions
+      namespace: AIMP.SDK.FileManager.Extensions
+- name: Lyrics
+  namespace: AIMP.SDK.Lyrics
+- name: Menu
+  namespace: AIMP.SDK.MenuManager
+- name: Message Dispatcher
+  namespace: AIMP.SDK.MessageDispatcher
+- name: Multi-Language UI
+  namespace: AIMP.SDK.MUIManager
+- name: Music Library
+  namespace: AIMP.SDK.MusicLibrary
+  items:
+    - name: DataFilter
+      namespace: AIMP.SDK.MusicLibrary.DataFilter
+    - name: DataStorage
+      namespace: AIMP.SDK.MusicLibrary.DataStorage
+    - name: Extension
+      namespace: AIMP.SDK.MusicLibrary.Extension
+      items:
+        - name: Command
+          namespace: AIMP.SDK.MusicLibrary.Extension.Command
+    - name: Presets
+      namespace: AIMP.SDK.MusicLibrary.Presets
+- name: Options Dialog
+  namespace: AIMP.SDK.Options
+- name: Player
+  namespace: AIMP.SDK.Player
+- name: Playlists
+  namespace: AIMP.SDK.Player
+- name: Tag Editor
+  namespace: AIMP.SDK.TagEditor
+- name: Threading
+  namespace: AIMP.SDK.Threading
+- name: Visuals
+  namespace: AIMP.SDK.Visuals

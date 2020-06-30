@@ -11,13 +11,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AimpMemoryManager.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpServiceAlbumArtCache.cpp" />
-    <ClCompile Include="SDK\FileManager\AimpServiceFileInfoFormattercpp.cpp" />
+    <ClCompile Include="SDK\FileManager\AimpServiceFileInfoFormatter.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandCopyToClipboard.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandDelete.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandDropSource.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandOpenFileFolder.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandStreaming.cpp" />
+    <ClCompile Include="SDK\Lyrics\AimpExtensionLyricsProvider.cpp" />
     <ClCompile Include="SDK\Lyrics\AimpLyrics.cpp" />
     <ClCompile Include="SDK\Lyrics\AimpServiceLyrics.cpp" />
     <ClCompile Include="SDK\MessageDispatcher\InternalAimpMessageHook.cpp" />
@@ -75,6 +77,8 @@
     <ClCompile Include="SDK\Options\AimpOptionsDialogFrame.cpp" />
     <ClCompile Include="SDK\Options\AimpServiceOptionsDialog.cpp" />
     <ClCompile Include="SDK\Options\OptionsDialogFrameExtension.cpp" />
+    <ClCompile Include="SDK\Playback\AimpExtensionPlaybackQueue.cpp" />
+    <ClCompile Include="SDK\Playback\AimpExtensionPlayerHook.cpp" />
     <ClCompile Include="SDK\Playback\AimpPlaybackQueueItem.cpp" />
     <ClCompile Include="SDK\Playback\AimpServicePlaybackQueue.cpp" />
     <ClCompile Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.cpp" />
@@ -117,6 +121,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AimpMemoryManager.h" />
     <ClInclude Include="SDK\AlbumArt\AimpServiceAlbumArtCache.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileInfoFormatter.h" />
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandCopyToClipboard.h" />
@@ -125,6 +130,7 @@
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandOpenFileFolder.h" />
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandStreaming.h" />
     <ClInclude Include="SDK\FileManager\Commands\Internal\Stdafx.h" />
+    <ClInclude Include="SDK\Lyrics\AimpExtensionLyricsProvider.h" />
     <ClInclude Include="SDK\Lyrics\AimpLyrics.h" />
     <ClInclude Include="SDK\Lyrics\AimpServiceLyrics.h" />
     <ClInclude Include="SDK\MessageDispatcher\InternalAimpMessageHook.h" />
@@ -169,6 +175,8 @@
     <ClInclude Include="SDK\AimpConverter.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiGUI.h" />
     <ClInclude Include="AIMPSDK\AIMPSDK.h" />
+    <ClInclude Include="SDK\Playback\AimpExtensionPlaybackQueue.h" />
+    <ClInclude Include="SDK\Playback\AimpExtensionPlayerHook.h" />
     <ClInclude Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpGroupingPresetStandard.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibraryUI.h" />

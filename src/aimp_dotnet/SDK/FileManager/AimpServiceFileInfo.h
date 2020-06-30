@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -26,13 +22,11 @@ namespace AIMP
         public:
             AimpServiceFileInfo(ManagedAimpCore^ core);
 
-            virtual AimpActionResult GetFileInfoFromFileUri(String^ fileUri, ServiceFileInfoFlags fileInfoFlags,
-                                                            IAimpFileInfo^% fileInfo);
+            virtual FileInfoResult GetFileInfoFromFileUri(String^ fileUri, ServiceFileInfoFlags fileInfoFlags);
 
-            virtual AimpActionResult GetFileInfoFromStream(IAimpStream^ fileStream, ServiceFileInfoFlags fileInfoFlags,
-                                                           IAimpFileInfo^% fileInfo);
+            virtual FileInfoResult GetFileInfoFromStream(IAimpStream^ fileStream, ServiceFileInfoFlags fileInfoFlags);
 
-            virtual AimpActionResult GetVirtualFile(String^ fileUri, IAimpVirtualFile^% virtualFile);
+            virtual VirtualFileResult GetVirtualFile(String^ fileUri);
         protected:
             IAIMPServiceFileInfo* GetAimpService() override;
         };

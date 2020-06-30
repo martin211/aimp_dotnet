@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 namespace AIMP.SDK.Threading
 {
     using System;
@@ -36,22 +37,22 @@ namespace AIMP.SDK.Threading
         /// </summary>
         /// <param name="taskhandle">The task handle.</param>
         /// <param name="flags">The flags.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Cancel(UIntPtr taskhandle, AimpServiceThreadPoolType flags);
+        /// <returns>The <see cref="ActionResultType"/> result.</returns>
+        ActionResultType Cancel(UIntPtr taskhandle, AimpServiceThreadPoolType flags);
 
         /// <summary>
         /// Executes the specified task.
         /// </summary>
         /// <param name="task">The task.</param>
         /// <param name="taskHandle">The task handle.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Execute(IAimpTask task, out UIntPtr taskHandle);
+        /// <returns>The <see cref="ActionResultType"/> result.</returns>
+        ActionResultType Execute(IAimpTask task, out UIntPtr taskHandle);
 
         /// <summary>
         /// Method provides an ability to wait for task completion.
         /// </summary>
         /// <param name="taskHandle">The task handle.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult WaitFor(UIntPtr taskHandle);
+        /// <returns>The <see cref="ActionResultType"/> result.</returns>
+        ActionResultType WaitFor(UIntPtr taskHandle);
     }
 }

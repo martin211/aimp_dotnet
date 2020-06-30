@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 using System.Diagnostics;
 using AIMP.SDK.ActionManager;
@@ -22,14 +23,14 @@ namespace TestPlugin
     using AIMP.SDK.MenuManager;
     using AIMP.SDK.Options;
 
-    public delegate AimpActionResult HookMessage(AimpCoreMessageType message, int param1, int param2);
+    public delegate ActionResultType HookMessage(AimpCoreMessageType message, int param1, int param2);
 
     public class MessageHook : IAimpMessageHook
     {
-        public AimpActionResult CoreMessage(AimpCoreMessageType message, int param1, int param2)
+        public ActionResultType CoreMessage(AimpCoreMessageType message, int param1, int param2)
         {
             OnCoreMessage?.Invoke(message, param1, param2);
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
         public event HookMessage OnCoreMessage;
@@ -37,19 +38,19 @@ namespace TestPlugin
 
     public class ExtensionPlaylistManagerListener : IAimpExtension, IAimpExtensionPlaylistManagerListener
     {
-        public AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist)
+        public ActionResultType OnPlaylistActivated(IAimpPlaylist playlist)
         {
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist)
+        public ActionResultType OnPlaylistAdded(IAimpPlaylist playlist)
         {
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist)
+        public ActionResultType OnPlaylistRemoved(IAimpPlaylist playlist)
         {
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
     }
 
@@ -73,7 +74,7 @@ namespace TestPlugin
             var listner = new ExtensionPlaylistManagerListener();
             Player.Core.RegisterExtension(listner);
 
-            if (Player.MenuManager.CreateMenuItem(out demoFormItem) == AimpActionResult.OK)
+            if (Player.MenuManager.CreateMenuItem(out demoFormItem) == ActionResultType.OK)
             {
                 demoFormItem.Name = "Open demo form";
                 demoFormItem.Id = "demo_form";
@@ -124,7 +125,7 @@ namespace TestPlugin
         private void CreateMenuWithAction()
         {
             IAimpMenuItem actionMenuItem;
-            if (Player.MenuManager.CreateMenuItem(out actionMenuItem) == AimpActionResult.OK)
+            if (Player.MenuManager.CreateMenuItem(out actionMenuItem) == ActionResultType.OK)
             {
 
                 IAimpAction action = Player.ActionManager.CreateAction();
@@ -151,7 +152,7 @@ namespace TestPlugin
             Player.ServiceConfig.SetValueAsInt32("AIMP.DOTNET.DEMO\\INT32", 10);
             Player.ServiceConfig.SetValueAsInt64("AIMP.DOTNET.DEMO\\INT64", 20);
             Player.ServiceConfig.SetValueAsString("AIMP.DOTNET.DEMO\\STRING", "STRING");
-            using (var stream = Player.Core.CreateStream())
+            using (var stream = Player.Core.CreateStream().Result)
             {
                 var buf = System.Text.Encoding.Default.GetBytes("STREAMDATA");
                 int written;
@@ -163,14 +164,14 @@ namespace TestPlugin
         private void TestReadConfig()
         {
             var floatValue = Player.ServiceConfig.GetValueAsFloat("AIMP.DOTNET.DEMO\\FLOAT");
-            Debug.Assert(floatValue == 0.2f);
+            Debug.Assert(floatValue.Result == 0.2f);
             var int32Value = Player.ServiceConfig.GetValueAsInt32("AIMP.DOTNET.DEMO\\INT32");
-            Debug.Assert(int32Value == 10);
+            Debug.Assert(int32Value.Result == 10);
             var int64Value = Player.ServiceConfig.GetValueAsInt64("AIMP.DOTNET.DEMO\\INT64");
-            Debug.Assert(int64Value == 20);
+            Debug.Assert(int64Value.Result == 20);
             var stringValue = Player.ServiceConfig.GetValueAsString("AIMP.DOTNET.DEMO\\STRING");
             Debug.Assert(stringValue.Equals("STRING"));
-            using (var streamValue = Player.ServiceConfig.GetValueAsStream("AIMP.DOTNET.DEMO\\STREAM"))
+            using (var streamValue = Player.ServiceConfig.GetValueAsStream("AIMP.DOTNET.DEMO\\STREAM").Result)
             {
                 long count = streamValue.GetSize();
                 var buf = new byte[count];

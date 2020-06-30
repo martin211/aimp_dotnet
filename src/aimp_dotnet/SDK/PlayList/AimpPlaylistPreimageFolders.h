@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -26,13 +22,13 @@ namespace AIMP
         public:
             explicit AimpPlaylistPreimageFolders(IAIMPPlaylistPreimageFolders* aimpObject);
 
-            virtual AimpActionResult ItemsAdd(String^ path, bool recursive);
+            virtual ActionResultType ItemsAdd(String^ path, bool recursive);
 
-            virtual AimpActionResult ItemsDelete(int index);
+            virtual ActionResultType ItemsDelete(int index);
 
-            virtual AimpActionResult ItemsDeleteAll();
+            virtual ActionResultType ItemsDeleteAll();
 
-            virtual AimpActionResult ItemsGet(int index, String^% path, bool% recursive);
+            virtual ActionResultType ItemsGet(int index, String^% path, bool% recursive);
 
             virtual int ItemsGetCount();
         };

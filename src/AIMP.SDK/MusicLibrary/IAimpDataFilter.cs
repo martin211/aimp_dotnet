@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using AIMP.SDK.MusicLibrary.DataFilter;
 
 namespace AIMP.SDK.MusicLibrary
@@ -55,13 +56,13 @@ namespace AIMP.SDK.MusicLibrary
         /// Note: source filter must be assigned to same data storage.
         /// </summary>
         /// <param name="source">The source.</param>
-        /// <returns><see cref="AimpActionResult"/></returns>
-        AimpActionResult Assign(IAimpDataFilter source);
+        /// <returns><see cref="ActionResultType"/></returns>
+        ActionResultType Assign(IAimpDataFilter source);
 
         /// <summary>
         /// Clones to the specified source.
         /// </summary>
         /// <param name="source">The source.</param>
-        AimpActionResult Clone(out IAimpDataFilter source);
+        ActionResultType Clone(out IAimpDataFilter source);
     }
 }

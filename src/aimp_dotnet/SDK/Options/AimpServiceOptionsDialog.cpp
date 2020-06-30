@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -18,7 +14,7 @@ AimpServiceOptionsDialog::
 AimpServiceOptionsDialog(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceOptionsDialog>(core)
 { }
 
-AimpActionResult AimpServiceOptionsDialog::FrameModified(IAimpOptionsDialogFrame^ frame)
+ActionResultType AimpServiceOptionsDialog::FrameModified(IAimpOptionsDialogFrame^ frame)
 {
     auto service = GetAimpService();
     try
@@ -31,7 +27,7 @@ AimpActionResult AimpServiceOptionsDialog::FrameModified(IAimpOptionsDialogFrame
     }
 }
 
-AimpActionResult AimpServiceOptionsDialog::FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow)
+ActionResultType AimpServiceOptionsDialog::FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow)
 {
     auto service = GetAimpService();
     try

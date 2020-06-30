@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -19,12 +15,12 @@ AimpServiceFileInfo::AimpServiceFileInfo(ManagedAimpCore^ core) : BaseAimpServic
 {
 }
 
-AimpActionResult AimpServiceFileInfo::GetFileInfoFromFileUri(String^ fileUri, ServiceFileInfoFlags fileInfoFlags, IAimpFileInfo^% fileInfo)
+FileInfoResult AimpServiceFileInfo::GetFileInfoFromFileUri(String^ fileUri, ServiceFileInfoFlags fileInfoFlags)
 {
     IAIMPServiceFileInfo* service = GetAimpService();
     IAIMPString* str = nullptr;
-    AimpActionResult result = AimpActionResult::Fail;
-    fileInfo = nullptr;
+    ActionResultType result = ActionResultType::Fail;
+    IAimpFileInfo^ fileInfo = nullptr;
 
     try
     {
@@ -34,7 +30,7 @@ AimpActionResult AimpServiceFileInfo::GetFileInfoFromFileUri(String^ fileUri, Se
             str = AimpConverter::ToAimpString(fileUri);
             result = CheckResult(service->GetFileInfoFromFileURI(str, DWORD(fileInfoFlags), fi));
 
-            if (result == AimpActionResult::OK && fi != nullptr)
+            if (result == ActionResultType::OK && fi != nullptr)
             {
                 fileInfo = gcnew AimpFileInfo(fi);
             }
@@ -46,14 +42,14 @@ AimpActionResult AimpServiceFileInfo::GetFileInfoFromFileUri(String^ fileUri, Se
         ReleaseObject(str);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpFileInfo^>(result, fileInfo);
 }
 
-AimpActionResult AimpServiceFileInfo::GetFileInfoFromStream(IAimpStream^ fileStream, ServiceFileInfoFlags fileInfoFlags, IAimpFileInfo^% fileInfo)
+FileInfoResult AimpServiceFileInfo::GetFileInfoFromStream(IAimpStream^ fileStream, ServiceFileInfoFlags fileInfoFlags)
 {
     IAIMPServiceFileInfo* service = GetAimpService();
-    AimpActionResult result = AimpActionResult::Fail;
-    fileInfo = nullptr;
+    ActionResultType result = ActionResultType::Fail;
+    IAimpFileInfo^ fileInfo = nullptr;
 
     try
     {
@@ -65,7 +61,7 @@ AimpActionResult AimpServiceFileInfo::GetFileInfoFromStream(IAimpStream^ fileStr
                 DWORD(fileInfoFlags),
                 fi));
 
-            if (result == AimpActionResult::OK && fi != nullptr)
+            if (result == ActionResultType::OK && fi != nullptr)
             {
                 fileInfo = gcnew AimpFileInfo(fi);
             }
@@ -76,15 +72,15 @@ AimpActionResult AimpServiceFileInfo::GetFileInfoFromStream(IAimpStream^ fileStr
         ReleaseObject(service);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpFileInfo^>(result, fileInfo);
 }
 
-AimpActionResult AimpServiceFileInfo::GetVirtualFile(String^ fileUri, IAimpVirtualFile^% virtualFile)
+VirtualFileResult AimpServiceFileInfo::GetVirtualFile(String^ fileUri)
 {
     IAIMPServiceFileInfo* service = GetAimpService();
     IAIMPString* str = nullptr;
-    AimpActionResult result = AimpActionResult::Fail;
-    virtualFile = nullptr;
+    ActionResultType result = ActionResultType::Fail;
+    IAimpVirtualFile^ virtualFile = nullptr;
 
     try
     {
@@ -94,7 +90,7 @@ AimpActionResult AimpServiceFileInfo::GetVirtualFile(String^ fileUri, IAimpVirtu
             str = AimpConverter::ToAimpString(fileUri);
             result = CheckResult(service->GetVirtualFile(str, 0, &vf));
 
-            if (result == AimpActionResult::OK && vf != nullptr)
+            if (result == ActionResultType::OK && vf != nullptr)
             {
                 virtualFile = gcnew AimpVirtualFile(vf);
             }
@@ -106,7 +102,7 @@ AimpActionResult AimpServiceFileInfo::GetVirtualFile(String^ fileUri, IAimpVirtu
         ReleaseObject(str); 
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpVirtualFile^>(result, virtualFile);
 }
 
 IAIMPServiceFileInfo* AimpServiceFileInfo::GetAimpService()

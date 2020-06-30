@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -18,12 +14,12 @@ AimpServiceFileFormats::AimpServiceFileFormats(ManagedAimpCore^ core) : BaseAimp
 {
 }
 
-AimpActionResult AimpServiceFileFormats::GetFormats(FileFormats flags, String^% formats)
+StringResult AimpServiceFileFormats::GetFormats(FileFormats flags)
 {
     IAIMPServiceFileFormats* service = GetAimpService();
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
     IAIMPString* str = nullptr;
-    formats = nullptr;
+    String^ formats = nullptr;
 
     try
     {
@@ -31,7 +27,7 @@ AimpActionResult AimpServiceFileFormats::GetFormats(FileFormats flags, String^% 
         {
             result = CheckResult(service->GetFormats(DWORD(flags), &str));
 
-            if (result == AimpActionResult::OK)
+            if (result == ActionResultType::OK)
             {
                 formats = AimpConverter::ToManagedString(str);
             }
@@ -43,13 +39,13 @@ AimpActionResult AimpServiceFileFormats::GetFormats(FileFormats flags, String^% 
         ReleaseObject(str);
     }
 
-    return result;
+    return gcnew AimpActionResult<String^>(result, formats);
 }
 
-AimpActionResult AimpServiceFileFormats::IsSupported(String^ fileName, FileFormats flags)
+VoidResult AimpServiceFileFormats::IsSupported(String^ fileName, FileFormats flags)
 {
     IAIMPServiceFileFormats* service = GetAimpService();
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
     IAIMPString* str = nullptr;
 
     try
@@ -66,7 +62,7 @@ AimpActionResult AimpServiceFileFormats::IsSupported(String^ fileName, FileForma
         ReleaseObject(str);
     }
 
-    return result;
+    return ACTION_RESULT(result);
 }
 
 IAIMPServiceFileFormats* AimpServiceFileFormats::GetAimpService()

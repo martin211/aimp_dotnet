@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -19,13 +15,9 @@ namespace AIMP
 
         public ref class AimpPlayListGroup : public AimpObject<IAIMPPlaylistGroup>, public IAimpPlaylistGroup
         {
-        private:
-            IAimpPlaylistItem^ _item;
-
         public:
             ~AimpPlayListGroup()
             {
-                _item = nullptr;
             }
 
             AimpPlayListGroup();
@@ -46,7 +38,6 @@ namespace AIMP
             virtual property double Duration
             {
                 double get();
-                void set(double value);
             }
 
             virtual property int Index
@@ -65,7 +56,7 @@ namespace AIMP
                 int get();
             }
 
-            virtual IAimpPlaylistItem^ GetItem(int index);
+            virtual AimpActionResult<IAimpPlaylistItem^>^ GetItem(int index);
         };
     }
 }

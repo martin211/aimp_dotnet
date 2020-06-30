@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -50,19 +51,19 @@ namespace AIMP.DotNet.MusicLibrary.Preimage
 
         public string SortTemplate => string.Empty;
 
-        public AimpActionResult ConfigLoad(IAimpStream stream)
+        public ActionResultType ConfigLoad(IAimpStream stream)
         {
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult ConfigSave(IAimpStream stream)
+        public ActionResultType ConfigSave(IAimpStream stream)
         {
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult ExecuteDialog(IntPtr ownerHandle)
+        public ActionResultType ExecuteDialog(IntPtr ownerHandle)
         {
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
         public void Initialize(IAimpPlaylistPreimageListener listener)
@@ -75,19 +76,19 @@ namespace AIMP.DotNet.MusicLibrary.Preimage
             
         }
 
-        public AimpActionResult GetFilter(out IAimpDataFieldFilter filter)
+        public ActionResultType GetFilter(out IAimpDataFieldFilter filter)
         {
             filter = null;
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult GetStorage(out IAimpDataStorage storage)
+        public ActionResultType GetStorage(out IAimpDataStorage storage)
         {
             storage = null;
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult GetFiles(IAimpTaskOwner owner, out int preimageFlags, out IList dataList)
+        public ActionResultType GetFiles(IAimpTaskOwner owner, out int preimageFlags, out IList dataList)
         {
             preimageFlags = 0;
             dataList = new List<string>
@@ -95,7 +96,7 @@ namespace AIMP.DotNet.MusicLibrary.Preimage
                 Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)
             };
 
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
     }
 }

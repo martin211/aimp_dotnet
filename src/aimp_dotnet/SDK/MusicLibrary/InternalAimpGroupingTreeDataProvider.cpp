@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -51,7 +47,7 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProvider::GetData(IAIMPMLGroupingTree
 {
     IAimpGroupingTreeSelection^ selection = nullptr;
     IAimpGroupingTreeDataProviderSelection^ dataProviderSelection = nullptr;
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
 
 
     try
@@ -59,7 +55,7 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProvider::GetData(IAIMPMLGroupingTree
         selection = gcnew AimpGroupingTreeSelection(Selection);
         result = _managedInstance->GetData(selection, dataProviderSelection);
 
-        if (result == AimpActionResult::OK)
+        if (result == ActionResultType::OK)
         {
             *Data = new InternalAimpGroupingTreeDataProviderSelection(dataProviderSelection);
         }
@@ -75,9 +71,9 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProvider::GetFieldForAlphabeticIndex(
 {
     String^ str;
 
-    AimpActionResult result = _managedInstance->GetFieldForAlphabeticIndex(str);
+    ActionResultType result = _managedInstance->GetFieldForAlphabeticIndex(str);
 
-    if (result == AimpActionResult::OK)
+    if (result == ActionResultType::OK)
     {
         *FieldName = AimpConverter::ToAimpString(str);
     }

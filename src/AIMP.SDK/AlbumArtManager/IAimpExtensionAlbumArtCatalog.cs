@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 namespace AIMP.SDK.AlbumArtManager
 {
     using System.Drawing;
@@ -24,12 +25,12 @@ namespace AIMP.SDK.AlbumArtManager
         /// <summary>
         /// Gets icon for menu item, icon must be 16x16.
         /// </summary>
-        Bitmap GetIcon();
+        AimpActionResult<Bitmap> GetIcon();
 
         /// <summary>
         /// Gets the catalog name.
         /// </summary>
-        string GetName();
+        AimpActionResult<string> GetName();
 
         /// <summary>
         /// This method will be called on menu item click.
@@ -39,7 +40,7 @@ namespace AIMP.SDK.AlbumArtManager
         /// <param name="album">Optional. The album.</param>
         /// <param name="image">Image instance, can be null if catalog does not provides an ability to select album art immediately.
         /// For example, if the extension just open external link via Internet browser.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Show(string fileUrl, string artist, string album, out Bitmap image);
+        /// <returns>The <see cref="ActionResultType"/> result.</returns>
+        AimpActionResult<Bitmap> Show(string fileUrl, string artist, string album);
     }
 }

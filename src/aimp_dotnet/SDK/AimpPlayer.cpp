@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "stdafx.h"
@@ -85,7 +81,7 @@ IAimpMUIManager^ AimpPlayer::MUIManager::get()
     return _muiManager;
 }
 
-IAimpAlbumArtManager^ AimpPlayer::AlbumArtManager::get()
+IAimpServiceAlbumArt^ AimpPlayer::ServiceAlbumArt::get()
 {
     if (_artManager == nullptr)
     {
@@ -113,12 +109,11 @@ IAimpPlaylistManager2^ AimpPlayer::PlaylistManager::get()
     return _playListManager;
 }
 
-IAimpPlaybackQueueService^ AimpPlayer::PlaybackQueueManager::get()
+IAimpServicePlaybackQueue^ AimpPlayer::ServicePlaybackQueue::get()
 {
     if (_playbackQueueManager == nullptr)
     {
         _playbackQueueManager = gcnew AimpServicePlaybackQueue(static_cast<ManagedAimpCore^>(_managedAimpCore));
-        static_cast<ManagedAimpCore^>(_managedAimpCore)->CheckUrl += gcnew AimpCheckUrl(this, &AimpPlayer::OnCheckUrl);
     }
     return _playbackQueueManager;
 }
@@ -131,7 +126,7 @@ IAIMPServicePlayer* AimpPlayer::ServicePlayer::get()
 bool AimpPlayer::IsMute::get()
 {
     bool value;
-    if (Utils::CheckResult(_player->GetMute(&value)) == AimpActionResult::OK)
+    if (Utils::CheckResult(_player->GetMute(&value)) == ActionResultType::OK)
     {
         return value;
     }
@@ -146,7 +141,7 @@ void AimpPlayer::IsMute::set(bool value)
 float AimpPlayer::Volume::get()
 {
     float value;
-    if (Utils::CheckResult(_player->GetVolume(&value)) == AimpActionResult::OK)
+    if (Utils::CheckResult(_player->GetVolume(&value)) == ActionResultType::OK)
     {
         return value;
     }
@@ -161,7 +156,7 @@ void AimpPlayer::Volume::set(float value)
 double AimpPlayer::Duration::get()
 {
     double value;
-    if (Utils::CheckResult(_player->GetDuration(&value)) == AimpActionResult::OK)
+    if (Utils::CheckResult(_player->GetDuration(&value)) == ActionResultType::OK)
     {
         return value;
     }
@@ -171,7 +166,7 @@ double AimpPlayer::Duration::get()
 double AimpPlayer::Position::get()
 {
     double value;
-    if (Utils::CheckResult(_player->GetPosition(&value)) == AimpActionResult::OK)
+    if (Utils::CheckResult(_player->GetPosition(&value)) == ActionResultType::OK)
     {
         return value;
     }
@@ -192,7 +187,7 @@ AimpPlayerState AimpPlayer::State::get()
 IAimpFileInfo^ AimpPlayer::CurrentFileInfo::get()
 {
     IAIMPFileInfo* fi = nullptr;
-    if (Utils::CheckResult(_player->GetInfo(&fi)) == AimpActionResult::OK && fi != nullptr)
+    if (Utils::CheckResult(_player->GetInfo(&fi)) == ActionResultType::OK && fi != nullptr)
     {
         return gcnew AimpFileInfo(fi);
     }
@@ -203,7 +198,7 @@ IAimpFileInfo^ AimpPlayer::CurrentFileInfo::get()
 IAimpPlaylistItem^ AimpPlayer::CurrentPlaylistItem::get()
 {
     IAIMPPlaylistItem* item = nullptr;
-    if (Utils::CheckResult(_player->GetPlaylistItem(&item)) == AimpActionResult::OK && item != nullptr)
+    if (Utils::CheckResult(_player->GetPlaylistItem(&item)) == ActionResultType::OK && item != nullptr)
     {
         return gcnew AimpPlaylistItem(item);
     }
@@ -240,49 +235,49 @@ IAimpServiceMessageDispatcher^ AimpPlayer::ServiceMessageDispatcher::get()
     return _serviceMessageDispatcher;
 }
 
-void AimpPlayer::Pause()
+VoidResult AimpPlayer::Pause()
 {
-    _player->Pause();
+    return ACTION_RESULT(Utils::CheckResult(_player->Pause()));
 }
 
-void AimpPlayer::Stop()
+VoidResult AimpPlayer::Stop()
 {
-    _player->Stop();
+    return ACTION_RESULT(Utils::CheckResult(_player->Stop()));
 }
 
-void AimpPlayer::Resume()
+VoidResult AimpPlayer::Resume()
 {
-    _player->Resume();
+    return ACTION_RESULT(Utils::CheckResult(_player->Resume()));
 }
 
-void AimpPlayer::StopAfterTrack()
+VoidResult AimpPlayer::StopAfterTrack()
 {
-    _player->StopAfterTrack();
+    return ACTION_RESULT(Utils::CheckResult(_player->StopAfterTrack()));
 }
 
-void AimpPlayer::GoToNext()
+VoidResult AimpPlayer::GoToNext()
 {
-    _player->GoToNext();
+    return ACTION_RESULT(Utils::CheckResult(_player->GoToNext()));
 }
 
-void AimpPlayer::GoToPrev()
+VoidResult AimpPlayer::GoToPrev()
 {
-    _player->GoToPrev();
+    return ACTION_RESULT(Utils::CheckResult(_player->GoToPrev()));
 }
 
-void AimpPlayer::Play(IAimpPlaybackQueueItem^ queueItem)
+VoidResult AimpPlayer::Play(IAimpPlaybackQueueItem^ queueItem)
 {
-    _player->Play(static_cast<AimpPlaybackQueueItem^>(queueItem)->InternalAimpObject);
+    return ACTION_RESULT(Utils::CheckResult(_player->Play(static_cast<AimpPlaybackQueueItem^>(queueItem)->InternalAimpObject)));
 }
 
-void AimpPlayer::Play(IAimpPlaylistItem^ playListItem)
+VoidResult AimpPlayer::Play(IAimpPlaylistItem^ playListItem)
 {
-    _player->Play2(static_cast<AimpPlaylistItem^>(playListItem)->InternalAimpObject);
+    return ACTION_RESULT(Utils::CheckResult(_player->Play2(static_cast<AimpPlaylistItem^>(playListItem)->InternalAimpObject)));
 }
 
-void AimpPlayer::Play(IAimpPlaylist^ playList)
+VoidResult AimpPlayer::Play(IAimpPlaylist^ playList)
 {
-    _player->Play3(static_cast<AimpPlayList^>(playList)->InternalAimpObject);
+    return ACTION_RESULT(Utils::CheckResult(_player->Play3(static_cast<AimpPlayList^>(playList)->InternalAimpObject)));
 }
 
 IAimpServiceSynchronizer^ AimpPlayer::ServiceSynchronizer::get()
@@ -377,11 +372,6 @@ IAimpServiceFileTagEditor^ AimpPlayer::ServiceFileTagEditor::get()
     }
 
     return _serviceFileTagEditor;
-}
-
-bool AimpPlayer::OnCheckUrl(String^ % url)
-{
-    return static_cast<AimpServicePlaybackQueue^>(this->_playbackQueueManager)->RaiseCheckUrl(url);
 }
 
 IAimpServiceLyrics^ AimpPlayer::ServiceLyrics::get()

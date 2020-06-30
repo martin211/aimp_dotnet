@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -26,13 +22,13 @@ IAimpObjectList<String^>^ AimpGroupingPresetStandard::Fields::get()
     IAIMPObjectList* fields = nullptr;
 
     if (CheckResult(InternalAimpObject->GetValueAsObject(AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList,
-                                                         reinterpret_cast<void**>(&fields))) == AimpActionResult::OK)
+                                                         reinterpret_cast<void**>(&fields))) == ActionResultType::OK)
     {
         return gcnew AimpObjectList<String^>(fields);
     }
 
     // TODO: Check GetObject
-    //if (PropertyListExtension::GetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList, (void**)&fields) == AimpActionResult::OK)
+    //if (PropertyListExtension::GetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList, (void**)&fields) == ActionResultType::OK)
     //{
     //    if (fields == nullptr)
     //    {
@@ -59,15 +55,15 @@ void AimpGroupingPresetStandard::Fields::set(IAimpObjectList<String^>^ value)
     PropertyListExtension::SetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, fields);
 }
 
-AimpActionResult AimpGroupingPresetStandard::GetFilter(IAimpDataFilterGroup^% filter)
+ActionResultType AimpGroupingPresetStandard::GetFilter(IAimpDataFilterGroup^% filter)
 {
     IAIMPMLDataFilterGroup* f = nullptr;
     filter = nullptr;
 
-    const AimpActionResult result = CheckResult(
+    const ActionResultType result = CheckResult(
         static_cast<IAIMPMLGroupingPresetStandard*>(InternalAimpObject)->GetFilter(&f));
 
-    if (result == AimpActionResult::OK)
+    if (result == ActionResultType::OK)
     {
         filter = gcnew AimpDataFilterGroup(f);
     }

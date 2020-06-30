@@ -2,23 +2,24 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 namespace AIMP.SDK.Playlist
 {
     public interface IAimpPlaylistPreimageFolders : IAimpPlaylistPreimage
     {
-        AimpActionResult ItemsAdd(string path, bool recursive);
+        ActionResultType ItemsAdd(string path, bool recursive);
 
-        AimpActionResult ItemsDelete(int index);
+        ActionResultType ItemsDelete(int index);
 
-        AimpActionResult ItemsDeleteAll();
+        ActionResultType ItemsDeleteAll();
 
-        AimpActionResult ItemsGet(int index, out string path, out bool recursive);
+        ActionResultType ItemsGet(int index, out string path, out bool recursive);
 
         int ItemsGetCount();
     }

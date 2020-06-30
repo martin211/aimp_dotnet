@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -18,12 +14,12 @@ AimpDataStorageManager::AimpDataStorageManager(IAIMPMLDataStorageManager* manage
 {
 }
 
-AimpActionResult AimpDataStorageManager::BackgroundTaskStarted(int id, System::String^ caption,
+ActionResultType AimpDataStorageManager::BackgroundTaskStarted(int id, System::String^ caption,
                                                                ActionManager::IAimpActionEvent^ cancelEvent)
 {
     //todo complete it
     auto str = AimpConverter::ToAimpString(caption);
-    auto result = AimpActionResult::Fail;
+    auto result = ActionResultType::Fail;
 
     try
     {
@@ -41,7 +37,7 @@ AimpActionResult AimpDataStorageManager::BackgroundTaskStarted(int id, System::S
     return result;
 }
 
-AimpActionResult AimpDataStorageManager::BackgroundTaskFinished(int id)
+ActionResultType AimpDataStorageManager::BackgroundTaskFinished(int id)
 {
     return Utils::CheckResult(this->InternalAimpObject->BackgroundTaskFinished(id));
 }

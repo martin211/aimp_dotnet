@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -22,10 +18,10 @@ HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetFilter(IAIMPMLDataFi
 {
     // TODO Complete it
     IAimpDataFieldFilter^ dataFilter = nullptr;
-    AimpActionResult res = AimpActionResult::Fail;
+    ActionResultType res = ActionResultType::Fail;
     //res = _managedInstance->GetFilter(&dataFilter);
 
-    //if (res == AimpActionResult::OK)
+    //if (res == ActionResultType::OK)
     //{
     //    *Filter = gcnew AimpDataFieldFilter();
     //}

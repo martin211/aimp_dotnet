@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 
 namespace AIMP.SDK
@@ -24,31 +25,31 @@ namespace AIMP.SDK
         /// Gets the value as float.
         /// </summary>
         /// <param name="keyPath">The key path (section\value name).</param>
-        float GetValueAsFloat(string keyPath);
+        AimpActionResult<float> GetValueAsFloat(string keyPath);
 
         /// <summary>
         /// Gets the value as int32.
         /// </summary>
         /// <param name="keyPath">The key path (section\value name).</param>
-        int GetValueAsInt32(string keyPath);
+        AimpActionResult<int> GetValueAsInt32(string keyPath);
 
         /// <summary>
         /// Gets the value as int64.
         /// </summary>
         /// <param name="keyPath">The key path (section\value name).</param>
-        Int64 GetValueAsInt64(string keyPath);
+        AimpActionResult<Int64> GetValueAsInt64(string keyPath);
 
         /// <summary>
         /// Gets the value as binary stream.
         /// </summary>
         /// <param name="keyPath">The key path (section\value name).</param>
-        IAimpStream GetValueAsStream(string keyPath);
+        AimpActionResult<IAimpStream> GetValueAsStream(string keyPath);
 
         /// <summary>
         /// Gets the value as string.
         /// </summary>
         /// <param name="keyPath">The key path (section\value name).</param>
-        string GetValueAsString(string keyPath);
+        AimpActionResult<string> GetValueAsString(string keyPath);
 
         /// <summary>
         /// Sets the value as float.

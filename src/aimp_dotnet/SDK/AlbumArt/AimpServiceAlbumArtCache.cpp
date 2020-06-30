@@ -1,3 +1,10 @@
+// ----------------------------------------------------
+// AIMP DotNet SDK
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// Mail: mail4evgeniy@gmail.com
+// ----------------------------------------------------
+
 #include "Stdafx.h"
 #include "AimpServiceAlbumArtCache.h"
 
@@ -6,10 +13,20 @@ using namespace AIMP::SDK;
 AimpServiceAlbumArtCache::AimpServiceAlbumArtCache(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceAlbumArtCache>(core)
 { }
 
-AimpActionResult AimpServiceAlbumArtCache::Flush(String^ album, String^ artist)
+AimpActionResult^ AimpServiceAlbumArtCache::Flush(String^ album, String^ artist)
 {
+    if (String::IsNullOrEmpty(album))
+    {
+        ARGUMENT_NULL("album", "Parameter album cannot be empty");
+    }
+
+    if (String::IsNullOrEmpty(artist))
+    {
+        ARGUMENT_NULL("artist", "Parameter artist cannot be empty");
+    }
+
     auto service = GetAimpService();
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
 
     try
     {
@@ -27,13 +44,18 @@ AimpActionResult AimpServiceAlbumArtCache::Flush(String^ album, String^ artist)
         ReleaseObject(service);
     }
 
-    return result;
+    return GetResult(result);
 }
 
-AimpActionResult AimpServiceAlbumArtCache::Flush2(String^ fileUri)
+AimpActionResult^ AimpServiceAlbumArtCache::Flush2(String^ fileUri)
 {
+    if (String::IsNullOrEmpty(fileUri))
+    {
+        ARGUMENT_NULL("fileUri", "Parameter fileUri cannot be empty");
+    }
+
     auto service = GetAimpService();
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
 
     try
     {
@@ -49,13 +71,13 @@ AimpActionResult AimpServiceAlbumArtCache::Flush2(String^ fileUri)
         ReleaseObject(service);
     }
 
-    return result;
+    return GetResult(result);
 }
 
-AimpActionResult AimpServiceAlbumArtCache::FlushAll()
+AimpActionResult^ AimpServiceAlbumArtCache::FlushAll()
 {
     auto service = GetAimpService();
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
 
     try
     {
@@ -69,7 +91,7 @@ AimpActionResult AimpServiceAlbumArtCache::FlushAll()
         ReleaseObject(service);
     }
 
-    return result;
+    return GetResult(result);
 }
 
 IAIMPServiceAlbumArtCache* AimpServiceAlbumArtCache::GetAimpService()

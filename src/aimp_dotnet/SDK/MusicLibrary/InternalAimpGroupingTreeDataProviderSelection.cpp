@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -23,9 +19,9 @@ InternalAimpGroupingTreeDataProviderSelection::InternalAimpGroupingTreeDataProvi
 HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetDisplayValue(IAIMPString** S)
 {
     String^ str;
-    AimpActionResult result = _managedInstance->GetDisplayValue(str);
+    ActionResultType result = _managedInstance->GetDisplayValue(str);
 
-    if (result == AimpActionResult::OK)
+    if (result == ActionResultType::OK)
     {
         *S = AimpConverter::ToAimpString(str);
     }
@@ -41,9 +37,9 @@ DWORD WINAPI InternalAimpGroupingTreeDataProviderSelection::GetFlags()
 HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetImageIndex(int* Index)
 {
     FieldImageIndex index;
-    AimpActionResult result = _managedInstance->GetImageIndex(index);
+    ActionResultType result = _managedInstance->GetImageIndex(index);
 
-    if (result == AimpActionResult::OK)
+    if (result == ActionResultType::OK)
     {
         *Index = int(index);
     }
@@ -56,9 +52,9 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetValue(IAIMPStri
     String^ fieldName;
     Object^ val;
 
-    AimpActionResult result = _managedInstance->GetValue(fieldName, val);
+    ActionResultType result = _managedInstance->GetValue(fieldName, val);
 
-    if (result == AimpActionResult::OK)
+    if (result == ActionResultType::OK)
     {
         *FieldName = AimpConverter::ToAimpString(fieldName);
         VARIANT v = AimpConverter::ToNativeVariant(val);

@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System.Collections.Generic;
 using AIMP.SDK;
 using AIMP.SDK.Playlist;
@@ -23,22 +24,22 @@ namespace Aimp.DotNet.SmartPlaylist
 
         public IList<IAimpPlaylistPreimage> Preimages { get; set; }
 
-        public AimpActionResult CreatePreimage(out IAimpPlaylistPreimage preimage)
+        public ActionResultType CreatePreimage(out IAimpPlaylistPreimage preimage)
         {
             preimage = new TestPreimage(this);
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult GetId(out string id)
+        public ActionResultType GetId(out string id)
         {
             id = nameof(TestPreimageFactory);
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult GetName(out string name)
+        public ActionResultType GetName(out string name)
         {
             name = "Test Preimage";
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
         public PreimageFactoryFlags GetFlags()

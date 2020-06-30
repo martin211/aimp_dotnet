@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using AIMP.SDK;
 using AIMP.SDK.MusicLibrary.DataStorage;
 
@@ -23,10 +24,10 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
             _data = data;
         }
 
-        public AimpActionResult GetDisplayValue(out string displayValue)
+        public ActionResultType GetDisplayValue(out string displayValue)
         {
             displayValue = _data[_index].DisplayValue;
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
         public GroupingTreeNodeFlags GetFlags()
@@ -46,17 +47,17 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
             return result;
         }
 
-        public AimpActionResult GetImageIndex(out FieldImageIndex imageIndex)
+        public ActionResultType GetImageIndex(out FieldImageIndex imageIndex)
         {
             imageIndex = (FieldImageIndex)_data[_index].ImageIndex;
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult GetValue(out string fieldName, out object value)
+        public ActionResultType GetValue(out string fieldName, out object value)
         {
             fieldName = DemoMusicLibrary.FieldNode;
             value = _data[_index].Value;
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
         public bool NextRow()

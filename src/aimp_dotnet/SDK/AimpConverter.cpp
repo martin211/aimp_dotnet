@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -42,14 +38,14 @@ IAIMPImage* AimpConverter::ToAimpImage(System::Drawing::Bitmap^ image)
         array<Byte>^ buffer = stream->ToArray();
 
         if (Utils::CheckResult(GetCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&aimpStream)) == AIMP::SDK::
-            AimpActionResult::OK
-            && Utils::CheckResult(GetCore()->CreateObject(IID_IAIMPImage, (void**)&img)) == AIMP::SDK::AimpActionResult
+            ActionResultType::OK
+            && Utils::CheckResult(GetCore()->CreateObject(IID_IAIMPImage, (void**)&img)) == AIMP::SDK::ActionResultType
             ::OK)
         {
             aimpStream->SetSize(stream->Length);
             pin_ptr<System::Byte> p = &buffer[0];
             unsigned char* pby = p;
-            if (Utils::CheckResult(aimpStream->Write(pby, (int)stream->Length, nullptr)) == AIMP::SDK::AimpActionResult
+            if (Utils::CheckResult(aimpStream->Write(pby, (int)stream->Length, nullptr)) == AIMP::SDK::ActionResultType
                 ::OK)
             {
                 img->LoadFromStream(aimpStream);
@@ -115,12 +111,12 @@ System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImageContainer* ima
     try
     {
         if (Utils::CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**)&image)) !=
-            AimpActionResult::OK)
+            ActionResultType::OK)
         {
             return nullptr;
         }
 
-        if (Utils::CheckResult(imageContainer->CreateImage(&image)) != AimpActionResult::OK || image == nullptr)
+        if (Utils::CheckResult(imageContainer->CreateImage(&image)) != ActionResultType::OK || image == nullptr)
         {
             return nullptr;
         }
@@ -142,7 +138,7 @@ System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImageContainer* ima
 System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImage* image)
 {
     SIZE size;
-    if (Utils::CheckResult(image->GetSize(&size)) == AimpActionResult::OK)
+    if (Utils::CheckResult(image->GetSize(&size)) == ActionResultType::OK)
     {
         if (size.cx == 0 || size.cy == 0)
         {
@@ -152,10 +148,10 @@ System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImage* image)
         System::Drawing::Bitmap^ bmp = gcnew System::Drawing::Bitmap(size.cx, size.cy);
 
         IAIMPStream* stream = nullptr;
-        AimpActionResult res = Utils::CheckResult(
+        ActionResultType res = Utils::CheckResult(
             AIMP::SDK::ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&stream));
 
-        if (res != AimpActionResult::OK || stream == nullptr)
+        if (res != ActionResultType::OK || stream == nullptr)
         {
             return nullptr;
         }
@@ -198,7 +194,7 @@ IAIMPImageContainer* AimpConverter::ToAimpImageContainer(System::Drawing::Bitmap
 {
     IAIMPImageContainer* container;
     if (Utils::CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImageContainer, (void**)&container)) ==
-        AimpActionResult::OK)
+        ActionResultType::OK)
     {
         System::IO::Stream^ stream = nullptr;
         try
@@ -206,7 +202,7 @@ IAIMPImageContainer* AimpConverter::ToAimpImageContainer(System::Drawing::Bitmap
             stream = gcnew System::IO::MemoryStream();
             image->Save(stream, System::Drawing::Imaging::ImageFormat::Jpeg);
             stream->Seek(0, System::IO::SeekOrigin::Begin);
-            if (Utils::CheckResult(container->SetDataSize((DWORD)stream->Length)) != AimpActionResult::OK)
+            if (Utils::CheckResult(container->SetDataSize((DWORD)stream->Length)) != ActionResultType::OK)
             {
                 return nullptr;
             }

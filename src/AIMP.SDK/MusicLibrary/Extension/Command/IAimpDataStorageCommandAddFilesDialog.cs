@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 
 namespace AIMP.SDK.MusicLibrary.Extension.Command
@@ -18,7 +19,7 @@ namespace AIMP.SDK.MusicLibrary.Extension.Command
         /// Executes the specified owner handle.
         /// </summary>
         /// <param name="ownerHandle">The owner window handle.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult Execute(IntPtr ownerHandle);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType Execute(IntPtr ownerHandle);
     }
 }

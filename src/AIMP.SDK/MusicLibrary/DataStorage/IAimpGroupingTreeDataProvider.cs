@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 using AIMP.SDK.MusicLibrary.DataFilter;
 
@@ -31,8 +32,8 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         /// </summary>
         /// <param name="filter">The filter.</param>
         /// <param name="selection">The selection.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult AppendFilter(IAimpDataFilterGroup filter, IAimpGroupingTreeSelection selection);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType AppendFilter(IAimpDataFilterGroup filter, IAimpGroupingTreeSelection selection);
 
         /// <summary>
         /// Gets the capabilities.
@@ -44,14 +45,14 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         /// </summary>
         /// <param name="selection">The selection.</param>
         /// <param name="data">The data.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetData(IAimpGroupingTreeSelection selection, out IAimpGroupingTreeDataProviderSelection data);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetData(IAimpGroupingTreeSelection selection, out IAimpGroupingTreeDataProviderSelection data);
 
         /// <summary>
         /// Returns the name of top level field for alphabetic index.
         /// </summary>
         /// <param name="fieldName">Name of the field.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetFieldForAlphabeticIndex(out string fieldName);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        ActionResultType GetFieldForAlphabeticIndex(out string fieldName);
     }
 }

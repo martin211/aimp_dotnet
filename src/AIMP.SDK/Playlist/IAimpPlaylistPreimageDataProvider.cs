@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 using System.Collections;
 using AIMP.SDK.Threading;
@@ -35,7 +36,7 @@ namespace AIMP.SDK.Playlist
         /// <param name="owner">The owner.</param>
         /// <param name="preimageFlags">The preimage flags.</param>
         /// <param name="dataList">The data list.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult GetFiles(IAimpTaskOwner owner, out int preimageFlags, out IList dataList);
+        /// <returns>The <see cref="ActionResultType"/> result.</returns>
+        ActionResultType GetFiles(IAimpTaskOwner owner, out int preimageFlags, out IList dataList);
     }
 }

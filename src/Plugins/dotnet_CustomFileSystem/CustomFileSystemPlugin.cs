@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 using System.IO;
 using System.Linq;
@@ -43,13 +44,14 @@ namespace AIMP.SDK.CustomFileSystem
             var files = Directory.GetFiles(dir, "*.mp3");
 
             var filesToPlaylist = files
-                .Where(file => Player.ServiceFileFormats.IsSupported(file, FileManager.FileFormats.AIMP_SERVICE_FILEFORMATS_CATEGORY_AUDIO) == AimpActionResult.OK)
+                .Where(file => Player.ServiceFileFormats.IsSupported(file, FileManager.FileFormats.AIMP_SERVICE_FILEFORMATS_CATEGORY_AUDIO).ResultType == ActionResultType.OK)
                 .Select(f => $"{CustomFileSystem.MySchemePrefix}{f}").ToList();
             if (filesToPlaylist.Any())
             {
-                if (Player.PlaylistManager.GetActivePlaylist(out var activePl) == AimpActionResult.OK)
+                var r = Player.PlaylistManager.GetActivePlaylist();
+                if (r.ResultType == ActionResultType.OK)
                 {
-                    activePl.AddList(filesToPlaylist, Playlist.PlaylistFlags.NOCHECKFORMAT, Playlist.PlaylistFilePosition.EndPosition);
+                    r.Result.AddList(filesToPlaylist, Playlist.PlaylistFlags.NoCheckFormat, Playlist.PlaylistFilePosition.EndPosition);
                 }
             }
         }

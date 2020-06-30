@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -23,7 +19,7 @@ String^ AimpServiceMUI::GetName()
 
     try
     {
-        if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::OK && service != nullptr)
+        if (GetService(IID_IAIMPServiceMUI, &service) == ActionResultType::OK && service != nullptr)
         {
             service->GetName(&str);
 
@@ -57,7 +53,7 @@ String^ AimpServiceMUI::GetValue(String^ key)
     IAIMPServiceMUI* service = nullptr;
     try
     {
-        if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::OK && service != nullptr)
+        if (GetService(IID_IAIMPServiceMUI, &service) == ActionResultType::OK && service != nullptr)
         {
             auto strKey = AimpConverter::ToAimpString(key);
 
@@ -99,7 +95,7 @@ String^ AimpServiceMUI::GetValuePart(String^ key, int index)
     IAIMPServiceMUI* service = nullptr;
     try
     {
-        if (GetService(IID_IAIMPServiceMUI, &service) == AimpActionResult::OK && service == nullptr)
+        if (GetService(IID_IAIMPServiceMUI, &service) == ActionResultType::OK && service == nullptr)
         {
             auto strKey = AimpConverter::ToAimpString(key);
             service->GetValuePart(strKey, index, &str);

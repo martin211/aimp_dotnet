@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -25,9 +21,9 @@ namespace AIMP
         public:
             explicit AimpServiceFileFormats(ManagedAimpCore^ core);
 
-            virtual AimpActionResult GetFormats(FileFormats flags, String^% formats);
+            virtual StringResult GetFormats(FileFormats flags);
 
-            virtual AimpActionResult IsSupported(String^ fileName, FileFormats flags);
+            virtual VoidResult IsSupported(String^ fileName, FileFormats flags);
         protected:
             IAIMPServiceFileFormats* GetAimpService() override;
         };

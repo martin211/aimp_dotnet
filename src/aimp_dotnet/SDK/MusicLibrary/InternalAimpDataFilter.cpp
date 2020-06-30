@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -29,10 +25,10 @@ HRESULT InternalAimpDataFilter::Assign(IAIMPMLDataFilter* Source)
 
 HRESULT InternalAimpDataFilter::Clone(void** Filter)
 {
-    auto res = AimpActionResult::Fail;
+    auto res = ActionResultType::Fail;
     IAimpDataFilter^ clone = nullptr;
     res = _managedInstance->Clone(clone);
-    if (res == AimpActionResult::OK && clone != nullptr)
+    if (res == ActionResultType::OK && clone != nullptr)
     {
         *Filter = new InternalAimpDataFilter(clone);
     }

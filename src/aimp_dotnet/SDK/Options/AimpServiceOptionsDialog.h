@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -25,9 +21,9 @@ namespace AIMP
         public:
             explicit AimpServiceOptionsDialog(ManagedAimpCore^ core);
 
-            virtual AimpActionResult FrameModified(IAimpOptionsDialogFrame^ frame);
+            virtual ActionResultType FrameModified(IAimpOptionsDialogFrame^ frame);
 
-            virtual AimpActionResult FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow);
+            virtual ActionResultType FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow);
         protected:
             IAIMPServiceOptionsDialog* GetAimpService() override;
         };

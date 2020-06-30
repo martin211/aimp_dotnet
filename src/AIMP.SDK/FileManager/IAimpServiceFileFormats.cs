@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 
 namespace AIMP.SDK.FileManager
@@ -29,15 +30,15 @@ namespace AIMP.SDK.FileManager
         /// </summary>
         /// <param name="flags"></param>
         /// <param name="formats">Out. File formats.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetFormats(FileFormats flags, out string formats);
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        AimpActionResult<string> GetFormats(FileFormats flags);
 
         /// <summary>
         /// Check is the file extension supported.
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="flags"></param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
+        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult IsSupported(string fileName, FileFormats flags);
     }
 }

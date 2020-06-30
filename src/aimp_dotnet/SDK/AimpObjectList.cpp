@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -21,25 +17,25 @@ AimpObjectList<T>::AimpObjectList(IAIMPObjectList* nativeObject)
 }
 
 generic <typename T>
-AimpActionResult AimpObjectList<T>::Add(T entry)
+ActionResultType AimpObjectList<T>::Add(T entry)
 {
     return Utils::CheckResult(_nativeObject->Add(AimpConverter::ToAimpString((String^)entry)));
 }
 
 generic <typename T>
-AimpActionResult AimpObjectList<T>::Clear()
+ActionResultType AimpObjectList<T>::Clear()
 {
     return Utils::CheckResult(_nativeObject->Clear());
 }
 
 generic <typename T>
-AimpActionResult AimpObjectList<T>::Delete(int index)
+ActionResultType AimpObjectList<T>::Delete(int index)
 {
     return Utils::CheckResult(_nativeObject->Delete(index));
 }
 
 generic <typename T>
-AimpActionResult AimpObjectList<T>::Insert(int index, T entry)
+ActionResultType AimpObjectList<T>::Insert(int index, T entry)
 {
     return Utils::CheckResult(_nativeObject->Insert(index, AimpConverter::ToAimpString((String^)entry)));
 }
@@ -51,13 +47,13 @@ int AimpObjectList<T>::Count::get()
 }
 
 generic <typename T>
-AimpActionResult AimpObjectList<T>::GetObject(int index, T% item)
+ActionResultType AimpObjectList<T>::GetObject(int index, T% item)
 {
     IAIMPString* str;
-    AimpActionResult result = Utils::CheckResult(
+    ActionResultType result = Utils::CheckResult(
         _nativeObject->GetObject(index, IID_IAIMPString, reinterpret_cast<void**>(&str)));
 
-    if (result == AimpActionResult::OK && str != nullptr)
+    if (result == ActionResultType::OK && str != nullptr)
     {
         item = (T)AimpConverter::ToManagedString(str);
         str->Release();
@@ -68,7 +64,7 @@ AimpActionResult AimpObjectList<T>::GetObject(int index, T% item)
 }
 
 generic <typename T>
-AimpActionResult AimpObjectList<T>::SetObject(int index, T item)
+ActionResultType AimpObjectList<T>::SetObject(int index, T item)
 {
     return Utils::CheckResult(_nativeObject->SetObject(index, AimpConverter::ToAimpString((String^)item)));
 }

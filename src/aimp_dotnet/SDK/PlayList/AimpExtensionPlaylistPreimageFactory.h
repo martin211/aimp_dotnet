@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -27,11 +23,11 @@ namespace AIMP
         public:
             explicit AimpExtensionPlaylistPreimageFactory(IAIMPExtensionPlaylistPreimageFactory* aimpObject);
 
-            virtual AimpActionResult CreatePreimage(IAimpPlaylistPreimage^% preimage);
+            virtual ActionResultType CreatePreimage(IAimpPlaylistPreimage^% preimage);
 
-            virtual AimpActionResult GetName(String^% name);
+            virtual ActionResultType GetName(String^% name);
 
-            virtual AimpActionResult GetId(String^% id);
+            virtual ActionResultType GetId(String^% id);
 
             virtual PreimageFactoryFlags GetFlags();
         };

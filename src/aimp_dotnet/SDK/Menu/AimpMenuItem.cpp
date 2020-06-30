@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -46,7 +42,7 @@ IAimpAction^ AimpMenuItem::Action::get()
 {
     IAIMPAction* action;
     if (PropertyListExtension::GetObject(InternalAimpObject, AIMP_MENUITEM_PROPID_ACTION, IID_IAIMPAction,
-                                         reinterpret_cast<void**>(&action)) == AimpActionResult::OK)
+                                         reinterpret_cast<void**>(&action)) == ActionResultType::OK)
     {
         return gcnew AimpAction(action);
     }

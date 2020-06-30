@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -79,19 +75,19 @@ void AimpDataFilter::AlphaBeticIndex::set(int value)
     PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_ALPHABETICINDEX, value);
 }
 
-AimpActionResult AimpDataFilter::Assign(IAimpDataFilter^ source)
+ActionResultType AimpDataFilter::Assign(IAimpDataFilter^ source)
 {
     IAIMPMLDataFilter* filter = static_cast<AimpDataFilter^>(source)->InternalDataFilter;
     return Utils::CheckResult(InternalDataFilter->Assign(filter));
 }
 
-AimpActionResult AimpDataFilter::Clone(IAimpDataFilter^% source)
+ActionResultType AimpDataFilter::Clone(IAimpDataFilter^% source)
 {
     source = nullptr;
     IAIMPMLDataFilter* clone = nullptr;
 
-    const AimpActionResult result = Utils::CheckResult(InternalDataFilter->Clone(reinterpret_cast<void**>(&clone)));
-    if (result == AimpActionResult::OK && clone != nullptr)
+    const ActionResultType result = Utils::CheckResult(InternalDataFilter->Clone(reinterpret_cast<void**>(&clone)));
+    if (result == ActionResultType::OK && clone != nullptr)
     {
         source = gcnew AimpDataFilter(clone);
     }

@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -24,14 +20,14 @@ InternalAimpDataFilterGroup::InternalAimpDataFilterGroup(gcroot<IAimpDataFilterG
 HRESULT WINAPI InternalAimpDataFilterGroup::Add(IUnknown* Field, VARIANT* Value1, VARIANT* Value2, int Operation,
                                                 IAIMPMLDataFieldFilter** Filter)
 {
-    AimpActionResult res = AimpActionResult::Fail;
+    ActionResultType res = ActionResultType::Fail;
 
     IAimpDataFieldFilter^ filter = nullptr;
     res = _managed->Add(AimpConverter::ToManagedString(static_cast<IAIMPString*>(Field)),
                         AimpConverter::FromVaiant(Value1), AimpConverter::FromVaiant(Value2),
                         FieldFilterOperationType(Operation), filter);
 
-    if (res == AimpActionResult::OK && filter != nullptr)
+    if (res == ActionResultType::OK && filter != nullptr)
     {
         // todo implement internal IAIMPMLDataFieldFilter
     }
@@ -42,12 +38,12 @@ HRESULT WINAPI InternalAimpDataFilterGroup::Add(IUnknown* Field, VARIANT* Value1
 HRESULT WINAPI InternalAimpDataFilterGroup::Add2(IUnknown* Field, VARIANT* Values, int Count,
                                                  IAIMPMLDataFieldFilterByArray** Filter)
 {
-    AimpActionResult res = AimpActionResult::Fail;
+    ActionResultType res = ActionResultType::Fail;
     array<Object^>^ values = gcnew array<Object^>(Count);
     IAimpDataFieldFilterByArray^ filter;
     res = _managed->Add(AimpConverter::ToManagedString(static_cast<IAIMPString*>(Field)), values, Count, filter);
 
-    if (res == AimpActionResult::OK && filter != nullptr)
+    if (res == ActionResultType::OK && filter != nullptr)
     {
         // todo implement IAIMPMLDataFieldFilterByArray
     }
@@ -57,11 +53,11 @@ HRESULT WINAPI InternalAimpDataFilterGroup::Add2(IUnknown* Field, VARIANT* Value
 
 HRESULT WINAPI InternalAimpDataFilterGroup::AddGroup(IAIMPMLDataFilterGroup** Group)
 {
-    AimpActionResult res = AimpActionResult::Fail;
+    ActionResultType res = ActionResultType::Fail;
     IAimpDataFilterGroup^ group = nullptr;
 
     res = _managed->AddGroup(group);
-    if (res == AimpActionResult::OK && group != nullptr)
+    if (res == ActionResultType::OK && group != nullptr)
     {
         *Group = new InternalAimpDataFilterGroup(group);
     }
@@ -81,14 +77,14 @@ HRESULT WINAPI InternalAimpDataFilterGroup::Delete(int Index)
 
 HRESULT WINAPI InternalAimpDataFilterGroup::GetChild(int Index, REFIID IID, void** Obj)
 {
-    AimpActionResult res = AimpActionResult::Fail;
+    ActionResultType res = ActionResultType::Fail;
 
     if (IID == IID_IAIMPMLDataFilterGroup)
     {
         IAimpDataFilterGroup^ group = nullptr;
         res = _managed->GetChild(Index, group);
 
-        if (res == AimpActionResult::OK && group != nullptr)
+        if (res == ActionResultType::OK && group != nullptr)
         {
             *Obj = new InternalAimpDataFilterGroup(group);
         }
@@ -99,7 +95,7 @@ HRESULT WINAPI InternalAimpDataFilterGroup::GetChild(int Index, REFIID IID, void
         IAimpDataFieldFilter^ filter = nullptr;
         res = _managed->GetChild(Index, filter);
 
-        if (res == AimpActionResult::OK && filter != nullptr)
+        if (res == ActionResultType::OK && filter != nullptr)
         {
             // TODO complete it
             //*Obj = new Interna

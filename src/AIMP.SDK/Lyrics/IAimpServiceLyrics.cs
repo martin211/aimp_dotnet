@@ -2,19 +2,23 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 using AIMP.SDK.FileManager;
 
 namespace AIMP.SDK.Lyrics
 {
+    [Flags]
     public enum LyricsFlags
     {
+        None = 0,
+
         /// <summary>
         /// Search without cache.
         /// </summary>
@@ -36,15 +40,18 @@ namespace AIMP.SDK.Lyrics
         /// <summary>
         /// Gets a lyrics for file.
         /// </summary>
-        /// <param name="fileInfo"></param>
-        /// <param name=""></param>
-        /// <returns></returns>
-        AimpActionResult Get(IAimpFileInfo fileInfo, LyricsFlags flags, object userData, out IntPtr taskId);
+        /// <param name="fileInfo">The file info <see cref="IAimpFileInfo"/>.</param>
+        /// <param name="flags">The lyrics flags <see cref="LyricsFlags"/>.</param>
+        /// <param name="userData">A user data passed to function.</param>
+        /// <returns>Return the <see cref="AimpActionResult"/> with async task id.</returns>
+        AimpActionResult<IntPtr> Get(IAimpFileInfo fileInfo, LyricsFlags flags, object userData);
 
         /// <summary>
         /// Aborts a current active task.
+        /// <param name="taskId">The task identity.</param>
+        /// <param name="flags">The lyrics flags <see cref="LyricsFlags"/>.</param>
         /// </summary>
-        /// <returns></returns>
+        /// <returns><see cref="AimpActionResult"/></returns>
         AimpActionResult Cancel(IntPtr taskId, LyricsFlags flags);
 
         /// <summary>

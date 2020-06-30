@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -30,10 +26,10 @@ Drawing::Bitmap^ AimpFileInfo::AlbumArt::get()
     Drawing::Bitmap^ bmp = nullptr;
 
     IAIMPImageContainer* container = nullptr;
-    AimpActionResult res = Utils::CheckResult(InternalAimpObject->GetValueAsObject(
+    ActionResultType res = Utils::CheckResult(InternalAimpObject->GetValueAsObject(
         AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImageContainer, reinterpret_cast<void**>(&container)));
 
-    if (res == AimpActionResult::OK && container != nullptr)
+    if (res == ActionResultType::OK && container != nullptr)
     {
         bmp = AimpConverter::ToManagedBitmap(container);
         container->Release();
@@ -43,7 +39,7 @@ Drawing::Bitmap^ AimpFileInfo::AlbumArt::get()
         IAIMPImage* image = nullptr;
         res = Utils::CheckResult(InternalAimpObject->GetValueAsObject(AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImage,
                                                                reinterpret_cast<void**>(&image)));
-        if (res == AimpActionResult::OK && image != nullptr)
+        if (res == ActionResultType::OK && image != nullptr)
         {
             bmp = AimpConverter::ToManagedBitmap(image);
             image->Release();

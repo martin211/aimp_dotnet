@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -23,7 +19,7 @@ namespace AIMP
         using namespace SDK;
         using namespace AlbumArtManager;
 
-        public ref class AimpServiceAlbumArt : public BaseAimpService<IAIMPServiceAlbumArt>, public IAimpAlbumArtManager
+        public ref class AimpServiceAlbumArt : public BaseAimpService<IAIMPServiceAlbumArt>, public IAimpServiceAlbumArt
         {
         public:
             explicit AimpServiceAlbumArt(ManagedAimpCore^ core);
@@ -86,11 +82,11 @@ namespace AIMP
 
             void OnAlbumArtReceive(IAIMPImage* image, IAIMPImageContainer* image_container, void* user_data);
 
-            virtual IntPtr GetImage(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags, Object^ userData);
+            virtual IntResult Get(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags, Object^ userData);
 
-            virtual IntPtr GetImage(IAimpFileInfo^ fileInfo, AimpFindCovertArtType flags, Object^ userData);
+            virtual IntResult Get2(IAimpFileInfo^ fileInfo, AimpFindCovertArtType flags, Object^ userData);
 
-            virtual void Cancel(IntPtr taskId, AimpFindCovertArtType flags);
+            virtual VoidResult Cancel(int taskId, AimpFindCovertArtType flags);
         protected:
             IAIMPServiceAlbumArt* GetAimpService() override;
         private:

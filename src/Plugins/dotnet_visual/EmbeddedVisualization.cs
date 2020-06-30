@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 using System.Diagnostics;
 using AIMP.SDK;
@@ -35,25 +36,25 @@ namespace dotnet_visual
             return AimpVisualFlags.AIMP_VISUAL_FLAGS_RQD_DATA_SPECTRUM;
         }
 
-        public AimpActionResult GetMaxDisplaySize(out int width, out int height)
+        public ActionResultType GetMaxDisplaySize(out int width, out int height)
         {
             Debug.WriteLine("GetMaxDisplaySize");
             width = 100;
             height = 100;
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult GetName(out string name)
+        public ActionResultType GetName(out string name)
         {
             Debug.WriteLine("GetName");
             name = "Test Visualization";
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult Initialize(int width, int height)
+        public ActionResultType Initialize(int width, int height)
         {
             Debug.WriteLine("Initialize");
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
         public void OnFinalize()

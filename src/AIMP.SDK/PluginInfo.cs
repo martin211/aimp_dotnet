@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 using System.IO;
 using System.Linq;
@@ -259,7 +260,7 @@ namespace AIMP.SDK
                     {
                         PluginLoadEvent(this);
                     }
-                    catch
+                    catch (Exception e)
                     {
                         System.Diagnostics.Debugger.Break();
                         Unload();

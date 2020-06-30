@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System.IO;
 using AIMP.SDK;
 using AIMP.SDK.FileManager;
@@ -26,29 +27,29 @@ namespace AIMP.DotNet.MusicLibrary
             _player = player;
         }
 
-        //public AimpActionResult GetFileInfo(string fileUri, ref IAimpFileInfo fileInfo)
+        //public ActionResultType GetFileInfo(string fileUri, ref IAimpFileInfo fileInfo)
         //{
         //    fileInfo.Artist = "test";
         //    //fileInfo = null;
-        //    return AimpActionResult.OK;
+        //    return ActionResultType.OK;
         //}
 
-        public AimpActionResult GetFileInfo(IAimpString fileUri, ref IAimpFileInfo fileInfo)
+        public ActionResultType GetFileInfo(IAimpString fileUri, ref IAimpFileInfo fileInfo)
         {
             fileInfo.Artist = "test";
             //fileInfo = null;
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult GetFileInfo(IAimpStream stream, ref IAimpFileInfo fileInfo)
+        public ActionResultType GetFileInfo(IAimpStream stream, ref IAimpFileInfo fileInfo)
         {
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult GetFileInfo(Stream stream, ref IAimpFileInfo fileInfo)
+        public ActionResultType GetFileInfo(Stream stream, ref IAimpFileInfo fileInfo)
         {
             //fileInfo = null;
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
     }
 }

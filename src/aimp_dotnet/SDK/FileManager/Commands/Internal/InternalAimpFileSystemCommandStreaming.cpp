@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -23,16 +19,15 @@ InternalAimpFileSystemCommandStreaming::InternalAimpFileSystemCommandStreaming(
 HRESULT WINAPI InternalAimpFileSystemCommandStreaming::CreateStream(IAIMPString* fileName, const INT64 offset,
                                                                     const INT64 size, DWORD flags, IAIMPStream** stream)
 {
-    IAimpStream^ aimpStream = _instance->CreateStream(AimpConverter::ToManagedString(fileName),
+    *stream = nullptr;
+    const auto res = _instance->CreateStream(AimpConverter::ToManagedString(fileName),
                                                       FileStreamingType(flags), offset, size);
-    if (aimpStream != nullptr)
+    if (res->ResultType == ActionResultType::OK)
     {
-        *stream = static_cast<AimpStream^>(aimpStream)->InternalAimpObject;
-        return S_OK;
+        *stream = static_cast<AimpStream^>(res->Result)->InternalAimpObject;
     }
 
-    *stream = nullptr;
-    return E_FAIL;
+    return HRESULT(static_cast<int>(res->ResultType));
 }
 
 ULONG WINAPI InternalAimpFileSystemCommandStreaming::AddRef(void)

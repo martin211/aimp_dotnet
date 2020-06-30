@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -79,32 +75,32 @@ void AimpVirtualFile::FileUri::set(String^ value)
     PropertyListExtension::SetString(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_FILEURI, value);
 }
 
-AimpActionResult AimpVirtualFile::CreateStream(IAimpStream^% stream)
+StreamResult AimpVirtualFile::CreateStream()
 {
-    stream = nullptr;
+    IAimpStream^ stream = nullptr;
     IAIMPStream* aimpStream = nullptr;
 
     const auto result = CheckResult(InternalAimpObject->CreateStream(&aimpStream));
-    if (result == AimpActionResult::OK && aimpStream != nullptr)
+    if (result == ActionResultType::OK && aimpStream != nullptr)
     {
         stream = gcnew AimpStream(aimpStream);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpStream^>(result, stream);
 }
 
-AimpActionResult AimpVirtualFile::GetFileInfo(IAimpFileInfo^% fileInfo)
+FileInfoResult AimpVirtualFile::GetFileInfo()
 {
     IAIMPFileInfo* fi = nullptr;
-    fileInfo = nullptr;
+    IAimpFileInfo^ fileInfo = nullptr;
     const auto result = CheckResult(InternalAimpObject->GetFileInfo(fi));
 
-    if (result == AimpActionResult::OK && fi != nullptr)
+    if (result == ActionResultType::OK && fi != nullptr)
     {
         fileInfo = gcnew AimpFileInfo(fi);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpFileInfo^>(result, fileInfo);
 }
 
 bool AimpVirtualFile::IsExists()
@@ -112,12 +108,12 @@ bool AimpVirtualFile::IsExists()
     return InternalAimpObject->IsExists();
 }
 
-AimpActionResult AimpVirtualFile::IsInSameStream(IAimpVirtualFile^ virtualFile)
+VoidResult AimpVirtualFile::IsInSameStream(IAimpVirtualFile^ virtualFile)
 {
-    return CheckResult(InternalAimpObject->IsInSameStream(static_cast<AimpVirtualFile^>(virtualFile)->InternalAimpObject));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->IsInSameStream(static_cast<AimpVirtualFile^>(virtualFile)->InternalAimpObject)));
 }
 
-AimpActionResult AimpVirtualFile::Synchronize()
+VoidResult AimpVirtualFile::Synchronize()
 {
-    return CheckResult(InternalAimpObject->Synchronize());
+    return ACTION_RESULT(CheckResult(InternalAimpObject->Synchronize()));
 }

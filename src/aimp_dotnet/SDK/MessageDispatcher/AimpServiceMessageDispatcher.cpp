@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -27,10 +23,10 @@ AimpServiceMessageDispatcher::~AimpServiceMessageDispatcher()
     _hook = nullptr;
 }
 
-AimpActionResult AimpServiceMessageDispatcher::Send(int message, int param1, IntPtr param2)
+ActionResultType AimpServiceMessageDispatcher::Send(int message, int param1, IntPtr param2)
 {
     IAIMPServiceMessageDispatcher* service = GetAimpService();
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
 
     try
     {
@@ -38,7 +34,7 @@ AimpActionResult AimpServiceMessageDispatcher::Send(int message, int param1, Int
         {
             HWND handle = nullptr;
             result = CheckResult(service->Send(DWORD(message), int(param1), &handle));
-            if (result == AimpActionResult::OK)
+            if (result == ActionResultType::OK)
             {
                 param2 = IntPtr(handle);
             }
@@ -72,10 +68,10 @@ int AimpServiceMessageDispatcher::Register(String^ message)
     return 0;
 }
 
-AimpActionResult AimpServiceMessageDispatcher::Hook(IAimpMessageHook^ hook)
+ActionResultType AimpServiceMessageDispatcher::Hook(IAimpMessageHook^ hook)
 {
     IAIMPServiceMessageDispatcher* service = GetAimpService();
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
 
     try
     {
@@ -93,10 +89,10 @@ AimpActionResult AimpServiceMessageDispatcher::Hook(IAimpMessageHook^ hook)
     return result;
 }
 
-AimpActionResult AimpServiceMessageDispatcher::Unhook(IAimpMessageHook^ hook)
+ActionResultType AimpServiceMessageDispatcher::Unhook(IAimpMessageHook^ hook)
 {
     IAIMPServiceMessageDispatcher* service = GetAimpService();
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
 
     try
     {

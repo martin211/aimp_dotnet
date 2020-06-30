@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -21,21 +17,21 @@ AimpFileTagEditor::AimpFileTagEditor(IAIMPFileTagEditor* aimpObject) : AimpObjec
 {
 }
 
-AimpActionResult AimpFileTagEditor::GetMixedInfo(IAimpFileInfo^% fileInfo)
+ActionResultType AimpFileTagEditor::GetMixedInfo(IAimpFileInfo^% fileInfo)
 {
     IAIMPFileInfo* aimpObject = nullptr;
-    AimpActionResult result = CheckResult(InternalAimpObject->GetMixedInfo(&aimpObject));
+    ActionResultType result = CheckResult(InternalAimpObject->GetMixedInfo(&aimpObject));
     fileInfo = gcnew AimpFileInfo(aimpObject);
     return result;
 }
 
-AimpActionResult AimpFileTagEditor::GetTag(int index, IAimpFileTag^% fileTag)
+ActionResultType AimpFileTagEditor::GetTag(int index, IAimpFileTag^% fileTag)
 {
     IAIMPFileTag* aimpTag = nullptr;
-    AimpActionResult result = CheckResult(
+    ActionResultType result = CheckResult(
         InternalAimpObject->GetTag(index, IID_IAIMPFileTag, reinterpret_cast<void**>(&aimpTag)));
 
-    if (result == AimpActionResult::OK && aimpTag != nullptr)
+    if (result == ActionResultType::OK && aimpTag != nullptr)
     {
         fileTag = gcnew AimpFileTag(aimpTag);
     }
@@ -48,13 +44,13 @@ int AimpFileTagEditor::GetTagCount()
     return InternalAimpObject->GetTagCount();
 }
 
-AimpActionResult AimpFileTagEditor::SetToAll(IAimpFileInfo^ fileInfo)
+ActionResultType AimpFileTagEditor::SetToAll(IAimpFileInfo^ fileInfo)
 {
     IAIMPFileInfo* fi = static_cast<AimpFileInfo^>(fileInfo)->InternalAimpObject;
     return CheckResult(InternalAimpObject->SetToAll(fi));
 }
 
-AimpActionResult AimpFileTagEditor::Save()
+ActionResultType AimpFileTagEditor::Save()
 {
     return CheckResult(InternalAimpObject->Save());
 }

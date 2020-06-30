@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -61,27 +57,27 @@ namespace AIMP
                 void raise(String^ playListName, String^ playListId);
             }
 
-            virtual AimpActionResult CreatePlaylist(String^ name, bool isActive, IAimpPlaylist^% playList);
+            virtual PlaylistResult CreatePlaylist(String^ name, bool isActive);
 
-            virtual AimpActionResult CreatePlaylistFromFile(String^ fileName, bool isActive, IAimpPlaylist^% playList);
+            virtual PlaylistResult CreatePlaylistFromFile(String^ fileName, bool isActive);
 
-            virtual AimpActionResult GetActivePlaylist(IAimpPlaylist^% playList);
+            virtual PlaylistResult GetActivePlaylist();
 
-            virtual AimpActionResult GetLoadedPlaylist(int index, IAimpPlaylist^% playList);
+            virtual PlaylistResult GetLoadedPlaylist(int index);
 
-            virtual AimpActionResult GetPlayablePlaylist(IAimpPlaylist^% playList);
+            virtual PlaylistResult GetPlayablePlaylist();
 
-            virtual AimpActionResult GetLoadedPlaylistById(String^ id, IAimpPlaylist^% playList);
+            virtual PlaylistResult GetLoadedPlaylistById(String^ id);
 
-            virtual AimpActionResult GetLoadedPlaylistByName(String^ name, IAimpPlaylist^% playList);
+            virtual PlaylistResult GetLoadedPlaylistByName(String^ name);
 
             virtual int GetLoadedPlaylistCount();
 
-            virtual AimpActionResult SetActivePlaylist(IAimpPlaylist^ playList);
+            virtual ActionResultType SetActivePlaylist(IAimpPlaylist^ playList);
 
-            virtual AimpActionResult GetPreimageFactory(int index, IAimpExtensionPlaylistPreimageFactory^% factory);
+            virtual ActionResultType GetPreimageFactory(int index, IAimpExtensionPlaylistPreimageFactory^% factory);
 
-            virtual AimpActionResult
+            virtual ActionResultType
             GetPreimageFactoryByID(String^ id, IAimpExtensionPlaylistPreimageFactory^% factory);
 
             virtual int GetPreimageFactoryCount();

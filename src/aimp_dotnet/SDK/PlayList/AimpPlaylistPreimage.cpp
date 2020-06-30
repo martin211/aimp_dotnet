@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -33,11 +29,7 @@ bool AimpPlaylistPreimage::AutoSync::get()
 
 void AimpPlaylistPreimage::AutoSync::set(bool value)
 {
-    if (PropertyListExtension::SetBool(InternalAimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC, value) != AimpActionResult::
-        OK)
-    {
-        System::Diagnostics::Debugger::Break();
-    }
+    PropertyListExtension::SetBool(InternalAimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC, value);
 }
 
 bool AimpPlaylistPreimage::AutoSyncOnStartup::get()
@@ -65,20 +57,20 @@ String^ AimpPlaylistPreimage::SortTemplate::get()
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_SORTTEMPLATE);
 }
 
-AimpActionResult AimpPlaylistPreimage::ConfigLoad(IAimpStream^ stream)
+ActionResultType AimpPlaylistPreimage::ConfigLoad(IAimpStream^ stream)
 {
     return CheckResult(InternalAimpObject->ConfigLoad(((AimpStream^)stream)->InternalAimpObject));
 }
 
-AimpActionResult AimpPlaylistPreimage::ConfigSave(IAimpStream^ stream)
+ActionResultType AimpPlaylistPreimage::ConfigSave(IAimpStream^ stream)
 {
     return CheckResult(InternalAimpObject->ConfigSave(((AimpStream^)stream)->InternalAimpObject));
 }
 
-AimpActionResult AimpPlaylistPreimage::ExecuteDialog(IntPtr ownerHandle)
+ActionResultType AimpPlaylistPreimage::ExecuteDialog(IntPtr ownerHandle)
 {
     //InternalAimpObject->ExecuteDialog()
-    return AimpActionResult::Unexpected;
+    return ActionResultType::Unexpected;
 }
 
 void AimpPlaylistPreimage::Initialize(IAimpPlaylistPreimageListener^ listener)

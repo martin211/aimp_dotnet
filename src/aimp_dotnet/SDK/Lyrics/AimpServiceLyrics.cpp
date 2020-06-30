@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -32,11 +28,11 @@ AimpServiceLyrics::~AimpServiceLyrics()
     delete _callBack;
 }
 
-AimpActionResult AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Object^ userData, IntPtr% taskId)
+AimpActionResult<IntPtr>^ AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Object^ userData)
 {
     IAIMPServiceLyrics* service = GetAimpService();
-    AimpActionResult result = AimpActionResult::Fail;
-    taskId = IntPtr(0);
+    ActionResultType result = ActionResultType::Fail;
+    IntPtr taskId = IntPtr(0);
 
     try
     {
@@ -54,7 +50,7 @@ AimpActionResult AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags fla
                 task
             ));
 
-            if (result == AimpActionResult::OK)
+            if (result == ActionResultType::OK)
             {
                 taskId = IntPtr(task);
             }
@@ -65,13 +61,13 @@ AimpActionResult AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags fla
         ReleaseObject(service);
     }
 
-    return result;
+    return gcnew AimpActionResult<IntPtr>(result, taskId);
 }
 
-AimpActionResult AimpServiceLyrics::Cancel(IntPtr taskId, LyricsFlags flags)
+VoidResult AimpServiceLyrics::Cancel(IntPtr taskId, LyricsFlags flags)
 {
     IAIMPServiceLyrics* service = GetAimpService();
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
 
     try
     {
@@ -80,7 +76,7 @@ AimpActionResult AimpServiceLyrics::Cancel(IntPtr taskId, LyricsFlags flags)
             result = CheckResult(service->Cancel(static_cast<void**>(taskId.ToPointer()), static_cast<DWORD>(flags)));
         }
 
-        return result;
+        return ACTION_RESULT(result);
     }
     finally
     {

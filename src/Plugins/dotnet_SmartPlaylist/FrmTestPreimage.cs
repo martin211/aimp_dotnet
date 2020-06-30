@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -45,36 +46,38 @@ namespace Aimp.DotNet.SmartPlaylist
             for (int i = 0; i < _manager.GetLoadedPlaylistCount(); i++)
             {
                 IAimpPlaylist pl;
-                if (_manager.GetLoadedPlaylist(i, out pl) == AimpActionResult.OK)
+                var result = _manager.GetLoadedPlaylist(i);
+
+                if (result.ResultType == ActionResultType.OK)
                 {
-                    PlAdded(pl);
+                    PlAdded(result.Result);
                 }
             }
         }
 
-        public AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist)
+        public ActionResultType OnPlaylistActivated(IAimpPlaylist playlist)
         {
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist)
+        public ActionResultType OnPlaylistAdded(IAimpPlaylist playlist)
         {
             listView1.Items.Add(new ListViewItem
             {
                 Text = playlist.Name,
                 Tag = playlist.Id
             });
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
-        public AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist)
+        public ActionResultType OnPlaylistRemoved(IAimpPlaylist playlist)
         {
             var item = listView1.Items.Cast<ListViewItem>().FirstOrDefault(c => c.Tag == playlist.Id);
             if (item != null)
             {
                 listView1.Items.Remove(item);
             }
-            return AimpActionResult.OK;
+            return ActionResultType.OK;
         }
 
         private void PlAdded(IAimpPlaylist pl)
@@ -102,8 +105,8 @@ namespace Aimp.DotNet.SmartPlaylist
             if (listView1.SelectedItems.Count > 0)
             {
                 var item = listView1.SelectedItems[0];
-                _manager.GetLoadedPlaylistById(item.Tag.ToString(), out var pl);
-                return pl;
+                var result = _manager.GetLoadedPlaylistById(item.Tag.ToString());
+                return result.Result;
             }
 
             return null;
@@ -137,7 +140,7 @@ namespace Aimp.DotNet.SmartPlaylist
             var pl = GetSelectedPlaylist();
             if (pl != null)
             {
-                if (_manager.GetPreimageFactoryByID(Constants.PreimageFactory.FoldersId, out var factory) == AimpActionResult.OK)
+                if (_manager.GetPreimageFactoryByID(Constants.PreimageFactory.FoldersId, out var factory) == ActionResultType.OK)
                 {
                     factory.CreatePreimage(out var preimage);
                     if (preimage is IAimpPlaylistPreimageFolders filePreimage)
@@ -158,7 +161,7 @@ namespace Aimp.DotNet.SmartPlaylist
                 var pi = GetPlaylistPreimage(pl);
                 if (pi != null)
                 {
-                    var stream = _core.CreateStream();
+                    var stream = _core.CreateStream().Result;
                     pi.ConfigSave(stream);
                     //pi.Reset() TODO
                     stream.Seek(0, SeekOrigin.Begin);

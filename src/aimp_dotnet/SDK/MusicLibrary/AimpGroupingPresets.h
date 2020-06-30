@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -33,30 +29,30 @@ namespace AIMP
         public:
             explicit AimpGroupingPresets(IAIMPMLGroupingPresets* aimpObject);
 
-            virtual AimpActionResult Add(String^ id, String^ name, IAimpGroupingTreeDataProvider^ provider,
+            virtual ActionResultType Add(String^ id, String^ name, IAimpGroupingTreeDataProvider^ provider,
                                          IAimpGroupingPreset^% preset);
 
-            virtual AimpActionResult Add(String^ id, String^ name, Generic::IList<String^>^ fieldNames,
+            virtual ActionResultType Add(String^ id, String^ name, Generic::IList<String^>^ fieldNames,
                                          IAimpGroupingPresetStandard^% preset);
 
-            virtual AimpActionResult Add(System::String^ id, String^ name, String^ fieldName,
+            virtual ActionResultType Add(System::String^ id, String^ name, String^ fieldName,
                                          IAimpGroupingPresetStandard^% preset);
 
             virtual void BeginUpdate();
 
             virtual void EndUpdate();
 
-            virtual AimpActionResult Delete(int index);
+            virtual ActionResultType Delete(int index);
 
             virtual int GetCount(void);
 
-            virtual AimpActionResult Get(int index, IAimpGroupingPreset^% preset);
+            virtual ActionResultType Get(int index, IAimpGroupingPreset^% preset);
 
-            virtual AimpActionResult Get(int index, IAimpGroupingPresetStandard^% preset);
+            virtual ActionResultType Get(int index, IAimpGroupingPresetStandard^% preset);
 
-            virtual AimpActionResult GetById(String^ id, IAimpGroupingPreset^% preset);
+            virtual ActionResultType GetById(String^ id, IAimpGroupingPreset^% preset);
 
-            virtual AimpActionResult GetById(String^ id, IAimpGroupingPresetStandard^% preset);
+            virtual ActionResultType GetById(String^ id, IAimpGroupingPresetStandard^% preset);
         };
     }
 }

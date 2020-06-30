@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 
 namespace AIMP.SDK.FileManager
@@ -21,12 +22,23 @@ namespace AIMP.SDK.FileManager
         AIMP_SERVICE_FILESTREAMING_FLAG_MAPTOMEMORY = 4
     }
 
+    public class CeateStreamResult
+    {
+        public CeateStreamResult(IAimpVirtualFile virtualFile, IAimpStream stream)
+        {
+            VirtualFile = virtualFile;
+            Stream = stream;
+        }
+
+        public IAimpVirtualFile VirtualFile { get; }
+
+        public IAimpStream Stream { get; }
+    }
+
     public interface IAimpServiceFileStreaming : IAimpService
     {
-        AimpActionResult CreateStreamForFile(string fileName, FileStreamingType flags, long offset, long size,
-            out IAimpStream stream);
+        AimpActionResult<IAimpStream> CreateStreamForFile(string fileName, FileStreamingType flags, long offset, long size);
 
-        AimpActionResult CreateStreamForFileUri(string fileUrl, out IAimpVirtualFile virtualFile,
-            out IAimpStream stream);
+        AimpActionResult<CeateStreamResult> CreateStreamForFileUri(string fileUrl);
     }
 }

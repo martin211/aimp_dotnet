@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using AIMP.SDK.FileManager;
 
 namespace dotnet_albumart
@@ -18,33 +19,21 @@ namespace dotnet_albumart
 
     public class AimpExtensionAlbumArtProvider : IAimpExtensionAlbumArtProvider
     {
-        #region Implementation of IAimpExtensionAlbumArtProvider2
-
-        public AimpActionResult Get(IAimpFileInfo fileInfo, IAimpAlbumArtSearchOptions options, out Bitmap image)
+        public AimpActionResult<Bitmap> Get(IAimpFileInfo fileInfo, IAimpAlbumArtSearchOptions options)
         {
-            image = Properties.Resources.front;
-            return AimpActionResult.OK;
+            var image = Properties.Resources.front;
+            return new AimpActionResult<Bitmap>(ActionResultType.OK, image);
         }
 
-        #endregion
-
-        #region Implementation of IAimpExtensionAlbumArtProvider
-
-        public AimpActionResult Get(string fileUrl, string artist, string album, IAimpAlbumArtSearchOptions options, out Bitmap image)
+        public AimpActionResult<Bitmap> Get(string fileUrl, string artist, string album, IAimpAlbumArtSearchOptions options)
         {
-            image = Properties.Resources.front;
-            return AimpActionResult.OK;
+            var image = Properties.Resources.front;
+            return new AimpActionResult<Bitmap>(ActionResultType.OK, image);
         }
-
-        #endregion
-
-        #region Implementation of IAimpExtensionAlbumArtProvider
 
         public AimpAlbumArtProviderCategory GetCategory()
         {
             return AimpAlbumArtProviderCategory.AIMP_ALBUMART_PROVIDER_CATEGORY_INTERNET;
         }
-
-        #endregion
     }
 }

@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "stdafx.h"
@@ -17,11 +13,12 @@ AimpServiceActionManager::AimpServiceActionManager(ManagedAimpCore^ core) : Base
 {
 }
 
-AimpActionResult AimpServiceActionManager::GetById(String^ id, IAimpAction^% action)
+AimpActionResult<IAimpAction^>^ AimpServiceActionManager::GetById(String^ id)
 {
-    auto result = AimpActionResult::Fail;
+    auto res = ActionResultType::Fail;
     IAIMPServiceActionManager* service = GetAimpService();
-    action = nullptr;
+    IAimpAction^ action = nullptr;
+    AimpActionResult<IAimpAction^>^ result = nullptr;
 
     try
     {
@@ -29,8 +26,8 @@ AimpActionResult AimpServiceActionManager::GetById(String^ id, IAimpAction^% act
         {
             IAIMPAction* resAction = nullptr;
             IAIMPString* strId = AimpConverter::ToAimpString(id);
-            result = CheckResult(service->GetByID(strId, &resAction));
-            if (result == AimpActionResult::OK)
+            res = CheckResult(service->GetByID(strId, &resAction));
+            if (res == ActionResultType::OK)
             {
                 action = gcnew AimpAction(resAction);
             }
@@ -43,7 +40,7 @@ AimpActionResult AimpServiceActionManager::GetById(String^ id, IAimpAction^% act
         ReleaseObject(service);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpAction^>(res, action);
 }
 
 int AimpServiceActionManager::MakeHotkey(ModifierKeys modifiers, unsigned int key)
@@ -65,33 +62,43 @@ int AimpServiceActionManager::MakeHotkey(ModifierKeys modifiers, unsigned int ke
     return 0;
 }
 
-AimpActionResult AimpServiceActionManager::Register(IAimpAction^ action)
+AimpActionResult^ AimpServiceActionManager::Register(IAimpAction^ action)
 {
-    return CheckResult(_core->GetAimpCore()->RegisterExtension(IID_IAIMPServiceActionManager,
+    if (String::IsNullOrEmpty(action->Name))
+    {
+        ARGUMENT_NULL("Name", "Action name cannot be empty")
+    }
+
+    if (String::IsNullOrEmpty(action->Id))
+    {
+        ARGUMENT_NULL("Id", "Action id cannot be empty")
+    }
+
+    return GetResult(_core->GetAimpCore()->RegisterExtension(IID_IAIMPServiceActionManager,
                                                                static_cast<AimpAction^>(action)->InternalAimpObject));
 }
 
-AimpActionResult AimpServiceActionManager::Register(Generic::ICollection<IAimpAction^>^ actions)
+AimpActionResult^ AimpServiceActionManager::Register(Generic::ICollection<IAimpAction^>^ actions)
 {
-    AimpActionResult result = AimpActionResult::Fail;
+    ActionResultType result = ActionResultType::Fail;
 
     for each (IAimpAction^ item in actions)
     {
-        result = Register(item);
+        const auto res = Register(item);
 
-        if (result != AimpActionResult::OK)
+        if (res->ResultType != ActionResultType::OK)
         {
-            return result;
+            return GetResult(result);
         }
     }
 
-    return result;
+    return GetResult(result);
 }
 
 IAimpAction^ AimpServiceActionManager::CreateAction()
 {
     IAIMPAction* action = nullptr;
-    if (_core->CreateAction(&action) == AimpActionResult::OK && action != nullptr)
+    if (_core->CreateAction(&action) == ActionResultType::OK && action != nullptr)
     {
         return gcnew AimpAction(action);
     }

@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <RootNamespace>Aimp.DotNet.Build</RootNamespace>
+    <IsPackable>False</IsPackable>
+    <NoWarn>CS0649;CS0169</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="docfx.console" Version="2.45.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="JetBrains.ReSharper.CommandLineTools" Version="2019.2.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NuGet.CommandLine" Version="5.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Nuke.Common" Version="0.24.8" />
+    <PackageReference Include="GitVersion.CommandLine.DotNetCore" Version="5.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Nuke.GitHub" Version="1.5.0" />
+    <PackageReference Include="Nuke.MSBuildLocator" Version="0.21.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <NukeMetadata Include="**\*.json" Exclude="bin\**;obj\**" />
+    <NukeExternalFiles Include="**\*.*.ext" Exclude="bin\**;obj\**" />
+    <None Remove="*.csproj.DotSettings;*.ref.*.txt" />
+
+    <!-- Common build related files -->
+    <None Include="..\build.ps1" />
+    <None Include="..\build.sh" />
+    <None Include="..\.nuke" />
+    <None Include="..\global.json" Condition="Exists('..\global.json')" />
+    <None Include="..\nuget.config" Condition="Exists('..\nuget.config')" />
+    <None Include="..\azure-pipelines.yml" Condition="Exists('..\azure-pipelines.yml')" />
+    <None Include="..\Jenkinsfile" Condition="Exists('..\Jenkinsfile')" />
+    <None Include="..\appveyor.yml" Condition="Exists('..\appveyor.yml')" />
+    <None Include="..\.travis.yml" Condition="Exists('..\.travis.yml')" />
+    <None Include="..\GitVersion.yml" Condition="Exists('..\GitVersion.yml')" />
+    <None Include="..\Nuget\AimpSDK.nuspec" Link="AimpSDK.nuspec" />
+    <None Include="..\Nuget\AimpSDK.sources.nuspec" Link="AimpSDK.sources.nuspec" />
+    <None Include="..\Nuget\AimpSDK.symbols.nuspec" Link="AimpSDK.symbols.nuspec" />
+  </ItemGroup>
+
+</Project>

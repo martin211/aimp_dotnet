@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -29,9 +25,9 @@ namespace AIMP
 
             ~AimpServiceLyrics();
 
-            virtual AimpActionResult Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Object^ userData, IntPtr% taskId);
+            virtual AimpActionResult<IntPtr>^ Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Object^ userData);
 
-            virtual AimpActionResult Cancel(IntPtr taskId, LyricsFlags flags);
+            virtual VoidResult Cancel(IntPtr taskId, LyricsFlags flags);
 
             event AimpServiceLyricsReceive^ LyricsReceive
             {

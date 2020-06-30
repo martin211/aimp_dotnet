@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 namespace AIMP.SDK.AlbumArtManager
 {
     using System.Drawing;
@@ -36,9 +37,8 @@ namespace AIMP.SDK.AlbumArtManager
         /// <param name="album">Optional.The album.</param>
         /// <param name="options">The search options <seealso cref="IAimpAlbumArtSearchOptions"/>.</param>
         /// <param name="image">Out. The album art image.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Get(string fileUrl, string artist, string album, IAimpAlbumArtSearchOptions options,
-            out Bitmap image);
+        /// <returns>The <see cref="ActionResultType"/> result.</returns>
+        AimpActionResult<Bitmap> Get(string fileUrl, string artist, string album, IAimpAlbumArtSearchOptions options);
 
         /// <summary>
         /// Gets the category of provider.

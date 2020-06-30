@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -54,7 +50,7 @@ namespace AIMP
             virtual String^ GetPath(MessageDispatcher::AimpCorePathType pathType)
             {
                 String^ path;
-                if (_aimpCore->GetPath(pathType, path) == AIMP::SDK::AimpActionResult::OK)
+                if (_aimpCore->GetPath(pathType, path) == AIMP::SDK::ActionResultType::OK)
                 {
                     return path;
                 }
@@ -62,30 +58,31 @@ namespace AIMP
                 return String::Empty;
             }
 
-            virtual AimpActionResult SendMessage(MessageDispatcher::AimpCoreMessageType message, int value, Object^ obj)
+            virtual AimpActionResult^ SendMessage(MessageDispatcher::AimpCoreMessageType message, int value, Object^ obj)
             {
-                return Utils::CheckResult(_aimpCore->SendMessage(message, value, obj));
+                return ACTION_RESULT(Utils::CheckResult(_aimpCore->SendMessage(message, value, obj)));
             }
 
-            virtual AimpActionResult RegisterExtension(AIMP::IAimpExtension^ extension)
+            virtual AimpActionResult^ RegisterExtension(AIMP::IAimpExtension^ extension)
             {
-                return Utils::CheckResult(_aimpCore->RegisterExtension(IID_IAIMPOptionsDialogFrame, extension));
+                return ACTION_RESULT(Utils::CheckResult(_aimpCore->RegisterExtension(IID_IAIMPOptionsDialogFrame, extension)));
             }
 
-            virtual AimpActionResult UnregisterExtension(AIMP::IAimpExtension^ extension)
+            virtual AimpActionResult^ UnregisterExtension(AIMP::IAimpExtension^ extension)
             {
-                return Utils::CheckResult(_aimpCore->UnregisterExtension(extension));
+                return ACTION_RESULT(Utils::CheckResult(_aimpCore->UnregisterExtension(extension)));
             }
 
-            virtual IAimpStream^ CreateStream()
+            virtual StreamResult CreateStream()
             {
                 IAIMPStream* stream = nullptr;
-                if (_aimpCore->CreateStream(&stream) == AimpActionResult::OK && stream != nullptr)
+                const auto result = _aimpCore->CreateStream(&stream);
+                if (result == ActionResultType::OK && stream != nullptr)
                 {
-                    return gcnew AIMP::SDK::AimpStream(stream);
+                    return gcnew AimpActionResult<IAimpStream^>(result, gcnew AimpStream(stream));
                 }
 
-                return nullptr;
+                return gcnew AimpActionResult<IAimpStream^>(result, nullptr);
             }
 
             virtual System::IntPtr CreateObject(Guid% iid)
@@ -94,10 +91,10 @@ namespace AIMP
                 IUnknown* obj;
                 array<Byte>^ guidData = iid.ToByteArray();
                 pin_ptr<Byte> data = &(guidData[0]);
-                //AimpActionResult result = Utils::CheckResult(core->CreateObject(*(_GUID *)data, (void**)&obj));
-                AimpActionResult result = Utils::CheckResult(
+                //ActionResultType result = Utils::CheckResult(core->CreateObject(*(_GUID *)data, (void**)&obj));
+                ActionResultType result = Utils::CheckResult(
                     core->CreateObject(IID_IAIMPString, reinterpret_cast<void**>(&obj)));
-                if (result == AimpActionResult::OK)
+                if (result == ActionResultType::OK)
                 {
                     return IntPtr(obj);
                 }

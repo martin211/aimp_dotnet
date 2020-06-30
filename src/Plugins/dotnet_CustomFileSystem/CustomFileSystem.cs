@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System.Collections.Generic;
 using System.Windows;
 using AIMP.SDK.FileManager;
@@ -44,13 +45,13 @@ namespace AIMP.SDK.CustomFileSystem
         public AimpActionResult CopyToClipboard(List<string> files)
         {
             Clipboard.SetText(string.Join(",", files));
-            return AimpActionResult.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
         AimpActionResult IAimpFileSystemCommandDelete.CanProcess(string fileName)
         {
             var result = GetCommand(FileCommandType.Delete, fileName, out IAimpFileSystemCommandDelete cmd);
-            if (result == AimpActionResult.OK && cmd != null)
+            if (result.ResultType == ActionResultType.OK && cmd != null)
             {
                 result = cmd.CanProcess(fileName);
             }
@@ -61,7 +62,7 @@ namespace AIMP.SDK.CustomFileSystem
         AimpActionResult IAimpFileSystemCommandDelete.Process(string fileName)
         {
             var result = GetCommand(FileCommandType.Delete, fileName, out IAimpFileSystemCommandDelete cmd);
-            if (result == AimpActionResult.OK && cmd != null)
+            if (result.ResultType == ActionResultType.OK && cmd != null)
             {
                 result = cmd.Process(fileName);
             }
@@ -69,10 +70,10 @@ namespace AIMP.SDK.CustomFileSystem
             return result;
         }
 
-        public IAimpStream CreateStream(string fileName)
+        public AimpActionResult<IAimpStream> CreateStream(string fileName)
         {
             var result = GetCommand(FileCommandType.Delete, fileName, out IAimpFileSystemCommandDropSource cmd);
-            if (result == AimpActionResult.OK && cmd != null)
+            if (result.ResultType == ActionResultType.OK && cmd != null)
             {
                 return cmd.CreateStream(GetFile(fileName));
             }
@@ -80,39 +81,41 @@ namespace AIMP.SDK.CustomFileSystem
             return null;
         }
 
-        public AimpActionResult GetFileAttrs(string fileName, out AimpFileAttributes attr)
+        public AimpActionResult<AimpFileAttributes> GetFileAttrs(string fileName)
         {
-            attr = new AimpFileAttributes();
+            var attr = new AimpFileAttributes();
             var result = GetCommand(FileCommandType.FileInfo, fileName, out IAimpFileSystemCommandFileInfo cmd);
 
-            if (result == AimpActionResult.OK && cmd != null)
+            if (result.ResultType == ActionResultType.OK && cmd != null)
             {
-                if (cmd.GetFileAttrs(GetFile(fileName), out var at) == AimpActionResult.OK)
+                var r = cmd.GetFileAttrs(GetFile(fileName));
+                if (r.ResultType == ActionResultType.OK)
                 {
-                    attr = at;
+                    attr = r.Result;
                 }
             }
 
-            return result;
+            return new AimpActionResult<AimpFileAttributes>(result.ResultType, attr);
         }
 
-        public AimpActionResult GetFileSize(string fileName, out long size)
+        public AimpActionResult<long> GetFileSize(string file)
         {
-            size = 0;
-            var result = GetCommand(FileCommandType.FileInfo, fileName, out IAimpFileSystemCommandFileInfo cmd);
+            long size = 0;
+            var result = GetCommand(FileCommandType.FileInfo, file, out IAimpFileSystemCommandFileInfo cmd);
 
-            if (result == AimpActionResult.OK && cmd != null)
+            if (result.ResultType == ActionResultType.OK && cmd != null)
             {
-                result = cmd.GetFileSize(GetFile(fileName), out size);
+                var r = cmd.GetFileSize(GetFile(file));
+                size = r.Result;
             }
 
-            return result;
+            return new AimpActionResult<long>(result.ResultType, size);
         }
 
         public AimpActionResult IsFileExists(string fileName)
         {
             var result = GetCommand(FileCommandType.FileInfo, fileName, out IAimpFileSystemCommandFileInfo cmd);
-            if (result == AimpActionResult.OK && cmd != null)
+            if (result.ResultType == ActionResultType.OK && cmd != null)
             {
                 result = cmd.IsFileExists(GetFile(fileName));
             }
@@ -123,7 +126,7 @@ namespace AIMP.SDK.CustomFileSystem
         AimpActionResult IAimpFileSystemCommandOpenFileFolder.CanProcess(string fileName)
         {
             var result = GetCommand(FileCommandType.OpenFileFolder, fileName, out IAimpFileSystemCommandOpenFileFolder cmd);
-            if (result == AimpActionResult.OK && cmd != null)
+            if (result.ResultType == ActionResultType.OK && cmd != null)
             {
                 result = cmd.CanProcess(GetFile(fileName));
             }
@@ -134,7 +137,7 @@ namespace AIMP.SDK.CustomFileSystem
         AimpActionResult IAimpFileSystemCommandOpenFileFolder.Process(string fileName)
         {
             var result = GetCommand(FileCommandType.OpenFileFolder, fileName, out IAimpFileSystemCommandOpenFileFolder cmd);
-            if (result == AimpActionResult.OK && cmd != null)
+            if (result.ResultType == ActionResultType.OK && cmd != null)
             {
                 result = cmd.Process(GetFile(fileName));
             }
@@ -142,10 +145,10 @@ namespace AIMP.SDK.CustomFileSystem
             return result;
         }
 
-        public IAimpStream CreateStream(string fileName, FileStreamingType flags, long offset, long size)
+        public AimpActionResult<IAimpStream> CreateStream(string fileName, FileStreamingType flags, long offset, long size)
         {
             var result = GetCommand(FileCommandType.Delete, fileName, out IAimpFileSystemCommandStreaming cmd);
-            if (result == AimpActionResult.OK && cmd != null)
+            if (result.ResultType == ActionResultType.OK && cmd != null)
             {
                 return cmd.CreateStream(GetFile(fileName), flags, offset, size);
             }
@@ -155,8 +158,8 @@ namespace AIMP.SDK.CustomFileSystem
 
         private AimpActionResult GetCommand<TCommand>(FileCommandType commandType, string file, out TCommand command)
         {
-            var res = _aimpPlayer.ServiceFileSystems.Get(commandType, GetFile(file), out var cmd);
-            command = (TCommand)cmd;
+            var res = _aimpPlayer.ServiceFileSystems.Get(commandType, GetFile(file));
+            command = (TCommand)res.Result;
             return res;
         }
 

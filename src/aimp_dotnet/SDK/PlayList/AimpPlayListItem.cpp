@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -23,14 +19,14 @@ AimpPlaylistItem::AimpPlaylistItem()
     _aimpObject = static_cast<IAIMPPlaylistItem*>(AimpConverter::MakeObject(IID_IAIMPPlaylistItem));
 }
 
-AimpPlaylistItem::~AimpPlaylistItem()
+void AimpPlaylistItem::RegisterAtMemoryManager()
 {
-    this->!AimpPlaylistItem();
+
 }
 
-AimpPlaylistItem::!AimpPlaylistItem()
+void AimpPlaylistItem::ReleaseFromMemoryManager()
 {
-    InternalAimpObject->Release();
+
 }
 
 AimpPlaylistItem::AimpPlaylistItem(IAimpPlaylistItem^ item)
@@ -115,7 +111,7 @@ IAimpFileInfo^ AimpPlaylistItem::FileInfo::get()
 {
     IAIMPFileInfo* fileInfo;
     if (CheckResult(InternalAimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_FILEINFO, IID_IAIMPFileInfo,
-                                                  reinterpret_cast<void**>(&fileInfo))) != AimpActionResult::OK)
+                                                  reinterpret_cast<void**>(&fileInfo))) != ActionResultType::OK)
     {
         return nullptr;
     }
@@ -130,7 +126,7 @@ IAimpPlaylistGroup^ AimpPlaylistItem::Group::get()
     {
         IAIMPPlaylistGroup* group;
         if (PropertyListExtension::GetObject(InternalAimpObject, AIMP_PLAYLISTITEM_PROPID_GROUP, IID_IAIMPPlaylistGroup,
-                                             reinterpret_cast<void**>(&group)) != AimpActionResult::OK)
+                                             reinterpret_cast<void**>(&group)) != ActionResultType::OK)
         {
             return nullptr;
         }
@@ -145,7 +141,7 @@ IAimpPlaylist^ AimpPlaylistItem::PlayList::get()
 {
     IAIMPPlaylist* obj;
     if (CheckResult(InternalAimpObject->GetValueAsObject(AIMP_PLAYLISTITEM_PROPID_PLAYLIST, IID_IAIMPPlaylist,
-                                                  reinterpret_cast<void**>(&obj))) != AimpActionResult::OK)
+                                                  reinterpret_cast<void**>(&obj))) != ActionResultType::OK)
     {
         return nullptr;
     }
@@ -158,7 +154,7 @@ void AimpPlaylistItem::PlayList::set(IAimpPlaylist^ val)
     // TODO: complete it
 }
 
-AimpActionResult AimpPlaylistItem::ReloadInfo()
+ActionResultType AimpPlaylistItem::ReloadInfo()
 {
     return CheckResult(InternalAimpObject->ReloadInfo());
 }

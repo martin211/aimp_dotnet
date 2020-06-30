@@ -2,7 +2,7 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -23,6 +23,6 @@ namespace AIMP.SDK.MessageDispatcher
         /// <param name="message"></param>
         /// <param name="param1"></param>
         /// <param name="param2"></param>
-        AimpActionResult CoreMessage(AimpCoreMessageType message, int param1, int param2);
+        ActionResultType CoreMessage(AimpCoreMessageType message, int param1, int param2);
     }
 }

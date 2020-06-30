@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 using AIMP.SDK.ActionManager;
 using AIMP.SDK.AlbumArtManager;
@@ -57,7 +58,7 @@ namespace AIMP.SDK.Player
         /// <summary>
         /// Gets the album art manager.
         /// </summary>
-        IAimpAlbumArtManager AlbumArtManager { get; }
+        IAimpServiceAlbumArt ServiceAlbumArt { get; }
 
         IAimpServiceAlbumArtCache ServiceAlbumArtCache { get; }
 
@@ -74,7 +75,7 @@ namespace AIMP.SDK.Player
         /// <summary>
         /// Gets the playback queue manager.
         /// </summary>
-        IAimpPlaybackQueueService PlaybackQueueManager { get; }
+        IAimpServicePlaybackQueue ServicePlaybackQueue { get; }
 
         /// <summary>
         /// Gets the service options dialog.
@@ -162,49 +163,49 @@ namespace AIMP.SDK.Player
         /// <summary>
         /// Pauses player.
         /// </summary>
-        void Pause();
+        AimpActionResult Pause();
 
         /// <summary>
         /// Resumes player.
         /// </summary>
-        void Resume();
+        AimpActionResult Resume();
 
         /// <summary>
         /// Stops player.
         /// </summary>
-        void Stop();
+        AimpActionResult Stop();
 
         /// <summary>
         /// Stops the after track.
         /// </summary>
-        void StopAfterTrack();
+        AimpActionResult StopAfterTrack();
 
         /// <summary>
         /// Goes to next track.
         /// </summary>
-        void GoToNext();
+        AimpActionResult GoToNext();
 
         /// <summary>
         /// Goes to previous track.
         /// </summary>
-        void GoToPrev();
+        AimpActionResult GoToPrev();
 
         /// <summary>
         /// Plays the specified queue item.
         /// </summary>
         /// <param name="queueItem">The queue item.</param>
-        void Play(IAimpPlaybackQueueItem queueItem);
+        AimpActionResult Play(IAimpPlaybackQueueItem queueItem);
 
         /// <summary>
         /// Plays the specified play list item.
         /// </summary>
         /// <param name="playlistItem">The play list item.</param>
-        void Play(IAimpPlaylistItem playlistItem);
+        AimpActionResult Play(IAimpPlaylistItem playlistItem);
 
         /// <summary>
         /// Plays the specified play list.
         /// </summary>
         /// <param name="playList">The play list.</param>
-        void Play(IAimpPlaylist playList);
+        AimpActionResult Play(IAimpPlaylist playList);
     }
 }
