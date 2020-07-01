@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using Aimp.DotNet.Build;
 using Nuke.Common;
@@ -204,4 +205,56 @@ partial class Build : NukeBuild
                     .SetSource(Source)
                     .SetApiKey(ApiKey)));
         });
+
+    Target Artifacts => _ => _
+     .Executes(() =>
+     {
+         EnsureCleanDirectory(OutputDirectory / "Artifacts");
+         Directory.CreateDirectory(OutputDirectory / "Artifacts");
+
+         Logger.Info("Copy plugins to artifacts folder");
+         var directories = GlobDirectories(SourceDirectory / "Plugins", $"**/bin/{Configuration}");
+         foreach (var directory in directories)
+         {
+             var di = new DirectoryInfo(directory);
+             var pluginName = di.Parent?.Parent?.Name;
+
+             Directory.CreateDirectory(OutputDirectory / "Artifacts" / "Plugins" / pluginName);
+
+             var files = di.GetFiles("*.dll");
+             foreach (var file in files)
+             {
+                 string outFile = string.Empty;
+
+                 if (file.Name.StartsWith(pluginName))
+                 {
+                     outFile = OutputDirectory / "Artifacts" / "Plugins" / pluginName / $"{Path.GetFileNameWithoutExtension(file.Name)}_plugin.dll";
+                 }
+                 else
+                 {
+                     outFile = OutputDirectory / "Artifacts" / "Plugins" / pluginName / file.Name;
+                 }
+
+                 if (file.Name.StartsWith("aimp_dotnet"))
+                 {
+                     outFile = OutputDirectory / "Artifacts" / "Plugins" / pluginName / $"{pluginName}.dll";
+                 }
+
+                 file.CopyTo(outFile, true);
+             }
+         }
+
+         Logger.Info("Copy SDK files to artifacts folder");
+         var sdkFolder = new DirectoryInfo(SourceDirectory / $"{Configuration}");
+         Directory.CreateDirectory(OutputDirectory / "Artifacts" / "SDK");
+         var sdkFiles = sdkFolder.GetFiles("*.dll");
+         foreach (var file in sdkFiles)
+         {
+             var outFile = OutputDirectory / "Artifacts" / "SDK" / file.Name;
+             file.CopyTo(outFile, true);
+         }
+
+         Logger.Info("Compress artifacts");
+         ZipFile.CreateFromDirectory(OutputDirectory / "Artifacts", OutputDirectory / "aimp.sdk.zip");
+     });
 }
