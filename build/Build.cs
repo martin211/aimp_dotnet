@@ -4,6 +4,7 @@ using System.IO.Compression;
 using System.Linq;
 using Aimp.DotNet.Build;
 using Nuke.Common;
+using Nuke.Common.CI.TeamCity;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
@@ -42,6 +43,8 @@ partial class Build : NukeBuild
     [Parameter] readonly string SonarProjectKey;
     [Parameter] readonly string SonarProjectName;
     [Parameter] readonly string VmWareMachine;
+    [Parameter] readonly string GitUserName;
+    [Parameter] readonly string GitPassword;
 
     string Source => NuGet
         ? "https://api.nuget.org/v3/index.json"
@@ -49,7 +52,7 @@ partial class Build : NukeBuild
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
-    [GitVersion] readonly GitVersion GitVersion;
+    [GitVersion] GitVersion GitVersion;
 
     readonly string MasterBranch = "master";
     readonly string DevelopBranch = "develop";
@@ -79,6 +82,24 @@ partial class Build : NukeBuild
     Target Version => _ => _
         .Executes(() =>
         {
+            var settings = new GitVersionSettings();
+            settings = settings
+                .SetBranch(GitRepository.Branch)
+                .SetOutput(IsServerBuild ? GitVersionOutput.buildserver : GitVersionOutput.json)
+                .SetFramework("netcoreapp3.0")
+                .SetUpdateAssemblyInfo(true);
+
+            if (IsServerBuild)
+            {
+                settings = settings
+                    .SetUsername(GitUserName)
+                    .SetPassword(GitPassword);
+            }
+
+            GitVersion = GitVersionTasks.GitVersion(settings).Result;
+
+            TeamCity.Instance?.SetBuildNumber(GitVersion.FullSemVer);
+
             var rcFile = SourceDirectory / "aimp_dotnet" / "aimp_dotnet.rc";
             if (File.Exists(rcFile))
             {
@@ -256,5 +277,7 @@ partial class Build : NukeBuild
 
          Logger.Info("Compress artifacts");
          ZipFile.CreateFromDirectory(OutputDirectory / "Artifacts", OutputDirectory / "aimp.sdk.zip");
+
+         TeamCity.Instance?.PublishArtifacts(OutputDirectory / "aimp.sdk.zip");
      });
 }
