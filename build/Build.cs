@@ -96,7 +96,15 @@ partial class Build : NukeBuild
                     .SetPassword(GitPassword);
             }
 
-            GitVersion = GitVersionTasks.GitVersion(settings).Result;
+            try
+            {
+                var g = GitVersionTasks.GitVersion(settings);
+                GitVersion = g.Result;
+            }
+            catch (Exception e)
+            {
+                TeamCity.Instance?.WriteError(e.ToString());
+            }
 
             TeamCity.Instance?.SetBuildNumber(GitVersion.FullSemVer);
 
