@@ -52,7 +52,7 @@ partial class Build : NukeBuild
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
-    [GitVersion] GitVersion GitVersion;
+    GitVersion GitVersion;
 
     readonly string MasterBranch = "master";
     readonly string DevelopBranch = "develop";
