@@ -85,6 +85,7 @@ partial class Build : NukeBuild
             var settings = new GitVersionSettings();
             settings = settings
                 .SetBranch(GitRepository.Branch)
+                .SetNoFetch(true)
                 .SetOutput(IsServerBuild ? GitVersionOutput.buildserver : GitVersionOutput.json)
                 .SetFramework("netcoreapp3.0")
                 .SetUpdateAssemblyInfo(true);
