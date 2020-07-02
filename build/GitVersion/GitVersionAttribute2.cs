@@ -36,7 +36,6 @@ namespace Aimp.DotNet.Build
                     .DisableLogOutput()
                     .SetUsername(UserName)
                     .SetPassword(Password)
-                    .SetOutput(GitVersionOutput.buildserver)
                     .SetUpdateAssemblyInfo(UpdateAssemblyInfo))
                 .Result;
 
