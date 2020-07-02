@@ -11,9 +11,10 @@ branches:
     tracks-release-branches: false
     is-release-branch: false
   release:
-    regex: release?[/-]
+    regex: ^release?[/-]
     mode: ContinuousDelivery
-    increment: None
+    tag: ''
+    increment: Patch
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
     tracks-release-branches: false

@@ -166,30 +166,26 @@ partial class Build : NukeBuild
             var nugetFolder = RootDirectory / "Nuget";
             var version = GitVersion.AssemblySemVer;
 
-            NuGetTasks.NuGetPack(c => c
-                .SetTargetPath(nugetFolder / "AimpSDK.nuspec")
+            var config = new NuGetPackSettings()
                 .SetBasePath(RootDirectory)
                 .SetConfiguration(Configuration)
                 .SetVersion(version)
-                .SetSuffix(GitVersion.PreReleaseTag)
-                .SetOutputDirectory(OutputDirectory));
+                .SetOutputDirectory(OutputDirectory);
 
-            NuGetTasks.NuGetPack(c => c
-                .SetTargetPath(nugetFolder / "AimpSDK.symbols.nuspec")
-                .SetBasePath(RootDirectory)
-                .SetVersion(version)
-                .SetConfiguration(Configuration)
-                .SetOutputDirectory(OutputDirectory)
-                .SetSuffix(GitVersion.PreReleaseTag)
-                .AddProperty("Symbols", string.Empty));
+            if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
+            {
+                config = config.SetSuffix(GitVersion.PreReleaseTag);
+            }
 
-            NuGetTasks.NuGetPack(c => c
-                .SetTargetPath(nugetFolder / "AimpSDK.sources.nuspec")
-                .SetVersion(version)
-                .SetConfiguration(Configuration)
-                .SetBasePath(RootDirectory)
-                .SetSuffix(GitVersion.PreReleaseTag)
-                .SetOutputDirectory(OutputDirectory));
+            NuGetTasks.NuGetPack(config
+                .SetTargetPath(nugetFolder / "AimpSDK.nuspec"));
+
+            //NuGetTasks.NuGetPack(config
+            //    .SetTargetPath(nugetFolder / "AimpSDK.symbols.nuspec")
+            //    .AddProperty("Symbols", string.Empty));
+
+            //NuGetTasks.NuGetPack(config
+            //    .SetTargetPath(nugetFolder / "AimpSDK.sources.nuspec"));
         });
 
     Target Publish => _ => _
