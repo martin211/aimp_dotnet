@@ -171,6 +171,7 @@ partial class Build : NukeBuild
                 .SetBasePath(RootDirectory)
                 .SetConfiguration(Configuration)
                 .SetVersion(version)
+                .SetSuffix(GitVersion.PreReleaseTag)
                 .SetOutputDirectory(OutputDirectory));
 
             NuGetTasks.NuGetPack(c => c
@@ -179,6 +180,7 @@ partial class Build : NukeBuild
                 .SetVersion(version)
                 .SetConfiguration(Configuration)
                 .SetOutputDirectory(OutputDirectory)
+                .SetSuffix(GitVersion.PreReleaseTag)
                 .AddProperty("Symbols", string.Empty));
 
             NuGetTasks.NuGetPack(c => c
@@ -186,6 +188,7 @@ partial class Build : NukeBuild
                 .SetVersion(version)
                 .SetConfiguration(Configuration)
                 .SetBasePath(RootDirectory)
+                .SetSuffix(GitVersion.PreReleaseTag)
                 .SetOutputDirectory(OutputDirectory));
         });
 
