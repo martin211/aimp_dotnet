@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "stdafx.h"
@@ -30,8 +26,8 @@ AimpActionResult<IAimpAction^>^ AimpServiceActionManager::GetById(String^ id)
         {
             IAIMPAction* resAction = nullptr;
             IAIMPString* strId = AimpConverter::ToAimpString(id);
-            const auto res = CheckResult(service->GetByID(strId, &resAction));
-            if (res != ActionResultType::OK)
+            res = CheckResult(service->GetByID(strId, &resAction));
+            if (res == ActionResultType::OK)
             {
                 action = gcnew AimpAction(resAction);
             }
@@ -68,6 +64,16 @@ int AimpServiceActionManager::MakeHotkey(ModifierKeys modifiers, unsigned int ke
 
 AimpActionResult^ AimpServiceActionManager::Register(IAimpAction^ action)
 {
+    if (String::IsNullOrEmpty(action->Name))
+    {
+        ARGUMENT_NULL("Name", "Action name cannot be empty")
+    }
+
+    if (String::IsNullOrEmpty(action->Id))
+    {
+        ARGUMENT_NULL("Id", "Action id cannot be empty")
+    }
+
     return GetResult(_core->GetAimpCore()->RegisterExtension(IID_IAIMPServiceActionManager,
                                                                static_cast<AimpAction^>(action)->InternalAimpObject));
 }

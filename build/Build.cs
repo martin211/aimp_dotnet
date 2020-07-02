@@ -1,8 +1,10 @@
 using System;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using Aimp.DotNet.Build;
 using Nuke.Common;
+using Nuke.Common.CI.TeamCity;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
@@ -14,7 +16,6 @@ using Nuke.Common.Tools.NuGet;
 using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
-using static Nuke.Common.EnvironmentInfo;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
@@ -36,20 +37,22 @@ partial class Build : NukeBuild
 
     [Parameter("Indicates to push to nuget.org feed.")] readonly bool NuGet;
     [Parameter("ApiKey for the specified source.")] readonly string ApiKey;
-    [Parameter] readonly string SonarUrl = "http://sonar.uginnet.loc";
-    [Parameter] readonly string SonarUser = "aadec67d1212daad96c8fccdb2a03724cb91a4e1";
+    [Parameter] readonly string SonarUrl;
+    [Parameter] readonly string SonarUser;
     [Parameter] readonly string SonarPassword;
-    [Parameter] readonly string SonarProjectKey = "AimpDotNetSDK";
-    [Parameter] readonly string SonarProjectName = "Aimp_DotNetSDK";
+    [Parameter] readonly string SonarProjectKey;
+    [Parameter] readonly string SonarProjectName;
     [Parameter] readonly string VmWareMachine;
 
-    string Source => NuGet
-        ? "https://api.nuget.org/v3/index.json"
-        : "https://www.myget.org/F/aimpsdk/api/v2/package";
+    string Source => "https://api.nuget.org/v3/index.json";
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
-    [GitVersion] readonly GitVersion GitVersion;
+    [GitVersion(
+        UpdateAssemblyInfo = true,
+        Framework = "netcoreapp3.1",
+        UpdateBuildNumber = true)]
+    readonly GitVersion GitVersion;
 
     readonly string MasterBranch = "master";
     readonly string DevelopBranch = "develop";
@@ -58,6 +61,7 @@ partial class Build : NukeBuild
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath OutputDirectory => RootDirectory / "output";
+    AbsolutePath TestOutput => RootDirectory / "tests";
     
     Target Clean => _ => _
         .Before(Restore)
@@ -70,9 +74,7 @@ partial class Build : NukeBuild
     Target Restore => _ => _
         .Executes(() =>
         {
-            MSBuild(_ => _
-                .SetTargetPath(Solution)
-                .SetTargets("Restore"));
+            NuGetTasks.NuGetRestore(c => c.SetTargetPath(Solution));
         });
 
     Target Version => _ => _
@@ -89,7 +91,7 @@ partial class Build : NukeBuild
         });
 
     Target Compile => _ => _
-        .DependsOn(Restore, Version)
+        .DependsOn(Clean, Restore, Version)
         .Executes(() =>
         {
             MSBuild(_ => _
@@ -119,8 +121,12 @@ partial class Build : NukeBuild
                     .SetName(SonarProjectName)
                     //.SetWorkingDirectory(SourceDirectory)
                     .SetFramework(framework)
-                    .SetVerbose(false)
-                    ;
+                    .SetVerbose(false);
+
+                if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
+                {
+                    configuration = configuration.SetVersion(GitVersion.SemVer);
+                }
 
                 configuration = configuration.SetProjectBaseDir(SourceDirectory);
 
@@ -164,27 +170,26 @@ partial class Build : NukeBuild
             var nugetFolder = RootDirectory / "Nuget";
             var version = GitVersion.AssemblySemVer;
 
-            NuGetTasks.NuGetPack(c => c
-                .SetTargetPath(nugetFolder / "AimpSDK.nuspec")
+            var config = new NuGetPackSettings()
                 .SetBasePath(RootDirectory)
                 .SetConfiguration(Configuration)
                 .SetVersion(version)
-                .SetOutputDirectory(OutputDirectory));
+                .SetOutputDirectory(OutputDirectory);
 
-            NuGetTasks.NuGetPack(c => c
-                .SetTargetPath(nugetFolder / "AimpSDK.symbols.nuspec")
-                .SetBasePath(RootDirectory)
-                .SetVersion(version)
-                .SetConfiguration(Configuration)
-                .SetOutputDirectory(OutputDirectory)
-                .AddProperty("Symbols", string.Empty));
+            if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
+            {
+                config = config.SetSuffix(GitVersion.PreReleaseTag);
+            }
 
-            NuGetTasks.NuGetPack(c => c
-                .SetTargetPath(nugetFolder / "AimpSDK.sources.nuspec")
-                .SetVersion(version)
-                .SetConfiguration(Configuration)
-                .SetBasePath(RootDirectory)
-                .SetOutputDirectory(OutputDirectory));
+            NuGetTasks.NuGetPack(config
+                .SetTargetPath(nugetFolder / "AimpSDK.nuspec"));
+
+            //NuGetTasks.NuGetPack(config
+            //    .SetTargetPath(nugetFolder / "AimpSDK.symbols.nuspec")
+            //    .AddProperty("Symbols", string.Empty));
+
+            //NuGetTasks.NuGetPack(config
+            //    .SetTargetPath(nugetFolder / "AimpSDK.sources.nuspec"));
         });
 
     Target Publish => _ => _
@@ -204,4 +209,58 @@ partial class Build : NukeBuild
                     .SetSource(Source)
                     .SetApiKey(ApiKey)));
         });
+
+    Target Artifacts => _ => _
+     .Executes(() =>
+     {
+         EnsureCleanDirectory(OutputDirectory / "Artifacts");
+         Directory.CreateDirectory(OutputDirectory / "Artifacts");
+
+         Logger.Info("Copy plugins to artifacts folder");
+         var directories = GlobDirectories(SourceDirectory / "Plugins", $"**/bin/{Configuration}");
+         foreach (var directory in directories)
+         {
+             var di = new DirectoryInfo(directory);
+             var pluginName = di.Parent?.Parent?.Name;
+
+             Directory.CreateDirectory(OutputDirectory / "Artifacts" / "Plugins" / pluginName);
+
+             var files = di.GetFiles("*.dll");
+             foreach (var file in files)
+             {
+                 string outFile = string.Empty;
+
+                 if (file.Name.StartsWith(pluginName))
+                 {
+                     outFile = OutputDirectory / "Artifacts" / "Plugins" / pluginName / $"{Path.GetFileNameWithoutExtension(file.Name)}_plugin.dll";
+                 }
+                 else
+                 {
+                     outFile = OutputDirectory / "Artifacts" / "Plugins" / pluginName / file.Name;
+                 }
+
+                 if (file.Name.StartsWith("aimp_dotnet"))
+                 {
+                     outFile = OutputDirectory / "Artifacts" / "Plugins" / pluginName / $"{pluginName}.dll";
+                 }
+
+                 file.CopyTo(outFile, true);
+             }
+         }
+
+         Logger.Info("Copy SDK files to artifacts folder");
+         var sdkFolder = new DirectoryInfo(SourceDirectory / $"{Configuration}");
+         Directory.CreateDirectory(OutputDirectory / "Artifacts" / "SDK");
+         var sdkFiles = sdkFolder.GetFiles("*.dll");
+         foreach (var file in sdkFiles)
+         {
+             var outFile = OutputDirectory / "Artifacts" / "SDK" / file.Name;
+             file.CopyTo(outFile, true);
+         }
+
+         Logger.Info("Compress artifacts");
+         ZipFile.CreateFromDirectory(OutputDirectory / "Artifacts", OutputDirectory / "aimp.sdk.zip");
+
+         TeamCity.Instance?.PublishArtifacts(OutputDirectory / "aimp.sdk.zip");
+     });
 }

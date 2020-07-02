@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -157,8 +158,8 @@ namespace DemoPlugin
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _aimpPlayer.PlaylistManager.GetActivePlaylist(out var pl);
-            _aimpPlayer.Play(pl);
+            var pl = _aimpPlayer.PlaylistManager.GetActivePlaylist();
+            _aimpPlayer.Play(pl.Result);
             _aimpPlayer.Core.SendMessage(AimpCoreMessageType.AIMP_MSG_CMD_SHOW_NOTIFICATION, 0, "Play Play Play");
         }
 
@@ -201,9 +202,11 @@ namespace DemoPlugin
         private void button7_Click(object sender, EventArgs e)
         {
             IAimpPlaylist pl;
-            if (_aimpPlayer.PlaylistManager.GetActivePlaylist(out pl) == ActionResultType.OK)
+            var result = _aimpPlayer.PlaylistManager.GetActivePlaylist();
+
+            if (result.ResultType == ActionResultType.OK)
             {
-                pl.Sort("test", (item, playlistItem, arg3) => PlaylistSortComapreResult.TheSame);
+                result.Result.Sort("test", (item, playlistItem, arg3) => PlaylistSortComapreResult.TheSame);
             }
         }
 
@@ -212,9 +215,10 @@ namespace DemoPlugin
             var frm = new PlaylistEditor();
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
-                IAimpPlaylist playList;
-                if (_aimpPlayer.PlaylistManager.CreatePlaylist(frm.PlaylistName, true, out playList) == ActionResultType.OK)
+                var result = _aimpPlayer.PlaylistManager.CreatePlaylist(frm.PlaylistName, true);
+                if (result.ResultType == ActionResultType.OK)
                 {
+                    var playList = result.Result;
                     _playLists.Add(playList);
 
                     //CheckResult(playList.Add("http://xstream1.somafm.com:2800", PlaylistFlags.NOEXPAND, PlaylistFilePosition.EndPosition));
@@ -261,10 +265,10 @@ namespace DemoPlugin
 
         private void button9_Click(object sender, EventArgs e)
         {
-            IAimpPlaylist playList;
-            if (_aimpPlayer.PlaylistManager.GetActivePlaylist(out playList) == ActionResultType.OK)
+            var result = _aimpPlayer.PlaylistManager.GetActivePlaylist();
+            if (result.ResultType == ActionResultType.OK)
             {
-                playList?.Close(PlaylistCloseFlag.ForceRemove);
+                result.Result?.Close(PlaylistCloseFlag.ForceRemove);
             }
         }
 
@@ -310,9 +314,10 @@ namespace DemoPlugin
             var count = _aimpPlayer.PlaylistManager.GetLoadedPlaylistCount();
             for (var i = 0; i < count; i++)
             {
-                if (_aimpPlayer.PlaylistManager.GetLoadedPlaylist(i, out var playlist) == ActionResultType.OK && _playLists.All(c => c.Id != playlist.Id))
+                var result = _aimpPlayer.PlaylistManager.GetLoadedPlaylist(i);
+                if (result.ResultType == ActionResultType.OK && _playLists.All(c => c.Id != result.Result.Id))
                 {
-                    AddPlayListTab(playlist.Id, playlist.Name, playlist);
+                    AddPlayListTab(result.Result.Id, result.Result.Name, result.Result);
                 }
             }
         }

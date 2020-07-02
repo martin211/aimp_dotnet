@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -61,15 +57,15 @@ namespace AIMP
                 void set(String^ value);
             }
 
-            virtual ActionResultType CreateStream(IAimpStream^% stream);
+            virtual StreamResult CreateStream();
 
-            virtual ActionResultType GetFileInfo(IAimpFileInfo^% fileInfo);
+            virtual FileInfoResult GetFileInfo();
 
             virtual bool IsExists();
 
-            virtual ActionResultType IsInSameStream(IAimpVirtualFile^ virtualFile);
+            virtual VoidResult IsInSameStream(IAimpVirtualFile^ virtualFile);
 
-            virtual ActionResultType Synchronize();
+            virtual VoidResult Synchronize();
         };
     }
 }

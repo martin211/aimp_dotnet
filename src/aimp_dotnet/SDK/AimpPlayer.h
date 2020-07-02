@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -65,11 +61,11 @@ namespace AIMP
         MenuManager::IAimpServiceMenuManager^ _menuManager;
         IAimpServiceActionManager^ _actionManager;
         MUIManager::IAimpMUIManager^ _muiManager;
-        IAimpAlbumArtManager^ _artManager;
+        IAimpServiceAlbumArt^ _artManager;
         IAimpServiceConfig^ _serviceConfig;
         IWin32Manager^ _win32Manager;
         IAimpPlaylistManager2^ _playListManager;
-        IAimpPlaybackQueueService^ _playbackQueueManager;
+        IAimpServicePlaybackQueue^ _playbackQueueManager;
         IAimpServiceOptionsDialog^ _serviceOptionsDialogManager;
         AimpPlayerState _state;
         IAimpServiceSynchronizer^ _serviceSynchronizer;
@@ -129,9 +125,9 @@ namespace AIMP
             SDK::MUIManager::IAimpMUIManager^ get();
         }
 
-        virtual property IAimpAlbumArtManager^ AlbumArtManager
+        virtual property IAimpServiceAlbumArt^ ServiceAlbumArt
         {
-            IAimpAlbumArtManager^ get();
+            IAimpServiceAlbumArt^ get();
         }
 
         virtual property IAimpServiceConfig^ ServiceConfig
@@ -144,9 +140,9 @@ namespace AIMP
             IAimpPlaylistManager2^ get();
         }
 
-        virtual property IAimpPlaybackQueueService^ PlaybackQueueManager
+        virtual property IAimpServicePlaybackQueue^ ServicePlaybackQueue
         {
-            IAimpPlaybackQueueService^ get();
+            IAimpServicePlaybackQueue^ get();
         }
 
         virtual property IAIMPServicePlayer* ServicePlayer
@@ -207,23 +203,23 @@ namespace AIMP
             IAimpServiceMessageDispatcher^ get();
         }
 
-        virtual void Pause();
+        virtual VoidResult Pause();
 
-        virtual void Stop();
+        virtual VoidResult Stop();
 
-        virtual void Resume();
+        virtual VoidResult Resume();
 
-        virtual void StopAfterTrack();
+        virtual VoidResult StopAfterTrack();
 
-        virtual void GoToNext();
+        virtual VoidResult GoToNext();
 
-        virtual void GoToPrev();
+        virtual VoidResult GoToPrev();
 
-        virtual void Play(IAimpPlaybackQueueItem^ queueItem);
+        virtual VoidResult Play(IAimpPlaybackQueueItem^ queueItem);
 
-        virtual void Play(IAimpPlaylistItem^ playListItem);
+        virtual VoidResult Play(IAimpPlaylistItem^ playListItem);
 
-        virtual void Play(IAimpPlaylist^ playList);
+        virtual VoidResult Play(IAimpPlaylist^ playList);
 
         virtual property IAimpServiceSynchronizer^ ServiceSynchronizer
         {
@@ -284,7 +280,5 @@ namespace AIMP
         {
             IAimpServiceAlbumArtCache^ get();
         }
-
-        bool OnCheckUrl(String^ % url);
     };
 }

@@ -1,3 +1,10 @@
+// ----------------------------------------------------
+// AIMP DotNet SDK
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// Mail: mail4evgeniy@gmail.com
+// ----------------------------------------------------
+
 #include "Stdafx.h"
 #include "AimpServiceAlbumArtCache.h"
 
@@ -8,6 +15,16 @@ AimpServiceAlbumArtCache::AimpServiceAlbumArtCache(ManagedAimpCore^ core) : Base
 
 AimpActionResult^ AimpServiceAlbumArtCache::Flush(String^ album, String^ artist)
 {
+    if (String::IsNullOrEmpty(album))
+    {
+        ARGUMENT_NULL("album", "Parameter album cannot be empty");
+    }
+
+    if (String::IsNullOrEmpty(artist))
+    {
+        ARGUMENT_NULL("artist", "Parameter artist cannot be empty");
+    }
+
     auto service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
 
@@ -32,6 +49,11 @@ AimpActionResult^ AimpServiceAlbumArtCache::Flush(String^ album, String^ artist)
 
 AimpActionResult^ AimpServiceAlbumArtCache::Flush2(String^ fileUri)
 {
+    if (String::IsNullOrEmpty(fileUri))
+    {
+        ARGUMENT_NULL("fileUri", "Parameter fileUri cannot be empty");
+    }
+
     auto service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
 

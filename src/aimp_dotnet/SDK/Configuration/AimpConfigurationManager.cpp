@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -213,7 +209,7 @@ VoidResult AimpServiceConfig::SetValueAsFloat(String^ keyPath, float value)
         ReleaseObject(service);
     }
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 VoidResult AimpServiceConfig::SetValueAsInt32(String^ keyPath, int value)
@@ -236,7 +232,7 @@ VoidResult AimpServiceConfig::SetValueAsInt32(String^ keyPath, int value)
         ReleaseObject(service);
     }
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 VoidResult AimpServiceConfig::SetValueAsInt64(String^ keyPath, Int64 value)
@@ -259,7 +255,7 @@ VoidResult AimpServiceConfig::SetValueAsInt64(String^ keyPath, Int64 value)
         ReleaseObject(service);
     }
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 VoidResult AimpServiceConfig::SetValueAsStream(String^ keyPath, IAimpStream^ stream)
@@ -282,7 +278,7 @@ VoidResult AimpServiceConfig::SetValueAsStream(String^ keyPath, IAimpStream^ str
         ReleaseObject(service);
     }
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 VoidResult AimpServiceConfig::SetValueAsString(String^ keyPath, String^ value)
@@ -308,7 +304,7 @@ VoidResult AimpServiceConfig::SetValueAsString(String^ keyPath, String^ value)
         ReleaseObject(service);
     }
 
-    return VOID_RESULT(result);
+    return ACTION_RESULT(result);
 }
 
 IAIMPServiceConfig* AimpServiceConfig::GetAimpService()

@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using AIMP.DotNet.MusicLibrary.Preimage;
 using AIMP.SDK;
 using AIMP.SDK.MenuManager;
@@ -26,12 +27,12 @@ namespace AIMP.DotNet.MusicLibrary
             var plListner = new PlaylistManagerListener();
 
 
-            CheckActionResult(Player.Core.RegisterExtension(schemaExtension));
-            CheckActionResult(Player.Core.RegisterExtension(fileINfoProvider));
-            CheckActionResult(Player.Core.RegisterExtension(demoLibrary));
+            CheckActionResult(Player.Core.RegisterExtension(schemaExtension).ResultType);
+            CheckActionResult(Player.Core.RegisterExtension(fileINfoProvider).ResultType);
+            CheckActionResult(Player.Core.RegisterExtension(demoLibrary).ResultType);
 
-            CheckActionResult(Player.Core.RegisterExtension(plListner));
-            CheckActionResult(Player.Core.RegisterExtension(preimageFactory));
+            CheckActionResult(Player.Core.RegisterExtension(plListner).ResultType);
+            CheckActionResult(Player.Core.RegisterExtension(preimageFactory).ResultType);
         }
 
         public override void Dispose()

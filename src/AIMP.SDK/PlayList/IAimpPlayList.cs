@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using AIMP.SDK.FileManager;
@@ -20,22 +21,22 @@ namespace AIMP.SDK.Playlist
         /// <summary>
         /// suppresses file format checking.
         /// </summary>
-        NOCHECKFORMAT = 1,
+        NoCheckFormat = 1,
 
         /// <summary>
         /// suppresses file expansion to few virtual files.
         /// </summary>
-        NOEXPAND = 2,
+        NoExpand = 2,
 
         /// <summary>
         /// File adding will be processed in main thread, the method will not return control until operation has been completed (not recommended).
         /// </summary>
-        NOASYNC = 4,
+        NoAsync = 4,
 
         /// <summary>
         /// Shows that object is <see cref="IAimpFileInfo"/> (otherwise object must be a string).
         /// </summary>
-        FILEINFO = 8
+        FileInfo = 8
     }
 
     public enum PlaylistFilePosition
@@ -58,12 +59,12 @@ namespace AIMP.SDK.Playlist
 
     public enum PlaylistSort
     {
-        TITLE,
-        FILENAME,
-        DURATION,
-        ARTIST,
-        INVERSE,
-        RANDOMIZE
+        Title = 1,
+        FileName = 2,
+        Duration = 3,
+        Artist = 4,
+        Inverse = 5,
+        Randomize = 6
     }
 
     [Flags]
@@ -181,8 +182,8 @@ namespace AIMP.SDK.Playlist
     public enum PlaylistDeleteFlags
     {
         None = 0,
-        AIMP_PLAYLIST_DELETE_FLAGS_PHYSICALLY = 1,
-        AIMP_PLAYLIST_DELETE_FLAGS_NOCONFIRMATION = 2
+        Physically = 1,
+        NoConfirmation = 2
     }
 
     /// <summary>
@@ -209,7 +210,9 @@ namespace AIMP.SDK.Playlist
         /// Gets or sets the focused object.
         /// Object should be <see cref="IAimpPlaylistItem"/> or <see cref="IAimpPlaylistGroup"/>.
         /// </summary>
-        object FocusedObject { get; set; }
+        IAimpPlaylistItem FocusedItem { get; set; }
+
+        IAimpPlaylistGroup FocusedGroup { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [grouping overridden].
@@ -243,7 +246,7 @@ namespace AIMP.SDK.Playlist
         /// <summary>
         /// Gets or sets a value indicating whether [formating override].
         /// </summary>
-        bool FormatingOverride { get; set; }
+        bool FormattingOverride { get; set; }
 
         /// <summary>
         /// Gets or sets the formatting template for the first line.
@@ -359,7 +362,7 @@ namespace AIMP.SDK.Playlist
         /// <param name="flags">The <see cref="PlaylistFlags"/>.</param>
         /// <param name="filePosition">The file position <see cref="PlaylistFilePosition"/>.</param>
         /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType Add(string fileUrl, PlaylistFlags flags, PlaylistFilePosition filePosition);
+        AimpActionResult Add(string fileUrl, PlaylistFlags flags, PlaylistFilePosition filePosition);
 
         /// <summary>
         /// Adds the specified file by URL.
@@ -368,7 +371,7 @@ namespace AIMP.SDK.Playlist
         /// <param name="flags">The <see cref="PlaylistFlags" />.</param>
         /// <param name="filePosition">The file position <see cref="PlaylistFilePosition" />.</param>
         /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType Add(IAimpFileInfo fileInfo, PlaylistFlags flags, PlaylistFilePosition filePosition);
+        AimpActionResult Add(IAimpFileInfo fileInfo, PlaylistFlags flags, PlaylistFilePosition filePosition);
 
         /// <summary>
         /// Adds the list.
@@ -377,7 +380,7 @@ namespace AIMP.SDK.Playlist
         /// <param name="flags">The <see cref="PlaylistFlags" />.</param>
         /// <param name="filePosition">The file position <see cref="PlaylistFilePosition" />.</param>
         /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType AddList(IList<string> fileUrlList, PlaylistFlags flags, PlaylistFilePosition filePosition);
+        AimpActionResult AddList(IList<string> fileUrlList, PlaylistFlags flags, PlaylistFilePosition filePosition);
 
         /// <summary>
         /// Adds the list.
@@ -386,22 +389,21 @@ namespace AIMP.SDK.Playlist
         /// <param name="flags">The <see cref="PlaylistFlags" />.</param>
         /// <param name="filePosition">The file position <see cref="PlaylistFilePosition" />.</param>
         /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType AddList(IList<IAimpFileInfo> fileUrlList, PlaylistFlags flags,
-            PlaylistFilePosition filePosition);
+        AimpActionResult AddList(IList<IAimpFileInfo> fileUrlList, PlaylistFlags flags, PlaylistFilePosition filePosition);
 
         /// <summary>
         /// Deletes the specified item.
         /// </summary>
         /// <param name="item">The playlist item.</param>
         /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType Delete(IAimpPlaylistItem item);
+        AimpActionResult Delete(IAimpPlaylistItem item);
 
         /// <summary>
         /// Deletes the item by specified index.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType Delete(int index);
+        AimpActionResult Delete(int index);
 
         /// <summary>
         /// 
@@ -410,28 +412,27 @@ namespace AIMP.SDK.Playlist
         /// <param name="customFilterData">Some additional data that will be passed to the filter function.</param>
         /// <param name="filterFunc">The filter function. Should return true to delete item.</param>
         /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType Delete(PlaylistDeleteFlags deleteFlags, object customFilterData,
-            Func<IAimpPlaylistItem, object, bool> filterFunc);
+        AimpActionResult Delete(PlaylistDeleteFlags deleteFlags, object customFilterData, Func<IAimpPlaylistItem, object, bool> filterFunc);
 
         /// <summary>
         /// Deletes all items.
         /// </summary>
         /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType DeleteAll();
+        AimpActionResult DeleteAll();
 
         /// <summary>
         /// Sorts the playlist by specified sort order.
         /// </summary>
         /// <param name="sort">The sort.</param>
         /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType Sort(PlaylistSort sort);
+        AimpActionResult Sort(PlaylistSort sort);
 
         /// <summary>
         /// Sorts the playlist items by specified template.
         /// </summary>
         /// <param name="template">The template. Refer to <see cref="IAimpServiceFileInfoFormatter"/>.</param>
         /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType Sort(string template);
+        AimpActionResult Sort(string template);
 
         /// <summary>
         /// Sorts the playlist by the specified compare function.
@@ -441,28 +442,27 @@ namespace AIMP.SDK.Playlist
         /// <returns>
         /// The <see cref="ActionResultType" /> result.
         /// </returns>
-        ActionResultType Sort(object customCompareData,
-            Func<IAimpPlaylistItem, IAimpPlaylistItem, object, PlaylistSortComapreResult> compareFunc);
+        AimpActionResult Sort(object customCompareData, Func<IAimpPlaylistItem, IAimpPlaylistItem, object, PlaylistSortComapreResult> compareFunc);
 
         /// <summary>
         /// Method blocks all notifications until EndUpdate is called.
         /// This method is recommended to usage if you will change few options of playlist at one time.
         /// </summary>
         /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType BeginUpdate();
+        AimpActionResult BeginUpdate();
 
         /// <summary>
         /// Method unblocks all notifications. Refer to the BeginUpdate.
         /// </summary>
         /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType EndUpdate();
+        AimpActionResult EndUpdate();
 
         /// <summary>
         /// Closes the playlist.
         /// </summary>
         /// <param name="closeFlag">The close flag <see cref="PlaylistCloseFlag"/>.</param>
         /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType Close(PlaylistCloseFlag closeFlag);
+        AimpActionResult Close(PlaylistCloseFlag closeFlag);
 
         /// <summary>
         /// Gets the list of files.
@@ -472,7 +472,7 @@ namespace AIMP.SDK.Playlist
         /// <returns>
         /// The <see cref="ActionResultType" /> result.
         /// </returns>
-        ActionResultType GetFiles(PlaylistGetFilesFlag filesFlag, out IList<string> files);
+        AimpActionResult<IList<string>> GetFiles(PlaylistGetFilesFlag filesFlag);
 
         /// <summary>
         /// Merges one or all groups with same names.
@@ -499,7 +499,7 @@ namespace AIMP.SDK.Playlist
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        IAimpPlaylistItem GetItem(int index);
+        AimpActionResult<IAimpPlaylistItem> GetItem(int index);
 
         /// <summary>
         /// Gets the item count.
@@ -511,7 +511,7 @@ namespace AIMP.SDK.Playlist
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns></returns>
-        IAimpPlaylistGroup GetGroup(int index);
+        AimpActionResult<IAimpPlaylistGroup> GetGroup(int index);
 
         /// <summary>
         /// Gets the group count.

@@ -375,9 +375,6 @@
     <ClCompile Include="SDK\AlbumArt\AimpServiceAlbumArtCache.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SDK\FileManager\AimpServiceFileInfoFormattercpp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SDK\MUI\AimpServiceMUI.cpp">
       <Filter>Source Files\SDK\MUI</Filter>
     </ClCompile>
@@ -428,6 +425,21 @@
     </ClCompile>
     <ClCompile Include="SDK\PlayList\Internal\InternalAimpPlaylistPreimage.cpp">
       <Filter>Source Files\SDK\PlayList</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\AimpServiceFileInfoFormatter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AimpMemoryManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Lyrics\AimpExtensionLyricsProvider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Playback\AimpExtensionPlaybackQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\Playback\AimpExtensionPlayerHook.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -838,6 +850,18 @@
     </ClInclude>
     <ClInclude Include="SDK\PlayList\Internal\InternalAimpPlaylistPreimage.h">
       <Filter>Header Files\SDK\PlayList</Filter>
+    </ClInclude>
+    <ClInclude Include="AimpMemoryManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Lyrics\AimpExtensionLyricsProvider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Playback\AimpExtensionPlaybackQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Playback\AimpExtensionPlayerHook.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,17 +1,15 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
 #include <Unknwnbase.h>
 #include "AimpSdk.h"
+#include "Playback/AimpExtensionPlaybackQueue.h"
+#include "Playback/AimpExtensionPlayerHook.h"
 #include "SDK\Options\OptionsDialogFrameExtension.h"
 #include "SDK\AlbumArt\AimpExtensionAlbumArtCatalog.h"
 #include "SDK\AlbumArt\AimpExtensionAlbumArtProvider.h"
@@ -24,6 +22,7 @@
 #include "SDK\FileManager\InternalAimpExtensionFileSystem.h"
 #include "SDK\Visuals\AimpServiceVisualizations.h"
 #include "SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.h"
+#include "SDK\Lyrics\AimpExtensionLyricsProvider.h"
 
 namespace AIMP
 {
@@ -67,9 +66,6 @@ namespace AIMP
             virtual event PlayListHandler^ PlaylistAdded;
 
             virtual event PlayListHandler^ PlaylistRemoved;
-
-            virtual event Playback::AimpCheckUrl^ CheckUrl;
-
         internal:
             IAIMPActionEvent* CreateActionEvent();
 
@@ -90,8 +86,6 @@ namespace AIMP
             ActionResultType CreateStream(IAIMPStream** stream);
 
             ActionResultType CreateAction(IAIMPAction** action);
-
-            bool OnCheckUrl(String^ % url);
 
             HRESULT CreateMenuItem(IAIMPMenuItem** item);
 
@@ -124,10 +118,12 @@ namespace AIMP
             InternalAimpExtensionFileInfoProvider* _fileInfoExtensionProvider = nullptr;
             InternalAimpExtensionFileSystem* _extensionFileSystem = nullptr;
             InternalAimpExtensionPlaylistPreimageFactory* _extensionPlaylistPreimageFactory = nullptr;
+            AimpExtensionLyricsProvider* _extensionLyricsProvider = nullptr;
+            AimpExtensionPlaybackQueue* _extensionPlaybackQueue = nullptr;
+            AimpExtensionPlayerHook * _extensionPlayerHook;
 
             AIMP::SDK::Playlist::PlayListHandler^ _playlistAdded;
             AIMP::SDK::Playlist::PlayListHandler^ _playlistRemoved;
-            AIMP::SDK::Playback::AimpCheckUrl^ _checkUrl;
         };
     }
 }

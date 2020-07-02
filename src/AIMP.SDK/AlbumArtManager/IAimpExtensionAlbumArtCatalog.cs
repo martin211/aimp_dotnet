@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 namespace AIMP.SDK.AlbumArtManager
 {
     using System.Drawing;
@@ -24,12 +25,12 @@ namespace AIMP.SDK.AlbumArtManager
         /// <summary>
         /// Gets icon for menu item, icon must be 16x16.
         /// </summary>
-        Bitmap GetIcon();
+        AimpActionResult<Bitmap> GetIcon();
 
         /// <summary>
         /// Gets the catalog name.
         /// </summary>
-        string GetName();
+        AimpActionResult<string> GetName();
 
         /// <summary>
         /// This method will be called on menu item click.

@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -62,30 +58,31 @@ namespace AIMP
                 return String::Empty;
             }
 
-            virtual ActionResultType SendMessage(MessageDispatcher::AimpCoreMessageType message, int value, Object^ obj)
+            virtual AimpActionResult^ SendMessage(MessageDispatcher::AimpCoreMessageType message, int value, Object^ obj)
             {
-                return Utils::CheckResult(_aimpCore->SendMessage(message, value, obj));
+                return ACTION_RESULT(Utils::CheckResult(_aimpCore->SendMessage(message, value, obj)));
             }
 
-            virtual ActionResultType RegisterExtension(AIMP::IAimpExtension^ extension)
+            virtual AimpActionResult^ RegisterExtension(AIMP::IAimpExtension^ extension)
             {
-                return Utils::CheckResult(_aimpCore->RegisterExtension(IID_IAIMPOptionsDialogFrame, extension));
+                return ACTION_RESULT(Utils::CheckResult(_aimpCore->RegisterExtension(IID_IAIMPOptionsDialogFrame, extension)));
             }
 
-            virtual ActionResultType UnregisterExtension(AIMP::IAimpExtension^ extension)
+            virtual AimpActionResult^ UnregisterExtension(AIMP::IAimpExtension^ extension)
             {
-                return Utils::CheckResult(_aimpCore->UnregisterExtension(extension));
+                return ACTION_RESULT(Utils::CheckResult(_aimpCore->UnregisterExtension(extension)));
             }
 
-            virtual IAimpStream^ CreateStream()
+            virtual StreamResult CreateStream()
             {
                 IAIMPStream* stream = nullptr;
-                if (_aimpCore->CreateStream(&stream) == ActionResultType::OK && stream != nullptr)
+                const auto result = _aimpCore->CreateStream(&stream);
+                if (result == ActionResultType::OK && stream != nullptr)
                 {
-                    return gcnew AIMP::SDK::AimpStream(stream);
+                    return gcnew AimpActionResult<IAimpStream^>(result, gcnew AimpStream(stream));
                 }
 
-                return nullptr;
+                return gcnew AimpActionResult<IAimpStream^>(result, nullptr);
             }
 
             virtual System::IntPtr CreateObject(Guid% iid)

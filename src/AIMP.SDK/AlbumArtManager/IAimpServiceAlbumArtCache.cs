@@ -1,4 +1,15 @@
-﻿namespace AIMP.SDK.AlbumArtManager
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
+
+namespace AIMP.SDK.AlbumArtManager
 {
     /// <summary>
     /// This service provides an access to cache manager for album arts.

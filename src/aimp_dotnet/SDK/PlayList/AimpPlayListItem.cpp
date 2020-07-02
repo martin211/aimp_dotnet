@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -23,14 +19,14 @@ AimpPlaylistItem::AimpPlaylistItem()
     _aimpObject = static_cast<IAIMPPlaylistItem*>(AimpConverter::MakeObject(IID_IAIMPPlaylistItem));
 }
 
-AimpPlaylistItem::~AimpPlaylistItem()
+void AimpPlaylistItem::RegisterAtMemoryManager()
 {
-    this->!AimpPlaylistItem();
+
 }
 
-AimpPlaylistItem::!AimpPlaylistItem()
+void AimpPlaylistItem::ReleaseFromMemoryManager()
 {
-    InternalAimpObject->Release();
+
 }
 
 AimpPlaylistItem::AimpPlaylistItem(IAimpPlaylistItem^ item)

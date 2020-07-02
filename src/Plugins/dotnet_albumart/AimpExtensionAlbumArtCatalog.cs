@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using AIMP.SDK.FileManager;
 
 namespace dotnet_albumart
@@ -25,14 +26,14 @@ namespace dotnet_albumart
             return new AimpActionResult<Bitmap>(ActionResultType.OK, image);
         }
 
-        public Bitmap GetIcon()
+        public AimpActionResult<Bitmap> GetIcon()
         {
-            return Properties.Resources.lastfm;
+            return new AimpActionResult<Bitmap>(ActionResultType.OK, Properties.Resources.lastfm);
         }
 
-        public string GetName()
+        public AimpActionResult<string> GetName()
         {
-            return "Test catalog";
+            return new AimpActionResult<string>(ActionResultType.OK,"Test catalog");
         }
 
         public AimpActionResult<Bitmap> Show(string fileUrl, string artist, string album)

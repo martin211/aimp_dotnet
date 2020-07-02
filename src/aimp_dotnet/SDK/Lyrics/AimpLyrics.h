@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -22,7 +18,11 @@ namespace AIMP
 
         public ref class AimpLyrics : public AimpObject<IAIMPLyrics>, public IAimpLyrics
         {
-        public:
+        protected:
+            void RegisterAtMemoryManager() override;
+            void ReleaseFromMemoryManager() override;
+
+         public:
             AimpLyrics(IAIMPLyrics* lyrics);
 
             virtual property String^ Text
@@ -79,31 +79,31 @@ namespace AIMP
                 void set(int value);
             }
 
-            virtual ActionResultType Assign(IAimpLyrics^ source);
+            virtual VoidResult Assign(IAimpLyrics^ source);
 
-            virtual ActionResultType Clone(IAimpLyrics^% lyrics);
+            virtual AimpActionResult<IAimpLyrics^>^ Clone();
 
-            virtual ActionResultType Add(int timeStart, int timeFinish, String^ text);
+            virtual VoidResult Add(int timeStart, int timeFinish, String^ text);
 
-            virtual ActionResultType Delete(int index);
+            virtual VoidResult Delete(int index);
 
-            virtual ActionResultType Find(int time, int index, String^% text);
+            virtual AimpActionResult<String^>^ Find(int time, int index);
 
-            virtual ActionResultType Get(int index, int timeStart, int timeFinish, String^% text);
+            virtual AimpActionResult<String^>^ Get(int index, int timeStart, int timeFinish);
 
             virtual ActionResultType GetCount(int% value);
 
-            virtual ActionResultType LoadFromFile(String^ virtualFileName);
+            virtual VoidResult LoadFromFile(String^ virtualFileName);
 
-            virtual ActionResultType LoadFromStream(IAimpStream^ stream, LyricsFormat format);
+            virtual VoidResult LoadFromStream(IAimpStream^ stream, LyricsFormat format);
 
-            virtual ActionResultType LoadFromString(String^ lyrics, LyricsFormat format);
+            virtual VoidResult LoadFromString(String^ lyrics, LyricsFormat format);
 
-            virtual ActionResultType SaveToFile(String^ fileUri);
+            virtual VoidResult SaveToFile(String^ fileUri);
 
-            virtual ActionResultType SaveToStream(IAimpStream^ stream, LyricsFormat format);
+            virtual VoidResult SaveToStream(IAimpStream^ stream, LyricsFormat format);
 
-            virtual ActionResultType SaveToString(String^% lyrics, LyricsFormat format);
+            virtual AimpActionResult<String^>^ SaveToString(LyricsFormat format);
         };
     }
 }

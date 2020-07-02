@@ -1,13 +1,15 @@
 ﻿// ----------------------------------------------------
 // 
 // AIMP DotNet SDK
-//  
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// 
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
+using System.Diagnostics;
 
 namespace AIMP.SDK
 {
@@ -52,6 +54,7 @@ namespace AIMP.SDK
         Fail = 0x80004005
     }
 
+    [DebuggerDisplay("{ResultType}")]
     public class AimpActionResult
     {
         public AimpActionResult(ActionResultType resultType)
@@ -62,6 +65,7 @@ namespace AIMP.SDK
         public ActionResultType ResultType { get; }
     }
 
+    [DebuggerDisplay("{ResultType, Result}")]
     public class AimpActionResult<TObject> : AimpActionResult
     {
         public AimpActionResult(ActionResultType resultType, TObject result) : base(resultType)
