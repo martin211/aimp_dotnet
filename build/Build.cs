@@ -121,8 +121,12 @@ partial class Build : NukeBuild
                     .SetName(SonarProjectName)
                     //.SetWorkingDirectory(SourceDirectory)
                     .SetFramework(framework)
-                    .SetVerbose(false)
-                    ;
+                    .SetVerbose(false);
+
+                if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
+                {
+                    configuration = configuration.SetVersion(GitVersion.SemVer);
+                }
 
                 configuration = configuration.SetProjectBaseDir(SourceDirectory);
 
