@@ -43,16 +43,16 @@ partial class Build : NukeBuild
     [Parameter] readonly string SonarProjectKey;
     [Parameter] readonly string SonarProjectName;
     [Parameter] readonly string VmWareMachine;
-    [Parameter] readonly string GitUserName;
-    [Parameter] readonly string GitPassword;
 
-    string Source => NuGet
-        ? "https://api.nuget.org/v3/index.json"
-        : "https://www.myget.org/F/aimpsdk/api/v2/package";
+    string Source => "https://api.nuget.org/v3/index.json";
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
-    [GitVersion2(UpdateAssemblyInfo = true)] readonly GitVersion GitVersion;
+    [GitVersion(
+        UpdateAssemblyInfo = true,
+        Framework = "netcoreapp3.1",
+        UpdateBuildNumber = true)]
+    readonly GitVersion GitVersion;
 
     readonly string MasterBranch = "master";
     readonly string DevelopBranch = "develop";
@@ -74,47 +74,12 @@ partial class Build : NukeBuild
     Target Restore => _ => _
         .Executes(() =>
         {
-            MSBuild(_ => _
-                .SetTargetPath(Solution)
-                .SetTargets("Restore"));
+            NuGetTasks.NuGetRestore(c => c.SetTargetPath(Solution));
         });
 
     Target Version => _ => _
         .Executes(() =>
         {
-            //var settings = new GitVersionSettings();
-            //settings = settings
-            //    .SetBranch(GitRepository.Branch)
-            //    .SetNoFetch(true)
-            //    .SetOutput(IsServerBuild ? GitVersionOutput.buildserver : GitVersionOutput.json)
-            //    .SetFramework("netcoreapp3.1")
-            //    .SetUpdateAssemblyInfo(true);
-
-            //if (IsServerBuild)
-            //{
-            //    settings = settings
-            //        .SetUsername(GitUserName)
-            //        .SetPassword(GitPassword);
-            //}
-
-            //try
-            //{
-            //    GitVersion = GitVersionTasks.GitVersion(settings).Result;
-            //}
-            //catch (Exception e)
-            //{
-            //    if (TeamCity.Instance != null)
-            //    {
-            //        TeamCity.Instance?.WriteWarning(e.ToString());
-            //    }
-            //    else
-            //    {
-            //        throw e;
-            //    }
-            //}
-
-            //TeamCity.Instance?.SetBuildNumber(GitVersion.FullSemVer);
-
             var rcFile = SourceDirectory / "aimp_dotnet" / "aimp_dotnet.rc";
             if (File.Exists(rcFile))
             {
