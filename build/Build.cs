@@ -113,7 +113,7 @@ partial class Build : NukeBuild
                 }
             }
 
-            TeamCity.Instance?.SetBuildNumber(GitVersion.FullSemVer);
+            //TeamCity.Instance?.SetBuildNumber(GitVersion.FullSemVer);
 
             var rcFile = SourceDirectory / "aimp_dotnet" / "aimp_dotnet.rc";
             if (File.Exists(rcFile))
