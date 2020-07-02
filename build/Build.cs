@@ -52,7 +52,7 @@ partial class Build : NukeBuild
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
-    GitVersion GitVersion;
+    [GitVersion2] readonly GitVersion GitVersion;
 
     readonly string MasterBranch = "master";
     readonly string DevelopBranch = "develop";
@@ -82,36 +82,36 @@ partial class Build : NukeBuild
     Target Version => _ => _
         .Executes(() =>
         {
-            var settings = new GitVersionSettings();
-            settings = settings
-                .SetBranch(GitRepository.Branch)
-                .SetNoFetch(true)
-                .SetOutput(IsServerBuild ? GitVersionOutput.buildserver : GitVersionOutput.json)
-                .SetFramework("netcoreapp3.1")
-                .SetUpdateAssemblyInfo(true);
+            //var settings = new GitVersionSettings();
+            //settings = settings
+            //    .SetBranch(GitRepository.Branch)
+            //    .SetNoFetch(true)
+            //    .SetOutput(IsServerBuild ? GitVersionOutput.buildserver : GitVersionOutput.json)
+            //    .SetFramework("netcoreapp3.1")
+            //    .SetUpdateAssemblyInfo(true);
 
-            if (IsServerBuild)
-            {
-                settings = settings
-                    .SetUsername(GitUserName)
-                    .SetPassword(GitPassword);
-            }
+            //if (IsServerBuild)
+            //{
+            //    settings = settings
+            //        .SetUsername(GitUserName)
+            //        .SetPassword(GitPassword);
+            //}
 
-            try
-            {
-                GitVersion = GitVersionTasks.GitVersion(settings).Result;
-            }
-            catch (Exception e)
-            {
-                if (TeamCity.Instance != null)
-                {
-                    TeamCity.Instance?.WriteWarning(e.ToString());
-                }
-                else
-                {
-                    throw e;
-                }
-            }
+            //try
+            //{
+            //    GitVersion = GitVersionTasks.GitVersion(settings).Result;
+            //}
+            //catch (Exception e)
+            //{
+            //    if (TeamCity.Instance != null)
+            //    {
+            //        TeamCity.Instance?.WriteWarning(e.ToString());
+            //    }
+            //    else
+            //    {
+            //        throw e;
+            //    }
+            //}
 
             //TeamCity.Instance?.SetBuildNumber(GitVersion.FullSemVer);
 
