@@ -99,12 +99,18 @@ partial class Build : NukeBuild
 
             try
             {
-                var g = GitVersionTasks.GitVersion(settings);
-                GitVersion = g.Result;
+                GitVersion = GitVersionTasks.GitVersion(settings).Result;
             }
             catch (Exception e)
             {
-                TeamCity.Instance?.WriteError(e.ToString());
+                if (TeamCity.Instance != null)
+                {
+                    TeamCity.Instance?.WriteWarning(e.ToString());
+                }
+                else
+                {
+                    throw e;
+                }
             }
 
             TeamCity.Instance?.SetBuildNumber(GitVersion.FullSemVer);
