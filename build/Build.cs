@@ -75,6 +75,9 @@ partial class Build : NukeBuild
         .Executes(() =>
         {
             NuGetTasks.NuGetRestore(c => c.SetTargetPath(Solution));
+            MSBuild(_ => _
+                .SetTargetPath(Solution)
+                .SetTargets("Restore"));
         });
 
     Target Version => _ => _
@@ -183,6 +186,10 @@ partial class Build : NukeBuild
 
             NuGetTasks.NuGetPack(config
                 .SetTargetPath(nugetFolder / "AimpSDK.nuspec"));
+
+            //NuGetTasks.NuGetPack(c => c
+            //    .SetTargetPath(nugetFolder / "AimpSDK.symbols.nuspec")
+            //    .AddProperty("Symbols", string.Empty));
 
             //NuGetTasks.NuGetPack(config
             //    .SetTargetPath(nugetFolder / "AimpSDK.symbols.nuspec")
