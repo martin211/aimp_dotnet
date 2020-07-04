@@ -11,6 +11,7 @@ partial class Build
     AbsolutePath ResourcesPath => RootDirectory / "resources";
     [Parameter] readonly string AimpPath;
 
+    AbsolutePath IntegrationTestBinPath => SourceDirectory / "IntegrationTest";
     AbsolutePath IntegrationTestPluginPath => (AbsolutePath) Path.Combine(AimpPath, "plugins", "AimpTestRunner");
 
     Target PrepareTestConfiguration => _ => _
@@ -39,7 +40,7 @@ partial class Build
             Directory.CreateDirectory(IntegrationTestPluginPath);
             EnsureExistingDirectory(IntegrationTestPluginPath);
 
-            IntegrationTestPluginPath.GlobDirectories($"**/bin/{Configuration}").ForEach(d =>
+            IntegrationTestBinPath.GlobDirectories($"**/bin/{Configuration}").ForEach(d =>
             {
                 var files = Directory.GetFiles(d, "*.dll");
                 foreach (var file in files)
