@@ -59,7 +59,7 @@ namespace Aimp.TestRunner
             ITestRunner runner = _engine.GetRunner(package);
 
             AimpTestContext.Instance.AimpPlayer = Player;
-            _writer = new StreamWriter(Path.Combine(path, "test_output.log"));
+            _writer = new StreamWriter(Path.Combine(path, "integration.tests.xml"));
 
             Player.ServiceMessageDispatcher.Hook(new Hook((type, i, arg3) =>
             {
@@ -67,16 +67,17 @@ namespace Aimp.TestRunner
                 {
                     _inProgress = true;
                     XmlNode testResult = runner.Run(this, TestFilter.Empty);
-                    using (var writer = new StreamWriter(Path.Combine(path, "test.log")))
+                    using (var writer = new StreamWriter(Path.Combine(path, "integration.tests.log")))
                     {
                         var reporter = new ResultReporter(testResult, new ExtendedTextWrapper(writer));
                         reporter.ReportResults();
                     }
+
+                    Terminate();
                 }
 
                 return ActionResultType.OK;
             }));
-            //Terminate();
         }
 
         public override void Dispose()

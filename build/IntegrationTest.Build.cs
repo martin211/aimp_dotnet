@@ -1,7 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using DefaultNamespace;
-using Newtonsoft.Json;
 using Nuke.Common;
 using Nuke.Common.IO;
 using Nuke.Common.Tooling;
@@ -11,9 +9,9 @@ using static Nuke.Common.IO.FileSystemTasks;
 partial class Build
 {
     AbsolutePath ResourcesPath => RootDirectory / "resources";
-    AbsolutePath IntegrationTestPath => RootDirectory / ".integrationTests";
-    AbsolutePath IntegrationTestPluginPath => SourceDirectory / "IntegrationTest";
-    AbsolutePath IntegrationPluginFolder => IntegrationTestPath / "aimp" / "plugins" / "AimpTestRunner";
+    [Parameter] readonly string AimpPath;
+
+    AbsolutePath IntegrationTestPluginPath => (AbsolutePath) Path.Combine(AimpPath, "plugins", "AimpTestRunner");
 
     Target PrepareTestConfiguration => _ => _
         .Executes(() =>
@@ -28,21 +26,18 @@ partial class Build
             };
 
             var settingContent = SerializationTasks.JsonSerialize(setting);
-            File.WriteAllText(IntegrationPluginFolder / "Ghpr.NUnit.Settings.json", settingContent);
+            File.WriteAllText(IntegrationTestPluginPath / "Ghpr.NUnit.Settings.json", settingContent);
         });
 
     Target PrepareIntegrationTests => _ => _
+        .Requires(() => AimpPath)
         .Executes(() =>
         {
-            DeleteDirectory(IntegrationTestPath);
-            EnsureCleanDirectory(IntegrationTestPath);
+            DeleteDirectory(IntegrationTestPluginPath);
+            EnsureCleanDirectory(IntegrationTestPluginPath);
 
-            Directory.CreateDirectory(IntegrationTestPath);
-            EnsureExistingDirectory(IntegrationTestPath);
-
-            var aimpZip = ResourcesPath / "AIMP4.60.2180.zip";
-            CompressionTasks.Uncompress(aimpZip, IntegrationTestPath / "aimp");
-            Directory.CreateDirectory(IntegrationPluginFolder);
+            Directory.CreateDirectory(IntegrationTestPluginPath);
+            EnsureExistingDirectory(IntegrationTestPluginPath);
 
             IntegrationTestPluginPath.GlobDirectories($"**/bin/{Configuration}").ForEach(d =>
             {
@@ -51,28 +46,31 @@ partial class Build
                 {
                     if (file.EndsWith("aimp_dotnet.dll"))
                     {
-                        CopyFile(file, IntegrationPluginFolder / "AimpTestRunner.dll");
+                        CopyFile(file, IntegrationTestPluginPath / "AimpTestRunner.dll");
                     }
                     else if (file.EndsWith("AimpTestRunner.dll"))
                     {
-                        CopyFile(file, IntegrationPluginFolder / "AimpTestRunner_plugin.dll");
+                        CopyFile(file, IntegrationTestPluginPath / "AimpTestRunner_plugin.dll");
                     }
                     else
                     {
-                        CopyFileToDirectory(file, IntegrationPluginFolder);
+                        CopyFileToDirectory(file, IntegrationTestPluginPath);
                     }
                 }
 
-                CopyFileToDirectory(d / "nunit.engine.addins", IntegrationPluginFolder);
+                CopyFileToDirectory(d / "nunit.engine.addins", IntegrationTestPluginPath);
             });
 
-            CopyDirectoryRecursively(ResourcesPath / "integrationTests", IntegrationPluginFolder / "resources");
+            CopyDirectoryRecursively(ResourcesPath / "integrationTests", IntegrationTestPluginPath / "resources");
         });
 
     Target ExecuteIntegrationTests => _ => _
+        .Requires(() => AimpPath)
         .DependsOn(PrepareIntegrationTests, PrepareTestConfiguration)
         .Executes(() =>
         {
-            ProcessTasks.StartProcess(IntegrationTestPath / "aimp" / "AIMP.exe", "/DEBUG", IntegrationTestPath / "aimp");
+            ProcessTasks.StartProcess(Path.Combine(AimpPath, "AIMP.exe"), "/DEBUG", AimpPath);
+            CopyFileToDirectory(IntegrationTestPluginPath / "integration.tests.xml", OutputDirectory);
+            CopyFileToDirectory(IntegrationTestPluginPath / "integration.tests.log", OutputDirectory);
         });
 }
