@@ -81,7 +81,7 @@ namespace Aimp.TestRunner
                         throw;
                     }
 
-                    //Terminate();
+                    Terminate();
                 }
 
                 return ActionResultType.OK;
