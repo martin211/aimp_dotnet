@@ -55,7 +55,6 @@ namespace Aimp.TestRunner
             _engine.WorkDirectory = path;
             _engine.Initialize();
             TestPackage package = new TestPackage(Path.Combine(path, "AimpTestRunner_plugin.dll"));
-            System.Diagnostics.Debug.WriteLine(AppDomain.CurrentDomain.FriendlyName);
             package.Settings.Add("ProcessModel", "Single");
             ITestRunner runner = _engine.GetRunner(package);
 
@@ -77,8 +76,11 @@ namespace Aimp.TestRunner
                     catch (Exception e)
                     {
                         _logWriter.WriteLine(e.ToString());
+                    }
+                    finally
+                    {
                         _logWriter.Flush();
-                        throw;
+                        _writer.Flush();
                     }
 
                     Terminate();
@@ -90,20 +92,21 @@ namespace Aimp.TestRunner
 
         public override void Dispose()
         {
-            _writer.Flush();
-            _writer.Close();
-            _logWriter.Flush();
-            _logWriter.Close();
             _engine = null;
         }
 
         public void OnTestEvent(string report)
         {
+            System.Diagnostics.Debug.WriteLine(report);
             _writer.WriteLine(report);
+            _writer.Flush();
         }
 
         private void Terminate()
         {
+            _logWriter.Close();
+            _writer.Close();
+
             var processes = Process.GetProcessesByName("AIMP");
 
             foreach (var process in processes)
