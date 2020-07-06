@@ -41,6 +41,7 @@ namespace Aimp.TestRunner
 
         private ITestEngine _engine;
         private TextWriter _writer;
+        private TextWriter _logWriter;
         private bool _inProgress;
 
         public override void Initialize()
@@ -60,20 +61,27 @@ namespace Aimp.TestRunner
 
             AimpTestContext.Instance.AimpPlayer = Player;
             _writer = new StreamWriter(Path.Combine(path, "integration.tests.xml"));
+            _logWriter = new StreamWriter(Path.Combine(path, "integration.tests.log"));
 
             Player.ServiceMessageDispatcher.Hook(new Hook((type, i, arg3) =>
             {
                 if (type == AimpCoreMessageType.AIMP_MSG_EVENT_LOADED && !_inProgress)
                 {
                     _inProgress = true;
-                    XmlNode testResult = runner.Run(this, TestFilter.Empty);
-                    using (var writer = new StreamWriter(Path.Combine(path, "integration.tests.log")))
+                    try
                     {
-                        var reporter = new ResultReporter(testResult, new ExtendedTextWrapper(writer));
+                        XmlNode testResult = runner.Run(this, TestFilter.Empty);
+                        var reporter = new ResultReporter(testResult, new ExtendedTextWrapper(_logWriter));
                         reporter.ReportResults();
                     }
+                    catch (Exception e)
+                    {
+                        _logWriter.WriteLine(e.ToString());
+                        _logWriter.Flush();
+                        throw;
+                    }
 
-                    Terminate();
+                    //Terminate();
                 }
 
                 return ActionResultType.OK;
@@ -84,6 +92,8 @@ namespace Aimp.TestRunner
         {
             _writer.Flush();
             _writer.Close();
+            _logWriter.Flush();
+            _logWriter.Close();
             _engine = null;
         }
 

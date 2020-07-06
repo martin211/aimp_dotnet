@@ -58,3 +58,4 @@ docs/*.log
 packages
 .integrationTests/*
 build/api/*
+tests/*

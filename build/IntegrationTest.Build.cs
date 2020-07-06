@@ -1,6 +1,11 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using DefaultNamespace;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Nuke.Common;
+using Nuke.Common.CI.TeamCity;
 using Nuke.Common.IO;
 using Nuke.Common.Tooling;
 using Nuke.Common.Utilities.Collections;
@@ -9,7 +14,7 @@ using static Nuke.Common.IO.FileSystemTasks;
 partial class Build
 {
     AbsolutePath ResourcesPath => RootDirectory / "resources";
-    [Parameter] readonly string AimpPath;
+    [Parameter] readonly string AimpPath = @"z:\AIMP\AIMP4.60.2180\";
 
     AbsolutePath IntegrationTestBinPath => SourceDirectory / "IntegrationTest";
     AbsolutePath IntegrationTestPluginPath => (AbsolutePath) Path.Combine(AimpPath, "plugins", "AimpTestRunner");
@@ -23,8 +28,22 @@ partial class Build
                 OutputPath = TestOutput,
                 DataServiceFile = "Ghpr.LocalFileSystem.dll",
                 ReportName = "AIMP SDK Test Result",
-                ProjectName = "AIMP DotNet SDK"
+                ProjectName = "AIMP DotNet SDK",
+                LoggerFile = "",
+                Sprint = GitRepository.Branch,
+                RunName = "",
+                RunGuid = "",
+                RealTimeGeneration = "True",
+                RunsToDisplay = "5",
+                TestsToDisplay = "5",
+                EscapeTestOutput = true,
+                Retention = new Retention
+                {
+                    Amount = 1000
+                }
             };
+
+            setting.Projects = new List<Project>();
 
             var settingContent = SerializationTasks.JsonSerialize(setting);
             File.WriteAllText(IntegrationTestPluginPath / "Ghpr.NUnit.Settings.json", settingContent);
@@ -70,8 +89,22 @@ partial class Build
         .DependsOn(PrepareIntegrationTests, PrepareTestConfiguration)
         .Executes(() =>
         {
-            ProcessTasks.StartProcess(Path.Combine(AimpPath, "AIMP.exe"), "/DEBUG", AimpPath);
-            CopyFileToDirectory(IntegrationTestPluginPath / "integration.tests.xml", OutputDirectory);
-            CopyFileToDirectory(IntegrationTestPluginPath / "integration.tests.log", OutputDirectory);
+            var p = ProcessTasks.StartProcess(Path.Combine(AimpPath, "AIMP.exe"), "/DEBUG", AimpPath);
+            p.WaitForExit();
+            if (!File.Exists(IntegrationTestPluginPath / "integration.tests.xml"))
+            {
+                TeamCity.Instance?.WriteError("Unable to run integration tests.");
+            }
+            else
+            {
+                if (File.Exists(OutputDirectory / "integration.tests.xml"))
+                    File.Delete(OutputDirectory / "integration.tests.xml");
+
+                if(File.Exists(OutputDirectory / "integration.tests.log"))
+                    File.Delete(OutputDirectory / "integration.tests.log");
+
+                CopyFileToDirectory(IntegrationTestPluginPath / "integration.tests.xml", OutputDirectory);
+                CopyFileToDirectory(IntegrationTestPluginPath / "integration.tests.log", OutputDirectory);
+            }
         });
 }
