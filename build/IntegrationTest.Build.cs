@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using DefaultNamespace;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using Nuke.Common;
 using Nuke.Common.CI.TeamCity;
 using Nuke.Common.IO;
@@ -89,8 +86,8 @@ partial class Build
         .DependsOn(PrepareIntegrationTests, PrepareTestConfiguration)
         .Executes(() =>
         {
-            var testResultFile = OutputDirectory / "integration.tests.xml";
-            var testResultLogFile = OutputDirectory / "integration.tests.log";
+            var testResultFile = IntegrationTestPluginPath / "integration.tests.xml";
+            var testResultLogFile = IntegrationTestPluginPath / "integration.tests.log";
 
             var p = ProcessTasks.StartProcess(Path.Combine(AimpPath, "AIMP.exe"), "/DEBUG", AimpPath);
             p.WaitForExit();
