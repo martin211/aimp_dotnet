@@ -89,6 +89,12 @@ partial class Build
             var testResultFile = IntegrationTestPluginPath / "integration.tests.xml";
             var testResultLogFile = IntegrationTestPluginPath / "integration.tests.log";
 
+            if (File.Exists(testResultFile))
+                File.Delete(testResultFile);
+
+            if (File.Exists(testResultLogFile))
+                File.Delete(testResultLogFile);
+
             var p = ProcessTasks.StartProcess(Path.Combine(AimpPath, "AIMP.exe"), "/DEBUG", AimpPath);
             p.WaitForExit();
 
@@ -98,12 +104,6 @@ partial class Build
             }
             else
             {
-                if (File.Exists(testResultFile))
-                    File.Delete(testResultFile);
-
-                if(File.Exists(testResultLogFile))
-                    File.Delete(testResultLogFile);
-
                 CopyFileToDirectory(testResultFile, OutputDirectory);
                 CopyFileToDirectory(testResultLogFile, OutputDirectory);
 
