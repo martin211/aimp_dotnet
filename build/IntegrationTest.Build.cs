@@ -89,22 +89,28 @@ partial class Build
         .DependsOn(PrepareIntegrationTests, PrepareTestConfiguration)
         .Executes(() =>
         {
+            var testResultFile = OutputDirectory / "integration.tests.xml";
+            var testResultLogFile = OutputDirectory / "integration.tests.log";
+
             var p = ProcessTasks.StartProcess(Path.Combine(AimpPath, "AIMP.exe"), "/DEBUG", AimpPath);
             p.WaitForExit();
-            if (!File.Exists(IntegrationTestPluginPath / "integration.tests.xml"))
+
+            if (!File.Exists(testResultFile))
             {
                 TeamCity.Instance?.WriteError("Unable to run integration tests.");
             }
             else
             {
-                if (File.Exists(OutputDirectory / "integration.tests.xml"))
-                    File.Delete(OutputDirectory / "integration.tests.xml");
+                if (File.Exists(testResultFile))
+                    File.Delete(testResultFile);
 
-                if(File.Exists(OutputDirectory / "integration.tests.log"))
-                    File.Delete(OutputDirectory / "integration.tests.log");
+                if(File.Exists(testResultLogFile))
+                    File.Delete(testResultLogFile);
 
-                CopyFileToDirectory(IntegrationTestPluginPath / "integration.tests.xml", OutputDirectory);
-                CopyFileToDirectory(IntegrationTestPluginPath / "integration.tests.log", OutputDirectory);
+                CopyFileToDirectory(testResultFile, OutputDirectory);
+                CopyFileToDirectory(testResultLogFile, OutputDirectory);
+
+                TeamCity.Instance?.WriteMessage(File.ReadAllText(testResultLogFile));
             }
         });
 }
