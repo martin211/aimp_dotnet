@@ -18,6 +18,8 @@ using AIMP.SDK.MessageDispatcher;
 using Aimp.TestRunner.Engine;
 using Aimp.TestRunner.UnitTests;
 using NUnit.Engine;
+using NUnit.Engine.Extensibility;
+using NUnit.Engine.Services;
 
 namespace Aimp.TestRunner
 {
@@ -40,8 +42,10 @@ namespace Aimp.TestRunner
         }
 
         private ITestEngine _engine;
-        private TextWriter _writer;
+        private TextWriter _logWriter;
         private bool _inProgress;
+        private readonly IResultWriter _resultWriter = new NUnit3XmlResultWriter();
+        private string _testResultFile;
 
         public override void Initialize()
         {
@@ -50,49 +54,64 @@ namespace Aimp.TestRunner
             AppDomain.CurrentDomain.SetData("APPBASE", path);
             Environment.CurrentDirectory = path;
 
+            _testResultFile = Path.Combine(path, "integration.tests.xml");
+            _logWriter = new StreamWriter(Path.Combine(path, "integration.tests.log"));
+
             _engine = TestEngineActivator.CreateInstance();
             _engine.WorkDirectory = path;
             _engine.Initialize();
             TestPackage package = new TestPackage(Path.Combine(path, "AimpTestRunner_plugin.dll"));
-            System.Diagnostics.Debug.WriteLine(AppDomain.CurrentDomain.FriendlyName);
             package.Settings.Add("ProcessModel", "Single");
+
             ITestRunner runner = _engine.GetRunner(package);
 
             AimpTestContext.Instance.AimpPlayer = Player;
-            _writer = new StreamWriter(Path.Combine(path, "test_output.log"));
+            
 
             Player.ServiceMessageDispatcher.Hook(new Hook((type, i, arg3) =>
             {
                 if (type == AimpCoreMessageType.AIMP_MSG_EVENT_LOADED && !_inProgress)
                 {
                     _inProgress = true;
-                    XmlNode testResult = runner.Run(this, TestFilter.Empty);
-                    using (var writer = new StreamWriter(Path.Combine(path, "test.log")))
+                    try
                     {
-                        var reporter = new ResultReporter(testResult, new ExtendedTextWrapper(writer));
+                        XmlNode testResult = runner.Run(this, TestFilter.Empty);
+
+                        _resultWriter.CheckWritability(_testResultFile);
+                        _resultWriter.WriteResultFile(testResult, _testResultFile);
+
+                        var reporter = new ResultReporter(testResult, new ExtendedTextWrapper(_logWriter));
                         reporter.ReportResults();
                     }
+                    catch (Exception e)
+                    {
+                        _logWriter.WriteLine(e.ToString());
+                    }
+                    finally
+                    {
+                        _logWriter.Flush();
+                    }
+
+                    Terminate();
                 }
 
                 return ActionResultType.OK;
             }));
-            //Terminate();
         }
 
         public override void Dispose()
         {
-            _writer.Flush();
-            _writer.Close();
             _engine = null;
         }
 
         public void OnTestEvent(string report)
         {
-            _writer.WriteLine(report);
         }
 
         private void Terminate()
         {
+            _logWriter.Close();
+
             var processes = Process.GetProcessesByName("AIMP");
 
             foreach (var process in processes)
