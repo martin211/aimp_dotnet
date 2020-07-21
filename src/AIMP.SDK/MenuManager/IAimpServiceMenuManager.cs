@@ -9,6 +9,8 @@
 // 
 // ----------------------------------------------------
 
+using System;
+
 namespace AIMP.SDK.MenuManager
 {
     /// <summary>
@@ -32,53 +34,46 @@ namespace AIMP.SDK.MenuManager
         AIMP_MENUITEM_PROPID_SHORTCUT = 15
     }
 
-    public enum MenuItemStyleType
-    {
-        AIMP_MENUITEM_STYLE_NORMAL = 0,
-        AIMP_MENUITEM_STYLE_CHECKBOX = 1,
-        AIMP_MENUITEM_STYLE_RADIOBOX = 2
-    }
-
     /// <summary>
     /// AIMP Parent menu item.
     /// </summary>
     public enum ParentMenuType
     {
-        AIMP_MENUID_COMMON_UTILITIES = 0,
-        AIMP_MENUID_PLAYER_MAIN_FUNCTIONS = 10,
-        AIMP_MENUID_PLAYER_MAIN_OPEN = 11,
-        AIMP_MENUID_PLAYER_MAIN_OPTIONS = 12,
+        CommonUtilites = 0,
+        PlayerMainFunctions = 10,
+        PlayerMainOpen = 11,
+        PlayerMainOptions = 12,
 
-        AIMP_MENUID_PLAYER_PLAYLIST_ADDING = 20,
-        AIMP_MENUID_PLAYER_PLAYLIST_DELETION = 21,
-        AIMP_MENUID_PLAYER_PLAYLIST_SORTING = 22,
-        AIMP_MENUID_PLAYER_PLAYLIST_MISCELLANEOUS = 23,
-        AIMP_MENUID_PLAYER_PLAYLIST_MANAGE = 24,
-        AIMP_MENUID_PLAYER_PLAYLIST_CONTEXT_ADDING = 30,
-        AIMP_MENUID_PLAYER_PLAYLIST_CONTEXT_QUEUE = 31,
-        AIMP_MENUID_PLAYER_PLAYLIST_CONTEXT_FUNCTIONS = 32,
-        AIMP_MENUID_PLAYER_PLAYLIST_CONTEXT_SENDING = 33,
-        AIMP_MENUID_PLAYER_PLAYLIST_CONTEXT_DELETION = 34,
+        PlayerPlaylistAdding = 20,
+        PlayerPlaylistDeletion = 21,
+        PlayerPlaylistSorting = 22,
+        PlayerPlaylistMiscellaneous = 23,
+        PlayerPlaylistManage = 24,
+        PlayerPlaylistContextAdding = 30,
+        PlayerPlaylistContextQueue = 31,
+        PlayerPlaylistContextFunctions = 32,
+        PlayerPlaylistContextSending = 33,
+        PlayerPlaylistContextDeletion = 34,
 
-        AIMP_MENUID_PLAYER_TRAY = 40,
-        AIMP_MENUID_PLAYER_EQ_LIB = 41,
-        AIMP_MENUID_PLAYER_STOP_OPTIONS = 42,
+        PlayerTray = 40,
+        PlayerEqLib = 41,
+        PlayerStopOptions = 42,
 
-        AIMP_MENUID_ML_MISCELLANEOUS = 50,
-        AIMP_MENUID_ML_DELETION = 51,
+        MlMiscellaneous = 50,
+        MlDeletion = 51,
 
-        AIMP_MENUID_ML_MAIN_DB = 60,
-        AIMP_MENUID_ML_MAIN_FUNCTIONS = 61,
-        AIMP_MENUID_ML_MAIN_OPEN = 62,
-        AIMP_MENUID_ML_MAIN_OPTIONS = 63,
+        MlMainDB = 60,
+        MlMainFuntions = 61,
+        MlMainOpen = 62,
+        mlMainOptions = 63,
 
-        AIMP_MENUID_ML_TABLE_CONTEXT_ADDING = 70,
-        AIMP_MENUID_ML_TABLE_CONTEXT_FUNCTIONS = 71,
-        AIMP_MENUID_ML_TABLE_CONTEXT_SENDING = 72,
-        AIMP_MENUID_ML_TABLE_CONTEXT_DELETION = 73,
+        MlTableContextAdding = 70,
+        MlTableContextFunctions = 71,
+        MlTableContextSending = 72,
+        MlTableContextDeletion = 73,
 
-        AIMP_MENUID_ML_TREE_CONTEXT_FUNCTIONS = 80,
-        AIMP_MENUID_ML_TREE_CONTEXT_DELETION = 81
+        MlTreeContextFunctions = 80,
+        MlTreeContextDeletion = 81
     }
 
     /// <summary>
@@ -86,45 +81,43 @@ namespace AIMP.SDK.MenuManager
     /// </summary>
     public interface IAimpServiceMenuManager : IAimpService
     {
-        ActionResultType CreateMenuItem(out IAimpMenuItem item);
-
         /// <summary>
         /// Adds the new menu item..
         /// </summary>
         /// <param name="parentMenuType"></param>
         /// <param name="item">Menu item <see cref="IAimpMenuItem"/>.</param>
-        ActionResultType Add(ParentMenuType parentMenuType, IAimpMenuItem item);
+        AimpActionResult Add(ParentMenuType parentMenuType, IAimpMenuItem item);
 
         /// <summary>
         /// Adds the new menu item.
         /// </summary>
         /// <param name="item">Menu item <see cref="IAimpMenuItem"/>.</param>
-        ActionResultType Add(IAimpMenuItem item);
+        AimpActionResult Add(IAimpMenuItem item);
 
         /// <summary>
         /// Deletes the menu item.
         /// </summary>
         /// <param name="item">The menu item.</param>
-        ActionResultType Delete(IAimpMenuItem item);
+        AimpActionResult Delete(IAimpMenuItem item);
 
         /// <summary>
         /// Deletes the menu item.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        ActionResultType Delete(string id);
+        AimpActionResult Delete(string id);
 
         /// <summary>
         /// Gets the by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="item">Menu item <see cref="IAimpMenuItem"/>.</param>
-        ActionResultType GetById(string id, out IAimpMenuItem item);
+        AimpActionResult<IAimpMenuItem> GetById(string id);
 
         /// <summary>
         /// Gets the standard menu item.
         /// </summary>
         /// <param name="menuType">Type of the menu.</param>
         /// <param name="item">Menu item <see cref="IAimpMenuItem"/>.</param>
-        ActionResultType GetBuiltIn(ParentMenuType menuType, out IAimpMenuItem item);
+        AimpActionResult<IAimpMenuItem> GetBuiltIn(ParentMenuType menuType);
     }
 }

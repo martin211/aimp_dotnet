@@ -351,7 +351,7 @@ IntResult AimpServiceAlbumArt::Get2(IAimpFileInfo^ fileInfo, AimpFindCovertArtTy
     return INT_RESULT(result, reinterpret_cast<int>(taskId));
 }
 
-VoidResult AimpServiceAlbumArt::Cancel(int taskId, AimpFindCovertArtType flags)
+ActionResult AimpServiceAlbumArt::Cancel(int taskId, AimpFindCovertArtType flags)
 {
     IAIMPServiceAlbumArt* service = GetAimpService();
     auto result = ActionResultType::Fail;

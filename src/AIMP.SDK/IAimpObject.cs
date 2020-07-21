@@ -35,6 +35,5 @@ namespace AIMP.SDK
 
     public interface IAimpObject
     {
-        event EventHandler<AimpErrorArgs> AimpObjectError;
     }
 }

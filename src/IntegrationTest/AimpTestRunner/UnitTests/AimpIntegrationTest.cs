@@ -42,29 +42,38 @@ namespace Aimp.TestRunner.UnitTests
             return assert;
         }
 
-        public static void NotNull<TResult>(this AimpIntegrationTest testClass, Expression<Func<TResult>> current, string message = null)
+        public static NotNullAssert NotNull<TResult>(this AimpIntegrationTest testClass, Expression<Func<TResult>> current, string message = null)
         {
-            testClass.Asserts.Add(new NotNullAssert(current.GetExpressionMemberName(), current.GetExpressionValue(), message));
+            var assert = new NotNullAssert(current.GetExpressionMemberName(), current.GetExpressionValue(), message);
+            testClass.Asserts.Add(assert);
+            return assert;
         }
 
-        public static void NotNull(this AimpIntegrationTest testClass, object current, string fieldName = null,
+        public static NotNullAssert NotNull(this AimpIntegrationTest testClass, object current, string fieldName = null,
             string message = null)
         {
-            testClass.Asserts.Add(new NotNullAssert(fieldName, current, message));
+            var assert = new NotNullAssert(fieldName, current, message);
+            testClass.Asserts.Add(assert);
+            return assert;
         }
 
-        public static void AreNotEqual(this AimpIntegrationTest testClass, object expected,
+        public static NotEqualAssert AreNotEqual(this AimpIntegrationTest testClass, object expected,
             object current,
             string fieldName = null,
             string message = null)
         {
-            testClass.Asserts.Add(new NotEqualAssert(fieldName, current, expected, message));
+            var assert = new NotEqualAssert(fieldName, current, expected, message);
+            testClass.Asserts.Add(assert);
+            return assert;
         }
 
-        public static void AreNotEqual<TResult>(this AimpIntegrationTest testClass, object expected,
+        public static NotEqualAssert AreNotEqual<TResult>(this AimpIntegrationTest testClass, object expected,
             Expression<Func<TResult>> current, string message = null)
         {
-            testClass.Asserts.Add(new NotEqualAssert(current.GetExpressionMemberName(), current.GetExpressionValue(), expected, message));
+            var assert = new NotEqualAssert(current.GetExpressionMemberName(), current.GetExpressionValue(), expected,
+                message);
+            testClass.Asserts.Add(assert);
+            return assert;
         }
 
         public static void IsTrue(this AimpIntegrationTest testClass, bool value)

@@ -335,8 +335,8 @@ namespace AIMP
                 return _core->RegisterExtension(IID_IAIMPServiceMusicLibrary, ext);
             }
 
-            Extensions::IAimpExtensionFileInfoProvider^ fileInfoProviderExtension = dynamic_cast<Extensions::
-                IAimpExtensionFileInfoProvider^>(extension);
+            FileManager::Extensions::IAimpExtensionFileInfoProvider^ fileInfoProviderExtension = dynamic_cast<
+                FileManager::Extensions::IAimpExtensionFileInfoProvider^>(extension);
             if (fileInfoProviderExtension != nullptr)
             {
                 if (_fileInfoExtensionProvider != nullptr)
@@ -351,8 +351,7 @@ namespace AIMP
                                                 static_cast<InternalAimpExtensionFileInfoProvider::Base*>(ext));
             }
 
-            Extensions::IAimpExtensionFileSystem^ extensionFileSystem = dynamic_cast<Extensions::
-                IAimpExtensionFileSystem^>(extension);
+            FileManager::Extensions::IAimpExtensionFileSystem^ extensionFileSystem = dynamic_cast<FileManager::Extensions::IAimpExtensionFileSystem^>(extension);
             if (extensionFileSystem != nullptr)
             {
                 if (_extensionFileSystem != nullptr)

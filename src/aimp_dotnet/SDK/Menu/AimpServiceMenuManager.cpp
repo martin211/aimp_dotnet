@@ -17,22 +17,7 @@ AimpServiceMenuManager::AimpServiceMenuManager(ManagedAimpCore^ core) : BaseAimp
 {
 }
 
-ActionResultType AimpServiceMenuManager::CreateMenuItem(IAimpMenuItem^% item)
-{
-    IAIMPMenuItem* i = nullptr;
-    item = nullptr;
-
-    const auto result = CheckResult(_core->CreateMenuItem(&i));
-    if (result == ActionResultType::OK && i != nullptr)
-    {
-        item = gcnew AimpMenuItem(i);
-        item->Style = AimpMenuItemStyle::Normal;
-    }
-
-    return result;
-}
-
-ActionResultType AimpServiceMenuManager::Add(IAimpMenuItem^ item)
+ActionResult AimpServiceMenuManager::Add(IAimpMenuItem^ item)
 {
     auto result = ActionResultType::Unexpected;
     IAIMPServiceMenuManager* service = GetAimpService();
@@ -48,10 +33,10 @@ ActionResultType AimpServiceMenuManager::Add(IAimpMenuItem^ item)
     finally
     {
         ReleaseObject(service);
-        ReleaseObject(static_cast<AimpMenuItem^>(item)->InternalAimpObject);
+        //ReleaseObject(static_cast<AimpMenuItem^>(item)->InternalAimpObject);
     }
 
-    return result;
+    return ACTION_RESULT(result);
 }
 
 /// <summary>
@@ -59,7 +44,7 @@ ActionResultType AimpServiceMenuManager::Add(IAimpMenuItem^ item)
 /// </summary>
 /// <param name="parentMenuType">Type of the parent menu.</param>
 /// <param name="item">The item.</param>
-ActionResultType AimpServiceMenuManager::Add(ParentMenuType parentMenuType, IAimpMenuItem^ item)
+ActionResult AimpServiceMenuManager::Add(ParentMenuType parentMenuType, IAimpMenuItem^ item)
 {
     auto result = ActionResultType::Unexpected;
     IAIMPServiceMenuManager* service = GetAimpService();
@@ -69,44 +54,44 @@ ActionResultType AimpServiceMenuManager::Add(ParentMenuType parentMenuType, IAim
         {
             // gets the parent menu item.
             IAIMPMenuItem* parentMenu;
-            service->GetBuiltIn(int(parentMenuType), &parentMenu);
+            result = CheckResult(service->GetBuiltIn(int(parentMenuType), &parentMenu));
 
-            if (parentMenu == nullptr)
+            if (result == ActionResultType::OK && parentMenu != nullptr)
             {
-                return result;
-            }
+                static_cast<AimpMenuItem^>(item)->InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_PARENT, parentMenu);
 
-            static_cast<AimpMenuItem^>(item)->InternalAimpObject->SetValueAsObject(
-                AIMP_MENUITEM_PROPID_PARENT, parentMenu);
-            result = CheckResult(_core->GetAimpCore()->RegisterExtension(
-                IID_IAIMPServiceMenuManager,
-                static_cast<AimpMenuItem^>(item)->InternalAimpObject));
-            ReleaseObject(parentMenu);
+                result = CheckResult(_core->GetAimpCore()->RegisterExtension(
+                    IID_IAIMPServiceMenuManager,
+                    static_cast<AimpMenuItem^>(item)->InternalAimpObject));
+
+                ReleaseObject(parentMenu);
+            }
         }
     }
     finally
     {
         ReleaseObject(service);
-        ReleaseObject(static_cast<AimpMenuItem^>(item)->InternalAimpObject);
+        //ReleaseObject(static_cast<AimpMenuItem^>(item)->InternalAimpObject);
     }
 
-    return result;
+    return ACTION_RESULT(result);
 }
 
 /// <summary>
 /// Deletes the menu item.
 /// </summary>
 /// <param name="item">The item.</param>
-ActionResultType AimpServiceMenuManager::Delete(IAimpMenuItem^ item)
+ActionResult AimpServiceMenuManager::Delete(IAimpMenuItem^ item)
 {
-    return this->Delete(item->Id);
+    const auto result = this->Delete(item->Id);
+    return ACTION_RESULT(result->ResultType);
 }
 
 /// <summary>
 /// Deletes the menu item.
 /// </summary>
 /// <param name="id">The identifier.</param>
-ActionResultType AimpServiceMenuManager::Delete(String^ id)
+ActionResult AimpServiceMenuManager::Delete(String^ id)
 {
     IAIMPServiceMenuManager* service = GetAimpService();
     IAIMPString* idString = nullptr;
@@ -117,119 +102,93 @@ ActionResultType AimpServiceMenuManager::Delete(String^ id)
     {
         if (service != nullptr)
         {
-            if (String::IsNullOrWhiteSpace(id))
-            {
-                return ActionResultType::Fail;
-            }
+            Assert::NotNull(id, "id");
 
             idString = AimpConverter::ToAimpString(id);
 
             result = CheckResult(service->GetByID(idString, &aimpMenuItem));
 
-            if (aimpMenuItem == nullptr)
+            if (result == ActionResultType::OK)
             {
-                return ActionResultType::Fail;
+                result = CheckResult(UnregisterMenu(aimpMenuItem));
             }
 
             //if (CheckResult(ManagedAimpCore::GetAimpCore()->UnregisterExtension(aimpMenuItem)) != ActionResultType::OK)
             //{
             //    System::Diagnostics::Debugger::Break();
             //}
-
-            result = CheckResult(UnregisterMenu(aimpMenuItem));
         }
     }
     finally
     {
         ReleaseObject(idString);
         ReleaseObject(service);
-        ReleaseObject(aimpMenuItem);
+        //ReleaseObject(aimpMenuItem);
     }
 
-    return result;
+    return ACTION_RESULT(result);
 }
 
-ActionResultType AimpServiceMenuManager::GetById(String^ id, IAimpMenuItem^% item)
+MenuItemResult AimpServiceMenuManager::GetById(String^ id)
 {
     IAIMPServiceMenuManager* service = GetAimpService();
     IAIMPString* menuId = nullptr;
     IAIMPMenuItem* aimpMenuItem = nullptr;
     auto result = ActionResultType::Unexpected;
-    item = nullptr;
+    IAimpMenuItem^ item = nullptr;
 
     try
     {
         if (service != nullptr)
         {
-            if (String::IsNullOrWhiteSpace(id))
-            {
-                return ActionResultType::Fail;
-            }
+            Assert::NotNull(id, "id");
 
             menuId = AimpConverter::ToAimpString(id);
             result = CheckResult(service->GetByID(menuId, &aimpMenuItem));
 
-            if (result != ActionResultType::OK)
+            if (result == ActionResultType::OK && aimpMenuItem != nullptr)
             {
-                return result;
+                item = gcnew AimpMenuItem(aimpMenuItem);
             }
-
-            if (aimpMenuItem == nullptr)
-            {
-                return ActionResultType::Handle;
-            }
-
-            AimpMenuItem^ resultItem = gcnew AimpMenuItem(aimpMenuItem);
-            item = resultItem;
         }
     }
     finally
     {
         ReleaseObject(service);
         ReleaseObject(menuId);
-        ReleaseObject(aimpMenuItem);
+        //ReleaseObject(aimpMenuItem);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpMenuItem^>(result, item);
 }
 
-ActionResultType AimpServiceMenuManager::GetBuiltIn(ParentMenuType parentMenuType, IAimpMenuItem^% item)
+MenuItemResult AimpServiceMenuManager::GetBuiltIn(ParentMenuType parentMenuType)
 {
     IAIMPServiceMenuManager* service = GetAimpService();
     IAIMPMenuItem* aimpMenuItem = nullptr;
     auto result = ActionResultType::Unexpected;
-    item = nullptr;
+    IAimpMenuItem^ item = nullptr;
 
     try
     {
         result = GetService(IID_IAIMPServiceMenuManager, &service);
 
-        if (result != ActionResultType::OK)
+        if (result == ActionResultType::OK)
         {
-            return result;
+            result = CheckResult(service->GetBuiltIn(static_cast<int>(parentMenuType), &aimpMenuItem));
+            if (result == ActionResultType::OK)
+            {
+                item = gcnew AimpMenuItem(aimpMenuItem);
+            }
         }
-
-        result = CheckResult(service->GetBuiltIn(int(parentMenuType), &aimpMenuItem));
-        if (result != ActionResultType::OK)
-        {
-            return result;
-        }
-
-        if (aimpMenuItem == nullptr)
-        {
-            return ActionResultType::Handle;
-        }
-
-        AimpMenuItem^ resultItem = gcnew AimpMenuItem(aimpMenuItem);
-        item = resultItem;
     }
     finally
     {
         ReleaseObject(service);
-        ReleaseObject(aimpMenuItem);
+        //ReleaseObject(aimpMenuItem);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpMenuItem^>(result, item);
 }
 
 /// <summary>

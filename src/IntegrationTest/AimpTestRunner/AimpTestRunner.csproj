@@ -89,6 +89,7 @@
     <Compile Include="UnitTests\ActionManager\AimpServiceActionManagerTests.cs" />
     <Compile Include="Engine\AimpNUnit3FrameworkDriver.cs" />
     <Compile Include="Engine\AimpNUnitFrameworkDriver.cs" />
+    <Compile Include="UnitTests\AimpCoreTests.cs" />
     <Compile Include="UnitTests\AimpIntegrationTest.cs" />
     <Compile Include="UnitTests\AimpServiceConfig\AimpServiceConfigTests.cs" />
     <Compile Include="UnitTests\AimpTestContext.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="UnitTests\AlbumArtManager\AimpServiceAlbumArtCacheTests.cs" />
     <Compile Include="UnitTests\Lyrics\AimpLyricsTests.cs" />
     <Compile Include="UnitTests\Lyrics\AimpServiceLyricsTests.cs" />
+    <Compile Include="UnitTests\MenuManager\AimpServiceMenuManagerTests.cs" />
     <Compile Include="UnitTests\Playback\AimpPlaybackQueueServiceTests.cs" />
     <Compile Include="UnitTests\Playback\PlayerHookTests.cs" />
     <Compile Include="UnitTests\Player\AimpPlayerTests.cs" />

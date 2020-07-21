@@ -36,7 +36,13 @@ void AimpMemoryManager::Release(int key)
     try
     {
         if (obj != nullptr && !obj->disposed) {
-            static_cast<IUnknown*>(obj->object)->Release();
+            if (obj->object != nullptr) {
+                try {
+                    static_cast<IUnknown*>(obj->object)->Release();
+                }
+                catch (...) {
+                }
+            }
             obj->disposed = true;
         }
         else
@@ -53,9 +59,18 @@ void AimpMemoryManager::ReleaseAll()
 {
     for (auto obj = instance->objects.begin(); obj != instance->objects.end(); ++obj)
     {
-        if (!obj->second->disposed)
+        if (obj->second != nullptr && !obj->second->disposed)
         {
-            static_cast<IUnknown*>(obj->second->object)->Release();
+            if (obj->second->object != nullptr) {
+                try
+                {
+                    static_cast<IUnknown*>(obj->second->object)->Release();
+                }
+                catch (...)
+                {
+
+                }
+            }
             obj->second->disposed = true;
         }
     }

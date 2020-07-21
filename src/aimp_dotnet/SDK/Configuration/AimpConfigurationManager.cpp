@@ -16,7 +16,7 @@ AimpServiceConfig::~AimpServiceConfig()
 {
 }
 
-VoidResult AimpServiceConfig::FlushCache()
+ActionResult AimpServiceConfig::FlushCache()
 {
     IAIMPServiceConfig* service = GetAimpService();
     auto result = ActionResultType::Fail;
@@ -36,7 +36,7 @@ VoidResult AimpServiceConfig::FlushCache()
     return GetResult(result);
 }
 
-VoidResult AimpServiceConfig::Delete(String^ keyPath)
+ActionResult AimpServiceConfig::Delete(String^ keyPath)
 {
     IAIMPString* str = nullptr;
     IAIMPServiceConfig* service = GetAimpService();
@@ -189,7 +189,7 @@ StringResult AimpServiceConfig::GetValueAsString(String^ keyPath)
     return gcnew AimpActionResult<String^>(result, gcnew String(val->GetData()));
 }
 
-VoidResult AimpServiceConfig::SetValueAsFloat(String^ keyPath, float value)
+ActionResult AimpServiceConfig::SetValueAsFloat(String^ keyPath, float value)
 {
     IAIMPString* str = nullptr;
     auto result = ActionResultType::Fail;
@@ -212,7 +212,7 @@ VoidResult AimpServiceConfig::SetValueAsFloat(String^ keyPath, float value)
     return ACTION_RESULT(result);
 }
 
-VoidResult AimpServiceConfig::SetValueAsInt32(String^ keyPath, int value)
+ActionResult AimpServiceConfig::SetValueAsInt32(String^ keyPath, int value)
 {
     IAIMPString* str = nullptr;
     auto result = ActionResultType::Fail;
@@ -235,7 +235,7 @@ VoidResult AimpServiceConfig::SetValueAsInt32(String^ keyPath, int value)
     return ACTION_RESULT(result);
 }
 
-VoidResult AimpServiceConfig::SetValueAsInt64(String^ keyPath, Int64 value)
+ActionResult AimpServiceConfig::SetValueAsInt64(String^ keyPath, Int64 value)
 {
     IAIMPString* str = nullptr;
     auto result = ActionResultType::Fail;
@@ -258,7 +258,7 @@ VoidResult AimpServiceConfig::SetValueAsInt64(String^ keyPath, Int64 value)
     return ACTION_RESULT(result);
 }
 
-VoidResult AimpServiceConfig::SetValueAsStream(String^ keyPath, IAimpStream^ stream)
+ActionResult AimpServiceConfig::SetValueAsStream(String^ keyPath, IAimpStream^ stream)
 {
     IAIMPString* str = nullptr;
     auto result = ActionResultType::Fail;
@@ -281,7 +281,7 @@ VoidResult AimpServiceConfig::SetValueAsStream(String^ keyPath, IAimpStream^ str
     return ACTION_RESULT(result);
 }
 
-VoidResult AimpServiceConfig::SetValueAsString(String^ keyPath, String^ value)
+ActionResult AimpServiceConfig::SetValueAsString(String^ keyPath, String^ value)
 {
     IAIMPString* str = nullptr;
     IAIMPString* val = nullptr;

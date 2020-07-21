@@ -16,7 +16,7 @@ namespace AIMP.SDK
     /// <summary>
     /// Interface provides methods for working with binary stream.
     /// </summary>
-    public interface IAimpStream : IDisposable
+    public interface IAimpStream : IDisposable, IAimpObject
     {
         /// <summary>
         /// Gets the size of stream, in bytes.

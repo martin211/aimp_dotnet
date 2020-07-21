@@ -97,6 +97,8 @@ namespace AIMP
         public:
             explicit AimpPlayList(IAIMPPlaylist* aimpPlayList);
 
+            explicit AimpPlayList(IAIMPPlaylist* item, bool registerAtMemoryManager);
+
             virtual property String^ Id
             {
                 String^ get();
@@ -263,39 +265,39 @@ namespace AIMP
             virtual void OnScanningEnd(bool hasChanges, bool canceled);
 
         public:
-            virtual VoidResult Add(IAimpFileInfo^ fileInfo, PlaylistFlags flags,
+            virtual ActionResult Add(IAimpFileInfo^ fileInfo, PlaylistFlags flags,
                                          PlaylistFilePosition filePosition);
 
-            virtual VoidResult Add(String^ fileUrl, PlaylistFlags flags,
+            virtual ActionResult Add(String^ fileUrl, PlaylistFlags flags,
                                          PlaylistFilePosition filePosition);
 
-            virtual VoidResult AddList(Generic::IList<IAimpFileInfo^>^ fileUrlList,
+            virtual ActionResult AddList(Generic::IList<IAimpFileInfo^>^ fileUrlList,
                                              PlaylistFlags flags, PlaylistFilePosition filePosition);
 
-            virtual VoidResult AddList(Generic::IList<String^>^ fileUrlList, PlaylistFlags flags, PlaylistFilePosition filePosition);
+            virtual ActionResult AddList(Generic::IList<String^>^ fileUrlList, PlaylistFlags flags, PlaylistFilePosition filePosition);
 
-            virtual VoidResult Delete(IAimpPlaylistItem^ item);
+            virtual ActionResult Delete(IAimpPlaylistItem^ item);
 
-            virtual VoidResult Delete(int index);
+            virtual ActionResult Delete(int index);
 
-            virtual VoidResult DeleteAll();
+            virtual ActionResult DeleteAll();
 
-            virtual VoidResult Delete(PlaylistDeleteFlags deleteFlags, System::Object^ customFilterData,
+            virtual ActionResult Delete(PlaylistDeleteFlags deleteFlags, System::Object^ customFilterData,
                                             System::Func<IAimpPlaylistItem^, System::Object^, bool>^ filterFunc);
 
-            virtual VoidResult Sort(PlaylistSort sort);
+            virtual ActionResult Sort(PlaylistSort sort);
 
-            virtual VoidResult Sort(Object^ customSortData,
+            virtual ActionResult Sort(Object^ customSortData,
                                           Func<IAimpPlaylistItem^, IAimpPlaylistItem^, Object^,
                                                PlaylistSortComapreResult>^ compareFunc);
 
-            virtual VoidResult Sort(String^ templateString);
+            virtual ActionResult Sort(String^ templateString);
 
-            virtual VoidResult BeginUpdate();
+            virtual ActionResult BeginUpdate();
 
-            virtual VoidResult EndUpdate();
+            virtual ActionResult EndUpdate();
 
-            virtual VoidResult Close(PlaylistCloseFlag closeFlag);
+            virtual ActionResult Close(PlaylistCloseFlag closeFlag);
 
             virtual AimpActionResult<Generic::IList<String^>^>^ GetFiles(PlaylistGetFilesFlag filesFlag);
 

@@ -19,7 +19,7 @@ namespace AIMP.SDK.MenuManager
     /// <summary>
     /// Menu item style.
     /// </summary>
-    public enum AimpMenuItemStyle
+    public enum MenuItemStyle
     {
         /// <summary>
         /// The normal menu item.
@@ -40,7 +40,7 @@ namespace AIMP.SDK.MenuManager
     /// <summary>
     /// AIMP menu item interface.
     /// </summary>
-    public interface IAimpMenuItem : IAimpActionEvent
+    public interface IAimpMenuItem : IAimpActionEvent, IAimpObject
     {
         /// <summary>
         /// This is a user data parameter.
@@ -89,9 +89,9 @@ namespace AIMP.SDK.MenuManager
         IAimpMenuItem Parent { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="AimpMenuItemStyle"/>.
+        /// Gets or sets the <see cref="MenuItemStyle"/>.
         /// </summary>
-        AimpMenuItemStyle Style { get; set; }
+        MenuItemStyle Style { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="IAimpMenuItem"/> is visible.
@@ -114,7 +114,7 @@ namespace AIMP.SDK.MenuManager
         /// <summary>
         /// Deletes the children.
         /// </summary>
-        ActionResultType DeleteChildren();
+        AimpActionResult DeleteChildren();
 
         event EventHandler OnShow;
     }

@@ -22,8 +22,20 @@ AimpLyrics::AimpLyrics(IAIMPLyrics* lyrics) : AimpObject(lyrics)
 {
 }
 
-VoidResult AimpLyrics::Assign(IAimpLyrics^ source)
+ActionResult AimpLyrics::Assign(IAimpLyrics^ source)
 {
+    Assert::NotNull(source, "source");
+
+    const auto lyrics = static_cast<AimpLyrics^>(source);
+
+    Assert::NotNull(lyrics, "stream");
+    if (lyrics->InternalAimpObject == nullptr)
+    {
+        ARGUMENT_NULL("InternalAimpObject", "AIMP stram is null. Please use Core.CreateLyrics to get stream instance")
+    }
+
+    const auto result = CheckResult(InternalAimpObject->Assign(lyrics->InternalAimpObject));
+
     //TODO Complete it
     return ACTION_RESULT(ActionResultType::NotImplemented); // CheckResult(InternalAimpObject->Assign());
 }
@@ -42,7 +54,7 @@ AimpActionResult<IAimpLyrics^>^ AimpLyrics::Clone()
     return gcnew AimpActionResult<IAimpLyrics^>(result, lyrics);
 }
 
-VoidResult AimpLyrics::Add(int timeStart, int timeFinish, String^ text)
+ActionResult AimpLyrics::Add(int timeStart, int timeFinish, String^ text)
 {
     auto str = AimpConverter::ToAimpString(text);
     const auto result = Utils::CheckResult(InternalAimpObject->Add(timeStart, timeFinish, str));
@@ -52,7 +64,7 @@ VoidResult AimpLyrics::Add(int timeStart, int timeFinish, String^ text)
     return ACTION_RESULT(result);
 }
 
-VoidResult AimpLyrics::Delete(int index)
+ActionResult AimpLyrics::Delete(int index)
 {
     return ACTION_RESULT(Utils::CheckResult(InternalAimpObject->Delete(index)));
 }
@@ -89,12 +101,14 @@ AimpActionResult<String^>^ AimpLyrics::Get(int index, int timeStart, int timeFin
     return gcnew AimpActionResult<String^>(result, text);
 }
 
-ActionResultType AimpLyrics::GetCount(int% value)
+IntResult AimpLyrics::GetCount()
 {
-    return ActionResultType::Fail;
+    int val = 0;
+    const auto result = CheckResult(InternalAimpObject->GetCount(&val));
+    return INT_RESULT(result, val);
 }
 
-VoidResult AimpLyrics::LoadFromFile(String^ virtualFileName)
+ActionResult AimpLyrics::LoadFromFile(String^ virtualFileName)
 {
     IAIMPString* str = AimpConverter::ToAimpString(virtualFileName);
     const auto res = CheckResult(InternalAimpObject->LoadFromFile(str));
@@ -103,12 +117,12 @@ VoidResult AimpLyrics::LoadFromFile(String^ virtualFileName)
     return ACTION_RESULT(res);
 }
 
-VoidResult AimpLyrics::LoadFromStream(IAimpStream^ stream, LyricsFormat format)
+ActionResult AimpLyrics::LoadFromStream(IAimpStream^ stream, LyricsFormat format)
 {
     return ACTION_RESULT(ActionResultType::NotImplemented);
 }
 
-VoidResult AimpLyrics::LoadFromString(String^ lyrics, LyricsFormat format)
+ActionResult AimpLyrics::LoadFromString(String^ lyrics, LyricsFormat format)
 {
     IAIMPString* str = AimpConverter::ToAimpString(lyrics);
     const auto res = CheckResult(InternalAimpObject->LoadFromString(str, static_cast<int>(format)));
@@ -117,7 +131,7 @@ VoidResult AimpLyrics::LoadFromString(String^ lyrics, LyricsFormat format)
     return ACTION_RESULT(res);
 }
 
-VoidResult AimpLyrics::SaveToFile(String^ fileUri)
+ActionResult AimpLyrics::SaveToFile(String^ fileUri)
 {
     auto str = AimpConverter::ToAimpString(fileUri);
     const auto result = Utils::CheckResult(InternalAimpObject->SaveToFile(str));
@@ -126,9 +140,21 @@ VoidResult AimpLyrics::SaveToFile(String^ fileUri)
     return ACTION_RESULT(result);
 }
 
-VoidResult AimpLyrics::SaveToStream(IAimpStream^ stream, LyricsFormat format)
+ActionResult AimpLyrics::SaveToStream(IAimpStream^ stream, LyricsFormat format)
 {
-    return ACTION_RESULT(ActionResultType::NotImplemented);
+    Assert::NotNull(stream, "stream");
+
+    const auto s = static_cast<AimpStream^>(stream);
+
+    Assert::NotNull(s, "stream");
+    if (s->InternalAimpObject == nullptr)
+    {
+        ARGUMENT_NULL("InternalAimpObject", "AIMP stram is null. Please use Core.CreateStream to get stream instance")
+    }
+
+    const auto result = CheckResult(InternalAimpObject->SaveToStream(s->InternalAimpObject, static_cast<int>(format)));
+
+    return ACTION_RESULT(result);
 }
 
 AimpActionResult<String^>^ AimpLyrics::SaveToString(LyricsFormat format)

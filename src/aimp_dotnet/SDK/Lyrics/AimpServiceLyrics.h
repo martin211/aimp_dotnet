@@ -27,7 +27,7 @@ namespace AIMP
 
             virtual AimpActionResult<IntPtr>^ Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Object^ userData);
 
-            virtual VoidResult Cancel(IntPtr taskId, LyricsFlags flags);
+            virtual ActionResult Cancel(IntPtr taskId, LyricsFlags flags);
 
             event AimpServiceLyricsReceive^ LyricsReceive
             {

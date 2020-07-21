@@ -49,6 +49,12 @@ int AimpServiceActionManager::MakeHotkey(ModifierKeys modifiers, unsigned int ke
 
     try
     {
+        if (modifiers == ModifierKeys::Alt) {
+            modifiers = ModifierKeys::Control;
+        } else if (modifiers == ModifierKeys::Control) {
+            modifiers = ModifierKeys::Alt;
+        }
+
         if (service != nullptr)
         {
             return service->MakeHotkey(DWORD(modifiers), key);
@@ -97,12 +103,6 @@ AimpActionResult^ AimpServiceActionManager::Register(Generic::ICollection<IAimpA
 
 IAimpAction^ AimpServiceActionManager::CreateAction()
 {
-    IAIMPAction* action = nullptr;
-    if (_core->CreateAction(&action) == ActionResultType::OK && action != nullptr)
-    {
-        return gcnew AimpAction(action);
-    }
-
     return nullptr;
 }
 

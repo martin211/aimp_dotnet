@@ -50,4 +50,12 @@ internal:
             ARGUMENT_NULL(field, field)
         }
     }
+
+    static void NotNull(System::Object^ object, System::String^ field)
+    {
+        if (object == nullptr)
+        {
+            ARGUMENT_NULL(field, field)
+        }
+    }
 };

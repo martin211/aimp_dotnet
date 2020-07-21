@@ -92,7 +92,7 @@ namespace Aimp.TestRunner
                         _logWriter.Flush();
                     }
 
-                    Terminate();
+                    //Terminate();
                 }
 
                 return ActionResultType.OK;

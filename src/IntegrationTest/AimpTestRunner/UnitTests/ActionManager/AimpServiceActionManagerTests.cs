@@ -10,8 +10,8 @@
 // ----------------------------------------------------
 
 using System;
-using System.Linq;
 using AIMP.SDK;
+using AIMP.SDK.ActionManager;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.ActionManager
@@ -22,7 +22,10 @@ namespace Aimp.TestRunner.UnitTests.ActionManager
         [Test]
         public void CreateAction_ShouldReturnEmptyAction()
         {
-            var action = Player.ActionManager.CreateAction();
+            var actionResult = Player.Core.CreateObject<IAimpAction>();
+            var action = actionResult.Result as IAimpAction;
+            this.NotNull(action);
+
             Assert.NotNull(action);
         }
 
@@ -31,14 +34,15 @@ namespace Aimp.TestRunner.UnitTests.ActionManager
         {
             ExecuteInMainThread(() =>
             {
-                var action = Player.ActionManager.CreateAction();
-                this.Throw<ArgumentNullException>(() => Player.ActionManager.Register(action));
+                var actionResult = Player.Core.CreateObject<IAimpAction>();
+                var action = actionResult.Result as IAimpAction;
+                this.NotNull(action);
+
+                var exception = this.Throw<ArgumentNullException>(() => Player.ActionManager.Register(action));
+                this.IsTrue(exception.Message.Contains("Action name cannot be empty"));
 
                 return ActionResultType.OK;
             });
-
-            Validate();
-            Assert.True((Asserts.First() as ThrowAssert<ArgumentNullException>)?.CatchedException.Message.Contains("Action name cannot be empty"));
         }
 
         [Test]
@@ -46,14 +50,15 @@ namespace Aimp.TestRunner.UnitTests.ActionManager
         {
             ExecuteInMainThread(() =>
             {
-                var action = Player.ActionManager.CreateAction();
+                var actionResult = Player.Core.CreateObject<IAimpAction>();
+                var action = actionResult.Result as IAimpAction;
+                this.NotNull(action);
+
                 action.Name = "Test";
-                this.Throw<ArgumentNullException>(() => Player.ActionManager.Register(action));
+                var exception = this.Throw<ArgumentNullException>(() => Player.ActionManager.Register(action));
+                this.IsTrue(exception.Message.Contains("Action id cannot be empty"));
                 return ActionResultType.OK;
             });
-
-            Validate();
-            Assert.True((Asserts.First() as ThrowAssert<ArgumentNullException>)?.CatchedException.Message.Contains("Action id cannot be empty"));
         }
 
         [Test(Description = "Set and get all properties. Ensure that they all are correct.")]
@@ -61,7 +66,10 @@ namespace Aimp.TestRunner.UnitTests.ActionManager
         {
             ExecuteInMainThread(() =>
             {
-                var action = Player.ActionManager.CreateAction();
+                var actionResult = Player.Core.CreateObject<IAimpAction>();
+                var action = actionResult.Result as IAimpAction;
+                this.NotNull(action);
+
                 action.Name = "Test";
                 action.Id = "integration.action.1";
                 action.GroupName = "integration";
@@ -83,7 +91,11 @@ namespace Aimp.TestRunner.UnitTests.ActionManager
         {
             ExecuteInMainThread(() =>
             {
-                var action = Player.ActionManager.CreateAction();
+                var actionResult = Player.Core.CreateObject<IAimpAction>();
+                var action = actionResult.Result as IAimpAction;
+                this.NotNull(action);
+
+                //var action = Player.ActionManager.CreateAction();
                 action.Name = "test action";
                 action.Id = "integration.test";
 

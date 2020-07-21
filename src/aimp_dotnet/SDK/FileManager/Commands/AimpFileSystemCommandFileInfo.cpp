@@ -75,7 +75,7 @@ LongResult AimpFileSystemCommandFileInfo::GetFileSize(String^ file)
     return gcnew AimpActionResult<long long>(result, size);
 }
 
-VoidResult AimpFileSystemCommandFileInfo::IsFileExists(String^ file)
+ActionResult AimpFileSystemCommandFileInfo::IsFileExists(String^ file)
 {
     IAIMPString* str = nullptr;
     ActionResultType result = ActionResultType::Fail;

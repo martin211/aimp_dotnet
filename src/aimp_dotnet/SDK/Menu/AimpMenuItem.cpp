@@ -22,10 +22,9 @@ AimpMenuItem::AimpMenuItem(IAIMPMenuItem* menuItem) : AimpObject(menuItem)
 
 void AimpMenuItem::FreeResources()
 {
+    AimpObject::FreeResources();
     _onExecuteHandler = nullptr;
     _onExecuteEvent = nullptr;
-    _showHandler.Free();
-    _executeHandler.Free();
 }
 
 String^ AimpMenuItem::Custom::get()
@@ -42,7 +41,7 @@ IAimpAction^ AimpMenuItem::Action::get()
 {
     IAIMPAction* action;
     if (PropertyListExtension::GetObject(InternalAimpObject, AIMP_MENUITEM_PROPID_ACTION, IID_IAIMPAction,
-                                         reinterpret_cast<void**>(&action)) == ActionResultType::OK)
+        reinterpret_cast<void**>(&action)) == ActionResultType::OK)
     {
         return gcnew AimpAction(action);
     }
@@ -53,7 +52,7 @@ IAimpAction^ AimpMenuItem::Action::get()
 void AimpMenuItem::Action::set(IAimpAction^ value)
 {
     PropertyListExtension::SetObject(InternalAimpObject, AIMP_MENUITEM_PROPID_ACTION,
-                                     static_cast<AimpAction^>(value)->InternalAimpObject);
+        static_cast<AimpAction^>(value)->InternalAimpObject);
 }
 
 
@@ -141,30 +140,41 @@ void AimpMenuItem::Glyph::set(Bitmap^ value)
 
 IAimpMenuItem^ AimpMenuItem::Parent::get()
 {
-    IAIMPMenuItem* item;
-    InternalAimpObject->GetValueAsObject(AIMP_MENUITEM_PROPID_PARENT, IID_IAIMPMenuItem,
-                                         reinterpret_cast<void**>(&item));
-    AimpMenuItem^ parentItem = gcnew AimpMenuItem(item);
-    item->Release();
+    if (_parent == nullptr) {
+        IAIMPMenuItem* item = nullptr;
+        const auto result = CheckResult(InternalAimpObject->GetValueAsObject(AIMP_MENUITEM_PROPID_PARENT, IID_IAIMPMenuItem,
+            reinterpret_cast<void**>(&item)));
+        if (result == ActionResultType::OK) {
 
-    return parentItem;
+            int val = 0;
+            const auto result = CheckResult(item->GetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, &val));
+
+            _parent = gcnew AimpMenuItem(item);
+        }
+    }
+
+    return _parent;
 }
 
 void AimpMenuItem::Parent::set(IAimpMenuItem^ value)
 {
-    InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_PARENT,
-                                         static_cast<AimpMenuItem^>(value)->InternalAimpObject);
+    const auto result = CheckResult(InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_PARENT,
+        static_cast<AimpMenuItem^>(value)->InternalAimpObject));
+    if (result != ActionResultType::OK) {
+        throw gcnew AimpActionException(result, "Unable to set parent.");
+    }
 }
 
 
-AimpMenuItemStyle AimpMenuItem::Style::get()
+MenuItemStyle AimpMenuItem::Style::get()
 {
     int val = 0;
-    PropertyListExtension::GetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_STYLE, val);
-    return static_cast<AimpMenuItemStyle>(val);
+    const auto result = CheckResult(InternalAimpObject->GetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, &val));
+    //PropertyListExtension::GetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_STYLE, val);
+    return static_cast<MenuItemStyle>(val);
 }
 
-void AimpMenuItem::Style::set(AimpMenuItemStyle value)
+void AimpMenuItem::Style::set(MenuItemStyle value)
 {
     PropertyListExtension::SetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_STYLE, int(value));
 }

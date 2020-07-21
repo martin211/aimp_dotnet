@@ -11,6 +11,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Windows.Input;
 using AIMP.SDK.ActionManager;
 using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.Playlist;
@@ -69,16 +70,18 @@ namespace TestPlugin
         {
             TestWriteConfig();
 
-            IAimpMenuItem demoFormItem;
-
             var listner = new ExtensionPlaylistManagerListener();
             Player.Core.RegisterExtension(listner);
 
-            if (Player.MenuManager.CreateMenuItem(out demoFormItem) == ActionResultType.OK)
+            var result = Player.Core.CreateObject<IAimpMenuItem>();
+
+            if (result.ResultType == ActionResultType.OK)
             {
+                IAimpMenuItem demoFormItem = result.Result as IAimpMenuItem;
+
                 demoFormItem.Name = "Open demo form";
                 demoFormItem.Id = "demo_form";
-                demoFormItem.Style = AimpMenuItemStyle.CheckBox;
+                demoFormItem.Style = MenuItemStyle.CheckBox;
 
                 demoFormItem.OnExecute += DemoFormItemOnOnExecute;
                 demoFormItem.OnShow += (sender, args) =>
@@ -87,7 +90,7 @@ namespace TestPlugin
                     Logger.Instance.AddInfoMessage($"Event: [Show] {item.Id}");
                 };
 
-                Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, demoFormItem);
+                Player.MenuManager.Add(ParentMenuType.CommonUtilites, demoFormItem);
             }
 
             _hook = new MessageHook();
@@ -124,11 +127,12 @@ namespace TestPlugin
 
         private void CreateMenuWithAction()
         {
-            IAimpMenuItem actionMenuItem;
-            if (Player.MenuManager.CreateMenuItem(out actionMenuItem) == ActionResultType.OK)
+            var menuItemResult = Player.Core.CreateAimpObject<IAimpMenuItem>();
+            if (menuItemResult.ResultType == ActionResultType.OK)
             {
-
-                IAimpAction action = Player.ActionManager.CreateAction();
+                IAimpMenuItem actionMenuItem = Player.Core.CreateAimpObject<IAimpMenuItem>().Result;
+                
+                var action = Player.Core.CreateAimpObject<IAimpAction>().Result;
                 action.Id = "aimp.MenuAndActionsDemo.action.1";
                 action.Name = "Simple action title";
                 action.GroupName = "Menu And Actions Demo";
@@ -142,7 +146,20 @@ namespace TestPlugin
                 actionMenuItem.Name = "Menu item with linked action";
                 actionMenuItem.Id = "aimp.MenuAndActionsDemo.menuitem.with.action";
                 actionMenuItem.Action = action;
-                Player.MenuManager.Add(ParentMenuType.AIMP_MENUID_COMMON_UTILITIES, actionMenuItem);
+                Player.MenuManager.Add(ParentMenuType.CommonUtilites, actionMenuItem);
+
+                var secondAction = Player.Core.CreateAimpObject<IAimpAction>().Result;
+                secondAction.Id = Guid.NewGuid().ToString();
+                secondAction.Name = "Action 2";
+                secondAction.GroupName = "Menu And Actions Demo";
+                secondAction.DefaultGlobalHotKey = Player.ActionManager.MakeHotkey(ModifierKeys.Control, (uint)KeyInterop.VirtualKeyFromKey(Key.B));
+                Player.ActionManager.Register(secondAction);
+
+                var menuItem2 = Player.Core.CreateAimpObject<IAimpMenuItem>().Result;
+                menuItem2.Id = Guid.NewGuid().ToString();
+                menuItem2.Name = "Simple action 2";
+                menuItem2.Action = secondAction;
+                Player.MenuManager.Add(ParentMenuType.CommonUtilites, menuItem2);
             }
         }
 
@@ -170,7 +187,7 @@ namespace TestPlugin
             var int64Value = Player.ServiceConfig.GetValueAsInt64("AIMP.DOTNET.DEMO\\INT64");
             Debug.Assert(int64Value.Result == 20);
             var stringValue = Player.ServiceConfig.GetValueAsString("AIMP.DOTNET.DEMO\\STRING");
-            Debug.Assert(stringValue.Equals("STRING"));
+            Debug.Assert(stringValue.Result.Equals("STRING"));
             using (var streamValue = Player.ServiceConfig.GetValueAsStream("AIMP.DOTNET.DEMO\\STREAM").Result)
             {
                 long count = streamValue.GetSize();

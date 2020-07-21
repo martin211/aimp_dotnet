@@ -63,9 +63,9 @@ namespace AIMP
 
             virtual bool IsExists();
 
-            virtual VoidResult IsInSameStream(IAimpVirtualFile^ virtualFile);
+            virtual ActionResult IsInSameStream(IAimpVirtualFile^ virtualFile);
 
-            virtual VoidResult Synchronize();
+            virtual ActionResult Synchronize();
         };
     }
 }
