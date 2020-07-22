@@ -17,6 +17,7 @@ using AIMP.SDK;
 using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.Player;
 using AIMP.SDK.Threading;
+using NUnit.Engine;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 
@@ -32,7 +33,8 @@ namespace Aimp.TestRunner.UnitTests
             return assert;
         }
 
-        public static EqualAssert AreEqual(this AimpIntegrationTest testClass, object expected,
+        public static EqualAssert AreEqual(this AimpIntegrationTest testClass,
+            object expected,
             object current,
             string fieldName = null,
             string message = null)
@@ -40,6 +42,14 @@ namespace Aimp.TestRunner.UnitTests
             var assert = new EqualAssert(fieldName, current, expected, message);
             testClass.Asserts.Add(assert);
             return assert;
+        }
+
+        public static EqualAssert AreEqual(this AimpIntegrationTest testClass,
+            object expected,
+            object current,
+            string message)
+        {
+            return testClass.AreEqual(expected, current, string.Empty, message);
         }
 
         public static NotNullAssert NotNull<TResult>(this AimpIntegrationTest testClass, Expression<Func<TResult>> current, string message = null)
@@ -305,6 +315,12 @@ namespace Aimp.TestRunner.UnitTests
         protected AimpIntegrationTest()
         {
             Player = AimpTestContext.Instance.AimpPlayer;
+
+            if (Player == null)
+            {
+                throw new NUnitEngineException("Unable to run unit tests. Check that file 'nunit.engine.addins' exists in plugin folder.");
+            }
+
             RootPath = Path.Combine(Player.Core.GetPath(AimpCorePathType.AIMP_CORE_PATH_PLUGINS), "AimpTestRunner");
             PlaylistPath = Path.Combine(RootPath, "resources", "IntegrationTests.aimppl4");
             TrackPath1 = Path.Combine(RootPath, "resources", "01_atmosphere.mp3");

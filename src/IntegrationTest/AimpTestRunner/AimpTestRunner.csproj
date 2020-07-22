@@ -99,6 +99,7 @@
     <Compile Include="UnitTests\AlbumArtManager\AimpServiceAlbumArtCacheTests.cs" />
     <Compile Include="UnitTests\Lyrics\AimpLyricsTests.cs" />
     <Compile Include="UnitTests\Lyrics\AimpServiceLyricsTests.cs" />
+    <Compile Include="UnitTests\MenuManager\AimpMenuItemTests.cs" />
     <Compile Include="UnitTests\MenuManager\AimpServiceMenuManagerTests.cs" />
     <Compile Include="UnitTests\Playback\AimpPlaybackQueueServiceTests.cs" />
     <Compile Include="UnitTests\Playback\PlayerHookTests.cs" />

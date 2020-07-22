@@ -66,7 +66,6 @@ namespace Aimp.TestRunner
             ITestRunner runner = _engine.GetRunner(package);
 
             AimpTestContext.Instance.AimpPlayer = Player;
-            
 
             Player.ServiceMessageDispatcher.Hook(new Hook((type, i, arg3) =>
             {
@@ -90,9 +89,8 @@ namespace Aimp.TestRunner
                     finally
                     {
                         _logWriter.Flush();
+                        Terminate();
                     }
-
-                    //Terminate();
                 }
 
                 return ActionResultType.OK;

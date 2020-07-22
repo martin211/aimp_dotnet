@@ -9,6 +9,7 @@
 // 
 // ----------------------------------------------------
 
+using System;
 using AIMP.SDK;
 using AIMP.SDK.MenuManager;
 using NUnit.Framework;
@@ -23,9 +24,9 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
         {
             ExecuteInMainThread(() =>
             {
-                var item = Player.Core.CreateObject<IAimpMenuItem>();
-                var menuItem = item.Result as IAimpMenuItem;
-                menuItem.Id = System.Guid.NewGuid().ToString();
+                var item = Player.Core.CreateAimpObject<IAimpMenuItem>();
+                var menuItem = item.Result;
+                menuItem.Id = Guid.NewGuid().ToString();
                 var result = Player.MenuManager.Add(menuItem);
                 this.AreEqual(ActionResultType.OK, result.ResultType);
 
@@ -157,9 +158,9 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
         {
             ExecuteInMainThread(() =>
             {
-                var item = Player.Core.CreateObject<IAimpMenuItem>();
-                var menuItem = item.Result as IAimpMenuItem;
-                menuItem.Id = System.Guid.NewGuid().ToString();
+                var item = Player.Core.CreateAimpObject<IAimpMenuItem>();
+                var menuItem = item.Result;
+                menuItem.Id = Guid.NewGuid().ToString();
                 menuItem.Style = menuItemStyle;
 
                 var result = Player.MenuManager.Add(parentMenuType, menuItem);
@@ -167,7 +168,6 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
 
                 var getItemResult = Player.MenuManager.GetById(menuItem.Id);
                 this.AreEqual(menuItemStyle, getItemResult.Result.Style);
-                this.AreEqual(parentMenuType, getItemResult.Result.Parent.Style);
 
                 Player.MenuManager.Delete(menuItem);
                 return result.ResultType;
@@ -179,9 +179,9 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
         {
             ExecuteInMainThread(() =>
             {
-                var item = Player.Core.CreateObject<IAimpMenuItem>();
-                var menuItem = item.Result as IAimpMenuItem;
-                menuItem.Id = System.Guid.NewGuid().ToString();
+                var item = Player.Core.CreateAimpObject<IAimpMenuItem>();
+                var menuItem = item.Result;
+                menuItem.Id = Guid.NewGuid().ToString();
                 Player.MenuManager.Add(ParentMenuType.CommonUtilites, menuItem);
                 var result = Player.MenuManager.Delete(menuItem);
                 this.AreEqual(ActionResultType.OK, result.ResultType);
@@ -194,8 +194,8 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
         {
             ExecuteInMainThread(() =>
             {
-                var item = Player.Core.CreateObject<IAimpMenuItem>();
-                var menuItem = item.Result as IAimpMenuItem;
+                var item = Player.Core.CreateAimpObject<IAimpMenuItem>();
+                var menuItem = item.Result;
                 menuItem.Id = "id_for_test";
                 Player.MenuManager.Add(ParentMenuType.CommonUtilites, menuItem);
                 var result = Player.MenuManager.Delete("id_for_test");
@@ -209,8 +209,8 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
         {
             ExecuteInMainThread(() =>
             {
-                var item = Player.Core.CreateObject<IAimpMenuItem>();
-                var menuItem = item.Result as IAimpMenuItem;
+                var item = Player.Core.CreateAimpObject<IAimpMenuItem>();
+                var menuItem = item.Result;
                 menuItem.Id = "id_for_test";
                 Player.MenuManager.Add(ParentMenuType.CommonUtilites, menuItem);
                 var result = Player.MenuManager.GetById("id_for_test");
@@ -262,6 +262,32 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
                 var result = Player.MenuManager.GetBuiltIn(menuType);
                 this.AreEqual(ActionResultType.OK, result.ResultType);
                 this.NotNull(result.Result);
+
+                return result.ResultType;
+            });
+        }
+
+        [Test]
+        public void Add_TwoLevel_ShouldBeCorrect()
+        {
+            ExecuteInMainThread(() =>
+            {
+                var parent = Player.Core.CreateAimpObject<IAimpMenuItem>().Result;
+                parent.Id = Guid.NewGuid().ToString();
+                parent.Name = "Parent item";
+
+                var child = Player.Core.CreateAimpObject<IAimpMenuItem>().Result;
+                child.Id = Guid.NewGuid().ToString();
+                child.Name = "Child item";
+                child.Parent = parent;
+
+                var result = Player.MenuManager.Add(ParentMenuType.CommonUtilites, parent);
+
+                this.AreEqual(ActionResultType.OK, result.ResultType);
+
+                var childResult = Player.MenuManager.GetById(child.Id);
+                this.NotNull(childResult.Result.Parent);
+                this.AreEqual(childResult.Result.Parent.Id, parent.Id);
 
                 return result.ResultType;
             });
