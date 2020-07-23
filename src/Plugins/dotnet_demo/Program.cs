@@ -28,10 +28,10 @@ namespace TestPlugin
 
     public class MessageHook : IAimpMessageHook
     {
-        public ActionResultType CoreMessage(AimpCoreMessageType message, int param1, int param2)
+        public AimpActionResult CoreMessage(AimpCoreMessageType message, int param1, int param2)
         {
             OnCoreMessage?.Invoke(message, param1, param2);
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
         public event HookMessage OnCoreMessage;
