@@ -25,14 +25,14 @@ namespace AIMP
 
             ~AimpServiceMessageDispatcher();
 
-            virtual ActionResultType Send(int message, int param1, IntPtr param2);
+            virtual ActionResult Send(AimpCoreMessageType message, int param1, IntPtr param2);
             virtual int Register(String^ message);
-            virtual ActionResultType Hook(IAimpMessageHook^ hook);
-            virtual ActionResultType Unhook(IAimpMessageHook^ hook);
+            virtual ActionResult Hook(IAimpMessageHook^ hook);
+            virtual ActionResult Unhook(IAimpMessageHook^ hook);
         protected:
             IAIMPServiceMessageDispatcher* GetAimpService() override;
         private:
-            InternalAimpMessageHook* _hook;
+            InternalAimpMessageHook* _hook = nullptr;
         };
     }
 }

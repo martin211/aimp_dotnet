@@ -321,7 +321,7 @@ namespace Aimp.TestRunner.UnitTests
                 throw new NUnitEngineException("Unable to run unit tests. Check that file 'nunit.engine.addins' exists in plugin folder.");
             }
 
-            RootPath = Path.Combine(Player.Core.GetPath(AimpCorePathType.AIMP_CORE_PATH_PLUGINS), "AimpTestRunner");
+            RootPath = Path.Combine(Player.Core.GetPath(AimpCorePathType.Plugins), "AimpTestRunner");
             PlaylistPath = Path.Combine(RootPath, "resources", "IntegrationTests.aimppl4");
             TrackPath1 = Path.Combine(RootPath, "resources", "01_atmosphere.mp3");
             TrackPath2 = Path.Combine(RootPath, "resources", "02_loop-mix.mp3");

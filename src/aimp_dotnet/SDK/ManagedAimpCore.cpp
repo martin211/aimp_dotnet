@@ -610,7 +610,7 @@ namespace AIMP
         {
             HRESULT r;
 
-            if (message == MessageDispatcher::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION)
+            if (message == MessageDispatcher::AimpCoreMessageType::CmdShowNotification)
             {
                 r = ShowNotification(value == 0, static_cast<String^>(obj));
             }
@@ -626,7 +626,7 @@ namespace AIMP
         {
             IAIMPString* str = AimpConverter::ToAimpString(notification);
             HRESULT r = _messageDispatcher->Send(
-                DWORD(MessageDispatcher::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION), autoHide ? 0 : 1,
+                DWORD(MessageDispatcher::AimpCoreMessageType::CmdShowNotification), autoHide ? 0 : 1,
                 str->GetData());
             str->Release();
             return r;

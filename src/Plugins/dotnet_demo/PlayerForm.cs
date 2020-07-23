@@ -39,7 +39,7 @@ namespace DemoPlugin
 
             coreMessage.OnCoreMessage += (message, param1, param2) =>
             {
-                if (message == AimpCoreMessageType.AIMP_MSG_EVENT_PLAYABLE_FILE_INFO)
+                if (message == AimpCoreMessageType.EventPlayableFileInfo)
                 {
                     var cover = _aimpPlayer.CurrentFileInfo.AlbumArt;
                     if (cover != null)
@@ -47,7 +47,7 @@ namespace DemoPlugin
                         pictureBox1.Image = cover;
                     }
                 }
-                else if (message == AimpCoreMessageType.AIMP_MSG_EVENT_PLAYER_STATE)
+                else if (message == AimpCoreMessageType.EventPlayerState)
                 {
                     Logger.Instance.AddInfoMessage($"[Event] AimpPlayer.StateChanged: {param1}");
 
@@ -160,7 +160,7 @@ namespace DemoPlugin
         {
             var pl = _aimpPlayer.PlaylistManager.GetActivePlaylist();
             _aimpPlayer.Play(pl.Result);
-            _aimpPlayer.Core.SendMessage(AimpCoreMessageType.AIMP_MSG_CMD_SHOW_NOTIFICATION, 0, "Play Play Play");
+            _aimpPlayer.Core.SendMessage(AimpCoreMessageType.CmdShowNotification, 0, "Play Play Play");
         }
 
         private void button2_Click(object sender, EventArgs e)

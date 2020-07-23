@@ -101,6 +101,7 @@
     <Compile Include="UnitTests\Lyrics\AimpServiceLyricsTests.cs" />
     <Compile Include="UnitTests\MenuManager\AimpMenuItemTests.cs" />
     <Compile Include="UnitTests\MenuManager\AimpServiceMenuManagerTests.cs" />
+    <Compile Include="UnitTests\MessageDispatcher\AimpServiceMessageDispatcherTests.cs" />
     <Compile Include="UnitTests\Playback\AimpPlaybackQueueServiceTests.cs" />
     <Compile Include="UnitTests\Playback\PlayerHookTests.cs" />
     <Compile Include="UnitTests\Player\AimpPlayerTests.cs" />

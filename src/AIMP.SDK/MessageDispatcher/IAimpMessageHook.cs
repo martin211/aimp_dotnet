@@ -23,6 +23,6 @@ namespace AIMP.SDK.MessageDispatcher
         /// <param name="message"></param>
         /// <param name="param1"></param>
         /// <param name="param2"></param>
-        ActionResultType CoreMessage(AimpCoreMessageType message, int param1, int param2);
+        AimpActionResult CoreMessage(AimpCoreMessageType message, int param1, int param2);
     }
 }

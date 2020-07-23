@@ -28,14 +28,14 @@ namespace Aimp.TestRunner
     {
         public class Hook : IAimpMessageHook
         {
-            private readonly Func<AimpCoreMessageType, int, int, ActionResultType> _hook;
+            private readonly Func<AimpCoreMessageType, int, int, AimpActionResult> _hook;
 
-            public Hook(Func<AimpCoreMessageType, int, int, ActionResultType> hook)
+            public Hook(Func<AimpCoreMessageType, int, int, AimpActionResult> hook)
             {
                 _hook = hook;
             }
 
-            public ActionResultType CoreMessage(AimpCoreMessageType message, int param1, int param2)
+            public AimpActionResult CoreMessage(AimpCoreMessageType message, int param1, int param2)
             {
                 return _hook(message, param1, param2);
             }
@@ -49,7 +49,7 @@ namespace Aimp.TestRunner
 
         public override void Initialize()
         {
-            var path = Path.Combine(Player.Core.GetPath(AimpCorePathType.AIMP_CORE_PATH_PLUGINS), "AimpTestRunner");
+            var path = Path.Combine(Player.Core.GetPath(AimpCorePathType.Plugins), "AimpTestRunner");
 
             AppDomain.CurrentDomain.SetData("APPBASE", path);
             Environment.CurrentDirectory = path;
@@ -69,7 +69,7 @@ namespace Aimp.TestRunner
 
             Player.ServiceMessageDispatcher.Hook(new Hook((type, i, arg3) =>
             {
-                if (type == AimpCoreMessageType.AIMP_MSG_EVENT_LOADED && !_inProgress)
+                if (type == AimpCoreMessageType.EventLoaded && !_inProgress)
                 {
                     _inProgress = true;
                     try
@@ -93,7 +93,7 @@ namespace Aimp.TestRunner
                     }
                 }
 
-                return ActionResultType.OK;
+                return new AimpActionResult(ActionResultType.OK);
             }));
         }
 
