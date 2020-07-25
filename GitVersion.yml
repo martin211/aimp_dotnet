@@ -1,3 +1,4 @@
+next-version: 4.60.2167
 assembly-versioning-scheme: MajorMinorPatchTag
 assembly-file-versioning-scheme: MajorMinorPatchTag
 branches:

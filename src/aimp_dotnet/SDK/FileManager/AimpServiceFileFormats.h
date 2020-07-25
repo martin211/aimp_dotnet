@@ -23,7 +23,7 @@ namespace AIMP
 
             virtual StringResult GetFormats(FileFormats flags);
 
-            virtual VoidResult IsSupported(String^ fileName, FileFormats flags);
+            virtual ActionResult IsSupported(String^ fileName, FileFormats flags);
         protected:
             IAIMPServiceFileFormats* GetAimpService() override;
         };

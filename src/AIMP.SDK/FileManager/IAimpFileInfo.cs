@@ -17,7 +17,7 @@ namespace AIMP.SDK.FileManager
     /// <summary>
     /// Storage for extended information about the file.
     /// </summary>
-    public interface IAimpFileInfo
+    public interface IAimpFileInfo : IAimpObject
     {
         /// <summary>
         /// Gets or sets the custom data.

@@ -14,124 +14,103 @@ using namespace AIMP::SDK;
 using namespace System;
 using namespace Runtime::InteropServices;
 
-AimpMenuItem::AimpMenuItem(IAIMPMenuItem* menuItem) : AimpObject(menuItem)
-{
+AimpMenuItem::AimpMenuItem(IAIMPMenuItem* menuItem) : AimpObject(menuItem) {
     _onExecuteEvent = nullptr;
     _onShowEvent = nullptr;
 }
 
-void AimpMenuItem::FreeResources()
-{
+void AimpMenuItem::FreeResources() {
+    AimpObject::FreeResources();
     _onExecuteHandler = nullptr;
     _onExecuteEvent = nullptr;
-    _showHandler.Free();
-    _executeHandler.Free();
 }
 
-String^ AimpMenuItem::Custom::get()
-{
+String^ AimpMenuItem::Custom::get() {
     return String::Empty;
 }
 
-void AimpMenuItem::Custom::set(String^ value)
-{
+void AimpMenuItem::Custom::set(String^ value) {
 }
 
 
-IAimpAction^ AimpMenuItem::Action::get()
-{
+IAimpAction^ AimpMenuItem::Action::get() {
     IAIMPAction* action;
     if (PropertyListExtension::GetObject(InternalAimpObject, AIMP_MENUITEM_PROPID_ACTION, IID_IAIMPAction,
-                                         reinterpret_cast<void**>(&action)) == ActionResultType::OK)
-    {
+                                         reinterpret_cast<void**>(&action)) == ActionResultType::OK) {
         return gcnew AimpAction(action);
     }
 
     return nullptr;
 }
 
-void AimpMenuItem::Action::set(IAimpAction^ value)
-{
+void AimpMenuItem::Action::set(IAimpAction^ value) {
     PropertyListExtension::SetObject(InternalAimpObject, AIMP_MENUITEM_PROPID_ACTION,
                                      static_cast<AimpAction^>(value)->InternalAimpObject);
 }
 
 
-String^ AimpMenuItem::Id::get()
-{
+String^ AimpMenuItem::Id::get() {
     String^ str = nullptr;
     PropertyListExtension::GetString(InternalAimpObject, AIMP_MENUITEM_PROPID_ID, *&str);
     return str;
 }
 
-void AimpMenuItem::Id::set(String^ value)
-{
+void AimpMenuItem::Id::set(String^ value) {
     _id = value;
     PropertyListExtension::SetString(InternalAimpObject, AIMP_MENUITEM_PROPID_ID, value);
 }
 
 
-String^ AimpMenuItem::Name::get()
-{
+String^ AimpMenuItem::Name::get() {
     String^ str = nullptr;
     PropertyListExtension::GetString(InternalAimpObject, AIMP_MENUITEM_PROPID_NAME, *&str);
     return str;
 }
 
-void AimpMenuItem::Name::set(String^ value)
-{
+void AimpMenuItem::Name::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_MENUITEM_PROPID_NAME, value);
 }
 
 
-bool AimpMenuItem::Checked::get()
-{
+bool AimpMenuItem::Checked::get() {
     bool val = false;
     PropertyListExtension::GetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_CHECKED, val);
     return val;
 }
 
-void AimpMenuItem::Checked::set(bool value)
-{
+void AimpMenuItem::Checked::set(bool value) {
     PropertyListExtension::SetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_CHECKED, value);
 }
 
 
-bool AimpMenuItem::Enabled::get()
-{
+bool AimpMenuItem::Enabled::get() {
     bool val = false;
     PropertyListExtension::GetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_ENABLED, val);
     return val;
 }
 
-void AimpMenuItem::Enabled::set(bool value)
-{
+void AimpMenuItem::Enabled::set(bool value) {
     PropertyListExtension::SetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_ENABLED, value);
 }
 
 
-bool AimpMenuItem::Visible::get()
-{
+bool AimpMenuItem::Visible::get() {
     bool val = false;
     PropertyListExtension::GetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_VISIBLE, val);
     return val;
 }
 
-void AimpMenuItem::Visible::set(bool value)
-{
+void AimpMenuItem::Visible::set(bool value) {
     PropertyListExtension::SetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_VISIBLE, value);
 }
 
 
-Bitmap^ AimpMenuItem::Glyph::get()
-{
+Bitmap^ AimpMenuItem::Glyph::get() {
     return nullptr;
 }
 
-void AimpMenuItem::Glyph::set(Bitmap^ value)
-{
-    if (value != nullptr)
-    {
+void AimpMenuItem::Glyph::set(Bitmap^ value) {
+    if (value != nullptr) {
         IAIMPImage* image = AimpConverter::ToAimpImage(value);
         InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_GLYPH, image);
         image->Release();
@@ -139,67 +118,66 @@ void AimpMenuItem::Glyph::set(Bitmap^ value)
 }
 
 
-IAimpMenuItem^ AimpMenuItem::Parent::get()
-{
-    IAIMPMenuItem* item;
-    InternalAimpObject->GetValueAsObject(AIMP_MENUITEM_PROPID_PARENT, IID_IAIMPMenuItem,
-                                         reinterpret_cast<void**>(&item));
-    AimpMenuItem^ parentItem = gcnew AimpMenuItem(item);
-    item->Release();
+IAimpMenuItem^ AimpMenuItem::Parent::get() {
+    if (_parent == nullptr) {
+        IAIMPMenuItem* item = nullptr;
+        const auto result = CheckResult(InternalAimpObject->GetValueAsObject(
+            AIMP_MENUITEM_PROPID_PARENT, IID_IAIMPMenuItem,
+            reinterpret_cast<void**>(&item)));
+        if (result == ActionResultType::OK) {
+            _parent = gcnew AimpMenuItem(item);
+        }
+    }
 
-    return parentItem;
+    return _parent;
 }
 
-void AimpMenuItem::Parent::set(IAimpMenuItem^ value)
-{
-    InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_PARENT,
-                                         static_cast<AimpMenuItem^>(value)->InternalAimpObject);
+void AimpMenuItem::Parent::set(IAimpMenuItem^ value) {
+    const auto result = CheckResult(InternalAimpObject->SetValueAsObject(AIMP_MENUITEM_PROPID_PARENT,
+                                                                         static_cast<AimpMenuItem^>(value)->
+                                                                         InternalAimpObject));
+    if (result != ActionResultType::OK) {
+        throw gcnew AimpActionException(result, "Unable to set parent.");
+    }
 }
 
 
-AimpMenuItemStyle AimpMenuItem::Style::get()
-{
+MenuItemStyle AimpMenuItem::Style::get() {
     int val = 0;
-    PropertyListExtension::GetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_STYLE, val);
-    return static_cast<AimpMenuItemStyle>(val);
+    const auto result = CheckResult(InternalAimpObject->GetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, &val));
+    //PropertyListExtension::GetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_STYLE, val);
+    return static_cast<MenuItemStyle>(val);
 }
 
-void AimpMenuItem::Style::set(AimpMenuItemStyle value)
-{
-    PropertyListExtension::SetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_STYLE, int(value));
+void AimpMenuItem::Style::set(MenuItemStyle value) {
+    PropertyListExtension::SetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_STYLE, static_cast<int>(value));
 }
 
 
-bool AimpMenuItem::IsDefault::get()
-{
+bool AimpMenuItem::IsDefault::get() {
     bool val = false;
     PropertyListExtension::GetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_DEFAULT, val);
     return val;
 }
 
-void AimpMenuItem::IsDefault::set(bool value)
-{
+void AimpMenuItem::IsDefault::set(bool value) {
     PropertyListExtension::SetBool(InternalAimpObject, AIMP_MENUITEM_PROPID_DEFAULT, value);
 }
 
 
-int AimpMenuItem::Shortcut::get()
-{
+int AimpMenuItem::Shortcut::get() {
     int val = 0;
     PropertyListExtension::GetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_SHORTCUT, val);
     return val;
 }
 
-void AimpMenuItem::Shortcut::set(int val)
-{
+void AimpMenuItem::Shortcut::set(int val) {
     PropertyListExtension::SetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_SHORTCUT, val);
 }
 
 
-void AimpMenuItem::OnExecute::add(EventHandler^ onEvent)
-{
-    if (_onExecuteHandler == nullptr)
-    {
+void AimpMenuItem::OnExecute::add(EventHandler^ onEvent) {
+    if (_onExecuteHandler == nullptr) {
         AimpActionEventDelegate^ fp = gcnew AimpActionEventDelegate(this->Execute);
         _executeHandler = GCHandle::Alloc(fp);
         IntPtr ip = Marshal::GetFunctionPointerForDelegate(fp);
@@ -211,10 +189,8 @@ void AimpMenuItem::OnExecute::add(EventHandler^ onEvent)
     }
 }
 
-void AimpMenuItem::OnExecute::remove(EventHandler^ onEvent)
-{
-    if (_onExecuteHandler != nullptr)
-    {
+void AimpMenuItem::OnExecute::remove(EventHandler^ onEvent) {
+    if (_onExecuteHandler != nullptr) {
         _onExecuteHandler = static_cast<EventHandler^>(Delegate::Remove(_onExecuteHandler, onEvent));
         _onExecuteEvent->Release();
         _onExecuteEvent = nullptr;
@@ -223,18 +199,14 @@ void AimpMenuItem::OnExecute::remove(EventHandler^ onEvent)
     }
 }
 
-void AimpMenuItem::OnExecute::raise(Object^ sender, EventArgs^ args)
-{
-    if (_onExecuteHandler != nullptr)
-    {
+void AimpMenuItem::OnExecute::raise(Object^ sender, EventArgs^ args) {
+    if (_onExecuteHandler != nullptr) {
         _onExecuteHandler(sender, args);
     }
 }
 
-void AimpMenuItem::OnShow::add(EventHandler^ onEvent)
-{
-    if (_onShowHandler == nullptr)
-    {
+void AimpMenuItem::OnShow::add(EventHandler^ onEvent) {
+    if (_onShowHandler == nullptr) {
         AimpActionEventDelegate^ fp = gcnew AimpActionEventDelegate(this->Show);
         _showHandler = GCHandle::Alloc(fp);
         IntPtr ip = Marshal::GetFunctionPointerForDelegate(fp);
@@ -246,10 +218,8 @@ void AimpMenuItem::OnShow::add(EventHandler^ onEvent)
     }
 }
 
-void AimpMenuItem::OnShow::remove(EventHandler^ onEvent)
-{
-    if (_onShowHandler != nullptr)
-    {
+void AimpMenuItem::OnShow::remove(EventHandler^ onEvent) {
+    if (_onShowHandler != nullptr) {
         _onShowHandler = static_cast<EventHandler^>(Delegate::Remove(_onShowHandler, onEvent));
         _onShowEvent->Release();
         _onShowEvent = nullptr;
@@ -258,10 +228,8 @@ void AimpMenuItem::OnShow::remove(EventHandler^ onEvent)
     }
 }
 
-void AimpMenuItem::OnShow::raise(Object^ sender, EventArgs^ args)
-{
-    if (_onShowHandler != nullptr)
-    {
+void AimpMenuItem::OnShow::raise(Object^ sender, EventArgs^ args) {
+    if (_onShowHandler != nullptr) {
         _onShowHandler(sender, args);
     }
 }

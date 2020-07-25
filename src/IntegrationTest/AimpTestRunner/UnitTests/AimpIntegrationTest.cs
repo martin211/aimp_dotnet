@@ -17,6 +17,7 @@ using AIMP.SDK;
 using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.Player;
 using AIMP.SDK.Threading;
+using NUnit.Engine;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 
@@ -32,7 +33,8 @@ namespace Aimp.TestRunner.UnitTests
             return assert;
         }
 
-        public static EqualAssert AreEqual(this AimpIntegrationTest testClass, object expected,
+        public static EqualAssert AreEqual(this AimpIntegrationTest testClass,
+            object expected,
             object current,
             string fieldName = null,
             string message = null)
@@ -42,29 +44,46 @@ namespace Aimp.TestRunner.UnitTests
             return assert;
         }
 
-        public static void NotNull<TResult>(this AimpIntegrationTest testClass, Expression<Func<TResult>> current, string message = null)
+        public static EqualAssert AreEqual(this AimpIntegrationTest testClass,
+            object expected,
+            object current,
+            string message)
         {
-            testClass.Asserts.Add(new NotNullAssert(current.GetExpressionMemberName(), current.GetExpressionValue(), message));
+            return testClass.AreEqual(expected, current, string.Empty, message);
         }
 
-        public static void NotNull(this AimpIntegrationTest testClass, object current, string fieldName = null,
+        public static NotNullAssert NotNull<TResult>(this AimpIntegrationTest testClass, Expression<Func<TResult>> current, string message = null)
+        {
+            var assert = new NotNullAssert(current.GetExpressionMemberName(), current.GetExpressionValue(), message);
+            testClass.Asserts.Add(assert);
+            return assert;
+        }
+
+        public static NotNullAssert NotNull(this AimpIntegrationTest testClass, object current, string fieldName = null,
             string message = null)
         {
-            testClass.Asserts.Add(new NotNullAssert(fieldName, current, message));
+            var assert = new NotNullAssert(fieldName, current, message);
+            testClass.Asserts.Add(assert);
+            return assert;
         }
 
-        public static void AreNotEqual(this AimpIntegrationTest testClass, object expected,
+        public static NotEqualAssert AreNotEqual(this AimpIntegrationTest testClass, object expected,
             object current,
             string fieldName = null,
             string message = null)
         {
-            testClass.Asserts.Add(new NotEqualAssert(fieldName, current, expected, message));
+            var assert = new NotEqualAssert(fieldName, current, expected, message);
+            testClass.Asserts.Add(assert);
+            return assert;
         }
 
-        public static void AreNotEqual<TResult>(this AimpIntegrationTest testClass, object expected,
+        public static NotEqualAssert AreNotEqual<TResult>(this AimpIntegrationTest testClass, object expected,
             Expression<Func<TResult>> current, string message = null)
         {
-            testClass.Asserts.Add(new NotEqualAssert(current.GetExpressionMemberName(), current.GetExpressionValue(), expected, message));
+            var assert = new NotEqualAssert(current.GetExpressionMemberName(), current.GetExpressionValue(), expected,
+                message);
+            testClass.Asserts.Add(assert);
+            return assert;
         }
 
         public static void IsTrue(this AimpIntegrationTest testClass, bool value)
@@ -296,7 +315,13 @@ namespace Aimp.TestRunner.UnitTests
         protected AimpIntegrationTest()
         {
             Player = AimpTestContext.Instance.AimpPlayer;
-            RootPath = Path.Combine(Player.Core.GetPath(AimpCorePathType.AIMP_CORE_PATH_PLUGINS), "AimpTestRunner");
+
+            if (Player == null)
+            {
+                throw new NUnitEngineException("Unable to run unit tests. Check that file 'nunit.engine.addins' exists in plugin folder.");
+            }
+
+            RootPath = Path.Combine(Player.Core.GetPath(AimpCorePathType.Plugins), "AimpTestRunner");
             PlaylistPath = Path.Combine(RootPath, "resources", "IntegrationTests.aimppl4");
             TrackPath1 = Path.Combine(RootPath, "resources", "01_atmosphere.mp3");
             TrackPath2 = Path.Combine(RootPath, "resources", "02_loop-mix.mp3");

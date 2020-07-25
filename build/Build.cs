@@ -187,16 +187,14 @@ partial class Build : NukeBuild
             NuGetTasks.NuGetPack(config
                 .SetTargetPath(nugetFolder / "AimpSDK.nuspec"));
 
-            //NuGetTasks.NuGetPack(c => c
-            //    .SetTargetPath(nugetFolder / "AimpSDK.symbols.nuspec")
-            //    .AddProperty("Symbols", string.Empty));
+            NuGetTasks.NuGetPack(config
+                .SetTargetPath(nugetFolder / "AimpSDK.symbols.nuspec")
+                .AddProperty("Symbols", string.Empty));
 
-            //NuGetTasks.NuGetPack(config
-            //    .SetTargetPath(nugetFolder / "AimpSDK.symbols.nuspec")
-            //    .AddProperty("Symbols", string.Empty));
+            NuGetTasks.NuGetPack(config
+                .SetTargetPath(nugetFolder / "AimpSDK.sources.nuspec"));
 
-            //NuGetTasks.NuGetPack(config
-            //    .SetTargetPath(nugetFolder / "AimpSDK.sources.nuspec"));
+            TeamCity.Instance?.PublishArtifacts(nugetFolder / "*.nupkg");
         });
 
     Target Publish => _ => _

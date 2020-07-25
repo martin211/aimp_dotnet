@@ -17,17 +17,17 @@ AimpExtensionPlaylistManagerListener::AimpExtensionPlaylistManagerListener(
 
 void WINAPI AimpExtensionPlaylistManagerListener::PlaylistActivated(IAIMPPlaylist* Playlist)
 {
-    _managedInstance->OnPlaylistActivated(gcnew AimpPlayList(Playlist));
+    _managedInstance->OnPlaylistActivated(gcnew AimpPlayList(Playlist, false));
 }
 
 void WINAPI AimpExtensionPlaylistManagerListener::PlaylistAdded(IAIMPPlaylist* Playlist)
 {
-    _managedInstance->OnPlaylistAdded(gcnew AimpPlayList(Playlist));
+    _managedInstance->OnPlaylistAdded(gcnew AimpPlayList(Playlist, false));
 }
 
 void WINAPI AimpExtensionPlaylistManagerListener::PlaylistRemoved(IAIMPPlaylist* Playlist)
 {
-    _managedInstance->OnPlaylistRemoved(gcnew AimpPlayList(Playlist));
+    _managedInstance->OnPlaylistRemoved(gcnew AimpPlayList(Playlist, false));
 }
 
 HRESULT WINAPI AimpExtensionPlaylistManagerListener::QueryInterface(REFIID riid, LPVOID* ppvObject)

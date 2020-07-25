@@ -18,6 +18,7 @@ namespace Aimp.TestRunner.UnitTests.Player
     public class AimpPlayerTests : AimpIntegrationTest
     {
         [Test, Order(1)]
+        [Ignore("Not working in integration mode")]
         public void Play_PlayList_ShouldReturnOK()
         {
             ExecuteInMainThread(() =>

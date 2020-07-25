@@ -24,7 +24,7 @@ namespace AIMP.SDK
             if (type == typeof(IAimpString))
             {
                 var id = new Guid(AimpObject.AimpString);
-                header = core.CreateObject(ref id);
+                //header = core.CreateObject(ref id);
             }
 
             if (header == IntPtr.Zero)

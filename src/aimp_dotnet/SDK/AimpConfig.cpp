@@ -14,7 +14,7 @@ AimpConfig::AimpConfig(IAIMPConfig* aimpPlayList) : AimpObject(aimpPlayList)
 {
 }
 
-VoidResult AimpConfig::Delete(String^ keyPath)
+ActionResult AimpConfig::Delete(String^ keyPath)
 {
     IAIMPString* str = nullptr;
     auto result = ActionResultType::Fail;
@@ -152,7 +152,7 @@ StringResult AimpConfig::GetValueAsString(String^ keyPath)
     return gcnew AimpActionResult<String^>(result, gcnew String(val->GetData()));
 }
 
-VoidResult AimpConfig::SetValueAsFloat(String^ keyPath, float value)
+ActionResult AimpConfig::SetValueAsFloat(String^ keyPath, float value)
 {
     IAIMPString* str = nullptr;
     auto result = ActionResultType::Fail;
@@ -174,7 +174,7 @@ VoidResult AimpConfig::SetValueAsFloat(String^ keyPath, float value)
     return ACTION_RESULT(result)
 }
 
-VoidResult AimpConfig::SetValueAsInt32(String^ keyPath, int value)
+ActionResult AimpConfig::SetValueAsInt32(String^ keyPath, int value)
 {
     IAIMPString* str = nullptr;
     auto result = ActionResultType::Fail;
@@ -196,7 +196,7 @@ VoidResult AimpConfig::SetValueAsInt32(String^ keyPath, int value)
     return ACTION_RESULT(result)
 }
 
-VoidResult AimpConfig::SetValueAsInt64(String^ keyPath, Int64 value)
+ActionResult AimpConfig::SetValueAsInt64(String^ keyPath, Int64 value)
 {
     IAIMPString* str = nullptr;
     auto result = ActionResultType::Fail;
@@ -218,7 +218,7 @@ VoidResult AimpConfig::SetValueAsInt64(String^ keyPath, Int64 value)
     return ACTION_RESULT(result)
 }
 
-VoidResult AimpConfig::SetValueAsStream(String^ keyPath, IAimpStream^ stream)
+ActionResult AimpConfig::SetValueAsStream(String^ keyPath, IAimpStream^ stream)
 {
     IAIMPString* str = nullptr;
     auto result = ActionResultType::Fail;
@@ -241,7 +241,7 @@ VoidResult AimpConfig::SetValueAsStream(String^ keyPath, IAimpStream^ stream)
     return ACTION_RESULT(result);
 }
 
-VoidResult AimpConfig::SetValueAsString(String^ keyPath, String^ value)
+ActionResult AimpConfig::SetValueAsString(String^ keyPath, String^ value)
 {
     IAIMPString* str = nullptr;
     IAIMPString* val = nullptr;

@@ -27,6 +27,7 @@ namespace AIMP
             String^ _id;
             GCHandle _showHandler;
             GCHandle _executeHandler;
+            IAimpMenuItem^ _parent = nullptr;
 
         internal:
             static void Execute(gcroot<IAimpActionEvent^> sender, IUnknown* data)
@@ -100,10 +101,10 @@ namespace AIMP
                 void set(IAimpMenuItem^ value);
             }
 
-            virtual property AimpMenuItemStyle Style
+            virtual property MenuItemStyle Style
             {
-                AimpMenuItemStyle get();
-                void set(AimpMenuItemStyle value);
+                MenuItemStyle get();
+                void set(MenuItemStyle value);
             }
 
             virtual event EventHandler^ OnExecute
@@ -132,9 +133,9 @@ namespace AIMP
                 void set(int value);
             }
 
-            virtual ActionResultType DeleteChildren()
+            virtual ActionResult DeleteChildren()
             {
-                return CheckResult(InternalAimpObject->DeleteChildren());
+                return gcnew AimpActionResult(CheckResult(InternalAimpObject->DeleteChildren()));
             }
 
         protected:

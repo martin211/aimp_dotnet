@@ -14,7 +14,7 @@
 
 using namespace AIMP::SDK;
 
-typedef AimpActionResult^ VoidResult;
+typedef AimpActionResult^ ActionResult;
 typedef AimpActionResult<System::String^>^ StringResult;
 typedef AimpActionResult<float>^ FloatResult;
 typedef AimpActionResult<int>^ IntResult;
@@ -25,6 +25,7 @@ typedef AimpActionResult<FileManager::IAimpFileInfo^>^ FileInfoResult;
 typedef AimpActionResult<FileManager::IAimpVirtualFile^>^ VirtualFileResult;
 typedef AimpActionResult<FileManager::Commands::IAimpFileSystemCommand^>^ FileSystemCommandResult;
 typedef AimpActionResult<Playlist::IAimpPlaylist^>^ PlaylistResult;
+typedef AimpActionResult<MenuManager::IAimpMenuItem^>^ MenuItemResult;
 
 #define ACTION_RESULT(resultType) gcnew AimpActionResult(resultType);
 #define INT_RESULT(result, resultInt) gcnew AimpActionResult<int>(result, resultInt);

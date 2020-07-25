@@ -25,7 +25,7 @@ namespace AIMP.SDK.Lyrics
         Srt = 2
     }
 
-    public interface IAimpLyrics
+    public interface IAimpLyrics : IAimpObject
     {
         /// <summary>
         /// Gets or sets the song text without tags.
@@ -122,7 +122,7 @@ namespace AIMP.SDK.Lyrics
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        ActionResultType GetCount(ref int value);
+        AimpActionResult<int> GetCount();
 
         /// <summary>
         /// Loads lyrics from file.

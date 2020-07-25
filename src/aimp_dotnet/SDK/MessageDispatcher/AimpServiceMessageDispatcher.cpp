@@ -15,15 +15,16 @@ using namespace Runtime::InteropServices;
 AimpServiceMessageDispatcher::
 AimpServiceMessageDispatcher(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceMessageDispatcher>(core)
 {
-    _hook = nullptr;
 }
 
 AimpServiceMessageDispatcher::~AimpServiceMessageDispatcher()
 {
+    _hook->Release();
+    delete _hook;
     _hook = nullptr;
 }
 
-ActionResultType AimpServiceMessageDispatcher::Send(int message, int param1, IntPtr param2)
+ActionResult AimpServiceMessageDispatcher::Send(AimpCoreMessageType message, int param1, IntPtr param2)
 {
     IAIMPServiceMessageDispatcher* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
@@ -33,7 +34,7 @@ ActionResultType AimpServiceMessageDispatcher::Send(int message, int param1, Int
         if (service != nullptr)
         {
             HWND handle = nullptr;
-            result = CheckResult(service->Send(DWORD(message), int(param1), &handle));
+            result = CheckResult(service->Send(DWORD(message), static_cast<int>(param1), &handle));
             if (result == ActionResultType::OK)
             {
                 param2 = IntPtr(handle);
@@ -45,11 +46,13 @@ ActionResultType AimpServiceMessageDispatcher::Send(int message, int param1, Int
         ReleaseObject(service);
     }
 
-    return result;
+    return ACTION_RESULT(result);
 }
 
 int AimpServiceMessageDispatcher::Register(String^ message)
 {
+    Assert::NotNull(message, "message");
+
     IAIMPServiceMessageDispatcher* service = GetAimpService();
 
     try
@@ -68,8 +71,10 @@ int AimpServiceMessageDispatcher::Register(String^ message)
     return 0;
 }
 
-ActionResultType AimpServiceMessageDispatcher::Hook(IAimpMessageHook^ hook)
+ActionResult AimpServiceMessageDispatcher::Hook(IAimpMessageHook^ hook)
 {
+    Assert::NotNull(hook, "hook");
+
     IAIMPServiceMessageDispatcher* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
 
@@ -86,10 +91,10 @@ ActionResultType AimpServiceMessageDispatcher::Hook(IAimpMessageHook^ hook)
         ReleaseObject(service);
     }
 
-    return result;
+    return ACTION_RESULT(result);
 }
 
-ActionResultType AimpServiceMessageDispatcher::Unhook(IAimpMessageHook^ hook)
+ActionResult AimpServiceMessageDispatcher::Unhook(IAimpMessageHook^ hook)
 {
     IAIMPServiceMessageDispatcher* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
@@ -106,7 +111,7 @@ ActionResultType AimpServiceMessageDispatcher::Unhook(IAimpMessageHook^ hook)
         ReleaseObject(service);
     }
 
-    return result;
+    return ACTION_RESULT(result);
 }
 
 IAIMPServiceMessageDispatcher* AimpServiceMessageDispatcher::GetAimpService()

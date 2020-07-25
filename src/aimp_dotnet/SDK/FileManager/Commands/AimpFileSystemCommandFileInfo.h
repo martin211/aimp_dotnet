@@ -25,7 +25,7 @@ namespace AIMP
 
             virtual LongResult GetFileSize(String^ file);
 
-            virtual VoidResult IsFileExists(String^ file);
+            virtual ActionResult IsFileExists(String^ file);
 
             virtual AimpActionResult<AimpFileAttributes>^ GetFileAttrs(String^ fileName);
         };

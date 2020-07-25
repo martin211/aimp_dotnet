@@ -14,7 +14,7 @@ namespace AIMP.SDK.ActionManager
     /// <summary>
     /// Main feature of Action is an ability to display it in hotkey list, and provide an ability to customize it hotkey.
     /// </summary>
-    public interface IAimpAction : IAimpActionEvent
+    public interface IAimpAction : IAimpActionEvent, IAimpObject
     {
         /// <summary>
         /// Gets or sets the unique action identity, must be unique for all plugins.

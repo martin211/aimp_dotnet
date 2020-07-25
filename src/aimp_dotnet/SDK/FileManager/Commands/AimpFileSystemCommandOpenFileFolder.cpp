@@ -16,7 +16,7 @@ AimpFileSystemCommandOpenFileFolder::AimpFileSystemCommandOpenFileFolder(
 {
 }
 
-VoidResult AimpFileSystemCommandOpenFileFolder::CanProcess(String^ file)
+ActionResult AimpFileSystemCommandOpenFileFolder::CanProcess(String^ file)
 {
     auto str = AimpConverter::ToAimpString(file);
     auto result = CheckResult(InternalAimpObject->CanProcess(str));
@@ -25,7 +25,7 @@ VoidResult AimpFileSystemCommandOpenFileFolder::CanProcess(String^ file)
     return ACTION_RESULT(result);
 }
 
-VoidResult AimpFileSystemCommandOpenFileFolder::Process(String^ file)
+ActionResult AimpFileSystemCommandOpenFileFolder::Process(String^ file)
 {
     auto str = AimpConverter::ToAimpString(file);
     auto result = CheckResult(InternalAimpObject->Process(str));

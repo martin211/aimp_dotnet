@@ -79,29 +79,29 @@ namespace AIMP
                 void set(int value);
             }
 
-            virtual VoidResult Assign(IAimpLyrics^ source);
+            virtual ActionResult Assign(IAimpLyrics^ source);
 
             virtual AimpActionResult<IAimpLyrics^>^ Clone();
 
-            virtual VoidResult Add(int timeStart, int timeFinish, String^ text);
+            virtual ActionResult Add(int timeStart, int timeFinish, String^ text);
 
-            virtual VoidResult Delete(int index);
+            virtual ActionResult Delete(int index);
 
             virtual AimpActionResult<String^>^ Find(int time, int index);
 
             virtual AimpActionResult<String^>^ Get(int index, int timeStart, int timeFinish);
 
-            virtual ActionResultType GetCount(int% value);
+            virtual IntResult GetCount();
 
-            virtual VoidResult LoadFromFile(String^ virtualFileName);
+            virtual ActionResult LoadFromFile(String^ virtualFileName);
 
-            virtual VoidResult LoadFromStream(IAimpStream^ stream, LyricsFormat format);
+            virtual ActionResult LoadFromStream(IAimpStream^ stream, LyricsFormat format);
 
-            virtual VoidResult LoadFromString(String^ lyrics, LyricsFormat format);
+            virtual ActionResult LoadFromString(String^ lyrics, LyricsFormat format);
 
-            virtual VoidResult SaveToFile(String^ fileUri);
+            virtual ActionResult SaveToFile(String^ fileUri);
 
-            virtual VoidResult SaveToStream(IAimpStream^ stream, LyricsFormat format);
+            virtual ActionResult SaveToStream(IAimpStream^ stream, LyricsFormat format);
 
             virtual AimpActionResult<String^>^ SaveToString(LyricsFormat format);
         };

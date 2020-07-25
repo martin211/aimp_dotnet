@@ -59,10 +59,9 @@ namespace AIMP.SDK
         /// Creates the Aimp stream instance.
         /// </summary>
         /// <returns></returns>
+        [Obsolete("Use CreateObject instead it")]
         AimpActionResult<IAimpStream> CreateStream();
 
-        [return: MarshalAs(UnmanagedType.IUnknown)]
-        [Obsolete("DO NOT USE. Work in progress")]
-        IntPtr CreateObject(ref Guid iid);
+        AimpActionResult<IAimpObject> CreateObject<TAimpObject>() where TAimpObject : IAimpObject;
     }
 }

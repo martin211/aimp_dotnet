@@ -9,6 +9,7 @@
 // 
 // ----------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 
@@ -52,6 +53,7 @@ namespace AIMP.SDK.ActionManager
         /// <summary>
         /// Creates the Aimp action instance.
         /// </summary>
+        [Obsolete("Use Core.CreateObject<IAimpAction>")]
         IAimpAction CreateAction();
     }
 }

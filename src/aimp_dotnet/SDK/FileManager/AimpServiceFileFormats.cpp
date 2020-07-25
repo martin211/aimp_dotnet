@@ -42,7 +42,7 @@ StringResult AimpServiceFileFormats::GetFormats(FileFormats flags)
     return gcnew AimpActionResult<String^>(result, formats);
 }
 
-VoidResult AimpServiceFileFormats::IsSupported(String^ fileName, FileFormats flags)
+ActionResult AimpServiceFileFormats::IsSupported(String^ fileName, FileFormats flags)
 {
     IAIMPServiceFileFormats* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;

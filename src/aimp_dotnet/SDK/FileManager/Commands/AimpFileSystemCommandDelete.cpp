@@ -16,7 +16,7 @@ AimpFileSystemCommandDelete(IAIMPFileSystemCommandDelete* aimpObject) : AimpObje
 {
 }
 
-VoidResult AimpFileSystemCommandDelete::CanProcess(String^ file)
+ActionResult AimpFileSystemCommandDelete::CanProcess(String^ file)
 {
     auto str = AimpConverter::ToAimpString(file);
     auto result = CheckResult(InternalAimpObject->CanProcess(str));
@@ -25,7 +25,7 @@ VoidResult AimpFileSystemCommandDelete::CanProcess(String^ file)
     return ACTION_RESULT(result);
 }
 
-VoidResult AimpFileSystemCommandDelete::Process(String^ file)
+ActionResult AimpFileSystemCommandDelete::Process(String^ file)
 {
     auto str = AimpConverter::ToAimpString(file);
     auto result = CheckResult(InternalAimpObject->Process(str));

@@ -86,7 +86,7 @@ namespace AIMP
 
             virtual IntResult Get2(IAimpFileInfo^ fileInfo, AimpFindCovertArtType flags, Object^ userData);
 
-            virtual VoidResult Cancel(int taskId, AimpFindCovertArtType flags);
+            virtual ActionResult Cancel(int taskId, AimpFindCovertArtType flags);
         protected:
             IAIMPServiceAlbumArt* GetAimpService() override;
         private:

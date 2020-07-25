@@ -24,10 +24,10 @@ namespace AIMP.SDK.CustomFileSystem
     {
         public override void Initialize()
         {
-            Player.MenuManager.GetBuiltIn(ParentMenuType.AIMP_MENUID_PLAYER_PLAYLIST_ADDING, out var parent);
-            Player.MenuManager.CreateMenuItem(out var item);
+            var getResult = Player.MenuManager.GetBuiltIn(ParentMenuType.PlayerPlaylistAdding);
+            var item = Player.Core.CreateAimpObject<IAimpMenuItem>().Result;
             item.Name = "MyMusic: Add All Files";
-            item.Parent = parent;
+            item.Parent = getResult.Result;
             item.OnExecute += Item_OnExecute;
             Player.MenuManager.Add(item);
 

@@ -16,6 +16,12 @@ protected:
     [System::Diagnostics::DebuggerBrowsableAttribute(System::Diagnostics::DebuggerBrowsableState::Never)]
     TAimpObject *_aimpObject;
 public:
+    AimpObject(TAimpObject* aimpObject, bool registerAtMemoryManager) : _aimpObject(aimpObject) {
+        if (registerAtMemoryManager) {
+            RegisterAtMemoryManager();
+        }
+    }
+
     AimpObject(TAimpObject *aimpObject) : _aimpObject(aimpObject)
     {
         RegisterAtMemoryManager();

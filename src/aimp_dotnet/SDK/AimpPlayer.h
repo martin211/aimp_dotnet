@@ -203,23 +203,23 @@ namespace AIMP
             IAimpServiceMessageDispatcher^ get();
         }
 
-        virtual VoidResult Pause();
+        virtual ActionResult Pause();
 
-        virtual VoidResult Stop();
+        virtual ActionResult Stop();
 
-        virtual VoidResult Resume();
+        virtual ActionResult Resume();
 
-        virtual VoidResult StopAfterTrack();
+        virtual ActionResult StopAfterTrack();
 
-        virtual VoidResult GoToNext();
+        virtual ActionResult GoToNext();
 
-        virtual VoidResult GoToPrev();
+        virtual ActionResult GoToPrev();
 
-        virtual VoidResult Play(IAimpPlaybackQueueItem^ queueItem);
+        virtual ActionResult Play(IAimpPlaybackQueueItem^ queueItem);
 
-        virtual VoidResult Play(IAimpPlaylistItem^ playListItem);
+        virtual ActionResult Play(IAimpPlaylistItem^ playListItem);
 
-        virtual VoidResult Play(IAimpPlaylist^ playList);
+        virtual ActionResult Play(IAimpPlaylist^ playList);
 
         virtual property IAimpServiceSynchronizer^ ServiceSynchronizer
         {
