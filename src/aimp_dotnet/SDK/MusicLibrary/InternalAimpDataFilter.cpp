@@ -7,7 +7,7 @@
 
 #include "Stdafx.h"
 #include "InternalAimpDataFilter.h"
-#include "AimpDataFilter.h"
+#include "DataFilter/AimpDataFilter.h"
 
 using namespace AIMP::SDK;
 using namespace MusicLibrary;
@@ -20,20 +20,19 @@ InternalAimpDataFilter::InternalAimpDataFilter(gcroot<IAimpDataFilter^> managedI
 
 HRESULT InternalAimpDataFilter::Assign(IAIMPMLDataFilter* Source)
 {
-    return HRESULT(_managedInstance->Assign(gcnew AimpDataFilter(Source)));
+    return HRESULT(_managedInstance->Assign(gcnew AimpDataFilter(Source))->ResultType);
 }
 
 HRESULT InternalAimpDataFilter::Clone(void** Filter)
 {
-    auto res = ActionResultType::Fail;
-    IAimpDataFilter^ clone = nullptr;
-    res = _managedInstance->Clone(clone);
-    if (res == ActionResultType::OK && clone != nullptr)
+    auto res = _managedInstance->Clone();
+    
+    if (res->ResultType == ActionResultType::OK)
     {
-        *Filter = new InternalAimpDataFilter(clone);
+        *Filter = new InternalAimpDataFilter(res->Result);
     }
 
-    return HRESULT(res);
+    return HRESULT(res->ResultType);
 }
 
 HRESULT WINAPI InternalAimpDataFilter::GetValueAsInt32(int PropertyID, int* Value)

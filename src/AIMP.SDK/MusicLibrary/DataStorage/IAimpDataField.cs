@@ -16,51 +16,51 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
     public enum AimpDataFieldType
     {
         None = 0,
-        AIMPML_FIELDTYPE_INT32 = 1,
-        AIMPML_FIELDTYPE_INT64 = 2,
-        AIMPML_FIELDTYPE_FLOAT = 3,
-        AIMPML_FIELDTYPE_STRING = 4,
+        Int32 = 1,
+        Int64 = 2,
+        Float = 3,
+        String = 4,
 
         /// <summary>
         /// Display value is formatted data time value (format string is depended from the context).
         /// </summary>
-        AIMPML_FIELDTYPE_DATETIME = 10,
+        DateTime = 10,
 
         /// <summary>
         /// Display value is formatted time value (format string is depended from the context).
         /// </summary>
-        AIMPML_FIELDTYPE_DURATION = 11,
+        Duration = 11,
 
         /// <summary>
         /// Display value is formatted file size value (format string is depended from the context).
         /// </summary>
-        AIMPML_FIELDTYPE_FILESIZE = 12,
+        FileSize = 12,
 
         /// <summary>
         /// Grouping tree split the value by levels by the "\" and "/" characters. Grouping by this field with other fields is not available.
         /// </summary>
-        AIMPML_FIELDTYPE_FILENAME = 13
+        FileName = 13
     }
 
     [Flags]
     public enum AimpDataFieldFlagsType
     {
         None = 0,
-        AIMPML_FIELDFLAG_GROUPING = 1,
-        AIMPML_FIELDFLAG_FILTERING = 2,
-        AIMPML_FIELDFLAG_INTERNAL = 4,
-        AIMPML_FIELDFLAG_REQUIRED = 8
+        Grouping = 1,
+        Filtering = 2,
+        Internal = 4,
+        Required = 8
     }
 
     public enum ImageType
     {
-        AIMPML_FIELDIMAGE_FOLDER = 0,
-        AIMPML_FIELDIMAGE_ARTIST = 1,
-        AIMPML_FIELDIMAGE_DISK = 2,
-        AIMPML_FIELDIMAGE_NOTE = 3,
-        AIMPML_FIELDIMAGE_STAR = 4,
-        AIMPML_FIELDIMAGE_CALENDAR = 5,
-        AIMPML_FIELDIMAGE_LABEL = 6
+        Folder = 0,
+        Artist = 1,
+        Disk = 2,
+        Note = 3,
+        Star = 4,
+        Calendar = 5,
+        Label = 6
     }
 
     /// <summary>

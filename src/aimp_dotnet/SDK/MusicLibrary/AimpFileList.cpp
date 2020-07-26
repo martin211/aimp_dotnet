@@ -5,7 +5,7 @@
 // Mail: mail4evgeniy@gmail.com
 // ----------------------------------------------------
 
-z // ----------------------------------------------------
+// ----------------------------------------------------
 // 
 // AIMP DotNet SDK
 //  
@@ -28,7 +28,7 @@ AimpFileList::AimpFileList(IAIMPMLFileList* aimpObject) : AimpObject(aimpObject)
 {
 }
 
-ActionResultType AimpFileList::Add(Object^ id, String^ fileName)
+ActionResult AimpFileList::Add(Object^ id, String^ fileName)
 {
     IAIMPString* sFileName = AimpConverter::ToAimpString(fileName);
     ActionResultType result = ActionResultType::Fail;
@@ -46,20 +46,20 @@ ActionResultType AimpFileList::Add(Object^ id, String^ fileName)
         }
     }
 
-    return result;
+    return ACTION_RESULT(result);
 }
 
-ActionResultType AimpFileList::Clear()
+ActionResult AimpFileList::Clear()
 {
-    return CheckResult(InternalAimpObject->Clear());
+    return ACTION_RESULT(CheckResult(InternalAimpObject->Clear()));
 }
 
-ActionResultType AimpFileList::Delete(int index)
+ActionResult AimpFileList::Delete(int index)
 {
-    return CheckResult(InternalAimpObject->Delete(index));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->Delete(index)));
 }
 
-ActionResultType AimpFileList::Insert(int index, Object^ id, String^ fileName)
+ActionResult AimpFileList::Insert(int index, Object^ id, String^ fileName)
 {
     IAIMPString* sFileName = AimpConverter::ToAimpString(fileName);
     ActionResultType result = ActionResultType::Fail;
@@ -77,7 +77,7 @@ ActionResultType AimpFileList::Insert(int index, Object^ id, String^ fileName)
         }
     }
 
-    return result;
+    return ACTION_RESULT(result);
 }
 
 int AimpFileList::GetCount()
@@ -85,10 +85,10 @@ int AimpFileList::GetCount()
     return InternalAimpObject->GetCount();
 }
 
-ActionResultType AimpFileList::GetFileName(int index, String^% fileName)
+AimpActionResult<String^>^ AimpFileList::GetFileName(int index)
 {
     IAIMPString* str = nullptr;
-    fileName = nullptr;
+    String^ fileName = nullptr;
     ActionResultType result = ActionResultType::Fail;
 
     try
@@ -99,8 +99,6 @@ ActionResultType AimpFileList::GetFileName(int index, String^% fileName)
         {
             fileName = AimpConverter::ToManagedString(str);
         }
-
-        return result;
     }
     finally
     {
@@ -110,9 +108,11 @@ ActionResultType AimpFileList::GetFileName(int index, String^% fileName)
             str = nullptr;
         }
     }
+
+    return gcnew AimpActionResult<String^>(result, fileName);
 }
 
-ActionResultType AimpFileList::SetFileName(int index, String^ fileName)
+ActionResult AimpFileList::SetFileName(int index, String^ fileName)
 {
     IAIMPString* sFileName = AimpConverter::ToAimpString(fileName);
     ActionResultType result = ActionResultType::Fail;
@@ -130,13 +130,13 @@ ActionResultType AimpFileList::SetFileName(int index, String^ fileName)
         }
     }
 
-    return result;
+    return ACTION_RESULT(result);
 }
 
-ActionResultType AimpFileList::GetId(int index, Object^% id)
+AimpActionResult<Object^>^ AimpFileList::GetId(int index)
 {
     VARIANT* idVar;
-    id = nullptr;
+    Object^ id = nullptr;
     ActionResultType result = ActionResultType::Fail;
 
     try
@@ -153,17 +153,17 @@ ActionResultType AimpFileList::GetId(int index, Object^% id)
         idVar = nullptr;
     }
 
-    return result;
+    return gcnew AimpActionResult<Object^>(result, id);
 }
 
-ActionResultType AimpFileList::SetId(int index, Object^ id)
+ActionResult AimpFileList::SetId(int index, Object^ id)
 {
-    return CheckResult(InternalAimpObject->SetID(index, &AimpConverter::ToNativeVariant(id)));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->SetID(index, &AimpConverter::ToNativeVariant(id))));
 }
 
-ActionResultType AimpFileList::Clone(IAimpFileList^% list)
+AimpActionResult<IAimpFileList^>^ AimpFileList::Clone()
 {
-    list = nullptr;
+    IAimpFileList^ list = nullptr;
 
     IAIMPMLFileList* cloneList = nullptr;
     ActionResultType res = ActionResultType::Fail;
@@ -186,5 +186,5 @@ ActionResultType AimpFileList::Clone(IAimpFileList^% list)
         }
     }
 
-    return res;
+    return gcnew AimpActionResult<IAimpFileList^>(res, list);
 }

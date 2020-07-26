@@ -33,7 +33,7 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         /// <param name="filter">The filter.</param>
         /// <param name="selection">The selection.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType AppendFilter(IAimpDataFilterGroup filter, IAimpGroupingTreeSelection selection);
+        AimpActionResult AppendFilter(IAimpDataFilterGroup filter, IAimpGroupingTreeSelection selection);
 
         /// <summary>
         /// Gets the capabilities.
@@ -46,13 +46,13 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         /// <param name="selection">The selection.</param>
         /// <param name="data">The data.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType GetData(IAimpGroupingTreeSelection selection, out IAimpGroupingTreeDataProviderSelection data);
+        AimpActionResult<IAimpGroupingTreeDataProviderSelection> GetData(IAimpGroupingTreeSelection selection);
 
         /// <summary>
         /// Returns the name of top level field for alphabetic index.
         /// </summary>
         /// <param name="fieldName">Name of the field.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType GetFieldForAlphabeticIndex(out string fieldName);
+        AimpActionResult<string> GetFieldForAlphabeticIndex();
     }
 }

@@ -20,6 +20,6 @@ namespace AIMP.SDK.MusicLibrary.Extension.Command
         /// </summary>
         /// <param name="files">List of the file names.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType Add(IList<string> files);
+        AimpActionResult Add(IList<string> files);
     }
 }

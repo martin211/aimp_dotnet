@@ -7,6 +7,8 @@
 
 #include "Stdafx.h"
 #include "AimpServiceMusicLibraryUI.h"
+#include "AimpFileList.h"
+#include "DataFilter/AimpDataFilter.h"
 
 using namespace AIMP::SDK;
 
@@ -15,9 +17,9 @@ AimpServiceMusicLibraryUI(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceM
 {
 }
 
-ActionResultType AimpServiceMusicLibraryUI::GetFiles(FilesType flags, IAimpFileList^% list)
+AimpActionResult<IAimpFileList^>^ AimpServiceMusicLibraryUI::GetFiles(FilesType flags)
 {
-    list = nullptr;
+    IAimpFileList^ list = nullptr;
     IAIMPServiceMusicLibraryUI* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
 
@@ -26,7 +28,7 @@ ActionResultType AimpServiceMusicLibraryUI::GetFiles(FilesType flags, IAimpFileL
         if (service != nullptr)
         {
             IAIMPMLFileList* l = nullptr;
-            result = CheckResult(service->GetFiles(int(flags), l));
+            result = CheckResult(service->GetFiles(static_cast<int>(flags), l));
 
             if (result == ActionResultType::OK && l != nullptr)
             {
@@ -39,12 +41,12 @@ ActionResultType AimpServiceMusicLibraryUI::GetFiles(FilesType flags, IAimpFileL
         ReleaseObject(service);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpFileList^>(result, list);
 }
 
-ActionResultType AimpServiceMusicLibraryUI::GetGroupingFilter(IAimpDataFilter^% filter)
+AimpActionResult<IAimpDataFilter^>^ AimpServiceMusicLibraryUI::GetGroupingFilter()
 {
-    filter = nullptr;
+    IAimpDataFilter^ filter = nullptr;
     ActionResultType result = ActionResultType::Fail;
     IAIMPServiceMusicLibraryUI* service = GetAimpService();
 
@@ -66,12 +68,12 @@ ActionResultType AimpServiceMusicLibraryUI::GetGroupingFilter(IAimpDataFilter^% 
         ReleaseObject(service);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpDataFilter^>(result, filter);
 }
 
-ActionResultType AimpServiceMusicLibraryUI::GetGroupingFilterPath(String^% path)
+StringResult AimpServiceMusicLibraryUI::GetGroupingFilterPath()
 {
-    path = String::Empty;
+    String^ path = String::Empty;
     IAIMPServiceMusicLibraryUI* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
 
@@ -93,10 +95,10 @@ ActionResultType AimpServiceMusicLibraryUI::GetGroupingFilterPath(String^% path)
         ReleaseObject(service);
     }
 
-    return result;
+    return STRING_RESULT(result, path);
 }
 
-ActionResultType AimpServiceMusicLibraryUI::SetGroupingFilterPath(String^ path)
+ActionResult AimpServiceMusicLibraryUI::SetGroupingFilterPath(String^ path)
 {
     IAIMPServiceMusicLibraryUI* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
@@ -116,7 +118,7 @@ ActionResultType AimpServiceMusicLibraryUI::SetGroupingFilterPath(String^ path)
         ReleaseObject(strPath);
     }
 
-    return result;
+    return ACTION_RESULT(result);
 }
 
 IAIMPServiceMusicLibraryUI* AimpServiceMusicLibraryUI::GetAimpService()

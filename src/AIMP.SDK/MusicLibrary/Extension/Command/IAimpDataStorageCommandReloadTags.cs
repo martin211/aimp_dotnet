@@ -15,6 +15,6 @@ namespace AIMP.SDK.MusicLibrary.Extension.Command
 {
     public interface IAimpDataStorageCommandReloadTags
     {
-        ActionResultType ReloadTags(IAimpFileList files);
+        AimpActionResult ReloadTags(IAimpFileList files);
     }
 }

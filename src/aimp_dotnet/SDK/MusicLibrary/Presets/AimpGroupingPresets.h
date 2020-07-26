@@ -8,7 +8,7 @@
 #pragma once
 #include "SDK\AimpObject.h"
 #include "AIMPSDK\AIMPSDK.h"
-#include "InternalAimpGroupingTreeDataProvider.h"
+#include "SDK/MusicLibrary/InternalAimpGroupingTreeDataProvider.h"
 
 namespace AIMP
 {
@@ -29,30 +29,27 @@ namespace AIMP
         public:
             explicit AimpGroupingPresets(IAIMPMLGroupingPresets* aimpObject);
 
-            virtual ActionResultType Add(String^ id, String^ name, IAimpGroupingTreeDataProvider^ provider,
-                                         IAimpGroupingPreset^% preset);
+            virtual TYPED_RESULT(IAimpGroupingPreset) Add(String^ id, String^ name, IAimpGroupingTreeDataProvider^ provider);
 
-            virtual ActionResultType Add(String^ id, String^ name, Generic::IList<String^>^ fieldNames,
-                                         IAimpGroupingPresetStandard^% preset);
+            virtual TYPED_RESULT(IAimpGroupingPresetStandard) Add(String^ id, String^ name, Generic::IList<String^>^ fieldNames);
 
-            virtual ActionResultType Add(System::String^ id, String^ name, String^ fieldName,
-                                         IAimpGroupingPresetStandard^% preset);
+            virtual TYPED_RESULT(IAimpGroupingPresetStandard) Add(String^ id, String^ name, String^ fieldName);
 
             virtual void BeginUpdate();
 
             virtual void EndUpdate();
 
-            virtual ActionResultType Delete(int index);
+            virtual ActionResult Delete(int index);
 
             virtual int GetCount(void);
 
-            virtual ActionResultType Get(int index, IAimpGroupingPreset^% preset);
+            virtual TYPED_RESULT(IAimpGroupingPreset) GetPreset(int index);
 
-            virtual ActionResultType Get(int index, IAimpGroupingPresetStandard^% preset);
+            virtual TYPED_RESULT(IAimpGroupingPresetStandard) GetStandardPreset(int index);
 
-            virtual ActionResultType GetById(String^ id, IAimpGroupingPreset^% preset);
+            virtual TYPED_RESULT(IAimpGroupingPreset) GetPresetById(String^ id);
 
-            virtual ActionResultType GetById(String^ id, IAimpGroupingPresetStandard^% preset);
+            virtual TYPED_RESULT(IAimpGroupingPresetStandard) GetStandardPresetById(String^ id);
         };
     }
 }

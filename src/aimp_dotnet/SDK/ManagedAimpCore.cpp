@@ -321,8 +321,7 @@ namespace AIMP
                 return _core->RegisterExtension(IID_IAIMPServiceVisualizations, ext);
             }
 
-            Extension::IAimpExtensionDataStorage^ dataStorageExtension = dynamic_cast<Extension::
-                IAimpExtensionDataStorage^>(extension);
+            auto dataStorageExtension = dynamic_cast<MusicLibrary::Extension::IAimpExtensionDataStorage^>(extension);
             if (dataStorageExtension != nullptr)
             {
                 if (_musicLibraryDataStorage != nullptr)

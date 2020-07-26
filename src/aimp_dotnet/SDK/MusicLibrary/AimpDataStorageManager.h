@@ -20,10 +20,10 @@ namespace AIMP
         public:
             explicit AimpDataStorageManager(IAIMPMLDataStorageManager* manager);
 
-            virtual ActionResultType BackgroundTaskStarted(int id, String^ caption,
+            virtual ActionResult BackgroundTaskStarted(int id, String^ caption,
                                                            ActionManager::IAimpActionEvent^ cancelEvent);
 
-            virtual ActionResultType BackgroundTaskFinished(int id);
+            virtual ActionResult BackgroundTaskFinished(int id);
 
             virtual void Changed();
         };

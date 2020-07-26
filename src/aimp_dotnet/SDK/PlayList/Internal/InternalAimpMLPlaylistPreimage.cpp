@@ -27,11 +27,11 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetFilter(IAIMPMLDataFilter** Fil
     if (preimage != nullptr)
     {
         IAimpDataFieldFilter^ f = nullptr;
-        res = preimage->GetFilter(*&f);
+        const auto result = preimage->GetFilter();
 
-        if (res == ActionResultType::OK && f != nullptr)
+        if (result->ResultType == ActionResultType::OK && result->Result != nullptr)
         {
-            *Filter = new InternalAimpDataFilter(nullptr);
+            *Filter = new InternalAimpDataFilter(result->Result);
         }
     }
 

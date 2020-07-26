@@ -76,18 +76,6 @@ namespace AIMP.DotNet.MusicLibrary.Preimage
             
         }
 
-        public ActionResultType GetFilter(out IAimpDataFieldFilter filter)
-        {
-            filter = null;
-            return ActionResultType.OK;
-        }
-
-        public ActionResultType GetStorage(out IAimpDataStorage storage)
-        {
-            storage = null;
-            return ActionResultType.OK;
-        }
-
         public ActionResultType GetFiles(IAimpTaskOwner owner, out int preimageFlags, out IList dataList)
         {
             preimageFlags = 0;
@@ -97,6 +85,16 @@ namespace AIMP.DotNet.MusicLibrary.Preimage
             };
 
             return ActionResultType.OK;
+        }
+
+        public AimpActionResult<IAimpDataFilter> GetFilter()
+        {
+            return new AimpActionResult<IAimpDataFilter>(ActionResultType.OK, null);
+        }
+
+        public AimpActionResult<IAimpDataStorage> GetStorage()
+        {
+            return new AimpActionResult<IAimpDataStorage>(ActionResultType.OK, null);
         }
     }
 }

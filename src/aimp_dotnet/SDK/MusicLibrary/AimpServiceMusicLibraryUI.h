@@ -22,13 +22,13 @@ namespace AIMP
         public:
             explicit AimpServiceMusicLibraryUI(ManagedAimpCore^ core);
 
-            virtual ActionResultType GetFiles(FilesType flags, IAimpFileList^% list);
+            virtual TYPED_RESULT(IAimpFileList) GetFiles(FilesType flags);
 
-            virtual ActionResultType GetGroupingFilter(IAimpDataFilter^% filter);
+            virtual TYPED_RESULT(IAimpDataFilter) GetGroupingFilter();
 
-            virtual ActionResultType GetGroupingFilterPath(String^% path);
+            virtual StringResult GetGroupingFilterPath();
 
-            virtual ActionResultType SetGroupingFilterPath(String^ path);
+            virtual ActionResult SetGroupingFilterPath(String^ path);
         protected:
             IAIMPServiceMusicLibraryUI* GetAimpService() override;
         };

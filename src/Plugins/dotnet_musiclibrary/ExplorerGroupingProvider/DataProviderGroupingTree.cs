@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using AIMP.SDK;
 using AIMP.SDK.MusicLibrary.DataFilter;
 using AIMP.SDK.MusicLibrary.DataStorage;
@@ -42,23 +43,26 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
         {
         }
 
-        public ActionResultType AppendFilter(IAimpDataFilterGroup filter, IAimpGroupingTreeSelection selection)
+        public AimpActionResult AppendFilter(IAimpDataFilterGroup filter, IAimpGroupingTreeSelection selection)
         {
             filter.BeginUpdate();
             try
             {
-                filter.Operation = FilterGroupOperationType.AND;
+                filter.Operation = FilterGroupOperationType.And;
                 for (var i = 0; i < selection.GetCount(); i++)
                 {
-                    string fName;
-                    object fValue;
-                    if (selection.GetValue(i, out fName, out fValue) == ActionResultType.OK)
+                    var selectionResult = selection.GetValue(i);
+                    if (selectionResult.ResultType == ActionResultType.OK)
                     {
+                        string fName = selectionResult.Item1;
+                        object fValue = selectionResult.Item2;
+
                         IAimpDataFieldFilter fFilter;
                         fValue = fValue.ToString()
                             .Replace($"MyComputer\\{DataStorageCategoryType.LocalDisks}\\", string.Empty)
                             .Replace($"MyComputer\\{DataStorageCategoryType.Other}\\", string.Empty);
-                        filter.Add(fName, fValue, null, FieldFilterOperationType.AIMPML_FIELDFILTER_OPERATION_EQUALS, out fFilter);
+                        var result = filter.Add(fName, fValue, null, FieldFilterOperationType.Equals);
+                        fFilter = result.Result;
                     }
                 }
             }
@@ -67,7 +71,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                 filter.EndUpdate();
             }
 
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
         public CapabilitiesFlags GetCapabilities()
@@ -75,40 +79,40 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
             return CapabilitiesFlags.HideAllData | CapabilitiesFlags.DontSort;
         }
 
-        public ActionResultType GetData(IAimpGroupingTreeSelection selection, out IAimpGroupingTreeDataProviderSelection data)
+        public AimpActionResult<IAimpGroupingTreeDataProviderSelection> GetData(IAimpGroupingTreeSelection selection)
         {
-            string outFieldName;
-            object outValue;
-            data = null;
+            IAimpGroupingTreeDataProviderSelection data = null;
 
-            if (LogResult(selection.GetValue(0, out outFieldName, out outValue)) == ActionResultType.OK)
+            var valueResult = selection.GetValue(0);
+
+            if (valueResult.ResultType == ActionResultType.OK)
             {
                 try
                 {
+                    object outValue = valueResult.Item2;
+
                     if (!string.IsNullOrWhiteSpace(outValue?.ToString()))
                     {
                         var pathParts = outValue.ToString().Split(new[] {"\\"}, StringSplitOptions.RemoveEmptyEntries);
                         var category = (DataStorageCategoryType) Enum.Parse(typeof(DataStorageCategoryType), pathParts[1]);
                         data = new DataProviderGroupingTreeSelection(_dataProviders[category](outValue.ToString()));
-                        return ActionResultType.OK;
+                        return new AimpActionResult<IAimpGroupingTreeDataProviderSelection>(ActionResultType.OK, data);
                     }
                 }
                 catch (Exception)
                 {
-                    return ActionResultType.Fail;
+                    return new AimpActionResult<IAimpGroupingTreeDataProviderSelection>(ActionResultType.Fail, null);
                 }
             }
 
             data = new DataProviderGroupingTreeSelection(PopulateRoot());
 
-            return ActionResultType.OK;
+            return new AimpActionResult<IAimpGroupingTreeDataProviderSelection>(ActionResultType.OK, data);
         }
 
-        public ActionResultType GetFieldForAlphabeticIndex(out string fieldName)
+        public AimpActionResult<string> GetFieldForAlphabeticIndex()
         {
-            System.Diagnostics.Debug.WriteLine("GetFieldForAlphabeticIndex");
-            fieldName = string.Empty;
-            return ActionResultType.OK;
+            return new AimpActionResult<string>(ActionResultType.OK, string.Empty);
         }
 
         private DataProviderGroupingTreeData PopulateRoot()
@@ -120,7 +124,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                     Standalone = true,
                     Value = $"MyComputer\\{DataStorageCategoryType.LocalDisks}",
                     HasChildren = true,
-                    ImageIndex = (int) ImageType.AIMPML_FIELDIMAGE_FOLDER,
+                    ImageIndex = (int) ImageType.Folder,
                     DisplayValue = "LocalDisks"
                 },
                 new DataProviderGroupingTreeNode
@@ -128,7 +132,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                     Standalone = true,
                     Value = $"MyComputer\\{DataStorageCategoryType.Other}",
                     HasChildren = false,
-                    ImageIndex = (int) ImageType.AIMPML_FIELDIMAGE_FOLDER,
+                    ImageIndex = (int) ImageType.Folder,
                     DisplayValue = "Other"
                 }
             };
@@ -144,7 +148,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                 var drivers = DriveInfo.GetDrives().Where(c => c.DriveType == DriveType.Fixed).ToList();
                 result.AddRange(drivers.Select(driver => new DataProviderGroupingTreeNode
                 {
-                    ImageIndex = (int) ImageType.AIMPML_FIELDIMAGE_FOLDER,
+                    ImageIndex = (int) ImageType.Folder,
                     Standalone = true,
                     HasChildren = true,
                     DisplayValue = driver.Name,
@@ -163,7 +167,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                         Value = $"{(data.EndsWith("\\") ? data : data + "\\" )}{dir.Name}\\",
                         HasChildren = dir.GetDirectories().Any(),
                         Standalone = true,
-                        ImageIndex = (int)ImageType.AIMPML_FIELDIMAGE_FOLDER
+                        ImageIndex = (int)ImageType.Folder
                     }));
             }
 

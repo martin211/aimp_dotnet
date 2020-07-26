@@ -7,7 +7,7 @@
 
 #include "Stdafx.h"
 #include "AimpDataStorage.h"
-#include "AimpGroupingPreset.h"
+#include "Presets/AimpGroupingPreset.h"
 
 using namespace AIMP::SDK;
 

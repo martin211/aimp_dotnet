@@ -17,9 +17,9 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 {
     public class CustomAimpGroupingTreeDataProvider : IAimpGroupingTreeDataProvider
     {
-        public ActionResultType AppendFilter(IAimpDataFilterGroup filter, IAimpGroupingTreeSelection selection)
+        public AimpActionResult AppendFilter(IAimpDataFilterGroup filter, IAimpGroupingTreeSelection selection)
         {
-            return ActionResultType.NotImplemented;
+            return new AimpActionResult(ActionResultType.NotImplemented);
         }
 
         public CapabilitiesFlags GetCapabilities()
@@ -27,32 +27,29 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
             return CapabilitiesFlags.None;
         }
 
-        public ActionResultType GetData(IAimpGroupingTreeSelection selection, out IAimpGroupingTreeDataProviderSelection data)
+        public AimpActionResult<IAimpGroupingTreeDataProviderSelection> GetData(IAimpGroupingTreeSelection selection)
         {
-            data = null;
-
-            string name;
-            object value;
+            IAimpGroupingTreeDataProviderSelection data = null;
 
             var count = selection.GetCount();
 
             if (count > 0)
             {
-                if (selection.GetValue(0, out name, out value) == ActionResultType.OK)
+                var r = selection.GetValue(0);
+                if (r.ResultType == ActionResultType.OK)
                 {
-                    return ActionResultType.OK;
+                    return new AimpActionResult<IAimpGroupingTreeDataProviderSelection>(ActionResultType.OK, data);
                 }
             }
 
             data = new CustomAimpGroupingTreeDataProviderSelection();
 
-            return ActionResultType.OK;
+            return new AimpActionResult<IAimpGroupingTreeDataProviderSelection>(ActionResultType.OK, data);
         }
 
-        public ActionResultType GetFieldForAlphabeticIndex(out string fieldName)
+        public AimpActionResult<string> GetFieldForAlphabeticIndex()
         {
-            fieldName = "Test";
-            return ActionResultType.OK;
+            return new AimpActionResult<string>(ActionResultType.OK, "Test");
         }
     }
 }

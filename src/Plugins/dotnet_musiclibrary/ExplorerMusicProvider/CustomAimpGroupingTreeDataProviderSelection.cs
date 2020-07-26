@@ -16,29 +16,24 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 {
     public class CustomAimpGroupingTreeDataProviderSelection : IAimpGroupingTreeDataProviderSelection
     {
-        public ActionResultType GetDisplayValue(out string displayValue)
+        public AimpActionResult<string> GetDisplayValue()
         {
-            displayValue = "Test value";
-            return ActionResultType.OK;
+            return new AimpActionResult<string>(ActionResultType.OK, "Test value");
         }
 
         public GroupingTreeNodeFlags GetFlags()
         {
-            return GroupingTreeNodeFlags.AIMPML_GROUPINGTREENODE_FLAG_HASCHILDREN;
+            return GroupingTreeNodeFlags.HasChildren;
         }
 
-        public ActionResultType GetImageIndex(out FieldImageIndex imageIndex)
+        public AimpActionResult<FieldImageIndex> GetImageIndex()
         {
-            imageIndex = FieldImageIndex.AIMPML_FIELDIMAGE_FOLDER;
-            return ActionResultType.OK;
+            return new AimpActionResult<FieldImageIndex>(ActionResultType.OK, FieldImageIndex.Folder);
         }
 
-        public ActionResultType GetValue(out string fieldName, out object value)
+        public AimpActionResult<string, object> GetValue()
         {
-            fieldName = "fn";
-            value = 1;
-
-            return ActionResultType.OK;
+            return new AimpActionResult<string, object>(ActionResultType.OK, "fn", 1);
         }
 
         public bool NextRow()

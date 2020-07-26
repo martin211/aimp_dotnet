@@ -15,6 +15,6 @@ namespace AIMP.SDK.MusicLibrary.Extension.Command
     {
         bool CanDelete(bool physically);
 
-        ActionResultType Delete(IAimpFileList files, bool physically);
+        AimpActionResult Delete(IAimpFileList files, bool physically);
     }
 }

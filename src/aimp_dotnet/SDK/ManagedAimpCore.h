@@ -8,6 +8,7 @@
 #pragma once
 #include <Unknwnbase.h>
 #include "AimpSdk.h"
+#include "MusicLibrary/Extension/AimpExtensionDataStorage.h"
 #include "Playback/AimpExtensionPlaybackQueue.h"
 #include "Playback/AimpExtensionPlayerHook.h"
 #include "SDK\Options\OptionsDialogFrameExtension.h"
@@ -16,7 +17,6 @@
 #include "SDK\PlayList\AimpExtensionPlaylistManagerListener.h"
 #include "SDK\Visuals\AimpExtensionEmbeddedVisualization.h"
 #include "SDK\Visuals\AimpExtensionCustomVisualization.h"
-#include "SDK\MusicLibrary\AimpExtensionDataStorage.h"
 #include "SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h"
 #include "SDK\FileManager\InternalAimpExtensionFileInfoProvider.h"
 #include "SDK\FileManager\InternalAimpExtensionFileSystem.h"
@@ -32,7 +32,7 @@ namespace AIMP
     namespace SDK
     {
         using namespace System;
-        using namespace Generic;
+        using namespace Collections::Generic;
 
         using namespace SDK;
         using namespace Playlist;

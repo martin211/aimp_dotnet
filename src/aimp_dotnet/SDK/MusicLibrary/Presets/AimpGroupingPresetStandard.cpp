@@ -8,7 +8,7 @@
 #include "Stdafx.h"
 #include "AimpGroupingPresetStandard.h"
 #include "SDK/AimpObjectList.h"
-#include "AimpDataFilterGroup.h"
+#include "SDK/MusicLibrary/DataFilter/AimpDataFilterGroup.h"
 
 using namespace AIMP::SDK;
 

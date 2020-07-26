@@ -13,16 +13,16 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
 {
     public enum FieldFilterOperationType
     {
-        AIMPML_FIELDFILTER_OPERATION_EQUALS = 0,
-        AIMPML_FIELDFILTER_OPERATION_NOTEQUALS = 1,
-        AIMPML_FIELDFILTER_OPERATION_BETWEEN = 2,
-        AIMPML_FIELDFILTER_OPERATION_LESSTHAN = 3,
-        AIMPML_FIELDFILTER_OPERATION_LESSTHANOREQUALS = 4,
-        AIMPML_FIELDFILTER_OPERATION_GREATERTHAN = 5,
-        AIMPML_FIELDFILTER_OPERATION_GREATERTHANOREQUALS = 6,
-        AIMPML_FIELDFILTER_OPERATION_CONTAINS = 7,
-        AIMPML_FIELDFILTER_OPERATION_BEGINSWITH = 8,
-        AIMPML_FIELDFILTER_OPERATION_ENDSWITH = 9
+        Equals = 0,
+        NotEquals = 1,
+        Between = 2,
+        LessThan = 3,
+        LessThanOrEquals = 4,
+        GreaterThan = 5,
+        GreaterThanOrEquals = 6,
+        Contains = 7,
+        BeginsWith = 8,
+        EndsWith = 9
     }
 
     public interface IAimpDataFieldFilter
@@ -43,7 +43,7 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
         object Value1 { get; set; }
 
         /// <summary>
-        /// This value is used if the <see cref="IAimpDataFieldFilter.Operation"/> property is set to the <see cref="FieldFilterOperationType.AIMPML_FIELDFILTER_OPERATION_BETWEEN"/> value.
+        /// This value is used if the <see cref="IAimpDataFieldFilter.Operation"/> property is set to the <see cref="FieldFilterOperationType.Between"/> value.
         /// </summary>
         object Value2 { get; set; }
     }

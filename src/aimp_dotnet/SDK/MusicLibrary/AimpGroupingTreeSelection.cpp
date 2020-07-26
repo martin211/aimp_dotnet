@@ -19,13 +19,13 @@ int AimpGroupingTreeSelection::GetCount()
     return InternalAimpObject->GetCount();
 }
 
-ActionResultType AimpGroupingTreeSelection::GetValue(int index, System::String^% fieldName, System::Object^% value)
+AimpActionResult<String^, Object^>^ AimpGroupingTreeSelection::GetValue(int index)
 {
     IAIMPString* str = nullptr;
     VARIANT val;
 
-    fieldName = nullptr;
-    value = nullptr;
+    String^ fieldName = nullptr;
+    Object^ value = nullptr;
 
     const ActionResultType result = CheckResult(InternalAimpObject->GetValue(index, &str, &val));
 
@@ -50,5 +50,5 @@ ActionResultType AimpGroupingTreeSelection::GetValue(int index, System::String^%
         }
     }
 
-    return result;
+    return gcnew AimpActionResult<String^, Object^>(result, fieldName, value);
 }

@@ -8,6 +8,8 @@
 #include "Stdafx.h"
 #include "InternalAimpGroupingTreeDataProviderSelection.h"
 
+#include <string>
+
 using namespace AIMP::SDK;
 
 InternalAimpGroupingTreeDataProviderSelection::InternalAimpGroupingTreeDataProviderSelection(
@@ -18,15 +20,14 @@ InternalAimpGroupingTreeDataProviderSelection::InternalAimpGroupingTreeDataProvi
 
 HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetDisplayValue(IAIMPString** S)
 {
-    String^ str;
-    ActionResultType result = _managedInstance->GetDisplayValue(str);
+    auto result = _managedInstance->GetDisplayValue();
 
-    if (result == ActionResultType::OK)
+    if (result->ResultType == ActionResultType::OK)
     {
-        *S = AimpConverter::ToAimpString(str);
+        *S = AimpConverter::ToAimpString(result->Result);
     }
 
-    return HRESULT(result);
+    return HRESULT(result->ResultType);
 }
 
 DWORD WINAPI InternalAimpGroupingTreeDataProviderSelection::GetFlags()
@@ -36,32 +37,28 @@ DWORD WINAPI InternalAimpGroupingTreeDataProviderSelection::GetFlags()
 
 HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetImageIndex(int* Index)
 {
-    FieldImageIndex index;
-    ActionResultType result = _managedInstance->GetImageIndex(index);
+    auto result = _managedInstance->GetImageIndex();
 
-    if (result == ActionResultType::OK)
+    if (result->ResultType == ActionResultType::OK)
     {
-        *Index = int(index);
+        *Index = static_cast<int>(result->Result);
     }
 
-    return HRESULT(result);
+    return HRESULT(result->ResultType);
 }
 
 HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetValue(IAIMPString** FieldName, VARIANT* Value)
 {
-    String^ fieldName;
-    Object^ val;
+    auto result = _managedInstance->GetValue();
 
-    ActionResultType result = _managedInstance->GetValue(fieldName, val);
-
-    if (result == ActionResultType::OK)
+    if (result->ResultType == ActionResultType::OK)
     {
-        *FieldName = AimpConverter::ToAimpString(fieldName);
-        VARIANT v = AimpConverter::ToNativeVariant(val);
+        *FieldName = AimpConverter::ToAimpString(result->Item1);
+        VARIANT v = AimpConverter::ToNativeVariant(result->Item2);
         VariantCopyInd(Value, &v);
     }
 
-    return HRESULT(result);
+    return HRESULT(result->ResultType);
 }
 
 BOOL WINAPI InternalAimpGroupingTreeDataProviderSelection::NextRow()

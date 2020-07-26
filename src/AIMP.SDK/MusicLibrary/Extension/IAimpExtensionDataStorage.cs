@@ -18,9 +18,9 @@ namespace AIMP.SDK.MusicLibrary.Extension
     [Flags]
     public enum CapabilitiesType
     {
-        AIMPML_DATASTORAGE_CAP_FILTERING = 1,
-        AIMPML_DATASTORAGE_CAP_PREIMAGES = 2,
-        AIMPML_DATASTORAGE_CAP_GROUPINGPRESETS = 4
+        Filtering = 1,
+        Preimages = 2,
+        GroupingPresets = 4
     }
 
     public enum SchemaType
@@ -29,47 +29,47 @@ namespace AIMP.SDK.MusicLibrary.Extension
         /// List of all available fields in data storage.
         /// The property <see cref="IAimpExtensionDataStorage.GetFields"/> must contains an <see cref="IAimpDataField"/> objects.
         /// </summary>
-        AIMPML_FIELDS_SCHEMA_ALL = 0,
+        All = 0,
 
         /// <summary>
         /// List of fields that used for grouping in table.
         /// If list is empty - the Group Details and the Album Thumbnails views will not be available for the end user.
         /// The property <see cref="IAimpExtensionDataStorage.GetFields"/> must contains an string objects with field names.
         /// </summary>
-        AIMPML_FIELDS_SCHEMA_TABLE_GROUPBY = 2,
+        TableGroupby = 2,
 
         [Obsolete("Value not found at documentation and SDK.")]
-        AIMPML_FIELDS_SCHEMA_GROUPING_TREE = 1,
+        GroupingTree = 1,
 
         /// <summary>
         /// List of fields that displays in group details area.
         /// The property <see cref="IAimpExtensionDataStorage.GetFields"/> must contains an string objects with field names.
         /// </summary>
-        AIMPML_FIELDS_SCHEMA_TABLE_GROUPDETAILS = 3,
+        TableGroupDetails = 3,
 
         /// <summary>
         /// List of fields that displays to end user in table by default in Default view.
         /// The property <see cref="IAimpExtensionDataStorage.GetFields"/> must contains an string objects with field names.
         /// </summary>
-        AIMPML_FIELDS_SCHEMA_TABLE_VIEW_DEFAULT = 10,
+        TableViewDefault = 10,
 
         /// <summary>
         /// list of fields that displays to end user in table by default in Group Details view.
         /// The property <see cref="IAimpExtensionDataStorage.GetFields"/> must contains an string objects with field names.
         /// </summary>
-        AIMPML_FIELDS_SCHEMA_TABLE_VIEW_GROUPDETAILS = 11,
+        TableViewGroupDetails = 11,
 
         /// <summary>
         /// List of fields that displays to end user in table by default in Album Thumbnails view.
         /// The property <see cref="IAimpExtensionDataStorage.GetFields"/> must contains an string objects with field names.
         /// </summary>
-        AIMPML_FIELDS_SCHEMA_TABLE_VIEW_ALBUMTHUMBNAILS = 12
+        TableViewAlbumThumbnails = 12
     }
 
     public enum GroupingPresetsSchemaType
     {
-        AIMPML_GROUPINGPRESETS_SCHEMA_BUILTIN = 1,
-        AIMPML_GROUPINGPRESETS_SCHEMA_DEFAULT = 2
+        BuiltIn = 1,
+        Default = 2
     }
 
     /// <summary>
@@ -126,7 +126,7 @@ namespace AIMP.SDK.MusicLibrary.Extension
         /// <param name="section">Section Name to that contains the settings.
         /// You can use the children section names if it needed: Section + "." + ChildSectionName</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType ConfigLoad(IAimpConfig config, string section);
+        AimpActionResult ConfigLoad(IAimpConfig config, string section);
 
         /// <summary>
         /// Method calls before the finalization of plugin.
@@ -135,7 +135,7 @@ namespace AIMP.SDK.MusicLibrary.Extension
         /// <param name="section">Section Name to store the settings.
         /// You can use the children section names if it needed: Section + "." + ChildSectionName</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType ConfigSave(IAimpConfig config, string section);
+        AimpActionResult ConfigSave(IAimpConfig config, string section);
 
         /// <summary>
         /// Method returns settings and layout of the data fields in dependency from specified Schema value.
@@ -143,7 +143,7 @@ namespace AIMP.SDK.MusicLibrary.Extension
         /// <param name="schemaType">Type of the schema <see cref="SchemaType"/>.</param>
         /// <param name="list">The list.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType GetFields(SchemaType schemaType, out IList list);
+        AimpActionResult<IList> GetFields(SchemaType schemaType);
 
         /// <summary>
         /// Plugin must populate the Presets list by predefined presets for grouping tree based on the Schema value.
@@ -151,6 +151,6 @@ namespace AIMP.SDK.MusicLibrary.Extension
         /// <param name="schema">The schema.</param>
         /// <param name="presets">The presets.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType GetGroupingPresets(GroupingPresetsSchemaType schema, IAimpGroupingPresets presets);
+        AimpActionResult GetGroupingPresets(GroupingPresetsSchemaType schema, IAimpGroupingPresets presets);
     }
 }

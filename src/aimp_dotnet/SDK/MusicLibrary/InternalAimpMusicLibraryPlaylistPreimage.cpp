@@ -7,7 +7,6 @@
 
 #include "Stdafx.h"
 #include "InternalAimpMusicLibraryPlaylistPreimage.h"
-#include "../MusicLibrary/AimpDataFieldFilter.h"
 
 //InternalAimpMusicLibraryPlaylistPreimage::InternalAimpMusicLibraryPlaylistPreimage(gcroot<AIMP::SDK::MusicLibrary::IAimpMusicLibraryPlaylistPreimage^> managedInstance)
 //{
@@ -17,7 +16,7 @@
 HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetFilter(IAIMPMLDataFilter** Filter)
 {
     // TODO Complete it
-    IAimpDataFieldFilter^ dataFilter = nullptr;
+    DataFilter::IAimpDataFieldFilter^ dataFilter = nullptr;
     ActionResultType res = ActionResultType::Fail;
     //res = _managedInstance->GetFilter(&dataFilter);
 

@@ -27,13 +27,13 @@ namespace AIMP.SDK.MusicLibrary
         /// <param name="filter">All changes in the Filter will be automatically applied to the preimage.
         /// Use the BeginUpdate / EndUpdate methods to change few settings at one time.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType GetFilter(out IAimpDataFieldFilter filter);
+        AimpActionResult<IAimpDataFilter> GetFilter();
 
         /// <summary>
         /// Gets the storage.
         /// </summary>
         /// <param name="storage">The storage.</param>
         /// <returns>Operation result <seealso cref="ActionResultType" /></returns>
-        ActionResultType GetStorage(out IAimpDataStorage storage);
+        AimpActionResult<IAimpDataStorage> GetStorage();
     }
 }

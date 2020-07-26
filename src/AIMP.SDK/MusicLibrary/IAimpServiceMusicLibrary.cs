@@ -24,28 +24,28 @@ namespace AIMP.SDK.MusicLibrary
         /// </summary>
         /// <param name="storage">The data storage.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType GetActiveStorage(out IAimpDataStorage storage);
+        AimpActionResult<IAimpDataStorage> GetActiveStorage();
 
         /// <summary>
         /// Gets the active grouping preset.
         /// </summary>
         /// <param name="preset">The grouping preset.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType GetActiveStorage(out IAimpGroupingPresets preset);
+        AimpActionResult<IAimpGroupingPresets> GetActiveGroupingPresets();
 
         /// <summary>
         /// Sets the active data storage.
         /// </summary>
         /// <param name="storage">The data storage.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType SetActiveStorage(IAimpDataStorage storage);
+        AimpActionResult SetActiveStorage(IAimpDataStorage storage);
 
         /// <summary>
         /// Sets the active storage.
         /// </summary>
         /// <param name="preset">The grouping preset.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType SetActiveStorage(IAimpGroupingPresets preset);
+        AimpActionResult SetActiveStorage(IAimpGroupingPresets preset);
 
         /// <summary>
         /// Gets the data storage by index.
@@ -53,7 +53,7 @@ namespace AIMP.SDK.MusicLibrary
         /// <param name="index">The index.</param>
         /// <param name="storage">The data storage.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType GetStorage(int index, out IAimpDataStorage storage);
+        AimpActionResult<IAimpDataStorage> GetStorage(int index);
 
         /// <summary>
         /// Gets the grouping preset by index.
@@ -61,7 +61,7 @@ namespace AIMP.SDK.MusicLibrary
         /// <param name="index">The index.</param>
         /// <param name="preset">The grouping preset.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType GetStorage(int index, out IAimpGroupingPresets preset);
+        AimpActionResult<IAimpGroupingPresets> GetGroupingPresets(int index);
 
         /// <summary>
         /// Gets the data storage by identifier.
@@ -69,7 +69,7 @@ namespace AIMP.SDK.MusicLibrary
         /// <param name="id">The identifier.</param>
         /// <param name="storage">The data storage.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType GetStorageById(string id, out IAimpDataStorage storage);
+        AimpActionResult<IAimpDataStorage> GetStorageById(string id);
 
         /// <summary>
         /// Gets the grouping preset by identifier.
@@ -77,7 +77,7 @@ namespace AIMP.SDK.MusicLibrary
         /// <param name="id">The identifier.</param>
         /// <param name="preset">The grouping preset.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType GetStorageById(string id, out IAimpGroupingPresets preset);
+        AimpActionResult<IAimpGroupingPresets> GetGroupingPresetsById(string id);
 
         /// <summary>
         /// Gets the storage count.

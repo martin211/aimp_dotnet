@@ -6,9 +6,7 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "AimpGroupingTreeSelection.h"
 #include "InternalAimpGroupingTreeDataProviderSelection.h"
-#include "AimpDataFilterGroup.h"
 
 class InternalAimpGroupingTreeDataProvider : public IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProvider>
 {

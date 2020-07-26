@@ -25,15 +25,15 @@ void AimpDataFieldFilterByArray::Field::set(String^ value)
     PropertyListExtension::SetString(InternalAimpObject, AIMPML_FIELDFILTERBYARRAY_FIELD, value);
 }
 
-ActionResultType AimpDataFieldFilterByArray::GetData(IList<Object^>^ values)
+ActionResult AimpDataFieldFilterByArray::GetData(IList<Object^>^ values)
 {
     // TODO: Complete it
     values = nullptr;
-    return ActionResultType::NotImplemented;
+    return ACTION_RESULT(ActionResultType::NotImplemented);
 }
 
-ActionResultType AimpDataFieldFilterByArray::SetData(IList<Object^>^ values)
+ActionResult AimpDataFieldFilterByArray::SetData(IList<Object^>^ values)
 {
     // TODO: Complete it
-    return ActionResultType::NotImplemented;
+    return ACTION_RESULT(ActionResultType::NotImplemented);
 }

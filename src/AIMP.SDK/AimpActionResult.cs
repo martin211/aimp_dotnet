@@ -9,6 +9,7 @@
 // 
 // ----------------------------------------------------
 
+using System;
 using System.Diagnostics;
 
 namespace AIMP.SDK
@@ -68,6 +69,11 @@ namespace AIMP.SDK
     [DebuggerDisplay("{ResultType, Result}")]
     public class AimpActionResult<TObject> : AimpActionResult
     {
+        public AimpActionResult(ActionResultType resultType) : base(resultType)
+        {
+            Result = default(TObject);
+        }
+
         public AimpActionResult(ActionResultType resultType, TObject result) : base(resultType)
         {
             if (resultType == ActionResultType.OK && result != null)
@@ -77,5 +83,18 @@ namespace AIMP.SDK
         }
 
         public TObject Result { get; }
+    }
+
+    public class AimpActionResult<TObject1, TObject2> : AimpActionResult
+    {
+        public AimpActionResult(ActionResultType resultType, TObject1 obj1, TObject2 obj2) : base(resultType)
+        {
+            Item1 = obj1;
+            Item2 = obj2;
+        }
+
+        public TObject1 Item1 { get; set; }
+
+        public TObject2 Item2 { get; set; }
     }
 }

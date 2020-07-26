@@ -75,15 +75,15 @@ void AimpDataFilter::AlphaBeticIndex::set(int value)
     PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_ALPHABETICINDEX, value);
 }
 
-ActionResultType AimpDataFilter::Assign(IAimpDataFilter^ source)
+ActionResult AimpDataFilter::Assign(IAimpDataFilter^ source)
 {
     IAIMPMLDataFilter* filter = static_cast<AimpDataFilter^>(source)->InternalDataFilter;
-    return Utils::CheckResult(InternalDataFilter->Assign(filter));
+    return ACTION_RESULT(Utils::CheckResult(InternalDataFilter->Assign(filter)));
 }
 
-ActionResultType AimpDataFilter::Clone(IAimpDataFilter^% source)
+AimpActionResult<IAimpDataFilter^>^ AimpDataFilter::Clone()
 {
-    source = nullptr;
+    IAimpDataFilter^ source = nullptr;
     IAIMPMLDataFilter* clone = nullptr;
 
     const ActionResultType result = Utils::CheckResult(InternalDataFilter->Clone(reinterpret_cast<void**>(&clone)));
@@ -92,7 +92,5 @@ ActionResultType AimpDataFilter::Clone(IAimpDataFilter^% source)
         source = gcnew AimpDataFilter(clone);
     }
 
-    // TODO: clone release?
-
-    return result;
+    return gcnew AimpActionResult<IAimpDataFilter^>(result, source);
 }

@@ -20,86 +20,82 @@ InternalAimpDataFilterGroup::InternalAimpDataFilterGroup(gcroot<IAimpDataFilterG
 HRESULT WINAPI InternalAimpDataFilterGroup::Add(IUnknown* Field, VARIANT* Value1, VARIANT* Value2, int Operation,
                                                 IAIMPMLDataFieldFilter** Filter)
 {
-    ActionResultType res = ActionResultType::Fail;
-
     IAimpDataFieldFilter^ filter = nullptr;
-    res = _managed->Add(AimpConverter::ToManagedString(static_cast<IAIMPString*>(Field)),
-                        AimpConverter::FromVaiant(Value1), AimpConverter::FromVaiant(Value2),
-                        FieldFilterOperationType(Operation), filter);
+    auto result = _managed->Add(AimpConverter::ToManagedString(static_cast<IAIMPString*>(Field)),
+        AimpConverter::FromVaiant(Value1), AimpConverter::FromVaiant(Value2),
+        FieldFilterOperationType(Operation));
 
-    if (res == ActionResultType::OK && filter != nullptr)
+    if (result->ResultType == ActionResultType::OK)
     {
         // todo implement internal IAIMPMLDataFieldFilter
     }
 
-    return HRESULT(res);
+    return HRESULT(result->ResultType);
 }
 
 HRESULT WINAPI InternalAimpDataFilterGroup::Add2(IUnknown* Field, VARIANT* Values, int Count,
                                                  IAIMPMLDataFieldFilterByArray** Filter)
 {
-    ActionResultType res = ActionResultType::Fail;
     array<Object^>^ values = gcnew array<Object^>(Count);
     IAimpDataFieldFilterByArray^ filter;
-    res = _managed->Add(AimpConverter::ToManagedString(static_cast<IAIMPString*>(Field)), values, Count, filter);
+    auto result = _managed->Add(AimpConverter::ToManagedString(static_cast<IAIMPString*>(Field)), values, Count);
 
-    if (res == ActionResultType::OK && filter != nullptr)
+    if (result->ResultType == ActionResultType::OK)
     {
         // todo implement IAIMPMLDataFieldFilterByArray
     }
 
-    return HRESULT(res);
+    return HRESULT(result->ResultType);
 }
 
 HRESULT WINAPI InternalAimpDataFilterGroup::AddGroup(IAIMPMLDataFilterGroup** Group)
 {
-    ActionResultType res = ActionResultType::Fail;
-    IAimpDataFilterGroup^ group = nullptr;
-
-    res = _managed->AddGroup(group);
-    if (res == ActionResultType::OK && group != nullptr)
+    auto result = _managed->AddGroup();
+    if (result->ResultType == ActionResultType::OK)
     {
-        *Group = new InternalAimpDataFilterGroup(group);
+        *Group = new InternalAimpDataFilterGroup(result->Result);
     }
 
-    return HRESULT(res);
+    return HRESULT(result->ResultType);
 }
 
 HRESULT WINAPI InternalAimpDataFilterGroup::Clear()
 {
-    return HRESULT(_managed->Clear());
+    return HRESULT(_managed->Clear()->ResultType);
 }
 
 HRESULT WINAPI InternalAimpDataFilterGroup::Delete(int Index)
 {
-    return HRESULT(_managed->Delete(Index));
+    return HRESULT(_managed->Delete(Index)->ResultType);
 }
 
 HRESULT WINAPI InternalAimpDataFilterGroup::GetChild(int Index, REFIID IID, void** Obj)
 {
     ActionResultType res = ActionResultType::Fail;
-
     if (IID == IID_IAIMPMLDataFilterGroup)
     {
-        IAimpDataFilterGroup^ group = nullptr;
-        res = _managed->GetChild(Index, group);
+        const auto result = _managed->GetFilterGroup(Index);
 
-        if (res == ActionResultType::OK && group != nullptr)
+        if (result->ResultType == ActionResultType::OK)
         {
-            *Obj = new InternalAimpDataFilterGroup(group);
+            *Obj = new InternalAimpDataFilterGroup(result->Result);
         }
+
+        res = result->ResultType;
     }
 
     if (IID == IID_IAIMPMLDataFieldFilter)
     {
         IAimpDataFieldFilter^ filter = nullptr;
-        res = _managed->GetChild(Index, filter);
+        const auto result = _managed->GetFilterGroup(Index);
 
-        if (res == ActionResultType::OK && filter != nullptr)
+        if (result->ResultType == ActionResultType::OK)
         {
             // TODO complete it
             //*Obj = new Interna
         }
+
+        res = result->ResultType;
     }
 
     return HRESULT(res);
@@ -138,7 +134,7 @@ HRESULT WINAPI InternalAimpDataFilterGroup::QueryInterface(REFIID riid, LPVOID* 
 HRESULT WINAPI InternalAimpDataFilterGroup::GetValueAsInt32(int PropertyID, int* Value)
 {
     if (PropertyID == AIMPML_FILTERGROUP_OPERATION)
-        *Value = int(_managed->Operation);
+        *Value = static_cast<int>(_managed->Operation);
 
     return S_OK;
 }

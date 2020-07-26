@@ -20,6 +20,6 @@ namespace AIMP.SDK.MusicLibrary.Extension.Command
         /// </summary>
         /// <param name="ownerHandle">The owner window handle.</param>
         /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType Execute(IntPtr ownerHandle);
+        AimpActionResult Execute(IntPtr ownerHandle);
     }
 }

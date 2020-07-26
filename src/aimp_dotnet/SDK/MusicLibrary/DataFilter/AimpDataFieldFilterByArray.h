@@ -27,9 +27,9 @@ namespace AIMP
                 void set(String^ value);
             }
 
-            virtual ActionResultType GetData(IList<Object^>^ values);
+            virtual ActionResult GetData(IList<Object^>^ values);
 
-            virtual ActionResultType SetData(IList<Object^>^ values);
+            virtual ActionResult SetData(IList<Object^>^ values);
         };
     }
 }

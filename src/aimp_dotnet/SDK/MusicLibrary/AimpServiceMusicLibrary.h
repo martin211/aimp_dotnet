@@ -7,7 +7,6 @@
 
 #pragma once
 #include "SDK\BaseManager.h"
-#include "AimpGroupingPresets.h"
 
 namespace AIMP
 {
@@ -26,21 +25,21 @@ namespace AIMP
             {
             }
 
-            virtual ActionResultType GetActiveStorage(IAimpDataStorage^% storage);
+            virtual TYPED_RESULT(IAimpDataStorage) GetActiveStorage();
 
-            virtual ActionResultType GetActiveStorage(IAimpGroupingPresets^% presets);
+            virtual TYPED_RESULT(IAimpGroupingPresets) GetActiveGroupingPresets();
 
-            virtual ActionResultType SetActiveStorage(IAimpDataStorage^ storage);
+            virtual ActionResult SetActiveStorage(IAimpDataStorage^ storage);
 
-            virtual ActionResultType SetActiveStorage(IAimpGroupingPresets^ preset);
+            virtual ActionResult SetActiveStorage(IAimpGroupingPresets^ preset);
 
-            virtual ActionResultType GetStorage(int index, IAimpDataStorage^% storage);
+            virtual TYPED_RESULT(IAimpDataStorage) GetStorage(int index);
 
-            virtual ActionResultType GetStorage(int index, IAimpGroupingPresets^% preset);
+            virtual TYPED_RESULT(IAimpGroupingPresets) GetGroupingPresets(int index);
 
-            virtual ActionResultType GetStorageById(String^ id, IAimpDataStorage^% storage);
+            virtual TYPED_RESULT(IAimpDataStorage) GetStorageById(String^ id);
 
-            virtual ActionResultType GetStorageById(String^ id, IAimpGroupingPresets^% preset);
+            virtual TYPED_RESULT(IAimpGroupingPresets) GetGroupingPresetsById(String^ id);
 
             virtual int GetStorageCount();
         protected:

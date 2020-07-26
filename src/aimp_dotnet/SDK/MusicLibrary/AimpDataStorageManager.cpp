@@ -14,8 +14,7 @@ AimpDataStorageManager::AimpDataStorageManager(IAIMPMLDataStorageManager* manage
 {
 }
 
-ActionResultType AimpDataStorageManager::BackgroundTaskStarted(int id, System::String^ caption,
-                                                               ActionManager::IAimpActionEvent^ cancelEvent)
+ActionResult AimpDataStorageManager::BackgroundTaskStarted(int id, System::String^ caption, ActionManager::IAimpActionEvent^ cancelEvent)
 {
     //todo complete it
     auto str = AimpConverter::ToAimpString(caption);
@@ -34,12 +33,12 @@ ActionResultType AimpDataStorageManager::BackgroundTaskStarted(int id, System::S
         }
     }
 
-    return result;
+    return ACTION_RESULT(result);
 }
 
-ActionResultType AimpDataStorageManager::BackgroundTaskFinished(int id)
+ActionResult AimpDataStorageManager::BackgroundTaskFinished(int id)
 {
-    return Utils::CheckResult(this->InternalAimpObject->BackgroundTaskFinished(id));
+    return ACTION_RESULT(Utils::CheckResult(this->InternalAimpObject->BackgroundTaskFinished(id)));
 }
 
 void AimpDataStorageManager::Changed()

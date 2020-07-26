@@ -15,8 +15,8 @@ namespace AIMP.SDK.MusicLibrary
 {
     public enum SortDirectionType
     {
-        AIMPML_FILTER_SORTDIRECTION_ASCENDING = 0,
-        AIMPML_FILTER_SORTDIRECTION_DESCENDING = 1
+        Ascending = 0,
+        Descending = 1
     }
 
     public interface IAimpDataFilter : IAimpDataFilterGroup
@@ -57,12 +57,12 @@ namespace AIMP.SDK.MusicLibrary
         /// </summary>
         /// <param name="source">The source.</param>
         /// <returns><see cref="ActionResultType"/></returns>
-        ActionResultType Assign(IAimpDataFilter source);
+        AimpActionResult Assign(IAimpDataFilter source);
 
         /// <summary>
         /// Clones to the specified source.
         /// </summary>
         /// <param name="source">The source.</param>
-        ActionResultType Clone(out IAimpDataFilter source);
+        AimpActionResult<IAimpDataFilter> Clone();
     }
 }

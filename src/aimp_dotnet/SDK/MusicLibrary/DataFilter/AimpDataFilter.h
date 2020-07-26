@@ -60,9 +60,9 @@ namespace AIMP
                 void set(int value);
             }
 
-            virtual ActionResultType Assign(IAimpDataFilter^ source);
+            virtual ActionResult Assign(IAimpDataFilter^ source);
 
-            virtual ActionResultType Clone(IAimpDataFilter^% source);
+            virtual TYPED_RESULT(IAimpDataFilter) Clone();
         };
     }
 }

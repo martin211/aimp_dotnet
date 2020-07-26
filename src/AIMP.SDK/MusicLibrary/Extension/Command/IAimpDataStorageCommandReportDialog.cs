@@ -15,6 +15,6 @@ namespace AIMP.SDK.MusicLibrary.Extension.Command
 {
     public interface IAimpDataStorageCommandReportDialog
     {
-        ActionResultType Execute(IntPtr ownerHandle);
+        AimpActionResult Execute(IntPtr ownerHandle);
     }
 }

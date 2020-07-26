@@ -28,21 +28,19 @@ namespace AIMP
                 void set(FilterGroupOperationType value);
             }
 
-            virtual ActionResultType Add(String^ field, Object^ value1, Object^ value2,
-                                         FieldFilterOperationType operation, IAimpDataFieldFilter^% filter);
+            virtual TYPED_RESULT(IAimpDataFieldFilter) Add(String^ field, Object^ value1, Object^ value2, FieldFilterOperationType operation);
 
-            virtual ActionResultType Add(String^ field, array<Object^>^ values, int count,
-                                         IAimpDataFieldFilterByArray^% filter);
+            virtual TYPED_RESULT(IAimpDataFieldFilterByArray) Add(String^ field, array<Object^>^ values, int count);
 
-            virtual ActionResultType AddGroup(IAimpDataFilterGroup^% group);
+            virtual TYPED_RESULT(IAimpDataFilterGroup) AddGroup();
 
-            virtual ActionResultType Clear();
+            virtual ActionResult Clear();
 
-            virtual ActionResultType Delete(int index);
+            virtual ActionResult Delete(int index);
 
-            virtual ActionResultType GetChild(int index, IAimpDataFilterGroup^% group);
+            virtual TYPED_RESULT(IAimpDataFilterGroup) GetFilterGroup(int index);
 
-            virtual ActionResultType GetChild(int index, IAimpDataFieldFilter^% fieldFilter);
+            virtual TYPED_RESULT(IAimpDataFieldFilter) GetFieldFilter(int index);
 
             virtual int GetChildCount();
 

@@ -13,6 +13,6 @@ namespace AIMP.SDK.MusicLibrary.Extension.Command
 {
     public interface IAimpDataStorageCommandUserMark
     {
-        ActionResultType SetMark(object id, double value);
+        AimpActionResult SetMark(object id, double value);
     }
 }
