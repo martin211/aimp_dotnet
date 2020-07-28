@@ -12,8 +12,9 @@
 namespace AIMP.SDK.FileManager
 {
     /// <summary>
-    /// Interface IAimpServiceFileManager
+    ///     Interface IAimpServiceFileManager
     /// </summary>
     public interface IAimpServiceFileManager
-    {}
+    {
+    }
 }

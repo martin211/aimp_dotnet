@@ -12,14 +12,14 @@
 namespace AIMP.SDK.Playlist
 {
     /// <summary>
-    /// Interface IAimpPlaylistPreimageFolders
-    /// Implements the <see cref="AIMP.SDK.Playlist.IAimpPlaylistPreimage" />
+    ///     Interface IAimpPlaylistPreimageFolders
+    ///     Implements the <see cref="AIMP.SDK.Playlist.IAimpPlaylistPreimage" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.Playlist.IAimpPlaylistPreimage" />
     public interface IAimpPlaylistPreimageFolders : IAimpPlaylistPreimage
     {
         /// <summary>
-        /// Itemses the add.
+        ///     Itemses the add.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="recursive">if set to <c>true</c> [recursive].</param>
@@ -27,20 +27,20 @@ namespace AIMP.SDK.Playlist
         ActionResultType ItemsAdd(string path, bool recursive);
 
         /// <summary>
-        /// Itemses the delete.
+        ///     Itemses the delete.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns>ActionResultType.</returns>
         ActionResultType ItemsDelete(int index);
 
         /// <summary>
-        /// Itemses the delete all.
+        ///     Itemses the delete all.
         /// </summary>
         /// <returns>ActionResultType.</returns>
         ActionResultType ItemsDeleteAll();
 
         /// <summary>
-        /// Itemses the get.
+        ///     Itemses the get.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="path">The path.</param>
@@ -49,7 +49,7 @@ namespace AIMP.SDK.Playlist
         ActionResultType ItemsGet(int index, out string path, out bool recursive);
 
         /// <summary>
-        /// Itemses the get count.
+        ///     Itemses the get count.
         /// </summary>
         /// <returns>System.Int32.</returns>
         int ItemsGetCount();

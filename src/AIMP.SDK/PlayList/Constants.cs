@@ -9,30 +9,30 @@
 // 
 // ----------------------------------------------------
 
-using System;
-
 namespace AIMP.SDK.Playlist
 {
     /// <summary>
-    /// Class Constants.
+    ///     Class Constants.
     /// </summary>
     public static class Constants
     {
         /// <summary>
-        /// Class PreimageFactory.
+        ///     Class PreimageFactory.
         /// </summary>
         public static class PreimageFactory
         {
             /// <summary>
-            /// The folders identifier
+            ///     The folders identifier
             /// </summary>
             public static readonly string FoldersId = "TAIMPPlaylistFoldersPreimage";
+
             /// <summary>
-            /// The music library identifier
+            ///     The music library identifier
             /// </summary>
             public static readonly string MusicLibraryId = "TAIMPMLPlaylistPreimage";
+
             /// <summary>
-            /// The playlist identifier
+            ///     The playlist identifier
             /// </summary>
             public static readonly string PlaylistId = "TAIMPPlaylistBasedPreimage";
         }

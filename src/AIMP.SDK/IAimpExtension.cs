@@ -12,8 +12,9 @@
 namespace AIMP.SDK
 {
     /// <summary>
-    /// Interface IAimpExtension
+    ///     Interface IAimpExtension
     /// </summary>
     public interface IAimpExtension
-    {}
+    {
+    }
 }

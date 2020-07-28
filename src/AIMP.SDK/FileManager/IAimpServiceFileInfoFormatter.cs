@@ -12,14 +12,14 @@
 namespace AIMP.SDK.FileManager
 {
     /// <summary>
-    /// Service provides an ability to format file information with specified template.
-    /// Implements the <see cref="AIMP.SDK.IAimpService" />
+    ///     Service provides an ability to format file information with specified template.
+    ///     Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.IAimpService" />
     public interface IAimpServiceFileInfoFormatter : IAimpService
     {
         /// <summary>
-        /// Formats the specified template.
+        ///     Formats the specified template.
         /// </summary>
         /// <param name="template">The list of supported macros for template depends from version of application.</param>
         /// <param name="fileInfo">Put null to generate preview string.</param>

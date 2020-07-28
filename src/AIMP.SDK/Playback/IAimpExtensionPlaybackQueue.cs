@@ -14,33 +14,35 @@ using AIMP.SDK.Playlist;
 namespace AIMP.SDK.Playback
 {
     /// <summary>
-    /// Enum PlaybackQueueFlags
+    ///     Enum PlaybackQueueFlags
     /// </summary>
     public enum PlaybackQueueFlags
     {
         /// <summary>
-        /// The start from beginning
+        ///     The start from beginning
         /// </summary>
         StartFromBeginning = 1,
+
         /// <summary>
-        /// The start from cursor
+        ///     The start from cursor
         /// </summary>
         StartFromCursor = 2,
+
         /// <summary>
-        /// The start from item
+        ///     The start from item
         /// </summary>
         StartFromItem = 3
     }
 
     /// <summary>
-    /// Interface IAimpExtensionPlaybackQueue
-    /// Implements the <see cref="AIMP.SDK.IAimpExtension" />
+    ///     Interface IAimpExtensionPlaybackQueue
+    ///     Implements the <see cref="AIMP.SDK.IAimpExtension" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.IAimpExtension" />
     public interface IAimpExtensionPlaybackQueue : IAimpExtension
     {
         /// <summary>
-        /// Gets the next.
+        ///     Gets the next.
         /// </summary>
         /// <param name="current">The current.</param>
         /// <param name="flags">The flags.</param>
@@ -49,7 +51,7 @@ namespace AIMP.SDK.Playback
         bool GetNext(object current, PlaybackQueueFlags flags, IAimpPlaybackQueueItem queueItem);
 
         /// <summary>
-        /// Gets the previous.
+        ///     Gets the previous.
         /// </summary>
         /// <param name="current">The current.</param>
         /// <param name="flags">The flags.</param>
@@ -58,7 +60,7 @@ namespace AIMP.SDK.Playback
         bool GetPrev(object current, PlaybackQueueFlags flags, IAimpPlaybackQueueItem queueItem);
 
         /// <summary>
-        /// Called when [select].
+        ///     Called when [select].
         /// </summary>
         /// <param name="item">The item.</param>
         /// <param name="queueItem">The queue item.</param>

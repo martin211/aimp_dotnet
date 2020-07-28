@@ -14,19 +14,19 @@ using AIMP.SDK.FileManager;
 namespace AIMP.SDK.TagEditor
 {
     /// <summary>
-    /// Provide ability to get access to tag editor.
+    ///     Provide ability to get access to tag editor.
     /// </summary>
     public interface IAimpFileTagEditor
     {
         /// <summary>
-        /// Gets the mixed information from all tags and returns it as a <see cref="IAimpFileInfo" />.
+        ///     Gets the mixed information from all tags and returns it as a <see cref="IAimpFileInfo" />.
         /// </summary>
         /// <param name="fileInfo">The file information.</param>
         /// <returns>ActionResultType.</returns>
         ActionResultType GetMixedInfo(out IAimpFileInfo fileInfo);
 
         /// <summary>
-        /// Gets the tag.
+        ///     Gets the tag.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="fileTag">The file tag.</param>
@@ -34,20 +34,20 @@ namespace AIMP.SDK.TagEditor
         ActionResultType GetTag(int index, out IAimpFileTag fileTag);
 
         /// <summary>
-        /// Gets the tag count.
+        ///     Gets the tag count.
         /// </summary>
         /// <returns>System.Int32.</returns>
         int GetTagCount();
 
         /// <summary>
-        /// Sets value to all tags.
+        ///     Sets value to all tags.
         /// </summary>
         /// <param name="fileInfo">The file information.</param>
         /// <returns>ActionResultType.</returns>
         ActionResultType SetToAll(IAimpFileInfo fileInfo);
 
         /// <summary>
-        /// Saves all changes to file.
+        ///     Saves all changes to file.
         /// </summary>
         /// <returns>ActionResultType.</returns>
         ActionResultType Save();

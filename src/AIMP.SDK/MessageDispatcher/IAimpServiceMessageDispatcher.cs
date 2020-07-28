@@ -14,30 +14,30 @@ using System;
 namespace AIMP.SDK.MessageDispatcher
 {
     /// <summary>
-    /// Message direction types.
+    ///     Message direction types.
     /// </summary>
     public enum MessageDirectionType
     {
         /// <summary>
-        /// Get a property value.
+        ///     Get a property value.
         /// </summary>
         Get = 0,
 
         /// <summary>
-        /// Set a property value.
+        ///     Set a property value.
         /// </summary>
         Set = 1
     }
 
     /// <summary>
-    /// Provides an access to the messaging mechanism.
-    /// Implements the <see cref="AIMP.SDK.IAimpService" />
+    ///     Provides an access to the messaging mechanism.
+    ///     Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.IAimpService" />
     public interface IAimpServiceMessageDispatcher : IAimpService
     {
         /// <summary>
-        /// Sends the specified message.
+        ///     Sends the specified message.
         /// </summary>
         /// <param name="message">The message <see cref="AimpCoreMessageType" />.</param>
         /// <param name="param1">The message direction <see cref="MessageDirectionType" />.</param>
@@ -46,21 +46,21 @@ namespace AIMP.SDK.MessageDispatcher
         AimpActionResult Send(AimpCoreMessageType message, int param1, IntPtr param2);
 
         /// <summary>
-        /// Registers the specified message.
+        ///     Registers the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <returns>System.Int32.</returns>
         int Register(string message);
 
         /// <summary>
-        /// Setup the specified message hook.
+        ///     Setup the specified message hook.
         /// </summary>
         /// <param name="hook">The message hook.</param>
         /// <returns>AimpActionResult.</returns>
         AimpActionResult Hook(IAimpMessageHook hook);
 
         /// <summary>
-        /// Unhooks the specified hook.
+        ///     Unhooks the specified hook.
         /// </summary>
         /// <param name="hook">The message hook.</param>
         /// <returns>AimpActionResult.</returns>

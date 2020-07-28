@@ -12,12 +12,12 @@
 namespace AIMP.SDK.MusicLibrary.Extension.Command
 {
     /// <summary>
-    /// Interface IAimpDataStorageCommandUserMark
+    ///     Interface IAimpDataStorageCommandUserMark
     /// </summary>
     public interface IAimpDataStorageCommandUserMark
     {
         /// <summary>
-        /// Sets the mark.
+        ///     Sets the mark.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="value">The value.</param>

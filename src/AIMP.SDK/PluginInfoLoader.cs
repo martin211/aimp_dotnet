@@ -11,46 +11,48 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace AIMP.SDK
 {
     /// <summary>
-    /// Struct PluginShortInfoForLoad
-    /// Implements the <see cref="System.IEquatable{AIMP.SDK.PluginShortInfoForLoad}" />
+    ///     Struct PluginShortInfoForLoad
+    ///     Implements the <see cref="System.IEquatable{AIMP.SDK.PluginShortInfoForLoad}" />
     /// </summary>
     /// <seealso cref="System.IEquatable{AIMP.SDK.PluginShortInfoForLoad}" />
     [Serializable]
     public struct PluginShortInfoForLoad : IEquatable<PluginShortInfoForLoad>
     {
         /// <summary>
-        /// Gets or sets the name of the assembly file.
+        ///     Gets or sets the name of the assembly file.
         /// </summary>
         /// <value>The name of the assembly file.</value>
         public string AssemblyFileName { get; set; }
 
         /// <summary>
-        /// Gets or sets the full name of the assembly.
+        ///     Gets or sets the full name of the assembly.
         /// </summary>
         /// <value>The full name of the assembly.</value>
         public string AssemblyFullName { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the class.
+        ///     Gets or sets the name of the class.
         /// </summary>
         /// <value>The name of the class.</value>
         public string ClassName { get; set; }
 
         /// <summary>
-        /// Gets or sets the plugin loc information.
+        ///     Gets or sets the plugin loc information.
         /// </summary>
         /// <value>The plugin loc information.</value>
         public AimpPluginAttribute PluginLocInfo { get; set; }
 
         /// <summary>
-        /// Indicates whether the current object is equal to another object of the same type.
+        ///     Indicates whether the current object is equal to another object of the same type.
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.</returns>
@@ -64,14 +66,14 @@ namespace AIMP.SDK
     }
 
     /// <summary>
-    /// Class PluginLoadingStrategy.
-    /// Implements the <see cref="System.MarshalByRefObject" />
+    ///     Class PluginLoadingStrategy.
+    ///     Implements the <see cref="System.MarshalByRefObject" />
     /// </summary>
     /// <seealso cref="System.MarshalByRefObject" />
     public abstract class PluginLoadingStrategy : MarshalByRefObject
     {
         /// <summary>
-        /// Loads the specified path.
+        ///     Loads the specified path.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <returns>PluginShortInfoForLoad.</returns>
@@ -79,30 +81,30 @@ namespace AIMP.SDK
     }
 
     /// <summary>
-    /// Class AssemblyScanPluginLoadStrategy.
-    /// Implements the <see cref="AIMP.SDK.PluginLoadingStrategy" />
+    ///     Class AssemblyScanPluginLoadStrategy.
+    ///     Implements the <see cref="AIMP.SDK.PluginLoadingStrategy" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.PluginLoadingStrategy" />
     public class AssemblyScanPluginLoadStrategy : PluginLoadingStrategy
     {
         /// <summary>
-        /// Path to the plugin folder where additional dependencies will be searched for.
+        ///     Path to the plugin folder where additional dependencies will be searched for.
         /// </summary>
         private string _probePath;
 
         /// <summary>
-        /// In case one of plugin dependencies is required during its load and cannot be found in GAC,
-        /// this event handler gets executes by the .NET Framework.
-        /// Then we try to look in the plugin's folder for the requeseted dll and load it manually.
+        ///     In case one of plugin dependencies is required during its load and cannot be found in GAC,
+        ///     this event handler gets executes by the .NET Framework.
+        ///     Then we try to look in the plugin's folder for the requeseted dll and load it manually.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="ResolveEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="ResolveEventArgs" /> instance containing the event data.</param>
         /// <returns>Assembly.</returns>
         private Assembly AssemblyResolveOverride(object sender, ResolveEventArgs args)
         {
-            string dllFileName = new AssemblyName(args.Name).Name + ".dll";
+            var dllFileName = new AssemblyName(args.Name).Name + ".dll";
 
-            string assemblyPath = Directory
+            var assemblyPath = Directory
                 .EnumerateFiles(_probePath, dllFileName, SearchOption.TopDirectoryOnly)
                 .FirstOrDefault();
 
@@ -110,15 +112,17 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        /// Scans the files.
+        ///     Scans the files.
         /// </summary>
         /// <param name="di">The di.</param>
         /// <param name="depth">The depth.</param>
         /// <returns>IEnumerable&lt;FileInfo&gt;.</returns>
         private IEnumerable<FileInfo> ScanFiles(DirectoryInfo di, int depth)
         {
-            foreach (FileInfo fileInfo in di.GetFiles("*.dll"))
+            foreach (var fileInfo in di.GetFiles("*.dll"))
+            {
                 yield return fileInfo;
+            }
 
             if (depth > 0)
             {
@@ -133,24 +137,24 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        /// Loads the specified path.
+        ///     Loads the specified path.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <returns>PluginShortInfoForLoad.</returns>
         public override PluginShortInfoForLoad Load(string path)
         {
-            DirectoryInfo dir = new DirectoryInfo(path);
-            PluginShortInfoForLoad resPlugInfolst = new PluginShortInfoForLoad();
-            Type pluginDeriveType = typeof(IAimpPlugin);
-            Type attribForPlugin = typeof(AimpPluginAttribute);
+            var dir = new DirectoryInfo(path);
+            var resPlugInfolst = new PluginShortInfoForLoad();
+            var pluginDeriveType = typeof(IAimpPlugin);
+            var attribForPlugin = typeof(AimpPluginAttribute);
             //var extensionType = typeof(IAimpExtension);
-            Type externalSettingsDialog = typeof(IAimpExternalSettingsDialog);
+            var externalSettingsDialog = typeof(IAimpExternalSettingsDialog);
 
             try
             {
                 AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolveOverride;
 
-                foreach (FileInfo fileInfo in ScanFiles(dir, 0))
+                foreach (var fileInfo in ScanFiles(dir, 0))
                 {
                     try
                     {
@@ -164,12 +168,13 @@ namespace AIMP.SDK
                         var assemblyTypes = curAsmbl.GetTypes();
 
                         var plgType = assemblyTypes.FirstOrDefault(o => pluginDeriveType.IsAssignableFrom(o)
-                                                              && o.GetCustomAttributes(attribForPlugin, false).Length == 1);
+                                                                        && o.GetCustomAttributes(attribForPlugin, false)
+                                                                            .Length == 1);
 
                         if (plgType != null)
                         {
-                            var curAttr = (AimpPluginAttribute)plgType.GetCustomAttributes(attribForPlugin, false)[0];
-                            System.Diagnostics.Debug.WriteLine("Load plugin: " + curAsmbl.FullName);
+                            var curAttr = (AimpPluginAttribute) plgType.GetCustomAttributes(attribForPlugin, false)[0];
+                            Debug.WriteLine("Load plugin: " + curAsmbl.FullName);
                             curAttr.IsExternalSettingsDialog = externalSettingsDialog.IsAssignableFrom(plgType);
 
                             resPlugInfolst = new PluginShortInfoForLoad
@@ -197,17 +202,17 @@ namespace AIMP.SDK
     }
 
     /// <summary>
-    /// Class PluginInfoLoader.
+    ///     Class PluginInfoLoader.
     /// </summary>
     public static class PluginInfoLoader
     {
         /// <summary>
-        /// The load strategy type
+        ///     The load strategy type
         /// </summary>
         public static Type LoadStrategyType = typeof(AssemblyScanPluginLoadStrategy);
 
         /// <summary>
-        /// Loads the plugin.
+        ///     Loads the plugin.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <returns>AimpDotNetPlugin.</returns>
@@ -217,11 +222,11 @@ namespace AIMP.SDK
 
             try
             {
-                AppDomainSetup domainSet = new AppDomainSetup {ApplicationBase = path};
+                var domainSet = new AppDomainSetup {ApplicationBase = path};
                 loadDomain = AppDomain.CreateDomain(
                     "PluginLoadDomain" + new Guid().ToString().GetHashCode().ToString("x"), null, domainSet);
 
-                PluginLoadingStrategy strat =
+                var strat =
                     (PluginLoadingStrategy) loadDomain.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName,
                         LoadStrategyType.FullName);
 
@@ -245,13 +250,15 @@ namespace AIMP.SDK
 #if DEBUG
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show(e.Message);
+                MessageBox.Show(e.Message);
             }
 #endif
             finally
             {
                 if (loadDomain != null)
+                {
                     AppDomain.Unload(loadDomain);
+                }
             }
 
             return null;

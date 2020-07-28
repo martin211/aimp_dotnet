@@ -14,12 +14,12 @@ using System;
 namespace AIMP.SDK.MusicLibrary.Extension.Command
 {
     /// <summary>
-    /// Interface IAimpDataStorageCommandAddFilesDialog
+    ///     Interface IAimpDataStorageCommandAddFilesDialog
     /// </summary>
     public interface IAimpDataStorageCommandAddFilesDialog
     {
         /// <summary>
-        /// Executes the specified owner handle.
+        ///     Executes the specified owner handle.
         /// </summary>
         /// <param name="ownerHandle">The owner window handle.</param>
         /// <returns>AimpActionResult.</returns>

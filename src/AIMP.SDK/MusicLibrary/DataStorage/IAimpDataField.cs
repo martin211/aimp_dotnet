@@ -14,152 +14,167 @@ using System;
 namespace AIMP.SDK.MusicLibrary.DataStorage
 {
     /// <summary>
-    /// Enum AimpDataFieldType
+    ///     Enum AimpDataFieldType
     /// </summary>
     public enum AimpDataFieldType
     {
         /// <summary>
-        /// The none
+        ///     The none
         /// </summary>
         None = 0,
+
         /// <summary>
-        /// The int32
+        ///     The int32
         /// </summary>
         Int32 = 1,
+
         /// <summary>
-        /// The int64
+        ///     The int64
         /// </summary>
         Int64 = 2,
+
         /// <summary>
-        /// The float
+        ///     The float
         /// </summary>
         Float = 3,
+
         /// <summary>
-        /// The string
+        ///     The string
         /// </summary>
         String = 4,
 
         /// <summary>
-        /// Display value is formatted data time value (format string is depended from the context).
+        ///     Display value is formatted data time value (format string is depended from the context).
         /// </summary>
         DateTime = 10,
 
         /// <summary>
-        /// Display value is formatted time value (format string is depended from the context).
+        ///     Display value is formatted time value (format string is depended from the context).
         /// </summary>
         Duration = 11,
 
         /// <summary>
-        /// Display value is formatted file size value (format string is depended from the context).
+        ///     Display value is formatted file size value (format string is depended from the context).
         /// </summary>
         FileSize = 12,
 
         /// <summary>
-        /// Grouping tree split the value by levels by the "\" and "/" characters. Grouping by this field with other fields is not available.
+        ///     Grouping tree split the value by levels by the "\" and "/" characters. Grouping by this field with other fields is
+        ///     not available.
         /// </summary>
         FileName = 13
     }
 
     /// <summary>
-    /// Enum AimpDataFieldFlagsType
+    ///     Enum AimpDataFieldFlagsType
     /// </summary>
     [Flags]
     public enum AimpDataFieldFlagsType
     {
         /// <summary>
-        /// The none
+        ///     The none
         /// </summary>
         None = 0,
+
         /// <summary>
-        /// The grouping
+        ///     The grouping
         /// </summary>
         Grouping = 1,
+
         /// <summary>
-        /// The filtering
+        ///     The filtering
         /// </summary>
         Filtering = 2,
+
         /// <summary>
-        /// The internal
+        ///     The internal
         /// </summary>
         Internal = 4,
+
         /// <summary>
-        /// The required
+        ///     The required
         /// </summary>
         Required = 8
     }
 
     /// <summary>
-    /// Enum ImageType
+    ///     Enum ImageType
     /// </summary>
     public enum ImageType
     {
         /// <summary>
-        /// The folder
+        ///     The folder
         /// </summary>
         Folder = 0,
+
         /// <summary>
-        /// The artist
+        ///     The artist
         /// </summary>
         Artist = 1,
+
         /// <summary>
-        /// The disk
+        ///     The disk
         /// </summary>
         Disk = 2,
+
         /// <summary>
-        /// The note
+        ///     The note
         /// </summary>
         Note = 3,
+
         /// <summary>
-        /// The star
+        ///     The star
         /// </summary>
         Star = 4,
+
         /// <summary>
-        /// The calendar
+        ///     The calendar
         /// </summary>
         Calendar = 5,
+
         /// <summary>
-        /// The label
+        ///     The label
         /// </summary>
         Label = 6
     }
 
     /// <summary>
-    /// Provides information about the data field for Music Library.
+    ///     Provides information about the data field for Music Library.
     /// </summary>
     public interface IAimpDataField
     {
         /// <summary>
-        /// This is a user data parameter, it allow you to bind custom data to the interface.
+        ///     This is a user data parameter, it allow you to bind custom data to the interface.
         /// </summary>
         /// <value>The custom.</value>
         string Custom { get; set; }
 
         /// <summary>
-        /// Gets or sets the name.
+        ///     Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
         string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the data field type.
+        ///     Gets or sets the data field type.
         /// </summary>
         /// <value>The type.</value>
         AimpDataFieldType Type { get; set; }
 
         /// <summary>
-        /// Gets or sets the data field flags.
+        ///     Gets or sets the data field flags.
         /// </summary>
         /// <value>The flags.</value>
         AimpDataFieldFlagsType Flags { get; set; }
 
         /// <summary>
-        /// Gets or sets the field image.
+        ///     Gets or sets the field image.
         /// </summary>
         /// <value>The image.</value>
         ImageType Image { get; set; }
 
         /// <summary>
-        /// Gets or sets the display value.
+        ///     Gets or sets the display value.
         /// </summary>
         /// <value>The display value.</value>
         string DisplayValue { get; set; }
