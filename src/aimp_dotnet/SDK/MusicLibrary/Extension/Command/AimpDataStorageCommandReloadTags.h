@@ -4,6 +4,7 @@
 // https://github.com/martin211/aimp_dotnet
 // Mail: mail4evgeniy@gmail.com
 // ----------------------------------------------------
+
 #pragma once
 
 class AimpDataStorageCommandReloadTags : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandReloadTags>
