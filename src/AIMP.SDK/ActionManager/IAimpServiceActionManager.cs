@@ -25,7 +25,6 @@ namespace AIMP.SDK.ActionManager
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="action">The action.</param>
-        /// <returns>The <see cref="ActionResultType"/>result.</returns>
         AimpActionResult<IAimpAction> GetById(string id);
 
         /// <summary>
@@ -33,21 +32,18 @@ namespace AIMP.SDK.ActionManager
         /// </summary>
         /// <param name="modifiers">The key modifiers <see cref="ModifierKeys"/>.</param>
         /// <param name="key">The key.</param>
-        /// <returns>The <see cref="ActionResultType"/>result.</returns>
         int MakeHotkey(ModifierKeys modifiers, uint key);
 
         /// <summary>
         /// Registers the specified action.
         /// </summary>
         /// <param name="action">The action <see cref="IAimpAction"/>.</param>
-        /// <returns>The <see cref="ActionResultType"/>result.</returns>
         AimpActionResult Register(IAimpAction action);
 
         /// <summary>
         /// Registers the specified actions.
         /// </summary>
         /// <param name="actions">The collection of <see cref="IAimpAction"/>.</param>
-        /// <returns>The <see cref="ActionResultType"/>result.</returns>
         AimpActionResult Register(ICollection<IAimpAction> actions);
 
         /// <summary>

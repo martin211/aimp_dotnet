@@ -154,7 +154,7 @@ void AimpPlaylistItem::PlayList::set(IAimpPlaylist^ val)
     // TODO: complete it
 }
 
-ActionResultType AimpPlaylistItem::ReloadInfo()
+ActionResult AimpPlaylistItem::ReloadInfo()
 {
-    return CheckResult(InternalAimpObject->ReloadInfo());
+    return ACTION_RESULT(CheckResult(InternalAimpObject->ReloadInfo()));
 }

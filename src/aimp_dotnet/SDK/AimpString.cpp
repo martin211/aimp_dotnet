@@ -59,7 +59,7 @@ ActionResultType AimpString::Add(String^ chars, int charsCount)
     return CheckResult(InternalAimpObject->Add2((PWCHAR)strData, charsCount));
 }
 
-ActionResultType AimpString::ChangeCase(AIMPStringCase mode)
+ActionResultType AimpString::ChangeCase(AimpStringCase mode)
 {
     return CheckResult(InternalAimpObject->ChangeCase((int)mode));
 }
@@ -108,7 +108,7 @@ ActionResultType AimpString::Delete(int index, int count)
     return CheckResult(InternalAimpObject->Delete(index, count));
 }
 
-ActionResultType AimpString::Find(IAimpString^ str, int% index, AIMPStringFindFlags flags, int startFromIndex)
+ActionResultType AimpString::Find(IAimpString^ str, int% index, AimpStringFindFlags flags, int startFromIndex)
 {
     int i = 0;
 
@@ -126,7 +126,7 @@ ActionResultType AimpString::Find(IAimpString^ str, int% index, AIMPStringFindFl
     return res;
 }
 
-ActionResultType AimpString::Find(String^ chars, int charsCount, int% index, AIMPStringFindFlags flags,
+ActionResultType AimpString::Find(String^ chars, int charsCount, int% index, AimpStringFindFlags flags,
                                   int startFromIndex)
 {
     int i = 0;

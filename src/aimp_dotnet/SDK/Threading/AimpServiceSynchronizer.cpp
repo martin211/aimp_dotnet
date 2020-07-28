@@ -16,7 +16,7 @@ AimpServiceSynchronizer(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceSyn
 {
 }
 
-ActionResultType AimpServiceSynchronizer::ExecuteInMainThread(IAimpTask^ task, bool executeNow)
+ActionResult AimpServiceSynchronizer::ExecuteInMainThread(IAimpTask^ task, bool executeNow)
 {
     IAIMPServiceSynchronizer* service = GetAimpService();
 
@@ -25,7 +25,7 @@ ActionResultType AimpServiceSynchronizer::ExecuteInMainThread(IAimpTask^ task, b
         if (service != nullptr)
         {
             InternalAimpTask* internalTask = new InternalAimpTask(task);
-            return CheckResult(service->ExecuteInMainThread(internalTask, BOOL(executeNow)));
+            return ACTION_RESULT(CheckResult(service->ExecuteInMainThread(internalTask, BOOL(executeNow))));
         }
     }
     finally
@@ -33,7 +33,7 @@ ActionResultType AimpServiceSynchronizer::ExecuteInMainThread(IAimpTask^ task, b
         ReleaseObject(service);
     }
 
-    return ActionResultType::Fail;
+    return ACTION_RESULT(ActionResultType::Fail);
 }
 
 IAIMPServiceSynchronizer* AimpServiceSynchronizer::GetAimpService()

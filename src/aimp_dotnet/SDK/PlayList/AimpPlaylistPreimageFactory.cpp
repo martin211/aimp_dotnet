@@ -21,18 +21,16 @@ HRESULT WINAPI AimpPlaylistPreimageFactory::CreatePreimage(IAIMPPlaylistPreimage
 
 HRESULT WINAPI AimpPlaylistPreimageFactory::GetID(IAIMPString** ID)
 {
-    System::String^ id;
-    _managedObject->GetId(id);
-    *ID = AimpConverter::ToAimpString(id);
-    return S_OK;
+    const auto result = _managedObject->GetId();
+    *ID = AimpConverter::ToAimpString(result->Result);
+    return static_cast<HRESULT>(result->ResultType);
 }
 
 HRESULT WINAPI AimpPlaylistPreimageFactory::GetName(IAIMPString** Name)
 {
-    System::String^ name;
-    _managedObject->GetName(name);
-    *Name = AimpConverter::ToAimpString(name);
-    return S_OK;
+    const auto result = _managedObject->GetName();
+    *Name = AimpConverter::ToAimpString(result->Result);
+    return static_cast<HRESULT>(result->ResultType);
 }
 
 DWORD WINAPI AimpPlaylistPreimageFactory::GetFlags()

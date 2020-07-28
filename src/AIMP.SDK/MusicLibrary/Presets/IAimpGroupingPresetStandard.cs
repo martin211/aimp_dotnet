@@ -19,15 +19,13 @@ namespace AIMP.SDK.MusicLibrary.Presets
     public interface IAimpGroupingPresetStandard : IAimpGroupingPreset
     {
         /// <summary>
-        /// Gets or sets the fields that used for groupping at filter.
+        /// Gets or sets the fields that used for grouping at filter.
         /// </summary>
         IAimpObjectList<string> Fields { get; set; }
 
         /// <summary>
         /// Gets the used filter.
         /// </summary>
-        /// <param name="filter">The filter.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType GetFilter(out IAimpDataFilterGroup filter);
+        AimpActionResult<IAimpDataFilterGroup> GetFilter();
     }
 }

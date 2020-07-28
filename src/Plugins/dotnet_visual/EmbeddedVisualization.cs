@@ -33,7 +33,7 @@ namespace dotnet_visual
         public AimpVisualFlags GetFlags()
         {
             Debug.WriteLine("GetFlag");
-            return AimpVisualFlags.AIMP_VISUAL_FLAGS_RQD_DATA_SPECTRUM;
+            return AimpVisualFlags.RQDDataSpectrum;
         }
 
         public ActionResultType GetMaxDisplaySize(out int width, out int height)

@@ -40,7 +40,6 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         /// <summary>
         /// Returns text to display to end user (optionally).
         /// </summary>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult<string> GetDisplayValue();
 
         /// <summary>
@@ -60,8 +59,6 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         /// <summary>
         /// Returns the value for specified field name.
         /// </summary>
-        /// <param name="fieldName">THe current field name.</param>
-        /// <param name="value"></param>
         AimpActionResult<string, object> GetValue();
 
         /// <summary>

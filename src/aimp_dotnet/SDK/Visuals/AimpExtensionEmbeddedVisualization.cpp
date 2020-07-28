@@ -11,18 +11,17 @@
 
 int AimpExtensionEmbeddedVisualization::GetFlags()
 {
-    return (int)_managedObject->GetFlags();
+    return static_cast<int>(_managedObject->GetFlags());
 }
 
 HRESULT AimpExtensionEmbeddedVisualization::GetMaxDisplaySize(int* Width, int* Height)
 {
-    int w = 0;
-    int h = 0;
+    const auto result = _managedObject->GetMaxDisplaySize();
 
-    if (_managedObject->GetMaxDisplaySize(*&w, *&h) == ActionResultType::OK)
+    if (result->ResultType == ActionResultType::OK)
     {
-        *Width = w;
-        *Height = h;
+        *Width = result->Item1;
+        *Height = result->Item2;
         return S_OK;
     }
 
@@ -32,18 +31,19 @@ HRESULT AimpExtensionEmbeddedVisualization::GetMaxDisplaySize(int* Width, int* H
 HRESULT AimpExtensionEmbeddedVisualization::GetName(IAIMPString** S)
 {
     IAIMPString* strObject = nullptr;
-    System::String^ str;
-    if (_managedObject->GetName(*&str) != ActionResultType::OK)
+    const auto result = _managedObject->GetName();
+
+    if (result->ResultType != ActionResultType::OK)
     {
         return E_FAIL;
     }
 
-    pin_ptr<const WCHAR> strDate = PtrToStringChars(str);
+    const pin_ptr<const WCHAR> strDate = PtrToStringChars(result->Result);
     HRESULT r = _aimpCore->CreateObject(IID_IAIMPString, reinterpret_cast<void**>(&strObject));
 
     if (r == S_OK)
     {
-        r = strObject->SetData(PWCHAR(strDate), str->Length);
+        r = strObject->SetData(PWCHAR(strDate), result->Result->Length);
         *S = strObject;
     }
 
@@ -52,7 +52,7 @@ HRESULT AimpExtensionEmbeddedVisualization::GetName(IAIMPString** S)
 
 HRESULT AimpExtensionEmbeddedVisualization::Initialize(int Width, int Height)
 {
-    return HRESULT(_managedObject->Initialize(Width, Height));
+    return HRESULT(_managedObject->Initialize(Width, Height)->ResultType);
 }
 
 void AimpExtensionEmbeddedVisualization::Finalize()

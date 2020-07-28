@@ -14,7 +14,7 @@ namespace AIMP.SDK.Playlist
     public enum PreimageFactoryFlags
     {
         None = 0,
-        AIMP_PREIMAGEFACTORY_FLAG_CONTEXTDEPENDENT = 1
+        ContextDependent = 1
     }
 
     /// <summary>
@@ -25,23 +25,17 @@ namespace AIMP.SDK.Playlist
         /// <summary>
         /// Creates a new instance of <see cref="IAimpPlaylistPreimage"/>.
         /// </summary>
-        /// <param name="preimage">The <see cref="IAimpPlaylistPreimage"/>.</param>
-        /// <returns>The <see cref="ActionResultType" /> result.</returns>
-        ActionResultType CreatePreimage(out IAimpPlaylistPreimage preimage);
+        AimpActionResult<IAimpPlaylistPreimage> CreatePreimage();
 
         /// <summary>
         /// Unique ID of factory. You must not change the ID during life time of the plugin, because ID will be stored to file of smart-playlist.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>The <see cref="ActionResultType" /> result.</returns>
-        ActionResultType GetId(out string id);
+        AimpActionResult<string> GetId();
 
         /// <summary>
         /// Gets the name.
         /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns>The <see cref="ActionResultType" /> result.</returns>
-        ActionResultType GetName(out string name);
+        AimpActionResult<string> GetName();
 
         PreimageFactoryFlags GetFlags();
 

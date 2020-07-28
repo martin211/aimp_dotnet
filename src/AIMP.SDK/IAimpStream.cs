@@ -31,8 +31,7 @@ namespace AIMP.SDK
         /// </para>
         /// </summary>
         /// <param name="value">New size, in bytes.</param>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType SetSize(long value);
+        AimpActionResult SetSize(long value);
 
         /// <summary>
         /// Gets the position of reading / writing cursor in bytes.
@@ -44,8 +43,7 @@ namespace AIMP.SDK
         /// </summary>
         /// <param name="offset">Offset in bytes.</param>
         /// <param name="mode">A value of type <see cref="T:System.IO.SeekOrigin" /> indicating the reference point used to obtain the new position.</param>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType Seek(long offset, System.IO.SeekOrigin mode);
+        AimpActionResult Seek(long offset, System.IO.SeekOrigin mode);
 
         /// <summary>
         /// Reads a block of bytes from the current stream and writes the data to a buffer.
@@ -63,7 +61,6 @@ namespace AIMP.SDK
         /// <param name="writen"> Parameter displays what bytes has been really written to the stream.
         /// This parameter is optional - can be null.
         /// </param>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType Write(byte[] buffer, int count, out int writen);
+        AimpActionResult Write(byte[] buffer, int count, out int writen);
     }
 }

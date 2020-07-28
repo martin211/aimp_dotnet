@@ -27,29 +27,22 @@ namespace AIMP.SDK.MusicLibrary
         /// Gets the file list from table view.
         /// </summary>
         /// <param name="flags">The flags.</param>
-        /// <param name="list">The list.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult<IAimpFileList> GetFiles(FilesType flags);
 
         /// <summary>
         /// Gets the grouping filter.
         /// </summary>
-        /// <param name="filter">The filter.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult<IAimpDataFilter> GetGroupingFilter();
 
         /// <summary>
         /// Gets the grouping filter path.
         /// </summary>
-        /// <param name="path">The path.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult<string> GetGroupingFilterPath();
 
         /// <summary>
         /// Sets the grouping filter path.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult SetGroupingFilterPath(string path);
     }
 }

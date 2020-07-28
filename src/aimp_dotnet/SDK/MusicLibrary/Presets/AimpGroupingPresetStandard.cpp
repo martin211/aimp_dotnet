@@ -55,10 +55,10 @@ void AimpGroupingPresetStandard::Fields::set(IAimpObjectList<String^>^ value)
     PropertyListExtension::SetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, fields);
 }
 
-ActionResultType AimpGroupingPresetStandard::GetFilter(IAimpDataFilterGroup^% filter)
+TYPED_RESULT(IAimpDataFilterGroup) AimpGroupingPresetStandard::GetFilter()
 {
     IAIMPMLDataFilterGroup* f = nullptr;
-    filter = nullptr;
+    IAimpDataFilterGroup^ filter = nullptr;
 
     const ActionResultType result = CheckResult(
         static_cast<IAIMPMLGroupingPresetStandard*>(InternalAimpObject)->GetFilter(&f));
@@ -68,5 +68,5 @@ ActionResultType AimpGroupingPresetStandard::GetFilter(IAimpDataFilterGroup^% fi
         filter = gcnew AimpDataFilterGroup(f);
     }
 
-    return result;
+    return gcnew AimpActionResult<IAimpDataFilterGroup^>(result, filter);
 }

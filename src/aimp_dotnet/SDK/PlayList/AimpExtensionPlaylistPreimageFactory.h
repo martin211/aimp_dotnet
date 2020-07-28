@@ -23,11 +23,11 @@ namespace AIMP
         public:
             explicit AimpExtensionPlaylistPreimageFactory(IAIMPExtensionPlaylistPreimageFactory* aimpObject);
 
-            virtual ActionResultType CreatePreimage(IAimpPlaylistPreimage^% preimage);
+            virtual TYPED_RESULT(IAimpPlaylistPreimage) CreatePreimage();
 
-            virtual ActionResultType GetName(String^% name);
+            virtual TYPED_RESULT(String) GetName();
 
-            virtual ActionResultType GetId(String^% id);
+            virtual TYPED_RESULT(String) GetId();
 
             virtual PreimageFactoryFlags GetFlags();
         };

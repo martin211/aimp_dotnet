@@ -55,10 +55,9 @@ namespace AIMP.SDK.MusicLibrary.Presets
         void EndUpdate();
 
         /// <summary>
-        /// Removes a template by idex.
+        /// Removes a template by index.
         /// </summary>
         /// <param name="index">Index.</param>
-        /// <returns>The operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult Delete(int index);
 
         /// <summary>
@@ -77,16 +76,12 @@ namespace AIMP.SDK.MusicLibrary.Presets
         /// Gets the grouping preset by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="preset">The grouping preset <seealso cref="IAimpGroupingPreset"/>.</param>
-        /// <returns>The operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult<IAimpGroupingPreset> GetPresetById(string id);
 
         /// <summary>
         /// Gets the standard grouping preset by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="preset">The snadart grouping preset <seealso cref="IAimpGroupingPresetStandard"/></param>
-        /// <returns>The operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult<IAimpGroupingPresetStandard> GetStandardPresetById(string id);
 
         /// <summary>

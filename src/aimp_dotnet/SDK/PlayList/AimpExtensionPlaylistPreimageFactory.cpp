@@ -16,8 +16,9 @@ AimpExtensionPlaylistPreimageFactory(IAIMPExtensionPlaylistPreimageFactory* aimp
 {
 }
 
-ActionResultType AimpExtensionPlaylistPreimageFactory::CreatePreimage(IAimpPlaylistPreimage^% preimage)
+AimpActionResult<IAimpPlaylistPreimage^>^ AimpExtensionPlaylistPreimageFactory::CreatePreimage()
 {
+    IAimpPlaylistPreimage^ preimage = nullptr;
     IAIMPPlaylistPreimage* image = nullptr;
     IAIMPPlaylistPreimageFolders* folders = nullptr;
     ActionResultType res = CheckResult(InternalAimpObject->CreatePreimage(&image));
@@ -33,11 +34,12 @@ ActionResultType AimpExtensionPlaylistPreimageFactory::CreatePreimage(IAimpPlayl
         }
     }
 
-    return res;
+    return gcnew AimpActionResult<IAimpPlaylistPreimage^>(res, preimage);
 }
 
-ActionResultType AimpExtensionPlaylistPreimageFactory::GetName(String^% name)
+StringResult AimpExtensionPlaylistPreimageFactory::GetName()
 {
+    String^ name = nullptr;
     IAIMPString* aimpString = nullptr;
     ActionResultType res = CheckResult(InternalAimpObject->GetName(&aimpString));
     if (res == ActionResultType::OK && aimpString != nullptr)
@@ -47,11 +49,12 @@ ActionResultType AimpExtensionPlaylistPreimageFactory::GetName(String^% name)
         aimpString = nullptr;
     }
 
-    return res;
+    return STRING_RESULT(res, name);
 }
 
-ActionResultType AimpExtensionPlaylistPreimageFactory::GetId(String^% id)
+StringResult AimpExtensionPlaylistPreimageFactory::GetId()
 {
+    String^ id = nullptr;
     IAIMPString* aimpString = nullptr;
     ActionResultType res = CheckResult(InternalAimpObject->GetID(&aimpString));
     if (res == ActionResultType::OK && aimpString != nullptr)
@@ -61,7 +64,7 @@ ActionResultType AimpExtensionPlaylistPreimageFactory::GetId(String^% id)
         aimpString = nullptr;
     }
 
-    return res;
+    return STRING_RESULT(res, id);
 }
 
 PreimageFactoryFlags AimpExtensionPlaylistPreimageFactory::GetFlags()

@@ -29,7 +29,6 @@ namespace AIMP.SDK.Playlist
         /// </summary>
         /// <param name="item">The item.</param>
         /// <param name="insertAtBeginning">if set to <c>true</c> [insert at beginning].</param>
-        /// <returns>The <see cref="ActionResultType"/>result.</returns>
         AimpActionResult Add(IAimpPlaylistItem item, bool insertAtBeginning);
 
         /// <summary>
@@ -37,21 +36,18 @@ namespace AIMP.SDK.Playlist
         /// </summary>
         /// <param name="items">The list of the <see cref="IAimpPlaylistItem"/> items.</param>
         /// <param name="insertAtBeginning">if set to <c>true</c> [insert at beginning].</param>
-        /// <returns>The <see cref="ActionResultType"/>result.</returns>
         AimpActionResult AddList(IList<IAimpPlaylistItem> items, bool insertAtBeginning);
 
         /// <summary>
         /// Deletes the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <returns>The <see cref="ActionResultType"/>result.</returns>
         AimpActionResult Delete(IAimpPlaylistItem item);
 
         /// <summary>
         /// Deletes the specified play list.
         /// </summary>
         /// <param name="playList">The play list.</param>
-        /// <returns>The <see cref="ActionResultType"/>result.</returns>
         AimpActionResult Delete(IAimpPlaylist playList);
 
         /// <summary>
@@ -59,7 +55,6 @@ namespace AIMP.SDK.Playlist
         /// </summary>
         /// <param name="item">The item.</param>
         /// <param name="index">The index.</param>
-        /// <returns>The <see cref="ActionResultType"/>result.</returns>
         AimpActionResult Move(IAimpPlaylistItem item, int index);
 
         /// <summary>
@@ -67,14 +62,12 @@ namespace AIMP.SDK.Playlist
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="targetIndex">Index of the target.</param>
-        /// <returns>The <see cref="ActionResultType"/>result.</returns>
         AimpActionResult Move(int index, int targetIndex);
 
         /// <summary>
         /// Gets the item from specified index.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <returns>The <see cref="ActionResultType"/>result.</returns>
         AimpActionResult<IAimpPlaylistItem> GetItem(int index);
 
         /// <summary>

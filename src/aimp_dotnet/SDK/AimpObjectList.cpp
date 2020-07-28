@@ -17,27 +17,27 @@ AimpObjectList<T>::AimpObjectList(IAIMPObjectList* nativeObject)
 }
 
 generic <typename T>
-ActionResultType AimpObjectList<T>::Add(T entry)
+ActionResult AimpObjectList<T>::Add(T entry)
 {
-    return Utils::CheckResult(_nativeObject->Add(AimpConverter::ToAimpString((String^)entry)));
+    return ACTION_RESULT(Utils::CheckResult(_nativeObject->Add(AimpConverter::ToAimpString((String^)entry))));
 }
 
 generic <typename T>
-ActionResultType AimpObjectList<T>::Clear()
+ActionResult AimpObjectList<T>::Clear()
 {
-    return Utils::CheckResult(_nativeObject->Clear());
+    return ACTION_RESULT(Utils::CheckResult(_nativeObject->Clear()));
 }
 
 generic <typename T>
-ActionResultType AimpObjectList<T>::Delete(int index)
+ActionResult AimpObjectList<T>::Delete(int index)
 {
-    return Utils::CheckResult(_nativeObject->Delete(index));
+    return ACTION_RESULT(Utils::CheckResult(_nativeObject->Delete(index)));
 }
 
 generic <typename T>
-ActionResultType AimpObjectList<T>::Insert(int index, T entry)
+ActionResult AimpObjectList<T>::Insert(int index, T entry)
 {
-    return Utils::CheckResult(_nativeObject->Insert(index, AimpConverter::ToAimpString((String^)entry)));
+    return ACTION_RESULT(Utils::CheckResult(_nativeObject->Insert(index, AimpConverter::ToAimpString((String^)entry))));
 }
 
 generic <typename T>
@@ -47,7 +47,7 @@ int AimpObjectList<T>::Count::get()
 }
 
 generic <typename T>
-ActionResultType AimpObjectList<T>::GetObject(int index, T% item)
+ActionResult AimpObjectList<T>::GetObject(int index, T% item)
 {
     IAIMPString* str;
     ActionResultType result = Utils::CheckResult(
@@ -60,11 +60,11 @@ ActionResultType AimpObjectList<T>::GetObject(int index, T% item)
         str = nullptr;
     }
 
-    return result;
+    return ACTION_RESULT(result);
 }
 
 generic <typename T>
-ActionResultType AimpObjectList<T>::SetObject(int index, T item)
+ActionResult AimpObjectList<T>::SetObject(int index, T item)
 {
-    return Utils::CheckResult(_nativeObject->SetObject(index, AimpConverter::ToAimpString((String^)item)));
+    return ACTION_RESULT(Utils::CheckResult(_nativeObject->SetObject(index, AimpConverter::ToAimpString((String^)item))));
 }

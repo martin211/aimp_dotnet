@@ -22,7 +22,6 @@ namespace AIMP.SDK.Threading
         /// <param name="task">The task.</param>
         /// <param name="executeNow">True - the method will not return control until operation has been completed (Not recommended).
         /// Otherwise, task will be queued and executed when main thread is idle. Default value is False.</param>
-        /// <returns>The <see cref="ActionResultType"/>result.</returns>
-        ActionResultType ExecuteInMainThread(IAimpTask task, bool executeNow);
+        AimpActionResult ExecuteInMainThread(IAimpTask task, bool executeNow);
     }
 }

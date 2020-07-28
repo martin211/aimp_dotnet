@@ -50,25 +50,21 @@ namespace AIMP.SDK.Visuals
         /// <summary>
         /// Method returns a maximal resolution supported by the extension. If current resolution is not supported by extension, player will automatically stretch output.
         /// </summary>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType GetMaxDisplaySize(out int width, out int height);
+        /// <returns>Item1 is width, Item2 is height.</returns>
+        AimpActionResult<int, int> GetMaxDisplaySize();
 
         /// <summary>
         /// Gets the visualization display name.
         /// </summary>
         /// <param name="name">The display name.</param>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType GetName(out string name);
+        AimpActionResult<string> GetName();
 
         /// <summary>
         /// Initializes the visualization. Occurs when user activate the visualization.
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType Initialize(int width, int height);
+        AimpActionResult Initialize(int width, int height);
 
         /// <summary>
         /// Called when visualization should be finalized.

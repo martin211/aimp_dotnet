@@ -21,7 +21,7 @@ namespace AIMP
         public:
             explicit AimpServiceSynchronizer(ManagedAimpCore^ core);
 
-            virtual ActionResultType ExecuteInMainThread(IAimpTask^ task, bool executeNow);
+            virtual ActionResult ExecuteInMainThread(IAimpTask^ task, bool executeNow);
         protected:
             IAIMPServiceSynchronizer* GetAimpService() override;
         };

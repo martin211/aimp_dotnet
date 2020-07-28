@@ -51,8 +51,6 @@ namespace AIMP.SDK.MusicLibrary
         /// Gets the file name.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <param name="fileName">[out] The file name.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult<string> GetFileName(int index);
 
         /// <summary>
@@ -60,15 +58,12 @@ namespace AIMP.SDK.MusicLibrary
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="fileName">New file name.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult SetFileName(int index, string fileName);
 
         /// <summary>
         /// Gets the file identifier.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <param name="id">[out] The file identifier,</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult<object> GetId(int index);
 
         /// <summary>
@@ -76,13 +71,11 @@ namespace AIMP.SDK.MusicLibrary
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="id">New identifier.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult SetId(int index, object id);
 
         /// <summary>
         /// Clones the list.
         /// </summary>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult<IAimpFileList> Clone();
     }
 }

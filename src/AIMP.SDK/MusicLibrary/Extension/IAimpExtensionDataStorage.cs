@@ -125,7 +125,6 @@ namespace AIMP.SDK.MusicLibrary.Extension
         /// <param name="config">The configuration.</param>
         /// <param name="section">Section Name to that contains the settings.
         /// You can use the children section names if it needed: Section + "." + ChildSectionName</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult ConfigLoad(IAimpConfig config, string section);
 
         /// <summary>
@@ -134,15 +133,12 @@ namespace AIMP.SDK.MusicLibrary.Extension
         /// <param name="config">The configuration.</param>
         /// <param name="section">Section Name to store the settings.
         /// You can use the children section names if it needed: Section + "." + ChildSectionName</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult ConfigSave(IAimpConfig config, string section);
 
         /// <summary>
         /// Method returns settings and layout of the data fields in dependency from specified Schema value.
         /// </summary>
         /// <param name="schemaType">Type of the schema <see cref="SchemaType"/>.</param>
-        /// <param name="list">The list.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult<IList> GetFields(SchemaType schemaType);
 
         /// <summary>
@@ -150,7 +146,6 @@ namespace AIMP.SDK.MusicLibrary.Extension
         /// </summary>
         /// <param name="schema">The schema.</param>
         /// <param name="presets">The presets.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
         AimpActionResult GetGroupingPresets(GroupingPresetsSchemaType schema, IAimpGroupingPresets presets);
     }
 }

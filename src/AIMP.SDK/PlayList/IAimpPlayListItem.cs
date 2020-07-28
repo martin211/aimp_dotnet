@@ -72,7 +72,6 @@ namespace AIMP.SDK.Playlist
         /// <summary>
         /// Reloads the information.
         /// </summary>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType ReloadInfo();
+        AimpActionResult ReloadInfo();
     }
 }

@@ -31,16 +31,16 @@ namespace AIMP
         public:
             AimpPlaylistItem();
 
-            virtual property System::String^ DisplayText
+            virtual property String^ DisplayText
             {
-                System::String^ get();
-                void set(System::String^ value);
+                String^ get();
+                void set(String^ value);
             }
 
-            virtual property System::String^ FileName
+            virtual property String^ FileName
             {
-                System::String^ get();
-                void set(System::String^ value);
+                String^ get();
+                void set(String^ value);
             }
 
             virtual property int Index
@@ -88,7 +88,7 @@ namespace AIMP
                 void set(IAimpPlaylist^ val);
             }
 
-            virtual ActionResultType ReloadInfo();
+            virtual ActionResult ReloadInfo();
 
         protected:
             void RegisterAtMemoryManager() override;
