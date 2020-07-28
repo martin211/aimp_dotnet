@@ -20,11 +20,12 @@ namespace AIMP.SDK.MusicLibrary.Presets
     public interface IAimpGroupingPresets
     {
         /// <summary>
-        /// Adds new grouping template with custom data provider <seealso cref="IAimpGroupingTreeDataProvider"/>.
+        /// Adds new grouping template with custom data provider <seealso cref="IAimpGroupingTreeDataProvider" />.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">Template name.</param>
-        /// <param name="provider">Custom data provider <seealso cref="IAimpGroupingTreeDataProvider"/>.</param>
+        /// <param name="provider">Custom data provider <seealso cref="IAimpGroupingTreeDataProvider" />.</param>
+        /// <returns>AimpActionResult&lt;IAimpGroupingPreset&gt;.</returns>
         AimpActionResult<IAimpGroupingPreset> Add(string id, string name, IAimpGroupingTreeDataProvider provider);
 
         /// <summary>
@@ -33,6 +34,7 @@ namespace AIMP.SDK.MusicLibrary.Presets
         /// <param name="id">The identifier.</param>
         /// <param name="name">Template name.</param>
         /// <param name="fieldNames">The list of fields</param>
+        /// <returns>AimpActionResult&lt;IAimpGroupingPresetStandard&gt;.</returns>
         AimpActionResult<IAimpGroupingPresetStandard> Add(string id, string name, IList<string> fieldNames);
 
         /// <summary>
@@ -41,6 +43,7 @@ namespace AIMP.SDK.MusicLibrary.Presets
         /// <param name="id">The identifier.</param>
         /// <param name="name">Template name.</param>
         /// <param name="fieldName">The field name.</param>
+        /// <returns>AimpActionResult&lt;IAimpGroupingPresetStandard&gt;.</returns>
         AimpActionResult<IAimpGroupingPresetStandard> Add(string id, string name, string fieldName);
 
         /// <summary>
@@ -58,35 +61,41 @@ namespace AIMP.SDK.MusicLibrary.Presets
         /// Removes a template by index.
         /// </summary>
         /// <param name="index">Index.</param>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult Delete(int index);
 
         /// <summary>
         /// Gets the grouping preset by index.
         /// </summary>
         /// <param name="index">Index.</param>
+        /// <returns>AimpActionResult&lt;IAimpGroupingPreset&gt;.</returns>
         AimpActionResult<IAimpGroupingPreset> GetPreset(int index);
 
         /// <summary>
         /// Gets the standard grouping preset by index.
         /// </summary>
         /// <param name="index">Index.</param>
+        /// <returns>AimpActionResult&lt;IAimpGroupingPresetStandard&gt;.</returns>
         AimpActionResult<IAimpGroupingPresetStandard> GetStandardPreset(int index);
 
         /// <summary>
         /// Gets the grouping preset by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <returns>AimpActionResult&lt;IAimpGroupingPreset&gt;.</returns>
         AimpActionResult<IAimpGroupingPreset> GetPresetById(string id);
 
         /// <summary>
         /// Gets the standard grouping preset by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <returns>AimpActionResult&lt;IAimpGroupingPresetStandard&gt;.</returns>
         AimpActionResult<IAimpGroupingPresetStandard> GetStandardPresetById(string id);
 
         /// <summary>
         /// Gets the count of presets.
         /// </summary>
+        /// <returns>System.Int32.</returns>
         int GetCount();
     }
 }

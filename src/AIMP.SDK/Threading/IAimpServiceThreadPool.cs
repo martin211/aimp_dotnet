@@ -13,8 +13,14 @@ namespace AIMP.SDK.Threading
 {
     using System;
 
+    /// <summary>
+    /// Enum AimpServiceThreadPoolType
+    /// </summary>
     public enum AimpServiceThreadPoolType
     {
+        /// <summary>
+        /// The none
+        /// </summary>
         None = 0,
 
         /// <summary>
@@ -29,7 +35,9 @@ namespace AIMP.SDK.Threading
     /// <para>
     /// Make sure that all your tasks is completed or canceled during plugin finalization.
     /// </para>
+    /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
+    /// <seealso cref="AIMP.SDK.IAimpService" />
     public interface IAimpServiceThreadPool : IAimpService
     {
         /// <summary>
@@ -37,7 +45,7 @@ namespace AIMP.SDK.Threading
         /// </summary>
         /// <param name="taskhandle">The task handle.</param>
         /// <param name="flags">The flags.</param>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
+        /// <returns>The <see cref="ActionResultType" /> result.</returns>
         ActionResultType Cancel(UIntPtr taskhandle, AimpServiceThreadPoolType flags);
 
         /// <summary>
@@ -45,14 +53,14 @@ namespace AIMP.SDK.Threading
         /// </summary>
         /// <param name="task">The task.</param>
         /// <param name="taskHandle">The task handle.</param>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
+        /// <returns>The <see cref="ActionResultType" /> result.</returns>
         ActionResultType Execute(IAimpTask task, out UIntPtr taskHandle);
 
         /// <summary>
         /// Method provides an ability to wait for task completion.
         /// </summary>
         /// <param name="taskHandle">The task handle.</param>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
+        /// <returns>The <see cref="ActionResultType" /> result.</returns>
         ActionResultType WaitFor(UIntPtr taskHandle);
     }
 }

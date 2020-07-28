@@ -16,7 +16,7 @@ namespace AIMP.SDK.MusicLibrary
     /// <summary>
     /// Uses for notify library about changes at data storage.
     /// <para>
-    /// Instance of interface creates by music library manager and put to plugin via the <see cref="AIMP.SDK.MusicLibrary.Extension.IAimpExtensionDataStorage.Initialize"/> method.
+    /// Instance of interface creates by music library manager and put to plugin via the <see cref="AIMP.SDK.MusicLibrary.Extension.IAimpExtensionDataStorage.Initialize" /> method.
     /// </para>
     /// </summary>
     public interface IAimpDataStorageManager
@@ -27,12 +27,14 @@ namespace AIMP.SDK.MusicLibrary
         /// <param name="id">The identifier.</param>
         /// <param name="caption">The caption.</param>
         /// <param name="cancelEvent">The cancel event.</param>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult BackgroundTaskStarted(int id, string caption, IAimpActionEvent cancelEvent);
 
         /// <summary>
         /// Notifies about the background task that has been finished.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult BackgroundTaskFinished(int id);
 
         /// <summary>

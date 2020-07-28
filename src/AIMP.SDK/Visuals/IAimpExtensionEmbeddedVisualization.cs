@@ -13,18 +13,29 @@ using System;
 
 namespace AIMP.SDK.Visuals
 {
+    /// <summary>
+    /// Enum AimpVisualClickButtonType
+    /// </summary>
     public enum AimpVisualClickButtonType
     {
+        /// <summary>
+        /// The aimp visual click button left
+        /// </summary>
         AIMP_VISUAL_CLICK_BUTTON_LEFT,
+        /// <summary>
+        /// The aimp visual click button middle
+        /// </summary>
         AIMP_VISUAL_CLICK_BUTTON_MIDDLE
     }
 
     /// <summary>
     /// This type visualization displays on visual display of player only and can be chosen by user.
     /// <para>
-    /// Instance should be created by plugin and must be registered in the application in the <see cref="AimpPlugin.Initialize"/> method via the <see cref="IAimpCore.RegisterExtension"/> method.
+    /// Instance should be created by plugin and must be registered in the application in the <see cref="AimpPlugin.Initialize" /> method via the <see cref="IAimpCore.RegisterExtension" /> method.
     /// </para>
+    /// Implements the <see cref="AIMP.SDK.IAimpExtension" />
     /// </summary>
+    /// <seealso cref="AIMP.SDK.IAimpExtension" />
     public interface IAimpExtensionEmbeddedVisualization : IAimpExtension
     {
         /// <summary>
@@ -43,8 +54,9 @@ namespace AIMP.SDK.Visuals
         void Resize(int newWidth, int newHeight);
 
         /// <summary>
-        /// Returns zero or combination of followed flags <seealso cref="AimpVisualFlags"/>.
+        /// Returns zero or combination of followed flags <seealso cref="AimpVisualFlags" />.
         /// </summary>
+        /// <returns>AimpVisualFlags.</returns>
         AimpVisualFlags GetFlags();
 
         /// <summary>
@@ -56,7 +68,7 @@ namespace AIMP.SDK.Visuals
         /// <summary>
         /// Gets the visualization display name.
         /// </summary>
-        /// <param name="name">The display name.</param>
+        /// <returns>AimpActionResult&lt;System.String&gt;.</returns>
         AimpActionResult<string> GetName();
 
         /// <summary>
@@ -64,6 +76,7 @@ namespace AIMP.SDK.Visuals
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult Initialize(int width, int height);
 
         /// <summary>
@@ -75,7 +88,7 @@ namespace AIMP.SDK.Visuals
         /// Draws visualization on the specified output screen.
         /// </summary>
         /// <param name="dc">The output screen handle.</param>
-        /// <param name="data">The visualization data <seealso cref="AimpVisualData"/>.</param>
+        /// <param name="data">The visualization data <seealso cref="AimpVisualData" />.</param>
         void Draw(IntPtr dc, AimpVisualData data);
     }
 }

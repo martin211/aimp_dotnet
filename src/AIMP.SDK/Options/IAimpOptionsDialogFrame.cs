@@ -13,6 +13,9 @@ namespace AIMP.SDK.Options
 {
     using System;
 
+    /// <summary>
+    /// Enum OptionsDialogFrameNotificationType
+    /// </summary>
     public enum OptionsDialogFrameNotificationType
     {
         /// <summary>
@@ -38,21 +41,23 @@ namespace AIMP.SDK.Options
     }
 
     /// <summary>
-    /// 
+    /// Interface IAimpOptionsDialogFrame
+    /// Implements the <see cref="AIMP.SDK.IAimpExtension" />
     /// </summary>
+    /// <seealso cref="AIMP.SDK.IAimpExtension" />
     public interface IAimpOptionsDialogFrame : IAimpExtension
     {
         /// <summary>
         /// Gets the name.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
         string GetName();
 
         /// <summary>
         /// Creates the frame.
         /// </summary>
         /// <param name="parentWindow">The parent window.</param>
-        /// <returns></returns>
+        /// <returns>IntPtr.</returns>
         IntPtr CreateFrame(IntPtr parentWindow);
 
         /// <summary>
@@ -63,6 +68,7 @@ namespace AIMP.SDK.Options
         /// <summary>
         /// Occurs when [notification].
         /// </summary>
+        /// <param name="id">The identifier.</param>
         void Notification(OptionsDialogFrameNotificationType id);
     }
 }

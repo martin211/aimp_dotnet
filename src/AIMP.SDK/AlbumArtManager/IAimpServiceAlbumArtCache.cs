@@ -25,7 +25,7 @@ namespace AIMP.SDK.AlbumArtManager
         AimpActionResult Flush(string album, string artist);
 
         /// <summary>
-        /// Flushes cache for specified FileURI. FileURI can include wildcard characters, for example, an asterisk (*) or a question mark (?). 
+        /// Flushes cache for specified FileURI. FileURI can include wildcard characters, for example, an asterisk (*) or a question mark (?).
         /// </summary>
         /// <param name="fileUri">The file URI.</param>
         /// <returns>ActionResultType.</returns>

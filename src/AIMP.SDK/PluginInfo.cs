@@ -19,19 +19,27 @@ namespace AIMP.SDK
     using Player;
 
     /// <summary>
-    /// 
+    /// Delegate PluginLoadUnloadEvent
     /// </summary>
     /// <param name="sender">The sender.</param>
     public delegate void PluginLoadUnloadEvent(PluginInformation sender);
 
     /// <summary>
     /// Information about plugin.
+    /// Implements the <see cref="System.IDisposable" />
     /// </summary>
+    /// <seealso cref="System.IDisposable" />
     [Serializable]
     public class PluginInformation : IDisposable
     {
+        /// <summary>
+        /// The current unique plugin identifier
+        /// </summary>
         private static int _curUniquePluginId = 100;
 
+        /// <summary>
+        /// The in path to assembly
+        /// </summary>
         private readonly FileInfo _inPathToAssembly;
 
         /// <summary>
@@ -52,7 +60,7 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PluginInformation"/> class.
+        /// Initializes a new instance of the <see cref="PluginInformation" /> class.
         /// </summary>
         /// <param name="assemblyPath">The assembly path.</param>
         /// <param name="assemblyName">Name of the assembly.</param>
@@ -72,6 +80,7 @@ namespace AIMP.SDK
         /// <summary>
         /// Gets the name of the assembly file.
         /// </summary>
+        /// <value>The name of the assembly file.</value>
         public string AssemblyFileName
         {
             get { return _inPathToAssembly.Name; }
@@ -80,16 +89,19 @@ namespace AIMP.SDK
         /// <summary>
         /// Gets the name of the plugin assembly.
         /// </summary>
+        /// <value>The name of the plugin assembly.</value>
         public string PluginAssemblyName { get; private set; }
 
         /// <summary>
         /// Gets the name of the plugin class.
         /// </summary>
+        /// <value>The name of the plugin class.</value>
         public string PluginClassName { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether this plugin is loaded.
         /// </summary>
+        /// <value><c>true</c> if this instance is loaded; otherwise, <c>false</c>.</value>
         public bool IsLoaded
         {
             get { return LoadedPlugin != null; }
@@ -98,16 +110,19 @@ namespace AIMP.SDK
         /// <summary>
         /// Gets the plugin information.
         /// </summary>
+        /// <value>The plugin information.</value>
         public AimpPluginAttribute PluginInfo { get; private set; }
 
         /// <summary>
         /// Gets the loaded plugin.
         /// </summary>
+        /// <value>The loaded plugin.</value>
         public AimpPlugin LoadedPlugin { get; private set; }
 
         /// <summary>
         /// Gets the plugin application domain information (null = current doamin).
         /// </summary>
+        /// <value>The plugin application domain information.</value>
         public AppDomain PluginAppDomainInfo { get; private set; }
 
         /// <summary>
@@ -121,6 +136,10 @@ namespace AIMP.SDK
             }
         }
 
+        /// <summary>
+        /// Gets the new uniq plugin identifier.
+        /// </summary>
+        /// <returns>System.Int32.</returns>
         private static int GetNewUniqPluginId()
         {
             return System.Threading.Interlocked.Increment(ref _curUniquePluginId);
@@ -139,7 +158,7 @@ namespace AIMP.SDK
         /// <summary>
         /// Loads this plugin.
         /// </summary>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool Load()
         {
             if (!IsLoaded)
@@ -273,6 +292,7 @@ namespace AIMP.SDK
         /// <summary>
         /// Unloads this plugin.
         /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool Unload()
         {
             if (IsLoaded)

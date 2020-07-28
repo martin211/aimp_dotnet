@@ -14,9 +14,15 @@ using AIMP.SDK.FileManager;
 
 namespace AIMP.SDK.Lyrics
 {
+    /// <summary>
+    /// Enum LyricsFlags
+    /// </summary>
     [Flags]
     public enum LyricsFlags
     {
+        /// <summary>
+        /// The none
+        /// </summary>
         None = 0,
 
         /// <summary>
@@ -30,32 +36,39 @@ namespace AIMP.SDK.Lyrics
         WaitFor = 4
     }
 
+    /// <summary>
+    /// Delegate AimpServiceLyricsReceive
+    /// </summary>
+    /// <param name="lyrics">The lyrics.</param>
+    /// <param name="userData">The user data.</param>
     public delegate void AimpServiceLyricsReceive(IAimpLyrics lyrics, object userData);
 
     /// <summary>
     /// Allowed access to the song text.
+    /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
+    /// <seealso cref="AIMP.SDK.IAimpService" />
     public interface IAimpServiceLyrics : IAimpService
     {
         /// <summary>
         /// Gets a lyrics for file.
         /// </summary>
-        /// <param name="fileInfo">The file info <see cref="IAimpFileInfo"/>.</param>
-        /// <param name="flags">The lyrics flags <see cref="LyricsFlags"/>.</param>
+        /// <param name="fileInfo">The file info <see cref="IAimpFileInfo" />.</param>
+        /// <param name="flags">The lyrics flags <see cref="LyricsFlags" />.</param>
         /// <param name="userData">A user data passed to function.</param>
-        /// <returns>Return the <see cref="AimpActionResult"/> with async task id.</returns>
+        /// <returns>Return the <see cref="AimpActionResult" /> with async task id.</returns>
         AimpActionResult<IntPtr> Get(IAimpFileInfo fileInfo, LyricsFlags flags, object userData);
 
         /// <summary>
         /// Aborts a current active task.
-        /// <param name="taskId">The task identity.</param>
-        /// <param name="flags">The lyrics flags <see cref="LyricsFlags"/>.</param>
         /// </summary>
-        /// <returns><see cref="AimpActionResult"/></returns>
+        /// <param name="taskId">The task identifier.</param>
+        /// <param name="flags">The flags.</param>
+        /// <returns><see cref="AimpActionResult" /></returns>
         AimpActionResult Cancel(IntPtr taskId, LyricsFlags flags);
 
         /// <summary>
-        /// 
+        /// Occurs when [lyrics receive].
         /// </summary>
         event AimpServiceLyricsReceive LyricsReceive;
     }

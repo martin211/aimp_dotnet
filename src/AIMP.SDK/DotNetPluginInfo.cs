@@ -15,14 +15,19 @@ namespace AIMP.SDK
 {
     /// <summary>
     /// Plugins information collection.
+    /// Implements the <see cref="System.Collections.Generic.ICollection{AIMP.SDK.PluginInformation}" />
     /// </summary>
+    /// <seealso cref="System.Collections.Generic.ICollection{AIMP.SDK.PluginInformation}" />
     // TODO: replace on one instance
     public class DotNetPluginInfo : ICollection<PluginInformation>
     {
+        /// <summary>
+        /// The in plugins list
+        /// </summary>
         private readonly List<PluginInformation> _inPluginsList;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DotNetPluginInfo"/> class.
+        /// Initializes a new instance of the <see cref="DotNetPluginInfo" /> class.
         /// </summary>
         public DotNetPluginInfo()
         {
@@ -44,13 +49,10 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        /// Gets the <see cref="PluginInformation"/> with the specified identifier.
+        /// Gets the <see cref="PluginInformation" /> with the specified identifier.
         /// </summary>
-        /// <value>
-        /// The <see cref="PluginInformation"/>.
-        /// </value>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>PluginInformation.</returns>
         public PluginInformation this[int id]
         {
             get { return _inPluginsList[id]; }
@@ -85,9 +87,7 @@ namespace AIMP.SDK
         /// Determines whether the <see cref="T:System.Collections.Generic.ICollection`1" /> contains a specific value.
         /// </summary>
         /// <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.ICollection`1" />.</param>
-        /// <returns>
-        /// true if <paramref name="item" /> is found in the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, false.
-        /// </returns>
+        /// <returns>true if <paramref name="item" /> is found in the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, false.</returns>
         public bool Contains(PluginInformation item)
         {
             return _inPluginsList.Contains(item);
@@ -106,6 +106,7 @@ namespace AIMP.SDK
         /// <summary>
         /// Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1" />.
         /// </summary>
+        /// <value>The count.</value>
         public int Count
         {
             get { return _inPluginsList.Count; }
@@ -114,6 +115,7 @@ namespace AIMP.SDK
         /// <summary>
         /// Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.
         /// </summary>
+        /// <value><c>true</c> if this instance is read only; otherwise, <c>false</c>.</value>
         public bool IsReadOnly
         {
             get { return false; }
@@ -123,9 +125,7 @@ namespace AIMP.SDK
         /// Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1" />.
         /// </summary>
         /// <param name="item">The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1" />.</param>
-        /// <returns>
-        /// true if <paramref name="item" /> was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, false. This method also returns false if <paramref name="item" /> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1" />.
-        /// </returns>
+        /// <returns>true if <paramref name="item" /> was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, false. This method also returns false if <paramref name="item" /> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1" />.</returns>
         public bool Remove(PluginInformation item)
         {
             bool res = _inPluginsList.Remove(item);
@@ -142,9 +142,7 @@ namespace AIMP.SDK
         /// <summary>
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
-        /// <returns>
-        /// A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.
-        /// </returns>
+        /// <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.</returns>
         public IEnumerator<PluginInformation> GetEnumerator()
         {
             return _inPluginsList.GetEnumerator();
@@ -153,9 +151,7 @@ namespace AIMP.SDK
         /// <summary>
         /// Returns an enumerator that iterates through a collection.
         /// </summary>
-        /// <returns>
-        /// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
-        /// </returns>
+        /// <returns>An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.</returns>
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();

@@ -28,7 +28,7 @@ namespace AIMP.SDK.Playlist
         event AimpPlaylistQueueListenerHandler ContentChanged;
 
         /// <summary>
-        /// Event occurs when the <see cref="IAimpPlaylistQueue.IsSuspended"/> has been changed.
+        /// Event occurs when the <see cref="IAimpPlaylistQueue.IsSuspended" /> has been changed.
         /// </summary>
         event AimpPlaylistQueueListenerHandler StateChanged;
     }

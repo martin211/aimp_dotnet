@@ -12,9 +12,8 @@
 namespace AIMP.SDK.Playlist
 {
     /// <summary>
-    /// 
+    /// Delegate AimpPlaylistPreimageListenerHandler
     /// </summary>
-    /// <param name="sender">The sender.</param>
     public delegate void AimpPlaylistPreimageListenerHandler();
 
     /// <summary>

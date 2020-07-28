@@ -11,6 +11,9 @@
 
 namespace AIMP.SDK
 {
+    /// <summary>
+    /// Class Extensions.
+    /// </summary>
     public static class Extensions
     {
         /// <summary>

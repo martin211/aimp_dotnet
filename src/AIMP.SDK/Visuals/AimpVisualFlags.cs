@@ -13,6 +13,9 @@ namespace AIMP.SDK.Visuals
 {
     using System;
 
+    /// <summary>
+    /// Enum AimpVisualFlags
+    /// </summary>
     [Flags]
     public enum AimpVisualFlags
     {

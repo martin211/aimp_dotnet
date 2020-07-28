@@ -16,9 +16,18 @@ using System.Reflection;
 
 namespace AIMP.SDK
 {
+    /// <summary>
+    /// Class CustomAssemblyResolver.
+    /// </summary>
     public static class CustomAssemblyResolver
     {
+        /// <summary>
+        /// The current path
+        /// </summary>
         private static string curPath;
+        /// <summary>
+        /// The is inited
+        /// </summary>
         private static bool isInited;
 
         /// <summary>
@@ -44,6 +53,12 @@ namespace AIMP.SDK
             isInited = false;
         }
 
+        /// <summary>
+        /// Currents the domain assembly resolve.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="ResolveEventArgs"/> instance containing the event data.</param>
+        /// <returns>Assembly.</returns>
         private static Assembly CurrentDomainAssemblyResolve(object sender, ResolveEventArgs args)
         {
             string projectDir = Path.GetDirectoryName(curPath);

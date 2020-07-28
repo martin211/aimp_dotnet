@@ -15,12 +15,17 @@ namespace AIMP.SDK
 {
     /// <summary>
     /// Interface provides methods for working with binary stream.
+    /// Implements the <see cref="System.IDisposable" />
+    /// Implements the <see cref="AIMP.SDK.IAimpObject" />
     /// </summary>
+    /// <seealso cref="System.IDisposable" />
+    /// <seealso cref="AIMP.SDK.IAimpObject" />
     public interface IAimpStream : IDisposable, IAimpObject
     {
         /// <summary>
         /// Gets the size of stream, in bytes.
         /// </summary>
+        /// <returns>System.Int64.</returns>
         long GetSize();
 
         /// <summary>
@@ -31,11 +36,13 @@ namespace AIMP.SDK
         /// </para>
         /// </summary>
         /// <param name="value">New size, in bytes.</param>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult SetSize(long value);
 
         /// <summary>
         /// Gets the position of reading / writing cursor in bytes.
         /// </summary>
+        /// <returns>System.Int64.</returns>
         long GetPosition();
 
         /// <summary>
@@ -43,6 +50,7 @@ namespace AIMP.SDK
         /// </summary>
         /// <param name="offset">Offset in bytes.</param>
         /// <param name="mode">A value of type <see cref="T:System.IO.SeekOrigin" /> indicating the reference point used to obtain the new position.</param>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult Seek(long offset, System.IO.SeekOrigin mode);
 
         /// <summary>
@@ -58,9 +66,9 @@ namespace AIMP.SDK
         /// </summary>
         /// <param name="buffer">The buffer to write data from.</param>
         /// <param name="count">The maximum number of bytes to write.</param>
-        /// <param name="writen"> Parameter displays what bytes has been really written to the stream.
-        /// This parameter is optional - can be null.
-        /// </param>
+        /// <param name="writen">Parameter displays what bytes has been really written to the stream.
+        /// This parameter is optional - can be null.</param>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult Write(byte[] buffer, int count, out int writen);
     }
 }

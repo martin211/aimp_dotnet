@@ -19,9 +19,7 @@ namespace AIMP.SDK
         /// <summary>
         /// Gets a value indicating whether this instance is exists.
         /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is exists; otherwise, <c>false</c>.
-        /// </value>
+        /// <value><c>true</c> if this instance is exists; otherwise, <c>false</c>.</value>
         bool IsExists { get; }
     }
 }

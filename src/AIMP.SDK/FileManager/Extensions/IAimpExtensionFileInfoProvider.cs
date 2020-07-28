@@ -14,7 +14,7 @@ using AIMP.SDK.Objects;
 namespace AIMP.SDK.FileManager.Extensions
 {
     /// <summary>
-    /// Interface is an extension for the <see cref="IAimpServiceFileInfo"/> service that provides an extended information about the file.
+    /// Interface is an extension for the <see cref="IAimpServiceFileInfo" /> service that provides an extended information about the file.
     /// <para>
     /// Instance should be created by plugin and must be registered in the application at the plugin initialization method via the IAimpCore.RegisterExtension method.
     /// </para>
@@ -26,15 +26,15 @@ namespace AIMP.SDK.FileManager.Extensions
         /// </summary>
         /// <param name="fileUri">The virtual file name.</param>
         /// <param name="fileInfo">Out. File information/</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        /// <returns>Operation result <seealso cref="ActionResultType" /></returns>
         ActionResultType GetFileInfo(IAimpString fileUri, ref IAimpFileInfo fileInfo);
 
         /// <summary>
         /// Returns the file information. This method slowest then get info by file name.
         /// </summary>
-        /// <param name="stream">The file stream <see cref="IAimpStream"/>.</param>
+        /// <param name="stream">The file stream <see cref="IAimpStream" />.</param>
         /// <param name="fileInfo">Out. File information/</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
+        /// <returns>Operation result <seealso cref="ActionResultType" /></returns>
         ActionResultType GetFileInfo(IAimpStream stream, ref IAimpFileInfo fileInfo);
     }
 }
