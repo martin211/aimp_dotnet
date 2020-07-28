@@ -8,16 +8,13 @@
 #pragma once
 #include "SDK\BaseManager.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace FileManager;
         using namespace Commands;
 
         public ref class AimpServiceFileSystems : public BaseAimpService<IAIMPServiceFileSystems>,
-                                                  public IAimpServiceFileSystems
-        {
+                                                  public IAimpServiceFileSystems {
         public:
             AimpServiceFileSystems(ManagedAimpCore^ core);
 

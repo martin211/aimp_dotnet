@@ -9,20 +9,17 @@
 #include "SDK/AimpObject.h"
 #include "AIMPSDK/AIMP400/apiLyrics.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace Lyrics;
 
-        public ref class AimpLyrics : public AimpObject<IAIMPLyrics>, public IAimpLyrics
-        {
+        public ref class AimpLyrics : public AimpObject<IAIMPLyrics>, public IAimpLyrics {
         protected:
             void RegisterAtMemoryManager() override;
             void ReleaseFromMemoryManager() override;
 
-         public:
+        public:
             AimpLyrics(IAIMPLyrics* lyrics);
 
             virtual property String^ Text

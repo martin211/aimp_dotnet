@@ -9,8 +9,7 @@
 
 using namespace AIMP::SDK::FileManager::Commands;
 
-class InternalAimpFileSystemCommandDropSource : IUnknownInterfaceImpl<IAIMPFileSystemCommandDropSource>
-{
+class InternalAimpFileSystemCommandDropSource : IUnknownInterfaceImpl<IAIMPFileSystemCommandDropSource> {
 private:
     typedef IUnknownInterfaceImpl<IAIMPFileSystemCommandDropSource> Base;
     gcroot<IAimpFileSystemCommandDropSource^> _instance;

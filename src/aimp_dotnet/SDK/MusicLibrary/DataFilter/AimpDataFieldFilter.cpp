@@ -10,52 +10,44 @@
 
 using namespace AIMP::SDK;
 
-AimpDataFieldFilter::AimpDataFieldFilter(IAIMPMLDataFieldFilter* aimpDataFieldFilter) : AimpObject(aimpDataFieldFilter)
-{
+AimpDataFieldFilter::AimpDataFieldFilter(IAIMPMLDataFieldFilter* aimpDataFieldFilter) : AimpObject(
+    aimpDataFieldFilter) {
     _dataField = nullptr;
 }
 
-String^ AimpDataFieldFilter::Field::get()
-{
+String^ AimpDataFieldFilter::Field::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMPML_FIELDFILTER_FIELD);
 }
 
-void AimpDataFieldFilter::Field::set(String^ value)
-{
+void AimpDataFieldFilter::Field::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMPML_FIELDFILTER_FIELD, value);
 }
 
-FieldFilterOperationType AimpDataFieldFilter::Operation::get()
-{
+FieldFilterOperationType AimpDataFieldFilter::Operation::get() {
     int str = PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FIELDFILTER_OPERATION);
     return FieldFilterOperationType(str);
 }
 
-void AimpDataFieldFilter::Operation::set(FieldFilterOperationType value)
-{
+void AimpDataFieldFilter::Operation::set(FieldFilterOperationType value) {
     PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FIELDFILTER_OPERATION, int(value));
 }
 
-Object^ AimpDataFieldFilter::Value1::get()
-{
+Object^ AimpDataFieldFilter::Value1::get() {
     String^ v;
     PropertyListExtension::GetString(InternalAimpObject, AIMPML_FIELDFILTER_VALUE1, v);
     return v;
 }
 
-void AimpDataFieldFilter::Value1::set(Object^ value)
-{
+void AimpDataFieldFilter::Value1::set(Object^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMPML_FIELDFILTER_VALUE2, value->ToString());
 }
 
-Object^ AimpDataFieldFilter::Value2::get()
-{
+Object^ AimpDataFieldFilter::Value2::get() {
     String^ v;
     PropertyListExtension::GetString(InternalAimpObject, AIMPML_FIELDFILTER_VALUE2, v);
     return v;
 }
 
-void AimpDataFieldFilter::Value2::set(Object^ value)
-{
+void AimpDataFieldFilter::Value2::set(Object^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMPML_FIELDFILTER_VALUE2, value->ToString());
 }

@@ -10,11 +10,9 @@
 
 using namespace AIMP::SDK;
 
-AimpTaskOwner::AimpTaskOwner(IAIMPTaskOwner* taskOwner) : AimpObject(taskOwner)
-{
+AimpTaskOwner::AimpTaskOwner(IAIMPTaskOwner* taskOwner) : AimpObject(taskOwner) {
 }
 
-bool AimpTaskOwner::IsCanceled::get()
-{
+bool AimpTaskOwner::IsCanceled::get() {
     return InternalAimpObject->IsCanceled();
 }

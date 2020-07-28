@@ -11,8 +11,7 @@
 #include "SDK\AlbumArt\AimpAlbumArtSearchOptions.h"
 
 HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString* FileURI, IAIMPString* Artist, IAIMPString* Album,
-                                                  IAIMPPropertyList* Options, IAIMPImageContainer** Image)
-{
+                                                  IAIMPPropertyList* Options, IAIMPImageContainer** Image) {
     AlbumArtManager::IAimpAlbumArtSearchOptions^ searchOptions = gcnew AimpAlbumArtSearchOptions(
         Options, ManagedAimpCore::GetAimpCore());
     const auto r = _managedinstance->Get(
@@ -21,11 +20,9 @@ HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString* FileURI, IAIMPStr
         gcnew String(Album->GetData()),
         searchOptions);
 
-    if (r->ResultType == ActionResultType::OK && r->Result != nullptr)
-    {
+    if (r->ResultType == ActionResultType::OK && r->Result != nullptr) {
         const auto container = AimpConverter::ToAimpImageContainer(r->Result);
-        if (container == nullptr)
-        {
+        if (container == nullptr) {
             return E_UNEXPECTED;
         }
 
@@ -36,23 +33,19 @@ HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString* FileURI, IAIMPStr
     return E_FAIL;
 }
 
-DWORD WINAPI AimpExtensionAlbumArtProvider::GetCategory()
-{
+DWORD WINAPI AimpExtensionAlbumArtProvider::GetCategory() {
     return DWORD(_managedinstance->GetCategory());
 }
 
 HRESULT WINAPI AimpExtensionAlbumArtProvider::Get2(IAIMPFileInfo* FileInfo, IAIMPPropertyList* Options,
-                                                   IAIMPImageContainer** Image)
-{
+                                                   IAIMPImageContainer** Image) {
     IAimpFileInfo^ fi = gcnew AimpFileInfo(FileInfo);
     AlbumArtManager::IAimpAlbumArtSearchOptions^ searchOptions = gcnew AimpAlbumArtSearchOptions(
         Options, ManagedAimpCore::GetAimpCore());
     const auto r = _managedinstance->Get(fi, searchOptions);
-    if (r->ResultType == ActionResultType::OK && r->Result != nullptr)
-    {
+    if (r->ResultType == ActionResultType::OK && r->Result != nullptr) {
         const auto container = AimpConverter::ToAimpImageContainer(r->Result);
-        if (container == nullptr)
-        {
+        if (container == nullptr) {
             return E_UNEXPECTED;
         }
 

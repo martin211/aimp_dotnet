@@ -11,41 +11,35 @@
 using namespace AIMP::SDK;
 
 InternalAimpFileSystemCommandStreaming::InternalAimpFileSystemCommandStreaming(
-    gcroot<Commands::IAimpFileSystemCommandStreaming^> instance)
-{
+    gcroot<Commands::IAimpFileSystemCommandStreaming^> instance) {
     _instance = instance;
 }
 
 HRESULT WINAPI InternalAimpFileSystemCommandStreaming::CreateStream(IAIMPString* fileName, const INT64 offset,
-                                                                    const INT64 size, DWORD flags, IAIMPStream** stream)
-{
+                                                                    const INT64 size, DWORD flags,
+                                                                    IAIMPStream** stream) {
     *stream = nullptr;
     const auto res = _instance->CreateStream(AimpConverter::ToManagedString(fileName),
-                                                      FileStreamingType(flags), offset, size);
-    if (res->ResultType == ActionResultType::OK)
-    {
+                                             FileStreamingType(flags), offset, size);
+    if (res->ResultType == ActionResultType::OK) {
         *stream = static_cast<AimpStream^>(res->Result)->InternalAimpObject;
     }
 
     return HRESULT(static_cast<int>(res->ResultType));
 }
 
-ULONG WINAPI InternalAimpFileSystemCommandStreaming::AddRef(void)
-{
+ULONG WINAPI InternalAimpFileSystemCommandStreaming::AddRef(void) {
     return Base::AddRef();
 }
 
-ULONG WINAPI InternalAimpFileSystemCommandStreaming::Release(void)
-{
+ULONG WINAPI InternalAimpFileSystemCommandStreaming::Release(void) {
     return Base::Release();
 }
 
-HRESULT WINAPI InternalAimpFileSystemCommandStreaming::QueryInterface(REFIID riid, LPVOID* ppvObject)
-{
+HRESULT WINAPI InternalAimpFileSystemCommandStreaming::QueryInterface(REFIID riid, LPVOID* ppvObject) {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPFileSystemCommandStreaming)
-    {
+    if (riid == IID_IAIMPFileSystemCommandStreaming) {
         *ppvObject = this;
         AddRef();
         return S_OK;

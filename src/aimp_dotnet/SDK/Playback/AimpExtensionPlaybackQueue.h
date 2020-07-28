@@ -8,8 +8,7 @@
 #pragma once
 
 class AimpExtensionPlaybackQueue :
-    public IUnknownInterfaceImpl<IAIMPExtensionPlaybackQueue>
-{
+    public IUnknownInterfaceImpl<IAIMPExtensionPlaybackQueue> {
 private:
     gcroot<Playback::IAimpExtensionPlaybackQueue^> _managed;
 public:

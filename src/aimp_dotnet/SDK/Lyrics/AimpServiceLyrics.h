@@ -10,16 +10,13 @@
 #include "SDK\BaseManager.h"
 #include "AIMPSDK/AIMP400/apiLyrics.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace Lyrics;
 
         public ref class AimpServiceLyrics :
             public BaseAimpService<IAIMPServiceLyrics>,
-            public IAimpServiceLyrics
-        {
+            public IAimpServiceLyrics {
         public:
             explicit AimpServiceLyrics(ManagedAimpCore^ core);
 

@@ -32,8 +32,7 @@
 #include "SDK\TagEditor\AimpServiceFileTagEditor.h"
 #include "SDK\Action\AimpServiceActionManager.h";
 
-namespace AIMP
-{
+namespace AIMP {
     using namespace System;
     using namespace Runtime::InteropServices;
     using namespace SDK;
@@ -49,8 +48,7 @@ namespace AIMP
 
     private ref class AimpPlayer :
         public MarshalByRefObject,
-        public Player::IAimpPlayer
-    {
+        public Player::IAimpPlayer {
     private:
         IAIMPMessageHook* aimp_message_hook_;
         IAIMPServicePlayer* _player;

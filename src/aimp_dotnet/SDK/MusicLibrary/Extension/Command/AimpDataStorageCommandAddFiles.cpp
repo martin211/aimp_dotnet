@@ -8,7 +8,8 @@
 #include "Stdafx.h"
 #include "AimpDataStorageCommandAddFiles.h"
 
-AimpDataStorageCommandAddFiles::AimpDataStorageCommandAddFiles(gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandAddFiles^> instance) {
+AimpDataStorageCommandAddFiles::AimpDataStorageCommandAddFiles(
+    gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandAddFiles^> instance) {
     _instance = instance;
 }
 
@@ -18,8 +19,7 @@ HRESULT AimpDataStorageCommandAddFiles::Add(IAIMPObjectList* Files) {
 
 HRESULT AimpDataStorageCommandAddFiles::QueryInterface(const IID& riid, LPVOID* ppvObject) {
     *ppvObject = nullptr;
-    if (riid == IID_IAIMPMLDataStorageCommandAddFiles)
-    {
+    if (riid == IID_IAIMPMLDataStorageCommandAddFiles) {
         *ppvObject = this;
         AddRef();
         return S_OK;

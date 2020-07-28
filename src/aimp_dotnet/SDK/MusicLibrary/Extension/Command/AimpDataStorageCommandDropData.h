@@ -7,8 +7,7 @@
 
 #pragma once
 
-class AimpDataStorageCommandDropData : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandDropData>
-{
+class AimpDataStorageCommandDropData : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandDropData> {
 private:
     gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandDropData^> _instance;
 public:

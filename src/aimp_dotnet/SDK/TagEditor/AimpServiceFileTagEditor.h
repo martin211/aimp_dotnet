@@ -8,15 +8,12 @@
 #pragma once
 #include "SDK\BaseManager.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace TagEditor;
 
         public ref class AimpServiceFileTagEditor : public BaseAimpService<IAIMPServiceFileTagEditor>,
-                                                    public IAimpServiceFileTagEditor
-        {
+                                                    public IAimpServiceFileTagEditor {
         public:
             explicit AimpServiceFileTagEditor(ManagedAimpCore^ core);
 

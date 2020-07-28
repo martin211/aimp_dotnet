@@ -8,14 +8,11 @@
 #pragma once
 #include "InternalAimpPlaylistPreimage.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         public class InternalAimpMLPlaylistPreimage :
             public IUnknownInterfaceImpl<IAIMPMLPlaylistPreimage>,
-            public IAIMPPlaylistPreimageDataProvider
-        {
+            public IAIMPPlaylistPreimageDataProvider {
         private:
             gcroot<Playlist::IAimpPlaylistPreimage^> _managedInstance;
         public:

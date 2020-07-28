@@ -9,22 +9,18 @@
 #include "AimpDataStorageCommandAddFilesDialog.h"
 
 AimpDataStorageCommandAddFilesDialog::AimpDataStorageCommandAddFilesDialog(
-    gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandAddFilesDialog^> instance)
-{
+    gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandAddFilesDialog^> instance) {
     _instance = instance;
 }
 
-HRESULT WINAPI AimpDataStorageCommandAddFilesDialog::Execute(HWND OwnerHandle)
-{
+HRESULT WINAPI AimpDataStorageCommandAddFilesDialog::Execute(HWND OwnerHandle) {
     IntPtr ownerHandle(OwnerHandle);
     return HRESULT(_instance->Execute(ownerHandle)->ResultType);
 }
 
-HRESULT WINAPI AimpDataStorageCommandAddFilesDialog::QueryInterface(REFIID riid, LPVOID* ppvObject)
-{
+HRESULT WINAPI AimpDataStorageCommandAddFilesDialog::QueryInterface(REFIID riid, LPVOID* ppvObject) {
     *ppvObject = nullptr;
-    if (riid == IID_IAIMPMLDataStorageCommandAddFilesDialog)
-    {
+    if (riid == IID_IAIMPMLDataStorageCommandAddFilesDialog) {
         *ppvObject = this;
         AddRef();
         return S_OK;
@@ -33,12 +29,10 @@ HRESULT WINAPI AimpDataStorageCommandAddFilesDialog::QueryInterface(REFIID riid,
     return E_NOINTERFACE;
 }
 
-ULONG WINAPI AimpDataStorageCommandAddFilesDialog::AddRef(void)
-{
+ULONG WINAPI AimpDataStorageCommandAddFilesDialog::AddRef(void) {
     return Base::AddRef();
 }
 
-ULONG WINAPI AimpDataStorageCommandAddFilesDialog::Release(void)
-{
+ULONG WINAPI AimpDataStorageCommandAddFilesDialog::Release(void) {
     return Base::Release();
 }

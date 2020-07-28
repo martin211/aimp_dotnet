@@ -8,15 +8,12 @@
 #pragma once
 #include "SDK\BaseManager.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace Threading;
 
         public ref class AimpServiceThreadPool : public BaseAimpService<IAIMPServiceThreadPool>,
-                                                 public IAimpServiceThreadPool
-        {
+                                                 public IAimpServiceThreadPool {
         public:
             explicit AimpServiceThreadPool(ManagedAimpCore^ core);
 

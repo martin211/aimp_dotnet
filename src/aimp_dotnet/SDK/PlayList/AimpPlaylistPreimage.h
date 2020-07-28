@@ -8,17 +8,14 @@
 #pragma once
 #include "AimpPlaylistPreimageListener.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace AIMP::SDK::Playlist;
 
         public ref class AimpPlaylistPreimage :
             public AimpObject<IAIMPPlaylistPreimage>,
-            public IAimpPlaylistPreimage
-        {
+            public IAimpPlaylistPreimage {
         public:
             explicit AimpPlaylistPreimage(IAIMPPlaylistPreimage* aimpObject);
 

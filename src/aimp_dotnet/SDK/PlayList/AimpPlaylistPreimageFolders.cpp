@@ -11,18 +11,15 @@
 using namespace AIMP::SDK;
 
 AimpPlaylistPreimageFolders::AimpPlaylistPreimageFolders(IAIMPPlaylistPreimageFolders* aimpObject)
-    : AimpPlaylistPreimage(aimpObject)
-{
+    : AimpPlaylistPreimage(aimpObject) {
 }
 
-ActionResultType AimpPlaylistPreimageFolders::ItemsAdd(String^ path, bool recursive)
-{
+ActionResultType AimpPlaylistPreimageFolders::ItemsAdd(String^ path, bool recursive) {
     ActionResultType res = ActionResultType::Fail;
     IAIMPString* str = AimpConverter::ToAimpString(path);
 
     IAIMPPlaylistPreimageFolders* folders = static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject);
-    if (folders != nullptr)
-    {
+    if (folders != nullptr) {
         res = CheckResult(folders->ItemsAdd(str, BOOL(recursive)));
     }
 
@@ -30,18 +27,15 @@ ActionResultType AimpPlaylistPreimageFolders::ItemsAdd(String^ path, bool recurs
     return res;
 }
 
-ActionResultType AimpPlaylistPreimageFolders::ItemsDelete(int index)
-{
+ActionResultType AimpPlaylistPreimageFolders::ItemsDelete(int index) {
     return CheckResult(static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsDelete(index));
 }
 
-ActionResultType AimpPlaylistPreimageFolders::ItemsDeleteAll()
-{
+ActionResultType AimpPlaylistPreimageFolders::ItemsDeleteAll() {
     return CheckResult(static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsDeleteAll());
 }
 
-ActionResultType AimpPlaylistPreimageFolders::ItemsGet(int index, String^% path, bool% recursive)
-{
+ActionResultType AimpPlaylistPreimageFolders::ItemsGet(int index, String^% path, bool% recursive) {
     IAIMPString* str = nullptr;
     BOOL* b = nullptr;
     ActionResultType res = CheckResult(
@@ -52,7 +46,6 @@ ActionResultType AimpPlaylistPreimageFolders::ItemsGet(int index, String^% path,
     return res;
 }
 
-int AimpPlaylistPreimageFolders::ItemsGetCount()
-{
+int AimpPlaylistPreimageFolders::ItemsGetCount() {
     return static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsGetCount();
 }

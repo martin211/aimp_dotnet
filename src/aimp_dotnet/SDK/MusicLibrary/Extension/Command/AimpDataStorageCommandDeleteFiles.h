@@ -7,14 +7,14 @@
 
 #pragma once
 
-class AimpDataStorageCommandDeleteFiles : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandDeleteFiles>
-{
+class AimpDataStorageCommandDeleteFiles : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandDeleteFiles> {
 private:
     gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandDeleteFiles^> _instance;
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandDeleteFiles> Base;
 
-    AimpDataStorageCommandDeleteFiles(gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandDeleteFiles^> instance);
+    AimpDataStorageCommandDeleteFiles(
+        gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandDeleteFiles^> instance);
 
     virtual BOOL WINAPI CanDelete(BOOL Physically);
 

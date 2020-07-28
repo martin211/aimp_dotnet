@@ -9,8 +9,7 @@
 
 using namespace AIMP::SDK::FileManager::Commands;
 
-class InternalAimpFileSystemCommandOpenFileFolder : public IUnknownInterfaceImpl<IAIMPFileSystemCommandOpenFileFolder>
-{
+class InternalAimpFileSystemCommandOpenFileFolder : public IUnknownInterfaceImpl<IAIMPFileSystemCommandOpenFileFolder> {
 private:
     typedef IUnknownInterfaceImpl<IAIMPFileSystemCommandOpenFileFolder> Base;
     gcroot<IAimpFileSystemCommandOpenFileFolder^> _instance;

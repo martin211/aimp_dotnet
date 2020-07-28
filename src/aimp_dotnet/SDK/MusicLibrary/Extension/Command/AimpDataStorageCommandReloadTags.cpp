@@ -10,21 +10,18 @@
 
 #include "SDK/MusicLibrary/AimpFileList.h"
 
-AimpDataStorageCommandReloadTags::AimpDataStorageCommandReloadTags(gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandReloadTags^> instance)
-{
+AimpDataStorageCommandReloadTags::AimpDataStorageCommandReloadTags(
+    gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandReloadTags^> instance) {
     _instance = instance;
 }
 
-HRESULT WINAPI AimpDataStorageCommandReloadTags::ReloadTags(IAIMPMLFileList* Files)
-{
+HRESULT WINAPI AimpDataStorageCommandReloadTags::ReloadTags(IAIMPMLFileList* Files) {
     return HRESULT(_instance->ReloadTags(gcnew AimpFileList(Files))->ResultType);
 }
 
-HRESULT WINAPI AimpDataStorageCommandReloadTags::QueryInterface(REFIID riid, LPVOID* ppvObject)
-{
+HRESULT WINAPI AimpDataStorageCommandReloadTags::QueryInterface(REFIID riid, LPVOID* ppvObject) {
     *ppvObject = nullptr;
-    if (riid == IID_IAIMPMLDataStorageCommandReloadTags)
-    {
+    if (riid == IID_IAIMPMLDataStorageCommandReloadTags) {
         *ppvObject = this;
         AddRef();
         return S_OK;
@@ -33,12 +30,10 @@ HRESULT WINAPI AimpDataStorageCommandReloadTags::QueryInterface(REFIID riid, LPV
     return E_NOINTERFACE;
 }
 
-ULONG WINAPI AimpDataStorageCommandReloadTags::AddRef(void)
-{
+ULONG WINAPI AimpDataStorageCommandReloadTags::AddRef(void) {
     return Base::AddRef();
 }
 
-ULONG WINAPI AimpDataStorageCommandReloadTags::Release(void)
-{
+ULONG WINAPI AimpDataStorageCommandReloadTags::Release(void) {
     return Base::Release();
 }

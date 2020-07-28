@@ -8,21 +8,17 @@
 #pragma once
 #include "SDK\BaseManager.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace MusicLibrary;
         using namespace DataStorage;
         using namespace Presets;
 
         public ref class AimpServiceMusicLibrary : public BaseAimpService<IAIMPServiceMusicLibrary>,
-                                                   public IAimpServiceMusicLibrary
-        {
+                                                   public IAimpServiceMusicLibrary {
         public:
-            explicit AimpServiceMusicLibrary(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceMusicLibrary>(core)
-            {
+            explicit AimpServiceMusicLibrary(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceMusicLibrary>(core) {
             }
 
             virtual TYPED_RESULT(IAimpDataStorage) GetActiveStorage();

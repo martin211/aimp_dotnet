@@ -12,18 +12,15 @@
 #include "IPlayListQueueEventExecutor.h"
 #include <gcroot.h>
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::Playlist;
 
         public ref class AimpPlaylistQueue :
             public AimpObject<IAIMPPlaylistQueue>,
             public IAimpPlaylistQueue,
-            public IPlayListQueueEventExecutor
-        {
+            public IPlayListQueueEventExecutor {
         public:
             explicit AimpPlaylistQueue(IAIMPPlaylistQueue* queue, IAIMPPlaylistQueue2* queue2);
 
@@ -36,7 +33,7 @@ namespace AIMP
             virtual ActionResult Add(IAimpPlaylistItem^ item, bool insertAtBeginning);
 
             virtual ActionResult AddList(System::Collections::Generic::IList<IAimpPlaylistItem^>^ items,
-                                             bool insertAtBeginning);
+                                         bool insertAtBeginning);
 
             virtual int GetItemCount();
 
@@ -64,13 +61,11 @@ namespace AIMP
                 void raise(IAimpPlaylistQueue^ sender);
             }
 
-            void OnContentChanged() override
-            {
+            void OnContentChanged() override {
                 ContentChanged(this);
             }
 
-            void OnStateChanged() override
-            {
+            void OnStateChanged() override {
                 StateChanged(this);
             }
 

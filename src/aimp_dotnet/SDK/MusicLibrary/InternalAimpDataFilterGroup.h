@@ -12,8 +12,7 @@ using namespace AIMP::SDK::MusicLibrary::DataFilter;
 
 class InternalAimpDataFilterGroup :
     public IUnknownInterfaceImpl<IAIMPMLDataFilterGroup>,
-    public AimpPropertyList
-{
+    public AimpPropertyList {
 private:
     gcroot<IAimpDataFilterGroup^> _managed;
 public:

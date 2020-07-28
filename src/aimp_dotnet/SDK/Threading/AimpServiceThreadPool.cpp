@@ -11,75 +11,61 @@
 
 using namespace AIMP::SDK;
 
-AimpServiceThreadPool::AimpServiceThreadPool(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceThreadPool>(core)
-{
+AimpServiceThreadPool::AimpServiceThreadPool(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceThreadPool>(core) {
 }
 
-ActionResultType AimpServiceThreadPool::Cancel(UIntPtr taskHandle, AimpServiceThreadPoolType flags)
-{
+ActionResultType AimpServiceThreadPool::Cancel(UIntPtr taskHandle, AimpServiceThreadPoolType flags) {
     IAIMPServiceThreadPool* service = GetAimpService();
 
-    try
-    {
-        if (service != nullptr)
-        {
+    try {
+        if (service != nullptr) {
             return CheckResult(service->Cancel(DWORD_PTR(taskHandle.ToPointer()), DWORD(flags)));
         }
     }
-    finally
-    {
+    finally {
         ReleaseObject(service);
     }
 
     return ActionResultType::Fail;
 }
 
-ActionResultType AimpServiceThreadPool::Execute(IAimpTask^ task, UIntPtr% handle)
-{
+ActionResultType AimpServiceThreadPool::Execute(IAimpTask^ task, UIntPtr% handle) {
     IAIMPServiceThreadPool* service = GetAimpService();
     handle = UIntPtr(static_cast<void*>(0));
 
-    try
-    {
+    try {
         DWORD_PTR h;
 
-        if (service != nullptr)
-        {
+        if (service != nullptr) {
             InternalAimpTask* internalTask = new InternalAimpTask(task);
             ActionResultType result = CheckResult(service->Execute(internalTask, &h));
             handle = UIntPtr(reinterpret_cast<void*>(h));
             return result;
         }
     }
-    finally
-    {
+    finally {
         ReleaseObject(service);
     }
 
     return ActionResultType::Fail;
 }
 
-ActionResultType AimpServiceThreadPool::WaitFor(UIntPtr handle)
-{
+ActionResultType AimpServiceThreadPool::WaitFor(UIntPtr handle) {
     IAIMPServiceThreadPool* service = GetAimpService();
 
-    try
-    {
-        if (service != nullptr)
-        {
+    try {
+        if (service != nullptr) {
             return CheckResult(service->WaitFor(reinterpret_cast<DWORD_PTR>(handle.ToPointer())));
         }
     }
-    finally
-    {
+    finally {
         ReleaseObject(service);
     }
 
     return ActionResultType::Fail;
 }
 
-IAIMPServiceThreadPool* AimpServiceThreadPool::GetAimpService()
-{
+IAIMPServiceThreadPool* AimpServiceThreadPool::GetAimpService() {
     IAIMPServiceThreadPool* service = nullptr;
     GetService(IID_IAIMPServiceThreadPool, &service);
     return service;

@@ -11,10 +11,8 @@
 #include "AIMPSDK\AIMPSDK.h"
 #include "Utils.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace System::Collections::Generic;
         using namespace AIMP::SDK;
@@ -23,8 +21,7 @@ namespace AIMP
         /// <summary>
         /// Aimp Converter helper class.
         /// </summary>
-        public ref class AimpConverter sealed
-        {
+        public ref class AimpConverter sealed {
         internal:
             /// <summary>
             /// Gets the AIMP native object.
@@ -52,16 +49,13 @@ namespace AIMP
             template <typename TObject>
             static TObject* CreateAimpObject(REFIID objectId);
 
-            static List<String^>^ ToStringCollection(IAIMPObjectList* aimpList)
-            {
+            static List<String^>^ ToStringCollection(IAIMPObjectList* aimpList) {
                 int count = aimpList->GetCount();
                 List<String^>^ result = gcnew List<String^>(count);
-                for (int i = 0; i < count; i++)
-                {
+                for (int i = 0; i < count; i++) {
                     IAIMPString* str;
                     auto res = aimpList->GetObject(i, IID_IAIMPString, reinterpret_cast<void**>(&str));
-                    if (Utils::CheckResult(res) == ActionResultType::OK)
-                    {
+                    if (Utils::CheckResult(res) == ActionResultType::OK) {
                         result->Add(ToManagedString(str));
                     }
                 }
@@ -77,8 +71,7 @@ namespace AIMP
 
             static IAIMPMLDataField* GetAimpDataField();
 
-            static IAIMPObjectList* ToManagedObjectList(List<Object^> collection)
-            {
+            static IAIMPObjectList* ToManagedObjectList(List<Object^> collection) {
                 IAIMPObjectList* list = GetAimpObjectList();
                 return list;
             }

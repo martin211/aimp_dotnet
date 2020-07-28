@@ -8,16 +8,13 @@
 #pragma once
 #include "SDK\AimpObject.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace MusicLibrary::DataStorage;
         using namespace MusicLibrary::Presets;
 
-        public ref class AimpGroupingPreset : public AimpObject<IAIMPMLGroupingPreset>, public IAimpGroupingPreset
-        {
+        public ref class AimpGroupingPreset : public AimpObject<IAIMPMLGroupingPreset>, public IAimpGroupingPreset {
         public:
             explicit AimpGroupingPreset(IAIMPMLGroupingPreset* preset);
 

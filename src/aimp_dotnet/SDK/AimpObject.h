@@ -7,14 +7,14 @@
 
 #pragma once
 
-template<class TAimpObject>
-public ref class AimpObject
-{
+template <class TAimpObject>
+public ref class AimpObject {
 protected:
-    AimpObject() {}
+    AimpObject() {
+    }
 
     [System::Diagnostics::DebuggerBrowsableAttribute(System::Diagnostics::DebuggerBrowsableState::Never)]
-    TAimpObject *_aimpObject;
+    TAimpObject* _aimpObject;
 public:
     AimpObject(TAimpObject* aimpObject, bool registerAtMemoryManager) : _aimpObject(aimpObject) {
         if (registerAtMemoryManager) {
@@ -22,46 +22,40 @@ public:
         }
     }
 
-    AimpObject(TAimpObject *aimpObject) : _aimpObject(aimpObject)
-    {
+    AimpObject(TAimpObject* aimpObject) : _aimpObject(aimpObject) {
         RegisterAtMemoryManager();
     }
 
-    !AimpObject()
-    {
+    !AimpObject() {
         FreeResources();
         ReleaseFromMemoryManager();
     }
 
-    ~AimpObject()
-    {
+    ~AimpObject() {
         this->!AimpObject();
     }
+
 protected:
-    ActionResultType CheckResult(HRESULT result)
-    {
+    ActionResultType CheckResult(HRESULT result) {
         return Utils::CheckResult(result);
     }
 
-    virtual void FreeResources()
-    {
+    virtual void FreeResources() {
 
     }
 
-    virtual void RegisterAtMemoryManager()
-    {
+    virtual void RegisterAtMemoryManager() {
         AimpMemoryManager::getInstance().AddObject(this->GetHashCode(), InternalAimpObject);
     }
 
-    virtual void ReleaseFromMemoryManager()
-    {
+    virtual void ReleaseFromMemoryManager() {
         AimpMemoryManager::getInstance().Release(this->GetHashCode());
     }
+
 internal:
-    property TAimpObject *InternalAimpObject
+    property TAimpObject* InternalAimpObject
     {
-        TAimpObject *get()
-        {
+        TAimpObject* get() {
             return _aimpObject;
         }
     }

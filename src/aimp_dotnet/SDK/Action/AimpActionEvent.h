@@ -8,10 +8,8 @@
 #pragma once
 #include "AimpSdk.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         public delegate void AimpActionEventDelegate(gcroot<ActionManager::IAimpActionEvent^> sender, IUnknown* data);
 
         typedef void (__stdcall *AimpActionEventCallback)(gcroot<ActionManager::IAimpActionEvent^> sender,
@@ -19,8 +17,7 @@ namespace AIMP
     }
 }
 
-class AimpActionEvent : public IUnknownInterfaceImpl<IAIMPActionEvent>
-{
+class AimpActionEvent : public IUnknownInterfaceImpl<IAIMPActionEvent> {
 public:
     typedef IUnknownInterfaceImpl<IAIMPActionEvent> Base;
 

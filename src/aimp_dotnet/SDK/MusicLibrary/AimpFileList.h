@@ -7,17 +7,14 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace MusicLibrary;
 
         public ref class AimpFileList :
             public AimpObject<IAIMPMLFileList>,
-            public IAimpFileList
-        {
+            public IAimpFileList {
         public:
             explicit AimpFileList(IAIMPMLFileList* aimpObject);
 

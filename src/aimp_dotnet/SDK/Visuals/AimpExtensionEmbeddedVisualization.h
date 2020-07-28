@@ -9,8 +9,7 @@
 
 using namespace AIMP::SDK;
 
-class AimpExtensionEmbeddedVisualization : public IUnknownInterfaceImpl<IAIMPExtensionEmbeddedVisualization>
-{
+class AimpExtensionEmbeddedVisualization : public IUnknownInterfaceImpl<IAIMPExtensionEmbeddedVisualization> {
 private:
     gcroot<AIMP::SDK::Visuals::IAimpExtensionEmbeddedVisualization^> _managedObject;
     IAIMPCore* _aimpCore;
@@ -19,8 +18,7 @@ public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionEmbeddedVisualization> Base;
 
     AimpExtensionEmbeddedVisualization(IAIMPCore* aimpCore,
-                                       gcroot<AIMP::SDK::Visuals::IAimpExtensionEmbeddedVisualization^> instance)
-    {
+                                       gcroot<AIMP::SDK::Visuals::IAimpExtensionEmbeddedVisualization^> instance) {
         _managedObject = instance;
         _aimpCore = aimpCore;
     }

@@ -7,8 +7,7 @@
 
 #pragma once
 
-class AimpServiceVisualizations : public IUnknownInterfaceImpl<IAIMPServiceVisualizations>
-{
+class AimpServiceVisualizations : public IUnknownInterfaceImpl<IAIMPServiceVisualizations> {
 public:
     typedef IUnknownInterfaceImpl<IAIMPServiceVisualizations> Base;
 

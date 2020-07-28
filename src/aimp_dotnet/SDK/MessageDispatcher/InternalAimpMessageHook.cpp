@@ -8,13 +8,11 @@
 #include "Stdafx.h"
 #include "InternalAimpMessageHook.h"
 
-InternalAimpMessageHook::InternalAimpMessageHook(gcroot<IAimpMessageHook^> managedCore)
-{
+InternalAimpMessageHook::InternalAimpMessageHook(gcroot<IAimpMessageHook^> managedCore) {
     _managedCore = managedCore;
 }
 
-void InternalAimpMessageHook::CoreMessage(DWORD message, int param1, void* param2, HRESULT* result)
-{
+void InternalAimpMessageHook::CoreMessage(DWORD message, int param1, void* param2, HRESULT* result) {
     const auto res = _managedCore->CoreMessage(static_cast<AimpCoreMessageType>(message), param1, (int)param2);
     // do not set AResult here. It breaks a modal dialog
 }

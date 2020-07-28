@@ -10,22 +10,18 @@
 
 #pragma region AimpDataStorageCommandReportDialog
 AimpDataStorageCommandReportDialog::AimpDataStorageCommandReportDialog(
-    gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandReportDialog^> instance)
-{
+    gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandReportDialog^> instance) {
     _instance = instance;
 }
 
-HRESULT WINAPI AimpDataStorageCommandReportDialog::Execute(HWND OwnerHandle)
-{
+HRESULT WINAPI AimpDataStorageCommandReportDialog::Execute(HWND OwnerHandle) {
     IntPtr ownerHandle(OwnerHandle);
     return HRESULT(_instance->Execute(ownerHandle)->ResultType);
 }
 
-HRESULT WINAPI AimpDataStorageCommandReportDialog::QueryInterface(REFIID riid, LPVOID* ppvObject)
-{
+HRESULT WINAPI AimpDataStorageCommandReportDialog::QueryInterface(REFIID riid, LPVOID* ppvObject) {
     *ppvObject = nullptr;
-    if (riid == IID_IAIMPMLDataStorageCommandReportDialog)
-    {
+    if (riid == IID_IAIMPMLDataStorageCommandReportDialog) {
         *ppvObject = this;
         AddRef();
         return S_OK;
@@ -34,13 +30,11 @@ HRESULT WINAPI AimpDataStorageCommandReportDialog::QueryInterface(REFIID riid, L
     return E_NOINTERFACE;
 }
 
-ULONG WINAPI AimpDataStorageCommandReportDialog::AddRef(void)
-{
+ULONG WINAPI AimpDataStorageCommandReportDialog::AddRef(void) {
     return Base::AddRef();
 }
 
-ULONG WINAPI AimpDataStorageCommandReportDialog::Release(void)
-{
+ULONG WINAPI AimpDataStorageCommandReportDialog::Release(void) {
     return Base::Release();
 }
 #pragma endregion

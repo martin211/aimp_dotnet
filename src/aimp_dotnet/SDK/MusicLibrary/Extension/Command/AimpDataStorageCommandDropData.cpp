@@ -9,21 +9,17 @@
 #include "AimpDataStorageCommandDropData.h"
 
 AimpDataStorageCommandDropData::AimpDataStorageCommandDropData(
-    gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandDropData^> instance)
-{
+    gcroot<AIMP::SDK::MusicLibrary::Extension::Command::IAimpDataStorageCommandDropData^> instance) {
     _instance = instance;
 }
 
-HRESULT WINAPI AimpDataStorageCommandDropData::DropData()
-{
+HRESULT WINAPI AimpDataStorageCommandDropData::DropData() {
     return HRESULT(_instance->DropData()->ResultType);
 }
 
-HRESULT WINAPI AimpDataStorageCommandDropData::QueryInterface(REFIID riid, LPVOID* ppvObject)
-{
+HRESULT WINAPI AimpDataStorageCommandDropData::QueryInterface(REFIID riid, LPVOID* ppvObject) {
     *ppvObject = nullptr;
-    if (riid == IID_IAIMPMLDataStorageCommandDropData)
-    {
+    if (riid == IID_IAIMPMLDataStorageCommandDropData) {
         *ppvObject = this;
         AddRef();
         return S_OK;
@@ -32,12 +28,10 @@ HRESULT WINAPI AimpDataStorageCommandDropData::QueryInterface(REFIID riid, LPVOI
     return E_NOINTERFACE;
 }
 
-ULONG WINAPI AimpDataStorageCommandDropData::AddRef(void)
-{
+ULONG WINAPI AimpDataStorageCommandDropData::AddRef(void) {
     return Base::AddRef();
 }
 
-ULONG WINAPI AimpDataStorageCommandDropData::Release(void)
-{
+ULONG WINAPI AimpDataStorageCommandDropData::Release(void) {
     return Base::Release();
 }

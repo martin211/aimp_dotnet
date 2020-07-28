@@ -10,32 +10,26 @@
 #include "AimpPlayList.h"
 
 AimpExtensionPlaylistManagerListener::AimpExtensionPlaylistManagerListener(
-    gcroot<IAimpExtensionPlaylistManagerListener^> instance)
-{
+    gcroot<IAimpExtensionPlaylistManagerListener^> instance) {
     _managedInstance = instance;
 }
 
-void WINAPI AimpExtensionPlaylistManagerListener::PlaylistActivated(IAIMPPlaylist* Playlist)
-{
+void WINAPI AimpExtensionPlaylistManagerListener::PlaylistActivated(IAIMPPlaylist* Playlist) {
     _managedInstance->OnPlaylistActivated(gcnew AimpPlayList(Playlist, false));
 }
 
-void WINAPI AimpExtensionPlaylistManagerListener::PlaylistAdded(IAIMPPlaylist* Playlist)
-{
+void WINAPI AimpExtensionPlaylistManagerListener::PlaylistAdded(IAIMPPlaylist* Playlist) {
     _managedInstance->OnPlaylistAdded(gcnew AimpPlayList(Playlist, false));
 }
 
-void WINAPI AimpExtensionPlaylistManagerListener::PlaylistRemoved(IAIMPPlaylist* Playlist)
-{
+void WINAPI AimpExtensionPlaylistManagerListener::PlaylistRemoved(IAIMPPlaylist* Playlist) {
     _managedInstance->OnPlaylistRemoved(gcnew AimpPlayList(Playlist, false));
 }
 
-HRESULT WINAPI AimpExtensionPlaylistManagerListener::QueryInterface(REFIID riid, LPVOID* ppvObject)
-{
+HRESULT WINAPI AimpExtensionPlaylistManagerListener::QueryInterface(REFIID riid, LPVOID* ppvObject) {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPExtensionPlaylistManagerListener)
-    {
+    if (riid == IID_IAIMPExtensionPlaylistManagerListener) {
         *ppvObject = this;
         AddRef();
         return S_OK;
@@ -45,12 +39,10 @@ HRESULT WINAPI AimpExtensionPlaylistManagerListener::QueryInterface(REFIID riid,
     return res;
 }
 
-ULONG WINAPI AimpExtensionPlaylistManagerListener::AddRef(void)
-{
+ULONG WINAPI AimpExtensionPlaylistManagerListener::AddRef(void) {
     return Base::AddRef();
 }
 
-ULONG WINAPI AimpExtensionPlaylistManagerListener::Release(void)
-{
+ULONG WINAPI AimpExtensionPlaylistManagerListener::Release(void) {
     return Base::Release();
 }

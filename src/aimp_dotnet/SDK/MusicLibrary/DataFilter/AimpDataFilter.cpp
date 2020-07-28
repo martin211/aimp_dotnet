@@ -10,85 +10,69 @@
 
 using namespace AIMP::SDK;
 
-AimpDataFilter::AimpDataFilter(IAIMPMLDataFilter* native) : AimpDataFilterGroup(native)
-{
+AimpDataFilter::AimpDataFilter(IAIMPMLDataFilter* native) : AimpDataFilterGroup(native) {
     InternalDataFilter = native;
 }
 
-int AimpDataFilter::Offset::get()
-{
+int AimpDataFilter::Offset::get() {
     return PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_OFFSET);
 }
 
-void AimpDataFilter::Offset::set(int value)
-{
+void AimpDataFilter::Offset::set(int value) {
     PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_OFFSET, value);
 }
 
-int AimpDataFilter::Limit::get()
-{
+int AimpDataFilter::Limit::get() {
     return PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_LIMIT);
 }
 
-void AimpDataFilter::Limit::set(int value)
-{
+void AimpDataFilter::Limit::set(int value) {
     PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_LIMIT, value);
 }
 
-String^ AimpDataFilter::SortBy::get()
-{
+String^ AimpDataFilter::SortBy::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMPML_FILTER_SORTBY);
 }
 
-void AimpDataFilter::SortBy::set(String^ value)
-{
+void AimpDataFilter::SortBy::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMPML_FILTER_SORTBY, value);
 }
 
-SortDirectionType AimpDataFilter::SortDirection::get()
-{
+SortDirectionType AimpDataFilter::SortDirection::get() {
     return SortDirectionType(PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_SORTDIRECTION));
 }
 
-void AimpDataFilter::SortDirection::set(SortDirectionType value)
-{
+void AimpDataFilter::SortDirection::set(SortDirectionType value) {
     PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_SORTDIRECTION, int(value));
 }
 
-String^ AimpDataFilter::SearchString::get()
-{
+String^ AimpDataFilter::SearchString::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMPML_FILTER_SEARCHSTRING);
 }
 
-void AimpDataFilter::SearchString::set(String^ value)
-{
+void AimpDataFilter::SearchString::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMPML_FILTER_SEARCHSTRING, value);
 }
 
-int AimpDataFilter::AlphaBeticIndex::get()
-{
+int AimpDataFilter::AlphaBeticIndex::get() {
     return PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_ALPHABETICINDEX);
 }
 
-void AimpDataFilter::AlphaBeticIndex::set(int value)
-{
+void AimpDataFilter::AlphaBeticIndex::set(int value) {
     PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_ALPHABETICINDEX, value);
 }
 
-ActionResult AimpDataFilter::Assign(IAimpDataFilter^ source)
-{
+ActionResult AimpDataFilter::Assign(IAimpDataFilter^ source) {
     IAIMPMLDataFilter* filter = static_cast<AimpDataFilter^>(source)->InternalDataFilter;
     return ACTION_RESULT(Utils::CheckResult(InternalDataFilter->Assign(filter)));
 }
 
-AimpActionResult<IAimpDataFilter^>^ AimpDataFilter::Clone()
-{
+AimpActionResult<IAimpDataFilter^>^ AimpDataFilter::Clone() {
     IAimpDataFilter^ source = nullptr;
     IAIMPMLDataFilter* clone = nullptr;
 
     const ActionResultType result = Utils::CheckResult(InternalDataFilter->Clone(reinterpret_cast<void**>(&clone)));
-    if (result == ActionResultType::OK && clone != nullptr)
-    {
+    if (result == ActionResultType::OK && clone != nullptr) {
         source = gcnew AimpDataFilter(clone);
     }
 

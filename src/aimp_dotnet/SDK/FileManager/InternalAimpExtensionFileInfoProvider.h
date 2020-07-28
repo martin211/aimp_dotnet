@@ -9,8 +9,7 @@
 
 class InternalAimpExtensionFileInfoProvider :
     public IUnknownInterfaceImpl<IAIMPExtensionFileInfoProvider>,
-    IAIMPExtensionFileInfoProviderEx
-{
+    IAIMPExtensionFileInfoProviderEx {
 private:
     gcroot<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileInfoProvider^> _managedInstance;
 
@@ -18,8 +17,7 @@ public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionFileInfoProvider> Base;
 
     InternalAimpExtensionFileInfoProvider(
-        gcroot<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileInfoProvider^> managedInstance)
-    {
+        gcroot<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileInfoProvider^> managedInstance) {
         _managedInstance = managedInstance;
     }
 

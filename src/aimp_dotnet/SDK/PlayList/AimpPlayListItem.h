@@ -7,24 +7,20 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
 
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::Playlist;
         using namespace AIMP::SDK::FileManager;
 
-        public ref class AimpPlaylistItem : public AimpObject<IAIMPPlaylistItem>, public IAimpPlaylistItem
-        {
+        public ref class AimpPlaylistItem : public AimpObject<IAIMPPlaylistItem>, public IAimpPlaylistItem {
         private:
             IAimpPlaylistGroup^ _group;
             bool _disposed;
         internal:
-            AimpPlaylistItem(IAIMPPlaylistItem* aimpItem) : AimpObject(aimpItem)
-            {
+            AimpPlaylistItem(IAIMPPlaylistItem* aimpItem) : AimpObject(aimpItem) {
             }
 
             AimpPlaylistItem(IAimpPlaylistItem^ item);

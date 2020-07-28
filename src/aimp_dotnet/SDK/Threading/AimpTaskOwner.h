@@ -8,15 +8,12 @@
 #pragma once
 #include "AimpSdk.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace SDK;
         using namespace Threading;
 
-        public ref class AimpTaskOwner : public AimpObject<IAIMPTaskOwner>, public IAimpTaskOwner
-        {
+        public ref class AimpTaskOwner : public AimpObject<IAIMPTaskOwner>, public IAimpTaskOwner {
         public:
             explicit AimpTaskOwner(IAIMPTaskOwner* taskOwner);
 

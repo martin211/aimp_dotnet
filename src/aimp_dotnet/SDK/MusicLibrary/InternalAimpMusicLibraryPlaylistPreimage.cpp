@@ -13,8 +13,7 @@
 //    _managedInstance = managedInstance;
 //}
 
-HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetFilter(IAIMPMLDataFilter** Filter)
-{
+HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetFilter(IAIMPMLDataFilter** Filter) {
     // TODO Complete it
     DataFilter::IAimpDataFieldFilter^ dataFilter = nullptr;
     ActionResultType res = ActionResultType::Fail;
@@ -28,8 +27,7 @@ HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetFilter(IAIMPMLDataFi
     return HRESULT(res);
 }
 
-HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetStorage(IUnknown** Storage)
-{
+HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetStorage(IUnknown** Storage) {
     return S_OK;
 }
 

@@ -9,7 +9,6 @@
 #include "InternalAimpFileSystemCustomFileCommand.h"
 
 InternalAimpFileSystemCustomFileCommand::InternalAimpFileSystemCustomFileCommand(
-    gcroot<AIMP::SDK::FileManager::Commands::IAimpFileSystemCustomFileCommand^> instance)
-{
+    gcroot<AIMP::SDK::FileManager::Commands::IAimpFileSystemCustomFileCommand^> instance) {
     _instance = instance;
 }

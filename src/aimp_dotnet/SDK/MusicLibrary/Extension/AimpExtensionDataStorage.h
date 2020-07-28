@@ -16,8 +16,7 @@
 #include "Command/AimpDataStorageCommandAddFiles.h"
 #include "SDK/MusicLibrary/Presets/AimpGroupingPresets.h"
 
-class AimpDataProvider : public IUnknownInterfaceImpl<IAIMPMLDataProvider>
-{
+class AimpDataProvider : public IUnknownInterfaceImpl<IAIMPMLDataProvider> {
 private:
     gcroot<MusicLibrary::Extension::IAimpExtensionDataStorage^> _instance;
 
@@ -34,8 +33,7 @@ public:
 };
 
 class AimpExtensionDataStorage :
-    public IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage>
-{
+    public IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage> {
 private:
     AimpDataProvider* _aimpDataProvider;
     AimpDataStorageCommandAddFiles* _addFilesCommand = nullptr;

@@ -26,30 +26,24 @@ using namespace AIMP::SDK::MusicLibrary::Extension::Command;
 
 #pragma region AimpDataProvider
 
-AimpDataProvider::AimpDataProvider(gcroot<IAimpExtensionDataStorage^> instance)
-{
+AimpDataProvider::AimpDataProvider(gcroot<IAimpExtensionDataStorage^> instance) {
     _instance = instance;
 }
 
-HRESULT WINAPI AimpDataProvider::GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* Filter, IUnknown** Data)
-{
+HRESULT WINAPI AimpDataProvider::GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* Filter, IUnknown** Data) {
     Object^ obj = _instance;
 
     DataStorage::IAimpDataProvider^ provider = dynamic_cast<DataStorage::IAimpDataProvider^>(obj);
-    if (provider != nullptr)
-    {
+    if (provider != nullptr) {
         const auto result = provider->GetData(AimpConverter::ToStringCollection(Fields), gcnew AimpDataFilter(Filter));
 
-        if (result->ResultType == ActionResultType::OK)
-        {
+        if (result->ResultType == ActionResultType::OK) {
             IAimpDataProviderSelection^ selection = dynamic_cast<IAimpDataProviderSelection^>(result->Result);
 
-            if (selection != nullptr)
-            {
+            if (selection != nullptr) {
                 *Data = new InternalAimpDataProviderSelection(static_cast<IAimpDataProviderSelection^>(result->Result));
             }
-            else
-            {
+            else {
                 *Data = AimpConverter::ToAimpString(result->Result->ToString());
             }
         }
@@ -58,23 +52,20 @@ HRESULT WINAPI AimpDataProvider::GetData(IAIMPObjectList* Fields, IAIMPMLDataFil
     return S_OK;
 }
 
-ULONG WINAPI AimpDataProvider::AddRef(void)
-{
+ULONG WINAPI AimpDataProvider::AddRef(void) {
     return Base::AddRef();
 }
 
-ULONG WINAPI AimpDataProvider::Release(void)
-{
+ULONG WINAPI AimpDataProvider::Release(void) {
     return Base::Release();
 }
 
 #pragma endregion
 
 
-
 #pragma region AimpExtensionDataStorage
-AimpExtensionDataStorage::AimpExtensionDataStorage(IAIMPCore* aimpCore, gcroot<Extension::IAimpExtensionDataStorage^> instance)
-{
+AimpExtensionDataStorage::AimpExtensionDataStorage(IAIMPCore* aimpCore,
+                                                   gcroot<Extension::IAimpExtensionDataStorage^> instance) {
     _managedInstance = instance;
     _aimpCore = aimpCore;
 
@@ -88,46 +79,38 @@ AimpExtensionDataStorage::AimpExtensionDataStorage(IAIMPCore* aimpCore, gcroot<E
     const auto reportDialogCommand = dynamic_cast<IAimpDataStorageCommandReportDialog^>(obj);
     const auto userMarkCommand = dynamic_cast<IAimpDataStorageCommandUserMark^>(obj);
 
-    if (addFilesDialogCommand != nullptr)
-    {
+    if (addFilesDialogCommand != nullptr) {
         _addFilesDialogCommand = new AimpDataStorageCommandAddFilesDialog(addFilesDialogCommand);
     }
 
-    if (addFilesCommand != nullptr)
-    {
+    if (addFilesCommand != nullptr) {
         _addFilesCommand = new AimpDataStorageCommandAddFiles(addFilesCommand);
     }
 
-    if (deleteFilesCommand != nullptr)
-    {
+    if (deleteFilesCommand != nullptr) {
         _deleteFilesCommand = new AimpDataStorageCommandDeleteFiles(deleteFilesCommand);
     }
 
-    if (dropDataCommand != nullptr)
-    {
+    if (dropDataCommand != nullptr) {
         _dropDataCommand = new AimpDataStorageCommandDropData(dropDataCommand);
     }
 
-    if (reloadTagsCommand != nullptr)
-    {
+    if (reloadTagsCommand != nullptr) {
         _reloadTagsCommand = new AimpDataStorageCommandReloadTags(reloadTagsCommand);
     }
 
-    if (reportDialogCommand != nullptr)
-    {
+    if (reportDialogCommand != nullptr) {
         _reportDialogCommand = new AimpDataStorageCommandReportDialog(reportDialogCommand);
     }
 
-    if (userMarkCommand != nullptr)
-    {
+    if (userMarkCommand != nullptr) {
         _userMarkCommand = new AimpDataStorageCommandUserMark(userMarkCommand);
     }
 
     _aimpDataProvider = new AimpDataProvider(instance);
 }
 
-void WINAPI AimpExtensionDataStorage::Finalize()
-{
+void WINAPI AimpExtensionDataStorage::Finalize() {
     _managedInstance->Terminate();
     _aimpDataProvider->Release();
     _aimpDataProvider = nullptr;
@@ -156,41 +139,34 @@ void WINAPI AimpExtensionDataStorage::Finalize()
     _managedInstance = nullptr;
 }
 
-void WINAPI AimpExtensionDataStorage::Initialize(IAIMPMLDataStorageManager* Manager)
-{
+void WINAPI AimpExtensionDataStorage::Initialize(IAIMPMLDataStorageManager* Manager) {
     IAimpDataStorageManager^ manager = gcnew AimpDataStorageManager(Manager);
     _managedInstance->Initialize(manager);
 }
 
-HRESULT WINAPI AimpExtensionDataStorage::ConfigLoad(IAIMPConfig* Config, IAIMPString* Section)
-{
+HRESULT WINAPI AimpExtensionDataStorage::ConfigLoad(IAIMPConfig* Config, IAIMPString* Section) {
     IAimpConfig^ cfg = gcnew AimpConfig(Config);
     return HRESULT(_managedInstance->ConfigLoad(cfg, AimpConverter::ToManagedString(Section))->ResultType);
 }
 
-HRESULT WINAPI AimpExtensionDataStorage::ConfigSave(IAIMPConfig* Config, IAIMPString* Section)
-{
+HRESULT WINAPI AimpExtensionDataStorage::ConfigSave(IAIMPConfig* Config, IAIMPString* Section) {
     IAimpConfig^ cfg = gcnew AimpConfig(Config);
     return HRESULT(_managedInstance->ConfigSave(cfg, AimpConverter::ToManagedString(Section))->ResultType);
 }
 
-HRESULT WINAPI AimpExtensionDataStorage::GetFields(int Schema, IAIMPObjectList** List)
-{
+HRESULT WINAPI AimpExtensionDataStorage::GetFields(int Schema, IAIMPObjectList** List) {
     IAIMPObjectList* objects = AimpConverter::GetAimpObjectList();
 
     auto result = _managedInstance->GetFields(static_cast<Extension::SchemaType>(Schema));
     Collections::IList^ collection = result->Result;
 
-    if (collection == nullptr)
-    {
+    if (collection == nullptr) {
         return HRESULT(result->ResultType);
     }
 
     auto t = collection->GetType()->GetGenericArguments()[0];
-    if (t == DataStorage::IAimpDataField::typeid)
-    {
-        for (int i = 0; i < collection->Count; i++)
-        {
+    if (t == DataStorage::IAimpDataField::typeid) {
+        for (int i = 0; i < collection->Count; i++) {
             auto dataField = static_cast<DataStorage::IAimpDataField^>(collection[i]);
             IAIMPMLDataField* df = AimpConverter::GetAimpDataField();
 
@@ -202,10 +178,8 @@ HRESULT WINAPI AimpExtensionDataStorage::GetFields(int Schema, IAIMPObjectList**
             df->Release();
         }
     }
-    else if (t == String::typeid)
-    {
-        for (int i = 0; i < collection->Count; i++)
-        {
+    else if (t == String::typeid) {
+        for (int i = 0; i < collection->Count; i++) {
             auto str = static_cast<String^>(collection[i]);
             IAIMPString* s = AimpConverter::ToAimpString(str);
             objects->Add(s);
@@ -218,157 +192,127 @@ HRESULT WINAPI AimpExtensionDataStorage::GetFields(int Schema, IAIMPObjectList**
     return S_OK;
 }
 
-HRESULT WINAPI AimpExtensionDataStorage::GetGroupingPresets(int Schema, IAIMPMLGroupingPresets* Presets)
-{
+HRESULT WINAPI AimpExtensionDataStorage::GetGroupingPresets(int Schema, IAIMPMLGroupingPresets* Presets) {
     _managedPresets = gcnew AimpGroupingPresets(Presets);
     return HRESULT(_managedInstance->GetGroupingPresets(static_cast<Extension::GroupingPresetsSchemaType>(Schema),
                                                         _managedPresets)->ResultType);
 }
 
-void WINAPI AimpExtensionDataStorage::FlushCache(int Reserved)
-{
+void WINAPI AimpExtensionDataStorage::FlushCache(int Reserved) {
     _managedInstance->FlushCache();
 }
 
-void WINAPI AimpExtensionDataStorage::BeginUpdate()
-{
+void WINAPI AimpExtensionDataStorage::BeginUpdate() {
 }
 
-void WINAPI AimpExtensionDataStorage::EndUpdate()
-{
+void WINAPI AimpExtensionDataStorage::EndUpdate() {
 }
 
-HRESULT WINAPI AimpExtensionDataStorage::Reset()
-{
+HRESULT WINAPI AimpExtensionDataStorage::Reset() {
     return S_OK;
 }
 
-HRESULT WINAPI AimpExtensionDataStorage::GetValueAsFloat(int PropertyID, double* Value)
-{
+HRESULT WINAPI AimpExtensionDataStorage::GetValueAsFloat(int PropertyID, double* Value) {
     return S_OK;
 }
 
-HRESULT WINAPI AimpExtensionDataStorage::GetValueAsInt32(int PropertyID, int* Value)
-{
-    if (PropertyID == AIMPML_DATASTORAGE_PROPID_CAPABILITIES)
-    {
+HRESULT WINAPI AimpExtensionDataStorage::GetValueAsInt32(int PropertyID, int* Value) {
+    if (PropertyID == AIMPML_DATASTORAGE_PROPID_CAPABILITIES) {
         *Value = static_cast<int>(_managedInstance->Capabilities);
     }
 
     return S_OK;
 }
 
-HRESULT WINAPI AimpExtensionDataStorage::GetValueAsInt64(int PropertyID, INT64* Value)
-{
+HRESULT WINAPI AimpExtensionDataStorage::GetValueAsInt64(int PropertyID, INT64* Value) {
     return S_OK;
 }
 
-HRESULT WINAPI AimpExtensionDataStorage::GetValueAsObject(int PropertyID, REFIID IID, void** Value)
-{
-    if (PropertyID == AIMPML_DATASTORAGE_PROPID_ID)
-    {
+HRESULT WINAPI AimpExtensionDataStorage::GetValueAsObject(int PropertyID, REFIID IID, void** Value) {
+    if (PropertyID == AIMPML_DATASTORAGE_PROPID_ID) {
         *Value = AimpConverter::ToAimpString(_managedInstance->Id);
     }
 
-    if (PropertyID == AIMPML_DATASTORAGE_PROPID_CAPTION)
-    {
+    if (PropertyID == AIMPML_DATASTORAGE_PROPID_CAPTION) {
         *Value = AimpConverter::ToAimpString(_managedInstance->Caption);
     }
 
     return S_OK;
 }
 
-HRESULT WINAPI AimpExtensionDataStorage::SetValueAsFloat(int PropertyID, const double Value)
-{
+HRESULT WINAPI AimpExtensionDataStorage::SetValueAsFloat(int PropertyID, const double Value) {
     return S_OK;
 }
 
-HRESULT WINAPI AimpExtensionDataStorage::SetValueAsInt32(int PropertyID, int Value)
-{
+HRESULT WINAPI AimpExtensionDataStorage::SetValueAsInt32(int PropertyID, int Value) {
     return S_OK;
 }
 
-HRESULT WINAPI AimpExtensionDataStorage::SetValueAsInt64(int PropertyID, const INT64 Value)
-{
+HRESULT WINAPI AimpExtensionDataStorage::SetValueAsInt64(int PropertyID, const INT64 Value) {
     return S_OK;
 }
 
-HRESULT WINAPI AimpExtensionDataStorage::SetValueAsObject(int PropertyID, IUnknown* Value)
-{
+HRESULT WINAPI AimpExtensionDataStorage::SetValueAsObject(int PropertyID, IUnknown* Value) {
     // TODO complete it
     return S_OK;
 
-    if (PropertyID == AIMPML_DATASTORAGE_PROPID_ID)
-    {
+    if (PropertyID == AIMPML_DATASTORAGE_PROPID_ID) {
         AIMP::SDK::PropertyListExtension::SetString(this, AIMPML_DATASTORAGE_PROPID_ID, _managedInstance->Id);
     }
 
-    if (PropertyID == AIMPML_DATASTORAGE_PROPID_CAPTION)
-    {
+    if (PropertyID == AIMPML_DATASTORAGE_PROPID_CAPTION) {
         AIMP::SDK::PropertyListExtension::SetString(this, AIMPML_DATASTORAGE_PROPID_CAPTION, _managedInstance->Caption);
     }
 
     return S_OK;
 }
 
-HRESULT WINAPI AimpExtensionDataStorage::QueryInterface(REFIID riid, LPVOID* ppvObject)
-{
-    if (!ppvObject)
-    {
+HRESULT WINAPI AimpExtensionDataStorage::QueryInterface(REFIID riid, LPVOID* ppvObject) {
+    if (!ppvObject) {
         return E_POINTER;
     }
 
-    if (riid == IID_IAIMPMLDataProvider)
-    {
+    if (riid == IID_IAIMPMLDataProvider) {
         *ppvObject = _aimpDataProvider;
         _aimpDataProvider->AddRef();
         return S_OK;
     }
 
-    if (riid == IID_IAIMPMLExtensionDataStorage)
-    {
+    if (riid == IID_IAIMPMLExtensionDataStorage) {
         *ppvObject = this;
         AddRef();
         return S_OK;
     }
 
-    if (riid == IID_IAIMPMLDataStorageCommandAddFilesDialog && _addFilesDialogCommand != nullptr)
-    {
+    if (riid == IID_IAIMPMLDataStorageCommandAddFilesDialog && _addFilesDialogCommand != nullptr) {
         return _addFilesDialogCommand->QueryInterface(riid, ppvObject);
     }
 
-    if (riid == IID_IAIMPMLDataStorageCommandDeleteFiles && _deleteFilesCommand != nullptr)
-    {
+    if (riid == IID_IAIMPMLDataStorageCommandDeleteFiles && _deleteFilesCommand != nullptr) {
         return _deleteFilesCommand->QueryInterface(riid, ppvObject);
     }
 
-    if (riid == IID_IAIMPMLDataStorageCommandAddFiles && _addFilesCommand != nullptr)
-    {
+    if (riid == IID_IAIMPMLDataStorageCommandAddFiles && _addFilesCommand != nullptr) {
         return _addFilesCommand->QueryInterface(riid, ppvObject);
     }
 
-    if (riid == IID_IAIMPMLDataStorageCommandDropData && _dropDataCommand != nullptr)
-    {
+    if (riid == IID_IAIMPMLDataStorageCommandDropData && _dropDataCommand != nullptr) {
         return _dropDataCommand->QueryInterface(riid, ppvObject);
     }
 
-    if (riid == IID_IAIMPMLDataStorageCommandReloadTags && _reloadTagsCommand != nullptr)
-    {
+    if (riid == IID_IAIMPMLDataStorageCommandReloadTags && _reloadTagsCommand != nullptr) {
         return _reloadTagsCommand->QueryInterface(riid, ppvObject);
     }
 
-    if (riid == IID_IAIMPMLDataStorageCommandUserMark && _userMarkCommand != nullptr)
-    {
+    if (riid == IID_IAIMPMLDataStorageCommandUserMark && _userMarkCommand != nullptr) {
         return _userMarkCommand->QueryInterface(riid, ppvObject);
     }
 
-    if (riid == IID_IAIMPMLDataStorageCommandReportDialog && _reportDialogCommand != nullptr)
-    {
+    if (riid == IID_IAIMPMLDataStorageCommandReportDialog && _reportDialogCommand != nullptr) {
         return _reportDialogCommand->QueryInterface(riid, ppvObject);
     }
 
-    if (riid == IID_IAIMPMLGroupingTreeDataProvider)
-    {
+    if (riid == IID_IAIMPMLGroupingTreeDataProvider) {
         *ppvObject = this;
         AddRef();
         return S_OK;
@@ -377,13 +321,11 @@ HRESULT WINAPI AimpExtensionDataStorage::QueryInterface(REFIID riid, LPVOID* ppv
     return E_NOINTERFACE;
 }
 
-ULONG WINAPI AimpExtensionDataStorage::AddRef(void)
-{
+ULONG WINAPI AimpExtensionDataStorage::AddRef(void) {
     return Base::AddRef();
 }
 
-ULONG WINAPI AimpExtensionDataStorage::Release(void)
-{
+ULONG WINAPI AimpExtensionDataStorage::Release(void) {
     return Base::Release();
 }
 #pragma endregion

@@ -11,8 +11,7 @@
 
 class InternalAimpDataFilter :
     public IUnknownInterfaceImpl<IAIMPMLDataFilter>,
-    public InternalAimpDataFilterGroup
-{
+    public InternalAimpDataFilterGroup {
 private:
     gcroot<AIMP::SDK::MusicLibrary::IAimpDataFilter^> _managedInstance;
 public:

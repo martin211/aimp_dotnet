@@ -7,15 +7,15 @@
 
 #pragma once
 
-class AimpDataStorageCommandReportDialog : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandReportDialog>
-{
+class AimpDataStorageCommandReportDialog : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandReportDialog> {
 private:
     gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandReportDialog^> _instance;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandReportDialog> Base;
 
-    AimpDataStorageCommandReportDialog(gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandReportDialog^> instance);
+    AimpDataStorageCommandReportDialog(
+        gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandReportDialog^> instance);
 
     virtual HRESULT WINAPI Execute(HWND OwnerHandle);
 

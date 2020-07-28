@@ -9,15 +9,12 @@
 
 #include "SDK\BaseManager.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace MUIManager;
 
-        public ref class AimpServiceMUI : public BaseAimpService<IAIMPServiceMUI>, public IAimpMUIManager
-        {
+        public ref class AimpServiceMUI : public BaseAimpService<IAIMPServiceMUI>, public IAimpMUIManager {
         public:
             explicit AimpServiceMUI(ManagedAimpCore^ core);
 

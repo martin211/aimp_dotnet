@@ -12,8 +12,7 @@
 
 using namespace AIMP::SDK;
 
-void AimpServiceLyrics::OnAimpServiceLyricsReceive(IAIMPLyrics* lyrics, void* userData)
-{
+void AimpServiceLyrics::OnAimpServiceLyricsReceive(IAIMPLyrics* lyrics, void* userData) {
     AimpLyrics^ l = nullptr;
     if (lyrics != nullptr) {
         l = gcnew AimpLyrics(lyrics);
@@ -23,26 +22,22 @@ void AimpServiceLyrics::OnAimpServiceLyricsReceive(IAIMPLyrics* lyrics, void* us
     LyricsReceive(l, nullptr);
 }
 
-AimpServiceLyrics::AimpServiceLyrics(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceLyrics>(core)
-{
+AimpServiceLyrics::AimpServiceLyrics(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceLyrics>(core) {
 }
 
-AimpServiceLyrics::~AimpServiceLyrics()
-{
+AimpServiceLyrics::~AimpServiceLyrics() {
     delete _callBack;
 }
 
-AimpActionResult<IntPtr>^ AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Object^ userData)
-{
+AimpActionResult<IntPtr>^ AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Object^ userData) {
     IAIMPServiceLyrics* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
     IntPtr taskId = IntPtr(0);
 
-    try
-    {
-        if (service != nullptr)
-        {
-            _callBack = gcnew OnAimpServiceLyricsReceiveCallback(this, &AIMP::AimpServiceLyrics::OnAimpServiceLyricsReceive);
+    try {
+        if (service != nullptr) {
+            _callBack = gcnew OnAimpServiceLyricsReceiveCallback(
+                this, &AIMP::AimpServiceLyrics::OnAimpServiceLyricsReceive);
             IntPtr procPtr = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_callBack);
             void** task = nullptr;
 
@@ -54,64 +49,52 @@ AimpActionResult<IntPtr>^ AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, Lyrics
                 task
             ));
 
-            if (result == ActionResultType::OK)
-            {
+            if (result == ActionResultType::OK) {
                 taskId = IntPtr(task);
             }
         }
     }
-    finally
-    {
+    finally {
         ReleaseObject(service);
     }
 
     return gcnew AimpActionResult<IntPtr>(result, taskId);
 }
 
-ActionResult AimpServiceLyrics::Cancel(IntPtr taskId, LyricsFlags flags)
-{
+ActionResult AimpServiceLyrics::Cancel(IntPtr taskId, LyricsFlags flags) {
     IAIMPServiceLyrics* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
 
-    try
-    {
-        if (service != nullptr)
-        {
+    try {
+        if (service != nullptr) {
             result = CheckResult(service->Cancel(static_cast<void**>(taskId.ToPointer()), static_cast<DWORD>(flags)));
         }
 
         return ACTION_RESULT(result);
     }
-    finally
-    {
+    finally {
         ReleaseObject(service);
     }
 }
 
-void AimpServiceLyrics::LyricsReceive::raise(IAimpLyrics^ lyrics, Object^ userData)
-{
-    if (_eventCallBack != nullptr)
-    {
+void AimpServiceLyrics::LyricsReceive::raise(IAimpLyrics^ lyrics, Object^ userData) {
+    if (_eventCallBack != nullptr) {
         _eventCallBack(lyrics, userData);
     }
 }
 
-void AimpServiceLyrics::LyricsReceive::remove(AimpServiceLyricsReceive^ handler)
-{
+void AimpServiceLyrics::LyricsReceive::remove(AimpServiceLyricsReceive^ handler) {
     delete _eventCallBack;
     _eventCallBack = nullptr;
 }
 
-void AimpServiceLyrics::LyricsReceive::add(AimpServiceLyricsReceive^ handler)
-{
-    if (_eventCallBack == nullptr)
-    {
+void AimpServiceLyrics::LyricsReceive::add(AimpServiceLyricsReceive^ handler) {
+    if (_eventCallBack == nullptr) {
         _eventCallBack = static_cast<AimpServiceLyricsReceive^>(Delegate::Combine(this->_eventCallBack, handler));
     }
 }
 
-IAIMPServiceLyrics* AimpServiceLyrics::GetAimpService()
-{
+IAIMPServiceLyrics* AimpServiceLyrics::GetAimpService() {
     IAIMPServiceLyrics* service = nullptr;
     GetService(IID_IAIMPServiceLyrics, &service);
     return service;

@@ -8,17 +8,14 @@
 #pragma once
 #include "SDK\AimpObject.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace MusicLibrary::DataFilter;
 
         public ref class AimpDataFilterGroup :
             public AimpObject<IAIMPMLDataFilterGroup>,
-            public IAimpDataFilterGroup
-        {
+            public IAimpDataFilterGroup {
         public:
             explicit AimpDataFilterGroup(IAIMPMLDataFilterGroup* filterGroup);
 
@@ -28,7 +25,8 @@ namespace AIMP
                 void set(FilterGroupOperationType value);
             }
 
-            virtual TYPED_RESULT(IAimpDataFieldFilter) Add(String^ field, Object^ value1, Object^ value2, FieldFilterOperationType operation);
+            virtual TYPED_RESULT(IAimpDataFieldFilter) Add(String^ field, Object^ value1, Object^ value2,
+                                                           FieldFilterOperationType operation);
 
             virtual TYPED_RESULT(IAimpDataFieldFilterByArray) Add(String^ field, array<Object^>^ values, int count);
 

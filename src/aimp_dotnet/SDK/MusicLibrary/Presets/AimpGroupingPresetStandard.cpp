@@ -13,17 +13,14 @@
 using namespace AIMP::SDK;
 
 AimpGroupingPresetStandard::
-AimpGroupingPresetStandard(IAIMPMLGroupingPresetStandard* aimpObject) : AimpGroupingPreset(aimpObject)
-{
+AimpGroupingPresetStandard(IAIMPMLGroupingPresetStandard* aimpObject) : AimpGroupingPreset(aimpObject) {
 }
 
-IAimpObjectList<String^>^ AimpGroupingPresetStandard::Fields::get()
-{
+IAimpObjectList<String^>^ AimpGroupingPresetStandard::Fields::get() {
     IAIMPObjectList* fields = nullptr;
 
     if (CheckResult(InternalAimpObject->GetValueAsObject(AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList,
-                                                         reinterpret_cast<void**>(&fields))) == ActionResultType::OK)
-    {
+                                                         reinterpret_cast<void**>(&fields))) == ActionResultType::OK) {
         return gcnew AimpObjectList<String^>(fields);
     }
 
@@ -41,30 +38,26 @@ IAimpObjectList<String^>^ AimpGroupingPresetStandard::Fields::get()
     return nullptr;
 }
 
-void AimpGroupingPresetStandard::Fields::set(IAimpObjectList<String^>^ value)
-{
+void AimpGroupingPresetStandard::Fields::set(IAimpObjectList<String^>^ value) {
     Generic::IList<String^>^ result;
     IAIMPObjectList* fields = AimpConverter::CreateAimpObject<IAIMPObjectList>(IID_IAIMPObjectList);
     int count = value->Count;
 
-    for (int i = 0; i < count; i++)
-    {
+    for (int i = 0; i < count; i++) {
         //fields->Add(AimpConverter::GetAimpString(value[i]));
     }
 
     PropertyListExtension::SetObject(InternalAimpObject, AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, fields);
 }
 
-TYPED_RESULT(IAimpDataFilterGroup) AimpGroupingPresetStandard::GetFilter()
-{
+TYPED_RESULT(IAimpDataFilterGroup) AimpGroupingPresetStandard::GetFilter() {
     IAIMPMLDataFilterGroup* f = nullptr;
     IAimpDataFilterGroup^ filter = nullptr;
 
     const ActionResultType result = CheckResult(
         static_cast<IAIMPMLGroupingPresetStandard*>(InternalAimpObject)->GetFilter(&f));
 
-    if (result == ActionResultType::OK)
-    {
+    if (result == ActionResultType::OK) {
         filter = gcnew AimpDataFilterGroup(f);
     }
 

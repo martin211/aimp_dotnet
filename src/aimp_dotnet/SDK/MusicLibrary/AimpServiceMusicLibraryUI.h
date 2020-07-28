@@ -8,17 +8,14 @@
 #pragma once
 #include "SDK\BaseManager.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace MusicLibrary;
 
         public ref class AimpServiceMusicLibraryUI :
             public BaseAimpService<IAIMPServiceMusicLibraryUI>,
-            public IAimpServiceMusicLibraryUI
-        {
+            public IAimpServiceMusicLibraryUI {
         public:
             explicit AimpServiceMusicLibraryUI(ManagedAimpCore^ core);
 

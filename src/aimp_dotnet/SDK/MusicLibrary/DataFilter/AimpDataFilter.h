@@ -8,17 +8,14 @@
 #pragma once
 #include "AimpDataFilterGroup.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace MusicLibrary;
 
         public ref class AimpDataFilter :
             public AimpDataFilterGroup,
-            public IAimpDataFilter
-        {
+            public IAimpDataFilter {
         internal:
             IAIMPMLDataFilter* InternalDataFilter;
         public:

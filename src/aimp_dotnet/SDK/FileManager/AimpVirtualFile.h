@@ -9,15 +9,12 @@
 #include "SDK\AimpObject.h"
 #include "SDK\ManagedAimpCore.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace FileManager;
 
-        public ref class AimpVirtualFile : public AimpObject<IAIMPVirtualFile>, public IAimpVirtualFile
-        {
+        public ref class AimpVirtualFile : public AimpObject<IAIMPVirtualFile>, public IAimpVirtualFile {
         public:
             AimpVirtualFile(IAIMPVirtualFile* aimpObject);
 

@@ -8,21 +8,18 @@
 #include "Stdafx.h"
 #include "AimpDataStorageCommandUserMark.h"
 
-AimpDataStorageCommandUserMark::AimpDataStorageCommandUserMark(gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandUserMark^> instance)
-{
+AimpDataStorageCommandUserMark::AimpDataStorageCommandUserMark(
+    gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandUserMark^> instance) {
     _instance = instance;
 }
 
-HRESULT WINAPI AimpDataStorageCommandUserMark::SetMark(VARIANT* ID, const DOUBLE Value)
-{
+HRESULT WINAPI AimpDataStorageCommandUserMark::SetMark(VARIANT* ID, const DOUBLE Value) {
     return HRESULT(_instance->SetMark(AimpConverter::FromVaiant(ID), Value)->ResultType);
 }
 
-HRESULT WINAPI AimpDataStorageCommandUserMark::QueryInterface(REFIID riid, LPVOID* ppvObject)
-{
+HRESULT WINAPI AimpDataStorageCommandUserMark::QueryInterface(REFIID riid, LPVOID* ppvObject) {
     *ppvObject = nullptr;
-    if (riid == IID_IAIMPMLDataStorageCommandUserMark)
-    {
+    if (riid == IID_IAIMPMLDataStorageCommandUserMark) {
         *ppvObject = this;
         AddRef();
         return S_OK;
@@ -31,12 +28,10 @@ HRESULT WINAPI AimpDataStorageCommandUserMark::QueryInterface(REFIID riid, LPVOI
     return E_NOINTERFACE;
 }
 
-ULONG WINAPI AimpDataStorageCommandUserMark::AddRef(void)
-{
+ULONG WINAPI AimpDataStorageCommandUserMark::AddRef(void) {
     return Base::AddRef();
 }
 
-ULONG WINAPI AimpDataStorageCommandUserMark::Release(void)
-{
+ULONG WINAPI AimpDataStorageCommandUserMark::Release(void) {
     return Base::Release();
 }

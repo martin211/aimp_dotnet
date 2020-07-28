@@ -9,10 +9,8 @@
 #include "SDK\BaseManager.h"
 #include "AimpPlayListQueue.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace Collections;
         using namespace Generic;
 
@@ -21,8 +19,7 @@ namespace AIMP
 
         public ref class AimpServicePlaylistManager :
             public BaseAimpService<IAIMPServicePlaylistManager2>,
-            public IAimpPlaylistManager2
-        {
+            public IAimpPlaylistManager2 {
         private:
             PlayListHandler^ _onPlaylistActivated;
             PlayListHandler^ _onPlaylistAdded;

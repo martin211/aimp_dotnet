@@ -9,16 +9,13 @@
 
 #include "SDK\BaseManager.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace Playlist;
         using namespace Playback;
 
         public ref class AimpServicePlaybackQueue : public BaseAimpService<IAIMPServicePlaybackQueue>,
-                                                    public IAimpServicePlaybackQueue
-        {
+                                                    public IAimpServicePlaybackQueue {
         public:
             explicit AimpServicePlaybackQueue(ManagedAimpCore^ core);
 

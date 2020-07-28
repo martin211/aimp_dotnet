@@ -9,8 +9,7 @@
 #include "AimpSdk.h"
 #include "AimpServiceSynchronizer.h"
 
-class InternalAimpTask : public IUnknownInterfaceImpl<IAIMPTask>
-{
+class InternalAimpTask : public IUnknownInterfaceImpl<IAIMPTask> {
 private:
     gcroot<IAimpTask^> _instance;
 public:

@@ -7,15 +7,12 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
 
         public ref class AimpPlaybackQueueItem : public AimpObject<IAIMPPlaybackQueueItem>,
-                                                 public AIMP::SDK::Playback::IAimpPlaybackQueueItem
-        {
+                                                 public AIMP::SDK::Playback::IAimpPlaybackQueueItem {
         public:
             explicit AimpPlaybackQueueItem(IAIMPPlaybackQueueItem* aimpItem);
 

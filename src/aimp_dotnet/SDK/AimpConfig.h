@@ -7,17 +7,14 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace AIMP::SDK;
 
         public ref class AimpConfig :
             public AimpObject<IAIMPConfig>,
-            public IAimpConfig
-        {
+            public IAimpConfig {
         public:
             explicit AimpConfig(IAIMPConfig* aimpObject);
 

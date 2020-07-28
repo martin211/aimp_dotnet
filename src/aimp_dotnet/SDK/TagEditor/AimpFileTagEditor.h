@@ -7,15 +7,12 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace AIMP::SDK::FileManager;
         using namespace AIMP::SDK::TagEditor;
 
-        public ref class AimpFileTagEditor : public IAimpFileTagEditor, public AimpObject<IAIMPFileTagEditor>
-        {
+        public ref class AimpFileTagEditor : public IAimpFileTagEditor, public AimpObject<IAIMPFileTagEditor> {
         public:
             explicit AimpFileTagEditor(IAIMPFileTagEditor* aimpObject);
 

@@ -9,8 +9,7 @@
 
 using namespace AIMP::SDK::FileManager::Commands;
 
-class InternalAimpFileSystemCommandCopyToClipboard : IUnknownInterfaceImpl<IAIMPFileSystemCommandCopyToClipboard>
-{
+class InternalAimpFileSystemCommandCopyToClipboard : IUnknownInterfaceImpl<IAIMPFileSystemCommandCopyToClipboard> {
 private:
     typedef IUnknownInterfaceImpl<IAIMPFileSystemCommandCopyToClipboard> Base;
     gcroot<IAimpFileSystemCommandCopyToClipboard^> _instance;

@@ -7,14 +7,14 @@
 
 #pragma once
 
-class AimpDataStorageCommandAddFiles : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandAddFiles>
-{
+class AimpDataStorageCommandAddFiles : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandAddFiles> {
 private:
     gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandAddFiles^> _instance;
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandAddFiles> Base;
 
-    explicit AimpDataStorageCommandAddFiles(gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandAddFiles^> instance);
+    explicit AimpDataStorageCommandAddFiles(
+        gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandAddFiles^> instance);
 
     virtual HRESULT WINAPI Add(IAIMPObjectList* Files);
 

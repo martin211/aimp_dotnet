@@ -7,16 +7,13 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace AIMP::SDK;
 
         generic <class TObject>
         public ref class AimpObjectList :
-            public IAimpObjectList<TObject>
-        {
+            public IAimpObjectList<TObject> {
         private:
             IAIMPObjectList* _nativeObject;
 
@@ -41,54 +38,45 @@ namespace AIMP
             virtual ActionResult SetObject(int index, TObject item);
         };
 
-        public ref class AimpObjectList2 : public IAimpObjectList, public AimpObject<IAIMPObjectList>
-        {
+        public ref class AimpObjectList2 : public IAimpObjectList, public AimpObject<IAIMPObjectList> {
         public:
-            explicit AimpObjectList2(IAIMPObjectList* nativeObject) : AimpObject(nativeObject)
-            {
+            explicit AimpObjectList2(IAIMPObjectList* nativeObject) : AimpObject(nativeObject) {
             }
 
-            virtual ActionResult Add(Object^ entry)
-            {
+            virtual ActionResult Add(Object^ entry) {
                 String^ s = dynamic_cast<String^>(entry);
-                if (s != nullptr)
-                {
+                if (s != nullptr) {
                     return ACTION_RESULT(Utils::CheckResult(InternalAimpObject->Add(AimpConverter::ToAimpString(s))));
                 }
 
-                return ACTION_RESULT(Utils::CheckResult(InternalAimpObject->Add(AimpConverter::ToAimpString((String^)entry))));
+                return ACTION_RESULT(
+                    Utils::CheckResult(InternalAimpObject->Add(AimpConverter::ToAimpString((String^)entry))));
             }
 
-            virtual ActionResult Clear()
-            {
+            virtual ActionResult Clear() {
                 return ACTION_RESULT(ActionResultType::Fail);
             }
 
-            virtual ActionResult Delete(int index)
-            {
+            virtual ActionResult Delete(int index) {
                 return ACTION_RESULT(ActionResultType::Fail);
             }
 
-            virtual ActionResult Insert(int index, Object^ entry)
-            {
+            virtual ActionResult Insert(int index, Object^ entry) {
                 return ACTION_RESULT(ActionResultType::Fail);
             }
 
             virtual property int Count
             {
-                int get()
-                {
+                int get() {
                     return 0;
                 }
             }
 
-            virtual ActionResult GetObject(int index, Object^% item)
-            {
+            virtual ActionResult GetObject(int index, Object^% item) {
                 return ACTION_RESULT(ActionResultType::Fail);
             }
 
-            virtual ActionResult SetObject(int index, Object^ item)
-            {
+            virtual ActionResult SetObject(int index, Object^ item) {
                 return ACTION_RESULT(ActionResultType::Fail);
             }
         };

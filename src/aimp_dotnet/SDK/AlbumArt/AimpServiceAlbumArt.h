@@ -10,17 +10,15 @@
 #include "SDK\BaseManager.h"
 #include "SDK\FileManager\AimpFileInfo.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace IO;
         using namespace SDK;
         using namespace AlbumArtManager;
 
-        public ref class AimpServiceAlbumArt : public BaseAimpService<IAIMPServiceAlbumArt>, public IAimpServiceAlbumArt
-        {
+        public ref class
+            AimpServiceAlbumArt : public BaseAimpService<IAIMPServiceAlbumArt>, public IAimpServiceAlbumArt {
         public:
             explicit AimpServiceAlbumArt(ManagedAimpCore^ core);
 
@@ -28,23 +26,20 @@ namespace AIMP
 
             event EventHandler<AimpGetAlbumArtEventArgs^>^ Completed
             {
-                virtual void add(EventHandler<AimpGetAlbumArtEventArgs^>^ onCompleted)
-                {
-                    if (this->_onComplete == nullptr)
-                    {
+                virtual void add(EventHandler<AimpGetAlbumArtEventArgs^>^ onCompleted) {
+                    if (this->_onComplete == nullptr) {
                         this->_onComplete = static_cast<EventHandler<AimpGetAlbumArtEventArgs^>^>(Delegate::Combine(
                             this->_onComplete, onCompleted));
                     }
                 }
-                virtual void remove(EventHandler<AimpGetAlbumArtEventArgs^>^ onCompleted)
-                {
+
+                virtual void remove(EventHandler<AimpGetAlbumArtEventArgs^>^ onCompleted) {
                     delete _onComplete;
                     _onComplete = nullptr;
                 }
-                void raise(Object^ sender, AimpGetAlbumArtEventArgs^ args)
-                {
-                    if (_onComplete != nullptr)
-                    {
+
+                void raise(Object^ sender, AimpGetAlbumArtEventArgs^ args) {
+                    if (_onComplete != nullptr) {
                         _onComplete(sender, args);
                     }
                 }
@@ -82,7 +77,8 @@ namespace AIMP
 
             void OnAlbumArtReceive(IAIMPImage* image, IAIMPImageContainer* image_container, void* user_data);
 
-            virtual IntResult Get(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags, Object^ userData);
+            virtual IntResult Get(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags,
+                                  Object^ userData);
 
             virtual IntResult Get2(IAimpFileInfo^ fileInfo, AimpFindCovertArtType flags, Object^ userData);
 

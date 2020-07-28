@@ -10,10 +10,8 @@
 #include "AimpExtensionPlaylistPreimageFactory.h"
 #include "SDK/PlayList/Internal/InternalAimpPlaylistPreimage.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace Generic;
         using namespace Runtime::InteropServices;
@@ -21,8 +19,7 @@ namespace AIMP
         using namespace SDK;
         using namespace Playlist;
 
-        public interface class IPlayListListnerExecutor
-        {
+        public interface class IPlayListListenerExecutor {
         public:
             void OnChanged(DWORD flag);
 
@@ -40,13 +37,12 @@ namespace AIMP
 
         class AimpPlaylistListener :
             public IUnknownInterfaceImpl<IAIMPPlaylistListener>,
-            public IAIMPPlaylistListener2
-        {
+            public IAIMPPlaylistListener2 {
         private:
-            gcroot<IPlayListListnerExecutor^> _playList;
+            gcroot<IPlayListListenerExecutor^> _playList;
 
         public:
-            AimpPlaylistListener(gcroot<IPlayListListnerExecutor^> playList);
+            AimpPlaylistListener(gcroot<IPlayListListenerExecutor^> playList);
 
             typedef IUnknownInterfaceImpl<IAIMPPlaylistListener> Base;
 
@@ -75,8 +71,7 @@ namespace AIMP
         public ref class AimpPlayList :
             public AimpObject<IAIMPPlaylist>,
             public IAimpPlaylist,
-            public IPlayListListnerExecutor
-        {
+            public IPlayListListenerExecutor {
         private:
             Func<IAimpPlaylistItem^, IAimpPlaylistItem^, Object^, PlaylistSortComapreResult>^ _compareFunc;
             Func<IAimpPlaylistItem^, Object^, bool>^ _deleteFilterFunc;
@@ -266,15 +261,16 @@ namespace AIMP
 
         public:
             virtual ActionResult Add(IAimpFileInfo^ fileInfo, PlaylistFlags flags,
-                                         PlaylistFilePosition filePosition);
+                                     PlaylistFilePosition filePosition);
 
             virtual ActionResult Add(String^ fileUrl, PlaylistFlags flags,
-                                         PlaylistFilePosition filePosition);
+                                     PlaylistFilePosition filePosition);
 
             virtual ActionResult AddList(Generic::IList<IAimpFileInfo^>^ fileUrlList,
-                                             PlaylistFlags flags, PlaylistFilePosition filePosition);
+                                         PlaylistFlags flags, PlaylistFilePosition filePosition);
 
-            virtual ActionResult AddList(Generic::IList<String^>^ fileUrlList, PlaylistFlags flags, PlaylistFilePosition filePosition);
+            virtual ActionResult AddList(Generic::IList<String^>^ fileUrlList, PlaylistFlags flags,
+                                         PlaylistFilePosition filePosition);
 
             virtual ActionResult Delete(IAimpPlaylistItem^ item);
 
@@ -283,13 +279,13 @@ namespace AIMP
             virtual ActionResult DeleteAll();
 
             virtual ActionResult Delete(PlaylistDeleteFlags deleteFlags, System::Object^ customFilterData,
-                                            System::Func<IAimpPlaylistItem^, System::Object^, bool>^ filterFunc);
+                                        System::Func<IAimpPlaylistItem^, System::Object^, bool>^ filterFunc);
 
             virtual ActionResult Sort(PlaylistSort sort);
 
             virtual ActionResult Sort(Object^ customSortData,
-                                          Func<IAimpPlaylistItem^, IAimpPlaylistItem^, Object^,
-                                               PlaylistSortComapreResult>^ compareFunc);
+                                      Func<IAimpPlaylistItem^, IAimpPlaylistItem^, Object^,
+                                           PlaylistSortComapreResult>^ compareFunc);
 
             virtual ActionResult Sort(String^ templateString);
 

@@ -7,17 +7,14 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace Collections::Generic;
         using namespace MusicLibrary::DataFilter;
 
         public ref class AimpDataFieldFilterByArray : public IAimpDataFieldFilterByArray,
-                                                      public AimpObject<IAIMPMLDataFieldFilterByArray>
-        {
+                                                      public AimpObject<IAIMPMLDataFieldFilterByArray> {
         public:
             explicit AimpDataFieldFilterByArray(IAIMPMLDataFieldFilterByArray* aimpObject);
 

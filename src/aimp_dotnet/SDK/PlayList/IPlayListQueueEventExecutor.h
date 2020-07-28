@@ -7,8 +7,7 @@
 
 #pragma once
 
-public interface class IPlayListQueueEventExecutor
-{
+public interface class IPlayListQueueEventExecutor {
     virtual void OnContentChanged();
 
     virtual void OnStateChanged();

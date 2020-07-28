@@ -8,18 +8,15 @@
 #pragma once
 #include <vcclr.h>
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace SDK;
         using namespace MusicLibrary::DataFilter;
         using namespace MusicLibrary::DataStorage;
 
         class InternalAimpGroupingTreeDataProviderSelection : public IUnknownInterfaceImpl<
-                IAIMPMLGroupingTreeDataProviderSelection>
-        {
+                IAIMPMLGroupingTreeDataProviderSelection> {
         private:
             ULONG _LinkCounter = 1;
             gcroot<IAimpGroupingTreeDataProviderSelection^> _managedInstance;

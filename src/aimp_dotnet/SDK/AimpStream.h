@@ -7,16 +7,13 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace AIMP::SDK;
 
         public ref class AimpStream :
             public AimpObject<IAIMPStream>,
-            public IAimpStream
-        {
+            public IAimpStream {
         public:
             explicit AimpStream(IAIMPStream* aimpObject);
 

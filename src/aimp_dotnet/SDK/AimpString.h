@@ -6,18 +6,15 @@
 // ----------------------------------------------------
 
 #pragma once
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::Objects;
 
         public ref class AimpString :
             public AimpObject<IAIMPString>,
-            public IAimpString
-        {
+            public IAimpString {
         public:
             explicit AimpString(IAIMPString* aimpObject);
 

@@ -10,24 +10,20 @@
 
 using namespace AIMP::SDK;
 
-AimpDataStorageManager::AimpDataStorageManager(IAIMPMLDataStorageManager* manager) : AimpObject(manager)
-{
+AimpDataStorageManager::AimpDataStorageManager(IAIMPMLDataStorageManager* manager) : AimpObject(manager) {
 }
 
-ActionResult AimpDataStorageManager::BackgroundTaskStarted(int id, System::String^ caption, ActionManager::IAimpActionEvent^ cancelEvent)
-{
+ActionResult AimpDataStorageManager::BackgroundTaskStarted(int id, System::String^ caption,
+                                                           ActionManager::IAimpActionEvent^ cancelEvent) {
     //todo complete it
     auto str = AimpConverter::ToAimpString(caption);
     auto result = ActionResultType::Fail;
 
-    try
-    {
+    try {
         result = Utils::CheckResult(this->InternalAimpObject->BackgroundTaskStarted(id, str, nullptr));
     }
-    finally
-    {
-        if (str != nullptr)
-        {
+    finally {
+        if (str != nullptr) {
             str->Release();
             str = nullptr;
         }
@@ -36,12 +32,10 @@ ActionResult AimpDataStorageManager::BackgroundTaskStarted(int id, System::Strin
     return ACTION_RESULT(result);
 }
 
-ActionResult AimpDataStorageManager::BackgroundTaskFinished(int id)
-{
+ActionResult AimpDataStorageManager::BackgroundTaskFinished(int id) {
     return ACTION_RESULT(Utils::CheckResult(this->InternalAimpObject->BackgroundTaskFinished(id)));
 }
 
-void AimpDataStorageManager::Changed()
-{
+void AimpDataStorageManager::Changed() {
     this->InternalAimpObject->Changed();
 }

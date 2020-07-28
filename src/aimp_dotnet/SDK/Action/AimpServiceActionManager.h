@@ -8,10 +8,8 @@
 #pragma once
 #include "SDK\BaseManager.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace Windows::Input;
         using namespace SDK;
         using namespace ActionManager;
@@ -19,8 +17,7 @@ namespace AIMP
         [System::Serializable]
         public ref class AimpServiceActionManager :
             public BaseAimpService<IAIMPServiceActionManager>,
-            public IAimpServiceActionManager
-        {
+            public IAimpServiceActionManager {
         public:
             explicit AimpServiceActionManager(ManagedAimpCore^ core);
 

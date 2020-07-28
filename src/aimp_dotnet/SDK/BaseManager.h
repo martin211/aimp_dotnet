@@ -9,54 +9,44 @@
 
 #include "SDK\ManagedAimpCore.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace AIMP::SDK;
 
         template <typename TAimpService>
         [System::Serializable]
-        public ref class BaseAimpService abstract : IAimpService
-        {
+        public ref class BaseAimpService abstract : IAimpService {
         private:
             bool _isExist;
         public:
-            BaseAimpService(ManagedAimpCore^ core)
-            {
+            BaseAimpService(ManagedAimpCore^ core) {
                 _core = core;
                 _isExist = false;
             }
 
         protected:
-            ActionResultType CheckResult(HRESULT result)
-            {
+            ActionResultType CheckResult(HRESULT result) {
                 const ActionResultType res = Utils::CheckResult(result);
-                if (res != ActionResultType::OK)
-                {
+                if (res != ActionResultType::OK) {
                     //AIMP::SDK::InternalLogger::Instance->Write("Invalid operation: result " + result);
                 }
 
                 return res;
             }
 
-            AimpActionResult^ GetResult(HRESULT result)
-            {
+            AimpActionResult^ GetResult(HRESULT result) {
                 return gcnew AimpActionResult(CheckResult(result));
             }
 
-            AimpActionResult^ GetResult(ActionResultType result)
-            {
+            AimpActionResult^ GetResult(ActionResultType result) {
                 return gcnew AimpActionResult(result);
             }
 
-            ActionResultType GetService(const IID id, TAimpService** service)
-            {
+            ActionResultType GetService(const IID id, TAimpService** service) {
                 TAimpService* s = nullptr;
                 const ActionResultType result = CheckResult(_core->GetService(id, reinterpret_cast<void**>(&s)));
 
-                if (result == ActionResultType::OK && s != nullptr)
-                {
+                if (result == ActionResultType::OK && s != nullptr) {
                     *service = s;
                     _isExist = true;
                 }
@@ -64,10 +54,8 @@ namespace AIMP
                 return result;
             }
 
-            void ReleaseObject(IUnknown* object)
-            {
-                if (object != nullptr)
-                {
+            void ReleaseObject(IUnknown* object) {
+                if (object != nullptr) {
                     object->Release();
                     object = nullptr;
                 }
@@ -78,8 +66,7 @@ namespace AIMP
         public:
             property bool IsExists
             {
-                virtual bool get()
-                {
+                virtual bool get() {
                     return _isExist;
                 }
             }

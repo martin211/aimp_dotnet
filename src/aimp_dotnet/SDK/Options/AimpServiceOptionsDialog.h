@@ -8,16 +8,13 @@
 #pragma once
 #include "SDK\BaseManager.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace SDK;
         using namespace Options;
 
         public ref class AimpServiceOptionsDialog : public BaseAimpService<IAIMPServiceOptionsDialog>,
-                                                    public IAimpServiceOptionsDialog
-        {
+                                                    public IAimpServiceOptionsDialog {
         public:
             explicit AimpServiceOptionsDialog(ManagedAimpCore^ core);
 

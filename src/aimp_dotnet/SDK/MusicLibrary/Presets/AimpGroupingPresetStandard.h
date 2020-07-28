@@ -9,10 +9,8 @@
 #include "AimpGroupingPreset.h"
 #include "AIMPSDK\AIMPSDK.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace MusicLibrary::Presets;
         using namespace System;
         using namespace Collections;
@@ -21,8 +19,7 @@ namespace AIMP
 
         public ref class AimpGroupingPresetStandard :
             public AimpGroupingPreset,
-            public IAimpGroupingPresetStandard
-        {
+            public IAimpGroupingPresetStandard {
         public:
             AimpGroupingPresetStandard(IAIMPMLGroupingPresetStandard* aimpObject);
 

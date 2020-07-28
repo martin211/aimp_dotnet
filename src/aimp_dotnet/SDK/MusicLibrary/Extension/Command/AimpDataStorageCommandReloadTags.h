@@ -7,14 +7,14 @@
 
 #pragma once
 
-class AimpDataStorageCommandReloadTags : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandReloadTags>
-{
+class AimpDataStorageCommandReloadTags : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandReloadTags> {
 private:
     gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandReloadTags^> _instance;
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandReloadTags> Base;
 
-    AimpDataStorageCommandReloadTags(gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandReloadTags^> instance);
+    AimpDataStorageCommandReloadTags(
+        gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandReloadTags^> instance);
 
     virtual HRESULT WINAPI ReloadTags(IAIMPMLFileList* Files);
 

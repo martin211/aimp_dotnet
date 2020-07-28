@@ -7,17 +7,14 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace MusicLibrary::DataStorage;
 
         private ref class AimpDataField :
             public AimpObject<IAIMPMLDataField>,
-            public IAimpDataField
-        {
+            public IAimpDataField {
         public:
             explicit AimpDataField(IAIMPMLDataField* aimpObject);
 

@@ -24,13 +24,11 @@
 #include "SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.h"
 #include "SDK\Lyrics\AimpExtensionLyricsProvider.h"
 
-namespace AIMP
-{
+namespace AIMP {
     using namespace System;
     using namespace SDK;
 
-    namespace SDK
-    {
+    namespace SDK {
         using namespace System;
         using namespace Collections::Generic;
 
@@ -43,8 +41,7 @@ namespace AIMP
         /// Wrapper on IAIMPCore interface.
         /// </summary>
         [Serializable]
-        public ref class ManagedAimpCore
-        {
+        public ref class ManagedAimpCore {
         public:
             /// <summary>
             /// Initializes a new instance of the <see cref="ManagedAimpCore"/> class.
@@ -120,7 +117,7 @@ namespace AIMP
             InternalAimpExtensionPlaylistPreimageFactory* _extensionPlaylistPreimageFactory = nullptr;
             AimpExtensionLyricsProvider* _extensionLyricsProvider = nullptr;
             AimpExtensionPlaybackQueue* _extensionPlaybackQueue = nullptr;
-            AimpExtensionPlayerHook * _extensionPlayerHook;
+            AimpExtensionPlayerHook* _extensionPlayerHook;
 
             AIMP::SDK::Playlist::PlayListHandler^ _playlistAdded;
             AIMP::SDK::Playlist::PlayListHandler^ _playlistRemoved;

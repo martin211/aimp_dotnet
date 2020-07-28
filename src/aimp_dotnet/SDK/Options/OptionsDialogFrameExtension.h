@@ -7,13 +7,11 @@
 
 #pragma once
 
-class AimpExtension
-{
+class AimpExtension {
 protected:
     IAIMPCore* _aimpCore;
 public:
-    AimpExtension(IAIMPCore* aimpCore)
-    {
+    AimpExtension(IAIMPCore* aimpCore) {
         _aimpCore = aimpCore;
     }
 };
@@ -21,8 +19,7 @@ public:
 class OptionsDialogFrameExtension :
     public IUnknownInterfaceImpl<IAIMPOptionsDialogFrame>,
     public IAIMPOptionsDialogFrameKeyboardHelper,
-    public AimpExtension
-{
+    public AimpExtension {
 public:
     typedef IUnknownInterfaceImpl<IAIMPOptionsDialogFrame> Base;
 

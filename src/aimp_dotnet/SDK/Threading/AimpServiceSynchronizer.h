@@ -8,16 +8,13 @@
 #pragma once
 #include "SDK\BaseManager.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace Threading;
 
         public ref class AimpServiceSynchronizer :
             public BaseAimpService<IAIMPServiceSynchronizer>,
-            public IAimpServiceSynchronizer
-        {
+            public IAimpServiceSynchronizer {
         public:
             explicit AimpServiceSynchronizer(ManagedAimpCore^ core);
 

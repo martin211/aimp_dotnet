@@ -7,21 +7,18 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace MusicLibrary;
 
         public ref class AimpDataStorageManager :
             public AimpObject<IAIMPMLDataStorageManager>,
-            public IAimpDataStorageManager
-        {
+            public IAimpDataStorageManager {
         public:
             explicit AimpDataStorageManager(IAIMPMLDataStorageManager* manager);
 
             virtual ActionResult BackgroundTaskStarted(int id, String^ caption,
-                                                           ActionManager::IAimpActionEvent^ cancelEvent);
+                                                       ActionManager::IAimpActionEvent^ cancelEvent);
 
             virtual ActionResult BackgroundTaskFinished(int id);
 

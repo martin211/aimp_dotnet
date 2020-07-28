@@ -9,16 +9,14 @@
 #include "SDK\BaseManager.h"
 #include "AimpFileInfo.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace IO;
         using namespace FileManager;
 
-        public ref class AimpServiceFileInfo : public BaseAimpService<IAIMPServiceFileInfo>, public IAimpServiceFileInfo
-        {
+        public ref class
+            AimpServiceFileInfo : public BaseAimpService<IAIMPServiceFileInfo>, public IAimpServiceFileInfo {
         public:
             AimpServiceFileInfo(ManagedAimpCore^ core);
 

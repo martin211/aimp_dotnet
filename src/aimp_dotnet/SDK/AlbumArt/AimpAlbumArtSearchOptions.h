@@ -7,12 +7,9 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
-        ref class AimpAlbumArtSearchOptions : public AlbumArtManager::IAimpAlbumArtSearchOptions
-        {
+namespace AIMP {
+    namespace SDK {
+        ref class AimpAlbumArtSearchOptions : public AlbumArtManager::IAimpAlbumArtSearchOptions {
         private:
             bool _findInFiles;
             IAIMPPropertyList* _properties;

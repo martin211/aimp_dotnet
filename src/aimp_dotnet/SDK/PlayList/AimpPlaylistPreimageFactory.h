@@ -8,16 +8,13 @@
 #pragma once
 #include "SDK\BaseManager.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::Playlist;
 
-        class AimpPlaylistPreimageFactory : public IUnknownInterfaceImpl<IAIMPExtensionPlaylistPreimageFactory>
-        {
+        class AimpPlaylistPreimageFactory : public IUnknownInterfaceImpl<IAIMPExtensionPlaylistPreimageFactory> {
         private:
             gcroot<Playlist::IAimpExtensionPlaylistPreimageFactory^> _managedObject;
             typedef IUnknownInterfaceImpl<IAIMPExtensionPlaylistPreimageFactory> Base;

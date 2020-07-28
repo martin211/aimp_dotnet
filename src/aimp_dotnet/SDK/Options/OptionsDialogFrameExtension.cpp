@@ -12,28 +12,23 @@ using namespace AIMP::SDK;
 
 OptionsDialogFrameExtension::OptionsDialogFrameExtension(IAIMPCore* aimpCore,
                                                          gcroot<Options::IAimpOptionsDialogFrame^> managedFrame) :
-    AimpExtension(aimpCore)
-{
+    AimpExtension(aimpCore) {
     _managedFrame = managedFrame;
 }
 
-GUID OptionsDialogFrameExtension::ExtensionId()
-{
+GUID OptionsDialogFrameExtension::ExtensionId() {
     return IID_IAIMPServiceOptionsDialog;
 }
 
-HRESULT WINAPI OptionsDialogFrameExtension::QueryInterface(REFIID riid, LPVOID* ppvObject)
-{
+HRESULT WINAPI OptionsDialogFrameExtension::QueryInterface(REFIID riid, LPVOID* ppvObject) {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPOptionsDialogFrame)
-    {
+    if (riid == IID_IAIMPOptionsDialogFrame) {
         *ppvObject = this;
         AddRef();
         return S_OK;
     }
-    if (riid == IID_IAIMPOptionsDialogFrameKeyboardHelper)
-    {
+    if (riid == IID_IAIMPOptionsDialogFrameKeyboardHelper) {
         *ppvObject = static_cast<IAIMPOptionsDialogFrameKeyboardHelper*>(this);
         AddRef();
         return S_OK;
@@ -43,18 +38,15 @@ HRESULT WINAPI OptionsDialogFrameExtension::QueryInterface(REFIID riid, LPVOID* 
     return res;
 }
 
-ULONG WINAPI OptionsDialogFrameExtension::AddRef(void)
-{
+ULONG WINAPI OptionsDialogFrameExtension::AddRef(void) {
     return Base::AddRef();
 }
 
-ULONG WINAPI OptionsDialogFrameExtension::Release(void)
-{
+ULONG WINAPI OptionsDialogFrameExtension::Release(void) {
     return Base::Release();
 }
 
-HRESULT WINAPI OptionsDialogFrameExtension::GetName(IAIMPString** S)
-{
+HRESULT WINAPI OptionsDialogFrameExtension::GetName(IAIMPString** S) {
     IAIMPString* strObject = nullptr;
     String^ str = _managedFrame->GetName();
     pin_ptr<const WCHAR> strDate = PtrToStringChars(str);
@@ -65,39 +57,32 @@ HRESULT WINAPI OptionsDialogFrameExtension::GetName(IAIMPString** S)
     return S_OK;
 }
 
-HWND WINAPI OptionsDialogFrameExtension::CreateFrame(HWND ParentWnd)
-{
+HWND WINAPI OptionsDialogFrameExtension::CreateFrame(HWND ParentWnd) {
     IntPtr parentWindow(ParentWnd);
     auto childWindow = _managedFrame->CreateFrame(parentWindow);
     return HWND(childWindow.ToPointer());
 }
 
-void WINAPI OptionsDialogFrameExtension::DestroyFrame()
-{
+void WINAPI OptionsDialogFrameExtension::DestroyFrame() {
     _managedFrame->DestroyFrame();
 }
 
-void WINAPI OptionsDialogFrameExtension::Notification(int ID)
-{
+void WINAPI OptionsDialogFrameExtension::Notification(int ID) {
     _managedFrame->Notification(static_cast<Options::OptionsDialogFrameNotificationType>(ID));
 }
 
-BOOL WINAPI OptionsDialogFrameExtension::DialogChar(WCHAR CharCode, int Unused)
-{
+BOOL WINAPI OptionsDialogFrameExtension::DialogChar(WCHAR CharCode, int Unused) {
     return true;
 }
 
-BOOL WINAPI OptionsDialogFrameExtension::DialogKey(WORD CharCode, int Unused)
-{
+BOOL WINAPI OptionsDialogFrameExtension::DialogKey(WORD CharCode, int Unused) {
     return true;
 }
 
-BOOL WINAPI OptionsDialogFrameExtension::SelectFirstControl()
-{
+BOOL WINAPI OptionsDialogFrameExtension::SelectFirstControl() {
     return true;
 }
 
-BOOL WINAPI OptionsDialogFrameExtension::SelectNextControl(BOOL FindForward, BOOL CheckTabStop)
-{
+BOOL WINAPI OptionsDialogFrameExtension::SelectNextControl(BOOL FindForward, BOOL CheckTabStop) {
     return true;
 }

@@ -10,37 +10,31 @@
 
 using namespace AIMP::SDK;
 
-InternalAimpFileSystemCommandDelete::InternalAimpFileSystemCommandDelete(gcroot<IAimpFileSystemCommandDelete^> instance)
-{
+InternalAimpFileSystemCommandDelete::InternalAimpFileSystemCommandDelete(
+    gcroot<IAimpFileSystemCommandDelete^> instance) {
     _managedInstance = instance;
 }
 
-HRESULT WINAPI InternalAimpFileSystemCommandDelete::CanProcess(IAIMPString* fileName)
-{
+HRESULT WINAPI InternalAimpFileSystemCommandDelete::CanProcess(IAIMPString* fileName) {
     return HRESULT(_managedInstance->CanProcess(AimpConverter::ToManagedString(fileName))->ResultType);
 }
 
-HRESULT WINAPI InternalAimpFileSystemCommandDelete::Process(IAIMPString* fileName)
-{
+HRESULT WINAPI InternalAimpFileSystemCommandDelete::Process(IAIMPString* fileName) {
     return HRESULT(_managedInstance->Process(AimpConverter::ToManagedString(fileName))->ResultType);
 }
 
-ULONG WINAPI InternalAimpFileSystemCommandDelete::AddRef(void)
-{
+ULONG WINAPI InternalAimpFileSystemCommandDelete::AddRef(void) {
     return Base::AddRef();
 }
 
-ULONG WINAPI InternalAimpFileSystemCommandDelete::Release(void)
-{
+ULONG WINAPI InternalAimpFileSystemCommandDelete::Release(void) {
     return Base::Release();
 }
 
-HRESULT WINAPI InternalAimpFileSystemCommandDelete::QueryInterface(REFIID riid, LPVOID* ppvObject)
-{
+HRESULT WINAPI InternalAimpFileSystemCommandDelete::QueryInterface(REFIID riid, LPVOID* ppvObject) {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPFileSystemCommandDelete)
-    {
+    if (riid == IID_IAIMPFileSystemCommandDelete) {
         *ppvObject = this;
         AddRef();
         return S_OK;

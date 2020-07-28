@@ -9,8 +9,7 @@
 #include "AIMPSDK/AIMP400/apiLyrics.h"
 
 class AimpExtensionLyricsProvider :
-    public IUnknownInterfaceImpl<IAIMPExtensionLyricsProvider>
-{
+    public IUnknownInterfaceImpl<IAIMPExtensionLyricsProvider> {
 private:
     gcroot<AIMP::SDK::Lyrics::IAimpExtensionLyricsProvider^> _managedExtension;
 public:

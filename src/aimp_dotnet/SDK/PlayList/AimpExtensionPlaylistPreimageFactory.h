@@ -8,18 +8,15 @@
 #pragma once
 #include "SDK\BaseManager.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace SDK;
         using namespace Playlist;
 
         public ref class AimpExtensionPlaylistPreimageFactory :
             public AimpObject<IAIMPExtensionPlaylistPreimageFactory>,
-            public IAimpExtensionPlaylistPreimageFactory
-        {
+            public IAimpExtensionPlaylistPreimageFactory {
         public:
             explicit AimpExtensionPlaylistPreimageFactory(IAIMPExtensionPlaylistPreimageFactory* aimpObject);
 

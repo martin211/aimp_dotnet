@@ -7,8 +7,7 @@
 
 #pragma once
 
-class AimpDataStorageCommandUserMark : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandUserMark>
-{
+class AimpDataStorageCommandUserMark : public IUnknownInterfaceImpl<IAIMPMLDataStorageCommandUserMark> {
 private:
     gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandUserMark^> _instance;
 

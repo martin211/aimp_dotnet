@@ -9,8 +9,7 @@
 
 using namespace AIMP::SDK::Playlist;
 
-class AimpExtensionPlaylistManagerListener : public IUnknownInterfaceImpl<IAIMPExtensionPlaylistManagerListener>
-{
+class AimpExtensionPlaylistManagerListener : public IUnknownInterfaceImpl<IAIMPExtensionPlaylistManagerListener> {
 private:
     gcroot<IAimpExtensionPlaylistManagerListener^> _managedInstance;
 

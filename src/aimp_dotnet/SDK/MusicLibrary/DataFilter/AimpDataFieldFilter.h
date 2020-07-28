@@ -8,18 +8,15 @@
 #pragma once
 #include "SDK/MusicLibrary/DataStorage/AimpDataField.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace SDK;
         using namespace MusicLibrary::DataFilter;
 
         public ref class AimpDataFieldFilter :
             public AimpObject<IAIMPMLDataFieldFilter>,
-            public IAimpDataFieldFilter
-        {
+            public IAimpDataFieldFilter {
         private:
             SDK::AimpDataField^ _dataField;
 

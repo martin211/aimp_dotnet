@@ -10,17 +10,15 @@
 
 using namespace AIMP::SDK;
 
-AimpGroupingTreeSelection::AimpGroupingTreeSelection(IAIMPMLGroupingTreeSelection* aimpObject) : AimpObject(aimpObject)
-{
+AimpGroupingTreeSelection::AimpGroupingTreeSelection(
+    IAIMPMLGroupingTreeSelection* aimpObject) : AimpObject(aimpObject) {
 }
 
-int AimpGroupingTreeSelection::GetCount()
-{
+int AimpGroupingTreeSelection::GetCount() {
     return InternalAimpObject->GetCount();
 }
 
-AimpActionResult<String^, Object^>^ AimpGroupingTreeSelection::GetValue(int index)
-{
+AimpActionResult<String^, Object^>^ AimpGroupingTreeSelection::GetValue(int index) {
     IAIMPString* str = nullptr;
     VARIANT val;
 
@@ -29,22 +27,17 @@ AimpActionResult<String^, Object^>^ AimpGroupingTreeSelection::GetValue(int inde
 
     const ActionResultType result = CheckResult(InternalAimpObject->GetValue(index, &str, &val));
 
-    try
-    {
-        if (result == ActionResultType::OK)
-        {
-            if (str != nullptr)
-            {
+    try {
+        if (result == ActionResultType::OK) {
+            if (str != nullptr) {
                 fieldName = AimpConverter::ToManagedString(str);
             }
 
             value = AimpConverter::FromVaiant(&val);
         }
     }
-    finally
-    {
-        if (str != nullptr)
-        {
+    finally {
+        if (str != nullptr) {
             str->Release();
             str = nullptr;
         }

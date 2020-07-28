@@ -12,33 +12,27 @@ using namespace AIMP::SDK;
 using namespace Objects;
 
 AimpFileSystemCommandFileInfo::
-AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject) : AimpObject(aimpObject)
-{
+AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject) : AimpObject(aimpObject) {
 }
 
-AimpActionResult<AimpFileAttributes>^ AimpFileSystemCommandFileInfo::GetFileAttrs(String^ file)
-{
+AimpActionResult<AimpFileAttributes>^ AimpFileSystemCommandFileInfo::GetFileAttrs(String^ file) {
     auto str = AimpConverter::ToAimpString(file);
     auto result = ActionResultType::Fail;
     auto atr = AimpFileAttributes();
 
-    try
-    {
+    try {
         TAIMPFileAttributes* fattr = nullptr;
         result = CheckResult(InternalAimpObject->GetFileAttrs(str, fattr));
 
-        if (result == ActionResultType::OK)
-        {
+        if (result == ActionResultType::OK) {
             atr.TimeCreation = fattr->TimeCreation;
             atr.TimeLastAccess = fattr->TimeLastAccess;
             atr.TimeLastWrite = fattr->TimeLastWrite;
             atr.Attributes = static_cast<IO::FileAttributes>(fattr->Attributes);
         }
     }
-    finally
-    {
-        if (str != nullptr)
-        {
+    finally {
+        if (str != nullptr) {
             str->Release();
             str = nullptr;
         }
@@ -47,26 +41,21 @@ AimpActionResult<AimpFileAttributes>^ AimpFileSystemCommandFileInfo::GetFileAttr
     return gcnew AimpActionResult<AimpFileAttributes>(result, atr);
 }
 
-LongResult AimpFileSystemCommandFileInfo::GetFileSize(String^ file)
-{
+LongResult AimpFileSystemCommandFileInfo::GetFileSize(String^ file) {
     IAIMPString* str = nullptr;
     long long size = 0;
     ActionResultType result = ActionResultType::Fail;
 
-    try
-    {
+    try {
         str = AimpConverter::ToAimpString(file);
         INT64* fSize = 0;
         result = CheckResult(InternalAimpObject->GetFileSize(str, fSize));
-        if (result == ActionResultType::OK)
-        {
+        if (result == ActionResultType::OK) {
             size = reinterpret_cast<long long>(fSize);
         }
     }
-    finally
-    {
-        if (str != nullptr)
-        {
+    finally {
+        if (str != nullptr) {
             str->Release();
             str = nullptr;
         }
@@ -75,20 +64,16 @@ LongResult AimpFileSystemCommandFileInfo::GetFileSize(String^ file)
     return gcnew AimpActionResult<long long>(result, size);
 }
 
-ActionResult AimpFileSystemCommandFileInfo::IsFileExists(String^ file)
-{
+ActionResult AimpFileSystemCommandFileInfo::IsFileExists(String^ file) {
     IAIMPString* str = nullptr;
     ActionResultType result = ActionResultType::Fail;
 
-    try
-    {
+    try {
         str = AimpConverter::ToAimpString(file);
         result = CheckResult(InternalAimpObject->IsFileExists(str));
     }
-    finally
-    {
-        if (str != nullptr)
-        {
+    finally {
+        if (str != nullptr) {
             str->Release();
             str = nullptr;
         }

@@ -11,29 +11,24 @@
 using namespace AIMP::SDK;
 
 AimpDataFieldFilterByArray::
-AimpDataFieldFilterByArray(IAIMPMLDataFieldFilterByArray* aimpObject) : AimpObject(aimpObject)
-{
+AimpDataFieldFilterByArray(IAIMPMLDataFieldFilterByArray* aimpObject) : AimpObject(aimpObject) {
 }
 
-String^ AimpDataFieldFilterByArray::Field::get()
-{
+String^ AimpDataFieldFilterByArray::Field::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMPML_FIELDFILTERBYARRAY_FIELD);
 }
 
-void AimpDataFieldFilterByArray::Field::set(String^ value)
-{
+void AimpDataFieldFilterByArray::Field::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMPML_FIELDFILTERBYARRAY_FIELD, value);
 }
 
-ActionResult AimpDataFieldFilterByArray::GetData(IList<Object^>^ values)
-{
+ActionResult AimpDataFieldFilterByArray::GetData(IList<Object^>^ values) {
     // TODO: Complete it
     values = nullptr;
     return ACTION_RESULT(ActionResultType::NotImplemented);
 }
 
-ActionResult AimpDataFieldFilterByArray::SetData(IList<Object^>^ values)
-{
+ActionResult AimpDataFieldFilterByArray::SetData(IList<Object^>^ values) {
     // TODO: Complete it
     return ACTION_RESULT(ActionResultType::NotImplemented);
 }
