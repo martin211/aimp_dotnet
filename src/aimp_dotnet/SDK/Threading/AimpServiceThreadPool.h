@@ -17,11 +17,11 @@ namespace AIMP {
         public:
             explicit AimpServiceThreadPool(ManagedAimpCore^ core);
 
-            virtual ActionResultType Cancel(UIntPtr taskHandle, AimpServiceThreadPoolType flags);
+            virtual ActionResult Cancel(UIntPtr taskHandle, AimpServiceThreadPoolType flags);
 
-            virtual ActionResultType Execute(IAimpTask^ task, UIntPtr% handle);
+            virtual AimpActionResult<UIntPtr>^ Execute(IAimpTask^ task);
 
-            virtual ActionResultType WaitFor(UIntPtr handle);
+            virtual ActionResult WaitFor(UIntPtr handle);
         protected:
             IAIMPServiceThreadPool* GetAimpService() override;
         };

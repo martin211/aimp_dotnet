@@ -39,19 +39,19 @@ namespace TestPlugin
 
     public class ExtensionPlaylistManagerListener : IAimpExtension, IAimpExtensionPlaylistManagerListener
     {
-        public ActionResultType OnPlaylistActivated(IAimpPlaylist playlist)
+        public AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist)
         {
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
-        public ActionResultType OnPlaylistAdded(IAimpPlaylist playlist)
+        public AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist)
         {
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
-        public ActionResultType OnPlaylistRemoved(IAimpPlaylist playlist)
+        public AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist)
         {
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
     }
 

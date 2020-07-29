@@ -34,7 +34,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 this.AreNotEqual(string.Empty, () => res.Result.Id);
 
                 res.Result.Close(PlaylistCloseFlag.ForceRemove);
-                return res.ResultType;
             });
         }
 
@@ -51,7 +50,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
                 if (res.ResultType != ActionResultType.OK)
                 {
-                    return res.ResultType;
+                    return;
                 }
 
                 var active = Player.PlaylistManager.GetActivePlaylist();
@@ -61,8 +60,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 this.AreEqual(active.Result.Id, res.Result.Id);
 
                 res.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return res.ResultType;
             });
         }
 
@@ -79,7 +76,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
                 if (res.ResultType != ActionResultType.OK)
                 {
-                    return res.ResultType;
+                    return;
                 }
 
                 var active = Player.PlaylistManager.GetActivePlaylist();
@@ -89,8 +86,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 this.AreNotEqual(active.Result.Id, res.Result.Id);
 
                 res.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return res.ResultType;
             });
         }
 
@@ -100,8 +95,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
             ExecuteInMainThread(() =>
             {
                 this.Throw<ArgumentNullException>(() => Player.PlaylistManager.CreatePlaylistFromFile("", false));
-
-                return ActionResultType.InvalidArguments;
             });
         }
 
@@ -119,7 +112,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
                 if (res.ResultType != ActionResultType.OK)
                 {
-                    return res.ResultType;
+                    return;
                 }
 
                 var active = Player.PlaylistManager.GetActivePlaylist();
@@ -128,8 +121,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 this.AreNotEqual(active.Result.Id, res.Result.Id);
 
                 res.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return res.ResultType;
             });
         }
 
@@ -142,7 +133,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
                 if (result.ResultType != ActionResultType.OK)
                 {
-                    return result.ResultType;
+                    return;
                 }
 
                 var active = Player.PlaylistManager.GetActivePlaylist();
@@ -151,9 +142,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 this.AreEqual(active.Result.Id, result.Result.Id);
 
                 result.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-
-                return result.ResultType;
             });
         }
 
@@ -177,8 +165,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 this.AreEqual(activePlaylist.Result.Id, result.Result.Id);
 
                 result.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return result.ResultType;
             });
         }
 
@@ -197,8 +183,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 this.AreEqual(oldCount + 1, count);
 
                 result.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return result.ResultType;
             });
         }
 
@@ -213,14 +197,11 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
                 this.AreEqual(ActionResultType.OK, playlistResult.ResultType);
                 playlist = playlistResult.Result;
-
-                return playlistResult.ResultType;
             });
 
             ExecuteInThread(() =>
             {
                 Thread.Sleep(10000);
-                return ActionResultType.OK;
             });
 
             ExecuteInMainThread(() =>
@@ -231,8 +212,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 this.NotNull(result.Result);
 
                 playlist.Close(PlaylistCloseFlag.ForceRemove);
-
-                return result.ResultType;
             });
         }
 
@@ -244,8 +223,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 var result = Player.PlaylistManager.GetLoadedPlaylist(0);
                 this.AreEqual(ActionResultType.OK, result.ResultType);
                 this.NotNull(result.Result);
-
-                return result.ResultType;
             });
         }
 
@@ -257,8 +234,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 var result = Player.PlaylistManager.GetLoadedPlaylist(100);
                 this.AreEqual(ActionResultType.InvalidArguments, () => result.ResultType);
                 this.Null(() => result.Result);
-
-                return result.ResultType;
             });
         }
 
@@ -277,8 +252,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 this.AreEqual(result.Result.Id, getResult.Result.Id);
 
                 result.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return getResult.ResultType;
             });
         }
 
@@ -297,8 +270,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 this.AreEqual(result.Result.Name, () => getResult.Result.Name);
 
                 result.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return getResult.ResultType;
             });
         }
     }

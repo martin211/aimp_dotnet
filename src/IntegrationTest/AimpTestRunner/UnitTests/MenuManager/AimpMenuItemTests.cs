@@ -39,8 +39,6 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
 
                 result = parent.DeleteChildren();
                 this.AreEqual(ActionResultType.OK, result.ResultType, "Delete child items");
-
-                return result.ResultType;
             });
         }
     }

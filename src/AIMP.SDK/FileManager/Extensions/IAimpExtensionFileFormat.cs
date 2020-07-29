@@ -19,12 +19,12 @@ namespace AIMP.SDK.FileManager.Extensions
         /// <summary>
         ///     The aimp service fileformats category audio
         /// </summary>
-        AIMP_SERVICE_FILEFORMATS_CATEGORY_AUDIO,
+        Audio,
 
         /// <summary>
         ///     The aimp service fileformats category playlists
         /// </summary>
-        AIMP_SERVICE_FILEFORMATS_CATEGORY_PLAYLISTS
+        Playlists
     }
 
     /// <summary>
@@ -43,21 +43,17 @@ namespace AIMP.SDK.FileManager.Extensions
         ///     Returns the short description. Ex. Ogg Vorbis
         /// </summary>
         /// <param name="fileFormat">Out. The description.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType" /></returns>
-        ActionResultType GetDescription(string fileFormat);
+        AimpActionResult GetDescription(string fileFormat);
 
         /// <summary>
         ///     Returns the supported extensions. Ex. *.ogg;*.oga;
         /// </summary>
         /// <param name="extensions">Out. Supported extensions.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType" /></returns>
-        ActionResultType GetExtList(string extensions);
+        AimpActionResult GetExtList(string extensions);
 
         /// <summary>
         ///     Gets the supported flags.
         /// </summary>
-        /// <param name="formatsCategoryTypes">Out. Supported flags <see cref="FileFormatsCategoryTypes" />.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType" /></returns>
-        ActionResultType GetFlags(out FileFormatsCategoryTypes formatsCategoryTypes);
+        AimpActionResult<FileFormatsCategoryTypes> GetFlags();
     }
 }

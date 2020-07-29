@@ -14,7 +14,7 @@ AimpPlaylistPreimageFolders::AimpPlaylistPreimageFolders(IAIMPPlaylistPreimageFo
     : AimpPlaylistPreimage(aimpObject) {
 }
 
-ActionResultType AimpPlaylistPreimageFolders::ItemsAdd(String^ path, bool recursive) {
+ActionResult AimpPlaylistPreimageFolders::ItemsAdd(String^ path, bool recursive) {
     ActionResultType res = ActionResultType::Fail;
     IAIMPString* str = AimpConverter::ToAimpString(path);
 
@@ -24,26 +24,25 @@ ActionResultType AimpPlaylistPreimageFolders::ItemsAdd(String^ path, bool recurs
     }
 
     str->Release();
-    return res;
+    return ACTION_RESULT(res);
 }
 
-ActionResultType AimpPlaylistPreimageFolders::ItemsDelete(int index) {
-    return CheckResult(static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsDelete(index));
+ActionResult AimpPlaylistPreimageFolders::ItemsDelete(int index) {
+    return ACTION_RESULT(CheckResult(static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsDelete(index)));
 }
 
-ActionResultType AimpPlaylistPreimageFolders::ItemsDeleteAll() {
-    return CheckResult(static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsDeleteAll());
+ActionResult AimpPlaylistPreimageFolders::ItemsDeleteAll() {
+    return ACTION_RESULT(CheckResult(static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsDeleteAll()));
 }
 
-ActionResultType AimpPlaylistPreimageFolders::ItemsGet(int index, String^% path, bool% recursive) {
+AimpActionResult<String^, bool>^ AimpPlaylistPreimageFolders::ItemsGet(int index) {
     IAIMPString* str = nullptr;
     BOOL* b = nullptr;
     ActionResultType res = CheckResult(
         static_cast<IAIMPPlaylistPreimageFolders*>(InternalAimpObject)->ItemsGet(index, str, b));
-    path = AimpConverter::ToManagedString(str);
-    recursive = b;
+    auto path = AimpConverter::ToManagedString(str);
     str->Release();
-    return res;
+    return gcnew AimpActionResult<String^, bool>(res, path, b);
 }
 
 int AimpPlaylistPreimageFolders::ItemsGetCount() {

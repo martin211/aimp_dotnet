@@ -22,12 +22,12 @@ namespace AIMP.SDK.FileManager
         /// <summary>
         ///     The aimp service fileformats category audio
         /// </summary>
-        AIMP_SERVICE_FILEFORMATS_CATEGORY_AUDIO = 1,
+        Audio = 1,
 
         /// <summary>
         ///     The aimp service fileformats category playlists
         /// </summary>
-        AIMP_SERVICE_FILEFORMATS_CATEGORY_PLAYLISTS = 2
+        Playlists = 2
     }
 
     /// <summary>
@@ -41,7 +41,6 @@ namespace AIMP.SDK.FileManager
         ///     Gets the availabel file formats.
         /// </summary>
         /// <param name="flags">The flags.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType" /></returns>
         AimpActionResult<string> GetFormats(FileFormats flags);
 
         /// <summary>
@@ -49,7 +48,6 @@ namespace AIMP.SDK.FileManager
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="flags">The flags.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType" /></returns>
         AimpActionResult IsSupported(string fileName, FileFormats flags);
     }
 }

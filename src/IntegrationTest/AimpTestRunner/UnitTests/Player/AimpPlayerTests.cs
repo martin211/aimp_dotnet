@@ -29,7 +29,6 @@ namespace Aimp.TestRunner.UnitTests.Player
 
                 var result = Player.Play(playlist.Result);
                 this.AreEqual(ActionResultType.OK, result.ResultType);
-                return result.ResultType;
             });
 
             Assert.AreEqual(AimpPlayerState.Playing, Player.State);
@@ -42,7 +41,6 @@ namespace Aimp.TestRunner.UnitTests.Player
             {
                 var result = Player.Pause();
                 this.AreEqual(ActionResultType.OK, result.ResultType);
-                return result.ResultType;
             });
 
             this.AreEqual(AimpPlayerState.Pause, Player.State);
@@ -55,7 +53,6 @@ namespace Aimp.TestRunner.UnitTests.Player
             {
                 var result = Player.Resume();
                 Assert.AreEqual(ActionResultType.OK, result.ResultType);
-                return result.ResultType;
             });
 
             Assert.AreEqual(AimpPlayerState.Playing, Player.State);
@@ -68,7 +65,6 @@ namespace Aimp.TestRunner.UnitTests.Player
             {
                 var result = Player.Stop();
                 Assert.AreEqual(ActionResultType.OK, result.ResultType);
-                return result.ResultType;
             });
 
             Assert.AreEqual(AimpPlayerState.Stopped, Player.State);

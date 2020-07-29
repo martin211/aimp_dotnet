@@ -21,12 +21,12 @@ namespace AIMP.SDK.Visuals
         /// <summary>
         ///     The aimp visual click button left
         /// </summary>
-        AIMP_VISUAL_CLICK_BUTTON_LEFT,
+        LeftButton,
 
         /// <summary>
         ///     The aimp visual click button middle
         /// </summary>
-        AIMP_VISUAL_CLICK_BUTTON_MIDDLE
+        MiddleButton
     }
 
     /// <summary>

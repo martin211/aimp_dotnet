@@ -83,7 +83,7 @@ namespace AIMP.SDK.Player
         ///     Gets the play list manager.
         /// </summary>
         /// <value>The playlist manager.</value>
-        IAimpPlaylistManager2 PlaylistManager { get; }
+        IAimpPlaylistManager PlaylistManager { get; }
 
         /// <summary>
         ///     Gets the playback queue manager.

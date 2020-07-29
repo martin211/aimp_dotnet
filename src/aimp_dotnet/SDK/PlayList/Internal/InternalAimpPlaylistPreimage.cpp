@@ -26,16 +26,16 @@ void WINAPI InternalAimpPlaylistPreimage::Initialize(IAIMPPlaylistPreimageListen
 }
 
 HRESULT WINAPI InternalAimpPlaylistPreimage::ConfigLoad(IAIMPStream* Stream) {
-    return HRESULT(_managedInstance->ConfigLoad(gcnew AimpStream(Stream)));
+    return HRESULT(_managedInstance->ConfigLoad(gcnew AimpStream(Stream))->ResultType);
 }
 
 HRESULT WINAPI InternalAimpPlaylistPreimage::ConfigSave(IAIMPStream* Stream) {
-    return HRESULT(_managedInstance->ConfigSave(gcnew AimpStream(Stream)));
+    return HRESULT(_managedInstance->ConfigSave(gcnew AimpStream(Stream))->ResultType);
 }
 
 HRESULT WINAPI InternalAimpPlaylistPreimage::ExecuteDialog(HWND OwnerWndHanle) {
     IntPtr ownerHandle(OwnerWndHanle);
-    return HRESULT(_managedInstance->ExecuteDialog(ownerHandle));
+    return HRESULT(_managedInstance->ExecuteDialog(ownerHandle)->ResultType);
 }
 
 HRESULT WINAPI InternalAimpPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, DWORD** Flags, IAIMPObjectList** List) {
@@ -43,13 +43,12 @@ HRESULT WINAPI InternalAimpPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, DWO
     Object^ obj = _managedInstance;
     IAimpPlaylistPreimageDataProvider^ dp = dynamic_cast<IAimpPlaylistPreimageDataProvider^>(obj);
     if (dp != nullptr) {
-        int flags = 0;
         IAIMPObjectList* L = AimpConverter::GetAimpObjectList();
-        Collections::IList^ collection;
-        res = dp->GetFiles(gcnew AimpTaskOwner(Owner), *&flags, *&collection);
-
-        if (res == ActionResultType::OK) {
-            *Flags = (DWORD*)flags;
+        const auto result = dp->GetFiles(gcnew AimpTaskOwner(Owner));
+        res = result->ResultType;
+        if (result->ResultType == ActionResultType::OK) {
+            *Flags = (DWORD*)result->Item1;
+            Collections::IList^ collection = result->Item2;
             Type^ t = collection->GetType()->GetGenericArguments()[0];
             if (t == IAimpFileInfo::typeid) {
                 for (int i = 0; i < collection->Count; i++) {

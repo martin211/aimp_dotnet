@@ -19,7 +19,7 @@ namespace AIMP.SDK.FileManager
         /// <summary>
         ///     The aimp service fileinfo flag dontuseaudiodecoders
         /// </summary>
-        AIMP_SERVICE_FILEINFO_FLAG_DONTUSEAUDIODECODERS
+        DontUseAudioCoders
     }
 
     /// <summary>
@@ -34,7 +34,6 @@ namespace AIMP.SDK.FileManager
         /// </summary>
         /// <param name="fileUri">The virtual file name.</param>
         /// <param name="fileInfoFlags">The file info flags.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType" /></returns>
         AimpActionResult<IAimpFileInfo> GetFileInfoFromFileUri(string fileUri, ServiceFileInfoFlags fileInfoFlags);
 
         /// <summary>
@@ -42,7 +41,6 @@ namespace AIMP.SDK.FileManager
         /// </summary>
         /// <param name="fileStream">The file stream.</param>
         /// <param name="fileInfoFlags">The file info flags.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType" /></returns>
         AimpActionResult<IAimpFileInfo> GetFileInfoFromStream(IAimpStream fileStream,
             ServiceFileInfoFlags fileInfoFlags);
 
@@ -50,7 +48,6 @@ namespace AIMP.SDK.FileManager
         ///     Gets the virtual file.
         /// </summary>
         /// <param name="fileUri">The virtual file name.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType" /></returns>
         AimpActionResult<IAimpVirtualFile> GetVirtualFile(string fileUri);
     }
 }

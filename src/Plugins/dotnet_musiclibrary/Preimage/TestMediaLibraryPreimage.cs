@@ -14,7 +14,6 @@ using System.Collections;
 using System.Collections.Generic;
 using AIMP.SDK;
 using AIMP.SDK.MusicLibrary;
-using AIMP.SDK.MusicLibrary.DataFilter;
 using AIMP.SDK.MusicLibrary.DataStorage;
 using AIMP.SDK.Playlist;
 using AIMP.SDK.Threading;
@@ -33,15 +32,7 @@ namespace AIMP.DotNet.MusicLibrary.Preimage
             AutoSyncOnStartup = true;
         }
 
-        public string FactoryId
-        {
-            get
-            {
-                string id;
-                _factory.GetId(out id);
-                return id;
-            }
-        }
+        public string FactoryId => _factory.GetId().Result;
 
         public bool AutoSync { get; set; }
 
@@ -51,19 +42,19 @@ namespace AIMP.DotNet.MusicLibrary.Preimage
 
         public string SortTemplate => string.Empty;
 
-        public ActionResultType ConfigLoad(IAimpStream stream)
+        public AimpActionResult ConfigLoad(IAimpStream stream)
         {
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
-        public ActionResultType ConfigSave(IAimpStream stream)
+        public AimpActionResult ConfigSave(IAimpStream stream)
         {
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
-        public ActionResultType ExecuteDialog(IntPtr ownerHandle)
+        public AimpActionResult ExecuteDialog(IntPtr ownerHandle)
         {
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
         public void Initialize(IAimpPlaylistPreimageListener listener)
@@ -76,17 +67,6 @@ namespace AIMP.DotNet.MusicLibrary.Preimage
             
         }
 
-        public ActionResultType GetFiles(IAimpTaskOwner owner, out int preimageFlags, out IList dataList)
-        {
-            preimageFlags = 0;
-            dataList = new List<string>
-            {
-                Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)
-            };
-
-            return ActionResultType.OK;
-        }
-
         public AimpActionResult<IAimpDataFilter> GetFilter()
         {
             return new AimpActionResult<IAimpDataFilter>(ActionResultType.OK, null);
@@ -95,6 +75,15 @@ namespace AIMP.DotNet.MusicLibrary.Preimage
         public AimpActionResult<IAimpDataStorage> GetStorage()
         {
             return new AimpActionResult<IAimpDataStorage>(ActionResultType.OK, null);
+        }
+
+        public AimpActionResult<int, IList> GetFiles(IAimpTaskOwner owner)
+        {
+            IList dataList = new List<string>
+            {
+                Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)
+            };
+            return new AimpActionResult<int, IList>(ActionResultType.OK, 0, dataList);
         }
     }
 }

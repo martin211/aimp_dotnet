@@ -34,8 +34,6 @@ namespace Aimp.TestRunner.UnitTests.MessageDispatcher
             {
                 var result = Player.ServiceMessageDispatcher.Send(AimpCoreMessageType.CmdPause, 0, IntPtr.Zero);
                 this.AreEqual(ActionResultType.OK, result.ResultType);
-
-                return result.ResultType;
             });
         }
 
@@ -45,7 +43,6 @@ namespace Aimp.TestRunner.UnitTests.MessageDispatcher
             ExecuteInMainThread(() =>
             {
                 this.Throw<ArgumentNullException>(() => Player.ServiceMessageDispatcher.Register(string.Empty));
-                return ActionResultType.OK;
             });
         }
 
@@ -56,8 +53,6 @@ namespace Aimp.TestRunner.UnitTests.MessageDispatcher
             {
                 var result = Player.ServiceMessageDispatcher.Register("Test");
                 this.IsTrue(result > 0);
-
-                return ActionResultType.OK;
             });
         }
 
@@ -67,7 +62,6 @@ namespace Aimp.TestRunner.UnitTests.MessageDispatcher
             ExecuteInMainThread(() =>
             {
                 this.Throw<ArgumentNullException>(() => Player.ServiceMessageDispatcher.Hook(null));
-                return ActionResultType.Fail;
             });
         }
 
@@ -78,7 +72,6 @@ namespace Aimp.TestRunner.UnitTests.MessageDispatcher
             {
                 var result = Player.ServiceMessageDispatcher.Hook(new TestHook());
                 this.AreEqual(ActionResultType.OK, result.ResultType, "Cannot hook a new hook");
-                return result.ResultType; 
             });
         }
 
@@ -93,8 +86,6 @@ namespace Aimp.TestRunner.UnitTests.MessageDispatcher
 
                 var result = Player.ServiceMessageDispatcher.Unhook(hook);
                 this.AreEqual(ActionResultType.OK, result.ResultType, "Cannot unhook a hook");
-
-                return result.ResultType;
             });
         }
     }

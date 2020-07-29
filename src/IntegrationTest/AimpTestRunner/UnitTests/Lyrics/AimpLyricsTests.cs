@@ -40,8 +40,6 @@ namespace Aimp.TestRunner.UnitTests.Lyrics
 
                 var r = ((IAimpLyrics)newLyrics.Result).Assign(lyricsInstance);
                 this.AreEqual(ActionResultType.OK, r.ResultType, "ResultType", "Cannot assign lyric");
-
-                return r.ResultType;
             });
         }
     }

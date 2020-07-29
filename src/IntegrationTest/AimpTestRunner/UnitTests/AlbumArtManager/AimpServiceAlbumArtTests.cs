@@ -62,8 +62,6 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
             {
                 var createResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
                 Player.Play(createResult.Result);
-
-                return ActionResultType.OK;
             });
 
             Thread.Sleep(1000);

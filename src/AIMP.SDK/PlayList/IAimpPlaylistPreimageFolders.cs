@@ -23,30 +23,27 @@ namespace AIMP.SDK.Playlist
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="recursive">if set to <c>true</c> [recursive].</param>
-        /// <returns>ActionResultType.</returns>
-        ActionResultType ItemsAdd(string path, bool recursive);
+        AimpActionResult ItemsAdd(string path, bool recursive);
 
         /// <summary>
         ///     Itemses the delete.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <returns>ActionResultType.</returns>
-        ActionResultType ItemsDelete(int index);
+        AimpActionResult ItemsDelete(int index);
 
         /// <summary>
         ///     Itemses the delete all.
         /// </summary>
-        /// <returns>ActionResultType.</returns>
-        ActionResultType ItemsDeleteAll();
+        AimpActionResult ItemsDeleteAll();
 
         /// <summary>
-        ///     Itemses the get.
+        ///     Get the items by index.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="path">The path.</param>
         /// <param name="recursive">if set to <c>true</c> [recursive].</param>
-        /// <returns>ActionResultType.</returns>
-        ActionResultType ItemsGet(int index, out string path, out bool recursive);
+        /// <returns>Item1 - path, Item2 - recursive or not.</returns>
+        AimpActionResult<string, bool> ItemsGet(int index);
 
         /// <summary>
         ///     Itemses the get count.

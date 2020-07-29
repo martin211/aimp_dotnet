@@ -67,7 +67,7 @@ namespace AIMP.SDK.TagEditor
         /// <param name="filePath">The file path.</param>
         /// <param name="editor">The editor.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType EditFile(string filePath, out IAimpFileTagEditor editor);
+        AimpActionResult<IAimpFileTagEditor> EditFile(string filePath);
 
         /// <summary>
         ///     Edits the file.
@@ -75,7 +75,7 @@ namespace AIMP.SDK.TagEditor
         /// <param name="fileStream">The file stream.</param>
         /// <param name="editor">The editor.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType EditFile(IAimpStream fileStream, out IAimpFileTagEditor editor);
+        AimpActionResult<IAimpFileTagEditor> EditFile(IAimpStream fileStream);
 
         /// <summary>
         ///     Edits the tag.
@@ -84,7 +84,7 @@ namespace AIMP.SDK.TagEditor
         /// <param name="tag">The tag.</param>
         /// <param name="fileInfo">The file information.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType EditTag(string filePath, TagType tag, out IAimpFileInfo fileInfo);
+        AimpActionResult<IAimpFileInfo> EditTag(string filePath, TagType tag);
 
         /// <summary>
         ///     Edits the tag.
@@ -93,6 +93,6 @@ namespace AIMP.SDK.TagEditor
         /// <param name="tag">The tag.</param>
         /// <param name="fileInfo">The file information.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType EditTag(IAimpStream fileStream, TagType tag, out IAimpFileInfo fileInfo);
+        AimpActionResult<IAimpFileInfo> EditTag(IAimpStream fileStream, TagType tag);
     }
 }

@@ -13,12 +13,8 @@ namespace AIMP.SDK.Playlist
 {
     /// <summary>
     ///     Interface IAimpPlaylistManager2
-    ///     Implements the <see cref="AIMP.SDK.Playlist.IAimpPlaylistManager" />
-    ///     Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
-    /// <seealso cref="AIMP.SDK.Playlist.IAimpPlaylistManager" />
-    /// <seealso cref="AIMP.SDK.IAimpService" />
-    public interface IAimpPlaylistManager2 : IAimpPlaylistManager, IAimpService
+    public interface IAimpPlaylistManager2
     {
         /// <summary>
         ///     Gets the preimage factory.
@@ -26,15 +22,14 @@ namespace AIMP.SDK.Playlist
         /// <param name="index">The index.</param>
         /// <param name="factory">The <see cref="IAimpExtensionPlaylistPreimageFactory" /> factory.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType GetPreimageFactory(int index, out IAimpExtensionPlaylistPreimageFactory factory);
+        AimpActionResult<IAimpExtensionPlaylistPreimageFactory> GetPreimageFactory(int index);
 
         /// <summary>
         ///     Gets the preimage factory by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="factory">The <see cref="IAimpExtensionPlaylistPreimageFactory" /> factory.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType GetPreimageFactoryByID(string id, out IAimpExtensionPlaylistPreimageFactory factory);
+        AimpActionResult<IAimpExtensionPlaylistPreimageFactory> GetPreimageFactoryById(string id);
 
         /// <summary>
         ///     Gets the preimage factory count.

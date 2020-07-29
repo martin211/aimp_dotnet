@@ -18,18 +18,18 @@ namespace AIMP.DotNet.MusicLibrary
 {
     public class AimpExtensionFileInfoProvider : IAimpExtensionFileInfoProvider, IAimpExtension
     {
-        public ActionResultType GetFileInfo(IAimpString fileUri, ref IAimpFileInfo fileInfo)
+        public AimpActionResult GetFileInfo(IAimpString fileUri, ref IAimpFileInfo fileInfo)
         {
             fileInfo = null;
             System.Diagnostics.Debugger.Break();
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
-        public ActionResultType GetFileInfo(IAimpStream stream, ref IAimpFileInfo fileInfo)
+        public AimpActionResult GetFileInfo(IAimpStream stream, ref IAimpFileInfo fileInfo)
         {
             fileInfo = null;
             System.Diagnostics.Debugger.Break();
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
     }
 }

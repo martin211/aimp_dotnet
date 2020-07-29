@@ -14,7 +14,7 @@ namespace AIMP.SDK.Playlist
     /// <summary>
     ///     The service provides an access to playlist manager.
     /// </summary>
-    public interface IAimpPlaylistManager
+    public interface IAimpPlaylistManager : IAimpPlaylistManager2, IAimpService
     {
         /// <summary>
         ///     Gets the playlist queue.
@@ -59,7 +59,7 @@ namespace AIMP.SDK.Playlist
         /// </summary>
         /// <param name="playList">The playlist <see cref="IAimpPlaylist" />.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType SetActivePlaylist(IAimpPlaylist playList);
+        AimpActionResult SetActivePlaylist(IAimpPlaylist playList);
 
         /// <summary>
         ///     Gets the playable playlist.

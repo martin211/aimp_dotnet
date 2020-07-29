@@ -28,10 +28,7 @@ namespace AIMP.SDK.FileManager.Extensions
         ///     Split the file container to virtual files.
         /// </summary>
         /// <param name="fileName">The real file name</param>
-        /// <param name="filesList">Out. The list of virtual files.</param>
         /// <param name="progressCallback">Progress callback.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType" /></returns>
-        ActionResultType Expand(string fileName, out IList<IAimpVirtualFile> filesList,
-            Func<long, bool> progressCallback);
+        AimpActionResult<IList<IAimpVirtualFile>> Expand(string fileName, Func<long, bool> progressCallback);
     }
 }

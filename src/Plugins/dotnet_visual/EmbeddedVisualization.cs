@@ -36,25 +36,20 @@ namespace dotnet_visual
             return AimpVisualFlags.RQDDataSpectrum;
         }
 
-        public ActionResultType GetMaxDisplaySize(out int width, out int height)
+        public AimpActionResult<int, int> GetMaxDisplaySize()
         {
-            Debug.WriteLine("GetMaxDisplaySize");
-            width = 100;
-            height = 100;
-            return ActionResultType.OK;
+            return new AimpActionResult<int, int>(ActionResultType.OK, 100, 100);
         }
 
-        public ActionResultType GetName(out string name)
+        public AimpActionResult<string> GetName()
         {
-            Debug.WriteLine("GetName");
-            name = "Test Visualization";
-            return ActionResultType.OK;
+            return new AimpActionResult<string>(ActionResultType.OK, "Test Visualization");
         }
 
-        public ActionResultType Initialize(int width, int height)
+        public AimpActionResult Initialize(int width, int height)
         {
             Debug.WriteLine("Initialize");
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
         public void OnFinalize()

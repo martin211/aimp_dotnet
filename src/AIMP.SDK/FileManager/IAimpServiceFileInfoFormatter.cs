@@ -22,8 +22,6 @@ namespace AIMP.SDK.FileManager
         ///     Formats the specified template.
         /// </summary>
         /// <param name="template">The list of supported macros for template depends from version of application.</param>
-        /// <param name="fileInfo">Put null to generate preview string.</param>
-        /// <returns>The <see cref="ActionResultType" /> result.</returns>
         AimpActionResult<string> Format(string template, IAimpFileInfo fileInfo);
     }
 }

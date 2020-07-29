@@ -1076,12 +1076,12 @@ AimpActionResult<Generic::IList<String^>^>^ AimpPlayList::GetFiles(PlaylistGetFi
     return gcnew AimpActionResult<Generic::IList<String^>^>(actionResult, files);
 }
 
-ActionResultType AimpPlayList::ReloadFromPreimage() {
-    return CheckResult(InternalAimpObject->ReloadFromPreimage());
+ActionResult AimpPlayList::ReloadFromPreimage() {
+    return ACTION_RESULT(CheckResult(InternalAimpObject->ReloadFromPreimage()));
 }
 
-ActionResultType AimpPlayList::ReloadInfo(bool fullReload) {
-    return CheckResult(InternalAimpObject->ReloadInfo(fullReload));
+ActionResult AimpPlayList::ReloadInfo(bool fullReload) {
+    return ACTION_RESULT(CheckResult(InternalAimpObject->ReloadInfo(fullReload)));
 }
 
 AimpActionResult<IAimpPlaylistItem^>^ AimpPlayList::GetItem(int index) {
@@ -1101,9 +1101,9 @@ int AimpPlayList::GetItemCount() {
     return InternalAimpObject->GetItemCount();
 }
 
-ActionResultType AimpPlayList::MergeGroup(IAimpPlaylistGroup^ playlistGroup) {
-    return CheckResult(
-        InternalAimpObject->MergeGroup(dynamic_cast<AimpPlayListGroup^>(playlistGroup)->InternalAimpObject));
+ActionResult AimpPlayList::MergeGroup(IAimpPlaylistGroup^ playlistGroup) {
+    return ACTION_RESULT(CheckResult(
+        InternalAimpObject->MergeGroup(dynamic_cast<AimpPlayListGroup^>(playlistGroup)->InternalAimpObject)));
 }
 
 AimpActionResult<IAimpPlaylistGroup^>^ AimpPlayList::GetGroup(int index) {

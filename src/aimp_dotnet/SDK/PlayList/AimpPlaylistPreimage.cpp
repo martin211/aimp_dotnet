@@ -48,17 +48,17 @@ String^ AimpPlaylistPreimage::SortTemplate::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_PLAYLISTPREIMAGE_PROPID_SORTTEMPLATE);
 }
 
-ActionResultType AimpPlaylistPreimage::ConfigLoad(IAimpStream^ stream) {
-    return CheckResult(InternalAimpObject->ConfigLoad(((AimpStream^)stream)->InternalAimpObject));
+ActionResult AimpPlaylistPreimage::ConfigLoad(IAimpStream^ stream) {
+    return ACTION_RESULT(CheckResult(InternalAimpObject->ConfigLoad(((AimpStream^)stream)->InternalAimpObject)));
 }
 
-ActionResultType AimpPlaylistPreimage::ConfigSave(IAimpStream^ stream) {
-    return CheckResult(InternalAimpObject->ConfigSave(((AimpStream^)stream)->InternalAimpObject));
+ActionResult AimpPlaylistPreimage::ConfigSave(IAimpStream^ stream) {
+    return ACTION_RESULT(CheckResult(InternalAimpObject->ConfigSave(((AimpStream^)stream)->InternalAimpObject)));
 }
 
-ActionResultType AimpPlaylistPreimage::ExecuteDialog(IntPtr ownerHandle) {
+ActionResult AimpPlaylistPreimage::ExecuteDialog(IntPtr ownerHandle) {
     //InternalAimpObject->ExecuteDialog()
-    return ActionResultType::Unexpected;
+    return ACTION_RESULT(ActionResultType::NotImplemented);
 }
 
 void AimpPlaylistPreimage::Initialize(IAimpPlaylistPreimageListener^ listener) {

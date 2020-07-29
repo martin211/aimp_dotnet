@@ -13,18 +13,16 @@
 HRESULT WINAPI InternalAimpExtensionFileInfoProvider::GetFileInfo(IAIMPString* fileURI, IAIMPFileInfo* info) {
     IAimpFileInfo^ aimpFileInfo = gcnew AimpFileInfo(info);
     IAimpString^ str = gcnew AimpString(fileURI);
-    ActionResultType result = _managedInstance->GetFileInfo(str, aimpFileInfo);
+    auto result = _managedInstance->GetFileInfo(str, aimpFileInfo);
     info = static_cast<AimpFileInfo^>(aimpFileInfo)->InternalAimpObject;
-
-    return HRESULT(result);
+    return HRESULT(result->ResultType);
 }
 
 HRESULT WINAPI InternalAimpExtensionFileInfoProvider::GetFileInfo(IAIMPStream* stream, IAIMPFileInfo* info) {
     IAimpFileInfo^ aimpFileInfo = gcnew AimpFileInfo(info);
     const auto result = _managedInstance->GetFileInfo(gcnew AimpStream(stream), aimpFileInfo);
     info = static_cast<AimpFileInfo^>(aimpFileInfo)->InternalAimpObject;
-
-    return HRESULT(result);
+    return HRESULT(result->ResultType);
 }
 
 ULONG InternalAimpExtensionFileInfoProvider::AddRef() {

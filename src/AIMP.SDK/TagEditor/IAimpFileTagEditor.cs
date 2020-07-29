@@ -21,17 +21,13 @@ namespace AIMP.SDK.TagEditor
         /// <summary>
         ///     Gets the mixed information from all tags and returns it as a <see cref="IAimpFileInfo" />.
         /// </summary>
-        /// <param name="fileInfo">The file information.</param>
-        /// <returns>ActionResultType.</returns>
-        ActionResultType GetMixedInfo(out IAimpFileInfo fileInfo);
+        AimpActionResult<IAimpFileInfo> GetMixedInfo();
 
         /// <summary>
         ///     Gets the tag.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <param name="fileTag">The file tag.</param>
-        /// <returns>ActionResultType.</returns>
-        ActionResultType GetTag(int index, out IAimpFileTag fileTag);
+        AimpActionResult<IAimpFileTag> GetTag(int index);
 
         /// <summary>
         ///     Gets the tag count.
@@ -44,12 +40,12 @@ namespace AIMP.SDK.TagEditor
         /// </summary>
         /// <param name="fileInfo">The file information.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType SetToAll(IAimpFileInfo fileInfo);
+        AimpActionResult SetToAll(IAimpFileInfo fileInfo);
 
         /// <summary>
         ///     Saves all changes to file.
         /// </summary>
         /// <returns>ActionResultType.</returns>
-        ActionResultType Save();
+        AimpActionResult Save();
     }
 }

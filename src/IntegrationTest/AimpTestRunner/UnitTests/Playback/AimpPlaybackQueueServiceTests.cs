@@ -28,8 +28,6 @@ namespace Aimp.TestRunner.UnitTests.Playback
                 this.NotNull(item.Result);
 
                 createPlaylistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return item.ResultType;
             });
         }
 
@@ -44,8 +42,6 @@ namespace Aimp.TestRunner.UnitTests.Playback
                 this.NotNull(item.Result);
 
                 createPlaylistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return item.ResultType;
             });
         }
     }

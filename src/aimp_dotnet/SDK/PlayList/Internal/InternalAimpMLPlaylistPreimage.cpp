@@ -155,16 +155,16 @@ void WINAPI InternalAimpMLPlaylistPreimage::Initialize(IAIMPPlaylistPreimageList
 }
 
 HRESULT WINAPI InternalAimpMLPlaylistPreimage::ConfigLoad(IAIMPStream* Stream) {
-    return (HRESULT)_managedInstance->ConfigLoad(gcnew AimpStream(Stream));
+    return static_cast<HRESULT>(_managedInstance->ConfigLoad(gcnew AimpStream(Stream))->ResultType);
 }
 
 HRESULT WINAPI InternalAimpMLPlaylistPreimage::ConfigSave(IAIMPStream* Stream) {
-    return (HRESULT)_managedInstance->ConfigSave(gcnew AimpStream(Stream));
+    return static_cast<HRESULT>(_managedInstance->ConfigSave(gcnew AimpStream(Stream))->ResultType);
 }
 
 HRESULT WINAPI InternalAimpMLPlaylistPreimage::ExecuteDialog(HWND OwnerWndHanle) {
-    System::IntPtr ownerHandle(OwnerWndHanle);
-    return (HRESULT)_managedInstance->ExecuteDialog(ownerHandle);
+    IntPtr ownerHandle(OwnerWndHanle);
+    return static_cast<HRESULT>(_managedInstance->ExecuteDialog(ownerHandle)->ResultType);
 }
 
 HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, DWORD** Flags, IAIMPObjectList** List) {
@@ -172,26 +172,26 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, D
     Object^ obj = _managedInstance;
     IAimpPlaylistPreimageDataProvider^ dp = dynamic_cast<IAimpPlaylistPreimageDataProvider^>(obj);
     if (dp != nullptr) {
-        int flags = 0;
         IAIMPObjectList* L = AIMP::SDK::AimpConverter::GetAimpObjectList();
-        System::Collections::IList^ collection;
-        res = dp->GetFiles(gcnew AimpTaskOwner(Owner), *&flags, *&collection);
+        const auto result = dp->GetFiles(gcnew AimpTaskOwner(Owner));
+        res = result->ResultType;
 
-        if (res == ActionResultType::OK) {
-            *Flags = (DWORD*)flags;
-            System::Type^ t = collection->GetType()->GetGenericArguments()[0];
+        if (result->ResultType == ActionResultType::OK) {
+            auto collection = result->Item2;
+            *Flags = (DWORD*)result->Item1;
+            auto t = collection->GetType()->GetGenericArguments()[0];
             if (t == AIMP::SDK::FileManager::IAimpFileInfo::typeid) {
                 for (int i = 0; i < collection->Count; i++) {
-                    IAIMPFileInfo* fi = AIMP::SDK::AimpConverter::ToAimpObject((IAimpFileInfo^)collection[i]);
+                    IAIMPFileInfo* fi = AimpConverter::ToAimpObject((IAimpFileInfo^)collection[i]);
                     L->Add(fi);
                     fi->Release();
                     fi = nullptr;
                 }
             }
-            else if (t == System::String::typeid) {
+            else if (t == String::typeid) {
                 for (int i = 0; i < collection->Count; i++) {
-                    System::String^ str = (System::String^)collection[i];
-                    IAIMPString* s = AIMP::SDK::AimpConverter::ToAimpString(str);
+                    auto str = static_cast<String^>(collection[i]);
+                    IAIMPString* s = AimpConverter::ToAimpString(str);
                     L->Add(s);
                     s->Release();
                 }

@@ -275,7 +275,7 @@ int AimpServicePlaylistManager::GetLoadedPlaylistCount() {
     return 0;
 }
 
-ActionResultType AimpServicePlaylistManager::SetActivePlaylist(IAimpPlaylist^ playList) {
+ActionResult AimpServicePlaylistManager::SetActivePlaylist(IAimpPlaylist^ playList) {
     IAIMPServicePlaylistManager2* service = GetAimpService();
     ActionResultType res = ActionResultType::Fail;
 
@@ -288,7 +288,7 @@ ActionResultType AimpServicePlaylistManager::SetActivePlaylist(IAimpPlaylist^ pl
         ReleaseObject(service);
     }
 
-    return res;
+    return ACTION_RESULT(res);
 }
 
 //void AimpServicePlaylistManager::OnPlaylistActivated(IAIMPPlaylist* playlist)
@@ -324,9 +324,8 @@ ActionResultType AimpServicePlaylistManager::SetActivePlaylist(IAimpPlaylist^ pl
 //    properties = nullptr;
 //}
 
-ActionResultType AimpServicePlaylistManager::GetPreimageFactory(
-    int index, IAimpExtensionPlaylistPreimageFactory^% factory) {
-    factory = nullptr;
+TYPED_RESULT(IAimpExtensionPlaylistPreimageFactory) AimpServicePlaylistManager::GetPreimageFactory(int index) {
+    IAimpExtensionPlaylistPreimageFactory^ factory = nullptr;
     IAIMPServicePlaylistManager2* service = GetAimpService();
     ActionResultType res = ActionResultType::Fail;
 
@@ -344,11 +343,11 @@ ActionResultType AimpServicePlaylistManager::GetPreimageFactory(
         ReleaseObject(service);
     }
 
-    return res;
+    return RETURN_TYPED_RESULT(IAimpExtensionPlaylistPreimageFactory, res, factory);
 }
 
-ActionResultType AimpServicePlaylistManager::GetPreimageFactoryByID(
-    String^ id, IAimpExtensionPlaylistPreimageFactory^% factory) {
+TYPED_RESULT(IAimpExtensionPlaylistPreimageFactory) AimpServicePlaylistManager::GetPreimageFactoryById(String^ id) {
+    IAimpExtensionPlaylistPreimageFactory^ factory = nullptr;
     IAIMPServicePlaylistManager2* service = GetAimpService();
     ActionResultType res = ActionResultType::Fail;
     IAIMPString* idStr = AimpConverter::ToAimpString(id);
@@ -366,10 +365,9 @@ ActionResultType AimpServicePlaylistManager::GetPreimageFactoryByID(
     finally {
         ReleaseObject(service);
         ReleaseObject(idStr);
-        ReleaseObject(aimpFactory);
     }
 
-    return res;
+    return RETURN_TYPED_RESULT(IAimpExtensionPlaylistPreimageFactory, res, factory);
 }
 
 int AimpServicePlaylistManager::GetPreimageFactoryCount() {

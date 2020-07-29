@@ -87,7 +87,7 @@ IAimpServiceConfig^ AimpPlayer::ServiceConfig::get() {
     return _serviceConfig;
 }
 
-IAimpPlaylistManager2^ AimpPlayer::PlaylistManager::get() {
+IAimpPlaylistManager^ AimpPlayer::PlaylistManager::get() {
     if (_playListManager == nullptr) {
         _playListManager = gcnew AimpServicePlaylistManager(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }

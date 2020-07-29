@@ -36,6 +36,7 @@ typedef AimpActionResult<MenuManager::IAimpMenuItem^>^ MenuItemResult;
 #define NULL_REFERENCE() throw gcnew System::NullReferenceException();
 #define TYPED_RESULT(type) AimpActionResult<type^>^
 #define TYPED_RESULT_2(type1, type2) AimpActionResult<type1^, type2^>^
+#define RETURN_TYPED_RESULT(type, value1, value2) gcnew AimpActionResult<type^>(value1, value2)
 
 
 //-V122_NOPTR

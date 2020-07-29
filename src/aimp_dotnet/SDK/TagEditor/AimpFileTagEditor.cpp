@@ -16,14 +16,19 @@ using namespace TagEditor;
 AimpFileTagEditor::AimpFileTagEditor(IAIMPFileTagEditor* aimpObject) : AimpObject(aimpObject) {
 }
 
-ActionResultType AimpFileTagEditor::GetMixedInfo(IAimpFileInfo^% fileInfo) {
+TYPED_RESULT(IAimpFileInfo) AimpFileTagEditor::GetMixedInfo() {
+    AimpFileInfo^ fileInfo = nullptr;
     IAIMPFileInfo* aimpObject = nullptr;
     ActionResultType result = CheckResult(InternalAimpObject->GetMixedInfo(&aimpObject));
-    fileInfo = gcnew AimpFileInfo(aimpObject);
-    return result;
+    if (result == ActionResultType::OK) {
+        fileInfo = gcnew AimpFileInfo(aimpObject);
+    }
+
+    return RETURN_TYPED_RESULT(IAimpFileInfo, result, fileInfo);
 }
 
-ActionResultType AimpFileTagEditor::GetTag(int index, IAimpFileTag^% fileTag) {
+TYPED_RESULT(IAimpFileTag) AimpFileTagEditor::GetTag(int index) {
+    AimpFileTag^ fileTag = nullptr;
     IAIMPFileTag* aimpTag = nullptr;
     ActionResultType result = CheckResult(
         InternalAimpObject->GetTag(index, IID_IAIMPFileTag, reinterpret_cast<void**>(&aimpTag)));
@@ -32,18 +37,18 @@ ActionResultType AimpFileTagEditor::GetTag(int index, IAimpFileTag^% fileTag) {
         fileTag = gcnew AimpFileTag(aimpTag);
     }
 
-    return result;
+    return RETURN_TYPED_RESULT(IAimpFileTag, result, fileTag);
 }
 
 int AimpFileTagEditor::GetTagCount() {
     return InternalAimpObject->GetTagCount();
 }
 
-ActionResultType AimpFileTagEditor::SetToAll(IAimpFileInfo^ fileInfo) {
+ActionResult AimpFileTagEditor::SetToAll(IAimpFileInfo^ fileInfo) {
     IAIMPFileInfo* fi = static_cast<AimpFileInfo^>(fileInfo)->InternalAimpObject;
-    return CheckResult(InternalAimpObject->SetToAll(fi));
+    return ACTION_RESULT(CheckResult(InternalAimpObject->SetToAll(fi)));
 }
 
-ActionResultType AimpFileTagEditor::Save() {
-    return CheckResult(InternalAimpObject->Save());
+ActionResult AimpFileTagEditor::Save() {
+    return ACTION_RESULT(CheckResult(InternalAimpObject->Save()));
 }

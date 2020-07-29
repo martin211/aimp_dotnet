@@ -592,21 +592,18 @@ namespace AIMP.SDK.Playlist
         ///     Merges one or all groups with same names.
         /// </summary>
         /// <param name="playlistGroup">Group to merge. All groups will be merged If group is not set (parameter is equals null).</param>
-        /// <returns>The <see cref="ActionResultType" /> result.</returns>
-        ActionResultType MergeGroup(IAimpPlaylistGroup playlistGroup);
+        AimpActionResult MergeGroup(IAimpPlaylistGroup playlistGroup);
 
         /// <summary>
         ///     Reloads from preimage.
         /// </summary>
-        /// <returns>ActionResultType.</returns>
-        ActionResultType ReloadFromPreimage();
+        AimpActionResult ReloadFromPreimage();
 
         /// <summary>
         ///     Reloads information about items (running in separate thread).
         /// </summary>
         /// <param name="fullReload">if set to <c>true</c> [full reload].</param>
-        /// <returns>ActionResultType.</returns>
-        ActionResultType ReloadInfo(bool fullReload);
+        AimpActionResult ReloadInfo(bool fullReload);
 
         /// <summary>
         ///     Gets the item.

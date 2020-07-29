@@ -31,7 +31,6 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
                 this.AreEqual(ActionResultType.OK, result.ResultType);
 
                 Player.MenuManager.Delete(menuItem);
-                return result.ResultType;
             });
         }
 
@@ -170,7 +169,6 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
                 this.AreEqual(menuItemStyle, getItemResult.Result.Style);
 
                 Player.MenuManager.Delete(menuItem);
-                return result.ResultType;
             });
         }
 
@@ -185,7 +183,6 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
                 Player.MenuManager.Add(ParentMenuType.CommonUtilites, menuItem);
                 var result = Player.MenuManager.Delete(menuItem);
                 this.AreEqual(ActionResultType.OK, result.ResultType);
-                return result.ResultType;
             });
         }
 
@@ -200,7 +197,6 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
                 Player.MenuManager.Add(ParentMenuType.CommonUtilites, menuItem);
                 var result = Player.MenuManager.Delete("id_for_test");
                 this.AreEqual(ActionResultType.OK, result.ResultType);
-                return result.ResultType;
             });
         }
 
@@ -217,7 +213,6 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
                 this.AreEqual(ActionResultType.OK, result.ResultType);
                 this.NotNull(result.Result);
                 Player.MenuManager.Delete(menuItem);
-                return result.ResultType;
             });
         }
 
@@ -262,8 +257,6 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
                 var result = Player.MenuManager.GetBuiltIn(menuType);
                 this.AreEqual(ActionResultType.OK, result.ResultType);
                 this.NotNull(result.Result);
-
-                return result.ResultType;
             });
         }
 
@@ -288,8 +281,6 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
                 var childResult = Player.MenuManager.GetById(child.Id);
                 this.NotNull(childResult.Result.Parent);
                 this.AreEqual(childResult.Result.Parent.Id, parent.Id);
-
-                return result.ResultType;
             });
         }
     }

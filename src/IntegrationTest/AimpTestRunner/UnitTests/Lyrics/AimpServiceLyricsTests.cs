@@ -39,8 +39,6 @@ namespace Aimp.TestRunner.UnitTests.Lyrics
                 this.IsTrue(lyricsReceive);
 
                 createPlaylistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return result.ResultType;
             });
         }
 
@@ -60,8 +58,6 @@ namespace Aimp.TestRunner.UnitTests.Lyrics
                 this.AreEqual(ActionResultType.OK, r.ResultType, "Unable to cancel lyric task");
 
                 createPlaylistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return r.ResultType;
             });
         }
     }

@@ -24,7 +24,7 @@ namespace Aimp.DotNet.SmartPlaylist
     {
         private readonly IAimpCore _core;
         private readonly TestPreimageFactory _factory;
-        private readonly IAimpPlaylistManager2 _manager;
+        private readonly IAimpPlaylistManager _manager;
         private readonly IList<string> _playlists;
 
         public FrmTestPreimage()
@@ -32,7 +32,7 @@ namespace Aimp.DotNet.SmartPlaylist
             InitializeComponent();
         }
 
-        public FrmTestPreimage(IAimpPlaylistManager2 manager, IAimpCore core)
+        public FrmTestPreimage(IAimpPlaylistManager manager, IAimpCore core)
             : this()
         {
             _manager = manager;
@@ -55,29 +55,29 @@ namespace Aimp.DotNet.SmartPlaylist
             }
         }
 
-        public ActionResultType OnPlaylistActivated(IAimpPlaylist playlist)
+        public AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist)
         {
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
-        public ActionResultType OnPlaylistAdded(IAimpPlaylist playlist)
+        public AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist)
         {
             listView1.Items.Add(new ListViewItem
             {
                 Text = playlist.Name,
                 Tag = playlist.Id
             });
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
-        public ActionResultType OnPlaylistRemoved(IAimpPlaylist playlist)
+        public AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist)
         {
             var item = listView1.Items.Cast<ListViewItem>().FirstOrDefault(c => c.Tag == playlist.Id);
             if (item != null)
             {
                 listView1.Items.Remove(item);
             }
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
         private void PlAdded(IAimpPlaylist pl)
@@ -140,10 +140,11 @@ namespace Aimp.DotNet.SmartPlaylist
             var pl = GetSelectedPlaylist();
             if (pl != null)
             {
-                if (_manager.GetPreimageFactoryByID(Constants.PreimageFactory.FoldersId, out var factory) == ActionResultType.OK)
+                var res = _manager.GetPreimageFactoryById(Constants.PreimageFactory.FoldersId);
+                if (res.ResultType == ActionResultType.OK)
                 {
-                    factory.CreatePreimage(out var preimage);
-                    if (preimage is IAimpPlaylistPreimageFolders filePreimage)
+                    var r = res.Result.CreatePreimage();
+                    if (r.Result is IAimpPlaylistPreimageFolders filePreimage)
                     {
                         filePreimage.AutoSync = true;
                         filePreimage.ItemsAdd(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), true);

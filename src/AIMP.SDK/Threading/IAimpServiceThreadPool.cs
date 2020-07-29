@@ -26,7 +26,7 @@ namespace AIMP.SDK.Threading
         /// <summary>
         ///     the method will not return control until operation has been completed if this flag is used.
         /// </summary>
-        AIMP_SERVICE_THREADPOOL_FLAGS_WAITFOR
+        WaitFor
     }
 
     /// <summary>
@@ -44,24 +44,20 @@ namespace AIMP.SDK.Threading
         /// <summary>
         ///     Cancels the specified task.
         /// </summary>
-        /// <param name="taskhandle">The task handle.</param>
+        /// <param name="taskHandle">The task handle.</param>
         /// <param name="flags">The flags.</param>
-        /// <returns>The <see cref="ActionResultType" /> result.</returns>
-        ActionResultType Cancel(UIntPtr taskhandle, AimpServiceThreadPoolType flags);
+        AimpActionResult Cancel(UIntPtr taskHandle, AimpServiceThreadPoolType flags);
 
         /// <summary>
         ///     Executes the specified task.
         /// </summary>
         /// <param name="task">The task.</param>
-        /// <param name="taskHandle">The task handle.</param>
-        /// <returns>The <see cref="ActionResultType" /> result.</returns>
-        ActionResultType Execute(IAimpTask task, out UIntPtr taskHandle);
+        AimpActionResult<UIntPtr> Execute(IAimpTask task);
 
         /// <summary>
         ///     Method provides an ability to wait for task completion.
         /// </summary>
         /// <param name="taskHandle">The task handle.</param>
-        /// <returns>The <see cref="ActionResultType" /> result.</returns>
-        ActionResultType WaitFor(UIntPtr taskHandle);
+        AimpActionResult WaitFor(UIntPtr taskHandle);
     }
 }

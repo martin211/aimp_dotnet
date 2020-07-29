@@ -297,9 +297,9 @@ namespace AIMP {
 
             virtual AimpActionResult<Generic::IList<String^>^>^ GetFiles(PlaylistGetFilesFlag filesFlag);
 
-            virtual ActionResultType ReloadFromPreimage();
+            virtual ActionResult ReloadFromPreimage();
 
-            virtual ActionResultType ReloadInfo(bool fullReload);
+            virtual ActionResult ReloadInfo(bool fullReload);
 
             virtual AimpActionResult<IAimpPlaylistItem^>^ GetItem(int index);
 
@@ -309,7 +309,7 @@ namespace AIMP {
 
             virtual int GetGroupCount();
 
-            virtual ActionResultType MergeGroup(IAimpPlaylistGroup^ playlistGroup);
+            virtual ActionResult MergeGroup(IAimpPlaylistGroup^ playlistGroup);
 
             virtual event AimpPlayListHandler^ Activated
             {

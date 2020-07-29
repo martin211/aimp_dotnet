@@ -29,20 +29,20 @@ namespace AIMP.SDK.Playlist
         /// </summary>
         /// <param name="playlist">The playlist.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType OnPlaylistActivated(IAimpPlaylist playlist);
+        AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist);
 
         /// <summary>
         ///     Occurs when playlist added.
         /// </summary>
         /// <param name="playlist">The playlist.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType OnPlaylistAdded(IAimpPlaylist playlist);
+        AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist);
 
         /// <summary>
         ///     Occurs when playlist removed.
         /// </summary>
         /// <param name="playlist">The playlist.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType OnPlaylistRemoved(IAimpPlaylist playlist);
+        AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist);
     }
 }

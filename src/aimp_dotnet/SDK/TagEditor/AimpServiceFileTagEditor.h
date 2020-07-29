@@ -17,13 +17,13 @@ namespace AIMP {
         public:
             explicit AimpServiceFileTagEditor(ManagedAimpCore^ core);
 
-            virtual ActionResultType EditFile(String^ filePath, IAimpFileTagEditor^% editor);
+            virtual TYPED_RESULT(IAimpFileTagEditor) EditFile(String^ filePath);
 
-            virtual ActionResultType EditFile(IAimpStream^ fileStream, IAimpFileTagEditor^% editor);
+            virtual TYPED_RESULT(IAimpFileTagEditor) EditFile(IAimpStream^ fileStream);
 
-            virtual ActionResultType EditTag(String^ filePath, TagType tag, IAimpFileInfo^% fileInfo);
+            virtual TYPED_RESULT(IAimpFileInfo) EditTag(String^ filePath, TagType tag);
 
-            virtual ActionResultType EditTag(IAimpStream^ fileStream, TagType tag, IAimpFileInfo^% fileInfo);
+            virtual TYPED_RESULT(IAimpFileInfo) EditTag(IAimpStream^ fileStream, TagType tag);
         protected:
             IAIMPServiceFileTagEditor* GetAimpService() override;
         };

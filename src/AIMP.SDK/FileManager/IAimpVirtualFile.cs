@@ -58,13 +58,11 @@ namespace AIMP.SDK.FileManager
         /// <summary>
         ///     Create the instance of the <see cref="IAimpStream" />.
         /// </summary>
-        /// <returns>Operation result <seealso cref="ActionResultType" /></returns>
         AimpActionResult<IAimpStream> CreateStream();
 
         /// <summary>
         ///     Gets the file info.
         /// </summary>
-        /// <returns>Operation result <seealso cref="ActionResultType" /></returns>
         AimpActionResult<IAimpFileInfo> GetFileInfo();
 
         /// <summary>
@@ -77,7 +75,6 @@ namespace AIMP.SDK.FileManager
         ///     Determines whether [is in same stream] [the specified virtual file].
         /// </summary>
         /// <param name="virtualFile">The virtual file.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType" /></returns>
         AimpActionResult IsInSameStream(IAimpVirtualFile virtualFile);
 
         /// <summary>
@@ -89,7 +86,6 @@ namespace AIMP.SDK.FileManager
         ///         The method called by the application before call the CreateStream method.
         ///     </para>
         /// </summary>
-        /// <returns>Operation result <seealso cref="ActionResultType" /></returns>
         AimpActionResult Synchronize();
     }
 }
