@@ -60,7 +60,7 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
                     var streamResult = Player.Core.CreateStream();
                     var r = streamResult.Result.Write(buf, buf.Length, out var written);
 
-                    this.AreEqual(ActionResultType.OK, () => r);
+                    this.AreEqual(ActionResultType.OK, () => r.ResultType);
                     result = Player.ServiceConfig.SetValueAsStream(path, streamResult.Result);
                 }
 

@@ -158,7 +158,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 this.AreNotEqual(string.Empty, result.Result.Id);
 
                 var result2 = Player.PlaylistManager.SetActivePlaylist(result.Result);
-                this.AreEqual(ActionResultType.OK, result2);
+                this.AreEqual(ActionResultType.OK, result2.ResultType);
 
                 var activePlaylist = Player.PlaylistManager.GetActivePlaylist();
                 this.AreEqual(ActionResultType.OK, activePlaylist.ResultType);
