@@ -14,14 +14,14 @@ using System;
 namespace AIMP.SDK
 {
     /// <summary>
-    ///     Class AimpErrorArgs.
-    ///     Implements the <see cref="System.EventArgs" />
+    /// Class AimpErrorArgs.
+    /// Implements the <see cref="System.EventArgs" />
     /// </summary>
     /// <seealso cref="System.EventArgs" />
     public class AimpErrorArgs : EventArgs
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AimpErrorArgs" /> class.
+        /// Initializes a new instance of the <see cref="AimpErrorArgs" /> class.
         /// </summary>
         /// <param name="aimpActionResult">The aimp action result.</param>
         /// <param name="message">The message.</param>
@@ -32,7 +32,7 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AimpErrorArgs" /> class.
+        /// Initializes a new instance of the <see cref="AimpErrorArgs" /> class.
         /// </summary>
         /// <param name="aimpActionResult">The aimp action result.</param>
         /// <param name="message">The message.</param>
@@ -44,26 +44,26 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        ///     Gets the type of the action result.
+        /// Gets the type of the action result.
         /// </summary>
         /// <value>The type of the action result.</value>
         public ActionResultType ActionResultType { get; }
 
         /// <summary>
-        ///     Gets the message.
+        /// Gets the message.
         /// </summary>
         /// <value>The message.</value>
         public string Message { get; }
 
         /// <summary>
-        ///     Gets or sets the stack trace.
+        /// Gets or sets the stack trace.
         /// </summary>
         /// <value>The stack trace.</value>
         public string StackTrace { get; set; }
     }
 
     /// <summary>
-    ///     Interface IAimpObject
+    /// Interface IAimpObject
     /// </summary>
     public interface IAimpObject
     {

@@ -12,53 +12,53 @@
 namespace AIMP.SDK
 {
     /// <summary>
-    ///     Enum AimpPlayerState
+    /// Enum AimpPlayerState
     /// </summary>
     public enum AimpPlayerState
     {
         /// <summary>
-        ///     The stopped
+        /// The stopped
         /// </summary>
         Stopped,
 
         /// <summary>
-        ///     The pause
+        /// The pause
         /// </summary>
         Pause,
 
         /// <summary>
-        ///     The playing
+        /// The playing
         /// </summary>
         Playing
     }
 
     /// <summary>
-    ///     Enum AimpWindowHandleTypes
+    /// Enum AimpWindowHandleTypes
     /// </summary>
     public enum AimpWindowHandleTypes
     {
         /// <summary>
-        ///     The main form
+        /// The main form
         /// </summary>
         MainForm = 0,
 
         /// <summary>
-        ///     The application
+        /// The application
         /// </summary>
         Application = 1,
 
         /// <summary>
-        ///     The tray control
+        /// The tray control
         /// </summary>
         TrayControl = 2,
 
         /// <summary>
-        ///     The playlist form
+        /// The playlist form
         /// </summary>
         PlaylistForm = 3,
 
         /// <summary>
-        ///     The equalizer form
+        /// The equalizer form
         /// </summary>
         EqualizerForm = 4
     }

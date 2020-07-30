@@ -15,12 +15,12 @@ using AIMP.SDK.FileManager;
 namespace AIMP.SDK.AlbumArtManager
 {
     /// <summary>
-    ///     It is the second edition of the <seealso cref="IAimpExtensionAlbumArtProvider" /> interface.
+    /// It is the second edition of the <seealso cref="IAimpExtensionAlbumArtProvider" /> interface.
     /// </summary>
     public interface IAimpExtensionAlbumArtProvider2
     {
         /// <summary>
-        ///     Gets the album art image.
+        /// Gets the album art image.
         /// </summary>
         /// <param name="fileInfo">The file information.</param>
         /// <param name="options">The search options <seealso cref="IAimpAlbumArtSearchOptions" />.</param>

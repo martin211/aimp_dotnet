@@ -20,39 +20,39 @@ using System.Windows.Forms;
 namespace AIMP.SDK
 {
     /// <summary>
-    ///     Struct PluginShortInfoForLoad
-    ///     Implements the <see cref="System.IEquatable{AIMP.SDK.PluginShortInfoForLoad}" />
+    /// Struct PluginShortInfoForLoad
+    /// Implements the <see cref="System.IEquatable{AIMP.SDK.PluginShortInfoForLoad}" />
     /// </summary>
     /// <seealso cref="System.IEquatable{AIMP.SDK.PluginShortInfoForLoad}" />
     [Serializable]
     public struct PluginShortInfoForLoad : IEquatable<PluginShortInfoForLoad>
     {
         /// <summary>
-        ///     Gets or sets the name of the assembly file.
+        /// Gets or sets the name of the assembly file.
         /// </summary>
         /// <value>The name of the assembly file.</value>
         public string AssemblyFileName { get; set; }
 
         /// <summary>
-        ///     Gets or sets the full name of the assembly.
+        /// Gets or sets the full name of the assembly.
         /// </summary>
         /// <value>The full name of the assembly.</value>
         public string AssemblyFullName { get; set; }
 
         /// <summary>
-        ///     Gets or sets the name of the class.
+        /// Gets or sets the name of the class.
         /// </summary>
         /// <value>The name of the class.</value>
         public string ClassName { get; set; }
 
         /// <summary>
-        ///     Gets or sets the plugin loc information.
+        /// Gets or sets the plugin loc information.
         /// </summary>
         /// <value>The plugin loc information.</value>
         public AimpPluginAttribute PluginLocInfo { get; set; }
 
         /// <summary>
-        ///     Indicates whether the current object is equal to another object of the same type.
+        /// Indicates whether the current object is equal to another object of the same type.
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.</returns>
@@ -66,14 +66,14 @@ namespace AIMP.SDK
     }
 
     /// <summary>
-    ///     Class PluginLoadingStrategy.
-    ///     Implements the <see cref="System.MarshalByRefObject" />
+    /// Class PluginLoadingStrategy.
+    /// Implements the <see cref="System.MarshalByRefObject" />
     /// </summary>
     /// <seealso cref="System.MarshalByRefObject" />
     public abstract class PluginLoadingStrategy : MarshalByRefObject
     {
         /// <summary>
-        ///     Loads the specified path.
+        /// Loads the specified path.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <returns>PluginShortInfoForLoad.</returns>
@@ -81,21 +81,21 @@ namespace AIMP.SDK
     }
 
     /// <summary>
-    ///     Class AssemblyScanPluginLoadStrategy.
-    ///     Implements the <see cref="AIMP.SDK.PluginLoadingStrategy" />
+    /// Class AssemblyScanPluginLoadStrategy.
+    /// Implements the <see cref="AIMP.SDK.PluginLoadingStrategy" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.PluginLoadingStrategy" />
     public class AssemblyScanPluginLoadStrategy : PluginLoadingStrategy
     {
         /// <summary>
-        ///     Path to the plugin folder where additional dependencies will be searched for.
+        /// Path to the plugin folder where additional dependencies will be searched for.
         /// </summary>
         private string _probePath;
 
         /// <summary>
-        ///     In case one of plugin dependencies is required during its load and cannot be found in GAC,
-        ///     this event handler gets executes by the .NET Framework.
-        ///     Then we try to look in the plugin's folder for the requeseted dll and load it manually.
+        /// In case one of plugin dependencies is required during its load and cannot be found in GAC,
+        /// this event handler gets executes by the .NET Framework.
+        /// Then we try to look in the plugin's folder for the requeseted dll and load it manually.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="ResolveEventArgs" /> instance containing the event data.</param>
@@ -112,7 +112,7 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        ///     Scans the files.
+        /// Scans the files.
         /// </summary>
         /// <param name="di">The di.</param>
         /// <param name="depth">The depth.</param>
@@ -137,7 +137,7 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        ///     Loads the specified path.
+        /// Loads the specified path.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <returns>PluginShortInfoForLoad.</returns>
@@ -202,17 +202,17 @@ namespace AIMP.SDK
     }
 
     /// <summary>
-    ///     Class PluginInfoLoader.
+    /// Class PluginInfoLoader.
     /// </summary>
     public static class PluginInfoLoader
     {
         /// <summary>
-        ///     The load strategy type
+        /// The load strategy type
         /// </summary>
         public static Type LoadStrategyType = typeof(AssemblyScanPluginLoadStrategy);
 
         /// <summary>
-        ///     Loads the plugin.
+        /// Loads the plugin.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <returns>AimpDotNetPlugin.</returns>

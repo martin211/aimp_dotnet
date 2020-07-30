@@ -12,8 +12,8 @@
 namespace AIMP.SDK.MUIManager
 {
     /// <summary>
-    ///     MUI manager.
-    ///     Implements the <see cref="AIMP.SDK.IAimpService" />
+    /// MUI manager.
+    /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.IAimpService" />
     // ReSharper disable InconsistentNaming
@@ -21,20 +21,20 @@ namespace AIMP.SDK.MUIManager
         // ReSharper restore InconsistentNaming
     {
         /// <summary>
-        ///     Gets the current locale name.
+        /// Gets the current locale name.
         /// </summary>
         /// <returns>System.String.</returns>
         string GetName();
 
         /// <summary>
-        ///     Gets the value.
+        /// Gets the value.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>System.String.</returns>
         string GetValue(string key);
 
         /// <summary>
-        ///     Gets the value part.
+        /// Gets the value part.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="index">The index.</param>

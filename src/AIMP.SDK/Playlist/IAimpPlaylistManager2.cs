@@ -12,27 +12,26 @@
 namespace AIMP.SDK.Playlist
 {
     /// <summary>
-    ///     Interface IAimpPlaylistManager2
+    /// Interface IAimpPlaylistManager2
     /// </summary>
     public interface IAimpPlaylistManager2
     {
         /// <summary>
-        ///     Gets the preimage factory.
+        /// Gets the preimage factory.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <param name="factory">The <see cref="IAimpExtensionPlaylistPreimageFactory" /> factory.</param>
         /// <returns>ActionResultType.</returns>
         AimpActionResult<IAimpExtensionPlaylistPreimageFactory> GetPreimageFactory(int index);
 
         /// <summary>
-        ///     Gets the preimage factory by identifier.
+        /// Gets the preimage factory by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>ActionResultType.</returns>
         AimpActionResult<IAimpExtensionPlaylistPreimageFactory> GetPreimageFactoryById(string id);
 
         /// <summary>
-        ///     Gets the preimage factory count.
+        /// Gets the preimage factory count.
         /// </summary>
         /// <returns>System.Int32.</returns>
         int GetPreimageFactoryCount();

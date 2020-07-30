@@ -17,22 +17,22 @@ using System.Reflection;
 namespace AIMP.SDK
 {
     /// <summary>
-    ///     Class CustomAssemblyResolver.
+    /// Class CustomAssemblyResolver.
     /// </summary>
     public static class CustomAssemblyResolver
     {
         /// <summary>
-        ///     The current path
+        /// The current path
         /// </summary>
         private static string curPath;
 
         /// <summary>
-        ///     The is inited
+        /// The is inited
         /// </summary>
         private static bool isInited;
 
         /// <summary>
-        ///     Initializes the specified path.
+        /// Initializes the specified path.
         /// </summary>
         /// <param name="path">The path.</param>
         public static void Initialize(string path)
@@ -46,7 +46,7 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        ///     Deinitializes this instance.
+        /// Deinitializes this instance.
         /// </summary>
         public static void Deinitialize()
         {
@@ -55,7 +55,7 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        ///     Currents the domain assembly resolve.
+        /// Currents the domain assembly resolve.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="ResolveEventArgs" /> instance containing the event data.</param>

@@ -12,14 +12,14 @@
 namespace AIMP.SDK.FileManager.Commands
 {
     /// <summary>
-    ///     Interface IAimpFileSystemCommandStreaming
-    ///     Implements the <see cref="AIMP.SDK.FileManager.Commands.IAimpFileSystemCommand" />
+    /// Interface IAimpFileSystemCommandStreaming
+    /// Implements the <see cref="AIMP.SDK.FileManager.Commands.IAimpFileSystemCommand" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.FileManager.Commands.IAimpFileSystemCommand" />
     public interface IAimpFileSystemCommandStreaming : IAimpFileSystemCommand
     {
         /// <summary>
-        ///     Creates the stream.
+        /// Creates the stream.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="flags">The flags.</param>

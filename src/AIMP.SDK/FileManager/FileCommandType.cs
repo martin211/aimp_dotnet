@@ -12,42 +12,42 @@
 namespace AIMP.SDK.FileManager
 {
     /// <summary>
-    ///     Enum FileCommandType
+    /// Enum FileCommandType
     /// </summary>
     public enum FileCommandType
     {
         /// <summary>
-        ///     The copy to clipboard
+        /// The copy to clipboard
         /// </summary>
         CopyToClipboard,
 
         /// <summary>
-        ///     The delete
+        /// The delete
         /// </summary>
         Delete,
 
         /// <summary>
-        ///     The drop source
+        /// The drop source
         /// </summary>
         DropSource,
 
         /// <summary>
-        ///     The file information
+        /// The file information
         /// </summary>
         FileInfo,
 
         /// <summary>
-        ///     The open file folder
+        /// The open file folder
         /// </summary>
         OpenFileFolder,
 
         /// <summary>
-        ///     The streaming
+        /// The streaming
         /// </summary>
         Streaming,
 
         /// <summary>
-        ///     The file exists
+        /// The file exists
         /// </summary>
         FileExists
     }

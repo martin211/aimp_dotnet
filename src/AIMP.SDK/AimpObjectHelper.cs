@@ -16,12 +16,12 @@ using AIMP.SDK.Objects;
 namespace AIMP.SDK
 {
     /// <summary>
-    ///     Class AimpObjectHelper.
+    /// Class AimpObjectHelper.
     /// </summary>
     public static class AimpObjectHelper
     {
         /// <summary>
-        ///     Gets the object.
+        /// Gets the object.
         /// </summary>
         /// <typeparam name="TObject">The type of the t object.</typeparam>
         /// <param name="core">The core.</param>
@@ -45,7 +45,7 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        ///     Gets the object.
+        /// Gets the object.
         /// </summary>
         /// <typeparam name="TObject">The type of the t object.</typeparam>
         /// <param name="header">The header.</param>
@@ -56,12 +56,12 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        ///     Class AimpObject.
+        /// Class AimpObject.
         /// </summary>
         public class AimpObject
         {
             /// <summary>
-            ///     The aimp string
+            /// The aimp string
             /// </summary>
             public const string AimpString = "41494D50-5374-7269-6E67-000000000000";
         }

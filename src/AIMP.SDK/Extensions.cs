@@ -12,12 +12,12 @@
 namespace AIMP.SDK
 {
     /// <summary>
-    ///     Class Extensions.
+    /// Class Extensions.
     /// </summary>
     public static class Extensions
     {
         /// <summary>
-        ///     Creates the aimp object.
+        /// Creates the aimp object.
         /// </summary>
         /// <typeparam name="TAimpObject">The type of the t aimp object.</typeparam>
         /// <param name="core">The core.</param>

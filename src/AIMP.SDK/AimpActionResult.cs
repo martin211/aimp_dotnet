@@ -14,54 +14,54 @@ using System.Diagnostics;
 namespace AIMP.SDK
 {
     /// <summary>
-    ///     AIMP Operation Result.
+    /// AIMP Operation Result.
     /// </summary>
     public enum ActionResultType : uint
     {
         /// <summary>
-        ///     Operation successful complete.
+        /// Operation successful complete.
         /// </summary>
         OK = 0x00000000,
 
         /// <summary>
-        ///     General access denied error.
+        /// General access denied error.
         /// </summary>
         AccessDenied = 0x80070005,
 
         /// <summary>
-        ///     Handle that is not valid.
+        /// Handle that is not valid.
         /// </summary>
         Handle = 0x80070006,
 
         /// <summary>
-        ///     One or more arguments are not valid.
+        /// One or more arguments are not valid.
         /// </summary>
         InvalidArguments = 0x80070057,
 
         /// <summary>
-        ///     Not implemented.
+        /// Not implemented.
         /// </summary>
         NotImplemented = 0x80004001,
 
         /// <summary>
-        ///     Unexpected failure.
+        /// Unexpected failure.
         /// </summary>
         Unexpected = 0x8000FFFF,
 
         /// <summary>
-        ///     Unspecified failure.
+        /// Unspecified failure.
         /// </summary>
         Fail = 0x80004005
     }
 
     /// <summary>
-    ///     Class AimpActionResult.
+    /// Class AimpActionResult.
     /// </summary>
     [DebuggerDisplay("{ResultType}")]
     public class AimpActionResult
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AimpActionResult" /> class.
+        /// Initializes a new instance of the <see cref="AimpActionResult" /> class.
         /// </summary>
         /// <param name="resultType">Type of the result.</param>
         public AimpActionResult(ActionResultType resultType)
@@ -70,15 +70,15 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        ///     Gets the type of the result.
+        /// Gets the type of the result.
         /// </summary>
         /// <value>The type of the result.</value>
         public ActionResultType ResultType { get; }
     }
 
     /// <summary>
-    ///     Class AimpActionResult.
-    ///     Implements the <see cref="AIMP.SDK.AimpActionResult" />
+    /// Class AimpActionResult.
+    /// Implements the <see cref="AIMP.SDK.AimpActionResult" />
     /// </summary>
     /// <typeparam name="TObject">The type of the t object.</typeparam>
     /// <seealso cref="AIMP.SDK.AimpActionResult" />
@@ -86,7 +86,7 @@ namespace AIMP.SDK
     public class AimpActionResult<TObject> : AimpActionResult
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AimpActionResult{TObject}" /> class.
+        /// Initializes a new instance of the <see cref="AimpActionResult{TObject}" /> class.
         /// </summary>
         /// <param name="resultType">Type of the result.</param>
         public AimpActionResult(ActionResultType resultType) : base(resultType)
@@ -95,7 +95,7 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AimpActionResult{TObject}" /> class.
+        /// Initializes a new instance of the <see cref="AimpActionResult{TObject}" /> class.
         /// </summary>
         /// <param name="resultType">Type of the result.</param>
         /// <param name="result">The result.</param>
@@ -108,15 +108,15 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        ///     Gets the result.
+        /// Gets the result.
         /// </summary>
         /// <value>The result.</value>
         public TObject Result { get; }
     }
 
     /// <summary>
-    ///     Class AimpActionResult.
-    ///     Implements the <see cref="AIMP.SDK.AimpActionResult" />
+    /// Class AimpActionResult.
+    /// Implements the <see cref="AIMP.SDK.AimpActionResult" />
     /// </summary>
     /// <typeparam name="TObject1">The type of the t object1.</typeparam>
     /// <typeparam name="TObject2">The type of the t object2.</typeparam>
@@ -124,7 +124,7 @@ namespace AIMP.SDK
     public class AimpActionResult<TObject1, TObject2> : AimpActionResult
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AimpActionResult{TObject1, TObject2}" /> class.
+        /// Initializes a new instance of the <see cref="AimpActionResult{TObject1, TObject2}" /> class.
         /// </summary>
         /// <param name="resultType">Type of the result.</param>
         /// <param name="obj1">The obj1.</param>
@@ -136,13 +136,13 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        ///     Gets or sets the item1.
+        /// Gets or sets the item1.
         /// </summary>
         /// <value>The item1.</value>
         public TObject1 Item1 { get; set; }
 
         /// <summary>
-        ///     Gets or sets the item2.
+        /// Gets or sets the item2.
         /// </summary>
         /// <value>The item2.</value>
         public TObject2 Item2 { get; set; }

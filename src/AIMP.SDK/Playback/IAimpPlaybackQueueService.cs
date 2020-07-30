@@ -12,20 +12,20 @@
 namespace AIMP.SDK.Playback
 {
     /// <summary>
-    ///     Interface IAimpServicePlaybackQueue
-    ///     Implements the <see cref="AIMP.SDK.IAimpService" />
+    /// Interface IAimpServicePlaybackQueue
+    /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.IAimpService" />
     public interface IAimpServicePlaybackQueue : IAimpService
     {
         /// <summary>
-        ///     Gets the next track.
+        /// Gets the next track.
         /// </summary>
         /// <returns>AimpActionResult&lt;IAimpPlaybackQueueItem&gt;.</returns>
         AimpActionResult<IAimpPlaybackQueueItem> GetNextTrack();
 
         /// <summary>
-        ///     Gets the previous track.
+        /// Gets the previous track.
         /// </summary>
         /// <returns>AimpActionResult&lt;IAimpPlaybackQueueItem&gt;.</returns>
         AimpActionResult<IAimpPlaybackQueueItem> GetPrevTrack();

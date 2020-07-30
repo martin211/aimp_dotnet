@@ -15,14 +15,14 @@ using System.Drawing;
 namespace AIMP.SDK.AlbumArtManager
 {
     /// <summary>
-    ///     Get album event arguments.
-    ///     Implements the <see cref="System.EventArgs" />
+    /// Get album event arguments.
+    /// Implements the <see cref="System.EventArgs" />
     /// </summary>
     /// <seealso cref="System.EventArgs" />
     public class AimpGetAlbumArtEventArgs : EventArgs
     {
         /// <summary>
-        ///     Gets or sets the cover image.
+        /// Gets or sets the cover image.
         /// </summary>
         /// <value>The cover image.</value>
         public Bitmap CoverImage { get; set; }

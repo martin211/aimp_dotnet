@@ -15,33 +15,33 @@ using System.IO;
 namespace AIMP.SDK.FileManager
 {
     /// <summary>
-    ///     Struct AimpFileAttributes
-    ///     Implements the <see cref="System.IEquatable{AIMP.SDK.FileManager.AimpFileAttributes}" />
-    ///     Implements the <see cref="System.IEquatable{AIMP.SDK.FileManager.AimpFileAttributes}" />
+    /// Struct AimpFileAttributes
+    /// Implements the <see cref="System.IEquatable{AIMP.SDK.FileManager.AimpFileAttributes}" />
+    /// Implements the <see cref="System.IEquatable{AIMP.SDK.FileManager.AimpFileAttributes}" />
     /// </summary>
     /// <seealso cref="System.IEquatable{AIMP.SDK.FileManager.AimpFileAttributes}" />
     public struct AimpFileAttributes : IEquatable<AimpFileAttributes>
     {
         /// <summary>
-        ///     Gets or sets the attributes.
+        /// Gets or sets the attributes.
         /// </summary>
         /// <value>The attributes.</value>
         public FileAttributes Attributes { get; set; }
 
         /// <summary>
-        ///     Gets or sets the time last access.
+        /// Gets or sets the time last access.
         /// </summary>
         /// <value>The time last access.</value>
         public double TimeLastAccess { get; set; }
 
         /// <summary>
-        ///     Gets or sets the time last write.
+        /// Gets or sets the time last write.
         /// </summary>
         /// <value>The time last write.</value>
         public double TimeLastWrite { get; set; }
 
         /// <summary>
-        ///     Gets or sets the time creation.
+        /// Gets or sets the time creation.
         /// </summary>
         /// <value>The time creation.</value>
         public double TimeCreation { get; set; }

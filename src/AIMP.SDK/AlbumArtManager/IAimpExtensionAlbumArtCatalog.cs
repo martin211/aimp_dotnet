@@ -15,27 +15,27 @@ namespace AIMP.SDK.AlbumArtManager
 {
     //TODO ADN-25
     /// <summary>
-    ///     This interface is a extension for the IAimpServiceAlbumArt service.
-    ///     It allows for the plugin to add a menu item to the context menu for external album art catalogs.
+    /// This interface is a extension for the IAimpServiceAlbumArt service.
+    /// It allows for the plugin to add a menu item to the context menu for external album art catalogs.
     /// </summary>
     /// <seealso cref="AIMP.SDK.AlbumArtManager.IAimpExtensionAlbumArtCatalog2" />
     /// <seealso cref="AIMP.SDK.IAimpExtension" />
     public interface IAimpExtensionAlbumArtCatalog : IAimpExtensionAlbumArtCatalog2, IAimpExtension
     {
         /// <summary>
-        ///     Gets icon for menu item, icon must be 16x16.
+        /// Gets icon for menu item, icon must be 16x16.
         /// </summary>
         /// <returns>AimpActionResult&lt;Bitmap&gt;.</returns>
         AimpActionResult<Bitmap> GetIcon();
 
         /// <summary>
-        ///     Gets the catalog name.
+        /// Gets the catalog name.
         /// </summary>
         /// <returns>AimpActionResult&lt;System.String&gt;.</returns>
         AimpActionResult<string> GetName();
 
         /// <summary>
-        ///     This method will be called on menu item click.
+        /// This method will be called on menu item click.
         /// </summary>
         /// <param name="fileUrl">The file URL.</param>
         /// <param name="artist">Optional. The artist. , can be null</param>

@@ -15,23 +15,23 @@ using AIMP.SDK.FileManager;
 namespace AIMP.SDK.AlbumArtManager
 {
     /// <summary>
-    ///     Service provides an ability to get album art for specified file or/and album.
-    ///     AlbumArt search process will run in separate thread, and plugin will receive a notification about the end of
-    ///     operation via callback function.
-    ///     Implements the <see cref="AIMP.SDK.AlbumArtManager.IAimpAlbumArtSearchOptions" />
-    ///     Implements the <see cref="AIMP.SDK.IAimpService" />
+    /// Service provides an ability to get album art for specified file or/and album.
+    /// AlbumArt search process will run in separate thread, and plugin will receive a notification about the end of
+    /// operation via callback function.
+    /// Implements the <see cref="AIMP.SDK.AlbumArtManager.IAimpAlbumArtSearchOptions" />
+    /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.AlbumArtManager.IAimpAlbumArtSearchOptions" />
     /// <seealso cref="AIMP.SDK.IAimpService" />
     public interface IAimpServiceAlbumArt : IAimpAlbumArtSearchOptions, IAimpService
     {
         /// <summary>
-        ///     Occurs when search was completed.
+        /// Occurs when search was completed.
         /// </summary>
         event EventHandler<AimpGetAlbumArtEventArgs> Completed;
 
         /// <summary>
-        ///     Gets the image.
+        /// Gets the image.
         /// </summary>
         /// <param name="fileUrl">The file URL.</param>
         /// <param name="artist">Optional. The artist.</param>
@@ -43,7 +43,7 @@ namespace AIMP.SDK.AlbumArtManager
             object userData);
 
         /// <summary>
-        ///     Gets the image.
+        /// Gets the image.
         /// </summary>
         /// <param name="fileInfo">The file information.</param>
         /// <param name="flags">The flags.</param>
@@ -52,7 +52,7 @@ namespace AIMP.SDK.AlbumArtManager
         AimpActionResult<int> Get2(IAimpFileInfo fileInfo, AimpFindCovertArtType flags, object userData);
 
         /// <summary>
-        ///     Cancels the get cover art request by specified task identifier.
+        /// Cancels the get cover art request by specified task identifier.
         /// </summary>
         /// <param name="taskId">The task identifier.</param>
         /// <param name="flags">The flags.</param>

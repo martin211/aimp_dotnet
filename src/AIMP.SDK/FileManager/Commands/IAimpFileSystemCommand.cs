@@ -12,7 +12,7 @@
 namespace AIMP.SDK.FileManager.Commands
 {
     /// <summary>
-    ///     Interface IAimpFileSystemCommand
+    /// Interface IAimpFileSystemCommand
     /// </summary>
     public interface IAimpFileSystemCommand
     {

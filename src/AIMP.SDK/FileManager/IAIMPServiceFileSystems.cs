@@ -14,14 +14,14 @@ using AIMP.SDK.FileManager.Commands;
 namespace AIMP.SDK.FileManager
 {
     /// <summary>
-    ///     Provide ability to work with files.
-    ///     Implements the <see cref="AIMP.SDK.IAimpService" />
+    /// Provide ability to work with files.
+    /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.IAimpService" />
     public interface IAimpServiceFileSystems : IAimpService
     {
         /// <summary>
-        ///     Get the interface of specified command.
+        /// Get the interface of specified command.
         /// </summary>
         /// <param name="commandType">The command type <see cref="FileCommandType" />.</param>
         /// <param name="fileUri">The name of virtual file.</param>
@@ -29,7 +29,7 @@ namespace AIMP.SDK.FileManager
         AimpActionResult<IAimpFileSystemCommand> Get(FileCommandType commandType, string fileUri);
 
         /// <summary>
-        ///     Gets the default.
+        /// Gets the default.
         /// </summary>
         /// <param name="commandType">Type of the command.</param>
         /// <returns>AimpActionResult&lt;IAimpFileSystemCommand&gt;.</returns>

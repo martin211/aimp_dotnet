@@ -12,21 +12,21 @@
 namespace AIMP.SDK.Options
 {
     /// <summary>
-    ///     Interface IAimpServiceOptionsDialog
-    ///     Implements the <see cref="AIMP.SDK.IAimpService" />
+    /// Interface IAimpServiceOptionsDialog
+    /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.IAimpService" />
     public interface IAimpServiceOptionsDialog : IAimpService
     {
         /// <summary>
-        ///     Frames the modified.
+        /// Frames the modified.
         /// </summary>
         /// <param name="frame">The frame.</param>
         /// <returns>AimpActionResult.</returns>
         AimpActionResult FrameModified(IAimpOptionsDialogFrame frame);
 
         /// <summary>
-        ///     Frames the show.
+        /// Frames the show.
         /// </summary>
         /// <param name="frame">The frame.</param>
         /// <param name="forceShow">if set to <c>true</c> [force show].</param>

@@ -15,12 +15,12 @@ using AIMP.SDK.MusicLibrary.DataStorage;
 namespace AIMP.SDK.MusicLibrary.Presets
 {
     /// <summary>
-    ///     Allow access to preset for data storage.
+    /// Allow access to preset for data storage.
     /// </summary>
     public interface IAimpGroupingPresets
     {
         /// <summary>
-        ///     Adds new grouping template with custom data provider <seealso cref="IAimpGroupingTreeDataProvider" />.
+        /// Adds new grouping template with custom data provider <seealso cref="IAimpGroupingTreeDataProvider" />.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">Template name.</param>
@@ -29,7 +29,7 @@ namespace AIMP.SDK.MusicLibrary.Presets
         AimpActionResult<IAimpGroupingPreset> Add(string id, string name, IAimpGroupingTreeDataProvider provider);
 
         /// <summary>
-        ///     Adds new grouping template with default data provider.
+        /// Adds new grouping template with default data provider.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">Template name.</param>
@@ -38,7 +38,7 @@ namespace AIMP.SDK.MusicLibrary.Presets
         AimpActionResult<IAimpGroupingPresetStandard> Add(string id, string name, IList<string> fieldNames);
 
         /// <summary>
-        ///     Adds new grouping template with default data provider.
+        /// Adds new grouping template with default data provider.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">Template name.</param>
@@ -47,53 +47,53 @@ namespace AIMP.SDK.MusicLibrary.Presets
         AimpActionResult<IAimpGroupingPresetStandard> Add(string id, string name, string fieldName);
 
         /// <summary>
-        ///     Adds blocking on sending notifications during changes.
-        ///     Use it if you want to change multiple properties at the same time.
+        /// Adds blocking on sending notifications during changes.
+        /// Use it if you want to change multiple properties at the same time.
         /// </summary>
         void BeginUpdate();
 
         /// <summary>
-        ///     Removes blocking on sending notifications.
+        /// Removes blocking on sending notifications.
         /// </summary>
         void EndUpdate();
 
         /// <summary>
-        ///     Removes a template by index.
+        /// Removes a template by index.
         /// </summary>
         /// <param name="index">Index.</param>
         /// <returns>AimpActionResult.</returns>
         AimpActionResult Delete(int index);
 
         /// <summary>
-        ///     Gets the grouping preset by index.
+        /// Gets the grouping preset by index.
         /// </summary>
         /// <param name="index">Index.</param>
         /// <returns>AimpActionResult&lt;IAimpGroupingPreset&gt;.</returns>
         AimpActionResult<IAimpGroupingPreset> GetPreset(int index);
 
         /// <summary>
-        ///     Gets the standard grouping preset by index.
+        /// Gets the standard grouping preset by index.
         /// </summary>
         /// <param name="index">Index.</param>
         /// <returns>AimpActionResult&lt;IAimpGroupingPresetStandard&gt;.</returns>
         AimpActionResult<IAimpGroupingPresetStandard> GetStandardPreset(int index);
 
         /// <summary>
-        ///     Gets the grouping preset by identifier.
+        /// Gets the grouping preset by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>AimpActionResult&lt;IAimpGroupingPreset&gt;.</returns>
         AimpActionResult<IAimpGroupingPreset> GetPresetById(string id);
 
         /// <summary>
-        ///     Gets the standard grouping preset by identifier.
+        /// Gets the standard grouping preset by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>AimpActionResult&lt;IAimpGroupingPresetStandard&gt;.</returns>
         AimpActionResult<IAimpGroupingPresetStandard> GetStandardPresetById(string id);
 
         /// <summary>
-        ///     Gets the count of presets.
+        /// Gets the count of presets.
         /// </summary>
         /// <returns>System.Int32.</returns>
         int GetCount();

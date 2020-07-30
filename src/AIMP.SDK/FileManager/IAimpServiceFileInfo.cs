@@ -12,42 +12,45 @@
 namespace AIMP.SDK.FileManager
 {
     /// <summary>
-    ///     Enum ServiceFileInfoFlags
+    /// Enum ServiceFileInfoFlags
     /// </summary>
     public enum ServiceFileInfoFlags
     {
         /// <summary>
-        ///     The aimp service fileinfo flag dontuseaudiodecoders
+        /// The aimp service fileinfo flag dontuseaudiodecoders
         /// </summary>
         DontUseAudioCoders
     }
 
     /// <summary>
-    ///     Provide access to get information about virtual file.
-    ///     Implements the <see cref="AIMP.SDK.IAimpService" />
+    /// Provide access to get information about virtual file.
+    /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.IAimpService" />
     public interface IAimpServiceFileInfo : IAimpService
     {
         /// <summary>
-        ///     Gets the file information from virtual file.
+        /// Gets the file information from virtual file.
         /// </summary>
         /// <param name="fileUri">The virtual file name.</param>
         /// <param name="fileInfoFlags">The file info flags.</param>
+        /// <returns>AimpActionResult&lt;IAimpFileInfo&gt;.</returns>
         AimpActionResult<IAimpFileInfo> GetFileInfoFromFileUri(string fileUri, ServiceFileInfoFlags fileInfoFlags);
 
         /// <summary>
-        ///     Gets the file information from stream.
+        /// Gets the file information from stream.
         /// </summary>
         /// <param name="fileStream">The file stream.</param>
         /// <param name="fileInfoFlags">The file info flags.</param>
+        /// <returns>AimpActionResult&lt;IAimpFileInfo&gt;.</returns>
         AimpActionResult<IAimpFileInfo> GetFileInfoFromStream(IAimpStream fileStream,
             ServiceFileInfoFlags fileInfoFlags);
 
         /// <summary>
-        ///     Gets the virtual file.
+        /// Gets the virtual file.
         /// </summary>
         /// <param name="fileUri">The virtual file name.</param>
+        /// <returns>AimpActionResult&lt;IAimpVirtualFile&gt;.</returns>
         AimpActionResult<IAimpVirtualFile> GetVirtualFile(string fileUri);
     }
 }

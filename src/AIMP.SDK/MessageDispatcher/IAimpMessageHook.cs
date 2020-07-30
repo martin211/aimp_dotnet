@@ -12,14 +12,14 @@
 namespace AIMP.SDK.MessageDispatcher
 {
     /// <summary>
-    ///     The IAimpMessageHook interface provides an ability to hook all messages that processes via
-    ///     <see cref="IAimpServiceMessageDispatcher" />.
-    ///     Note that you must remove hook manually in the <see cref="IAimpPlugin.Dispose" />.
+    /// The IAimpMessageHook interface provides an ability to hook all messages that processes via
+    /// <see cref="IAimpServiceMessageDispatcher" />.
+    /// Note that you must remove hook manually in the <see cref="IAimpPlugin.Dispose" />.
     /// </summary>
     public interface IAimpMessageHook
     {
         /// <summary>
-        ///     Occurs when plugin receive message from player.
+        /// Occurs when plugin receive message from player.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="param1">The param1.</param>
