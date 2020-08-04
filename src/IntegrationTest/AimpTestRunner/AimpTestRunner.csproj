@@ -108,6 +108,7 @@
     <Compile Include="UnitTests\Playlist\AimpPlaylistManagerTests.cs" />
     <Compile Include="UnitTests\Playlist\AimpPlaylistQueueTests.cs" />
     <Compile Include="UnitTests\Playlist\AimpPlaylistTests.cs" />
+    <Compile Include="UnitTests\TagEditor\AimpServiceFileTagEditorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AIMP.SDK\AIMP.SDK.csproj">
