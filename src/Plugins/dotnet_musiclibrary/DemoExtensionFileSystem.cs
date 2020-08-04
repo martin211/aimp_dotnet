@@ -14,7 +14,8 @@ using AIMP.SDK.FileManager.Extensions;
 
 namespace AIMP.DotNet.MusicLibrary
 {
-    public class DemoExtensionFileSystem : IAimpExtensionFileSystem, IAimpExtension//, IAimpFileSystemCommandOpenFileFolder
+    public class
+        DemoExtensionFileSystem : IAimpExtensionFileSystem, IAimpExtension //, IAimpFileSystemCommandOpenFileFolder
     {
         public string Schema => "myschema";
 

@@ -35,7 +35,7 @@ namespace Aimp.DotNet.SmartPlaylist
         {
             get
             {
-                var r =_factory.GetId();
+                var r = _factory.GetId();
                 return r.Result;
             }
         }
@@ -47,6 +47,7 @@ namespace Aimp.DotNet.SmartPlaylist
         public bool HasDialog => true;
 
         public string SortTemplate => string.Empty;
+
         AimpActionResult IAimpPlaylistPreimage.ConfigLoad(IAimpStream stream)
         {
             return ConfigLoad(stream);

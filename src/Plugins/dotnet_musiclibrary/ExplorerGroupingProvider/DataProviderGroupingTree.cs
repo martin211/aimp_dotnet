@@ -29,7 +29,8 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
 
     public class DataProviderGroupingTree : IAimpGroupingTreeDataProvider
     {
-        private readonly IDictionary<DataStorageCategoryType, Func<string, DataProviderGroupingTreeData>> _dataProviders;
+        private readonly IDictionary<DataStorageCategoryType, Func<string, DataProviderGroupingTreeData>>
+            _dataProviders;
 
         public DataProviderGroupingTree()
         {
@@ -94,7 +95,8 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                     if (!string.IsNullOrWhiteSpace(outValue?.ToString()))
                     {
                         var pathParts = outValue.ToString().Split(new[] {"\\"}, StringSplitOptions.RemoveEmptyEntries);
-                        var category = (DataStorageCategoryType) Enum.Parse(typeof(DataStorageCategoryType), pathParts[1]);
+                        var category =
+                            (DataStorageCategoryType) Enum.Parse(typeof(DataStorageCategoryType), pathParts[1]);
                         data = new DataProviderGroupingTreeSelection(_dataProviders[category](outValue.ToString()));
                         return new AimpActionResult<IAimpGroupingTreeDataProviderSelection>(ActionResultType.OK, data);
                     }
@@ -142,7 +144,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
         {
             var result = new DataProviderGroupingTreeData();
 
-            var pathParts = data.Split(new[] { "\\" }, StringSplitOptions.RemoveEmptyEntries);
+            var pathParts = data.Split(new[] {"\\"}, StringSplitOptions.RemoveEmptyEntries);
             if (pathParts.Length <= 2)
             {
                 var drivers = DriveInfo.GetDrives().Where(c => c.DriveType == DriveType.Fixed).ToList();
@@ -160,14 +162,17 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                 var path = data.Replace($"MyComputer\\{DataStorageCategoryType.LocalDisks}\\", string.Empty);
                 DirectoryInfo di = new DirectoryInfo(path);
                 result.AddRange(di.GetDirectories()
-                    .Where(dir => dir.Attributes.HasFlag(FileAttributes.Directory) && !(dir.Attributes.HasFlag(FileAttributes.Hidden) || dir.Attributes.HasFlag(FileAttributes.System)))
+                    .Where(dir =>
+                        dir.Attributes.HasFlag(FileAttributes.Directory) &&
+                        !(dir.Attributes.HasFlag(FileAttributes.Hidden) ||
+                          dir.Attributes.HasFlag(FileAttributes.System)))
                     .Select(dir => new DataProviderGroupingTreeNode
                     {
                         DisplayValue = dir.Name,
-                        Value = $"{(data.EndsWith("\\") ? data : data + "\\" )}{dir.Name}\\",
+                        Value = $"{(data.EndsWith("\\") ? data : data + "\\")}{dir.Name}\\",
                         HasChildren = dir.GetDirectories().Any(),
                         Standalone = true,
-                        ImageIndex = (int)ImageType.Folder
+                        ImageIndex = (int) ImageType.Folder
                     }));
             }
 

@@ -15,7 +15,7 @@ using AIMP.SDK.Player;
 
 namespace dotnet_ExtendDialogWindow
 {
-    public class OptionsFrame : IAimpOptionsDialogFrame, IAimpOptionsDialogFrameKeyboardHelper
+    public class OptionsFrame : IAimpOptionsDialogFrame, IAimpOptionsDialogFrameKeyboardHelper, IDisposable
     {
         private IAimpPlayer _player;
         private SettingsForm _settingsForm;
@@ -45,7 +45,6 @@ namespace dotnet_ExtendDialogWindow
 
         public void Notification(OptionsDialogFrameNotificationType id)
         {
-            
         }
 
         public bool DialogKey(int charCode)
@@ -61,6 +60,11 @@ namespace dotnet_ExtendDialogWindow
         public bool SelectNextControl(int findForward, int isTabKeyAction)
         {
             return true;
+        }
+
+        public void Dispose()
+        {
+            _settingsForm?.Dispose();
         }
     }
 }

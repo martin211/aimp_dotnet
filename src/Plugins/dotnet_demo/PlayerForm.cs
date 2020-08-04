@@ -51,7 +51,7 @@ namespace DemoPlugin
                 {
                     Logger.Instance.AddInfoMessage($"[Event] AimpPlayer.StateChanged: {param1}");
 
-                    switch ((AimpPlayerState)param1)
+                    switch ((AimpPlayerState) param1)
                     {
                         case AimpPlayerState.Stopped:
                             Text = "State: stopped";
@@ -70,7 +70,7 @@ namespace DemoPlugin
 
             Load += OnActivated;
 
-       //_aimpPlayer.PlaylistManager.PlaylistActivated += (name, id) =>
+            //_aimpPlayer.PlaylistManager.PlaylistActivated += (name, id) =>
             //{
             //    Logger.Instance.AddInfoMessage($"[Event] PlayListManager.PlaylistActivated: {name} {id}");
 
@@ -139,21 +139,17 @@ namespace DemoPlugin
             tab.Controls.Add(pl);
             tabPlayLists.TabPages.Add(tab);
 
-            playList.Activated += sender =>
-            {
-                tabPlayLists.SelectedTab = tab;
-            };
+            playList.Activated += sender => { tabPlayLists.SelectedTab = tab; };
         }
 
         private void TracksOnDoubleClick(object sender, EventArgs eventArgs)
         {
-            var trackItem = (IAimpPlaylistItem)(sender as ListView).SelectedItems[0].Tag;
+            var trackItem = (IAimpPlaylistItem) (sender as ListView).SelectedItems[0].Tag;
             _aimpPlayer.Play(trackItem);
         }
 
         private void OnActivated(object sender, EventArgs eventArgs)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -176,7 +172,7 @@ namespace DemoPlugin
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
             int v = trackBar2.Value;
-            _aimpPlayer.Volume = (float)v/10;
+            _aimpPlayer.Volume = (float) v / 10;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -232,23 +228,28 @@ namespace DemoPlugin
                     playList.Changed += PlayListOnChanged;
                     playList.Activated += playlist =>
                     {
-                        Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.Activated: {playlist.Id} {playlist.Name}");
+                        Logger.Instance.AddInfoMessage(
+                            $"[Event] IAimpPlaylist.Activated: {playlist.Id} {playlist.Name}");
                     };
                     playList.Removed += playlist =>
                     {
-                        Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.Removed: {playlist.Id} {playlist.Name}");
+                        Logger.Instance.AddInfoMessage(
+                            $"[Event] IAimpPlaylist.Removed: {playlist.Id} {playlist.Name}");
                     };
                     playList.ScanningBegin += playlist =>
                     {
-                        Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.ScanningBegin: {playlist.Id} {playlist.Name}");
+                        Logger.Instance.AddInfoMessage(
+                            $"[Event] IAimpPlaylist.ScanningBegin: {playlist.Id} {playlist.Name}");
                     };
                     playList.ScanningEnd += (playlist, args) =>
                     {
-                        Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.ScanningEnd: {playlist.Id} {playlist.Name}");
+                        Logger.Instance.AddInfoMessage(
+                            $"[Event] IAimpPlaylist.ScanningEnd: {playlist.Id} {playlist.Name}");
                     };
                     playList.ScanningProgress += (playlist, args) =>
                     {
-                        Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.ScanningProgress: {playlist.Id} {playlist.Name}");
+                        Logger.Instance.AddInfoMessage(
+                            $"[Event] IAimpPlaylist.ScanningProgress: {playlist.Id} {playlist.Name}");
                     };
                 }
             }
@@ -259,7 +260,6 @@ namespace DemoPlugin
             Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.Changed: {sender.Id} {sender.Name}");
             if (notifType.HasFlag(PlaylistNotifyType.AIMP_PLAYLIST_NOTIFY_STATISTICS))
             {
-                
             }
         }
 
@@ -292,12 +292,10 @@ namespace DemoPlugin
 
         private void PlayListQueue_StateChanged(object sender, EventArgs e)
         {
-            
         }
 
         private void tabPlayLists_TabIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void tabPlayLists_SelectedIndexChanged(object sender, EventArgs e)

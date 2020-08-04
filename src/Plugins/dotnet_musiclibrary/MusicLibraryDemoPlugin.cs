@@ -15,7 +15,8 @@ using AIMP.SDK.MenuManager;
 
 namespace AIMP.DotNet.MusicLibrary
 {
-    [AimpPlugin("MusicLibraryDemoPlugin", "Martin", "1.0.0", AimpPluginType = AimpPluginType.Addons, FullDescription = "MusicLibrary demo plugin")]
+    [AimpPlugin("MusicLibraryDemoPlugin", "Martin", "1.0.0", AimpPluginType = AimpPluginType.Addons,
+        FullDescription = "MusicLibrary demo plugin")]
     public class MusicLibraryDemoPlugin : AimpPlugin
     {
         public override void Initialize()
@@ -37,7 +38,6 @@ namespace AIMP.DotNet.MusicLibrary
 
         public override void Dispose()
         {
-            
         }
 
         private void CheckActionResult(ActionResultType result)

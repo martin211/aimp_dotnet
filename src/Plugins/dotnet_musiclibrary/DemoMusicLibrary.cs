@@ -37,7 +37,7 @@ namespace AIMP.DotNet.MusicLibrary
         IAimpDataStorageCommandReportDialog,
         IAimpDataStorageCommandUserMark
     {
-        public const string AIMPML_RESERVED_FIELD_ID = "ID";       // !REQUIRED! unique record id (Int32, Int64 or String)
+        public const string AIMPML_RESERVED_FIELD_ID = "ID"; // !REQUIRED! unique record id (Int32, Int64 or String)
         public const string AIMPML_RESERVED_FIELD_FILENAME = "FileName"; // !REQUIRED! string
         public const string AIMPML_RESERVED_FIELD_FILESIZE = "FileSize"; // Int64, in bytes
         public const string AIMPML_RESERVED_FIELD_DURATION = "Duration"; // double, in seconds
@@ -158,7 +158,8 @@ namespace AIMP.DotNet.MusicLibrary
 
         public string Caption => "Explorer media library";
 
-        public CapabilitiesType Capabilities => CapabilitiesType.Filtering | CapabilitiesType.GroupingPresets | CapabilitiesType.Preimages | CapabilitiesType.Filtering;
+        public CapabilitiesType Capabilities => CapabilitiesType.Filtering | CapabilitiesType.GroupingPresets |
+                                                CapabilitiesType.Preimages | CapabilitiesType.Filtering;
 
         void IAimpExtensionDataStorage.Initialize(IAimpDataStorageManager manager)
         {
@@ -172,7 +173,6 @@ namespace AIMP.DotNet.MusicLibrary
 
         void IAimpExtensionDataStorage.FlushCache()
         {
-            
         }
 
         AimpActionResult IAimpExtensionDataStorage.ConfigLoad(IAimpConfig config, string section)
@@ -193,13 +193,17 @@ namespace AIMP.DotNet.MusicLibrary
                 case SchemaType.All:
                     list = new List<IAimpDataField>
                     {
-                        new AimpDataField(EVDS_ID, AimpDataFieldType.String, AimpDataFieldFlagsType.Internal | AimpDataFieldFlagsType.Filtering),
+                        new AimpDataField(EVDS_ID, AimpDataFieldType.String,
+                            AimpDataFieldFlagsType.Internal | AimpDataFieldFlagsType.Filtering),
                         new AimpDataField(EVDS_FileName, AimpDataFieldType.None, AimpDataFieldFlagsType.Filtering),
                         new AimpDataField(EVDS_FileFormat, AimpDataFieldType.String, AimpDataFieldFlagsType.Filtering),
                         new AimpDataField(EVDS_FileSize, AimpDataFieldType.FileSize, AimpDataFieldFlagsType.Filtering),
-                        new AimpDataField(EVDS_FileAccessTime, AimpDataFieldType.DateTime, AimpDataFieldFlagsType.Filtering),
-                        new AimpDataField(EVDS_FileCreationTime, AimpDataFieldType.DateTime, AimpDataFieldFlagsType.Filtering),
-                        new AimpDataField(EVDS_Fake, AimpDataFieldType.FileName, AimpDataFieldFlagsType.Internal | AimpDataFieldFlagsType.Grouping),
+                        new AimpDataField(EVDS_FileAccessTime, AimpDataFieldType.DateTime,
+                            AimpDataFieldFlagsType.Filtering),
+                        new AimpDataField(EVDS_FileCreationTime, AimpDataFieldType.DateTime,
+                            AimpDataFieldFlagsType.Filtering),
+                        new AimpDataField(EVDS_Fake, AimpDataFieldType.FileName,
+                            AimpDataFieldFlagsType.Internal | AimpDataFieldFlagsType.Grouping),
                         new AimpDataField(FieldNode, AimpDataFieldType.String, AimpDataFieldFlagsType.Internal)
                         {
                             Image = ImageType.Note
@@ -229,11 +233,13 @@ namespace AIMP.DotNet.MusicLibrary
             return new AimpActionResult<IList>(ActionResultType.OK, list);
         }
 
-        AimpActionResult IAimpExtensionDataStorage.GetGroupingPresets(GroupingPresetsSchemaType schema, IAimpGroupingPresets presets)
+        AimpActionResult IAimpExtensionDataStorage.GetGroupingPresets(GroupingPresetsSchemaType schema,
+            IAimpGroupingPresets presets)
         {
             if (schema == GroupingPresetsSchemaType.BuiltIn)
             {
-                var result = presets.Add("AIMP.DEMO.ML.DEFAULT", "Grouping preset", new DataProviderGroupingTree(_data));
+                var result = presets.Add("AIMP.DEMO.ML.DEFAULT", "Grouping preset",
+                    new DataProviderGroupingTree(_data));
                 _outPreset = result.Result;
             }
             else if (schema == GroupingPresetsSchemaType.Default)
@@ -279,7 +285,7 @@ namespace AIMP.DotNet.MusicLibrary
                 {
                     var getGroup = filter.GetFilterGroup(i);
                     var getField = filter.GetFieldFilter(i);
-                    
+
                     if (getGroup.ResultType == ActionResultType.OK && getGroup.Result != null)
                     {
                         result = EnumDataFieldFilters(getGroup.Result, aProc);

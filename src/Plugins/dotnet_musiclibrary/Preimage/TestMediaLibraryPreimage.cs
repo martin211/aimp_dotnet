@@ -59,12 +59,10 @@ namespace AIMP.DotNet.MusicLibrary.Preimage
 
         public void Initialize(IAimpPlaylistPreimageListener listener)
         {
-            
         }
 
         public void FinalizeObject()
         {
-            
         }
 
         public AimpActionResult<IAimpDataFilter> GetFilter()

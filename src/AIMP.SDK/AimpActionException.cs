@@ -18,6 +18,7 @@ namespace AIMP.SDK
     /// Implements the <see cref="System.Exception" />
     /// </summary>
     /// <seealso cref="System.Exception" />
+    [Serializable]
     public class AimpActionException : Exception
     {
         /// <summary>

@@ -73,7 +73,7 @@ namespace dotnet_visual
             {
                 for (int x = 0; x < Width - 1; x++)
                 {
-                    z = (int)((1 - data.WaveForm[ci][x]) * offset / 2);
+                    z = (int) ((1 - data.WaveForm[ci][x]) * offset / 2);
                     if (z < 0) z = 0;
                     if (z > Height) z = Height - 1;
                     if (x == 0) y = z;
@@ -81,9 +81,13 @@ namespace dotnet_visual
                     do // draw line from previous sample...
                     {
                         if (y < z)
-                        { y += 1; }
+                        {
+                            y += 1;
+                        }
                         else if (y > z)
-                        { y -= 1; }
+                        {
+                            y -= 1;
+                        }
 
                         if (ci == 0)
                         {

@@ -131,7 +131,7 @@ namespace TestPlugin
             if (menuItemResult.ResultType == ActionResultType.OK)
             {
                 IAimpMenuItem actionMenuItem = Player.Core.CreateAimpObject<IAimpMenuItem>().Result;
-                
+
                 var action = Player.Core.CreateAimpObject<IAimpAction>().Result;
                 action.Id = "aimp.MenuAndActionsDemo.action.1";
                 action.Name = "Simple action title";
@@ -152,7 +152,8 @@ namespace TestPlugin
                 secondAction.Id = Guid.NewGuid().ToString();
                 secondAction.Name = "Action 2";
                 secondAction.GroupName = "Menu And Actions Demo";
-                secondAction.DefaultGlobalHotKey = Player.ActionManager.MakeHotkey(ModifierKeys.Control, (uint)KeyInterop.VirtualKeyFromKey(Key.B));
+                secondAction.DefaultGlobalHotKey = Player.ActionManager.MakeHotkey(ModifierKeys.Control,
+                    (uint) KeyInterop.VirtualKeyFromKey(Key.B));
                 Player.ActionManager.Register(secondAction);
 
                 var menuItem2 = Player.Core.CreateAimpObject<IAimpMenuItem>().Result;
@@ -181,20 +182,15 @@ namespace TestPlugin
         private void TestReadConfig()
         {
             var floatValue = Player.ServiceConfig.GetValueAsFloat("AIMP.DOTNET.DEMO\\FLOAT");
-            Debug.Assert(floatValue.Result == 0.2f);
             var int32Value = Player.ServiceConfig.GetValueAsInt32("AIMP.DOTNET.DEMO\\INT32");
-            Debug.Assert(int32Value.Result == 10);
             var int64Value = Player.ServiceConfig.GetValueAsInt64("AIMP.DOTNET.DEMO\\INT64");
-            Debug.Assert(int64Value.Result == 20);
             var stringValue = Player.ServiceConfig.GetValueAsString("AIMP.DOTNET.DEMO\\STRING");
-            Debug.Assert(stringValue.Result.Equals("STRING"));
             using (var streamValue = Player.ServiceConfig.GetValueAsStream("AIMP.DOTNET.DEMO\\STREAM").Result)
             {
                 long count = streamValue.GetSize();
                 var buf = new byte[count];
                 streamValue.Read(buf, (int) count);
                 var strData = System.Text.Encoding.Default.GetString(buf);
-                Debug.Assert(strData.Equals("STREAMDATA"));
             }
         }
     }

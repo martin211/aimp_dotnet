@@ -14,7 +14,8 @@ using AIMP.SDK;
 
 namespace Aimp.DotNet.SmartPlaylist
 {
-    [AimpPlugin("SmartPlaylistDemoPlugin", "Martin", "1.0.0", AimpPluginType = AimpPluginType.Addons, FullDescription = "Smart Playlist demo plugin")]
+    [AimpPlugin("SmartPlaylistDemoPlugin", "Martin", "1.0.0", AimpPluginType = AimpPluginType.Addons,
+        FullDescription = "Smart Playlist demo plugin")]
     public class SmartPlaylistPlugin : AimpPlugin
     {
         public override void Initialize()
@@ -25,7 +26,6 @@ namespace Aimp.DotNet.SmartPlaylist
 
         public override void Dispose()
         {
-
         }
     }
 }

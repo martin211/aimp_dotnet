@@ -48,12 +48,14 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
 
         public AimpActionResult<FieldImageIndex> GetImageIndex()
         {
-            return new AimpActionResult<FieldImageIndex>(ActionResultType.OK, (FieldImageIndex)_data[_index].ImageIndex);
+            return new AimpActionResult<FieldImageIndex>(ActionResultType.OK,
+                (FieldImageIndex) _data[_index].ImageIndex);
         }
 
         public AimpActionResult<string, object> GetValue()
         {
-            return new AimpActionResult<string, object>(ActionResultType.OK, DemoMusicLibrary.FieldNode, _data[_index].Value);
+            return new AimpActionResult<string, object>(ActionResultType.OK, DemoMusicLibrary.FieldNode,
+                _data[_index].Value);
         }
 
         public bool NextRow()

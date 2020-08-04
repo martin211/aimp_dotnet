@@ -65,8 +65,7 @@ const int AIMP_STREAM_SEEKMODE_FROM_END = 2;
 
 /* IAIMPHashCode */
 
-class IAIMPHashCode : public IUnknown
-{
+class IAIMPHashCode : public IUnknown {
 public:
     virtual int WINAPI GetHashCode() = 0;
     virtual void WINAPI Recalculate() = 0;
@@ -74,8 +73,7 @@ public:
 
 /* IAIMPObjectList */
 
-class IAIMPObjectList : public IUnknown
-{
+class IAIMPObjectList : public IUnknown {
 public:
     virtual HRESULT WINAPI Add(IUnknown* Obj) = 0;
     virtual HRESULT WINAPI Clear() = 0;
@@ -89,8 +87,7 @@ public:
 
 /* IAIMPString */
 
-class IAIMPString : public IUnknown
-{
+class IAIMPString : public IUnknown {
 public:
     virtual HRESULT WINAPI GetChar(int Index, WCHAR* Char) = 0;
     virtual WCHAR* WINAPI GetData() = 0;
@@ -125,8 +122,7 @@ public:
 
 /* IAIMPStream */
 
-class IAIMPStream : public IUnknown
-{
+class IAIMPStream : public IUnknown {
 public:
     virtual INT64 WINAPI GetSize() = 0;
     virtual HRESULT WINAPI SetSize(const INT64 Value) = 0;
@@ -138,8 +134,7 @@ public:
 
 /* IAIMPFileStream */
 
-class IAIMPFileStream : public IAIMPStream
-{
+class IAIMPFileStream : public IAIMPStream {
 public:
     virtual HRESULT WINAPI GetClipping(INT64* Offset, INT64* Size) = 0;
     virtual HRESULT WINAPI GetFileName(IAIMPString** S) = 0;
@@ -147,16 +142,14 @@ public:
 
 /* IAIMPMemoryStream */
 
-class IAIMPMemoryStream : public IAIMPStream
-{
+class IAIMPMemoryStream : public IAIMPStream {
 public:
     virtual void* WINAPI GetData() = 0;
 };
 
 /* IAIMPErrorInfo */
 
-class IAIMPErrorInfo : public IUnknown
-{
+class IAIMPErrorInfo : public IUnknown {
 public:
     virtual HRESULT WINAPI GetInfo(int* ErrorCode, IAIMPString** Message, IAIMPString** Details) = 0;
     virtual HRESULT WINAPI GetInfoFormatted(IAIMPString** S) = 0;
@@ -165,8 +158,7 @@ public:
 
 /* IAIMPImage */
 
-class IAIMPImage : public IUnknown
-{
+class IAIMPImage : public IUnknown {
 public:
     virtual HRESULT WINAPI LoadFromFile(IAIMPString* FileName) = 0;
     virtual HRESULT WINAPI LoadFromStream(IAIMPStream* Stream) = 0;
@@ -181,8 +173,7 @@ public:
 
 /* IAIMPImage2 */
 
-class IAIMPImage2 : public IAIMPImage
-{
+class IAIMPImage2 : public IAIMPImage {
 public:
     virtual HRESULT WINAPI LoadFromResource(HMODULE ResInstance, WCHAR* ResName, WCHAR* ResType) = 0;
     virtual HRESULT WINAPI LoadFromBitmap(HBITMAP Bitmap) = 0;
@@ -195,8 +186,7 @@ public:
 
 /* IAIMPImageContainer */
 
-class IAIMPImageContainer : public IUnknown
-{
+class IAIMPImageContainer : public IUnknown {
 public:
     virtual HRESULT WINAPI CreateImage(IAIMPImage** Image) = 0;
     virtual HRESULT WINAPI GetInfo(SIZE* Size, int* FormatID) = 0;
@@ -207,23 +197,19 @@ public:
 
 /* IAIMPProgressCallback */
 
-class IAIMPProgressCallback : public IUnknown
-{
+class IAIMPProgressCallback : public IUnknown {
 public:
     virtual HRESULT WINAPI Process(float Progress, bool* Canceled) = 0;
 };
 
 /* IAIMPPropertyList */
 
-class IAIMPPropertyList : public IUnknown
-{
+class IAIMPPropertyList : public IUnknown {
 public:
-    virtual void WINAPI BeginUpdate()
-    {
+    virtual void WINAPI BeginUpdate() {
     }
 
-    virtual void WINAPI EndUpdate()
-    {
+    virtual void WINAPI EndUpdate() {
     }
 
     virtual HRESULT WINAPI Reset() { return E_NOTIMPL; }
@@ -241,8 +227,7 @@ public:
 
 /* IAIMPPropertyList2 */
 
-class IAIMPPropertyList2 : public IAIMPPropertyList
-{
+class IAIMPPropertyList2 : public IAIMPPropertyList {
 public:
     virtual HRESULT WINAPI GetValueAsVariant(int PropertyID, VARIANT* Value) { return E_NOTIMPL; }
     virtual HRESULT WINAPI SetValueAsVariant(int PropertyID, const VARIANT Value) { return E_NOTIMPL; }
@@ -250,8 +235,7 @@ public:
 
 /* IAIMPConfig */
 
-class IAIMPConfig : public IUnknown
-{
+class IAIMPConfig : public IUnknown {
 public:
     // Delete
     virtual HRESULT WINAPI Delete(IAIMPString* KeyPath) = 0;

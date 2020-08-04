@@ -77,6 +77,7 @@ namespace Aimp.DotNet.SmartPlaylist
             {
                 listView1.Items.Remove(item);
             }
+
             return new AimpActionResult(ActionResultType.OK);
         }
 
@@ -197,7 +198,7 @@ namespace Aimp.DotNet.SmartPlaylist
                         preType = $"{type}(Music Library)";
                     }
 
-                    var handler = (IntPtr)GCHandle.Alloc(preimage);
+                    var handler = (IntPtr) GCHandle.Alloc(preimage);
                     label1.Text = $"Preimage: {preType} [{handler}]";
                 }
                 else

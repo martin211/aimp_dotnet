@@ -68,7 +68,6 @@ namespace dotnet_ExtendDialogWindow
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -83,17 +82,14 @@ namespace dotnet_ExtendDialogWindow
                 plugInfo = pi;
             }
 
-            public PluginInformation plugInfo
-            {
-                get;
-                set;
-            }
+            public PluginInformation plugInfo { get; set; }
 
             public override string ToString()
             {
                 return plugInfo.PluginInfo.Name + " v" + plugInfo.PluginInfo.Version +
-                    " (" + plugInfo.PluginInfo.Author + ")\n" +
-                    "[" + plugInfo.AssemblyFileName + "] " + plugInfo.PluginInfo.Description; ;
+                       " (" + plugInfo.PluginInfo.Author + ")\n" +
+                       "[" + plugInfo.AssemblyFileName + "] " + plugInfo.PluginInfo.Description;
+                ;
             }
         }
     }

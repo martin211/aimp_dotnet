@@ -16,11 +16,12 @@ using AIMP.SDK.MenuManager;
 
 namespace AIMP.SDK.CustomFileSystem
 {
-    [AimpPlugin("dotnet_CustomFileSystem", "AIMP DOTNET", "1", AimpPluginType = AimpPluginType.Addons, RequireAppDomain = false)]
+    [AimpPlugin("dotnet_CustomFileSystem", "AIMP DOTNET", "1", AimpPluginType = AimpPluginType.Addons,
+        RequireAppDomain = false)]
     [Serializable]
     // ReSharper disable UnusedMember.Global
     public class CustomFileSystemPlugin : AimpPlugin
-    // ReSharper restore UnusedMember.Global
+        // ReSharper restore UnusedMember.Global
     {
         public override void Initialize()
         {
@@ -44,21 +45,22 @@ namespace AIMP.SDK.CustomFileSystem
             var files = Directory.GetFiles(dir, "*.mp3");
 
             var filesToPlaylist = files
-                .Where(file => Player.ServiceFileFormats.IsSupported(file, FileManager.FileFormats.Audio).ResultType == ActionResultType.OK)
+                .Where(file => Player.ServiceFileFormats.IsSupported(file, FileManager.FileFormats.Audio).ResultType ==
+                               ActionResultType.OK)
                 .Select(f => $"{CustomFileSystem.MySchemePrefix}{f}").ToList();
             if (filesToPlaylist.Any())
             {
                 var r = Player.PlaylistManager.GetActivePlaylist();
                 if (r.ResultType == ActionResultType.OK)
                 {
-                    r.Result.AddList(filesToPlaylist, Playlist.PlaylistFlags.NoCheckFormat, Playlist.PlaylistFilePosition.EndPosition);
+                    r.Result.AddList(filesToPlaylist, Playlist.PlaylistFlags.NoCheckFormat,
+                        Playlist.PlaylistFilePosition.EndPosition);
                 }
             }
         }
 
         public override void Dispose()
         {
-            
         }
     }
 }

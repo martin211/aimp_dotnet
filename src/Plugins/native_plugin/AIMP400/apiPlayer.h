@@ -72,8 +72,7 @@ const int AIMP_PLAYER_PROPID_MANUALSWITCHING_FADEIN = 22; // msec
 const int AIMP_PLAYER_PROPID_MANUALSWITCHING_FADEOUT = 23; // msec
 
 #pragma pack(push, 1)
-struct TAIMPWaveformPeakInfo
-{
+struct TAIMPWaveformPeakInfo {
     WORD MaxNegative;
     WORD MaxPositive;
 };
@@ -83,8 +82,7 @@ typedef TAIMPWaveformPeakInfo* PAIMPWaveformPeakInfo;
 
 /* IAIMPEqualizerPreset */
 
-class IAIMPEqualizerPreset : public IUnknown
-{
+class IAIMPEqualizerPreset : public IUnknown {
 public:
     virtual HRESULT WINAPI GetName(IAIMPString** S) = 0;
     virtual HRESULT WINAPI SetName(IAIMPString* S) = 0;
@@ -94,22 +92,19 @@ public:
 
 /* IAIMPPlaybackQueueItem */
 
-class IAIMPPlaybackQueueItem : public IAIMPPropertyList
-{
+class IAIMPPlaybackQueueItem : public IAIMPPropertyList {
 };
 
 /* IAIMPExtensionPlayerHook */
 
-class IAIMPExtensionPlayerHook : public IUnknown
-{
+class IAIMPExtensionPlayerHook : public IUnknown {
 public:
     virtual HRESULT WINAPI OnCheckURL(IAIMPString* URL, BOOL* Handled) = 0;
 };
 
 /* IAIMPExtensionPlaybackQueue */
 
-class IAIMPExtensionPlaybackQueue : public IUnknown
-{
+class IAIMPExtensionPlaybackQueue : public IUnknown {
 public:
     virtual HRESULT WINAPI GetNext(IUnknown* Current, DWORD Flags, IAIMPPlaybackQueueItem* QueueItem) = 0;
     virtual HRESULT WINAPI GetPrev(IUnknown* Current, DWORD Flags, IAIMPPlaybackQueueItem* QueueItem) = 0;
@@ -118,8 +113,7 @@ public:
 
 /* IAIMPExtensionWaveformProvider */
 
-class IAIMPExtensionWaveformProvider : public IUnknown
-{
+class IAIMPExtensionWaveformProvider : public IUnknown {
 public:
     virtual HRESULT WINAPI Calculate(IAIMPString* FileURI, IAIMPTaskOwner* TaskOwner, PAIMPWaveformPeakInfo Peaks,
                                      int PeakCount) = 0;
@@ -157,8 +151,7 @@ public:
 
 /* IAIMPServicePlayerEqualizer */
 
-class IAIMPServicePlayerEqualizer : public IUnknown
-{
+class IAIMPServicePlayerEqualizer : public IUnknown {
 public:
     virtual BOOL WINAPI GetActive() = 0;
     virtual HRESULT WINAPI SetActive(BOOL Value) = 0;
@@ -172,8 +165,7 @@ public:
 
 /* IAIMPServicePlayerEqualizerPresets */
 
-class IAIMPServicePlayerEqualizerPresets : public IUnknown
-{
+class IAIMPServicePlayerEqualizerPresets : public IUnknown {
 public:
     virtual HRESULT WINAPI Add(IAIMPString* Name, IAIMPEqualizerPreset** Preset) = 0;
     virtual HRESULT WINAPI FindByName(IAIMPString* Name, IAIMPEqualizerPreset** Preset) = 0;
@@ -186,8 +178,7 @@ public:
 
 /* IAIMPServicePlaybackQueue */
 
-class IAIMPServicePlaybackQueue : public IUnknown
-{
+class IAIMPServicePlaybackQueue : public IUnknown {
 public:
     virtual HRESULT WINAPI GetNextTrack(IAIMPPlaybackQueueItem** Item) = 0;
     virtual HRESULT WINAPI GetPrevTrack(IAIMPPlaybackQueueItem** Item) = 0;
@@ -195,8 +186,7 @@ public:
 
 /* IAIMPServiceWaveform */
 
-class IAIMPServiceWaveform : public IUnknown
-{
+class IAIMPServiceWaveform : public IUnknown {
 };
 
 #endif // !apiPlayerH

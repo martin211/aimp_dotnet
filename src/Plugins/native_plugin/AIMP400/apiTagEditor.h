@@ -35,15 +35,13 @@ const int AIMP_FILETAG_ID_WMA = 6;
 
 /* IAIMPFileTag */
 
-class IAIMPFileTag : public IAIMPFileInfo
-{
+class IAIMPFileTag : public IAIMPFileInfo {
     // Nothing
 };
 
 /* IAIMPFileTagEditor */
 
-class IAIMPFileTagEditor : public IUnknown
-{
+class IAIMPFileTagEditor : public IUnknown {
 public:
     // Info
     virtual HRESULT WINAPI GetMixedInfo(IAIMPFileInfo** Info) = 0;
@@ -56,8 +54,7 @@ public:
 
 /* IAIMPServiceFileTagEditor */
 
-class IAIMPServiceFileTagEditor : public IUnknown
-{
+class IAIMPServiceFileTagEditor : public IUnknown {
 public:
     virtual HRESULT WINAPI EditFile(IUnknown* Source, REFIID IID, void** Obj) = 0;
     virtual HRESULT WINAPI EditTag(IUnknown* Source, int TagID, REFIID IID, void** Obj) = 0;
