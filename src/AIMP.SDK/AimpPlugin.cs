@@ -10,7 +10,6 @@
 // ----------------------------------------------------
 
 using System;
-using System.Diagnostics;
 using AIMP.SDK.Player;
 
 namespace AIMP.SDK
@@ -69,12 +68,6 @@ namespace AIMP.SDK
         internal void OnDispose()
         {
             Dispose();
-#if DEBUG
-            if (AimpPlayer == null)
-            {
-                Debugger.Break();
-            }
-#endif
             if (AimpPlayer != null)
             {
                 AimpPlayer.Dispose();
@@ -89,12 +82,6 @@ namespace AIMP.SDK
         /// <param name="unId">The un identifier.</param>
         internal void OnInitialize(IAimpPlayer player, int unId)
         {
-#if DEBUG
-            if (player == null)
-            {
-                Debugger.Break();
-            }
-#endif
             PluginId = unId;
             AimpPlayer = player;
             Initialize();

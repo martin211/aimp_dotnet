@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="AimpExtensionFileInfoProvider.cs" />
     <Compile Include="DemoExtensionFileSystem.cs" />
     <Compile Include="ExplorerGroupingProvider\DataProviderGroupingTree.cs" />

@@ -10,22 +10,11 @@
 // ----------------------------------------------------
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("IntegrationTest")]
+[assembly: AssemblyTitle("AIMP IntegrationTest")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("IntegrationTest")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-
+[assembly: AssemblyProduct("AIMP IntegrationTest")]
 [assembly: ComVisible(false)]
-
 [assembly: Guid("35dc3e20-ff8d-42b4-991a-85296a243fa1")]
-
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]

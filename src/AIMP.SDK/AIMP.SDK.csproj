@@ -53,6 +53,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ActionManager\IAimpAction.cs" />
     <Compile Include="ActionManager\IAimpActionEvent.cs" />
     <Compile Include="ActionManager\IAimpServiceActionManager.cs" />
@@ -62,7 +65,6 @@
     <Compile Include="IAimpService.cs" />
     <Compile Include="Lyrics\IAimpExtensionLyricsProvider.cs" />
     <Compile Include="MessageDispatcher\AimpMessages.cs" />
-    <Compile Include="AimpObjectHelper.cs" />
     <Compile Include="AlbumArtManager\IAimpAlbumArtSearchOptions.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtCatalog.cs" />
     <Compile Include="AlbumArtManager\IAimpExtensionAlbumArtCatalog2.cs" />
