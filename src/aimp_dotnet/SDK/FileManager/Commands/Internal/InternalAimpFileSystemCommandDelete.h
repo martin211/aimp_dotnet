@@ -9,8 +9,7 @@
 
 using namespace AIMP::SDK::FileManager::Commands;
 
-class InternalAimpFileSystemCommandDelete : IUnknownInterfaceImpl<IAIMPFileSystemCommandDelete>
-{
+class InternalAimpFileSystemCommandDelete : IUnknownInterfaceImpl<IAIMPFileSystemCommandDelete> {
 private:
     typedef IUnknownInterfaceImpl<IAIMPFileSystemCommandDelete> Base;
     gcroot<IAimpFileSystemCommandDelete^> _managedInstance;

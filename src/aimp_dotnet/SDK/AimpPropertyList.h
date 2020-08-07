@@ -8,15 +8,12 @@
 #pragma once
 #include "IUnknownInterfaceImpl.h"
 
-class AimpPropertyList : public IAIMPPropertyList, IAIMPPropertyList2
-{
+class AimpPropertyList : public IAIMPPropertyList, IAIMPPropertyList2 {
 public:
-    virtual void WINAPI BeginUpdate()
-    {
+    virtual void WINAPI BeginUpdate() {
     };
 
-    virtual void WINAPI EndUpdate()
-    {
+    virtual void WINAPI EndUpdate() {
     };
     virtual HRESULT WINAPI Reset() { return E_NOTIMPL; }
     // Read

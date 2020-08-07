@@ -34,14 +34,12 @@ const int AIMP_SERVICE_SKINSMAN_FLAGS_INSTALL_FOR_ALL_USERS = 1;
 
 /* IAIMPSkinInfo */
 
-class IAIMPSkinInfo : public IAIMPPropertyList
-{
+class IAIMPSkinInfo : public IAIMPPropertyList {
 };
 
 /* IAIMPServiceSkinsManager */
 
-class IAIMPServiceSkinsManager : public IUnknown
-{
+class IAIMPServiceSkinsManager : public IUnknown {
 public:
     virtual HRESULT WINAPI EnumSkins(IAIMPObjectList** List) = 0;
     virtual HRESULT WINAPI GetSkinInfo(IAIMPString* FileName, IAIMPSkinInfo** Info) = 0;

@@ -7,10 +7,8 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace SDK;
         using namespace Playlist;
 

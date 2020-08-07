@@ -9,16 +9,13 @@
 #include "IUnknownInterfaceImpl.h"
 #include "IPlayListQueueEventExecutor.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::Playlist;
 
         class AimpPlaylistQueueListener :
-            public IUnknownInterfaceImpl<IAIMPPlaylistQueueListener>
-        {
+            public IUnknownInterfaceImpl<IAIMPPlaylistQueueListener> {
         private:
             gcroot<IPlayListQueueEventExecutor^> _executor;
 

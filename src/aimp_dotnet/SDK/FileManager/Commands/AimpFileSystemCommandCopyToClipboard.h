@@ -8,18 +8,15 @@
 #pragma once
 #include "SDK\AimpObject.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace FileManager;
         using namespace Commands;
         using namespace Objects;
 
         public ref class AimpFileSystemCommandCopyToClipboard : AimpObject<IAIMPFileSystemCommandCopyToClipboard>,
-                                                                IAimpFileSystemCommandCopyToClipboard
-        {
+                                                                IAimpFileSystemCommandCopyToClipboard {
         public:
             explicit AimpFileSystemCommandCopyToClipboard(IAIMPFileSystemCommandCopyToClipboard* aimpObject);
 

@@ -6,13 +6,11 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 #include "AimpPlayListQueue.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace Collections;
         using namespace Generic;
 
@@ -21,8 +19,7 @@ namespace AIMP
 
         public ref class AimpServicePlaylistManager :
             public BaseAimpService<IAIMPServicePlaylistManager2>,
-            public IAimpPlaylistManager2
-        {
+            public IAimpServicePlaylistManager {
         private:
             PlayListHandler^ _onPlaylistActivated;
             PlayListHandler^ _onPlaylistAdded;
@@ -73,12 +70,11 @@ namespace AIMP
 
             virtual int GetLoadedPlaylistCount();
 
-            virtual ActionResultType SetActivePlaylist(IAimpPlaylist^ playList);
+            virtual ActionResult SetActivePlaylist(IAimpPlaylist^ playList);
 
-            virtual ActionResultType GetPreimageFactory(int index, IAimpExtensionPlaylistPreimageFactory^% factory);
+            virtual TYPED_RESULT(IAimpExtensionPlaylistPreimageFactory) GetPreimageFactory(int index);
 
-            virtual ActionResultType
-            GetPreimageFactoryByID(String^ id, IAimpExtensionPlaylistPreimageFactory^% factory);
+            virtual TYPED_RESULT(IAimpExtensionPlaylistPreimageFactory) GetPreimageFactoryById(String^ id);
 
             virtual int GetPreimageFactoryCount();
 

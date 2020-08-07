@@ -9,15 +9,12 @@
 #include "SDK\AimpObject.h"
 #include "SDK\ManagedAimpCore.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace FileManager;
 
-        public ref class AimpFileInfo : public AimpObject<IAIMPFileInfo>, public IAimpFileInfo
-        {
+        public ref class AimpFileInfo : public AimpObject<IAIMPFileInfo>, public IAimpFileInfo {
         public:
             AimpFileInfo();
 

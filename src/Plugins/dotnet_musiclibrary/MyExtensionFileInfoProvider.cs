@@ -34,16 +34,16 @@ namespace AIMP.DotNet.MusicLibrary
         //    return ActionResultType.OK;
         //}
 
-        public ActionResultType GetFileInfo(IAimpString fileUri, ref IAimpFileInfo fileInfo)
+        public AimpActionResult GetFileInfo(IAimpString fileUri, ref IAimpFileInfo fileInfo)
         {
             fileInfo.Artist = "test";
             //fileInfo = null;
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
-        public ActionResultType GetFileInfo(IAimpStream stream, ref IAimpFileInfo fileInfo)
+        public AimpActionResult GetFileInfo(IAimpStream stream, ref IAimpFileInfo fileInfo)
         {
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
         public ActionResultType GetFileInfo(Stream stream, ref IAimpFileInfo fileInfo)

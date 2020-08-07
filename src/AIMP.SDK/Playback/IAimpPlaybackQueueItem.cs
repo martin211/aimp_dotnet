@@ -13,10 +13,21 @@ using AIMP.SDK.Playlist;
 
 namespace AIMP.SDK.Playback
 {
+    /// <summary>
+    /// Interface IAimpPlaybackQueueItem
+    /// </summary>
     public interface IAimpPlaybackQueueItem
     {
+        /// <summary>
+        /// Gets or sets the user data.
+        /// </summary>
+        /// <value>The user data.</value>
         object UserData { get; set; }
 
+        /// <summary>
+        /// Gets or sets the playlist item.
+        /// </summary>
+        /// <value>The playlist item.</value>
         IAimpPlaylistItem PlaylistItem { get; set; }
     }
 }

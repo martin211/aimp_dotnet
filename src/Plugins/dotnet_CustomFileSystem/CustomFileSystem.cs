@@ -125,7 +125,8 @@ namespace AIMP.SDK.CustomFileSystem
 
         AimpActionResult IAimpFileSystemCommandOpenFileFolder.CanProcess(string fileName)
         {
-            var result = GetCommand(FileCommandType.OpenFileFolder, fileName, out IAimpFileSystemCommandOpenFileFolder cmd);
+            var result = GetCommand(FileCommandType.OpenFileFolder, fileName,
+                out IAimpFileSystemCommandOpenFileFolder cmd);
             if (result.ResultType == ActionResultType.OK && cmd != null)
             {
                 result = cmd.CanProcess(GetFile(fileName));
@@ -136,7 +137,8 @@ namespace AIMP.SDK.CustomFileSystem
 
         AimpActionResult IAimpFileSystemCommandOpenFileFolder.Process(string fileName)
         {
-            var result = GetCommand(FileCommandType.OpenFileFolder, fileName, out IAimpFileSystemCommandOpenFileFolder cmd);
+            var result = GetCommand(FileCommandType.OpenFileFolder, fileName,
+                out IAimpFileSystemCommandOpenFileFolder cmd);
             if (result.ResultType == ActionResultType.OK && cmd != null)
             {
                 result = cmd.Process(GetFile(fileName));
@@ -145,7 +147,8 @@ namespace AIMP.SDK.CustomFileSystem
             return result;
         }
 
-        public AimpActionResult<IAimpStream> CreateStream(string fileName, FileStreamingType flags, long offset, long size)
+        public AimpActionResult<IAimpStream> CreateStream(string fileName, FileStreamingType flags, long offset,
+            long size)
         {
             var result = GetCommand(FileCommandType.Delete, fileName, out IAimpFileSystemCommandStreaming cmd);
             if (result.ResultType == ActionResultType.OK && cmd != null)
@@ -159,7 +162,7 @@ namespace AIMP.SDK.CustomFileSystem
         private AimpActionResult GetCommand<TCommand>(FileCommandType commandType, string file, out TCommand command)
         {
             var res = _aimpPlayer.ServiceFileSystems.Get(commandType, GetFile(file));
-            command = (TCommand)res.Result;
+            command = (TCommand) res.Result;
             return res;
         }
 

@@ -15,5 +15,6 @@ namespace AIMP.SDK.Visuals
     /// Service have no any methods and properties.
     /// </summary>
     public interface IAimpServiceVisualizations
-    {}
+    {
+    }
 }

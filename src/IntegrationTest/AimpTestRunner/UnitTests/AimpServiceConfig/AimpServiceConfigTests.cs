@@ -24,7 +24,6 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
             {
                 var result = Player.ServiceConfig.FlushCache();
                 this.AreEqual(ActionResultType.OK, () => result.ResultType);
-                return result.ResultType;
             });
         }
 
@@ -61,14 +60,12 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
                     var streamResult = Player.Core.CreateStream();
                     var r = streamResult.Result.Write(buf, buf.Length, out var written);
 
-                    this.AreEqual(ActionResultType.OK, () => r);
+                    this.AreEqual(ActionResultType.OK, () => r.ResultType);
                     result = Player.ServiceConfig.SetValueAsStream(path, streamResult.Result);
                 }
 
                 this.NotNull(() => result);
                 this.AreEqual(ActionResultType.OK, () => result.ResultType);
-
-                return result.ResultType;
             });
         }
 
@@ -123,7 +120,6 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
                 }
 
                 this.AreEqual(ActionResultType.OK, r);
-                return r;
             });
         }
 
@@ -139,7 +135,6 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
                 var result = Player.ServiceConfig.Delete(path);
                 this.NotNull(result);
                 this.AreEqual(ActionResultType.OK, () => result.ResultType);
-                return result.ResultType;
             });
         }
     }

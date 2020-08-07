@@ -6,29 +6,26 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace MusicLibrary;
 
         public ref class AimpServiceMusicLibraryUI :
             public BaseAimpService<IAIMPServiceMusicLibraryUI>,
-            public IAimpServiceMusicLibraryUI
-        {
+            public IAimpServiceMusicLibraryUI {
         public:
             explicit AimpServiceMusicLibraryUI(ManagedAimpCore^ core);
 
-            virtual ActionResultType GetFiles(FilesType flags, IAimpFileList^% list);
+            virtual TYPED_RESULT(IAimpFileList) GetFiles(FilesType flags);
 
-            virtual ActionResultType GetGroupingFilter(IAimpDataFilter^% filter);
+            virtual TYPED_RESULT(IAimpDataFilter) GetGroupingFilter();
 
-            virtual ActionResultType GetGroupingFilterPath(String^% path);
+            virtual StringResult GetGroupingFilterPath();
 
-            virtual ActionResultType SetGroupingFilterPath(String^ path);
+            virtual ActionResult SetGroupingFilterPath(String^ path);
         protected:
             IAIMPServiceMusicLibraryUI* GetAimpService() override;
         };

@@ -7,8 +7,7 @@
 
 #pragma once
 
-class InternalAimpFileSystemCommandStreaming : IUnknownInterfaceImpl<IAIMPFileSystemCommandStreaming>
-{
+class InternalAimpFileSystemCommandStreaming : IUnknownInterfaceImpl<IAIMPFileSystemCommandStreaming> {
 private:
     typedef IUnknownInterfaceImpl<IAIMPFileSystemCommandStreaming> Base;
     gcroot<AIMP::SDK::FileManager::Commands::IAimpFileSystemCommandStreaming^> _instance;

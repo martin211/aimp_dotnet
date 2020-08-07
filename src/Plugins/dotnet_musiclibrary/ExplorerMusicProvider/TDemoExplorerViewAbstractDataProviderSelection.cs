@@ -69,8 +69,8 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
                 {
                     var di = new DirectoryInfo(c);
                     return di.Attributes.HasFlag(FileAttributes.Directory)
-                        && !di.Attributes.HasFlag(FileAttributes.System)
-                        && !di.Attributes.HasFlag(FileAttributes.Hidden);
+                           && !di.Attributes.HasFlag(FileAttributes.System)
+                           && !di.Attributes.HasFlag(FileAttributes.Hidden);
                 }));
             }
 
@@ -158,7 +158,6 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
     {
         public TDemoExplorerViewGroupingTreeFoldersProvider(string apath) : base(apath)
         {
-            
         }
 
         public override string GetValueAsString(int fieldIndex)
@@ -169,13 +168,16 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 
     public class TDemoExplorerViewDataProviderSelection : TDemoExplorerViewCustomDataProviderSelection
     {
-        private const string _ext = "*.aiff;*.aif;*.ogg;*.oga;*.wav;*.mp3;*.mp2;*.mp1;*.mpga;*.umx;*.mod;*.mo3;*.it;*.s3m;*.mtm;*.xm;*.w64;*.cda;*.iso;*.dff;*.dsf;*.aac;*.m4a;*.m4b;*.mp4;*.ac3;*.ape;*.mac;*.flac;*.fla;*.midi;*.mid;*.rmi;*.kar;*.mpc;*.mp+;*.mpp;*.opus;*.spx;*.tta;*.wma;*.wv;*.tak;";
+        private const string _ext =
+            "*.aiff;*.aif;*.ogg;*.oga;*.wav;*.mp3;*.mp2;*.mp1;*.mpga;*.umx;*.mod;*.mo3;*.it;*.s3m;*.mtm;*.xm;*.w64;*.cda;*.iso;*.dff;*.dsf;*.aac;*.m4a;*.m4b;*.mp4;*.ac3;*.ape;*.mac;*.flac;*.fla;*.midi;*.mid;*.rmi;*.kar;*.mpc;*.mp+;*.mpp;*.opus;*.spx;*.tta;*.wma;*.wv;*.tak;";
+
         private readonly string[] _fields;
 
-        private readonly IEnumerable<string> _fileExtensions  = _ext.Split(new [] {';'}, StringSplitOptions.RemoveEmptyEntries)
+        private readonly IEnumerable<string> _fileExtensions = _ext
+            .Split(new[] {';'}, StringSplitOptions.RemoveEmptyEntries)
             .Select(c => c.Replace("*", string.Empty));
 
-        public TDemoExplorerViewDataProviderSelection(string apath, IEnumerable<string> fields) 
+        public TDemoExplorerViewDataProviderSelection(string apath, IEnumerable<string> fields)
             : base(apath)
         {
             _fields = fields.ToArray();
@@ -231,7 +233,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
             var fi = new FileInfo(CurrentItem);
             if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_FileName))
             {
-                return $"myschema://{fi.FullName}";// fi.FullName;
+                return $"myschema://{fi.FullName}"; // fi.FullName;
             }
 
             if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_FileFormat))

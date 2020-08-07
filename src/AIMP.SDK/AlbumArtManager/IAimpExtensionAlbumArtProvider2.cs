@@ -9,14 +9,13 @@
 // 
 // ----------------------------------------------------
 
+using System.Drawing;
 using AIMP.SDK.FileManager;
 
 namespace AIMP.SDK.AlbumArtManager
 {
-    using System.Drawing;
-
     /// <summary>
-    /// It is the second edition of the <seealso cref="IAimpExtensionAlbumArtProvider"/> interface.
+    /// It is the second edition of the <seealso cref="IAimpExtensionAlbumArtProvider" /> interface.
     /// </summary>
     public interface IAimpExtensionAlbumArtProvider2
     {
@@ -24,9 +23,8 @@ namespace AIMP.SDK.AlbumArtManager
         /// Gets the album art image.
         /// </summary>
         /// <param name="fileInfo">The file information.</param>
-        /// <param name="options">The search options <seealso cref="IAimpAlbumArtSearchOptions"/>.</param>
-        /// <param name="image">Out. The album art image.</param>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
+        /// <param name="options">The search options <seealso cref="IAimpAlbumArtSearchOptions" />.</param>
+        /// <returns>AimpActionResult&lt;Bitmap&gt;.</returns>
         AimpActionResult<Bitmap> Get(IAimpFileInfo fileInfo, IAimpAlbumArtSearchOptions options);
     }
 }

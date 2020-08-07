@@ -12,31 +12,26 @@ using namespace AIMP::SDK;
 using namespace Objects;
 
 AimpFileSystemCommandStreaming::
-AimpFileSystemCommandStreaming(IAIMPFileSystemCommandStreaming* aimpObject) : AimpObject(aimpObject)
-{
+AimpFileSystemCommandStreaming(IAIMPFileSystemCommandStreaming* aimpObject) : AimpObject(aimpObject) {
 }
 
 StreamResult AimpFileSystemCommandStreaming::CreateStream(String^ fileName, FileStreamingType flags, long long offset,
-                                                          long long size)
-{
+                                                          long long size) {
     auto str = AimpConverter::ToAimpString(fileName);
     ActionResultType res = ActionResultType::Fail;
     IAimpStream^ stream = nullptr;
 
-    try
-    {
+    try {
         IAIMPStream* aimpStream = nullptr;
         res = CheckResult(
-            InternalAimpObject->CreateStream(str, offset, size, DWORD(flags), reinterpret_cast<IAIMPStream**>(&aimpStream)));
-        if (res == ActionResultType::OK && aimpStream != nullptr)
-        {
+            InternalAimpObject->CreateStream(str, offset, size, DWORD(flags),
+                                             reinterpret_cast<IAIMPStream**>(&aimpStream)));
+        if (res == ActionResultType::OK && aimpStream != nullptr) {
             stream = gcnew AimpStream(aimpStream);
         }
     }
-    finally
-    {
-        if (str != nullptr)
-        {
+    finally {
+        if (str != nullptr) {
             str->Release();
             str = nullptr;
         }

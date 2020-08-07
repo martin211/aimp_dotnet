@@ -15,8 +15,7 @@
 
 using namespace AIMP::SDK::FileManager::Commands;
 
-class InternalAimpExtensionFileSystem : public IUnknownInterfaceImpl<IAIMPExtensionFileSystem>
-{
+class InternalAimpExtensionFileSystem : public IUnknownInterfaceImpl<IAIMPExtensionFileSystem> {
 private:
     gcroot<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileSystem^> _managed;
     IAIMPCore* _core = nullptr;
@@ -31,7 +30,8 @@ private:
 public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionFileSystem> Base;
 
-    InternalAimpExtensionFileSystem(gcroot<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileSystem^> managed, IAIMPCore* core);
+    InternalAimpExtensionFileSystem(gcroot<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileSystem^> managed,
+                                    IAIMPCore* core);
 
     virtual HRESULT WINAPI GetValueAsInt32(int propertyId, int* value);
 

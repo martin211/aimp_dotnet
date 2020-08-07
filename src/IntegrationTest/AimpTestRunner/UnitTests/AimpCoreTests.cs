@@ -55,6 +55,38 @@ namespace Aimp.TestRunner.UnitTests
             AssertResult(result);
         }
 
+        [TestCase("ServiceMenuManager")]
+        [TestCase("ServiceActionManager")]
+        [TestCase("ServiceMui")]
+        [TestCase("ServiceAlbumArt")]
+        [TestCase("ServiceAlbumArtCache")]
+        [TestCase("ServiceConfig")]
+        [TestCase("ServicePlaylistManager")]
+        [TestCase("ServicePlaybackQueue")]
+        [TestCase("ServiceOptionsDialog")]
+        [TestCase("ServiceMessageDispatcher")]
+        [TestCase("ServiceSynchronizer")]
+        [TestCase("ServiceThreadPool")]
+        [TestCase("ServiceMusicLibrary")]
+        [TestCase("ServiceMusicLibraryUi")]
+        [TestCase("ServiceFileFormats")]
+        [TestCase("ServiceFileInfo")]
+        [TestCase("ServiceFileSystems")]
+        [TestCase("ServiceFileStreaming")]
+        [TestCase("ServiceFileInfoFormatter")]
+        [TestCase("ServiceFileTagEditor")]
+        [TestCase("ServiceLyrics")]
+        public void Service_IsExists_AllServicesShouldExists(string service)
+        {
+            var t = Player.GetType();
+            var m = t.GetProperty(service);
+            if (m == null)
+            {
+                Assert.Fail($"Service {service} was not found at Player.");
+            }
+            this.IsTrue(((IAimpService)m.GetValue(Player)).IsExists).Validate();
+        }
+
         private void AssertResult(AimpActionResult<IAimpObject> result)
         {
             this.AreEqual(ActionResultType.OK, result.ResultType).Validate();

@@ -11,6 +11,9 @@
 
 namespace AIMP.SDK
 {
+    /// <summary>
+    /// Class Extensions.
+    /// </summary>
     public static class Extensions
     {
         /// <summary>
@@ -19,7 +22,8 @@ namespace AIMP.SDK
         /// <typeparam name="TAimpObject">The type of the t aimp object.</typeparam>
         /// <param name="core">The core.</param>
         /// <returns>AimpActionResult&lt;TAimpObject&gt;.</returns>
-        public static AimpActionResult<TAimpObject> CreateAimpObject<TAimpObject>(this IAimpCore core) where TAimpObject : class, IAimpObject
+        public static AimpActionResult<TAimpObject> CreateAimpObject<TAimpObject>(this IAimpCore core)
+            where TAimpObject : class, IAimpObject
         {
             var result = core.CreateObject<TAimpObject>();
             if (result.ResultType != ActionResultType.OK)

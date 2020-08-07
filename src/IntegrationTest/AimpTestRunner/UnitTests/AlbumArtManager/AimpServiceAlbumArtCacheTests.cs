@@ -26,7 +26,6 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
             {
                 var ex = this.Throw<ArgumentNullException>(() => Player.ServiceAlbumArtCache.Flush(string.Empty, string.Empty));
                 this.IsTrue(ex.Message.Contains("Parameter album cannot be empty"));
-                return ActionResultType.OK;
             });
         }
 
@@ -37,7 +36,6 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
             {
                 var ex = this.Throw<ArgumentNullException>(() => Player.ServiceAlbumArtCache.Flush("album", string.Empty));
                 this.IsTrue(ex.Message.Contains("Parameter artist cannot be empty"));
-                return ActionResultType.OK;
             });
         }
 
@@ -48,7 +46,6 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
             {
                 var res = Player.ServiceAlbumArtCache.Flush("album", "artist");
                 this.AreEqual(ActionResultType.OK, res.ResultType);
-                return ActionResultType.OK;
             });
         }
 
@@ -59,7 +56,6 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
             {
                 var ex = this.Throw<ArgumentNullException>(() => Player.ServiceAlbumArtCache.Flush2(string.Empty));
                 this.IsTrue(ex.Message.Contains("Parameter fileUri cannot be empty"));
-                return ActionResultType.OK;
             });
         }
 
@@ -70,7 +66,6 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
             {
                 var res = Player.ServiceAlbumArtCache.Flush2("some_uri");
                 this.AreEqual(ActionResultType.OK, res.ResultType);
-                return res.ResultType;
             });
         }
 
@@ -81,7 +76,6 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
             {
                 var res = Player.ServiceAlbumArtCache.FlushAll();
                 this.AreEqual(ActionResultType.OK, res.ResultType);
-                return res.ResultType;
             });
         }
     }

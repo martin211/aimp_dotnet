@@ -9,16 +9,20 @@
 // 
 // ----------------------------------------------------
 
+using System;
 using AIMP.SDK.FileManager;
 
 namespace AIMP.SDK.AlbumArtManager
 {
-    using System;
-
     /// <summary>
     /// Service provides an ability to get album art for specified file or/and album.
-    /// AlbumArt search process will run in separate thread, and plugin will receive a notification about the end of operation via callback function.
+    /// AlbumArt search process will run in separate thread, and plugin will receive a notification about the end of
+    /// operation via callback function.
+    /// Implements the <see cref="AIMP.SDK.AlbumArtManager.IAimpAlbumArtSearchOptions" />
+    /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
+    /// <seealso cref="AIMP.SDK.AlbumArtManager.IAimpAlbumArtSearchOptions" />
+    /// <seealso cref="AIMP.SDK.IAimpService" />
     public interface IAimpServiceAlbumArt : IAimpAlbumArtSearchOptions, IAimpService
     {
         /// <summary>
@@ -32,10 +36,11 @@ namespace AIMP.SDK.AlbumArtManager
         /// <param name="fileUrl">The file URL.</param>
         /// <param name="artist">Optional. The artist.</param>
         /// <param name="album">Optional. The album.</param>
-        /// <param name="flags">Optional. The <see cref="AimpFindCovertArtType"/>.</param>
+        /// <param name="flags">Optional. The <see cref="AimpFindCovertArtType" />.</param>
         /// <param name="userData">The user data.</param>
-        /// <returns></returns>
-        AimpActionResult<int> Get(string fileUrl, string artist, string album, AimpFindCovertArtType flags, object userData);
+        /// <returns>AimpActionResult&lt;System.Int32&gt;.</returns>
+        AimpActionResult<int> Get(string fileUrl, string artist, string album, AimpFindCovertArtType flags,
+            object userData);
 
         /// <summary>
         /// Gets the image.
@@ -43,7 +48,7 @@ namespace AIMP.SDK.AlbumArtManager
         /// <param name="fileInfo">The file information.</param>
         /// <param name="flags">The flags.</param>
         /// <param name="userData">The user data.</param>
-        /// <returns></returns>
+        /// <returns>AimpActionResult&lt;System.Int32&gt;.</returns>
         AimpActionResult<int> Get2(IAimpFileInfo fileInfo, AimpFindCovertArtType flags, object userData);
 
         /// <summary>
@@ -51,6 +56,7 @@ namespace AIMP.SDK.AlbumArtManager
         /// </summary>
         /// <param name="taskId">The task identifier.</param>
         /// <param name="flags">The flags.</param>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult Cancel(int taskId, AimpFindCovertArtType flags);
     }
 }

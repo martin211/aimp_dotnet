@@ -7,8 +7,7 @@
 
 #pragma once
 
-class InternalAimpDataProviderSelection : public IUnknownInterfaceImpl<IAIMPMLDataProviderSelection>
-{
+class InternalAimpDataProviderSelection : public IUnknownInterfaceImpl<IAIMPMLDataProviderSelection> {
 private:
     gcroot<AIMP::SDK::MusicLibrary::IAimpDataProviderSelection^> _instance;
 public:

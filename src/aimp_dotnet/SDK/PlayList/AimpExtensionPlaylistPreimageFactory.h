@@ -6,28 +6,25 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace SDK;
         using namespace Playlist;
 
         public ref class AimpExtensionPlaylistPreimageFactory :
             public AimpObject<IAIMPExtensionPlaylistPreimageFactory>,
-            public IAimpExtensionPlaylistPreimageFactory
-        {
+            public IAimpExtensionPlaylistPreimageFactory {
         public:
             explicit AimpExtensionPlaylistPreimageFactory(IAIMPExtensionPlaylistPreimageFactory* aimpObject);
 
-            virtual ActionResultType CreatePreimage(IAimpPlaylistPreimage^% preimage);
+            virtual TYPED_RESULT(IAimpPlaylistPreimage) CreatePreimage();
 
-            virtual ActionResultType GetName(String^% name);
+            virtual TYPED_RESULT(String) GetName();
 
-            virtual ActionResultType GetId(String^% id);
+            virtual TYPED_RESULT(String) GetId();
 
             virtual PreimageFactoryFlags GetFlags();
         };

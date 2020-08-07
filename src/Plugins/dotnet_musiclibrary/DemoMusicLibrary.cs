@@ -37,7 +37,7 @@ namespace AIMP.DotNet.MusicLibrary
         IAimpDataStorageCommandReportDialog,
         IAimpDataStorageCommandUserMark
     {
-        public const string AIMPML_RESERVED_FIELD_ID = "ID";       // !REQUIRED! unique record id (Int32, Int64 or String)
+        public const string AIMPML_RESERVED_FIELD_ID = "ID"; // !REQUIRED! unique record id (Int32, Int64 or String)
         public const string AIMPML_RESERVED_FIELD_FILENAME = "FileName"; // !REQUIRED! string
         public const string AIMPML_RESERVED_FIELD_FILESIZE = "FileSize"; // Int64, in bytes
         public const string AIMPML_RESERVED_FIELD_DURATION = "Duration"; // double, in seconds
@@ -63,8 +63,9 @@ namespace AIMP.DotNet.MusicLibrary
             _aimpPlayer = aimpPlayer;
         }
 
-        ActionResultType IAimpDataProvider.GetData(IList<string> fields, IAimpDataFilter filter, out object data)
+        AimpActionResult<object> IAimpDataProvider.GetData(IList<string> fields, IAimpDataFilter filter)
         {
+            object data = null;
             string s;
             if (fields.Count == 1 && fields[0] == EVDS_Fake)
             {
@@ -89,25 +90,25 @@ namespace AIMP.DotNet.MusicLibrary
                 }
             }
 
-            return ActionResultType.OK;
+            return new AimpActionResult<object>(ActionResultType.OK, data);
         }
 
         #region Implementation of IAimpDataStorageCommandAddFiles
 
-        public ActionResultType Add(IList<string> files)
+        public AimpActionResult Add(IList<string> files)
         {
             System.Diagnostics.Debug.WriteLine("IAimpDataStorageCommandAddFiles.Add");
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
         #endregion
 
         #region Implementation of IAimpDataStorageCommandAddFilesDialog
 
-        ActionResultType IAimpDataStorageCommandAddFilesDialog.Execute(IntPtr ownerHandle)
+        AimpActionResult IAimpDataStorageCommandAddFilesDialog.Execute(IntPtr ownerHandle)
         {
             System.Diagnostics.Debug.WriteLine($"IAimpDataStorageCommandAddFilesDialog.Execute: {ownerHandle}");
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
         #endregion
@@ -118,22 +119,22 @@ namespace AIMP.DotNet.MusicLibrary
             return true;
         }
 
-        public ActionResultType Delete(IAimpFileList files, bool physically)
+        public AimpActionResult Delete(IAimpFileList files, bool physically)
         {
             System.Diagnostics.Debug.WriteLine("IAimpDataStorageCommandDeleteFiles.Delete");
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
-        public ActionResultType DropData()
+        public AimpActionResult DropData()
         {
             System.Diagnostics.Debug.WriteLine("IAimpDataStorageCommandDropData.DropData");
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
-        public ActionResultType ReloadTags(IAimpFileList files)
+        public AimpActionResult ReloadTags(IAimpFileList files)
         {
             System.Diagnostics.Debug.WriteLine("IAimpDataStorageCommandReloadTags.ReloadTags");
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
         //public ActionResultType Execute(IntPtr ownerHandle)
@@ -141,23 +142,24 @@ namespace AIMP.DotNet.MusicLibrary
         //    System.Diagnostics.Debug.WriteLine($"IAimpDataStorageCommandReportDialog.Execute: {ownerHandle}");
         //    return ActionResultType.OK;
         //}
-        ActionResultType IAimpDataStorageCommandReportDialog.Execute(IntPtr ownerHandle)
+        AimpActionResult IAimpDataStorageCommandReportDialog.Execute(IntPtr ownerHandle)
         {
             System.Diagnostics.Debug.WriteLine($"IAimpDataStorageCommandReportDialog.Execute: {ownerHandle}");
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
-        public ActionResultType SetMark(object id, double value)
+        public AimpActionResult SetMark(object id, double value)
         {
             System.Diagnostics.Debug.WriteLine($"IAimpDataStorageCommandUserMark.SetMark: {id} {value}");
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
         public string Id => "AimpDemoMusicLibrary";
 
         public string Caption => "Explorer media library";
 
-        public CapabilitiesType Capabilities => CapabilitiesType.AIMPML_DATASTORAGE_CAP_FILTERING | CapabilitiesType.AIMPML_DATASTORAGE_CAP_GROUPINGPRESETS | CapabilitiesType.AIMPML_DATASTORAGE_CAP_PREIMAGES | CapabilitiesType.AIMPML_DATASTORAGE_CAP_FILTERING;
+        public CapabilitiesType Capabilities => CapabilitiesType.Filtering | CapabilitiesType.GroupingPresets |
+                                                CapabilitiesType.Preimages | CapabilitiesType.Filtering;
 
         void IAimpExtensionDataStorage.Initialize(IAimpDataStorageManager manager)
         {
@@ -171,44 +173,48 @@ namespace AIMP.DotNet.MusicLibrary
 
         void IAimpExtensionDataStorage.FlushCache()
         {
-            
         }
 
-        ActionResultType IAimpExtensionDataStorage.ConfigLoad(IAimpConfig config, string section)
+        AimpActionResult IAimpExtensionDataStorage.ConfigLoad(IAimpConfig config, string section)
         {
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
-        ActionResultType IAimpExtensionDataStorage.ConfigSave(IAimpConfig config, string section)
+        AimpActionResult IAimpExtensionDataStorage.ConfigSave(IAimpConfig config, string section)
         {
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
-        ActionResultType IAimpExtensionDataStorage.GetFields(SchemaType schemaType, out IList list)
+        AimpActionResult<IList> IAimpExtensionDataStorage.GetFields(SchemaType schemaType)
         {
+            IList list = null;
             switch (schemaType)
             {
-                case SchemaType.AIMPML_FIELDS_SCHEMA_ALL:
+                case SchemaType.All:
                     list = new List<IAimpDataField>
                     {
-                        new AimpDataField(EVDS_ID, AimpDataFieldType.AIMPML_FIELDTYPE_STRING, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_INTERNAL | AimpDataFieldFlagsType.AIMPML_FIELDFLAG_FILTERING),
-                        new AimpDataField(EVDS_FileName, AimpDataFieldType.None, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_FILTERING),
-                        new AimpDataField(EVDS_FileFormat, AimpDataFieldType.AIMPML_FIELDTYPE_STRING, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_FILTERING),
-                        new AimpDataField(EVDS_FileSize, AimpDataFieldType.AIMPML_FIELDTYPE_FILESIZE, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_FILTERING),
-                        new AimpDataField(EVDS_FileAccessTime, AimpDataFieldType.AIMPML_FIELDTYPE_DATETIME, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_FILTERING),
-                        new AimpDataField(EVDS_FileCreationTime, AimpDataFieldType.AIMPML_FIELDTYPE_DATETIME, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_FILTERING),
-                        new AimpDataField(EVDS_Fake, AimpDataFieldType.AIMPML_FIELDTYPE_FILENAME, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_INTERNAL | AimpDataFieldFlagsType.AIMPML_FIELDFLAG_GROUPING),
-                        new AimpDataField(FieldNode, AimpDataFieldType.AIMPML_FIELDTYPE_STRING, AimpDataFieldFlagsType.AIMPML_FIELDFLAG_INTERNAL)
+                        new AimpDataField(EVDS_ID, AimpDataFieldType.String,
+                            AimpDataFieldFlagsType.Internal | AimpDataFieldFlagsType.Filtering),
+                        new AimpDataField(EVDS_FileName, AimpDataFieldType.None, AimpDataFieldFlagsType.Filtering),
+                        new AimpDataField(EVDS_FileFormat, AimpDataFieldType.String, AimpDataFieldFlagsType.Filtering),
+                        new AimpDataField(EVDS_FileSize, AimpDataFieldType.FileSize, AimpDataFieldFlagsType.Filtering),
+                        new AimpDataField(EVDS_FileAccessTime, AimpDataFieldType.DateTime,
+                            AimpDataFieldFlagsType.Filtering),
+                        new AimpDataField(EVDS_FileCreationTime, AimpDataFieldType.DateTime,
+                            AimpDataFieldFlagsType.Filtering),
+                        new AimpDataField(EVDS_Fake, AimpDataFieldType.FileName,
+                            AimpDataFieldFlagsType.Internal | AimpDataFieldFlagsType.Grouping),
+                        new AimpDataField(FieldNode, AimpDataFieldType.String, AimpDataFieldFlagsType.Internal)
                         {
-                            Image = ImageType.AIMPML_FIELDIMAGE_NOTE
+                            Image = ImageType.Note
                         }
                     };
 
-                    return ActionResultType.OK;
+                    return new AimpActionResult<IList>(ActionResultType.OK, list);
 
-                case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_VIEW_DEFAULT:
-                case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_VIEW_ALBUMTHUMBNAILS:
-                case SchemaType.AIMPML_FIELDS_SCHEMA_TABLE_GROUPDETAILS:
+                case SchemaType.TableViewDefault:
+                case SchemaType.TableViewAlbumThumbnails:
+                case SchemaType.TableGroupDetails:
                     list = new List<string>
                     {
                         EVDS_FileFormat,
@@ -217,28 +223,32 @@ namespace AIMP.DotNet.MusicLibrary
                         EVDS_FileAccessTime,
                         EVDS_FileCreationTime
                     };
-                    return ActionResultType.OK;
+                    return new AimpActionResult<IList>(ActionResultType.OK, list);
 
                 default:
                     list = new List<string>();
                     break;
             }
 
-            return ActionResultType.OK;
+            return new AimpActionResult<IList>(ActionResultType.OK, list);
         }
 
-        ActionResultType IAimpExtensionDataStorage.GetGroupingPresets(GroupingPresetsSchemaType schema, IAimpGroupingPresets presets)
+        AimpActionResult IAimpExtensionDataStorage.GetGroupingPresets(GroupingPresetsSchemaType schema,
+            IAimpGroupingPresets presets)
         {
-            if (schema == GroupingPresetsSchemaType.AIMPML_GROUPINGPRESETS_SCHEMA_BUILTIN)
+            if (schema == GroupingPresetsSchemaType.BuiltIn)
             {
-                presets.Add("AIMP.DEMO.ML.DEFAULT", "Grouping preset", new DataProviderGroupingTree(_data), out _outPreset);
+                var result = presets.Add("AIMP.DEMO.ML.DEFAULT", "Grouping preset",
+                    new DataProviderGroupingTree(_data));
+                _outPreset = result.Result;
             }
-            else if (schema == GroupingPresetsSchemaType.AIMPML_GROUPINGPRESETS_SCHEMA_DEFAULT)
+            else if (schema == GroupingPresetsSchemaType.Default)
             {
-                presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset", EVDS_Fake, out _groupingPresetStandard);
+                var result = presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset", EVDS_Fake);
+                _groupingPresetStandard = result.Result;
             }
 
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
         private bool GetRootPath(IAimpDataFilter filter, out string str)
@@ -250,8 +260,8 @@ namespace AIMP.DotNet.MusicLibrary
             {
                 var res = fieldFilter.Field == EVDS_Fake || fieldFilter.Field == FieldNode;
                 res = res &
-                      (fieldFilter.Operation == FieldFilterOperationType.AIMPML_FIELDFILTER_OPERATION_BEGINSWITH ||
-                       fieldFilter.Operation == FieldFilterOperationType.AIMPML_FIELDFILTER_OPERATION_EQUALS);
+                      (fieldFilter.Operation == FieldFilterOperationType.BeginsWith ||
+                       fieldFilter.Operation == FieldFilterOperationType.Equals);
 
                 s = fieldFilter.Value1.ToString();
                 return res;
@@ -273,15 +283,16 @@ namespace AIMP.DotNet.MusicLibrary
             {
                 for (var i = 0; i < filter.GetChildCount(); i++)
                 {
-                    IAimpDataFilterGroup group;
-                    IAimpDataFieldFilter field;
-                    if (filter.GetChild(i, out group) == ActionResultType.OK && group != null)
+                    var getGroup = filter.GetFilterGroup(i);
+                    var getField = filter.GetFieldFilter(i);
+
+                    if (getGroup.ResultType == ActionResultType.OK && getGroup.Result != null)
                     {
-                        result = EnumDataFieldFilters(group, aProc);
+                        result = EnumDataFieldFilters(getGroup.Result, aProc);
                     }
-                    else if (filter.GetChild(i, out field) == ActionResultType.OK && field != null)
+                    else if (getField.ResultType == ActionResultType.OK && getField.Result != null)
                     {
-                        result = aProc(field);
+                        result = aProc(getField.Result);
                     }
 
                     if (result)

@@ -8,10 +8,8 @@
 #pragma once
 #include "SDK\FileManager\AimpFileInfo.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace TagEditor;
 
         public ref class AimpFileTag : public IAimpFileTag, public AimpFileInfo //, public AimpObject<IAIMPFileTag>,

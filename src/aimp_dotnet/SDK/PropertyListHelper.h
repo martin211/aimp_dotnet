@@ -8,14 +8,11 @@
 #pragma once
 #include "AIMPSDK\AIMPSDK.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
 
-        public ref class PropertyListExtension sealed
-        {
+        public ref class PropertyListExtension sealed {
         public:
             static void SetObject(IAIMPPropertyList* propertyList, int propertyId, IUnknown* value);
 

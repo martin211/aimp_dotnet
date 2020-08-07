@@ -21,6 +21,7 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         /// </summary>
         /// <param name="value">The original value.</param>
         /// <param name="length">Count of characters in result.</param>
+        /// <returns>System.String.</returns>
         string GetDisplayValue(object value, out int length);
     }
 }

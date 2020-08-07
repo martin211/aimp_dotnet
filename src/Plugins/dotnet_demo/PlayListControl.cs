@@ -88,7 +88,7 @@ namespace DemoPlugin
 
         private ListViewItem GetTrack(IAimpPlaylistItem item)
         {
-            var trackItem = new ListViewItem { Text = item.PlaybackIndex.ToString() };
+            var trackItem = new ListViewItem {Text = item.PlaybackIndex.ToString()};
             trackItem.SubItems.Add(item.DisplayText);
             trackItem.SubItems.Add(TimeSpan.FromSeconds(item.FileInfo.Duration).ToString());
             // save playlist item to tag.

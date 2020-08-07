@@ -9,8 +9,7 @@
 
 using namespace AIMP::SDK;
 
-class AimpExtensionCustomVisualization : public IUnknownInterfaceImpl<IAIMPExtensionCustomVisualization>
-{
+class AimpExtensionCustomVisualization : public IUnknownInterfaceImpl<IAIMPExtensionCustomVisualization> {
 private:
     gcroot<AIMP::SDK::Visuals::IAimpExtensionCustomVisualization^> _managedObject;
     IAIMPCore* _aimpCore;

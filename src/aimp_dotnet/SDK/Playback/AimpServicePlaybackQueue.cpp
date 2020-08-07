@@ -14,64 +14,52 @@ using namespace Playlist;
 using namespace Playback;
 
 AimpServicePlaybackQueue::
-AimpServicePlaybackQueue(ManagedAimpCore^ core) : BaseAimpService<IAIMPServicePlaybackQueue>(core)
-{
+AimpServicePlaybackQueue(ManagedAimpCore^ core) : BaseAimpService<IAIMPServicePlaybackQueue>(core) {
 }
 
-AimpActionResult<IAimpPlaybackQueueItem^>^ AimpServicePlaybackQueue::GetNextTrack()
-{
+AimpActionResult<IAimpPlaybackQueueItem^>^ AimpServicePlaybackQueue::GetNextTrack() {
     IAIMPPlaybackQueueItem* aimpItem = nullptr;
     IAIMPServicePlaybackQueue* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
     AimpPlaybackQueueItem^ item = nullptr;
 
-    try
-    {
-        if (service != nullptr)
-        {
+    try {
+        if (service != nullptr) {
             result = CheckResult(service->GetNextTrack(&aimpItem));
-            if (result == ActionResultType::OK)
-            {
+            if (result == ActionResultType::OK) {
                 item = gcnew AimpPlaybackQueueItem(aimpItem);
             }
         }
     }
-    finally
-    {
+    finally {
         ReleaseObject(service);
     }
 
     return gcnew AimpActionResult<IAimpPlaybackQueueItem^>(result, item);
 }
 
-AimpActionResult<IAimpPlaybackQueueItem^>^ AimpServicePlaybackQueue::GetPrevTrack()
-{
+AimpActionResult<IAimpPlaybackQueueItem^>^ AimpServicePlaybackQueue::GetPrevTrack() {
     IAIMPPlaybackQueueItem* aimpItem = nullptr;
     IAIMPServicePlaybackQueue* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
     AimpPlaybackQueueItem^ item = nullptr;
 
-    try
-    {
-        if (service != nullptr)
-        {
+    try {
+        if (service != nullptr) {
             result = CheckResult(service->GetNextTrack(&aimpItem));
-            if (result == ActionResultType::OK)
-            {
+            if (result == ActionResultType::OK) {
                 item = gcnew AimpPlaybackQueueItem(aimpItem);
             }
         }
     }
-    finally
-    {
+    finally {
         ReleaseObject(service);
     }
 
     return gcnew AimpActionResult<IAimpPlaybackQueueItem^>(result, item);
 }
 
-IAIMPServicePlaybackQueue* AimpServicePlaybackQueue::GetAimpService()
-{
+IAIMPServicePlaybackQueue* AimpServicePlaybackQueue::GetAimpService() {
     IAIMPServicePlaybackQueue* service = nullptr;
     GetService(IID_IAIMPServicePlaybackQueue, &service);
     return service;

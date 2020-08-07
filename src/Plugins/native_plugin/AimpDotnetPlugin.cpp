@@ -8,8 +8,7 @@
 #include "native_plugin.h"
 
 
-BOOL WINAPI AIMPPluginGetHeader(IAIMPPlugin** Header)
-{
+BOOL WINAPI AIMPPluginGetHeader(IAIMPPlugin** Header) {
     *Header = new NativePlugin();
     return true;
 }

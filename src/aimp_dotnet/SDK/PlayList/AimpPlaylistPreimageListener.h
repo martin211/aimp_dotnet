@@ -7,17 +7,14 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::Playlist;
 
         public ref class AimpPlaylistPreimageListener :
             public AimpObject<IAIMPPlaylistPreimageListener>,
-            public IAimpPlaylistPreimageListener
-        {
+            public IAimpPlaylistPreimageListener {
         private:
             AimpPlaylistPreimageListenerHandler^ _dataChangedHandler;
             AimpPlaylistPreimageListenerHandler^ _settingsChangedHandler;

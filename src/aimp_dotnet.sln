@@ -39,6 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		..\AimpSDK.nuspec = ..\AimpSDK.nuspec
 		..\AimpSDK.sources.nuspec = ..\AimpSDK.sources.nuspec
 		..\AimpSDK.symbols.nuspec = ..\AimpSDK.symbols.nuspec
+		AssemblyInfo.cs = AssemblyInfo.cs
 		..\tools\CopyPlugin.ps1 = ..\tools\CopyPlugin.ps1
 		..\GitVersion.yml = ..\GitVersion.yml
 	EndProjectSection

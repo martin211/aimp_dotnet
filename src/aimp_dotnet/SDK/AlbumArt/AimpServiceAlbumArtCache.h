@@ -7,18 +7,15 @@
 
 #pragma once
 
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace AlbumArtManager;
 
         public ref class AimpServiceAlbumArtCache :
             public BaseAimpService<IAIMPServiceAlbumArtCache>,
-            public IAimpServiceAlbumArtCache
-        {
+            public IAimpServiceAlbumArtCache {
         public:
             explicit AimpServiceAlbumArtCache(ManagedAimpCore^ core);
 

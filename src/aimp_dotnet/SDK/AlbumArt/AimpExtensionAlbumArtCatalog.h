@@ -9,8 +9,7 @@
 
 class AimpExtensionAlbumArtCatalog :
     public IUnknownInterfaceImpl<IAIMPExtensionAlbumArtCatalog>,
-    public IAIMPExtensionAlbumArtCatalog2
-{
+    public IAIMPExtensionAlbumArtCatalog2 {
 private:
     gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^> _managedinstance;
     IAIMPCore* _aimpCore;

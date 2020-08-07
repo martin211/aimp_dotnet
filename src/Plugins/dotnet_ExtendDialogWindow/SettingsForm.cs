@@ -54,12 +54,12 @@ namespace dotnet_ExtendDialogWindow
             //Settings.IsDebugMode = cbDebugMode.Checked;
         }
 
-        private void SetLocaleText(IAimpMUIManager muiManager)
+        private void SetLocaleText(IAimpServiceMUI serviceMui)
         {
-            lCaption.Text = muiManager.GetValue("DotNet.Plugins\\Caption");
-            tabPlugins.Text = muiManager.GetValue("DotNet.Plugins\\Plugins");
+            lCaption.Text = serviceMui.GetValue("DotNet.Plugins\\Caption");
+            tabPlugins.Text = serviceMui.GetValue("DotNet.Plugins\\Plugins");
 
-            var setText = muiManager.GetValue("DotNet.Plugins\\bSettings");
+            var setText = serviceMui.GetValue("DotNet.Plugins\\bSettings");
             if (!string.IsNullOrWhiteSpace(setText))
             {
                 _settingButtonText = setText;
@@ -68,7 +68,6 @@ namespace dotnet_ExtendDialogWindow
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -83,17 +82,14 @@ namespace dotnet_ExtendDialogWindow
                 plugInfo = pi;
             }
 
-            public PluginInformation plugInfo
-            {
-                get;
-                set;
-            }
+            public PluginInformation plugInfo { get; set; }
 
             public override string ToString()
             {
                 return plugInfo.PluginInfo.Name + " v" + plugInfo.PluginInfo.Version +
-                    " (" + plugInfo.PluginInfo.Author + ")\n" +
-                    "[" + plugInfo.AssemblyFileName + "] " + plugInfo.PluginInfo.Description; ;
+                       " (" + plugInfo.PluginInfo.Author + ")\n" +
+                       "[" + plugInfo.AssemblyFileName + "] " + plugInfo.PluginInfo.Description;
+                ;
             }
         }
     }

@@ -13,16 +13,17 @@ namespace AIMP.SDK.FileManager
 {
     /// <summary>
     /// Service provides an ability to format file information with specified template.
+    /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
+    /// <seealso cref="AIMP.SDK.IAimpService" />
     public interface IAimpServiceFileInfoFormatter : IAimpService
     {
         /// <summary>
         /// Formats the specified template.
         /// </summary>
         /// <param name="template">The list of supported macros for template depends from version of application.</param>
-        /// <param name="fileInfo">Put null to generate preview string.</param>
-        /// <param name="formattedResult">The formatted string.</param>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
+        /// <param name="fileInfo">The file information.</param>
+        /// <returns>AimpActionResult&lt;System.String&gt;.</returns>
         AimpActionResult<string> Format(string template, IAimpFileInfo fileInfo);
     }
 }

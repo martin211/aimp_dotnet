@@ -152,8 +152,7 @@ const int AIMP_FILESYSTEM_PROPID_READONLY = 2;
 
 /* IAIMPFileInfo */
 
-class IAIMPFileInfo : public IAIMPPropertyList
-{
+class IAIMPFileInfo : public IAIMPPropertyList {
 public:
     virtual HRESULT WINAPI Assign(IAIMPFileInfo* Source) = 0;
     virtual HRESULT WINAPI Clone(IAIMPFileInfo** Info) = 0;
@@ -161,8 +160,7 @@ public:
 
 /* IAIMPVirtualFile */
 
-class IAIMPVirtualFile : public IAIMPPropertyList
-{
+class IAIMPVirtualFile : public IAIMPPropertyList {
 public:
     virtual HRESULT WINAPI CreateStream(IAIMPStream** Stream) = 0;
     virtual HRESULT WINAPI GetFileInfo(IAIMPFileInfo* Info) = 0;
@@ -172,8 +170,7 @@ public:
 };
 
 #pragma pack(push, 1)
-struct TAIMPFileAttributes
-{
+struct TAIMPFileAttributes {
     DWORD Attributes;
     DOUBLE TimeCreation;
     DOUBLE TimeLastAccess;
@@ -190,8 +187,7 @@ struct TAIMPFileAttributes
 
 /* IAIMPFileSystemCustomFileCommand */
 
-class IAIMPFileSystemCustomFileCommand : public IUnknown
-{
+class IAIMPFileSystemCustomFileCommand : public IUnknown {
 public:
     virtual HRESULT WINAPI CanProcess(IAIMPString* FileName) = 0;
     virtual HRESULT WINAPI Process(IAIMPString* FileName) = 0;
@@ -199,30 +195,26 @@ public:
 
 /* IAIMPFileSystemCommandCopyToClipboard */
 
-class IAIMPFileSystemCommandCopyToClipboard : public IUnknown
-{
+class IAIMPFileSystemCommandCopyToClipboard : public IUnknown {
 public:
     virtual HRESULT WINAPI CopyToClipboard(IAIMPObjectList* Files) = 0;
 };
 
 /* IAIMPFileSystemCommandDelete */
 
-class IAIMPFileSystemCommandDelete : public IAIMPFileSystemCustomFileCommand
-{
+class IAIMPFileSystemCommandDelete : public IAIMPFileSystemCustomFileCommand {
 };
 
 /* IAIMPFileSystemCommandDropSource */
 
-class IAIMPFileSystemCommandDropSource : public IUnknown
-{
+class IAIMPFileSystemCommandDropSource : public IUnknown {
 public:
     virtual HRESULT WINAPI CreateStream(IAIMPString* FileName, IAIMPStream** Stream) = 0;
 };
 
 /* IAIMPFileSystemCommandFileInfo */
 
-class IAIMPFileSystemCommandFileInfo : public IUnknown
-{
+class IAIMPFileSystemCommandFileInfo : public IUnknown {
 public:
     virtual HRESULT WINAPI GetFileAttrs(IAIMPString* FileName, TAIMPFileAttributes* Attrs) = 0;
     virtual HRESULT WINAPI GetFileSize(IAIMPString* FileName, INT64* Size) = 0;
@@ -231,14 +223,12 @@ public:
 
 /* IAIMPFileSystemCommandOpenFileFolder */
 
-class IAIMPFileSystemCommandOpenFileFolder : public IAIMPFileSystemCustomFileCommand
-{
+class IAIMPFileSystemCommandOpenFileFolder : public IAIMPFileSystemCustomFileCommand {
 };
 
 /* IAIMPFileSystemCommandStreaming */
 
-class IAIMPFileSystemCommandStreaming : public IUnknown
-{
+class IAIMPFileSystemCommandStreaming : public IUnknown {
 public:
     virtual HRESULT WINAPI CreateStream(IAIMPString* FileName, const INT64 Offset, const INT64 Size, DWORD Flags,
                                         IAIMPStream** Stream) = 0;
@@ -250,8 +240,7 @@ public:
 
 /* IAIMPExtensionFileExpander */
 
-class IAIMPExtensionFileExpander : public IUnknown
-{
+class IAIMPExtensionFileExpander : public IUnknown {
 public:
     virtual HRESULT WINAPI Expand(IAIMPString* FileName, IAIMPObjectList** List,
                                   IAIMPProgressCallback* ProgressCallback) = 0;
@@ -259,8 +248,7 @@ public:
 
 /* IAIMPExtensionFileFormat */
 
-class IAIMPExtensionFileFormat : public IUnknown
-{
+class IAIMPExtensionFileFormat : public IUnknown {
 public:
     virtual HRESULT WINAPI GetDescription(IAIMPString** S) = 0;
     virtual HRESULT WINAPI GetExtList(IAIMPString** S) = 0;
@@ -269,24 +257,21 @@ public:
 
 /* IAIMPExtensionFileInfoProvider */
 
-class IAIMPExtensionFileInfoProvider : public IUnknown
-{
+class IAIMPExtensionFileInfoProvider : public IUnknown {
 public:
     virtual HRESULT WINAPI GetFileInfo(IAIMPString* FileURI, IAIMPFileInfo* Info) = 0;
 };
 
 /* IAIMPExtensionFileInfoProviderEx */
 
-class IAIMPExtensionFileInfoProviderEx : public IUnknown
-{
+class IAIMPExtensionFileInfoProviderEx : public IUnknown {
 public:
     virtual HRESULT WINAPI GetFileInfo(IAIMPStream* Stream, IAIMPFileInfo* Info) = 0;
 };
 
 /* IAIMPExtensionFileSystem */
 
-class IAIMPExtensionFileSystem : public IAIMPPropertyList
-{
+class IAIMPExtensionFileSystem : public IAIMPPropertyList {
 };
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -295,15 +280,13 @@ class IAIMPExtensionFileSystem : public IAIMPPropertyList
 
 /* IAIMPServiceFileManager */
 
-class IAIMPServiceFileManager : public IUnknown
-{
+class IAIMPServiceFileManager : public IUnknown {
     // nothing
 };
 
 /* IAIMPServiceFileFormats */
 
-class IAIMPServiceFileFormats : public IUnknown
-{
+class IAIMPServiceFileFormats : public IUnknown {
 public:
     virtual HRESULT WINAPI GetFormats(DWORD Flags, IAIMPString** S) = 0;
     virtual HRESULT WINAPI IsSupported(IAIMPString* FileName, DWORD Flags) = 0;
@@ -311,8 +294,7 @@ public:
 
 /* IAIMPServiceFileInfo */
 
-class IAIMPServiceFileInfo : public IUnknown
-{
+class IAIMPServiceFileInfo : public IUnknown {
 public:
     // File Info
     virtual HRESULT WINAPI GetFileInfoFromFileURI(IAIMPString* FileURI, DWORD Flags, IAIMPFileInfo* Info) = 0;
@@ -323,8 +305,7 @@ public:
 
 /* IAIMPServiceFileInfoFormatter */
 
-class IAIMPServiceFileInfoFormatter : public IUnknown
-{
+class IAIMPServiceFileInfoFormatter : public IUnknown {
 public:
     virtual HRESULT WINAPI Format(IAIMPString* Template, IAIMPFileInfo* FileInfo, int Reserved,
                                   IUnknown* AdditionalInfo, IAIMPString** FormattedResult) = 0;
@@ -332,16 +313,14 @@ public:
 
 /* IAIMPServiceFileInfoFormatterUtils */
 
-class IAIMPServiceFileInfoFormatterUtils : public IUnknown
-{
+class IAIMPServiceFileInfoFormatterUtils : public IUnknown {
 public:
     virtual HRESULT WINAPI ShowMacrosLegend(RECT ScreenTarget, int Reserved, IUnknown* EventsHandler) = 0;
 };
 
 /* IAIMPServiceFileStreaming */
 
-class IAIMPServiceFileStreaming : public IUnknown
-{
+class IAIMPServiceFileStreaming : public IUnknown {
 public:
     virtual HRESULT WINAPI CreateStreamForFile(IAIMPString* FileName, DWORD Flags, const INT64 Offset, const INT64 Size,
                                                IAIMPStream** Stream) = 0;
@@ -351,8 +330,7 @@ public:
 
 /* IAIMPServiceFileSystems */
 
-class IAIMPServiceFileSystems : public IUnknown
-{
+class IAIMPServiceFileSystems : public IUnknown {
 public:
     virtual HRESULT WINAPI Get(IAIMPString* FileURI, REFIID IID, void** Obj) = 0;
     virtual HRESULT WINAPI GetDefault(REFIID IID, void** Obj) = 0;
@@ -360,8 +338,7 @@ public:
 
 /* IAIMPServiceFileURI */
 
-class IAIMPServiceFileURI : public IUnknown
-{
+class IAIMPServiceFileURI : public IUnknown {
 public:
     virtual HRESULT WINAPI Build(IAIMPString* ContainerFileName, IAIMPString* PartName, IAIMPString** FileURI) = 0;
     virtual HRESULT WINAPI Parse(IAIMPString* FileURI, IAIMPString** ContainerFileName, IAIMPString** PartName) = 0;
@@ -377,8 +354,7 @@ public:
 
 /* IAIMPServiceFileURI2 */
 
-class IAIMPServiceFileURI2 : public IAIMPServiceFileURI
-{
+class IAIMPServiceFileURI2 : public IAIMPServiceFileURI {
 public:
     virtual HRESULT WINAPI GetScheme(IAIMPString* FileURI, IAIMPString** Scheme) = 0;
 };

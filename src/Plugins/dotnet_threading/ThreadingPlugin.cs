@@ -15,7 +15,8 @@ using AIMP.SDK.Threading;
 
 namespace dotnet_threading
 {
-    [AimpPlugin("ThreadinDemoPlugin", "Martin", "1.0.0", AimpPluginType = AimpPluginType.Addons, FullDescription = "Threading demo plugin")]
+    [AimpPlugin("ThreadinDemoPlugin", "Martin", "1.0.0", AimpPluginType = AimpPluginType.Addons,
+        FullDescription = "Threading demo plugin")]
     public class ThreadingPlugin : AimpPlugin
     {
         public override void Initialize()
@@ -31,7 +32,6 @@ namespace dotnet_threading
 
         public override void Dispose()
         {
-            
         }
     }
 }

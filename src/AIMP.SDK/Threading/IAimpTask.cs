@@ -21,7 +21,7 @@ namespace AIMP.SDK.Threading
         /// </summary>
         /// <param name="owner">Owner provides an ability to know if user cancel the task.
         /// You must abort current operation as soon as possible.</param>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType Execute(IAimpTaskOwner owner);
+        /// <returns>AimpActionResult.</returns>
+        AimpActionResult Execute(IAimpTaskOwner owner);
     }
 }

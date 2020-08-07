@@ -10,29 +10,24 @@
 
 AimpExtensionCustomVisualization::AimpExtensionCustomVisualization(IAIMPCore* aimpCore,
                                                                    gcroot<Visuals::IAimpExtensionCustomVisualization^>
-                                                                   instance)
-{
+                                                                   instance) {
     _managedObject = instance;
     _aimpCore = aimpCore;
 }
 
-int AimpExtensionCustomVisualization::GetFlags()
-{
+int AimpExtensionCustomVisualization::GetFlags() {
     return (int)_managedObject->GetFlags();
 }
 
-void AimpExtensionCustomVisualization::Draw(PAIMPVisualData Data)
-{
+void AimpExtensionCustomVisualization::Draw(PAIMPVisualData Data) {
     auto data = AimpConverter::PAIMPVisualDataToManaged(Data);
     _managedObject->Draw(data);
 }
 
-HRESULT WINAPI AimpExtensionCustomVisualization::QueryInterface(REFIID riid, LPVOID* ppvObject)
-{
+HRESULT WINAPI AimpExtensionCustomVisualization::QueryInterface(REFIID riid, LPVOID* ppvObject) {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPExtensionCustomVisualization)
-    {
+    if (riid == IID_IAIMPExtensionCustomVisualization) {
         *ppvObject = this;
         AddRef();
         return S_OK;
@@ -42,12 +37,10 @@ HRESULT WINAPI AimpExtensionCustomVisualization::QueryInterface(REFIID riid, LPV
     return res;
 }
 
-ULONG WINAPI AimpExtensionCustomVisualization::AddRef(void)
-{
+ULONG WINAPI AimpExtensionCustomVisualization::AddRef(void) {
     return Base::AddRef();
 }
 
-ULONG WINAPI AimpExtensionCustomVisualization::Release(void)
-{
+ULONG WINAPI AimpExtensionCustomVisualization::Release(void) {
     return Base::Release();
 }

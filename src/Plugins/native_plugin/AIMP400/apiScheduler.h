@@ -59,15 +59,13 @@ const int AIMP_SHUTDOWN_EVENT_ACTION_SHUTDOWN_WINDOWS_SLEEP = 16;
 
 /* IAIMPSchedulerEvent */
 
-class IAIMPSchedulerEvent : public IAIMPPropertyList
-{
+class IAIMPSchedulerEvent : public IAIMPPropertyList {
     // nothing
 };
 
 /* IAIMPServiceScheduler */
 
-class IAIMPServiceScheduler : public IUnknown
-{
+class IAIMPServiceScheduler : public IUnknown {
 public:
     virtual HRESULT WINAPI GetEvent(int ID, IAIMPSchedulerEvent** Event) = 0;
     virtual HRESULT WINAPI GetNearestEvent(IAIMPSchedulerEvent** Event) = 0;

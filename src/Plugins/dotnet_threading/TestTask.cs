@@ -17,7 +17,7 @@ namespace dotnet_threading
 {
     public class TestTask : IAimpTask
     {
-        public ActionResultType Execute(IAimpTaskOwner owner)
+        public AimpActionResult Execute(IAimpTaskOwner owner)
         {
             if (!owner.IsCanceled)
             {
@@ -29,7 +29,7 @@ namespace dotnet_threading
                 System.Threading.Thread.Sleep(TimeSpan.FromSeconds(10));
             }
 
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
     }
 }

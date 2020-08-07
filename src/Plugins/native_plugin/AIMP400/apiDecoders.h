@@ -39,8 +39,7 @@ const int AIMP_DECODER_FLAGS_FORCE_CREATE_INSTANCE = 0x1000;
 
 /* IAIMPAudioDecoder */
 
-class IAIMPAudioDecoder : public IUnknown
-{
+class IAIMPAudioDecoder : public IUnknown {
 public:
     virtual BOOL WINAPI GetFileInfo(IAIMPFileInfo* FileInfo) = 0;
     virtual BOOL WINAPI GetStreamInfo(int* SampleRate, int* Channels, int* SampleFormat) = 0;
@@ -58,16 +57,14 @@ public:
 
 /* IAIMPAudioDecoderBufferingProgress */
 
-class IAIMPAudioDecoderBufferingProgress : public IUnknown
-{
+class IAIMPAudioDecoderBufferingProgress : public IUnknown {
 public:
     virtual BOOL WINAPI Get(double* Value) = 0;
 };
 
 /* IAIMPExtensionAudioDecoder */
 
-class IAIMPExtensionAudioDecoder : public IUnknown
-{
+class IAIMPExtensionAudioDecoder : public IUnknown {
 public:
     virtual HRESULT WINAPI CreateDecoder(IAIMPStream* Stream, DWORD Flags,
                                          IAIMPErrorInfo* ErrorInfo, IAIMPAudioDecoder** Decoder) = 0;
@@ -75,8 +72,7 @@ public:
 
 /* IAIMPExtensionAudioDecoderOld */
 
-class IAIMPExtensionAudioDecoderOld : public IUnknown
-{
+class IAIMPExtensionAudioDecoderOld : public IUnknown {
 public:
     virtual HRESULT WINAPI CreateDecoder(IAIMPString* FileName, DWORD Flags,
                                          IAIMPErrorInfo* ErrorInfo, IAIMPAudioDecoder** Decoder) = 0;
@@ -84,8 +80,7 @@ public:
 
 /* IAIMPServiceAudioDecoders */
 
-class IAIMPServiceAudioDecoders : public IUnknown
-{
+class IAIMPServiceAudioDecoders : public IUnknown {
 public:
     virtual HRESULT WINAPI CreateDecoderForStream(IAIMPStream* Stream, DWORD Flags,
                                                   IAIMPErrorInfo* ErrorInfo, IAIMPAudioDecoder** Decoder) = 0;

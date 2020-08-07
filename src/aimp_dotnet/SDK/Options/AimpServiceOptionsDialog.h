@@ -6,24 +6,21 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace SDK;
         using namespace Options;
 
         public ref class AimpServiceOptionsDialog : public BaseAimpService<IAIMPServiceOptionsDialog>,
-                                                    public IAimpServiceOptionsDialog
-        {
+                                                    public IAimpServiceOptionsDialog {
         public:
             explicit AimpServiceOptionsDialog(ManagedAimpCore^ core);
 
-            virtual ActionResultType FrameModified(IAimpOptionsDialogFrame^ frame);
+            virtual ActionResult FrameModified(IAimpOptionsDialogFrame^ frame);
 
-            virtual ActionResultType FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow);
+            virtual ActionResult FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow);
         protected:
             IAIMPServiceOptionsDialog* GetAimpService() override;
         };

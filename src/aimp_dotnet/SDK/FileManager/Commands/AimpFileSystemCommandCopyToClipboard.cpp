@@ -12,12 +12,10 @@ using namespace AIMP::SDK;
 using namespace Objects;
 
 AimpFileSystemCommandCopyToClipboard::AimpFileSystemCommandCopyToClipboard(
-    IAIMPFileSystemCommandCopyToClipboard* aimpObject) : AimpObject(aimpObject)
-{
+    IAIMPFileSystemCommandCopyToClipboard* aimpObject) : AimpObject(aimpObject) {
 }
 
-ActionResult AimpFileSystemCommandCopyToClipboard::CopyToClipboard(List<String^>^ files)
-{
+ActionResult AimpFileSystemCommandCopyToClipboard::CopyToClipboard(List<String^>^ files) {
     auto collection = AimpConverter::ToAimpObjectList(files);
     auto result = CheckResult(InternalAimpObject->CopyToClipboard(collection));
     return ACTION_RESULT(result);

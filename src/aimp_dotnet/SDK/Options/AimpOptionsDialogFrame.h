@@ -7,18 +7,15 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace Options;
 
         public ref class AimpOptionsDialogFrame :
             public AimpObject<IAIMPOptionsDialogFrame>,
             public IAimpOptionsDialogFrame,
-            public IAimpOptionsDialogFrameKeyboardHelper
-        {
+            public IAimpOptionsDialogFrameKeyboardHelper {
         public:
             explicit AimpOptionsDialogFrame(IAIMPOptionsDialogFrame* aimpObject);
 

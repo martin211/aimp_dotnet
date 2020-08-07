@@ -33,14 +33,12 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
                 child.Name = "Child item";
                 child.Parent = parent;
 
-                var result = Player.MenuManager.Add(ParentMenuType.CommonUtilites, parent);
+                var result = Player.ServiceMenuManager.Add(ParentMenuType.CommonUtilities, parent);
 
                 this.AreEqual(ActionResultType.OK, result.ResultType, "Add item to menu");
 
                 result = parent.DeleteChildren();
                 this.AreEqual(ActionResultType.OK, result.ResultType, "Delete child items");
-
-                return result.ResultType;
             });
         }
     }

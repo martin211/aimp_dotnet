@@ -14,8 +14,7 @@ const char AIMPRemoteAccessClass[] = "AIMP2_RemoteInfo";
 const int AIMPRemoteAccessMapFileSize = 2048;
 
 #pragma pack(push, 1)
-struct TAIMPRemoteFileInfo
-{
+struct TAIMPRemoteFileInfo {
     DWORD Deprecated1;
     BOOL Active;
     DWORD BitRate;

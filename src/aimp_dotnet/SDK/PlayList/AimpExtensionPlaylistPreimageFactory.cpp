@@ -12,59 +12,52 @@
 
 AimpExtensionPlaylistPreimageFactory::
 AimpExtensionPlaylistPreimageFactory(IAIMPExtensionPlaylistPreimageFactory* aimpObject) : AimpObject<
-    IAIMPExtensionPlaylistPreimageFactory>(aimpObject)
-{
+    IAIMPExtensionPlaylistPreimageFactory>(aimpObject) {
 }
 
-ActionResultType AimpExtensionPlaylistPreimageFactory::CreatePreimage(IAimpPlaylistPreimage^% preimage)
-{
+AimpActionResult<IAimpPlaylistPreimage^>^ AimpExtensionPlaylistPreimageFactory::CreatePreimage() {
+    IAimpPlaylistPreimage^ preimage = nullptr;
     IAIMPPlaylistPreimage* image = nullptr;
     IAIMPPlaylistPreimageFolders* folders = nullptr;
     ActionResultType res = CheckResult(InternalAimpObject->CreatePreimage(&image));
-    if (res == ActionResultType::OK && image != nullptr)
-    {
-        if (image->QueryInterface(IID_IAIMPPlaylistPreimageFolders, reinterpret_cast<void**>(&folders)) == S_OK)
-        {
+    if (res == ActionResultType::OK && image != nullptr) {
+        if (image->QueryInterface(IID_IAIMPPlaylistPreimageFolders, reinterpret_cast<void**>(&folders)) == S_OK) {
             preimage = gcnew AimpPlaylistPreimageFolders(folders);
         }
-        else
-        {
+        else {
             preimage = gcnew AimpPlaylistPreimage(image);
         }
     }
 
-    return res;
+    return gcnew AimpActionResult<IAimpPlaylistPreimage^>(res, preimage);
 }
 
-ActionResultType AimpExtensionPlaylistPreimageFactory::GetName(String^% name)
-{
+StringResult AimpExtensionPlaylistPreimageFactory::GetName() {
+    String^ name = nullptr;
     IAIMPString* aimpString = nullptr;
     ActionResultType res = CheckResult(InternalAimpObject->GetName(&aimpString));
-    if (res == ActionResultType::OK && aimpString != nullptr)
-    {
+    if (res == ActionResultType::OK && aimpString != nullptr) {
         name = AimpConverter::ToManagedString(aimpString);
         aimpString->Release();
         aimpString = nullptr;
     }
 
-    return res;
+    return STRING_RESULT(res, name);
 }
 
-ActionResultType AimpExtensionPlaylistPreimageFactory::GetId(String^% id)
-{
+StringResult AimpExtensionPlaylistPreimageFactory::GetId() {
+    String^ id = nullptr;
     IAIMPString* aimpString = nullptr;
     ActionResultType res = CheckResult(InternalAimpObject->GetID(&aimpString));
-    if (res == ActionResultType::OK && aimpString != nullptr)
-    {
+    if (res == ActionResultType::OK && aimpString != nullptr) {
         id = AimpConverter::ToManagedString(aimpString);
         aimpString->Release();
         aimpString = nullptr;
     }
 
-    return res;
+    return STRING_RESULT(res, id);
 }
 
-PreimageFactoryFlags AimpExtensionPlaylistPreimageFactory::GetFlags()
-{
+PreimageFactoryFlags AimpExtensionPlaylistPreimageFactory::GetFlags() {
     return static_cast<PreimageFactoryFlags>(InternalAimpObject->GetFlags());
 }

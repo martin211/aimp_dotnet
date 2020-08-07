@@ -57,6 +57,14 @@ namespace Aimp.TestRunner
             _testResultFile = Path.Combine(path, "integration.tests.xml");
             _logWriter = new StreamWriter(Path.Combine(path, "integration.tests.log"));
 
+            if (Player.Win32Manager.GetAimpHandle() == IntPtr.Zero)
+            {
+                _logWriter.WriteLine("Unable to run test. This is not AIMP.");
+                _logWriter.Flush();
+                _logWriter.Close();
+                Terminate();
+            }
+
             _engine = TestEngineActivator.CreateInstance();
             _engine.WorkDirectory = path;
             _engine.Initialize();

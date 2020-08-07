@@ -14,7 +14,6 @@ using AIMP.SDK.FileManager;
 namespace dotnet_albumart
 {
     using System.Drawing;
-
     using AIMP.SDK;
     using AIMP.SDK.AlbumArtManager;
 
@@ -33,7 +32,7 @@ namespace dotnet_albumart
 
         public AimpActionResult<string> GetName()
         {
-            return new AimpActionResult<string>(ActionResultType.OK,"Test catalog");
+            return new AimpActionResult<string>(ActionResultType.OK, "Test catalog");
         }
 
         public AimpActionResult<Bitmap> Show(string fileUrl, string artist, string album)

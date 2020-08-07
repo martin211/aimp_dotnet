@@ -8,8 +8,7 @@
 #pragma once
 using namespace AIMP::SDK::FileManager::Commands;
 
-class InternalAimpFileSystemCommandFileInfo : IUnknownInterfaceImpl<IAIMPFileSystemCommandFileInfo>
-{
+class InternalAimpFileSystemCommandFileInfo : IUnknownInterfaceImpl<IAIMPFileSystemCommandFileInfo> {
 private:
     typedef IUnknownInterfaceImpl<IAIMPFileSystemCommandFileInfo> Base;
     gcroot<IAimpFileSystemCommandFileInfo^> _instance;

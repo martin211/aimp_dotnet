@@ -9,13 +9,13 @@
 // 
 // ----------------------------------------------------
 
+using System.Drawing;
+
 namespace AIMP.SDK.AlbumArtManager
 {
-    using System.Drawing;
-
     //TODO ADN-25
     /// <summary>
-    /// This interface is a extension for the IAimpServiceAlbumArt service. 
+    /// This interface is a extension for the IAimpServiceAlbumArt service.
     /// It allows for the plugin to add a menu item to the context menu for external album art catalogs.
     /// </summary>
     /// <seealso cref="AIMP.SDK.AlbumArtManager.IAimpExtensionAlbumArtCatalog2" />
@@ -25,11 +25,13 @@ namespace AIMP.SDK.AlbumArtManager
         /// <summary>
         /// Gets icon for menu item, icon must be 16x16.
         /// </summary>
+        /// <returns>AimpActionResult&lt;Bitmap&gt;.</returns>
         AimpActionResult<Bitmap> GetIcon();
 
         /// <summary>
         /// Gets the catalog name.
         /// </summary>
+        /// <returns>AimpActionResult&lt;System.String&gt;.</returns>
         AimpActionResult<string> GetName();
 
         /// <summary>
@@ -38,9 +40,7 @@ namespace AIMP.SDK.AlbumArtManager
         /// <param name="fileUrl">The file URL.</param>
         /// <param name="artist">Optional. The artist. , can be null</param>
         /// <param name="album">Optional. The album.</param>
-        /// <param name="image">Image instance, can be null if catalog does not provides an ability to select album art immediately.
-        /// For example, if the extension just open external link via Internet browser.</param>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
+        /// <returns>AimpActionResult&lt;Bitmap&gt;.</returns>
         AimpActionResult<Bitmap> Show(string fileUrl, string artist, string album);
     }
 }

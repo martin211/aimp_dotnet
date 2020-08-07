@@ -13,18 +13,31 @@ using System;
 
 namespace AIMP.SDK.Visuals
 {
+    /// <summary>
+    /// Enum AimpVisualClickButtonType
+    /// </summary>
     public enum AimpVisualClickButtonType
     {
-        AIMP_VISUAL_CLICK_BUTTON_LEFT,
-        AIMP_VISUAL_CLICK_BUTTON_MIDDLE
+        /// <summary>
+        /// The aimp visual click button left
+        /// </summary>
+        LeftButton,
+
+        /// <summary>
+        /// The aimp visual click button middle
+        /// </summary>
+        MiddleButton
     }
 
     /// <summary>
     /// This type visualization displays on visual display of player only and can be chosen by user.
     /// <para>
-    /// Instance should be created by plugin and must be registered in the application in the <see cref="AimpPlugin.Initialize"/> method via the <see cref="IAimpCore.RegisterExtension"/> method.
+    /// Instance should be created by plugin and must be registered in the application in the
+    /// <see cref="AimpPlugin.Initialize" /> method via the <see cref="IAimpCore.RegisterExtension" /> method.
     /// </para>
+    /// Implements the <see cref="AIMP.SDK.IAimpExtension" />
     /// </summary>
+    /// <seealso cref="AIMP.SDK.IAimpExtension" />
     public interface IAimpExtensionEmbeddedVisualization : IAimpExtension
     {
         /// <summary>
@@ -43,32 +56,31 @@ namespace AIMP.SDK.Visuals
         void Resize(int newWidth, int newHeight);
 
         /// <summary>
-        /// Returns zero or combination of followed flags <seealso cref="AimpVisualFlags"/>.
+        /// Returns zero or combination of followed flags <seealso cref="AimpVisualFlags" />.
         /// </summary>
+        /// <returns>AimpVisualFlags.</returns>
         AimpVisualFlags GetFlags();
 
         /// <summary>
-        /// Method returns a maximal resolution supported by the extension. If current resolution is not supported by extension, player will automatically stretch output.
+        /// Method returns a maximal resolution supported by the extension. If current resolution is not supported by
+        /// extension, player will automatically stretch output.
         /// </summary>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType GetMaxDisplaySize(out int width, out int height);
+        /// <returns>Item1 is width, Item2 is height.</returns>
+        AimpActionResult<int, int> GetMaxDisplaySize();
 
         /// <summary>
         /// Gets the visualization display name.
         /// </summary>
-        /// <param name="name">The display name.</param>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType GetName(out string name);
+        /// <returns>AimpActionResult&lt;System.String&gt;.</returns>
+        AimpActionResult<string> GetName();
 
         /// <summary>
         /// Initializes the visualization. Occurs when user activate the visualization.
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        /// <returns>The <see cref="ActionResultType"/> result.</returns>
-        ActionResultType Initialize(int width, int height);
+        /// <returns>AimpActionResult.</returns>
+        AimpActionResult Initialize(int width, int height);
 
         /// <summary>
         /// Called when visualization should be finalized.
@@ -79,7 +91,7 @@ namespace AIMP.SDK.Visuals
         /// Draws visualization on the specified output screen.
         /// </summary>
         /// <param name="dc">The output screen handle.</param>
-        /// <param name="data">The visualization data <seealso cref="AimpVisualData"/>.</param>
+        /// <param name="data">The visualization data <seealso cref="AimpVisualData" />.</param>
         void Draw(IntPtr dc, AimpVisualData data);
     }
 }

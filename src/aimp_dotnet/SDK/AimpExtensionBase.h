@@ -8,14 +8,11 @@
 #pragma once
 #include <windows.h>
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
 
-        public ref class AimpExtensionBase abstract
-        {
+        public ref class AimpExtensionBase abstract {
         internal:
             property GUID ExtensionId
             {

@@ -16,8 +16,7 @@ static const GUID IID_IAIMPServiceMUI = {0x41494D50, 0x5372, 0x764D, 0x55, 0x49,
 
 /* IAIMPServiceMUI */
 
-class IAIMPServiceMUI : public IUnknown
-{
+class IAIMPServiceMUI : public IUnknown {
 public:
     virtual HRESULT WINAPI GetName(IAIMPString** Value) = 0;
     virtual HRESULT WINAPI GetValue(IAIMPString* KeyPath, IAIMPString** Value) = 0;

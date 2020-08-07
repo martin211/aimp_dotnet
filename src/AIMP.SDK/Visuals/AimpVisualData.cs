@@ -21,6 +21,7 @@ namespace AIMP.SDK.Visuals
         /// An array of two elements of float (32-bit floating point value) type.
         /// Current signal level in left and right channels[0.0.. 1.0..infinity], where 1.0 is equals to 0 dB
         /// </summary>
+        /// <value>The peaks.</value>
         public float[] Peaks { get; set; }
 
         /// <summary>
@@ -28,7 +29,8 @@ namespace AIMP.SDK.Visuals
         /// 0 - spectrum of left channel
         /// 1 - spectrum of right channel
         /// 2 - spectrum of both channels
-        /// This field is populated only if the extension returns the <see cref="AimpVisualFlags.AIMP_VISUAL_FLAGS_RQD_DATA_SPECTRUM"/> flag in the GetFlags method.
+        /// This field is populated only if the extension returns the <see cref="AimpVisualFlags.RQDDataSpectrum" /> flag in
+        /// the GetFlags method.
         /// <para>
         /// Here is short table of relationships between array index and freq of the signal:
         /// 0 ~ 20 Hz
@@ -59,17 +61,20 @@ namespace AIMP.SDK.Visuals
         /// 255 ~ 20.0 KHz
         /// </para>
         /// </summary>
+        /// <value>The spectrum.</value>
         public float[][] Spectrum { get; set; }
 
         /// <summary>
         /// An array of two elements of float type.
         /// Source data of left and right channels in wave-form.
-        /// This field is populated only if the extension returns the <see cref="AimpVisualFlags.AIMP_VISUAL_FLAGS_RQD_DATA_WAVE"/> flag in the GetFlags method.
+        /// This field is populated only if the extension returns the <see cref="AimpVisualFlags.RQDDataWave" /> flag in the
+        /// GetFlags method.
         /// <para>
         /// 32-bit float per sample.
         /// Sample range is [-infinity.. -1.0 .. 0.0 .. 1.0 .. infinity], where |1.0| is equals to 0 dbFS.
         /// </para>
         /// </summary>
+        /// <value>The wave form.</value>
         public float[][] WaveForm { get; set; }
     }
 }

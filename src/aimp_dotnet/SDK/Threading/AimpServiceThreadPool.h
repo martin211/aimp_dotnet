@@ -6,25 +6,22 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace Threading;
 
         public ref class AimpServiceThreadPool : public BaseAimpService<IAIMPServiceThreadPool>,
-                                                 public IAimpServiceThreadPool
-        {
+                                                 public IAimpServiceThreadPool {
         public:
             explicit AimpServiceThreadPool(ManagedAimpCore^ core);
 
-            virtual ActionResultType Cancel(UIntPtr taskHandle, AimpServiceThreadPoolType flags);
+            virtual ActionResult Cancel(UIntPtr taskHandle, AimpServiceThreadPoolType flags);
 
-            virtual ActionResultType Execute(IAimpTask^ task, UIntPtr% handle);
+            virtual AimpActionResult<UIntPtr>^ Execute(IAimpTask^ task);
 
-            virtual ActionResultType WaitFor(UIntPtr handle);
+            virtual ActionResult WaitFor(UIntPtr handle);
         protected:
             IAIMPServiceThreadPool* GetAimpService() override;
         };

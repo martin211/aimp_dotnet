@@ -57,8 +57,7 @@ const int AIMP_CORE_PATH_SKINS_COMMON = 11;
 
 /* IAIMPCore */
 
-class IAIMPCore : public IUnknown
-{
+class IAIMPCore : public IUnknown {
 public:
     // Creating Simple Objects
     virtual HRESULT WINAPI CreateObject(REFIID IID, void** Obj) = 0;
@@ -72,16 +71,14 @@ public:
 
 /* IAIMPServiceAttrObjects */
 
-class IAIMPServiceAttrObjects : public IUnknown
-{
+class IAIMPServiceAttrObjects : public IUnknown {
 public:
     virtual HRESULT WINAPI CreateObject(REFIID IID, void** Obj) = 0;
 };
 
 /* IAIMPServiceAttrExtendable */
 
-class IAIMPServiceAttrExtendable : public IUnknown
-{
+class IAIMPServiceAttrExtendable : public IUnknown {
 public:
     virtual void WINAPI RegisterExtension(IUnknown* Extension) = 0;
     virtual void WINAPI UnregisterExtension(IUnknown* Extension) = 0;
@@ -89,16 +86,14 @@ public:
 
 /* IAIMPServiceConfig */
 
-class IAIMPServiceConfig : public IAIMPConfig
-{
+class IAIMPServiceConfig : public IAIMPConfig {
 public:
     virtual HRESULT WINAPI FlushCache() = 0;
 };
 
 /* IAIMPServiceShutdown */
 
-class IAIMPServiceShutdown : public IUnknown
-{
+class IAIMPServiceShutdown : public IUnknown {
 public:
     virtual HRESULT WINAPI Restart(IAIMPString* Params) = 0;
     virtual HRESULT WINAPI Shutdown(DWORD Flags) = 0;
@@ -106,8 +101,7 @@ public:
 
 /* IAIMPServiceVersionInfo */
 
-class IAIMPServiceVersionInfo : public IUnknown
-{
+class IAIMPServiceVersionInfo : public IUnknown {
 public:
     virtual HRESULT WINAPI FormatInfo(IAIMPString** S) = 0;
     virtual int WINAPI GetBuildDate() = 0;

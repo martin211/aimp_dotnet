@@ -6,24 +6,21 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace FileManager;
 
         public ref class AimpServiceFileStreaming : public BaseAimpService<IAIMPServiceFileStreaming>,
-                                                    public IAimpServiceFileStreaming
-        {
+                                                    public IAimpServiceFileStreaming {
         public:
-            AimpServiceFileStreaming(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceFileStreaming>(core)
-            {
+            AimpServiceFileStreaming(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceFileStreaming>(core) {
             }
 
-            virtual StreamResult CreateStreamForFile(String^ fileName, FileStreamingType flags, long long offset, long long size);
+            virtual StreamResult CreateStreamForFile(String^ fileName, FileStreamingType flags, long long offset,
+                                                     long long size);
 
             virtual AimpActionResult<CeateStreamResult^>^ CreateStreamForFileUri(String^ fileUrl);
         protected:

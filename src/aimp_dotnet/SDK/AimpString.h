@@ -6,18 +6,15 @@
 // ----------------------------------------------------
 
 #pragma once
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::Objects;
 
         public ref class AimpString :
             public AimpObject<IAIMPString>,
-            public IAimpString
-        {
+            public IAimpString {
         public:
             explicit AimpString(IAIMPString* aimpObject);
 
@@ -37,7 +34,7 @@ namespace AIMP
 
             virtual ActionResultType Add(String^ chars, int charsCount);
 
-            virtual ActionResultType ChangeCase(AIMPStringCase mode);
+            virtual ActionResultType ChangeCase(AimpStringCase mode);
 
             virtual ActionResultType Clone(IAimpString^% str);
 
@@ -47,9 +44,9 @@ namespace AIMP
 
             virtual ActionResultType Delete(int index, int count);
 
-            virtual ActionResultType Find(IAimpString^ str, int% index, AIMPStringFindFlags flags, int startFromIndex);
+            virtual ActionResultType Find(IAimpString^ str, int% index, AimpStringFindFlags flags, int startFromIndex);
 
-            virtual ActionResultType Find(String^ chars, int charsCount, int% index, AIMPStringFindFlags flags,
+            virtual ActionResultType Find(String^ chars, int charsCount, int% index, AimpStringFindFlags flags,
                                           int startFromIndex);
 
             virtual ActionResultType Insert(int index, IAimpString^ str);

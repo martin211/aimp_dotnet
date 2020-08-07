@@ -7,19 +7,16 @@
 
 #pragma once
 
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace ConfigurationManager;
 
         public ref class AimpServiceConfig :
             public BaseAimpService<IAIMPServiceConfig>,
-            public IAimpServiceConfig
-        {
+            public IAimpServiceConfig {
         public:
             explicit AimpServiceConfig(ManagedAimpCore^ core);
 

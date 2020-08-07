@@ -12,12 +12,10 @@ using namespace AIMP::SDK;
 using namespace Objects;
 
 AimpFileSystemCommandOpenFileFolder::AimpFileSystemCommandOpenFileFolder(
-    IAIMPFileSystemCommandOpenFileFolder* aimpObject) : AimpObject(aimpObject)
-{
+    IAIMPFileSystemCommandOpenFileFolder* aimpObject) : AimpObject(aimpObject) {
 }
 
-ActionResult AimpFileSystemCommandOpenFileFolder::CanProcess(String^ file)
-{
+ActionResult AimpFileSystemCommandOpenFileFolder::CanProcess(String^ file) {
     auto str = AimpConverter::ToAimpString(file);
     auto result = CheckResult(InternalAimpObject->CanProcess(str));
     str->Release();
@@ -25,8 +23,7 @@ ActionResult AimpFileSystemCommandOpenFileFolder::CanProcess(String^ file)
     return ACTION_RESULT(result);
 }
 
-ActionResult AimpFileSystemCommandOpenFileFolder::Process(String^ file)
-{
+ActionResult AimpFileSystemCommandOpenFileFolder::Process(String^ file) {
     auto str = AimpConverter::ToAimpString(file);
     auto result = CheckResult(InternalAimpObject->Process(str));
     str->Release();

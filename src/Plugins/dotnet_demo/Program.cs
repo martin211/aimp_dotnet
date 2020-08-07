@@ -39,19 +39,19 @@ namespace TestPlugin
 
     public class ExtensionPlaylistManagerListener : IAimpExtension, IAimpExtensionPlaylistManagerListener
     {
-        public ActionResultType OnPlaylistActivated(IAimpPlaylist playlist)
+        public AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist)
         {
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
-        public ActionResultType OnPlaylistAdded(IAimpPlaylist playlist)
+        public AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist)
         {
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
-        public ActionResultType OnPlaylistRemoved(IAimpPlaylist playlist)
+        public AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist)
         {
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
     }
 
@@ -90,7 +90,7 @@ namespace TestPlugin
                     Logger.Instance.AddInfoMessage($"Event: [Show] {item.Id}");
                 };
 
-                Player.MenuManager.Add(ParentMenuType.CommonUtilites, demoFormItem);
+                Player.ServiceMenuManager.Add(ParentMenuType.CommonUtilities, demoFormItem);
             }
 
             _hook = new MessageHook();
@@ -131,7 +131,7 @@ namespace TestPlugin
             if (menuItemResult.ResultType == ActionResultType.OK)
             {
                 IAimpMenuItem actionMenuItem = Player.Core.CreateAimpObject<IAimpMenuItem>().Result;
-                
+
                 var action = Player.Core.CreateAimpObject<IAimpAction>().Result;
                 action.Id = "aimp.MenuAndActionsDemo.action.1";
                 action.Name = "Simple action title";
@@ -141,25 +141,26 @@ namespace TestPlugin
                     var item = sender as IAimpAction;
                     Logger.Instance.AddInfoMessage($"Event: [Execute] {item.Id}");
                 };
-                Player.ActionManager.Register(action);
+                Player.ServiceActionManager.Register(action);
 
                 actionMenuItem.Name = "Menu item with linked action";
                 actionMenuItem.Id = "aimp.MenuAndActionsDemo.menuitem.with.action";
                 actionMenuItem.Action = action;
-                Player.MenuManager.Add(ParentMenuType.CommonUtilites, actionMenuItem);
+                Player.ServiceMenuManager.Add(ParentMenuType.CommonUtilities, actionMenuItem);
 
                 var secondAction = Player.Core.CreateAimpObject<IAimpAction>().Result;
                 secondAction.Id = Guid.NewGuid().ToString();
                 secondAction.Name = "Action 2";
                 secondAction.GroupName = "Menu And Actions Demo";
-                secondAction.DefaultGlobalHotKey = Player.ActionManager.MakeHotkey(ModifierKeys.Control, (uint)KeyInterop.VirtualKeyFromKey(Key.B));
-                Player.ActionManager.Register(secondAction);
+                secondAction.DefaultGlobalHotKey = Player.ServiceActionManager.MakeHotkey(ModifierKeys.Control,
+                    (uint) KeyInterop.VirtualKeyFromKey(Key.B));
+                Player.ServiceActionManager.Register(secondAction);
 
                 var menuItem2 = Player.Core.CreateAimpObject<IAimpMenuItem>().Result;
                 menuItem2.Id = Guid.NewGuid().ToString();
                 menuItem2.Name = "Simple action 2";
                 menuItem2.Action = secondAction;
-                Player.MenuManager.Add(ParentMenuType.CommonUtilites, menuItem2);
+                Player.ServiceMenuManager.Add(ParentMenuType.CommonUtilities, menuItem2);
             }
         }
 
@@ -181,20 +182,15 @@ namespace TestPlugin
         private void TestReadConfig()
         {
             var floatValue = Player.ServiceConfig.GetValueAsFloat("AIMP.DOTNET.DEMO\\FLOAT");
-            Debug.Assert(floatValue.Result == 0.2f);
             var int32Value = Player.ServiceConfig.GetValueAsInt32("AIMP.DOTNET.DEMO\\INT32");
-            Debug.Assert(int32Value.Result == 10);
             var int64Value = Player.ServiceConfig.GetValueAsInt64("AIMP.DOTNET.DEMO\\INT64");
-            Debug.Assert(int64Value.Result == 20);
             var stringValue = Player.ServiceConfig.GetValueAsString("AIMP.DOTNET.DEMO\\STRING");
-            Debug.Assert(stringValue.Result.Equals("STRING"));
             using (var streamValue = Player.ServiceConfig.GetValueAsStream("AIMP.DOTNET.DEMO\\STREAM").Result)
             {
                 long count = streamValue.GetSize();
                 var buf = new byte[count];
                 streamValue.Read(buf, (int) count);
                 var strData = System.Text.Encoding.Default.GetString(buf);
-                Debug.Assert(strData.Equals("STREAMDATA"));
             }
         }
     }

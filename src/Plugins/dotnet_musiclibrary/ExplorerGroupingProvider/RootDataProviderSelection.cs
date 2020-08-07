@@ -21,7 +21,8 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
         private readonly IList<string> _fields;
         private int _index;
 
-        public RootDataProviderSelection(IList<string> fields, IAimpDataFilter aimpDataFilter, DataProviderGroupingTreeData data)
+        public RootDataProviderSelection(IList<string> fields, IAimpDataFilter aimpDataFilter,
+            DataProviderGroupingTreeData data)
         {
             _fields = fields;
             _aimpDataFilter = aimpDataFilter;

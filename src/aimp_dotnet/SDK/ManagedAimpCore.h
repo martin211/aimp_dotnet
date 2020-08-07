@@ -8,6 +8,7 @@
 #pragma once
 #include <Unknwnbase.h>
 #include "AimpSdk.h"
+#include "MusicLibrary/Extension/AimpExtensionDataStorage.h"
 #include "Playback/AimpExtensionPlaybackQueue.h"
 #include "Playback/AimpExtensionPlayerHook.h"
 #include "SDK\Options\OptionsDialogFrameExtension.h"
@@ -16,7 +17,6 @@
 #include "SDK\PlayList\AimpExtensionPlaylistManagerListener.h"
 #include "SDK\Visuals\AimpExtensionEmbeddedVisualization.h"
 #include "SDK\Visuals\AimpExtensionCustomVisualization.h"
-#include "SDK\MusicLibrary\AimpExtensionDataStorage.h"
 #include "SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h"
 #include "SDK\FileManager\InternalAimpExtensionFileInfoProvider.h"
 #include "SDK\FileManager\InternalAimpExtensionFileSystem.h"
@@ -24,15 +24,13 @@
 #include "SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.h"
 #include "SDK\Lyrics\AimpExtensionLyricsProvider.h"
 
-namespace AIMP
-{
+namespace AIMP {
     using namespace System;
     using namespace SDK;
 
-    namespace SDK
-    {
+    namespace SDK {
         using namespace System;
-        using namespace Generic;
+        using namespace Collections::Generic;
 
         using namespace SDK;
         using namespace Playlist;
@@ -43,8 +41,7 @@ namespace AIMP
         /// Wrapper on IAIMPCore interface.
         /// </summary>
         [Serializable]
-        public ref class ManagedAimpCore
-        {
+        public ref class ManagedAimpCore {
         public:
             /// <summary>
             /// Initializes a new instance of the <see cref="ManagedAimpCore"/> class.
@@ -120,7 +117,7 @@ namespace AIMP
             InternalAimpExtensionPlaylistPreimageFactory* _extensionPlaylistPreimageFactory = nullptr;
             AimpExtensionLyricsProvider* _extensionLyricsProvider = nullptr;
             AimpExtensionPlaybackQueue* _extensionPlaybackQueue = nullptr;
-            AimpExtensionPlayerHook * _extensionPlayerHook;
+            AimpExtensionPlayerHook* _extensionPlayerHook;
 
             AIMP::SDK::Playlist::PlayListHandler^ _playlistAdded;
             AIMP::SDK::Playlist::PlayListHandler^ _playlistRemoved;

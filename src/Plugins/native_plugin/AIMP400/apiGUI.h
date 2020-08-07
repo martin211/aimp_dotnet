@@ -466,22 +466,19 @@ const int AIMPUI_PROGRESSDLG_PROPID_SHOW_PROGRESS_ON_TASKBAR = 3;
 /* Basic Events Interfaces																								   */
 /*----------------------------------------------------------------------------------------------------------------------*/
 
-enum TAIMPUITextAlignment
-{
+enum TAIMPUITextAlignment {
     utaLeftJustify = 0,
     utaRightJustify = 1,
     utaCenter = 2
 };
 
-enum TAIMPUITextVerticalAlignment
-{
+enum TAIMPUITextVerticalAlignment {
     utvaTop = 0,
     utvaBottom = 1,
     utvaCenter = 2
 };
 
-enum TAIMPUIMouseButton
-{
+enum TAIMPUIMouseButton {
     umbLeft = 0,
     umbRight = 1,
     umbMiddle = 2
@@ -489,8 +486,7 @@ enum TAIMPUIMouseButton
 
 /* IAIMPUIDPIAwareness */
 
-class IAIMPUIDPIAwareness : public IUnknown
-{
+class IAIMPUIDPIAwareness : public IUnknown {
 public:
     virtual BOOL WINAPI IsDPIAware() = 0;
     virtual HRESULT WINAPI SetDPIAware(BOOL Value) = 0;
@@ -498,24 +494,21 @@ public:
 
 /* IAIMPUIChangeEvents */
 
-class IAIMPUIChangeEvents : public IUnknown
-{
+class IAIMPUIChangeEvents : public IUnknown {
 public:
     virtual void WINAPI OnChanged(IUnknown* Sender) = 0;
 };
 
 /* IAIMPUIDrawEvents */
 
-class IAIMPUIDrawEvents : public IUnknown
-{
+class IAIMPUIDrawEvents : public IUnknown {
 public:
     virtual void WINAPI OnDraw(IUnknown* Sender, HDC DC, const RECT R) = 0;
 };
 
 /* IAIMPUIKeyboardEvents */
 
-class IAIMPUIKeyboardEvents : public IUnknown
-{
+class IAIMPUIKeyboardEvents : public IUnknown {
 public:
     virtual void WINAPI OnEnter(IUnknown* Sender) = 0;
     virtual void WINAPI OnExit(IUnknown* Sender) = 0;
@@ -526,16 +519,14 @@ public:
 
 /* IAIMPUIPopupMenuEvents */
 
-class IAIMPUIPopupMenuEvents : public IUnknown
-{
+class IAIMPUIPopupMenuEvents : public IUnknown {
 public:
     virtual BOOL WINAPI OnContextPopup(IUnknown* Sender, int X, int Y);
 };
 
 /* IAIMPUIMouseEvents */
 
-class IAIMPUIMouseEvents : public IUnknown
-{
+class IAIMPUIMouseEvents : public IUnknown {
 public:
     virtual void WINAPI OnMouseDoubleClick(IUnknown* Sender, TAIMPUIMouseButton Button, int X, int Y, WORD Modifiers) =
     0;
@@ -547,16 +538,14 @@ public:
 
 /* IAIMPUIMouseWheelEvents */
 
-class IAIMPUIMouseWheelEvents : public IUnknown
-{
+class IAIMPUIMouseWheelEvents : public IUnknown {
 public:
     virtual BOOL WINAPI OnMouseWheel(IUnknown* Sender, int WheelDelta, int X, int Y, WORD Modifiers) = 0;
 };
 
 /* IAIMPUIPlacementEvents */
 
-class IAIMPUIPlacementEvents : public IUnknown
-{
+class IAIMPUIPlacementEvents : public IUnknown {
 public:
     virtual void WINAPI OnBoundsChanged(IUnknown* Sender) = 0;
 };
@@ -567,8 +556,7 @@ public:
 
 /* TAIMPUIControlPlacement */
 
-enum TAIMPUIControlAlignment
-{
+enum TAIMPUIControlAlignment {
     ualNone = 0,
     ualTop = 1,
     ualBottom = 2,
@@ -578,8 +566,7 @@ enum TAIMPUIControlAlignment
 };
 
 #pragma pack(push, 1)
-struct TAIMPUIControlPlacement
-{
+struct TAIMPUIControlPlacement {
     TAIMPUIControlAlignment Alignment;
     RECT AlignmentMargins;
     RECT Anchors;
@@ -588,8 +575,7 @@ struct TAIMPUIControlPlacement
 
 /* TAIMPUIControlPlacementConstraints */
 
-struct TAIMPUIControlPlacementConstraints
-{
+struct TAIMPUIControlPlacementConstraints {
     int MaxHeight;
     int MaxWidth;
     int MinHeight;
@@ -599,8 +585,7 @@ struct TAIMPUIControlPlacementConstraints
 
 /* IAIMPUIControl */
 
-class IAIMPUIControl : public IAIMPPropertyList
-{
+class IAIMPUIControl : public IAIMPPropertyList {
 public:
     virtual HRESULT WINAPI GetPlacement(TAIMPUIControlPlacement* Placement) = 0;
     virtual HRESULT WINAPI GetPlacementConstraints(TAIMPUIControlPlacementConstraints* Constraints) = 0;
@@ -619,8 +604,7 @@ public:
 
 /* IAIMPUIWinControl */
 
-class IAIMPUIWinControl : public IAIMPUIControl
-{
+class IAIMPUIWinControl : public IAIMPUIControl {
 public:
     virtual HRESULT WINAPI GetControl(int Index, REFIID IID, void** Obj) = 0;
     virtual int WINAPI GetControlCount() = 0;
@@ -631,8 +615,7 @@ public:
 
 /* IAIMPUIWndProcEvents */
 
-class IAIMPUIWndProcEvents : public IUnknown
-{
+class IAIMPUIWndProcEvents : public IUnknown {
 public:
     virtual BOOL WINAPI OnBeforeWndProc(DWORD Message, WPARAM ParamW, LPARAM ParamL, LRESULT* Result) = 0;
     virtual void WINAPI OnAfterWndProc(DWORD Message, WPARAM ParamW, LPARAM ParamL, LRESULT* Result) = 0;
@@ -644,8 +627,7 @@ public:
 
 /* IAIMPUIImageList */
 
-class IAIMPUIImageList : public IUnknown
-{
+class IAIMPUIImageList : public IUnknown {
 public:
     virtual HRESULT WINAPI Add(IAIMPImage* Image) = 0;
     virtual HRESULT WINAPI Clear() = 0;
@@ -659,16 +641,14 @@ public:
 
 /* IAIMPUIImageList2 */
 
-class IAIMPUIImageList2 : public IAIMPUIImageList
-{
+class IAIMPUIImageList2 : public IAIMPUIImageList {
 public:
     virtual HRESULT WINAPI DrawEx(HDC DC, int Index, const RECT R, BOOL Enabled) = 0;
 };
 
 /* IAIMPUIMenuItem */
 
-class IAIMPUIMenuItem : public IAIMPMenuItem
-{
+class IAIMPUIMenuItem : public IAIMPMenuItem {
 public:
     virtual HRESULT WINAPI Add(IAIMPString* ID, IAIMPUIMenuItem** MenuItem) = 0;
     virtual HRESULT WINAPI Delete(int Index) = 0;
@@ -678,8 +658,7 @@ public:
 
 /* IAIMPUIPopupMenu */
 
-class IAIMPUIPopupMenu : public IUnknown
-{
+class IAIMPUIPopupMenu : public IUnknown {
 public:
     virtual HRESULT WINAPI Add(IAIMPString* ID, IAIMPUIMenuItem** MenuItem) = 0;
     virtual HRESULT WINAPI Delete(int Index) = 0;
@@ -696,8 +675,7 @@ public:
 
 /* IAIMPUIBaseEdit */
 
-class IAIMPUIBaseEdit : public IAIMPUIWinControl
-{
+class IAIMPUIBaseEdit : public IAIMPUIWinControl {
 public:
     virtual HRESULT WINAPI CopyToClipboard() = 0;
     virtual HRESULT WINAPI CutToClipboard() = 0;
@@ -708,34 +686,29 @@ public:
 
 /* IAIMPUIBBCBox */
 
-class IAIMPUIBBCBox : public IAIMPUIWinControl
-{
+class IAIMPUIBBCBox : public IAIMPUIWinControl {
 };
 
 /* IAIMPUIBevel */
 
-class IAIMPUIBevel : public IAIMPUIControl
-{
+class IAIMPUIBevel : public IAIMPUIControl {
 };
 
 /* IAIMPUIButton */
 
-class IAIMPUIButton : public IAIMPUIWinControl
-{
+class IAIMPUIButton : public IAIMPUIWinControl {
 public:
     virtual HRESULT WINAPI ShowDropDownMenu() = 0;
 };
 
 /* IAIMPUIEditButton */
 
-class IAIMPUIEditButton : public IAIMPPropertyList
-{
+class IAIMPUIEditButton : public IAIMPPropertyList {
 };
 
 /* IAIMPUIBaseButtonnedEdit */
 
-class IAIMPUIBaseButtonnedEdit : public IAIMPUIBaseEdit
-{
+class IAIMPUIBaseButtonnedEdit : public IAIMPUIBaseEdit {
 public:
     virtual HRESULT WINAPI AddButton(IUnknown* EventsHandler, IAIMPUIEditButton** Button) = 0;
     virtual HRESULT WINAPI DeleteButton(int Index) = 0;
@@ -746,8 +719,7 @@ public:
 
 /* IAIMPUIBaseComboBox */
 
-class IAIMPUIBaseComboBox : public IAIMPUIBaseButtonnedEdit
-{
+class IAIMPUIBaseComboBox : public IAIMPUIBaseButtonnedEdit {
 public:
     virtual HRESULT WINAPI Add(IUnknown* Obj, int ExtraData) = 0;
     virtual HRESULT WINAPI Add2(IAIMPObjectList* List) = 0;
@@ -760,32 +732,27 @@ public:
 
 /* IAIMPUIBrandBox */
 
-class IAIMPUIBrandBox : public IAIMPUIWinControl
-{
+class IAIMPUIBrandBox : public IAIMPUIWinControl {
 };
 
 /* IAIMPUICategory */
 
-class IAIMPUICategory : public IAIMPUIWinControl
-{
+class IAIMPUICategory : public IAIMPUIWinControl {
 };
 
 /* IAIMPUICheckBox */
 
-class IAIMPUICheckBox : public IAIMPUIWinControl
-{
+class IAIMPUICheckBox : public IAIMPUIWinControl {
 };
 
 /* IAIMPUIComboBox */
 
-class IAIMPUIComboBox : public IAIMPUIBaseComboBox
-{
+class IAIMPUIComboBox : public IAIMPUIBaseComboBox {
 };
 
 /* IAIMPUICheckComboBox */
 
-class IAIMPUICheckComboBox : public IAIMPUIBaseComboBox
-{
+class IAIMPUICheckComboBox : public IAIMPUIBaseComboBox {
 public:
     virtual BOOL WINAPI GetChecked(int Index) = 0;
     virtual HRESULT WINAPI SetChecked(int Index, BOOL Value) = 0;
@@ -793,26 +760,22 @@ public:
 
 /* IAIMPUIEdit */
 
-class IAIMPUIEdit : public IAIMPUIBaseButtonnedEdit
-{
+class IAIMPUIEdit : public IAIMPUIBaseButtonnedEdit {
 };
 
 /* IAIMPUIGroupBox */
 
-class IAIMPUIGroupBox : public IAIMPUIWinControl
-{
+class IAIMPUIGroupBox : public IAIMPUIWinControl {
 };
 
 /* IAIMPUIImage */
 
-class IAIMPUIImage : public IAIMPUIControl
-{
+class IAIMPUIImage : public IAIMPUIControl {
 };
 
 /* IAIMPUIImageComboBox */
 
-class IAIMPUIImageComboBox : public IAIMPUIBaseComboBox
-{
+class IAIMPUIImageComboBox : public IAIMPUIBaseComboBox {
 public:
     virtual int WINAPI GetImageIndex(int Index) = 0;
     virtual HRESULT WINAPI SetImageIndex(int Index, int Value) = 0;
@@ -820,14 +783,12 @@ public:
 
 /* IAIMPUILabel */
 
-class IAIMPUILabel : public IAIMPUIControl
-{
+class IAIMPUILabel : public IAIMPUIControl {
 };
 
 /* IAIMPUIMemo */
 
-class IAIMPUIMemo : public IAIMPUIBaseEdit
-{
+class IAIMPUIMemo : public IAIMPUIBaseEdit {
 public:
     virtual HRESULT WINAPI AddLine(IAIMPString* S) = 0;
     virtual HRESULT WINAPI Clear() = 0;
@@ -845,20 +806,17 @@ public:
 
 /* IAIMPUIPaintBox */
 
-class IAIMPUIPaintBox : public IAIMPUIControl
-{
+class IAIMPUIPaintBox : public IAIMPUIControl {
 };
 
 /* IAIMPUITabSheet */
 
-class IAIMPUITabSheet : public IAIMPUIWinControl
-{
+class IAIMPUITabSheet : public IAIMPUIWinControl {
 };
 
 /* IAIMPUIPageControl */
 
-class IAIMPUIPageControl : public IAIMPUIWinControl
-{
+class IAIMPUIPageControl : public IAIMPUIWinControl {
 public:
     virtual HRESULT WINAPI Add(IAIMPString* Name, IAIMPUITabSheet** Page) = 0;
     virtual HRESULT WINAPI Delete(int Index) = 0;
@@ -869,8 +827,7 @@ public:
 
 /* IAIMPUIPageControlEvents */
 
-class IAIMPUIPageControlEvents : public IUnknown
-{
+class IAIMPUIPageControlEvents : public IUnknown {
 public:
     virtual void WINAPI OnActivating(IAIMPUIPageControl* Sender, IAIMPUITabSheet* Page, BOOL* Allow) = 0;
     virtual void WINAPI OnActivated(IAIMPUIPageControl* Sender, IAIMPUITabSheet* Page) = 0;
@@ -878,46 +835,39 @@ public:
 
 /* IAIMPUIPanel */
 
-class IAIMPUIPanel : public IAIMPUIWinControl
-{
+class IAIMPUIPanel : public IAIMPUIWinControl {
 };
 
 /* IAIMPUIProgressBar */
 
-class IAIMPUIProgressBar : public IAIMPUIControl
-{
+class IAIMPUIProgressBar : public IAIMPUIControl {
 };
 
 /* IAIMPUIScrollBox */
 
-class IAIMPUIScrollBox : public IAIMPUIWinControl
-{
+class IAIMPUIScrollBox : public IAIMPUIWinControl {
 public:
     virtual HRESULT WINAPI MakeVisible(IAIMPUIControl* Control) = 0;
 };
 
 /* IAIMPUISlider */
 
-class IAIMPUISlider : public IAIMPUIWinControl
-{
+class IAIMPUISlider : public IAIMPUIWinControl {
 };
 
 /* IAIMPUISplitter */
 
-class IAIMPUISplitter : public IAIMPUIControl
-{
+class IAIMPUISplitter : public IAIMPUIControl {
 };
 
 /* IAIMPUISpinEdit */
 
-class IAIMPUISpinEdit : public IAIMPUIWinControl
-{
+class IAIMPUISpinEdit : public IAIMPUIWinControl {
 };
 
 /* IAIMPUITabControl */
 
-class IAIMPUITabControl : public IAIMPUIWinControl
-{
+class IAIMPUITabControl : public IAIMPUIWinControl {
 public:
     virtual HRESULT WINAPI Add(IAIMPString* S) = 0;
     virtual HRESULT WINAPI Delete(int Index) = 0;
@@ -927,8 +877,7 @@ public:
 
 /* IAIMPUITabControlEvents */
 
-class IAIMPUITabControlEvents : public IAIMPUIChangeEvents
-{
+class IAIMPUITabControlEvents : public IAIMPUIChangeEvents {
 public:
     virtual void WINAPI OnActivating(IAIMPUITabControl* Sender, int TabIndex, BOOL* Allow) = 0;
     virtual void WINAPI OnActivated(IAIMPUITabControl* Sender, int TabIndex) = 0;
@@ -936,20 +885,17 @@ public:
 
 /* IAIMPUITimeEdit */
 
-class IAIMPUITimeEdit : public IAIMPUIWinControl
-{
+class IAIMPUITimeEdit : public IAIMPUIWinControl {
 };
 
 /* IAIMPUITreeListColumn */
 
-class IAIMPUITreeListColumn : public IAIMPPropertyList
-{
+class IAIMPUITreeListColumn : public IAIMPPropertyList {
 };
 
 /* IAIMPUITreeListGroup */
 
-class IAIMPUITreeListGroup : public IAIMPPropertyList
-{
+class IAIMPUITreeListGroup : public IAIMPPropertyList {
 public:
     virtual HRESULT WINAPI Get(int Index, REFIID IID, void** Obj) = 0;
     virtual int WINAPI GetCount() = 0;
@@ -957,8 +903,7 @@ public:
 
 /* IAIMPUITreeListNode */
 
-class IAIMPUITreeListNode : public IAIMPPropertyList
-{
+class IAIMPUITreeListNode : public IAIMPPropertyList {
 public:
     // Nodes
     virtual HRESULT WINAPI Add(IAIMPUITreeListNode** Node) = 0;
@@ -980,8 +925,7 @@ public:
 
 /* IAIMPUITreeList */
 
-class IAIMPUITreeList : public IAIMPUIWinControl
-{
+class IAIMPUITreeList : public IAIMPUIWinControl {
 public:
     // Columns
     virtual HRESULT WINAPI AddColumn(REFIID IID, void** Obj) = 0;
@@ -1036,8 +980,7 @@ public:
 
 /* IAIMPUITreeListDragSortingEvents */
 
-class IAIMPUITreeListDragSortingEvents : public IUnknown
-{
+class IAIMPUITreeListDragSortingEvents : public IUnknown {
 public:
     virtual void WINAPI OnDragSorting(IAIMPUITreeList* Sender) = 0;
     virtual void WINAPI OnDragSortingNodeOver(IAIMPUITreeList* Sender, IAIMPUITreeListNode* Node, DWORD Flags,
@@ -1046,8 +989,7 @@ public:
 
 /* IAIMPUITreeListCustomDrawEvents */
 
-class IAIMPUITreeListCustomDrawEvents : public IUnknown
-{
+class IAIMPUITreeListCustomDrawEvents : public IUnknown {
 public:
     virtual void WINAPI OnCustomDrawNode(IAIMPUITreeList* Sender, HDC DC, RECT R, IAIMPUITreeListNode* Node,
                                          BOOL* Handled) = 0;
@@ -1058,8 +1000,7 @@ public:
 
 /* IAIMPUITreeListInplaceEditingEvents */
 
-class IAIMPUITreeListInplaceEditingEvents : public IUnknown
-{
+class IAIMPUITreeListInplaceEditingEvents : public IUnknown {
 public:
     virtual void WINAPI OnEditing(IAIMPUITreeList* Sender, IAIMPUITreeListNode* Node, int ColumnIndex, BOOL* Allow) = 0;
     virtual void WINAPI OnEdited(IAIMPUITreeList* Sender, IAIMPUITreeListNode* Node, int ColumnIndex,
@@ -1068,8 +1009,7 @@ public:
 
 /* IAIMPUITreeListEvents */
 
-class IAIMPUITreeListEvents : public IUnknown
-{
+class IAIMPUITreeListEvents : public IUnknown {
 public:
     virtual void WINAPI OnColumnClick(IAIMPUITreeList* Sender, int ColumnIndex) = 0;
     virtual void WINAPI OnFocusedColumnChanged(IAIMPUITreeList* Sender) = 0;
@@ -1083,14 +1023,12 @@ public:
 
 /* IAIMPUIRadioBox */
 
-class IAIMPUIRadioBox : public IAIMPUICheckBox
-{
+class IAIMPUIRadioBox : public IAIMPUICheckBox {
 };
 
 /* IAIMPUIValidationLabel */
 
-class IAIMPUIValidationLabel : public IAIMPUILabel
-{
+class IAIMPUIValidationLabel : public IAIMPUILabel {
 };
 
 /*----------------------------------------------------------------------------------------------------------------------*/
@@ -1099,8 +1037,7 @@ class IAIMPUIValidationLabel : public IAIMPUILabel
 
 /* IAIMPUIForm */
 
-class IAIMPUIForm : public IAIMPUIWinControl
-{
+class IAIMPUIForm : public IAIMPUIWinControl {
 public:
     virtual HRESULT WINAPI Close() = 0;
     virtual HRESULT WINAPI GetFocusedControl(IAIMPUIWinControl** Control) = 0;
@@ -1111,8 +1048,7 @@ public:
 
 /* IAIMPUIFormEvents */
 
-class IAIMPUIFormEvents : public IUnknown
-{
+class IAIMPUIFormEvents : public IUnknown {
 public:
     virtual void WINAPI OnActivated(IAIMPUIForm* Sender) = 0;
     virtual void WINAPI OnDeactivated(IAIMPUIForm* Sender) = 0;
@@ -1125,8 +1061,7 @@ public:
 
 /* IAIMPUIFormEvents2 */
 
-class IAIMPUIFormEvents2 : public IUnknown
-{
+class IAIMPUIFormEvents2 : public IUnknown {
 public:
     virtual void WINAPI OnChangeScale(IAIMPUIForm* Sender, int Multiplier, int Divider) = 0;
 };
@@ -1137,8 +1072,7 @@ public:
 
 /* IAIMPUIBrowseFolderDialog */
 
-class IAIMPUIBrowseFolderDialog : public IUnknown
-{
+class IAIMPUIBrowseFolderDialog : public IUnknown {
 public:
     virtual HRESULT WINAPI Execute(HWND OwnerWnd, DWORD Flags, IAIMPString* DefaultPath, IAIMPObjectList** Selection) =
     0;
@@ -1146,8 +1080,7 @@ public:
 
 /* IAIMPUIFileDialogs */
 
-class IAIMPUIFileDialogs : public IUnknown
-{
+class IAIMPUIFileDialogs : public IUnknown {
 public:
     virtual HRESULT WINAPI ExecuteOpenDialog(HWND OwnerWnd, IAIMPString* Caption, IAIMPString* Filter,
                                              IAIMPString** FileName) = 0;
@@ -1159,8 +1092,7 @@ public:
 
 /* IAIMPUIInputDialog */
 
-class IAIMPUIInputDialog : public IUnknown
-{
+class IAIMPUIInputDialog : public IUnknown {
 public:
     virtual HRESULT WINAPI Execute(HWND OwnerWnd, IAIMPString* Caption,
                                    IUnknown* EventsHandler, IAIMPString* Text, VARIANT** Value) = 0;
@@ -1171,24 +1103,21 @@ public:
 
 /* IAIMPUIInputDialogEvents */
 
-class IAIMPUIInputDialogEvents : public IUnknown
-{
+class IAIMPUIInputDialogEvents : public IUnknown {
 public:
     virtual HRESULT WINAPI OnValidate(VARIANT* Value, int ValueIndex) = 0;
 };
 
 /* IAIMPUIMessageDialog */
 
-class IAIMPUIMessageDialog : public IUnknown
-{
+class IAIMPUIMessageDialog : public IUnknown {
 public:
     virtual HRESULT WINAPI Execute(HWND OwnerWnd, IAIMPString* Caption, IAIMPString* Text, DWORD Flags) = 0;
 };
 
 /* IAIMPUIProgressDialog */
 
-class IAIMPUIProgressDialog : public IAIMPPropertyList
-{
+class IAIMPUIProgressDialog : public IAIMPPropertyList {
 public:
     virtual HRESULT WINAPI Finished() = 0;
     virtual HRESULT WINAPI Progress(const INT64 Position, INT64 Total, IAIMPString* Text) = 0;
@@ -1197,8 +1126,7 @@ public:
 
 /* IAIMPUIProgressDialogEvents */
 
-class IAIMPUIProgressDialogEvents : public IUnknown
-{
+class IAIMPUIProgressDialogEvents : public IUnknown {
 public:
     virtual void WINAPI OnCanceled() = 0;
 };
@@ -1211,8 +1139,7 @@ const int AIMPUI_SERVICE_CREATEFORM_FLAGS_CHILD = 1;
 
 /* IAIMPServiceUI */
 
-class IAIMPServiceUI : public IUnknown
-{
+class IAIMPServiceUI : public IUnknown {
 public:
     virtual HRESULT WINAPI CreateControl(IAIMPUIForm* Owner, IAIMPUIWinControl* Parent,
                                          IAIMPString* Name, IUnknown* EventsHandler, REFIID IID, void** Control) = 0;

@@ -7,17 +7,13 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace Playlist;
 
-        public ref class AimpPlayListGroup : public AimpObject<IAIMPPlaylistGroup>, public IAimpPlaylistGroup
-        {
+        public ref class AimpPlayListGroup : public AimpObject<IAIMPPlaylistGroup>, public IAimpPlaylistGroup {
         public:
-            ~AimpPlayListGroup()
-            {
+            ~AimpPlayListGroup() {
             }
 
             AimpPlayListGroup();

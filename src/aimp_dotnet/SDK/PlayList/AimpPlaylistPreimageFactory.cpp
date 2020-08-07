@@ -8,54 +8,43 @@
 #include "Stdafx.h"
 #include "AimpPlaylistPreimageFactory.h"
 
-AimpPlaylistPreimageFactory::AimpPlaylistPreimageFactory(gcroot<IAimpExtensionPlaylistPreimageFactory^> managedObject)
-{
+AimpPlaylistPreimageFactory::AimpPlaylistPreimageFactory(gcroot<IAimpExtensionPlaylistPreimageFactory^> managedObject) {
     _managedObject = managedObject;
 }
 
-HRESULT WINAPI AimpPlaylistPreimageFactory::CreatePreimage(IAIMPPlaylistPreimage** preimage)
-{
+HRESULT WINAPI AimpPlaylistPreimageFactory::CreatePreimage(IAIMPPlaylistPreimage** preimage) {
     System::Diagnostics::Debugger::Break();
     return S_OK;
 }
 
-HRESULT WINAPI AimpPlaylistPreimageFactory::GetID(IAIMPString** ID)
-{
-    System::String^ id;
-    _managedObject->GetId(id);
-    *ID = AimpConverter::ToAimpString(id);
-    return S_OK;
+HRESULT WINAPI AimpPlaylistPreimageFactory::GetID(IAIMPString** ID) {
+    const auto result = _managedObject->GetId();
+    *ID = AimpConverter::ToAimpString(result->Result);
+    return static_cast<HRESULT>(result->ResultType);
 }
 
-HRESULT WINAPI AimpPlaylistPreimageFactory::GetName(IAIMPString** Name)
-{
-    System::String^ name;
-    _managedObject->GetName(name);
-    *Name = AimpConverter::ToAimpString(name);
-    return S_OK;
+HRESULT WINAPI AimpPlaylistPreimageFactory::GetName(IAIMPString** Name) {
+    const auto result = _managedObject->GetName();
+    *Name = AimpConverter::ToAimpString(result->Result);
+    return static_cast<HRESULT>(result->ResultType);
 }
 
-DWORD WINAPI AimpPlaylistPreimageFactory::GetFlags()
-{
+DWORD WINAPI AimpPlaylistPreimageFactory::GetFlags() {
     return DWORD(_managedObject->GetFlags());
 }
 
-ULONG WINAPI AimpPlaylistPreimageFactory::AddRef(void)
-{
+ULONG WINAPI AimpPlaylistPreimageFactory::AddRef(void) {
     return Base::AddRef();
 }
 
-ULONG WINAPI AimpPlaylistPreimageFactory::Release(void)
-{
+ULONG WINAPI AimpPlaylistPreimageFactory::Release(void) {
     return Base::Release();
 }
 
-HRESULT WINAPI AimpPlaylistPreimageFactory::QueryInterface(REFIID riid, LPVOID* ppvObject)
-{
+HRESULT WINAPI AimpPlaylistPreimageFactory::QueryInterface(REFIID riid, LPVOID* ppvObject) {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPExtensionPlaylistPreimageFactory)
-    {
+    if (riid == IID_IAIMPExtensionPlaylistPreimageFactory) {
         *ppvObject = this;
         AddRef();
         return S_OK;

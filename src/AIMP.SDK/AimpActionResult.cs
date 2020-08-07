@@ -54,28 +54,97 @@ namespace AIMP.SDK
         Fail = 0x80004005
     }
 
+    /// <summary>
+    /// Class AimpActionResult.
+    /// </summary>
     [DebuggerDisplay("{ResultType}")]
     public class AimpActionResult
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AimpActionResult" /> class.
+        /// </summary>
+        /// <param name="resultType">Type of the result.</param>
         public AimpActionResult(ActionResultType resultType)
         {
             ResultType = resultType;
         }
 
+        /// <summary>
+        /// Gets the type of the result.
+        /// </summary>
+        /// <value>The type of the result.</value>
         public ActionResultType ResultType { get; }
     }
 
+    /// <summary>
+    /// Class AimpActionResult.
+    /// Implements the <see cref="AIMP.SDK.AimpActionResult" />
+    /// </summary>
+    /// <typeparam name="TObject">The type of the t object.</typeparam>
+    /// <seealso cref="AIMP.SDK.AimpActionResult" />
     [DebuggerDisplay("{ResultType, Result}")]
     public class AimpActionResult<TObject> : AimpActionResult
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AimpActionResult{TObject}" /> class.
+        /// </summary>
+        /// <param name="resultType">Type of the result.</param>
+        public AimpActionResult(ActionResultType resultType) : base(resultType)
+        {
+            Result = default;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AimpActionResult{TObject}" /> class.
+        /// </summary>
+        /// <param name="resultType">Type of the result.</param>
+        /// <param name="result">The result.</param>
         public AimpActionResult(ActionResultType resultType, TObject result) : base(resultType)
         {
-            if (resultType == ActionResultType.OK && result != null)
+            if (resultType == ActionResultType.OK && !Equals(null, result))
             {
                 Result = result;
             }
         }
 
+        /// <summary>
+        /// Gets the result.
+        /// </summary>
+        /// <value>The result.</value>
         public TObject Result { get; }
+    }
+
+    /// <summary>
+    /// Class AimpActionResult.
+    /// Implements the <see cref="AIMP.SDK.AimpActionResult" />
+    /// </summary>
+    /// <typeparam name="TObject1">The type of the t object1.</typeparam>
+    /// <typeparam name="TObject2">The type of the t object2.</typeparam>
+    /// <seealso cref="AIMP.SDK.AimpActionResult" />
+    public class AimpActionResult<TObject1, TObject2> : AimpActionResult
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AimpActionResult{TObject1, TObject2}" /> class.
+        /// </summary>
+        /// <param name="resultType">Type of the result.</param>
+        /// <param name="obj1">The obj1.</param>
+        /// <param name="obj2">The obj2.</param>
+        public AimpActionResult(ActionResultType resultType, TObject1 obj1, TObject2 obj2) : base(resultType)
+        {
+            Item1 = obj1;
+            Item2 = obj2;
+        }
+
+        /// <summary>
+        /// Gets or sets the item1.
+        /// </summary>
+        /// <value>The item1.</value>
+        public TObject1 Item1 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the item2.
+        /// </summary>
+        /// <value>The item2.</value>
+        public TObject2 Item2 { get; set; }
     }
 }

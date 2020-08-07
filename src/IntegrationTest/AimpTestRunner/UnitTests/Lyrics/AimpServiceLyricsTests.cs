@@ -31,7 +31,7 @@ namespace Aimp.TestRunner.UnitTests.Lyrics
                     lyricsReceive = true;
                 };
 
-                var createPlaylistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+                var createPlaylistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
                 var file1 = createPlaylistResult.Result.GetItem(0);
                 var result = Player.ServiceLyrics.Get(file1.Result.FileInfo, LyricsFlags.Nocache | LyricsFlags.WaitFor, "UserData");
 
@@ -39,8 +39,6 @@ namespace Aimp.TestRunner.UnitTests.Lyrics
                 this.IsTrue(lyricsReceive);
 
                 createPlaylistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return result.ResultType;
             });
         }
 
@@ -49,7 +47,7 @@ namespace Aimp.TestRunner.UnitTests.Lyrics
         {
             ExecuteInMainThread(() =>
             {
-                var createPlaylistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+                var createPlaylistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
                 var file1 = createPlaylistResult.Result.GetItem(0);
                 var result = Player.ServiceLyrics.Get(file1.Result.FileInfo, LyricsFlags.Nocache | LyricsFlags.WaitFor, "UserData");
 
@@ -60,8 +58,6 @@ namespace Aimp.TestRunner.UnitTests.Lyrics
                 this.AreEqual(ActionResultType.OK, r.ResultType, "Unable to cancel lyric task");
 
                 createPlaylistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return r.ResultType;
             });
         }
     }

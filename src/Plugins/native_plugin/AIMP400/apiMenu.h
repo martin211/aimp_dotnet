@@ -72,16 +72,14 @@ const int AIMP_MENUID_ML_TREE_CONTEXT_DELETION = 81; // v4.10
 
 /* IAIMPMenuItem */
 
-class IAIMPMenuItem : public IAIMPPropertyList
-{
+class IAIMPMenuItem : public IAIMPPropertyList {
 public:
     virtual HRESULT WINAPI DeleteChildren() = 0;
 };
 
 /* IAIMPServiceMenuManager */
 
-class IAIMPServiceMenuManager : public IUnknown
-{
+class IAIMPServiceMenuManager : public IUnknown {
 public:
     virtual HRESULT WINAPI GetBuiltIn(int ID, IAIMPMenuItem** MenuItem) = 0;
     virtual HRESULT WINAPI GetByID(IAIMPString* ID, IAIMPMenuItem** MenuItem) = 0;

@@ -6,12 +6,9 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "AimpGroupingTreeSelection.h"
 #include "InternalAimpGroupingTreeDataProviderSelection.h"
-#include "AimpDataFilterGroup.h"
 
-class InternalAimpGroupingTreeDataProvider : public IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProvider>
-{
+class InternalAimpGroupingTreeDataProvider : public IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProvider> {
 private:
     gcroot<AIMP::SDK::MusicLibrary::DataStorage::IAimpGroupingTreeDataProvider^> _managedInstance;
 

@@ -10,8 +10,7 @@
 using namespace System;
 using namespace AIMP::SDK::MessageDispatcher;
 
-class InternalAimpMessageHook : public IUnknownInterfaceImpl<IAIMPMessageHook>
-{
+class InternalAimpMessageHook : public IUnknownInterfaceImpl<IAIMPMessageHook> {
 public:
     typedef IUnknownInterfaceImpl<IAIMPMessageHook> Base;
 

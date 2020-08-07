@@ -14,7 +14,7 @@ namespace AIMP.SDK.AlbumArtManager
     /// <summary>
     /// This service provides an access to cache manager for album arts.
     /// </summary>
-    public interface IAimpServiceAlbumArtCache
+    public interface IAimpServiceAlbumArtCache : IAimpService
     {
         /// <summary>
         /// Flushes cache for specified artist and album. Both parameters must be specified.
@@ -25,7 +25,8 @@ namespace AIMP.SDK.AlbumArtManager
         AimpActionResult Flush(string album, string artist);
 
         /// <summary>
-        /// Flushes cache for specified FileURI. FileURI can include wildcard characters, for example, an asterisk (*) or a question mark (?). 
+        /// Flushes cache for specified FileURI. FileURI can include wildcard characters, for example, an asterisk (*) or a
+        /// question mark (?).
         /// </summary>
         /// <param name="fileUri">The file URI.</param>
         /// <returns>ActionResultType.</returns>

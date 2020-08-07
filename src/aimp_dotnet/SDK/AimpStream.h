@@ -7,16 +7,13 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace AIMP::SDK;
 
         public ref class AimpStream :
             public AimpObject<IAIMPStream>,
-            public IAimpStream
-        {
+            public IAimpStream {
         public:
             explicit AimpStream(IAIMPStream* aimpObject);
 
@@ -27,15 +24,15 @@ namespace AIMP
             // Inherited via IAimpStream
             virtual long long GetSize();
 
-            virtual AIMP::SDK::ActionResultType SetSize(long long value);
+            virtual ActionResult SetSize(long long value);
 
             virtual long long GetPosition();
 
-            virtual AIMP::SDK::ActionResultType Seek(long long offset, System::IO::SeekOrigin mode);
+            virtual ActionResult Seek(long long offset, System::IO::SeekOrigin mode);
 
             virtual int Read(array<unsigned char, 1>^ buffer, int count);
 
-            virtual AIMP::SDK::ActionResultType Write(array<unsigned char, 1>^ buffer, int count, int% writen);
+            virtual ActionResult Write(array<unsigned char, 1>^ buffer, int count, int% writen);
         };
     }
 }

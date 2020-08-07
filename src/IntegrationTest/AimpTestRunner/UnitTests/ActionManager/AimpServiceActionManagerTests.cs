@@ -38,10 +38,8 @@ namespace Aimp.TestRunner.UnitTests.ActionManager
                 var action = actionResult.Result as IAimpAction;
                 this.NotNull(action);
 
-                var exception = this.Throw<ArgumentNullException>(() => Player.ActionManager.Register(action));
+                var exception = this.Throw<ArgumentNullException>(() => Player.ServiceActionManager.Register(action));
                 this.IsTrue(exception.Message.Contains("Action name cannot be empty"));
-
-                return ActionResultType.OK;
             });
         }
 
@@ -55,9 +53,8 @@ namespace Aimp.TestRunner.UnitTests.ActionManager
                 this.NotNull(action);
 
                 action.Name = "Test";
-                var exception = this.Throw<ArgumentNullException>(() => Player.ActionManager.Register(action));
+                var exception = this.Throw<ArgumentNullException>(() => Player.ServiceActionManager.Register(action));
                 this.IsTrue(exception.Message.Contains("Action id cannot be empty"));
-                return ActionResultType.OK;
             });
         }
 
@@ -81,8 +78,6 @@ namespace Aimp.TestRunner.UnitTests.ActionManager
                 this.AreEqual("integration.action.1", () => action.Id);
                 this.AreEqual("integration", () => action.GroupName);
                 this.AreEqual("custom data", () => action.CustomData);
-
-                return ActionResultType.OK;
             });
         }
 
@@ -99,11 +94,9 @@ namespace Aimp.TestRunner.UnitTests.ActionManager
                 action.Name = "test action";
                 action.Id = "integration.test";
 
-                var result = Player.ActionManager.Register(action);
+                var result = Player.ServiceActionManager.Register(action);
 
                 this.AreEqual(ActionResultType.OK, () => result.ResultType);
-
-                return result.ResultType;
             });
         }
 
@@ -112,14 +105,12 @@ namespace Aimp.TestRunner.UnitTests.ActionManager
         {
             ExecuteInMainThread(() =>
             {
-                var actionResult = Player.ActionManager.GetById("integration.test");
+                var actionResult = Player.ServiceActionManager.GetById("integration.test");
 
                 this.AreEqual(ActionResultType.OK, () => actionResult.ResultType);
                 this.NotNull(() => actionResult.Result);
                 this.AreEqual("integration.test", () => actionResult.Result.Id);
                 this.AreEqual("test action", () => actionResult.Result.Name);
-
-                return actionResult.ResultType;
             });
         }
     }

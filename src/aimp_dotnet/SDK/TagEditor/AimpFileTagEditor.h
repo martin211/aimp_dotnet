@@ -7,27 +7,24 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace AIMP::SDK::FileManager;
         using namespace AIMP::SDK::TagEditor;
 
-        public ref class AimpFileTagEditor : public IAimpFileTagEditor, public AimpObject<IAIMPFileTagEditor>
-        {
+        public ref class AimpFileTagEditor : public IAimpFileTagEditor, public AimpObject<IAIMPFileTagEditor> {
         public:
             explicit AimpFileTagEditor(IAIMPFileTagEditor* aimpObject);
 
-            virtual ActionResultType GetMixedInfo(IAimpFileInfo^% fileInfo);
+            virtual TYPED_RESULT(IAimpFileInfo) GetMixedInfo();
 
-            virtual ActionResultType GetTag(int index, IAimpFileTag^% fileTag);
+            virtual TYPED_RESULT(IAimpFileTag) GetTag(int index);
 
             virtual int GetTagCount();
 
-            virtual ActionResultType SetToAll(IAimpFileInfo^ fileInfo);
+            virtual ActionResult SetToAll(IAimpFileInfo^ fileInfo);
 
-            virtual ActionResultType Save();
+            virtual ActionResult Save();
         };
     }
 }

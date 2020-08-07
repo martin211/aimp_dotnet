@@ -8,17 +8,14 @@
 #pragma once
 #include "AimpPlaylistPreimageListener.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace AIMP::SDK::Playlist;
 
         public ref class AimpPlaylistPreimage :
             public AimpObject<IAIMPPlaylistPreimage>,
-            public IAimpPlaylistPreimage
-        {
+            public IAimpPlaylistPreimage {
         public:
             explicit AimpPlaylistPreimage(IAIMPPlaylistPreimage* aimpObject);
 
@@ -50,11 +47,11 @@ namespace AIMP
                 String^ get();
             }
 
-            virtual ActionResultType ConfigLoad(IAimpStream^ stream);
+            virtual ActionResult ConfigLoad(IAimpStream^ stream);
 
-            virtual ActionResultType ConfigSave(IAimpStream^ stream);
+            virtual ActionResult ConfigSave(IAimpStream^ stream);
 
-            virtual ActionResultType ExecuteDialog(IntPtr ownerHandle);
+            virtual ActionResult ExecuteDialog(IntPtr ownerHandle);
 
             virtual void Initialize(IAimpPlaylistPreimageListener^ listener);
 

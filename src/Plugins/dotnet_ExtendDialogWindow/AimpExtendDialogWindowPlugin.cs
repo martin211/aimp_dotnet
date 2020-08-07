@@ -31,7 +31,6 @@ namespace dotnet_ExtendDialogWindow
 
         public override void Dispose()
         {
-            
         }
     }
 }

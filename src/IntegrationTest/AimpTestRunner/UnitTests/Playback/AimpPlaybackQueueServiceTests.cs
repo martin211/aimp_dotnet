@@ -22,14 +22,12 @@ namespace Aimp.TestRunner.UnitTests.Playback
         {
             ExecuteInMainThread(() =>
             {
-                var createPlaylistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+                var createPlaylistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
                 var item = Player.ServicePlaybackQueue.GetNextTrack();
                 AssertOKResult(item.ResultType, "Cannot get next track from playback queue");
                 this.NotNull(item.Result);
 
                 createPlaylistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return item.ResultType;
             });
         }
 
@@ -38,14 +36,12 @@ namespace Aimp.TestRunner.UnitTests.Playback
         {
             ExecuteInMainThread(() =>
             {
-                var createPlaylistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+                var createPlaylistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
                 var item = Player.ServicePlaybackQueue.GetPrevTrack();
                 AssertOKResult(item.ResultType, "Cannot get prev track from playback queue");
                 this.NotNull(item.Result);
 
                 createPlaylistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
-
-                return item.ResultType;
             });
         }
     }

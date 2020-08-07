@@ -68,8 +68,6 @@ namespace Aimp.TestRunner.UnitTests.Playback
 
                 result = Player.Core.UnregisterExtension(extension);
                 AssertOKResult(result.ResultType, "Unable to unregister a AimpExtensionPlayerHook");
-
-                return result.ResultType;
             });
         }
 
@@ -91,7 +89,7 @@ namespace Aimp.TestRunner.UnitTests.Playback
                 var result = Player.Core.RegisterExtension(extension);
                 AssertOKResult(result.ResultType, "Unable to register a AimpExtensionPlayerHook");
 
-                var createPlaylistResult = Player.PlaylistManager.CreatePlaylist("AimpExtensionPlayerHook", true);
+                var createPlaylistResult = Player.ServicePlaylistManager.CreatePlaylist("AimpExtensionPlayerHook", true);
                 AssertOKResult(createPlaylistResult.ResultType, "Cannot create a playlist from file");
                 createPlaylistResult.Result.Add(TrackUrl1, PlaylistFlags.NoCheckFormat, PlaylistFilePosition.CurrentPosition);
 
@@ -100,20 +98,16 @@ namespace Aimp.TestRunner.UnitTests.Playback
                     playList = createPlaylistResult.Result;
                     var r = Player.Play(createPlaylistResult.Result);
                 }
-
-                return ActionResultType.OK;
             });
 
             ExecuteAndWait(() =>
             {
                 Thread.Sleep(25000);
-                return ActionResultType.OK;
             });
 
             ExecuteInMainThread(() =>
             {
                 playList?.Close(PlaylistCloseFlag.ForceRemove);
-                return ActionResultType.OK;
             });
         }
 
@@ -128,8 +122,6 @@ namespace Aimp.TestRunner.UnitTests.Playback
 
                 result = Player.Core.UnregisterExtension(extension);
                 AssertOKResult(result.ResultType, "Unable to unregister a AimpExtensionPlaybackQueue");
-
-                return result.ResultType;
             });
         }
     }

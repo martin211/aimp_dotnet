@@ -1,32 +1,34 @@
+// ----------------------------------------------------
+// AIMP DotNet SDK
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// Mail: mail4evgeniy@gmail.com
+// ----------------------------------------------------
+
 #include "Stdafx.h"
 #include "AimpExtensionPlayerHook.h"
 
-HRESULT AimpExtensionPlayerHook::OnCheckURL(IAIMPString* url, BOOL* handled)
-{
+HRESULT AimpExtensionPlayerHook::OnCheckURL(IAIMPString* url, BOOL* handled) {
     auto urlString = AimpConverter::ToManagedString(url);
     auto result = _managed->OnCheckURL(*&urlString);
-    if (result)
-    {
+    if (result) {
         IAIMPString* str = AimpConverter::ToAimpString(urlString);
         url->SetData(str->GetData(), str->GetLength());
         str->Release();
         str = nullptr;
         *handled = 1;
     }
-    else
-    {
+    else {
         *handled = 0;
     }
 
     return S_OK;
 }
 
-HRESULT AimpExtensionPlayerHook::QueryInterface(const IID& riid, LPVOID* ppvObject)
-{
+HRESULT AimpExtensionPlayerHook::QueryInterface(const IID& riid, LPVOID* ppvObject) {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPExtensionPlayerHook)
-    {
+    if (riid == IID_IAIMPExtensionPlayerHook) {
         *ppvObject = this;
         AddRef();
         return S_OK;
@@ -36,12 +38,10 @@ HRESULT AimpExtensionPlayerHook::QueryInterface(const IID& riid, LPVOID* ppvObje
     return res;
 }
 
-ULONG AimpExtensionPlayerHook::AddRef()
-{
+ULONG AimpExtensionPlayerHook::AddRef() {
     return Base::AddRef();
 }
 
-ULONG AimpExtensionPlayerHook::Release()
-{
+ULONG AimpExtensionPlayerHook::Release() {
     return Base::Release();
 }

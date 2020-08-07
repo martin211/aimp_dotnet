@@ -8,15 +8,12 @@
 #pragma once
 #include "AimpSdk.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace Runtime::InteropServices;
         using namespace ActionManager;
 
-        public ref class AimpAction : public AimpObject<IAIMPAction>, public IAimpAction
-        {
+        public ref class AimpAction : public AimpObject<IAIMPAction>, public IAimpAction {
         private:
             EventHandler^ _onExecuteHandler;
             IAIMPActionEvent* _onExecuteEvent;

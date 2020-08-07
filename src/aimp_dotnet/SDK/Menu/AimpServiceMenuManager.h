@@ -7,17 +7,14 @@
 
 #pragma once
 #include "AIMPSDK/AIMP400/apiDecoders.h"
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace MenuManager;
 
         public ref class AimpServiceMenuManager : public BaseAimpService<IAIMPServiceMenuManager>,
-                                           public IAimpServiceMenuManager
-        {
+                                                  public IAimpServiceMenuManager {
         public:
             explicit AimpServiceMenuManager(ManagedAimpCore^ core);
 

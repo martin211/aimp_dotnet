@@ -8,18 +8,15 @@
 #pragma once
 #include "SDK\AimpObject.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace FileManager;
         using namespace Commands;
         using namespace Objects;
 
         public ref class AimpFileSystemCommandFileInfo : AimpObject<IAIMPFileSystemCommandFileInfo>,
-                                                         IAimpFileSystemCommandFileInfo
-        {
+                                                         IAimpFileSystemCommandFileInfo {
         public:
             explicit AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject);
 

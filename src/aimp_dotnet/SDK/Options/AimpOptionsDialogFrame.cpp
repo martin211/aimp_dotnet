@@ -10,6 +10,5 @@
 
 using namespace AIMP::SDK;
 
-AimpOptionsDialogFrame::AimpOptionsDialogFrame(IAIMPOptionsDialogFrame* aimpObject) : AimpObject(aimpObject)
-{
+AimpOptionsDialogFrame::AimpOptionsDialogFrame(IAIMPOptionsDialogFrame* aimpObject) : AimpObject(aimpObject) {
 }

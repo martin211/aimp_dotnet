@@ -7,18 +7,15 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace Drawing;
         using namespace Runtime::InteropServices;
         using namespace MenuManager;
         using namespace ActionManager;
 
-        public ref class AimpMenuItem : public AimpObject<IAIMPMenuItem>, public IAimpMenuItem
-        {
+        public ref class AimpMenuItem : public AimpObject<IAIMPMenuItem>, public IAimpMenuItem {
         private:
             EventHandler^ _onExecuteHandler;
             EventHandler^ _onShowHandler;
@@ -30,15 +27,13 @@ namespace AIMP
             IAimpMenuItem^ _parent = nullptr;
 
         internal:
-            static void Execute(gcroot<IAimpActionEvent^> sender, IUnknown* data)
-            {
+            static void Execute(gcroot<IAimpActionEvent^> sender, IUnknown* data) {
                 Object^ obj = sender;
                 AimpMenuItem^ item = dynamic_cast<AimpMenuItem^>(obj);
                 item->OnExecute(sender, EventArgs::Empty);
             }
 
-            static void Show(gcroot<IAimpActionEvent^> sender, IUnknown* data)
-            {
+            static void Show(gcroot<IAimpActionEvent^> sender, IUnknown* data) {
                 Object^ obj = sender;
                 AimpMenuItem^ item = dynamic_cast<AimpMenuItem^>(obj);
                 item->OnShow(sender, EventArgs::Empty);
@@ -133,8 +128,7 @@ namespace AIMP
                 void set(int value);
             }
 
-            virtual ActionResult DeleteChildren()
-            {
+            virtual ActionResult DeleteChildren() {
                 return gcnew AimpActionResult(CheckResult(InternalAimpObject->DeleteChildren()));
             }
 

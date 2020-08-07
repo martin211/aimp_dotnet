@@ -20,7 +20,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
     public class AimpPlaylistQueueTests : AimpIntegrationTest
     {
         private IAimpPlaylist _playlist;
-        private IAimpPlaylistQueue PlaylistQueue => Player.PlaylistManager.PlaylistQueue;
+        private IAimpPlaylistQueue PlaylistQueue => Player.ServicePlaylistManager.PlaylistQueue;
 
         public override void SetUp()
         {
@@ -28,12 +28,10 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
             ExecuteInMainThread(() =>
             {
-                var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+                var playlistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
                 this.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
                 this.NotNull(playlistResult.Result, "playlistResult.Result");
                 _playlist = playlistResult.Result;
-
-                return playlistResult.ResultType;
             });
         }
 
@@ -44,7 +42,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
             ExecuteInMainThread(() =>
             {
                 _playlist?.Close(PlaylistCloseFlag.ForceRemove);
-                return ActionResultType.OK;
             });
         }
 
@@ -67,8 +64,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
                 var count = PlaylistQueue.GetItemCount();
                 this.AreEqual(oldCount - 1, count);
-
-                return result;
             });
         }
 
@@ -91,8 +86,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
                 result = PlaylistQueue.Delete(getItemResult.Result).ResultType;
                 this.AreEqual(ActionResultType.OK, result, "Failed. Remove item from queue");
-
-                return result;
             });
         }
 
@@ -115,8 +108,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 this.AreEqual(ActionResultType.OK, result.ResultType);
                 var count = PlaylistQueue.GetItemCount();
                 this.AreEqual(oldCount + 2, count);
-
-                return result.ResultType;
             });
         }
 
@@ -137,8 +128,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 PlaylistQueue.Add(getItemResult.Result, true);
                 PlaylistQueue.IsSuspended = !PlaylistQueue.IsSuspended;
                 this.IsTrue(stateChanged);
-
-                return ActionResultType.OK;
             });
         }
 
@@ -159,8 +148,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                 var result = PlaylistQueue.Add(getItemResult.Result, true).ResultType;
 
                 this.IsTrue(changed);
-
-                return result;
             });
         }
 
@@ -186,8 +173,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
                 PlaylistQueue.Delete(getItemsResult1.Result);
                 PlaylistQueue.Delete(getItemsResult2.Result);
-
-                return result;
             });
         }
 
@@ -212,8 +197,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
                 PlaylistQueue.Delete(getItemsResult1.Result);
                 PlaylistQueue.Delete(getItemsResult2.Result);
-
-                return result;
             });
         }
 
@@ -233,8 +216,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
                 var result = PlaylistQueue.Move(-1, 0);
                 this.AreEqual(ActionResultType.InvalidArguments, result.ResultType);
-
-                return ActionResultType.OK;
             });
         }
 
@@ -254,8 +235,6 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
                 var result = PlaylistQueue.Move(1, -10);
                 this.AreEqual(ActionResultType.InvalidArguments, result.ResultType);
-
-                return ActionResultType.OK;
             });
         }
     }

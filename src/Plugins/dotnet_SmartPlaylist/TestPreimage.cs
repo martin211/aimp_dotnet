@@ -35,9 +35,8 @@ namespace Aimp.DotNet.SmartPlaylist
         {
             get
             {
-                string id;
-                _factory.GetId(out id);
-                return id;
+                var r = _factory.GetId();
+                return r.Result;
             }
         }
 
@@ -49,20 +48,30 @@ namespace Aimp.DotNet.SmartPlaylist
 
         public string SortTemplate => string.Empty;
 
-        public ActionResultType ConfigLoad(IAimpStream stream)
+        AimpActionResult IAimpPlaylistPreimage.ConfigLoad(IAimpStream stream)
         {
-            return ActionResultType.OK;
+            return ConfigLoad(stream);
         }
 
-        public ActionResultType ConfigSave(IAimpStream stream)
+        public AimpActionResult ConfigSave(IAimpStream stream)
         {
-            return ActionResultType.OK;
+            throw new NotImplementedException();
         }
 
-        public ActionResultType ExecuteDialog(IntPtr ownerHandle)
+        AimpActionResult IAimpPlaylistPreimage.ExecuteDialog(IntPtr ownerHandle)
+        {
+            return ExecuteDialog(ownerHandle);
+        }
+
+        AimpActionResult ExecuteDialog(IntPtr ownerHandle)
         {
             MessageBox.Show("!!!");
-            return ActionResultType.OK;
+            return new AimpActionResult(ActionResultType.OK);
+        }
+
+        AimpActionResult ConfigLoad(IAimpStream stream)
+        {
+            return new AimpActionResult(ActionResultType.OK);
         }
 
         public void Initialize(IAimpPlaylistPreimageListener listener)
@@ -75,20 +84,17 @@ namespace Aimp.DotNet.SmartPlaylist
             _factory.Preimages.Remove(this);
         }
 
-        public ActionResultType GetFiles(IAimpTaskOwner owner, out int preimageFlags, out IList dataList)
-        {
-            preimageFlags = (int)PreimageFlags.None;
-            dataList = new List<string>
-            {
-                Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)
-            };
-
-            return ActionResultType.OK;
-        }
-
         ~TestPreimage()
         {
             FinalizeObject();
+        }
+
+        public AimpActionResult<int, IList> GetFiles(IAimpTaskOwner owner)
+        {
+            return new AimpActionResult<int, IList>(ActionResultType.OK, (int) PreimageFlags.None, new List<string>
+            {
+                Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)
+            });
         }
     }
 }

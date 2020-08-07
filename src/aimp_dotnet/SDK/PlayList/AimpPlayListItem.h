@@ -7,40 +7,36 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
 
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::Playlist;
         using namespace AIMP::SDK::FileManager;
 
-        public ref class AimpPlaylistItem : public AimpObject<IAIMPPlaylistItem>, public IAimpPlaylistItem
-        {
+        public ref class AimpPlaylistItem : public AimpObject<IAIMPPlaylistItem>, public IAimpPlaylistItem {
         private:
             IAimpPlaylistGroup^ _group;
             bool _disposed;
         internal:
-            AimpPlaylistItem(IAIMPPlaylistItem* aimpItem) : AimpObject(aimpItem)
-            {
+            AimpPlaylistItem(IAIMPPlaylistItem* aimpItem) : AimpObject(aimpItem) {
             }
 
             AimpPlaylistItem(IAimpPlaylistItem^ item);
         public:
             AimpPlaylistItem();
 
-            virtual property System::String^ DisplayText
+            virtual property String^ DisplayText
             {
-                System::String^ get();
-                void set(System::String^ value);
+                String^ get();
+                void set(String^ value);
             }
 
-            virtual property System::String^ FileName
+            virtual property String^ FileName
             {
-                System::String^ get();
-                void set(System::String^ value);
+                String^ get();
+                void set(String^ value);
             }
 
             virtual property int Index
@@ -88,7 +84,7 @@ namespace AIMP
                 void set(IAimpPlaylist^ val);
             }
 
-            virtual ActionResultType ReloadInfo();
+            virtual ActionResult ReloadInfo();
 
         protected:
             void RegisterAtMemoryManager() override;

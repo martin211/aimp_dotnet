@@ -25,7 +25,8 @@ namespace dotnet_albumart
             return new AimpActionResult<Bitmap>(ActionResultType.OK, image);
         }
 
-        public AimpActionResult<Bitmap> Get(string fileUrl, string artist, string album, IAimpAlbumArtSearchOptions options)
+        public AimpActionResult<Bitmap> Get(string fileUrl, string artist, string album,
+            IAimpAlbumArtSearchOptions options)
         {
             var image = Properties.Resources.front;
             return new AimpActionResult<Bitmap>(ActionResultType.OK, image);

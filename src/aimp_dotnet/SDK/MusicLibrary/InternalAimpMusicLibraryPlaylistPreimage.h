@@ -11,15 +11,12 @@
 using namespace AIMP::SDK;
 using namespace MusicLibrary;
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         class InternalAimpMusicLibraryPlaylistPreimage :
             //IUnknownInterfaceImpl<IAIMPMLPlaylistPreimage>
             public IAIMPMLPlaylistPreimage,
-            public InternalAimpPlaylistPreimage
-        {
+            public InternalAimpPlaylistPreimage {
         private:
             gcroot<IAimpMusicLibraryPlaylistPreimage^> _managedInstance;
         public:

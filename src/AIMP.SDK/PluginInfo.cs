@@ -10,28 +10,38 @@
 // ----------------------------------------------------
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Windows.Forms;
+using AIMP.SDK.Player;
 
 namespace AIMP.SDK
 {
-    using Player;
-
     /// <summary>
-    /// 
+    /// Delegate PluginLoadUnloadEvent
     /// </summary>
     /// <param name="sender">The sender.</param>
     public delegate void PluginLoadUnloadEvent(PluginInformation sender);
 
     /// <summary>
     /// Information about plugin.
+    /// Implements the <see cref="System.IDisposable" />
     /// </summary>
+    /// <seealso cref="System.IDisposable" />
     [Serializable]
     public class PluginInformation : IDisposable
     {
+        /// <summary>
+        /// The current unique plugin identifier
+        /// </summary>
         private static int _curUniquePluginId = 100;
 
+        /// <summary>
+        /// The in path to assembly
+        /// </summary>
         private readonly FileInfo _inPathToAssembly;
 
         /// <summary>
@@ -52,7 +62,7 @@ namespace AIMP.SDK
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PluginInformation"/> class.
+        /// Initializes a new instance of the <see cref="PluginInformation" /> class.
         /// </summary>
         /// <param name="assemblyPath">The assembly path.</param>
         /// <param name="assemblyName">Name of the assembly.</param>
@@ -72,42 +82,43 @@ namespace AIMP.SDK
         /// <summary>
         /// Gets the name of the assembly file.
         /// </summary>
-        public string AssemblyFileName
-        {
-            get { return _inPathToAssembly.Name; }
-        }
+        /// <value>The name of the assembly file.</value>
+        public string AssemblyFileName => _inPathToAssembly.Name;
 
         /// <summary>
         /// Gets the name of the plugin assembly.
         /// </summary>
+        /// <value>The name of the plugin assembly.</value>
         public string PluginAssemblyName { get; private set; }
 
         /// <summary>
         /// Gets the name of the plugin class.
         /// </summary>
+        /// <value>The name of the plugin class.</value>
         public string PluginClassName { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether this plugin is loaded.
         /// </summary>
-        public bool IsLoaded
-        {
-            get { return LoadedPlugin != null; }
-        }
+        /// <value><c>true</c> if this instance is loaded; otherwise, <c>false</c>.</value>
+        public bool IsLoaded => LoadedPlugin != null;
 
         /// <summary>
         /// Gets the plugin information.
         /// </summary>
+        /// <value>The plugin information.</value>
         public AimpPluginAttribute PluginInfo { get; private set; }
 
         /// <summary>
         /// Gets the loaded plugin.
         /// </summary>
+        /// <value>The loaded plugin.</value>
         public AimpPlugin LoadedPlugin { get; private set; }
 
         /// <summary>
         /// Gets the plugin application domain information (null = current doamin).
         /// </summary>
+        /// <value>The plugin application domain information.</value>
         public AppDomain PluginAppDomainInfo { get; private set; }
 
         /// <summary>
@@ -121,9 +132,13 @@ namespace AIMP.SDK
             }
         }
 
+        /// <summary>
+        /// Gets the new uniq plugin identifier.
+        /// </summary>
+        /// <returns>System.Int32.</returns>
         private static int GetNewUniqPluginId()
         {
-            return System.Threading.Interlocked.Increment(ref _curUniquePluginId);
+            return Interlocked.Increment(ref _curUniquePluginId);
         }
 
         /// <summary>
@@ -139,7 +154,7 @@ namespace AIMP.SDK
         /// <summary>
         /// Loads this plugin.
         /// </summary>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool Load()
         {
             if (!IsLoaded)
@@ -148,30 +163,31 @@ namespace AIMP.SDK
                 {
                     try
                     {
-                        AppDomainSetup dmnSetup = new AppDomainSetup
+                        var dmnSetup = new AppDomainSetup
                         {
                             ApplicationName = PluginInfo.Name,
                             ApplicationBase = _inPathToAssembly.DirectoryName
                         };
 
                         PluginAppDomainInfo = AppDomain.CreateDomain(
-                                PluginInfo.Name + "_domain" + Guid.NewGuid().ToString().GetHashCode().ToString("x"),
-                                null, dmnSetup);
-                        LoadedPlugin = (AimpPlugin) PluginAppDomainInfo.CreateInstanceFromAndUnwrap(_inPathToAssembly.FullName,
-                                PluginClassName);
+                            PluginInfo.Name + "_domain" + Guid.NewGuid().ToString().GetHashCode().ToString("x"),
+                            null, dmnSetup);
+                        LoadedPlugin = (AimpPlugin) PluginAppDomainInfo.CreateInstanceFromAndUnwrap(
+                            _inPathToAssembly.FullName,
+                            PluginClassName);
 
                         PluginAppDomainInfo.AssemblyResolve += (sender, args) =>
                         {
-                            string projectDir = Path.GetDirectoryName(_inPathToAssembly.DirectoryName);
+                            var projectDir = Path.GetDirectoryName(_inPathToAssembly.DirectoryName);
 
                             var i = args.Name.IndexOf(',');
                             if (i != -1)
                             {
-                                string shortAssemblyName = args.Name.Substring(0, args.Name.IndexOf(','));
-                                string fileName = Path.Combine(projectDir, shortAssemblyName + ".dll");
+                                var shortAssemblyName = args.Name.Substring(0, args.Name.IndexOf(','));
+                                var fileName = Path.Combine(projectDir, shortAssemblyName + ".dll");
                                 if (File.Exists(fileName))
                                 {
-                                    Assembly result = Assembly.LoadFrom(fileName);
+                                    var result = Assembly.LoadFrom(fileName);
                                     return result;
                                 }
 
@@ -184,7 +200,9 @@ namespace AIMP.SDK
                                 }
                             }
 
-                            return Assembly.GetExecutingAssembly().FullName == args.Name ? Assembly.GetExecutingAssembly() : null;
+                            return Assembly.GetExecutingAssembly().FullName == args.Name
+                                ? Assembly.GetExecutingAssembly()
+                                : null;
                         };
                     }
                     catch (Exception ex)
@@ -197,13 +215,13 @@ namespace AIMP.SDK
 
                         LoadedPlugin = null;
 #if DEBUG
-                        System.Windows.Forms.MessageBox.Show(ex.Message);
+                        MessageBox.Show(ex.Message);
 #endif
                     }
                 }
                 else
                 {
-                    System.Reflection.Assembly asm = null;
+                    Assembly asm = null;
                     try
                     {
                         asm = AppDomain.CurrentDomain.GetAssemblies()
@@ -212,7 +230,7 @@ namespace AIMP.SDK
                     catch (Exception ex)
                     {
 #if DEBUG
-                        System.Windows.Forms.MessageBox.Show(ex.Message);
+                        MessageBox.Show(ex.Message);
 #endif
                     }
 
@@ -220,12 +238,12 @@ namespace AIMP.SDK
                     {
                         try
                         {
-                            asm = System.Reflection.Assembly.LoadFrom(_inPathToAssembly.FullName);
+                            asm = Assembly.LoadFrom(_inPathToAssembly.FullName);
                         }
                         catch (Exception ex)
                         {
 #if DEBUG
-                            System.Windows.Forms.MessageBox.Show(ex.Message);
+                            MessageBox.Show(ex.Message);
 #endif
                         }
                     }
@@ -234,13 +252,13 @@ namespace AIMP.SDK
                     {
                         try
                         {
-                            Type instType = asm.GetType(PluginClassName);
+                            var instType = asm.GetType(PluginClassName);
                             LoadedPlugin = (AimpPlugin) Activator.CreateInstance(instType);
                         }
                         catch (Exception ex)
                         {
 #if DEBUG
-                            System.Windows.Forms.MessageBox.Show(ex.Message);
+                            MessageBox.Show(ex.Message);
 #endif
                         }
                     }
@@ -262,17 +280,19 @@ namespace AIMP.SDK
                     }
                     catch (Exception e)
                     {
-                        System.Diagnostics.Debugger.Break();
+                        Debugger.Break();
                         Unload();
                     }
                 }
             }
+
             return IsLoaded;
         }
 
         /// <summary>
         /// Unloads this plugin.
         /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool Unload()
         {
             if (IsLoaded)
@@ -280,7 +300,9 @@ namespace AIMP.SDK
                 try
                 {
                     if (PluginUnloadEvent != null)
+                    {
                         PluginUnloadEvent(this);
+                    }
 
                     LoadedPlugin.OnDispose();
 
@@ -297,10 +319,11 @@ namespace AIMP.SDK
                 catch (Exception ex)
                 {
 #if DEBUG
-                    System.Windows.Forms.MessageBox.Show(ex.Message);
+                    MessageBox.Show(ex.Message);
 #endif
                 }
             }
+
             return !IsLoaded;
         }
 

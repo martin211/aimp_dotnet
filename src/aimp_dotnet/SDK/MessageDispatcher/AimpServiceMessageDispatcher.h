@@ -6,20 +6,17 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 #include "InternalAimpMessageHook.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace SDK;
         using namespace MessageDispatcher;
 
         public ref class AimpServiceMessageDispatcher : public BaseAimpService<IAIMPServiceMessageDispatcher>,
-                                                        public IAimpServiceMessageDispatcher
-        {
+                                                        public IAimpServiceMessageDispatcher {
         public:
             explicit AimpServiceMessageDispatcher(ManagedAimpCore^ core);
 

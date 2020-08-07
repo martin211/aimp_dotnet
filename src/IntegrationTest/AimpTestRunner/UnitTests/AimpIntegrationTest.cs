@@ -23,7 +23,7 @@ using NUnit.Framework.Constraints;
 
 namespace Aimp.TestRunner.UnitTests
 {
-    public static class AssertExtension
+    public static class IntegrationTestExtension
     {
         public static EqualAssert AreEqual<TResult>(this AimpIntegrationTest testClass, object expected, Expression<Func<TResult>> current, string message = null)
         {
@@ -86,14 +86,18 @@ namespace Aimp.TestRunner.UnitTests
             return assert;
         }
 
-        public static void IsTrue(this AimpIntegrationTest testClass, bool value)
+        public static TrueAssert IsTrue(this AimpIntegrationTest testClass, bool value)
         {
-            testClass.Asserts.Add(new TrueAssert(null, value, null));
+            var assert = new TrueAssert(null, value, null);
+            testClass.Asserts.Add(assert);
+            return assert;
         }
 
-        public static void IsFalse(this AimpIntegrationTest testClass, bool value)
+        public static FalseAssert IsFalse(this AimpIntegrationTest testClass, bool value)
         {
-            testClass.Asserts.Add(new FalseAssert(null, value, null));
+            var assert = new FalseAssert(null, value, null);
+            testClass.Asserts.Add(assert);
+            return assert;
         }
 
         public static TException Throw<TException>(this AimpIntegrationTest testClass, TestDelegate action)
@@ -102,6 +106,21 @@ namespace Aimp.TestRunner.UnitTests
             var assert = new ThrowAssert<TException>(action);
             testClass.Asserts.Add(assert);
             return (TException) assert.CatchedException;
+        }
+
+        public static AimpActionResult OKResult(this AimpIntegrationTest testClass)
+        {
+            return new AimpActionResult(ActionResultType.OK);
+        }
+
+        public static AimpActionResult Result(this AimpIntegrationTest testClass, ActionResultType result)
+        {
+            return new AimpActionResult(result);
+        }
+
+        public static AimpActionResult Result(this ActionResultType res)
+        {
+            return new AimpActionResult(res);
         }
 
         public static void Null<TResult>(this AimpIntegrationTest testClass, Expression<Func<TResult>> current)
@@ -359,24 +378,25 @@ namespace Aimp.TestRunner.UnitTests
             return task.Result;
         }
 
-        protected ActionResultType ExecuteInMainThread(Func<ActionResultType> testFunc)
+        protected AimpActionResult ExecuteInMainThread(Action testFunc)
         {
             var task = new AimpTask(testFunc);
-            return Player.ServiceSynchronizer.ExecuteInMainThread(task, true);
+            Player.ServiceSynchronizer.ExecuteInMainThread(task, true);
+            return new AimpActionResult(ActionResultType.OK);
         }
 
-        protected ActionResultType ExecuteInThread(Func<ActionResultType> func)
+        protected AimpActionResult ExecuteInThread(Action func)
         {
             var t =  new AimpTask(func);
-            return Player.ServiceThreadPool.Execute(t, out _);
+            return Player.ServiceThreadPool.Execute(t);
         }
 
-        public ActionResultType ExecuteAndWait(Func<ActionResultType> func)
+        public AimpActionResult ExecuteAndWait(Action func)
         {
             var t = new AimpTask(func);
-            var r = Player.ServiceThreadPool.Execute(t, out var id);
-            r = Player.ServiceThreadPool.WaitFor(id);
-            return r;
+            var r = Player.ServiceThreadPool.Execute(t);
+            var res = Player.ServiceThreadPool.WaitFor(r.Result);
+            return res;
         }
 
         internal void Validate()
@@ -394,16 +414,17 @@ namespace Aimp.TestRunner.UnitTests
 
         private class AimpTask : IAimpTask
         {
-            private readonly Func<ActionResultType> _task;
+            private readonly Action _task;
 
-            public AimpTask(Func<ActionResultType> task)
+            public AimpTask(Action task)
             {
                 _task = task;
             }
 
-            public ActionResultType Execute(IAimpTaskOwner owner)
+            public AimpActionResult Execute(IAimpTaskOwner owner)
             {
-                return _task();
+                _task();
+                return new AimpActionResult(ActionResultType.OK);
             }
         }
 
@@ -418,10 +439,10 @@ namespace Aimp.TestRunner.UnitTests
                 _task = task;
             }
 
-            public ActionResultType Execute(IAimpTaskOwner owner)
+            public AimpActionResult Execute(IAimpTaskOwner owner)
             {
                 Result = _task();
-                return ActionResultType.OK;
+                return new AimpActionResult(ActionResultType.OK);
             }
         }
     }

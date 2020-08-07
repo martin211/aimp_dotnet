@@ -8,83 +8,67 @@
 #include "Stdafx.h"
 #include "InternalAimpGroupingTreeDataProviderSelection.h"
 
+#include <string>
+
 using namespace AIMP::SDK;
 
 InternalAimpGroupingTreeDataProviderSelection::InternalAimpGroupingTreeDataProviderSelection(
-    gcroot<IAimpGroupingTreeDataProviderSelection^> managedInstance)
-{
+    gcroot<IAimpGroupingTreeDataProviderSelection^> managedInstance) {
     _managedInstance = managedInstance;
 }
 
-HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetDisplayValue(IAIMPString** S)
-{
-    String^ str;
-    ActionResultType result = _managedInstance->GetDisplayValue(str);
+HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetDisplayValue(IAIMPString** S) {
+    auto result = _managedInstance->GetDisplayValue();
 
-    if (result == ActionResultType::OK)
-    {
-        *S = AimpConverter::ToAimpString(str);
+    if (result->ResultType == ActionResultType::OK) {
+        *S = AimpConverter::ToAimpString(result->Result);
     }
 
-    return HRESULT(result);
+    return HRESULT(result->ResultType);
 }
 
-DWORD WINAPI InternalAimpGroupingTreeDataProviderSelection::GetFlags()
-{
+DWORD WINAPI InternalAimpGroupingTreeDataProviderSelection::GetFlags() {
     return DWORD(_managedInstance->GetFlags());
 }
 
-HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetImageIndex(int* Index)
-{
-    FieldImageIndex index;
-    ActionResultType result = _managedInstance->GetImageIndex(index);
+HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetImageIndex(int* Index) {
+    auto result = _managedInstance->GetImageIndex();
 
-    if (result == ActionResultType::OK)
-    {
-        *Index = int(index);
+    if (result->ResultType == ActionResultType::OK) {
+        *Index = static_cast<int>(result->Result);
     }
 
-    return HRESULT(result);
+    return HRESULT(result->ResultType);
 }
 
-HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetValue(IAIMPString** FieldName, VARIANT* Value)
-{
-    String^ fieldName;
-    Object^ val;
+HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetValue(IAIMPString** FieldName, VARIANT* Value) {
+    auto result = _managedInstance->GetValue();
 
-    ActionResultType result = _managedInstance->GetValue(fieldName, val);
-
-    if (result == ActionResultType::OK)
-    {
-        *FieldName = AimpConverter::ToAimpString(fieldName);
-        VARIANT v = AimpConverter::ToNativeVariant(val);
+    if (result->ResultType == ActionResultType::OK) {
+        *FieldName = AimpConverter::ToAimpString(result->Item1);
+        VARIANT v = AimpConverter::ToNativeVariant(result->Item2);
         VariantCopyInd(Value, &v);
     }
 
-    return HRESULT(result);
+    return HRESULT(result->ResultType);
 }
 
-BOOL WINAPI InternalAimpGroupingTreeDataProviderSelection::NextRow()
-{
+BOOL WINAPI InternalAimpGroupingTreeDataProviderSelection::NextRow() {
     return BOOL(_managedInstance->NextRow());
 }
 
-ULONG WINAPI InternalAimpGroupingTreeDataProviderSelection::AddRef(void)
-{
+ULONG WINAPI InternalAimpGroupingTreeDataProviderSelection::AddRef(void) {
     return Base::AddRef();
 }
 
-ULONG WINAPI InternalAimpGroupingTreeDataProviderSelection::Release(void)
-{
+ULONG WINAPI InternalAimpGroupingTreeDataProviderSelection::Release(void) {
     return Base::Release();
 }
 
-HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::QueryInterface(REFIID riid, LPVOID* ppvObject)
-{
+HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::QueryInterface(REFIID riid, LPVOID* ppvObject) {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPMLGroupingTreeDataProviderSelection)
-    {
+    if (riid == IID_IAIMPMLGroupingTreeDataProviderSelection) {
         *ppvObject = this;
         AddRef();
         return S_OK;

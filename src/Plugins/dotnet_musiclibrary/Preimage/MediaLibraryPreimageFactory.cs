@@ -24,22 +24,19 @@ namespace AIMP.DotNet.MusicLibrary.Preimage
 
         public IList<IAimpPlaylistPreimage> Preimages { get; set; }
 
-        public ActionResultType CreatePreimage(out IAimpPlaylistPreimage preimage)
+        public AimpActionResult<IAimpPlaylistPreimage> CreatePreimage()
         {
-            preimage = new TestMediaLibraryPreimage(this);
-            return ActionResultType.OK;
+            return new AimpActionResult<IAimpPlaylistPreimage>(ActionResultType.OK, new TestMediaLibraryPreimage(this));
         }
 
-        public ActionResultType GetId(out string id)
+        public AimpActionResult<string> GetId()
         {
-            id = nameof(MediaLibraryPreimageFactory);
-            return ActionResultType.OK;
+            return new AimpActionResult<string>(ActionResultType.OK, nameof(MediaLibraryPreimageFactory));
         }
 
-        public ActionResultType GetName(out string name)
+        public AimpActionResult<string> GetName()
         {
-            name = "Media library Test Preimage";
-            return ActionResultType.OK;
+            return new AimpActionResult<string>(ActionResultType.OK, "Media library Test Preimage");
         }
 
         public PreimageFactoryFlags GetFlags()

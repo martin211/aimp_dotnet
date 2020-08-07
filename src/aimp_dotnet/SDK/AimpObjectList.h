@@ -7,89 +7,77 @@
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace AIMP::SDK;
 
         generic <class TObject>
         public ref class AimpObjectList :
-            public IAimpObjectList<TObject>
-        {
+            public IAimpObjectList<TObject> {
         private:
             IAIMPObjectList* _nativeObject;
 
         public:
             AimpObjectList(IAIMPObjectList* nativeObject);
 
-            virtual ActionResultType Add(TObject entry);
+            virtual ActionResult Add(TObject entry);
 
-            virtual ActionResultType Clear();
+            virtual ActionResult Clear();
 
-            virtual ActionResultType Delete(int index);
+            virtual ActionResult Delete(int index);
 
-            virtual ActionResultType Insert(int index, TObject entry);
+            virtual ActionResult Insert(int index, TObject entry);
 
             virtual property int Count
             {
                 int get();
             }
 
-            virtual ActionResultType GetObject(int index, TObject% item);
+            virtual ActionResult GetObject(int index, TObject% item);
 
-            virtual ActionResultType SetObject(int index, TObject item);
+            virtual ActionResult SetObject(int index, TObject item);
         };
 
-        public ref class AimpObjectList2 : public IAimpObjectList, public AimpObject<IAIMPObjectList>
-        {
+        public ref class AimpObjectList2 : public IAimpObjectList, public AimpObject<IAIMPObjectList> {
         public:
-            explicit AimpObjectList2(IAIMPObjectList* nativeObject) : AimpObject(nativeObject)
-            {
+            explicit AimpObjectList2(IAIMPObjectList* nativeObject) : AimpObject(nativeObject) {
             }
 
-            virtual ActionResultType Add(Object^ entry)
-            {
+            virtual ActionResult Add(Object^ entry) {
                 String^ s = dynamic_cast<String^>(entry);
-                if (s != nullptr)
-                {
-                    return Utils::CheckResult(InternalAimpObject->Add(AimpConverter::ToAimpString(s)));
+                if (s != nullptr) {
+                    return ACTION_RESULT(Utils::CheckResult(InternalAimpObject->Add(AimpConverter::ToAimpString(s))));
                 }
 
-                return Utils::CheckResult(InternalAimpObject->Add(AimpConverter::ToAimpString((String^)entry)));
+                return ACTION_RESULT(
+                    Utils::CheckResult(InternalAimpObject->Add(AimpConverter::ToAimpString((String^)entry))));
             }
 
-            virtual ActionResultType Clear()
-            {
-                return ActionResultType::Fail;
+            virtual ActionResult Clear() {
+                return ACTION_RESULT(ActionResultType::Fail);
             }
 
-            virtual ActionResultType Delete(int index)
-            {
-                return ActionResultType::Fail;
+            virtual ActionResult Delete(int index) {
+                return ACTION_RESULT(ActionResultType::Fail);
             }
 
-            virtual ActionResultType Insert(int index, Object^ entry)
-            {
-                return ActionResultType::Fail;
+            virtual ActionResult Insert(int index, Object^ entry) {
+                return ACTION_RESULT(ActionResultType::Fail);
             }
 
             virtual property int Count
             {
-                int get()
-                {
+                int get() {
                     return 0;
                 }
             }
 
-            virtual ActionResultType GetObject(int index, Object^% item)
-            {
-                return ActionResultType::Fail;
+            virtual ActionResult GetObject(int index, Object^% item) {
+                return ACTION_RESULT(ActionResultType::Fail);
             }
 
-            virtual ActionResultType SetObject(int index, Object^ item)
-            {
-                return ActionResultType::Fail;
+            virtual ActionResult SetObject(int index, Object^ item) {
+                return ACTION_RESULT(ActionResultType::Fail);
             }
         };
     }

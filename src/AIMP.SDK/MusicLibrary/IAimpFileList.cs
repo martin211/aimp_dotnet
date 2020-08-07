@@ -21,21 +21,21 @@ namespace AIMP.SDK.MusicLibrary
         /// </summary>
         /// <param name="id">File identifier.</param>
         /// <param name="fileName">File name.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType Add(object id, string fileName);
+        /// <returns>AimpActionResult.</returns>
+        AimpActionResult Add(object id, string fileName);
 
         /// <summary>
         /// Clears the list.
         /// </summary>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType Clear();
+        /// <returns>AimpActionResult.</returns>
+        AimpActionResult Clear();
 
         /// <summary>
         /// Deletes the file by index.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType Delete(int index);
+        /// <returns>AimpActionResult.</returns>
+        AimpActionResult Delete(int index);
 
         /// <summary>
         /// Inserts new file to the list at specified index.
@@ -43,50 +43,49 @@ namespace AIMP.SDK.MusicLibrary
         /// <param name="index">The index.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="fileName">The file name.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType Insert(int index, object id, string fileName);
+        /// <returns>AimpActionResult.</returns>
+        AimpActionResult Insert(int index, object id, string fileName);
 
         /// <summary>
         /// Get the count of list.
         /// </summary>
+        /// <returns>System.Int32.</returns>
         int GetCount();
 
         /// <summary>
         /// Gets the file name.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <param name="fileName">[out] The file name.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType GetFileName(int index, out string fileName);
+        /// <returns>AimpActionResult&lt;System.String&gt;.</returns>
+        AimpActionResult<string> GetFileName(int index);
 
         /// <summary>
         /// Sets the new name for file.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="fileName">New file name.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType SetFileName(int index, string fileName);
+        /// <returns>AimpActionResult.</returns>
+        AimpActionResult SetFileName(int index, string fileName);
 
         /// <summary>
         /// Gets the file identifier.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <param name="id">[out] The file identifier,</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType GetId(int index, out object id);
+        /// <returns>AimpActionResult&lt;System.Object&gt;.</returns>
+        AimpActionResult<object> GetId(int index);
 
         /// <summary>
         /// Sets the new identifier for file.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="id">New identifier.</param>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType SetId(int index, object id);
+        /// <returns>AimpActionResult.</returns>
+        AimpActionResult SetId(int index, object id);
 
         /// <summary>
         /// Clones the list.
         /// </summary>
-        /// <returns>Operation result <seealso cref="ActionResultType"/></returns>
-        ActionResultType Clone(out IAimpFileList list);
+        /// <returns>AimpActionResult&lt;IAimpFileList&gt;.</returns>
+        AimpActionResult<IAimpFileList> Clone();
     }
 }
