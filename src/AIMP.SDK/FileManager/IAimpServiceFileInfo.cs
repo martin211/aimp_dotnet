@@ -2,50 +2,55 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 namespace AIMP.SDK.FileManager
 {
+    /// <summary>
+    /// Enum ServiceFileInfoFlags
+    /// </summary>
     public enum ServiceFileInfoFlags
     {
-        AIMP_SERVICE_FILEINFO_FLAG_DONTUSEAUDIODECODERS
+        /// <summary>
+        /// The aimp service fileinfo flag dontuseaudiodecoders
+        /// </summary>
+        DontUseAudioCoders
     }
 
     /// <summary>
     /// Provide access to get information about virtual file.
+    /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
-    public interface IAimpServiceFileInfo
+    /// <seealso cref="AIMP.SDK.IAimpService" />
+    public interface IAimpServiceFileInfo : IAimpService
     {
         /// <summary>
         /// Gets the file information from virtual file.
         /// </summary>
         /// <param name="fileUri">The virtual file name.</param>
         /// <param name="fileInfoFlags">The file info flags.</param>
-        /// <param name="fileInfo">Out. The file info <see cref="IAimpFileInfo"/>.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetFileInfoFromFileUri(string fileUri, ServiceFileInfoFlags fileInfoFlags,
-            out IAimpFileInfo fileInfo);
+        /// <returns>AimpActionResult&lt;IAimpFileInfo&gt;.</returns>
+        AimpActionResult<IAimpFileInfo> GetFileInfoFromFileUri(string fileUri, ServiceFileInfoFlags fileInfoFlags);
 
         /// <summary>
         /// Gets the file information from stream.
         /// </summary>
         /// <param name="fileStream">The file stream.</param>
         /// <param name="fileInfoFlags">The file info flags.</param>
-        /// <param name="fileInfo">Out. The file info <see cref="IAimpFileInfo"/>.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetFileInfoFromStream(IAimpStream fileStream, ServiceFileInfoFlags fileInfoFlags,
-            out IAimpFileInfo fileInfo);
+        /// <returns>AimpActionResult&lt;IAimpFileInfo&gt;.</returns>
+        AimpActionResult<IAimpFileInfo> GetFileInfoFromStream(IAimpStream fileStream,
+            ServiceFileInfoFlags fileInfoFlags);
 
         /// <summary>
         /// Gets the virtual file.
         /// </summary>
         /// <param name="fileUri">The virtual file name.</param>
-        /// <param name="virtualFile">Out. Virtual file <see cref="IAimpVirtualFile"/>.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetVirtualFile(string fileUri, out IAimpVirtualFile virtualFile);
+        /// <returns>AimpActionResult&lt;IAimpVirtualFile&gt;.</returns>
+        AimpActionResult<IAimpVirtualFile> GetVirtualFile(string fileUri);
     }
 }

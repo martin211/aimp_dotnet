@@ -1,192 +1,199 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
 #include "ManagedAimpCore.h"
 #include "IUnknownInterfaceImpl.h"
-#include "PlayList\AimpPlayList.h"
 #include "AimpSdk.h"
 #include "SDK\Options\OptionsDialogFrameExtension.h"
 #include "SDK\AlbumArt\AimpExtensionAlbumArtCatalog.h"
 #include "SDK\PlayList\AimpExtensionPlaylistManagerListener.h"
 
 
-namespace AIMP
-{
+namespace AIMP {
     /// <summary>
     /// 
     /// </summary>
-    namespace SDK
-    {
+    namespace SDK {
         using namespace System;
-        using namespace System::Runtime::InteropServices;
+        using namespace Runtime::InteropServices;
 
-        class AIMPMessageHook : public IUnknownInterfaceImpl<IAIMPMessageHook>
-        {
+        class AIMPMessageHook : public IUnknownInterfaceImpl<IAIMPMessageHook> {
         public:
-            explicit AIMPMessageHook(gcroot<ManagedAimpCore^> managedCore) : _managedCore(managedCore)
-            {
+            explicit AIMPMessageHook(gcroot<ManagedAimpCore^> managedCore) : _managedCore(managedCore) {
             }
 
-            virtual void WINAPI CoreMessage(DWORD AMessage, int AParam1, void* AParam2, HRESULT* AResult)
-            {
+            virtual void WINAPI CoreMessage(DWORD AMessage, int AParam1, void* AParam2, HRESULT* AResult) {
             }
 
         private:
             gcroot<ManagedAimpCore^> _managedCore;
         };
 
-        class AimpExtensionPlayerHook : public IUnknownInterfaceImpl<IAIMPExtensionPlayerHook>
-        {
-        public:
-            typedef IUnknownInterfaceImpl<IAIMPExtensionPlayerHook> Base;
+        //class AimpExtensionPlayerHook : public IUnknownInterfaceImpl<IAIMPExtensionPlayerHook>
+        //{
+        //public:
+        //    typedef IUnknownInterfaceImpl<IAIMPExtensionPlayerHook> Base;
 
-            explicit AimpExtensionPlayerHook(gcroot<ManagedAimpCore^> managedCore) : _managedCore(managedCore)
-            {
-            }
+        //    explicit AimpExtensionPlayerHook(gcroot<ManagedAimpCore^> managedCore) : _managedCore(managedCore)
+        //    {
+        //    }
 
-            virtual HRESULT WINAPI OnCheckURL(IAIMPString* URL, BOOL* Handled)
-            {
-                String^ url = AimpConverter::ToManagedString(URL);
-                bool handled = _managedCore->OnCheckUrl(*&url);
+        //    virtual HRESULT WINAPI OnCheckURL(IAIMPString* URL, BOOL* Handled)
+        //    {
+        //        String^ url = AimpConverter::ToManagedString(URL);
+        //        bool handled = _managedCore->OnCheckUrl(*&url);
 
-                if (handled)
-                {
-                    // TODO: Optimize it
-                    *Handled = 1;
-                    IAIMPString* str = AimpConverter::ToAimpString(url);
-                    URL->SetData(str->GetData(), str->GetLength());
-                    str->Release();
-                    str = nullptr;
-                }
-                else
-                    *Handled = 0;
+        //        if (handled)
+        //        {
+        //            // TODO: Optimize it
+        //            *Handled = 1;
+        //            IAIMPString* str = AimpConverter::ToAimpString(url);
+        //            URL->SetData(str->GetData(), str->GetLength());
+        //            str->Release();
+        //            str = nullptr;
+        //        }
+        //        else
+        //            *Handled = 0;
 
-                return S_OK;
-            }
+        //        return S_OK;
+        //    }
 
-            virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObj)
-            {
-                if (!ppvObj)
-                {
-                    return E_POINTER;
-                }
+        //    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObj)
+        //    {
+        //        if (!ppvObj)
+        //        {
+        //            return E_POINTER;
+        //        }
 
-                if (riid == IID_IAIMPExtensionPlayerHook)
-                {
-                    *ppvObj = this;
-                    AddRef();
-                    return S_OK;
-                }
+        //        if (riid == IID_IAIMPExtensionPlayerHook)
+        //        {
+        //            *ppvObj = this;
+        //            AddRef();
+        //            return S_OK;
+        //        }
 
-                return E_NOINTERFACE;
-            }
+        //        return E_NOINTERFACE;
+        //    }
 
-            virtual ULONG WINAPI AddRef(void)
-            {
-                return Base::AddRef();
-            }
+        //    virtual ULONG WINAPI AddRef(void)
+        //    {
+        //        return Base::AddRef();
+        //    }
 
-            virtual ULONG WINAPI Release(void)
-            {
-                return Base::Release();
-            }
+        //    virtual ULONG WINAPI Release(void)
+        //    {
+        //        return Base::Release();
+        //    }
 
-        private:
-            gcroot<ManagedAimpCore^> _managedCore;
-        };
+        //private:
+        //    gcroot<ManagedAimpCore^> _managedCore;
+        //};
 
-        ManagedAimpCore::ManagedAimpCore(IAIMPCore* core)
-        {
+        ManagedAimpCore::ManagedAimpCore(IAIMPCore* core) {
             _core = core;
-            AimpExtensionPlayerHook* playerHook = new AimpExtensionPlayerHook(this);
-            core->RegisterExtension(IID_IAIMPServicePlayer, playerHook);
+            //AimpExtensionPlayerHook* playerHook = new AimpExtensionPlayerHook(this);
+            //core->RegisterExtension(IID_IAIMPServicePlayer, playerHook);
+
+            IAIMPServiceMessageDispatcher* aimp_service_message_dispatcher;
+            core->QueryInterface(IID_IAIMPServiceMessageDispatcher,
+                                 reinterpret_cast<void**>(&aimp_service_message_dispatcher));
+            _hook = new AIMPMessageHook(this);
+            aimp_service_message_dispatcher->Hook(_hook);
+            _messageDispatcher = aimp_service_message_dispatcher;
         }
 
-        ManagedAimpCore::~ManagedAimpCore()
-        {
+        ManagedAimpCore::~ManagedAimpCore() {
             System::Diagnostics::Debug::WriteLine("Dispose ManagedAimpCore");
 
-            if (_optionsFrame != nullptr)
-            {
+            if (_optionsFrame != nullptr) {
                 _core->UnregisterExtension(static_cast<IAIMPOptionsDialogFrame*>(_optionsFrame));
                 _optionsFrame->Release();
                 _optionsFrame = nullptr;
             }
 
-            if (_albumArtCatalogExtension != nullptr)
-            {
+            if (_albumArtCatalogExtension != nullptr) {
                 _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtCatalog::Base*>(_albumArtCatalogExtension));
                 _albumArtCatalogExtension->Release();
                 _albumArtCatalogExtension = nullptr;
             }
 
-            if (_albumArtProviderExtension != nullptr)
-            {
+            if (_albumArtProviderExtension != nullptr) {
                 _core->UnregisterExtension(
                     static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
                 _albumArtProviderExtension->Release();
                 _albumArtProviderExtension = nullptr;
             }
 
-            if (_embeddedVisualization != nullptr)
-            {
+            if (_embeddedVisualization != nullptr) {
                 _core->UnregisterExtension(_embeddedVisualization);
                 _embeddedVisualization->Release();
                 _embeddedVisualization = nullptr;
             }
 
-            if (_customVisualization != nullptr)
-            {
+            if (_customVisualization != nullptr) {
                 _core->UnregisterExtension(_customVisualization);
                 _customVisualization->Release();
                 _customVisualization = nullptr;
             }
 
-            if (_playlistManagerListener != nullptr)
-            {
+            if (_playlistManagerListener != nullptr) {
                 _core->UnregisterExtension(this->_playlistManagerListener);
                 _playlistManagerListener->Release();
                 _playlistManagerListener = nullptr;
             }
 
-            if (_musicLibraryDataStorage != nullptr)
-            {
+            if (_musicLibraryDataStorage != nullptr) {
                 _core->UnregisterExtension(this->_musicLibraryDataStorage);
                 _musicLibraryDataStorage->Release();
                 _musicLibraryDataStorage = nullptr;
             }
 
-            if (_fileInfoExtensionProvider != nullptr)
-            {
+            if (_fileInfoExtensionProvider != nullptr) {
                 _core->UnregisterExtension(
                     static_cast<InternalAimpExtensionFileInfoProvider::Base*>(_fileInfoExtensionProvider));
                 _fileInfoExtensionProvider->Release();
                 _fileInfoExtensionProvider = nullptr;
             }
 
-            if (_extensionFileSystem != nullptr)
-            {
+            if (_extensionFileSystem != nullptr) {
                 _core->UnregisterExtension(_extensionFileSystem);
                 _extensionFileSystem->Release();
                 _extensionFileSystem = nullptr;
             }
 
-            if (_extensionPlaylistPreimageFactory != nullptr)
-            {
+            if (_extensionPlaylistPreimageFactory != nullptr) {
                 _core->UnregisterExtension(
                     static_cast<InternalAimpExtensionPlaylistPreimageFactory::Base*>(_extensionPlaylistPreimageFactory
                     ));
                 _extensionPlaylistPreimageFactory->Release();
                 _extensionPlaylistPreimageFactory = nullptr;
+            }
+
+            if (_extensionLyricsProvider != nullptr) {
+                _core->UnregisterExtension(
+                    static_cast<AimpExtensionLyricsProvider::Base*>(_extensionLyricsProvider)
+                );
+                _extensionLyricsProvider->Release();
+                _extensionLyricsProvider = nullptr;
+            }
+
+            if (_extensionPlaybackQueue != nullptr) {
+                _core->UnregisterExtension(
+                    static_cast<AimpExtensionPlaybackQueue::Base*>(_extensionPlaybackQueue)
+                );
+                _extensionPlaybackQueue->Release();
+                _extensionPlaybackQueue = nullptr;
+            }
+
+            if (_extensionPlayerHook != nullptr) {
+                _core->UnregisterExtension(static_cast<AimpExtensionPlayerHook::Base*>(_extensionPlayerHook));
+                _extensionPlayerHook->Release();
+                _extensionPlayerHook = nullptr;
             }
 
             _core->Release();
@@ -199,13 +206,13 @@ namespace AIMP
         /// <param name="pathType">Path type.</param>
         /// <param name="pathResult"></param>
         /// <returns></returns>
-        AIMP::SDK::AimpActionResult ManagedAimpCore::GetPath(MessageDispatcher::AimpCorePathType pathType, String^% pathResult)
-        {
+        AIMP::SDK::ActionResultType ManagedAimpCore::GetPath(MessageDispatcher::AimpCorePathType pathType,
+                                                             String^% pathResult) {
             IAIMPString* res;
             _core->GetPath((int)pathType, &res);
             pathResult = AimpConverter::ToManagedString(res);
             res->Release();
-            return AIMP::SDK::AimpActionResult::OK;
+            return AIMP::SDK::ActionResultType::OK;
         }
 
         /// <summary>
@@ -217,14 +224,11 @@ namespace AIMP
         /// <param name="extensionId">The extension identifier.</param>
         /// <param name="extension">The extension.</param>
         /// <returns></returns>
-        HRESULT ManagedAimpCore::RegisterExtension(GUID extensionId, AIMP::IAimpExtension^ extension)
-        {
+        HRESULT ManagedAimpCore::RegisterExtension(GUID extensionId, AIMP::IAimpExtension^ extension) {
             AIMP::SDK::Options::IAimpOptionsDialogFrame^ optionsFrameExtension = dynamic_cast<AIMP::SDK::Options::
                 IAimpOptionsDialogFrame^>(extension);
-            if (optionsFrameExtension != nullptr)
-            {
-                if (_optionsFrame != nullptr)
-                {
+            if (optionsFrameExtension != nullptr) {
+                if (_optionsFrame != nullptr) {
                     return E_FAIL;
                 }
 
@@ -237,10 +241,8 @@ namespace AIMP
 
             AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^ albumArtCatalogExtension = dynamic_cast<AIMP::SDK
                 ::AlbumArtManager::IAimpExtensionAlbumArtCatalog^>(extension);
-            if (albumArtCatalogExtension != nullptr)
-            {
-                if (_albumArtCatalogExtension != nullptr)
-                {
+            if (albumArtCatalogExtension != nullptr) {
+                if (_albumArtCatalogExtension != nullptr) {
                     return E_FAIL;
                 }
 
@@ -253,10 +255,8 @@ namespace AIMP
 
             AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^ albumArtProviderExtension = dynamic_cast<AIMP::
                 SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^>(extension);
-            if (albumArtProviderExtension != nullptr)
-            {
-                if (_albumArtProviderExtension != nullptr)
-                {
+            if (albumArtProviderExtension != nullptr) {
+                if (_albumArtProviderExtension != nullptr) {
                     return E_FAIL;
                 }
 
@@ -268,10 +268,8 @@ namespace AIMP
             }
 
             const auto embeddedVisualization = dynamic_cast<Visuals::IAimpExtensionEmbeddedVisualization^>(extension);
-            if (embeddedVisualization != nullptr)
-            {
-                if (_embeddedVisualization != nullptr)
-                {
+            if (embeddedVisualization != nullptr) {
+                if (_embeddedVisualization != nullptr) {
                     return E_FAIL;
                 }
 
@@ -282,10 +280,8 @@ namespace AIMP
             }
 
             const auto customVisualization = dynamic_cast<Visuals::IAimpExtensionCustomVisualization^>(extension);
-            if (customVisualization != nullptr)
-            {
-                if (_customVisualization != nullptr)
-                {
+            if (customVisualization != nullptr) {
+                if (_customVisualization != nullptr) {
                     return E_FAIL;
                 }
 
@@ -295,12 +291,9 @@ namespace AIMP
                 return _core->RegisterExtension(IID_IAIMPServiceVisualizations, ext);
             }
 
-            Extension::IAimpExtensionDataStorage^ dataStorageExtension = dynamic_cast<Extension::
-                IAimpExtensionDataStorage^>(extension);
-            if (dataStorageExtension != nullptr)
-            {
-                if (_musicLibraryDataStorage != nullptr)
-                {
+            auto dataStorageExtension = dynamic_cast<MusicLibrary::Extension::IAimpExtensionDataStorage^>(extension);
+            if (dataStorageExtension != nullptr) {
+                if (_musicLibraryDataStorage != nullptr) {
                     return E_FAIL;
                 }
 
@@ -309,12 +302,10 @@ namespace AIMP
                 return _core->RegisterExtension(IID_IAIMPServiceMusicLibrary, ext);
             }
 
-            Extensions::IAimpExtensionFileInfoProvider^ fileInfoProviderExtension = dynamic_cast<Extensions::
-                IAimpExtensionFileInfoProvider^>(extension);
-            if (fileInfoProviderExtension != nullptr)
-            {
-                if (_fileInfoExtensionProvider != nullptr)
-                {
+            FileManager::Extensions::IAimpExtensionFileInfoProvider^ fileInfoProviderExtension = dynamic_cast<
+                FileManager::Extensions::IAimpExtensionFileInfoProvider^>(extension);
+            if (fileInfoProviderExtension != nullptr) {
+                if (_fileInfoExtensionProvider != nullptr) {
                     return E_FAIL;
                 }
 
@@ -325,12 +316,10 @@ namespace AIMP
                                                 static_cast<InternalAimpExtensionFileInfoProvider::Base*>(ext));
             }
 
-            Extensions::IAimpExtensionFileSystem^ extensionFileSystem = dynamic_cast<Extensions::
-                IAimpExtensionFileSystem^>(extension);
-            if (extensionFileSystem != nullptr)
-            {
-                if (_extensionFileSystem != nullptr)
-                {
+            FileManager::Extensions::IAimpExtensionFileSystem^ extensionFileSystem = dynamic_cast<
+                FileManager::Extensions::IAimpExtensionFileSystem^>(extension);
+            if (extensionFileSystem != nullptr) {
+                if (_extensionFileSystem != nullptr) {
                     return E_FAIL;
                 }
 
@@ -342,10 +331,8 @@ namespace AIMP
 #pragma region PlaylistExtension
             IAimpExtensionPlaylistPreimageFactory^ extensionPlaylistPreImageFactory = dynamic_cast<
                 IAimpExtensionPlaylistPreimageFactory^>(extension);
-            if (extensionPlaylistPreImageFactory != nullptr)
-            {
-                if (_extensionPlaylistPreimageFactory != nullptr)
-                {
+            if (extensionPlaylistPreImageFactory != nullptr) {
+                if (_extensionPlaylistPreimageFactory != nullptr) {
                     return E_FAIL;
                 }
 
@@ -357,10 +344,8 @@ namespace AIMP
 
             IAimpExtensionPlaylistManagerListener^ playlistManagerListener = dynamic_cast<
                 IAimpExtensionPlaylistManagerListener^>(extension);
-            if (playlistManagerListener != nullptr)
-            {
-                if (_playlistManagerListener != nullptr)
-                {
+            if (playlistManagerListener != nullptr) {
+                if (_playlistManagerListener != nullptr) {
                     return E_FAIL;
                 }
 
@@ -371,25 +356,61 @@ namespace AIMP
             }
 #pragma endregion PlaylistExtension
 
+            Lyrics::IAimpExtensionLyricsProvider^ lyricsProviderExtension = dynamic_cast<
+                Lyrics::IAimpExtensionLyricsProvider^>(extension);
+            if (lyricsProviderExtension != nullptr) {
+                if (_extensionLyricsProvider != nullptr) {
+                    return E_FAIL;
+                }
+
+                AimpExtensionLyricsProvider* ext = new AimpExtensionLyricsProvider(lyricsProviderExtension);
+                _extensionLyricsProvider = ext;
+                return _core->RegisterExtension(IID_IAIMPExtensionLyricsProvider,
+                                                static_cast<AimpExtensionLyricsProvider::Base*>(ext));
+            }
+
+            Playback::IAimpExtensionPlaybackQueue^ extensionPlaybackQueue = dynamic_cast<
+                Playback::IAimpExtensionPlaybackQueue^>(extension);
+            if (extensionPlaybackQueue != nullptr) {
+                if (_extensionPlaybackQueue != nullptr) {
+                    return E_FAIL;
+                }
+
+                AimpExtensionPlaybackQueue* ext = new AimpExtensionPlaybackQueue(extensionPlaybackQueue);
+                _extensionPlaybackQueue = ext;
+                return _core->RegisterExtension(IID_IAIMPServicePlaybackQueue,
+                                                static_cast<AimpExtensionPlaybackQueue::Base*>(ext)
+                );
+            }
+
+            Playback::IAimpExtensionPlayerHook^ extensionPlayerHook = dynamic_cast<Playback::IAimpExtensionPlayerHook^>(
+                extension);
+            if (extensionPlayerHook != nullptr) {
+                if (_extensionPlayerHook != nullptr) {
+                    return E_FAIL;
+                }
+
+                AimpExtensionPlayerHook* ext = new AimpExtensionPlayerHook(extensionPlayerHook);
+                _extensionPlayerHook = ext;
+                return _core->RegisterExtension(IID_IAIMPServicePlayer,
+                                                static_cast<AimpExtensionPlayerHook::Base*>(ext));
+            }
+
             return E_UNEXPECTED;
         }
 
-        HRESULT ManagedAimpCore::UnregisterExtension(IAimpExtension^ extension)
-        {
-            AIMP::SDK::Options::IAimpOptionsDialogFrame^ optionsFrameExtension = dynamic_cast<AIMP::SDK::Options::
-                IAimpOptionsDialogFrame^>(extension);
-            if (optionsFrameExtension != nullptr)
-            {
+        HRESULT ManagedAimpCore::UnregisterExtension(IAimpExtension^ extension) {
+            const auto optionsFrameExtension = dynamic_cast<Options::IAimpOptionsDialogFrame^>(extension);
+            if (optionsFrameExtension != nullptr) {
                 HRESULT r = _core->UnregisterExtension(static_cast<IAIMPOptionsDialogFrame*>(_optionsFrame));
                 _optionsFrame->Release();
                 _optionsFrame = nullptr;
                 return r;
             }
 
-            AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^ albumArtCatalogExtension = dynamic_cast<AIMP::SDK
-                ::AlbumArtManager::IAimpExtensionAlbumArtCatalog^>(extension);
-            if (albumArtCatalogExtension != nullptr)
-            {
+            const auto albumArtCatalogExtension = dynamic_cast<AlbumArtManager::IAimpExtensionAlbumArtCatalog^>(
+                extension);
+            if (albumArtCatalogExtension != nullptr) {
                 HRESULT r = _core->UnregisterExtension(
                     static_cast<AimpExtensionAlbumArtCatalog::Base*>(_albumArtCatalogExtension));
                 _albumArtCatalogExtension->Release();
@@ -397,10 +418,9 @@ namespace AIMP
                 return r;
             }
 
-            AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^ albumArtProviderExtension = dynamic_cast<AIMP::
-                SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^>(extension);
-            if (albumArtProviderExtension != nullptr)
-            {
+            const auto albumArtProviderExtension = dynamic_cast<AlbumArtManager::IAimpExtensionAlbumArtProvider^>(
+                extension);
+            if (albumArtProviderExtension != nullptr) {
                 HRESULT r = _core->UnregisterExtension(
                     static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
                 _albumArtProviderExtension->Release();
@@ -408,39 +428,34 @@ namespace AIMP
                 return r;
             }
 
-            AIMP::SDK::Visuals::IAimpExtensionEmbeddedVisualization^ embeddedVisualization = dynamic_cast<AIMP::SDK::
-                Visuals::IAimpExtensionEmbeddedVisualization^>(extension);
-            if (embeddedVisualization != nullptr)
-            {
+            const auto embeddedVisualization = dynamic_cast<Visuals::IAimpExtensionEmbeddedVisualization^>(extension);
+            if (embeddedVisualization != nullptr) {
                 HRESULT r = _core->UnregisterExtension(_embeddedVisualization);
                 _embeddedVisualization->Release();
                 _embeddedVisualization = nullptr;
                 return r;
             }
 
-            AIMP::SDK::Visuals::IAimpExtensionCustomVisualization^ customVisualization = dynamic_cast<AIMP::SDK::Visuals
+            Visuals::IAimpExtensionCustomVisualization^ customVisualization = dynamic_cast<Visuals
                 ::IAimpExtensionCustomVisualization^>(extension);
-            if (customVisualization != nullptr)
-            {
+            if (customVisualization != nullptr) {
                 HRESULT r = _core->UnregisterExtension(_customVisualization);
                 _customVisualization->Release();
                 _customVisualization = nullptr;
                 return r;
             }
 
-            AIMP::SDK::Playlist::IAimpExtensionPlaylistManagerListener^ playlistManagerListener = dynamic_cast<AIMP::SDK
-                ::Playlist::IAimpExtensionPlaylistManagerListener^>(extension);
-            if (customVisualization != nullptr)
-            {
+            const auto playlistManagerListener = dynamic_cast<IAimpExtensionPlaylistManagerListener^>(extension);
+            if (playlistManagerListener != nullptr) {
                 HRESULT r = _core->UnregisterExtension(_playlistManagerListener);
                 _playlistManagerListener->Release();
                 _playlistManagerListener = nullptr;
                 return r;
             }
 
-            auto extensionPlaylistPreImageFactory = dynamic_cast<IAimpExtensionPlaylistPreimageFactory^>(extension);
-            if (extensionPlaylistPreImageFactory != nullptr)
-            {
+            const auto extensionPlaylistPreImageFactory = dynamic_cast<IAimpExtensionPlaylistPreimageFactory^>(extension
+            );
+            if (extensionPlaylistPreImageFactory != nullptr) {
                 HRESULT r = _core->UnregisterExtension(
                     static_cast<InternalAimpExtensionPlaylistPreimageFactory::Base*>(_extensionPlaylistPreimageFactory
                     ));
@@ -449,36 +464,53 @@ namespace AIMP
                 return r;
             }
 
+            const auto extensionLyricsProvider = dynamic_cast<Lyrics::IAimpExtensionLyricsProvider^>(extension);
+            if (extensionLyricsProvider != nullptr) {
+                HRESULT r = _core->UnregisterExtension(
+                    static_cast<AimpExtensionLyricsProvider::Base*>(_extensionLyricsProvider));
+                _extensionLyricsProvider->Release();
+                _extensionLyricsProvider = nullptr;
+                return r;
+            }
+
+            const auto extensionPlaybackQueue = dynamic_cast<Playback::IAimpExtensionPlaybackQueue^>(extension);
+            if (extensionPlaybackQueue != nullptr) {
+                HRESULT r = _core->UnregisterExtension(
+                    static_cast<AimpExtensionPlaybackQueue::Base*>(_extensionPlaybackQueue));
+                _extensionPlaybackQueue->Release();
+                _extensionPlaybackQueue = nullptr;
+                return r;
+            }
+
+            const auto extensionPlayerHook = dynamic_cast<Playback::IAimpExtensionPlayerHook^>(extension);
+            if (extensionPlayerHook != nullptr) {
+                HRESULT r = _core->UnregisterExtension(
+                    static_cast<AimpExtensionPlayerHook::Base*>(_extensionPlayerHook));
+                _extensionPlayerHook->Release();
+                _extensionPlayerHook = nullptr;
+                return r;
+            }
+
             return E_NOTIMPL;
         }
 
-        HRESULT ManagedAimpCore::UnregisterExtension(IUnknown* extension)
-        {
+        HRESULT ManagedAimpCore::UnregisterExtension(IUnknown* extension) {
             return _core->UnregisterExtension(extension);
         }
 
 
         //******** IAimpExtensionPlaylistManagerListenerExecutor ********
 
-        void ManagedAimpCore::OnPlaylistActivated(IAIMPPlaylist* playlist)
-        {
+        void ManagedAimpCore::OnPlaylistActivated(IAIMPPlaylist* playlist) {
         }
 
-        void ManagedAimpCore::OnPlaylistAdded(IAIMPPlaylist* playlist)
-        {
+        void ManagedAimpCore::OnPlaylistAdded(IAIMPPlaylist* playlist) {
         }
 
-        void ManagedAimpCore::OnPlaylistRemoved(IAIMPPlaylist* playlist)
-        {
+        void ManagedAimpCore::OnPlaylistRemoved(IAIMPPlaylist* playlist) {
         }
 
         //******** IAimpExtensionPlaylistManagerListenerExecutor ********
-
-
-        bool ManagedAimpCore::OnCheckUrl(String^ % url)
-        {
-            return this->CheckUrl(url);
-        }
 
         /// <summary>
         /// Gets the service.
@@ -486,26 +518,22 @@ namespace AIMP
         /// <param name="iid">The iid.</param>
         /// <param name="service">The service.</param>
         /// <returns></returns>
-        HRESULT ManagedAimpCore::GetService(REFIID iid, void** service)
-        {
+        HRESULT ManagedAimpCore::GetService(REFIID iid, void** service) {
             //return _core->QueryInterface(iid, service);
 
             IUnknown* _service;
             HRESULT result = _core->QueryInterface(iid, reinterpret_cast<void**>(&_service));
-            if (result == S_OK)
-            {
-                * service = _service;
+            if (result == S_OK) {
+                *service = _service;
             }
 
             return result;
         }
 
-        IUnknown* ManagedAimpCore::QueryInterface(REFIID iid)
-        {
+        IUnknown* ManagedAimpCore::QueryInterface(REFIID iid) {
             IUnknown* service;
             HRESULT result = _core->QueryInterface(iid, reinterpret_cast<void**>(&service));
-            if (result != S_OK)
-            {
+            if (result != S_OK) {
                 return nullptr;
             }
 
@@ -516,34 +544,29 @@ namespace AIMP
         /// Creates the action event.
         /// </summary>
         /// <returns></returns>
-        IAIMPActionEvent* ManagedAimpCore::CreateActionEvent()
-        {
+        IAIMPActionEvent* ManagedAimpCore::CreateActionEvent() {
             IAIMPActionEvent* actionEvent = nullptr;
             _core->CreateObject(IID_IAIMPActionEvent, reinterpret_cast<void**>(&actionEvent));
             return actionEvent;
         }
 
-        HRESULT ManagedAimpCore::SendMessage(MessageDispatcher::AimpCoreMessageType message, int value, Object^ obj)
-        {
+        HRESULT ManagedAimpCore::SendMessage(MessageDispatcher::AimpCoreMessageType message, int value, Object^ obj) {
             HRESULT r;
 
-            if (message == MessageDispatcher::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION)
-            {
+            if (message == MessageDispatcher::AimpCoreMessageType::CmdShowNotification) {
                 r = ShowNotification(value == 0, static_cast<String^>(obj));
             }
-            else
-            {
+            else {
                 r = _messageDispatcher->Send(DWORD(message), value, static_cast<void*>(&obj));
             }
 
             return r;
         }
 
-        HRESULT ManagedAimpCore::ShowNotification(bool autoHide, String^ notification)
-        {
+        HRESULT ManagedAimpCore::ShowNotification(bool autoHide, String^ notification) {
             IAIMPString* str = AimpConverter::ToAimpString(notification);
             HRESULT r = _messageDispatcher->Send(
-                DWORD(MessageDispatcher::AimpCoreMessageType::AIMP_MSG_CMD_SHOW_NOTIFICATION), autoHide ? 0 : 1,
+                DWORD(MessageDispatcher::AimpCoreMessageType::CmdShowNotification), autoHide ? 0 : 1,
                 str->GetData());
             str->Release();
             return r;
@@ -552,39 +575,34 @@ namespace AIMP
         /// <summary>
         /// Creates the new AIMP stream.
         /// </summary>
-        AimpActionResult ManagedAimpCore::CreateStream(IAIMPStream** stream)
-        {
+        ActionResultType ManagedAimpCore::CreateStream(IAIMPStream** stream) {
             IAIMPStream* s = nullptr;
-            AimpActionResult result = Utils::CheckResult(
+            ActionResultType result = Utils::CheckResult(
                 _core->CreateObject(IID_IAIMPMemoryStream, reinterpret_cast<void**>(&s)));
             *stream = s;
             return result;
         }
 
-        AIMP::SDK::AimpActionResult ManagedAimpCore::CreateAction(IAIMPAction** action)
-        {
+        AIMP::SDK::ActionResultType ManagedAimpCore::CreateAction(IAIMPAction** action) {
             IAIMPAction* a = nullptr;
-            AimpActionResult result = Utils::CheckResult(
+            ActionResultType result = Utils::CheckResult(
                 _core->CreateObject(IID_IAIMPAction, reinterpret_cast<void**>(&a)));
             *action = a;
             return result;
         }
 
-        IAIMPCore* ManagedAimpCore::GetAimpCore()
-        {
+        IAIMPCore* ManagedAimpCore::GetAimpCore() {
             return _core;
         }
 
-        HRESULT ManagedAimpCore::CreateMenuItem(IAIMPMenuItem** item)
-        {
+        HRESULT ManagedAimpCore::CreateMenuItem(IAIMPMenuItem** item) {
             IAIMPMenuItem* i;
             HRESULT r = _core->CreateObject(IID_IAIMPMenuItem, reinterpret_cast<void**>(&i));
             *item = i;
             return r;
         }
 
-        OptionsDialogFrameExtension* ManagedAimpCore::GetOptionsFrame()
-        {
+        OptionsDialogFrameExtension* ManagedAimpCore::GetOptionsFrame() {
             return _optionsFrame;
         }
     }

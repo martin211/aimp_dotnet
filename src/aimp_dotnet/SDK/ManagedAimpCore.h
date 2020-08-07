@@ -1,39 +1,36 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
 #include <Unknwnbase.h>
 #include "AimpSdk.h"
+#include "MusicLibrary/Extension/AimpExtensionDataStorage.h"
+#include "Playback/AimpExtensionPlaybackQueue.h"
+#include "Playback/AimpExtensionPlayerHook.h"
 #include "SDK\Options\OptionsDialogFrameExtension.h"
 #include "SDK\AlbumArt\AimpExtensionAlbumArtCatalog.h"
 #include "SDK\AlbumArt\AimpExtensionAlbumArtProvider.h"
 #include "SDK\PlayList\AimpExtensionPlaylistManagerListener.h"
 #include "SDK\Visuals\AimpExtensionEmbeddedVisualization.h"
 #include "SDK\Visuals\AimpExtensionCustomVisualization.h"
-#include "SDK\MusicLibrary\AimpExtensionDataStorage.h"
 #include "SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h"
 #include "SDK\FileManager\InternalAimpExtensionFileInfoProvider.h"
 #include "SDK\FileManager\InternalAimpExtensionFileSystem.h"
 #include "SDK\Visuals\AimpServiceVisualizations.h"
 #include "SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.h"
+#include "SDK\Lyrics\AimpExtensionLyricsProvider.h"
 
-namespace AIMP
-{
+namespace AIMP {
     using namespace System;
     using namespace SDK;
 
-    namespace SDK
-    {
+    namespace SDK {
         using namespace System;
-        using namespace Generic;
+        using namespace Collections::Generic;
 
         using namespace SDK;
         using namespace Playlist;
@@ -44,8 +41,7 @@ namespace AIMP
         /// Wrapper on IAIMPCore interface.
         /// </summary>
         [Serializable]
-        public ref class ManagedAimpCore
-        {
+        public ref class ManagedAimpCore {
         public:
             /// <summary>
             /// Initializes a new instance of the <see cref="ManagedAimpCore"/> class.
@@ -58,7 +54,7 @@ namespace AIMP
             /// </summary>
             ~ManagedAimpCore();
 
-            virtual AimpActionResult GetPath(MessageDispatcher::AimpCorePathType pathType, String^% path);
+            virtual ActionResultType GetPath(MessageDispatcher::AimpCorePathType pathType, String^% path);
 
             virtual HRESULT SendMessage(MessageDispatcher::AimpCoreMessageType message, int value, Object^ obj);
 
@@ -67,9 +63,6 @@ namespace AIMP
             virtual event PlayListHandler^ PlaylistAdded;
 
             virtual event PlayListHandler^ PlaylistRemoved;
-
-            virtual event Playback::AimpCheckUrl^ CheckUrl;
-
         internal:
             IAIMPActionEvent* CreateActionEvent();
 
@@ -87,11 +80,9 @@ namespace AIMP
 
             HRESULT ShowNotification(bool autoHide, String^ notification);
 
-            AimpActionResult CreateStream(IAIMPStream** stream);
+            ActionResultType CreateStream(IAIMPStream** stream);
 
-            AimpActionResult CreateAction(IAIMPAction** action);
-
-            bool OnCheckUrl(String^ % url);
+            ActionResultType CreateAction(IAIMPAction** action);
 
             HRESULT CreateMenuItem(IAIMPMenuItem** item);
 
@@ -124,10 +115,12 @@ namespace AIMP
             InternalAimpExtensionFileInfoProvider* _fileInfoExtensionProvider = nullptr;
             InternalAimpExtensionFileSystem* _extensionFileSystem = nullptr;
             InternalAimpExtensionPlaylistPreimageFactory* _extensionPlaylistPreimageFactory = nullptr;
+            AimpExtensionLyricsProvider* _extensionLyricsProvider = nullptr;
+            AimpExtensionPlaybackQueue* _extensionPlaybackQueue = nullptr;
+            AimpExtensionPlayerHook* _extensionPlayerHook;
 
             AIMP::SDK::Playlist::PlayListHandler^ _playlistAdded;
             AIMP::SDK::Playlist::PlayListHandler^ _playlistRemoved;
-            AIMP::SDK::Playback::AimpCheckUrl^ _checkUrl;
         };
     }
 }

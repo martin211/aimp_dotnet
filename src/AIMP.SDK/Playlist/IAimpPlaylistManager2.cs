@@ -2,32 +2,38 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 namespace AIMP.SDK.Playlist
 {
-    public interface IAimpPlaylistManager2 : IAimpPlaylistManager
+    /// <summary>
+    /// Interface IAimpPlaylistManager2
+    /// </summary>
+    public interface IAimpServicePlaylistManager2
     {
         /// <summary>
         /// Gets the preimage factory.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <param name="factory">The <see cref="IAimpExtensionPlaylistPreimageFactory" /> factory.</param>
-        /// <returns></returns>
-        AimpActionResult GetPreimageFactory(int index, out IAimpExtensionPlaylistPreimageFactory factory);
+        /// <returns>ActionResultType.</returns>
+        AimpActionResult<IAimpExtensionPlaylistPreimageFactory> GetPreimageFactory(int index);
 
         /// <summary>
         /// Gets the preimage factory by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="factory">The <see cref="IAimpExtensionPlaylistPreimageFactory"/> factory.</param>
-        /// <returns></returns>
-        AimpActionResult GetPreimageFactoryByID(string id, out IAimpExtensionPlaylistPreimageFactory factory);
+        /// <returns>ActionResultType.</returns>
+        AimpActionResult<IAimpExtensionPlaylistPreimageFactory> GetPreimageFactoryById(string id);
 
+        /// <summary>
+        /// Gets the preimage factory count.
+        /// </summary>
+        /// <returns>System.Int32.</returns>
         int GetPreimageFactoryCount();
     }
 }

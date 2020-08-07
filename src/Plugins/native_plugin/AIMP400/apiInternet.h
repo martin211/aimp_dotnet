@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #ifndef apiInternetH
@@ -63,8 +59,7 @@ const int AIMP_SERVICE_HTTPCLIENT_METHOD_HEAD = 4;
 
 /* IAIMPHTTPClientEvents */
 
-class IAIMPHTTPClientEvents : public IUnknown
-{
+class IAIMPHTTPClientEvents : public IUnknown {
 public:
     virtual void WINAPI OnAccept(IAIMPString* ContentType, const INT64 ContentSize, BOOL* Allow) = 0;
     virtual void WINAPI OnComplete(IAIMPErrorInfo* ErrorInfo, BOOL Canceled) = 0;
@@ -73,22 +68,19 @@ public:
 
 /* IAIMPHTTPClientEvents2 */
 
-class IAIMPHTTPClientEvents2 : public IUnknown
-{
+class IAIMPHTTPClientEvents2 : public IUnknown {
 public:
     virtual void WINAPI OnAcceptHeaders(IAIMPString* Header, BOOL* Allow) = 0;
 };
 
 /* IAIMPServiceConnectionSettings */
 
-class IAIMPServiceConnectionSettings : public IAIMPPropertyList
-{
+class IAIMPServiceConnectionSettings : public IAIMPPropertyList {
 };
 
 /* IAIMPServiceHTTPClient */
 
-class IAIMPServiceHTTPClient : public IUnknown
-{
+class IAIMPServiceHTTPClient : public IUnknown {
 public:
     virtual HRESULT WINAPI Get(IAIMPString* URL, DWORD Flags, IAIMPStream* AnswerData,
                                IAIMPHTTPClientEvents* EventHandler, IAIMPConfig* Params, void** TaskID) = 0;
@@ -99,8 +91,7 @@ public:
 
 /* IAIMPServiceHTTPClient2 */
 
-class IAIMPServiceHTTPClient2 : public IUnknown
-{
+class IAIMPServiceHTTPClient2 : public IUnknown {
 public:
     virtual HRESULT WINAPI Post(IAIMPString* URL, DWORD Method, DWORD Flags,
                                 IAIMPStream* AnswerData, IAIMPStream* PostData,

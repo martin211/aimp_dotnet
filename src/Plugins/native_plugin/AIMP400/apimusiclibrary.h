@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #ifndef apiMusicLibraryH
@@ -233,28 +229,24 @@ const int AIMPML_GETFILES_FLAGS_FOCUSED = 2;
 
 /* IAIMPMLDataField */
 
-class IAIMPMLDataField : public IAIMPPropertyList
-{
+class IAIMPMLDataField : public IAIMPPropertyList {
 };
 
 /* IAIMPMLDataFieldDisplayValue */
 
-class IAIMPMLDataFieldDisplayValue : public IUnknown
-{
+class IAIMPMLDataFieldDisplayValue : public IUnknown {
 public:
     virtual WCHAR* WINAPI GetDisplayValue(VARIANT* Value, int* Length) = 0;
 };
 
 /* IAIMPMLDataFieldFilter */
 
-class IAIMPMLDataFieldFilter : public IAIMPPropertyList2
-{
+class IAIMPMLDataFieldFilter : public IAIMPPropertyList2 {
 };
 
 /* IAIMPMLDataFieldFilterByArray */
 
-class IAIMPMLDataFieldFilterByArray : public IAIMPPropertyList2
-{
+class IAIMPMLDataFieldFilterByArray : public IAIMPPropertyList2 {
 public:
     virtual HRESULT WINAPI GetData(VARIANT* Values, int* Count) = 0;
     virtual HRESULT WINAPI SetData(VARIANT* Values, int Count) = 0;
@@ -262,14 +254,12 @@ public:
 
 /* IAIMPMLDataFilterGroup */
 
-class IAIMPMLDataFilterGroup : public IAIMPPropertyList2
-{
+class IAIMPMLDataFilterGroup : public IAIMPPropertyList2 {
 public:
     virtual HRESULT WINAPI Add(IUnknown* Field, VARIANT* Value1, VARIANT* Value2, int Operation,
                                IAIMPMLDataFieldFilter** Filter) { return E_NOTIMPL; }
 
-    virtual HRESULT WINAPI Add2(IUnknown* Field, VARIANT* Values, int Count, IAIMPMLDataFieldFilterByArray** Filter)
-    {
+    virtual HRESULT WINAPI Add2(IUnknown* Field, VARIANT* Values, int Count, IAIMPMLDataFieldFilterByArray** Filter) {
         return E_NOTIMPL;
     }
 
@@ -282,8 +272,7 @@ public:
 
 /* IAIMPMLDataFilter */
 
-class IAIMPMLDataFilter : public IAIMPMLDataFilterGroup
-{
+class IAIMPMLDataFilter : public IAIMPMLDataFilterGroup {
 public:
     virtual HRESULT WINAPI Assign(IAIMPMLDataFilter* Source) = 0;
     virtual HRESULT WINAPI Clone(void** Filter) = 0;
@@ -291,8 +280,7 @@ public:
 
 /* IAIMPMLFileList */
 
-class IAIMPMLFileList : public IUnknown
-{
+class IAIMPMLFileList : public IUnknown {
 public:
     virtual HRESULT WINAPI Add(VARIANT* ID, IAIMPString* FileName) = 0;
     virtual HRESULT WINAPI Clear() = 0;
@@ -310,8 +298,7 @@ public:
 
 /* IAIMPMLSortDirection */
 
-class IAIMPMLSortDirection : public IUnknown
-{
+class IAIMPMLSortDirection : public IUnknown {
 public:
     virtual HRESULT WINAPI GetValue(int* Value) = 0;
     virtual HRESULT WINAPI SetValue(int Value) = 0;
@@ -321,24 +308,21 @@ public:
 // Commands
 //----------------------------------------------------------------------------------------------------------------------
 
-class IAIMPMLDataStorageCommandAddFiles : public IUnknown
-{
+class IAIMPMLDataStorageCommandAddFiles : public IUnknown {
 public:
     virtual HRESULT WINAPI Add(IAIMPObjectList* Files) = 0;
 };
 
 /* IAIMPMLDataStorageCommandAddFilesDialog */
 
-class IAIMPMLDataStorageCommandAddFilesDialog : public IUnknown
-{
+class IAIMPMLDataStorageCommandAddFilesDialog : public IUnknown {
 public:
     virtual HRESULT WINAPI Execute(HWND OwnerHandle) = 0;
 };
 
 /* IAIMPMLDataStorageCommandDeleteFiles */
 
-class IAIMPMLDataStorageCommandDeleteFiles : public IUnknown
-{
+class IAIMPMLDataStorageCommandDeleteFiles : public IUnknown {
 public:
     virtual BOOL WINAPI CanDelete(BOOL Physically) = 0;
     virtual HRESULT WINAPI Delete(IAIMPMLFileList* Files, BOOL Physically) = 0;
@@ -346,40 +330,35 @@ public:
 
 /* IAIMPMLDataStorageCommandDeleteFiles2 */
 
-class IAIMPMLDataStorageCommandDeleteFiles2 : public IAIMPMLDataStorageCommandDeleteFiles
-{
+class IAIMPMLDataStorageCommandDeleteFiles2 : public IAIMPMLDataStorageCommandDeleteFiles {
 public:
     virtual HRESULT WINAPI Delete2(IAIMPMLDataFilter* Filter, BOOL Physically) = 0;
 };
 
 /* IAIMPMLDataStorageCommandDropData */
 
-class IAIMPMLDataStorageCommandDropData : public IUnknown
-{
+class IAIMPMLDataStorageCommandDropData : public IUnknown {
 public:
     virtual HRESULT WINAPI DropData() = 0;
 };
 
 /* IAIMPMLDataStorageCommandReloadTags */
 
-class IAIMPMLDataStorageCommandReloadTags : public IUnknown
-{
+class IAIMPMLDataStorageCommandReloadTags : public IUnknown {
 public:
     virtual HRESULT WINAPI ReloadTags(IAIMPMLFileList* Files) = 0;
 };
 
 /* IAIMPMLDataStorageCommandReportDialog */
 
-class IAIMPMLDataStorageCommandReportDialog : public IUnknown
-{
+class IAIMPMLDataStorageCommandReportDialog : public IUnknown {
 public:
     virtual HRESULT WINAPI Execute(HWND OwnerHandle) = 0;
 };
 
 /* IAIMPMLDataStorageCommandUserMark */
 
-class IAIMPMLDataStorageCommandUserMark : public IUnknown
-{
+class IAIMPMLDataStorageCommandUserMark : public IUnknown {
 public:
     virtual HRESULT WINAPI SetMark(VARIANT* ID, const DOUBLE Value) = 0;
 };
@@ -390,8 +369,7 @@ public:
 
 /* IAIMPMLPlaylistPreimage */
 
-class IAIMPMLPlaylistPreimage : public IAIMPPlaylistPreimage
-{
+class IAIMPMLPlaylistPreimage : public IAIMPPlaylistPreimage {
 public:
     virtual HRESULT WINAPI GetFilter(IAIMPMLDataFilter** Filter) = 0;
     virtual HRESULT WINAPI GetStorage(IUnknown** Storage) = 0;
@@ -403,16 +381,14 @@ public:
 
 /* IAIMPMLDataProvider */
 
-class IAIMPMLDataProvider : public IUnknown
-{
+class IAIMPMLDataProvider : public IUnknown {
 public:
     virtual HRESULT WINAPI GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* Filter, IUnknown** Data) = 0;
 };
 
 /* IAIMPMLDataProviderSelection */
 
-class IAIMPMLDataProviderSelection : public IUnknown
-{
+class IAIMPMLDataProviderSelection : public IUnknown {
 public:
     virtual DOUBLE WINAPI GetValueAsFloat(int FieldIndex) = 0;
     virtual int WINAPI GetValueAsInt32(int FieldIndex) = 0;
@@ -424,8 +400,7 @@ public:
 
 /* IAIMPMLGroupingTreeSelection */
 
-class IAIMPMLGroupingTreeSelection : public IUnknown
-{
+class IAIMPMLGroupingTreeSelection : public IUnknown {
 public:
     virtual int WINAPI GetCount() = 0;
     virtual HRESULT WINAPI GetValue(int Index, IAIMPString** FieldName, VARIANT* Value) = 0;
@@ -433,8 +408,7 @@ public:
 
 /* IAIMPMLGroupingTreeDataProviderSelection */
 
-class IAIMPMLGroupingTreeDataProviderSelection : public IUnknown
-{
+class IAIMPMLGroupingTreeDataProviderSelection : public IUnknown {
 public:
     virtual HRESULT WINAPI GetDisplayValue(IAIMPString** S) = 0;
     virtual DWORD WINAPI GetFlags() = 0;
@@ -445,8 +419,7 @@ public:
 
 /* IAIMPMLGroupingTreeDataProvider */
 
-class IAIMPMLGroupingTreeDataProvider : public IUnknown
-{
+class IAIMPMLGroupingTreeDataProvider : public IUnknown {
 public:
     virtual HRESULT WINAPI AppendFilter(IAIMPMLDataFilterGroup* Filter, IAIMPMLGroupingTreeSelection* Selection) = 0;
     virtual DWORD WINAPI GetCapabilities() = 0;
@@ -461,22 +434,19 @@ public:
 
 /* IAIMPMLGroupingPreset */
 
-class IAIMPMLGroupingPreset : public IAIMPPropertyList
-{
+class IAIMPMLGroupingPreset : public IAIMPPropertyList {
 };
 
 /* IAIMPMLGroupingPresetStandard */
 
-class IAIMPMLGroupingPresetStandard : public IAIMPMLGroupingPreset
-{
+class IAIMPMLGroupingPresetStandard : public IAIMPMLGroupingPreset {
 public:
     virtual HRESULT WINAPI GetFilter(IAIMPMLDataFilterGroup** Filter) = 0;
 };
 
 /* IAIMPMLGroupingPresets */
 
-class IAIMPMLGroupingPresets : public IUnknown
-{
+class IAIMPMLGroupingPresets : public IUnknown {
 public:
     virtual HRESULT WINAPI BeginUpdate() = 0;
     virtual HRESULT WINAPI EndUpdate() = 0;
@@ -495,8 +465,7 @@ public:
 
 /* IAIMPMLDataStorageManager */
 
-class IAIMPMLDataStorageManager : public IUnknown
-{
+class IAIMPMLDataStorageManager : public IUnknown {
 public:
     virtual HRESULT WINAPI BackgroundTaskStarted(int ID, IAIMPString* Caption, IAIMPActionEvent* CancelEvent) = 0;
     virtual HRESULT WINAPI BackgroundTaskFinished(int ID) = 0;
@@ -536,8 +505,7 @@ public:
 
 /* IAIMPServiceMusicLibrary */
 
-class IAIMPServiceMusicLibrary : public IUnknown
-{
+class IAIMPServiceMusicLibrary : public IUnknown {
 public:
     virtual HRESULT WINAPI GetActiveStorage(REFIID IID, void** Obj) = 0;
     virtual HRESULT WINAPI SetActiveStorage(IUnknown* Storage) = 0;
@@ -549,8 +517,7 @@ public:
 
 /* IAIMPServiceMusicLibraryUI */
 
-class IAIMPServiceMusicLibraryUI : public IUnknown
-{
+class IAIMPServiceMusicLibraryUI : public IUnknown {
 public:
     virtual HRESULT WINAPI GetFiles(DWORD Flags, IAIMPMLFileList* List) = 0;
     virtual HRESULT WINAPI GetGroupingFilter(IAIMPMLDataFilter** Filter) = 0;

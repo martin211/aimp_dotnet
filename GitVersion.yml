@@ -1,3 +1,4 @@
+next-version: 4.60.2167
 assembly-versioning-scheme: MajorMinorPatchTag
 assembly-file-versioning-scheme: MajorMinorPatchTag
 branches:
@@ -11,9 +12,9 @@ branches:
     tracks-release-branches: false
     is-release-branch: false
   release:
-    regex: releases?[/-]
+    regex: ^release?[/-]
     mode: ContinuousDelivery
-    tag: beta
+    tag: ''
     increment: Patch
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
@@ -21,9 +22,9 @@ branches:
     is-release-branch: true
   feature:
     regex: features?[/-]
-    mode: ContinuousDelivery
-    tag: useBranchName
-    increment: Inherit
+    mode: ContinuousDeployment
+    tag: alpha
+    increment: None
     prevent-increment-of-merged-branch-version: false
     track-merge-target: false
     tracks-release-branches: false
@@ -31,8 +32,8 @@ branches:
   develop:
     regex: dev(elop)?(ment)?$
     mode: ContinuousDeployment
-    tag: unstable
-    increment: Minor
+    tag: preview
+    increment: None
     prevent-increment-of-merged-branch-version: false
     track-merge-target: true
     tracks-release-branches: true

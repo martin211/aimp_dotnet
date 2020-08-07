@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #ifndef apiOptionsH
@@ -36,8 +32,7 @@ const int AIMP_SERVICE_OPTIONSDIALOG_NOTIFICATION_CAN_SAVE = 0x4;
 
 /* IAIMPOptionsDialogFrame */
 
-class IAIMPOptionsDialogFrame : public IUnknown
-{
+class IAIMPOptionsDialogFrame : public IUnknown {
 public:
     virtual HRESULT WINAPI GetName(IAIMPString** S) = 0;
     virtual HWND WINAPI CreateFrame(HWND ParentWnd) = 0;
@@ -47,8 +42,7 @@ public:
 
 /* IAIMPOptionsDialogFrameKeyboardHelper */
 
-class IAIMPOptionsDialogFrameKeyboardHelper : public IUnknown
-{
+class IAIMPOptionsDialogFrameKeyboardHelper : public IUnknown {
 public:
     virtual BOOL WINAPI DialogChar(WCHAR CharCode, int Unused) = 0;
     virtual BOOL WINAPI DialogKey(WORD CharCode, int Unused) = 0;
@@ -58,16 +52,14 @@ public:
 
 /* IAIMPOptionsDialogFrameKeyboardHelper2 */
 
-class IAIMPOptionsDialogFrameKeyboardHelper2 : public IUnknown
-{
+class IAIMPOptionsDialogFrameKeyboardHelper2 : public IUnknown {
 public:
     virtual BOOL WINAPI SelectLastControl() = 0;
 };
 
 /* IAIMPServiceOptionsDialog */
 
-class IAIMPServiceOptionsDialog : public IUnknown
-{
+class IAIMPServiceOptionsDialog : public IUnknown {
 public:
     virtual HRESULT WINAPI FrameModified(IAIMPOptionsDialogFrame* Frame) = 0;
     virtual HRESULT WINAPI FrameShow(IAIMPOptionsDialogFrame* Frame, BOOL ForceShow) = 0;

@@ -1,27 +1,20 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
 #include "SDK\AimpObject.h"
 #include "SDK\ManagedAimpCore.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace FileManager;
 
-        public ref class AimpVirtualFile : public AimpObject<IAIMPVirtualFile>, public IAimpVirtualFile
-        {
+        public ref class AimpVirtualFile : public AimpObject<IAIMPVirtualFile>, public IAimpVirtualFile {
         public:
             AimpVirtualFile(IAIMPVirtualFile* aimpObject);
 
@@ -61,15 +54,15 @@ namespace AIMP
                 void set(String^ value);
             }
 
-            virtual AimpActionResult CreateStream(IAimpStream^% stream);
+            virtual StreamResult CreateStream();
 
-            virtual AimpActionResult GetFileInfo(IAimpFileInfo^% fileInfo);
+            virtual FileInfoResult GetFileInfo();
 
             virtual bool IsExists();
 
-            virtual AimpActionResult IsInSameStream(IAimpVirtualFile^ virtualFile);
+            virtual ActionResult IsInSameStream(IAimpVirtualFile^ virtualFile);
 
-            virtual AimpActionResult Synchronize();
+            virtual ActionResult Synchronize();
         };
     }
 }

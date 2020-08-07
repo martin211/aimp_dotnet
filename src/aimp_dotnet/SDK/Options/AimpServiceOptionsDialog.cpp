@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -15,19 +11,31 @@
 using namespace AIMP::SDK;
 
 AimpServiceOptionsDialog::
-AimpServiceOptionsDialog(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceOptionsDialog>(core)
-{
-    IAIMPServiceOptionsDialog* service;
-    core->GetService(IID_IAIMPServiceOptionsDialog, reinterpret_cast<void**>(&service));
-    _service = service;
+AimpServiceOptionsDialog(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceOptionsDialog>(core) {
 }
 
-AimpActionResult AimpServiceOptionsDialog::FrameModified(IAimpOptionsDialogFrame^ frame)
-{
-    return CheckResult(_service->FrameModified(_core->GetOptionsFrame()));
+ActionResult AimpServiceOptionsDialog::FrameModified(IAimpOptionsDialogFrame^ frame) {
+    auto service = GetAimpService();
+    try {
+        return ACTION_RESULT(CheckResult(service->FrameModified(_core->GetOptionsFrame())));
+    }
+    finally {
+        ReleaseObject(service);
+    }
 }
 
-AimpActionResult AimpServiceOptionsDialog::FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow)
-{
-    return CheckResult(_service->FrameShow(_core->GetOptionsFrame(), forceShow));
+ActionResult AimpServiceOptionsDialog::FrameShow(IAimpOptionsDialogFrame^ frame, bool forceShow) {
+    auto service = GetAimpService();
+    try {
+        return ACTION_RESULT(CheckResult(service->FrameShow(_core->GetOptionsFrame(), forceShow)));
+    }
+    finally {
+        ReleaseObject(service);
+    }
+}
+
+IAIMPServiceOptionsDialog* AimpServiceOptionsDialog::GetAimpService() {
+    IAIMPServiceOptionsDialog* service = nullptr;
+    GetService(IID_IAIMPServiceOptionsDialog, &service);
+    return service;
 }

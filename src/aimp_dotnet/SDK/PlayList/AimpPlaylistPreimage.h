@@ -1,28 +1,21 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
 #include "AimpPlaylistPreimageListener.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace AIMP::SDK::Playlist;
 
         public ref class AimpPlaylistPreimage :
             public AimpObject<IAIMPPlaylistPreimage>,
-            public IAimpPlaylistPreimage
-        {
+            public IAimpPlaylistPreimage {
         public:
             explicit AimpPlaylistPreimage(IAIMPPlaylistPreimage* aimpObject);
 
@@ -54,11 +47,11 @@ namespace AIMP
                 String^ get();
             }
 
-            virtual AimpActionResult ConfigLoad(IAimpStream^ stream);
+            virtual ActionResult ConfigLoad(IAimpStream^ stream);
 
-            virtual AimpActionResult ConfigSave(IAimpStream^ stream);
+            virtual ActionResult ConfigSave(IAimpStream^ stream);
 
-            virtual AimpActionResult ExecuteDialog(IntPtr ownerHandle);
+            virtual ActionResult ExecuteDialog(IntPtr ownerHandle);
 
             virtual void Initialize(IAimpPlaylistPreimageListener^ listener);
 

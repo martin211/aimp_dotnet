@@ -1,52 +1,45 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\BaseManager.h"
-#include "AimpGroupingPresets.h"
+#include "SDK\BaseAimpService.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace MusicLibrary;
         using namespace DataStorage;
         using namespace Presets;
 
-        public ref class AimpServiceMusicLibrary : public AimpBaseManager<IAIMPServiceMusicLibrary>,
-                                                   public IAimpServiceMusicLibrary
-        {
+        public ref class AimpServiceMusicLibrary : public BaseAimpService<IAIMPServiceMusicLibrary>,
+                                                   public IAimpServiceMusicLibrary {
         public:
-            explicit AimpServiceMusicLibrary(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceMusicLibrary>(core)
-            {
+            explicit AimpServiceMusicLibrary(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceMusicLibrary>(core) {
             }
 
-            virtual AimpActionResult GetActiveStorage(IAimpDataStorage^% storage);
+            virtual TYPED_RESULT(IAimpDataStorage) GetActiveStorage();
 
-            virtual AimpActionResult GetActiveStorage(IAimpGroupingPresets^% presets);
+            virtual TYPED_RESULT(IAimpGroupingPresets) GetActiveGroupingPresets();
 
-            virtual AimpActionResult SetActiveStorage(IAimpDataStorage^ storage);
+            virtual ActionResult SetActiveStorage(IAimpDataStorage^ storage);
 
-            virtual AimpActionResult SetActiveStorage(IAimpGroupingPresets^ preset);
+            virtual ActionResult SetActiveStorage(IAimpGroupingPresets^ preset);
 
-            virtual AimpActionResult GetStorage(int index, IAimpDataStorage^% storage);
+            virtual TYPED_RESULT(IAimpDataStorage) GetStorage(int index);
 
-            virtual AimpActionResult GetStorage(int index, IAimpGroupingPresets^% preset);
+            virtual TYPED_RESULT(IAimpGroupingPresets) GetGroupingPresets(int index);
 
-            virtual AimpActionResult GetStorageById(String^ id, IAimpDataStorage^% storage);
+            virtual TYPED_RESULT(IAimpDataStorage) GetStorageById(String^ id);
 
-            virtual AimpActionResult GetStorageById(String^ id, IAimpGroupingPresets^% preset);
+            virtual TYPED_RESULT(IAimpGroupingPresets) GetGroupingPresetsById(String^ id);
 
             virtual int GetStorageCount();
+        protected:
+            IAIMPServiceMusicLibrary* GetAimpService() override;
         };
     }
 }

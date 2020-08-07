@@ -2,13 +2,12 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
-using System;
 
 namespace AIMP.SDK
 {
@@ -18,26 +17,30 @@ namespace AIMP.SDK
     /// <typeparam name="TObject">The type of elements in the list.</typeparam>
     public interface IAimpObjectList<TObject>
     {
+        /// <summary>
+        /// Gets the count.
+        /// </summary>
+        /// <value>The count.</value>
         int Count { get; }
 
         /// <summary>
         /// Adds an item to the collection.
         /// </summary>
         /// <param name="entry">The object to add to the collection.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult Add(TObject entry);
 
         /// <summary>
         /// Removes all items from the list.
         /// </summary>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult Clear();
 
         /// <summary>
         /// Removes the item at the specified index.
         /// </summary>
         /// <param name="index">The zero-based index of the item to remove.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult Delete(int index);
 
         /// <summary>
@@ -45,15 +48,15 @@ namespace AIMP.SDK
         /// </summary>
         /// <param name="index">The zero-based index at which <paramref name="item" /> should be inserted.</param>
         /// <param name="item">The object to insert into the collection.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult Insert(int index, TObject item);
 
         /// <summary>
         /// Gets the element at the specified index.
         /// </summary>
         /// <param name="index">The zero-based index of the element to get.</param>
-        /// <param name="item">The item at specified <paramref name="index"/>.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
+        /// <param name="item">The item at specified <paramref name="index" />.</param>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult GetObject(int index, out TObject item);
 
         /// <summary>
@@ -61,32 +64,39 @@ namespace AIMP.SDK
         /// </summary>
         /// <param name="index">The zero-based index of the element to set.</param>
         /// <param name="item">The item to set.</param>
-        /// <returns>The <see cref="AimpActionResult" /> result.</returns>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult SetObject(int index, TObject item);
     }
 
+    /// <summary>
+    /// Interface IAimpObjectList
+    /// </summary>
     public interface IAimpObjectList
     {
+        /// <summary>
+        /// Gets the count.
+        /// </summary>
+        /// <value>The count.</value>
         int Count { get; }
 
         /// <summary>
         /// Adds an item to the collection.
         /// </summary>
         /// <param name="entry">The object to add to the collection.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Add(Object entry);
+        /// <returns>AimpActionResult.</returns>
+        AimpActionResult Add(object entry);
 
         /// <summary>
         /// Removes all items from the list.
         /// </summary>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult Clear();
 
         /// <summary>
         /// Removes the item at the specified index.
         /// </summary>
         /// <param name="index">The zero-based index of the item to remove.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult Delete(int index);
 
         /// <summary>
@@ -94,23 +104,23 @@ namespace AIMP.SDK
         /// </summary>
         /// <param name="index">The zero-based index at which <paramref name="item" /> should be inserted.</param>
         /// <param name="item">The object to insert into the collection.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Insert(int index, Object item);
+        /// <returns>AimpActionResult.</returns>
+        AimpActionResult Insert(int index, object item);
 
         /// <summary>
         /// Gets the element at the specified index.
         /// </summary>
         /// <param name="index">The zero-based index of the element to get.</param>
-        /// <param name="item">The item at specified <paramref name="index"/>.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult GetObject(int index, out Object item);
+        /// <param name="item">The item at specified <paramref name="index" />.</param>
+        /// <returns>AimpActionResult.</returns>
+        AimpActionResult GetObject(int index, out object item);
 
         /// <summary>
         /// Sets the element at the specified index.
         /// </summary>
         /// <param name="index">The zero-based index of the element to set.</param>
         /// <param name="item">The item to set.</param>
-        /// <returns>The <see cref="AimpActionResult" /> result.</returns>
-        AimpActionResult SetObject(int index, Object item);
+        /// <returns>AimpActionResult.</returns>
+        AimpActionResult SetObject(int index, object item);
     }
 }

@@ -1,26 +1,20 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
 
-#include "SDK\Menu\AimpMenuManager.h"
-#include "SDK\Action\AimpActionManager.h"
-#include "SDK\MUI\MUIManager.h"
-#include "SDK\AlbumArt\AimpAlbumArtManager.h"
+#include "SDK\Action\AimpServiceActionManager.h"
+#include "SDK\AlbumArt\AimpServiceAlbumArt.h"
 #include "SDK\Configuration\AimpConfigurationManager.h"
 #include "SDK\FileManager\AimpFileInfo.h"
 #include "SDK\Win32\Win32Manager.h"
 #include "SDK\PlayList\AimpPlayListItem.h"
 #include "SDK\PlayList\AimpPlayList.h"
-#include "SDK\PlayList\PlayListManager.h"
+#include "SDK\PlayList\AimpServicePlaylistManager.h"
 #include "SDK\Playback\AimpServicePlaybackQueue.h"
 #include "SDK\Threading\AimpServiceSynchronizer.h"
 #include "AimpCore.h"
@@ -36,9 +30,9 @@
 #include "SDK\FileManager\AimpServiceFileStreaming.h"
 #include "SDK\MessageDispatcher\AimpServiceMessageDispatcher.h";
 #include "SDK\TagEditor\AimpServiceFileTagEditor.h"
+#include "SDK\Action\AimpServiceActionManager.h";
 
-namespace AIMP
-{
+namespace AIMP {
     using namespace System;
     using namespace Runtime::InteropServices;
     using namespace SDK;
@@ -54,8 +48,7 @@ namespace AIMP
 
     private ref class AimpPlayer :
         public MarshalByRefObject,
-        public Player::IAimpPlayer
-    {
+        public Player::IAimpPlayer {
     private:
         IAIMPMessageHook* aimp_message_hook_;
         IAIMPServicePlayer* _player;
@@ -63,14 +56,14 @@ namespace AIMP
         ManagedAimpCore^ _managedAimpCore;
         IAimpCore^ _aimpCore;
         AimpEventsDelegate^ _coreMessage;
-        IAimpServiceMenuManager^ _menuManager;
+        MenuManager::IAimpServiceMenuManager^ _menuManager;
         IAimpServiceActionManager^ _actionManager;
-        IAimpMUIManager^ _muiManager;
-        IAimpAlbumArtManager^ _artManager;
+        MUIManager::IAimpServiceMUI^ _muiManager;
+        IAimpServiceAlbumArt^ _artManager;
         IAimpServiceConfig^ _serviceConfig;
         IWin32Manager^ _win32Manager;
-        IAimpPlaylistManager2^ _playListManager;
-        IAimpPlaybackQueueService^ _playbackQueueManager;
+        IAimpServicePlaylistManager^ _playListManager;
+        IAimpServicePlaybackQueue^ _playbackQueueManager;
         IAimpServiceOptionsDialog^ _serviceOptionsDialogManager;
         AimpPlayerState _state;
         IAimpServiceSynchronizer^ _serviceSynchronizer;
@@ -85,6 +78,7 @@ namespace AIMP
         IAimpServiceMessageDispatcher^ _serviceMessageDispatcher;
         IAimpServiceFileTagEditor^ _serviceFileTagEditor;
         Lyrics::IAimpServiceLyrics^ _serviceLyrics;
+        IAimpServiceAlbumArtCache^ _serviceAlbumArtCache;
     public:
         /// <summary>
         /// Initializes a new instance of the <see cref="AIMP3Controller{TConvAlloc}" /> class.
@@ -108,15 +102,15 @@ namespace AIMP
         /// <summary>
         /// Gets player menu manager.
         /// </summary>
-        virtual property IAimpServiceMenuManager^ MenuManager
+        virtual property MenuManager::IAimpServiceMenuManager^ ServiceMenuManager
         {
-            IAimpServiceMenuManager^ get();
+            SDK::MenuManager::IAimpServiceMenuManager^ get();
         }
 
         /// <summary>
         /// Gets player action manager.
         /// </summary>
-        virtual property IAimpServiceActionManager^ ActionManager
+        virtual property IAimpServiceActionManager^ ServiceActionManager
         {
             IAimpServiceActionManager^ get();
         }
@@ -124,14 +118,14 @@ namespace AIMP
         /// <summary>
         /// Gets the MUI manager.
         /// </summary>
-        virtual property IAimpMUIManager^ MUIManager
+        virtual property MUIManager::IAimpServiceMUI^ ServiceMui
         {
-            IAimpMUIManager^ get();
+            SDK::MUIManager::IAimpServiceMUI^ get();
         }
 
-        virtual property IAimpAlbumArtManager^ AlbumArtManager
+        virtual property IAimpServiceAlbumArt^ ServiceAlbumArt
         {
-            IAimpAlbumArtManager^ get();
+            IAimpServiceAlbumArt^ get();
         }
 
         virtual property IAimpServiceConfig^ ServiceConfig
@@ -139,14 +133,14 @@ namespace AIMP
             IAimpServiceConfig^ get();
         }
 
-        virtual property IAimpPlaylistManager2^ PlaylistManager
+        virtual property IAimpServicePlaylistManager^ ServicePlaylistManager
         {
-            IAimpPlaylistManager2^ get();
+            IAimpServicePlaylistManager^ get();
         }
 
-        virtual property IAimpPlaybackQueueService^ PlaybackQueueManager
+        virtual property IAimpServicePlaybackQueue^ ServicePlaybackQueue
         {
-            IAimpPlaybackQueueService^ get();
+            IAimpServicePlaybackQueue^ get();
         }
 
         virtual property IAIMPServicePlayer* ServicePlayer
@@ -207,23 +201,23 @@ namespace AIMP
             IAimpServiceMessageDispatcher^ get();
         }
 
-        virtual void Pause();
+        virtual ActionResult Pause();
 
-        virtual void Stop();
+        virtual ActionResult Stop();
 
-        virtual void Resume();
+        virtual ActionResult Resume();
 
-        virtual void StopAfterTrack();
+        virtual ActionResult StopAfterTrack();
 
-        virtual void GoToNext();
+        virtual ActionResult GoToNext();
 
-        virtual void GoToPrev();
+        virtual ActionResult GoToPrev();
 
-        virtual void Play(IAimpPlaybackQueueItem^ queueItem);
+        virtual ActionResult Play(IAimpPlaybackQueueItem^ queueItem);
 
-        virtual void Play(IAimpPlaylistItem^ playListItem);
+        virtual ActionResult Play(IAimpPlaylistItem^ playListItem);
 
-        virtual void Play(IAimpPlaylist^ playList);
+        virtual ActionResult Play(IAimpPlaylist^ playList);
 
         virtual property IAimpServiceSynchronizer^ ServiceSynchronizer
         {
@@ -280,6 +274,9 @@ namespace AIMP
             Lyrics::IAimpServiceLyrics^ get();
         }
 
-        bool OnCheckUrl(String^ % url);
+        virtual property IAimpServiceAlbumArtCache^ ServiceAlbumArtCache
+        {
+            IAimpServiceAlbumArtCache^ get();
+        }
     };
 }

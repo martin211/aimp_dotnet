@@ -1,39 +1,33 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
 #include "InternalAimpGroupingTreeDataProvider.h"
+#include "AimpGroupingTreeSelection.h"
+#include "DataFilter/AimpDataFilterGroup.h"
 
 using namespace AIMP::SDK;
 
 InternalAimpGroupingTreeDataProvider::InternalAimpGroupingTreeDataProvider(
-    gcroot<IAimpGroupingTreeDataProvider^> managedInstance)
-{
+    gcroot<IAimpGroupingTreeDataProvider^> managedInstance) {
     _managedInstance = managedInstance;
 }
 
 HRESULT WINAPI InternalAimpGroupingTreeDataProvider::AppendFilter(IAIMPMLDataFilterGroup* Filter,
-                                                                  IAIMPMLGroupingTreeSelection* Selection)
-{
+                                                                  IAIMPMLGroupingTreeSelection* Selection) {
     AimpDataFilterGroup^ dataFilterGroup = nullptr;
     IAimpGroupingTreeSelection^ selection = nullptr;
 
-    try
-    {
+    try {
         dataFilterGroup = gcnew AimpDataFilterGroup(Filter);
         selection = gcnew AimpGroupingTreeSelection(Selection);
         _managedInstance->AppendFilter(dataFilterGroup, selection);
     }
-    finally
-    {
+    finally {
         delete dataFilterGroup;
         delete selection;
     }
@@ -41,66 +35,50 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProvider::AppendFilter(IAIMPMLDataFil
     return HRESULT(S_OK);
 }
 
-DWORD WINAPI InternalAimpGroupingTreeDataProvider::GetCapabilities()
-{
+DWORD WINAPI InternalAimpGroupingTreeDataProvider::GetCapabilities() {
     return DWORD(_managedInstance->GetCapabilities());
 }
 
 HRESULT WINAPI InternalAimpGroupingTreeDataProvider::GetData(IAIMPMLGroupingTreeSelection* Selection,
-                                                             IAIMPMLGroupingTreeDataProviderSelection** Data)
-{
-    IAimpGroupingTreeSelection^ selection = nullptr;
-    IAimpGroupingTreeDataProviderSelection^ dataProviderSelection = nullptr;
-    AimpActionResult result = AimpActionResult::Fail;
+                                                             IAIMPMLGroupingTreeDataProviderSelection** Data) {
+    ActionResultType result = ActionResultType::Fail;
 
+    try {
+        const auto selection = gcnew AimpGroupingTreeSelection(Selection);
+        const auto dataResult = _managedInstance->GetData(selection);
+        result = dataResult->ResultType;
 
-    try
-    {
-        selection = gcnew AimpGroupingTreeSelection(Selection);
-        result = _managedInstance->GetData(selection, dataProviderSelection);
-
-        if (result == AimpActionResult::OK)
-        {
-            *Data = new InternalAimpGroupingTreeDataProviderSelection(dataProviderSelection);
+        if (result == ActionResultType::OK) {
+            *Data = new InternalAimpGroupingTreeDataProviderSelection(dataResult->Result);
         }
     }
-    finally
-    {
+    finally {
     }
 
     return HRESULT(result);
 }
 
-HRESULT WINAPI InternalAimpGroupingTreeDataProvider::GetFieldForAlphabeticIndex(IAIMPString** FieldName)
-{
-    String^ str;
-
-    AimpActionResult result = _managedInstance->GetFieldForAlphabeticIndex(str);
-
-    if (result == AimpActionResult::OK)
-    {
-        *FieldName = AimpConverter::ToAimpString(str);
+HRESULT WINAPI InternalAimpGroupingTreeDataProvider::GetFieldForAlphabeticIndex(IAIMPString** FieldName) {
+    auto result = _managedInstance->GetFieldForAlphabeticIndex();
+    if (result->ResultType == ActionResultType::OK) {
+        *FieldName = AimpConverter::ToAimpString(result->Result);
     }
 
-    return HRESULT(result);
+    return HRESULT(result->ResultType);
 }
 
-ULONG WINAPI InternalAimpGroupingTreeDataProvider::AddRef(void)
-{
+ULONG WINAPI InternalAimpGroupingTreeDataProvider::AddRef(void) {
     return Base::AddRef();
 }
 
-ULONG WINAPI InternalAimpGroupingTreeDataProvider::Release(void)
-{
+ULONG WINAPI InternalAimpGroupingTreeDataProvider::Release(void) {
     return Base::Release();
 }
 
-HRESULT WINAPI InternalAimpGroupingTreeDataProvider::QueryInterface(REFIID riid, LPVOID* ppvObject)
-{
+HRESULT WINAPI InternalAimpGroupingTreeDataProvider::QueryInterface(REFIID riid, LPVOID* ppvObject) {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPMLGroupingTreeDataProvider)
-    {
+    if (riid == IID_IAIMPMLGroupingTreeDataProvider) {
         *ppvObject = this;
         AddRef();
         return S_OK;

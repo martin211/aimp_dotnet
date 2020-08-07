@@ -2,128 +2,214 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 namespace AIMP.SDK.MenuManager
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public enum MenuItemPropertyType
-    {
-        AIMP_MENUITEM_PROPID_CUSTOM = 0,
-        AIMP_MENUITEM_PROPID_ACTION = 1,
-        AIMP_MENUITEM_PROPID_ID = 2,
-        AIMP_MENUITEM_PROPID_NAME = 3,
-        AIMP_MENUITEM_PROPID_ENABLED = 4,
-        AIMP_MENUITEM_PROPID_STYLE = 5,
-        AIMP_MENUITEM_PROPID_EVENT = 6,
-        AIMP_MENUITEM_PROPID_EVENT_ONSHOW = 7,
-        AIMP_MENUITEM_PROPID_GLYPH = 10,
-        AIMP_MENUITEM_PROPID_PARENT = 11,
-        AIMP_MENUITEM_PROPID_VISIBLE = 12,
-        AIMP_MENUITEM_PROPID_CHECKED = 13,
-        AIMP_MENUITEM_PROPID_DEFAULT = 14,
-        AIMP_MENUITEM_PROPID_SHORTCUT = 15
-    }
-
-    public enum MenuItemStyleType
-    {
-        AIMP_MENUITEM_STYLE_NORMAL = 0,
-        AIMP_MENUITEM_STYLE_CHECKBOX = 1,
-        AIMP_MENUITEM_STYLE_RADIOBOX = 2
-    }
-
     /// <summary>
     /// AIMP Parent menu item.
     /// </summary>
     public enum ParentMenuType
     {
-        AIMP_MENUID_COMMON_UTILITIES = 0,
-        AIMP_MENUID_PLAYER_MAIN_FUNCTIONS = 10,
-        AIMP_MENUID_PLAYER_MAIN_OPEN = 11,
-        AIMP_MENUID_PLAYER_MAIN_OPTIONS = 12,
+        /// <summary>
+        /// The common utilities
+        /// </summary>
+        CommonUtilities = 0,
 
-        AIMP_MENUID_PLAYER_PLAYLIST_ADDING = 20,
-        AIMP_MENUID_PLAYER_PLAYLIST_DELETION = 21,
-        AIMP_MENUID_PLAYER_PLAYLIST_SORTING = 22,
-        AIMP_MENUID_PLAYER_PLAYLIST_MISCELLANEOUS = 23,
-        AIMP_MENUID_PLAYER_PLAYLIST_MANAGE = 24,
-        AIMP_MENUID_PLAYER_PLAYLIST_CONTEXT_ADDING = 30,
-        AIMP_MENUID_PLAYER_PLAYLIST_CONTEXT_QUEUE = 31,
-        AIMP_MENUID_PLAYER_PLAYLIST_CONTEXT_FUNCTIONS = 32,
-        AIMP_MENUID_PLAYER_PLAYLIST_CONTEXT_SENDING = 33,
-        AIMP_MENUID_PLAYER_PLAYLIST_CONTEXT_DELETION = 34,
+        /// <summary>
+        /// The player main functions
+        /// </summary>
+        PlayerMainFunctions = 10,
 
-        AIMP_MENUID_PLAYER_TRAY = 40,
-        AIMP_MENUID_PLAYER_EQ_LIB = 41,
-        AIMP_MENUID_PLAYER_STOP_OPTIONS = 42,
+        /// <summary>
+        /// The player main open
+        /// </summary>
+        PlayerMainOpen = 11,
 
-        AIMP_MENUID_ML_MISCELLANEOUS = 50,
-        AIMP_MENUID_ML_DELETION = 51,
+        /// <summary>
+        /// The player main options
+        /// </summary>
+        PlayerMainOptions = 12,
 
-        AIMP_MENUID_ML_MAIN_DB = 60,
-        AIMP_MENUID_ML_MAIN_FUNCTIONS = 61,
-        AIMP_MENUID_ML_MAIN_OPEN = 62,
-        AIMP_MENUID_ML_MAIN_OPTIONS = 63,
+        /// <summary>
+        /// The player playlist adding
+        /// </summary>
+        PlayerPlaylistAdding = 20,
 
-        AIMP_MENUID_ML_TABLE_CONTEXT_ADDING = 70,
-        AIMP_MENUID_ML_TABLE_CONTEXT_FUNCTIONS = 71,
-        AIMP_MENUID_ML_TABLE_CONTEXT_SENDING = 72,
-        AIMP_MENUID_ML_TABLE_CONTEXT_DELETION = 73,
+        /// <summary>
+        /// The player playlist deletion
+        /// </summary>
+        PlayerPlaylistDeletion = 21,
 
-        AIMP_MENUID_ML_TREE_CONTEXT_FUNCTIONS = 80,
-        AIMP_MENUID_ML_TREE_CONTEXT_DELETION = 81
+        /// <summary>
+        /// The player playlist sorting
+        /// </summary>
+        PlayerPlaylistSorting = 22,
+
+        /// <summary>
+        /// The player playlist miscellaneous
+        /// </summary>
+        PlayerPlaylistMiscellaneous = 23,
+
+        /// <summary>
+        /// The player playlist manage
+        /// </summary>
+        PlayerPlaylistManage = 24,
+
+        /// <summary>
+        /// The player playlist context adding
+        /// </summary>
+        PlayerPlaylistContextAdding = 30,
+
+        /// <summary>
+        /// The player playlist context queue
+        /// </summary>
+        PlayerPlaylistContextQueue = 31,
+
+        /// <summary>
+        /// The player playlist context functions
+        /// </summary>
+        PlayerPlaylistContextFunctions = 32,
+
+        /// <summary>
+        /// The player playlist context sending
+        /// </summary>
+        PlayerPlaylistContextSending = 33,
+
+        /// <summary>
+        /// The player playlist context deletion
+        /// </summary>
+        PlayerPlaylistContextDeletion = 34,
+
+        /// <summary>
+        /// The player tray
+        /// </summary>
+        PlayerTray = 40,
+
+        /// <summary>
+        /// The player eq library
+        /// </summary>
+        PlayerEqLib = 41,
+
+        /// <summary>
+        /// The player stop options
+        /// </summary>
+        PlayerStopOptions = 42,
+
+        /// <summary>
+        /// The ml miscellaneous
+        /// </summary>
+        MlMiscellaneous = 50,
+
+        /// <summary>
+        /// The ml deletion
+        /// </summary>
+        MlDeletion = 51,
+
+        /// <summary>
+        /// The ml main database
+        /// </summary>
+        MlMainDB = 60,
+
+        /// <summary>
+        /// The ml main funtions
+        /// </summary>
+        MlMainFuntions = 61,
+
+        /// <summary>
+        /// The ml main open
+        /// </summary>
+        MlMainOpen = 62,
+
+        /// <summary>
+        /// The ml main options
+        /// </summary>
+        mlMainOptions = 63,
+
+        /// <summary>
+        /// The ml table context adding
+        /// </summary>
+        MlTableContextAdding = 70,
+
+        /// <summary>
+        /// The ml table context functions
+        /// </summary>
+        MlTableContextFunctions = 71,
+
+        /// <summary>
+        /// The ml table context sending
+        /// </summary>
+        MlTableContextSending = 72,
+
+        /// <summary>
+        /// The ml table context deletion
+        /// </summary>
+        MlTableContextDeletion = 73,
+
+        /// <summary>
+        /// The ml tree context functions
+        /// </summary>
+        MlTreeContextFunctions = 80,
+
+        /// <summary>
+        /// The ml tree context deletion
+        /// </summary>
+        MlTreeContextDeletion = 81
     }
 
     /// <summary>
     /// Menu manager interface.
+    /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
-    public interface IAimpServiceMenuManager
+    /// <seealso cref="AIMP.SDK.IAimpService" />
+    public interface IAimpServiceMenuManager : IAimpService
     {
-        AimpActionResult CreateMenuItem(out IAimpMenuItem item);
-
         /// <summary>
         /// Adds the new menu item..
         /// </summary>
-        /// <param name="parentMenuType"></param>
-        /// <param name="item">Menu item <see cref="IAimpMenuItem"/>.</param>
+        /// <param name="parentMenuType">Type of the parent menu.</param>
+        /// <param name="item">Menu item <see cref="IAimpMenuItem" />.</param>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult Add(ParentMenuType parentMenuType, IAimpMenuItem item);
 
         /// <summary>
         /// Adds the new menu item.
         /// </summary>
-        /// <param name="item">Menu item <see cref="IAimpMenuItem"/>.</param>
+        /// <param name="item">Menu item <see cref="IAimpMenuItem" />.</param>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult Add(IAimpMenuItem item);
 
         /// <summary>
         /// Deletes the menu item.
         /// </summary>
         /// <param name="item">The menu item.</param>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult Delete(IAimpMenuItem item);
 
         /// <summary>
         /// Deletes the menu item.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <returns>AimpActionResult.</returns>
         AimpActionResult Delete(string id);
 
         /// <summary>
         /// Gets the by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="item">Menu item <see cref="IAimpMenuItem"/>.</param>
-        AimpActionResult GetById(string id, out IAimpMenuItem item);
+        /// <returns>AimpActionResult&lt;IAimpMenuItem&gt;.</returns>
+        AimpActionResult<IAimpMenuItem> GetById(string id);
 
         /// <summary>
         /// Gets the standard menu item.
         /// </summary>
         /// <param name="menuType">Type of the menu.</param>
-        /// <param name="item">Menu item <see cref="IAimpMenuItem"/>.</param>
-        AimpActionResult GetBuiltIn(ParentMenuType menuType, out IAimpMenuItem item);
+        /// <returns>AimpActionResult&lt;IAimpMenuItem&gt;.</returns>
+        AimpActionResult<IAimpMenuItem> GetBuiltIn(ParentMenuType menuType);
     }
 }

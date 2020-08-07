@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #ifndef apiVisualsH
@@ -43,8 +39,7 @@ typedef float TAIMPVisualDataSpectrum[AIMP_VISUAL_SPECTRUM_MAX];
 typedef float TAIMPVisualDataWaveform[AIMP_VISUAL_WAVEFORM_MAX];
 
 #pragma pack(push, 1)
-struct TAIMPVisualData
-{
+struct TAIMPVisualData {
     float Peaks[2];
     TAIMPVisualDataSpectrum Spectrum[3];
     TAIMPVisualDataWaveform WaveForm[2];
@@ -55,8 +50,7 @@ typedef TAIMPVisualData* PAIMPVisualData;
 
 /* IAIMPVisualExtension */
 
-class IAIMPExtensionCustomVisualization : public IUnknown
-{
+class IAIMPExtensionCustomVisualization : public IUnknown {
     // Common Information
     virtual int WINAPI GetFlags() = 0;
     // Basic functionality
@@ -65,8 +59,7 @@ class IAIMPExtensionCustomVisualization : public IUnknown
 
 /* IAIMPExtensionEmbeddedVisualization */
 
-class IAIMPExtensionEmbeddedVisualization : public IUnknown
-{
+class IAIMPExtensionEmbeddedVisualization : public IUnknown {
 public:
     // Common Information
     virtual int WINAPI GetFlags() = 0;
@@ -83,8 +76,7 @@ public:
 
 /* IAIMPServiceVisual */
 
-class IAIMPServiceVisualizations : public IUnknown
-{
+class IAIMPServiceVisualizations : public IUnknown {
 };
 
 #endif // !apiVisualsH

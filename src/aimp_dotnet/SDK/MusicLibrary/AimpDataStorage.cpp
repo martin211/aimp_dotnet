@@ -1,32 +1,17 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
 #include "AimpDataStorage.h"
-#include "AimpGroupingPreset.h"
+#include "Presets/AimpGroupingPreset.h"
 
 using namespace AIMP::SDK;
 
-AimpDataStorage::!AimpDataStorage()
-{
-    InternalAimpObject->Release();
-}
-
-AimpDataStorage::~AimpDataStorage()
-{
-    this->!AimpDataStorage();
-}
-
-AimpActionResult AimpDataStorage::GetProperties(IAIMPPropertyList** properties)
-{
+ActionResultType AimpDataStorage::GetProperties(IAIMPPropertyList** properties) {
     IAIMPPropertyList* prop = nullptr;
     const auto result = CheckResult(
         InternalAimpObject->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&prop)));
@@ -34,24 +19,18 @@ AimpActionResult AimpDataStorage::GetProperties(IAIMPPropertyList** properties)
     return result;
 }
 
-AimpDataStorage::AimpDataStorage(IAIMPMLDataStorage* aimpDataStorage) : AimpObject(aimpDataStorage)
-{
+AimpDataStorage::AimpDataStorage(IAIMPMLDataStorage* aimpDataStorage) : AimpObject(aimpDataStorage) {
 }
 
-String^ AimpDataStorage::Id::get()
-{
+String^ AimpDataStorage::Id::get() {
     IAIMPPropertyList* properties = nullptr;
-    try
-    {
-        if (GetProperties(&properties) == AimpActionResult::OK)
-        {
+    try {
+        if (GetProperties(&properties) == ActionResultType::OK) {
             return PropertyListExtension::GetString(properties, AIMPML_DATASTORAGE_PROPID_ID);
         }
     }
-    finally
-    {
-        if (properties != nullptr)
-        {
+    finally {
+        if (properties != nullptr) {
             properties->Release();
             properties = nullptr;
         }
@@ -60,20 +39,15 @@ String^ AimpDataStorage::Id::get()
     return String::Empty;
 }
 
-String^ AimpDataStorage::Caption::get()
-{
+String^ AimpDataStorage::Caption::get() {
     IAIMPPropertyList* properties = nullptr;
-    try
-    {
-        if (GetProperties(&properties) == AimpActionResult::OK)
-        {
+    try {
+        if (GetProperties(&properties) == ActionResultType::OK) {
             return PropertyListExtension::GetString(properties, AIMPML_DATASTORAGE_PROPID_CAPTION);
         }
     }
-    finally
-    {
-        if (properties != nullptr)
-        {
+    finally {
+        if (properties != nullptr) {
             properties->Release();
             properties = nullptr;
         }
@@ -82,29 +56,22 @@ String^ AimpDataStorage::Caption::get()
     return String::Empty;
 }
 
-IAimpGroupingPreset^ AimpDataStorage::GroupingPreset::get()
-{
+IAimpGroupingPreset^ AimpDataStorage::GroupingPreset::get() {
     IAIMPPropertyList* properties = nullptr;
-    try
-    {
-        if (GetProperties(&properties) == AimpActionResult::OK)
-        {
+    try {
+        if (GetProperties(&properties) == ActionResultType::OK) {
             IAIMPMLGroupingPreset* preset = nullptr;
             if (PropertyListExtension::GetObject(properties, AIMPML_DATASTORAGE_PROPID_GROUPINGPRESET,
                                                  IID_IAIMPMLGroupingPreset, reinterpret_cast<void**>(&preset)) ==
-                AimpActionResult::OK)
-            {
-                if (preset != nullptr)
-                {
+                ActionResultType::OK) {
+                if (preset != nullptr) {
                     return gcnew AimpGroupingPreset(preset);
                 }
             }
         }
     }
-    finally
-    {
-        if (properties != nullptr)
-        {
+    finally {
+        if (properties != nullptr) {
             properties->Release();
             properties = nullptr;
         }
@@ -113,21 +80,16 @@ IAimpGroupingPreset^ AimpDataStorage::GroupingPreset::get()
     return nullptr;
 }
 
-void AimpDataStorage::GroupingPreset::set(IAimpGroupingPreset^ value)
-{
+void AimpDataStorage::GroupingPreset::set(IAimpGroupingPreset^ value) {
     IAIMPPropertyList* properties = nullptr;
-    try
-    {
-        if (GetProperties(&properties) == AimpActionResult::OK)
-        {
+    try {
+        if (GetProperties(&properties) == ActionResultType::OK) {
             IAIMPMLGroupingPreset* preset = static_cast<AimpGroupingPreset^>(value)->InternalAimpObject;
             PropertyListExtension::SetObject(properties, AIMPML_DATASTORAGE_PROPID_GROUPINGPRESET, preset);
         }
     }
-    finally
-    {
-        if (properties != nullptr)
-        {
+    finally {
+        if (properties != nullptr) {
             properties->Release();
             properties = nullptr;
         }

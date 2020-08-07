@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using AIMP.SDK;
 using AIMP.SDK.MusicLibrary.DataStorage;
 
@@ -23,10 +24,9 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
             _data = data;
         }
 
-        public AimpActionResult GetDisplayValue(out string displayValue)
+        public AimpActionResult<string> GetDisplayValue()
         {
-            displayValue = _data[_index].DisplayValue;
-            return AimpActionResult.Ok;
+            return new AimpActionResult<string>(ActionResultType.OK, _data[_index].DisplayValue);
         }
 
         public GroupingTreeNodeFlags GetFlags()
@@ -35,28 +35,27 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
 
             if (_data[_index].Standalone)
             {
-                result = GroupingTreeNodeFlags.AIMPML_GROUPINGTREENODE_FLAG_STANDALONE;
+                result = GroupingTreeNodeFlags.Standalone;
             }
 
             if (_data[_index].HasChildren)
             {
-                result |= GroupingTreeNodeFlags.AIMPML_GROUPINGTREENODE_FLAG_HASCHILDREN;
+                result |= GroupingTreeNodeFlags.HasChildren;
             }
 
             return result;
         }
 
-        public AimpActionResult GetImageIndex(out FieldImageIndex imageIndex)
+        public AimpActionResult<FieldImageIndex> GetImageIndex()
         {
-            imageIndex = (FieldImageIndex)_data[_index].ImageIndex;
-            return AimpActionResult.Ok;
+            return new AimpActionResult<FieldImageIndex>(ActionResultType.OK,
+                (FieldImageIndex) _data[_index].ImageIndex);
         }
 
-        public AimpActionResult GetValue(out string fieldName, out object value)
+        public AimpActionResult<string, object> GetValue()
         {
-            fieldName = DemoMusicLibrary.FieldNode;
-            value = _data[_index].Value;
-            return AimpActionResult.Ok;
+            return new AimpActionResult<string, object>(ActionResultType.OK, DemoMusicLibrary.FieldNode,
+                _data[_index].Value);
         }
 
         public bool NextRow()

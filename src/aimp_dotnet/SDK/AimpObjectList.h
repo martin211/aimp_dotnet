@@ -1,99 +1,83 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace AIMP::SDK;
 
         generic <class TObject>
         public ref class AimpObjectList :
-            public IAimpObjectList<TObject>
-        {
+            public IAimpObjectList<TObject> {
         private:
             IAIMPObjectList* _nativeObject;
 
         public:
             AimpObjectList(IAIMPObjectList* nativeObject);
 
-            virtual AimpActionResult Add(TObject entry);
+            virtual ActionResult Add(TObject entry);
 
-            virtual AimpActionResult Clear();
+            virtual ActionResult Clear();
 
-            virtual AimpActionResult Delete(int index);
+            virtual ActionResult Delete(int index);
 
-            virtual AimpActionResult Insert(int index, TObject entry);
+            virtual ActionResult Insert(int index, TObject entry);
 
             virtual property int Count
             {
                 int get();
             }
 
-            virtual AimpActionResult GetObject(int index, TObject% item);
+            virtual ActionResult GetObject(int index, TObject% item);
 
-            virtual AimpActionResult SetObject(int index, TObject item);
+            virtual ActionResult SetObject(int index, TObject item);
         };
 
-        public ref class AimpObjectList2 : public IAimpObjectList, public AimpObject<IAIMPObjectList>
-        {
+        public ref class AimpObjectList2 : public IAimpObjectList, public AimpObject<IAIMPObjectList> {
         public:
-            explicit AimpObjectList2(IAIMPObjectList* nativeObject) : AimpObject(nativeObject)
-            {
+            explicit AimpObjectList2(IAIMPObjectList* nativeObject) : AimpObject(nativeObject) {
             }
 
-            virtual AimpActionResult Add(Object^ entry)
-            {
+            virtual ActionResult Add(Object^ entry) {
                 String^ s = dynamic_cast<String^>(entry);
-                if (s != nullptr)
-                {
-                    return Utils::CheckResult(InternalAimpObject->Add(AimpConverter::ToAimpString(s)));
+                if (s != nullptr) {
+                    return ACTION_RESULT(Utils::CheckResult(InternalAimpObject->Add(AimpConverter::ToAimpString(s))));
                 }
 
-                return Utils::CheckResult(InternalAimpObject->Add(AimpConverter::ToAimpString((String^)entry)));
+                return ACTION_RESULT(
+                    Utils::CheckResult(InternalAimpObject->Add(AimpConverter::ToAimpString((String^)entry))));
             }
 
-            virtual AimpActionResult Clear()
-            {
-                return AimpActionResult::Fail;
+            virtual ActionResult Clear() {
+                return ACTION_RESULT(ActionResultType::Fail);
             }
 
-            virtual AimpActionResult Delete(int index)
-            {
-                return AimpActionResult::Fail;
+            virtual ActionResult Delete(int index) {
+                return ACTION_RESULT(ActionResultType::Fail);
             }
 
-            virtual AimpActionResult Insert(int index, Object^ entry)
-            {
-                return AimpActionResult::Fail;
+            virtual ActionResult Insert(int index, Object^ entry) {
+                return ACTION_RESULT(ActionResultType::Fail);
             }
 
             virtual property int Count
             {
-                int get()
-                {
+                int get() {
                     return 0;
                 }
             }
 
-            virtual AimpActionResult GetObject(int index, Object^% item)
-            {
-                return AimpActionResult::Fail;
+            virtual ActionResult GetObject(int index, Object^% item) {
+                return ACTION_RESULT(ActionResultType::Fail);
             }
 
-            virtual AimpActionResult SetObject(int index, Object^ item)
-            {
-                return AimpActionResult::Fail;
+            virtual ActionResult SetObject(int index, Object^ item) {
+                return ACTION_RESULT(ActionResultType::Fail);
             }
         };
     }

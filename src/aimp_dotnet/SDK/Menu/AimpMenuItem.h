@@ -1,28 +1,21 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace Drawing;
         using namespace Runtime::InteropServices;
         using namespace MenuManager;
         using namespace ActionManager;
 
-        public ref class AimpMenuItem : public AimpObject<IAIMPMenuItem>, public IAimpMenuItem
-        {
+        public ref class AimpMenuItem : public AimpObject<IAIMPMenuItem>, public IAimpMenuItem {
         private:
             EventHandler^ _onExecuteHandler;
             EventHandler^ _onShowHandler;
@@ -31,17 +24,16 @@ namespace AIMP
             String^ _id;
             GCHandle _showHandler;
             GCHandle _executeHandler;
+            IAimpMenuItem^ _parent = nullptr;
 
         internal:
-            static void Execute(gcroot<IAimpActionEvent^> sender, IUnknown* data)
-            {
+            static void Execute(gcroot<IAimpActionEvent^> sender, IUnknown* data) {
                 Object^ obj = sender;
                 AimpMenuItem^ item = dynamic_cast<AimpMenuItem^>(obj);
                 item->OnExecute(sender, EventArgs::Empty);
             }
 
-            static void Show(gcroot<IAimpActionEvent^> sender, IUnknown* data)
-            {
+            static void Show(gcroot<IAimpActionEvent^> sender, IUnknown* data) {
                 Object^ obj = sender;
                 AimpMenuItem^ item = dynamic_cast<AimpMenuItem^>(obj);
                 item->OnShow(sender, EventArgs::Empty);
@@ -49,8 +41,6 @@ namespace AIMP
 
         public:
             explicit AimpMenuItem(IAIMPMenuItem* menuItem);
-
-            ~AimpMenuItem();
 
             virtual property String^ Custom
             {
@@ -106,10 +96,10 @@ namespace AIMP
                 void set(IAimpMenuItem^ value);
             }
 
-            virtual property AimpMenuItemStyle Style
+            virtual property MenuItemStyle Style
             {
-                AimpMenuItemStyle get();
-                void set(AimpMenuItemStyle value);
+                MenuItemStyle get();
+                void set(MenuItemStyle value);
             }
 
             virtual event EventHandler^ OnExecute
@@ -138,10 +128,12 @@ namespace AIMP
                 void set(int value);
             }
 
-            virtual AimpActionResult DeleteChildren()
-            {
-                return CheckResult(InternalAimpObject->DeleteChildren());
+            virtual ActionResult DeleteChildren() {
+                return gcnew AimpActionResult(CheckResult(InternalAimpObject->DeleteChildren()));
             }
+
+        protected:
+            void FreeResources() override;
         };
     }
 }

@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -17,67 +13,53 @@
 
 using namespace AIMP::SDK;
 
-InternalAimpPlaylistPreimage::InternalAimpPlaylistPreimage(gcroot<IAimpPlaylistPreimage^> managedInstance)
-{
+InternalAimpPlaylistPreimage::InternalAimpPlaylistPreimage(gcroot<IAimpPlaylistPreimage^> managedInstance) {
     _managedInstance = managedInstance;
 }
 
-void WINAPI InternalAimpPlaylistPreimage::Finalize()
-{
+void WINAPI InternalAimpPlaylistPreimage::Finalize() {
     _managedInstance->FinalizeObject();
 }
 
-void WINAPI InternalAimpPlaylistPreimage::Initialize(IAIMPPlaylistPreimageListener* Listener)
-{
+void WINAPI InternalAimpPlaylistPreimage::Initialize(IAIMPPlaylistPreimageListener* Listener) {
     _managedInstance->Initialize(gcnew AimpPlaylistPreimageListener(Listener));
 }
 
-HRESULT WINAPI InternalAimpPlaylistPreimage::ConfigLoad(IAIMPStream* Stream)
-{
-    return HRESULT(_managedInstance->ConfigLoad(gcnew AimpStream(Stream)));
+HRESULT WINAPI InternalAimpPlaylistPreimage::ConfigLoad(IAIMPStream* Stream) {
+    return HRESULT(_managedInstance->ConfigLoad(gcnew AimpStream(Stream))->ResultType);
 }
 
-HRESULT WINAPI InternalAimpPlaylistPreimage::ConfigSave(IAIMPStream* Stream)
-{
-    return HRESULT(_managedInstance->ConfigSave(gcnew AimpStream(Stream)));
+HRESULT WINAPI InternalAimpPlaylistPreimage::ConfigSave(IAIMPStream* Stream) {
+    return HRESULT(_managedInstance->ConfigSave(gcnew AimpStream(Stream))->ResultType);
 }
 
-HRESULT WINAPI InternalAimpPlaylistPreimage::ExecuteDialog(HWND OwnerWndHanle)
-{
+HRESULT WINAPI InternalAimpPlaylistPreimage::ExecuteDialog(HWND OwnerWndHanle) {
     IntPtr ownerHandle(OwnerWndHanle);
-    return HRESULT(_managedInstance->ExecuteDialog(ownerHandle));
+    return HRESULT(_managedInstance->ExecuteDialog(ownerHandle)->ResultType);
 }
 
-HRESULT WINAPI InternalAimpPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, DWORD** Flags, IAIMPObjectList** List)
-{
-    AimpActionResult res = AimpActionResult::Fail;
+HRESULT WINAPI InternalAimpPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, DWORD** Flags, IAIMPObjectList** List) {
+    ActionResultType res = ActionResultType::Fail;
     Object^ obj = _managedInstance;
     IAimpPlaylistPreimageDataProvider^ dp = dynamic_cast<IAimpPlaylistPreimageDataProvider^>(obj);
-    if (dp != nullptr)
-    {
-        int flags = 0;
+    if (dp != nullptr) {
         IAIMPObjectList* L = AimpConverter::GetAimpObjectList();
-        Collections::IList^ collection;
-        res = dp->GetFiles(gcnew AimpTaskOwner(Owner), *&flags, *&collection);
-
-        if (res == AimpActionResult::OK)
-        {
-            *Flags = (DWORD*)flags;
+        const auto result = dp->GetFiles(gcnew AimpTaskOwner(Owner));
+        res = result->ResultType;
+        if (result->ResultType == ActionResultType::OK) {
+            *Flags = (DWORD*)result->Item1;
+            Collections::IList^ collection = result->Item2;
             Type^ t = collection->GetType()->GetGenericArguments()[0];
-            if (t == IAimpFileInfo::typeid)
-            {
-                for (int i = 0; i < collection->Count; i++)
-                {
+            if (t == IAimpFileInfo::typeid) {
+                for (int i = 0; i < collection->Count; i++) {
                     IAIMPFileInfo* fi = AimpConverter::ToAimpObject(static_cast<IAimpFileInfo^>(collection[i]));
                     L->Add(fi);
                     fi->Release();
                     fi = nullptr;
                 }
             }
-            else if (t == String::typeid)
-            {
-                for (int i = 0; i < collection->Count; i++)
-                {
+            else if (t == String::typeid) {
+                for (int i = 0; i < collection->Count; i++) {
                     String^ str = static_cast<String^>(collection[i]);
                     auto s = AimpConverter::ToAimpString(str);
                     L->Add(s);
@@ -93,12 +75,10 @@ HRESULT WINAPI InternalAimpPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, DWO
 }
 
 
-HRESULT WINAPI InternalAimpPlaylistPreimage::GetValueAsInt32(int PropertyID, int* Value)
-{
+HRESULT WINAPI InternalAimpPlaylistPreimage::GetValueAsInt32(int PropertyID, int* Value) {
     HRESULT res = AimpPropertyList::GetValueAsInt32(PropertyID, Value);
 
-    switch (PropertyID)
-    {
+    switch (PropertyID) {
     case AIMP_PLAYLISTPREIMAGE_PROPID_AUTOSYNC:
         *Value = _managedInstance->AutoSync ? 1 : 0;
         res = S_OK;
@@ -116,12 +96,10 @@ HRESULT WINAPI InternalAimpPlaylistPreimage::GetValueAsInt32(int PropertyID, int
     return res;
 }
 
-HRESULT WINAPI InternalAimpPlaylistPreimage::GetValueAsObject(int PropertyID, REFIID IID, void** Value)
-{
+HRESULT WINAPI InternalAimpPlaylistPreimage::GetValueAsObject(int PropertyID, REFIID IID, void** Value) {
     HRESULT res = AimpPropertyList::GetValueAsObject(PropertyID, IID, Value);
 
-    switch (PropertyID)
-    {
+    switch (PropertyID) {
     case AIMP_PLAYLISTPREIMAGE_PROPID_FACTORYID:
         *Value = AimpConverter::ToAimpString(_managedInstance->FactoryId);
         res = S_OK;
@@ -135,29 +113,24 @@ HRESULT WINAPI InternalAimpPlaylistPreimage::GetValueAsObject(int PropertyID, RE
     return res;
 }
 
-ULONG WINAPI InternalAimpPlaylistPreimage::Release(void)
-{
+ULONG WINAPI InternalAimpPlaylistPreimage::Release(void) {
     return Base::Release();
 }
 
-ULONG WINAPI InternalAimpPlaylistPreimage::AddRef(void)
-{
+ULONG WINAPI InternalAimpPlaylistPreimage::AddRef(void) {
     return Base::AddRef();
 }
 
-HRESULT WINAPI InternalAimpPlaylistPreimage::QueryInterface(REFIID riid, LPVOID* ppvObject)
-{
+HRESULT WINAPI InternalAimpPlaylistPreimage::QueryInterface(REFIID riid, LPVOID* ppvObject) {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPPlaylistPreimage)
-    {
+    if (riid == IID_IAIMPPlaylistPreimage) {
         *ppvObject = this;
         AddRef();
         return S_OK;
     }
 
-    if (riid == IID_IAIMPPlaylistPreimageDataProvider)
-    {
+    if (riid == IID_IAIMPPlaylistPreimageDataProvider) {
         *ppvObject = static_cast<IAIMPPlaylistPreimageDataProvider*>(this);
         AddRef();
         return S_OK;

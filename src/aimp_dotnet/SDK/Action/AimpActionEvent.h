@@ -1,21 +1,15 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
 #include "AimpSdk.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         public delegate void AimpActionEventDelegate(gcroot<ActionManager::IAimpActionEvent^> sender, IUnknown* data);
 
         typedef void (__stdcall *AimpActionEventCallback)(gcroot<ActionManager::IAimpActionEvent^> sender,
@@ -23,8 +17,7 @@ namespace AIMP
     }
 }
 
-class AimpActionEvent : public IUnknownInterfaceImpl<IAIMPActionEvent>
-{
+class AimpActionEvent : public IUnknownInterfaceImpl<IAIMPActionEvent> {
 public:
     typedef IUnknownInterfaceImpl<IAIMPActionEvent> Base;
 

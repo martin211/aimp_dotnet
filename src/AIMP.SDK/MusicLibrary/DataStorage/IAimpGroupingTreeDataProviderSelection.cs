@@ -2,36 +2,77 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 
 namespace AIMP.SDK.MusicLibrary.DataStorage
 {
+    /// <summary>
+    /// Enum GroupingTreeNodeFlags
+    /// </summary>
     [Flags]
     public enum GroupingTreeNodeFlags
     {
-        AIMPML_GROUPINGTREENODE_FLAG_HASCHILDREN = 1,
-        AIMPML_GROUPINGTREENODE_FLAG_STANDALONE = 2
-    }
+        /// <summary>
+        /// The has children
+        /// </summary>
+        HasChildren = 1,
 
-    public enum FieldImageIndex
-    {
-        AIMPML_FIELDIMAGE_FOLDER = 0,
-        AIMPML_FIELDIMAGE_ARTIST = 1,
-        AIMPML_FIELDIMAGE_DISK = 2,
-        AIMPML_FIELDIMAGE_NOTE = 3,
-        AIMPML_FIELDIMAGE_STAR = 4,
-        AIMPML_FIELDIMAGE_CALENDAR = 5,
-        AIMPML_FIELDIMAGE_LABEL = 6
+        /// <summary>
+        /// The standalone
+        /// </summary>
+        Standalone = 2
     }
 
     /// <summary>
-    /// Interface provides an access to data from the <seealso cref="IAimpGroupingTreeDataProvider.GetData"/>.
+    /// Enum FieldImageIndex
+    /// </summary>
+    public enum FieldImageIndex
+    {
+        /// <summary>
+        /// The folder
+        /// </summary>
+        Folder = 0,
+
+        /// <summary>
+        /// The artist
+        /// </summary>
+        Artist = 1,
+
+        /// <summary>
+        /// The disk
+        /// </summary>
+        Disk = 2,
+
+        /// <summary>
+        /// The note
+        /// </summary>
+        Note = 3,
+
+        /// <summary>
+        /// The star
+        /// </summary>
+        Star = 4,
+
+        /// <summary>
+        /// The calendar
+        /// </summary>
+        Calendar = 5,
+
+        /// <summary>
+        /// The label
+        /// </summary>
+        Label = 6
+    }
+
+    /// <summary>
+    /// Interface provides an access to data from the <seealso cref="IAimpGroupingTreeDataProvider.GetData" />.
     /// Interface implementation must support asynchronous access.
     /// </summary>
     public interface IAimpGroupingTreeDataProviderSelection
@@ -39,37 +80,35 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         /// <summary>
         /// Returns text to display to end user (optionally).
         /// </summary>
-        /// <param name="displayValue">The display value.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetDisplayValue(out string displayValue);
+        /// <returns>AimpActionResult&lt;System.String&gt;.</returns>
+        AimpActionResult<string> GetDisplayValue();
 
         /// <summary>
-        /// Gets the tree node flags <see cref="GroupingTreeNodeFlags"/>.
+        /// Gets the tree node flags <see cref="GroupingTreeNodeFlags" />.
         /// <note>
         /// AIMPML_GROUPINGTREENODE_FLAG_HASCHILDREN - current node has children.
-        /// AIMPML_GROUPINGTREENODE_FLAG_STANDALONE <see cref="IAimpGroupingTreeSelection"/>.
+        /// AIMPML_GROUPINGTREENODE_FLAG_STANDALONE <see cref="IAimpGroupingTreeSelection" />.
         /// </note>
         /// </summary>
+        /// <returns>GroupingTreeNodeFlags.</returns>
         GroupingTreeNodeFlags GetFlags();
 
         /// <summary>
-        /// Return the node image <see cref="FieldImageIndex"/>.
+        /// Return the node image <see cref="FieldImageIndex" />.
         /// </summary>
-        /// <param name="imageIndex">Out. The image index <see cref="FieldImageIndex"/>.</param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetImageIndex(out FieldImageIndex imageIndex);
+        /// <returns>AimpActionResult&lt;FieldImageIndex&gt;.</returns>
+        AimpActionResult<FieldImageIndex> GetImageIndex();
 
         /// <summary>
         /// Returns the value for specified field name.
         /// </summary>
-        /// <param name="fieldName">THe current field name.</param>
-        /// <param name="value"></param>
-        /// <returns>Operation result <seealso cref="AimpActionResult"/></returns>
-        AimpActionResult GetValue(out string fieldName, out object value);
+        /// <returns>AimpActionResult&lt;System.String, System.Object&gt;.</returns>
+        AimpActionResult<string, object> GetValue();
 
         /// <summary>
         /// Jumps to the next record. Returns False if current node is last.
         /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         bool NextRow();
     }
 }

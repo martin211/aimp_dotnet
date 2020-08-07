@@ -9,7 +9,7 @@ SCRIPT_DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
 # CONFIGURATION
 ###########################################################################
 
-BUILD_PROJECT_FILE="$SCRIPT_DIR/build/build.csproj"
+BUILD_PROJECT_FILE="$SCRIPT_DIR/build/_build.csproj"
 TEMP_DIRECTORY="$SCRIPT_DIR//.tmp"
 
 DOTNET_GLOBAL_FILE="$SCRIPT_DIR//global.json"
@@ -18,14 +18,13 @@ DOTNET_CHANNEL="Current"
 
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
-export NUGET_XMLDOC_MODE="skip"
 
 ###########################################################################
 # EXECUTION
 ###########################################################################
 
 function FirstJsonValue {
-    perl -nle 'print $1 if m{"'$1'": "([^"\-]+)",?}' <<< ${@:2}
+    perl -nle 'print $1 if m{"'$1'": "([^"]+)",?}' <<< ${@:2}
 }
 
 # If global.json exists, load expected version
@@ -37,7 +36,7 @@ if [ -f "$DOTNET_GLOBAL_FILE" ]; then
 fi
 
 # If dotnet is installed locally, and expected version is not set or installation matches the expected version
-if [[ -x "$(command -v dotnet)" && (-z ${DOTNET_VERSION+x} || $(dotnet --version) == "$DOTNET_VERSION") ]]; then
+if [[ -x "$(command -v dotnet)" && (-z ${DOTNET_VERSION+x} || $(dotnet --version 2>&1) == "$DOTNET_VERSION") ]]; then
     export DOTNET_EXE="$(command -v dotnet)"
 else
     DOTNET_DIRECTORY="$TEMP_DIRECTORY/dotnet-unix"

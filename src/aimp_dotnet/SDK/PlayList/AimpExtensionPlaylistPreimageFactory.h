@@ -1,37 +1,30 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace SDK;
         using namespace Playlist;
 
         public ref class AimpExtensionPlaylistPreimageFactory :
             public AimpObject<IAIMPExtensionPlaylistPreimageFactory>,
-            public IAimpExtensionPlaylistPreimageFactory
-        {
+            public IAimpExtensionPlaylistPreimageFactory {
         public:
             explicit AimpExtensionPlaylistPreimageFactory(IAIMPExtensionPlaylistPreimageFactory* aimpObject);
 
-            virtual AimpActionResult CreatePreimage(IAimpPlaylistPreimage^% preimage);
+            virtual TYPED_RESULT(IAimpPlaylistPreimage) CreatePreimage();
 
-            virtual AimpActionResult GetName(String^% name);
+            virtual TYPED_RESULT(String) GetName();
 
-            virtual AimpActionResult GetId(String^% id);
+            virtual TYPED_RESULT(String) GetId();
 
             virtual PreimageFactoryFlags GetFlags();
         };

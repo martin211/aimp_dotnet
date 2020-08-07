@@ -1,26 +1,19 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
 #include "IUnknownInterfaceImpl.h"
 
-class AimpPropertyList : public IAIMPPropertyList, IAIMPPropertyList2
-{
+class AimpPropertyList : public IAIMPPropertyList, IAIMPPropertyList2 {
 public:
-    virtual void WINAPI BeginUpdate()
-    {
+    virtual void WINAPI BeginUpdate() {
     };
 
-    virtual void WINAPI EndUpdate()
-    {
+    virtual void WINAPI EndUpdate() {
     };
     virtual HRESULT WINAPI Reset() { return E_NOTIMPL; }
     // Read

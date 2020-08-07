@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
@@ -31,20 +27,16 @@
    OutputDebugStringW( os_.str().c_str() );  \
 }
 
-class AimpTask : public IUnknownInterfaceImpl<IAIMPTask>
-{
+class AimpTask : public IUnknownInterfaceImpl<IAIMPTask> {
 public:
     typedef IUnknownInterfaceImpl<IAIMPTask> Base;
 
-    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
-    {
-        if (!ppvObject)
-        {
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject) {
+        if (!ppvObject) {
             return E_POINTER;
         }
 
-        if (riid == IID_IAIMPTask)
-        {
+        if (riid == IID_IAIMPTask) {
             *ppvObject = this;
             AddRef();
             return S_OK;
@@ -53,35 +45,29 @@ public:
         return E_NOINTERFACE;
     }
 
-    virtual ULONG WINAPI AddRef(void)
-    {
+    virtual ULONG WINAPI AddRef(void) {
         return Base::AddRef();
     }
 
-    virtual ULONG WINAPI Release(void)
-    {
+    virtual ULONG WINAPI Release(void) {
         return Base::Release();
     }
 
-    virtual void WINAPI Execute(IAIMPTaskOwner* Owner)
-    {
+    virtual void WINAPI Execute(IAIMPTaskOwner* Owner) {
         DBOUT("Tasl execute");
     }
 };
 
-class AimpActionEvent : public IUnknownInterfaceImpl<IAIMPActionEvent>
-{
+class AimpActionEvent : public IUnknownInterfaceImpl<IAIMPActionEvent> {
 public:
     typedef IUnknownInterfaceImpl<IAIMPActionEvent> Base;
     IAIMPCore* _core;
 
-    AimpActionEvent(IAIMPCore* core)
-    {
+    AimpActionEvent(IAIMPCore* core) {
         _core = core;
     }
 
-    virtual void WINAPI OnExecute(IUnknown* Data)
-    {
+    virtual void WINAPI OnExecute(IUnknown* Data) {
         System::Diagnostics::Debugger::Launch();
 
         System::String^ folder = System::Environment::GetFolderPath(System::Environment::SpecialFolder::MyMusic);
@@ -89,8 +75,7 @@ public:
         IAIMPObjectList* list;
         _core->CreateObject(IID_IAIMPObjectList, (void**)&list);
 
-        for (int i = 0; i < arr->Length; i++)
-        {
+        for (int i = 0; i < arr->Length; i++) {
             IAIMPString* str = nullptr;
             _core->CreateObject(IID_IAIMPString, (void**)&str);
             System::String^ value = arr[i];
@@ -106,10 +91,8 @@ public:
         playlist->AddList(list, 1, -1);
     }
 
-    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
-    {
-        if (riid == IID_IAIMPActionEvent)
-        {
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject) {
+        if (riid == IID_IAIMPActionEvent) {
             *ppvObject = this;
             return S_OK;
         }
@@ -118,53 +101,42 @@ public:
         return E_NOTIMPL;
     }
 
-    virtual ULONG WINAPI AddRef(void)
-    {
+    virtual ULONG WINAPI AddRef(void) {
         return Base::AddRef();
     }
 
-    virtual ULONG WINAPI Release(void)
-    {
+    virtual ULONG WINAPI Release(void) {
         return Base::Release();
     }
 };
 
-class NativePlugin : public IUnknownInterfaceImpl<IAIMPPlugin>
-{
+class NativePlugin : public IUnknownInterfaceImpl<IAIMPPlugin> {
 public:
-    virtual PWCHAR WINAPI InfoGet(int Index)
-    {
-        switch (Index)
-        {
-        case AIMP_PLUGIN_INFO_NAME:
-            {
-                return L"AIMP native plugin";
-            }
-        case AIMP_PLUGIN_INFO_AUTHOR:
-            {
-                return L"Evgeniy Bogdan";
-            }
-        case AIMP_PLUGIN_INFO_SHORT_DESCRIPTION:
-            {
-                return L"AIMP native plugin";
-            }
-        case AIMP_PLUGIN_INFO_FULL_DESCRIPTION:
-            {
-                return L"AIMP native plugin";
-            }
+    virtual PWCHAR WINAPI InfoGet(int Index) {
+        switch (Index) {
+        case AIMP_PLUGIN_INFO_NAME: {
+            return L"AIMP native plugin";
+        }
+        case AIMP_PLUGIN_INFO_AUTHOR: {
+            return L"Evgeniy Bogdan";
+        }
+        case AIMP_PLUGIN_INFO_SHORT_DESCRIPTION: {
+            return L"AIMP native plugin";
+        }
+        case AIMP_PLUGIN_INFO_FULL_DESCRIPTION: {
+            return L"AIMP native plugin";
+        }
         }
 
         return NULL;
     }
 
-    virtual DWORD WINAPI InfoGetCategories()
-    {
+    virtual DWORD WINAPI InfoGetCategories() {
         return AIMP_PLUGIN_CATEGORY_ADDONS;
     }
 
     // Initialization / Finalization
-    virtual HRESULT WINAPI Initialize(IAIMPCore* Core)
-    {
+    virtual HRESULT WINAPI Initialize(IAIMPCore* Core) {
         //IAIMPServiceThreadPool *service;
 
         //HRESULT res = Core->QueryInterface(IID_IAIMPServiceThreadPool, (void**)&service);
@@ -183,25 +155,21 @@ public:
         return S_OK;
     }
 
-    virtual HRESULT WINAPI Finalize()
-    {
+    virtual HRESULT WINAPI Finalize() {
         return S_OK;
     }
 
     // System Notifications
-    virtual void WINAPI SystemNotification(int NotifyID, IUnknown* Data)
-    {
+    virtual void WINAPI SystemNotification(int NotifyID, IUnknown* Data) {
     }
 
-    void RegisterMenu(IAIMPCore* core)
-    {
+    void RegisterMenu(IAIMPCore* core) {
         IAIMPMenuItem* item = nullptr;
         IAIMPMenuItem* parentItem = nullptr;
         IAIMPServiceMenuManager* service = nullptr;
 
         core->CreateObject(IID_IAIMPMenuItem, (void**)&item);
-        if (item != nullptr)
-        {
+        if (item != nullptr) {
             IAIMPString* id = nullptr;
             IAIMPString* name = nullptr;
 

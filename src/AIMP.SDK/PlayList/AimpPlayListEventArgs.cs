@@ -2,20 +2,26 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 
 namespace AIMP.SDK.Playlist
 {
+    /// <summary>
+    /// Class AimpPlaylistEventArgs.
+    /// Implements the <see cref="System.EventArgs" />
+    /// </summary>
+    /// <seealso cref="System.EventArgs" />
     public class AimpPlaylistEventArgs : EventArgs
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AimpPlaylistEventArgs"/> class.
+        /// Initializes a new instance of the <see cref="AimpPlaylistEventArgs" /> class.
         /// </summary>
         /// <param name="playlist">The playlist.</param>
         public AimpPlaylistEventArgs(IAimpPlaylist playlist)
@@ -26,6 +32,7 @@ namespace AIMP.SDK.Playlist
         /// <summary>
         /// Gets the playlist.
         /// </summary>
+        /// <value>The playlist.</value>
         public IAimpPlaylist Playlist { get; }
     }
 }

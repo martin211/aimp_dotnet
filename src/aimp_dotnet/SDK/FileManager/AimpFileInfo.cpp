@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -14,37 +10,31 @@
 
 using namespace AIMP::SDK;
 
-String^ AimpFileInfo::CustomData::get()
-{
+String^ AimpFileInfo::CustomData::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_CUSTOM);
 }
 
-void AimpFileInfo::CustomData::set(String^ value)
-{
+void AimpFileInfo::CustomData::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_CUSTOM, value);
 }
 
 
-Drawing::Bitmap^ AimpFileInfo::AlbumArt::get()
-{
+Drawing::Bitmap^ AimpFileInfo::AlbumArt::get() {
     Drawing::Bitmap^ bmp = nullptr;
 
     IAIMPImageContainer* container = nullptr;
-    AimpActionResult res = Utils::CheckResult(InternalAimpObject->GetValueAsObject(
+    ActionResultType res = Utils::CheckResult(InternalAimpObject->GetValueAsObject(
         AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImageContainer, reinterpret_cast<void**>(&container)));
 
-    if (res == AimpActionResult::OK && container != nullptr)
-    {
+    if (res == ActionResultType::OK && container != nullptr) {
         bmp = AimpConverter::ToManagedBitmap(container);
         container->Release();
     }
-    else
-    {
+    else {
         IAIMPImage* image = nullptr;
         res = Utils::CheckResult(InternalAimpObject->GetValueAsObject(AIMP_FILEINFO_PROPID_ALBUMART, IID_IAIMPImage,
-                                                               reinterpret_cast<void**>(&image)));
-        if (res == AimpActionResult::OK && image != nullptr)
-        {
+                                                                      reinterpret_cast<void**>(&image)));
+        if (res == ActionResultType::OK && image != nullptr) {
             bmp = AimpConverter::ToManagedBitmap(image);
             image->Release();
             image = nullptr;
@@ -54,410 +44,336 @@ Drawing::Bitmap^ AimpFileInfo::AlbumArt::get()
     return bmp;
 }
 
-void AimpFileInfo::AlbumArt::set(Drawing::Bitmap^ value)
-{
+void AimpFileInfo::AlbumArt::set(Drawing::Bitmap^ value) {
     const auto img = AimpConverter::ToAimpImage(value);
-    if (img != nullptr)
-    {
+    if (img != nullptr) {
         PropertyListExtension::SetObject(InternalAimpObject, AIMP_FILEINFO_PROPID_ALBUMART, img);
     }
 }
 
 
-String^ AimpFileInfo::Album::get()
-{
+String^ AimpFileInfo::Album::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_ALBUM);
 }
 
-void AimpFileInfo::Album::set(String^ value)
-{
+void AimpFileInfo::Album::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_ALBUM, value);
 }
 
-String^ AimpFileInfo::AlbumArtist::get()
-{
+String^ AimpFileInfo::AlbumArtist::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_ALBUMARTIST);
 }
 
-void AimpFileInfo::AlbumArtist::set(String^ value)
-{
+void AimpFileInfo::AlbumArtist::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_ALBUMARTIST, value);
 }
 
 
-String^ AimpFileInfo::Artist::get()
-{
+String^ AimpFileInfo::Artist::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_ARTIST);
 }
 
-void AimpFileInfo::Artist::set(String^ value)
-{
+void AimpFileInfo::Artist::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_ARTIST, value);
 }
 
 
-String^ AimpFileInfo::Codec::get()
-{
+String^ AimpFileInfo::Codec::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_CODEC);
 }
 
-void AimpFileInfo::Codec::set(String^ value)
-{
+void AimpFileInfo::Codec::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_CODEC, value);
 }
 
 
-String^ AimpFileInfo::Comment::get()
-{
+String^ AimpFileInfo::Comment::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_COMMENT);
 }
 
-void AimpFileInfo::Comment::set(String^ value)
-{
+void AimpFileInfo::Comment::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_COMMENT, value);
 }
 
 
-String^ AimpFileInfo::Composer::get()
-{
+String^ AimpFileInfo::Composer::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_COMPOSER);
 }
 
-void AimpFileInfo::Composer::set(String^ value)
-{
+void AimpFileInfo::Composer::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_COMPOSER, value);
 }
 
 
-String^ AimpFileInfo::CopyRight::get()
-{
+String^ AimpFileInfo::CopyRight::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_COPYRIGHT);
 }
 
-void AimpFileInfo::CopyRight::set(String^ value)
-{
+void AimpFileInfo::CopyRight::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_COPYRIGHT, value);
 }
 
 
-String^ AimpFileInfo::CUESheet::get()
-{
+String^ AimpFileInfo::CUESheet::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_CUESHEET);
 }
 
-void AimpFileInfo::CUESheet::set(String^ value)
-{
+void AimpFileInfo::CUESheet::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_CUESHEET, value);
 }
 
 
-String^ AimpFileInfo::Date::get()
-{
+String^ AimpFileInfo::Date::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_DATE);
 }
 
-void AimpFileInfo::Date::set(String^ value)
-{
+void AimpFileInfo::Date::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_DATE, value);
 }
 
 
-String^ AimpFileInfo::DiskNumber::get()
-{
+String^ AimpFileInfo::DiskNumber::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_DISKNUMBER);
 }
 
-void AimpFileInfo::DiskNumber::set(String^ value)
-{
+void AimpFileInfo::DiskNumber::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_DISKNUMBER, value);
 }
 
 
-String^ AimpFileInfo::DiskTotal::get()
-{
+String^ AimpFileInfo::DiskTotal::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_DISKTOTAL);
 }
 
-void AimpFileInfo::DiskTotal::set(String^ value)
-{
+void AimpFileInfo::DiskTotal::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_DISKTOTAL, value);
 }
 
 
-String^ AimpFileInfo::FileName::get()
-{
+String^ AimpFileInfo::FileName::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_FILENAME);
 }
 
-void AimpFileInfo::FileName::set(String^ value)
-{
+void AimpFileInfo::FileName::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_FILENAME, value);
 }
 
 
-String^ AimpFileInfo::Genre::get()
-{
+String^ AimpFileInfo::Genre::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_GENRE);
 }
 
-void AimpFileInfo::Genre::set(String^ value)
-{
+void AimpFileInfo::Genre::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_GENRE, value);
 }
 
 
-String^ AimpFileInfo::Lyrics::get()
-{
+String^ AimpFileInfo::Lyrics::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_LYRICS);
 }
 
-void AimpFileInfo::Lyrics::set(String^ value)
-{
+void AimpFileInfo::Lyrics::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_LYRICS, value);
 }
 
 
-String^ AimpFileInfo::Publisher::get()
-{
+String^ AimpFileInfo::Publisher::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_PUBLISHER);
 }
 
-void AimpFileInfo::Publisher::set(String^ value)
-{
+void AimpFileInfo::Publisher::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_PUBLISHER, value);
 }
 
 
-String^ AimpFileInfo::Title::get()
-{
+String^ AimpFileInfo::Title::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_TITLE);
 }
 
-void AimpFileInfo::Title::set(String^ value)
-{
+void AimpFileInfo::Title::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_TITLE, value);
 }
 
 
-String^ AimpFileInfo::TrackTotal::get()
-{
+String^ AimpFileInfo::TrackTotal::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_TRACKTOTAL);
 }
 
-void AimpFileInfo::TrackTotal::set(String^ value)
-{
+void AimpFileInfo::TrackTotal::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_TRACKTOTAL, value);
 }
 
 
-String^ AimpFileInfo::URL::get()
-{
+String^ AimpFileInfo::URL::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_URL);
 }
 
-void AimpFileInfo::URL::set(String^ value)
-{
+void AimpFileInfo::URL::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_URL, value);
 }
 
 
-double AimpFileInfo::Mark::get()
-{
+double AimpFileInfo::Mark::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_MARK);
 }
 
-void AimpFileInfo::Mark::set(double value)
-{
+void AimpFileInfo::Mark::set(double value) {
     PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_MARK, value);
 }
 
 
-double AimpFileInfo::AddedDate::get()
-{
+double AimpFileInfo::AddedDate::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_ADDINGDATE);
 }
 
 
-double AimpFileInfo::LastPlayedDate::get()
-{
+double AimpFileInfo::LastPlayedDate::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_LASTPLAYDATE);
 }
 
 
-double AimpFileInfo::StateRating::get()
-{
+double AimpFileInfo::StateRating::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_RATING);
 }
 
 
-double AimpFileInfo::StatMark::get()
-{
+double AimpFileInfo::StatMark::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_MARK);
 }
 
-void AimpFileInfo::StatMark::set(double value)
-{
+void AimpFileInfo::StatMark::set(double value) {
     PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_MARK, value);
 }
 
 
-double AimpFileInfo::TrackGain::get()
-{
+double AimpFileInfo::TrackGain::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_TRACKGAIN);
 }
 
-void AimpFileInfo::TrackGain::set(double value)
-{
+void AimpFileInfo::TrackGain::set(double value) {
     PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_TRACKGAIN, value);
 }
 
 
-String^ AimpFileInfo::TrackNumber::get()
-{
+String^ AimpFileInfo::TrackNumber::get() {
     return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_TRACKNUMBER);
 }
 
-void AimpFileInfo::TrackNumber::set(String^ value)
-{
+void AimpFileInfo::TrackNumber::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_TRACKNUMBER, value);
 }
 
 
-double AimpFileInfo::TrackPeak::get()
-{
+double AimpFileInfo::TrackPeak::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_TRACKPEAK);
 }
 
-void AimpFileInfo::TrackPeak::set(double value)
-{
+void AimpFileInfo::TrackPeak::set(double value) {
     PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_TRACKPEAK, value);
 }
 
 
-double AimpFileInfo::Gain::get()
-{
+double AimpFileInfo::Gain::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ALBUMGAIN);
 }
 
-void AimpFileInfo::Gain::set(double value)
-{
+void AimpFileInfo::Gain::set(double value) {
     PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ALBUMGAIN, value);
 }
 
 
-double AimpFileInfo::Peak::get()
-{
+double AimpFileInfo::Peak::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ALBUMPEAK);
 }
 
-void AimpFileInfo::Peak::set(double value)
-{
+void AimpFileInfo::Peak::set(double value) {
     PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ALBUMPEAK, value);
 }
 
 
-double AimpFileInfo::Duration::get()
-{
+double AimpFileInfo::Duration::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_DURATION);
 }
 
-void AimpFileInfo::Duration::set(double value)
-{
+void AimpFileInfo::Duration::set(double value) {
     PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_DURATION, value);
 }
 
 
-int AimpFileInfo::BitRate::get()
-{
+int AimpFileInfo::BitRate::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_BITRATE);
 }
 
-void AimpFileInfo::BitRate::set(int value)
-{
+void AimpFileInfo::BitRate::set(int value) {
     PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_BITRATE, value);
 }
 
 
-int AimpFileInfo::BitDepth::get()
-{
+int AimpFileInfo::BitDepth::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_BITDEPTH);
 }
 
-void AimpFileInfo::BitDepth::set(int value)
-{
+void AimpFileInfo::BitDepth::set(int value) {
     PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_BITDEPTH, value);
 }
 
 
-int AimpFileInfo::BPM::get()
-{
+int AimpFileInfo::BPM::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_BPM);
 }
 
-void AimpFileInfo::BPM::set(int value)
-{
+void AimpFileInfo::BPM::set(int value) {
     PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_BPM, value);
 }
 
 
-int AimpFileInfo::Channels::get()
-{
+int AimpFileInfo::Channels::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_CHANNELS);
 }
 
-void AimpFileInfo::Channels::set(int value)
-{
+void AimpFileInfo::Channels::set(int value) {
     PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_CHANNELS, value);
 }
 
 
-int AimpFileInfo::SampleRate::get()
-{
+int AimpFileInfo::SampleRate::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_SAMPLERATE);
 }
 
-void AimpFileInfo::SampleRate::set(int value)
-{
+void AimpFileInfo::SampleRate::set(int value) {
     PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_SAMPLERATE, value);
 }
 
 
-int AimpFileInfo::PlayCount::get()
-{
+int AimpFileInfo::PlayCount::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_PLAYCOUNT);
 }
 
 
-Int64 AimpFileInfo::FileSize::get()
-{
+Int64 AimpFileInfo::FileSize::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_FILESIZE);
 }
 
-void AimpFileInfo::FileSize::set(Int64 value)
-{
+void AimpFileInfo::FileSize::set(Int64 value) {
     PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_FILESIZE, value);
 }
 
 
-IAimpFileInfo^ AimpFileInfo::Clone()
-{
+IAimpFileInfo^ AimpFileInfo::Clone() {
     IAIMPFileInfo* clone;
     ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPFileInfo, reinterpret_cast<void**>(&clone));
     InternalAimpObject->Clone(&clone);
     return gcnew AimpFileInfo(clone);
 }
 
-void AimpFileInfo::Assign(IAimpFileInfo^ source)
-{
+void AimpFileInfo::Assign(IAimpFileInfo^ source) {
     InternalAimpObject->Assign(static_cast<AimpFileInfo^>(source)->InternalAimpObject);
 }
 
-AimpFileInfo::AimpFileInfo(IAIMPFileInfo* aimpItem) : AimpObject(aimpItem)
-{
+AimpFileInfo::AimpFileInfo(IAIMPFileInfo* aimpItem) : AimpObject(aimpItem) {
 }
 
-AimpFileInfo::AimpFileInfo(IAimpFileInfo^ item)
-{
+AimpFileInfo::AimpFileInfo(IAimpFileInfo^ item) {
     _aimpObject = static_cast<IAIMPFileInfo*>(AimpConverter::MakeObject(IID_IAIMPFileInfo));
     this->Album = item->Album;
     this->AlbumArt = item->AlbumArt;
@@ -495,8 +411,7 @@ AimpFileInfo::AimpFileInfo(IAimpFileInfo^ item)
     this->TrackTotal = item->TrackTotal;
 }
 
-AimpFileInfo::AimpFileInfo()
-{
+AimpFileInfo::AimpFileInfo() {
     IAIMPFileInfo* fileInfo;
     ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPFileInfo, reinterpret_cast<void**>(&fileInfo));
     _aimpObject = fileInfo;

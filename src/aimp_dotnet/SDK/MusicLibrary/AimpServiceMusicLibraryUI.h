@@ -1,38 +1,33 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace MusicLibrary;
 
         public ref class AimpServiceMusicLibraryUI :
-            public AimpBaseManager<IAIMPServiceMusicLibraryUI>,
-            public IAimpServiceMusicLibraryUI
-        {
+            public BaseAimpService<IAIMPServiceMusicLibraryUI>,
+            public IAimpServiceMusicLibraryUI {
         public:
             explicit AimpServiceMusicLibraryUI(ManagedAimpCore^ core);
 
-            virtual AimpActionResult GetFiles(FilesType flags, IAimpFileList^% list);
+            virtual TYPED_RESULT(IAimpFileList) GetFiles(FilesType flags);
 
-            virtual AimpActionResult GetGroupingFilter(IAimpDataFilter^% filter);
+            virtual TYPED_RESULT(IAimpDataFilter) GetGroupingFilter();
 
-            virtual AimpActionResult GetGroupingFilterPath(String^% path);
+            virtual StringResult GetGroupingFilterPath();
 
-            virtual AimpActionResult SetGroupingFilterPath(String^ path);
+            virtual ActionResult SetGroupingFilterPath(String^ path);
+        protected:
+            IAIMPServiceMusicLibraryUI* GetAimpService() override;
         };
     }
 }
