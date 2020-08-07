@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #ifndef apiMessagesH
@@ -391,8 +387,7 @@ const int AIMP_MSG_PROPERTY_REPEAT_SINGLE_FILE_PLAYLISTS = AIMP_MSG_PROPERTY_BAS
 //   2 - Do nothing
 const int AIMP_MSG_PROPERTY_ACTION_ON_END_OF_PLAYLIST = AIMP_MSG_PROPERTY_BASE + 27;
 
-// AParam1: AIMP_MSG_PROPVALUE_GET / AIMP_MSG_PROPVALUE_SET
-// AParam2: Pointer to LongBool (32-bit boolean value) variable
+// WARNING: DEPRECATED, USE THE AIMP_MSG_PROPERTY_ACTION_ON_END_OF_TRACK INSTEAD
 const int AIMP_MSG_PROPERTY_STOP_AFTER_TRACK = AIMP_MSG_PROPERTY_BASE + 28;
 
 // Start / Stop Internet Radio capture
@@ -414,6 +409,22 @@ const int AIMP_MSG_PROPERTY_VISUAL_FULLSCREEN = AIMP_MSG_PROPERTY_BASE + 31;
 // AParam2: Pointer to Single (32-bit floating point value) variable, [0..100]%
 const int AIMP_MSG_PROPERTY_PLAYER_BUFFERING = AIMP_MSG_PROPERTY_BASE + 32;
 
+// Toggles the Internet Radio capture mode - single track only / all tracks
+// AParam1: AIMP_MSG_PROPVALUE_GET / AIMP_MSG_PROPVALUE_SET
+// AParam2: Pointer to LongBool (32-bit boolean value) variable
+const int AIMP_MSG_PROPERTY_RADIOCAP_SINGLE_TRACK = AIMP_MSG_PROPERTY_BASE + 33;
+
+// State of cross-mixing feature
+// AParam1: AIMP_MSG_PROPVALUE_GET / AIMP_MSG_PROPVALUE_SET
+// AParam2: Pointer to LongBool (32-bit boolean value) variable
+const int AIMP_MSG_PROPERTY_CROSSMIXING = AIMP_MSG_PROPERTY_BASE + 34;
+
+// AParam1: AIMP_MSG_PROPVALUE_GET / AIMP_MSG_PROPVALUE_SET
+// AParam2: Pointer to Integer variable
+//   0 - Default Action
+//   1 - Jump to next track and stop playback
+//   2 - Jump to next track and pause playback
+const int AIMP_MSG_PROPERTY_ACTION_ON_END_OF_TRACK = AIMP_MSG_PROPERTY_BASE + 35;
 //==============================================================================
 // Events
 //==============================================================================

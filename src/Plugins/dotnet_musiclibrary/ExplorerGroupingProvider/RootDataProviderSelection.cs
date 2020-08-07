@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System.Collections.Generic;
 using AIMP.SDK.MusicLibrary;
 
@@ -20,7 +21,8 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
         private readonly IList<string> _fields;
         private int _index;
 
-        public RootDataProviderSelection(IList<string> fields, IAimpDataFilter aimpDataFilter, DataProviderGroupingTreeData data)
+        public RootDataProviderSelection(IList<string> fields, IAimpDataFilter aimpDataFilter,
+            DataProviderGroupingTreeData data)
         {
             _fields = fields;
             _aimpDataFilter = aimpDataFilter;

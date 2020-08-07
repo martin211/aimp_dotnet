@@ -1,45 +1,37 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\AimpExtensionBase.h"
+#include "SDK/AimpExtensionBase.h"
 #include "AimpStream.h"
 #include "Action/AimpAction.h"
+#include "Lyrics/AimpLyrics.h"
+#include "Menu/AimpMenuItem.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
-        using namespace AIMP::SDK;
+        using namespace SDK;
 
         [System::Serializable]
-        public ref class AimpCore : public IAimpCore
-        {
+        public ref class AimpCore : public IAimpCore {
         private:
             ManagedAimpCore^ _aimpCore;
             bool _disposed;
 
         public:
-            AimpCore(ManagedAimpCore^ core)
-            {
+            AimpCore(ManagedAimpCore^ core) {
                 _aimpCore = core;
             }
 
-            ~AimpCore()
-            {
-                System::Diagnostics::Trace::TraceInformation("Dispose AimpCore");
-                System::Diagnostics::Trace::Flush();
-                if (_disposed)
-                {
+            ~AimpCore() {
+                Diagnostics::Trace::TraceInformation("Dispose AimpCore");
+                Diagnostics::Trace::Flush();
+                if (_disposed) {
                     return;
                 }
 
@@ -47,62 +39,114 @@ namespace AIMP
                 _disposed = true;
             }
 
-            !AimpCore()
-            {
+            !AimpCore() {
             }
 
-            virtual String^ GetPath(MessageDispatcher::AimpCorePathType pathType)
-            {
+            virtual String^ GetPath(MessageDispatcher::AimpCorePathType pathType) {
                 String^ path;
-                if (_aimpCore->GetPath(pathType, path) == AIMP::SDK::AimpActionResult::OK)
-                {
+                if (_aimpCore->GetPath(pathType, path) == ActionResultType::OK) {
                     return path;
                 }
 
                 return String::Empty;
             }
 
-            virtual AimpActionResult SendMessage(MessageDispatcher::AimpCoreMessageType message, int value, Object^ obj)
-            {
-                return Utils::CheckResult(_aimpCore->SendMessage(message, value, obj));
+            virtual AimpActionResult^ SendMessage(MessageDispatcher::AimpCoreMessageType message, int value,
+                                                  Object^ obj) {
+                return ACTION_RESULT(Utils::CheckResult(_aimpCore->SendMessage(message, value, obj)));
             }
 
-            virtual AimpActionResult RegisterExtension(AIMP::IAimpExtension^ extension)
-            {
-                return Utils::CheckResult(_aimpCore->RegisterExtension(IID_IAIMPOptionsDialogFrame, extension));
+            virtual AimpActionResult^ RegisterExtension(IAimpExtension^ extension) {
+                return ACTION_RESULT(
+                    Utils::CheckResult(_aimpCore->RegisterExtension(IID_IAIMPOptionsDialogFrame, extension)));
             }
 
-            virtual AimpActionResult UnregisterExtension(AIMP::IAimpExtension^ extension)
-            {
-                return Utils::CheckResult(_aimpCore->UnregisterExtension(extension));
+            virtual AimpActionResult^ UnregisterExtension(IAimpExtension^ extension) {
+                return ACTION_RESULT(Utils::CheckResult(_aimpCore->UnregisterExtension(extension)));
             }
 
-            virtual IAimpStream^ CreateStream()
-            {
+            virtual StreamResult CreateStream() {
                 IAIMPStream* stream = nullptr;
-                if (_aimpCore->CreateStream(&stream) == AimpActionResult::OK && stream != nullptr)
-                {
-                    return gcnew AIMP::SDK::AimpStream(stream);
+                const auto result = _aimpCore->CreateStream(&stream);
+                if (result == ActionResultType::OK && stream != nullptr) {
+                    return gcnew AimpActionResult<IAimpStream^>(result, gcnew AimpStream(stream));
+                }
+
+                return gcnew AimpActionResult<IAimpStream^>(result, nullptr);
+            }
+
+            generic <class TAimpObject>
+            virtual AimpActionResult<IAimpObject^>^ CreateObject() {
+                const auto t = TAimpObject::typeid;
+
+                const auto core = _aimpCore->GetAimpCore();
+
+                if (t == IAimpStream::typeid) {
+                    IAIMPStream* obj = nullptr;
+                    IAimpStream^ managed = nullptr;
+                    const auto result = Utils::CheckResult(
+                        core->CreateObject(IID_IAIMPMemoryStream, reinterpret_cast<void**>(&obj)));
+
+                    if (result == ActionResultType::OK) {
+                        managed = gcnew AimpStream(obj);
+                    }
+
+                    return gcnew AimpActionResult<IAimpObject^>(result, managed);
+                }
+
+                if (t == IAimpAction::typeid) {
+                    IAIMPAction* obj = nullptr;
+                    IAimpAction^ managed = nullptr;
+                    const auto result = Utils::CheckResult(
+                        core->CreateObject(IID_IAIMPAction, reinterpret_cast<void**>(&obj)));
+
+                    if (result == ActionResultType::OK) {
+                        managed = gcnew AimpAction(obj);
+                    }
+
+                    return gcnew AimpActionResult<IAimpObject^>(result, managed);
+                }
+
+                if (t == IAimpFileInfo::typeid) {
+                    IAIMPFileInfo* obj = nullptr;
+                    IAimpFileInfo^ managed = nullptr;
+                    const auto result = Utils::CheckResult(
+                        core->CreateObject(IID_IAIMPFileInfo, reinterpret_cast<void**>(&obj)));
+
+                    if (result == ActionResultType::OK) {
+                        managed = gcnew AimpFileInfo(obj);
+                    }
+
+                    return gcnew AimpActionResult<IAimpObject^>(result, managed);
+                }
+
+                if (t == IAimpLyrics::typeid) {
+                    IAIMPLyrics* obj = nullptr;
+                    IAimpLyrics^ managed = nullptr;
+                    const auto result = Utils::CheckResult(
+                        core->CreateObject(IID_IAIMPLyrics, reinterpret_cast<void**>(&obj)));
+
+                    if (result == ActionResultType::OK) {
+                        managed = gcnew AimpLyrics(obj);
+                    }
+
+                    return gcnew AimpActionResult<IAimpObject^>(result, managed);
+                }
+
+                if (t == IAimpMenuItem::typeid) {
+                    IAIMPMenuItem* obj = nullptr;
+                    IAimpMenuItem^ managed = nullptr;
+                    const auto result = Utils::CheckResult(
+                        core->CreateObject(IID_IAIMPMenuItem, reinterpret_cast<void**>(&obj)));
+
+                    if (result == ActionResultType::OK) {
+                        managed = gcnew AimpMenuItem(obj);
+                    }
+
+                    return gcnew AimpActionResult<IAimpObject^>(result, managed);
                 }
 
                 return nullptr;
-            }
-
-            virtual System::IntPtr CreateObject(Guid% iid)
-            {
-                IAIMPCore* core = _aimpCore->GetAimpCore();
-                IUnknown* obj;
-                array<Byte>^ guidData = iid.ToByteArray();
-                pin_ptr<Byte> data = &(guidData[0]);
-                //AimpActionResult result = Utils::CheckResult(core->CreateObject(*(_GUID *)data, (void**)&obj));
-                AimpActionResult result = Utils::CheckResult(
-                    core->CreateObject(IID_IAIMPString, reinterpret_cast<void**>(&obj)));
-                if (result == AimpActionResult::OK)
-                {
-                    return IntPtr(obj);
-                }
-
-                return IntPtr::Zero;
             }
         };
     }

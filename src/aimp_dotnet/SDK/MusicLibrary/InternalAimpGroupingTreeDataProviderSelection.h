@@ -1,29 +1,22 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
 #include <vcclr.h>
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace SDK;
         using namespace MusicLibrary::DataFilter;
         using namespace MusicLibrary::DataStorage;
 
         class InternalAimpGroupingTreeDataProviderSelection : public IUnknownInterfaceImpl<
-                IAIMPMLGroupingTreeDataProviderSelection>
-        {
+                IAIMPMLGroupingTreeDataProviderSelection> {
         private:
             ULONG _LinkCounter = 1;
             gcroot<IAimpGroupingTreeDataProviderSelection^> _managedInstance;

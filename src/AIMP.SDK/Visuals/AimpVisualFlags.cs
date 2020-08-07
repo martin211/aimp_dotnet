@@ -2,32 +2,36 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
+using System;
+
 namespace AIMP.SDK.Visuals
 {
-    using System;
-
+    /// <summary>
+    /// Enum AimpVisualFlags
+    /// </summary>
     [Flags]
     public enum AimpVisualFlags
     {
         /// <summary>
         /// Plugin required WaveForm data for rendering.
         /// </summary>
-        AIMP_VISUAL_FLAGS_RQD_DATA_WAVE = 1,
+        RQDDataWave = 1,
 
         /// <summary>
         /// Plugin required Spectrum data for rendering.
         /// </summary>
-        AIMP_VISUAL_FLAGS_RQD_DATA_SPECTRUM = 2,
+        RQDDataSpectrum = 2,
 
         /// <summary>
         /// Rendering must not be suspended even if the VisualDisplay window is hidden or inaccessible.
         /// </summary>
-        AIMP_VISUAL_FLAGS_NOT_SUSPEND = 4
+        NotSuspend = 4
     }
 }

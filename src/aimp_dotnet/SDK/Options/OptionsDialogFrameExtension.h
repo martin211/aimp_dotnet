@@ -1,23 +1,17 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
 
-class AimpExtension
-{
+class AimpExtension {
 protected:
     IAIMPCore* _aimpCore;
 public:
-    AimpExtension(IAIMPCore* aimpCore)
-    {
+    AimpExtension(IAIMPCore* aimpCore) {
         _aimpCore = aimpCore;
     }
 };
@@ -25,8 +19,7 @@ public:
 class OptionsDialogFrameExtension :
     public IUnknownInterfaceImpl<IAIMPOptionsDialogFrame>,
     public IAIMPOptionsDialogFrameKeyboardHelper,
-    public AimpExtension
-{
+    public AimpExtension {
 public:
     typedef IUnknownInterfaceImpl<IAIMPOptionsDialogFrame> Base;
 

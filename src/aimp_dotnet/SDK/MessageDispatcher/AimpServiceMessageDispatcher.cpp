@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
@@ -17,116 +13,90 @@ using namespace AIMP::SDK;
 using namespace Runtime::InteropServices;
 
 AimpServiceMessageDispatcher::
-AimpServiceMessageDispatcher(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceMessageDispatcher>(core)
-{
+AimpServiceMessageDispatcher(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceMessageDispatcher>(core) {
+}
+
+AimpServiceMessageDispatcher::~AimpServiceMessageDispatcher() {
+    _hook->Release();
+    delete _hook;
     _hook = nullptr;
 }
 
-AimpServiceMessageDispatcher::~AimpServiceMessageDispatcher()
-{
-    _hook = nullptr;
-}
+ActionResult AimpServiceMessageDispatcher::Send(AimpCoreMessageType message, int param1, IntPtr param2) {
+    IAIMPServiceMessageDispatcher* service = GetAimpService();
+    ActionResultType result = ActionResultType::Fail;
 
-AimpActionResult AimpServiceMessageDispatcher::Send(int message, int param1, IntPtr param2)
-{
-    IAIMPServiceMessageDispatcher* service = nullptr;
-    AimpActionResult result = AimpActionResult::Fail;
-
-    try
-    {
-        if (GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::OK && service != nullptr)
-        {
+    try {
+        if (service != nullptr) {
             HWND handle = nullptr;
-            result = CheckResult(service->Send(DWORD(message), int(param1), &handle));
-            if (result == AimpActionResult::OK)
-            {
+            result = CheckResult(service->Send(DWORD(message), static_cast<int>(param1), &handle));
+            if (result == ActionResultType::OK) {
                 param2 = IntPtr(handle);
             }
         }
     }
-    finally
-    {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+    finally {
+        ReleaseObject(service);
     }
 
-    return result;
+    return ACTION_RESULT(result);
 }
 
-int AimpServiceMessageDispatcher::Register(String^ message)
-{
-    IAIMPServiceMessageDispatcher* service = nullptr;
+int AimpServiceMessageDispatcher::Register(String^ message) {
+    Assert::NotNull(message, "message");
 
-    try
-    {
-        if (GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::OK && service != nullptr)
-        {
+    IAIMPServiceMessageDispatcher* service = GetAimpService();
+
+    try {
+        if (service != nullptr) {
             const pin_ptr<const WCHAR> strDate = PtrToStringChars(message);
             return service->Register(PWCHAR(strDate));
         }
     }
-    finally
-    {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+    finally {
+        ReleaseObject(service);
     }
 
     return 0;
 }
 
-AimpActionResult AimpServiceMessageDispatcher::Hook(IAimpMessageHook^ hook)
-{
-    IAIMPServiceMessageDispatcher* service = nullptr;
-    AimpActionResult result = AimpActionResult::Fail;
+ActionResult AimpServiceMessageDispatcher::Hook(IAimpMessageHook^ hook) {
+    Assert::NotNull(hook, "hook");
 
-    try
-    {
-        if (_hook == nullptr && GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::OK &&
-            service != nullptr)
-        {
+    IAIMPServiceMessageDispatcher* service = GetAimpService();
+    ActionResultType result = ActionResultType::Fail;
+
+    try {
+        if (service != nullptr) {
             _hook = new InternalAimpMessageHook(hook);
             result = CheckResult(service->Hook(_hook));
         }
     }
-    finally
-    {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+    finally {
+        ReleaseObject(service);
     }
 
-    return result;
+    return ACTION_RESULT(result);
 }
 
-AimpActionResult AimpServiceMessageDispatcher::Unhook(IAimpMessageHook^ hook)
-{
-    IAIMPServiceMessageDispatcher* service = nullptr;
-    AimpActionResult result = AimpActionResult::Fail;
+ActionResult AimpServiceMessageDispatcher::Unhook(IAimpMessageHook^ hook) {
+    IAIMPServiceMessageDispatcher* service = GetAimpService();
+    ActionResultType result = ActionResultType::Fail;
 
-    try
-    {
-        if (_hook != nullptr && GetService(IID_IAIMPServiceMessageDispatcher, &service) == AimpActionResult::OK &&
-            service != nullptr)
-        {
+    try {
+        if (service != nullptr) {
             result = CheckResult(service->Unhook(_hook));
         }
     }
-    finally
-    {
-        if (service != nullptr)
-        {
-            service->Release();
-            service = nullptr;
-        }
+    finally {
+        ReleaseObject(service);
     }
 
-    return result;
+    return ACTION_RESULT(result);
+}
+
+IAIMPServiceMessageDispatcher* AimpServiceMessageDispatcher::GetAimpService() {
+    IAIMPServiceMessageDispatcher* service = nullptr;
+    GetService(IID_IAIMPServiceMessageDispatcher, &service);
+    return service;
 }

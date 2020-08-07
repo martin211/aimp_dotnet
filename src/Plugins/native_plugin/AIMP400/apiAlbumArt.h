@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #ifndef apiAlbumArtH
@@ -60,8 +56,7 @@ typedef void (CALLBACK TAIMPServiceAlbumArtReceiveProc)(IAIMPImage* image, IAIMP
 
 /* IAIMPExtensionAlbumArtCatalog */
 
-class IAIMPExtensionAlbumArtCatalog : public IUnknown
-{
+class IAIMPExtensionAlbumArtCatalog : public IUnknown {
 public:
     virtual HRESULT WINAPI GetIcon(HICON** Image) = 0;
     virtual HRESULT WINAPI GetName(IAIMPString** Name) = 0;
@@ -71,16 +66,14 @@ public:
 
 /* IAIMPExtensionAlbumArtCatalog2 */
 
-class IAIMPExtensionAlbumArtCatalog2 : public IAIMPExtensionAlbumArtCatalog
-{
+class IAIMPExtensionAlbumArtCatalog2 : public IAIMPExtensionAlbumArtCatalog {
 public:
     virtual HRESULT WINAPI Show2(IAIMPFileInfo* FileInfo, IAIMPImageContainer** Image) = 0;
 };
 
 /* IAIMPExtensionAlbumArtProvider */
 
-class IAIMPExtensionAlbumArtProvider : public IUnknown
-{
+class IAIMPExtensionAlbumArtProvider : public IUnknown {
 public:
     virtual HRESULT WINAPI Get(IAIMPString* FileURI, IAIMPString* Artist, IAIMPString* Album,
                                IAIMPPropertyList* Options, IAIMPImageContainer** Image) = 0;
@@ -89,16 +82,14 @@ public:
 
 /* IAIMPExtensionAlbumArtProvider2 */
 
-class IAIMPExtensionAlbumArtProvider2 : public IAIMPExtensionAlbumArtProvider
-{
+class IAIMPExtensionAlbumArtProvider2 : public IAIMPExtensionAlbumArtProvider {
 public:
     virtual HRESULT WINAPI Get2(IAIMPFileInfo* FileInfo, IAIMPPropertyList* Options, IAIMPImageContainer** Image) = 0;
 };
 
 /* IAIMPServiceAlbumArt */
 
-class IAIMPServiceAlbumArt : public IUnknown
-{
+class IAIMPServiceAlbumArt : public IUnknown {
 public:
     virtual HRESULT WINAPI Get(IAIMPString* FileURI, IAIMPString* Artist, IAIMPString* Album, DWORD Flags,
                                TAIMPServiceAlbumArtReceiveProc* CallbackProc, void* UserData, void** TaskID) = 0;
@@ -109,8 +100,7 @@ public:
 
 /* IAIMPServiceAlbumArtCache */
 
-class IAIMPServiceAlbumArtCache : public IUnknown
-{
+class IAIMPServiceAlbumArtCache : public IUnknown {
 public:
     virtual HRESULT WINAPI Flush(IAIMPString* Artist, IAIMPString* Album) = 0;
     virtual HRESULT WINAPI Flush2(IAIMPString* FileURI) = 0;

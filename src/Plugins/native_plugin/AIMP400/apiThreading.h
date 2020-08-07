@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #ifndef apiThreadingH
@@ -35,40 +31,35 @@ const int AIMP_TASK_PRIORITY_HIGH = 2;
 
 /* IAIMPTaskOwner */
 
-class IAIMPTaskOwner : public IUnknown
-{
+class IAIMPTaskOwner : public IUnknown {
 public:
     virtual BOOL WINAPI IsCanceled() = 0;
 };
 
 /* IAIMPTask */
 
-class IAIMPTask : public IUnknown
-{
+class IAIMPTask : public IUnknown {
 public:
     virtual void WINAPI Execute(IAIMPTaskOwner* Owner) = 0;
 };
 
 /* IAIMPTaskPriority */
 
-class IAIMPTaskPriority : public IUnknown
-{
+class IAIMPTaskPriority : public IUnknown {
 public:
     virtual int WINAPI GetPriority() = 0;
 };
 
 /* IAIMPServiceSynchronizer */
 
-class IAIMPServiceSynchronizer : public IUnknown
-{
+class IAIMPServiceSynchronizer : public IUnknown {
 public:
     virtual HRESULT WINAPI ExecuteInMainThread(IAIMPTask* Task, BOOL ExecuteNow) = 0;
 };
 
 /* IAIMPServiceThreadPool */
 
-class IAIMPServiceThreadPool : public IUnknown
-{
+class IAIMPServiceThreadPool : public IUnknown {
 public:
     virtual HRESULT WINAPI Cancel(DWORD_PTR TaskHandle, DWORD Flags) = 0;
     virtual HRESULT WINAPI Execute(IAIMPTask* Task, DWORD_PTR* TaskHandle) = 0;

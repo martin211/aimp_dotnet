@@ -1,31 +1,25 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #include "Stdafx.h"
 #include "InternalAimpMusicLibraryPlaylistPreimage.h"
-#include "../MusicLibrary/AimpDataFieldFilter.h"
 
 //InternalAimpMusicLibraryPlaylistPreimage::InternalAimpMusicLibraryPlaylistPreimage(gcroot<AIMP::SDK::MusicLibrary::IAimpMusicLibraryPlaylistPreimage^> managedInstance)
 //{
 //    _managedInstance = managedInstance;
 //}
 
-HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetFilter(IAIMPMLDataFilter** Filter)
-{
+HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetFilter(IAIMPMLDataFilter** Filter) {
     // TODO Complete it
-    IAimpDataFieldFilter^ dataFilter = nullptr;
-    AimpActionResult res = AimpActionResult::Fail;
+    DataFilter::IAimpDataFieldFilter^ dataFilter = nullptr;
+    ActionResultType res = ActionResultType::Fail;
     //res = _managedInstance->GetFilter(&dataFilter);
 
-    //if (res == AimpActionResult::OK)
+    //if (res == ActionResultType::OK)
     //{
     //    *Filter = gcnew AimpDataFieldFilter();
     //}
@@ -33,8 +27,7 @@ HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetFilter(IAIMPMLDataFi
     return HRESULT(res);
 }
 
-HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetStorage(IUnknown** Storage)
-{
+HRESULT WINAPI InternalAimpMusicLibraryPlaylistPreimage::GetStorage(IUnknown** Storage) {
     return S_OK;
 }
 

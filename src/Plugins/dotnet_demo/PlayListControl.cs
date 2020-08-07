@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -57,37 +58,37 @@ namespace DemoPlugin
             for (var i = 0; i < count; i++)
             {
                 var item = _playList.GetItem(i);
-                if (item == null)
+                if (item.ResultType != ActionResultType.OK)
                 {
                     continue;
                 }
 
-                listView1.Items.Add(GetTrack(item));
+                listView1.Items.Add(GetTrack(item.Result));
             }
         }
 
         public void LoadTracks()
         {
-            IList<string> files;
-            if (Utils.CheckResult(_playList.GetFiles(PlaylistGetFilesFlag.All, out files)) == AimpActionResult.Ok)
+            var result = _playList.GetFiles(PlaylistGetFilesFlag.All);
+            if (result.ResultType == ActionResultType.OK)
             {
                 int count = _playList.GetItemCount();
                 for (var i = 0; i < count; i++)
                 {
                     var item = _playList.GetItem(i);
-                    if (item == null)
+                    if (item.ResultType != ActionResultType.OK)
                     {
                         continue;
                     }
 
-                    listView1.Items.Add(GetTrack(item));
+                    listView1.Items.Add(GetTrack(item.Result));
                 }
             }
         }
 
         private ListViewItem GetTrack(IAimpPlaylistItem item)
         {
-            var trackItem = new ListViewItem { Text = item.PlaybackIndex.ToString() };
+            var trackItem = new ListViewItem {Text = item.PlaybackIndex.ToString()};
             trackItem.SubItems.Add(item.DisplayText);
             trackItem.SubItems.Add(TimeSpan.FromSeconds(item.FileInfo.Duration).ToString());
             // save playlist item to tag.
@@ -98,7 +99,7 @@ namespace DemoPlugin
 
         private void toolStripMenuItem1_Click(object sender, System.EventArgs e)
         {
-            _playList.Delete(PlaylistDeleteFlags.AIMP_PLAYLIST_DELETE_FLAGS_PHYSICALLY, "test", FilterFunc);
+            _playList.Delete(PlaylistDeleteFlags.Physically, "test", FilterFunc);
         }
 
         private bool FilterFunc(IAimpPlaylistItem aimpPlaylistItem, object o)

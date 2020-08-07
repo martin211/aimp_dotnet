@@ -1,27 +1,24 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
 #include "SDK/AimpObject.h"
 #include "AIMPSDK/AIMP400/apiLyrics.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace Lyrics;
 
-        public ref class AimpLyrics : public AimpObject<IAIMPLyrics>, public IAimpLyrics
-        {
+        public ref class AimpLyrics : public AimpObject<IAIMPLyrics>, public IAimpLyrics {
+        protected:
+            void RegisterAtMemoryManager() override;
+            void ReleaseFromMemoryManager() override;
+
         public:
             AimpLyrics(IAIMPLyrics* lyrics);
 
@@ -79,31 +76,31 @@ namespace AIMP
                 void set(int value);
             }
 
-            virtual AimpActionResult Assign(IAimpLyrics^ source);
+            virtual ActionResult Assign(IAimpLyrics^ source);
 
-            virtual AimpActionResult Clone(IAimpLyrics^% lyrics);
+            virtual AimpActionResult<IAimpLyrics^>^ Clone();
 
-            virtual AimpActionResult Add(int timeStart, int timeFinish, String^ text);
+            virtual ActionResult Add(int timeStart, int timeFinish, String^ text);
 
-            virtual AimpActionResult Delete(int index);
+            virtual ActionResult Delete(int index);
 
-            virtual AimpActionResult Find(int time, int index, String^% text);
+            virtual AimpActionResult<String^>^ Find(int time, int index);
 
-            virtual AimpActionResult Get(int index, int timeStart, int timeFinish, String^% text);
+            virtual AimpActionResult<String^>^ Get(int index, int timeStart, int timeFinish);
 
-            virtual AimpActionResult GetCount(int% value);
+            virtual IntResult GetCount();
 
-            virtual AimpActionResult LoadFromFile(String^ virtualFileName);
+            virtual ActionResult LoadFromFile(String^ virtualFileName);
 
-            virtual AimpActionResult LoadFromStream(IAimpStream^ stream, LyricsFormat format);
+            virtual ActionResult LoadFromStream(IAimpStream^ stream, LyricsFormat format);
 
-            virtual AimpActionResult LoadFromString(String^ lyrics, LyricsFormat format);
+            virtual ActionResult LoadFromString(String^ lyrics, LyricsFormat format);
 
-            virtual AimpActionResult SaveToFile(String^ fileUri);
+            virtual ActionResult SaveToFile(String^ fileUri);
 
-            virtual AimpActionResult SaveToStream(IAimpStream^ stream, LyricsFormat format);
+            virtual ActionResult SaveToStream(IAimpStream^ stream, LyricsFormat format);
 
-            virtual AimpActionResult SaveToString(String^% lyrics, LyricsFormat format);
+            virtual AimpActionResult<String^>^ SaveToString(LyricsFormat format);
         };
     }
 }

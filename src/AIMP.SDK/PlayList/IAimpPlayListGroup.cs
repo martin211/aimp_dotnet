@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 namespace AIMP.SDK.Playlist
 {
     /// <summary>
@@ -18,38 +19,44 @@ namespace AIMP.SDK.Playlist
         /// <summary>
         /// Gets the name.
         /// </summary>
+        /// <value>The name.</value>
         string Name { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="IAimpPlaylistGroup"/> is expanded.
+        /// Gets or sets a value indicating whether this <see cref="IAimpPlaylistGroup" /> is expanded.
         /// </summary>
+        /// <value><c>true</c> if expanded; otherwise, <c>false</c>.</value>
         bool Expanded { get; set; }
 
         /// <summary>
         /// Gets the total duration of items in the group, in seconds.
         /// </summary>
+        /// <value>The duration.</value>
         double Duration { get; }
 
         /// <summary>
         /// Gets the index.
         /// </summary>
+        /// <value>The index.</value>
         int Index { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="IAimpPlaylistGroup"/> is selected.
+        /// Gets or sets a value indicating whether this <see cref="IAimpPlaylistGroup" /> is selected.
         /// </summary>
+        /// <value><c>true</c> if selected; otherwise, <c>false</c>.</value>
         bool Selected { get; set; }
 
         /// <summary>
         /// Gets the count.
         /// </summary>
+        /// <value>The count.</value>
         int Count { get; }
 
         /// <summary>
         /// Gets the item.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <returns></returns>
-        IAimpPlaylistItem GetItem(int index);
+        /// <returns>AimpActionResult&lt;IAimpPlaylistItem&gt;.</returns>
+        AimpActionResult<IAimpPlaylistItem> GetItem(int index);
     }
 }

@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #ifndef apiMessagesH
@@ -513,16 +509,14 @@ static const GUID IID_IAIMPServiceMessageDispatcher = {
 
 /* IAIMPMessageHook */
 
-class IAIMPMessageHook : public IUnknown
-{
+class IAIMPMessageHook : public IUnknown {
 public:
     virtual void WINAPI CoreMessage(DWORD AMessage, int AParam1, void* AParam2, HRESULT* AResult) = 0;
 };
 
 /* IAIMPServiceMessageDispatcher */
 
-class IAIMPServiceMessageDispatcher : public IUnknown
-{
+class IAIMPServiceMessageDispatcher : public IUnknown {
 public:
     virtual HRESULT WINAPI Send(DWORD AMessage, int AParam1, void* AParam2) = 0;
     // Custom Messages

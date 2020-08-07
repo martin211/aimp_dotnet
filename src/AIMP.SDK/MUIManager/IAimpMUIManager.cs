@@ -2,31 +2,35 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 namespace AIMP.SDK.MUIManager
 {
     /// <summary>
     /// MUI manager.
+    /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
+    /// <seealso cref="AIMP.SDK.IAimpService" />
     // ReSharper disable InconsistentNaming
-    public interface IAimpMUIManager
+    public interface IAimpServiceMUI : IAimpService
         // ReSharper restore InconsistentNaming
     {
         /// <summary>
         /// Gets the current locale name.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
         string GetName();
 
         /// <summary>
         /// Gets the value.
         /// </summary>
         /// <param name="key">The key.</param>
+        /// <returns>System.String.</returns>
         string GetValue(string key);
 
         /// <summary>
@@ -34,6 +38,7 @@ namespace AIMP.SDK.MUIManager
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="index">The index.</param>
+        /// <returns>System.String.</returns>
         string GetValuePart(string key, int index);
     }
 }

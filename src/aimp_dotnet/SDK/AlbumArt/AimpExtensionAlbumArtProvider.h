@@ -1,27 +1,21 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
 
 class AimpExtensionAlbumArtProvider :
     public IUnknownInterfaceImpl<IAIMPExtensionAlbumArtProvider>,
-    public IAIMPExtensionAlbumArtProvider2
-{
+    public IAIMPExtensionAlbumArtProvider2 {
 private:
     gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^> _managedinstance;
     IAIMPCore* _aimpCore;
 public:
     AimpExtensionAlbumArtProvider(IAIMPCore* aimpCore,
-                                  gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^> instance)
-    {
+                                  gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^> instance) {
         _managedinstance = instance;
         _aimpCore = aimpCore;
     }
@@ -35,21 +29,17 @@ public:
 
     virtual HRESULT WINAPI Get2(IAIMPFileInfo* FileInfo, IAIMPPropertyList* Options, IAIMPImageContainer** Image);
 
-    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject)
-    {
-        if (!ppvObject)
-        {
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject) {
+        if (!ppvObject) {
             return E_POINTER;
         }
 
-        if (riid == IID_IAIMPExtensionAlbumArtProvider)
-        {
+        if (riid == IID_IAIMPExtensionAlbumArtProvider) {
             *ppvObject = this;
             AddRef();
             return S_OK;
         }
-        if (riid == IID_IAIMPExtensionAlbumArtProvider2)
-        {
+        if (riid == IID_IAIMPExtensionAlbumArtProvider2) {
             *ppvObject = static_cast<IAIMPExtensionAlbumArtProvider2*>(this);
             AddRef();
             return S_OK;
@@ -58,13 +48,11 @@ public:
         return E_NOINTERFACE;
     }
 
-    virtual ULONG WINAPI AddRef(void)
-    {
+    virtual ULONG WINAPI AddRef(void) {
         return Base::AddRef();
     }
 
-    virtual ULONG WINAPI Release(void)
-    {
+    virtual ULONG WINAPI Release(void) {
         return Base::Release();
     }
 };

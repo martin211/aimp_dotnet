@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System.Windows.Forms;
 using AIMP.SDK;
 using AIMP.SDK.Player;
@@ -23,33 +24,38 @@ namespace DemoPlugin
 
             var fileName = item.FileName;
             fileName = fileName.EndsWith(":0") ? fileName.Replace(":0", string.Empty) : fileName;
-            if (player.ServiceFileTagEditor.EditFile(fileName, out var editor) == AimpActionResult.Ok)
+            var result = player.ServiceFileTagEditor.EditFile(fileName);
+            if (result.ResultType == ActionResultType.OK)
             {
-                if (editor.GetMixedInfo(out var fileInfo) == AimpActionResult.OK)
-                {
-                    lTitle.Text = fileInfo.Title;
-                    lAlbum.Text = fileInfo.Album;
-                    lArtist.Text = fileInfo.Artist;
-                    lGenre.Text = fileInfo.Genre;
+                var editor = result.Result;
+                var mixedResult = editor.GetMixedInfo();
 
-                    if (fileInfo.AlbumArt != null)
+                if (mixedResult.ResultType == ActionResultType.OK)
+                {
+                    lTitle.Text = mixedResult.Result.Title;
+                    lAlbum.Text = mixedResult.Result.Album;
+                    lArtist.Text = mixedResult.Result.Artist;
+                    lGenre.Text = mixedResult.Result.Genre;
+
+                    if (mixedResult.Result.AlbumArt != null)
                     {
-                        cover.Image = fileInfo.AlbumArt;
+                        cover.Image = mixedResult.Result.AlbumArt;
                     }
                 }
 
                 var count = editor.GetTagCount();
                 for (var i = 0; i < count; i++)
                 {
-                    if (editor.GetTag(i, out var tag) == AimpActionResult.OK)
+                    var r = editor.GetTag(i);
+                    if (r.ResultType == ActionResultType.OK)
                     {
-                        var tab = new TabPage(tag.TagId.ToString())
+                        var tab = new TabPage(r.Result.TagId.ToString())
                         {
-                            Text = tag.TagId.ToString(),
-                            Tag = tag
+                            Text = r.Result.TagId.ToString(),
+                            Tag = r.Result
                         };
 
-                        var editorControl = new TagEditControl(tag);
+                        var editorControl = new TagEditControl(r.Result);
                         tab.Controls.Add(editorControl);
                         tabControl1.TabPages.Add(tab);
                     }

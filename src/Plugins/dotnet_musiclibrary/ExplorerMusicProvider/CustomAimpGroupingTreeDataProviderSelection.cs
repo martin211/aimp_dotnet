@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using AIMP.SDK;
 using AIMP.SDK.MusicLibrary.DataStorage;
 
@@ -15,29 +16,24 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 {
     public class CustomAimpGroupingTreeDataProviderSelection : IAimpGroupingTreeDataProviderSelection
     {
-        public AimpActionResult GetDisplayValue(out string displayValue)
+        public AimpActionResult<string> GetDisplayValue()
         {
-            displayValue = "Test value";
-            return AimpActionResult.Ok;
+            return new AimpActionResult<string>(ActionResultType.OK, "Test value");
         }
 
         public GroupingTreeNodeFlags GetFlags()
         {
-            return GroupingTreeNodeFlags.AIMPML_GROUPINGTREENODE_FLAG_HASCHILDREN;
+            return GroupingTreeNodeFlags.HasChildren;
         }
 
-        public AimpActionResult GetImageIndex(out FieldImageIndex imageIndex)
+        public AimpActionResult<FieldImageIndex> GetImageIndex()
         {
-            imageIndex = FieldImageIndex.AIMPML_FIELDIMAGE_FOLDER;
-            return AimpActionResult.Ok;
+            return new AimpActionResult<FieldImageIndex>(ActionResultType.OK, FieldImageIndex.Folder);
         }
 
-        public AimpActionResult GetValue(out string fieldName, out object value)
+        public AimpActionResult<string, object> GetValue()
         {
-            fieldName = "fn";
-            value = 1;
-
-            return AimpActionResult.Ok;
+            return new AimpActionResult<string, object>(ActionResultType.OK, "fn", 1);
         }
 
         public bool NextRow()

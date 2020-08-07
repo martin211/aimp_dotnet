@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #ifndef apiRemoteH
@@ -18,8 +14,7 @@ const char AIMPRemoteAccessClass[] = "AIMP2_RemoteInfo";
 const int AIMPRemoteAccessMapFileSize = 2048;
 
 #pragma pack(push, 1)
-struct TAIMPRemoteFileInfo
-{
+struct TAIMPRemoteFileInfo {
     DWORD Deprecated1;
     BOOL Active;
     DWORD BitRate;

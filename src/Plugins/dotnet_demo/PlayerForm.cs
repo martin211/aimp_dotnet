@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace DemoPlugin
 
             coreMessage.OnCoreMessage += (message, param1, param2) =>
             {
-                if (message == AimpCoreMessageType.AIMP_MSG_EVENT_PLAYABLE_FILE_INFO)
+                if (message == AimpCoreMessageType.EventPlayableFileInfo)
                 {
                     var cover = _aimpPlayer.CurrentFileInfo.AlbumArt;
                     if (cover != null)
@@ -46,11 +47,11 @@ namespace DemoPlugin
                         pictureBox1.Image = cover;
                     }
                 }
-                else if (message == AimpCoreMessageType.AIMP_MSG_EVENT_PLAYER_STATE)
+                else if (message == AimpCoreMessageType.EventPlayerState)
                 {
                     Logger.Instance.AddInfoMessage($"[Event] AimpPlayer.StateChanged: {param1}");
 
-                    switch ((AimpPlayerState)param1)
+                    switch ((AimpPlayerState) param1)
                     {
                         case AimpPlayerState.Stopped:
                             Text = "State: stopped";
@@ -64,12 +65,12 @@ namespace DemoPlugin
                     }
                 }
 
-                return AimpActionResult.OK;
+                return ActionResultType.OK;
             };
 
             Load += OnActivated;
 
-       //_aimpPlayer.PlaylistManager.PlaylistActivated += (name, id) =>
+            //_aimpPlayer.PlaylistManager.PlaylistActivated += (name, id) =>
             //{
             //    Logger.Instance.AddInfoMessage($"[Event] PlayListManager.PlaylistActivated: {name} {id}");
 
@@ -89,7 +90,7 @@ namespace DemoPlugin
             //    Logger.Instance.AddInfoMessage($"[Event] PlayListManager.PlaylistAdded: {name} {id}");
 
             //    IAimpPlaylist pl;
-            //    if (_aimpPlayer.PlaylistManager.GetLoadedPlaylistById(id, out pl) == AimpActionResult.Ok)
+            //    if (_aimpPlayer.PlaylistManager.GetLoadedPlaylistById(id, out pl) == ActionResultType.OK)
             //    {
             //        AddPlayListTab(id, name, pl);
             //    }
@@ -110,12 +111,12 @@ namespace DemoPlugin
             //    }
             //};
 
-            _aimpPlayer.PlaylistManager.PlaylistQueue.ContentChanged += (sender) =>
+            _aimpPlayer.ServicePlaylistManager.PlaylistQueue.ContentChanged += (sender) =>
             {
                 Logger.Instance.AddInfoMessage($"[Event] PlaylistQueue.ContentChanged");
             };
 
-            _aimpPlayer.PlaylistManager.PlaylistQueue.StateChanged += (sender) =>
+            _aimpPlayer.ServicePlaylistManager.PlaylistQueue.StateChanged += (sender) =>
             {
                 Logger.Instance.AddInfoMessage($"[Event] PlaylistQueue.StateChanged");
             };
@@ -138,26 +139,24 @@ namespace DemoPlugin
             tab.Controls.Add(pl);
             tabPlayLists.TabPages.Add(tab);
 
-            playList.Activated += sender =>
-            {
-                tabPlayLists.SelectedTab = tab;
-            };
+            playList.Activated += sender => { tabPlayLists.SelectedTab = tab; };
         }
 
         private void TracksOnDoubleClick(object sender, EventArgs eventArgs)
         {
-            var trackItem = (IAimpPlaylistItem)(sender as ListView).SelectedItems[0].Tag;
+            var trackItem = (IAimpPlaylistItem) (sender as ListView).SelectedItems[0].Tag;
             _aimpPlayer.Play(trackItem);
         }
 
         private void OnActivated(object sender, EventArgs eventArgs)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _aimpPlayer.Core.SendMessage(AimpCoreMessageType.AIMP_MSG_CMD_SHOW_NOTIFICATION, 0, "Play Play Play");
+            var pl = _aimpPlayer.ServicePlaylistManager.GetActivePlaylist();
+            _aimpPlayer.Play(pl.Result);
+            _aimpPlayer.Core.SendMessage(AimpCoreMessageType.CmdShowNotification, 0, "Play Play Play");
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -173,7 +172,7 @@ namespace DemoPlugin
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
             int v = trackBar2.Value;
-            _aimpPlayer.Volume = (float)v/10;
+            _aimpPlayer.Volume = (float) v / 10;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -199,9 +198,11 @@ namespace DemoPlugin
         private void button7_Click(object sender, EventArgs e)
         {
             IAimpPlaylist pl;
-            if (_aimpPlayer.PlaylistManager.GetActivePlaylist(out pl) == AimpActionResult.Ok)
+            var result = _aimpPlayer.ServicePlaylistManager.GetActivePlaylist();
+
+            if (result.ResultType == ActionResultType.OK)
             {
-                pl.Sort("test", (item, playlistItem, arg3) => PlaylistSortComapreResult.TheSame);
+                result.Result.Sort("test", (item, playlistItem, arg3) => PlaylistSortComapreResult.TheSame);
             }
         }
 
@@ -210,9 +211,10 @@ namespace DemoPlugin
             var frm = new PlaylistEditor();
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
-                IAimpPlaylist playList;
-                if (_aimpPlayer.PlaylistManager.CreatePlaylist(frm.PlaylistName, true, out playList) == AimpActionResult.Ok)
+                var result = _aimpPlayer.ServicePlaylistManager.CreatePlaylist(frm.PlaylistName, true);
+                if (result.ResultType == ActionResultType.OK)
                 {
+                    var playList = result.Result;
                     _playLists.Add(playList);
 
                     //CheckResult(playList.Add("http://xstream1.somafm.com:2800", PlaylistFlags.NOEXPAND, PlaylistFilePosition.EndPosition));
@@ -226,23 +228,28 @@ namespace DemoPlugin
                     playList.Changed += PlayListOnChanged;
                     playList.Activated += playlist =>
                     {
-                        Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.Activated: {playlist.Id} {playlist.Name}");
+                        Logger.Instance.AddInfoMessage(
+                            $"[Event] IAimpPlaylist.Activated: {playlist.Id} {playlist.Name}");
                     };
                     playList.Removed += playlist =>
                     {
-                        Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.Removed: {playlist.Id} {playlist.Name}");
+                        Logger.Instance.AddInfoMessage(
+                            $"[Event] IAimpPlaylist.Removed: {playlist.Id} {playlist.Name}");
                     };
                     playList.ScanningBegin += playlist =>
                     {
-                        Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.ScanningBegin: {playlist.Id} {playlist.Name}");
+                        Logger.Instance.AddInfoMessage(
+                            $"[Event] IAimpPlaylist.ScanningBegin: {playlist.Id} {playlist.Name}");
                     };
                     playList.ScanningEnd += (playlist, args) =>
                     {
-                        Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.ScanningEnd: {playlist.Id} {playlist.Name}");
+                        Logger.Instance.AddInfoMessage(
+                            $"[Event] IAimpPlaylist.ScanningEnd: {playlist.Id} {playlist.Name}");
                     };
                     playList.ScanningProgress += (playlist, args) =>
                     {
-                        Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.ScanningProgress: {playlist.Id} {playlist.Name}");
+                        Logger.Instance.AddInfoMessage(
+                            $"[Event] IAimpPlaylist.ScanningProgress: {playlist.Id} {playlist.Name}");
                     };
                 }
             }
@@ -253,16 +260,15 @@ namespace DemoPlugin
             Logger.Instance.AddInfoMessage($"[Event] IAimpPlaylist.Changed: {sender.Id} {sender.Name}");
             if (notifType.HasFlag(PlaylistNotifyType.AIMP_PLAYLIST_NOTIFY_STATISTICS))
             {
-                
             }
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
-            IAimpPlaylist playList;
-            if (_aimpPlayer.PlaylistManager.GetActivePlaylist(out playList) == AimpActionResult.Ok)
+            var result = _aimpPlayer.ServicePlaylistManager.GetActivePlaylist();
+            if (result.ResultType == ActionResultType.OK)
             {
-                playList?.Close(PlaylistCloseFlag.ForceRemove);
+                result.Result?.Close(PlaylistCloseFlag.ForceRemove);
             }
         }
 
@@ -274,7 +280,7 @@ namespace DemoPlugin
         private void button10_Click(object sender, EventArgs e)
         {
             //IAimpPlaylistItem item;
-            //if (_aimpPlayer.PlayListManager.PlaylistQueue.GetItem(0, out item) == AimpActionResult.Ok)
+            //if (_aimpPlayer.PlayListManager.PlaylistQueue.GetItem(0, out item) == ActionResultType.OK)
             //{
 
             //}
@@ -286,12 +292,10 @@ namespace DemoPlugin
 
         private void PlayListQueue_StateChanged(object sender, EventArgs e)
         {
-            
         }
 
         private void tabPlayLists_TabIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void tabPlayLists_SelectedIndexChanged(object sender, EventArgs e)
@@ -299,18 +303,19 @@ namespace DemoPlugin
             var playlist = tabPlayLists.SelectedTab.Tag as IAimpPlaylist;
             if (playlist != null)
             {
-                _aimpPlayer.PlaylistManager.SetActivePlaylist(playlist);
+                _aimpPlayer.ServicePlaylistManager.SetActivePlaylist(playlist);
             }
         }
 
         private void PlayerForm_Shown(object sender, EventArgs e)
         {
-            var count = _aimpPlayer.PlaylistManager.GetLoadedPlaylistCount();
+            var count = _aimpPlayer.ServicePlaylistManager.GetLoadedPlaylistCount();
             for (var i = 0; i < count; i++)
             {
-                if (_aimpPlayer.PlaylistManager.GetLoadedPlaylist(i, out var playlist) == AimpActionResult.Ok && _playLists.All(c => c.Id != playlist.Id))
+                var result = _aimpPlayer.ServicePlaylistManager.GetLoadedPlaylist(i);
+                if (result.ResultType == ActionResultType.OK && _playLists.All(c => c.Id != result.Result.Id))
                 {
-                    AddPlayListTab(playlist.Id, playlist.Name, playlist);
+                    AddPlayListTab(result.Result.Id, result.Result.Name, result.Result);
                 }
             }
         }

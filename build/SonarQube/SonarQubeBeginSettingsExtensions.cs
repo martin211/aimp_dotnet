@@ -13,5 +13,12 @@ namespace Aimp.DotNet.Build
             toolSettings.ProjectBaseDir = projectBaseDir;
             return toolSettings;
         }
+
+        public static SonarBeginSettings SetVerbose2(this SonarBeginSettings toolSettings, bool value)
+        {
+            toolSettings = toolSettings.NewInstance();
+            toolSettings.Verbose1 = value;
+            return toolSettings;
+        }
     }
 }

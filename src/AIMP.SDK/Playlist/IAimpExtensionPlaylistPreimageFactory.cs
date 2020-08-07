@@ -2,18 +2,29 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 namespace AIMP.SDK.Playlist
 {
+    /// <summary>
+    /// Enum PreimageFactoryFlags
+    /// </summary>
     public enum PreimageFactoryFlags
     {
+        /// <summary>
+        /// The none
+        /// </summary>
         None = 0,
-        AIMP_PREIMAGEFACTORY_FLAG_CONTEXTDEPENDENT = 1
+
+        /// <summary>
+        /// The context dependent
+        /// </summary>
+        ContextDependent = 1
     }
 
     /// <summary>
@@ -22,26 +33,28 @@ namespace AIMP.SDK.Playlist
     public interface IAimpExtensionPlaylistPreimageFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="IAimpPlaylistPreimage"/>.
+        /// Creates a new instance of <see cref="IAimpPlaylistPreimage" />.
         /// </summary>
-        /// <param name="preimage">The <see cref="IAimpPlaylistPreimage"/>.</param>
-        /// <returns>The <see cref="AimpActionResult" /> result.</returns>
-        AimpActionResult CreatePreimage(out IAimpPlaylistPreimage preimage);
+        /// <returns>AimpActionResult&lt;IAimpPlaylistPreimage&gt;.</returns>
+        AimpActionResult<IAimpPlaylistPreimage> CreatePreimage();
 
         /// <summary>
-        /// Unique ID of factory. You must not change the ID during life time of the plugin, because ID will be stored to file of smart-playlist.
+        /// Unique ID of factory. You must not change the ID during life time of the plugin, because ID will be stored to file
+        /// of smart-playlist.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>The <see cref="AimpActionResult" /> result.</returns>
-        AimpActionResult GetId(out string id);
+        /// <returns>AimpActionResult&lt;System.String&gt;.</returns>
+        AimpActionResult<string> GetId();
 
         /// <summary>
         /// Gets the name.
         /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns>The <see cref="AimpActionResult" /> result.</returns>
-        AimpActionResult GetName(out string name);
+        /// <returns>AimpActionResult&lt;System.String&gt;.</returns>
+        AimpActionResult<string> GetName();
 
+        /// <summary>
+        /// Gets the flags.
+        /// </summary>
+        /// <returns>PreimageFactoryFlags.</returns>
         PreimageFactoryFlags GetFlags();
 
         //string Name { get; }

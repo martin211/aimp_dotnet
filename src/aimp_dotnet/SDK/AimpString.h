@@ -1,31 +1,24 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::Objects;
 
         public ref class AimpString :
             public AimpObject<IAIMPString>,
-            public IAimpString
-        {
+            public IAimpString {
         public:
             explicit AimpString(IAIMPString* aimpObject);
 
-            virtual AimpActionResult GetChar(int index, wchar_t% c);
+            virtual ActionResultType GetChar(int index, wchar_t% c);
 
             virtual String^ GetData();
 
@@ -33,39 +26,39 @@ namespace AIMP
 
             virtual int GetHashCode() override;
 
-            virtual AimpActionResult SetChar(int index, wchar_t c);
+            virtual ActionResultType SetChar(int index, wchar_t c);
 
-            virtual AimpActionResult SetData(String^ chars, int charsCount);
+            virtual ActionResultType SetData(String^ chars, int charsCount);
 
-            virtual AimpActionResult Add(IAimpString^ str);
+            virtual ActionResultType Add(IAimpString^ str);
 
-            virtual AimpActionResult Add(String^ chars, int charsCount);
+            virtual ActionResultType Add(String^ chars, int charsCount);
 
-            virtual AimpActionResult ChangeCase(AIMPStringCase mode);
+            virtual ActionResultType ChangeCase(AimpStringCase mode);
 
-            virtual AimpActionResult Clone(IAimpString^% str);
+            virtual ActionResultType Clone(IAimpString^% str);
 
-            virtual AimpActionResult Compare(IAimpString^ str, int% compareResult, bool ignoreCase);
+            virtual ActionResultType Compare(IAimpString^ str, int% compareResult, bool ignoreCase);
 
-            virtual AimpActionResult Compare(String^ chars, int charsCount, int% compareResult, bool ignoreCase);
+            virtual ActionResultType Compare(String^ chars, int charsCount, int% compareResult, bool ignoreCase);
 
-            virtual AimpActionResult Delete(int index, int count);
+            virtual ActionResultType Delete(int index, int count);
 
-            virtual AimpActionResult Find(IAimpString^ str, int% index, AIMPStringFindFlags flags, int startFromIndex);
+            virtual ActionResultType Find(IAimpString^ str, int% index, AimpStringFindFlags flags, int startFromIndex);
 
-            virtual AimpActionResult Find(String^ chars, int charsCount, int% index, AIMPStringFindFlags flags,
+            virtual ActionResultType Find(String^ chars, int charsCount, int% index, AimpStringFindFlags flags,
                                           int startFromIndex);
 
-            virtual AimpActionResult Insert(int index, IAimpString^ str);
+            virtual ActionResultType Insert(int index, IAimpString^ str);
 
-            virtual AimpActionResult Insert(int index, String^ chars, int charsCount);
+            virtual ActionResultType Insert(int index, String^ chars, int charsCount);
 
-            virtual AimpActionResult Replace(IAimpString^ oldPattern, IAimpString^ newPattern, int flags);
+            virtual ActionResultType Replace(IAimpString^ oldPattern, IAimpString^ newPattern, int flags);
 
-            virtual AimpActionResult Replace(String^ oldPatternChars, int oldPatternCharsCount, String^ newPatternChars,
+            virtual ActionResultType Replace(String^ oldPatternChars, int oldPatternCharsCount, String^ newPatternChars,
                                              int newPatternCharsCount, int flags);
 
-            virtual AimpActionResult SubString(int index, int count, IAimpString^% str);
+            virtual ActionResultType SubString(int index, int count, IAimpString^% str);
         };
     }
 }

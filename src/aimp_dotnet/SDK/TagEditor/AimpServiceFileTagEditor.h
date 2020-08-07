@@ -1,36 +1,31 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace TagEditor;
 
-        public ref class AimpServiceFileTagEditor : public AimpBaseManager<IAIMPServiceFileTagEditor>,
-                                                    public IAimpServiceFileTagEditor
-        {
+        public ref class AimpServiceFileTagEditor : public BaseAimpService<IAIMPServiceFileTagEditor>,
+                                                    public IAimpServiceFileTagEditor {
         public:
             explicit AimpServiceFileTagEditor(ManagedAimpCore^ core);
 
-            virtual AimpActionResult EditFile(String^ filePath, IAimpFileTagEditor^% editor);
+            virtual TYPED_RESULT(IAimpFileTagEditor) EditFile(String^ filePath);
 
-            virtual AimpActionResult EditFile(IAimpStream^ fileStream, IAimpFileTagEditor^% editor);
+            virtual TYPED_RESULT(IAimpFileTagEditor) EditFile(IAimpStream^ fileStream);
 
-            virtual AimpActionResult EditTag(String^ filePath, TagType tag, IAimpFileInfo^% fileInfo);
+            virtual TYPED_RESULT(IAimpFileInfo) EditTag(String^ filePath, TagType tag);
 
-            virtual AimpActionResult EditTag(IAimpStream^ fileStream, TagType tag, IAimpFileInfo^% fileInfo);
+            virtual TYPED_RESULT(IAimpFileInfo) EditTag(IAimpStream^ fileStream, TagType tag);
+        protected:
+            IAIMPServiceFileTagEditor* GetAimpService() override;
         };
     }
 }

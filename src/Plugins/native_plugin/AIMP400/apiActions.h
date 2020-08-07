@@ -1,12 +1,8 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #ifndef apiActionsH
@@ -41,23 +37,20 @@ const int AIMP_ACTION_HOTKEY_MODIFIER_WIN = 8;
 
 /* IAIMPAction */
 
-class IAIMPAction : public IAIMPPropertyList
-{
+class IAIMPAction : public IAIMPPropertyList {
     // nothing
 };
 
 /* IAIMPActionEvent */
 
-class IAIMPActionEvent : public IUnknown
-{
+class IAIMPActionEvent : public IUnknown {
 public:
     virtual void WINAPI OnExecute(IUnknown* Data) = 0;
 };
 
 /* IAIMPServiceActionManager */
 
-class IAIMPServiceActionManager : public IUnknown
-{
+class IAIMPServiceActionManager : public IUnknown {
 public:
     virtual HRESULT WINAPI GetByID(IAIMPString* ID, IAIMPAction** Action) = 0;
     virtual int WINAPI MakeHotkey(WORD Modifiers, WORD Key) = 0;

@@ -1,37 +1,30 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace FileManager;
 
-        public ref class AimpServiceFileStreaming : public AimpBaseManager<IAIMPServiceFileStreaming>,
-                                                    public IAimpServiceFileStreaming
-        {
+        public ref class AimpServiceFileStreaming : public BaseAimpService<IAIMPServiceFileStreaming>,
+                                                    public IAimpServiceFileStreaming {
         public:
-            AimpServiceFileStreaming(ManagedAimpCore^ core) : AimpBaseManager<IAIMPServiceFileStreaming>(core)
-            {
+            AimpServiceFileStreaming(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceFileStreaming>(core) {
             }
 
-            virtual AimpActionResult CreateStreamForFile(String^ fileName, FileStreamingType flags, long long offset,
-                                                         long long size, IAimpStream^% stream);
+            virtual StreamResult CreateStreamForFile(String^ fileName, FileStreamingType flags, long long offset,
+                                                     long long size);
 
-            virtual AimpActionResult CreateStreamForFileUri(String^ fileUrl, IAimpVirtualFile^% virtualFile,
-                                                            IAimpStream^% stream);
+            virtual AimpActionResult<CeateStreamResult^>^ CreateStreamForFileUri(String^ fileUrl);
+        protected:
+            IAIMPServiceFileStreaming* GetAimpService() override;
         };
     }
 }

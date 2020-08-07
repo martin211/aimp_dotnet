@@ -1,34 +1,25 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
 #include "AimpSdk.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace Runtime::InteropServices;
         using namespace ActionManager;
 
-        public ref class AimpAction : public AimpObject<IAIMPAction>, public IAimpAction
-        {
+        public ref class AimpAction : public AimpObject<IAIMPAction>, public IAimpAction {
         private:
             EventHandler^ _onExecuteHandler;
             IAIMPActionEvent* _onExecuteEvent;
             GCHandle _executeHandler;
         public:
             explicit AimpAction(IAIMPAction* action);
-
-            ~AimpAction();
 
             virtual property String^ Id
             {
@@ -87,6 +78,9 @@ namespace AIMP
 
         internal:
             static void Execute(gcroot<IAimpActionEvent^> sender, IUnknown* data);
+
+        protected:
+            void FreeResources() override;
         };
     }
 }

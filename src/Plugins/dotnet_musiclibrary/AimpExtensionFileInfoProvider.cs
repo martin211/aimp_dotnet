@@ -2,12 +2,13 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
 using AIMP.SDK;
 using AIMP.SDK.FileManager;
 using AIMP.SDK.FileManager.Extensions;
@@ -21,14 +22,14 @@ namespace AIMP.DotNet.MusicLibrary
         {
             fileInfo = null;
             System.Diagnostics.Debugger.Break();
-            return AimpActionResult.Ok;
+            return new AimpActionResult(ActionResultType.OK);
         }
 
         public AimpActionResult GetFileInfo(IAimpStream stream, ref IAimpFileInfo fileInfo)
         {
             fileInfo = null;
             System.Diagnostics.Debugger.Break();
-            return AimpActionResult.OK;
+            return new AimpActionResult(ActionResultType.OK);
         }
     }
 }

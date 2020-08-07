@@ -1,37 +1,30 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
 
-#include "SDK\BaseManager.h"
+#include "SDK/BaseAimpService.h"
 #include "AIMPSDK/AIMP400/apiLyrics.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
-        using namespace AIMP::SDK::Lyrics;
+namespace AIMP {
+    namespace SDK {
+        using namespace Lyrics;
 
         public ref class AimpServiceLyrics :
-            public AimpBaseManager<IAIMPServiceLyrics>,
-            public IAimpServiceLyrics
-        {
+            public BaseAimpService<IAIMPServiceLyrics>,
+            public IAimpServiceLyrics {
         public:
             explicit AimpServiceLyrics(ManagedAimpCore^ core);
 
             ~AimpServiceLyrics();
 
-            virtual AimpActionResult Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Object^ userData, IntPtr% taskId);
+            virtual AimpActionResult<IntPtr>^ Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Object^ userData);
 
-            virtual AimpActionResult Cancel(IntPtr taskId, LyricsFlags flags);
+            virtual ActionResult Cancel(IntPtr taskId, LyricsFlags flags);
 
             event AimpServiceLyricsReceive^ LyricsReceive
             {
@@ -45,6 +38,8 @@ namespace AIMP
             AimpServiceLyricsReceive^ _eventCallBack;
 
             void OnAimpServiceLyricsReceive(IAIMPLyrics* lyrics, void* userData);
+        protected:
+            IAIMPServiceLyrics* GetAimpService() override;
         };
     }
 }

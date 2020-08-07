@@ -1,27 +1,20 @@
 // ----------------------------------------------------
-// 
 // AIMP DotNet SDK
-// 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
-// 
 // Mail: mail4evgeniy@gmail.com
-// 
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 
-namespace AIMP
-{
-    namespace SDK
-    {
+namespace AIMP {
+    namespace SDK {
         using namespace System;
         using namespace AIMP::SDK;
         using namespace AIMP::SDK::Playlist;
 
-        class AimpPlaylistPreimageFactory : public IUnknownInterfaceImpl<IAIMPExtensionPlaylistPreimageFactory>
-        {
+        class AimpPlaylistPreimageFactory : public IUnknownInterfaceImpl<IAIMPExtensionPlaylistPreimageFactory> {
         private:
             gcroot<Playlist::IAimpExtensionPlaylistPreimageFactory^> _managedObject;
             typedef IUnknownInterfaceImpl<IAIMPExtensionPlaylistPreimageFactory> Base;

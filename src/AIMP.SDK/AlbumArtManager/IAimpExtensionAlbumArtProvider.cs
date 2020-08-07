@@ -2,22 +2,35 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2019 Evgeniy Bogdan
+// Copyright (c) 2014 - 2020 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
 // 
 // ----------------------------------------------------
+
+using System.Drawing;
+
 namespace AIMP.SDK.AlbumArtManager
 {
-    using System.Drawing;
-
+    /// <summary>
+    /// Enum AimpAlbumArtProviderCategory
+    /// </summary>
     public enum AimpAlbumArtProviderCategory
     {
+        /// <summary>
+        /// The aimp albumart provider category tags
+        /// </summary>
         AIMP_ALBUMART_PROVIDER_CATEGORY_TAGS,
 
+        /// <summary>
+        /// The aimp albumart provider category file
+        /// </summary>
         AIMP_ALBUMART_PROVIDER_CATEGORY_FILE,
 
+        /// <summary>
+        /// The aimp albumart provider category internet
+        /// </summary>
         AIMP_ALBUMART_PROVIDER_CATEGORY_INTERNET
     }
 
@@ -34,16 +47,14 @@ namespace AIMP.SDK.AlbumArtManager
         /// <param name="fileUrl">The file URL.</param>
         /// <param name="artist">Optional. The artist.</param>
         /// <param name="album">Optional.The album.</param>
-        /// <param name="options">The search options <seealso cref="IAimpAlbumArtSearchOptions"/>.</param>
-        /// <param name="image">Out. The album art image.</param>
-        /// <returns>The <see cref="AimpActionResult"/> result.</returns>
-        AimpActionResult Get(string fileUrl, string artist, string album, IAimpAlbumArtSearchOptions options,
-            out Bitmap image);
+        /// <param name="options">The search options <seealso cref="IAimpAlbumArtSearchOptions" />.</param>
+        /// <returns>AimpActionResult&lt;Bitmap&gt;.</returns>
+        AimpActionResult<Bitmap> Get(string fileUrl, string artist, string album, IAimpAlbumArtSearchOptions options);
 
         /// <summary>
         /// Gets the category of provider.
         /// </summary>
-        /// <returns>The <seealso cref="AimpAlbumArtProviderCategory"/></returns>
+        /// <returns>The <seealso cref="AimpAlbumArtProviderCategory" /></returns>
         AimpAlbumArtProviderCategory GetCategory();
     }
 }
