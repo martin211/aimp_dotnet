@@ -86,14 +86,18 @@ namespace Aimp.TestRunner.UnitTests
             return assert;
         }
 
-        public static void IsTrue(this AimpIntegrationTest testClass, bool value)
+        public static TrueAssert IsTrue(this AimpIntegrationTest testClass, bool value)
         {
-            testClass.Asserts.Add(new TrueAssert(null, value, null));
+            var assert = new TrueAssert(null, value, null);
+            testClass.Asserts.Add(assert);
+            return assert;
         }
 
-        public static void IsFalse(this AimpIntegrationTest testClass, bool value)
+        public static FalseAssert IsFalse(this AimpIntegrationTest testClass, bool value)
         {
-            testClass.Asserts.Add(new FalseAssert(null, value, null));
+            var assert = new FalseAssert(null, value, null);
+            testClass.Asserts.Add(assert);
+            return assert;
         }
 
         public static TException Throw<TException>(this AimpIntegrationTest testClass, TestDelegate action)

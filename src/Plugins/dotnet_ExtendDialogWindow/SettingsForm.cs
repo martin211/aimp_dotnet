@@ -54,12 +54,12 @@ namespace dotnet_ExtendDialogWindow
             //Settings.IsDebugMode = cbDebugMode.Checked;
         }
 
-        private void SetLocaleText(IAimpMUIManager muiManager)
+        private void SetLocaleText(IAimpServiceMUI serviceMui)
         {
-            lCaption.Text = muiManager.GetValue("DotNet.Plugins\\Caption");
-            tabPlugins.Text = muiManager.GetValue("DotNet.Plugins\\Plugins");
+            lCaption.Text = serviceMui.GetValue("DotNet.Plugins\\Caption");
+            tabPlugins.Text = serviceMui.GetValue("DotNet.Plugins\\Plugins");
 
-            var setText = muiManager.GetValue("DotNet.Plugins\\bSettings");
+            var setText = serviceMui.GetValue("DotNet.Plugins\\bSettings");
             if (!string.IsNullOrWhiteSpace(setText))
             {
                 _settingButtonText = setText;

@@ -101,7 +101,7 @@ namespace AIMP.SDK
         /// <param name="result">The result.</param>
         public AimpActionResult(ActionResultType resultType, TObject result) : base(resultType)
         {
-            if (resultType == ActionResultType.OK && !Equals(null, default(TObject)))
+            if (resultType == ActionResultType.OK && !Equals(null, result))
             {
                 Result = result;
             }

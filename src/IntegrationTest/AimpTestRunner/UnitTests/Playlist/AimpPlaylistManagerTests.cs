@@ -25,7 +25,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var res = Player.PlaylistManager.CreatePlaylist(null, false);
+                var res = Player.ServicePlaylistManager.CreatePlaylist(null, false);
 
                 this.AreEqual(ActionResultType.OK, res.ResultType);
 
@@ -42,7 +42,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var res = Player.PlaylistManager.CreatePlaylist("Active", true);
+                var res = Player.ServicePlaylistManager.CreatePlaylist("Active", true);
 
                 this.AreEqual(ActionResultType.OK, res.ResultType);
                 this.NotNull(res.Result);
@@ -53,7 +53,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                     return;
                 }
 
-                var active = Player.PlaylistManager.GetActivePlaylist();
+                var active = Player.ServicePlaylistManager.GetActivePlaylist();
 
                 this.AreEqual(ActionResultType.OK, active.ResultType);
                 this.NotNull(active.Result);
@@ -68,7 +68,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var res = Player.PlaylistManager.CreatePlaylist("NotActive", false);
+                var res = Player.ServicePlaylistManager.CreatePlaylist("NotActive", false);
 
                 this.AreEqual(ActionResultType.OK, res.ResultType);
                 this.NotNull(res.Result);
@@ -79,7 +79,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                     return;
                 }
 
-                var active = Player.PlaylistManager.GetActivePlaylist();
+                var active = Player.ServicePlaylistManager.GetActivePlaylist();
 
                 this.AreEqual(ActionResultType.OK, res.ResultType);
                 this.NotNull(active.Result);
@@ -94,7 +94,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                this.Throw<ArgumentNullException>(() => Player.PlaylistManager.CreatePlaylistFromFile("", false));
+                this.Throw<ArgumentNullException>(() => Player.ServicePlaylistManager.CreatePlaylistFromFile("", false));
             });
         }
 
@@ -103,7 +103,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var res = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, false);
+                var res = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, false);
 
                 this.AreEqual(ActionResultType.OK, res.ResultType);
                 this.NotNull(res.Result);
@@ -115,7 +115,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
                     return;
                 }
 
-                var active = Player.PlaylistManager.GetActivePlaylist();
+                var active = Player.ServicePlaylistManager.GetActivePlaylist();
                 this.AreEqual(ActionResultType.OK, res.ResultType);
                 this.NotNull(active.Result);
                 this.AreNotEqual(active.Result.Id, res.Result.Id);
@@ -129,14 +129,14 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var result = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+                var result = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
 
                 if (result.ResultType != ActionResultType.OK)
                 {
                     return;
                 }
 
-                var active = Player.PlaylistManager.GetActivePlaylist();
+                var active = Player.ServicePlaylistManager.GetActivePlaylist();
                 this.AreEqual(ActionResultType.OK, result.ResultType);
                 this.NotNull(active.Result);
                 this.AreEqual(active.Result.Id, result.Result.Id);
@@ -150,17 +150,17 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var result = Player.PlaylistManager.CreatePlaylist("New playlist", false);
+                var result = Player.ServicePlaylistManager.CreatePlaylist("New playlist", false);
 
                 this.AreEqual(ActionResultType.OK, result.ResultType);
                 this.NotNull(result.Result);
                 this.AreNotEqual(string.Empty, result.Result.Name);
                 this.AreNotEqual(string.Empty, result.Result.Id);
 
-                var result2 = Player.PlaylistManager.SetActivePlaylist(result.Result);
+                var result2 = Player.ServicePlaylistManager.SetActivePlaylist(result.Result);
                 this.AreEqual(ActionResultType.OK, result2.ResultType);
 
-                var activePlaylist = Player.PlaylistManager.GetActivePlaylist();
+                var activePlaylist = Player.ServicePlaylistManager.GetActivePlaylist();
                 this.AreEqual(ActionResultType.OK, activePlaylist.ResultType);
                 this.AreEqual(activePlaylist.Result.Id, result.Result.Id);
 
@@ -173,13 +173,13 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var oldCount = Player.PlaylistManager.GetLoadedPlaylistCount();
-                var result = Player.PlaylistManager.CreatePlaylist("New playlist", false);
+                var oldCount = Player.ServicePlaylistManager.GetLoadedPlaylistCount();
+                var result = Player.ServicePlaylistManager.CreatePlaylist("New playlist", false);
 
                 this.AreEqual(ActionResultType.OK, result.ResultType);
                 this.NotNull(result.Result);
 
-                var count = Player.PlaylistManager.GetLoadedPlaylistCount();
+                var count = Player.ServicePlaylistManager.GetLoadedPlaylistCount();
                 this.AreEqual(oldCount + 1, count);
 
                 result.Result.Close(PlaylistCloseFlag.ForceRemove);
@@ -194,7 +194,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
             ExecuteInMainThread(() =>
             {
-                var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+                var playlistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
                 this.AreEqual(ActionResultType.OK, playlistResult.ResultType);
                 playlist = playlistResult.Result;
             });
@@ -206,7 +206,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
             ExecuteInMainThread(() =>
             {
-                var result = Player.PlaylistManager.GetPlayablePlaylist();
+                var result = Player.ServicePlaylistManager.GetPlayablePlaylist();
 
                 this.AreEqual(ActionResultType.OK, result.ResultType);
                 this.NotNull(result.Result);
@@ -220,7 +220,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var result = Player.PlaylistManager.GetLoadedPlaylist(0);
+                var result = Player.ServicePlaylistManager.GetLoadedPlaylist(0);
                 this.AreEqual(ActionResultType.OK, result.ResultType);
                 this.NotNull(result.Result);
             });
@@ -231,7 +231,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var result = Player.PlaylistManager.GetLoadedPlaylist(100);
+                var result = Player.ServicePlaylistManager.GetLoadedPlaylist(100);
                 this.AreEqual(ActionResultType.InvalidArguments, () => result.ResultType);
                 this.Null(() => result.Result);
             });
@@ -242,11 +242,11 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var result = Player.PlaylistManager.CreatePlaylist(null, false);
+                var result = Player.ServicePlaylistManager.CreatePlaylist(null, false);
                 this.AreEqual(ActionResultType.OK, result.ResultType);
                 this.NotNull(result.Result);
 
-                var getResult = Player.PlaylistManager.GetLoadedPlaylistById(result.Result.Id);
+                var getResult = Player.ServicePlaylistManager.GetLoadedPlaylistById(result.Result.Id);
                 this.AreEqual(ActionResultType.OK, getResult.ResultType);
                 this.NotNull(getResult.Result);
                 this.AreEqual(result.Result.Id, getResult.Result.Id);
@@ -260,11 +260,11 @@ namespace Aimp.TestRunner.UnitTests.Playlist
         {
             ExecuteInMainThread(() =>
             {
-                var result = Player.PlaylistManager.CreatePlaylist("Get by name", false);
+                var result = Player.ServicePlaylistManager.CreatePlaylist("Get by name", false);
                 this.AreEqual(ActionResultType.OK, () => result.ResultType);
                 this.NotNull(result.Result);
 
-                var getResult = Player.PlaylistManager.GetLoadedPlaylistByName("Get by name");
+                var getResult = Player.ServicePlaylistManager.GetLoadedPlaylistByName("Get by name");
                 this.AreEqual(ActionResultType.OK, () => getResult.ResultType);
                 this.NotNull(getResult.Result);
                 this.AreEqual(result.Result.Name, () => getResult.Result.Name);

@@ -51,21 +51,21 @@ IAimpCore^ AimpPlayer::Core::get() {
     return _aimpCore;
 }
 
-MenuManager::IAimpServiceMenuManager^ AimpPlayer::MenuManager::get() {
+MenuManager::IAimpServiceMenuManager^ AimpPlayer::ServiceMenuManager::get() {
     if (_menuManager == nullptr) {
         _menuManager = gcnew AimpServiceMenuManager(_managedAimpCore);
     }
     return _menuManager;
 }
 
-IAimpServiceActionManager^ AimpPlayer::ActionManager::get() {
+IAimpServiceActionManager^ AimpPlayer::ServiceActionManager::get() {
     if (_actionManager == nullptr) {
         _actionManager = gcnew AimpServiceActionManager(_managedAimpCore);
     }
     return _actionManager;
 }
 
-IAimpMUIManager^ AimpPlayer::MUIManager::get() {
+IAimpServiceMUI^ AimpPlayer::ServiceMui::get() {
     if (_muiManager == nullptr) {
         _muiManager = gcnew AimpServiceMUI(_managedAimpCore);
     }
@@ -87,7 +87,7 @@ IAimpServiceConfig^ AimpPlayer::ServiceConfig::get() {
     return _serviceConfig;
 }
 
-IAimpPlaylistManager^ AimpPlayer::PlaylistManager::get() {
+IAimpServicePlaylistManager^ AimpPlayer::ServicePlaylistManager::get() {
     if (_playListManager == nullptr) {
         _playListManager = gcnew AimpServicePlaylistManager(static_cast<ManagedAimpCore^>(_managedAimpCore));
     }

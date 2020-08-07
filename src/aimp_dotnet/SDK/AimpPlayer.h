@@ -58,11 +58,11 @@ namespace AIMP {
         AimpEventsDelegate^ _coreMessage;
         MenuManager::IAimpServiceMenuManager^ _menuManager;
         IAimpServiceActionManager^ _actionManager;
-        MUIManager::IAimpMUIManager^ _muiManager;
+        MUIManager::IAimpServiceMUI^ _muiManager;
         IAimpServiceAlbumArt^ _artManager;
         IAimpServiceConfig^ _serviceConfig;
         IWin32Manager^ _win32Manager;
-        IAimpPlaylistManager^ _playListManager;
+        IAimpServicePlaylistManager^ _playListManager;
         IAimpServicePlaybackQueue^ _playbackQueueManager;
         IAimpServiceOptionsDialog^ _serviceOptionsDialogManager;
         AimpPlayerState _state;
@@ -102,7 +102,7 @@ namespace AIMP {
         /// <summary>
         /// Gets player menu manager.
         /// </summary>
-        virtual property MenuManager::IAimpServiceMenuManager^ MenuManager
+        virtual property MenuManager::IAimpServiceMenuManager^ ServiceMenuManager
         {
             SDK::MenuManager::IAimpServiceMenuManager^ get();
         }
@@ -110,7 +110,7 @@ namespace AIMP {
         /// <summary>
         /// Gets player action manager.
         /// </summary>
-        virtual property IAimpServiceActionManager^ ActionManager
+        virtual property IAimpServiceActionManager^ ServiceActionManager
         {
             IAimpServiceActionManager^ get();
         }
@@ -118,9 +118,9 @@ namespace AIMP {
         /// <summary>
         /// Gets the MUI manager.
         /// </summary>
-        virtual property MUIManager::IAimpMUIManager^ MUIManager
+        virtual property MUIManager::IAimpServiceMUI^ ServiceMui
         {
-            SDK::MUIManager::IAimpMUIManager^ get();
+            SDK::MUIManager::IAimpServiceMUI^ get();
         }
 
         virtual property IAimpServiceAlbumArt^ ServiceAlbumArt
@@ -133,9 +133,9 @@ namespace AIMP {
             IAimpServiceConfig^ get();
         }
 
-        virtual property IAimpPlaylistManager^ PlaylistManager
+        virtual property IAimpServicePlaylistManager^ ServicePlaylistManager
         {
-            IAimpPlaylistManager^ get();
+            IAimpServicePlaylistManager^ get();
         }
 
         virtual property IAimpServicePlaybackQueue^ ServicePlaybackQueue

@@ -20,7 +20,7 @@ namespace Aimp.DotNet.SmartPlaylist
     {
         public override void Initialize()
         {
-            var listner = new FrmTestPreimage(Player.PlaylistManager, Player.Core);
+            var listner = new FrmTestPreimage(Player.ServicePlaylistManager, Player.Core);
             listner.Show();
         }
 

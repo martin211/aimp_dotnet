@@ -19,7 +19,7 @@ namespace AIMP.SDK.Playlist
     public delegate void PlayListHandler(string playlistName, string playlistId);
 
     /// <summary>
-    /// This is extension for <see cref="IAimpPlaylistManager" /> service, provides an ability to receive notifications
+    /// This is extension for <see cref="IAimpServicePlaylistManager" /> service, provides an ability to receive notifications
     /// about the changes in manager.
     /// </summary>
     public interface IAimpExtensionPlaylistManagerListener

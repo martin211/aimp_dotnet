@@ -12,90 +12,14 @@
 namespace AIMP.SDK.MenuManager
 {
     /// <summary>
-    /// Enum MenuItemPropertyType
-    /// </summary>
-    public enum MenuItemPropertyType
-    {
-        /// <summary>
-        /// The aimp menuitem propid custom
-        /// </summary>
-        AIMP_MENUITEM_PROPID_CUSTOM = 0,
-
-        /// <summary>
-        /// The aimp menuitem propid action
-        /// </summary>
-        AIMP_MENUITEM_PROPID_ACTION = 1,
-
-        /// <summary>
-        /// The aimp menuitem propid identifier
-        /// </summary>
-        AIMP_MENUITEM_PROPID_ID = 2,
-
-        /// <summary>
-        /// The aimp menuitem propid name
-        /// </summary>
-        AIMP_MENUITEM_PROPID_NAME = 3,
-
-        /// <summary>
-        /// The aimp menuitem propid enabled
-        /// </summary>
-        AIMP_MENUITEM_PROPID_ENABLED = 4,
-
-        /// <summary>
-        /// The aimp menuitem propid style
-        /// </summary>
-        AIMP_MENUITEM_PROPID_STYLE = 5,
-
-        /// <summary>
-        /// The aimp menuitem propid event
-        /// </summary>
-        AIMP_MENUITEM_PROPID_EVENT = 6,
-
-        /// <summary>
-        /// The aimp menuitem propid event onshow
-        /// </summary>
-        AIMP_MENUITEM_PROPID_EVENT_ONSHOW = 7,
-
-        /// <summary>
-        /// The aimp menuitem propid glyph
-        /// </summary>
-        AIMP_MENUITEM_PROPID_GLYPH = 10,
-
-        /// <summary>
-        /// The aimp menuitem propid parent
-        /// </summary>
-        AIMP_MENUITEM_PROPID_PARENT = 11,
-
-        /// <summary>
-        /// The aimp menuitem propid visible
-        /// </summary>
-        AIMP_MENUITEM_PROPID_VISIBLE = 12,
-
-        /// <summary>
-        /// The aimp menuitem propid checked
-        /// </summary>
-        AIMP_MENUITEM_PROPID_CHECKED = 13,
-
-        /// <summary>
-        /// The aimp menuitem propid default
-        /// </summary>
-        AIMP_MENUITEM_PROPID_DEFAULT = 14,
-
-        /// <summary>
-        /// The aimp menuitem propid shortcut
-        /// </summary>
-        AIMP_MENUITEM_PROPID_SHORTCUT = 15
-    }
-
-    /// <summary>
     /// AIMP Parent menu item.
     /// </summary>
     public enum ParentMenuType
     {
         /// <summary>
-        /// The common utilites
+        /// The common utilities
         /// </summary>
-        CommonUtilites = 0,
+        CommonUtilities = 0,
 
         /// <summary>
         /// The player main functions

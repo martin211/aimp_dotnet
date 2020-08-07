@@ -24,7 +24,7 @@ namespace Aimp.DotNet.SmartPlaylist
     {
         private readonly IAimpCore _core;
         private readonly TestPreimageFactory _factory;
-        private readonly IAimpPlaylistManager _manager;
+        private readonly IAimpServicePlaylistManager _manager;
         private readonly IList<string> _playlists;
 
         public FrmTestPreimage()
@@ -32,7 +32,7 @@ namespace Aimp.DotNet.SmartPlaylist
             InitializeComponent();
         }
 
-        public FrmTestPreimage(IAimpPlaylistManager manager, IAimpCore core)
+        public FrmTestPreimage(IAimpServicePlaylistManager manager, IAimpCore core)
             : this()
         {
             _manager = manager;

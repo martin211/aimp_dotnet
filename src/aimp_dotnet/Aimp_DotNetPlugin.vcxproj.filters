@@ -482,9 +482,6 @@
     <ClInclude Include="SDK\AimpExtensionBase.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\BaseManager.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\AimpCore.h">
       <Filter>SDK</Filter>
     </ClInclude>
@@ -904,6 +901,9 @@
     </ClInclude>
     <ClInclude Include="SDK\MusicLibrary\Presets\AimpGroupingPresetStandard.h">
       <Filter>Header Files\SDK\MusicLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\BaseAimpService.h">
+      <Filter>SDK</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

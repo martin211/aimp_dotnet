@@ -89,7 +89,7 @@ namespace Aimp.TestRunner.UnitTests.Playback
                 var result = Player.Core.RegisterExtension(extension);
                 AssertOKResult(result.ResultType, "Unable to register a AimpExtensionPlayerHook");
 
-                var createPlaylistResult = Player.PlaylistManager.CreatePlaylist("AimpExtensionPlayerHook", true);
+                var createPlaylistResult = Player.ServicePlaylistManager.CreatePlaylist("AimpExtensionPlayerHook", true);
                 AssertOKResult(createPlaylistResult.ResultType, "Cannot create a playlist from file");
                 createPlaylistResult.Result.Add(TrackUrl1, PlaylistFlags.NoCheckFormat, PlaylistFilePosition.CurrentPosition);
 

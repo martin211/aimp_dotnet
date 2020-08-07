@@ -111,12 +111,12 @@ namespace DemoPlugin
             //    }
             //};
 
-            _aimpPlayer.PlaylistManager.PlaylistQueue.ContentChanged += (sender) =>
+            _aimpPlayer.ServicePlaylistManager.PlaylistQueue.ContentChanged += (sender) =>
             {
                 Logger.Instance.AddInfoMessage($"[Event] PlaylistQueue.ContentChanged");
             };
 
-            _aimpPlayer.PlaylistManager.PlaylistQueue.StateChanged += (sender) =>
+            _aimpPlayer.ServicePlaylistManager.PlaylistQueue.StateChanged += (sender) =>
             {
                 Logger.Instance.AddInfoMessage($"[Event] PlaylistQueue.StateChanged");
             };
@@ -154,7 +154,7 @@ namespace DemoPlugin
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var pl = _aimpPlayer.PlaylistManager.GetActivePlaylist();
+            var pl = _aimpPlayer.ServicePlaylistManager.GetActivePlaylist();
             _aimpPlayer.Play(pl.Result);
             _aimpPlayer.Core.SendMessage(AimpCoreMessageType.CmdShowNotification, 0, "Play Play Play");
         }
@@ -198,7 +198,7 @@ namespace DemoPlugin
         private void button7_Click(object sender, EventArgs e)
         {
             IAimpPlaylist pl;
-            var result = _aimpPlayer.PlaylistManager.GetActivePlaylist();
+            var result = _aimpPlayer.ServicePlaylistManager.GetActivePlaylist();
 
             if (result.ResultType == ActionResultType.OK)
             {
@@ -211,7 +211,7 @@ namespace DemoPlugin
             var frm = new PlaylistEditor();
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
-                var result = _aimpPlayer.PlaylistManager.CreatePlaylist(frm.PlaylistName, true);
+                var result = _aimpPlayer.ServicePlaylistManager.CreatePlaylist(frm.PlaylistName, true);
                 if (result.ResultType == ActionResultType.OK)
                 {
                     var playList = result.Result;
@@ -265,7 +265,7 @@ namespace DemoPlugin
 
         private void button9_Click(object sender, EventArgs e)
         {
-            var result = _aimpPlayer.PlaylistManager.GetActivePlaylist();
+            var result = _aimpPlayer.ServicePlaylistManager.GetActivePlaylist();
             if (result.ResultType == ActionResultType.OK)
             {
                 result.Result?.Close(PlaylistCloseFlag.ForceRemove);
@@ -303,16 +303,16 @@ namespace DemoPlugin
             var playlist = tabPlayLists.SelectedTab.Tag as IAimpPlaylist;
             if (playlist != null)
             {
-                _aimpPlayer.PlaylistManager.SetActivePlaylist(playlist);
+                _aimpPlayer.ServicePlaylistManager.SetActivePlaylist(playlist);
             }
         }
 
         private void PlayerForm_Shown(object sender, EventArgs e)
         {
-            var count = _aimpPlayer.PlaylistManager.GetLoadedPlaylistCount();
+            var count = _aimpPlayer.ServicePlaylistManager.GetLoadedPlaylistCount();
             for (var i = 0; i < count; i++)
             {
-                var result = _aimpPlayer.PlaylistManager.GetLoadedPlaylist(i);
+                var result = _aimpPlayer.ServicePlaylistManager.GetLoadedPlaylist(i);
                 if (result.ResultType == ActionResultType.OK && _playLists.All(c => c.Id != result.Result.Id))
                 {
                     AddPlayListTab(result.Result.Id, result.Result.Name, result.Result);

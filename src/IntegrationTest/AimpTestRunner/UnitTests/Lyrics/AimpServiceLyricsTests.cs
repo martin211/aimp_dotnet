@@ -31,7 +31,7 @@ namespace Aimp.TestRunner.UnitTests.Lyrics
                     lyricsReceive = true;
                 };
 
-                var createPlaylistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+                var createPlaylistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
                 var file1 = createPlaylistResult.Result.GetItem(0);
                 var result = Player.ServiceLyrics.Get(file1.Result.FileInfo, LyricsFlags.Nocache | LyricsFlags.WaitFor, "UserData");
 
@@ -47,7 +47,7 @@ namespace Aimp.TestRunner.UnitTests.Lyrics
         {
             ExecuteInMainThread(() =>
             {
-                var createPlaylistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+                var createPlaylistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
                 var file1 = createPlaylistResult.Result.GetItem(0);
                 var result = Player.ServiceLyrics.Get(file1.Result.FileInfo, LyricsFlags.Nocache | LyricsFlags.WaitFor, "UserData");
 

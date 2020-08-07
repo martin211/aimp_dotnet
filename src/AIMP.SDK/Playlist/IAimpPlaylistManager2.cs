@@ -14,7 +14,7 @@ namespace AIMP.SDK.Playlist
     /// <summary>
     /// Interface IAimpPlaylistManager2
     /// </summary>
-    public interface IAimpPlaylistManager2
+    public interface IAimpServicePlaylistManager2
     {
         /// <summary>
         /// Gets the preimage factory.

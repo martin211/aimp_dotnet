@@ -25,12 +25,12 @@ namespace AIMP.SDK.CustomFileSystem
     {
         public override void Initialize()
         {
-            var getResult = Player.MenuManager.GetBuiltIn(ParentMenuType.PlayerPlaylistAdding);
+            var getResult = Player.ServiceMenuManager.GetBuiltIn(ParentMenuType.PlayerPlaylistAdding);
             var item = Player.Core.CreateAimpObject<IAimpMenuItem>().Result;
             item.Name = "MyMusic: Add All Files";
             item.Parent = getResult.Result;
             item.OnExecute += Item_OnExecute;
-            Player.MenuManager.Add(item);
+            Player.ServiceMenuManager.Add(item);
 
             CustomFileSystem fileSystem = new CustomFileSystem(Player);
             //ExtensionFileInfo fileInfo = new ExtensionFileInfo();
@@ -50,7 +50,7 @@ namespace AIMP.SDK.CustomFileSystem
                 .Select(f => $"{CustomFileSystem.MySchemePrefix}{f}").ToList();
             if (filesToPlaylist.Any())
             {
-                var r = Player.PlaylistManager.GetActivePlaylist();
+                var r = Player.ServicePlaylistManager.GetActivePlaylist();
                 if (r.ResultType == ActionResultType.OK)
                 {
                     r.Result.AddList(filesToPlaylist, Playlist.PlaylistFlags.NoCheckFormat,

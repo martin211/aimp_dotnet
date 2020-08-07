@@ -17,9 +17,8 @@ namespace AIMP.SDK
     public interface IAimpService
     {
         /// <summary>
-        /// Gets a value indicating whether this instance is exists.
+        /// Gets a value indicating whether this service is exists.
         /// </summary>
-        /// <value><c>true</c> if this instance is exists; otherwise, <c>false</c>.</value>
         bool IsExists { get; }
     }
 }

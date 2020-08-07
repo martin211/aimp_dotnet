@@ -6,7 +6,7 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 #include "AimpPlayListQueue.h"
 
 namespace AIMP {
@@ -19,7 +19,7 @@ namespace AIMP {
 
         public ref class AimpServicePlaylistManager :
             public BaseAimpService<IAIMPServicePlaylistManager2>,
-            public IAimpPlaylistManager {
+            public IAimpServicePlaylistManager {
         private:
             PlayListHandler^ _onPlaylistActivated;
             PlayListHandler^ _onPlaylistAdded;

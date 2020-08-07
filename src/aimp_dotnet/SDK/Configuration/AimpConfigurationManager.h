@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 
 namespace AIMP {
     namespace SDK {

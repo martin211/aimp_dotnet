@@ -90,7 +90,7 @@ namespace TestPlugin
                     Logger.Instance.AddInfoMessage($"Event: [Show] {item.Id}");
                 };
 
-                Player.MenuManager.Add(ParentMenuType.CommonUtilites, demoFormItem);
+                Player.ServiceMenuManager.Add(ParentMenuType.CommonUtilities, demoFormItem);
             }
 
             _hook = new MessageHook();
@@ -141,26 +141,26 @@ namespace TestPlugin
                     var item = sender as IAimpAction;
                     Logger.Instance.AddInfoMessage($"Event: [Execute] {item.Id}");
                 };
-                Player.ActionManager.Register(action);
+                Player.ServiceActionManager.Register(action);
 
                 actionMenuItem.Name = "Menu item with linked action";
                 actionMenuItem.Id = "aimp.MenuAndActionsDemo.menuitem.with.action";
                 actionMenuItem.Action = action;
-                Player.MenuManager.Add(ParentMenuType.CommonUtilites, actionMenuItem);
+                Player.ServiceMenuManager.Add(ParentMenuType.CommonUtilities, actionMenuItem);
 
                 var secondAction = Player.Core.CreateAimpObject<IAimpAction>().Result;
                 secondAction.Id = Guid.NewGuid().ToString();
                 secondAction.Name = "Action 2";
                 secondAction.GroupName = "Menu And Actions Demo";
-                secondAction.DefaultGlobalHotKey = Player.ActionManager.MakeHotkey(ModifierKeys.Control,
+                secondAction.DefaultGlobalHotKey = Player.ServiceActionManager.MakeHotkey(ModifierKeys.Control,
                     (uint) KeyInterop.VirtualKeyFromKey(Key.B));
-                Player.ActionManager.Register(secondAction);
+                Player.ServiceActionManager.Register(secondAction);
 
                 var menuItem2 = Player.Core.CreateAimpObject<IAimpMenuItem>().Result;
                 menuItem2.Id = Guid.NewGuid().ToString();
                 menuItem2.Name = "Simple action 2";
                 menuItem2.Action = secondAction;
-                Player.MenuManager.Add(ParentMenuType.CommonUtilites, menuItem2);
+                Player.ServiceMenuManager.Add(ParentMenuType.CommonUtilities, menuItem2);
             }
         }
 

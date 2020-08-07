@@ -7,7 +7,7 @@
 
 #pragma once
 #include "AIMPSDK/AIMP400/apiDecoders.h"
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 
 namespace AIMP {
     namespace SDK {

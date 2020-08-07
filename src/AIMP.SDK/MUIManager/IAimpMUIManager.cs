@@ -17,7 +17,7 @@ namespace AIMP.SDK.MUIManager
     /// </summary>
     /// <seealso cref="AIMP.SDK.IAimpService" />
     // ReSharper disable InconsistentNaming
-    public interface IAimpMUIManager : IAimpService
+    public interface IAimpServiceMUI : IAimpService
         // ReSharper restore InconsistentNaming
     {
         /// <summary>

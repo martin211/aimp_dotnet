@@ -27,16 +27,16 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
                 var item = Player.Core.CreateAimpObject<IAimpMenuItem>();
                 var menuItem = item.Result;
                 menuItem.Id = Guid.NewGuid().ToString();
-                var result = Player.MenuManager.Add(menuItem);
+                var result = Player.ServiceMenuManager.Add(menuItem);
                 this.AreEqual(ActionResultType.OK, result.ResultType);
 
-                Player.MenuManager.Delete(menuItem);
+                Player.ServiceMenuManager.Delete(menuItem);
             });
         }
 
-        [TestCase(ParentMenuType.CommonUtilites, MenuItemStyle.CheckBox)]
-        [TestCase(ParentMenuType.CommonUtilites, MenuItemStyle.Normal)]
-        [TestCase(ParentMenuType.CommonUtilites, MenuItemStyle.RadioBox)]
+        [TestCase(ParentMenuType.CommonUtilities, MenuItemStyle.CheckBox)]
+        [TestCase(ParentMenuType.CommonUtilities, MenuItemStyle.Normal)]
+        [TestCase(ParentMenuType.CommonUtilities, MenuItemStyle.RadioBox)]
 
         [TestCase(ParentMenuType.MlDeletion, MenuItemStyle.CheckBox)]
         [TestCase(ParentMenuType.MlDeletion, MenuItemStyle.Normal)]
@@ -162,13 +162,13 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
                 menuItem.Id = Guid.NewGuid().ToString();
                 menuItem.Style = menuItemStyle;
 
-                var result = Player.MenuManager.Add(parentMenuType, menuItem);
+                var result = Player.ServiceMenuManager.Add(parentMenuType, menuItem);
                 this.AreEqual(ActionResultType.OK, result.ResultType);
 
-                var getItemResult = Player.MenuManager.GetById(menuItem.Id);
+                var getItemResult = Player.ServiceMenuManager.GetById(menuItem.Id);
                 this.AreEqual(menuItemStyle, getItemResult.Result.Style);
 
-                Player.MenuManager.Delete(menuItem);
+                Player.ServiceMenuManager.Delete(menuItem);
             });
         }
 
@@ -180,8 +180,8 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
                 var item = Player.Core.CreateAimpObject<IAimpMenuItem>();
                 var menuItem = item.Result;
                 menuItem.Id = Guid.NewGuid().ToString();
-                Player.MenuManager.Add(ParentMenuType.CommonUtilites, menuItem);
-                var result = Player.MenuManager.Delete(menuItem);
+                Player.ServiceMenuManager.Add(ParentMenuType.CommonUtilities, menuItem);
+                var result = Player.ServiceMenuManager.Delete(menuItem);
                 this.AreEqual(ActionResultType.OK, result.ResultType);
             });
         }
@@ -194,8 +194,8 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
                 var item = Player.Core.CreateAimpObject<IAimpMenuItem>();
                 var menuItem = item.Result;
                 menuItem.Id = "id_for_test";
-                Player.MenuManager.Add(ParentMenuType.CommonUtilites, menuItem);
-                var result = Player.MenuManager.Delete("id_for_test");
+                Player.ServiceMenuManager.Add(ParentMenuType.CommonUtilities, menuItem);
+                var result = Player.ServiceMenuManager.Delete("id_for_test");
                 this.AreEqual(ActionResultType.OK, result.ResultType);
             });
         }
@@ -208,15 +208,15 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
                 var item = Player.Core.CreateAimpObject<IAimpMenuItem>();
                 var menuItem = item.Result;
                 menuItem.Id = "id_for_test";
-                Player.MenuManager.Add(ParentMenuType.CommonUtilites, menuItem);
-                var result = Player.MenuManager.GetById("id_for_test");
+                Player.ServiceMenuManager.Add(ParentMenuType.CommonUtilities, menuItem);
+                var result = Player.ServiceMenuManager.GetById("id_for_test");
                 this.AreEqual(ActionResultType.OK, result.ResultType);
                 this.NotNull(result.Result);
-                Player.MenuManager.Delete(menuItem);
+                Player.ServiceMenuManager.Delete(menuItem);
             });
         }
 
-        [TestCase(ParentMenuType.CommonUtilites)]
+        [TestCase(ParentMenuType.CommonUtilities)]
 
         [TestCase(ParentMenuType.MlDeletion)]
         [TestCase(ParentMenuType.MlMainDB)]
@@ -254,7 +254,7 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
         {
             ExecuteInMainThread(() =>
             {
-                var result = Player.MenuManager.GetBuiltIn(menuType);
+                var result = Player.ServiceMenuManager.GetBuiltIn(menuType);
                 this.AreEqual(ActionResultType.OK, result.ResultType);
                 this.NotNull(result.Result);
             });
@@ -274,11 +274,11 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
                 child.Name = "Child item";
                 child.Parent = parent;
 
-                var result = Player.MenuManager.Add(ParentMenuType.CommonUtilites, parent);
+                var result = Player.ServiceMenuManager.Add(ParentMenuType.CommonUtilities, parent);
 
                 this.AreEqual(ActionResultType.OK, result.ResultType);
 
-                var childResult = Player.MenuManager.GetById(child.Id);
+                var childResult = Player.ServiceMenuManager.GetById(child.Id);
                 this.NotNull(childResult.Result.Parent);
                 this.AreEqual(childResult.Result.Parent.Id, parent.Id);
             });

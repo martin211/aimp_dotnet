@@ -20,7 +20,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
     public class AimpPlaylistQueueTests : AimpIntegrationTest
     {
         private IAimpPlaylist _playlist;
-        private IAimpPlaylistQueue PlaylistQueue => Player.PlaylistManager.PlaylistQueue;
+        private IAimpPlaylistQueue PlaylistQueue => Player.ServicePlaylistManager.PlaylistQueue;
 
         public override void SetUp()
         {
@@ -28,7 +28,7 @@ namespace Aimp.TestRunner.UnitTests.Playlist
 
             ExecuteInMainThread(() =>
             {
-                var playlistResult = Player.PlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+                var playlistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
                 this.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
                 this.NotNull(playlistResult.Result, "playlistResult.Result");
                 _playlist = playlistResult.Result;

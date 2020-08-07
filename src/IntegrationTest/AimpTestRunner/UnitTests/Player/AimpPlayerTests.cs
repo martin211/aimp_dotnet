@@ -23,7 +23,7 @@ namespace Aimp.TestRunner.UnitTests.Player
         {
             ExecuteInMainThread(() =>
             {
-                var playlist = Player.PlaylistManager.GetActivePlaylist();
+                var playlist = Player.ServicePlaylistManager.GetActivePlaylist();
                 this.AreEqual(ActionResultType.OK, playlist.ResultType);
                 this.NotNull(playlist.Result);
 

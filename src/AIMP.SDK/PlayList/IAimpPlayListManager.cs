@@ -13,12 +13,12 @@ namespace AIMP.SDK.Playlist
 {
     /// <summary>
     /// The service provides an access to playlist manager.
-    /// Implements the <see cref="AIMP.SDK.Playlist.IAimpPlaylistManager2" />
+    /// Implements the <see cref="IAimpServicePlaylistManager2" />
     /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
-    /// <seealso cref="AIMP.SDK.Playlist.IAimpPlaylistManager2" />
+    /// <seealso cref="IAimpServicePlaylistManager2" />
     /// <seealso cref="AIMP.SDK.IAimpService" />
-    public interface IAimpPlaylistManager : IAimpPlaylistManager2, IAimpService
+    public interface IAimpServicePlaylistManager : IAimpServicePlaylistManager2, IAimpService
     {
         /// <summary>
         /// Gets the playlist queue.

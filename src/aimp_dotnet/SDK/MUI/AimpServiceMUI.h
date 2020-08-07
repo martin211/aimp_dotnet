@@ -7,14 +7,14 @@
 
 #pragma once
 
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 
 namespace AIMP {
     namespace SDK {
         using namespace System;
         using namespace MUIManager;
 
-        public ref class AimpServiceMUI : public BaseAimpService<IAIMPServiceMUI>, public IAimpMUIManager {
+        public ref class AimpServiceMUI : public BaseAimpService<IAIMPServiceMUI>, public IAimpServiceMUI {
         public:
             explicit AimpServiceMUI(ManagedAimpCore^ core);
 

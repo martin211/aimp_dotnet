@@ -6,7 +6,7 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK\BaseManager.h"
+#include "SDK\BaseAimpService.h"
 #include "AimpFileInfo.h"
 
 namespace AIMP {

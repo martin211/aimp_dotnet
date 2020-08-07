@@ -45,20 +45,20 @@ namespace AIMP.SDK.Player
         /// Gets player menu manager.
         /// </summary>
         /// <value>The menu manager.</value>
-        IAimpServiceMenuManager MenuManager { get; }
+        IAimpServiceMenuManager ServiceMenuManager { get; }
 
         /// <summary>
         /// Gets player action manager.
         /// </summary>
         /// <value>The action manager.</value>
-        IAimpServiceActionManager ActionManager { get; }
+        IAimpServiceActionManager ServiceActionManager { get; }
 
         /// <summary>
         /// Gets the MUI manager.
         /// </summary>
         /// <value>The MUI manager.</value>
         // ReSharper disable InconsistentNaming
-        IAimpMUIManager MUIManager { get; }
+        IAimpServiceMUI ServiceMui { get; }
         // ReSharper restore InconsistentNaming
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace AIMP.SDK.Player
         /// Gets the play list manager.
         /// </summary>
         /// <value>The playlist manager.</value>
-        IAimpPlaylistManager PlaylistManager { get; }
+        IAimpServicePlaylistManager ServicePlaylistManager { get; }
 
         /// <summary>
         /// Gets the playback queue manager.

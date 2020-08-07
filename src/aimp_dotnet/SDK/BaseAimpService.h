@@ -18,10 +18,12 @@ namespace AIMP {
         public ref class BaseAimpService abstract : IAimpService {
         private:
             bool _isExist;
+            bool _initialized;
         public:
             BaseAimpService(ManagedAimpCore^ core) {
                 _core = core;
                 _isExist = false;
+                _initialized = false;
             }
 
         protected:
@@ -67,6 +69,10 @@ namespace AIMP {
             property bool IsExists
             {
                 virtual bool get() {
+                    if (!_initialized) {
+                        _isExist = GetAimpService() != nullptr;
+                        _initialized = true;
+                    }
                     return _isExist;
                 }
             }

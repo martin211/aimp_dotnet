@@ -14,7 +14,7 @@ namespace AIMP.SDK.AlbumArtManager
     /// <summary>
     /// This service provides an access to cache manager for album arts.
     /// </summary>
-    public interface IAimpServiceAlbumArtCache
+    public interface IAimpServiceAlbumArtCache : IAimpService
     {
         /// <summary>
         /// Flushes cache for specified artist and album. Both parameters must be specified.

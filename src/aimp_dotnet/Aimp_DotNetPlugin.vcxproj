@@ -253,7 +253,7 @@
     <ClInclude Include="SDK\AimpPlayer.h" />
     <ClInclude Include="SDK\AlbumArt\AimpServiceAlbumArt.h" />
     <ClInclude Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.h" />
-    <ClInclude Include="SDK\BaseManager.h" />
+    <ClInclude Include="SDK\BaseAimpService.h" />
     <ClInclude Include="SDK\Configuration\AimpConfigurationManager.h" />
     <ClInclude Include="SDK\ManagedAimpCore.h" />
     <ClInclude Include="SDK\Menu\AimpMenuItem.h" />
