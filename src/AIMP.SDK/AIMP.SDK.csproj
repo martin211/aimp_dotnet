@@ -60,8 +60,10 @@
     <Compile Include="ActionManager\IAimpActionEvent.cs" />
     <Compile Include="ActionManager\IAimpServiceActionManager.cs" />
     <Compile Include="AimpActionException.cs" />
+    <Compile Include="AimpInternalLogger.cs" />
     <Compile Include="AlbumArtManager\IAimpServiceAlbumArtCache.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="IAimpLogger.cs" />
     <Compile Include="IAimpService.cs" />
     <Compile Include="Lyrics\IAimpExtensionLyricsProvider.cs" />
     <Compile Include="MessageDispatcher\AimpMessages.cs" />

@@ -173,6 +173,7 @@ partial class Build : NukeBuild
             var nugetFolder = RootDirectory / "Nuget";
             var version = GitVersion.AssemblySemVer;
 
+
             var config = new NuGetPackSettings()
                 .SetBasePath(RootDirectory)
                 .SetConfiguration(Configuration)
@@ -182,6 +183,11 @@ partial class Build : NukeBuild
             if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
             {
                 config = config.SetSuffix(GitVersion.PreReleaseTag);
+            }
+
+            if (Configuration == Configuration.Debug)
+            {
+                config = config.SetSuffix("debug");
             }
 
             NuGetTasks.NuGetPack(config

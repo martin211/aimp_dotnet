@@ -3,6 +3,7 @@
 // https://github.com/nuke-build/web/blob/master/LICENSE
 
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using Mono.Cecil;
@@ -92,6 +93,16 @@ static class CustomTocWriter
             }
 
             //items.ForEach(ApplyName);
+            if (!Directory.Exists(apiDirectory))
+            {
+                Directory.CreateDirectory(apiDirectory);
+            }
+
+            //if (!File.Exists(apiDirectory / "toc.yml"))
+            //{
+            //    File.Create(apiDirectory / "toc.yml");
+            //}
+
             YamlSerializeToFile(items, apiDirectory / "toc.yml");
         }
         finally

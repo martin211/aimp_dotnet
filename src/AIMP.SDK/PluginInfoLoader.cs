@@ -222,13 +222,14 @@ namespace AIMP.SDK
 
             try
             {
-                var domainSet = new AppDomainSetup {ApplicationBase = path};
-                loadDomain = AppDomain.CreateDomain(
-                    "PluginLoadDomain" + new Guid().ToString().GetHashCode().ToString("x"), null, domainSet);
+                var domainSet = new AppDomainSetup
+                {
+                    ApplicationBase = path
+                };
 
-                var strat =
-                    (PluginLoadingStrategy) loadDomain.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName,
-                        LoadStrategyType.FullName);
+                loadDomain = AppDomain.CreateDomain("PluginLoadDomain" + new Guid().ToString().GetHashCode().ToString("x"), null, domainSet);
+
+                var strat = (PluginLoadingStrategy) loadDomain.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName, LoadStrategyType.FullName);
 
                 var plugin = strat.Load(path);
                 if (plugin.PluginLocInfo == null)
@@ -238,8 +239,7 @@ namespace AIMP.SDK
 
                 return new AimpDotNetPlugin
                 {
-                    PluginInformation = new PluginInformation(plugin.AssemblyFileName, plugin.AssemblyFullName,
-                        plugin.ClassName, plugin.PluginLocInfo),
+                    PluginInformation = new PluginInformation(plugin.AssemblyFileName, plugin.AssemblyFullName, plugin.ClassName, plugin.PluginLocInfo),
                     Author = plugin.PluginLocInfo.Author,
                     Description = plugin.PluginLocInfo.Description,
                     FullDescription = plugin.PluginLocInfo.FullDescription,
@@ -247,12 +247,13 @@ namespace AIMP.SDK
                     Version = plugin.PluginLocInfo.Version
                 };
             }
-#if DEBUG
+
             catch (Exception e)
             {
+#if DEBUG
                 MessageBox.Show(e.Message);
-            }
 #endif
+            }
             finally
             {
                 if (loadDomain != null)
