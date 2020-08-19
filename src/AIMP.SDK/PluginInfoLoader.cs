@@ -159,8 +159,7 @@ namespace AIMP.SDK
                     try
                     {
                         var curAsmbl = Assembly.LoadFrom(fileInfo.FullName);
-                        if (curAsmbl.FullName == Assembly.GetExecutingAssembly().FullName
-                            || curAsmbl.FullName.Equals("aimp_dotnet"))
+                        if (curAsmbl.FullName == Assembly.GetExecutingAssembly().FullName || curAsmbl.FullName.Equals("aimp_dotnet"))
                         {
                             continue;
                         }
@@ -186,9 +185,12 @@ namespace AIMP.SDK
                             };
                         }
                     }
-                    catch
+                    catch (Exception e)
                     {
-                        // ignored
+                        AimpInternalLogger.Instance.LogMessage(e.ToString());
+#if DEBUG
+                        MessageBox.Show(e.Message);
+#endif
                     }
                 }
             }
@@ -250,6 +252,7 @@ namespace AIMP.SDK
 
             catch (Exception e)
             {
+                AimpInternalLogger.Instance.LogMessage(e.ToString());
 #if DEBUG
                 MessageBox.Show(e.Message);
 #endif

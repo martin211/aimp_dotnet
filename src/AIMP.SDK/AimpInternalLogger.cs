@@ -11,6 +11,7 @@
 
 using System;
 using System.IO;
+using System.Reflection;
 using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.Player;
 
@@ -18,13 +19,14 @@ namespace AIMP.SDK
 {
     public class AimpInternalLogger : IAimpLogger, IDisposable
     {
-        private readonly IAimpPlayer _player;
         private StreamWriter _streamWriter;
+        private static AimpInternalLogger _instance;
 
-        public AimpInternalLogger(IAimpPlayer player)
+        public static AimpInternalLogger Instance => _instance ?? (_instance = new AimpInternalLogger());
+
+        public AimpInternalLogger()
         {
-            _player = player;
-            var logFilePath = Path.Combine(player.Core.GetPath(AimpCorePathType.Profile), "aimp_dotnet.log");
+            var logFilePath = Path.Combine(Assembly.GetExecutingAssembly().Location, "aimp_dotnet.log");
             _streamWriter = new StreamWriter(logFilePath);
         }
 
