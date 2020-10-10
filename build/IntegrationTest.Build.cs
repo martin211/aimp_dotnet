@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using DefaultNamespace;
 using Nuke.Common;
@@ -12,6 +13,7 @@ partial class Build
 {
     AbsolutePath ResourcesPath => RootDirectory / "resources";
     [Parameter] readonly string AimpPath = @"z:\AIMP\AIMP4.60.2180\";
+    [Parameter] readonly int TestTimeout = 5; // 5 minutes
 
     AbsolutePath IntegrationTestBinPath => SourceDirectory / "IntegrationTest";
     AbsolutePath IntegrationTestPluginPath => (AbsolutePath) Path.Combine(AimpPath, "plugins", "AimpTestRunner");
@@ -58,6 +60,7 @@ partial class Build
 
             IntegrationTestBinPath.GlobDirectories($"**/bin/{Configuration}").ForEach(d =>
             {
+                Logger.Info($"Copy plugin files from '{d}' to '{IntegrationTestPluginPath}'");
                 var files = Directory.GetFiles(d, "*.dll");
                 foreach (var file in files)
                 {
@@ -95,19 +98,40 @@ partial class Build
             if (File.Exists(testResultLogFile))
                 File.Delete(testResultLogFile);
 
-            var p = ProcessTasks.StartProcess(Path.Combine(AimpPath, "AIMP.exe"), "/DEBUG", AimpPath);
-            p.WaitForExit();
+            var testsTimeoutWorker = new BackgroundWorker();
 
-            if (!File.Exists(testResultFile))
+            var p = ProcessTasks.StartProcess(Path.Combine(AimpPath, "AIMP.exe"), "/DEBUG", AimpPath, timeout: TestTimeout * 60000);
+            var res = p.WaitForExit();
+
+            if (res)
             {
-                TeamCity.Instance?.WriteError("Unable to run integration tests.");
+                if (!File.Exists(testResultFile))
+                {
+                    LogError("Unable to run integration tests.");
+                }
+                else
+                {
+                    CopyFileToDirectory(testResultFile, OutputDirectory);
+                    CopyFileToDirectory(testResultLogFile, OutputDirectory);
+
+                    TeamCity.Instance?.WriteMessage(File.ReadAllText(testResultLogFile));
+                }
             }
             else
             {
-                CopyFileToDirectory(testResultFile, OutputDirectory);
-                CopyFileToDirectory(testResultLogFile, OutputDirectory);
-
-                TeamCity.Instance?.WriteMessage(File.ReadAllText(testResultLogFile));
+                LogError("Process was ended by timeout. Try to increase `TestTimeout` parameter. Check logs. Check that plugin was activated at AIMP settings.");
             }
         });
+
+    private void LogError(string message)
+    {
+        if (TeamCity.Instance != null)
+        {
+            TeamCity.Instance.WriteError(message);
+        }
+        else
+        {
+            Logger.Error(message);
+        }
+    }
 }

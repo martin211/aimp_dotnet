@@ -12,8 +12,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-using AIMP.SDK.MessageDispatcher;
-using AIMP.SDK.Player;
 
 namespace AIMP.SDK
 {
@@ -26,7 +24,7 @@ namespace AIMP.SDK
 
         public AimpInternalLogger()
         {
-            var logFilePath = Path.Combine(Assembly.GetExecutingAssembly().Location, "aimp_dotnet.log");
+            var logFilePath = Path.Combine(Path.GetPathRoot(Assembly.GetExecutingAssembly().Location), "aimp_dotnet.log");
             _streamWriter = new StreamWriter(logFilePath);
         }
 

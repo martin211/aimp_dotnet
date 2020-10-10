@@ -143,6 +143,7 @@ namespace AIMP.SDK
         /// <returns>PluginShortInfoForLoad.</returns>
         public override PluginShortInfoForLoad Load(string path)
         {
+            _probePath = path;
             var dir = new DirectoryInfo(path);
             var resPlugInfolst = new PluginShortInfoForLoad();
             var pluginDeriveType = typeof(IAimpPlugin);
