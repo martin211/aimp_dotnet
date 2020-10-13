@@ -51,8 +51,7 @@ namespace AIMP.SDK
         /// <param name="assemblyName">Name of the assembly.</param>
         /// <param name="className">Name of the class.</param>
         /// <param name="pluginAttribute">The plugin attribute.</param>
-        public PluginInformation(FileInfo assemblyPath, string assemblyName, string className,
-            AimpPluginAttribute pluginAttribute)
+        public PluginInformation(FileInfo assemblyPath, string assemblyName, string className, AimpPluginAttribute pluginAttribute)
         {
             _inPathToAssembly = assemblyPath;
             PluginClassName = className;
@@ -68,8 +67,7 @@ namespace AIMP.SDK
         /// <param name="assemblyName">Name of the assembly.</param>
         /// <param name="className">Name of the class.</param>
         /// <param name="pluginAttribute">The plugin attribute.</param>
-        public PluginInformation(string assemblyPath, string assemblyName, string className,
-            AimpPluginAttribute pluginAttribute)
+        public PluginInformation(string assemblyPath, string assemblyName, string className, AimpPluginAttribute pluginAttribute)
         {
             _inPathToAssembly = new FileInfo(assemblyPath);
             PluginClassName = className;
@@ -172,9 +170,8 @@ namespace AIMP.SDK
                         PluginAppDomainInfo = AppDomain.CreateDomain(
                             PluginInfo.Name + "_domain" + Guid.NewGuid().ToString().GetHashCode().ToString("x"),
                             null, dmnSetup);
-                        LoadedPlugin = (AimpPlugin) PluginAppDomainInfo.CreateInstanceFromAndUnwrap(
-                            _inPathToAssembly.FullName,
-                            PluginClassName);
+
+                        LoadedPlugin = (AimpPlugin) PluginAppDomainInfo.CreateInstanceFromAndUnwrap(_inPathToAssembly.FullName, PluginClassName);
 
                         PluginAppDomainInfo.AssemblyResolve += (sender, args) =>
                         {
@@ -185,15 +182,17 @@ namespace AIMP.SDK
                             {
                                 var shortAssemblyName = args.Name.Substring(0, args.Name.IndexOf(','));
                                 var fileName = Path.Combine(projectDir, shortAssemblyName + ".dll");
+                                
                                 if (File.Exists(fileName))
                                 {
                                     var result = Assembly.LoadFrom(fileName);
                                     return result;
                                 }
 
-                                var assemblyPath = Directory.EnumerateFiles(projectDir, shortAssemblyName + ".dll",
-                                        SearchOption.AllDirectories)
+                                var assemblyPath = Directory
+                                    .EnumerateFiles(projectDir, shortAssemblyName + ".dll", SearchOption.AllDirectories)
                                     .FirstOrDefault();
+
                                 if (assemblyPath != null)
                                 {
                                     return Assembly.LoadFrom(assemblyPath);

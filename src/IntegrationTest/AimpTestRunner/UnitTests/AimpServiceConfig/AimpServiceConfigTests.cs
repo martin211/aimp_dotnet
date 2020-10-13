@@ -14,6 +14,8 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
 {
+    using System;
+
     [TestFixture]
     public class AimpServiceConfigTests : AimpIntegrationTest
     {
@@ -31,7 +33,7 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
         [TestCase(@"integrationTest\Int", (int)1)]
         [TestCase(@"integrationTest\Int64", (long)2)]
         [TestCase(@"integrationTest\String", "SomeString")]
-        [TestCase(@"integrationTest\Stream", new byte[] { 0x1, 0x2, 0x3})]
+        [TestCase(@"integrationTest\Stream", new byte[] { 0x1, 0x2, 0x3 })]
         public void Set_ShouldReturnOK(string path, object value)
         {
             ExecuteInMainThread(() =>
@@ -41,7 +43,7 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
                 if (path.EndsWith("Float"))
                 {
                     result = Player.ServiceConfig.SetValueAsFloat(path, (float)value);
-                } 
+                }
                 else if (path.EndsWith("Int"))
                 {
                     result = Player.ServiceConfig.SetValueAsInt32(path, (int)value);
@@ -56,7 +58,7 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
                 }
                 else if (path.EndsWith("Stream"))
                 {
-                    var buf = (byte[]) value;
+                    var buf = (byte[])value;
                     var streamResult = Player.Core.CreateStream();
                     var r = streamResult.Result.Write(buf, buf.Length, out var written);
 
@@ -136,6 +138,57 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
                 this.NotNull(result);
                 this.AreEqual(ActionResultType.OK, () => result.ResultType);
             });
+        }
+
+        [TestCase(@"integrationTest\Float"), Order(4)]
+        [TestCase(@"integrationTest\Int")]
+        [TestCase(@"integrationTest\Int64")]
+        [TestCase(@"integrationTest\String")]
+        [TestCase(@"integrationTest\Stream")]
+        public void Get_NotExist_ShouldReturnDefault(string path)
+        {
+            ExecuteInMainThread(
+                () =>
+                    {
+                        ActionResultType r = ActionResultType.Fail;
+
+                        if (path.EndsWith("Float"))
+                        {
+                            var result = Player.ServiceConfig.GetValueAsFloat(path);
+                            this.NotNull(() => result);
+                            this.AreEqual(default(float), () => result.Result);
+                            r = result.ResultType;
+                        }
+                        else if (path.EndsWith("Int"))
+                        {
+                            var result = Player.ServiceConfig.GetValueAsInt32(path);
+                            this.NotNull(() => result);
+                            this.AreEqual(default(int), () => result.Result);
+                            r = result.ResultType;
+                        }
+                        else if (path.EndsWith("Int64"))
+                        {
+                            var result = Player.ServiceConfig.GetValueAsInt64(path);
+                            this.NotNull(() => result);
+                            this.AreEqual(default(Int64), () => result.Result);
+                            r = result.ResultType;
+                        }
+                        else if (path.EndsWith("String"))
+                        {
+                            var result = Player.ServiceConfig.GetValueAsString(path);
+                            this.NotNull(() => result);
+                            this.Null(() => result.Result);
+                            r = result.ResultType;
+                        }
+                        else if (path.EndsWith("Stream"))
+                        {
+                            var result = Player.ServiceConfig.GetValueAsStream(path);
+                            this.NotNull(() => result);
+                            this.Null(() => result.Result);
+                        }
+
+                        this.AreEqual(ActionResultType.Fail, r);
+                    });
         }
     }
 }

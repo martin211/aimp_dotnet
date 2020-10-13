@@ -96,6 +96,10 @@ StreamResult AimpConfig::GetValueAsStream(String^ keyPath) {
     try {
         str = AimpConverter::ToAimpString(keyPath);
         result = CheckResult(InternalAimpObject->GetValueAsStream(str, &stream));
+
+        if (result == ActionResultType::OK && stream != nullptr) {
+            return gcnew AimpActionResult<IAimpStream^>(result, gcnew AimpStream(stream));
+        }
     }
     finally {
         if (str != nullptr) {
@@ -104,7 +108,7 @@ StreamResult AimpConfig::GetValueAsStream(String^ keyPath) {
         }
     }
 
-    return gcnew AimpActionResult<IAimpStream^>(result, gcnew AimpStream(stream));
+    return gcnew AimpActionResult<IAimpStream^>(result, nullptr);
 }
 
 StringResult AimpConfig::GetValueAsString(String^ keyPath) {
@@ -115,6 +119,10 @@ StringResult AimpConfig::GetValueAsString(String^ keyPath) {
     try {
         str = AimpConverter::ToAimpString(keyPath);
         result = CheckResult(InternalAimpObject->GetValueAsString(str, &val));
+
+        if (result == ActionResultType::OK && val != nullptr) {
+            return gcnew AimpActionResult<String^>(result, gcnew String(val->GetData()));
+        }
     }
     finally {
         // TODO Release val?
@@ -124,7 +132,7 @@ StringResult AimpConfig::GetValueAsString(String^ keyPath) {
         }
     }
 
-    return gcnew AimpActionResult<String^>(result, gcnew String(val->GetData()));
+    return gcnew AimpActionResult<String^>(result, String::Empty);
 }
 
 ActionResult AimpConfig::SetValueAsFloat(String^ keyPath, float value) {

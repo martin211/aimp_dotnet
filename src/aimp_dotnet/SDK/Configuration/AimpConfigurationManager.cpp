@@ -67,13 +67,17 @@ FloatResult AimpServiceConfig::GetValueAsFloat(String^ keyPath) {
         if (service != nullptr) {
             result = CheckResult(service->GetValueAsFloat(str, &val));
         }
+
+        if (result == ActionResultType::OK) {
+            return gcnew AimpActionResult<float>(result, val);
+        }
     }
     finally {
         ReleaseObject(service);
         ReleaseObject(str);
     }
 
-    return gcnew AimpActionResult<float>(result, val);
+    return gcnew AimpActionResult<float>(result, 0);
 }
 
 IntResult AimpServiceConfig::GetValueAsInt32(String^ keyPath) {
@@ -87,13 +91,17 @@ IntResult AimpServiceConfig::GetValueAsInt32(String^ keyPath) {
             str = AimpConverter::ToAimpString(keyPath);
             result = CheckResult(service->GetValueAsInt32(str, &val));
         }
+
+        if (result == ActionResultType::OK) {
+            return gcnew AimpActionResult<int>(result, val);
+        }
     }
     finally {
         ReleaseObject(str);
         ReleaseObject(service);
     }
 
-    return gcnew AimpActionResult<int>(result, val);
+    return gcnew AimpActionResult<int>(result, 0);
 }
 
 Int64Result AimpServiceConfig::GetValueAsInt64(String^ keyPath) {
@@ -107,13 +115,17 @@ Int64Result AimpServiceConfig::GetValueAsInt64(String^ keyPath) {
             str = AimpConverter::ToAimpString(keyPath);
             result = CheckResult(service->GetValueAsInt64(str, &val));
         }
+
+        if (result == ActionResultType::OK) {
+            return gcnew AimpActionResult<long long>(result, val);
+        }
     }
     finally {
         ReleaseObject(str);
         ReleaseObject(service);
     }
 
-    return gcnew AimpActionResult<long long>(result, val);
+    return gcnew AimpActionResult<long long>(result, 0);
 }
 
 StreamResult AimpServiceConfig::GetValueAsStream(String^ keyPath) {
@@ -127,13 +139,17 @@ StreamResult AimpServiceConfig::GetValueAsStream(String^ keyPath) {
             str = AimpConverter::ToAimpString(keyPath);
             result = CheckResult(service->GetValueAsStream(str, &stream));
         }
+
+        if (result == ActionResultType::OK && stream != nullptr) {
+            return gcnew AimpActionResult<IAimpStream^>(result, gcnew AimpStream(stream));
+        }
     }
     finally {
         ReleaseObject(str);
         ReleaseObject(service);
     }
 
-    return gcnew AimpActionResult<IAimpStream^>(result, gcnew AimpStream(stream));
+    return gcnew AimpActionResult<IAimpStream^>(result, nullptr);
 }
 
 StringResult AimpServiceConfig::GetValueAsString(String^ keyPath) {
@@ -147,6 +163,10 @@ StringResult AimpServiceConfig::GetValueAsString(String^ keyPath) {
             str = AimpConverter::ToAimpString(keyPath);
             result = CheckResult(service->GetValueAsString(str, &val));
         }
+
+        if (result == ActionResultType::OK && val != nullptr) {
+            return gcnew AimpActionResult<String^>(result, gcnew String(val->GetData()));
+        }
     }
     finally {
         // TODO Release val?
@@ -154,7 +174,7 @@ StringResult AimpServiceConfig::GetValueAsString(String^ keyPath) {
         ReleaseObject(service);
     }
 
-    return gcnew AimpActionResult<String^>(result, gcnew String(val->GetData()));
+    return gcnew AimpActionResult<String^>(result, String::Empty);
 }
 
 ActionResult AimpServiceConfig::SetValueAsFloat(String^ keyPath, float value) {
