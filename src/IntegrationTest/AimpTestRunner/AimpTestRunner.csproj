@@ -93,6 +93,8 @@
     <Compile Include="Properties\PluginAssemblyInfo.cs" />
     <Compile Include="UnitTests\AlbumArtManager\AimpServiceAlbumArtTests.cs" />
     <Compile Include="UnitTests\AlbumArtManager\AimpServiceAlbumArtCacheTests.cs" />
+    <Compile Include="UnitTests\FileManager\AimpFileInfoUnitTests.cs" />
+    <Compile Include="Issues\Issue_19.cs" />
     <Compile Include="UnitTests\Lyrics\AimpLyricsTests.cs" />
     <Compile Include="UnitTests\Lyrics\AimpServiceLyricsTests.cs" />
     <Compile Include="UnitTests\MenuManager\AimpMenuItemTests.cs" />
@@ -105,6 +107,16 @@
     <Compile Include="UnitTests\Playlist\AimpPlaylistQueueTests.cs" />
     <Compile Include="UnitTests\Playlist\AimpPlaylistTests.cs" />
     <Compile Include="UnitTests\TagEditor\AimpServiceFileTagEditorTests.cs" />
+    <Compile Include="UnitTests\Threading\AimpServiceThreadsTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="commands.json" />
+    <None Include="Ghpr.Core.Settings.json" />
+    <None Include="Ghpr.NUnit.Settings.json" />
+    <None Include="nunit.engine.addins">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AIMP.SDK\AIMP.SDK.csproj">
@@ -115,15 +127,6 @@
       <Project>{8d30d1f5-1925-4926-83f2-f0b21b45646f}</Project>
       <Name>aimp_dotnet</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="commands.json" />
-    <None Include="Ghpr.Core.Settings.json" />
-    <None Include="Ghpr.NUnit.Settings.json" />
-    <None Include="nunit.engine.addins">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

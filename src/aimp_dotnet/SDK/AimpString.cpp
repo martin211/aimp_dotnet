@@ -29,7 +29,12 @@ int AimpString::GetLength() {
 }
 
 int AimpString::GetHashCode() {
-    return InternalAimpObject->GetHashCode();
+    if (InternalAimpObject != NULL)
+    {
+        return InternalAimpObject->GetHashCode();
+    }
+
+    return 0;
 }
 
 ActionResultType AimpString::SetChar(int index, wchar_t c) {

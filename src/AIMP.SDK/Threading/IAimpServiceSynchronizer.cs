@@ -9,6 +9,8 @@
 // 
 // ----------------------------------------------------
 
+using System;
+
 namespace AIMP.SDK.Threading
 {
     /// <summary>
@@ -16,6 +18,7 @@ namespace AIMP.SDK.Threading
     /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.IAimpService" />
+    [Obsolete("Use IAimpServiceThreads")]
     public interface IAimpServiceSynchronizer : IAimpService
     {
         /// <summary>

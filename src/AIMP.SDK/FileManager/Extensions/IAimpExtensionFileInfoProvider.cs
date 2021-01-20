@@ -29,7 +29,7 @@ namespace AIMP.SDK.FileManager.Extensions
         /// <param name="fileUri">The virtual file name.</param>
         /// <param name="fileInfo">Out. File information/</param>
         /// <returns>AimpActionResult.</returns>
-        AimpActionResult GetFileInfo(IAimpString fileUri, ref IAimpFileInfo fileInfo);
+        AimpActionResult GetFileInfo(string fileUri, ref IAimpFileInfo fileInfo);
 
         /// <summary>
         /// Returns the file information. This method slowest then get info by file name.

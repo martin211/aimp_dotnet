@@ -18,7 +18,7 @@ namespace AIMP.DotNet.MusicLibrary
 {
     public class AimpExtensionFileInfoProvider : IAimpExtensionFileInfoProvider, IAimpExtension
     {
-        public AimpActionResult GetFileInfo(IAimpString fileUri, ref IAimpFileInfo fileInfo)
+        public AimpActionResult GetFileInfo(string fileUri, ref IAimpFileInfo fileInfo)
         {
             fileInfo = null;
             System.Diagnostics.Debugger.Break();
