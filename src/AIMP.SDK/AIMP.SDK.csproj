@@ -157,6 +157,7 @@
     <Compile Include="TagEditor\IAimpFileTag.cs" />
     <Compile Include="TagEditor\IAimpFileTagEditor.cs" />
     <Compile Include="TagEditor\IAimpServiceFileTagEditor.cs" />
+    <Compile Include="Threading\IAimpServiceThreads.cs" />
     <Compile Include="Threading\IAimpTask.cs" />
     <Compile Include="Threading\IAimpTaskOwner.cs" />
     <Compile Include="Threading\IAimpServiceSynchronizer.cs" />

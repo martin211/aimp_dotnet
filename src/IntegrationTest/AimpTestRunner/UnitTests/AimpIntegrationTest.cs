@@ -20,11 +20,15 @@ using AIMP.SDK.Threading;
 using NUnit.Engine;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
+using NUnit.Framework.Interfaces;
+using NUnit.Framework.Internal;
 
 namespace Aimp.TestRunner.UnitTests
 {
     public static class IntegrationTestExtension
     {
+        private static TestExecutionContext _testExecutionContext = TestExecutionContext.CurrentContext;
+
         public static EqualAssert AreEqual<TResult>(this AimpIntegrationTest testClass, object expected, Expression<Func<TResult>> current, string message = null)
         {
             var assert = new EqualAssert(current.GetExpressionMemberName(), current.GetExpressionValue(), expected,
@@ -40,8 +44,15 @@ namespace Aimp.TestRunner.UnitTests
             string message = null)
         {
             var assert = new EqualAssert(fieldName, current, expected, message);
-            testClass.Asserts.Add(assert);
-            return assert;
+            try
+            {
+                AddAssertion(testClass, assert);
+                return assert;
+            }
+            finally
+            {
+                assert.Validate();
+            }
         }
 
         public static EqualAssert AreEqual(this AimpIntegrationTest testClass,
@@ -166,6 +177,14 @@ namespace Aimp.TestRunner.UnitTests
                 return default;
             }
         }
+
+        private static void AddAssertion(AimpIntegrationTest testClass, AimpAssert assertion)
+        {
+            if (_testExecutionContext.CurrentResult.FailCount == 0)
+            {
+                testClass.Asserts.Add(assertion);
+            }
+        }
     }
 
     public abstract class AimpAssert
@@ -241,7 +260,20 @@ namespace Aimp.TestRunner.UnitTests
 
         public override void Validate()
         {
-            Assert.AreEqual(Expected, Value, Message ?? $"'{FieldName}' do not equal '{Value}'");
+            try
+            {
+                Assert.AreEqual(Expected, Value, Message ?? $"Expected '{Expected}' but was '{Value}'");
+            }
+            catch (Exception e)
+            {
+                var result = TestExecutionContext.CurrentContext.CurrentResult;
+
+                if (result.FailCount == 1)
+                {
+                    TestContext.Out.WriteLine(result.Message);
+                    TestContext.Out.WriteLine(result.StackTrace);
+                }
+            }
         }
     }
 
@@ -257,7 +289,7 @@ namespace Aimp.TestRunner.UnitTests
 
         public override void Validate()
         {
-            Assert.AreNotEqual(Expected, Value, Message ?? $"{FieldName} do not equal {Value}");
+            Assert.AreNotEqual(Expected, Value, Message ?? $"Expected '{Expected}' but was '{Value}'");
         }
     }
 
@@ -354,6 +386,7 @@ namespace Aimp.TestRunner.UnitTests
         {
             Assert.NotNull(Player);
             Asserts = new List<AimpAssert>();
+            ClearAimpBeforeTests();
         }
 
         [SetUp]
@@ -406,10 +439,27 @@ namespace Aimp.TestRunner.UnitTests
                 fieldValidator.Validate();
             }
         }
-
+        
         protected AimpAssert AssertOKResult(ActionResultType current, string message = null)
         {
             return this.AreEqual(ActionResultType.OK, current, null, message);
+        }
+
+        private void ClearAimpBeforeTests()
+        {
+            TestContext.WriteLine("Clear existing playlist");
+            var playlistPath = Player.Core.GetPath(AimpCorePathType.Playlists);
+            foreach (var file in new DirectoryInfo(playlistPath).GetFiles())
+            {
+                file.Delete();
+            }
+
+            //TestContext.WriteLine("Clear local library");
+            //var libraryFile = Path.Combine(Player.Core.GetPath(AimpCorePathType.Audiolibrary), "Local.adb");
+            //if (File.Exists(libraryFile))
+            //{
+            //    File.Delete(libraryFile);
+            //}
         }
 
         private class AimpTask : IAimpTask
@@ -423,8 +473,19 @@ namespace Aimp.TestRunner.UnitTests
 
             public AimpActionResult Execute(IAimpTaskOwner owner)
             {
-                _task();
-                return new AimpActionResult(ActionResultType.OK);
+                try
+                {
+                    _task();
+                    return new AimpActionResult(ActionResultType.OK);
+                }
+                catch (Exception e)
+                {
+                    TestContext.WriteLine(e.ToString());
+                    TestContext.Error.WriteLine(e.ToString());
+                    TestContext.Out.WriteLine(e.ToString());
+                }
+
+                return new AimpActionResult(ActionResultType.Fail);
             }
         }
 
@@ -441,8 +502,23 @@ namespace Aimp.TestRunner.UnitTests
 
             public AimpActionResult Execute(IAimpTaskOwner owner)
             {
-                Result = _task();
-                return new AimpActionResult(ActionResultType.OK);
+                try
+                {
+                    _task();
+                    return new AimpActionResult(ActionResultType.OK);
+                }
+                catch (Exception e)
+                {
+                    var result = TestExecutionContext.CurrentContext.CurrentResult;
+                    result.RecordAssertion(AssertionStatus.Failed, "", Environment.StackTrace);
+                    result.RecordTestCompletion();
+
+                    //TestContext.WriteLine(e.ToString());
+                    //TestContext.Error.WriteLine(e.ToString());
+                    //TestContext.Out.WriteLine(e.ToString());
+                }
+
+                return new AimpActionResult(ActionResultType.Fail);
             }
         }
     }

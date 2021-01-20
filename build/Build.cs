@@ -4,6 +4,7 @@ using System.IO.Compression;
 using System.Linq;
 using Aimp.DotNet.Build;
 using Nuke.Common;
+using Nuke.Common.CI.GitLab;
 using Nuke.Common.CI.TeamCity;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
@@ -16,6 +17,7 @@ using Nuke.Common.Tools.NuGet;
 using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
+using static Nuke.Common.EnvironmentInfo;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
@@ -35,34 +37,27 @@ partial class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [Parameter("Indicates to push to nuget.org feed.")] readonly bool NuGet;
-    [Parameter("ApiKey for the specified source.")] readonly string ApiKey;
+    [Solution] readonly Solution Solution;
+    [GitRepository] readonly GitRepository GitRepository;
+    [GitVersion(NoFetch = true, UpdateAssemblyInfo = true)] readonly GitVersion GitVersion;
+
     [Parameter] readonly string SonarUrl;
     [Parameter] readonly string SonarUser;
     [Parameter] readonly string SonarPassword;
     [Parameter] readonly string SonarProjectKey;
     [Parameter] readonly string SonarProjectName;
-    [Parameter] readonly string VmWareMachine;
 
-    string Source => "https://api.nuget.org/v3/index.json";
+    [Parameter] readonly string Source;
 
-    [Solution] readonly Solution Solution;
-    [GitRepository] readonly GitRepository GitRepository;
-    [GitVersion(
-        UpdateAssemblyInfo = true,
-        Framework = "netcoreapp3.1",
-        UpdateBuildNumber = true)]
-    readonly GitVersion GitVersion;
+    AbsolutePath SourceDirectory => RootDirectory / "src";
+    AbsolutePath TestsDirectory => RootDirectory / "tests";
+    AbsolutePath OutputDirectory => RootDirectory / "output";
 
     readonly string MasterBranch = "master";
     readonly string DevelopBranch = "develop";
     readonly string ReleaseBranchPrefix = "release";
     readonly string HotfixBranchPrefix = "hotfix";
 
-    AbsolutePath SourceDirectory => RootDirectory / "src";
-    AbsolutePath OutputDirectory => RootDirectory / "output";
-    AbsolutePath TestOutput => RootDirectory / "tests";
-    
     Target Clean => _ => _
         .Before(Restore)
         .Executes(() =>
@@ -87,6 +82,7 @@ partial class Build : NukeBuild
             if (File.Exists(rcFile))
             {
                 Logger.Info($"Update version for '{rcFile}'");
+                Logger.Info($"Assembly version: {GitVersion.AssemblySemVer}");
                 var fileContent = File.ReadAllText(rcFile);
                 fileContent = fileContent.Replace("1,0,0,1", GitVersion.AssemblySemVer).Replace("1.0.0.1", GitVersion.AssemblySemVer);
                 File.WriteAllText(rcFile, fileContent);
@@ -94,7 +90,7 @@ partial class Build : NukeBuild
         });
 
     Target Compile => _ => _
-        .DependsOn(Clean, Restore, Version)
+        .DependsOn(Restore, Version)
         .Executes(() =>
         {
             MSBuild(_ => _
@@ -109,61 +105,63 @@ partial class Build : NukeBuild
         });
 
     Target SonarQube => _ => _
-        .Requires(() => SonarUrl, () => SonarUser, () => SonarProjectKey, () => SonarProjectName)
-        .Executes(() =>
-            {
-                var framework = "sonar-scanner-msbuild-4.8.0.12008-net46";
-                var configuration = new SonarBeginSettings()
-                    .SetProjectKey(SonarProjectKey)
-                    .SetIssueTrackerUrl(SonarUrl)
-                    .SetServer(SonarUrl)
-                    .SetVersion(GitVersion.AssemblySemVer)
-                    //.SetHomepage(SonarUrl)
-                    .SetLogin(SonarUser)
-                    .SetPassword(SonarPassword)
-                    .SetName(SonarProjectName)
-                    //.SetWorkingDirectory(SourceDirectory)
-                    .SetFramework(framework)
-                    .SetVerbose(false);
+    .Requires(() => SonarUrl, () => SonarUser, () => SonarProjectKey, () => SonarProjectName)
+    .DependsOn(Restore)
+    .Executes(() =>
+    {
+        var framework = "sonar-scanner-msbuild-4.8.0.12008-net46";
+        var configuration = new SonarBeginSettings()
+                .SetProjectKey(SonarProjectKey)
+                .SetIssueTrackerUrl(SonarUrl)
+                .SetServer(SonarUrl)
+                .SetVersion(GitVersion.AssemblySemVer)
+                //.SetHomepage(SonarUrl)
+                .SetLogin(SonarUser)
+                .SetPassword(SonarPassword)
+                .SetName(SonarProjectName)
+                //.SetWorkingDirectory(SourceDirectory)
+                .SetBranchName(GitRepository.Branch)
+                .SetFramework(framework)
+                .SetVerbose(false);
 
-                if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
-                {
-                    configuration = configuration.SetVersion(GitVersion.SemVer);
-                }
+        if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
+        {
+            configuration = configuration.SetVersion(GitVersion.SemVer);
+        }
 
-                configuration = configuration.SetProjectBaseDir(SourceDirectory);
+        configuration = configuration.SetProjectBaseDir(SourceDirectory);
 
-                var path = ToolPathResolver.GetPackageExecutable(
-                    packageId: "dotnet-sonarscanner|MSBuild.SonarQube.Runner.Tool",
-                    packageExecutable: "SonarScanner.MSBuild.exe",
-                    framework: framework);
+        var path = ToolPathResolver.GetPackageExecutable(
+                packageId: "dotnet-sonarscanner|MSBuild.SonarQube.Runner.Tool",
+                packageExecutable: "SonarScanner.MSBuild.exe",
+                framework: framework);
 
-                configuration = configuration.SetToolPath(path);
+        configuration = configuration.SetProcessToolPath(path);
 
-                SonarScannerTasks.SonarScannerBegin(c => configuration);
-            }, () =>
-            {
-                MSBuildTasks.MSBuild(c => c
-                    .SetConfiguration(Configuration)
-                    .SetTargets("Rebuild")
-                    .SetSolutionFile(Solution)
-                    .SetNodeReuse(true));
-            },
-            () =>
-            {
-                var framework = "sonar-scanner-msbuild-4.8.0.12008-net46";
-                var path = ToolPathResolver.GetPackageExecutable(
-                    packageId: "dotnet-sonarscanner|MSBuild.SonarQube.Runner.Tool",
-                    packageExecutable: "SonarScanner.MSBuild.exe",
-                    framework: framework);
+        SonarScannerTasks.SonarScannerBegin(c => configuration);
+    }, () =>
+    {
+        MSBuild(c => c
+                .SetConfiguration(Configuration)
+                .SetTargets("Rebuild")
+                .SetSolutionFile(Solution)
+                .SetNodeReuse(true));
+    },
+        () =>
+        {
+            var framework = "sonar-scanner-msbuild-4.8.0.12008-net46";
+            var path = ToolPathResolver.GetPackageExecutable(
+                packageId: "dotnet-sonarscanner|MSBuild.SonarQube.Runner.Tool",
+                packageExecutable: "SonarScanner.MSBuild.exe",
+                framework: framework);
 
-                SonarScannerTasks.SonarScannerEnd(c => c
-                    .SetLogin(SonarUser)
-                    .SetPassword(SonarPassword)
-                    //.SetWorkingDirectory(SourceDirectory)
-                    .SetFramework(framework)
-                    .SetToolPath(path));
-            });
+            SonarScannerTasks.SonarScannerEnd(c => c
+                .SetLogin(SonarUser)
+                .SetPassword(SonarPassword)
+                //.SetWorkingDirectory(SourceDirectory)
+                .SetFramework(framework)
+                .SetProcessToolPath(path));
+        });
 
     Target Pack => _ => _
         .Executes(() =>
@@ -199,27 +197,23 @@ partial class Build : NukeBuild
 
             NuGetTasks.NuGetPack(config
                 .SetTargetPath(nugetFolder / "AimpSDK.sources.nuspec"));
-
-            TeamCity.Instance?.PublishArtifacts(nugetFolder / "*.nupkg");
         });
 
     Target Publish => _ => _
-        .Requires(() => ApiKey)
-        .Requires(() => Configuration.Equals(Configuration.Release))
-        .Requires(() => GitRepository.Branch.EqualsOrdinalIgnoreCase(MasterBranch) ||
-                        GitRepository.Branch.EqualsOrdinalIgnoreCase(DevelopBranch) ||
-                        GitRepository.Branch.EqualsOrdinalIgnoreCase(ReleaseBranchPrefix) ||
-                        GitRepository.Branch.EqualsOrdinalIgnoreCase(HotfixBranchPrefix))
-        .Executes(() =>
-        {
-            Logger.Info("Deploying Nuget packages");
-            GlobFiles(OutputDirectory, "*.nupkg").NotEmpty()
-                .Where(c => !c.EndsWith("symbols.nupkg"))
-                .ForEach(c => NuGetTasks.NuGetPush(s => s
-                    .SetTargetPath(c)
-                    .SetSource(Source)
-                    .SetApiKey(ApiKey)));
-        });
+    .Requires(() => Configuration.Equals(Configuration.Release))
+    .Requires(() => GitRepository.Branch.EqualsOrdinalIgnoreCase(MasterBranch) ||
+                    GitRepository.Branch.EqualsOrdinalIgnoreCase(DevelopBranch) ||
+                    GitRepository.Branch.EqualsOrdinalIgnoreCase(ReleaseBranchPrefix) ||
+                    GitRepository.Branch.EqualsOrdinalIgnoreCase(HotfixBranchPrefix))
+    .Executes(() =>
+    {
+        Logger.Info("Deploying Nuget packages");
+        GlobFiles(OutputDirectory, "*.nupkg").NotEmpty()
+            .Where(c => !c.EndsWith("symbols.nupkg"))
+            .ForEach(c => NuGetTasks.NuGetPush(s => s
+                .SetTargetPath(c)
+                .SetSource(Source)));
+    });
 
     Target Artifacts => _ => _
      .Executes(() =>
@@ -271,7 +265,5 @@ partial class Build : NukeBuild
 
          Logger.Info("Compress artifacts");
          ZipFile.CreateFromDirectory(OutputDirectory / "Artifacts", OutputDirectory / "aimp.sdk.zip");
-
-         TeamCity.Instance?.PublishArtifacts(OutputDirectory / "aimp.sdk.zip");
      });
 }

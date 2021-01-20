@@ -1,9 +1,15 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+/************************************************/
+/*                                              */
+/*          AIMP Programming Interface          */
+/*               v4.50 build 2000               */
+/*                                              */
+/*                Artem Izmaylov                */
+/*                (C) 2006-2017                 */
+/*                 www.aimp.ru                  */
+/*                                              */
+/*            Mail: support@aimp.ru             */
+/*                                              */
+/************************************************/
 
 #ifndef apiRemoteH
 #define apiRemoteH
@@ -11,35 +17,35 @@
 #include <windows.h>
 
 const char AIMPRemoteAccessClass[] = "AIMP2_RemoteInfo";
-const int AIMPRemoteAccessMapFileSize = 2048;
+const int  AIMPRemoteAccessMapFileSize = 2048;
 
 #pragma pack(push, 1)
 struct TAIMPRemoteFileInfo
 {
-    DWORD Deprecated1;
-    BOOL Active;
-    DWORD BitRate;
-    DWORD Channels;
-    DWORD Duration;
-    INT64 FileSize;
-    DWORD FileMark;
-    DWORD SampleRate;
-    DWORD TrackNumber;
-    DWORD AlbumLength;
-    DWORD ArtistLength;
-    DWORD DateLength;
-    DWORD FileNameLength;
-    DWORD GenreLength;
-    DWORD TitleLength;
-    DWORD Deprecated2[6];
+	DWORD Deprecated1;
+	BOOL Active;
+	DWORD BitRate;
+	DWORD Channels;
+	DWORD Duration;
+	INT64 FileSize;
+	DWORD FileMark;
+	DWORD SampleRate;
+	DWORD TrackNumber;
+	DWORD AlbumLength;
+	DWORD ArtistLength;
+	DWORD DateLength;
+	DWORD FileNameLength;
+	DWORD GenreLength;
+	DWORD TitleLength;
+	DWORD Deprecated2[6];
 };
 #pragma pack(pop)
-typedef TAIMPRemoteFileInfo* PAIMPRemoteFileInfo;
+typedef TAIMPRemoteFileInfo *PAIMPRemoteFileInfo;
 
 // Messages, which you can send to window with "AIMPRemoteAccessClass" class
 // You can receive Window Handle via FindWindow function (see MSDN for details)
-const int WM_AIMP_COMMAND = WM_USER + 0x75;
-const int WM_AIMP_NOTIFY = WM_USER + 0x76;
+const int WM_AIMP_COMMAND  = WM_USER + 0x75;
+const int WM_AIMP_NOTIFY   = WM_USER + 0x76;
 const int WM_AIMP_PROPERTY = WM_USER + 0x77;
 
 // See AIMP_RA_CMD_GET_ALBUMART command
@@ -202,6 +208,6 @@ const int AIMP_RA_NOTIFY_TRACK_START = AIMP_RA_NOTIFY_BASE + 2;
 
 // Called, when property has been changed
 // LParam: Property ID
-const int AIMP_RA_NOTIFY_PROPERTY = AIMP_RA_NOTIFY_BASE + 3;
+const int AIMP_RA_NOTIFY_PROPERTY = AIMP_RA_NOTIFY_BASE + 3; 
 
 #endif // !apiRemoteH

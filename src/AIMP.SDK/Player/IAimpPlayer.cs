@@ -202,20 +202,22 @@ namespace AIMP.SDK.Player
         /// <summary>
         /// Gets the file information formatter service.
         /// </summary>
-        /// <value>The service file information formatter.</value>
         IAimpServiceFileInfoFormatter ServiceFileInfoFormatter { get; }
 
         /// <summary>
         /// Gets the service file tag editor.
         /// </summary>
-        /// <value>The service file tag editor.</value>
         IAimpServiceFileTagEditor ServiceFileTagEditor { get; }
 
         /// <summary>
         /// Gets the service lyrics.
         /// </summary>
-        /// <value>The service lyrics.</value>
         IAimpServiceLyrics ServiceLyrics { get; }
+
+        /// <summary>
+        /// Gets the service threads.
+        /// </summary>
+        IAimpServiceThreads ServiceThreads { get; }
 
         /// <summary>
         /// Pauses player.

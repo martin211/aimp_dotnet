@@ -14,6 +14,7 @@
 #include "FileManager/AimpServiceFileInfoFormatter.h"
 #include "MUI/AimpServiceMUI.h"
 #include "Menu/AimpServiceMenuManager.h"
+#include "Threading/AimpServiceThreads.h"
 
 using namespace AIMP;
 using namespace SDK;
@@ -321,4 +322,12 @@ IAimpServiceAlbumArtCache^ AimpPlayer::ServiceAlbumArtCache::get() {
     }
 
     return _serviceAlbumArtCache;
+}
+
+IAimpServiceThreads^ AimpPlayer::ServiceThreads::get() {
+    if (_serviceThreads == nullptr) {
+        _serviceThreads = gcnew AimpServiceThreads(_managedAimpCore);
+    }
+
+    return _serviceThreads;
 }

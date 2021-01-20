@@ -79,6 +79,7 @@ namespace AIMP {
         IAimpServiceFileTagEditor^ _serviceFileTagEditor;
         Lyrics::IAimpServiceLyrics^ _serviceLyrics;
         IAimpServiceAlbumArtCache^ _serviceAlbumArtCache;
+        IAimpServiceThreads^ _serviceThreads;
     public:
         /// <summary>
         /// Initializes a new instance of the <see cref="AIMP3Controller{TConvAlloc}" /> class.
@@ -277,6 +278,10 @@ namespace AIMP {
         virtual property IAimpServiceAlbumArtCache^ ServiceAlbumArtCache
         {
             IAimpServiceAlbumArtCache^ get();
+        }
+
+        virtual property IAimpServiceThreads^ ServiceThreads {
+            IAimpServiceThreads^ get();
         }
     };
 }
