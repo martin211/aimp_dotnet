@@ -49,7 +49,7 @@ partial class Build
         .Executes(() =>
         {
             DocFXTasks.DocFXMetadata(s => s
-                .SetWorkingDirectory(DocumentationRoot)
+                .SetProcessWorkingDirectory(DocumentationRoot)
                 .SetProjects(DocFxFile)
                 .SetLogLevel(DocFXLogLevel.Verbose));
         });
@@ -67,7 +67,7 @@ partial class Build
         .Executes(() =>
         {
             DocFXTasks.DocFXBuild(s => s
-                .SetWorkingDirectory(DocumentationRoot)
+                .SetProcessWorkingDirectory(DocumentationRoot)
                 .SetConfigFile(DocFxFile)
                 .SetLogLevel(DocFXLogLevel.Verbose)
                 .SetServe(true));

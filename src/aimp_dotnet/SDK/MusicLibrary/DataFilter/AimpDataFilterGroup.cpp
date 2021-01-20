@@ -12,7 +12,8 @@
 
 using namespace AIMP::SDK;
 
-AimpDataFilterGroup::AimpDataFilterGroup(IAIMPMLDataFilterGroup* filterGroup) : AimpObject(filterGroup) {
+// TODO: #18
+AimpDataFilterGroup::AimpDataFilterGroup(IAIMPMLDataFilterGroup* filterGroup) : AimpObject(filterGroup, false) {
 }
 
 FilterGroupOperationType AimpDataFilterGroup::Operation::get() {

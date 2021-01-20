@@ -62,12 +62,25 @@ namespace AIMP.SDK
         /// <returns>Assembly.</returns>
         private static Assembly CurrentDomainAssemblyResolve(object sender, ResolveEventArgs args)
         {
+            System.Diagnostics.Debugger.Launch();
             var projectDir = Path.GetDirectoryName(curPath);
 
             var i = args.Name.IndexOf(',');
             if (i != -1)
             {
                 var shortAssemblyName = args.Name.Substring(0, args.Name.IndexOf(','));
+
+                if (shortAssemblyName == "aimp_dotnet")
+                {
+                    var file = Path.Combine(projectDir, Path.GetFileName(projectDir) + ".dll");
+
+                    if (File.Exists(file))
+                    {
+                        return Assembly.LoadFrom(file);
+                    }
+                }
+
+
                 var fileName = Path.Combine(projectDir, shortAssemblyName + ".dll");
                 if (File.Exists(fileName))
                 {

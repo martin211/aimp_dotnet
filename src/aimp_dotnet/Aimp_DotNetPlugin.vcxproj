@@ -106,6 +106,7 @@
     <ClCompile Include="SDK\TagEditor\AimpServiceFileTagEditor.cpp" />
     <ClCompile Include="SDK\Threading\AimpServiceSynchronizer.cpp" />
     <ClCompile Include="SDK\Threading\AimpServiceThreadPool.cpp" />
+    <ClCompile Include="SDK\Threading\AimpServiceThreads.cpp" />
     <ClCompile Include="SDK\Threading\AimpTaskOwner.cpp" />
     <ClCompile Include="SDK\Threading\InternalAimpTask.cpp" />
     <ClCompile Include="SDK\Visuals\AimpExtensionCustomVisualization.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="SDK\TagEditor\AimpFileTagEditor.h" />
     <ClInclude Include="SDK\TagEditor\AimpServiceFileTagEditor.h" />
     <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h" />
+    <ClInclude Include="SDK\Threading\AimpServiceThreads.h" />
     <ClInclude Include="SDK\Threading\AimpTaskOwner.h" />
     <ClInclude Include="SDK\Visuals\AimpExtensionCustomVisualization.h" />
     <ClInclude Include="SDK\Visuals\AimpExtensionEmbeddedVisualization.h" />
@@ -353,6 +355,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <EnablePREfast>false</EnablePREfast>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PreprocessorDefinitions>DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <ModuleDefinitionFile>AIMP_Exports.def</ModuleDefinitionFile>

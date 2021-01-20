@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
+using System.Text;
+using System.Xml;
+using System.Xml.XPath;
+using System.Xml.Xsl;
 using DefaultNamespace;
 using Nuke.Common;
 using Nuke.Common.CI.TeamCity;
@@ -12,15 +15,22 @@ using static Nuke.Common.IO.FileSystemTasks;
 partial class Build
 {
     AbsolutePath ResourcesPath => RootDirectory / "resources";
+    AbsolutePath TestOutput => RootDirectory / "tests";
+
     [Parameter] readonly string AimpPath = @"z:\AIMP\AIMP4.60.2180\";
     [Parameter] readonly int TestTimeout = 5; // 5 minutes
-
+    [Parameter] readonly bool IsJUnit = false;
+    
     AbsolutePath IntegrationTestBinPath => SourceDirectory / "IntegrationTest";
     AbsolutePath IntegrationTestPluginPath => (AbsolutePath) Path.Combine(AimpPath, "plugins", "AimpTestRunner");
+
+    bool IsTeamCity => TeamCity.Instance != null;
 
     Target PrepareTestConfiguration => _ => _
         .Executes(() =>
         {
+            Logger.Info("Preparing test settings");
+
             var setting = new DefaultSettings();
             setting.Default = new GhprSettings
             {
@@ -43,8 +53,10 @@ partial class Build
             };
 
             setting.Projects = new List<Project>();
-
             var settingContent = SerializationTasks.JsonSerialize(setting);
+
+            Logger.Normal(settingContent);
+
             File.WriteAllText(IntegrationTestPluginPath / "Ghpr.NUnit.Settings.json", settingContent);
         });
 
@@ -52,16 +64,24 @@ partial class Build
         .Requires(() => AimpPath)
         .Executes(() =>
         {
+            Logger.Normal($"Delete directory {IntegrationTestPluginPath}");
             DeleteDirectory(IntegrationTestPluginPath);
             EnsureCleanDirectory(IntegrationTestPluginPath);
 
+            Logger.Normal($"Create directory {IntegrationTestPluginPath}");
             Directory.CreateDirectory(IntegrationTestPluginPath);
             EnsureExistingDirectory(IntegrationTestPluginPath);
 
-            IntegrationTestBinPath.GlobDirectories($"**/bin/{Configuration}").ForEach(d =>
+            var testBinPath = IsTeamCity ? OutputDirectory / "integrationTests" : IntegrationTestBinPath;
+            var testPattern = IsTeamCity ? "*" : $"**/bin/{Configuration}";
+
+            Logger.Normal($"Test bin files path: {testBinPath}");
+            Logger.Normal($"Search pattern: {testPattern}");
+
+            void copyFilesFromFolder(string folder)
             {
-                Logger.Info($"Copy plugin files from '{d}' to '{IntegrationTestPluginPath}'");
-                var files = Directory.GetFiles(d, "*.dll");
+                Logger.Normal($"Copy plugin files from '{folder}' to '{IntegrationTestPluginPath}'");
+                var files = Directory.GetFiles(folder, "*.dll");
                 foreach (var file in files)
                 {
                     if (file.EndsWith("aimp_dotnet.dll"))
@@ -77,9 +97,23 @@ partial class Build
                         CopyFileToDirectory(file, IntegrationTestPluginPath);
                     }
                 }
+            }
 
-                CopyFileToDirectory(d / "nunit.engine.addins", IntegrationTestPluginPath);
-            });
+            if (IsTeamCity)
+            {
+                copyFilesFromFolder(testBinPath);
+                Logger.Normal($"Copy {testBinPath}/nunit.engine.addins to {IntegrationTestPluginPath}");
+                CopyFileToDirectory(testBinPath / "nunit.engine.addins", IntegrationTestPluginPath);
+            }
+            else
+            {
+                testBinPath.GlobDirectories($"**/bin/{Configuration}").ForEach(d =>
+                {
+                    copyFilesFromFolder(d);
+                    Logger.Normal($"Copy {d}/nunit.engine.addins to {IntegrationTestPluginPath}");
+                    CopyFileToDirectory(d / "nunit.engine.addins", IntegrationTestPluginPath);
+                });
+            }
 
             CopyDirectoryRecursively(ResourcesPath / "integrationTests", IntegrationTestPluginPath / "resources");
         });
@@ -98,9 +132,16 @@ partial class Build
             if (File.Exists(testResultLogFile))
                 File.Delete(testResultLogFile);
 
-            var testsTimeoutWorker = new BackgroundWorker();
+            var aimpExe = Path.Combine(AimpPath, "AIMP.exe");
+            if (!File.Exists(aimpExe))
+            {
+                LogError($"AIMP.exe not found at path {aimpExe}");
+                TeamCity.Instance?.WriteFailure($"AIMP.exe not found at path {aimpExe}");
+                ControlFlow.Fail("Unable to run test.");
+                return;
+            }
 
-            var p = ProcessTasks.StartProcess(Path.Combine(AimpPath, "AIMP.exe"), "/DEBUG", AimpPath, timeout: TestTimeout * 60000);
+            var p = ProcessTasks.StartProcess(aimpExe, "/DEBUG", AimpPath, timeout: TestTimeout * 60000);
             var res = p.WaitForExit();
 
             if (res)
@@ -108,30 +149,40 @@ partial class Build
                 if (!File.Exists(testResultFile))
                 {
                     LogError("Unable to run integration tests.");
+                    TeamCity.Instance?.WriteFailure($"Unable to run integration tests. {testResultFile} NOT FOUND");
+                    ControlFlow.Fail("Unable to run test.");
                 }
                 else
                 {
                     CopyFileToDirectory(testResultFile, OutputDirectory);
                     CopyFileToDirectory(testResultLogFile, OutputDirectory);
 
-                    TeamCity.Instance?.WriteMessage(File.ReadAllText(testResultLogFile));
+                    Logger.Info(File.ReadAllText(testResultLogFile));
+
+                    if (IsJUnit)
+                    {
+                        var junitReport = OutputDirectory / "junit-integration.tests.xml";
+
+                        var xslt = new XslTransform();
+                        xslt.Load(RootDirectory / "nunit3-junit.xslt");
+                        var doc = new XPathDocument(testResultFile);
+                        using var writer = new XmlTextWriter(junitReport, Encoding.UTF8)
+                        {
+                            Formatting = Formatting.Indented
+                        };
+                        xslt.Transform(doc, null, writer, null);
+                    }
                 }
             }
             else
             {
                 LogError("Process was ended by timeout. Try to increase `TestTimeout` parameter. Check logs. Check that plugin was activated at AIMP settings.");
+                ControlFlow.Fail("Unable to run test.");
             }
         });
 
     private void LogError(string message)
     {
-        if (TeamCity.Instance != null)
-        {
-            TeamCity.Instance.WriteError(message);
-        }
-        else
-        {
-            Logger.Error(message);
-        }
+        Logger.Error(message);
     }
 }

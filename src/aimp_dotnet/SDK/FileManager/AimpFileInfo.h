@@ -142,12 +142,6 @@ namespace AIMP {
                 void set(String^ value);
             }
 
-            virtual property double Mark
-            {
-                double get();
-                void set(double value);
-            }
-
             virtual property double AddedDate
             {
                 double get();
@@ -156,17 +150,6 @@ namespace AIMP {
             virtual property double LastPlayedDate
             {
                 double get();
-            }
-
-            virtual property double StateRating
-            {
-                double get();
-            }
-
-            virtual property double StatMark
-            {
-                double get();
-                void set(double value);
             }
 
             virtual property double TrackGain
@@ -187,13 +170,13 @@ namespace AIMP {
                 void set(double value);
             }
 
-            virtual property double Gain
+            virtual property double AlbumGain
             {
                 double get();
                 void set(double value);
             }
 
-            virtual property double Peak
+            virtual property double AlbumPeak
             {
                 double get();
                 void set(double value);
@@ -240,15 +223,77 @@ namespace AIMP {
                 int get();
             }
 
+            virtual property String^ Conductor {
+                String^ get();
+                void set(String^ value);
+            }
+
+            virtual property String^ Mood {
+                String^ get();
+                void set(String^ value);
+            }
+
+            virtual property String^ Catalog {
+                String^ get();
+                void set(String^ value);
+            }
+
+            virtual property String^ Isrc {
+                String^ get();
+                void set(String^ value);
+            }
+
+            virtual property String^ Lyricist {
+                String^ get();
+                void set(String^ value);
+            }
+
+            virtual property String^ EncodedBy {
+                String^ get();
+                void set(String^ value);
+            }
+
             virtual property Int64 FileSize
             {
                 Int64 get();
                 void set(Int64 value);
             }
 
+            virtual property double StatDisplayingMark {
+                double get();
+                void set(double value);
+            }
+
             virtual void Assign(IAimpFileInfo^ source);
 
             virtual IAimpFileInfo^ Clone();
+
+            virtual property double StatMark {
+                double get();
+                void set(double value);
+            }
+
+            virtual property int StatPlayCount {
+                int get();
+            }
+
+            virtual property DateTime StatAddingDate {
+                DateTime get();
+            }
+
+            virtual property DateTime StatLastPlayDate {
+                DateTime get();
+            }
+
+            virtual property int Rating {
+                int get();
+                void set(int value);
+            }
+
+            virtual property double StatRating
+            {
+                double get();
+            }
         };
     }
 }
