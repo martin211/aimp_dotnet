@@ -213,15 +213,6 @@ void AimpFileInfo::URL::set(String^ value) {
 }
 
 
-double AimpFileInfo::Mark::get() {
-    return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_MARK);
-}
-
-void AimpFileInfo::Mark::set(double value) {
-    PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_MARK, value);
-}
-
-
 double AimpFileInfo::AddedDate::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_ADDINGDATE);
 }
@@ -232,17 +223,46 @@ double AimpFileInfo::LastPlayedDate::get() {
 }
 
 
-double AimpFileInfo::StateRating::get() {
+double AimpFileInfo::StatDisplayingMark::get() {
+    return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_DISPLAYING_MARK);
+}
+
+void AimpFileInfo::StatDisplayingMark::set(double value) {
+    PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_DISPLAYING_MARK, value);
+}
+
+
+double AimpFileInfo::StatRating::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_RATING);
 }
 
 
 double AimpFileInfo::StatMark::get() {
-    return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_MARK);
+    try
+    {
+        return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_MARK);
+    }
+    catch (...)
+    {
+        // NOTE: If local media library was`t initialized it will cause exception.
+        return 0;
+    }
 }
 
 void AimpFileInfo::StatMark::set(double value) {
     PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_MARK, value);
+}
+
+int AimpFileInfo::StatPlayCount::get() {
+    try
+    {
+        return PropertyListExtension::GetInt32(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_PLAYCOUNT);
+    }
+    catch (...)
+    {
+        // NOTE: If local media library was`t initialized it will cause exception.
+        return 0;
+    }
 }
 
 
@@ -273,20 +293,20 @@ void AimpFileInfo::TrackPeak::set(double value) {
 }
 
 
-double AimpFileInfo::Gain::get() {
+double AimpFileInfo::AlbumGain::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ALBUMGAIN);
 }
 
-void AimpFileInfo::Gain::set(double value) {
+void AimpFileInfo::AlbumGain::set(double value) {
     PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ALBUMGAIN, value);
 }
 
 
-double AimpFileInfo::Peak::get() {
+double AimpFileInfo::AlbumPeak::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ALBUMPEAK);
 }
 
-void AimpFileInfo::Peak::set(double value) {
+void AimpFileInfo::AlbumPeak::set(double value) {
     PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ALBUMPEAK, value);
 }
 
@@ -350,6 +370,60 @@ int AimpFileInfo::PlayCount::get() {
 }
 
 
+String^ AimpFileInfo::Conductor::get() {
+    return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_CONDUCTOR);
+}
+
+void AimpFileInfo::Conductor::set(String^ value) {
+    PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_CONDUCTOR, value);
+}
+
+
+String^ AimpFileInfo::Mood::get() {
+    return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_MOOD);
+}
+
+void AimpFileInfo::Mood::set(String^ value) {
+    PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_MOOD, value);
+}
+
+
+String^ AimpFileInfo::Catalog::get() {
+    return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_CATALOG);
+}
+
+void AimpFileInfo::Catalog::set(String^ value) {
+    PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_CATALOG, value);
+}
+
+
+String^ AimpFileInfo::Isrc::get() {
+    return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_ISRC);
+}
+
+void AimpFileInfo::Isrc::set(String^ value) {
+    PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_ISRC, value);
+}
+
+
+String^ AimpFileInfo::Lyricist::get() {
+    return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_LYRICIST);
+}
+
+void AimpFileInfo::Lyricist::set(String^ value) {
+    PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_LYRICIST, value);
+}
+
+
+String^ AimpFileInfo::EncodedBy::get() {
+    return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_ENCODEDBY);
+}
+
+void AimpFileInfo::EncodedBy::set(String^ value) {
+    PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_ENCODEDBY, value);
+}
+
+
 Int64 AimpFileInfo::FileSize::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_FILESIZE);
 }
@@ -366,11 +440,30 @@ IAimpFileInfo^ AimpFileInfo::Clone() {
     return gcnew AimpFileInfo(clone);
 }
 
+DateTime AimpFileInfo::StatAddingDate::get() {
+    double val = PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_ADDINGDATE);
+    return DateTime::FromOADate(val);
+}
+
+DateTime AimpFileInfo::StatLastPlayDate::get() {
+    double val = PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_LASTPLAYDATE);
+    return DateTime::FromOADate(val);
+}
+
+
+int AimpFileInfo::Rating::get() {
+    return PropertyListExtension::GetInt32(InternalAimpObject, AIMP_FILEINFO_PROPID_RATING);
+}
+
+void AimpFileInfo::Rating::set(int value) {
+    PropertyListExtension::SetInt32(InternalAimpObject, AIMP_FILEINFO_PROPID_RATING, value);
+}
+
 void AimpFileInfo::Assign(IAimpFileInfo^ source) {
     InternalAimpObject->Assign(static_cast<AimpFileInfo^>(source)->InternalAimpObject);
 }
 
-AimpFileInfo::AimpFileInfo(IAIMPFileInfo* aimpItem) : AimpObject(aimpItem) {
+AimpFileInfo::AimpFileInfo(IAIMPFileInfo* aimpItem) : AimpObject(aimpItem, false) {
 }
 
 AimpFileInfo::AimpFileInfo(IAimpFileInfo^ item) {
@@ -395,15 +488,14 @@ AimpFileInfo::AimpFileInfo(IAimpFileInfo^ item) {
     this->Duration = item->Duration;
     this->FileName = item->FileName;
     this->FileSize = item->FileSize;
-    this->Gain = item->Gain;
+    this->AlbumGain = item->AlbumGain;
     this->Genre = item->Genre;
     this->Lyrics = item->Lyrics;
-    this->Mark = item->Mark;
-    this->Peak = item->Peak;
+    this->StatMark = item->StatMark;
+    this->AlbumPeak = item->AlbumPeak;
     this->Publisher = item->Publisher;
     this->SampleRate = item->SampleRate;
-    this->SampleRate = item->StateRating;
-    this->StatMark = item->StatMark;
+    this->SampleRate = item->StatRating;
     this->Title = item->Title;
     this->TrackGain = item->TrackGain;
     this->TrackNumber = item->TrackNumber;

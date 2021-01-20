@@ -462,6 +462,9 @@
     <ClCompile Include="SDK\MusicLibrary\Presets\AimpGroupingPresetStandard.cpp">
       <Filter>Source Files\SDK\MusicLibrary</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\Threading\AimpServiceThreads.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -904,6 +907,9 @@
     </ClInclude>
     <ClInclude Include="SDK\BaseAimpService.h">
       <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Threading\AimpServiceThreads.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

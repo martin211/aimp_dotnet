@@ -39,6 +39,7 @@ namespace AIMP.SDK.Threading
     /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.IAimpService" />
+    [Obsolete("Use IAimpServiceThreads")]
     public interface IAimpServiceThreadPool : IAimpService
     {
         /// <summary>
