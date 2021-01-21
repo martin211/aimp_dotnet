@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using Microsoft.Build.Framework;
 using Nuke.Common.Tooling;
 
 namespace Aimp.DotNet.Build
@@ -11,13 +12,6 @@ namespace Aimp.DotNet.Build
         {
             toolSettings = toolSettings.NewInstance();
             toolSettings.ProjectBaseDir = projectBaseDir;
-            return toolSettings;
-        }
-
-        public static SonarBeginSettings SetVerbose2(this SonarBeginSettings toolSettings, bool value)
-        {
-            toolSettings = toolSettings.NewInstance();
-            toolSettings.Verbose1 = value;
             return toolSettings;
         }
     }

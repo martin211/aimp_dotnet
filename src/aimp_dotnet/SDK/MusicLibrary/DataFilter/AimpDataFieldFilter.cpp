@@ -10,8 +10,8 @@
 
 using namespace AIMP::SDK;
 
-AimpDataFieldFilter::AimpDataFieldFilter(IAIMPMLDataFieldFilter* aimpDataFieldFilter) : AimpObject(
-    aimpDataFieldFilter) {
+// TODO: #18
+AimpDataFieldFilter::AimpDataFieldFilter(IAIMPMLDataFieldFilter* aimpDataFieldFilter) : AimpObject(aimpDataFieldFilter, false) {
     _dataField = nullptr;
 }
 

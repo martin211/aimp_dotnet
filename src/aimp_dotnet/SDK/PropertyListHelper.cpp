@@ -108,7 +108,7 @@ ActionResultType PropertyListExtension::GetInt64(IAIMPPropertyList* propertyList
 ActionResultType PropertyListExtension::GetFloat(IAIMPPropertyList* propertyList, int propertyId, double% value) {
     double val = 0;
     const auto result = Utils::CheckResult(propertyList->GetValueAsFloat(propertyId, &val));
-    VALIDATE_RESULT(result, "Unable to get a Float property.")
+    //VALIDATE_RESULT(result, "Unable to get a Float property.")
     value = val;
     return result;
 }

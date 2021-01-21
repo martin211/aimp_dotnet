@@ -1,0 +1,89 @@
+stages:
+  - build
+  - analyze
+  - test
+  - pack
+  - deploy
+
+variables:
+  build_path: "$CI_PROJECT_DIR/src/"
+  output_path: "$CI_PROJECT_DIR/output/"
+  output_packages_path: "$output_path/packages/"
+
+cache:
+   key: ${CI_COMMIT_REF_SLUG}
+   paths:
+     - src/packages/
+     - .tmp/
+
+before_script:
+  - cd $build_path
+
+build:
+  stage: build
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 Compile --Configuation $Configuration
+  cache:
+    key: ${CI_COMMIT_SHORT_SHA}
+    paths:
+      - src/$Configuration/
+      - src/**/bin/$Configuration/
+
+sonarqube:
+  stage: analyze
+  variables:
+    GIT_STRATEGY: "none"
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 SonarQube --Configuation $Configuration --SonarUrl $SONAR_URL --SonarUser $SONAR_USER --SonarProjectKey $SONAR_PROJECT_KEY --SonarProjectName $SONAR_PROJECT_NAME
+
+integrationTests:
+  stage: test
+  variables:
+    GIT_STRATEGY: "none"
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 ExecuteIntegrationTests --AimpPath $AimpPath --IsJUnit true
+  dependencies:
+    - build
+  artifacts:
+    when: always
+    reports:
+       junit:
+         - output/junit-integration.tests.xml
+
+pack:
+  stage: pack
+  variables:
+    GIT_STRATEGY: "none"
+  dependencies:
+    - build
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 Pack --Configuation $Configuration
+
+artifacts:
+  stage: pack
+  variables:
+    GIT_STRATEGY: "none"
+  dependencies:
+    - build
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 Artifacts
+  artifacts:
+    paths:
+      - output/
+      - tests/
+
+deploy_local:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: "none"
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 Publish --NugetSourceName GitLab
+  when: manual
+
+deploy_release:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: "none"
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 Publish --NugetSourceName NuGet
+  when: manual
