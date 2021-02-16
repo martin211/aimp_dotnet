@@ -6,6 +6,7 @@
 // ----------------------------------------------------
 
 #pragma once
+#include "AimpErrorInfo.h"
 #include "SDK/AimpExtensionBase.h"
 #include "AimpStream.h"
 #include "Action/AimpAction.h"
@@ -144,6 +145,19 @@ namespace AIMP {
                     }
 
                     return gcnew AimpActionResult<IAimpObject^>(result, managed);
+                }
+
+                if (t == IAimpErrorInfo::typeid) {
+                    IAIMPErrorInfo* obj = nullptr;
+                    IAimpErrorInfo^ m = nullptr;
+                    const auto result = Utils::CheckResult(
+                        core->CreateObject(IID_IAIMPErrorInfo, reinterpret_cast<void**>(&obj)));
+
+                    if (result == ActionResultType::OK) {
+                        m = gcnew AimpErrorInfo(obj);
+                    }
+
+                    return gcnew AimpActionResult<IAimpObject^>(result, m);
                 }
 
                 return nullptr;

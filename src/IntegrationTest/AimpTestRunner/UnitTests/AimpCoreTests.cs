@@ -55,6 +55,13 @@ namespace Aimp.TestRunner.UnitTests
             AssertResult(result);
         }
 
+        [Test]
+        public void CreateObject_IAimpErrorInfo_ShouldCreateAimpObject()
+        {
+            var result = Player.Core.CreateObject<IAimpErrorInfo>();
+            AssertResult(result);
+        }
+
         [TestCase("ServiceMenuManager")]
         [TestCase("ServiceActionManager")]
         [TestCase("ServiceMui")]

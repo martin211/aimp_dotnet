@@ -86,6 +86,7 @@
     <Compile Include="Engine\AimpNUnit3FrameworkDriver.cs" />
     <Compile Include="Engine\AimpNUnitFrameworkDriver.cs" />
     <Compile Include="UnitTests\AimpCoreTests.cs" />
+    <Compile Include="UnitTests\AimpErrorInfoTests.cs" />
     <Compile Include="UnitTests\AimpIntegrationTest.cs" />
     <Compile Include="UnitTests\AimpServiceConfig\AimpServiceConfigTests.cs" />
     <Compile Include="UnitTests\AimpTestContext.cs" />

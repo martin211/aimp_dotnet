@@ -465,6 +465,9 @@
     <ClCompile Include="SDK\Threading\AimpServiceThreads.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\AimpErrorInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DotNetPlugin.h">
@@ -909,6 +912,9 @@
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Threading\AimpServiceThreads.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AimpErrorInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
