@@ -63,6 +63,7 @@
     <Compile Include="AimpInternalLogger.cs" />
     <Compile Include="AlbumArtManager\IAimpServiceAlbumArtCache.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="IAimpErrorInfo.cs" />
     <Compile Include="IAimpLogger.cs" />
     <Compile Include="IAimpService.cs" />
     <Compile Include="Lyrics\IAimpExtensionLyricsProvider.cs" />
