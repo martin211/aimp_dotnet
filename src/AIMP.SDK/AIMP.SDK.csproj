@@ -65,6 +65,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="IAimpErrorInfo.cs" />
     <Compile Include="IAimpLogger.cs" />
+    <Compile Include="IAimpProgressCallback.cs" />
     <Compile Include="IAimpService.cs" />
     <Compile Include="Lyrics\IAimpExtensionLyricsProvider.cs" />
     <Compile Include="MessageDispatcher\AimpMessages.cs" />

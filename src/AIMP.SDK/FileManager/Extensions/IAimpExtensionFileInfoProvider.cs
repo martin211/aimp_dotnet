@@ -21,7 +21,7 @@ namespace AIMP.SDK.FileManager.Extensions
     /// method via the IAimpCore.RegisterExtension method.
     /// </para>
     /// </summary>
-    public interface IAimpExtensionFileInfoProvider
+    public interface IAimpExtensionFileInfoProvider : IAimpExtension
     {
         /// <summary>
         /// Returns the file information.

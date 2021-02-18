@@ -10,6 +10,11 @@
 
 using namespace AIMP::SDK;
 
+generic <class T>
+IAIMPObjectList* AimpObjectList<T>::AimpObject::get() {
+    return _nativeObject;
+}
+
 generic <typename T>
 AimpObjectList<T>::AimpObjectList(IAIMPObjectList* nativeObject) {
     _nativeObject = nativeObject;

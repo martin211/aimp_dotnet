@@ -7,8 +7,7 @@
 
 #include "Stdafx.h"
 #include "InternalAimpExtensionFileInfoProvider.h"
-#include "AimpFileInfo.h"
-#include "../../SDK/AimpString.h"
+#include "SDK/FileManager/AimpFileInfo.h"
 
 HRESULT WINAPI InternalAimpExtensionFileInfoProvider::GetFileInfo(IAIMPString* fileURI, IAIMPFileInfo* info) {
     IAimpFileInfo^ aimpFileInfo = gcnew AimpFileInfo(info);

@@ -18,6 +18,10 @@ namespace AIMP {
             IAIMPObjectList* _nativeObject;
 
         public:
+            property IAIMPObjectList* AimpObject {
+                IAIMPObjectList* get();
+            }
+
             AimpObjectList(IAIMPObjectList* nativeObject);
 
             virtual ActionResult Add(TObject entry);

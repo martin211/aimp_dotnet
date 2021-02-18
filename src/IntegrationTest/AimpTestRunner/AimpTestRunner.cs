@@ -54,7 +54,6 @@ namespace Aimp.TestRunner
 
             try
             {
-
                 AppDomain.CurrentDomain.SetData("APPBASE", path);
                 Environment.CurrentDirectory = path;
 
@@ -86,11 +85,10 @@ namespace Aimp.TestRunner
                         _inProgress = true;
                         try
                         {
-                            XmlNode testResult = runner.Run(this, TestFilter.Empty);
-
                             _resultWriter.CheckWritability(_testResultFile);
-                            _resultWriter.WriteResultFile(testResult, _testResultFile);
 
+                            var testResult = runner.Run(this, TestFilter.Empty);
+                            _resultWriter.WriteResultFile(testResult, _testResultFile);
                             var reporter = new ResultReporter(testResult, new ExtendedTextWrapper(_logWriter));
                             reporter.ReportResults();
                         }
