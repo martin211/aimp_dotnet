@@ -180,10 +180,7 @@ namespace Aimp.TestRunner.UnitTests
 
         private static void AddAssertion(AimpIntegrationTest testClass, AimpAssert assertion)
         {
-            if (_testExecutionContext.CurrentResult.FailCount == 0)
-            {
-                testClass.Asserts.Add(assertion);
-            }
+            testClass.Asserts.Add(assertion);
         }
     }
 
@@ -270,6 +267,8 @@ namespace Aimp.TestRunner.UnitTests
 
                 if (result.FailCount == 1)
                 {
+                    TestContext.WriteLine(result.Message);
+                    TestContext.WriteLine(result.StackTrace);
                     TestContext.Out.WriteLine(result.Message);
                     TestContext.Out.WriteLine(result.StackTrace);
                 }

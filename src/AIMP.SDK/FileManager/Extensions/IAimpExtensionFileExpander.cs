@@ -22,14 +22,14 @@ namespace AIMP.SDK.FileManager.Extensions
     /// method via the IAimpCore.RegisterExtension method.
     /// </para>
     /// </summary>
-    public interface IAimpExtensionFileExpander
+    public interface IAimpExtensionFileExpander : IAimpExtension
     {
         /// <summary>
         /// Split the file container to virtual files.
         /// </summary>
         /// <param name="fileName">The real file name</param>
-        /// <param name="progressCallback">Progress callback.</param>
+        /// <param name="progressCallback">Progress callback <see cref="IAimpProgressCallback"/>.</param>
         /// <returns>AimpActionResult&lt;IList&lt;IAimpVirtualFile&gt;&gt;.</returns>
-        AimpActionResult<IList<IAimpVirtualFile>> Expand(string fileName, Func<long, bool> progressCallback);
+        AimpActionResult<IAimpObjectList<IAimpVirtualFile>> Expand(string fileName, IAimpProgressCallback progressCallback);
     }
 }

@@ -186,14 +186,8 @@
     <ClCompile Include="SDK\FileManager\AimpVirtualFile.cpp">
       <Filter>Source Files\SDK\FileManager</Filter>
     </ClCompile>
-    <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileSystem.cpp">
-      <Filter>Source Files\SDK\FileManager</Filter>
-    </ClCompile>
     <ClCompile Include="SDK\Configuration\AimpConfigurationManager.cpp">
       <Filter>Source Files\SDK\Configuration</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.cpp">
-      <Filter>Source Files\SDK\FileManager</Filter>
     </ClCompile>
     <ClCompile Include="SDK\FileManager\AimpServiceFileStreaming.cpp">
       <Filter>Source Files\SDK\FileManager</Filter>
@@ -465,7 +459,22 @@
     <ClCompile Include="SDK\Threading\AimpServiceThreads.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\FileManager\Extensions\InternalAimpExtensionFileInfoProvider.cpp">
+      <Filter>Source Files\SDK\FileManager</Filter>
+    </ClCompile>
     <ClCompile Include="SDK\AimpErrorInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\Extensions\InternalAimpExtensionFileSystem.cpp">
+      <Filter>Source Files\SDK\FileManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\Extensions\InternalAimpExtensionFileExpander.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\FileManager\Extensions\InternalAimpExtensionFileFormat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\AimpProgressCallback.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -620,17 +629,11 @@
     <ClInclude Include="SDK\FileManager\AimpVirtualFile.h">
       <Filter>Header Files\SDK\FileManager</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileSystem.h">
-      <Filter>Header Files\SDK\FileManager</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\Configuration\AimpConfigurationManager.h">
       <Filter>Header Files\SDK\Configuration</Filter>
     </ClInclude>
     <ClInclude Include="AIMPSDK\AIMP400\apiGUI.h">
       <Filter>Header Files\AIMPSDK\AIMP4</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.h">
-      <Filter>Header Files\SDK\FileManager</Filter>
     </ClInclude>
     <ClInclude Include="SDK\FileManager\AimpFileInfo.h">
       <Filter>Header Files\SDK\FileManager</Filter>
@@ -915,6 +918,19 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\AimpErrorInfo.h">
+    <ClInclude Include="SDK\FileManager\Extensions\InternalAimpExtensionFileInfoProvider.h">
+      <Filter>Header Files\SDK\FileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Extensions\InternalAimpExtensionFileSystem.h">
+      <Filter>Header Files\SDK\FileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Extensions\InternalAimpExtensionFileExpander.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\FileManager\Extensions\InternalAimpExtensionFileFormat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\AimpProgressCallback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
