@@ -80,6 +80,7 @@ namespace AIMP {
         Lyrics::IAimpServiceLyrics^ _serviceLyrics;
         IAimpServiceAlbumArtCache^ _serviceAlbumArtCache;
         IAimpServiceThreads^ _serviceThreads;
+        Core::IAimpServiceVersionInfo^ _serviceVersionInfo;
     public:
         /// <summary>
         /// Initializes a new instance of the <see cref="AIMP3Controller{TConvAlloc}" /> class.
@@ -219,6 +220,11 @@ namespace AIMP {
         virtual ActionResult Play(IAimpPlaylistItem^ playListItem);
 
         virtual ActionResult Play(IAimpPlaylist^ playList);
+
+        property SDK::Core::IAimpServiceVersionInfo^ ServiceVersionInfo
+        {
+            virtual SDK::Core::IAimpServiceVersionInfo^ get();
+        }
 
         virtual property IAimpServiceSynchronizer^ ServiceSynchronizer
         {
