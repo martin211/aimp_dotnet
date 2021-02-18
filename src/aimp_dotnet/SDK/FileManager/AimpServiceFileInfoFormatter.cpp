@@ -19,8 +19,6 @@ AimpServiceFileInfoFormatter::AimpServiceFileInfoFormatter(ManagedAimpCore^ core
 /// </summary>
 /// <param name="tmpl">The TMPL.</param>
 /// <param name="fileInfo">The file information.</param>
-/// <param name="formattedResult">The formatted result.</param>
-/// <returns>[Unknown].</returns>
 StringResult AimpServiceFileInfoFormatter::Format(String^ tmpl, IAimpFileInfo^ fileInfo) {
     auto service = GetAimpService();
     IAIMPString* t = nullptr;

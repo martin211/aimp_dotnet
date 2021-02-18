@@ -15,6 +15,7 @@
     <ClCompile Include="SDK\AimpProgressCallback.cpp" />
     <ClCompile Include="SDK\AimpErrorInfo.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpServiceAlbumArtCache.cpp" />
+    <ClCompile Include="SDK\Core\AimpServiceVersionInfo.cpp" />
     <ClCompile Include="SDK\FileManager\AimpServiceFileInfoFormatter.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandCopyToClipboard.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandDelete.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="SDK\AimpProgressCallback.h" />
     <ClInclude Include="SDK\AimpErrorInfo.h" />
     <ClInclude Include="SDK\AlbumArt\AimpServiceAlbumArtCache.h" />
+    <ClInclude Include="SDK\Core\AimpServiceVersionInfo.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileInfoFormatter.h" />
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandCopyToClipboard.h" />
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandDelete.h" />

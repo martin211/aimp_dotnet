@@ -13,6 +13,7 @@ using System;
 using AIMP.SDK.ActionManager;
 using AIMP.SDK.AlbumArtManager;
 using AIMP.SDK.ConfigurationManager;
+using AIMP.SDK.Core;
 using AIMP.SDK.FileManager;
 using AIMP.SDK.Lyrics;
 using AIMP.SDK.MenuManager;
@@ -210,14 +211,19 @@ namespace AIMP.SDK.Player
         IAimpServiceFileTagEditor ServiceFileTagEditor { get; }
 
         /// <summary>
-        /// Gets the service lyrics.
+        /// Gets the lyrics service.
         /// </summary>
         IAimpServiceLyrics ServiceLyrics { get; }
 
         /// <summary>
-        /// Gets the service threads.
+        /// Gets the threads service.
         /// </summary>
         IAimpServiceThreads ServiceThreads { get; }
+
+        /// <summary>
+        /// Gets the version information service.
+        /// </summary>
+        IAimpServiceVersionInfo ServiceVersionInfo { get; }
 
         /// <summary>
         /// Pauses player.
