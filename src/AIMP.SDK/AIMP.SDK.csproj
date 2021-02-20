@@ -62,6 +62,7 @@
     <Compile Include="AimpActionException.cs" />
     <Compile Include="AimpInternalLogger.cs" />
     <Compile Include="AlbumArtManager\IAimpServiceAlbumArtCache.cs" />
+    <Compile Include="Core\IAimpServiceShutdown.cs" />
     <Compile Include="Core\IAimpServiceVersionInfo.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IAimpErrorInfo.cs" />

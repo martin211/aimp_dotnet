@@ -105,6 +105,12 @@ namespace AIMP.SDK.Player
         IAimpServiceMessageDispatcher ServiceMessageDispatcher { get; }
 
         /// <summary>
+        /// Gets the service shutdown.
+        /// </summary>
+        /// <value>The service shutdown.</value>
+        IAimpServiceShutdown ServiceShutdown { get; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the volume is mute.
         /// </summary>
         /// <value><c>true</c> if this instance is mute; otherwise, <c>false</c>.</value>
