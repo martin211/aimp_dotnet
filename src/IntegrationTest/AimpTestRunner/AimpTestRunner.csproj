@@ -86,6 +86,7 @@
     <Compile Include="Engine\AimpNUnit3FrameworkDriver.cs" />
     <Compile Include="Engine\AimpNUnitFrameworkDriver.cs" />
     <Compile Include="UnitTests\AimpCoreTests.cs" />
+    <Compile Include="UnitTests\AimpErrorInfoTests.cs" />
     <Compile Include="UnitTests\AimpIntegrationTest.cs" />
     <Compile Include="UnitTests\AimpServiceConfig\AimpServiceConfigTests.cs" />
     <Compile Include="UnitTests\AimpTestContext.cs" />
@@ -93,8 +94,11 @@
     <Compile Include="Properties\PluginAssemblyInfo.cs" />
     <Compile Include="UnitTests\AlbumArtManager\AimpServiceAlbumArtTests.cs" />
     <Compile Include="UnitTests\AlbumArtManager\AimpServiceAlbumArtCacheTests.cs" />
+    <Compile Include="UnitTests\Core\AimpServiceVersionInfoTests.cs" />
     <Compile Include="UnitTests\FileManager\AimpFileInfoUnitTests.cs" />
     <Compile Include="Issues\Issue_19.cs" />
+    <Compile Include="UnitTests\FileManager\Extensions\AimpExtensionFileExpanderUnitTests.cs" />
+    <Compile Include="UnitTests\FileManager\Extensions\AimpExtensionFileFormatUnitTests.cs" />
     <Compile Include="UnitTests\Lyrics\AimpLyricsTests.cs" />
     <Compile Include="UnitTests\Lyrics\AimpServiceLyricsTests.cs" />
     <Compile Include="UnitTests\MenuManager\AimpMenuItemTests.cs" />

@@ -4,8 +4,6 @@ using System.IO.Compression;
 using System.Linq;
 using Aimp.DotNet.Build;
 using Nuke.Common;
-using Nuke.Common.CI.GitLab;
-using Nuke.Common.CI.TeamCity;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
@@ -17,7 +15,6 @@ using Nuke.Common.Tools.NuGet;
 using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
-using static Nuke.Common.EnvironmentInfo;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
@@ -26,12 +23,6 @@ using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
 [UnsetVisualStudioEnvironmentVariables]
 partial class Build : NukeBuild
 {
-    /// Support plugins are available for:
-    ///   - JetBrains ReSharper        https://nuke.build/resharper
-    ///   - JetBrains Rider            https://nuke.build/rider
-    ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
-    ///   - Microsoft VSCode           https://nuke.build/vscode
-
     public static int Main() => Execute<Build>(x => x.Compile);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
@@ -39,7 +30,7 @@ partial class Build : NukeBuild
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
-    [GitVersion(NoFetch = true, UpdateAssemblyInfo = true)] readonly GitVersion GitVersion;
+    [GitVersion(NoFetch = true, UpdateAssemblyInfo = false)] readonly GitVersion GitVersion;
 
     [Parameter] readonly string SonarUrl;
     [Parameter] readonly string SonarUser;
@@ -57,6 +48,7 @@ partial class Build : NukeBuild
     readonly string DevelopBranch = "develop";
     readonly string ReleaseBranchPrefix = "release";
     readonly string HotfixBranchPrefix = "hotfix";
+    string _version = "1.0.0.0";
 
     Target Clean => _ => _
         .Before(Restore)
@@ -78,13 +70,28 @@ partial class Build : NukeBuild
     Target Version => _ => _
         .Executes(() =>
         {
+            _version = GitRepository.Branch.StartsWith(ReleaseBranchPrefix)
+                ? GitRepository.Branch.Split("/")[1]
+                : GitVersion.AssemblySemVer;
+
+            Logger.Info($"Assembly version: {_version}");
+
+            var assemblyInfo = SourceDirectory / "AssemblyInfo.cs";
+            if (File.Exists(assemblyInfo))
+            {
+                Logger.Info($"Update version for '{assemblyInfo}'");
+                var fileContent = File.ReadAllText(assemblyInfo);
+                fileContent = fileContent.Replace("1.0.0.0", _version);
+                File.WriteAllText(assemblyInfo, fileContent);
+            }
+
             var rcFile = SourceDirectory / "aimp_dotnet" / "aimp_dotnet.rc";
             if (File.Exists(rcFile))
             {
                 Logger.Info($"Update version for '{rcFile}'");
                 Logger.Info($"Assembly version: {GitVersion.AssemblySemVer}");
                 var fileContent = File.ReadAllText(rcFile);
-                fileContent = fileContent.Replace("1,0,0,1", GitVersion.AssemblySemVer).Replace("1.0.0.1", GitVersion.AssemblySemVer);
+                fileContent = fileContent.Replace("1,0,0,1", _version).Replace("1.0.0.1",_version);
                 File.WriteAllText(rcFile, fileContent);
             }
         });
@@ -97,9 +104,9 @@ partial class Build : NukeBuild
                 .SetTargetPath(Solution)
                 .SetTargets("Rebuild")
                 .SetConfiguration(Configuration)
-                .SetAssemblyVersion(GitVersion.AssemblySemVer)
-                .SetFileVersion(GitVersion.AssemblySemFileVer)
-                .SetInformationalVersion(GitVersion.InformationalVersion)
+                .SetAssemblyVersion(_version)
+                .SetFileVersion(_version)
+                .SetInformationalVersion($"{_version}-{GitRepository.Commit}")
                 .SetMaxCpuCount(Environment.ProcessorCount)
                 .SetNodeReuse(IsLocalBuild));
         });
@@ -114,7 +121,7 @@ partial class Build : NukeBuild
                 .SetProjectKey(SonarProjectKey)
                 .SetIssueTrackerUrl(SonarUrl)
                 .SetServer(SonarUrl)
-                .SetVersion(GitVersion.AssemblySemVer)
+                .SetVersion(_version)
                 //.SetHomepage(SonarUrl)
                 .SetLogin(SonarUser)
                 .SetPassword(SonarPassword)
@@ -164,23 +171,22 @@ partial class Build : NukeBuild
         });
 
     Target Pack => _ => _
+        .DependsOn(Version)
         .Executes(() =>
         {
             Logger.Info("Start build Nuget packages");
 
             var nugetFolder = RootDirectory / "Nuget";
-            var version = GitVersion.AssemblySemVer;
-
 
             var config = new NuGetPackSettings()
                 .SetBasePath(RootDirectory)
                 .SetConfiguration(Configuration)
-                .SetVersion(version)
+                .SetVersion(_version)
                 .SetOutputDirectory(OutputDirectory);
 
             if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
             {
-                config = config.SetSuffix(GitVersion.PreReleaseTag);
+                config = config.SetSuffix("preview");
             }
 
             if (Configuration == Configuration.Debug)

@@ -13,6 +13,7 @@ using System;
 using AIMP.SDK.ActionManager;
 using AIMP.SDK.AlbumArtManager;
 using AIMP.SDK.ConfigurationManager;
+using AIMP.SDK.Core;
 using AIMP.SDK.FileManager;
 using AIMP.SDK.Lyrics;
 using AIMP.SDK.MenuManager;
@@ -102,6 +103,12 @@ namespace AIMP.SDK.Player
         /// </summary>
         /// <value>The service message dispatcher.</value>
         IAimpServiceMessageDispatcher ServiceMessageDispatcher { get; }
+
+        /// <summary>
+        /// Gets the service shutdown.
+        /// </summary>
+        /// <value>The service shutdown.</value>
+        IAimpServiceShutdown ServiceShutdown { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the volume is mute.
@@ -210,7 +217,7 @@ namespace AIMP.SDK.Player
         IAimpServiceFileTagEditor ServiceFileTagEditor { get; }
 
         /// <summary>
-        /// Gets the service lyrics.
+        /// Gets the lyrics service.
         /// </summary>
         IAimpServiceLyrics ServiceLyrics { get; }
 
@@ -218,6 +225,11 @@ namespace AIMP.SDK.Player
         /// Gets the service threads.
         /// </summary>
         IAimpServiceThreads ServiceThreads { get; }
+
+        /// <summary>
+        /// Gets the version information service.
+        /// </summary>
+        IAimpServiceVersionInfo ServiceVersionInfo { get; }
 
         /// <summary>
         /// Pauses player.

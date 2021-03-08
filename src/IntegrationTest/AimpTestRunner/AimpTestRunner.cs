@@ -20,6 +20,7 @@ using Aimp.TestRunner.UnitTests;
 using NUnit.Engine;
 using NUnit.Engine.Extensibility;
 using NUnit.Engine.Services;
+using NUnit.Framework;
 
 namespace Aimp.TestRunner
 {
@@ -54,7 +55,6 @@ namespace Aimp.TestRunner
 
             try
             {
-
                 AppDomain.CurrentDomain.SetData("APPBASE", path);
                 Environment.CurrentDirectory = path;
 
@@ -86,11 +86,10 @@ namespace Aimp.TestRunner
                         _inProgress = true;
                         try
                         {
-                            XmlNode testResult = runner.Run(this, TestFilter.Empty);
-
                             _resultWriter.CheckWritability(_testResultFile);
-                            _resultWriter.WriteResultFile(testResult, _testResultFile);
 
+                            var testResult = runner.Run(this, TestFilter.Empty);
+                            _resultWriter.WriteResultFile(testResult, _testResultFile);
                             var reporter = new ResultReporter(testResult, new ExtendedTextWrapper(_logWriter));
                             reporter.ReportResults();
                         }
@@ -119,6 +118,13 @@ namespace Aimp.TestRunner
 
         public override void Dispose()
         {
+            TestContext.WriteLine("Clear local library");
+            var libraryFile = Path.Combine(Player.Core.GetPath(AimpCorePathType.Audiolibrary), "Local.adb");
+            if (File.Exists(libraryFile))
+            {
+                File.Delete(libraryFile);
+            }
+
             _engine = null;
         }
 
@@ -141,4 +147,3 @@ namespace Aimp.TestRunner
         }
     }
 }
-

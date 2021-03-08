@@ -52,7 +52,7 @@
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
-      "default",
+      "statictoc",
 	  "template"
     ],
     "postProcessors": [],
@@ -62,7 +62,7 @@
     "cleanupCacheHistory": false,
     "disableGitFeatures": false,
 	    "template": [
-		"default",
+		"statictoc",
 		"template"
     ]
   }

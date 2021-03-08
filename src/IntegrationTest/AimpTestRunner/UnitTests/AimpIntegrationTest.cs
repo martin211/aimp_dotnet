@@ -264,12 +264,14 @@ namespace Aimp.TestRunner.UnitTests
             {
                 Assert.AreEqual(Expected, Value, Message ?? $"Expected '{Expected}' but was '{Value}'");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 var result = TestExecutionContext.CurrentContext.CurrentResult;
 
                 if (result.FailCount == 1)
                 {
+                    TestContext.WriteLine(result.Message);
+                    TestContext.WriteLine(result.StackTrace);
                     TestContext.Out.WriteLine(result.Message);
                     TestContext.Out.WriteLine(result.StackTrace);
                 }
@@ -453,13 +455,6 @@ namespace Aimp.TestRunner.UnitTests
             {
                 file.Delete();
             }
-
-            //TestContext.WriteLine("Clear local library");
-            //var libraryFile = Path.Combine(Player.Core.GetPath(AimpCorePathType.Audiolibrary), "Local.adb");
-            //if (File.Exists(libraryFile))
-            //{
-            //    File.Delete(libraryFile);
-            //}
         }
 
         private class AimpTask : IAimpTask

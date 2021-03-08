@@ -8,6 +8,14 @@
 #include "Stdafx.h"
 #include "InternalAimpExtensionFileSystem.h"
 
+
+#include "SDK/FileManager/Commands/Internal/InternalAimpFileSystemCommandCopyToClipboard.h"
+#include "SDK/FileManager/Commands/Internal/InternalAimpFileSystemCommandDelete.h"
+#include "SDK/FileManager/Commands/Internal/InternalAimpFileSystemCommandDropSource.h"
+#include "SDK/FileManager/Commands/Internal/InternalAimpFileSystemCommandFileInfo.h"
+#include "SDK/FileManager/Commands/Internal/InternalAimpFileSystemCommandOpenFileFolder.h"
+#include "SDK/FileManager/Commands/Internal/InternalAimpFileSystemCommandStreaming.h"
+
 InternalAimpExtensionFileSystem::InternalAimpExtensionFileSystem(
     gcroot<AIMP::SDK::FileManager::Extensions::IAimpExtensionFileSystem^> managed, IAIMPCore* core) {
     _managed = managed;

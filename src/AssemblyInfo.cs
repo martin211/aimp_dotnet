@@ -16,6 +16,6 @@ using System.Reflection;
 [assembly: AssemblyInformationalVersion("")]
 
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright © Evgeniy Bogdan 2020")]
+[assembly: AssemblyCopyright("Copyright © Evgeniy Bogdan 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

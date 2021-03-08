@@ -62,7 +62,6 @@ namespace AIMP.SDK
         /// <returns>Assembly.</returns>
         private static Assembly CurrentDomainAssemblyResolve(object sender, ResolveEventArgs args)
         {
-            System.Diagnostics.Debugger.Launch();
             var projectDir = Path.GetDirectoryName(curPath);
 
             var i = args.Name.IndexOf(',');
