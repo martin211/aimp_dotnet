@@ -1,3 +1,7 @@
 .SubTopic {
     font-weight: bold;
 }
+
+.toc .nav > li {
+	padding: 4px 0;
+}

@@ -8,6 +8,7 @@
 #pragma once
 #include <Unknwnbase.h>
 #include "AimpSdk.h"
+#include "FileManager/Extensions/InternalAimpExtensionFileFormat.h"
 #include "MusicLibrary/Extension/AimpExtensionDataStorage.h"
 #include "Playback/AimpExtensionPlaybackQueue.h"
 #include "Playback/AimpExtensionPlayerHook.h"
@@ -18,11 +19,13 @@
 #include "SDK\Visuals\AimpExtensionEmbeddedVisualization.h"
 #include "SDK\Visuals\AimpExtensionCustomVisualization.h"
 #include "SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h"
-#include "SDK\FileManager\InternalAimpExtensionFileInfoProvider.h"
-#include "SDK\FileManager\InternalAimpExtensionFileSystem.h"
+#include "SDK\FileManager\Extensions\InternalAimpExtensionFileInfoProvider.h"
+#include "SDK\FileManager\Extensions\InternalAimpExtensionFileSystem.h"
 #include "SDK\Visuals\AimpServiceVisualizations.h"
 #include "SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.h"
 #include "SDK\Lyrics\AimpExtensionLyricsProvider.h"
+
+class InternalAimpExtensionFileExpander;
 
 namespace AIMP {
     using namespace System;
@@ -88,6 +91,9 @@ namespace AIMP {
 
             OptionsDialogFrameExtension* GetOptionsFrame();
 
+            HRESULT RegisterFileManagerExtensions(IAimpExtension^ extension);
+            void UnregisterFileManagerExtensions();
+
         public:
             virtual void OnPlaylistActivated(IAIMPPlaylist* playlist);
 
@@ -114,7 +120,9 @@ namespace AIMP {
             AimpExtensionDataStorage* _musicLibraryDataStorage = nullptr;
             InternalAimpExtensionFileInfoProvider* _fileInfoExtensionProvider = nullptr;
             InternalAimpExtensionFileSystem* _extensionFileSystem = nullptr;
+            InternalAimpExtensionFileFormat* _extensionFileFormat = nullptr;
             InternalAimpExtensionPlaylistPreimageFactory* _extensionPlaylistPreimageFactory = nullptr;
+            InternalAimpExtensionFileExpander* _extensionFileExpander = nullptr;
             AimpExtensionLyricsProvider* _extensionLyricsProvider = nullptr;
             AimpExtensionPlaybackQueue* _extensionPlaybackQueue = nullptr;
             AimpExtensionPlayerHook* _extensionPlayerHook;
