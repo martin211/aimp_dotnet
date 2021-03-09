@@ -180,7 +180,10 @@ namespace Aimp.TestRunner.UnitTests
 
         private static void AddAssertion(AimpIntegrationTest testClass, AimpAssert assertion)
         {
-            testClass.Asserts.Add(assertion);
+            if (_testExecutionContext.CurrentResult.FailCount == 0)
+            {
+                testClass.Asserts.Add(assertion);
+            }
         }
     }
 
@@ -261,7 +264,7 @@ namespace Aimp.TestRunner.UnitTests
             {
                 Assert.AreEqual(Expected, Value, Message ?? $"Expected '{Expected}' but was '{Value}'");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 var result = TestExecutionContext.CurrentContext.CurrentResult;
 
@@ -452,13 +455,6 @@ namespace Aimp.TestRunner.UnitTests
             {
                 file.Delete();
             }
-
-            //TestContext.WriteLine("Clear local library");
-            //var libraryFile = Path.Combine(Player.Core.GetPath(AimpCorePathType.Audiolibrary), "Local.adb");
-            //if (File.Exists(libraryFile))
-            //{
-            //    File.Delete(libraryFile);
-            //}
         }
 
         private class AimpTask : IAimpTask

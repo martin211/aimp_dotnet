@@ -222,7 +222,7 @@ namespace AIMP.SDK.Player
         IAimpServiceLyrics ServiceLyrics { get; }
 
         /// <summary>
-        /// Gets the threads service.
+        /// Gets the service threads.
         /// </summary>
         IAimpServiceThreads ServiceThreads { get; }
 
