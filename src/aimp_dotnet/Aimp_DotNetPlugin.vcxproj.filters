@@ -120,6 +120,9 @@
     <ClCompile Include="Stdafx.cpp" />
     <ClCompile Include="SDK\Core\AimpServiceVersionInfo.cpp" />
     <ClCompile Include="SDK\Core\AimpServiceShutdown.cpp" />
+    <ClCompile Include="SDK\Threading\AimpServiceThreads.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimpMemoryManager.h" />
@@ -276,6 +279,9 @@
     <ClInclude Include="Utils.h" />
     <ClInclude Include="SDK\Core\AimpServiceVersionInfo.h" />
     <ClInclude Include="SDK\Core\AimpServiceShutdown.h" />
+    </ClInclude>
+    <ClInclude Include="SDK\Threading\AimpServiceThreads.h">
+      <Filter>Header Files</Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc" />

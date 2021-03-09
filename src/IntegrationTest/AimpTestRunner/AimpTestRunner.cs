@@ -20,6 +20,7 @@ using Aimp.TestRunner.UnitTests;
 using NUnit.Engine;
 using NUnit.Engine.Extensibility;
 using NUnit.Engine.Services;
+using NUnit.Framework;
 
 namespace Aimp.TestRunner
 {
@@ -117,6 +118,13 @@ namespace Aimp.TestRunner
 
         public override void Dispose()
         {
+            TestContext.WriteLine("Clear local library");
+            var libraryFile = Path.Combine(Player.Core.GetPath(AimpCorePathType.Audiolibrary), "Local.adb");
+            if (File.Exists(libraryFile))
+            {
+                File.Delete(libraryFile);
+            }
+
             _engine = null;
         }
 
@@ -139,4 +147,3 @@ namespace Aimp.TestRunner
         }
     }
 }
-

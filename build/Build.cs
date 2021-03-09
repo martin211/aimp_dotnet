@@ -9,6 +9,7 @@ using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
+using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
 using Nuke.Common.Tools.SonarScanner;
@@ -29,6 +30,7 @@ partial class Build : NukeBuild
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
+    [GitVersion(NoFetch = true, UpdateAssemblyInfo = false)] readonly GitVersion GitVersion;
 
     [Parameter] readonly string SonarUrl;
     [Parameter] readonly string SonarUser;
@@ -68,10 +70,9 @@ partial class Build : NukeBuild
     Target Version => _ => _
         .Executes(() =>
         {
-            if (GitRepository.Branch.StartsWith(ReleaseBranchPrefix))
-            {
-                _version = GitRepository.Branch.Split("/")[1];
-            }
+            _version = GitRepository.Branch.StartsWith(ReleaseBranchPrefix)
+                ? GitRepository.Branch.Split("/")[1]
+                : GitVersion.AssemblySemVer;
 
             Logger.Info($"Assembly version: {_version}");
 
@@ -88,7 +89,7 @@ partial class Build : NukeBuild
             if (File.Exists(rcFile))
             {
                 Logger.Info($"Update version for '{rcFile}'");
-                
+                Logger.Info($"Assembly version: {GitVersion.AssemblySemVer}");
                 var fileContent = File.ReadAllText(rcFile);
                 fileContent = fileContent.Replace("1,0,0,1", _version).Replace("1.0.0.1",_version);
                 File.WriteAllText(rcFile, fileContent);
@@ -132,7 +133,7 @@ partial class Build : NukeBuild
 
         if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
         {
-            configuration = configuration.SetVersion("preview");
+            configuration = configuration.SetVersion(GitVersion.SemVer);
         }
 
         configuration = configuration.SetProjectBaseDir(SourceDirectory);
