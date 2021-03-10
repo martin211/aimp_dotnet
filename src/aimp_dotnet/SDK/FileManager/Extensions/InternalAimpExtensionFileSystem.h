@@ -6,12 +6,13 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "Commands/Internal/InternalAimpFileSystemCommandFileInfo.h"
-#include "Commands/Internal/InternalAimpFileSystemCommandOpenFileFolder.h"
-#include "Commands/Internal/InternalAimpFileSystemCommandCopyToClipboard.h"
-#include "Commands/Internal/InternalAimpFileSystemCommandDelete.h"
-#include "Commands/Internal/InternalAimpFileSystemCommandDropSource.h"
-#include "Commands/Internal/InternalAimpFileSystemCommandStreaming.h"
+#include "SDK/FileManager/Commands/Internal/InternalAimpFileSystemCommandCopyToClipboard.h"
+#include "SDK/FileManager/Commands/Internal/InternalAimpFileSystemCommandDelete.h"
+#include "SDK/FileManager/Commands/Internal/InternalAimpFileSystemCommandDropSource.h"
+#include "SDK/FileManager/Commands/Internal/InternalAimpFileSystemCommandFileInfo.h"
+#include "SDK/FileManager/Commands/Internal/InternalAimpFileSystemCommandOpenFileFolder.h"
+#include "SDK/FileManager/Commands/Internal/InternalAimpFileSystemCommandStreaming.h"
+
 
 using namespace AIMP::SDK::FileManager::Commands;
 

@@ -11,6 +11,8 @@
 #include "Lyrics/AimpServiceLyrics.h"
 #include "SDK/Action/AimpServiceActionManager.h"
 #include "AlbumArt/AimpServiceAlbumArtCache.h"
+#include "Core/AimpServiceShutdown.h"
+#include "Core/AimpServiceVersionInfo.h"
 #include "FileManager/AimpServiceFileInfoFormatter.h"
 #include "MUI/AimpServiceMUI.h"
 #include "Menu/AimpServiceMenuManager.h"
@@ -232,6 +234,22 @@ ActionResult AimpPlayer::Play(IAimpPlaylistItem^ playListItem) {
 
 ActionResult AimpPlayer::Play(IAimpPlaylist^ playList) {
     return ACTION_RESULT(Utils::CheckResult(_player->Play3(static_cast<AimpPlayList^>(playList)->InternalAimpObject)));
+}
+
+SDK::Core::IAimpServiceShutdown^ AimpPlayer::ServiceShutdown::get() {
+    if (_serviceShutdown == nullptr) {
+        _serviceShutdown = gcnew SDK::Core::AimpServiceShutdown(_managedAimpCore);
+    }
+
+    return _serviceShutdown;
+}
+
+SDK::Core::IAimpServiceVersionInfo^ AimpPlayer::ServiceVersionInfo::get() {
+    if (_serviceVersionInfo == nullptr) {
+        _serviceVersionInfo = gcnew AimpServiceVersionInfo(_managedAimpCore);
+    }
+
+    return _serviceVersionInfo;
 }
 
 IAimpServiceSynchronizer^ AimpPlayer::ServiceSynchronizer::get() {

@@ -12,13 +12,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AimpMemoryManager.cpp" />
+    <ClCompile Include="SDK\AimpProgressCallback.cpp" />
+    <ClCompile Include="SDK\AimpErrorInfo.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpServiceAlbumArtCache.cpp" />
+    <ClCompile Include="SDK\Core\AimpServiceShutdown.cpp" />
+    <ClCompile Include="SDK\Core\AimpServiceVersionInfo.cpp" />
     <ClCompile Include="SDK\FileManager\AimpServiceFileInfoFormatter.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandCopyToClipboard.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandDelete.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandDropSource.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandOpenFileFolder.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandStreaming.cpp" />
+    <ClCompile Include="SDK\FileManager\Extensions\InternalAimpExtensionFileExpander.cpp" />
+    <ClCompile Include="SDK\FileManager\Extensions\InternalAimpExtensionFileFormat.cpp" />
     <ClCompile Include="SDK\Lyrics\AimpExtensionLyricsProvider.cpp" />
     <ClCompile Include="SDK\Lyrics\AimpLyrics.cpp" />
     <ClCompile Include="SDK\Lyrics\AimpServiceLyrics.cpp" />
@@ -47,8 +53,8 @@
     <ClCompile Include="SDK\FileManager\Commands\Internal\InternalAimpFileSystemCommandOpenFileFolder.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\Internal\InternalAimpFileSystemCommandStreaming.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\Internal\InternalAimpFileSystemCustomFileCommand.cpp" />
-    <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.cpp" />
-    <ClCompile Include="SDK\FileManager\InternalAimpExtensionFileSystem.cpp" />
+    <ClCompile Include="SDK\FileManager\Extensions\InternalAimpExtensionFileInfoProvider.cpp" />
+    <ClCompile Include="SDK\FileManager\Extensions\InternalAimpExtensionFileSystem.cpp" />
     <ClCompile Include="SDK\MessageDispatcher\AimpServiceMessageDispatcher.cpp" />
     <ClCompile Include="SDK\MUI\AimpServiceMUI.cpp" />
     <ClCompile Include="SDK\MusicLibrary\DataStorage\AimpDataField.cpp" />
@@ -130,7 +136,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimpMemoryManager.h" />
+    <ClInclude Include="SDK\AimpProgressCallback.h" />
+    <ClInclude Include="SDK\AimpErrorInfo.h" />
     <ClInclude Include="SDK\AlbumArt\AimpServiceAlbumArtCache.h" />
+    <ClInclude Include="SDK\Core\AimpServiceShutdown.h" />
+    <ClInclude Include="SDK\Core\AimpServiceVersionInfo.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileInfoFormatter.h" />
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandCopyToClipboard.h" />
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandDelete.h" />
@@ -138,6 +148,8 @@
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandOpenFileFolder.h" />
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandStreaming.h" />
     <ClInclude Include="SDK\FileManager\Commands\Internal\Stdafx.h" />
+    <ClInclude Include="SDK\FileManager\Extensions\InternalAimpExtensionFileExpander.h" />
+    <ClInclude Include="SDK\FileManager\Extensions\InternalAimpExtensionFileFormat.h" />
     <ClInclude Include="SDK\Lyrics\AimpExtensionLyricsProvider.h" />
     <ClInclude Include="SDK\Lyrics\AimpLyrics.h" />
     <ClInclude Include="SDK\Lyrics\AimpServiceLyrics.h" />
@@ -175,8 +187,8 @@
     <ClInclude Include="SDK\FileManager\Commands\Internal\InternalAimpFileSystemCommandFileInfo.h" />
     <ClInclude Include="SDK\FileManager\Commands\Internal\InternalAimpFileSystemCommandOpenFileFolder.h" />
     <ClInclude Include="SDK\FileManager\Commands\Stdafx.h" />
-    <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileInfoProvider.h" />
-    <ClInclude Include="SDK\FileManager\InternalAimpExtensionFileSystem.h" />
+    <ClInclude Include="SDK\FileManager\Extensions\InternalAimpExtensionFileInfoProvider.h" />
+    <ClInclude Include="SDK\FileManager\Extensions\InternalAimpExtensionFileSystem.h" />
     <ClInclude Include="SDK\MusicLibrary\DataStorage\AimpDataField.h" />
     <ClInclude Include="SDK\MusicLibrary\DataFilter\AimpDataFieldFilter.h" />
     <ClInclude Include="SDK\MusicLibrary\DataFilter\AimpDataFieldFilterByArray.h" />
