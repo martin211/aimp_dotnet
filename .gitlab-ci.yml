@@ -72,18 +72,10 @@ artifacts:
       - output/
       - tests/
 
-deploy_local:
-  stage: deploy
-  variables:
-    GIT_STRATEGY: "none"
-  script:
-    - powershell -File $CI_PROJECT_DIR\build.ps1 Publish --NugetSourceName GitLab
-  when: manual
-
 deploy_release:
   stage: deploy
   variables:
     GIT_STRATEGY: "none"
   script:
-    - powershell -File $CI_PROJECT_DIR\build.ps1 Publish --NugetSourceName NuGet
+    - powershell -File $CI_PROJECT_DIR\build.ps1 Publish --Source $NUGET_URL --NugetApiKey $NUGET_API_KEY
   when: manual
