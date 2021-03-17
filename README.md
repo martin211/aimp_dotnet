@@ -18,7 +18,7 @@ For more information you can use demo plugins.
 ### How to write plugin
 1. Use [NuGet package](https://www.nuget.org/packages/AimpSDK/)
 2. Optional. Install [Command Task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.CommandTaskRunner) extension for Visual Studio
-3. Remember that a aimp_dotnet.dll this is a entry point for AIMP plugin. And it shuld be called as your plugin. You can use CopyPlugin.ps1 script to get correct plugin structure.
+3. Remember that a aimp_dotnet.dll this is a entry point for AIMP plugin. And it should be called as your plugin. You can use CopyPlugin.ps1 script to get correct plugin structure.
 
 ## How to build
 ### Prerequisites
