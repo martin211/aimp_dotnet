@@ -10,11 +10,6 @@ variables:
   output_path: "$CI_PROJECT_DIR/output/"
   output_packages_path: "$output_path/packages/"
 
-cache:
-   key: ${CI_COMMIT_REF_SLUG}
-   paths:
-     - src/packages/
-     - .tmp/
 
 before_script:
   - cd $build_path
@@ -34,7 +29,7 @@ sonarqube:
   variables:
     GIT_STRATEGY: "none"
   script:
-    - powershell -File $CI_PROJECT_DIR\build.ps1 SonarQube --Configuation $Configuration --SonarUrl $SONAR_URL --SonarUser $SONAR_USER --SonarProjectKey $SONAR_PROJECT_KEY --SonarProjectName $SONAR_PROJECT_NAME
+    - powershell -File $CI_PROJECT_DIR\build.ps1 SonarQube --Configuation $Configuration --SonarUrl $SONAR_URL --SonarUser $SONAR_USER --SonarProjectKey $SONAR_PROJECT_KEY --SonarProjectName $SONAR_PROJECT_NAME --RequestSourceBranch $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME --RequestTargetBranch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME --RequestId $CI_MERGE_REQUEST_IID
 
 integrationTests:
   stage: test
@@ -71,6 +66,7 @@ artifacts:
     paths:
       - output/
       - tests/
+    expire_in: 1 week
 
 deploy_release:
   stage: deploy

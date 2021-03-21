@@ -60,6 +60,10 @@
       <Project>{154c60cf-2dae-4227-ad2c-cce7c63cde5a}</Project>
       <Name>AIMP.SDK</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\aimp_dotnet\Aimp_DotNetPlugin.vcxproj">
+      <Project>{8d30d1f5-1925-4926-83f2-f0b21b45646f}</Project>
+      <Name>aimp_dotnet</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

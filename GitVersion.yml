@@ -1,9 +1,22 @@
-next-version: 4.60.2167
 assembly-versioning-scheme: MajorMinorPatchTag
 assembly-file-versioning-scheme: MajorMinorPatchTag
-mode: Mainline
 branches:
-  release:
-    regex: ^release?[/-]
-    tag: ''
-    increment: Patch
+  master:
+    regex: master
+    mode: ContinuousDelivery
+    tag: stable
+    increment: None
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: false
+  bugfix:
+    regex: ^bugfix?[/-]|^feature?[/]
+    mode: ContinuousDeployment
+    tag: preview
+    increment: None
+    prevent-increment-of-merged-branch-version: false
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: false
+    source-branches: ['master', 'develop', 'feature', 'bugfix']

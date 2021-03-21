@@ -42,6 +42,10 @@ partial class Build : NukeBuild
     [Parameter] readonly string Source;
     [Parameter] readonly string NugetApiKey;
 
+    [Parameter] readonly string RequestSourceBranch;
+    [Parameter] readonly string RequestTargetBranch;
+    [Parameter] readonly string RequestId;
+
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath TestsDirectory => RootDirectory / "tests";
     AbsolutePath OutputDirectory => RootDirectory / "output";
@@ -139,6 +143,14 @@ partial class Build : NukeBuild
         }
 
         configuration = configuration.SetProjectBaseDir(SourceDirectory);
+
+        if (!string.IsNullOrWhiteSpace(RequestSourceBranch) && !string.IsNullOrWhiteSpace(RequestTargetBranch))
+        {
+            configuration = configuration
+                .SetPullRequestBase(RequestSourceBranch)
+                .SetPullRequestBranch(RequestTargetBranch)
+                .SetPullRequestKey(RequestId);
+        }
 
         var path = ToolPathResolver.GetPackageExecutable(
                 packageId: "dotnet-sonarscanner|MSBuild.SonarQube.Runner.Tool",

@@ -10,6 +10,9 @@
 // ----------------------------------------------------
 
 using System;
+using System.IO;
+using System.Threading;
+using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.Player;
 
 namespace AIMP.SDK
@@ -84,6 +87,9 @@ namespace AIMP.SDK
         {
             PluginId = unId;
             AimpPlayer = player;
+            var path = Path.GetDirectoryName(GetType().Assembly.Location);
+            AppDomain.CurrentDomain.SetData("APPBASE", path);
+            Environment.CurrentDirectory = path;
             Initialize();
         }
     }

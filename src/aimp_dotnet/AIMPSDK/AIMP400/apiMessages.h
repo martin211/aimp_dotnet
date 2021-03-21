@@ -1,10 +1,10 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v4.50 build 2000               */
+/*               v4.70 build 2200               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2017                 */
+/*                (C) 2006-2020                 */
 /*                 www.aimp.ru                  */
 /*                                              */
 /*            Mail: support@aimp.ru             */
@@ -16,10 +16,11 @@
 
 #include <windows.h>
 #include <unknwn.h>
+#include "apiFileManager.h"
 
-//==============================================================================
+// ---------------------------------------------------------------------------------------------------------------------
 // Commands
-//==============================================================================
+// ---------------------------------------------------------------------------------------------------------------------
 
 const int AIMP_MSG_CMD_BASE = 0;
 
@@ -33,7 +34,7 @@ const int AIMP_MSG_CMD_STATE_GET = AIMP_MSG_CMD_BASE + 1;
 //    HiWord: 0 - Popup near system tray,
 //            1 - Popup near mouse cursor
 // AParam2: unused
-const int AIMP_MSG_CMD_QFI_PLAYBACK_TRACK = AIMP_MSG_CMD_BASE + 2;
+const int AIMP_MSG_CMD_QFI_PLAYING_TRACK = AIMP_MSG_CMD_BASE + 2;
 
 // Show custom text in display of RunningLine or Text elements
 // AParam1: 0 - Hide text automaticly after 2 seconds
@@ -128,9 +129,9 @@ const int AIMP_MSG_CMD_BOOKMARKS_ADD = AIMP_MSG_CMD_BASE + 26;
 // AParam1, AParam2: unused
 const int AIMP_MSG_CMD_PLS_RESCAN  = AIMP_MSG_CMD_BASE + 27;
 
-// Jump focus in playlist to now playing file
+// Jump focus in playlist to playing file
 // AParam1, AParam2: unused
-const int AIMP_MSG_CMD_PLS_FOCUS_PLAYABLE = AIMP_MSG_CMD_BASE + 28;
+const int AIMP_MSG_CMD_PLS_FOCUS_PLAYING = AIMP_MSG_CMD_BASE + 28;
 
 // Delete all items from active playlist
 // AParam1, AParam2: unused
@@ -210,9 +211,9 @@ const int AIMP_MSG_CMD_ADD_PLAYLISTS = AIMP_MSG_CMD_BASE + 48;
 // AParam1, AParam2: unused
 const int AIMP_MSG_CMD_ADD_URL = AIMP_MSG_CMD_BASE + 49;
 
-// Execute "Quick Tag Editor" for now playing file
+// Execute "Quick Tag Editor" for playing file
 // AParam1, AParam2: unused
-const int AIMP_MSG_CMD_QTE_PLAYABLE_TRACK = AIMP_MSG_CMD_BASE + 51;
+const int AIMP_MSG_CMD_QTE_PLAYING_TRACK = AIMP_MSG_CMD_BASE + 51;
 
 // Show Advanced Search Dialog
 // AParam1, AParam2: unused
@@ -239,9 +240,13 @@ const int AIMP_MSG_CMD_VISUAL_STOP = AIMP_MSG_CMD_BASE + 58;
 // AParam1, AParam2: unused
 const int AIMP_MSG_CMD_PLS_RESCAN_SELECTED  = AIMP_MSG_CMD_BASE + 59;
 
-//==============================================================================
+// Extended control of "Quick File Info" card that displaying information about playing file
+// AParam2: pointer to TAIMPQuickFileInfoParams
+const int AIMP_MSG_CMD_QFI = AIMP_MSG_CMD_BASE + 60;
+
+// ---------------------------------------------------------------------------------------------------------------------
 // Properties
-//==============================================================================
+// ---------------------------------------------------------------------------------------------------------------------
 
 const int AIMP_MSG_PROPERTY_BASE = 0x1000;
 
@@ -431,9 +436,10 @@ const int AIMP_MSG_PROPERTY_CROSSMIXING = AIMP_MSG_PROPERTY_BASE + 34;
 //   1 - Jump to next track and stop playback
 //   2 - Jump to next track and pause playback
 const int AIMP_MSG_PROPERTY_ACTION_ON_END_OF_TRACK = AIMP_MSG_PROPERTY_BASE + 35;
-//==============================================================================
+
+// ---------------------------------------------------------------------------------------------------------------------
 // Events
-//==============================================================================
+// ---------------------------------------------------------------------------------------------------------------------
 
 const int AIMP_MSG_EVENT_BASE = 0x2000;
 
@@ -507,9 +513,9 @@ const int AIMP_MSG_EVENT_LOADED = AIMP_MSG_EVENT_BASE + 18;
 // AParam1, AParam2: unused
 const int AIMP_MSG_EVENT_TERMINATING = AIMP_MSG_EVENT_BASE + 19;
 
-// Called, when information about playable file changed (album, title, album art and etc)
+// Called, when information about playing file changed (album, title, album art and etc)
 // AParam1, AParam2: unused
-const int AIMP_MSG_EVENT_PLAYABLE_FILE_INFO	= AIMP_MSG_EVENT_BASE + 20;
+const int AIMP_MSG_EVENT_PLAYING_FILE_INFO = AIMP_MSG_EVENT_BASE + 20;
 
 // High resolution version of the AIMP_MSG_EVENT_PLAYER_UPDATE_POSITION event
 // Called few times per second by a timer (is about 10 fps, real FPS is depended from some internal and external factors)
@@ -521,7 +527,32 @@ const int AIMP_MSG_EVENT_PLAYER_UPDATE_POSITION_HR = AIMP_MSG_EVENT_BASE + 21;
 // AParam2: Pointer to WideChar array, can be = nil (ReadOnly!)
 const int AIMP_MSG_EVENT_EQUALIZER_PRESET_NAME = AIMP_MSG_EVENT_BASE + 22;
 
-//==============================================================================
+// ---------------------------------------------------------------------------------------------------------------------
+// Quick File Info
+// ---------------------------------------------------------------------------------------------------------------------
+
+const int AIMP_QFI_ANIMATION_NONE = 0;
+const int AIMP_QFI_ANIMATION_FADE = 1;
+const int AIMP_QFI_SW_HIDE = 0;
+const int AIMP_QFI_SW_SHOW = 1;
+
+#pragma pack(push, 1)
+struct TAIMPQuickFileInfoParams
+{
+	int cbSize; // struct size
+	int CmdShow; // refer to AIMP_QFI_SW_XXX
+	int AnimationType; // show / hide animation type, refer to AIMP_QFI_ANIMATION_XXX
+	int AnimationTime; // animation time in milliseconds
+	int DisplayTime; // in milliseconds, 0 - use default display time
+	byte Opacity; // 0..100%
+	IAIMPFileInfo* FileInfo; // file information to display
+};
+#pragma pack(pop)
+typedef TAIMPQuickFileInfoParams* PAIMPQuickFileInfoParams;
+
+// ---------------------------------------------------------------------------------------------------------------------
+// General
+// ---------------------------------------------------------------------------------------------------------------------
 
 static const GUID IID_IAIMPMessageHook = {0xFC6FB524, 0xA959, 0x4089, 0xAA, 0x0A, 0xEA, 0x40, 0xAB, 0x73, 0x74, 0xCD};
 static const GUID IID_IAIMPServiceMessageDispatcher = {0x41494D50, 0x5372, 0x764D, 0x73, 0x67, 0x44, 0x73, 0x70, 0x72, 0x00, 0x00};

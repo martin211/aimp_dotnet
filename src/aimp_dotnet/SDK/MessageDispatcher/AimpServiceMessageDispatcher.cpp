@@ -28,11 +28,7 @@ ActionResult AimpServiceMessageDispatcher::Send(AimpCoreMessageType message, int
 
     try {
         if (service != nullptr) {
-            HWND handle = nullptr;
-            result = CheckResult(service->Send(DWORD(message), static_cast<int>(param1), &handle));
-            if (result == ActionResultType::OK) {
-                param2 = IntPtr(handle);
-            }
+            result = CheckResult(service->Send(static_cast<DWORD>(message), static_cast<int>(param1), param2 != IntPtr::Zero ? param2.ToPointer() : nullptr));
         }
     }
     finally {

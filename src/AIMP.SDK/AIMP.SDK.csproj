@@ -107,6 +107,7 @@
     <Compile Include="Lyrics\IAimpServiceLyrics.cs" />
     <Compile Include="MessageDispatcher\IAimpMessageHook.cs" />
     <Compile Include="MessageDispatcher\IAimpServiceMessageDispatcher.cs" />
+    <Compile Include="MessageDispatcher\PointerExtension.cs" />
     <Compile Include="MusicLibrary\DataStorage\AimpDataField.cs" />
     <Compile Include="Objects\IAimpString.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilter.cs" />
