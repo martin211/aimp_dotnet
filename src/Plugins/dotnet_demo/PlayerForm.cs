@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using AIMP.SDK;
 using AIMP.SDK.MessageDispatcher;
@@ -39,7 +40,9 @@ namespace DemoPlugin
 
             coreMessage.OnCoreMessage += (message, param1, param2) =>
             {
-                if (message == AimpCoreMessageType.EventPlayableFileInfo)
+                System.Diagnostics.Debug.WriteLine($"message: {message}, param1: {(AimpCoreMessageType)param1}, param2: {param2}");
+
+                if (message == AimpCoreMessageType.EventPlayingFileInfo)
                 {
                     var cover = _aimpPlayer.CurrentFileInfo.AlbumArt;
                     if (cover != null)
@@ -63,6 +66,17 @@ namespace DemoPlugin
                             Text = "State: playing";
                             break;
                     }
+                }
+                else if (message == AimpCoreMessageType.EventPropertyValue)
+                {
+                    if (param1 == (int) AimpCoreMessageType.PropertyStayOnTop)
+                    {
+                        var val = Convert.ToBoolean(Marshal.ReadByte(param2));
+                    }
+                }
+                else if (message == AimpCoreMessageType.PropertyStayOnTop)
+                {
+                    var val2 = param2.ToBool();
                 }
 
                 return ActionResultType.OK;
@@ -318,6 +332,14 @@ namespace DemoPlugin
                     AddPlayListTab(result.Result.Id, result.Result.Name, result.Result);
                 }
             }
+        }
+
+        private bool _onTop = false;
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            var val = !_onTop;
+            _aimpPlayer.ServiceMessageDispatcher.Send(AimpCoreMessageType.PropertyStayOnTop, (int)AimpCoreMessageType.PropertyValueSet, val.ToPointer());
         }
     }
 }

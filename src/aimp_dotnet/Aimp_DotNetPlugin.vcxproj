@@ -136,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimpMemoryManager.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiDepricated.h" />
     <ClInclude Include="SDK\AimpProgressCallback.h" />
     <ClInclude Include="SDK\AimpErrorInfo.h" />
     <ClInclude Include="SDK\AlbumArt\AimpServiceAlbumArtCache.h" />
