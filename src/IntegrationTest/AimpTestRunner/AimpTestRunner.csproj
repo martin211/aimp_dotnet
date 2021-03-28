@@ -69,6 +69,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -87,6 +88,7 @@
     <Compile Include="Engine\AimpNUnitFrameworkDriver.cs" />
     <Compile Include="UnitTests\AimpCoreTests.cs" />
     <Compile Include="UnitTests\AimpErrorInfoTests.cs" />
+    <Compile Include="UnitTests\AimpImageUnitTests.cs" />
     <Compile Include="UnitTests\AimpIntegrationTest.cs" />
     <Compile Include="UnitTests\AimpServiceConfig\AimpServiceConfigTests.cs" />
     <Compile Include="UnitTests\AimpTestContext.cs" />

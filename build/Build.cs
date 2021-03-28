@@ -9,6 +9,7 @@ using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
+using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
@@ -39,6 +40,11 @@ partial class Build : NukeBuild
     [Parameter] readonly string SonarProjectName;
 
     [Parameter] readonly string Source;
+    [Parameter] readonly string NugetApiKey;
+
+    [Parameter] readonly string RequestSourceBranch;
+    [Parameter] readonly string RequestTargetBranch;
+    [Parameter] readonly string RequestId;
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath TestsDirectory => RootDirectory / "tests";
@@ -138,6 +144,14 @@ partial class Build : NukeBuild
 
         configuration = configuration.SetProjectBaseDir(SourceDirectory);
 
+        if (!string.IsNullOrWhiteSpace(RequestSourceBranch) && !string.IsNullOrWhiteSpace(RequestTargetBranch))
+        {
+            configuration = configuration
+                .SetPullRequestBase(RequestSourceBranch)
+                .SetPullRequestBranch(RequestTargetBranch)
+                .SetPullRequestKey(RequestId);
+        }
+
         var path = ToolPathResolver.GetPackageExecutable(
                 packageId: "dotnet-sonarscanner|MSBuild.SonarQube.Runner.Tool",
                 packageExecutable: "SonarScanner.MSBuild.exe",
@@ -207,10 +221,7 @@ partial class Build : NukeBuild
 
     Target Publish => _ => _
     .Requires(() => Configuration.Equals(Configuration.Release))
-    .Requires(() => GitRepository.Branch.EqualsOrdinalIgnoreCase(MasterBranch) ||
-                    GitRepository.Branch.EqualsOrdinalIgnoreCase(DevelopBranch) ||
-                    GitRepository.Branch.EqualsOrdinalIgnoreCase(ReleaseBranchPrefix) ||
-                    GitRepository.Branch.EqualsOrdinalIgnoreCase(HotfixBranchPrefix))
+    .Requires(() => NugetApiKey)
     .Executes(() =>
     {
         Logger.Info("Deploying Nuget packages");
@@ -218,6 +229,7 @@ partial class Build : NukeBuild
             .Where(c => !c.EndsWith("symbols.nupkg"))
             .ForEach(c => NuGetTasks.NuGetPush(s => s
                 .SetTargetPath(c)
+                .SetApiKey(NugetApiKey)
                 .SetSource(Source)));
     });
 

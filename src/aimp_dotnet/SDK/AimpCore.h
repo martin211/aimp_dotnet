@@ -12,6 +12,7 @@
 #include "Action/AimpAction.h"
 #include "Lyrics/AimpLyrics.h"
 #include "Menu/AimpMenuItem.h"
+#include "Objects/AimpImage.h"
 
 namespace AIMP {
     namespace SDK {
@@ -158,6 +159,18 @@ namespace AIMP {
                     }
 
                     return gcnew AimpActionResult<IAimpObject^>(result, m);
+                }
+
+                if (t == IAimpImage::typeid) {
+                    IAIMPImage2* obj = nullptr;
+                    IAimpImage^ img = nullptr;
+
+                    const auto res = Utils::CheckResult(core->CreateObject(IID_IAIMPImage2, reinterpret_cast<void**>(&obj)));
+                    if (res == ActionResultType::OK) {
+                        img = gcnew AimpImage(obj, _aimpCore);
+                    }
+
+                    return gcnew AimpActionResult<IAimpObject^>(res, img);
                 }
 
                 return nullptr;

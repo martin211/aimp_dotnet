@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Xsl;
@@ -157,7 +158,22 @@ partial class Build
                     CopyFileToDirectory(testResultFile, OutputDirectory);
                     CopyFileToDirectory(testResultLogFile, OutputDirectory);
 
-                    Logger.Info(File.ReadAllText(testResultLogFile));
+                    var content = File.ReadAllText(testResultLogFile);
+                    Regex r = new Regex(@"Failed:\s(\d*)");
+                    var matches = r.Matches(content);
+
+                    if (matches.Count > 0 && matches[0].Groups.Count >= 1)
+                    {
+                        if (int.TryParse(matches[0].Groups[1].Value, out var failed))
+                        {
+                            if (failed > 0)
+                            {
+                                ControlFlow.Fail($"Failed test: {failed}");
+                            }
+                        }
+                    }
+
+                    Logger.Info(content);
 
                     if (IsJUnit)
                     {
