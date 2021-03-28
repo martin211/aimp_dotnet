@@ -152,6 +152,8 @@ public:
         HRESULT res = Core->RegisterExtension(IID_IAIMPExtensionFileSystem, fs);
         DBOUT("RegisterExtension result " << res);
 
+        ImageTest(Core);
+
         return S_OK;
     }
 
@@ -194,5 +196,30 @@ public:
 
             core->RegisterExtension(IID_IAIMPServiceMenuManager, item);
         }
+    }
+
+    void ImageTest(IAIMPCore* core) {
+        IAIMPImage2* img = nullptr;
+        SIZE* s = new SIZE();
+        IAIMPString* fn = nullptr;
+        IAIMPString* fn2 = nullptr;
+
+        HRESULT r1 = core->CreateObject(IID_IAIMPString, (void**)&fn);
+        core->CreateObject(IID_IAIMPString, (void**)&fn2);
+        HRESULT r2 = core->CreateObject(IID_IAIMPImage2, (void**)&img);
+
+        HRESULT r3 = fn->SetData(L"z:/AIMP/aimp_dotnet/resources/integrationTests/img1.jpg", 56);
+        fn2->SetData(L"z:/AIMP/aimp_dotnet/resources/integrationTests/img2.bmp", 56);
+
+        HRESULT r4 = img->LoadFromFile(fn);
+        HRESULT r5 = img->GetSize(s);
+        const auto x = s->cx;
+        const auto y = s->cy;
+
+        IAIMPImage* cloneImg = nullptr;
+        //core->CreateObject(IID_IAIMPImage, (void**)&cloneImg);
+
+        //HRESULT r6 = img->Clone(&cloneImg);
+        img->SaveToFile(fn2, AIMP_IMAGE_FORMAT_BMP);
     }
 };

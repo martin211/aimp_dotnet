@@ -26,3 +26,4 @@
 #include "AIMPSDK\AIMP400\apiVisuals.h"
 #include "AIMPSDK\AIMP400\apiMusicLibrary.h"
 #include "AIMPSDK\AIMP400\apiTagEditor.h"
+#include "AIMPSDK\AIMP400\apiDepricated.h"

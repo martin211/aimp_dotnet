@@ -51,7 +51,7 @@ namespace Aimp.TestRunner.UnitTests
             }
             finally
             {
-                assert.Validate();
+                assert.Validate(testClass);
             }
         }
 
@@ -97,18 +97,32 @@ namespace Aimp.TestRunner.UnitTests
             return assert;
         }
 
-        public static TrueAssert IsTrue(this AimpIntegrationTest testClass, bool value)
+        public static TrueAssert IsTrue(this AimpIntegrationTest testClass, bool value, string message = "")
         {
-            var assert = new TrueAssert(null, value, null);
-            testClass.Asserts.Add(assert);
-            return assert;
+            var assert = new TrueAssert(null, value, message);
+            try
+            {
+                AddAssertion(testClass, assert);
+                return assert;
+            }
+            finally
+            {
+                assert.Validate(testClass);
+            }
         }
 
         public static FalseAssert IsFalse(this AimpIntegrationTest testClass, bool value)
         {
             var assert = new FalseAssert(null, value, null);
-            testClass.Asserts.Add(assert);
-            return assert;
+            try
+            {
+                AddAssertion(testClass, assert);
+                return assert;
+            }
+            finally
+            {
+                assert.Validate(testClass);
+            }
         }
 
         public static TException Throw<TException>(this AimpIntegrationTest testClass, TestDelegate action)
@@ -180,7 +194,7 @@ namespace Aimp.TestRunner.UnitTests
 
         private static void AddAssertion(AimpIntegrationTest testClass, AimpAssert assertion)
         {
-            if (_testExecutionContext.CurrentResult.FailCount == 0)
+            if (_testExecutionContext.CurrentResult.FailCount == 0 || testClass.IsValid)
             {
                 testClass.Asserts.Add(assertion);
             }
@@ -189,7 +203,7 @@ namespace Aimp.TestRunner.UnitTests
 
     public abstract class AimpAssert
     {
-        public abstract void Validate();
+        public abstract void Validate(AimpIntegrationTest testClass);
     }
 
     public abstract class MemberAssert : MemberAssert<object>
@@ -202,7 +216,7 @@ namespace Aimp.TestRunner.UnitTests
             Message = message;
         }
 
-        public abstract override void Validate();
+        public abstract override void Validate(AimpIntegrationTest testClass);
 
     }
 
@@ -221,7 +235,7 @@ namespace Aimp.TestRunner.UnitTests
             Message = message;
         }
 
-        public abstract override void Validate();
+        public abstract override void Validate(AimpIntegrationTest testClass);
     }
 
     public class NotNullAssert : MemberAssert
@@ -230,7 +244,7 @@ namespace Aimp.TestRunner.UnitTests
         {
         }
 
-        public override void Validate()
+        public override void Validate(AimpIntegrationTest testClass)
         {
             Assert.NotNull(Value, FieldName);
         }
@@ -242,7 +256,7 @@ namespace Aimp.TestRunner.UnitTests
         {
         }
 
-        public override void Validate()
+        public override void Validate(AimpIntegrationTest testClass)
         {
             Assert.Null(Value, FieldName);
         }
@@ -258,7 +272,7 @@ namespace Aimp.TestRunner.UnitTests
             Expected = expected;
         }
 
-        public override void Validate()
+        public override void Validate(AimpIntegrationTest testClass)
         {
             try
             {
@@ -289,7 +303,7 @@ namespace Aimp.TestRunner.UnitTests
             Expected = expected;
         }
 
-        public override void Validate()
+        public override void Validate(AimpIntegrationTest testClass)
         {
             Assert.AreNotEqual(Expected, Value, Message ?? $"Expected '{Expected}' but was '{Value}'");
         }
@@ -312,7 +326,7 @@ namespace Aimp.TestRunner.UnitTests
             }
         }
 
-        public override void Validate()
+        public override void Validate(AimpIntegrationTest testClass)
         {
             var expectedType = typeof(TException);
             Assert.That(CatchedException, new ExceptionTypeConstraint(expectedType));
@@ -326,9 +340,17 @@ namespace Aimp.TestRunner.UnitTests
         {
         }
 
-        public override void Validate()
+        public override void Validate(AimpIntegrationTest testClass)
         {
-            Assert.True(Value, $"Expected 'true' but was '{Value}'");
+            try
+            {
+                Assert.True(Value, $"Expected 'true' but was '{Value}'");
+            }
+            catch (AssertionException)
+            {
+                testClass.IsValid = false;
+                throw;
+            }
         }
     }
 
@@ -339,15 +361,27 @@ namespace Aimp.TestRunner.UnitTests
         {
         }
 
-        public override void Validate()
+        public override void Validate(AimpIntegrationTest testClass)
         {
-            Assert.False(Value, $"Expected 'False' but was '{Value}'");
+            try
+            {
+                Assert.False(Value, $"Expected 'False' but was '{Value}'");
+            }
+            catch (AssertionException)
+            {
+                testClass.IsValid = false;
+                throw;
+            }
         }
     }
 
     public abstract class AimpIntegrationTest
     {
+        public bool IsValid { get; set; } = true;
+
         internal string RootPath { get; }
+
+        internal string TmpPath { get; }
 
         internal string PlaylistPath { get; }
 
@@ -381,6 +415,22 @@ namespace Aimp.TestRunner.UnitTests
             TrackPath3 = Path.Combine(RootPath, "resources", "03_atmosphere.mp3");
             TrackPath4 = Path.Combine(RootPath, "resources", "04_loop-mix.mp3");
             TrackUrl1 = "https://freesound.org/data/previews/514/514101_4397472-lq.mp3";
+            TmpPath = Path.Combine(RootPath, "tmp");
+
+            if (Directory.Exists(TmpPath))
+            {
+                var files = Directory.GetFiles(TmpPath);
+
+                foreach (var file in files)
+                {
+                    File.SetAttributes(file, FileAttributes.Normal);
+                    File.Delete(file);
+                }
+
+                Directory.Delete(TmpPath, true);
+            }
+
+            Directory.CreateDirectory(TmpPath);
         }
 
         [OneTimeSetUp]
@@ -402,7 +452,7 @@ namespace Aimp.TestRunner.UnitTests
         {
             if (Asserts.Count > 0)
             {
-                Validate();
+                Validate(this);
             }
         }
 
@@ -434,11 +484,11 @@ namespace Aimp.TestRunner.UnitTests
             return res;
         }
 
-        internal void Validate()
+        internal void Validate(AimpIntegrationTest testClass)
         {
             foreach (var fieldValidator in Asserts)
             {
-                fieldValidator.Validate();
+                fieldValidator.Validate(testClass);
             }
         }
         

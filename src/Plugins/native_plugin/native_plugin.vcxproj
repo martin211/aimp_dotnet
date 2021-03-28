@@ -106,7 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\tools\copyplugin.ps1" />
-    <None Include="..\dotnet_visual\commands.json" />
+    <None Include="..\..\commands.json" />
     <None Include="AIMP_Exports.def" />
   </ItemGroup>
   <ItemGroup>
