@@ -36,7 +36,8 @@
     <ClCompile Include="SDK\Action\AimpAction.cpp" />
     <ClCompile Include="SDK\Action\AimpActionEvent.cpp" />
     <ClCompile Include="SDK\AimpObjectList.cpp" />
-    <ClCompile Include="SDK\AimpStream.cpp" />
+    <ClCompile Include="SDK\Objects\AimpMemoryStream.cpp" />
+    <ClCompile Include="SDK\Objects\AimpStream.cpp" />
     <ClCompile Include="SDK\AimpString.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpServiceAlbumArt.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.cpp" />
@@ -160,7 +161,8 @@
     <ClInclude Include="SDK\Lyrics\AimpServiceLyrics.h" />
     <ClInclude Include="SDK\MessageDispatcher\InternalAimpMessageHook.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiLyrics.h" />
-    <ClInclude Include="SDK\AimpStream.h" />
+    <ClInclude Include="SDK\Objects\AimpMemoryStream.h" />
+    <ClInclude Include="SDK\Objects\AimpStream.h" />
     <ClInclude Include="SDK\AimpString.h" />
     <ClInclude Include="SDK\MessageDispatcher\AimpServiceMessageDispatcher.h" />
     <ClInclude Include="SDK\MusicLibrary\Extension\Command\AimpDataStorageCommandAddFiles.h" />

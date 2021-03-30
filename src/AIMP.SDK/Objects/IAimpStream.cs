@@ -70,9 +70,9 @@ namespace AIMP.SDK
         /// </summary>
         /// <param name="buffer">The buffer to write data from.</param>
         /// <param name="count">The maximum number of bytes to write.</param>
-        /// <param name="writen">Parameter displays what bytes has been really written to the stream.
+        /// <param name="written">Parameter displays what bytes has been really written to the stream.
         /// This parameter is optional - can be null.</param>
         /// <returns>AimpActionResult.</returns>
-        AimpActionResult Write(byte[] buffer, int count, out int writen);
+        AimpActionResult Write(byte[] buffer, int count, out int written);
     }
 }
