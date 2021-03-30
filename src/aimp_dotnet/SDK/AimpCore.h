@@ -8,11 +8,11 @@
 #pragma once
 #include "AimpErrorInfo.h"
 #include "SDK/AimpExtensionBase.h"
-#include "AimpStream.h"
 #include "Action/AimpAction.h"
 #include "Lyrics/AimpLyrics.h"
 #include "Menu/AimpMenuItem.h"
 #include "Objects/AimpImage.h"
+#include "Objects/AimpMemoryStream.h"
 
 namespace AIMP {
     namespace SDK {
@@ -171,6 +171,18 @@ namespace AIMP {
                     }
 
                     return gcnew AimpActionResult<IAimpObject^>(res, img);
+                }
+
+                if (t == Objects::IAimpMemoryStream::typeid) {
+                    IAIMPMemoryStream* stream = nullptr;
+                    Objects::IAimpMemoryStream^ obj = nullptr;
+
+                    const auto res = Utils::CheckResult(core->CreateObject(IID_IAIMPMemoryStream, reinterpret_cast<void**>(&stream)));
+                    if (res == ActionResultType::OK) {
+                        obj = gcnew Objects::AimpMemoryStream(stream);
+                    }
+
+                    return gcnew AimpActionResult<IAimpObject^>(res, obj);
                 }
 
                 return nullptr;

@@ -104,7 +104,8 @@
     <Compile Include="IAimpExternalSettingsDialog.cs" />
     <Compile Include="IAimpObject.cs" />
     <Compile Include="IAimpObjectList.cs" />
-    <Compile Include="IAimpStream.cs" />
+    <Compile Include="Objects\IAimpMemoryStream.cs" />
+    <Compile Include="Objects\IAimpStream.cs" />
     <Compile Include="Lyrics\IAimpLyrics.cs" />
     <Compile Include="Lyrics\IAimpServiceLyrics.cs" />
     <Compile Include="MessageDispatcher\IAimpMessageHook.cs" />

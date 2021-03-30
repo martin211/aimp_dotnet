@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using AIMP.SDK;
 using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.Player;
@@ -51,7 +52,10 @@ namespace Aimp.TestRunner.UnitTests
             }
             finally
             {
-                assert.Validate(testClass);
+                if (testClass.IsValid)
+                {
+                    assert.Validate(testClass);
+                }
             }
         }
 

@@ -8,7 +8,6 @@
 #include "Stdafx.h"
 #include "InternalAimpPlaylistPreimage.h"
 #include "../AimpPlaylistPreimageListener.h"
-#include "../../AimpStream.h"
 #include "SDK/Threading/AimpTaskOwner.h"
 
 using namespace AIMP::SDK;
