@@ -65,7 +65,7 @@ namespace AIMP.SDK
     /// <summary>
     /// Interface IAimpObject
     /// </summary>
-    public interface IAimpObject
+    public interface IAimpObject : IDisposable
     {
     }
 }

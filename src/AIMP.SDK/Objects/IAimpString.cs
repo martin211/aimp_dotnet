@@ -64,7 +64,7 @@ namespace AIMP.SDK.Objects
     /// <summary>
     /// Interface IAimpString
     /// </summary>
-    public interface IAimpString
+    public interface IAimpString : IAimpObject
     {
         /// <summary>
         /// Gets the character.
