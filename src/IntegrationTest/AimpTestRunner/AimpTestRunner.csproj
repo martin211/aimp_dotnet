@@ -85,6 +85,7 @@
     <Compile Include="Engine\ExtendedTextWriter.cs" />
     <Compile Include="Engine\ResultReporter.cs" />
     <Compile Include="Engine\ResultSummary.cs" />
+    <Compile Include="Issues\Issue_37.cs" />
     <Compile Include="UnitTests\ActionManager\AimpServiceActionManagerTests.cs" />
     <Compile Include="Engine\AimpNUnit3FrameworkDriver.cs" />
     <Compile Include="Engine\AimpNUnitFrameworkDriver.cs" />

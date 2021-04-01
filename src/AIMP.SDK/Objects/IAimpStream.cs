@@ -21,7 +21,7 @@ namespace AIMP.SDK
     /// </summary>
     /// <seealso cref="System.IDisposable" />
     /// <seealso cref="AIMP.SDK.IAimpObject" />
-    public interface IAimpStream : IDisposable, IAimpObject
+    public interface IAimpStream : IAimpObject
     {
         /// <summary>
         /// Gets the size of stream, in bytes.

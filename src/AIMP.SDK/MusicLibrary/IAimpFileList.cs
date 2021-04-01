@@ -14,7 +14,7 @@ namespace AIMP.SDK.MusicLibrary
     /// <summary>
     /// Represents the pair {File name, ID} for data provider.
     /// </summary>
-    public interface IAimpFileList
+    public interface IAimpFileList : IAimpObject
     {
         /// <summary>
         /// Adds new file to the list.
