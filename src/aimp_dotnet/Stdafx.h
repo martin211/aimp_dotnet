@@ -7,11 +7,6 @@
 
 #pragma once
 
-//using namespace System::Runtime::CompilerServices;
-////using namespace System;
-//
-//[assembly:InternalsVisibleTo("AimpTestRunner")];
-
 using namespace AIMP::SDK;
 
 typedef AimpActionResult^ ActionResult;
@@ -39,22 +34,6 @@ typedef AimpActionResult<MenuManager::IAimpMenuItem^>^ MenuItemResult;
 #define RETURN_TYPED_RESULT(type, value1, value2) gcnew AimpActionResult<type^>(value1, value2)
 
 
-//-V122_NOPTR
-
-#ifdef _DEBUG
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
-#endif  // _DEBUG
-
 #include <windows.h>
-#include <exception>
 #include "AimpSdk.h"
-
-
-#ifdef _DEBUG
-#ifndef DBG_NEW
-#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-#define new DBG_NEW
-#endif
-#endif  // _DEBUG
+#include "vcclr.h"

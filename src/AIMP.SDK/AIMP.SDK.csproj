@@ -67,6 +67,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="IAimpDPIAware.cs" />
     <Compile Include="IAimpErrorInfo.cs" />
+    <Compile Include="Objects\IAimpFileStream.cs" />
     <Compile Include="Objects\IAimpImage.cs" />
     <Compile Include="IAimpLogger.cs" />
     <Compile Include="IAimpProgressCallback.cs" />

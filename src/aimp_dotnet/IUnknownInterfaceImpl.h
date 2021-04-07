@@ -7,9 +7,6 @@
 
 #pragma once
 
-#include <Unknwn.h>
-
-//! Helper implements IUnknown interface.
 template <typename T>
 class IUnknownInterfaceImpl : public T
 {

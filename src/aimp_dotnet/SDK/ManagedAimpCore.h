@@ -6,8 +6,6 @@
 // ----------------------------------------------------
 
 #pragma once
-#include <Unknwnbase.h>
-#include "AimpSdk.h"
 #include "FileManager/Extensions/InternalAimpExtensionFileFormat.h"
 #include "MusicLibrary/Extension/AimpExtensionDataStorage.h"
 #include "Playback/AimpExtensionPlaybackQueue.h"
@@ -18,10 +16,8 @@
 #include "SDK\PlayList\AimpExtensionPlaylistManagerListener.h"
 #include "SDK\Visuals\AimpExtensionEmbeddedVisualization.h"
 #include "SDK\Visuals\AimpExtensionCustomVisualization.h"
-#include "SDK\MusicLibrary\InternalAimpGroupingTreeDataProvider.h"
 #include "SDK\FileManager\Extensions\InternalAimpExtensionFileInfoProvider.h"
 #include "SDK\FileManager\Extensions\InternalAimpExtensionFileSystem.h"
-#include "SDK\Visuals\AimpServiceVisualizations.h"
 #include "SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.h"
 #include "SDK\Lyrics\AimpExtensionLyricsProvider.h"
 

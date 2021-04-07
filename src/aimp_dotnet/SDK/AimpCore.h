@@ -7,10 +7,10 @@
 
 #pragma once
 #include "AimpErrorInfo.h"
-#include "SDK/AimpExtensionBase.h"
 #include "Action/AimpAction.h"
 #include "Lyrics/AimpLyrics.h"
 #include "Menu/AimpMenuItem.h"
+#include "Objects/AimpFileStream.h"
 #include "Objects/AimpImage.h"
 #include "Objects/AimpMemoryStream.h"
 

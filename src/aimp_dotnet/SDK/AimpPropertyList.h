@@ -6,7 +6,6 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "IUnknownInterfaceImpl.h"
 
 class AimpPropertyList : public IAIMPPropertyList, IAIMPPropertyList2 {
 public:

@@ -20,12 +20,12 @@
 #include "TMyMusicFileSystem.h"
 
 
-#define DBOUT( s )            \
-{                             \
-   std::wostringstream os_;    \
-   os_ << s;                   \
-   OutputDebugStringW( os_.str().c_str() );  \
-}
+//#define DBOUT( s )            \
+//{                             \
+//   std::wostringstream os_;    \
+//   os_ << s;                   \
+//   OutputDebugStringW( os_.str().c_str() );  \
+//}
 
 class AimpTask : public IUnknownInterfaceImpl<IAIMPTask> {
 public:
@@ -54,7 +54,7 @@ public:
     }
 
     virtual void WINAPI Execute(IAIMPTaskOwner* Owner) {
-        DBOUT("Tasl execute");
+        
     }
 };
 
@@ -68,7 +68,6 @@ public:
     }
 
     virtual void WINAPI OnExecute(IUnknown* Data) {
-        System::Diagnostics::Debugger::Launch();
 
         System::String^ folder = System::Environment::GetFolderPath(System::Environment::SpecialFolder::MyMusic);
         gcroot<array<System::String^>^> arr = System::IO::Directory::GetFiles(folder, "*.mp3");
@@ -148,12 +147,9 @@ public:
         RegisterMenu(Core);
 
         IUnknown* fs = (IAIMPExtensionFileSystem*)new TMyMusicFileSystem();
-
         HRESULT res = Core->RegisterExtension(IID_IAIMPExtensionFileSystem, fs);
-        DBOUT("RegisterExtension result " << res);
-
         ImageTest(Core);
-
+        FileStreamTest(Core);
         return S_OK;
     }
 
@@ -221,5 +217,17 @@ public:
 
         //HRESULT r6 = img->Clone(&cloneImg);
         img->SaveToFile(fn2, AIMP_IMAGE_FORMAT_BMP);
+    }
+
+    void FileStreamTest(IAIMPCore* core) {
+        IAIMPServiceFileStreaming* service = nullptr;
+        IAIMPString* s = nullptr;
+        IAIMPStream* stream = nullptr;
+        core->CreateObject(IID_IAIMPString, (void**)&s);
+        core->QueryInterface(IID_IAIMPServiceFileStreaming, (void**)&service);
+        s->SetData(L"z:/AIMP/aimp_dotnet/resources/integrationTests/01_atmosphere.mp3", 65);
+        service->CreateStreamForFile(s, AIMP_SERVICE_FILESTREAMING_FLAG_READWRITE, -1, -1, &stream);
+        IAIMPString* fn = nullptr;
+        ((IAIMPFileStream*)stream)->GetFileName(&fn);
     }
 };

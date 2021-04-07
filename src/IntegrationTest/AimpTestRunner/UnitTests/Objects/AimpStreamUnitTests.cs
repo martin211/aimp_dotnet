@@ -24,7 +24,7 @@ namespace Aimp.TestRunner.UnitTests.Objects
         public void Stream_Write_OK()
         {
             var res = Player.Core.CreateAimpObject<IAimpStream>();
-            this.AreEqual(res.ResultType, ActionResultType.OK);
+            this.AreEqual(ActionResultType.OK, res.ResultType);
 
             if (!IsValid)
             {
@@ -39,7 +39,7 @@ namespace Aimp.TestRunner.UnitTests.Objects
             using var stream = res.Result;
             var res2 = stream.Write(buf, buf.Length, out var written);
 
-            this.AreEqual(res2.ResultType, ActionResultType.OK);
+            this.AreEqual(ActionResultType.OK, res2.ResultType);
             this.AreEqual(buf.Length, written);
         }
 
@@ -48,7 +48,7 @@ namespace Aimp.TestRunner.UnitTests.Objects
         public void Stream_GetSize_OK()
         {
             var res = Player.Core.CreateAimpObject<IAimpStream>();
-            this.AreEqual(res.ResultType, ActionResultType.OK);
+            this.AreEqual(ActionResultType.OK, res.ResultType);
 
             if (!IsValid)
             {
@@ -62,7 +62,7 @@ namespace Aimp.TestRunner.UnitTests.Objects
 
             using var stream = res.Result;
             var res2 = stream.Write(buf, buf.Length, out var written);
-            this.AreEqual(res2.ResultType, ActionResultType.OK);
+            this.AreEqual(ActionResultType.OK, res2.ResultType);
             this.AreEqual(buf.Length, stream.GetSize());
         }
 
@@ -71,7 +71,7 @@ namespace Aimp.TestRunner.UnitTests.Objects
         public void Stream_Read_OK()
         {
             var res = Player.Core.CreateAimpObject<IAimpStream>();
-            this.AreEqual(res.ResultType, ActionResultType.OK);
+            this.AreEqual(ActionResultType.OK, res.ResultType);
 
             if (!IsValid)
             {
@@ -96,7 +96,7 @@ namespace Aimp.TestRunner.UnitTests.Objects
         public void Stream_Seek_OK()
         {
             var res = Player.Core.CreateAimpObject<IAimpStream>();
-            this.AreEqual(res.ResultType, ActionResultType.OK);
+            this.AreEqual(ActionResultType.OK, res.ResultType);
 
             if (!IsValid)
             {
@@ -125,7 +125,7 @@ namespace Aimp.TestRunner.UnitTests.Objects
         public void Stream_GetPosition_OK()
         {
             var res = Player.Core.CreateAimpObject<IAimpStream>();
-            this.AreEqual(res.ResultType, ActionResultType.OK);
+            this.AreEqual(ActionResultType.OK, res.ResultType);
 
             if (!IsValid)
             {
@@ -152,7 +152,7 @@ namespace Aimp.TestRunner.UnitTests.Objects
         public void MemoryStream_GetData_OK()
         {
             var res = Player.Core.CreateAimpObject<IAimpMemoryStream>();
-            this.AreEqual(res.ResultType, ActionResultType.OK);
+            this.AreEqual(ActionResultType.OK, res.ResultType);
             if (!IsValid)
             {
                 return;
@@ -166,7 +166,7 @@ namespace Aimp.TestRunner.UnitTests.Objects
             stream.Write(buf, buf.Length, out _);
             stream.Seek(0, SeekOrigin.Begin);
             var getDataResult = stream.GetData();
-            this.AreEqual(getDataResult.ResultType, ActionResultType.OK);
+            this.AreEqual(ActionResultType.OK, getDataResult.ResultType);
             this.NotNull(getDataResult.Result);
             this.AreEqual(10, getDataResult.Result.Length);
         }
