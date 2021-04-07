@@ -126,6 +126,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SDK\Objects\AimpMemoryStream.cpp" />
+    <ClCompile Include="SDK\Objects\AimpFileStream.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimpMemoryManager.h" />
@@ -255,7 +256,6 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="SDK\Action\AimpServiceActionManager.h" />
     <ClInclude Include="SDK\AimpCore.h" />
-    <ClInclude Include="SDK\AimpExtensionBase.h" />
     <ClInclude Include="SDK\AimpObject.h" />
     <ClInclude Include="SDK\AimpPlayer.h" />
     <ClInclude Include="SDK\AlbumArt\AimpServiceAlbumArt.h" />
@@ -289,6 +289,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Objects\AimpMemoryStream.h" />
+    <ClInclude Include="SDK\Objects\AimpFileStream.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc" />

@@ -24,7 +24,6 @@ AimpStream::!AimpStream() {
             //InternalAimpObject->Release();
         }
         catch (const std::exception& e) {
-            System::Diagnostics::Debugger::Break();
         }
     }
 }

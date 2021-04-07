@@ -7,9 +7,9 @@
 
 #include "stdafx.h"
 #include "AimpServiceFileStreaming.h"
+#include "SDK/Objects/AimpFileStream.h"
 
-StreamResult AimpServiceFileStreaming::CreateStreamForFile(String^ fileName, FileStreamingType flags, long long offset,
-                                                           long long size) {
+StreamResult AimpServiceFileStreaming::CreateStreamForFile(String^ fileName, FileStreamingType flags, long long offset, long long size) {
     IAIMPServiceFileStreaming* service = GetAimpService();
     IAIMPString* str = nullptr;
     IAIMPStream* aimpStream = nullptr;
@@ -19,10 +19,10 @@ StreamResult AimpServiceFileStreaming::CreateStreamForFile(String^ fileName, Fil
     try {
         if (service != nullptr) {
             str = AimpConverter::ToAimpString(fileName);
-            result = CheckResult(service->CreateStreamForFile(str, DWORD(flags), offset, size, &aimpStream));
-
+            result = CheckResult(service->CreateStreamForFile(str, static_cast<DWORD>(flags), offset, size, &aimpStream));
             if (result == ActionResultType::OK) {
-                stream = gcnew AimpStream(aimpStream);
+                IAIMPFileStream* s = (IAIMPFileStream*)aimpStream;
+                stream = gcnew Objects::AimpFileStream(s);
             }
         }
     }
@@ -34,7 +34,7 @@ StreamResult AimpServiceFileStreaming::CreateStreamForFile(String^ fileName, Fil
     return gcnew AimpActionResult<IAimpStream^>(result, stream);
 }
 
-AimpActionResult<CeateStreamResult^>^ AimpServiceFileStreaming::CreateStreamForFileUri(String^ fileUrl) {
+AimpActionResult<CreateStreamResult^>^ AimpServiceFileStreaming::CreateStreamForFileUri(String^ fileUrl) {
     IAIMPServiceFileStreaming* service = GetAimpService();
     IAIMPString* str = nullptr;
     IAIMPStream* aimpStream = nullptr;
@@ -49,7 +49,7 @@ AimpActionResult<CeateStreamResult^>^ AimpServiceFileStreaming::CreateStreamForF
             result = CheckResult(service->CreateStreamForFileURI(str, &vf, &aimpStream));
 
             if (result == ActionResultType::OK && aimpStream != nullptr) {
-                stream = gcnew AimpStream(aimpStream);
+                stream = gcnew Objects::AimpFileStream(nullptr);
             }
         }
     }
@@ -58,7 +58,7 @@ AimpActionResult<CeateStreamResult^>^ AimpServiceFileStreaming::CreateStreamForF
         ReleaseObject(str);
     }
 
-    return gcnew AimpActionResult<CeateStreamResult^>(result, gcnew CeateStreamResult(virtualFile, stream));
+    return gcnew AimpActionResult<CreateStreamResult^>(result, gcnew CreateStreamResult(virtualFile, stream));
 }
 
 IAIMPServiceFileStreaming* AimpServiceFileStreaming::GetAimpService() {

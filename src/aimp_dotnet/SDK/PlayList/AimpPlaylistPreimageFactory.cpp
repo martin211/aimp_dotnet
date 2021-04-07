@@ -13,8 +13,7 @@ AimpPlaylistPreimageFactory::AimpPlaylistPreimageFactory(gcroot<IAimpExtensionPl
 }
 
 HRESULT WINAPI AimpPlaylistPreimageFactory::CreatePreimage(IAIMPPlaylistPreimage** preimage) {
-    System::Diagnostics::Debugger::Break();
-    return S_OK;
+    return E_NOTIMPL;
 }
 
 HRESULT WINAPI AimpPlaylistPreimageFactory::GetID(IAIMPString** ID) {

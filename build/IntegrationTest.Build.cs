@@ -87,7 +87,7 @@ partial class Build
                 {
                     if (file.EndsWith("aimp_dotnet.dll"))
                     {
-                        CopyFile(file, IntegrationTestPluginPath / "AimpTestRunner.dll");
+                        //CopyFile(file, IntegrationTestPluginPath / "AimpTestRunner.dll");
                     }
                     else if (file.EndsWith("AimpTestRunner.dll"))
                     {
@@ -114,6 +114,16 @@ partial class Build
                     Logger.Normal($"Copy {d}/nunit.engine.addins to {IntegrationTestPluginPath}");
                     CopyFileToDirectory(d / "nunit.engine.addins", IntegrationTestPluginPath);
                 });
+
+                var sdkFolder = new DirectoryInfo(SourceDirectory / $"{Configuration}");
+                var sdkFiles = sdkFolder.GetFiles("*.dll");
+                foreach (var file in sdkFiles)
+                {
+                    if (file.FullName.EndsWith("aimp_dotnet.dll"))
+                    {
+                        file.CopyTo(IntegrationTestPluginPath / "AimpTestRunner.dll", true);
+                    }
+                }
             }
 
             CopyDirectoryRecursively(ResourcesPath / "integrationTests", IntegrationTestPluginPath / "resources");
@@ -155,11 +165,13 @@ partial class Build
                 }
                 else
                 {
-                    CopyFileToDirectory(testResultFile, OutputDirectory);
-                    CopyFileToDirectory(testResultLogFile, OutputDirectory);
+                    var isValid = true;
+
+                    CopyFileToDirectory(testResultFile, OutputDirectory, FileExistsPolicy.Overwrite);
+                    CopyFileToDirectory(testResultLogFile, OutputDirectory, FileExistsPolicy.Overwrite);
 
                     var content = File.ReadAllText(testResultLogFile);
-                    Regex r = new Regex(@"Failed:\s(\d*)");
+                    var r = new Regex(@"Failed:\s(\d*)");
                     var matches = r.Matches(content);
 
                     if (matches.Count > 0 && matches[0].Groups.Count >= 1)
@@ -168,7 +180,7 @@ partial class Build
                         {
                             if (failed > 0)
                             {
-                                ControlFlow.Fail($"Failed test: {failed}");
+                                isValid = false;
                             }
                         }
                     }
@@ -188,6 +200,11 @@ partial class Build
                         };
                         xslt.Transform(doc, null, writer, null);
                     }
+
+                    if (!isValid)
+                    {
+                        ControlFlow.Fail("Test is failed.");
+                    }
                 }
             }
             else
@@ -197,7 +214,7 @@ partial class Build
             }
         });
 
-    private void LogError(string message)
+    void LogError(string message)
     {
         Logger.Error(message);
     }
