@@ -22,35 +22,35 @@ namespace AIMP.SDK.FileManager
         /// <summary>
         /// The aimp service filestreaming flag read
         /// </summary>
-        AIMP_SERVICE_FILESTREAMING_FLAG_READ = 0,
+        Read = 0,
 
         /// <summary>
         /// The aimp service filestreaming flag createnew
         /// </summary>
-        AIMP_SERVICE_FILESTREAMING_FLAG_CREATENEW = 1,
+        CreateNew = 1,
 
         /// <summary>
         /// The aimp service filestreaming flag readwrite
         /// </summary>
-        AIMP_SERVICE_FILESTREAMING_FLAG_READWRITE = 2,
+        ReadWrite = 2,
 
         /// <summary>
         /// The aimp service filestreaming flag maptomemory
         /// </summary>
-        AIMP_SERVICE_FILESTREAMING_FLAG_MAPTOMEMORY = 4
+        MapToMemory = 4
     }
 
     /// <summary>
     /// Class CeateStreamResult.
     /// </summary>
-    public class CeateStreamResult
+    public class CreateStreamResult
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CeateStreamResult" /> class.
+        /// Initializes a new instance of the <see cref="CreateStreamResult" /> class.
         /// </summary>
         /// <param name="virtualFile">The virtual file.</param>
         /// <param name="stream">The stream.</param>
-        public CeateStreamResult(IAimpVirtualFile virtualFile, IAimpStream stream)
+        public CreateStreamResult(IAimpVirtualFile virtualFile, IAimpStream stream)
         {
             VirtualFile = virtualFile;
             Stream = stream;
@@ -84,14 +84,13 @@ namespace AIMP.SDK.FileManager
         /// <param name="offset">The offset.</param>
         /// <param name="size">The size.</param>
         /// <returns>AimpActionResult&lt;IAimpStream&gt;.</returns>
-        AimpActionResult<IAimpStream> CreateStreamForFile(string fileName, FileStreamingType flags, long offset,
-            long size);
+        AimpActionResult<IAimpStream> CreateStreamForFile(string fileName, FileStreamingType flags, long offset, long size);
 
         /// <summary>
         /// Creates the stream for file URI.
         /// </summary>
         /// <param name="fileUrl">The file URL.</param>
         /// <returns>AimpActionResult&lt;CeateStreamResult&gt;.</returns>
-        AimpActionResult<CeateStreamResult> CreateStreamForFileUri(string fileUrl);
+        AimpActionResult<CreateStreamResult> CreateStreamForFileUri(string fileUrl);
     }
 }

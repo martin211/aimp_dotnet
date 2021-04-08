@@ -15,4 +15,4 @@
 #include "Utils.h"
 #include "SDK\AimpObject.h"
 #include "IUnknownInterfaceImpl.h"
-#include "SDK\AimpStream.h"
+#include "SDK/Objects/AimpStream.h"

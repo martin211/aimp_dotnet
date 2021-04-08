@@ -30,6 +30,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,6 +39,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ghpr.Core, Version=0.9.12.0, Culture=neutral, processorArchitecture=MSIL">
@@ -69,6 +71,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -82,11 +85,13 @@
     <Compile Include="Engine\ExtendedTextWriter.cs" />
     <Compile Include="Engine\ResultReporter.cs" />
     <Compile Include="Engine\ResultSummary.cs" />
+    <Compile Include="Issues\Issue_37.cs" />
     <Compile Include="UnitTests\ActionManager\AimpServiceActionManagerTests.cs" />
     <Compile Include="Engine\AimpNUnit3FrameworkDriver.cs" />
     <Compile Include="Engine\AimpNUnitFrameworkDriver.cs" />
     <Compile Include="UnitTests\AimpCoreTests.cs" />
     <Compile Include="UnitTests\AimpErrorInfoTests.cs" />
+    <Compile Include="UnitTests\AimpImageUnitTests.cs" />
     <Compile Include="UnitTests\AimpIntegrationTest.cs" />
     <Compile Include="UnitTests\AimpServiceConfig\AimpServiceConfigTests.cs" />
     <Compile Include="UnitTests\AimpTestContext.cs" />
@@ -104,6 +109,9 @@
     <Compile Include="UnitTests\MenuManager\AimpMenuItemTests.cs" />
     <Compile Include="UnitTests\MenuManager\AimpServiceMenuManagerTests.cs" />
     <Compile Include="UnitTests\MessageDispatcher\AimpServiceMessageDispatcherTests.cs" />
+    <Compile Include="UnitTests\FileManager\AimpServiceFileStreamingUnitTests.cs" />
+    <Compile Include="UnitTests\Objects\AimpFileStreamUnitTests.cs" />
+    <Compile Include="UnitTests\Objects\AimpStreamUnitTests.cs" />
     <Compile Include="UnitTests\Playback\AimpPlaybackQueueServiceTests.cs" />
     <Compile Include="UnitTests\Playback\PlayerHookTests.cs" />
     <Compile Include="UnitTests\Player\AimpPlayerTests.cs" />

@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using AIMP.SDK;
 using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.Player;
@@ -51,7 +52,10 @@ namespace Aimp.TestRunner.UnitTests
             }
             finally
             {
-                assert.Validate(testClass);
+                if (testClass.IsValid)
+                {
+                    assert.Validate(testClass);
+                }
             }
         }
 
@@ -381,6 +385,8 @@ namespace Aimp.TestRunner.UnitTests
 
         internal string RootPath { get; }
 
+        internal string TmpPath { get; }
+
         internal string PlaylistPath { get; }
 
         internal string TrackPath1 { get; }
@@ -413,6 +419,22 @@ namespace Aimp.TestRunner.UnitTests
             TrackPath3 = Path.Combine(RootPath, "resources", "03_atmosphere.mp3");
             TrackPath4 = Path.Combine(RootPath, "resources", "04_loop-mix.mp3");
             TrackUrl1 = "https://freesound.org/data/previews/514/514101_4397472-lq.mp3";
+            TmpPath = Path.Combine(RootPath, "tmp");
+
+            if (Directory.Exists(TmpPath))
+            {
+                var files = Directory.GetFiles(TmpPath);
+
+                foreach (var file in files)
+                {
+                    File.SetAttributes(file, FileAttributes.Normal);
+                    File.Delete(file);
+                }
+
+                Directory.Delete(TmpPath, true);
+            }
+
+            Directory.CreateDirectory(TmpPath);
         }
 
         [OneTimeSetUp]

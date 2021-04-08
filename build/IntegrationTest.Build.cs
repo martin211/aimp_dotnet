@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Xsl;
@@ -86,7 +87,7 @@ partial class Build
                 {
                     if (file.EndsWith("aimp_dotnet.dll"))
                     {
-                        CopyFile(file, IntegrationTestPluginPath / "AimpTestRunner.dll");
+                        //CopyFile(file, IntegrationTestPluginPath / "AimpTestRunner.dll");
                     }
                     else if (file.EndsWith("AimpTestRunner.dll"))
                     {
@@ -113,6 +114,16 @@ partial class Build
                     Logger.Normal($"Copy {d}/nunit.engine.addins to {IntegrationTestPluginPath}");
                     CopyFileToDirectory(d / "nunit.engine.addins", IntegrationTestPluginPath);
                 });
+
+                var sdkFolder = new DirectoryInfo(SourceDirectory / $"{Configuration}");
+                var sdkFiles = sdkFolder.GetFiles("*.dll");
+                foreach (var file in sdkFiles)
+                {
+                    if (file.FullName.EndsWith("aimp_dotnet.dll"))
+                    {
+                        file.CopyTo(IntegrationTestPluginPath / "AimpTestRunner.dll", true);
+                    }
+                }
             }
 
             CopyDirectoryRecursively(ResourcesPath / "integrationTests", IntegrationTestPluginPath / "resources");
@@ -154,10 +165,27 @@ partial class Build
                 }
                 else
                 {
-                    CopyFileToDirectory(testResultFile, OutputDirectory);
-                    CopyFileToDirectory(testResultLogFile, OutputDirectory);
+                    var isValid = true;
 
-                    Logger.Info(File.ReadAllText(testResultLogFile));
+                    CopyFileToDirectory(testResultFile, OutputDirectory, FileExistsPolicy.Overwrite);
+                    CopyFileToDirectory(testResultLogFile, OutputDirectory, FileExistsPolicy.Overwrite);
+
+                    var content = File.ReadAllText(testResultLogFile);
+                    var r = new Regex(@"Failed:\s(\d*)");
+                    var matches = r.Matches(content);
+
+                    if (matches.Count > 0 && matches[0].Groups.Count >= 1)
+                    {
+                        if (int.TryParse(matches[0].Groups[1].Value, out var failed))
+                        {
+                            if (failed > 0)
+                            {
+                                isValid = false;
+                            }
+                        }
+                    }
+
+                    Logger.Info(content);
 
                     if (IsJUnit)
                     {
@@ -172,6 +200,11 @@ partial class Build
                         };
                         xslt.Transform(doc, null, writer, null);
                     }
+
+                    if (!isValid)
+                    {
+                        ControlFlow.Fail("Test is failed.");
+                    }
                 }
             }
             else
@@ -181,7 +214,7 @@ partial class Build
             }
         });
 
-    private void LogError(string message)
+    void LogError(string message)
     {
         Logger.Error(message);
     }

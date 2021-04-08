@@ -65,7 +65,10 @@
     <Compile Include="Core\IAimpServiceShutdown.cs" />
     <Compile Include="Core\IAimpServiceVersionInfo.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="IAimpDPIAware.cs" />
     <Compile Include="IAimpErrorInfo.cs" />
+    <Compile Include="Objects\IAimpFileStream.cs" />
+    <Compile Include="Objects\IAimpImage.cs" />
     <Compile Include="IAimpLogger.cs" />
     <Compile Include="IAimpProgressCallback.cs" />
     <Compile Include="IAimpService.cs" />
@@ -102,13 +105,15 @@
     <Compile Include="IAimpExternalSettingsDialog.cs" />
     <Compile Include="IAimpObject.cs" />
     <Compile Include="IAimpObjectList.cs" />
-    <Compile Include="IAimpStream.cs" />
+    <Compile Include="Objects\IAimpMemoryStream.cs" />
+    <Compile Include="Objects\IAimpStream.cs" />
     <Compile Include="Lyrics\IAimpLyrics.cs" />
     <Compile Include="Lyrics\IAimpServiceLyrics.cs" />
     <Compile Include="MessageDispatcher\IAimpMessageHook.cs" />
     <Compile Include="MessageDispatcher\IAimpServiceMessageDispatcher.cs" />
     <Compile Include="MessageDispatcher\PointerExtension.cs" />
     <Compile Include="MusicLibrary\DataStorage\AimpDataField.cs" />
+    <Compile Include="Objects\IAimpImage2.cs" />
     <Compile Include="Objects\IAimpString.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilter.cs" />
     <Compile Include="MusicLibrary\DataFilter\IAimpDataFieldFilterByArray.cs" />

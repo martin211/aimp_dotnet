@@ -9,6 +9,7 @@
 // 
 // ----------------------------------------------------
 
+using System;
 using AIMP.SDK.FileManager;
 
 namespace AIMP.SDK.TagEditor
@@ -16,7 +17,7 @@ namespace AIMP.SDK.TagEditor
     /// <summary>
     /// Provide ability to get access to tag editor.
     /// </summary>
-    public interface IAimpFileTagEditor
+    public interface IAimpFileTagEditor : IDisposable
     {
         /// <summary>
         /// Gets the mixed information from all tags and returns it as a <see cref="IAimpFileInfo" />.

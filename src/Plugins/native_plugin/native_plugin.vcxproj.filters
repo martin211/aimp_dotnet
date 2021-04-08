@@ -101,8 +101,8 @@
     <None Include="AIMP_Exports.def">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="..\dotnet_visual\commands.json" />
     <None Include="..\..\..\tools\copyplugin.ps1" />
+    <None Include="..\..\commands.json" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AimpDotnetPlugin.cpp">
