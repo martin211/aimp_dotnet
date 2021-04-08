@@ -24,11 +24,11 @@ namespace TestPlugin
     using AIMP.SDK.MenuManager;
     using AIMP.SDK.Options;
 
-    public delegate ActionResultType HookMessage(AimpCoreMessageType message, int param1, int param2);
+    public delegate ActionResultType HookMessage(AimpCoreMessageType message, int param1, IntPtr param2);
 
     public class MessageHook : IAimpMessageHook
     {
-        public AimpActionResult CoreMessage(AimpCoreMessageType message, int param1, int param2)
+        public AimpActionResult CoreMessage(AimpCoreMessageType message, int param1, IntPtr param2)
         {
             OnCoreMessage?.Invoke(message, param1, param2);
             return new AimpActionResult(ActionResultType.OK);

@@ -5,8 +5,6 @@
 // Mail: mail4evgeniy@gmail.com
 // ----------------------------------------------------
 
-#include <windows.h>
-
 namespace AIMP {
     namespace Win32 {
         using namespace System;

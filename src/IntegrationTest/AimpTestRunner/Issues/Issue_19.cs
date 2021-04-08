@@ -16,7 +16,10 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.FileManager
 {
-    [TestFixture(Description = "Issue #19. FileInfo rating issue")]
+    [TestFixture(
+        Description = "Issue #19. FileInfo rating issue",
+        Category = "Issues"
+        )]
     [Ignore("Can be run only locally with correct media DB")]
     public class Issue_19 : AimpIntegrationTest
     {

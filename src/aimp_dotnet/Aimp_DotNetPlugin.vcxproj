@@ -12,6 +12,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AimpMemoryManager.cpp" />
+    <ClCompile Include="SDK\AimpDPIAware.cpp" />
+    <ClCompile Include="SDK\Objects\AimpFileStream.cpp" />
+    <ClCompile Include="SDK\Objects\AimpImage.cpp" />
     <ClCompile Include="SDK\AimpProgressCallback.cpp" />
     <ClCompile Include="SDK\AimpErrorInfo.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpServiceAlbumArtCache.cpp" />
@@ -34,7 +37,8 @@
     <ClCompile Include="SDK\Action\AimpAction.cpp" />
     <ClCompile Include="SDK\Action\AimpActionEvent.cpp" />
     <ClCompile Include="SDK\AimpObjectList.cpp" />
-    <ClCompile Include="SDK\AimpStream.cpp" />
+    <ClCompile Include="SDK\Objects\AimpMemoryStream.cpp" />
+    <ClCompile Include="SDK\Objects\AimpStream.cpp" />
     <ClCompile Include="SDK\AimpString.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpServiceAlbumArt.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.cpp" />
@@ -136,6 +140,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimpMemoryManager.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiDepricated.h" />
+    <ClInclude Include="SDK\AimpDPIAware.h" />
+    <ClInclude Include="SDK\Objects\AimpFileStream.h" />
+    <ClInclude Include="SDK\Objects\AimpImage.h" />
     <ClInclude Include="SDK\AimpProgressCallback.h" />
     <ClInclude Include="SDK\AimpErrorInfo.h" />
     <ClInclude Include="SDK\AlbumArt\AimpServiceAlbumArtCache.h" />
@@ -155,7 +163,8 @@
     <ClInclude Include="SDK\Lyrics\AimpServiceLyrics.h" />
     <ClInclude Include="SDK\MessageDispatcher\InternalAimpMessageHook.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiLyrics.h" />
-    <ClInclude Include="SDK\AimpStream.h" />
+    <ClInclude Include="SDK\Objects\AimpMemoryStream.h" />
+    <ClInclude Include="SDK\Objects\AimpStream.h" />
     <ClInclude Include="SDK\AimpString.h" />
     <ClInclude Include="SDK\MessageDispatcher\AimpServiceMessageDispatcher.h" />
     <ClInclude Include="SDK\MusicLibrary\Extension\Command\AimpDataStorageCommandAddFiles.h" />
@@ -262,7 +271,6 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="SDK\Action\AimpServiceActionManager.h" />
     <ClInclude Include="SDK\AimpCore.h" />
-    <ClInclude Include="SDK\AimpExtensionBase.h" />
     <ClInclude Include="SDK\AimpObject.h" />
     <ClInclude Include="SDK\AimpPlayer.h" />
     <ClInclude Include="SDK\AlbumArt\AimpServiceAlbumArt.h" />
@@ -358,6 +366,7 @@
     <TargetName>aimp_dotnet</TargetName>
     <IncludePath>$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -372,6 +381,7 @@
     <Link>
       <ModuleDefinitionFile>AIMP_Exports.def</ModuleDefinitionFile>
       <AdditionalLibraryDirectories>$(NETFXKitsDir)$(DotNetSdk_LibraryPath_x86);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ShowProgress>LinkVerbose</ShowProgress>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -382,12 +392,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>AIMP_Exports.def</ModuleDefinitionFile>
       <AdditionalLibraryDirectories>$(NETFXKitsDir)$(DotNetSdk_LibraryPath_x86);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
       <Command>

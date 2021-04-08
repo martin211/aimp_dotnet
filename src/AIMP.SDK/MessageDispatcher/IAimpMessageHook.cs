@@ -9,6 +9,8 @@
 // 
 // ----------------------------------------------------
 
+using System;
+
 namespace AIMP.SDK.MessageDispatcher
 {
     /// <summary>
@@ -23,8 +25,8 @@ namespace AIMP.SDK.MessageDispatcher
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="param1">The param1.</param>
-        /// <param name="param2">The param2.</param>
+        /// <param name="param2">The param2. See official SDK documentation to get more info about output parameter.</param>
         /// <returns>AimpActionResult.</returns>
-        AimpActionResult CoreMessage(AimpCoreMessageType message, int param1, int param2);
+        AimpActionResult CoreMessage(AimpCoreMessageType message, int param1, IntPtr param2);
     }
 }

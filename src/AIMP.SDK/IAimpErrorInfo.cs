@@ -29,7 +29,7 @@ namespace AIMP.SDK
         public string Details { get; set; }
     }
 
-    public interface IAimpErrorInfo : IDisposable, IAimpObject
+    public interface IAimpErrorInfo : IAimpObject
     {
         AimpActionResult<ErrorInfo> GetInfo();
 

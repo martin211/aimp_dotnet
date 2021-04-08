@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -9,12 +10,10 @@ using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
-using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
 using Nuke.Common.Tools.SonarScanner;
-using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
@@ -41,6 +40,10 @@ partial class Build : NukeBuild
 
     [Parameter] readonly string Source;
     [Parameter] readonly string NugetApiKey;
+
+    [Parameter] readonly string RequestSourceBranch;
+    [Parameter] readonly string RequestTargetBranch;
+    [Parameter] readonly string RequestId;
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath TestsDirectory => RootDirectory / "tests";
@@ -93,7 +96,7 @@ partial class Build : NukeBuild
                 Logger.Info($"Update version for '{rcFile}'");
                 Logger.Info($"Assembly version: {GitVersion.AssemblySemVer}");
                 var fileContent = File.ReadAllText(rcFile);
-                fileContent = fileContent.Replace("1,0,0,1", _version).Replace("1.0.0.1",_version);
+                fileContent = fileContent.Replace("1,0,0,1", _version.Replace(".", ",")).Replace("1.0.0.1",_version);
                 File.WriteAllText(rcFile, fileContent);
             }
         });
@@ -139,6 +142,14 @@ partial class Build : NukeBuild
         }
 
         configuration = configuration.SetProjectBaseDir(SourceDirectory);
+
+        if (!string.IsNullOrWhiteSpace(RequestSourceBranch) && !string.IsNullOrWhiteSpace(RequestTargetBranch))
+        {
+            configuration = configuration
+                .SetPullRequestBase(RequestSourceBranch)
+                .SetPullRequestBranch(RequestTargetBranch)
+                .SetPullRequestKey(RequestId);
+        }
 
         var path = ToolPathResolver.GetPackageExecutable(
                 packageId: "dotnet-sonarscanner|MSBuild.SonarQube.Runner.Tool",
@@ -224,6 +235,7 @@ partial class Build : NukeBuild
     Target Artifacts => _ => _
      .Executes(() =>
      {
+         List<string> plugins = new List<string>();
          EnsureCleanDirectory(OutputDirectory / "Artifacts");
          Directory.CreateDirectory(OutputDirectory / "Artifacts");
 
@@ -233,9 +245,10 @@ partial class Build : NukeBuild
          {
              var di = new DirectoryInfo(directory);
              var pluginName = di.Parent?.Parent?.Name;
+             plugins.Add(pluginName);
 
              Directory.CreateDirectory(OutputDirectory / "Artifacts" / "Plugins" / pluginName);
-
+             Logger.Info(pluginName);
              var files = di.GetFiles("*.dll");
              foreach (var file in files)
              {
@@ -255,6 +268,7 @@ partial class Build : NukeBuild
                      outFile = OutputDirectory / "Artifacts" / "Plugins" / pluginName / $"{pluginName}.dll";
                  }
 
+                 Logger.Normal($"Copy '{file.FullName}' to '{outFile}'");
                  file.CopyTo(outFile, true);
              }
          }
@@ -268,6 +282,34 @@ partial class Build : NukeBuild
              var outFile = OutputDirectory / "Artifacts" / "SDK" / file.Name;
              file.CopyTo(outFile, true);
          }
+
+         Logger.Info("Validate output");
+
+         bool validatePluginFolder(string plugin, IEnumerable<FileInfo> files)
+         {
+             var isValid = true;
+
+             isValid &= files.Any(c => c.Name.StartsWith("AIMP.SDK"));
+             isValid &= files.Any(c => c.Name == $"{plugin}.dll");
+             isValid &= files.Any(c => c.Name == $"{plugin}_plugin.dll");
+
+             return isValid;
+         }
+
+         var isValid = true;
+         foreach (var plugin in plugins)
+         {
+             var pluginFolder = OutputDirectory / "Artifacts" / "Plugins" / plugin;
+             var di = new DirectoryInfo(pluginFolder);
+             var files = di.GetFiles("*.dll");
+             if (!validatePluginFolder(plugin, files))
+             {
+                 Logger.Error($"Plugin {plugin} not valid.");
+                 isValid = false;
+             }
+         }
+
+         ControlFlow.Assert(isValid, "Artifacts not valid");
 
          Logger.Info("Compress artifacts");
          ZipFile.CreateFromDirectory(OutputDirectory / "Artifacts", OutputDirectory / "aimp.sdk.zip");

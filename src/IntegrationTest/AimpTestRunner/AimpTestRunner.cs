@@ -29,14 +29,14 @@ namespace Aimp.TestRunner
     {
         public class Hook : IAimpMessageHook
         {
-            private readonly Func<AimpCoreMessageType, int, int, AimpActionResult> _hook;
+            private readonly Func<AimpCoreMessageType, int, IntPtr, AimpActionResult> _hook;
 
-            public Hook(Func<AimpCoreMessageType, int, int, AimpActionResult> hook)
+            public Hook(Func<AimpCoreMessageType, int, IntPtr, AimpActionResult> hook)
             {
                 _hook = hook;
             }
 
-            public AimpActionResult CoreMessage(AimpCoreMessageType message, int param1, int param2)
+            public AimpActionResult CoreMessage(AimpCoreMessageType message, int param1, IntPtr param2)
             {
                 return _hook(message, param1, param2);
             }

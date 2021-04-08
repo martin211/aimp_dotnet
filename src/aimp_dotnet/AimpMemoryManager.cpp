@@ -28,17 +28,6 @@ void AimpMemoryManager::AddObject(int key, void* obj)
     info->disposed = false;
     instance->objects[key] = info;
     //static_cast<IUnknown*>(obj)->AddRef();
-
-    // TODO: #18
-#ifdef DEBUG
-    System::Diagnostics::Debug::WriteLine("Register key: " + key);
-    const auto st = gcnew System::Diagnostics::StackTrace(true);
-    const auto sb = gcnew System::Text::StringBuilder("Stack trace:");
-    for (int i = 0; i < st->FrameCount; ++i) {
-        sb->AppendLine(st->GetFrame(i)->GetMethod()->ToString());
-    }
-    System::Diagnostics::Debug::WriteLine(sb->ToString());
-#endif
 }
 
 void AimpMemoryManager::Release(int key)
@@ -58,12 +47,6 @@ void AimpMemoryManager::Release(int key)
             }
             obj->disposed = true;
         }
-#ifdef DEBUG
-        else
-        {
-            System::Diagnostics::Debug::WriteLine("KEY not found");
-        }
-#endif
     }
     catch (...)
     {

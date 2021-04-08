@@ -135,7 +135,7 @@ namespace AIMP.SDK.MessageDispatcher
         /// Start playback of previous playing playlist.
         /// <note><li>Param1 - Not used.</li><li>Param2 - Not used.</li></note>
         /// </summary>
-        CmdPrevPlaylist = Constants.MessageCommandBase + 16,
+        CmdPlayPrevPlaylist = Constants.MessageCommandBase + 16,
 
         /// <summary>
         /// Pause / Resume.
@@ -229,7 +229,7 @@ namespace AIMP.SDK.MessageDispatcher
         /// Activate playable playlist and focus playable file.
         /// <note><li>Param1 - Not used.</li><li>Param2 - Not used.</li></note>
         /// </summary>
-        CmdPlaylistFocusPlayable = Constants.MessageCommandBase + 28,
+        CmdPlaylistFocusPlaying = Constants.MessageCommandBase + 28,
 
         /// <summary>
         /// Delete all tracks from active playlist.
@@ -373,7 +373,7 @@ namespace AIMP.SDK.MessageDispatcher
         /// Show the "File Information" dialog for playable track.
         /// <note><li>Param1 - Not used.</li><li>Param2 - Not used.</li></note>
         /// </summary>
-        CmdQTEPlayableTrack = Constants.MessageCommandBase + 51,
+        CmdQTEPlayingTrack = Constants.MessageCommandBase + 51,
 
         /// <summary>
         /// Show the "Advanced Search" dialog.
@@ -418,6 +418,17 @@ namespace AIMP.SDK.MessageDispatcher
         /// <note><li>Param1 - Not used.</li><li>Param2 - Not used.</li></note>
         /// </summary>
         CmdVisualStop = Constants.MessageCommandBase + 58,
+
+        /// <summary>
+        /// The command playlist rescan selected.
+        /// </summary>
+        CmdPlaylistRescanSelected = Constants.MessageCommandBase + 59,
+
+        /// <summary>
+        /// Extended control of "Quick File Info" card that displaying information about playing file
+        /// <note>AParam2: pointer to TAIMPQuickFileInfoParams</note>
+        /// </summary>
+        CmdQFI = Constants.MessageCommandBase + 60,
 
         #endregion
 
@@ -542,7 +553,7 @@ namespace AIMP.SDK.MessageDispatcher
         /// 2. On stop playback(See AIMP_MSG_EVENT_STREAM_END)
         /// <note><li>Param1: Not used.</li><li>Param2: Not used.</li></note>
         /// </summary>
-        EventPlayableFileInfo = Constants.BaseEvent + 20,
+        EventPlayingFileInfo = Constants.BaseEvent + 20,
 
         /// <summary>
         /// Unlike the AIMP_MSG_EVENT_PLAYER_UPDATE_POSITION event this event has higher resolution (about 10-15 calls per
@@ -560,6 +571,10 @@ namespace AIMP.SDK.MessageDispatcher
         #endregion
 
         #region Properties
+
+        PropertyValueGet = 0,
+
+        PropertyValueSet = 1,
 
         /// <summary>
         /// <note>
@@ -901,9 +916,24 @@ namespace AIMP.SDK.MessageDispatcher
         /// Displays buffering progress of playing track.
         /// <note><li>Param1: Access direction: Read / Write (AIMP_MSG_PROPVALUE_GET / AIMP_MSG_PROPVALUE_SET)</li><li>Param2: Pointer to the 32-bit floating point variable (Single). Value in percents (from 0.0 to 100.0 %)</li></note>
         /// </summary>
-        PropertyPlayerBuffering = Constants.MessagePropertyBase + 32
+        PropertyPlayerBuffering = Constants.MessagePropertyBase + 32,
+
+        PropertyRadioCapSingleTrack = Constants.MessagePropertyBase + 33,
+
+        PropertyCrossmixing = Constants.MessagePropertyBase + 34,
+
+        PropertyActionOnEndOfTrack = Constants.MessagePropertyBase + 35,
 
         #endregion
+    }
+
+    public enum AimpDescriptorType
+    {
+        MainForm = 0,
+        Application = 1,
+        TrayControl = 2,
+        PlaylistForm = 3,
+        EqualizerForm = 4
     }
 
 

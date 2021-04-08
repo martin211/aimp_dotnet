@@ -91,13 +91,13 @@ namespace Aimp.TestRunner.UnitTests
             {
                 Assert.Fail($"Service {service} was not found at Player.");
             }
-            this.IsTrue(((IAimpService)m.GetValue(Player)).IsExists).Validate();
+            this.IsTrue(((IAimpService)m.GetValue(Player)).IsExists).Validate(this);
         }
 
         private void AssertResult(AimpActionResult<IAimpObject> result)
         {
-            this.AreEqual(ActionResultType.OK, result.ResultType).Validate();
-            this.NotNull(result.Result).Validate();
+            this.AreEqual(ActionResultType.OK, result.ResultType).Validate(this);
+            this.NotNull(result.Result).Validate(this);
         }
     }
 }

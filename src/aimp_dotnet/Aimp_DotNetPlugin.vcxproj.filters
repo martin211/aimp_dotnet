@@ -5,6 +5,8 @@
     <ClCompile Include="SDK\AimpProgressCallback.cpp" />
     <ClCompile Include="SDK\AimpErrorInfo.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpServiceAlbumArtCache.cpp" />
+    <ClCompile Include="SDK\Core\AimpServiceShutdown.cpp" />
+    <ClCompile Include="SDK\Core\AimpServiceVersionInfo.cpp" />
     <ClCompile Include="SDK\FileManager\AimpServiceFileInfoFormatter.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandCopyToClipboard.cpp" />
     <ClCompile Include="SDK\FileManager\Commands\AimpFileSystemCommandDelete.cpp" />
@@ -22,7 +24,7 @@
     <ClCompile Include="SDK\Action\AimpAction.cpp" />
     <ClCompile Include="SDK\Action\AimpActionEvent.cpp" />
     <ClCompile Include="SDK\AimpObjectList.cpp" />
-    <ClCompile Include="SDK\AimpStream.cpp" />
+    <ClCompile Include="SDK\Objects\AimpStream.cpp" />
     <ClCompile Include="SDK\AimpString.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpServiceAlbumArt.cpp" />
     <ClCompile Include="SDK\AlbumArt\AimpAlbumArtSearchOptions.cpp" />
@@ -118,17 +120,21 @@
     <ClCompile Include="SDK\Visuals\AimpServiceVisualizations.cpp" />
     <ClCompile Include="SDK\Win32\Win32Manager.cpp" />
     <ClCompile Include="Stdafx.cpp" />
-    <ClCompile Include="SDK\Core\AimpServiceVersionInfo.cpp" />
-    <ClCompile Include="SDK\Core\AimpServiceShutdown.cpp" />
+    <ClCompile Include="SDK\AimpDPIAware.cpp" />
+    <ClCompile Include="SDK\Objects\AimpImage.cpp" />
     <ClCompile Include="SDK\Threading\AimpServiceThreads.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\Objects\AimpMemoryStream.cpp" />
+    <ClCompile Include="SDK\Objects\AimpFileStream.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimpMemoryManager.h" />
     <ClInclude Include="SDK\AimpProgressCallback.h" />
     <ClInclude Include="SDK\AimpErrorInfo.h" />
     <ClInclude Include="SDK\AlbumArt\AimpServiceAlbumArtCache.h" />
+    <ClInclude Include="SDK\Core\AimpServiceShutdown.h" />
+    <ClInclude Include="SDK\Core\AimpServiceVersionInfo.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileInfoFormatter.h" />
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandCopyToClipboard.h" />
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandDelete.h" />
@@ -143,7 +149,7 @@
     <ClInclude Include="SDK\Lyrics\AimpServiceLyrics.h" />
     <ClInclude Include="SDK\MessageDispatcher\InternalAimpMessageHook.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiLyrics.h" />
-    <ClInclude Include="SDK\AimpStream.h" />
+    <ClInclude Include="SDK\Objects\AimpStream.h" />
     <ClInclude Include="SDK\AimpString.h" />
     <ClInclude Include="SDK\MessageDispatcher\AimpServiceMessageDispatcher.h" />
     <ClInclude Include="SDK\MusicLibrary\Extension\Command\AimpDataStorageCommandAddFiles.h" />
@@ -250,7 +256,6 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="SDK\Action\AimpServiceActionManager.h" />
     <ClInclude Include="SDK\AimpCore.h" />
-    <ClInclude Include="SDK\AimpExtensionBase.h" />
     <ClInclude Include="SDK\AimpObject.h" />
     <ClInclude Include="SDK\AimpPlayer.h" />
     <ClInclude Include="SDK\AlbumArt\AimpServiceAlbumArt.h" />
@@ -277,11 +282,14 @@
     <ClInclude Include="SDK\Win32\Win32Manager.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Utils.h" />
-    <ClInclude Include="SDK\Core\AimpServiceVersionInfo.h" />
-    <ClInclude Include="SDK\Core\AimpServiceShutdown.h" />
-    </ClInclude>
+    <ClInclude Include="AIMPSDK\AIMP400\apiDepricated.h" />
+    <ClInclude Include="SDK\AimpDPIAware.h" />
+    <ClInclude Include="SDK\Objects\AimpImage.h" />
     <ClInclude Include="SDK\Threading\AimpServiceThreads.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Objects\AimpMemoryStream.h" />
+    <ClInclude Include="SDK\Objects\AimpFileStream.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc" />
