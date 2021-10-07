@@ -10,6 +10,7 @@ using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
+using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
@@ -96,7 +97,7 @@ partial class Build : NukeBuild
                 Logger.Info($"Update version for '{rcFile}'");
                 Logger.Info($"Assembly version: {GitVersion.AssemblySemVer}");
                 var fileContent = File.ReadAllText(rcFile);
-                fileContent = fileContent.Replace("1,0,0,1", _version.Replace(".", ",")).Replace("1.0.0.1",_version);
+                fileContent = fileContent.Replace("1,0,0,1", _version.Replace(".", ",")).Replace("1.0.0.1", _version);
                 File.WriteAllText(rcFile, fileContent);
             }
         });
@@ -121,7 +122,7 @@ partial class Build : NukeBuild
     .DependsOn(Restore)
     .Executes(() =>
     {
-        var framework = "sonar-scanner-msbuild-4.8.0.12008-net46";
+        var framework = "net5.0";
         var configuration = new SonarBeginSettings()
                 .SetProjectKey(SonarProjectKey)
                 .SetIssueTrackerUrl(SonarUrl)
@@ -134,7 +135,7 @@ partial class Build : NukeBuild
                 //.SetWorkingDirectory(SourceDirectory)
                 .SetBranchName(GitRepository.Branch)
                 .SetFramework(framework)
-                .SetVerbose(false);
+                .EnableVerbose();
 
         if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
         {
@@ -152,35 +153,40 @@ partial class Build : NukeBuild
         }
 
         var path = ToolPathResolver.GetPackageExecutable(
-                packageId: "dotnet-sonarscanner|MSBuild.SonarQube.Runner.Tool",
-                packageExecutable: "SonarScanner.MSBuild.exe",
+                packageId: "dotnet-sonarscanner",
+                packageExecutable: "SonarScanner.MSBuild.dll",
                 framework: framework);
 
         configuration = configuration.SetProcessToolPath(path);
 
-        SonarScannerTasks.SonarScannerBegin(c => configuration);
+        var arguments = $"{path} {configuration.GetProcessArguments().RenderForExecution()}";
+
+        DotNetTasks.DotNet(arguments);
     }, () =>
     {
         MSBuild(c => c
                 .SetConfiguration(Configuration)
                 .SetTargets("Rebuild")
                 .SetSolutionFile(Solution)
-                .SetNodeReuse(true));
+                .EnableNodeReuse());
     },
         () =>
         {
-            var framework = "sonar-scanner-msbuild-4.8.0.12008-net46";
+            var framework = "net5.0";
             var path = ToolPathResolver.GetPackageExecutable(
-                packageId: "dotnet-sonarscanner|MSBuild.SonarQube.Runner.Tool",
-                packageExecutable: "SonarScanner.MSBuild.exe",
+                packageId: "dotnet-sonarscanner",
+                packageExecutable: "SonarScanner.MSBuild.dll",
                 framework: framework);
 
-            SonarScannerTasks.SonarScannerEnd(c => c
-                .SetLogin(SonarUser)
-                .SetPassword(SonarPassword)
-                //.SetWorkingDirectory(SourceDirectory)
-                .SetFramework(framework)
-                .SetProcessToolPath(path));
+            var configuration = new SonarScannerEndSettings()
+                    .SetLogin(SonarUser)
+                    .SetPassword(SonarPassword)
+                    .SetFramework(framework)
+                    .EnableProcessLogOutput();
+
+            var arguments = $"{path} {configuration.GetProcessArguments().RenderForExecution()}"; ;
+
+            DotNetTasks.DotNet(arguments);
         });
 
     Target Pack => _ => _
