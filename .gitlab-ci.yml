@@ -29,7 +29,7 @@ sonarqube:
   variables:
     GIT_STRATEGY: "none"
   script:
-    - powershell -File $CI_PROJECT_DIR\build.ps1 SonarQube --Configuation $Configuration --SonarUrl $SONAR_URL --SonarUser $SONAR_USER --SonarProjectKey $SONAR_PROJECT_KEY --SonarProjectName $SONAR_PROJECT_NAME --RequestSourceBranch $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME --RequestTargetBranch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME --RequestId $CI_MERGE_REQUEST_IID
+    - powershell -File $CI_PROJECT_DIR\build.ps1 SonarQube --Configuation $Configuration --SonarUrl $SONAR_URL --SonarUser $SONAR_TOKEN --SonarProjectKey $SONAR_PROJECT_KEY --SonarProjectName $SONAR_PROJECT_NAME --RequestSourceBranch $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME --RequestTargetBranch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME --RequestId $CI_MERGE_REQUEST_IID
 
 integrationTests:
   stage: test
@@ -73,5 +73,5 @@ deploy_release:
   variables:
     GIT_STRATEGY: "none"
   script:
-    - powershell -File $CI_PROJECT_DIR\build.ps1 Publish --Source $NUGET_URL --NugetApiKey $NUGET_API_KEY
+    - powershell -File $CI_PROJECT_DIR\build.ps1 Publish --Source $NUGET_SOURCE --NugetApiKey $NUGET_KEY
   when: manual
