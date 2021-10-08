@@ -2,7 +2,7 @@ assembly-versioning-scheme: MajorMinorPatchTag
 assembly-file-versioning-scheme: MajorMinorPatchTag
 branches:
   master:
-    regex: master
+    regex: ^master
     mode: ContinuousDelivery
     tag: stable
     increment: None
@@ -11,7 +11,7 @@ branches:
     tracks-release-branches: false
     is-release-branch: false
   bugfix:
-    regex: ^bugfix?[/-]
+    regex: ^bugfix?[/]
     mode: ContinuousDeployment
     tag: preview
     increment: None
@@ -19,7 +19,7 @@ branches:
     track-merge-target: false
     tracks-release-branches: false
     is-release-branch: false
-    source-branches: ['master']
+    source-branches: ['develop']
   feature:
     regex: ^feature?[/]
     mode: ContinuousDeployment
@@ -29,4 +29,4 @@ branches:
     track-merge-target: false
     tracks-release-branches: false
     is-release-branch: false
-    source-branches: ['master']
+    source-branches: ['develop']

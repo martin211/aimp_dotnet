@@ -55,7 +55,6 @@ namespace Aimp.TestRunner.UnitTests.TagEditor
                 var result = Player.ServiceFileTagEditor.EditTag(TrackPath1, tag);
                 this.AreEqual(ActionResultType.Fail, result.ResultType, "Unable to edit tag for file.");
                 this.Null(() => result.Result);
-                result.Result.Dispose();
             });
         }
     }
