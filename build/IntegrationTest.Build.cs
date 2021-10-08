@@ -25,6 +25,8 @@ partial class Build
     AbsolutePath IntegrationTestBinPath => SourceDirectory / "IntegrationTest";
     AbsolutePath IntegrationTestPluginPath => (AbsolutePath) Path.Combine(AimpPath, "plugins", "AimpTestRunner");
 
+    AbsolutePath IntegrationTestOutput => (AbsolutePath)Path.Combine(@"C:\inetpub\wwwroot\aimpdotnet");
+
     bool IsTeamCity => TeamCity.Instance != null;
 
     Target PrepareTestConfiguration => _ => _
@@ -35,7 +37,7 @@ partial class Build
             var setting = new DefaultSettings();
             setting.Default = new GhprSettings
             {
-                OutputPath = TestOutput,
+                OutputPath = Configuration == Configuration.Release ? IntegrationTestOutput : TestOutput,
                 DataServiceFile = "Ghpr.LocalFileSystem.dll",
                 ReportName = "AIMP SDK Test Result",
                 ProjectName = "AIMP DotNet SDK",

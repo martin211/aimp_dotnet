@@ -52,7 +52,7 @@ namespace Aimp.TestRunner
         {
             var path = Path.Combine(Player.Core.GetPath(AimpCorePathType.Plugins), "AimpTestRunner");
             _logWriter = new StreamWriter(Path.Combine(path, "integration.tests.log"));
-
+            
             try
             {
                 AppDomain.CurrentDomain.SetData("APPBASE", path);
@@ -68,6 +68,8 @@ namespace Aimp.TestRunner
                     _logWriter.Close();
                     Terminate();
                 }
+
+                _logWriter.WriteLine($"AIMP version: {Player.ServiceVersionInfo.FormatInfo}");
 
                 _engine = TestEngineActivator.CreateInstance();
                 _engine.WorkDirectory = path;

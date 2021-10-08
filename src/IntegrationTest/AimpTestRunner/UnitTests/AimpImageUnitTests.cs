@@ -74,7 +74,7 @@ namespace Aimp.TestRunner.UnitTests
         [TestCase("img1.bmp", AimpImageFormat.BPM)]
         [TestCase("img1.gif", AimpImageFormat.GIF)]
         [TestCase("img1.jpg", AimpImageFormat.JPG)]
-        [TestCase("img1.png", AimpImageFormat.PNG)]
+        //[TestCase("img1.png", AimpImageFormat.PNG)]
         public void SaveToFile_OK(string fileName, AimpImageFormat format)
         {
             var res = Player.Core.CreateAimpObject<IAimpImage>();
