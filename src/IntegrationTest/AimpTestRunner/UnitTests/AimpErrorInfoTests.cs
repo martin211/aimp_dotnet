@@ -10,6 +10,7 @@
 // ----------------------------------------------------
 
 using AIMP.SDK;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests

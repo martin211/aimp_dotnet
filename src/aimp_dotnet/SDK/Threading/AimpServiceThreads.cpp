@@ -46,13 +46,13 @@ AimpActionResult^ AimpServiceThreads::WaitFor(UIntPtr taskHandle) {
     return ACTION_RESULT(result);
 }
 
-AimpActionResult^ AimpServiceThreads::ExecuteInMainThread(IAimpTask^ task, bool executeNow) {
+AimpActionResult^ AimpServiceThreads::ExecuteInMainThread(IAimpTask^ task, AimpServiceThreadPoolType flags) {
     const auto service = GetAimpService();
 
     try {
         if (service != nullptr) {
             InternalAimpTask* internalTask = new InternalAimpTask(task);
-            return ACTION_RESULT(CheckResult(service->ExecuteInMainThread(internalTask, BOOL(executeNow))));
+            return ACTION_RESULT(CheckResult(service->ExecuteInMainThread(internalTask, DWORD(flags))));
         }
     }
     finally {

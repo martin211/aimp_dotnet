@@ -65,7 +65,7 @@ namespace AIMP.SDK.Playlist
         /// Gets the playable playlist.
         /// </summary>
         /// <returns>AimpActionResult&lt;IAimpPlaylist&gt;.</returns>
-        AimpActionResult<IAimpPlaylist> GetPlayablePlaylist();
+        AimpActionResult<IAimpPlaylist> GetPlayingPlaylist();
 
         /// <summary>
         /// Gets the loaded playlist by index.

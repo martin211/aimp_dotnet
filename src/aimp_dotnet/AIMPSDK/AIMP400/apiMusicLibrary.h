@@ -1,13 +1,12 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v4.60 build 2160               */
+/*               v5.00 build 2300               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2019                 */
+/*                (C) 2006-2020                 */
 /*                 www.aimp.ru                  */
-/*                                              */
-/*            Mail: support@aimp.ru             */
+/*               support@aimp.ru                */
 /*                                              */
 /************************************************/
 
@@ -19,6 +18,7 @@
 #include "apiActions.h"
 #include "apiObjects.h"
 #include "apiPlaylists.h"
+#include "apiPlayer.h"
 
 static const GUID IID_IAIMPServiceMusicLibraryUI = {0x41494D50, 0x5372, 0x764D, 0x4C, 0x55, 0x49, 0x00, 0x00, 0x00, 0x00, 0x00};
 static const GUID IID_IAIMPMLAlbumArtProvider = {0x41494D50, 0x4D4C, 0x416C, 0x62, 0x41, 0x72, 0x74, 0x50, 0x72, 0x76, 0x00};
@@ -38,6 +38,7 @@ static const GUID IID_IAIMPMLDataStorageCommandAddFilesDialog = {0x41494D50, 0x4
 static const GUID IID_IAIMPMLDataStorageCommandDeleteFiles = {0x41494D50, 0x4D4C, 0x4453, 0x43, 0x6D, 0x64, 0x44, 0x65, 0x6C, 0x00, 0x00};
 static const GUID IID_IAIMPMLDataStorageCommandDeleteFiles2 = {0x41494D50, 0x4D4C, 0x4453, 0x43, 0x6D, 0x64, 0x44, 0x65, 0x6C, 0x32, 0x00};
 static const GUID IID_IAIMPMLDataStorageCommandDropData = {0x41494D50, 0x4D4C, 0x4453, 0x43, 0x6D, 0x64, 0x44, 0x72, 0x6F, 0x70, 0x00};
+static const GUID IID_IAIMPMLDataStorageCommandFindInLibrary = {0x41494D50, 0x4D4C, 0x4453, 0x43, 0x6D, 0x64, 0x46, 0x6E, 0x64, 0x49, 0x6E};
 static const GUID IID_IAIMPMLDataStorageCommandReloadTags = {0x41494D50, 0x4D4C, 0x4453, 0x43, 0x6D, 0x64, 0x55, 0x70, 0x54, 0x61, 0x67};
 static const GUID IID_IAIMPMLDataStorageCommandReportDialog = {0x41494D50, 0x4D4C, 0x4453, 0x43, 0x6D, 0x64, 0x52, 0x70, 0x72, 0x74, 0x00};
 static const GUID IID_IAIMPMLDataStorageCommandUserMark = {0x41494D50, 0x4D4C, 0x4453, 0x43, 0x6D, 0x64, 0x4D, 0x61, 0x72, 0x6B, 0x00};
@@ -48,6 +49,7 @@ static const GUID IID_IAIMPMLGroupingPreset = {0x41494D50, 0x4D4C, 0x4772, 0x70,
 static const GUID IID_IAIMPMLGroupingPresets = {0x41494D50, 0x4D4C, 0x4772, 0x50, 0x72, 0x73, 0x74, 0x73, 0x00, 0x00, 0x00};
 static const GUID IID_IAIMPMLGroupingPresetStandard = {0x41494D50, 0x4D4C, 0x4772, 0x70, 0x50, 0x73, 0x74, 0x53, 0x74, 0x64, 0x00};
 static const GUID IID_IAIMPMLGroupingTreeDataProvider = {0x41494D50, 0x4D4C, 0x4772, 0x70, 0x44, 0x61, 0x74, 0x61, 0x50, 0x72, 0x76};
+static const GUID IID_IAIMPMLGroupingTreeDataProvider2 = {0x41494D50, 0x4D4C, 0x4772, 0x70, 0x44, 0x61, 0x74, 0x61, 0x50, 0x72, 0x32};
 static const GUID IID_IAIMPMLGroupingTreeDataProviderSelection = {0x41494D50, 0x4D4C, 0x4772, 0x44, 0x74, 0x50, 0x72, 0x76, 0x53, 0x65, 0x6C};
 static const GUID IID_IAIMPMLGroupingTreeSelection = {0x41494D50, 0x4D4C, 0x4770, 0x54, 0x72, 0x65, 0x65, 0x53, 0x65, 0x6C, 0x00};
 static const GUID IID_IAIMPMLPlaylistPreimage = {0x414D4C53, 0x6D50, 0x6C73, 0x53, 0x72, 0x63, 0x00, 0x00, 0x00, 0x00, 0x00};
@@ -145,6 +147,7 @@ const int AIMPML_FIELDFILTER_OPERATION_GREATERTHANOREQUALS = 6;
 const int AIMPML_FIELDFILTER_OPERATION_CONTAINS = 7;
 const int AIMPML_FIELDFILTER_OPERATION_BEGINSWITH = 8;
 const int AIMPML_FIELDFILTER_OPERATION_ENDSWITH = 9;
+const int AIMPML_FIELDFILTER_OPERATION_ISLASTXDAYS = 10;
 
 // Property ID for IAIMPMLDataFilterGroup
 const int AIMPML_FILTERGROUP_OPERATION = 1; // Refer to the AIMPML_FILTERGROUP_OPERATION_XXX
@@ -161,12 +164,12 @@ const int AIMPML_FIELDFILTERBYARRAY_FIELD = 1;
 // Property ID for IAIMPMLDataFilter
 const int AIMPML_FILTER_LIMIT           = 11;
 const int AIMPML_FILTER_OFFSET          = 12;
-const int AIMPML_FILTER_SORTBY          = 13;
-const int AIMPML_FILTER_SORTDIRECTION   = 14; // Refer to the AIMPML_SORTDIRECTION_XXX
+const int AIMPML_FILTER_SORTBYLIST      = 15;
 const int AIMPML_FILTER_SEARCHSTRING    = 20; // optional
 const int AIMPML_FILTER_ALPHABETICINDEX = 21; // optional
 
 // Sort Direction
+const int AIMPML_SORTDIRECTION_UNDEFINED  = 0;
 const int AIMPML_SORTDIRECTION_ASCENDING  = 1;
 const int AIMPML_SORTDIRECTION_DESCENDING = 2;
 
@@ -306,73 +309,6 @@ class IAIMPMLSortDirection: public IUnknown
 };
 
 //----------------------------------------------------------------------------------------------------------------------
-// Commands
-//----------------------------------------------------------------------------------------------------------------------
-
-class IAIMPMLDataStorageCommandAddFiles : public IUnknown
-{
-	public:
-		virtual HRESULT WINAPI Add(IAIMPObjectList* Files) = 0;
-};
-
-/* IAIMPMLDataStorageCommandAddFilesDialog */
-
-class IAIMPMLDataStorageCommandAddFilesDialog : public IUnknown
-{
-	public:
-		virtual HRESULT WINAPI Execute(HWND OwnerHandle) = 0;
-};
-
-/* IAIMPMLDataStorageCommandDeleteFiles */
-
-class IAIMPMLDataStorageCommandDeleteFiles : public IUnknown
-{
-	public:
-		virtual BOOL WINAPI CanDelete(BOOL Physically) = 0;
-		virtual HRESULT WINAPI Delete(IAIMPMLFileList* Files, BOOL Physically) = 0;
-};
-
-/* IAIMPMLDataStorageCommandDeleteFiles2 */
-
-class IAIMPMLDataStorageCommandDeleteFiles2 : public IAIMPMLDataStorageCommandDeleteFiles
-{
-	public:	
-		virtual HRESULT WINAPI Delete2(IAIMPMLDataFilter* Filter, BOOL Physically) = 0;
-};
-
-/* IAIMPMLDataStorageCommandDropData */
-
-class IAIMPMLDataStorageCommandDropData : public IUnknown
-{
-	public:
-		virtual HRESULT WINAPI DropData() = 0;
-};
-
-/* IAIMPMLDataStorageCommandReloadTags */
-
-class IAIMPMLDataStorageCommandReloadTags : public IUnknown
-{
-	public:
-		virtual HRESULT WINAPI ReloadTags(IAIMPMLFileList* Files) = 0;
-};
-
-/* IAIMPMLDataStorageCommandReportDialog */
-
-class IAIMPMLDataStorageCommandReportDialog : public IUnknown
-{
-	public:
-		virtual HRESULT WINAPI Execute(HWND OwnerHandle) = 0;
-};
-
-/* IAIMPMLDataStorageCommandUserMark */
-
-class IAIMPMLDataStorageCommandUserMark : public IUnknown
-{
-	public:
-		virtual HRESULT WINAPI SetMark(VARIANT* ID, const DOUBLE Value) = 0;
-};
-
-//----------------------------------------------------------------------------------------------------------------------
 // Preimage
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -464,6 +400,14 @@ class IAIMPMLGroupingTreeDataProvider : public IUnknown
 		virtual HRESULT WINAPI GetFieldForAlphabeticIndex(IAIMPString** FieldName) = 0;
 };
 
+/* IAIMPMLGroupingTreeDataProvider2 */
+
+class IAIMPMLGroupingTreeDataProvider2 : public IAIMPMLGroupingTreeDataProvider
+{
+	public:
+		virtual WCHAR WINAPI GetPathSeparator() = 0;
+};
+
 //----------------------------------------------------------------------------------------------------------------------
 // Storage
 //----------------------------------------------------------------------------------------------------------------------
@@ -524,6 +468,84 @@ class IAIMPMLDataStorage2 : public IAIMPMLDataStorage // + IAIMPMLDataProvider, 
 {
 	public:
 		virtual HRESULT WINAPI CreateObject(REFIID IID, void **Obj) = 0;
+};
+
+//----------------------------------------------------------------------------------------------------------------------
+// Commands
+//----------------------------------------------------------------------------------------------------------------------
+
+class IAIMPMLDataStorageCommandAddFiles : public IUnknown
+{
+	public:
+		virtual HRESULT WINAPI Add(IAIMPObjectList* Files) = 0;
+};
+
+/* IAIMPMLDataStorageCommandAddFilesDialog */
+
+class IAIMPMLDataStorageCommandAddFilesDialog : public IUnknown
+{
+	public:
+		virtual HRESULT WINAPI Execute(HWND OwnerHandle) = 0;
+};
+
+/* IAIMPMLDataStorageCommandDeleteFiles */
+
+class IAIMPMLDataStorageCommandDeleteFiles : public IUnknown
+{
+	public:
+		virtual BOOL WINAPI CanDelete(BOOL Physically) = 0;
+		virtual HRESULT WINAPI Delete(IAIMPMLFileList* Files, BOOL Physically) = 0;
+};
+
+/* IAIMPMLDataStorageCommandDeleteFiles2 */
+
+class IAIMPMLDataStorageCommandDeleteFiles2 : public IAIMPMLDataStorageCommandDeleteFiles
+{
+	public:
+		virtual HRESULT WINAPI Delete2(IAIMPMLDataFilter* Filter, BOOL Physically) = 0;
+};
+
+/* IAIMPMLDataStorageCommandDropData */
+
+class IAIMPMLDataStorageCommandDropData : public IUnknown
+{
+	public:
+		virtual HRESULT WINAPI DropData() = 0;
+};
+
+/* IAIMPMLDataStorageCommandFindInLibrary */
+
+class IAIMPMLDataStorageCommandFindInLibrary : public IUnknown
+{
+	public:
+		virtual HRESULT WINAPI Find(
+			IAIMPFileInfo *FileInfo,
+			IAIMPString** GroupingPresetID,
+			IAIMPMLGroupingTreeSelection** GroupingTreeSelection) = 0;
+};
+
+/* IAIMPMLDataStorageCommandReloadTags */
+
+class IAIMPMLDataStorageCommandReloadTags : public IUnknown
+{
+	public:
+		virtual HRESULT WINAPI ReloadTags(IAIMPMLFileList* Files) = 0;
+};
+
+/* IAIMPMLDataStorageCommandReportDialog */
+
+class IAIMPMLDataStorageCommandReportDialog : public IUnknown
+{
+	public:
+		virtual HRESULT WINAPI Execute(HWND OwnerHandle) = 0;
+};
+
+/* IAIMPMLDataStorageCommandUserMark */
+
+class IAIMPMLDataStorageCommandUserMark : public IUnknown
+{
+	public:
+		virtual HRESULT WINAPI SetMark(VARIANT* ID, const DOUBLE Value) = 0;
 };
 
 //----------------------------------------------------------------------------------------------------------------------

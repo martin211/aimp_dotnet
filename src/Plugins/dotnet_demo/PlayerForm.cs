@@ -44,7 +44,7 @@ namespace DemoPlugin
 
                 if (message == AimpCoreMessageType.EventPlayingFileInfo)
                 {
-                    var cover = _aimpPlayer.CurrentFileInfo.AlbumArt;
+                    var cover = _aimpPlayer.ServicePlayer.CurrentFileInfo.AlbumArt;
                     if (cover != null)
                     {
                         pictureBox1.Image = cover;
@@ -159,7 +159,7 @@ namespace DemoPlugin
         private void TracksOnDoubleClick(object sender, EventArgs eventArgs)
         {
             var trackItem = (IAimpPlaylistItem) (sender as ListView).SelectedItems[0].Tag;
-            _aimpPlayer.Play(trackItem);
+            _aimpPlayer.ServicePlayer.Play(trackItem);
         }
 
         private void OnActivated(object sender, EventArgs eventArgs)
@@ -169,44 +169,44 @@ namespace DemoPlugin
         private void button1_Click(object sender, EventArgs e)
         {
             var pl = _aimpPlayer.ServicePlaylistManager.GetActivePlaylist();
-            _aimpPlayer.Play(pl.Result);
+            _aimpPlayer.ServicePlayer.Play(pl.Result);
             _aimpPlayer.Core.SendMessage(AimpCoreMessageType.CmdShowNotification, 0, "Play Play Play");
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            _aimpPlayer.Stop();
+            _aimpPlayer.ServicePlayer.Stop();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            _aimpPlayer.Pause();
+            _aimpPlayer.ServicePlayer.Pause();
         }
 
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
             int v = trackBar2.Value;
-            _aimpPlayer.Volume = (float) v / 10;
+            _aimpPlayer.ServicePlayer.Volume = (float) v / 10;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            _aimpPlayer.Position = trackBar1.Value;
+            _aimpPlayer.ServicePlayer.Position = trackBar1.Value;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            _aimpPlayer.IsMute = !_aimpPlayer.IsMute;
+            _aimpPlayer.ServicePlayer.IsMute = !_aimpPlayer.ServicePlayer.IsMute;
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            _aimpPlayer.GoToPrev();
+            _aimpPlayer.ServicePlayer.GoToPrev();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            _aimpPlayer.GoToNext();
+            _aimpPlayer.ServicePlayer.GoToNext();
         }
 
         private void button7_Click(object sender, EventArgs e)

@@ -11,6 +11,7 @@
 
 using System;
 using AIMP.SDK.Core;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Core

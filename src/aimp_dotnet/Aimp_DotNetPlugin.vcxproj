@@ -98,6 +98,7 @@
     <ClCompile Include="SDK\Playback\AimpExtensionPlayerHook.cpp" />
     <ClCompile Include="SDK\Playback\AimpPlaybackQueueItem.cpp" />
     <ClCompile Include="SDK\Playback\AimpServicePlaybackQueue.cpp" />
+    <ClCompile Include="SDK\Player\AimpServicePlayer.cpp" />
     <ClCompile Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.cpp" />
     <ClCompile Include="SDK\PlayList\AimpExtensionPlaylistPreimageFactory.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageFactory.cpp" />
@@ -213,6 +214,7 @@
     <ClInclude Include="AIMPSDK\AIMPSDK.h" />
     <ClInclude Include="SDK\Playback\AimpExtensionPlaybackQueue.h" />
     <ClInclude Include="SDK\Playback\AimpExtensionPlayerHook.h" />
+    <ClInclude Include="SDK\Player\AimpServicePlayer.h" />
     <ClInclude Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.h" />
     <ClInclude Include="SDK\MusicLibrary\Presets\AimpGroupingPresetStandard.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibraryUI.h" />
@@ -316,9 +318,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8D30D1F5-1925-4926-83F2-F0B21B45646F}</ProjectGuid>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <RootNamespace>Aimp_DotNetPlugin</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
     <ProjectName>aimp_dotnet</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

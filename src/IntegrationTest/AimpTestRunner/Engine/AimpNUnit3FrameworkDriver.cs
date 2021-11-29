@@ -13,7 +13,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Runtime.Remoting;
 using System.Runtime.Serialization;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Engine;
 using NUnit.Engine.Extensibility;
 using NUnit.Engine.Internal;
@@ -21,27 +23,50 @@ using NUnit.Framework.Api;
 
 namespace Aimp.TestRunner.Engine
 {
+    public class CB : CallbackHandler
+    {
+        public override object InitializeLifetimeService()
+        {
+            return base.InitializeLifetimeService();
+        }
+    }
+
     public class AimpNUnit3FrameworkDriver : IFrameworkDriver
     {
         private const string LoadMessage = "Method called without calling Load first";
 
+        private static readonly string CONTROLLER_TYPE = "NUnit.Framework.Api.FrameworkController";
+        private static readonly string LOAD_ACTION = CONTROLLER_TYPE + "+LoadTestsAction";
+        private static readonly string EXPLORE_ACTION = CONTROLLER_TYPE + "+ExploreTestsAction";
+        private static readonly string COUNT_ACTION = CONTROLLER_TYPE + "+CountTestsAction";
+        private static readonly string RUN_ACTION = CONTROLLER_TYPE + "+RunTestsAction";
+        private static readonly string STOP_RUN_ACTION = CONTROLLER_TYPE + "+StopRunAction";
+
         static ILogger log = InternalTrace.GetLogger("AimpNUnit3FrameworkDriver");
 
         private string _testAssemblyPath;
-        FrameworkController _frameworkController;
+        //AimpTestController _frameworkController;
+        private FrameworkController _frameworkController;
+        private AppDomain _testDomain;
+        private AssemblyName _reference;
 
         public AimpNUnit3FrameworkDriver(AppDomain testDomain, AssemblyName reference)
         {
+            _testDomain = testDomain;
+            _reference = reference;
         }
 
         public string ID { get; set; }
         public string Load(string testAssemblyPath, IDictionary<string, object> settings)
         {
+            _testDomain = AppDomain.CreateDomain("testDomain");
+
             var idPrefix = string.IsNullOrEmpty(ID) ? "" : ID + "-";
             _testAssemblyPath = testAssemblyPath;
             try
             {
                 _frameworkController = new FrameworkController(testAssemblyPath, idPrefix, new Dictionary<string, string>());
+                //_frameworkController = new AimpTestController(testAssemblyPath, idPrefix, new Dictionary<string, string>());
             }
             catch (SerializationException ex)
             {
@@ -54,6 +79,7 @@ namespace Aimp.TestRunner.Engine
 
             // ReSharper disable once ObjectCreationAsStatement
             new FrameworkController.LoadTestsAction(_frameworkController, handler);
+            //new AimpTestController.AimpLoadTestsAction(_frameworkController, handler);
             log.Info("Loaded {0}", fileName);
 
             return handler.Result;

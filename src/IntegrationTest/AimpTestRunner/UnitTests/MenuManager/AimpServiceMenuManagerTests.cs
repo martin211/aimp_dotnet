@@ -12,6 +12,7 @@
 using System;
 using AIMP.SDK;
 using AIMP.SDK.MenuManager;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.MenuManager
@@ -46,9 +47,9 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
         [TestCase(ParentMenuType.MlMainDB, MenuItemStyle.Normal)]
         [TestCase(ParentMenuType.MlMainDB, MenuItemStyle.RadioBox)]
 
-        [TestCase(ParentMenuType.MlMainFuntions, MenuItemStyle.CheckBox)]
-        [TestCase(ParentMenuType.MlMainFuntions, MenuItemStyle.Normal)]
-        [TestCase(ParentMenuType.MlMainFuntions, MenuItemStyle.RadioBox)]
+        [TestCase(ParentMenuType.MlMainFunctions, MenuItemStyle.CheckBox)]
+        [TestCase(ParentMenuType.MlMainFunctions, MenuItemStyle.Normal)]
+        [TestCase(ParentMenuType.MlMainFunctions, MenuItemStyle.RadioBox)]
 
         [TestCase(ParentMenuType.MlMainOpen, MenuItemStyle.CheckBox)]
         [TestCase(ParentMenuType.MlMainOpen, MenuItemStyle.Normal)]
@@ -220,7 +221,7 @@ namespace Aimp.TestRunner.UnitTests.MenuManager
 
         [TestCase(ParentMenuType.MlDeletion)]
         [TestCase(ParentMenuType.MlMainDB)]
-        [TestCase(ParentMenuType.MlMainFuntions)]
+        [TestCase(ParentMenuType.MlMainFunctions)]
         [TestCase(ParentMenuType.MlMainOpen)]
         [TestCase(ParentMenuType.mlMainOptions)]
         [TestCase(ParentMenuType.MlMiscellaneous)]

@@ -35,6 +35,7 @@ integrationTests:
   stage: test
   variables:
     GIT_STRATEGY: "none"
+  allow_failure: true
   script:
     - powershell -File $CI_PROJECT_DIR\build.ps1 ExecuteIntegrationTests --AimpPath $AimpPath --IsJUnit true
   dependencies:

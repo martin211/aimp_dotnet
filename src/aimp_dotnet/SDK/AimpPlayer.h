@@ -32,6 +32,8 @@
 #include "SDK\TagEditor\AimpServiceFileTagEditor.h"
 #include "SDK\Action\AimpServiceActionManager.h";
 
+using namespace AIMP::SDK;
+
 namespace AIMP {
     using namespace System;
     using namespace Runtime::InteropServices;
@@ -51,7 +53,6 @@ namespace AIMP {
         public Player::IAimpPlayer {
     private:
         IAIMPMessageHook* aimp_message_hook_;
-        IAIMPServicePlayer* _player;
 
         ManagedAimpCore^ _managedAimpCore;
         IAimpCore^ _aimpCore;
@@ -82,6 +83,7 @@ namespace AIMP {
         IAimpServiceThreads^ _serviceThreads;
         Core::IAimpServiceVersionInfo^ _serviceVersionInfo;
         Core::IAimpServiceShutdown^ _serviceShutdown;
+        Player::IAimpServicePlayer^ _servicePlayer;
     public:
         /// <summary>
         /// Initializes a new instance of the <see cref="AIMP3Controller{TConvAlloc}" /> class.
@@ -146,47 +148,9 @@ namespace AIMP {
             IAimpServicePlaybackQueue^ get();
         }
 
-        virtual property IAIMPServicePlayer* ServicePlayer
+        virtual property Player::IAimpServicePlayer^ ServicePlayer
         {
-            IAIMPServicePlayer* get();
-        }
-
-        virtual property bool IsMute
-        {
-            bool get();
-            void set(bool value);
-        }
-
-        virtual property float Volume
-        {
-            float get();
-            void set(float value);
-        }
-
-        virtual property double Duration
-        {
-            double get();
-        }
-
-        virtual property double Position
-        {
-            double get();
-            void set(double value);
-        }
-
-        virtual property AimpPlayerState State
-        {
-            AimpPlayerState get();
-        }
-
-        virtual property IAimpFileInfo^ CurrentFileInfo
-        {
-            IAimpFileInfo^ get();
-        }
-
-        virtual property IAimpPlaylistItem^ CurrentPlaylistItem
-        {
-            IAimpPlaylistItem^ get();
+            Player::IAimpServicePlayer^ get();
         }
 
         virtual property IWin32Manager^ Win32Manager
@@ -203,24 +167,6 @@ namespace AIMP {
         {
             IAimpServiceMessageDispatcher^ get();
         }
-
-        virtual ActionResult Pause();
-
-        virtual ActionResult Stop();
-
-        virtual ActionResult Resume();
-
-        virtual ActionResult StopAfterTrack();
-
-        virtual ActionResult GoToNext();
-
-        virtual ActionResult GoToPrev();
-
-        virtual ActionResult Play(IAimpPlaybackQueueItem^ queueItem);
-
-        virtual ActionResult Play(IAimpPlaylistItem^ playListItem);
-
-        virtual ActionResult Play(IAimpPlaylist^ playList);
 
         property SDK::Core::IAimpServiceShutdown^ ServiceShutdown { virtual SDK::Core::IAimpServiceShutdown^ get(); }
 

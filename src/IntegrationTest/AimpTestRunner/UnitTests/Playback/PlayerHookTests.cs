@@ -14,6 +14,7 @@ using System.Threading;
 using AIMP.SDK;
 using AIMP.SDK.Playback;
 using AIMP.SDK.Playlist;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Playback
@@ -96,13 +97,14 @@ namespace Aimp.TestRunner.UnitTests.Playback
                 if (createPlaylistResult.ResultType == ActionResultType.OK)
                 {
                     playList = createPlaylistResult.Result;
-                    var r = Player.Play(createPlaylistResult.Result);
+                    var r = Player.ServicePlayer.Play(createPlaylistResult.Result);
                 }
             });
 
             ExecuteAndWait(() =>
             {
                 Thread.Sleep(25000);
+                return new AimpActionResult(ActionResultType.OK);
             });
 
             ExecuteInMainThread(() =>

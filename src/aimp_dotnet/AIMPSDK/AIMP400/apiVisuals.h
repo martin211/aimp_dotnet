@@ -1,13 +1,12 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v4.50 build 2000               */
+/*               v5.00 build 2300               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2017                 */
+/*                (C) 2006-2020                 */
 /*                 www.aimp.ru                  */
-/*                                              */
-/*            Mail: support@aimp.ru             */
+/*               support@aimp.ru                */
 /*                                              */
 /************************************************/
 
@@ -28,9 +27,9 @@ const int AIMP_VISUAL_CLICK_BUTTON_LEFT   = 0;
 const int AIMP_VISUAL_CLICK_BUTTON_MIDDLE = 1;
 
 // flags for IAIMPExtensionEmbeddedVisualization.GetFlags and IAIMPExtensionCustomVisualization.GetFlags
-const int AIMP_VISUAL_FLAGS_RQD_DATA_WAVE       = 1;
-const int AIMP_VISUAL_FLAGS_RQD_DATA_SPECTRUM   = 2;
-const int AIMP_VISUAL_FLAGS_NOT_SUSPEND	     = 4;
+const int AIMP_VISUAL_FLAGS_RQD_DATA_WAVEFORM  = 1;
+const int AIMP_VISUAL_FLAGS_RQD_DATA_SPECTRUM  = 2;
+const int AIMP_VISUAL_FLAGS_NOT_SUSPEND	       = 4;
 
 const int AIMP_VISUAL_SPECTRUM_MAX = 256;
 const int AIMP_VISUAL_WAVEFORM_MAX = 512;

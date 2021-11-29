@@ -11,6 +11,7 @@
 
 using AIMP.SDK;
 using AIMP.SDK.Lyrics;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Lyrics

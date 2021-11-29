@@ -1,13 +1,12 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v4.70 build 2200               */
+/*               v5.00 build 2300               */
 /*                                              */
 /*                Artem Izmaylov                */
 /*                (C) 2006-2020                 */
 /*                 www.aimp.ru                  */
-/*                                              */
-/*            Mail: support@aimp.ru             */
+/*               support@aimp.ru                */
 /*                                              */
 /************************************************/
 
@@ -323,7 +322,7 @@ const int AIMP_MSG_PROPERTY_PREAMP = AIMP_MSG_PROPERTY_BASE + 13;
 const int AIMP_MSG_PROPERTY_EQUALIZER = AIMP_MSG_PROPERTY_BASE + 14;
 
 // AParam1: LoWord: AIMP_MSG_PROPVALUE_GET / AIMP_MSG_PROPVALUE_SET
-//          HiWord: Slider Index [0..17]
+//          HiWord: Slider Index [0..18]
 // AParam2: Pointer to Single (32-bit floating point value) variable
 //          [-15.0 .. 15.0] (in db), Default: 0.0 (switched off)
 // !!!NOTE: AParam2 in AIMP_MSG_EVENT_PROPERTY_VALUE will be nil;
@@ -437,6 +436,17 @@ const int AIMP_MSG_PROPERTY_CROSSMIXING = AIMP_MSG_PROPERTY_BASE + 34;
 //   2 - Jump to next track and pause playback
 const int AIMP_MSG_PROPERTY_ACTION_ON_END_OF_TRACK = AIMP_MSG_PROPERTY_BASE + 35;
 
+// AParam1: AIMP_MSG_PROPVALUE_GET / AIMP_MSG_PROPVALUE_SET
+// AParam2: Pointer to LongBool (32-bit boolean value) variable
+//          Default: False (switched off)
+const int AIMP_MSG_PROPERTY_EQUALIZER_AUTO = AIMP_MSG_PROPERTY_BASE + 36;
+
+// AParam1: AIMP_MSG_PROPVALUE_GET / AIMP_MSG_PROPVALUE_SET
+// AParam2: Pointer to first element of array of two Single (32-bit floating point value) values
+// 1st element is position of the A point (in seconds) of part-repeat range or -1 if point is not specified
+// 2nd element is position of the B point (in seconds) of part-repeat range or -1 if point is not specified
+const int AIMP_MSG_PROPERTY_PARTREPEAT_RANGE = AIMP_MSG_PROPERTY_BASE + 37;
+
 // ---------------------------------------------------------------------------------------------------------------------
 // Events
 // ---------------------------------------------------------------------------------------------------------------------
@@ -458,6 +468,7 @@ const int AIMP_MSG_EVENT_STREAM_END = AIMP_MSG_EVENT_BASE + 5;
   // AParam1 contains combination of next flags:
     const int AIMP_MES_END_OF_QUEUE    = 1;
     const int AIMP_MES_END_OF_PLAYLIST = 2;
+	const int AIMP_MES_HAS_NEXT_TRACK  = 4;
 
 // Called, when player state has been changed (Played / Paused / Stopped)
 // AParam1: 0 = Stopped; 1 = Paused; 2 = Playing

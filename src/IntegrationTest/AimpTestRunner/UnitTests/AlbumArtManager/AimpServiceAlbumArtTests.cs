@@ -13,6 +13,7 @@ using System;
 using System.Threading;
 using AIMP.SDK;
 using AIMP.SDK.AlbumArtManager;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.AlbumArtManager
@@ -61,12 +62,11 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager
             ExecuteInMainThread(() =>
             {
                 var createResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
-                Player.Play(createResult.Result);
+                Player.ServicePlayer.Play(createResult.Result);
             });
 
-            Thread.Sleep(1000);
 
-            var fi = Player.CurrentFileInfo;
+            var fi = Player.ServicePlayer.CurrentFileInfo;
             Assert.NotNull(fi);
             var result = Player.ServiceAlbumArt.Get2(fi, AimpFindCovertArtType.AIMP_SERVICE_ALBUMART_FLAGS_IGNORECACHE, "userData");
 

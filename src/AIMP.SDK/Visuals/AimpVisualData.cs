@@ -67,7 +67,7 @@ namespace AIMP.SDK.Visuals
         /// <summary>
         /// An array of two elements of float type.
         /// Source data of left and right channels in wave-form.
-        /// This field is populated only if the extension returns the <see cref="AimpVisualFlags.RQDDataWave" /> flag in the
+        /// This field is populated only if the extension returns the <see cref="AimpVisualFlags.RQDDataWaveForm" /> flag in the
         /// GetFlags method.
         /// <para>
         /// 32-bit float per sample.

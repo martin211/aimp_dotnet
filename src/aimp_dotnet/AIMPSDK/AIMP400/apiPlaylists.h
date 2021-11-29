@@ -1,13 +1,12 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v4.60 build 2160               */
+/*               v5.00 build 2300               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2019                 */
+/*                (C) 2006-2020                 */
 /*                 www.aimp.ru                  */
-/*                                              */
-/*            Mail: support@aimp.ru             */
+/*               support@aimp.ru                */
 /*                                              */
 /************************************************/
 
@@ -132,6 +131,7 @@ const int AIMP_PLAYLIST_NOTIFY_PREIMAGE       = 512;
 const int AIMP_PLAYLIST_NOTIFY_MODIFIED       = 1024;
 const int AIMP_PLAYLIST_NOTIFY_DEADSTATE      = 2048;
 const int AIMP_PLAYLIST_NOTIFY_MAKEVISIBLE    = 4096;
+const int AIMP_PLAYLIST_NOTIFY_PLAYBACKQUEUE  = 8192;
 
 // Properties IDS for IAIMPPlaylistPreimage
 const int AIMP_PLAYLISTPREIMAGE_PROPID_FACTORYID = 1;
@@ -353,7 +353,7 @@ class IAIMPServicePlaylistManager: public IUnknown
     	virtual HRESULT WINAPI SetActivePlaylist(IAIMPPlaylist* Playlist) = 0;
 
 		// Playable Playlist
-    	virtual HRESULT WINAPI GetPlayablePlaylist(IAIMPPlaylist **Playlist) = 0;
+    	virtual HRESULT WINAPI GetPlayingPlaylist(IAIMPPlaylist **Playlist) = 0;
 
 		// Loaded Playlists
 		virtual HRESULT WINAPI GetLoadedPlaylist(int Index, IAIMPPlaylist** Playlist) = 0;
