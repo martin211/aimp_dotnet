@@ -18,15 +18,26 @@ namespace AIMP.SDK.MusicLibrary
     /// </summary>
     public enum SortDirectionType
     {
+        Undefined = 0,
+
         /// <summary>
         /// The ascending
         /// </summary>
-        Ascending = 0,
+        Ascending = 1,
 
         /// <summary>
         /// The descending
         /// </summary>
-        Descending = 1
+        Descending = 2
+    }
+
+    public enum FilterType
+    {
+        Limit = 11,
+        Offset = 12,
+        SortByList = 15,
+        SearchString = 20,
+        AlphabeticIndex = 21
     }
 
     /// <summary>
@@ -52,13 +63,7 @@ namespace AIMP.SDK.MusicLibrary
         /// Gets or sets the field name for sorting. Can be null.
         /// </summary>
         /// <value>The sort by.</value>
-        string SortBy { get; set; }
-
-        /// <summary>
-        /// Gets or sets the sort direction. AIMPML_FILTER_SORTBY
-        /// </summary>
-        /// <value>The sort direction.</value>
-        SortDirectionType SortDirection { get; set; }
+        IAimpObjectList SortByList { get; set; }
 
         /// <summary>
         /// Gets or sets the search string. Can be null.

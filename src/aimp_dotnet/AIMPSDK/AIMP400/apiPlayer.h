@@ -1,13 +1,12 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v4.50 build 2000               */
+/*               v5.00 build 2300               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2017                 */
+/*                (C) 2006-2020                 */
 /*                 www.aimp.ru                  */
-/*                                              */
-/*            Mail: support@aimp.ru             */
+/*               support@aimp.ru                */
 /*                                              */
 /************************************************/
 
@@ -20,17 +19,19 @@
 #include "apiPlaylists.h"
 #include "apiFileManager.h"
 
-static const GUID IID_IAIMPExtensionPlaybackQueue = {0x41494D50, 0x4578, 0x7450, 0x6C, 0x61, 0x79, 0x62, 0x61, 0x63, 0x6B, 0x51};
-static const GUID IID_IAIMPExtensionPlayerHook = {0x41494D50, 0x4578, 0x7450, 0x6C, 0x72, 0x48, 0x6F, 0x6F, 0x6B, 0x00, 0x00};
 static const GUID IID_IAIMPEqualizerPreset = {0x41494D50, 0x4571, 0x5072, 0x73, 0x74, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+static const GUID IID_IAIMPExtensionPlaybackQueue = {0x41494D50, 0x4578, 0x7450, 0x6C, 0x61, 0x79, 0x62, 0x61, 0x63, 0x6B, 0x51};
+static const GUID IID_IAIMPExtensionPlaybackQueue2 = {0x41494D50, 0x4578, 0x7450, 0x6C, 0x61, 0x79, 0x62, 0x63, 0x6B, 0x51, 0x32};
+static const GUID IID_IAIMPExtensionPlayerHook = {0x41494D50, 0x4578, 0x7450, 0x6C, 0x72, 0x48, 0x6F, 0x6F, 0x6B, 0x00, 0x00};
+static const GUID IID_IAIMPExtensionWaveformProvider = {0x41494D50, 0x4578, 0x7457, 0x61, 0x76, 0x50, 0x72, 0x76, 0x00, 0x00, 0x00};
 static const GUID IID_IAIMPPlaybackQueueItem = {0x41494D50, 0x506C, 0x6179, 0x62, 0x61, 0x63, 0x6B, 0x51, 0x49, 0x74, 0x6D};
 static const GUID IID_IAIMPServicePlaybackQueue = {0x41494D50, 0x5372, 0x7650, 0x6C, 0x62, 0x61, 0x63, 0x6B, 0x51, 0x00, 0x00};
+static const GUID IID_IAIMPServicePlaybackQueue2 = {0x41494D50, 0x5372, 0x7650, 0x6C, 0x62, 0x61, 0x63, 0x6B, 0x51, 0x32, 0x00};
 static const GUID IID_IAIMPServicePlayer = {0x41494D50, 0x5372, 0x7650, 0x6C, 0x61, 0x79, 0x65, 0x72, 0x00, 0x00, 0x00};
-static const GUID IID_IAIMPServicePlayerEqualizerPresets = {0x41494D50, 0x5372, 0x7645, 0x51, 0x50, 0x72, 0x73, 0x74, 0x73, 0x00, 0x00};
+static const GUID IID_IAIMPServicePlayer2 = {0x41494D50, 0x5372, 0x7650, 0x6C, 0x61, 0x79, 0x65, 0x72, 0x32, 0x00, 0x00};
 static const GUID IID_IAIMPServicePlayerEqualizer = {0x41494D50, 0x5372, 0x7645, 0x51, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+static const GUID IID_IAIMPServicePlayerEqualizerPresets = {0x41494D50, 0x5372, 0x7645, 0x51, 0x50, 0x72, 0x73, 0x74, 0x73, 0x00, 0x00};
 static const GUID IID_IAIMPServiceWaveform = {0x41494D50, 0x5372, 0x7657, 0x61, 0x76, 0x65, 0x00, 0x00, 0x00, 0x00, 0x00};
-static const GUID IID_IAIMPExtensionWaveformProvider = {0x41494D50, 0x4578, 0x7457, 0x61, 0x76, 0x50, 0x72, 0x76, 0x00, 0x00, 0x00};
-
 
 // PropIDs for IAIMPPlaybackQueueItem
 const int AIMP_PLAYBACKQUEUEITEM_PROPID_CUSTOM        = 0;
@@ -45,6 +46,7 @@ const int AIMP_PLAYBACKQUEUE_FLAGS_START_FROM_ITEM      = 3;
 const int AIMP_SERVICE_PLAYER_FLAGS_PLAY_FROM_PLAYLIST              = 1;
 const int AIMP_SERVICE_PLAYER_FLAGS_PLAY_FROM_PLAYLIST_CAN_ADD      = 2;
 const int AIMP_SERVICE_PLAYER_FLAGS_PLAY_WITHOUT_ADDING_TO_PLAYLIST = 4;
+const int AIMP_SERVICE_PLAYER_FLAGS_PLAY_SUSPENDED 					= 8;
 
 // PropIDs for IAIMPPropertyList from IAIMPServicePlayer
 const int AIMP_PLAYER_PROPID_STOP_AFTER_TRACK                     = 1;
@@ -58,6 +60,8 @@ const int AIMP_PLAYER_PROPID_MANUALSWITCHING                      = 20;
 const int AIMP_PLAYER_PROPID_MANUALSWITCHING_CROSSFADE            = 21; // msec
 const int AIMP_PLAYER_PROPID_MANUALSWITCHING_FADEIN               = 22; // msec
 const int AIMP_PLAYER_PROPID_MANUALSWITCHING_FADEOUT              = 23; // msec
+
+const int AIMP_EQUALIZER_BAND_COUNT = 19;
 
 #pragma pack(push, 1)
 struct TAIMPWaveformPeakInfo
@@ -104,6 +108,14 @@ class IAIMPExtensionPlaybackQueue: public IUnknown
 		virtual void WINAPI OnSelect(IAIMPPlaylistItem* Item, IAIMPPlaybackQueueItem* QueueItem) = 0;
 };
 
+/* IAIMPExtensionPlaybackQueue2 */
+
+class IAIMPExtensionPlaybackQueue2: public IAIMPExtensionPlaybackQueue
+{
+	public:
+		virtual HRESULT WINAPI GetInfo(IUnknown* Current, /*out*/ int* position, /*out*/ int* size) = 0;
+};
+
 /* IAIMPExtensionWaveformProvider */
 
 class IAIMPExtensionWaveformProvider : public IUnknown 
@@ -142,6 +154,17 @@ class IAIMPServicePlayer: public IUnknown // + IAIMPPropertyList
 		virtual HRESULT WINAPI StopAfterTrack() = 0;
 };
 
+/* IAIMPServicePlayer2 */
+
+class IAIMPServicePlayer2: public IAIMPServicePlayer
+{
+	public:
+		virtual HRESULT WINAPI Play(IAIMPPlaybackQueueItem* Item, float offset, DWORD flags) = 0;
+		virtual HRESULT WINAPI Play2(IAIMPPlaylistItem* Item, float offset, DWORD flags) = 0;
+		virtual HRESULT WINAPI Play4(IAIMPString* FileURI, float offset, DWORD flags) = 0;
+};
+
+
 /* IAIMPServicePlayerEqualizer */
 
 class IAIMPServicePlayerEqualizer: public IUnknown
@@ -178,6 +201,14 @@ class IAIMPServicePlaybackQueue: public IUnknown
 	public:
 		virtual HRESULT WINAPI GetNextTrack(IAIMPPlaybackQueueItem **Item) = 0;
 		virtual HRESULT WINAPI GetPrevTrack(IAIMPPlaybackQueueItem **Item) = 0;
+};
+
+/* IAIMPServicePlaybackQueue2 */
+
+class IAIMPServicePlaybackQueue2: public IAIMPServicePlaybackQueue
+{
+	public:
+		virtual VOID WINAPI NotifyChanged(IAIMPExtensionPlaybackQueue* Sender) = 0;
 };
 
 /* IAIMPServiceWaveform */

@@ -127,6 +127,7 @@
     </ClCompile>
     <ClCompile Include="SDK\Objects\AimpMemoryStream.cpp" />
     <ClCompile Include="SDK\Objects\AimpFileStream.cpp" />
+    <ClCompile Include="SDK\Player\AimpServicePlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimpMemoryManager.h" />
@@ -290,6 +291,7 @@
     </ClInclude>
     <ClInclude Include="SDK\Objects\AimpMemoryStream.h" />
     <ClInclude Include="SDK\Objects\AimpFileStream.h" />
+    <ClInclude Include="SDK\Player\AimpServicePlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc" />

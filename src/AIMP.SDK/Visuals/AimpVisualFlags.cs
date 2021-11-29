@@ -22,7 +22,7 @@ namespace AIMP.SDK.Visuals
         /// <summary>
         /// Plugin required WaveForm data for rendering.
         /// </summary>
-        RQDDataWave = 1,
+        RQDDataWaveForm = 1,
 
         /// <summary>
         /// Plugin required Spectrum data for rendering.

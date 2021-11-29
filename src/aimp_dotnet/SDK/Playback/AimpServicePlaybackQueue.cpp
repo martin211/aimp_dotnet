@@ -59,6 +59,11 @@ AimpActionResult<IAimpPlaybackQueueItem^>^ AimpServicePlaybackQueue::GetPrevTrac
     return gcnew AimpActionResult<IAimpPlaybackQueueItem^>(result, item);
 }
 
+AimpActionResult^ AimpServicePlaybackQueue::NotifyChanged() {
+    // TODO
+    return ACTION_RESULT(ActionResultType::OK);
+}
+
 IAIMPServicePlaybackQueue* AimpServicePlaybackQueue::GetAimpService() {
     IAIMPServicePlaybackQueue* service = nullptr;
     GetService(IID_IAIMPServicePlaybackQueue, &service);

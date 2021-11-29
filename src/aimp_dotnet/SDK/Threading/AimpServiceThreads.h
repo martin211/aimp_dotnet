@@ -18,7 +18,7 @@ namespace AIMP {
             explicit AimpServiceThreads(ManagedAimpCore^ core);
             virtual AimpActionResult^ Cancel(UIntPtr taskHandle, AimpServiceThreadPoolType flags);
             virtual AimpActionResult^ WaitFor(UIntPtr taskHandle);
-            virtual AimpActionResult^ ExecuteInMainThread(IAimpTask^ task, bool executeNow);
+            virtual AimpActionResult^ ExecuteInMainThread(IAimpTask^ task, AimpServiceThreadPoolType flags);
             virtual AimpActionResult<UIntPtr>^ ExecuteInThread(IAimpTask^ task);
         protected:
             IAIMPServiceThreads* GetAimpService() override;

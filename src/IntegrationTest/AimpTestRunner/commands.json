@@ -3,8 +3,16 @@
     "CopyPlugin": {
       "fileName": "powershell.exe",
       "workingDirectory": ".",
-      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File ..\\..\\..\\Tools\\CopyPlugin.ps1 $(ConfigurationName) $(TargetName) $(TargetDir) $(SolutionDir) $(ProjectDir) -AimpVersion AIMP4.70.2220"
-    }
+      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File ..\\..\\..\\Tools\\CopyPlugin.ps1 copy $(ConfigurationName) $(TargetName) $(TargetDir) $(SolutionDir) $(ProjectDir) -AimpVersion AIMP5.00.2344"
+    },
+    "ClearPlugin": {
+      "fileName": "powershell.exe",
+      "workingDirectory": ".",
+      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File ..\\..\\..\\Tools\\CopyPlugin.ps1 clean $(ConfigurationName) $(TargetName) $(TargetDir) $(SolutionDir) $(ProjectDir) -AimpVersion AIMP5.00.2344"
+    } 
   },
-  "-vs-binding": { "AfterBuild": [ "CopyPlugin" ] }
+  "-vs-binding": {
+    "AfterBuild": [ "CopyPlugin" ],
+    "Clean": [ "ClearPlugin" ]
+  }
 }

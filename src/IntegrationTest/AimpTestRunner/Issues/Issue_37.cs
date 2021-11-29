@@ -13,6 +13,7 @@ using System;
 using System.IO;
 using AIMP.SDK;
 using AIMP.SDK.FileManager;
+using Aimp.TestRunner.TestFramework;
 using Aimp.TestRunner.UnitTests;
 using NUnit.Framework;
 

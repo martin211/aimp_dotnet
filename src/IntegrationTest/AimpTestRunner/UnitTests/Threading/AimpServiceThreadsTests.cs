@@ -13,6 +13,7 @@ using System;
 using System.Threading;
 using AIMP.SDK;
 using AIMP.SDK.Threading;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Threading
@@ -46,7 +47,7 @@ namespace Aimp.TestRunner.UnitTests.Threading
         public void ExecuteInMainThread_ShouldReturn_OK()
         {
             var task = new IntegrationTask();
-            var r = Player.ServiceThreads.ExecuteInMainThread(task, true);
+            var r = Player.ServiceThreads.ExecuteInMainThread(task, AimpServiceThreadPoolType.None);
             this.AreEqual(ActionResultType.OK, r.ResultType, fieldName: "ExecuteInMainThread.ResultType");
         }
 

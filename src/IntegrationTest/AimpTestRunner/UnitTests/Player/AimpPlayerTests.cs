@@ -10,6 +10,7 @@
 // ----------------------------------------------------
 
 using AIMP.SDK;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Player
@@ -17,8 +18,8 @@ namespace Aimp.TestRunner.UnitTests.Player
     //[TestFixture]
     public class AimpPlayerTests : AimpIntegrationTest
     {
-        [Test, Order(1)]
-        [Ignore("Not working in integration mode")]
+        //[Test, Order(1)]
+        //[Ignore("Not working in integration mode")]
         public void Play_PlayList_ShouldReturnOK()
         {
             ExecuteInMainThread(() =>
@@ -27,11 +28,11 @@ namespace Aimp.TestRunner.UnitTests.Player
                 this.AreEqual(ActionResultType.OK, playlist.ResultType);
                 this.NotNull(playlist.Result);
 
-                var result = Player.Play(playlist.Result);
+                var result = Player.ServicePlayer.Play(playlist.Result);
                 this.AreEqual(ActionResultType.OK, result.ResultType);
             });
 
-            Assert.AreEqual(AimpPlayerState.Playing, Player.State);
+            Assert.AreEqual(AimpPlayerState.Playing, Player.ServicePlayer.State);
         }
 
         //[Test, Order(2)]
@@ -39,11 +40,11 @@ namespace Aimp.TestRunner.UnitTests.Player
         {
             ExecuteInMainThread(() =>
             {
-                var result = Player.Pause();
+                var result = Player.ServicePlayer.Pause();
                 this.AreEqual(ActionResultType.OK, result.ResultType);
             });
 
-            this.AreEqual(AimpPlayerState.Pause, Player.State);
+            this.AreEqual(AimpPlayerState.Pause, Player.ServicePlayer.State);
         }
 
         //[Test, Order(3)]
@@ -51,11 +52,12 @@ namespace Aimp.TestRunner.UnitTests.Player
         {
             ExecuteInThread(() =>
             {
-                var result = Player.Resume();
+                var result = Player.ServicePlayer.Resume();
                 Assert.AreEqual(ActionResultType.OK, result.ResultType);
+                return new AimpActionResult(result.ResultType);
             });
 
-            Assert.AreEqual(AimpPlayerState.Playing, Player.State);
+            Assert.AreEqual(AimpPlayerState.Playing, Player.ServicePlayer.State);
         }
 
         //[Test, Order(4)]
@@ -63,17 +65,18 @@ namespace Aimp.TestRunner.UnitTests.Player
         {
             ExecuteInThread(() =>
             {
-                var result = Player.Stop();
+                var result = Player.ServicePlayer.Stop();
                 Assert.AreEqual(ActionResultType.OK, result.ResultType);
+                return new AimpActionResult(result.ResultType);
             });
 
-            Assert.AreEqual(AimpPlayerState.Stopped, Player.State);
+            Assert.AreEqual(AimpPlayerState.Stopped, Player.ServicePlayer.State);
         }
 
         //[Test]
         public void StopAfterTrack_ShouldReturnOK()
         {
-            var result = Player.StopAfterTrack();
+            var result = Player.ServicePlayer.StopAfterTrack();
             Assert.AreEqual(ActionResultType.OK, result.ResultType);
         }
     }

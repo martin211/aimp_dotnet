@@ -33,18 +33,6 @@ namespace AIMP {
                 void set(int value);
             }
 
-            virtual property String^ SortBy
-            {
-                String^ get();
-                void set(String^ value);
-            }
-
-            virtual property SortDirectionType SortDirection
-            {
-                SortDirectionType get();
-                void set(SortDirectionType value);
-            }
-
             virtual property String^ SearchString
             {
                 String^ get();
@@ -60,6 +48,12 @@ namespace AIMP {
             virtual ActionResult Assign(IAimpDataFilter^ source);
 
             virtual TYPED_RESULT(IAimpDataFilter) Clone();
+
+            property IAimpObjectList^ SortByList
+            {
+                virtual IAimpObjectList^ get();
+                virtual void set(IAimpObjectList^ value);
+            }
         };
     }
 }

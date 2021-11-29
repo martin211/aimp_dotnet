@@ -12,6 +12,7 @@
 using AIMP.SDK;
 using AIMP.SDK.FileManager;
 using AIMP.SDK.Objects;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Objects

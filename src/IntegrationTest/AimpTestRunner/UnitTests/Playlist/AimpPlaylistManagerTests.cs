@@ -13,6 +13,7 @@ using System;
 using System.Threading;
 using AIMP.SDK;
 using AIMP.SDK.Playlist;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Playlist
@@ -202,11 +203,12 @@ namespace Aimp.TestRunner.UnitTests.Playlist
             ExecuteInThread(() =>
             {
                 Thread.Sleep(10000);
+                return new AimpActionResult(ActionResultType.OK);
             });
 
             ExecuteInMainThread(() =>
             {
-                var result = Player.ServicePlaylistManager.GetPlayablePlaylist();
+                var result = Player.ServicePlaylistManager.GetPlayingPlaylist();
 
                 this.AreEqual(ActionResultType.OK, result.ResultType);
                 this.NotNull(result.Result);

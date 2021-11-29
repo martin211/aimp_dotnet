@@ -14,6 +14,7 @@ using AIMP.SDK.ActionManager;
 using AIMP.SDK.FileManager;
 using AIMP.SDK.Lyrics;
 using AIMP.SDK.MenuManager;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests

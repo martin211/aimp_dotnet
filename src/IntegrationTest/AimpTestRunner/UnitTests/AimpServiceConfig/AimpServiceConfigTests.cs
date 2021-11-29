@@ -10,6 +10,7 @@
 // ----------------------------------------------------
 
 using AIMP.SDK;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
@@ -19,6 +20,12 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
     [TestFixture]
     public class AimpServiceConfigTests : AimpIntegrationTest
     {
+        private const string FloatSetting = @"integrationTest\Float";
+        private const string IntSetting = @"integrationTest\Int";
+        private const string Int64Setting = @"integrationTest\Int64";
+        private const string StringSetting = @"integrationTest\String";
+        private const string StreamSetting = @"integrationTest\Stream";
+
         [Test]
         public void FlushCache_ShouldReturnOK()
         {
@@ -29,11 +36,11 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
             });
         }
 
-        [TestCase(@"integrationTest\Float", (float)1.1), Order(1)]
-        [TestCase(@"integrationTest\Int", (int)1)]
-        [TestCase(@"integrationTest\Int64", (long)2)]
-        [TestCase(@"integrationTest\String", "SomeString")]
-        [TestCase(@"integrationTest\Stream", new byte[] { 0x1, 0x2, 0x3 })]
+        [TestCase(FloatSetting, (float)1.1), Order(1)]
+        [TestCase(IntSetting, (int)1)]
+        [TestCase(Int64Setting, (long)2)]
+        [TestCase(StringSetting,"SomeString")]
+        [TestCase(StreamSetting,new byte[] { 0x1, 0x2, 0x3 })]
         public void Set_ShouldReturnOK(string path, object value)
         {
             ExecuteInMainThread(() =>
@@ -71,11 +78,11 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
             });
         }
 
-        [TestCase(@"integrationTest\Float"), Order(2)]
-        [TestCase(@"integrationTest\Int")]
-        [TestCase(@"integrationTest\Int64")]
-        [TestCase(@"integrationTest\String")]
-        [TestCase(@"integrationTest\Stream")]
+        [TestCase(FloatSetting), Order(2)]
+        [TestCase(IntSetting)]
+        [TestCase(Int64Setting)]
+        [TestCase(StringSetting)]
+        [TestCase(StreamSetting)]
         public void Get_ShouldReadValues(string path)
         {
             ExecuteInMainThread(() =>
@@ -125,11 +132,11 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
             });
         }
 
-        [TestCase(@"integrationTest\Float"), Order(3)]
-        [TestCase(@"integrationTest\Int")]
-        [TestCase(@"integrationTest\Int64")]
-        [TestCase(@"integrationTest\String")]
-        [TestCase(@"integrationTest\Stream")]
+        [TestCase(FloatSetting), Order(3)]
+        [TestCase(IntSetting)]
+        [TestCase(Int64Setting)]
+        [TestCase(StringSetting)]
+        [TestCase(StreamSetting)]
         public void Delete_ShouldDeleteSettings(string path)
         {
             ExecuteInMainThread(() =>
@@ -140,11 +147,11 @@ namespace Aimp.TestRunner.UnitTests.AimpServiceConfig
             });
         }
 
-        [TestCase(@"integrationTest\Float"), Order(4)]
-        [TestCase(@"integrationTest\Int")]
-        [TestCase(@"integrationTest\Int64")]
-        [TestCase(@"integrationTest\String")]
-        [TestCase(@"integrationTest\Stream")]
+        [TestCase(FloatSetting), Order(4)]
+        [TestCase(IntSetting)]
+        [TestCase(Int64Setting)]
+        [TestCase(StringSetting)]
+        [TestCase(StreamSetting)]
         public void Get_NotExist_ShouldReturnDefault(string path)
         {
             ExecuteInMainThread(

@@ -26,7 +26,7 @@ namespace AIMP.SDK.Threading
         /// <summary>
         /// the method will not return control until operation has been completed if this flag is used.
         /// </summary>
-        WaitFor
+        WaitFor = 1
     }
 
     /// <summary>

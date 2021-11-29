@@ -29,6 +29,29 @@ using AIMP.SDK.Win32;
 
 namespace AIMP.SDK.Player
 {
+    public enum PlayFlags
+    {
+        /// <summary>
+        /// Player will search file with this file name in all loaded playlists, if succeeded - will start play it.
+        /// </summary>
+        FromPlaylist = 1,
+
+        /// <summary>
+        /// This flag should be used with previous one, if file is not found in loaded playlists - it will be added to playlist (target playlist is chosen based on current settings).
+        /// </summary>
+        CanAdd = 2,
+
+        /// <summary>
+        /// Start file playback without adding it to playlist.
+        /// </summary>
+        WithoutAdding = 4,
+
+        /// <summary>
+        /// Pause playback on track beginning.
+        /// </summary>
+        Suspend = 8
+    }
+
     /// <summary>
     /// Interface IAimpPlayer
     /// Implements the <see cref="System.IDisposable" />
@@ -110,47 +133,7 @@ namespace AIMP.SDK.Player
         /// <value>The service shutdown.</value>
         IAimpServiceShutdown ServiceShutdown { get; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether the volume is mute.
-        /// </summary>
-        /// <value><c>true</c> if this instance is mute; otherwise, <c>false</c>.</value>
-        bool IsMute { get; set; }
-
-        /// <summary>
-        /// Gets or sets the volume.
-        /// </summary>
-        /// <value>The volume.</value>
-        float Volume { get; set; }
-
-        /// <summary>
-        /// Gets the duration.
-        /// </summary>
-        /// <value>The duration.</value>
-        double Duration { get; }
-
-        /// <summary>
-        /// Gets or sets the position.
-        /// </summary>
-        /// <value>The position.</value>
-        double Position { get; set; }
-
-        /// <summary>
-        /// Gets the current player state <see cref="AimpPlayerState" />.
-        /// </summary>
-        /// <value>The state.</value>
-        AimpPlayerState State { get; }
-
-        /// <summary>
-        /// Gets the current playing file.
-        /// </summary>
-        /// <value>The current file information.</value>
-        IAimpFileInfo CurrentFileInfo { get; }
-
-        /// <summary>
-        /// Gets the current play list item.
-        /// </summary>
-        /// <value>The current play list item.</value>
-        IAimpPlaylistItem CurrentPlaylistItem { get; }
+        IAimpServicePlayer ServicePlayer { get; }
 
         /// <summary>
         /// Gets the win32 manager.
@@ -230,62 +213,5 @@ namespace AIMP.SDK.Player
         /// Gets the version information service.
         /// </summary>
         IAimpServiceVersionInfo ServiceVersionInfo { get; }
-
-        /// <summary>
-        /// Pauses player.
-        /// </summary>
-        /// <returns>AimpActionResult.</returns>
-        AimpActionResult Pause();
-
-        /// <summary>
-        /// Resumes player.
-        /// </summary>
-        /// <returns>AimpActionResult.</returns>
-        AimpActionResult Resume();
-
-        /// <summary>
-        /// Stops player.
-        /// </summary>
-        /// <returns>AimpActionResult.</returns>
-        AimpActionResult Stop();
-
-        /// <summary>
-        /// Stops the after track.
-        /// </summary>
-        /// <returns>AimpActionResult.</returns>
-        AimpActionResult StopAfterTrack();
-
-        /// <summary>
-        /// Goes to next track.
-        /// </summary>
-        /// <returns>AimpActionResult.</returns>
-        AimpActionResult GoToNext();
-
-        /// <summary>
-        /// Goes to previous track.
-        /// </summary>
-        /// <returns>AimpActionResult.</returns>
-        AimpActionResult GoToPrev();
-
-        /// <summary>
-        /// Plays the specified queue item.
-        /// </summary>
-        /// <param name="queueItem">The queue item.</param>
-        /// <returns>AimpActionResult.</returns>
-        AimpActionResult Play(IAimpPlaybackQueueItem queueItem);
-
-        /// <summary>
-        /// Plays the specified play list item.
-        /// </summary>
-        /// <param name="playlistItem">The play list item.</param>
-        /// <returns>AimpActionResult.</returns>
-        AimpActionResult Play(IAimpPlaylistItem playlistItem);
-
-        /// <summary>
-        /// Plays the specified play list.
-        /// </summary>
-        /// <param name="playList">The play list.</param>
-        /// <returns>AimpActionResult.</returns>
-        AimpActionResult Play(IAimpPlaylist playList);
     }
 }

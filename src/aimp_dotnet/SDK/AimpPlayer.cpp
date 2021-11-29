@@ -16,6 +16,7 @@
 #include "FileManager/AimpServiceFileInfoFormatter.h"
 #include "MUI/AimpServiceMUI.h"
 #include "Menu/AimpServiceMenuManager.h"
+#include "Player/AimpServicePlayer.h"
 #include "Threading/AimpServiceThreads.h"
 
 using namespace AIMP;
@@ -23,15 +24,10 @@ using namespace SDK;
 
 AimpPlayer::AimpPlayer(ManagedAimpCore^ core, int pluginId, int applicationDomainId, bool isCrossDomain) {
     _managedAimpCore = core;
-    IAIMPServicePlayer* ps;
-    static_cast<ManagedAimpCore^>(_managedAimpCore)->GetService(IID_IAIMPServicePlayer, reinterpret_cast<void**>(&ps));
-    _player = ps;
-
     _aimpCore = gcnew AimpCore(_managedAimpCore);
 }
 
 AimpPlayer::~AimpPlayer() {
-    _player->Release();
     delete _aimpCore;
     delete _menuManager;
     delete _actionManager;
@@ -48,6 +44,12 @@ AimpPlayer::~AimpPlayer() {
     delete _serviceFileInfo;
     delete _serviceFileInfoFormatter;
     delete _serviceAlbumArtCache;
+    delete _serviceShutdown;
+    delete _servicePlayer;
+    delete _serviceVersionInfo;
+    delete _serviceThreads;
+    delete _serviceLyrics;
+    delete _serviceFileTagEditor;
 }
 
 IAimpCore^ AimpPlayer::Core::get() {
@@ -104,75 +106,11 @@ IAimpServicePlaybackQueue^ AimpPlayer::ServicePlaybackQueue::get() {
     return _playbackQueueManager;
 }
 
-IAIMPServicePlayer* AimpPlayer::ServicePlayer::get() {
-    return _player;
-}
-
-bool AimpPlayer::IsMute::get() {
-    bool value;
-    if (Utils::CheckResult(_player->GetMute(&value)) == ActionResultType::OK) {
-        return value;
+Player::IAimpServicePlayer^ AimpPlayer::ServicePlayer::get() {
+    if (_servicePlayer == nullptr) {
+        _servicePlayer = gcnew AimpServicePlayer(_managedAimpCore);
     }
-    return false;
-}
-
-void AimpPlayer::IsMute::set(bool value) {
-    _player->SetMute(value);
-}
-
-float AimpPlayer::Volume::get() {
-    float value;
-    if (Utils::CheckResult(_player->GetVolume(&value)) == ActionResultType::OK) {
-        return value;
-    }
-    return 0;
-}
-
-void AimpPlayer::Volume::set(float value) {
-    _player->SetVolume(value);
-}
-
-double AimpPlayer::Duration::get() {
-    double value;
-    if (Utils::CheckResult(_player->GetDuration(&value)) == ActionResultType::OK) {
-        return value;
-    }
-    return 0;
-}
-
-double AimpPlayer::Position::get() {
-    double value;
-    if (Utils::CheckResult(_player->GetPosition(&value)) == ActionResultType::OK) {
-        return value;
-    }
-    return 0;
-}
-
-void AimpPlayer::Position::set(double value) {
-    _player->SetPosition(value);
-}
-
-AimpPlayerState AimpPlayer::State::get() {
-    int state = _player->GetState();
-    return static_cast<AimpPlayerState>(state);
-}
-
-IAimpFileInfo^ AimpPlayer::CurrentFileInfo::get() {
-    IAIMPFileInfo* fi = nullptr;
-    if (Utils::CheckResult(_player->GetInfo(&fi)) == ActionResultType::OK && fi != nullptr) {
-        return gcnew AimpFileInfo(fi);
-    }
-
-    return nullptr;
-}
-
-IAimpPlaylistItem^ AimpPlayer::CurrentPlaylistItem::get() {
-    IAIMPPlaylistItem* item = nullptr;
-    if (Utils::CheckResult(_player->GetPlaylistItem(&item)) == ActionResultType::OK && item != nullptr) {
-        return gcnew AimpPlaylistItem(item);
-    }
-
-    return nullptr;
+    return _servicePlayer;
 }
 
 IWin32Manager^ AimpPlayer::Win32Manager::get() {
@@ -196,44 +134,6 @@ IAimpServiceMessageDispatcher^ AimpPlayer::ServiceMessageDispatcher::get() {
     }
 
     return _serviceMessageDispatcher;
-}
-
-ActionResult AimpPlayer::Pause() {
-    return ACTION_RESULT(Utils::CheckResult(_player->Pause()));
-}
-
-ActionResult AimpPlayer::Stop() {
-    return ACTION_RESULT(Utils::CheckResult(_player->Stop()));
-}
-
-ActionResult AimpPlayer::Resume() {
-    return ACTION_RESULT(Utils::CheckResult(_player->Resume()));
-}
-
-ActionResult AimpPlayer::StopAfterTrack() {
-    return ACTION_RESULT(Utils::CheckResult(_player->StopAfterTrack()));
-}
-
-ActionResult AimpPlayer::GoToNext() {
-    return ACTION_RESULT(Utils::CheckResult(_player->GoToNext()));
-}
-
-ActionResult AimpPlayer::GoToPrev() {
-    return ACTION_RESULT(Utils::CheckResult(_player->GoToPrev()));
-}
-
-ActionResult AimpPlayer::Play(IAimpPlaybackQueueItem^ queueItem) {
-    return ACTION_RESULT(
-        Utils::CheckResult(_player->Play(static_cast<AimpPlaybackQueueItem^>(queueItem)->InternalAimpObject)));
-}
-
-ActionResult AimpPlayer::Play(IAimpPlaylistItem^ playListItem) {
-    return ACTION_RESULT(
-        Utils::CheckResult(_player->Play2(static_cast<AimpPlaylistItem^>(playListItem)->InternalAimpObject)));
-}
-
-ActionResult AimpPlayer::Play(IAimpPlaylist^ playList) {
-    return ACTION_RESULT(Utils::CheckResult(_player->Play3(static_cast<AimpPlayList^>(playList)->InternalAimpObject)));
 }
 
 SDK::Core::IAimpServiceShutdown^ AimpPlayer::ServiceShutdown::get() {

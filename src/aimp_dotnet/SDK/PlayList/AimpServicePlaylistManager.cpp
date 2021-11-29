@@ -189,7 +189,7 @@ PlaylistResult AimpServicePlaylistManager::GetLoadedPlaylist(int index) {
     return gcnew AimpActionResult<IAimpPlaylist^>(res, playList);
 }
 
-PlaylistResult AimpServicePlaylistManager::GetPlayablePlaylist() {
+PlaylistResult AimpServicePlaylistManager::GetPlayingPlaylist() {
     IAimpPlaylist^ playList = nullptr;
     IAIMPPlaylist* pl = nullptr;
     IAIMPServicePlaylistManager2* service = GetAimpService();
@@ -197,7 +197,7 @@ PlaylistResult AimpServicePlaylistManager::GetPlayablePlaylist() {
 
     try {
         if (service != nullptr) {
-            res = CheckResult(service->GetPlayablePlaylist(&pl));
+            res = CheckResult(service->GetPlayingPlaylist(&pl));
             if (res == ActionResultType::OK) {
                 playList = gcnew AimpPlayList(pl);
             }

@@ -924,7 +924,18 @@ namespace AIMP.SDK.MessageDispatcher
 
         PropertyActionOnEndOfTrack = Constants.MessagePropertyBase + 35,
 
+        PropertyEqualizerAuto = Constants.MessagePropertyBase + 36,
+
+        PropertyPartRepeatRange = Constants.MessagePropertyBase + 37
+
         #endregion
+    }
+
+    public enum AimpMessage
+    {
+        EndOfQueue = 1,
+        EndOfPlaylist = 2,
+        HasNextTrack = 4
     }
 
     public enum AimpDescriptorType

@@ -23,6 +23,7 @@ namespace AIMP {
 
             virtual AimpActionResult<IAimpPlaybackQueueItem^>^ GetPrevTrack();
 
+            virtual AimpActionResult^ NotifyChanged();
         protected:
             IAIMPServicePlaybackQueue* GetAimpService() override;
         };

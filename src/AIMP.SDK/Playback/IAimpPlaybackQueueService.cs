@@ -16,7 +16,7 @@ namespace AIMP.SDK.Playback
     /// Implements the <see cref="AIMP.SDK.IAimpService" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.IAimpService" />
-    public interface IAimpServicePlaybackQueue : IAimpService
+    public interface IAimpServicePlaybackQueue : IAimpServicePlaybackQueue2, IAimpService
     {
         /// <summary>
         /// Gets the next track.
