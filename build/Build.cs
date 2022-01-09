@@ -46,6 +46,8 @@ partial class Build : NukeBuild
     [Parameter] readonly string RequestTargetBranch;
     [Parameter] readonly string RequestId;
 
+    [Parameter] readonly string MsBuildPath = @"c:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MsBuild.exe";
+
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath TestsDirectory => RootDirectory / "tests";
     AbsolutePath OutputDirectory => RootDirectory / "output";
@@ -70,6 +72,7 @@ partial class Build : NukeBuild
             NuGetTasks.NuGetRestore(c => c.SetTargetPath(Solution));
             MSBuild(_ => _
                 .SetTargetPath(Solution)
+                .SetProcessToolPath(MsBuildPath)
                 .SetTargets("Restore"));
         });
 
@@ -80,12 +83,11 @@ partial class Build : NukeBuild
                 ? GitRepository.Branch.Split("/")[1]
                 : GitVersion.AssemblySemVer;
 
-            Logger.Info($"Assembly version: {_version}");
-
+            Serilog.Log.Information($"Assembly version: {_version}");
             var assemblyInfo = SourceDirectory / "AssemblyInfo.cs";
             if (File.Exists(assemblyInfo))
             {
-                Logger.Info($"Update version for '{assemblyInfo}'");
+                Serilog.Log.Information($"Update version for '{assemblyInfo}'");
                 var fileContent = File.ReadAllText(assemblyInfo);
                 fileContent = fileContent.Replace("1.0.0.0", _version);
                 File.WriteAllText(assemblyInfo, fileContent);
@@ -94,8 +96,8 @@ partial class Build : NukeBuild
             var rcFile = SourceDirectory / "aimp_dotnet" / "aimp_dotnet.rc";
             if (File.Exists(rcFile))
             {
-                Logger.Info($"Update version for '{rcFile}'");
-                Logger.Info($"Assembly version: {GitVersion.AssemblySemVer}");
+                Serilog.Log.Information($"Update version for '{rcFile}'");
+                Serilog.Log.Information($"Assembly version: {GitVersion.AssemblySemVer}");
                 var fileContent = File.ReadAllText(rcFile);
                 fileContent = fileContent.Replace("1,0,0,1", _version.Replace(".", ",")).Replace("1.0.0.1", _version);
                 File.WriteAllText(rcFile, fileContent);
@@ -107,6 +109,7 @@ partial class Build : NukeBuild
         .Executes(() =>
         {
             MSBuild(_ => _
+                .SetProcessToolPath(MsBuildPath)
                 .SetTargetPath(Solution)
                 .SetTargets("Rebuild")
                 .SetConfiguration(Configuration)
@@ -166,6 +169,7 @@ partial class Build : NukeBuild
     {
         MSBuild(c => c
                 .SetConfiguration(Configuration)
+                .SetProcessToolPath(MsBuildPath)
                 .SetTargets("Rebuild")
                 .SetSolutionFile(Solution)
                 .EnableNodeReuse());
@@ -193,7 +197,7 @@ partial class Build : NukeBuild
         .DependsOn(Version)
         .Executes(() =>
         {
-            Logger.Info("Start build Nuget packages");
+            Serilog.Log.Information("Start build Nuget packages");
 
             var nugetFolder = RootDirectory / "Nuget";
 
@@ -225,18 +229,22 @@ partial class Build : NukeBuild
         });
 
     Target Publish => _ => _
-    .Requires(() => Configuration.Equals(Configuration.Release))
-    .Requires(() => NugetApiKey)
-    .Executes(() =>
-    {
-        Logger.Info("Deploying Nuget packages");
-        GlobFiles(OutputDirectory, "*.nupkg").NotEmpty()
-            .Where(c => !c.EndsWith("symbols.nupkg"))
-            .ForEach(c => NuGetTasks.NuGetPush(s => s
-                .SetTargetPath(c)
-                .SetApiKey(NugetApiKey)
-                .SetSource(Source)));
-    });
+        .Requires(() => Configuration.Equals(Configuration.Release))
+        .Requires(() => NugetApiKey)
+        .Executes(() =>
+        {
+            Serilog.Log.Information("Deploying Nuget packages");
+            var packages = GlobFiles(OutputDirectory, "*.nupkg")
+                .Where(c => !c.EndsWith("symbols.nupkg")).ToList();
+
+            Assert.NotEmpty(packages);
+
+            packages
+                .ForEach(c => NuGetTasks.NuGetPush(s => s
+                    .SetTargetPath(c)
+                    .SetApiKey(NugetApiKey)
+                    .SetSource(Source)));
+        });
 
     Target Artifacts => _ => _
      .Executes(() =>
@@ -245,7 +253,8 @@ partial class Build : NukeBuild
          EnsureCleanDirectory(OutputDirectory / "Artifacts");
          Directory.CreateDirectory(OutputDirectory / "Artifacts");
 
-         Logger.Info("Copy plugins to artifacts folder");
+         Serilog.Log.Information("Copy plugins to artifacts folder");
+
          var directories = GlobDirectories(SourceDirectory / "Plugins", $"**/bin/{Configuration}");
          foreach (var directory in directories)
          {
@@ -254,7 +263,7 @@ partial class Build : NukeBuild
              plugins.Add(pluginName);
 
              Directory.CreateDirectory(OutputDirectory / "Artifacts" / "Plugins" / pluginName);
-             Logger.Info(pluginName);
+             Serilog.Log.Information(pluginName);
              var files = di.GetFiles("*.dll");
              foreach (var file in files)
              {
@@ -274,12 +283,12 @@ partial class Build : NukeBuild
                      outFile = OutputDirectory / "Artifacts" / "Plugins" / pluginName / $"{pluginName}.dll";
                  }
 
-                 Logger.Normal($"Copy '{file.FullName}' to '{outFile}'");
+                 Serilog.Log.Information($"Copy '{file.FullName}' to '{outFile}'");
                  file.CopyTo(outFile, true);
              }
          }
 
-         Logger.Info("Copy SDK files to artifacts folder");
+         Serilog.Log.Information("Copy SDK files to artifacts folder");
          var sdkFolder = new DirectoryInfo(SourceDirectory / $"{Configuration}");
          Directory.CreateDirectory(OutputDirectory / "Artifacts" / "SDK");
          var sdkFiles = sdkFolder.GetFiles("*.dll");
@@ -289,7 +298,7 @@ partial class Build : NukeBuild
              file.CopyTo(outFile, true);
          }
 
-         Logger.Info("Validate output");
+         Serilog.Log.Information("Validate output");
 
          bool validatePluginFolder(string plugin, IEnumerable<FileInfo> files)
          {
@@ -310,14 +319,13 @@ partial class Build : NukeBuild
              var files = di.GetFiles("*.dll");
              if (!validatePluginFolder(plugin, files))
              {
-                 Logger.Error($"Plugin {plugin} not valid.");
+                 Serilog.Log.Error($"Plugin {plugin} not valid.");
                  isValid = false;
              }
          }
 
-         ControlFlow.Assert(isValid, "Artifacts not valid");
-
-         Logger.Info("Compress artifacts");
+         Assert.True(isValid, "Artifacts not valid");
+         Serilog.Log.Information("Compress artifacts");
          ZipFile.CreateFromDirectory(OutputDirectory / "Artifacts", OutputDirectory / "aimp.sdk.zip");
      });
 }

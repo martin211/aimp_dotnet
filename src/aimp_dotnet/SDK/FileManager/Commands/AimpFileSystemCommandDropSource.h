@@ -13,7 +13,6 @@ namespace AIMP {
         using namespace System;
         using namespace FileManager;
         using namespace Commands;
-        using namespace Objects;
 
         public ref class AimpFileSystemCommandDropSource : AimpObject<IAIMPFileSystemCommandDropSource>,
                                                            IAimpFileSystemCommandDropSource {

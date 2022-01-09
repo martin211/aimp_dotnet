@@ -99,23 +99,23 @@ const int AIMP_MSG_CMD_NEXT = AIMP_MSG_CMD_BASE + 19;
 // AParam1, AParam2: unused
 const int AIMP_MSG_CMD_PREV = AIMP_MSG_CMD_BASE + 20;
 
-// Execute "Open Files" dialog
+// Validate "Open Files" dialog
 // AParam1, AParam2: unused
 const int AIMP_MSG_CMD_OPEN_FILES = AIMP_MSG_CMD_BASE + 21;
 
-// Execute "Open Folders" dialog
+// Validate "Open Folders" dialog
 // AParam1, AParam2: unused
 const int AIMP_MSG_CMD_OPEN_FOLDERS = AIMP_MSG_CMD_BASE + 22;
 
-// Execute "Open Playlist" dialog
+// Validate "Open Playlist" dialog
 // AParam1, AParam2: unused
 const int AIMP_MSG_CMD_OPEN_PLAYLISTS  = AIMP_MSG_CMD_BASE + 23;
 
-// Execute "Save Playlist" dialog
+// Validate "Save Playlist" dialog
 // AParam1, AParam2: unused
 const int AIMP_MSG_CMD_SAVE_PLAYLISTS  = AIMP_MSG_CMD_BASE + 24;
 
-// Execute "Bookmarks" dialog
+// Validate "Bookmarks" dialog
 // AParam1, AParam2: unused
 const int AIMP_MSG_CMD_BOOKMARKS = AIMP_MSG_CMD_BASE + 25;
 
@@ -194,23 +194,23 @@ const int AIMP_MSG_CMD_PLS_SWITCH_ON = AIMP_MSG_CMD_BASE + 44;
 // AParam1, AParam2: unused
 const int AIMP_MSG_CMD_PLS_SWITCH_OFF = AIMP_MSG_CMD_BASE + 45;
 
-// Execute "Add files" dialog
+// Validate "Add files" dialog
 // AParam1, AParam2: unused
 const int AIMP_MSG_CMD_ADD_FILES = AIMP_MSG_CMD_BASE + 46;
 
-// Execute "Add folders" dialog
+// Validate "Add folders" dialog
 // AParam1, AParam2: unused
 const int AIMP_MSG_CMD_ADD_FOLDERS = AIMP_MSG_CMD_BASE + 47;
 
-// Execute "Add Playlists" dialog
+// Validate "Add Playlists" dialog
 // AParam1, AParam2: unused
 const int AIMP_MSG_CMD_ADD_PLAYLISTS = AIMP_MSG_CMD_BASE + 48;
 
-// Execute "Add URL" dialog
+// Validate "Add URL" dialog
 // AParam1, AParam2: unused
 const int AIMP_MSG_CMD_ADD_URL = AIMP_MSG_CMD_BASE + 49;
 
-// Execute "Quick Tag Editor" for playing file
+// Validate "Quick Tag Editor" for playing file
 // AParam1, AParam2: unused
 const int AIMP_MSG_CMD_QTE_PLAYING_TRACK = AIMP_MSG_CMD_BASE + 51;
 
@@ -446,6 +446,11 @@ const int AIMP_MSG_PROPERTY_EQUALIZER_AUTO = AIMP_MSG_PROPERTY_BASE + 36;
 // 1st element is position of the A point (in seconds) of part-repeat range or -1 if point is not specified
 // 2nd element is position of the B point (in seconds) of part-repeat range or -1 if point is not specified
 const int AIMP_MSG_PROPERTY_PARTREPEAT_RANGE = AIMP_MSG_PROPERTY_BASE + 37;
+
+// State of the "automatically jump to next track" option
+// AParam1: AIMP_MSG_PROPVALUE_GET / AIMP_MSG_PROPVALUE_SET
+// AParam2: Pointer to LongBool (32-bit boolean value) variable
+const int AIMP_MSG_PROPERTY_AUTOJUMP_TO_NEXT_TRACK = AIMP_MSG_PROPERTY_BASE + 38;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Events

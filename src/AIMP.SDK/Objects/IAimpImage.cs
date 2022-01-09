@@ -11,7 +11,6 @@
 
 using System;
 using System.Drawing;
-using AIMP.SDK.Objects;
 
 namespace AIMP.SDK
 {

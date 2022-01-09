@@ -276,7 +276,7 @@ namespace AIMP.SDK.Playlist
     /// Implements the <see cref="AIMP.SDK.Playlist.IAimpPlaylistListener" />
     /// </summary>
     /// <seealso cref="AIMP.SDK.Playlist.IAimpPlaylistListener" />
-    public interface IAimpPlaylist : IAimpPlaylistListener
+    public interface IAimpPlaylist : IAimpPlaylistListener, IDisposable
     {
         /// <summary>
         /// Gets the playlist identifier.

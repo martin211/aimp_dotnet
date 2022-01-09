@@ -9,15 +9,13 @@
 
 namespace AIMP {
     namespace SDK {
-        namespace Objects {
-            public ref class AimpFileStream :
-                public AimpStream,
-                public IAimpFileStream {
-            public:
-                explicit AimpFileStream(IAIMPFileStream* aimpObject);
-                virtual AimpActionResult<Clipping^>^ GetClipping();
-                virtual AimpActionResult<IAimpString^>^ GetFileName();
-            };
-        }
+        public ref class AimpFileStream :
+            public AimpStream,
+            public IAimpFileStream {
+        public:
+            explicit AimpFileStream(IAIMPFileStream* aimpObject);
+            virtual AimpActionResult<Clipping^>^ GetClipping();
+            virtual AimpActionResult<IAimpString^>^ GetFileName();
+        };
     }
 }

@@ -40,7 +40,7 @@ void AimpMemoryManager::Release(int key)
             if (obj->object != nullptr) {
                 try {
                     const auto o = static_cast<IUnknown*>(obj->object);
-                    o->Release();
+ //                   o->Release();
                 }
                 catch (...) {
                 }

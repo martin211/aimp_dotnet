@@ -1,15 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using System.Xml.Linq;
 using Nuke.Common;
 using Nuke.Common.IO;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DocFX;
 using Nuke.Common.Utilities.Collections;
 using static CustomTocWriter;
-using static CustomDocFx;
 using static Nuke.Common.IO.PathConstruction;
-using static Nuke.Common.IO.FileSystemTasks;
 
 partial class Build
 {

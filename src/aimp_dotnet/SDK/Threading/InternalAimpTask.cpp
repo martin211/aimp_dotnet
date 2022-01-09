@@ -27,7 +27,7 @@ ULONG WINAPI InternalAimpTask::Release(void) {
 }
 
 HRESULT WINAPI InternalAimpTask::QueryInterface(REFIID riid, LPVOID* ppvObject) {
-    HRESULT res = Base::QueryInterface(riid, ppvObject);
+    const HRESULT res = Base::QueryInterface(riid, ppvObject);
 
     if (riid == IID_IAIMPTask) {
         *ppvObject = this;

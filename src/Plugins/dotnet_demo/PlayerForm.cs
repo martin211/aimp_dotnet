@@ -338,8 +338,8 @@ namespace DemoPlugin
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            var val = !_onTop;
-            _aimpPlayer.ServiceMessageDispatcher.Send(AimpCoreMessageType.PropertyStayOnTop, (int)AimpCoreMessageType.PropertyValueSet, val.ToPointer());
+            var val = (!_onTop).ToPointer();
+            _aimpPlayer.ServiceMessageDispatcher.Send(AimpCoreMessageType.PropertyStayOnTop, (int)AimpCoreMessageType.PropertyValueSet, ref val);
         }
     }
 }

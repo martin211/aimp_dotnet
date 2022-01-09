@@ -98,7 +98,11 @@
     <ClCompile Include="SDK\Playback\AimpExtensionPlayerHook.cpp" />
     <ClCompile Include="SDK\Playback\AimpPlaybackQueueItem.cpp" />
     <ClCompile Include="SDK\Playback\AimpServicePlaybackQueue.cpp" />
+    <ClCompile Include="SDK\Player\AimpEqualizerBands.cpp" />
+    <ClCompile Include="SDK\Player\AimpEqualizerPreset.cpp" />
     <ClCompile Include="SDK\Player\AimpServicePlayer.cpp" />
+    <ClCompile Include="SDK\Player\AimpServicePlayerEqualizer.cpp" />
+    <ClCompile Include="SDK\Player\AimpServicePlayerEqualizerPresets.cpp" />
     <ClCompile Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.cpp" />
     <ClCompile Include="SDK\PlayList\AimpExtensionPlaylistPreimageFactory.cpp" />
     <ClCompile Include="SDK\PlayList\AimpPlaylistPreimageFactory.cpp" />
@@ -214,7 +218,11 @@
     <ClInclude Include="AIMPSDK\AIMPSDK.h" />
     <ClInclude Include="SDK\Playback\AimpExtensionPlaybackQueue.h" />
     <ClInclude Include="SDK\Playback\AimpExtensionPlayerHook.h" />
+    <ClInclude Include="SDK\Player\AimpEqualizerBands.h" />
+    <ClInclude Include="SDK\Player\AimpEqualizerPreset.h" />
     <ClInclude Include="SDK\Player\AimpServicePlayer.h" />
+    <ClInclude Include="SDK\Player\AimpServicePlayerEqualizer.h" />
+    <ClInclude Include="SDK\Player\AimpServicePlayerEqualizerPresets.h" />
     <ClInclude Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.h" />
     <ClInclude Include="SDK\MusicLibrary\Presets\AimpGroupingPresetStandard.h" />
     <ClInclude Include="SDK\MusicLibrary\AimpServiceMusicLibraryUI.h" />
@@ -327,7 +335,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>true</CLRSupport>
     <Prefer32bit>true</Prefer32bit>
@@ -336,7 +344,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>true</CLRSupport>

@@ -50,7 +50,7 @@ namespace AIMP {
 
     private ref class AimpPlayer :
         public MarshalByRefObject,
-        public Player::IAimpPlayer {
+        public IAimpPlayer {
     private:
         IAIMPMessageHook* aimp_message_hook_;
 
@@ -84,6 +84,8 @@ namespace AIMP {
         Core::IAimpServiceVersionInfo^ _serviceVersionInfo;
         Core::IAimpServiceShutdown^ _serviceShutdown;
         Player::IAimpServicePlayer^ _servicePlayer;
+        Player::IAimpServicePlayerEqualizer^ _servicePlayerEqualizer;
+        Player::IAimpServicePlayerEqualizerPresets^ _servicePlayerEqualizerPresets;
     public:
         /// <summary>
         /// Initializes a new instance of the <see cref="AIMP3Controller{TConvAlloc}" /> class.
@@ -95,6 +97,16 @@ namespace AIMP {
         AimpPlayer(ManagedAimpCore^ core, int pluginId, int applicationDomainId, bool isCrossDomain);
 
         ~AimpPlayer();
+
+        property Player::IAimpServicePlayerEqualizer^ ServicePlayerEqualizer
+        {
+            virtual Player::IAimpServicePlayerEqualizer^ get();
+        }
+
+        property Player::IAimpServicePlayerEqualizerPresets^ ServicePlayerEqualizerPresets
+        {
+            virtual Player::IAimpServicePlayerEqualizerPresets^ get();
+        }
 
         /// <summary>
         /// Gets Player core.

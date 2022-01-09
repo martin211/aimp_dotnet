@@ -1,46 +1,70 @@
-﻿using System;
-using Aimp.TestRunner.UnitTests;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2022 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
 
-namespace Aimp.TestRunner.TestFramework.Assert
+using System;
+
+namespace Aimp.TestRunner.TestFramework.Assert;
+
+public abstract class MemberAssert : MemberAssert<object>
 {
-    public abstract class MemberAssert : MemberAssert<object>
+    protected MemberAssert(string name, object value, string message)
+        : base(name, value, message)
     {
-        protected MemberAssert(string name, object value, string message)
-            : base(name, value, message)
-        {
-            FieldName = name;
-            Value = value;
-            Message = message;
-        }
+        FieldName = name;
+        Value = value;
+        Message = message;
+    }
+}
+
+public abstract class MemberAssert<TValue> : IMemberAssert
+{
+    protected MemberAssert(string name, TValue value, string message)
+    {
+        FieldName = name ?? "Field";
+        Value = value;
+        Message = message;
     }
 
-    public abstract class MemberAssert<TValue> : IMemberAssert
+    public string FieldName { get; set; }
+
+    public TValue Value { get; set; }
+
+    public string Message { get; set; }
+    public bool IsValid { get; internal set; } = true;
+
+    public abstract void Validate();
+    public Action Finally { get; set; }
+
+    protected virtual void Validate(Action validator)
     {
-        public Action AfterAssertion { get; internal set; }
-
-        public string FieldName { get; set; }
-
-        public TValue Value { get; set; }
-
-        public string Message { get; set; }
-
-        protected MemberAssert(string name, TValue value, string message)
+        try
         {
-            FieldName = name ?? "Field";
-            Value = value;
-            Message = message;
+            if (validator != null)
+            {
+                validator();
+                IsValid = true;
+            }
         }
-
-        public virtual void Validate(AimpIntegrationTest testClass)
+        finally
         {
-            AfterAssertion?.Invoke();
+            Finally?.Invoke();
         }
     }
+}
 
-    public interface IMemberAssert
-    {
-        Action AfterAssertion { get; }
+public interface IMemberAssert
+{
+    bool IsValid { get; }
 
-        void Validate(AimpIntegrationTest testClass);
-    }
+    Action Finally { get; set; }
+
+    void Validate();
 }
