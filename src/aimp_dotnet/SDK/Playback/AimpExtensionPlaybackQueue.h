@@ -16,9 +16,9 @@ public:
 
     explicit AimpExtensionPlaybackQueue(gcroot<Playback::IAimpExtensionPlaybackQueue^> extension);
 
-    virtual BOOL WINAPI GetNext(IUnknown* current, DWORD flags, IAIMPPlaybackQueueItem* queueItem);
+    virtual HRESULT WINAPI GetNext(IUnknown* current, DWORD flags, IAIMPPlaybackQueueItem* queueItem);
 
-    virtual BOOL WINAPI GetPrev(IUnknown* current, DWORD flags, IAIMPPlaybackQueueItem* queueItem);
+    virtual HRESULT WINAPI GetPrev(IUnknown* current, DWORD flags, IAIMPPlaybackQueueItem* queueItem);
 
     virtual void WINAPI OnSelect(IAIMPPlaylistItem* item, IAIMPPlaybackQueueItem* queueItem);
 

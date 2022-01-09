@@ -17,6 +17,8 @@
 #include "MUI/AimpServiceMUI.h"
 #include "Menu/AimpServiceMenuManager.h"
 #include "Player/AimpServicePlayer.h"
+#include "Player/AimpServicePlayerEqualizer.h"
+#include "Player/AimpServicePlayerEqualizerPresets.h"
 #include "Threading/AimpServiceThreads.h"
 
 using namespace AIMP;
@@ -50,6 +52,22 @@ AimpPlayer::~AimpPlayer() {
     delete _serviceThreads;
     delete _serviceLyrics;
     delete _serviceFileTagEditor;
+}
+
+Player::IAimpServicePlayerEqualizer^ AimpPlayer::ServicePlayerEqualizer::get() {
+    if (_servicePlayerEqualizer == nullptr) {
+        _servicePlayerEqualizer = gcnew AimpServicePlayerEqualizer(_managedAimpCore);
+    }
+
+    return _servicePlayerEqualizer;
+}
+
+Player::IAimpServicePlayerEqualizerPresets^ AimpPlayer::ServicePlayerEqualizerPresets::get() {
+    if (_servicePlayerEqualizerPresets == nullptr) {
+        _servicePlayerEqualizerPresets = gcnew AimpServicePlayerEqualizerPresets(_managedAimpCore);
+    }
+
+    return _servicePlayerEqualizerPresets;
 }
 
 IAimpCore^ AimpPlayer::Core::get() {

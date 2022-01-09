@@ -48,7 +48,7 @@ namespace AIMP.SDK.Playback
         /// <param name="flags">The flags.</param>
         /// <param name="queueItem">The queue item.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        bool GetNext(object current, PlaybackQueueFlags flags, IAimpPlaybackQueueItem queueItem);
+        AimpActionResult GetNext(object current, PlaybackQueueFlags flags, IAimpPlaybackQueueItem queueItem);
 
         /// <summary>
         /// Gets the previous.
@@ -57,7 +57,7 @@ namespace AIMP.SDK.Playback
         /// <param name="flags">The flags.</param>
         /// <param name="queueItem">The queue item.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        bool GetPrev(object current, PlaybackQueueFlags flags, IAimpPlaybackQueueItem queueItem);
+        AimpActionResult GetPrev(object current, PlaybackQueueFlags flags, IAimpPlaybackQueueItem queueItem);
 
         /// <summary>
         /// Called when [select].

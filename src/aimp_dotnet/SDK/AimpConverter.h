@@ -78,7 +78,7 @@ namespace AIMP {
 
             static IAIMPFileInfo* ToAimpObject(IAimpFileInfo^ managedObject);
 
-            static IAIMPString* ToAimpString(Objects::IAimpString^ string);
+            static IAIMPString* ToAimpString(IAimpString^ string);
         private:
             static IAIMPCore* GetCore();
         };

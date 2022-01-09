@@ -9,13 +9,13 @@
 // 
 // ----------------------------------------------------
 
-namespace AIMP.SDK.Objects
+namespace AIMP.SDK
 {
     /// <summary>
     /// Interface IAimpMemoryStream
-    /// Implements the <see cref="AIMP.SDK.IAimpStream" />
+    /// Implements the <see cref="IAimpStream" />
     /// </summary>
-    /// <seealso cref="AIMP.SDK.IAimpStream" />
+    /// <seealso cref="IAimpStream" />
     public interface IAimpMemoryStream : IAimpStream
     {
         /// <summary>

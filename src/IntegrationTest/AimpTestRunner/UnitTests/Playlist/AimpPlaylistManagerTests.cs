@@ -2,7 +2,7 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
+// Copyright (c) 2014 - 2022 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -10,269 +10,254 @@
 // ----------------------------------------------------
 
 using System;
-using System.Threading;
 using AIMP.SDK;
 using AIMP.SDK.Playlist;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
-namespace Aimp.TestRunner.UnitTests.Playlist
+namespace Aimp.TestRunner.UnitTests.Playlist;
+
+[TestFixture]
+public class AimpPlaylistManagerTests : AimpIntegrationTest
 {
-    [TestFixture]
-    public class AimpPlaylistManagerTests : AimpIntegrationTest
+    public override void RunBeforeAnyTests()
     {
-        [Test]
-        public void CreatePlaylist_EmptyName_ShouldGenerateName()
+        base.SetUp();
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
+            var count = Player.ServicePlaylistManager.GetLoadedPlaylistCount();
+            for (var i = count - 1; i >= 0; i--)
             {
-                var res = Player.ServicePlaylistManager.CreatePlaylist(null, false);
+                var pl = Player.ServicePlaylistManager.GetLoadedPlaylist(i);
+                pl.Result.Close(PlaylistCloseFlag.ForceRemove);
+            }
+        });
+    }
 
-                this.AreEqual(ActionResultType.OK, res.ResultType);
-
-                this.NotNull(res.Result);
-                this.AreNotEqual(string.Empty, () => res.Result.Name);
-                this.AreNotEqual(string.Empty, () => res.Result.Id);
-
-                res.Result.Close(PlaylistCloseFlag.ForceRemove);
-            });
-        }
-
-        [Test]
-        public void CreatePlaylist_IsActive_ShouldSetAsActive()
+    [Test]
+    public void CreatePlaylist_EmptyName_ShouldGenerateName()
+    {
+        ExecuteInMainThreadAndWait(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var res = Player.ServicePlaylistManager.CreatePlaylist("Active", true);
+            var res = Player.ServicePlaylistManager.CreatePlaylist(null, false);
+            AssertOKResult(res);
 
-                this.AreEqual(ActionResultType.OK, res.ResultType);
-                this.NotNull(res.Result);
-                this.AreEqual("Active", res.Result.Name);
+            AimpAssert.AreNotEqual(string.Empty, () => res.Result.Name);
+            AimpAssert.AreNotEqual(string.Empty, () => res.Result.Id);
 
-                if (res.ResultType != ActionResultType.OK)
-                {
-                    return;
-                }
+            res.Result.Close(PlaylistCloseFlag.ForceRemove);
+            res.Result.Dispose();
+        });
+    }
 
-                var active = Player.ServicePlaylistManager.GetActivePlaylist();
-
-                this.AreEqual(ActionResultType.OK, active.ResultType);
-                this.NotNull(active.Result);
-                this.AreEqual(active.Result.Id, res.Result.Id);
-
-                res.Result.Close(PlaylistCloseFlag.ForceRemove);
-            });
-        }
-
-        [Test]
-        public void CreatePlaylist_NotIsActive_ShouldNoBeActive()
+    [Test]
+    public void CreatePlaylist_IsActive_ShouldSetAsActive()
+    {
+        ExecuteInMainThreadAndWait(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var res = Player.ServicePlaylistManager.CreatePlaylist("NotActive", false);
+            var res = Player.ServicePlaylistManager.CreatePlaylist("Active", true);
+            AssertOKResult(res);
 
-                this.AreEqual(ActionResultType.OK, res.ResultType);
-                this.NotNull(res.Result);
-                this.AreEqual("NotActive", res.Result.Name);
+            AimpAssert.AreEqual("Active", res.Result.Name);
 
-                if (res.ResultType != ActionResultType.OK)
-                {
-                    return;
-                }
+            var active = Player.ServicePlaylistManager.GetActivePlaylist();
 
-                var active = Player.ServicePlaylistManager.GetActivePlaylist();
+            AssertOKResult(active);
+            AimpAssert.AreEqual(active.Result.Id, res.Result.Id);
 
-                this.AreEqual(ActionResultType.OK, res.ResultType);
-                this.NotNull(active.Result);
-                this.AreNotEqual(active.Result.Id, res.Result.Id);
+            res.Result.Close(PlaylistCloseFlag.ForceRemove);
+            res.Result.Dispose();
+        });
+    }
 
-                res.Result.Close(PlaylistCloseFlag.ForceRemove);
-            });
-        }
-
-        [Test(Description = "Should throw exception if path to playlist file is empty.")]
-        public void CreatePlaylistFromFile_EmptyFileName_ShouldThrowException()
+    [Test]
+    public void CreatePlaylist_NotIsActive_ShouldNoBeActive()
+    {
+        ExecuteInMainThreadAndWait(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                this.Throw<ArgumentNullException>(() => Player.ServicePlaylistManager.CreatePlaylistFromFile("", false));
-            });
-        }
+            var res = Player.ServicePlaylistManager.CreatePlaylist("NotActive", false);
+            AssertOKResult(res);
 
-        [Test(Description = "Should create a playlist from file. It should not be active.")]
-        public void CreatePlaylistFromFile_FileNameNotEmptyAndNotActive_ShouldCreatePlaylist()
+            AimpAssert.AreEqual("NotActive", res.Result.Name);
+
+            var active = Player.ServicePlaylistManager.GetActivePlaylist();
+            AssertOKResult(active);
+
+            AimpAssert.AreNotEqual(active.Result.Id, res.Result.Id);
+
+            res.Result.Close(PlaylistCloseFlag.ForceRemove);
+        });
+    }
+
+    [Test(Description = "Should throw exception if path to playlist file is empty.")]
+    public void CreatePlaylistFromFile_EmptyFileName_ShouldThrowException()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var res = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, false);
+            AimpAssert.Throw<ArgumentNullException>(() =>
+                Player.ServicePlaylistManager.CreatePlaylistFromFile("", false));
+            return new AimpActionResult(ActionResultType.OK);
+        });
+    }
 
-                this.AreEqual(ActionResultType.OK, res.ResultType);
-                this.NotNull(res.Result);
-                this.AreNotEqual(string.Empty, res.Result.Name);
-                this.AreNotEqual(string.Empty, res.Result.Id);
-
-                if (res.ResultType != ActionResultType.OK)
-                {
-                    return;
-                }
-
-                var active = Player.ServicePlaylistManager.GetActivePlaylist();
-                this.AreEqual(ActionResultType.OK, res.ResultType);
-                this.NotNull(active.Result);
-                this.AreNotEqual(active.Result.Id, res.Result.Id);
-
-                res.Result.Close(PlaylistCloseFlag.ForceRemove);
-            });
-        }
-
-        [Test(Description = "Should create a playlist from file. It should be active.")]
-        public void CreatePlaylistFromFile_FileNameNotEmptyAndIsActive_ShouldBeActive()
+    [Test(Description = "Should create a playlist from file. It should not be active.")]
+    public void CreatePlaylistFromFile_FileNameNotEmptyAndNotActive_ShouldCreatePlaylist()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var result = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+            var res = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, false);
+            AssertOKResult(res);
 
-                if (result.ResultType != ActionResultType.OK)
-                {
-                    return;
-                }
+            AimpAssert.AreNotEqual(string.Empty, res.Result.Name);
+            AimpAssert.AreNotEqual(string.Empty, res.Result.Id);
 
-                var active = Player.ServicePlaylistManager.GetActivePlaylist();
-                this.AreEqual(ActionResultType.OK, result.ResultType);
-                this.NotNull(active.Result);
-                this.AreEqual(active.Result.Id, result.Result.Id);
+            var active = Player.ServicePlaylistManager.GetActivePlaylist();
+            AssertOKResult(active);
 
-                result.Result.Close(PlaylistCloseFlag.ForceRemove);
-            });
-        }
+            AimpAssert.AreNotEqual(active.Result.Id, res.Result.Id);
 
-        [Test(Description = "Should set a playlist as a active.")]
-        public void SetActivePlaylist_ShouldBeOK()
+            res.Result.Close(PlaylistCloseFlag.ForceRemove);
+            res.Result.Dispose();
+        });
+    }
+
+    [Test(Description = "Should create a playlist from file. It should be active.")]
+    public void CreatePlaylistFromFile_FileNameNotEmptyAndIsActive_ShouldBeActive()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var result = Player.ServicePlaylistManager.CreatePlaylist("New playlist", false);
+            var result = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+            AssertOKResult(result);
 
-                this.AreEqual(ActionResultType.OK, result.ResultType);
-                this.NotNull(result.Result);
-                this.AreNotEqual(string.Empty, result.Result.Name);
-                this.AreNotEqual(string.Empty, result.Result.Id);
+            var active = Player.ServicePlaylistManager.GetActivePlaylist();
+            AssertOKResult(active);
+            AimpAssert.AreEqual(active.Result.Id, result.Result.Id);
 
-                var result2 = Player.ServicePlaylistManager.SetActivePlaylist(result.Result);
-                this.AreEqual(ActionResultType.OK, result2.ResultType);
+            result.Result.Close(PlaylistCloseFlag.ForceRemove);
+            result.Result.Dispose();
+        });
+    }
 
-                var activePlaylist = Player.ServicePlaylistManager.GetActivePlaylist();
-                this.AreEqual(ActionResultType.OK, activePlaylist.ResultType);
-                this.AreEqual(activePlaylist.Result.Id, result.Result.Id);
-
-                result.Result.Close(PlaylistCloseFlag.ForceRemove);
-            });
-        }
-
-        [Test(Description = "Create a new playlist and check current count value.")]
-        public void GetLoadedPlaylistCount_ShouldReturnCount()
+    [Test(Description = "Should set a playlist as a active.")]
+    public void SetActivePlaylist_ShouldBeOK()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var oldCount = Player.ServicePlaylistManager.GetLoadedPlaylistCount();
-                var result = Player.ServicePlaylistManager.CreatePlaylist("New playlist", false);
+            var result = Player.ServicePlaylistManager.CreatePlaylist("New playlist", false);
+            AssertOKResult(result);
 
-                this.AreEqual(ActionResultType.OK, result.ResultType);
-                this.NotNull(result.Result);
+            AimpAssert.AreNotEqual(string.Empty, result.Result.Name);
+            AimpAssert.AreNotEqual(string.Empty, result.Result.Id);
 
-                var count = Player.ServicePlaylistManager.GetLoadedPlaylistCount();
-                this.AreEqual(oldCount + 1, count);
+            var result2 = Player.ServicePlaylistManager.SetActivePlaylist(result.Result);
+            AimpAssert.AreEqual(ActionResultType.OK, result2.ResultType);
 
-                result.Result.Close(PlaylistCloseFlag.ForceRemove);
-            });
-        }
+            var activePlaylist = Player.ServicePlaylistManager.GetActivePlaylist();
+            AimpAssert.AreEqual(ActionResultType.OK, activePlaylist.ResultType);
+            AimpAssert.AreEqual(activePlaylist.Result.Id, result.Result.Id);
 
-        [Test]
-        [Ignore("Not working in integration mode")]
-        public void GetPlayablePlaylist_ShouldReturnPlaylist()
+            result.Result.Close(PlaylistCloseFlag.ForceRemove);
+        });
+    }
+
+    [Test(Description = "Create a new playlist and check current count value.")]
+    public void GetLoadedPlaylistCount_ShouldReturnCount()
+    {
+        ExecuteInMainThread(() =>
         {
-            IAimpPlaylist playlist = null;
+            var oldCount = Player.ServicePlaylistManager.GetLoadedPlaylistCount();
+            var result = Player.ServicePlaylistManager.CreatePlaylist("New playlist", false);
 
-            ExecuteInMainThread(() =>
-            {
-                var playlistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
-                this.AreEqual(ActionResultType.OK, playlistResult.ResultType);
-                playlist = playlistResult.Result;
-            });
+            AimpAssert.AreEqual(ActionResultType.OK, result.ResultType);
+            AimpAssert.NotNull(result.Result);
 
-            ExecuteInThread(() =>
-            {
-                Thread.Sleep(10000);
-                return new AimpActionResult(ActionResultType.OK);
-            });
+            var count = Player.ServicePlaylistManager.GetLoadedPlaylistCount();
+            AimpAssert.AreEqual(oldCount + 1, count);
 
-            ExecuteInMainThread(() =>
-            {
-                var result = Player.ServicePlaylistManager.GetPlayingPlaylist();
+            result.Result.Close(PlaylistCloseFlag.ForceRemove);
+        });
+    }
 
-                this.AreEqual(ActionResultType.OK, result.ResultType);
-                this.NotNull(result.Result);
+    [Test]
+    //[Ignore("Not working in integration mode")]
+    public void GetPlayablePlaylist_ShouldReturnPlaylist()
+    {
+        IAimpPlaylist playlist = null;
 
-                playlist.Close(PlaylistCloseFlag.ForceRemove);
-            });
-        }
-
-        [Test]
-        public void GetLoadedPlaylist_ShouldReturnPlaylist()
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var result = Player.ServicePlaylistManager.GetLoadedPlaylist(0);
-                this.AreEqual(ActionResultType.OK, result.ResultType);
-                this.NotNull(result.Result);
-            });
-        }
+            var playlistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+            AimpAssert.AreEqual(ActionResultType.OK, playlistResult.ResultType);
+            playlist = playlistResult.Result;
+            Player.ServicePlayer.Play(playlist);
+        });
 
-        [Test(Description = "Should return InvalidArgument result")]
-        public void GetLoadedPlaylist_WrongIndex_InvalidArgument()
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var result = Player.ServicePlaylistManager.GetLoadedPlaylist(100);
-                this.AreEqual(ActionResultType.InvalidArguments, () => result.ResultType);
-                this.Null(() => result.Result);
-            });
-        }
+            var result = Player.ServicePlaylistManager.GetPlayingPlaylist();
 
-        [Test(Description = "Create a new playlist and get it by id.")]
-        public void GetLoadedPlaylistById_ShouldReturnPlaylist()
+            AimpAssert.AreEqual(ActionResultType.OK, result.ResultType);
+            AimpAssert.NotNull(result.Result);
+
+            return playlist.Close(PlaylistCloseFlag.ForceRemove);
+        });
+    }
+
+    [Test]
+    public void GetLoadedPlaylist_ShouldReturnPlaylist()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var result = Player.ServicePlaylistManager.CreatePlaylist(null, false);
-                this.AreEqual(ActionResultType.OK, result.ResultType);
-                this.NotNull(result.Result);
+            var result = Player.ServicePlaylistManager.GetLoadedPlaylist(0);
+            AimpAssert.AreEqual(ActionResultType.OK, result.ResultType);
+            AimpAssert.NotNull(result.Result);
+        });
+    }
 
-                var getResult = Player.ServicePlaylistManager.GetLoadedPlaylistById(result.Result.Id);
-                this.AreEqual(ActionResultType.OK, getResult.ResultType);
-                this.NotNull(getResult.Result);
-                this.AreEqual(result.Result.Id, getResult.Result.Id);
-
-                result.Result.Close(PlaylistCloseFlag.ForceRemove);
-            });
-        }
-
-        [Test(Description = "Create a new playlist and get it by name")]
-        public void GetLoadedPlaylistByName_ShouldReturnPlaylist()
+    [Test(Description = "Should return InvalidArgument result")]
+    public void GetLoadedPlaylist_WrongIndex_InvalidArgument()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var result = Player.ServicePlaylistManager.CreatePlaylist("Get by name", false);
-                this.AreEqual(ActionResultType.OK, () => result.ResultType);
-                this.NotNull(result.Result);
+            var result = Player.ServicePlaylistManager.GetLoadedPlaylist(100);
+            AimpAssert.AreEqual(ActionResultType.InvalidArguments, () => result.ResultType);
+            AimpAssert.Null(() => result.Result);
+        });
+    }
 
-                var getResult = Player.ServicePlaylistManager.GetLoadedPlaylistByName("Get by name");
-                this.AreEqual(ActionResultType.OK, () => getResult.ResultType);
-                this.NotNull(getResult.Result);
-                this.AreEqual(result.Result.Name, () => getResult.Result.Name);
+    [Test(Description = "Create a new playlist and get it by id.")]
+    public void GetLoadedPlaylistById_ShouldReturnPlaylist()
+    {
+        ExecuteInMainThread(() =>
+        {
+            var result = Player.ServicePlaylistManager.CreatePlaylist(null, false);
+            AimpAssert.AreEqual(ActionResultType.OK, result.ResultType);
+            AimpAssert.NotNull(result.Result);
 
-                result.Result.Close(PlaylistCloseFlag.ForceRemove);
-            });
-        }
+            var getResult = Player.ServicePlaylistManager.GetLoadedPlaylistById(result.Result.Id);
+            AimpAssert.AreEqual(ActionResultType.OK, getResult.ResultType);
+            AimpAssert.NotNull(getResult.Result);
+            AimpAssert.AreEqual(result.Result.Id, getResult.Result.Id);
+
+            result.Result.Close(PlaylistCloseFlag.ForceRemove);
+        });
+    }
+
+    [Test(Description = "Create a new playlist and get it by name")]
+    public void GetLoadedPlaylistByName_ShouldReturnPlaylist()
+    {
+        ExecuteInMainThread(() =>
+        {
+            var result = Player.ServicePlaylistManager.CreatePlaylist("Get by name", false);
+            AimpAssert.AreEqual(ActionResultType.OK, () => result.ResultType);
+            AimpAssert.NotNull(result.Result);
+
+            var getResult = Player.ServicePlaylistManager.GetLoadedPlaylistByName("Get by name");
+            AimpAssert.AreEqual(ActionResultType.OK, () => getResult.ResultType);
+            AimpAssert.NotNull(getResult.Result);
+            AimpAssert.AreEqual(result.Result.Name, () => getResult.Result.Name);
+
+            result.Result.Close(PlaylistCloseFlag.ForceRemove);
+        });
     }
 }

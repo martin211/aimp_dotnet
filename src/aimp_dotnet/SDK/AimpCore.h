@@ -173,13 +173,13 @@ namespace AIMP {
                     return gcnew AimpActionResult<IAimpObject^>(res, img);
                 }
 
-                if (t == Objects::IAimpMemoryStream::typeid) {
+                if (t == IAimpMemoryStream::typeid) {
                     IAIMPMemoryStream* stream = nullptr;
-                    Objects::IAimpMemoryStream^ obj = nullptr;
+                    IAimpMemoryStream^ obj = nullptr;
 
                     const auto res = Utils::CheckResult(core->CreateObject(IID_IAIMPMemoryStream, reinterpret_cast<void**>(&stream)));
                     if (res == ActionResultType::OK) {
-                        obj = gcnew Objects::AimpMemoryStream(stream);
+                        obj = gcnew AimpMemoryStream(stream);
                     }
 
                     return gcnew AimpActionResult<IAimpObject^>(res, obj);

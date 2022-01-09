@@ -2,7 +2,7 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
+// Copyright (c) 2014 - 2022 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -12,7 +12,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Xml;
 using AIMP.SDK;
 using AIMP.SDK.MessageDispatcher;
 using Aimp.TestRunner.Engine;
@@ -22,130 +21,127 @@ using NUnit.Engine.Extensibility;
 using NUnit.Engine.Services;
 using NUnit.Framework;
 
-namespace Aimp.TestRunner
+namespace Aimp.TestRunner;
+
+[AimpPlugin("AimpTestRunner", "Evgeniy Bogdan", "1", AimpPluginType = AimpPluginType.Addons)]
+public class AimpTestRunnerPlugin : AimpPlugin, ITestEventListener
 {
-    [AimpPlugin("AimpTestRunner", "Evgeniy Bogdan", "1", AimpPluginType = AimpPluginType.Addons)]
-    public class AimpTestRunnerPlugin : AimpPlugin, ITestEventListener
+    private readonly IResultWriter _resultWriter = new NUnit3XmlResultWriter();
+
+    private ITestEngine _engine;
+    private bool _inProgress;
+    private TextWriter _logWriter;
+    private string _testResultFile;
+
+    public void OnTestEvent(string report)
     {
-        public class Hook : IAimpMessageHook
+    }
+
+    public override void Initialize()
+    {
+        var path = Path.Combine(Player.Core.GetPath(AimpCorePathType.Plugins), "AimpTestRunner");
+        _logWriter = new StreamWriter(Path.Combine(path, "integration.tests.log"));
+
+        try
         {
-            private readonly Func<AimpCoreMessageType, int, IntPtr, AimpActionResult> _hook;
+            AppDomain.CurrentDomain.SetData("APPBASE", path);
+            Environment.CurrentDirectory = path;
 
-            public Hook(Func<AimpCoreMessageType, int, IntPtr, AimpActionResult> hook)
+            _testResultFile = Path.Combine(path, "integration.tests.xml");
+
+
+            if (Player.Win32Manager.GetAimpHandle() == IntPtr.Zero)
             {
-                _hook = hook;
-            }
-
-            public AimpActionResult CoreMessage(AimpCoreMessageType message, int param1, IntPtr param2)
-            {
-                return _hook(message, param1, param2);
-            }
-        }
-
-        private ITestEngine _engine;
-        private TextWriter _logWriter;
-        private bool _inProgress;
-        private readonly IResultWriter _resultWriter = new NUnit3XmlResultWriter();
-        private string _testResultFile;
-
-        public override void Initialize()
-        {
-            var path = Path.Combine(Player.Core.GetPath(AimpCorePathType.Plugins), "AimpTestRunner");
-            _logWriter = new StreamWriter(Path.Combine(path, "integration.tests.log"));
-            
-            try
-            {
-                AppDomain.CurrentDomain.SetData("APPBASE", path);
-                Environment.CurrentDirectory = path;
-
-                _testResultFile = Path.Combine(path, "integration.tests.xml");
-
-
-                if (Player.Win32Manager.GetAimpHandle() == IntPtr.Zero)
-                {
-                    _logWriter.WriteLine("Unable to run test. This is not AIMP.");
-                    _logWriter.Flush();
-                    _logWriter.Close();
-                    Terminate();
-                }
-
-                _logWriter.WriteLine($"AIMP version: {Player.ServiceVersionInfo.FormatInfo}");
-
-                _engine = TestEngineActivator.CreateInstance();
-                _engine.WorkDirectory = path;
-                _engine.Initialize();
-                TestPackage package = new TestPackage(Path.Combine(path, "AimpTestRunner_plugin.dll"));
-                package.Settings.Add("ProcessModel", "Single");
-
-                ITestRunner runner = _engine.GetRunner(package);
-
-                AimpTestContext.Instance.AimpPlayer = Player;
-
-                Player.ServiceMessageDispatcher.Hook(new Hook((type, i, arg3) =>
-                {
-                    if (type == AimpCoreMessageType.EventLoaded && !_inProgress)
-                    {
-                        _inProgress = true;
-                        try
-                        {
-                            _resultWriter.CheckWritability(_testResultFile);
-
-                            var testResult = runner.Run(this, TestFilter.Empty);
-                            _resultWriter.WriteResultFile(testResult, _testResultFile);
-                            var reporter = new ResultReporter(testResult, new ExtendedTextWrapper(_logWriter));
-                            reporter.ReportResults();
-                        }
-                        catch (Exception e)
-                        {
-                            _logWriter.WriteLine(e.ToString());
-                        }
-                        finally
-                        {
-                            _logWriter.Flush();
-                            Terminate();
-                        }
-                    }
-
-                    return new AimpActionResult(ActionResultType.OK);
-                }));
-            }
-            catch (Exception e)
-            {
-                _logWriter.WriteLine(e.ToString());
+                _logWriter.WriteLine("Unable to run test. This is not AIMP.");
                 _logWriter.Flush();
                 _logWriter.Close();
                 Terminate();
             }
-        }
 
-        public override void Dispose()
-        {
-            TestContext.WriteLine("Clear local library");
-            var libraryFile = Path.Combine(Player.Core.GetPath(AimpCorePathType.Audiolibrary), "Local.adb");
-            if (File.Exists(libraryFile))
+            _logWriter.WriteLine($"AIMP version: {Player.ServiceVersionInfo.FormatInfo}");
+
+            _engine = TestEngineActivator.CreateInstance();
+            _engine.WorkDirectory = path;
+            _engine.Initialize();
+            var package = new TestPackage(Path.Combine(path, "AimpTestRunner_plugin.dll"));
+            package.Settings.Add("ProcessModel", "Single");
+
+            var runner = _engine.GetRunner(package);
+
+            AimpTestContext.Instance.AimpPlayer = Player;
+
+            Player.ServiceMessageDispatcher.Hook(new Hook((type, i, arg3) =>
             {
-                File.Delete(libraryFile);
-            }
+                if (type == AimpCoreMessageType.EventLoaded && !_inProgress)
+                {
+                    _inProgress = true;
+                    try
+                    {
+                        _resultWriter.CheckWritability(_testResultFile);
 
-            _engine = null;
+                        var testResult = runner.Run(this, TestFilter.Empty);
+                        _resultWriter.WriteResultFile(testResult, _testResultFile);
+                        var reporter = new ResultReporter(testResult, new ExtendedTextWrapper(_logWriter));
+                        reporter.ReportResults();
+                    }
+                    catch (Exception e)
+                    {
+                        _logWriter.WriteLine(e.ToString());
+                    }
+                    finally
+                    {
+                        _logWriter.Flush();
+                        Terminate();
+                    }
+                }
+
+                return new AimpActionResult(ActionResultType.OK);
+            }));
         }
-
-        public void OnTestEvent(string report)
+        catch (Exception e)
         {
-        }
-
-        private void Terminate()
-        {
+            _logWriter.WriteLine(e.ToString());
+            _logWriter.Flush();
             _logWriter.Close();
+            Terminate();
+        }
+    }
 
-            var processes = Process.GetProcessesByName("AIMP");
+    public override void Dispose()
+    {
+        TestContext.WriteLine("Clear local library");
+        var libraryFile = Path.Combine(Player.Core.GetPath(AimpCorePathType.Audiolibrary), "Local.adb");
+        if (File.Exists(libraryFile)) File.Delete(libraryFile);
 
-            foreach (var process in processes)
-            {
-                process.Kill();
-                process.WaitForExit();
-                process.Dispose();
-            }
+        _engine = null;
+    }
+
+    private void Terminate()
+    {
+        _logWriter.Close();
+
+        var processes = Process.GetProcessesByName("AIMP");
+
+        foreach (var process in processes)
+        {
+            process.Kill();
+            process.WaitForExit();
+            process.Dispose();
+        }
+    }
+
+    public class Hook : IAimpMessageHook
+    {
+        private readonly Func<AimpCoreMessageType, int, IntPtr, AimpActionResult> _hook;
+
+        public Hook(Func<AimpCoreMessageType, int, IntPtr, AimpActionResult> hook)
+        {
+            _hook = hook;
+        }
+
+        public AimpActionResult CoreMessage(AimpCoreMessageType message, int param1, IntPtr param2)
+        {
+            return _hook(message, param1, param2);
         }
     }
 }

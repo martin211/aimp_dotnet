@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -12,27 +13,29 @@ using Nuke.Common.IO;
 using Nuke.Common.Tooling;
 using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.IO.FileSystemTasks;
+using Serilog;
 
 partial class Build
 {
     AbsolutePath ResourcesPath => RootDirectory / "resources";
     AbsolutePath TestOutput => RootDirectory / "tests";
 
-    [Parameter] readonly string AimpPath = @"z:\AIMP\AIMP4.60.2180\";
+    [Parameter] readonly string AimpPath = @"z:\code\aimp\AIMP5.00.2344\";
     [Parameter] readonly int TestTimeout = 5; // 5 minutes
-    [Parameter] readonly bool IsJUnit = false;
+    [Parameter] readonly bool IsJUnit;
     
     AbsolutePath IntegrationTestBinPath => SourceDirectory / "IntegrationTest";
     AbsolutePath IntegrationTestPluginPath => (AbsolutePath) Path.Combine(AimpPath, "plugins", "AimpTestRunner");
 
-    AbsolutePath IntegrationTestOutput => (AbsolutePath)Path.Combine(@"C:\inetpub\wwwroot\aimpdotnet");
+    AbsolutePath IntegrationTestOutput => (AbsolutePath) Path.Combine(@"c:\tmp\aimp\sdk\tests\");
+    [Parameter] string TestResultPath;
 
     bool IsTeamCity => TeamCity.Instance != null;
 
     Target PrepareTestConfiguration => _ => _
         .Executes(() =>
         {
-            Logger.Info("Preparing test settings");
+            Log.Debug("Preparing test settings");
 
             var setting = new DefaultSettings();
             setting.Default = new GhprSettings
@@ -58,7 +61,7 @@ partial class Build
             setting.Projects = new List<Project>();
             var settingContent = SerializationTasks.JsonSerialize(setting);
 
-            Logger.Normal(settingContent);
+            Log.Debug(settingContent);
 
             File.WriteAllText(IntegrationTestPluginPath / "Ghpr.NUnit.Settings.json", settingContent);
         });
@@ -67,23 +70,32 @@ partial class Build
         .Requires(() => AimpPath)
         .Executes(() =>
         {
-            Logger.Normal($"Delete directory {IntegrationTestPluginPath}");
+            Log.Debug("Parameters:");
+            Log.Debug($"{nameof(AimpPath)}: {AimpPath}");
+            Log.Debug($"{nameof(TestTimeout)}: {TestTimeout}");
+            Log.Debug($"{nameof(IsJUnit)}: {IsJUnit}");
+            Log.Debug($"{nameof(IntegrationTestBinPath)}: {IntegrationTestBinPath}");
+            Log.Debug($"{nameof(IntegrationTestPluginPath)}: {IntegrationTestPluginPath}");
+            Log.Debug($"{nameof(IntegrationTestOutput)}: {IntegrationTestOutput}");
+            Log.Debug($"{nameof(IsTeamCity)}: {IsTeamCity}");
+
+            Log.Debug($"Delete directory {IntegrationTestPluginPath}");
             DeleteDirectory(IntegrationTestPluginPath);
             EnsureCleanDirectory(IntegrationTestPluginPath);
 
-            Logger.Normal($"Create directory {IntegrationTestPluginPath}");
+            Log.Debug($"Create directory {IntegrationTestPluginPath}");
             Directory.CreateDirectory(IntegrationTestPluginPath);
             EnsureExistingDirectory(IntegrationTestPluginPath);
 
             var testBinPath = IsTeamCity ? OutputDirectory / "integrationTests" : IntegrationTestBinPath;
             var testPattern = IsTeamCity ? "*" : $"**/bin/{Configuration}";
 
-            Logger.Normal($"Test bin files path: {testBinPath}");
-            Logger.Normal($"Search pattern: {testPattern}");
+            Log.Debug($"Test bin files path: {testBinPath}");
+            Log.Debug($"Search pattern: {testPattern}");
 
             void copyFilesFromFolder(string folder)
             {
-                Logger.Normal($"Copy plugin files from '{folder}' to '{IntegrationTestPluginPath}'");
+                Log.Debug($"Copy plugin files from '{folder}' to '{IntegrationTestPluginPath}'");
                 var files = Directory.GetFiles(folder, "*.dll");
                 foreach (var file in files)
                 {
@@ -100,12 +112,26 @@ partial class Build
                         CopyFileToDirectory(file, IntegrationTestPluginPath);
                     }
                 }
+
+                Directory.GetFiles(folder, "*.pdb")
+                    .NotNull()
+                    .ForEach(file =>
+                    {
+                        if (file.EndsWith("AimpTestRunner.pdb"))
+                        {
+                            CopyFile(file, IntegrationTestPluginPath / "AimpTestRunner_plugin.pdb");
+                        }
+                        else
+                        {
+                            CopyFileToDirectory(file, IntegrationTestPluginPath);
+                        }
+                    });
             }
 
             if (IsTeamCity)
             {
                 copyFilesFromFolder(testBinPath);
-                Logger.Normal($"Copy {testBinPath}/nunit.engine.addins to {IntegrationTestPluginPath}");
+                Log.Debug($"Copy {testBinPath}/nunit.engine.addins to {IntegrationTestPluginPath}");
                 CopyFileToDirectory(testBinPath / "nunit.engine.addins", IntegrationTestPluginPath);
             }
             else
@@ -113,7 +139,7 @@ partial class Build
                 testBinPath.GlobDirectories($"**/bin/{Configuration}").ForEach(d =>
                 {
                     copyFilesFromFolder(d);
-                    Logger.Normal($"Copy {d}/nunit.engine.addins to {IntegrationTestPluginPath}");
+                    Log.Debug($"Copy {d}/nunit.engine.addins to {IntegrationTestPluginPath}");
                     CopyFileToDirectory(d / "nunit.engine.addins", IntegrationTestPluginPath);
                 });
 
@@ -150,20 +176,21 @@ partial class Build
             {
                 LogError($"AIMP.exe not found at path {aimpExe}");
                 TeamCity.Instance?.WriteFailure($"AIMP.exe not found at path {aimpExe}");
-                ControlFlow.Fail("Unable to run test.");
+                Assert.Fail("Unable to run test.");
                 return;
             }
 
+            Log.Information("Start AIMP process");
             var p = ProcessTasks.StartProcess(aimpExe, "/DEBUG", AimpPath, timeout: TestTimeout * 60000);
             var res = p.WaitForExit();
 
             if (res)
             {
-                if (!File.Exists(testResultFile))
+                if (!File.Exists(testResultFile) || !File.Exists(testResultLogFile) || new FileInfo(testResultLogFile).Length == 0)
                 {
                     LogError("Unable to run integration tests.");
                     TeamCity.Instance?.WriteFailure($"Unable to run integration tests. {testResultFile} NOT FOUND");
-                    ControlFlow.Fail("Unable to run test.");
+                    Assert.Fail("Unable to run test.");
                 }
                 else
                 {
@@ -187,7 +214,7 @@ partial class Build
                         }
                     }
 
-                    Logger.Info(content);
+                    Log.Debug(content);
 
                     if (IsJUnit)
                     {
@@ -205,19 +232,56 @@ partial class Build
 
                     if (!isValid)
                     {
-                        ControlFlow.Fail("Test is failed.");
+                        Assert.Fail("Test is failed.");
                     }
                 }
             }
             else
             {
-                LogError("Process was ended by timeout. Try to increase `TestTimeout` parameter. Check logs. Check that plugin was activated at AIMP settings.");
-                ControlFlow.Fail("Unable to run test.");
+                Log.Fatal("Process was ended by timeout. Try to increase `TestTimeout` parameter. Check logs. Check that plugin was activated at AIMP settings.");
+                Assert.Fail("Unable to run test.");
             }
+        });
+
+    Target CopyTestResults => _ => _
+        .Requires(() => TestResultPath)
+        .Executes(() =>
+        {
+            //void DirectoryCopy(string source, string target)
+            //{
+            //    var dir = new DirectoryInfo(source);
+            //    var dirs = dir.GetDirectories();
+            //    if (!Directory.Exists(target))
+            //    {
+            //        Directory.CreateDirectory(target);
+            //    }
+
+            //    var files = dir.GetFiles();
+            //    foreach (var file in files)
+            //    {
+            //        var path = Path.Combine(target, file.Name);
+            //        file.CopyTo(path, true);
+            //    }
+
+            //    foreach (var subDir in dirs)
+            //    {
+            //        var path = Path.Combine(target, subDir.Name);
+            //        DirectoryCopy(subDir.FullName, path);
+            //    }
+            //}
+
+            //var directoryInfo = new DirectoryInfo(IntegrationTestOutput);
+            //if (directoryInfo.Exists)
+            //{
+            //    Log.Debug("Copy tests result to server");
+            //    DirectoryCopy(IntegrationTestOutput, TestResultPath);
+            //}
+
+            CopyDirectoryRecursively(IntegrationTestOutput, TestResultPath, DirectoryExistsPolicy.Merge, FileExistsPolicy.OverwriteIfNewer);
         });
 
     void LogError(string message)
     {
-        Logger.Error(message);
+        Log.Error(message);
     }
 }

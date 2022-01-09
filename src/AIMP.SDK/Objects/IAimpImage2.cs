@@ -12,10 +12,10 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace AIMP.SDK.Objects
+namespace AIMP.SDK
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct RGBQUAD
+    public struct RGBQuad
     {
         public byte rgbBlue;
         public byte rgbGreen;
@@ -29,7 +29,7 @@ namespace AIMP.SDK.Objects
 
         AimpActionResult LoadFromBitmap(IntPtr bitmap);
 
-        AimpActionResult LoadFromBits(RGBQUAD bits, int width, int height);
+        AimpActionResult LoadFromBits(RGBQuad bits, int width, int height);
 
         AimpActionResult CopyToClipboard();
 

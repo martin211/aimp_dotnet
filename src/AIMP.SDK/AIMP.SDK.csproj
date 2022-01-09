@@ -147,8 +147,13 @@
     <Compile Include="MusicLibrary\Presets\IAimpGroupingPresetStandard.cs" />
     <Compile Include="Playback\IAimpExtensionPlaybackQueue.cs" />
     <Compile Include="Playback\IAimpServicePlaybackQueue2.cs" />
+    <Compile Include="Player\IAimpEqualizerBands.cs" />
+    <Compile Include="Player\IAimpEqualizerPreset.cs" />
     <Compile Include="Player\IAimpServicePlayer.cs" />
     <Compile Include="Player\IAimpServicePlayer2.cs" />
+    <Compile Include="Player\IAimpServicePlayerEqualizer.cs" />
+    <Compile Include="Player\IAimpServicePlayerEqualizerPresets.cs" />
+    <Compile Include="Player\PlayFlags.cs" />
     <Compile Include="Playlist\Constants.cs" />
     <Compile Include="Playlist\IAimpExtensionPlaylistPreimageFactory.cs" />
     <Compile Include="Playlist\IAimpPlaylistListener.cs" />
@@ -182,7 +187,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="IAimpCore.cs" />
     <Compile Include="Options\IAimpOptionsDialogFrame.cs" />
-    <Compile Include="Player\IAimpPlayer.cs" />
+    <Compile Include="IAimpPlayer.cs" />
     <Compile Include="AimpPlugin.cs" />
     <Compile Include="CustomAssemblyResolver.cs" />
     <Compile Include="PluginInfo.cs" />

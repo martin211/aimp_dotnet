@@ -497,7 +497,7 @@ namespace AIMP {
         HRESULT ManagedAimpCore::GetService(REFIID iid, void** service) {
             //return _core->QueryInterface(iid, service);
 
-            IUnknown* _service;
+            IUnknown* _service = nullptr;
             HRESULT result = _core->QueryInterface(iid, reinterpret_cast<void**>(&_service));
             if (result == S_OK) {
                 *service = _service;
@@ -507,7 +507,7 @@ namespace AIMP {
         }
 
         IUnknown* ManagedAimpCore::QueryInterface(REFIID iid) {
-            IUnknown* service;
+            IUnknown* service = nullptr;
             HRESULT result = _core->QueryInterface(iid, reinterpret_cast<void**>(&service));
             if (result != S_OK) {
                 return nullptr;

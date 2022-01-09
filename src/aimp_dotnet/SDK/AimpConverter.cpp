@@ -276,7 +276,7 @@ IAIMPObjectList* AimpConverter::ToAimpObjectList(List<String^>^ collection) {
     return list;
 }
 
-IAIMPString* AimpConverter::ToAimpString(Objects::IAimpString^ string) {
+IAIMPString* AimpConverter::ToAimpString(IAimpString^ string) {
     IAIMPString* strObject = CreateAimpObject<IAIMPString>(IID_IAIMPString);
     const pin_ptr<const WCHAR> strDate = PtrToStringChars(string->GetData());
     strObject->SetData(PWCHAR(strDate), string->GetLength());

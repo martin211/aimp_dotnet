@@ -30,6 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -76,8 +77,6 @@
     <Compile Include="..\..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Issues\Issue_19.cs" />
-    <Compile Include="Issues\Issue_37.cs" />
     <Compile Include="TestFramework\Assert\EqualAssert.cs" />
     <Compile Include="TestFramework\Assert\FalseAssert.cs" />
     <Compile Include="TestFramework\Assert\MemberAssert.cs" />
@@ -120,7 +119,10 @@
     <Compile Include="UnitTests\Objects\AimpStreamUnitTests.cs" />
     <Compile Include="UnitTests\Playback\AimpPlaybackQueueServiceTests.cs" />
     <Compile Include="UnitTests\Playback\PlayerHookTests.cs" />
+    <Compile Include="UnitTests\Player\AimpEqualizerPresetTests.cs" />
     <Compile Include="UnitTests\Player\AimpPlayerTests.cs" />
+    <Compile Include="UnitTests\Player\AimpServicePlayerEqualizerPresetsTests.cs" />
+    <Compile Include="UnitTests\Player\AimpServicePlayerEqualizerTests.cs" />
     <Compile Include="UnitTests\Player\AimpServicePlayerTests.cs" />
     <Compile Include="UnitTests\Playlist\AimpPlaylistManagerTests.cs" />
     <Compile Include="UnitTests\Playlist\AimpPlaylistQueueTests.cs" />

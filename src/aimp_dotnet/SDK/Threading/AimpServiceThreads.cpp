@@ -52,7 +52,8 @@ AimpActionResult^ AimpServiceThreads::ExecuteInMainThread(IAimpTask^ task, AimpS
     try {
         if (service != nullptr) {
             InternalAimpTask* internalTask = new InternalAimpTask(task);
-            return ACTION_RESULT(CheckResult(service->ExecuteInMainThread(internalTask, DWORD(flags))));
+            const auto result = service->ExecuteInMainThread(internalTask, static_cast<DWORD>(flags));
+            return ACTION_RESULT(CheckResult(result));
         }
     }
     finally {

@@ -45,7 +45,13 @@ function CopyPlugin {
 }
 
 function CopyLang {
-    Copy-Item "$ProjectDir\Langs\*" -Destination "$OutputPath\Langs" -Force
+    if (Test-Path -Path "$ProjectDir\Langs\") {
+        Copy-Item "$ProjectDir\Langs\*" -Destination "$OutputPath\Langs" -Force
+    }
+}
+
+function CopyDebugInfo {
+    Get-ChildItem "$TargetDir\*.pdb" | % { Copy-Item -Path $_ -Destination "$OutputPath" -Force }
 }
 
 Write-Output "Copy plugin:`t$TargetName"
@@ -69,6 +75,9 @@ if ($action -eq 'copy') {
 
     Write-Output "Copy Language files"
     CopyLang
+
+    Write-Output "Copy PDB files"
+    CopyDebugInfo
 
     exit 0;
 }

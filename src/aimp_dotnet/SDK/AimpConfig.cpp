@@ -38,7 +38,7 @@ FloatResult AimpConfig::GetValueAsFloat(String^ keyPath) {
 
     try {
         str = AimpConverter::ToAimpString(keyPath);
-        InternalAimpObject->GetValueAsFloat(str, &val);
+        result = CheckResult(InternalAimpObject->GetValueAsFloat(str, &val));
     }
     finally {
         if (str != nullptr) {
@@ -57,7 +57,7 @@ IntResult AimpConfig::GetValueAsInt32(String^ keyPath) {
 
     try {
         str = AimpConverter::ToAimpString(keyPath);
-        InternalAimpObject->GetValueAsInt32(str, &val);
+        result = CheckResult(InternalAimpObject->GetValueAsInt32(str, &val));
     }
     finally {
         if (str != nullptr) {
@@ -76,7 +76,7 @@ Int64Result AimpConfig::GetValueAsInt64(String^ keyPath) {
 
     try {
         str = AimpConverter::ToAimpString(keyPath);
-        InternalAimpObject->GetValueAsInt64(str, &val);
+        result = CheckResult(InternalAimpObject->GetValueAsInt64(str, &val));
     }
     finally {
         if (str != nullptr) {

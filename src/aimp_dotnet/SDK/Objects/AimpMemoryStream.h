@@ -9,14 +9,12 @@
 
 namespace AIMP {
     namespace SDK {
-        namespace Objects {
-            public ref class AimpMemoryStream :
-                public AimpStream,
-                public IAimpMemoryStream {
-            public:
-                AimpMemoryStream(IAIMPMemoryStream* aimpObject);
-                virtual AimpActionResult<array<unsigned char>^>^ GetData();
-            };
-        }
+        public ref class AimpMemoryStream :
+            public AimpStream,
+            public IAimpMemoryStream {
+        public:
+            AimpMemoryStream(IAIMPMemoryStream* aimpObject);
+            virtual AimpActionResult<array<unsigned char>^>^ GetData();
+        };
     }
 }

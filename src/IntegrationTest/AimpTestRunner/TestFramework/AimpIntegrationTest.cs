@@ -2,7 +2,7 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
+// Copyright (c) 2014 - 2022 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -14,7 +14,6 @@ using System.Collections.Generic;
 using System.IO;
 using AIMP.SDK;
 using AIMP.SDK.MessageDispatcher;
-using AIMP.SDK.Player;
 using AIMP.SDK.Threading;
 using Aimp.TestRunner.TestFramework.Assert;
 using Aimp.TestRunner.UnitTests;
@@ -23,243 +22,251 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal;
 
-namespace Aimp.TestRunner.TestFramework
+namespace Aimp.TestRunner.TestFramework;
+
+[TestFixture]
+public abstract class AimpIntegrationTest
 {
-    public abstract class AimpIntegrationTest
+    [OneTimeSetUp]
+    public virtual void RunBeforeAnyTests()
     {
-        public bool IsValid { get; set; } = true;
+        NUnit.Framework.Assert.NotNull(Player);
+        Asserts = new List<IMemberAssert>();
+        ClearAimpBeforeTests();
+    }
 
-        internal string RootPath { get; }
+    [OneTimeTearDown]
+    public virtual void AfterAllTests()
+    {
+    }
 
-        internal string TmpPath { get; }
+    [SetUp]
+    public virtual void SetUp()
+    {
+        Asserts.Clear();
+    }
 
-        internal string PlaylistPath { get; }
+    [TearDown]
+    public virtual void TearDown()
+    {
+        if (Asserts != null && Asserts.Count > 0) Validate(this);
+    }
 
-        internal string TrackPath1 { get; }
+    public bool IsValid { get; set; } = true;
 
-        internal string TrackPath2 { get; }
+    internal string RootPath { get; }
 
-        internal string TrackPath3 { get; }
+    internal string TmpPath { get; }
 
-        internal string TrackPath4 { get; }
+    internal string PlaylistPath { get; }
 
-        internal string TrackUrl1 { get; }
+    internal string TrackPath1 { get; }
 
-        internal IList<IMemberAssert> Asserts { get; set; }
+    internal string TrackPath2 { get; }
 
-        protected IAimpPlayer Player { get; }
+    internal string TrackPath3 { get; }
 
-        protected AimpIntegrationTest()
+    internal string TrackPath4 { get; }
+
+    internal string TrackUrl1 { get; }
+
+    internal IList<IMemberAssert> Asserts { get; set; }
+
+    protected IAimpPlayer Player { get; }
+
+    protected AimpIntegrationTest()
+    {
+        Player = AimpTestContext.Instance.AimpPlayer;
+
+        if (Player == null)
+            throw new NUnitEngineException(
+                "Unable to run unit tests. Check that file 'nunit.engine.addins' exists in plugin folder.");
+
+        RootPath = Path.Combine(Player.Core.GetPath(AimpCorePathType.Plugins), "AimpTestRunner");
+        PlaylistPath = Path.Combine(RootPath, "resources", "IntegrationTests.aimppl4");
+        TrackPath1 = Path.Combine(RootPath, "resources", "01_atmosphere.mp3");
+        TrackPath2 = Path.Combine(RootPath, "resources", "02_loop-mix.mp3");
+        TrackPath3 = Path.Combine(RootPath, "resources", "03_atmosphere.mp3");
+        TrackPath4 = Path.Combine(RootPath, "resources", "04_loop-mix.mp3");
+        TrackUrl1 = "https://freesound.org/data/previews/514/514101_4397472-lq.mp3";
+        TmpPath = Path.Combine(RootPath, "tmp");
+
+        if (Directory.Exists(TmpPath))
         {
-            Player = AimpTestContext.Instance.AimpPlayer;
+            var files = Directory.GetFiles(TmpPath);
 
-            if (Player == null)
+            foreach (var file in files)
             {
-                throw new NUnitEngineException("Unable to run unit tests. Check that file 'nunit.engine.addins' exists in plugin folder.");
+                File.SetAttributes(file, FileAttributes.Normal);
+                File.Delete(file);
             }
 
-            RootPath = Path.Combine(Player.Core.GetPath(AimpCorePathType.Plugins), "AimpTestRunner");
-            PlaylistPath = Path.Combine(RootPath, "resources", "IntegrationTests.aimppl4");
-            TrackPath1 = Path.Combine(RootPath, "resources", "01_atmosphere.mp3");
-            TrackPath2 = Path.Combine(RootPath, "resources", "02_loop-mix.mp3");
-            TrackPath3 = Path.Combine(RootPath, "resources", "03_atmosphere.mp3");
-            TrackPath4 = Path.Combine(RootPath, "resources", "04_loop-mix.mp3");
-            TrackUrl1 = "https://freesound.org/data/previews/514/514101_4397472-lq.mp3";
-            TmpPath = Path.Combine(RootPath, "tmp");
-
-            if (Directory.Exists(TmpPath))
-            {
-                var files = Directory.GetFiles(TmpPath);
-
-                foreach (var file in files)
-                {
-                    File.SetAttributes(file, FileAttributes.Normal);
-                    File.Delete(file);
-                }
-
-                Directory.Delete(TmpPath, true);
-            }
-
-            Directory.CreateDirectory(TmpPath);
+            Directory.Delete(TmpPath, true);
         }
 
-        [OneTimeSetUp]
-        public virtual void RunBeforeAnyTests()
+        Directory.CreateDirectory(TmpPath);
+        Asserts = new List<IMemberAssert>(5);
+    }
+
+    protected AimpActionResult ExecuteInMainThreadAndWait(Action action)
+    {
+        var task = new AimpTask(action);
+        var result = Player.ServiceThreads.ExecuteInMainThread(task, AimpServiceThreadPoolType.WaitFor);
+        return result;
+    }
+
+    protected AimpActionResult ExecuteInMainThread(Func<AimpActionResult> testFunc)
+    {
+        var task = new AimpTask(testFunc);
+        //Player.ServiceThreads.ExecuteInMainThread(task, AimpServiceThreadPoolType.WaitFor);
+        var result = Player.ServiceSynchronizer.ExecuteInMainThread(task, true);
+
+        if (task.TaskResult.ResultType != ActionResultType.OK)
         {
-            NUnit.Framework.Assert.NotNull(Player);
-            Asserts = new List<IMemberAssert>();
-            ClearAimpBeforeTests();
+            if (task.Exception != null)
+                AddFailedResult(exception: task.Exception);
+            else
+                AddFailedResult("Unable to execute task");
         }
 
-        [OneTimeTearDown]
-        public virtual void AfterAllTests()
-        {
+        return result;
+        //return Player.ServiceThreads.ExecuteInMainThread(task, AimpServiceThreadPoolType.WaitFor);
+    }
 
+    protected AimpActionResult ExecuteInMainThread(Action testFunc)
+    {
+        var task = new AimpTask(testFunc);
+        var result = Player.ServiceSynchronizer.ExecuteInMainThread(task, true);
+
+        if (task.TaskResult.ResultType != ActionResultType.OK)
+        {
+            if (task.Exception != null)
+                AddFailedResult(exception: task.Exception);
+            else
+                AddFailedResult("Unable to execute task");
         }
 
-        [SetUp]
-        public virtual void SetUp()
+
+        return result;
+        //return Player.ServiceThreadPool.Validate(task);
+        //return Player.ServiceThreads.ExecuteInMainThread(task, AimpServiceThreadPoolType.None);
+    }
+
+    protected AimpActionResult ExecuteInThread(Func<AimpActionResult> func)
+    {
+        var t = new AimpTask(func);
+        var taskId = UIntPtr.Zero;
+        t.Aborting += (sender, args) =>
         {
-            Asserts.Clear();
+            if (taskId != UIntPtr.Zero) Player.ServiceThreadPool.Cancel(taskId, AimpServiceThreadPoolType.None);
+        };
+
+        var taskResult = Player.ServiceThreadPool.Execute(t);
+        taskId = taskResult.Result;
+
+        return taskResult;
+        //return Player.ServiceThreadPool.Validate(t);
+    }
+
+    [Obsolete("Uses obsolete service")]
+    public AimpActionResult ExecuteAndWait(Func<AimpActionResult> func)
+    {
+        var t = new AimpTask(func);
+        var r = Player.ServiceThreadPool.Execute(t);
+        var res = Player.ServiceThreadPool.WaitFor(r.Result);
+        return res;
+    }
+
+    public AimpActionResult ExecuteAndWait2(Func<AimpActionResult> func)
+    {
+        var t = new AimpTask(func);
+        var r = Player.ServiceThreads.ExecuteInThread(t);
+        var res = Player.ServiceThreads.WaitFor(r.Result);
+        return res;
+    }
+
+    internal void Validate(AimpIntegrationTest testClass)
+    {
+        foreach (var fieldValidator in Asserts) fieldValidator.Validate();
+    }
+
+    protected void AssertOKResult(AimpActionResult result, string message = null)
+    {
+        AimpAssert.AreEqual(ActionResultType.OK, result.ResultType, "Wrong ActionResultType");
+    }
+
+    protected void AssertOKResult<TResult>(AimpActionResult<TResult> result)
+    {
+        AimpAssert.AreEqual(ActionResultType.OK, result.ResultType, "Wrong ActionResultType");
+        AimpAssert.NotNull(result.Result, "Result is empty");
+    }
+
+    private void ClearAimpBeforeTests()
+    {
+        TestContext.WriteLine("Clear existing playlist");
+        var playlistPath = Player.Core.GetPath(AimpCorePathType.Playlists);
+        foreach (var file in new DirectoryInfo(playlistPath).GetFiles()) file.Delete();
+    }
+
+    private static void AddFailedResult(string message = null, Exception exception = null)
+    {
+        var msg = message ?? exception?.Message;
+        var result = TestExecutionContext.CurrentContext.CurrentResult;
+        result.RecordAssertion(AssertionStatus.Failed, msg, exception?.StackTrace ?? Environment.StackTrace);
+        result.RecordTestCompletion();
+    }
+
+    private class AimpTask : IAimpTask
+    {
+        private readonly Action _action;
+        private readonly Func<AimpActionResult> _task;
+
+        public AimpTask(Action action)
+        {
+            _action = action;
         }
 
-        [TearDown]
-        public virtual void TearDown()
+        public AimpTask(Func<AimpActionResult> task)
         {
-            if (Asserts != null && Asserts.Count > 0)
-            {
-                Validate(this);
-            }
+            _task = task;
         }
 
-        protected AimpActionResult ExecuteInMainThreadAndWait(Func<AimpActionResult> testFunc)
+        public AimpActionResult TaskResult { get; private set; }
+        public Exception Exception { get; private set; }
+
+        public void Execute(IAimpTaskOwner owner)
         {
-            var task = new AimpTask(testFunc);
-            var result = Player.ServiceThreads.ExecuteInMainThread(task, AimpServiceThreadPoolType.WaitFor);
-            return new AimpActionResult(result.ResultType);
-        }
+            TaskResult = new AimpActionResult(ActionResultType.Fail);
 
-        protected AimpActionResult ExecuteInMainThread(Func<AimpActionResult> testFunc)
-        {
-            var task = new AimpTask(testFunc);
-            return Player.ServiceThreads.ExecuteInMainThread(task, AimpServiceThreadPoolType.None);
-        }
-        
-        //protected AimpActionResult<T> ExecuteInMainThread<T>(Func<AimpActionResult<T>> testFunc)
-        //{
-        //    var task = new AimpTask(testFunc);
-        //    return Player.ServiceThreads
-        //        .ExecuteInMainThread(task, AimpServiceThreadPoolType.None);
-        //}
-
-        protected AimpActionResult ExecuteInMainThread(Action testFunc)
-        {
-            var task = new AimpTask(testFunc);
-            return Player.ServiceThreads.ExecuteInMainThread(task, AimpServiceThreadPoolType.None);
-        }
-
-        protected AimpActionResult ExecuteInThread(Func<AimpActionResult> func)
-        {
-            var t =  new AimpTask(func);
-            return Player.ServiceThreadPool.Execute(t);
-        }
-
-        public AimpActionResult ExecuteAndWait(Func<AimpActionResult> func)
-        {
-            var t = new AimpTask(func);
-            var r = Player.ServiceThreadPool.Execute(t);
-            var res = Player.ServiceThreadPool.WaitFor(r.Result);
-            return res;
-        }
-
-        internal void Validate(AimpIntegrationTest testClass)
-        {
-            foreach (var fieldValidator in Asserts)
-            {
-                fieldValidator.Validate(testClass);
-            }
-        }
-
-        protected IMemberAssert AssertOKResult(ActionResultType current, string message = null)
-        {
-            return this.AreEqual(ActionResultType.OK, current, null, message);
-        }
-
-        private void ClearAimpBeforeTests()
-        {
-            TestContext.WriteLine("Clear existing playlist");
-            var playlistPath = Player.Core.GetPath(AimpCorePathType.Playlists);
-            foreach (var file in new DirectoryInfo(playlistPath).GetFiles())
-            {
-                file.Delete();
-            }
-        }
-
-        private class AimpTask : IAimpTask
-        {
-            private readonly Func<AimpActionResult> _task;
-            private readonly Action _action;
-
-            public AimpTask(Action action)
-            {
-                _action = action;
-            }
-
-            public AimpTask(Func<AimpActionResult> task)
-            {
-                _task = task;
-            }
-
-            public AimpActionResult Execute(IAimpTaskOwner owner)
-            {
+            if (_task != null)
                 try
                 {
-                    if (_task != null)
-                        return _task();
-
-                    if (_action != null)
-                    {
-                        _action();
-                        return new AimpActionResult(ActionResultType.OK);
-                    }
+                    var result = _task();
+                    TaskResult = result;
+                }
+                catch (AssertionException e)
+                {
+                    Exception = e;
                 }
                 catch (Exception e)
                 {
-                    TestContext.WriteLine(e.ToString());
-                    TestContext.Error.WriteLine(e.ToString());
-                    TestContext.Out.WriteLine(e.ToString());
+                    Exception = e;
+                    Aborting?.Invoke(this, EventArgs.Empty);
                 }
 
-                return new AimpActionResult(ActionResultType.Fail);
-            }
-        }
-
-        //private class AimpTask<T> : IAimpTask
-        //{
-        //    private readonly Func<AimpActionResult<T>> _task;
-
-        //    public AimpTask(Func<AimpActionResult<T>> task)
-        //    {
-        //        _task = task;
-        //    }
-
-        //    public AimpActionResult Execute(IAimpTaskOwner owner)
-        //    {
-        //        return
-        //    }
-        //}
-
-        private class AimpTask2 : IAimpTask
-        {
-            private Func<object> _task;
-
-            public object Result { get; set; }
-
-            public AimpTask2(Func<object> task)
-            {
-                _task = task;
-            }
-
-            public AimpActionResult Execute(IAimpTaskOwner owner)
-            {
+            if (_action != null)
                 try
                 {
-                    _task();
-                    return new AimpActionResult(ActionResultType.OK);
+                    _action();
+                    TaskResult = new AimpActionResult(ActionResultType.OK);
                 }
                 catch (Exception e)
                 {
-                    var result = TestExecutionContext.CurrentContext.CurrentResult;
-                    result.RecordAssertion(AssertionStatus.Failed, "", Environment.StackTrace);
-                    result.RecordTestCompletion();
-
-                    //TestContext.WriteLine(e.ToString());
-                    //TestContext.Error.WriteLine(e.ToString());
-                    //TestContext.Out.WriteLine(e.ToString());
+                    Exception = e;
+                    Aborting?.Invoke(this, EventArgs.Empty);
                 }
-
-                return new AimpActionResult(ActionResultType.Fail);
-            }
         }
+
+        public event EventHandler Aborting;
     }
 }

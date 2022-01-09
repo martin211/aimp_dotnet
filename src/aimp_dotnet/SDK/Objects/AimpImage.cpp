@@ -97,7 +97,7 @@ AimpActionResult^ AimpImage::LoadFromBitmap(IntPtr bitmap) {
     return gcnew AimpActionResult(ActionResultType::NotImplemented);
 }
 
-AimpActionResult^ AimpImage::LoadFromBits(Objects::RGBQUAD bits, int width, int height) {
+AimpActionResult^ AimpImage::LoadFromBits(RGBQuad bits, int width, int height) {
     // TODO: Not implemented
     return gcnew AimpActionResult(ActionResultType::NotImplemented);
 }

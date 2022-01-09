@@ -1,40 +1,30 @@
-﻿using System;
-using Aimp.TestRunner.UnitTests;
-using NUnit.Framework;
-using NUnit.Framework.Internal;
+﻿// ----------------------------------------------------
+// 
+// AIMP DotNet SDK
+// 
+// Copyright (c) 2014 - 2022 Evgeniy Bogdan
+// https://github.com/martin211/aimp_dotnet
+// 
+// Mail: mail4evgeniy@gmail.com
+// 
+// ----------------------------------------------------
 
-namespace Aimp.TestRunner.TestFramework.Assert
+namespace Aimp.TestRunner.TestFramework.Assert;
+
+public class EqualAssert : MemberAssert
 {
-    public class EqualAssert : MemberAssert
+    public EqualAssert(string name, object value, object expected, string message)
+        : base(name, value, message)
     {
-        public object Expected { get; }
+        Expected = expected;
+    }
 
-        public EqualAssert(string name, object value, object expected, string message)
-            : base(name, value, message)
-        {
-            Expected = expected;
-        }
+    public object Expected { get; }
 
-        public override void Validate(AimpIntegrationTest testClass)
-        {
-            try
-            {
-                NUnit.Framework.Assert.AreEqual(Expected, Value, Message ?? $"Expected '{Expected}' but was '{Value}'");
-            }
-            catch (Exception)
-            {
-                var result = TestExecutionContext.CurrentContext.CurrentResult;
-
-                if (result.FailCount == 1)
-                {
-                    TestContext.WriteLine(result.Message);
-                    TestContext.WriteLine(result.StackTrace);
-                    TestContext.Out.WriteLine(result.Message);
-                    TestContext.Out.WriteLine(result.StackTrace);
-                }
-            }
-
-            base.Validate(testClass);
-        }
+    public override void Validate()
+    {
+        Validate(() =>
+            NUnit.Framework.Assert.AreEqual(Expected, Value,
+                Message ?? $"Expected '{Expected}' but was '{Value}'"));
     }
 }
