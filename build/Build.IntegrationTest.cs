@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -20,12 +19,12 @@ partial class Build
     AbsolutePath ResourcesPath => RootDirectory / "resources";
     AbsolutePath TestOutput => RootDirectory / "tests";
 
-    [Parameter] readonly string AimpPath = @"z:\code\aimp\AIMP5.00.2344\";
-    [Parameter] readonly int TestTimeout = 5; // 5 minutes
-    [Parameter] readonly bool IsJUnit;
-    
+    [Parameter(Name = "AimpPath")] readonly string IntegrationTestAimpPath = @"z:\code\aimp\AIMP5.00.2344\";
+    [Parameter(Name = "TimeOut")] readonly int IntegrationTestTimeout = 5; // 5 minutes
+    [Parameter(Name = "JsJUnit")] readonly bool IntegrationTestIsJUnit;
+
     AbsolutePath IntegrationTestBinPath => SourceDirectory / "IntegrationTest";
-    AbsolutePath IntegrationTestPluginPath => (AbsolutePath) Path.Combine(AimpPath, "plugins", "AimpTestRunner");
+    AbsolutePath IntegrationTestPluginPath => (AbsolutePath) Path.Combine(IntegrationTestAimpPath, "plugins", "AimpTestRunner");
 
     AbsolutePath IntegrationTestOutput => (AbsolutePath) Path.Combine(@"c:\tmp\aimp\sdk\tests\");
     [Parameter] string TestResultPath;
@@ -67,17 +66,10 @@ partial class Build
         });
 
     Target PrepareIntegrationTests => _ => _
-        .Requires(() => AimpPath)
+        .Requires(() => IntegrationTestAimpPath)
         .Executes(() =>
         {
-            Log.Debug("Parameters:");
-            Log.Debug($"{nameof(AimpPath)}: {AimpPath}");
-            Log.Debug($"{nameof(TestTimeout)}: {TestTimeout}");
-            Log.Debug($"{nameof(IsJUnit)}: {IsJUnit}");
-            Log.Debug($"{nameof(IntegrationTestBinPath)}: {IntegrationTestBinPath}");
-            Log.Debug($"{nameof(IntegrationTestPluginPath)}: {IntegrationTestPluginPath}");
-            Log.Debug($"{nameof(IntegrationTestOutput)}: {IntegrationTestOutput}");
-            Log.Debug($"{nameof(IsTeamCity)}: {IsTeamCity}");
+            PrintParameters("IntegrationTest");
 
             Log.Debug($"Delete directory {IntegrationTestPluginPath}");
             DeleteDirectory(IntegrationTestPluginPath);
@@ -158,7 +150,7 @@ partial class Build
         });
 
     Target ExecuteIntegrationTests => _ => _
-        .Requires(() => AimpPath)
+        .Requires(() => IntegrationTestAimpPath)
         .DependsOn(PrepareIntegrationTests, PrepareTestConfiguration)
         .Executes(() =>
         {
@@ -171,7 +163,7 @@ partial class Build
             if (File.Exists(testResultLogFile))
                 File.Delete(testResultLogFile);
 
-            var aimpExe = Path.Combine(AimpPath, "AIMP.exe");
+            var aimpExe = Path.Combine(IntegrationTestAimpPath, "AIMP.exe");
             if (!File.Exists(aimpExe))
             {
                 LogError($"AIMP.exe not found at path {aimpExe}");
@@ -181,7 +173,7 @@ partial class Build
             }
 
             Log.Information("Start AIMP process");
-            var p = ProcessTasks.StartProcess(aimpExe, "/DEBUG", AimpPath, timeout: TestTimeout * 60000);
+            var p = ProcessTasks.StartProcess(aimpExe, "/DEBUG", IntegrationTestAimpPath, timeout: IntegrationTestTimeout * 60000);
             var res = p.WaitForExit();
 
             if (res)
@@ -216,7 +208,7 @@ partial class Build
 
                     Log.Debug(content);
 
-                    if (IsJUnit)
+                    if (IntegrationTestIsJUnit)
                     {
                         var junitReport = OutputDirectory / "junit-integration.tests.xml";
 
@@ -247,36 +239,6 @@ partial class Build
         .Requires(() => TestResultPath)
         .Executes(() =>
         {
-            //void DirectoryCopy(string source, string target)
-            //{
-            //    var dir = new DirectoryInfo(source);
-            //    var dirs = dir.GetDirectories();
-            //    if (!Directory.Exists(target))
-            //    {
-            //        Directory.CreateDirectory(target);
-            //    }
-
-            //    var files = dir.GetFiles();
-            //    foreach (var file in files)
-            //    {
-            //        var path = Path.Combine(target, file.Name);
-            //        file.CopyTo(path, true);
-            //    }
-
-            //    foreach (var subDir in dirs)
-            //    {
-            //        var path = Path.Combine(target, subDir.Name);
-            //        DirectoryCopy(subDir.FullName, path);
-            //    }
-            //}
-
-            //var directoryInfo = new DirectoryInfo(IntegrationTestOutput);
-            //if (directoryInfo.Exists)
-            //{
-            //    Log.Debug("Copy tests result to server");
-            //    DirectoryCopy(IntegrationTestOutput, TestResultPath);
-            //}
-
             CopyDirectoryRecursively(IntegrationTestOutput, TestResultPath, DirectoryExistsPolicy.Merge, FileExistsPolicy.OverwriteIfNewer);
         });
 

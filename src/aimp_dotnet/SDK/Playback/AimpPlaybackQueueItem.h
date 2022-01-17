@@ -10,9 +10,10 @@
 namespace AIMP {
     namespace SDK {
         using namespace System;
+        using namespace Player::Primitives;
 
         public ref class AimpPlaybackQueueItem : public AimpObject<IAIMPPlaybackQueueItem>,
-                                                 public AIMP::SDK::Playback::IAimpPlaybackQueueItem {
+                                                 public IAimpPlaybackQueueItem {
         public:
             explicit AimpPlaybackQueueItem(IAIMPPlaybackQueueItem* aimpItem);
 

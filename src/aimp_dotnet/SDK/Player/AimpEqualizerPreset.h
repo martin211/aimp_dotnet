@@ -3,9 +3,11 @@
 
 namespace AIMP {
     namespace SDK {
+        using namespace Player::Primitives;
+
         public ref class AimpEqualizerPreset :
             public AimpEqualizerBands,
-            public Player::IAimpEqualizerPreset
+            public IAimpEqualizerPreset
         {
         public:
             explicit AimpEqualizerPreset(IAIMPEqualizerPreset* obj);

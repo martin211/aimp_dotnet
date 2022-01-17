@@ -11,7 +11,7 @@
 
 using namespace AIMP::SDK;
 
-AimpActionEvent::AimpActionEvent(gcroot<ActionManager::IAimpActionEvent^> managedInstance, AimpActionEventCallback cb) {
+AimpActionEvent::AimpActionEvent(gcroot<IAimpActionEvent^> managedInstance, AimpActionEventCallback cb) {
     _cb = cb;
     _managedInstance = managedInstance;
 }

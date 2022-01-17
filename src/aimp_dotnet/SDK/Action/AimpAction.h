@@ -11,7 +11,7 @@
 namespace AIMP {
     namespace SDK {
         using namespace Runtime::InteropServices;
-        using namespace ActionManager;
+        using namespace Actions;
 
         public ref class AimpAction : public AimpObject<IAIMPAction>, public IAimpAction {
         private:

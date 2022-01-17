@@ -12,7 +12,8 @@
 using System;
 using System.Threading;
 using AIMP.SDK;
-using AIMP.SDK.Playback;
+using AIMP.SDK.Player.Extensions;
+using AIMP.SDK.Player.Primitives;
 using AIMP.SDK.Playlist;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;

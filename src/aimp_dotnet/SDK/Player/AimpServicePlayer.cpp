@@ -181,7 +181,7 @@ IAimpPlaylistItem^ AimpServicePlayer::CurrentPlaylistItem::get() {
     }
 }
 
-Player::ActionOnTrackEnd AimpServicePlayer::ActionOnEndOfTrack::get() {
+ActionOnTrackEnd AimpServicePlayer::ActionOnEndOfTrack::get() {
     IUnknown* service = GetAimpService();
     if (service == nullptr) {
         service = GetService();
@@ -191,7 +191,7 @@ Player::ActionOnTrackEnd AimpServicePlayer::ActionOnEndOfTrack::get() {
     try {
         service->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&prop));
         int value = PropertyListExtension::GetInt32(prop, AIMP_PLAYER_PROPID_STOP_AFTER_TRACK);
-        return static_cast<Player::ActionOnTrackEnd>(value);
+        return static_cast<ActionOnTrackEnd>(value);
     }
     finally {
         ReleaseObject(service);
@@ -199,7 +199,7 @@ Player::ActionOnTrackEnd AimpServicePlayer::ActionOnEndOfTrack::get() {
     }
 }
 
-void AimpServicePlayer::ActionOnEndOfTrack::set(Player::ActionOnTrackEnd value) {
+void AimpServicePlayer::ActionOnEndOfTrack::set(ActionOnTrackEnd value) {
     IUnknown* service = GetAimpService();
     if (service == nullptr) {
         service = GetService();
@@ -556,7 +556,7 @@ void AimpServicePlayer::ManualSwitchingFadeOut::set(int value) {
     }
 }
 
-AimpActionResult^ AimpServicePlayer::Play(Playback::IAimpPlaybackQueueItem^ item, int offset, Player::PlayFlags flags) {
+AimpActionResult^ AimpServicePlayer::Play(Player::Primitives::IAimpPlaybackQueueItem^ item, int offset, Player::PlayFlags flags) {
     const auto service = GetAimpService();
     try {
         if (service == nullptr) {
@@ -603,7 +603,7 @@ AimpActionResult^ AimpServicePlayer::Play(String^ fileUri, int offset, Player::P
     }
 }
 
-AimpActionResult^ AimpServicePlayer::Play(Playback::IAimpPlaybackQueueItem^ queueItem) {
+AimpActionResult^ AimpServicePlayer::Play(IAimpPlaybackQueueItem^ queueItem) {
     IUnknown* service = GetAimpService();
     if (service == nullptr) {
         service = GetService();

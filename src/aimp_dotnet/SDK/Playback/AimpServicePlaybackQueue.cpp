@@ -11,7 +11,6 @@
 
 using namespace AIMP::SDK;
 using namespace Playlist;
-using namespace Playback;
 
 AimpServicePlaybackQueue::
 AimpServicePlaybackQueue(ManagedAimpCore^ core) : BaseAimpService<IAIMPServicePlaybackQueue>(core) {

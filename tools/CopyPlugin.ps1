@@ -84,6 +84,6 @@ if ($action -eq 'copy') {
 
 if ($action -eq 'clean') {
     Remove-Item -path $OutputPath\*.dll
-
+    Remove-Item -path $OutputPath\*.pdb
     exit 0;
 }

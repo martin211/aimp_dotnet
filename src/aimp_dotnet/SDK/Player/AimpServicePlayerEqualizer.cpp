@@ -69,7 +69,7 @@ ActionResult AimpServicePlayerEqualizer::SetPreamp(double value) {
     return ACTION_RESULT(result);
 }
 
-AimpActionResult<Player::IAimpEqualizerPreset^>^ AimpServicePlayerEqualizer::GetPreset() {
+AimpActionResult<IAimpEqualizerPreset^>^ AimpServicePlayerEqualizer::GetPreset() {
     const auto service = QueryInterface();
     ActionResultType result = ActionResultType::Fail;
     IAIMPEqualizerPreset* preset = nullptr;
@@ -83,10 +83,10 @@ AimpActionResult<Player::IAimpEqualizerPreset^>^ AimpServicePlayerEqualizer::Get
         ReleaseObject(service);
     }
 
-    return gcnew AimpActionResult<Player::IAimpEqualizerPreset^>(result, nullptr);
+    return gcnew AimpActionResult<IAimpEqualizerPreset^>(result, nullptr);
 }
 
-ActionResult AimpServicePlayerEqualizer::SetPreset(Player::IAimpEqualizerPreset^ value) {
+ActionResult AimpServicePlayerEqualizer::SetPreset(IAimpEqualizerPreset^ value) {
     const auto service = QueryInterface();
     ActionResultType result = ActionResultType::Fail;
 

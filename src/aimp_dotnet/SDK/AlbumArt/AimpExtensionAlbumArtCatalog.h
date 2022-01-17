@@ -7,17 +7,19 @@
 
 #pragma once
 
+using namespace AlbumArt::Extensions;
+
 class AimpExtensionAlbumArtCatalog :
     public IUnknownInterfaceImpl<IAIMPExtensionAlbumArtCatalog>,
     public IAIMPExtensionAlbumArtCatalog2 {
 private:
-    gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^> _managedinstance;
+    gcroot<IAimpExtensionAlbumArtCatalog^> _managedinstance;
     IAIMPCore* _aimpCore;
 public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionAlbumArtCatalog> Base;
 
     AimpExtensionAlbumArtCatalog(IAIMPCore* aimpCore,
-                                 gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^> instance);
+                                 gcroot<IAimpExtensionAlbumArtCatalog^> instance);
 
     virtual HRESULT WINAPI GetIcon(HICON** Image);
 

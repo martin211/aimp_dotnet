@@ -13,13 +13,15 @@ namespace Aimp.TestRunner.TestFramework.Assert;
 
 public class TrueAssert : MemberAssert<bool>
 {
+    bool _val;
     public TrueAssert(string name, bool value, string message)
         : base(name, value, message)
     {
+        _val = value;
     }
 
     public override void Validate()
     {
-        Validate(() => NUnit.Framework.Assert.True(Value, $"Expected 'true' but was '{Value}'"));
+        Validate(() => NUnit.Framework.Assert.IsTrue(Value.ToString().Equals(true.ToString())));
     }
 }

@@ -10,7 +10,7 @@
 #include "SDK\FileManager\AimpFileInfo.h"
 
 AimpExtensionAlbumArtCatalog::AimpExtensionAlbumArtCatalog(IAIMPCore* aimpCore,
-                                                           gcroot<AlbumArtManager::IAimpExtensionAlbumArtCatalog^>
+                                                           gcroot<IAimpExtensionAlbumArtCatalog^>
                                                            instance) {
     _managedinstance = instance;
     _aimpCore = aimpCore;

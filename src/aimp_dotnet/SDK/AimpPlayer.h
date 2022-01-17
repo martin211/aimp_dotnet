@@ -38,15 +38,14 @@ namespace AIMP {
     using namespace System;
     using namespace Runtime::InteropServices;
     using namespace SDK;
-    using namespace ActionManager;
-    using namespace AlbumArtManager;
-    using namespace ConfigurationManager;
+    using namespace Configuration;
     using namespace Playlist;
     using namespace SDK::Win32;
-    using namespace Playback;
+    using namespace Player::Services;
     using namespace Threading;
     using namespace MessageDispatcher;
     using namespace TagEditor;
+    using namespace Services;
 
     private ref class AimpPlayer :
         public MarshalByRefObject,
@@ -83,9 +82,9 @@ namespace AIMP {
         IAimpServiceThreads^ _serviceThreads;
         Core::IAimpServiceVersionInfo^ _serviceVersionInfo;
         Core::IAimpServiceShutdown^ _serviceShutdown;
-        Player::IAimpServicePlayer^ _servicePlayer;
-        Player::IAimpServicePlayerEqualizer^ _servicePlayerEqualizer;
-        Player::IAimpServicePlayerEqualizerPresets^ _servicePlayerEqualizerPresets;
+        IAimpServicePlayer^ _servicePlayer;
+        IAimpServicePlayerEqualizer^ _servicePlayerEqualizer;
+        IAimpServicePlayerEqualizerPresets^ _servicePlayerEqualizerPresets;
     public:
         /// <summary>
         /// Initializes a new instance of the <see cref="AIMP3Controller{TConvAlloc}" /> class.
@@ -98,14 +97,14 @@ namespace AIMP {
 
         ~AimpPlayer();
 
-        property Player::IAimpServicePlayerEqualizer^ ServicePlayerEqualizer
+        property IAimpServicePlayerEqualizer^ ServicePlayerEqualizer
         {
-            virtual Player::IAimpServicePlayerEqualizer^ get();
+            virtual IAimpServicePlayerEqualizer^ get();
         }
 
-        property Player::IAimpServicePlayerEqualizerPresets^ ServicePlayerEqualizerPresets
+        property IAimpServicePlayerEqualizerPresets^ ServicePlayerEqualizerPresets
         {
-            virtual Player::IAimpServicePlayerEqualizerPresets^ get();
+            virtual IAimpServicePlayerEqualizerPresets^ get();
         }
 
         /// <summary>
@@ -160,9 +159,9 @@ namespace AIMP {
             IAimpServicePlaybackQueue^ get();
         }
 
-        virtual property Player::IAimpServicePlayer^ ServicePlayer
+        virtual property IAimpServicePlayer^ ServicePlayer
         {
-            Player::IAimpServicePlayer^ get();
+            IAimpServicePlayer^ get();
         }
 
         virtual property IWin32Manager^ Win32Manager

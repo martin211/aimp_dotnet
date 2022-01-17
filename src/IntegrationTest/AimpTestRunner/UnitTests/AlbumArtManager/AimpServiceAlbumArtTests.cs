@@ -12,7 +12,7 @@
 using System;
 using System.Threading;
 using AIMP.SDK;
-using AIMP.SDK.AlbumArtManager;
+using AIMP.SDK.AlbumArt;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 

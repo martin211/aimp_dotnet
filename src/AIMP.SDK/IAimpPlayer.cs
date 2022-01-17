@@ -10,9 +10,9 @@
 // ----------------------------------------------------
 
 using System;
-using AIMP.SDK.ActionManager;
-using AIMP.SDK.AlbumArtManager;
-using AIMP.SDK.ConfigurationManager;
+using AIMP.SDK.Actions;
+using AIMP.SDK.AlbumArt.Services;
+using AIMP.SDK.Configuration;
 using AIMP.SDK.Core;
 using AIMP.SDK.FileManager;
 using AIMP.SDK.Lyrics;
@@ -21,8 +21,8 @@ using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.MUIManager;
 using AIMP.SDK.MusicLibrary;
 using AIMP.SDK.Options;
-using AIMP.SDK.Playback;
 using AIMP.SDK.Player;
+using AIMP.SDK.Player.Services;
 using AIMP.SDK.Playlist;
 using AIMP.SDK.TagEditor;
 using AIMP.SDK.Threading;

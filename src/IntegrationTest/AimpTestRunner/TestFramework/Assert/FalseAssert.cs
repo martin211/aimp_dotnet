@@ -20,6 +20,6 @@ public class FalseAssert : MemberAssert<bool>
 
     public override void Validate()
     {
-        Validate(() => NUnit.Framework.Assert.False(Value, $"Expected 'False' but was '{Value}'"));
+        Validate(() => NUnit.Framework.Assert.IsFalse(Value.ToString().Equals(true.ToString())));
     }
 }

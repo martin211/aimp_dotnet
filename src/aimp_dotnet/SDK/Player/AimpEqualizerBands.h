@@ -2,9 +2,11 @@
 
 namespace AIMP {
     namespace SDK {
+        using namespace Player::Primitives;
+
         public ref class AimpEqualizerBands :
             public AimpObject<IAIMPEqualizerBands>,
-            public Player::IAimpEqualizerBands {
+            public IAimpEqualizerBands {
         public:
             explicit AimpEqualizerBands(IAIMPEqualizerBands* obj);
             virtual int GetBandCount();
