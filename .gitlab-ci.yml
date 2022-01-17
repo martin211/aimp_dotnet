@@ -88,6 +88,7 @@ deploy_release:
 
 buildDocumentation:
   stage: documentation
+  only: /^release\/.*$/
   variables:
     GIT_STRATEGY: "none"
   allow_failure: true
@@ -96,6 +97,7 @@ buildDocumentation:
 
 publishDocumentation:
   stage: documentation
+  only: /^release\/.*$/
   variables:
     GIT_STRATEGY: "none"
   allow_failure: true
