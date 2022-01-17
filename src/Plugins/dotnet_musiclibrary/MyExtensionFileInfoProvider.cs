@@ -13,8 +13,7 @@ using System.IO;
 using AIMP.SDK;
 using AIMP.SDK.FileManager;
 using AIMP.SDK.FileManager.Extensions;
-using AIMP.SDK.Objects;
-using AIMP.SDK.Player;
+using AIMP.SDK.FileManager.Primitives;
 
 namespace AIMP.DotNet.MusicLibrary
 {

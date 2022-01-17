@@ -19,22 +19,22 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
         /// <summary>
         /// The or
         /// </summary>
-        Or,
+        Or = 0,
 
         /// <summary>
         /// The and
         /// </summary>
-        And,
+        And = 1,
 
         /// <summary>
         /// The not or
         /// </summary>
-        NotOr,
+        NotOr = 2,
 
         /// <summary>
         /// The not and
         /// </summary>
-        NotAnd
+        NotAnd = 3
     }
 
     /// <summary>

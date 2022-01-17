@@ -14,8 +14,13 @@ namespace AIMP {
         using namespace AIMP::SDK;
 
         template <typename TAimpService>
+        public interface class IAimpBaseService : IAimpService {
+            virtual TAimpService* QueryInterface() = 0;
+        };
+
+        template <typename TAimpService>
         [System::Serializable]
-        public ref class BaseAimpService abstract : IAimpService {
+        public ref class BaseAimpService abstract : IAimpBaseService<TAimpService> {
         private:
             bool _isExist;
             bool _initialized;
@@ -64,8 +69,11 @@ namespace AIMP {
             }
 
             virtual TAimpService* GetAimpService() = 0;
-
         public:
+            virtual TAimpService* QueryInterface() {
+                return nullptr;
+            }
+
             property bool IsExists
             {
                 virtual bool get() {

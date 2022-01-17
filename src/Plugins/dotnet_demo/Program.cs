@@ -12,7 +12,7 @@
 using System;
 using System.Diagnostics;
 using System.Windows.Input;
-using AIMP.SDK.ActionManager;
+using AIMP.SDK.Actions;
 using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.Playlist;
 using DemoPlugin;

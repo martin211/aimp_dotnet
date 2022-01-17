@@ -179,7 +179,7 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetFiles(IAIMPTaskOwner* Owner, D
             auto collection = result->Item2;
             *Flags = (DWORD*)result->Item1;
             auto t = collection->GetType()->GetGenericArguments()[0];
-            if (t == AIMP::SDK::FileManager::IAimpFileInfo::typeid) {
+            if (t == IAimpFileInfo::typeid) {
                 for (int i = 0; i < collection->Count; i++) {
                     IAIMPFileInfo* fi = AimpConverter::ToAimpObject((IAimpFileInfo^)collection[i]);
                     L->Add(fi);

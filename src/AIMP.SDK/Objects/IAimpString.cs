@@ -11,7 +11,7 @@
 
 using System;
 
-namespace AIMP.SDK.Objects
+namespace AIMP.SDK
 {
     /// <summary>
     /// Enum AimpStringCase
@@ -232,5 +232,7 @@ namespace AIMP.SDK.Objects
         /// <param name="str">The string.</param>
         /// <returns>ActionResultType.</returns>
         ActionResultType SubString(int index, int count, out IAimpString str);
+
+        void Release();
     }
 }

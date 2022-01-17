@@ -147,4 +147,28 @@ namespace AIMP.SDK
         /// <value>The item2.</value>
         public TObject2 Item2 { get; set; }
     }
+
+    public sealed class StringActionResult : AimpActionResult<IAimpString>
+    {
+        /// <inheritdoc />
+        public StringActionResult(ActionResultType resultType) : base(resultType)
+        {
+        }
+
+        /// <inheritdoc />
+        public StringActionResult(ActionResultType resultType, IAimpString result) : base(resultType, result)
+        {
+        }
+    }
+
+    public sealed class DoubleActionResult : AimpActionResult<double>
+    {
+        public DoubleActionResult(ActionResultType resultType) : base(resultType)
+        {
+        }
+
+        public DoubleActionResult(ActionResultType resultType, double result) : base(resultType, result)
+        {
+        }
+    }
 }

@@ -178,3 +178,7 @@ ActionResultType AimpString::SubString(int index, int count, IAimpString^% str) 
 
     return res;
 }
+
+void AimpString::Release() {
+    InternalAimpObject->Release();
+}

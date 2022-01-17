@@ -7,15 +7,17 @@
 
 #pragma once
 
+using namespace AlbumArt;
+using namespace AlbumArt::Extensions;
+
 class AimpExtensionAlbumArtProvider :
     public IUnknownInterfaceImpl<IAIMPExtensionAlbumArtProvider>,
     public IAIMPExtensionAlbumArtProvider2 {
 private:
-    gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^> _managedinstance;
+    gcroot<IAimpExtensionAlbumArtProvider^> _managedinstance;
     IAIMPCore* _aimpCore;
 public:
-    AimpExtensionAlbumArtProvider(IAIMPCore* aimpCore,
-                                  gcroot<AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^> instance) {
+    AimpExtensionAlbumArtProvider(IAIMPCore* aimpCore, gcroot<IAimpExtensionAlbumArtProvider^> instance) {
         _managedinstance = instance;
         _aimpCore = aimpCore;
     }

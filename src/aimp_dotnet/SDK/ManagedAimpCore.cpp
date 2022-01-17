@@ -25,6 +25,7 @@ namespace AIMP {
     namespace SDK {
         using namespace System;
         using namespace Runtime::InteropServices;
+        using namespace AlbumArt::Extensions;
 
         class AIMPMessageHook : public IUnknownInterfaceImpl<IAIMPMessageHook> {
         public:
@@ -229,8 +230,7 @@ namespace AIMP {
                                                 static_cast<OptionsDialogFrameExtension::Base*>(odfp));
             }
 
-            AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtCatalog^ albumArtCatalogExtension = dynamic_cast<AIMP::SDK
-                ::AlbumArtManager::IAimpExtensionAlbumArtCatalog^>(extension);
+            IAimpExtensionAlbumArtCatalog^ albumArtCatalogExtension = dynamic_cast<IAimpExtensionAlbumArtCatalog^>(extension);
             if (albumArtCatalogExtension != nullptr) {
                 if (_albumArtCatalogExtension != nullptr) {
                     return E_FAIL;
@@ -243,8 +243,7 @@ namespace AIMP {
                                                 static_cast<AimpExtensionAlbumArtCatalog::Base*>(cat));
             }
 
-            AIMP::SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^ albumArtProviderExtension = dynamic_cast<AIMP::
-                SDK::AlbumArtManager::IAimpExtensionAlbumArtProvider^>(extension);
+            IAimpExtensionAlbumArtProvider^ albumArtProviderExtension = dynamic_cast<IAimpExtensionAlbumArtProvider^>(extension);
             if (albumArtProviderExtension != nullptr) {
                 if (_albumArtProviderExtension != nullptr) {
                     return E_FAIL;
@@ -334,8 +333,8 @@ namespace AIMP {
                                                 static_cast<AimpExtensionLyricsProvider::Base*>(ext));
             }
 
-            Playback::IAimpExtensionPlaybackQueue^ extensionPlaybackQueue = dynamic_cast<
-                Playback::IAimpExtensionPlaybackQueue^>(extension);
+            Player::Extensions::IAimpExtensionPlaybackQueue^ extensionPlaybackQueue = dynamic_cast<
+                Player::Extensions::IAimpExtensionPlaybackQueue^>(extension);
             if (extensionPlaybackQueue != nullptr) {
                 if (_extensionPlaybackQueue != nullptr) {
                     return E_FAIL;
@@ -348,7 +347,7 @@ namespace AIMP {
                 );
             }
 
-            Playback::IAimpExtensionPlayerHook^ extensionPlayerHook = dynamic_cast<Playback::IAimpExtensionPlayerHook^>(
+            auto extensionPlayerHook = dynamic_cast<IAimpExtensionPlayerHook^>(
                 extension);
             if (extensionPlayerHook != nullptr) {
                 if (_extensionPlayerHook != nullptr) {
@@ -375,8 +374,7 @@ namespace AIMP {
                 return r;
             }
 
-            const auto albumArtCatalogExtension = dynamic_cast<AlbumArtManager::IAimpExtensionAlbumArtCatalog^>(
-                extension);
+            const auto albumArtCatalogExtension = dynamic_cast<IAimpExtensionAlbumArtCatalog^>(extension);
             if (albumArtCatalogExtension != nullptr) {
                 HRESULT r = _core->UnregisterExtension(
                     static_cast<AimpExtensionAlbumArtCatalog::Base*>(_albumArtCatalogExtension));
@@ -385,8 +383,7 @@ namespace AIMP {
                 return r;
             }
 
-            const auto albumArtProviderExtension = dynamic_cast<AlbumArtManager::IAimpExtensionAlbumArtProvider^>(
-                extension);
+            const auto albumArtProviderExtension = dynamic_cast<IAimpExtensionAlbumArtProvider^>(extension);
             if (albumArtProviderExtension != nullptr) {
                 HRESULT r = _core->UnregisterExtension(
                     static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
@@ -440,7 +437,7 @@ namespace AIMP {
                 return r;
             }
 
-            const auto extensionPlaybackQueue = dynamic_cast<Playback::IAimpExtensionPlaybackQueue^>(extension);
+            const auto extensionPlaybackQueue = dynamic_cast<IAimpExtensionPlaybackQueue^>(extension);
             if (extensionPlaybackQueue != nullptr) {
                 HRESULT r = _core->UnregisterExtension(
                     static_cast<AimpExtensionPlaybackQueue::Base*>(_extensionPlaybackQueue));
@@ -449,7 +446,7 @@ namespace AIMP {
                 return r;
             }
 
-            const auto extensionPlayerHook = dynamic_cast<Playback::IAimpExtensionPlayerHook^>(extension);
+            const auto extensionPlayerHook = dynamic_cast<IAimpExtensionPlayerHook^>(extension);
             if (extensionPlayerHook != nullptr) {
                 HRESULT r = _core->UnregisterExtension(
                     static_cast<AimpExtensionPlayerHook::Base*>(_extensionPlayerHook));
@@ -497,7 +494,7 @@ namespace AIMP {
         HRESULT ManagedAimpCore::GetService(REFIID iid, void** service) {
             //return _core->QueryInterface(iid, service);
 
-            IUnknown* _service;
+            IUnknown* _service = nullptr;
             HRESULT result = _core->QueryInterface(iid, reinterpret_cast<void**>(&_service));
             if (result == S_OK) {
                 *service = _service;
@@ -507,7 +504,7 @@ namespace AIMP {
         }
 
         IUnknown* ManagedAimpCore::QueryInterface(REFIID iid) {
-            IUnknown* service;
+            IUnknown* service = nullptr;
             HRESULT result = _core->QueryInterface(iid, reinterpret_cast<void**>(&service));
             if (result != S_OK) {
                 return nullptr;

@@ -10,14 +10,13 @@
 // ----------------------------------------------------
 
 using System;
-using AIMP.SDK;
 using AIMP.SDK.Threading;
 
 namespace dotnet_threading
 {
     public class TestTask : IAimpTask
     {
-        public AimpActionResult Execute(IAimpTaskOwner owner)
+        public void Execute(IAimpTaskOwner owner)
         {
             if (!owner.IsCanceled)
             {
@@ -28,8 +27,6 @@ namespace dotnet_threading
             {
                 System.Threading.Thread.Sleep(TimeSpan.FromSeconds(10));
             }
-
-            return new AimpActionResult(ActionResultType.OK);
         }
     }
 }

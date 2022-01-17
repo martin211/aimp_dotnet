@@ -7,12 +7,14 @@
 
 #pragma once
 
+using namespace Player::Extensions;
+
 class AimpExtensionPlayerHook :
     public IUnknownInterfaceImpl<IAIMPExtensionPlayerHook> {
 private:
-    gcroot<Playback::IAimpExtensionPlayerHook^> _managed;
+    gcroot<IAimpExtensionPlayerHook^> _managed;
 public:
-    explicit AimpExtensionPlayerHook(const gcroot<Playback::IAimpExtensionPlayerHook^> managed)
+    explicit AimpExtensionPlayerHook(const gcroot<IAimpExtensionPlayerHook^> managed)
         : _managed(managed) {
     }
 

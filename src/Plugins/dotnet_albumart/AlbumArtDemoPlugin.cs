@@ -9,10 +9,11 @@
 // 
 // ----------------------------------------------------
 
+using AIMP.SDK.AlbumArt.Extensions;
+
 namespace dotnet_albumart
 {
     using AIMP.SDK;
-    using AIMP.SDK.AlbumArtManager;
 
     [AimpPlugin("AlbumArtDemoPlugin", "Evgeniy Bogdan", "1", AimpPluginType = AimpPluginType.Addons,
         FullDescription = "Album art catalog extension demo")]

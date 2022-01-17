@@ -127,6 +127,11 @@
     </ClCompile>
     <ClCompile Include="SDK\Objects\AimpMemoryStream.cpp" />
     <ClCompile Include="SDK\Objects\AimpFileStream.cpp" />
+    <ClCompile Include="SDK\Player\AimpServicePlayer.cpp" />
+    <ClCompile Include="SDK\Player\AimpServicePlayerEqualizer.cpp" />
+    <ClCompile Include="SDK\Player\AimpEqualizerBands.cpp" />
+    <ClCompile Include="SDK\Player\AimpEqualizerPreset.cpp" />
+    <ClCompile Include="SDK\Player\AimpServicePlayerEqualizerPresets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimpMemoryManager.h" />
@@ -290,6 +295,11 @@
     </ClInclude>
     <ClInclude Include="SDK\Objects\AimpMemoryStream.h" />
     <ClInclude Include="SDK\Objects\AimpFileStream.h" />
+    <ClInclude Include="SDK\Player\AimpServicePlayer.h" />
+    <ClInclude Include="SDK\Player\AimpServicePlayerEqualizer.h" />
+    <ClInclude Include="SDK\Player\AimpEqualizerPreset.h" />
+    <ClInclude Include="SDK\Player\AimpEqualizerBands.h" />
+    <ClInclude Include="SDK\Player\AimpServicePlayerEqualizerPresets.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc" />

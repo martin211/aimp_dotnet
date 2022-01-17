@@ -9,7 +9,6 @@
 #include "AimpFileSystemCommandFileInfo.h"
 
 using namespace AIMP::SDK;
-using namespace Objects;
 
 AimpFileSystemCommandFileInfo::
 AimpFileSystemCommandFileInfo(IAIMPFileSystemCommandFileInfo* aimpObject) : AimpObject(aimpObject) {

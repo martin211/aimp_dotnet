@@ -1,13 +1,12 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v4.60 build 2100               */
+/*               v5.00 build 2300               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2018                 */
+/*                (C) 2006-2020                 */
 /*                 www.aimp.ru                  */
-/*                                              */
-/*            Mail: support@aimp.ru             */
+/*               support@aimp.ru                */
 /*                                              */
 /************************************************/
 
@@ -24,7 +23,7 @@ static const GUID IID_IAIMPFileTag 		        = {0x41494D50, 0x4669, 0x6C65, 0x54
 static const GUID IID_IAIMPFileTagEditor        = {0x41494D50, 0x4669, 0x6C65, 0x54, 0x61, 0x67, 0x45, 0x64, 0x69, 0x74, 0x00};
 static const GUID IID_IAIMPServiceFileTagEditor = {0x41494D50, 0x5372, 0x7654, 0x61, 0x67, 0x45, 0x64, 0x69, 0x74, 0x00, 0x00};
 static const GUID IID_IAIMPServiceFindTagsOnline = {0x41494D50, 0x5372, 0x7646, 0x69, 0x6E, 0x64, 0x54, 0x61, 0x67, 0x73, 0x00};
-static const GUID IID_IAIMPExtensionTagsProvider = {0x41494D50, 0x4578, 0x7446, 0x69, 0x6E, 0x64, 0x54, 0x61, 0x67, 0x73, 0x00};
+static const GUID IID_IAIMPExtensionTagsProvider = {0x41494D50, 0x4578, 0x7446, 0x69, 0x6E, 0x64, 0x54, 0x61, 0x67, 0x73, 0x32};
 
 // PropertyID for the IAIMPFileTag
 const int AIMP_FILETAG_PROPID_BASE             = 100;
@@ -71,9 +70,10 @@ class IAIMPExtensionTagsProvider: public IUnknown
 		virtual HRESULT WINAPI GetName(IAIMPString **Source) = 0;
 		virtual HRESULT WINAPI GetSupportedFields(int *Fields, int* Count) = 0;
 		// Commands
-		virtual HRESULT WINAPI FindAlbums(IAIMPString *Query, IAIMPTaskOwner* Owner,
+		virtual HRESULT WINAPI FindAlbums(IAIMPString *Query, IAIMPTaskOwner* Owner, IAIMPErrorInfo* ErrorInfo,
 			TAIMPServiceFindTagsOnlineAlbumInfoReceiveProc* ReceiveProc, void *ReceiveProcData) = 0;
-		virtual HRESULT WINAPI FindTracks(IAIMPFileInfo* AlbumInfo, IAIMPTaskOwner* Owner, IAIMPObjectList** TracksInfo) = 0;
+		virtual HRESULT WINAPI FindTracks(IAIMPFileInfo* AlbumInfo, IAIMPTaskOwner* Owner,
+			IAIMPErrorInfo* ErrorInfo, IAIMPObjectList** TracksInfo) = 0;
 };
 
 /* IAIMPServiceFindTagsOnline */

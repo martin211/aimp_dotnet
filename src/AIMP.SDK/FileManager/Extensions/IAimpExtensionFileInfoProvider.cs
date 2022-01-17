@@ -9,7 +9,7 @@
 // 
 // ----------------------------------------------------
 
-using AIMP.SDK.Objects;
+using AIMP.SDK.FileManager.Primitives;
 
 namespace AIMP.SDK.FileManager.Extensions
 {

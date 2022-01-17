@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\NUnit.Engine.3.11.1\build\net20\nunit.engine.props" Condition="Exists('..\..\packages\NUnit.Engine.3.11.1\build\net20\nunit.engine.props')" />
-  <Import Project="..\..\packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('..\..\packages\NUnit.3.12.0\build\NUnit.props')" />
+  <Import Project="..\..\packages\NUnit.3.13.2\build\NUnit.props" Condition="Exists('..\..\packages\NUnit.3.13.2\build\NUnit.props')" />
+  <Import Project="..\..\packages\NUnit.4.0.0-alpha-1\build\NUnit.props" Condition="Exists('..\..\packages\NUnit.4.0.0-alpha-1\build\NUnit.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -31,6 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,57 +52,66 @@
     <Reference Include="Ghpr.NUnit, Version=0.9.12.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Ghpr.NUnit.0.9.12\lib\net48\Ghpr.NUnit.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.11.1\lib\net20\Mono.Cecil.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.engine, Version=3.11.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.11.1\lib\net20\nunit.engine.dll</HintPath>
+    <Reference Include="nunit.engine, Version=3.13.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.Engine.3.13.2\lib\net20\nunit.engine.dll</HintPath>
     </Reference>
     <Reference Include="nunit.engine.api, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.11.1\lib\net20\nunit.engine.api.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.Engine.3.13.2\lib\net20\nunit.engine.api.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.engine.core, Version=3.11.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.11.1\lib\net20\nunit.engine.core.dll</HintPath>
+    <Reference Include="nunit.engine.core, Version=3.13.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.Engine.3.13.2\lib\net20\nunit.engine.core.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=3.12.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.13.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\nunit\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
+    <Reference Include="testcentric.engine.metadata, Version=1.7.1.0, Culture=neutral, PublicKeyToken=6fe0a02d2036aa1d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.Engine.3.13.2\lib\net20\testcentric.engine.metadata.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="TestFramework\Assert\EqualAssert.cs" />
+    <Compile Include="TestFramework\Assert\FalseAssert.cs" />
+    <Compile Include="TestFramework\Assert\MemberAssert.cs" />
+    <Compile Include="TestFramework\Assert\NotEqualAssert.cs" />
+    <Compile Include="TestFramework\Assert\NotNullAssert.cs" />
+    <Compile Include="TestFramework\Assert\NullAssert.cs" />
+    <Compile Include="TestFramework\Assert\ThrowAssert.cs" />
+    <Compile Include="TestFramework\Assert\TrueAssert.cs" />
     <Compile Include="Engine\ColorStyle.cs" />
     <Compile Include="Engine\ConsoleTestResult.cs" />
     <Compile Include="Engine\ExtendedTextWrapper.cs" />
     <Compile Include="Engine\ExtendedTextWriter.cs" />
     <Compile Include="Engine\ResultReporter.cs" />
     <Compile Include="Engine\ResultSummary.cs" />
-    <Compile Include="Issues\Issue_37.cs" />
-    <Compile Include="UnitTests\ActionManager\AimpServiceActionManagerTests.cs" />
     <Compile Include="Engine\AimpNUnit3FrameworkDriver.cs" />
     <Compile Include="Engine\AimpNUnitFrameworkDriver.cs" />
+    <Compile Include="TestFramework\AimpIntegrationTest.cs" />
+    <Compile Include="UnitTests\ActionManager\AimpServiceActionManagerTests.cs" />
     <Compile Include="UnitTests\AimpCoreTests.cs" />
     <Compile Include="UnitTests\AimpErrorInfoTests.cs" />
     <Compile Include="UnitTests\AimpImageUnitTests.cs" />
-    <Compile Include="UnitTests\AimpIntegrationTest.cs" />
     <Compile Include="UnitTests\AimpServiceConfig\AimpServiceConfigTests.cs" />
     <Compile Include="UnitTests\AimpTestContext.cs" />
     <Compile Include="AimpTestRunner.cs" />
     <Compile Include="Properties\PluginAssemblyInfo.cs" />
-    <Compile Include="UnitTests\AlbumArtManager\AimpServiceAlbumArtTests.cs" />
+    <Compile Include="TestFramework\IntegrationTestExtension.cs" />
     <Compile Include="UnitTests\AlbumArtManager\AimpServiceAlbumArtCacheTests.cs" />
+    <Compile Include="UnitTests\AlbumArtManager\AimpServiceAlbumArtTests.cs" />
     <Compile Include="UnitTests\Core\AimpServiceVersionInfoTests.cs" />
     <Compile Include="UnitTests\FileManager\AimpFileInfoUnitTests.cs" />
-    <Compile Include="Issues\Issue_19.cs" />
+    <Compile Include="UnitTests\FileManager\AimpServiceFileStreamingUnitTests.cs" />
     <Compile Include="UnitTests\FileManager\Extensions\AimpExtensionFileExpanderUnitTests.cs" />
     <Compile Include="UnitTests\FileManager\Extensions\AimpExtensionFileFormatUnitTests.cs" />
     <Compile Include="UnitTests\Lyrics\AimpLyricsTests.cs" />
@@ -109,12 +119,15 @@
     <Compile Include="UnitTests\MenuManager\AimpMenuItemTests.cs" />
     <Compile Include="UnitTests\MenuManager\AimpServiceMenuManagerTests.cs" />
     <Compile Include="UnitTests\MessageDispatcher\AimpServiceMessageDispatcherTests.cs" />
-    <Compile Include="UnitTests\FileManager\AimpServiceFileStreamingUnitTests.cs" />
     <Compile Include="UnitTests\Objects\AimpFileStreamUnitTests.cs" />
     <Compile Include="UnitTests\Objects\AimpStreamUnitTests.cs" />
     <Compile Include="UnitTests\Playback\AimpPlaybackQueueServiceTests.cs" />
     <Compile Include="UnitTests\Playback\PlayerHookTests.cs" />
+    <Compile Include="UnitTests\Player\AimpEqualizerPresetTests.cs" />
     <Compile Include="UnitTests\Player\AimpPlayerTests.cs" />
+    <Compile Include="UnitTests\Player\AimpServicePlayerEqualizerPresetsTests.cs" />
+    <Compile Include="UnitTests\Player\AimpServicePlayerEqualizerTests.cs" />
+    <Compile Include="UnitTests\Player\AimpServicePlayerTests.cs" />
     <Compile Include="UnitTests\Playlist\AimpPlaylistManagerTests.cs" />
     <Compile Include="UnitTests\Playlist\AimpPlaylistQueueTests.cs" />
     <Compile Include="UnitTests\Playlist\AimpPlaylistTests.cs" />
@@ -122,6 +135,8 @@
     <Compile Include="UnitTests\Threading\AimpServiceThreadsTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Directory.Build.targets" />
     <None Include="commands.json" />
     <None Include="Ghpr.Core.Settings.json" />
     <None Include="Ghpr.NUnit.Settings.json" />
@@ -147,7 +162,6 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\NUnit.3.12.0\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NUnit.3.12.0\build\NUnit.props'))" />
-    <Error Condition="!Exists('..\..\packages\NUnit.Engine.3.11.1\build\net20\nunit.engine.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NUnit.Engine.3.11.1\build\net20\nunit.engine.props'))" />
+    <Error Condition="!Exists('..\..\packages\NUnit.3.13.2\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NUnit.3.13.2\build\NUnit.props'))" />
   </Target>
 </Project>

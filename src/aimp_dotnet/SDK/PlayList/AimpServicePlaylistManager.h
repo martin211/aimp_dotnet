@@ -62,7 +62,7 @@ namespace AIMP {
 
             virtual PlaylistResult GetLoadedPlaylist(int index);
 
-            virtual PlaylistResult GetPlayablePlaylist();
+            virtual PlaylistResult GetPlayingPlaylist();
 
             virtual PlaylistResult GetLoadedPlaylistById(String^ id);
 

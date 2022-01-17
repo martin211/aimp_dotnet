@@ -9,12 +9,12 @@
 #include "AimpDataStorageManager.h"
 
 using namespace AIMP::SDK;
+using namespace Actions;
 
 AimpDataStorageManager::AimpDataStorageManager(IAIMPMLDataStorageManager* manager) : AimpObject(manager) {
 }
 
-ActionResult AimpDataStorageManager::BackgroundTaskStarted(int id, System::String^ caption,
-                                                           ActionManager::IAimpActionEvent^ cancelEvent) {
+ActionResult AimpDataStorageManager::BackgroundTaskStarted(int id, System::String^ caption, IAimpActionEvent^ cancelEvent) {
     //todo complete it
     auto str = AimpConverter::ToAimpString(caption);
     auto result = ActionResultType::Fail;

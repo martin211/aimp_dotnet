@@ -12,7 +12,7 @@
 
 HRESULT WINAPI AimpExtensionAlbumArtProvider::Get(IAIMPString* FileURI, IAIMPString* Artist, IAIMPString* Album,
                                                   IAIMPPropertyList* Options, IAIMPImageContainer** Image) {
-    AlbumArtManager::IAimpAlbumArtSearchOptions^ searchOptions = gcnew AimpAlbumArtSearchOptions(
+    IAimpAlbumArtSearchOptions^ searchOptions = gcnew AimpAlbumArtSearchOptions(
         Options, ManagedAimpCore::GetAimpCore());
     const auto r = _managedinstance->Get(
         gcnew String(FileURI->GetData()),
@@ -40,8 +40,7 @@ DWORD WINAPI AimpExtensionAlbumArtProvider::GetCategory() {
 HRESULT WINAPI AimpExtensionAlbumArtProvider::Get2(IAIMPFileInfo* FileInfo, IAIMPPropertyList* Options,
                                                    IAIMPImageContainer** Image) {
     IAimpFileInfo^ fi = gcnew AimpFileInfo(FileInfo);
-    AlbumArtManager::IAimpAlbumArtSearchOptions^ searchOptions = gcnew AimpAlbumArtSearchOptions(
-        Options, ManagedAimpCore::GetAimpCore());
+    IAimpAlbumArtSearchOptions^ searchOptions = gcnew AimpAlbumArtSearchOptions(Options, ManagedAimpCore::GetAimpCore());
     const auto r = _managedinstance->Get(fi, searchOptions);
     if (r->ResultType == ActionResultType::OK && r->Result != nullptr) {
         const auto container = AimpConverter::ToAimpImageContainer(r->Result);

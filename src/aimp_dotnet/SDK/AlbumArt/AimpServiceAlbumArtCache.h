@@ -11,7 +11,7 @@
 
 namespace AIMP {
     namespace SDK {
-        using namespace AlbumArtManager;
+        using namespace Services;
 
         public ref class AimpServiceAlbumArtCache :
             public BaseAimpService<IAIMPServiceAlbumArtCache>,

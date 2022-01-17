@@ -9,7 +9,6 @@
 #include "AimpFileSystemCommandDelete.h"
 
 using namespace AIMP::SDK;
-using namespace Objects;
 
 AimpFileSystemCommandDelete::
 AimpFileSystemCommandDelete(IAIMPFileSystemCommandDelete* aimpObject) : AimpObject(aimpObject) {

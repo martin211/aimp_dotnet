@@ -12,7 +12,7 @@
 namespace AIMP {
     namespace SDK {
         using namespace System;
-        using namespace ConfigurationManager;
+        using namespace Configuration;
 
         public ref class AimpServiceConfig :
             public BaseAimpService<IAIMPServiceConfig>,
