@@ -18,7 +18,7 @@ namespace dotnet_visual
     {
         public AimpVisualFlags GetFlags()
         {
-            return AimpVisualFlags.NotSuspend & AimpVisualFlags.RQDDataSpectrum & AimpVisualFlags.RQDDataWave;
+            return AimpVisualFlags.NotSuspend & AimpVisualFlags.RQDDataSpectrum & AimpVisualFlags.RQDDataWaveForm;
         }
 
         public void Draw(AimpVisualData data)

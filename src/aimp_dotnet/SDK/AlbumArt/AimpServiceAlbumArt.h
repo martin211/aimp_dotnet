@@ -15,7 +15,7 @@ namespace AIMP {
         using namespace System;
         using namespace IO;
         using namespace SDK;
-        using namespace AlbumArtManager;
+        using namespace Services;
 
         public ref class
             AimpServiceAlbumArt : public BaseAimpService<IAIMPServiceAlbumArt>, public IAimpServiceAlbumArt {

@@ -2,7 +2,7 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
+// Copyright (c) 2014 - 2022 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -10,73 +10,74 @@
 // ----------------------------------------------------
 
 using System;
-using System.Linq;
 using AIMP.SDK;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
-namespace Aimp.TestRunner.UnitTests.AlbumArtManager
+namespace Aimp.TestRunner.UnitTests.AlbumArtManager;
+
+public class AimpServiceAlbumArtCacheTests : AimpIntegrationTest
 {
-    [TestFixture]
-    public class AimpServiceAlbumArtCacheTests : AimpIntegrationTest
+    [Test]
+    public void Flush_EmptyAlbum_ShouldThrowException()
     {
-        [Test]
-        public void Flush_EmptyAlbum_ShouldThrowException()
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var ex = this.Throw<ArgumentNullException>(() => Player.ServiceAlbumArtCache.Flush(string.Empty, string.Empty));
-                this.IsTrue(ex.Message.Contains("Parameter album cannot be empty"));
-            });
-        }
+            var ex = AimpAssert.Throw<ArgumentNullException>(() =>
+                Player.ServiceAlbumArtCache.Flush(string.Empty, string.Empty));
+            AimpAssert.IsTrue(ex.Message.Contains("Parameter album cannot be empty"));
+        });
+    }
 
-        [Test]
-        public void Flush_EmptyArtist_ShouldThrowException()
+    [Test]
+    public void Flush_EmptyArtist_ShouldThrowException()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var ex = this.Throw<ArgumentNullException>(() => Player.ServiceAlbumArtCache.Flush("album", string.Empty));
-                this.IsTrue(ex.Message.Contains("Parameter artist cannot be empty"));
-            });
-        }
+            var ex = AimpAssert.Throw<ArgumentNullException>(() =>
+                Player.ServiceAlbumArtCache.Flush("album", string.Empty));
+            AimpAssert.IsTrue(ex.Message.Contains("Parameter artist cannot be empty"));
+        });
+    }
 
-        [Test]
-        public void Flush_ShouldReturnOK()
+    [Test]
+    public void Flush_ShouldReturnOK()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var res = Player.ServiceAlbumArtCache.Flush("album", "artist");
-                this.AreEqual(ActionResultType.OK, res.ResultType);
-            });
-        }
+            var res = Player.ServiceAlbumArtCache.Flush("album", "artist");
+            AssertOKResult(res);
+        });
+    }
 
-        [Test]
-        public void Flush2_EmptyUri_ShouldThrowException()
+    [Test]
+    public void Flush2_EmptyUri_ShouldThrowException()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var ex = this.Throw<ArgumentNullException>(() => Player.ServiceAlbumArtCache.Flush2(string.Empty));
-                this.IsTrue(ex.Message.Contains("Parameter fileUri cannot be empty"));
-            });
-        }
+            var ex = AimpAssert.Throw<ArgumentNullException>(() =>
+                Player.ServiceAlbumArtCache.Flush2(string.Empty));
+            AimpAssert.IsTrue(ex.Message.Contains("Parameter fileUri cannot be empty"));
+        });
+    }
 
-        [Test]
-        public void Flush2_ShouldReturnOK()
+    [Test]
+    public void Flush2_ShouldReturnOK()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var res = Player.ServiceAlbumArtCache.Flush2("some_uri");
-                this.AreEqual(ActionResultType.OK, res.ResultType);
-            });
-        }
+            var res = Player.ServiceAlbumArtCache.Flush2("some_uri");
+            AimpAssert.AreEqual(ActionResultType.OK, res.ResultType);
+        });
+    }
 
-        [Test]
-        public void FlushAll_ShouldReturnOK()
+    [Test]
+    public void FlushAll_ShouldReturnOK()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var res = Player.ServiceAlbumArtCache.FlushAll();
-                this.AreEqual(ActionResultType.OK, res.ResultType);
-            });
-        }
+            var res = Player.ServiceAlbumArtCache.FlushAll();
+            AimpAssert.AreEqual(ActionResultType.OK, res.ResultType);
+        });
     }
 }

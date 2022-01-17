@@ -1,13 +1,12 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v4.50 build 2000               */
+/*               v5.00 build 2300               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2017                 */
+/*                (C) 2006-2020                 */
 /*                 www.aimp.ru                  */
-/*                                              */
-/*            Mail: support@aimp.ru             */
+/*               support@aimp.ru                */
 /*                                              */
 /************************************************/
 
@@ -165,25 +164,25 @@ const int AIMP_RA_CMD_VISUAL_PREV = AIMP_RA_CMD_BASE + 10;
 // Close the program
 const int AIMP_RA_CMD_QUIT = AIMP_RA_CMD_BASE + 11;
 
-// Execute "Add files" dialog
+// Validate "Add files" dialog
 const int AIMP_RA_CMD_ADD_FILES = AIMP_RA_CMD_BASE + 12;
 
-// Execute "Add folders" dialog
+// Validate "Add folders" dialog
 const int AIMP_RA_CMD_ADD_FOLDERS = AIMP_RA_CMD_BASE + 13;
 
-// Execute "Add Playlists" dialog
+// Validate "Add Playlists" dialog
 const int AIMP_RA_CMD_ADD_PLAYLISTS = AIMP_RA_CMD_BASE + 14;
 
-// Execute "Add URL" dialog
+// Validate "Add URL" dialog
 const int AIMP_RA_CMD_ADD_URL = AIMP_RA_CMD_BASE + 15;
 
-// Execute "Open Files" dialog
+// Validate "Open Files" dialog
 const int AIMP_RA_CMD_OPEN_FILES = AIMP_RA_CMD_BASE + 16;
 
-// Execute "Open Folders" dialog
+// Validate "Open Folders" dialog
 const int AIMP_RA_CMD_OPEN_FOLDERS = AIMP_RA_CMD_BASE + 17;
 
-// Execute "Open Playlist" dialog
+// Validate "Open Playlist" dialog
 const int AIMP_RA_CMD_OPEN_PLAYLISTS = AIMP_RA_CMD_BASE + 18;
 
 // AlbumArt Request

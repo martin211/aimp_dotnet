@@ -10,14 +10,15 @@
 // ----------------------------------------------------
 
 using AIMP.SDK.FileManager;
+using AIMP.SDK.FileManager.Primitives;
 
 namespace AIMP.SDK.TagEditor
 {
     /// <summary>
     /// Interface IAimpFileTag
-    /// Implements the <see cref="AIMP.SDK.FileManager.IAimpFileInfo" />
+    /// Implements the <see cref="IAimpFileInfo" />
     /// </summary>
-    /// <seealso cref="AIMP.SDK.FileManager.IAimpFileInfo" />
+    /// <seealso cref="IAimpFileInfo" />
     public interface IAimpFileTag : IAimpFileInfo
     {
         /// <summary>

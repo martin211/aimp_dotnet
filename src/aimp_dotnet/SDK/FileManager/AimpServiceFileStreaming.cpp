@@ -22,7 +22,7 @@ StreamResult AimpServiceFileStreaming::CreateStreamForFile(String^ fileName, Fil
             result = CheckResult(service->CreateStreamForFile(str, static_cast<DWORD>(flags), offset, size, &aimpStream));
             if (result == ActionResultType::OK) {
                 IAIMPFileStream* s = (IAIMPFileStream*)aimpStream;
-                stream = gcnew Objects::AimpFileStream(s);
+                stream = gcnew AimpFileStream(s);
             }
         }
     }
@@ -49,7 +49,7 @@ AimpActionResult<CreateStreamResult^>^ AimpServiceFileStreaming::CreateStreamFor
             result = CheckResult(service->CreateStreamForFileURI(str, &vf, &aimpStream));
 
             if (result == ActionResultType::OK && aimpStream != nullptr) {
-                stream = gcnew Objects::AimpFileStream(nullptr);
+                stream = gcnew AimpFileStream(nullptr);
             }
         }
     }

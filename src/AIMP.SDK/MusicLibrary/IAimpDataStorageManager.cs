@@ -9,7 +9,7 @@
 // 
 // ----------------------------------------------------
 
-using AIMP.SDK.ActionManager;
+using AIMP.SDK.Actions;
 
 namespace AIMP.SDK.MusicLibrary
 {

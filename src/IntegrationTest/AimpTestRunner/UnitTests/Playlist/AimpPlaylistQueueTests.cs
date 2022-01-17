@@ -2,7 +2,7 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
+// Copyright (c) 2014 - 2022 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -12,230 +12,220 @@
 using System.Collections.Generic;
 using AIMP.SDK;
 using AIMP.SDK.Playlist;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
-namespace Aimp.TestRunner.UnitTests.Playlist
+namespace Aimp.TestRunner.UnitTests.Playlist;
+
+public class AimpPlaylistQueueTests : AimpIntegrationTest
 {
-    [TestFixture]
-    public class AimpPlaylistQueueTests : AimpIntegrationTest
+    public override void SetUp()
     {
-        private IAimpPlaylist _playlist;
-        private IAimpPlaylistQueue PlaylistQueue => Player.ServicePlaylistManager.PlaylistQueue;
+        base.SetUp();
 
-        public override void SetUp()
+        ExecuteInMainThread(() =>
         {
-            base.SetUp();
+            var playlistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+            AimpAssert.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
+            AimpAssert.NotNull(playlistResult.Result, "playlistResult.Result");
+            _playlist = playlistResult.Result;
+        });
+    }
 
-            ExecuteInMainThread(() =>
-            {
-                var playlistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
-                this.AreEqual(ActionResultType.OK, playlistResult.ResultType, "playlistResult.ResultType");
-                this.NotNull(playlistResult.Result, "playlistResult.Result");
-                _playlist = playlistResult.Result;
-            });
-        }
+    public override void TearDown()
+    {
+        base.TearDown();
 
-        public override void TearDown()
+        ExecuteInMainThread(() => { _playlist?.Close(PlaylistCloseFlag.ForceRemove); });
+    }
+
+    private IAimpPlaylist _playlist;
+    private IAimpPlaylistQueue PlaylistQueue => Player.ServicePlaylistManager.PlaylistQueue;
+
+    [Test]
+    [Order(2)]
+    public void Delete_ShouldBeOK()
+    {
+        ExecuteInMainThread(() =>
         {
-            base.TearDown();
+            var getItemResult = _playlist.GetItem(0);
+            AimpAssert.AreEqual(ActionResultType.OK, getItemResult.ResultType, "Failed. Get playlist item");
 
-            ExecuteInMainThread(() =>
-            {
-                _playlist?.Close(PlaylistCloseFlag.ForceRemove);
-            });
-        }
+            var result = PlaylistQueue.Add(getItemResult.Result, true).ResultType;
+            AimpAssert.AreEqual(ActionResultType.OK, result, "Failed. Add item to PlaylistQueue");
 
-        [Test]
-        [Order(2)]
-        public void Delete_ShouldBeOK()
+            var oldCount = PlaylistQueue.GetItemCount();
+
+            result = PlaylistQueue.Delete(getItemResult.Result).ResultType;
+            AimpAssert.AreEqual(ActionResultType.OK, result, "Failed. Delete item from PlaylistQueue");
+
+            var count = PlaylistQueue.GetItemCount();
+            AimpAssert.AreEqual(oldCount - 1, count);
+        });
+    }
+
+    [Test]
+    public void Add_ShouldBeOK()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var getItemResult = _playlist.GetItem(0);
-                this.AreEqual(ActionResultType.OK, getItemResult.ResultType, "Failed. Get playlist item");
+            var getItemResult = _playlist.GetItem(0);
 
-                var result = PlaylistQueue.Add(getItemResult.Result, true).ResultType;
-                this.AreEqual(ActionResultType.OK, result, "Failed. Add item to PlaylistQueue");
+            AimpAssert.AreEqual(ActionResultType.OK, getItemResult.ResultType, "Failed. Get playlist item");
 
-                var oldCount = PlaylistQueue.GetItemCount();
+            var oldCount = PlaylistQueue.GetItemCount();
 
-                result = PlaylistQueue.Delete(getItemResult.Result).ResultType;
-                this.AreEqual(ActionResultType.OK, result, "Failed. Delete item from PlaylistQueue");
+            var result = PlaylistQueue.Add(getItemResult.Result, true).ResultType;
 
-                var count = PlaylistQueue.GetItemCount();
-                this.AreEqual(oldCount - 1, count);
-            });
-        }
+            AimpAssert.AreEqual(ActionResultType.OK, result, "Failed. Add item to PlaylistQueue");
+            var count = PlaylistQueue.GetItemCount();
+            AimpAssert.AreEqual(oldCount + 1, count, "Failed. Get play queue count");
 
-        [Test]
-        public void Add_ShouldBeOK()
+            result = PlaylistQueue.Delete(getItemResult.Result).ResultType;
+            AimpAssert.AreEqual(ActionResultType.OK, result, "Failed. Remove item from queue");
+        });
+    }
+
+    [Test]
+    public void AddList_ShouldBeOK()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
+            var getItemsResult1 = _playlist.GetItem(0);
+            var getItemsResult2 = _playlist.GetItem(1);
+
+            var oldCount = PlaylistQueue.GetItemCount();
+
+            var result = PlaylistQueue.AddList(new List<IAimpPlaylistItem>
             {
-                var getItemResult = _playlist.GetItem(0);
+                getItemsResult1.Result,
+                getItemsResult2.Result
+            }, true);
 
-                this.AreEqual(ActionResultType.OK, getItemResult.ResultType, "Failed. Get playlist item");
+            AimpAssert.AreEqual(ActionResultType.OK, result.ResultType);
+            var count = PlaylistQueue.GetItemCount();
+            AimpAssert.AreEqual(oldCount + 2, count);
+        });
+    }
 
-                var oldCount = PlaylistQueue.GetItemCount();
-
-                var result = PlaylistQueue.Add(getItemResult.Result, true).ResultType;
-
-                this.AreEqual(ActionResultType.OK, result, "Failed. Add item to PlaylistQueue");
-                var count = PlaylistQueue.GetItemCount();
-                this.AreEqual(oldCount + 1, count, "Failed. Get play queue count");
-
-                result = PlaylistQueue.Delete(getItemResult.Result).ResultType;
-                this.AreEqual(ActionResultType.OK, result, "Failed. Remove item from queue");
-            });
-        }
-
-        [Test]
-        public void AddList_ShouldBeOK()
+    [Test]
+    [Category("Events")]
+    public void Suspend_ShouldRaiseEvent()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var getItemsResult1 = _playlist.GetItem(0);
-                var getItemsResult2 = _playlist.GetItem(1);
+            var stateChanged = false;
 
-                var oldCount = PlaylistQueue.GetItemCount();
+            PlaylistQueue.StateChanged += queue => { stateChanged = true; };
 
-                var result = PlaylistQueue.AddList(new List<IAimpPlaylistItem>
-                {
-                    getItemsResult1.Result,
-                    getItemsResult2.Result
-                }, true);
+            var getItemResult = _playlist.GetItem(0);
+            PlaylistQueue.Add(getItemResult.Result, true);
+            PlaylistQueue.IsSuspended = !PlaylistQueue.IsSuspended;
+            AimpAssert.IsTrue(stateChanged);
+        });
+    }
 
-                this.AreEqual(ActionResultType.OK, result.ResultType);
-                var count = PlaylistQueue.GetItemCount();
-                this.AreEqual(oldCount + 2, count);
-            });
-        }
-
-        [Test]
-        [Category("Events")]
-        public void Suspend_ShouldRaiseEvent()
+    [Test]
+    [Category("Events")]
+    public void ContentChanged_ShouldRaiseEvent()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var stateChanged = false;
+            var changed = false;
 
-                PlaylistQueue.StateChanged += queue =>
-                {
-                    stateChanged = true;
-                };
+            PlaylistQueue.ContentChanged += queue => { changed = true; };
 
-                var getItemResult = _playlist.GetItem(0);
-                PlaylistQueue.Add(getItemResult.Result, true);
-                PlaylistQueue.IsSuspended = !PlaylistQueue.IsSuspended;
-                this.IsTrue(stateChanged);
-            });
-        }
+            var getItemResult = _playlist.GetItem(0);
+            var result = PlaylistQueue.Add(getItemResult.Result, true).ResultType;
 
-        [Test]
-        [Category("Events")]
-        public void ContentChanged_ShouldRaiseEvent()
+            AimpAssert.IsTrue(changed);
+        });
+    }
+
+    [Test]
+    public void Move_PlayListItem_ShouldMoveItemToNewPosition()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
+            var getItemsResult1 = _playlist.GetItem(0);
+            var getItemsResult2 = _playlist.GetItem(1);
+
+            PlaylistQueue.AddList(new List<IAimpPlaylistItem>
             {
-                var changed = false;
+                getItemsResult1.Result,
+                getItemsResult2.Result
+            }, true);
 
-                PlaylistQueue.ContentChanged += queue =>
-                {
-                    changed = true;
-                };
+            var result = PlaylistQueue.Move(getItemsResult2.Result, 0).ResultType;
+            AimpAssert.AreEqual(ActionResultType.OK, result, "Failed. Cannot move item");
+            var getItemResult = PlaylistQueue.GetItem(0);
 
-                var getItemResult = _playlist.GetItem(0);
-                var result = PlaylistQueue.Add(getItemResult.Result, true).ResultType;
+            AimpAssert.AreEqual(getItemsResult2.Result.FileName, getItemResult.Result.FileName);
 
-                this.IsTrue(changed);
-            });
-        }
+            PlaylistQueue.Delete(getItemsResult1.Result);
+            PlaylistQueue.Delete(getItemsResult2.Result);
+        });
+    }
 
-        [Test]
-        public void Move_PlayListItem_ShouldMoveItemToNewPosition()
+    [Test]
+    public void Move_FromPositionToPosition_ShouldMoveItemToNewPosition()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
+            var getItemsResult1 = _playlist.GetItem(0);
+            var getItemsResult2 = _playlist.GetItem(1);
+
+            PlaylistQueue.AddList(new List<IAimpPlaylistItem>
             {
-                var getItemsResult1 = _playlist.GetItem(0);
-                var getItemsResult2 = _playlist.GetItem(1);
+                getItemsResult1.Result,
+                getItemsResult2.Result
+            }, true);
 
-                PlaylistQueue.AddList(new List<IAimpPlaylistItem>
-                {
-                    getItemsResult1.Result,
-                    getItemsResult2.Result
-                }, true);
+            var result = PlaylistQueue.Move(1, 0).ResultType;
+            var getItemResult = PlaylistQueue.GetItem(0);
 
-                var result = PlaylistQueue.Move(getItemsResult2.Result, 0).ResultType;
-                this.AreEqual(ActionResultType.OK, result, "Failed. Cannot move item");
-                var getItemResult = PlaylistQueue.GetItem(0);
+            AimpAssert.AreEqual(getItemsResult2.Result.FileName, getItemResult.Result.FileName);
 
-                this.AreEqual(getItemsResult2.Result.FileName, getItemResult.Result.FileName);
+            PlaylistQueue.Delete(getItemsResult1.Result);
+            PlaylistQueue.Delete(getItemsResult2.Result);
+        });
+    }
 
-                PlaylistQueue.Delete(getItemsResult1.Result);
-                PlaylistQueue.Delete(getItemsResult2.Result);
-            });
-        }
-
-        [Test]
-        public void Move_FromPositionToPosition_ShouldMoveItemToNewPosition()
+    [Test]
+    public void Move_InvalidIndex_ShouldThrowException()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
+            var getItemsResult1 = _playlist.GetItem(0);
+            var getItemsResult2 = _playlist.GetItem(1);
+
+            PlaylistQueue.AddList(new List<IAimpPlaylistItem>
             {
-                var getItemsResult1 = _playlist.GetItem(0);
-                var getItemsResult2 = _playlist.GetItem(1);
+                getItemsResult1.Result,
+                getItemsResult2.Result
+            }, true);
 
-                PlaylistQueue.AddList(new List<IAimpPlaylistItem>
-                {
-                    getItemsResult1.Result,
-                    getItemsResult2.Result
-                }, true);
+            var result = PlaylistQueue.Move(-1, 0);
+            AimpAssert.AreEqual(ActionResultType.InvalidArguments, result.ResultType);
+        });
+    }
 
-                var result = PlaylistQueue.Move(1, 0).ResultType;
-                var getItemResult = PlaylistQueue.GetItem(0);
-
-                this.AreEqual(getItemsResult2.Result.FileName, getItemResult.Result.FileName);
-
-                PlaylistQueue.Delete(getItemsResult1.Result);
-                PlaylistQueue.Delete(getItemsResult2.Result);
-            });
-        }
-
-        [Test]
-        public void Move_InvalidIndex_ShouldThrowException()
+    [Test]
+    public void Move_InvalidTarget_ShouldThrowException()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
+            var getItemsResult1 = _playlist.GetItem(0);
+            var getItemsResult2 = _playlist.GetItem(1);
+
+            PlaylistQueue.AddList(new List<IAimpPlaylistItem>
             {
-                var getItemsResult1 = _playlist.GetItem(0);
-                var getItemsResult2 = _playlist.GetItem(1);
+                getItemsResult1.Result,
+                getItemsResult2.Result
+            }, true);
 
-                PlaylistQueue.AddList(new List<IAimpPlaylistItem>
-                {
-                    getItemsResult1.Result,
-                    getItemsResult2.Result
-                }, true);
-
-                var result = PlaylistQueue.Move(-1, 0);
-                this.AreEqual(ActionResultType.InvalidArguments, result.ResultType);
-            });
-        }
-
-        [Test]
-        public void Move_InvalidTarget_ShouldThrowException()
-        {
-            ExecuteInMainThread(() =>
-            {
-                var getItemsResult1 = _playlist.GetItem(0);
-                var getItemsResult2 = _playlist.GetItem(1);
-
-                PlaylistQueue.AddList(new List<IAimpPlaylistItem>
-                {
-                    getItemsResult1.Result,
-                    getItemsResult2.Result
-                }, true);
-
-                var result = PlaylistQueue.Move(1, -10);
-                this.AreEqual(ActionResultType.InvalidArguments, result.ResultType);
-            });
-        }
+            var result = PlaylistQueue.Move(1, -10);
+            AimpAssert.AreEqual(ActionResultType.InvalidArguments, result.ResultType);
+        });
     }
 }

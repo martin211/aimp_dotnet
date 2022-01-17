@@ -2,7 +2,7 @@
 // 
 // AIMP DotNet SDK
 // 
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
+// Copyright (c) 2014 - 2022 Evgeniy Bogdan
 // https://github.com/martin211/aimp_dotnet
 // 
 // Mail: mail4evgeniy@gmail.com
@@ -10,39 +10,38 @@
 // ----------------------------------------------------
 
 using AIMP.SDK.Playlist;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
-namespace Aimp.TestRunner.UnitTests.Playback
+namespace Aimp.TestRunner.UnitTests.Playback;
+
+public class AimpPlaybackQueueServiceTests : AimpIntegrationTest
 {
-    [TestFixture]
-    public class AimpPlaybackQueueServiceTests : AimpIntegrationTest
+    [Test]
+    public void GetNextTrack_ReturnItem()
     {
-        [Test]
-        public void GetNextTrack_ReturnItem()
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var createPlaylistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
-                var item = Player.ServicePlaybackQueue.GetNextTrack();
-                AssertOKResult(item.ResultType, "Cannot get next track from playback queue");
-                this.NotNull(item.Result);
+            var createPlaylistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+            var item = Player.ServicePlaybackQueue.GetNextTrack();
+            AssertOKResult(item, "Cannot get next track from playback queue");
+            AimpAssert.NotNull(item.Result);
 
-                createPlaylistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
-            });
-        }
+            createPlaylistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
+        });
+    }
 
-        [Test]
-        public void GetPrevTrack_ReturnItem()
+    [Test]
+    public void GetPrevTrack_ReturnItem()
+    {
+        ExecuteInMainThread(() =>
         {
-            ExecuteInMainThread(() =>
-            {
-                var createPlaylistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
-                var item = Player.ServicePlaybackQueue.GetPrevTrack();
-                AssertOKResult(item.ResultType, "Cannot get prev track from playback queue");
-                this.NotNull(item.Result);
+            var createPlaylistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
+            var item = Player.ServicePlaybackQueue.GetPrevTrack();
+            AssertOKResult(item, "Cannot get prev track from playback queue");
+            AimpAssert.NotNull(item.Result);
 
-                createPlaylistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
-            });
-        }
+            createPlaylistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
+        });
     }
 }

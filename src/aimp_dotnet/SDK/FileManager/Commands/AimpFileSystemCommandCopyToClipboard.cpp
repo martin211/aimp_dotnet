@@ -9,7 +9,6 @@
 #include "AimpFileSystemCommandCopyToClipboard.h"
 
 using namespace AIMP::SDK;
-using namespace Objects;
 
 AimpFileSystemCommandCopyToClipboard::AimpFileSystemCommandCopyToClipboard(
     IAIMPFileSystemCommandCopyToClipboard* aimpObject) : AimpObject(aimpObject) {

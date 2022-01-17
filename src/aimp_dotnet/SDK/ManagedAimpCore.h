@@ -29,7 +29,7 @@ namespace AIMP {
 
     namespace SDK {
         using namespace System;
-        using namespace Collections::Generic;
+        using namespace Generic;
 
         using namespace SDK;
         using namespace Playlist;

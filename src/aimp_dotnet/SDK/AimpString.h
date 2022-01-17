@@ -10,7 +10,6 @@ namespace AIMP {
     namespace SDK {
         using namespace System;
         using namespace AIMP::SDK;
-        using namespace AIMP::SDK::Objects;
 
         public ref class AimpString :
             public AimpObject<IAIMPString>,
@@ -59,6 +58,8 @@ namespace AIMP {
                                              int newPatternCharsCount, int flags);
 
             virtual ActionResultType SubString(int index, int count, IAimpString^% str);
+
+            virtual void Release();
         };
     }
 }

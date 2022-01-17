@@ -10,6 +10,7 @@
 // ----------------------------------------------------
 
 using AIMP.SDK.FileManager;
+using AIMP.SDK.FileManager.Primitives;
 using AIMP.SDK.Threading;
 
 namespace AIMP.SDK.Lyrics

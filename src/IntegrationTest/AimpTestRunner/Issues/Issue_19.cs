@@ -12,6 +12,7 @@
 using System.IO;
 using AIMP.SDK;
 using AIMP.SDK.Playlist;
+using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.FileManager

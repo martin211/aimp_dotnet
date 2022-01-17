@@ -9,13 +9,18 @@
 #include "AIMPSDK\AIMPSDK.h"
 #include "Utils.h"
 
+using namespace System;
+using namespace Runtime;
+using namespace Collections::Generic;
+using namespace Drawing;
+using namespace Imaging;
+using namespace IO;
+using namespace AIMP::SDK;
+using namespace FileManager;
+using namespace Primitives;
+
 namespace AIMP {
     namespace SDK {
-        using namespace System;
-        using namespace System::Collections::Generic;
-        using namespace AIMP::SDK;
-        using namespace AIMP::SDK::FileManager;
-
         /// <summary>
         /// Aimp Converter helper class.
         /// </summary>
@@ -32,15 +37,15 @@ namespace AIMP {
 
             static String^ ToManagedString(IAIMPString* value);
 
-            static IAIMPImage* ToAimpImage(System::Drawing::Bitmap^ image);
+            static IAIMPImage* ToAimpImage(Drawing::Bitmap^ image);
 
-            static AIMP::SDK::Visuals::AimpVisualData^ PAIMPVisualDataToManaged(PAIMPVisualData data);
+            static Visuals::AimpVisualData^ PAIMPVisualDataToManaged(PAIMPVisualData data);
 
-            static System::Drawing::Bitmap^ ToManagedBitmap(IAIMPImageContainer* imageContainer);
+            static Drawing::Bitmap^ ToManagedBitmap(IAIMPImageContainer* imageContainer);
 
-            static System::Drawing::Bitmap^ ToManagedBitmap(IAIMPImage* image);
+            static Drawing::Bitmap^ ToManagedBitmap(IAIMPImage* image);
 
-            static IAIMPImageContainer* ToAimpImageContainer(System::Drawing::Bitmap^ image);
+            static IAIMPImageContainer* ToAimpImageContainer(Drawing::Bitmap^ image);
 
             static IUnknown* MakeObject(REFIID objectId);
 
@@ -78,7 +83,7 @@ namespace AIMP {
 
             static IAIMPFileInfo* ToAimpObject(IAimpFileInfo^ managedObject);
 
-            static IAIMPString* ToAimpString(Objects::IAimpString^ string);
+            static IAIMPString* ToAimpString(IAimpString^ string);
         private:
             static IAIMPCore* GetCore();
         };

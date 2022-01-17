@@ -7,18 +7,20 @@
 
 #pragma once
 
+using namespace Player::Extensions;
+
 class AimpExtensionPlaybackQueue :
     public IUnknownInterfaceImpl<IAIMPExtensionPlaybackQueue> {
 private:
-    gcroot<Playback::IAimpExtensionPlaybackQueue^> _managed;
+    gcroot<IAimpExtensionPlaybackQueue^> _managed;
 public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionPlaybackQueue> Base;
 
-    explicit AimpExtensionPlaybackQueue(gcroot<Playback::IAimpExtensionPlaybackQueue^> extension);
+    explicit AimpExtensionPlaybackQueue(gcroot<IAimpExtensionPlaybackQueue^> extension);
 
-    virtual BOOL WINAPI GetNext(IUnknown* current, DWORD flags, IAIMPPlaybackQueueItem* queueItem);
+    virtual HRESULT WINAPI GetNext(IUnknown* current, DWORD flags, IAIMPPlaybackQueueItem* queueItem);
 
-    virtual BOOL WINAPI GetPrev(IUnknown* current, DWORD flags, IAIMPPlaybackQueueItem* queueItem);
+    virtual HRESULT WINAPI GetPrev(IUnknown* current, DWORD flags, IAIMPPlaybackQueueItem* queueItem);
 
     virtual void WINAPI OnSelect(IAIMPPlaylistItem* item, IAIMPPlaybackQueueItem* queueItem);
 

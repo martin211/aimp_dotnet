@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+using System;
+using System.ComponentModel;
+using System.Linq;
 using Nuke.Common.Tooling;
 
 [TypeConverter(typeof(TypeConverter<Configuration>))]

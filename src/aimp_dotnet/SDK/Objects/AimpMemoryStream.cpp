@@ -8,10 +8,10 @@
 #include "Stdafx.h"
 #include "AimpMemoryStream.h"
 
-Objects::AimpMemoryStream::AimpMemoryStream(IAIMPMemoryStream* aimpObject) : AimpStream(static_cast<IAIMPStream*>(aimpObject)) {
+AimpMemoryStream::AimpMemoryStream(IAIMPMemoryStream* aimpObject) : AimpStream(static_cast<IAIMPStream*>(aimpObject)) {
 }
 
-AimpActionResult<array<unsigned char>^>^ Objects::AimpMemoryStream::GetData() {
+AimpActionResult<array<unsigned char>^>^ AimpMemoryStream::GetData() {
     const auto size = InternalAimpObject->GetSize();
     array<unsigned char>^ arr = gcnew array<unsigned char>(size);
     IAIMPMemoryStream* stream = static_cast<IAIMPMemoryStream*>(InternalAimpObject);

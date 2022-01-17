@@ -4,6 +4,7 @@ stages:
   - test
   - pack
   - deploy
+  - documentation
 
 variables:
   build_path: "$CI_PROJECT_DIR/src/"
@@ -35,8 +36,9 @@ integrationTests:
   stage: test
   variables:
     GIT_STRATEGY: "none"
+  allow_failure: true
   script:
-    - powershell -File $CI_PROJECT_DIR\build.ps1 ExecuteIntegrationTests --AimpPath $AimpPath --IsJUnit true
+    - powershell -File $CI_PROJECT_DIR\build.ps1 ExecuteIntegrationTests --AimpPath $AimpPath --IsJUnit true --TestResultPath $TEST_RESULTS --Configuation $Configuration
   dependencies:
     - build
   artifacts:
@@ -44,6 +46,14 @@ integrationTests:
     reports:
        junit:
          - output/junit-integration.tests.xml
+
+copyTestResults:
+  stage: test
+  variables:
+    GIT_STRATEGY: "none"
+  allow_failure: true
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 CopyTestResults --TestResultPath $TEST_RESULTS
 
 pack:
   stage: pack
@@ -75,3 +85,19 @@ deploy_release:
   script:
     - powershell -File $CI_PROJECT_DIR\build.ps1 Publish --Source $NUGET_SOURCE --NugetApiKey $NUGET_KEY
   when: manual
+
+buildDocumentation:
+  stage: documentation
+  variables:
+    GIT_STRATEGY: "none"
+  allow_failure: true
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 BuildDocumentation --DocumentationOutputPath $OUTPUT_DOCUMENTATION
+
+publishDocumentation:
+  stage: documentation
+  variables:
+    GIT_STRATEGY: "none"
+  allow_failure: true
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 PublishDocumentation --DocumentationOutputPath $OUTPUT_DOCUMENTATION

@@ -9,7 +9,6 @@
 #include "AimpFileSystemCommandStreaming.h"
 
 using namespace AIMP::SDK;
-using namespace Objects;
 
 AimpFileSystemCommandStreaming::
 AimpFileSystemCommandStreaming(IAIMPFileSystemCommandStreaming* aimpObject) : AimpObject(aimpObject) {

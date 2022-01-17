@@ -11,7 +11,6 @@
 
 using namespace AIMP::SDK;
 using namespace Playlist;
-using namespace Playback;
 
 AimpServicePlaybackQueue::
 AimpServicePlaybackQueue(ManagedAimpCore^ core) : BaseAimpService<IAIMPServicePlaybackQueue>(core) {
@@ -57,6 +56,11 @@ AimpActionResult<IAimpPlaybackQueueItem^>^ AimpServicePlaybackQueue::GetPrevTrac
     }
 
     return gcnew AimpActionResult<IAimpPlaybackQueueItem^>(result, item);
+}
+
+AimpActionResult^ AimpServicePlaybackQueue::NotifyChanged() {
+    // TODO
+    return ACTION_RESULT(ActionResultType::OK);
 }
 
 IAIMPServicePlaybackQueue* AimpServicePlaybackQueue::GetAimpService() {

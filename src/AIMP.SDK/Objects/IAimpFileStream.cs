@@ -9,10 +9,7 @@
 // 
 // ----------------------------------------------------
 
-using System.Drawing;
-using AIMP.SDK.Options;
-
-namespace AIMP.SDK.Objects
+namespace AIMP.SDK
 {
     public class Clipping
     {
@@ -29,8 +26,8 @@ namespace AIMP.SDK.Objects
 
     /// <summary>
     /// IAimpFileStream is extended variant of IAimpStream specially for file-based streams.
-    /// Implements the <see cref="AIMP.SDK.IAimpStream" /></summary>
-    /// <seealso cref="AIMP.SDK.IAimpStream" />
+    /// Implements the <see cref="IAimpStream" /></summary>
+    /// <seealso cref="IAimpStream" />
     public interface IAimpFileStream : IAimpStream
     {
         /// <summary>

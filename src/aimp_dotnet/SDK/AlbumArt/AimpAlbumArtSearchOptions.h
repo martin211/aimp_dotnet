@@ -9,7 +9,9 @@
 
 namespace AIMP {
     namespace SDK {
-        ref class AimpAlbumArtSearchOptions : public AlbumArtManager::IAimpAlbumArtSearchOptions {
+        using namespace AlbumArt;
+
+        ref class AimpAlbumArtSearchOptions : public IAimpAlbumArtSearchOptions {
         private:
             bool _findInFiles;
             IAIMPPropertyList* _properties;

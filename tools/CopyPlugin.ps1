@@ -1,18 +1,19 @@
 [CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)]
+    [string] $action,
+    [Parameter(Mandatory=$true)]
     [string] $ConfigurationName,
     [Parameter(Mandatory=$true)]
     [string] $TargetName,
     [string] $TargetDir,
     [string] $SolutionDir,
     [string] $ProjectDir,
-    [string] $AimpVersion = "AIMP4.70.2220"
+    [string] $AimpVersion = "AIMP5.00.2344"
 )
 
 Write-Output "Windows PowerShell $($Host.Version)"
 
-Set-StrictMode -Version 2.0; $ErrorActionPreference = "Stop"; $ConfirmPreference = "None"; trap { exit 1 }
 $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
 
 ###########################################################################
@@ -44,26 +45,45 @@ function CopyPlugin {
 }
 
 function CopyLang {
-    Copy-Item "$ProjectDir\Langs\*" -Destination "$OutputPath\Langs" -Force
+    if (Test-Path -Path "$ProjectDir\Langs\") {
+        Copy-Item "$ProjectDir\Langs\*" -Destination "$OutputPath\Langs" -Force
+    }
 }
 
-Write-Output "Copy plugin: $TargetName"
-Write-Output "Configuration: $ConfigurationName"
-Write-Output "TargetName: $TargetName"
-Write-Output "TargetDir: $TargetDir"
-Write-Output "SolutionDir: $SolutionDir"
-Write-Output "ProjectDir: $ProjectDir"
-Write-Output "AimpVersion: $AimpVersion"
+function CopyDebugInfo {
+    Get-ChildItem "$TargetDir\*.pdb" | % { Copy-Item -Path $_ -Destination "$OutputPath" -Force }
+}
+
+Write-Output "Copy plugin:`t$TargetName"
+Write-Output "Configuration:`t$ConfigurationName"
+Write-Output "TargetName:`t`t$TargetName"
+Write-Output "TargetDir:`t`t$TargetDir"
+Write-Output "SolutionDir:`t$SolutionDir"
+Write-Output "ProjectDir:`t`t$ProjectDir"
+Write-Output "AimpVersion:`t$AimpVersion"
 
 if ((Test-Path $OutputPath) -eq $false) {
     New-Item -ItemType directory -Path $OutputPath
 }
 
-Write-Output "Copy Plugin libraries"
-CopyPlugin
+if ($action -eq 'copy') {
+    Write-Output "Copy Plugin libraries"
+    CopyPlugin
 
-Write-Output "Copy Core libraries"
-CopyCore
+    Write-Output "Copy Core libraries"
+    CopyCore
 
-Write-Output "Copy Language files"
-CopyLang
+    Write-Output "Copy Language files"
+    CopyLang
+
+    Write-Output "Copy PDB files"
+    CopyDebugInfo
+
+    exit 0;
+}
+
+if ($action -eq 'clean') {
+    Remove-Item -path $OutputPath\*.dll
+    Remove-Item -path $OutputPath\*.pdb
+    exit 0;
+}

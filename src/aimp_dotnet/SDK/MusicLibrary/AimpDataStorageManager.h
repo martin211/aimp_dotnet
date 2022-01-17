@@ -10,6 +10,7 @@
 namespace AIMP {
     namespace SDK {
         using namespace MusicLibrary;
+        using namespace Actions;
 
         public ref class AimpDataStorageManager :
             public AimpObject<IAIMPMLDataStorageManager>,
@@ -17,8 +18,7 @@ namespace AIMP {
         public:
             explicit AimpDataStorageManager(IAIMPMLDataStorageManager* manager);
 
-            virtual ActionResult BackgroundTaskStarted(int id, String^ caption,
-                                                       ActionManager::IAimpActionEvent^ cancelEvent);
+            virtual ActionResult BackgroundTaskStarted(int id, String^ caption, IAimpActionEvent^ cancelEvent);
 
             virtual ActionResult BackgroundTaskFinished(int id);
 

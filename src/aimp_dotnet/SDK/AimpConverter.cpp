@@ -23,25 +23,22 @@ IAIMPString* AimpConverter::ToAimpString(String^ value) {
     return strObject;
 }
 
-IAIMPImage* AimpConverter::ToAimpImage(System::Drawing::Bitmap^ image) {
-    System::IO::MemoryStream^ stream = nullptr;
+IAIMPImage* AimpConverter::ToAimpImage(Bitmap^ image) {
+    MemoryStream^ stream = nullptr;
     IAIMPStream* aimpStream = nullptr;
     IAIMPImage* img = nullptr;
 
     try {
-        stream = gcnew System::IO::MemoryStream();
-        image->Save(stream, System::Drawing::Imaging::ImageFormat::Png);
+        stream = gcnew MemoryStream();
+        image->Save(stream, ImageFormat::Png);
         array<Byte>^ buffer = stream->ToArray();
 
-        if (Utils::CheckResult(GetCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&aimpStream)) == AIMP::SDK::
-            ActionResultType::OK
-            && Utils::CheckResult(GetCore()->CreateObject(IID_IAIMPImage, (void**)&img)) == AIMP::SDK::ActionResultType
-            ::OK) {
+        if (Utils::CheckResult(GetCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&aimpStream)) == ActionResultType::OK
+            && Utils::CheckResult(GetCore()->CreateObject(IID_IAIMPImage, (void**)&img)) == ActionResultType::OK) {
             aimpStream->SetSize(stream->Length);
             pin_ptr<System::Byte> p = &buffer[0];
             unsigned char* pby = p;
-            if (Utils::CheckResult(aimpStream->Write(pby, (int)stream->Length, nullptr)) == AIMP::SDK::ActionResultType
-                ::OK) {
+            if (Utils::CheckResult(aimpStream->Write(pby, (int)stream->Length, nullptr)) == ActionResultType::OK) {
                 img->LoadFromStream(aimpStream);
             }
 
@@ -60,11 +57,11 @@ IAIMPImage* AimpConverter::ToAimpImage(System::Drawing::Bitmap^ image) {
 }
 
 IAIMPCore* AimpConverter::GetCore() {
-    return AIMP::SDK::ManagedAimpCore::GetAimpCore();
+    return ManagedAimpCore::GetAimpCore();
 }
 
-AIMP::SDK::Visuals::AimpVisualData^ AimpConverter::PAIMPVisualDataToManaged(PAIMPVisualData data) {
-    AIMP::SDK::Visuals::AimpVisualData^ result = gcnew AIMP::SDK::Visuals::AimpVisualData();
+Visuals::AimpVisualData^ AimpConverter::PAIMPVisualDataToManaged(PAIMPVisualData data) {
+    auto result = gcnew Visuals::AimpVisualData();
     result->Peaks = gcnew array<float>(2);
     result->Spectrum = gcnew array<array<float>^>(3);
     result->WaveForm = gcnew array<array<float>^>(2);
@@ -91,7 +88,7 @@ AIMP::SDK::Visuals::AimpVisualData^ AimpConverter::PAIMPVisualDataToManaged(PAIM
     return result;
 }
 
-System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImageContainer* imageContainer) {
+Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImageContainer* imageContainer) {
     IAIMPImage* image = nullptr;
     try {
         if (Utils::CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**)&image)) !=
@@ -108,25 +105,25 @@ System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImageContainer* ima
     finally {
         if (image != nullptr) {
             image->Release();
-            image = NULL;
+            image = nullptr;
         }
     }
 
     return nullptr;
 }
 
-System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImage* image) {
+Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImage* image) {
     SIZE size;
     if (Utils::CheckResult(image->GetSize(&size)) == ActionResultType::OK) {
         if (size.cx == 0 || size.cy == 0) {
             return nullptr;
         }
 
-        System::Drawing::Bitmap^ bmp = gcnew System::Drawing::Bitmap(size.cx, size.cy);
+        auto bmp = gcnew Bitmap(size.cx, size.cy);
 
         IAIMPStream* stream = nullptr;
         ActionResultType res = Utils::CheckResult(
-            AIMP::SDK::ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&stream));
+            ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPMemoryStream, (void**)&stream));
 
         if (res != ActionResultType::OK || stream == nullptr) {
             return nullptr;
@@ -139,12 +136,12 @@ System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImage* image) {
             HRESULT r = stream->Seek(0, AIMP_STREAM_SEEKMODE_FROM_BEGINNING);
             r = stream->Read(buf, (int)size);
 
-            System::IO::MemoryStream^ strm = gcnew System::IO::MemoryStream();
+            auto strm = gcnew MemoryStream();
             try {
                 for (int i = 0; i < size; i++) {
                     strm->WriteByte(buf[i]);
                 }
-                bmp = gcnew System::Drawing::Bitmap(strm);
+                bmp = gcnew Bitmap(strm);
             }
             finally {
                 strm->Close();
@@ -162,15 +159,15 @@ System::Drawing::Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImage* image) {
     return nullptr;
 }
 
-IAIMPImageContainer* AimpConverter::ToAimpImageContainer(System::Drawing::Bitmap^ image) {
+IAIMPImageContainer* AimpConverter::ToAimpImageContainer(Bitmap^ image) {
     IAIMPImageContainer* container;
     if (Utils::CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImageContainer, (void**)&container)) ==
         ActionResultType::OK) {
-        System::IO::Stream^ stream = nullptr;
+        Stream^ stream = nullptr;
         try {
-            stream = gcnew System::IO::MemoryStream();
-            image->Save(stream, System::Drawing::Imaging::ImageFormat::Jpeg);
-            stream->Seek(0, System::IO::SeekOrigin::Begin);
+            stream = gcnew MemoryStream();
+            image->Save(stream, ImageFormat::Jpeg);
+            stream->Seek(0, SeekOrigin::Begin);
             if (Utils::CheckResult(container->SetDataSize((DWORD)stream->Length)) != ActionResultType::OK) {
                 return nullptr;
             }
@@ -196,17 +193,17 @@ String^ AimpConverter::ToManagedString(IAIMPString* value) {
     return gcnew String(value->GetData());
 }
 
-VARIANT AimpConverter::ToNativeVariant(System::Object^ objectValue) {
+VARIANT AimpConverter::ToNativeVariant(Object^ objectValue) {
     VARIANT varTag;
     VariantInit(&varTag);
     IntPtr h = IntPtr(&varTag);
-    System::Runtime::InteropServices::Marshal::GetNativeVariantForObject(objectValue, h);
+    InteropServices::Marshal::GetNativeVariantForObject(objectValue, h);
     return varTag;
 }
 
-System::Object^ AimpConverter::FromVaiant(VARIANT* variant) {
+Object^ AimpConverter::FromVaiant(VARIANT* variant) {
     void* p = variant;
-    return System::Runtime::InteropServices::Marshal::GetObjectForNativeVariant(IntPtr(p));
+    return InteropServices::Marshal::GetObjectForNativeVariant(IntPtr(p));
 }
 
 IAIMPObjectList* AimpConverter::GetAimpObjectList() {
@@ -276,7 +273,7 @@ IAIMPObjectList* AimpConverter::ToAimpObjectList(List<String^>^ collection) {
     return list;
 }
 
-IAIMPString* AimpConverter::ToAimpString(Objects::IAimpString^ string) {
+IAIMPString* AimpConverter::ToAimpString(IAimpString^ string) {
     IAIMPString* strObject = CreateAimpObject<IAIMPString>(IID_IAIMPString);
     const pin_ptr<const WCHAR> strDate = PtrToStringChars(string->GetData());
     strObject->SetData(PWCHAR(strDate), string->GetLength());

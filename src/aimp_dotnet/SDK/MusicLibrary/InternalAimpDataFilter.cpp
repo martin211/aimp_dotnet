@@ -40,9 +40,6 @@ HRESULT WINAPI InternalAimpDataFilter::GetValueAsInt32(int PropertyID, int* Valu
     if (PropertyID == AIMPML_FILTER_LIMIT)
         *Value = _managedInstance->Limit;
 
-    if (PropertyID == AIMPML_FILTER_SORTDIRECTION)
-        *Value = int(_managedInstance->SortDirection);
-
     if (PropertyID == AIMPML_FILTER_ALPHABETICINDEX)
         *Value = _managedInstance->AlphaBeticIndex;
 
@@ -58,9 +55,6 @@ HRESULT WINAPI InternalAimpDataFilter::SetValueAsInt32(int PropertyID, int Value
     if (PropertyID == AIMPML_FILTER_LIMIT)
         _managedInstance->Limit = Value;
 
-    if (PropertyID == AIMPML_FILTER_SORTDIRECTION)
-        _managedInstance->SortDirection = SortDirectionType(Value);
-
     if (PropertyID == AIMPML_FILTER_ALPHABETICINDEX)
         _managedInstance->AlphaBeticIndex = Value;
 
@@ -68,12 +62,13 @@ HRESULT WINAPI InternalAimpDataFilter::SetValueAsInt32(int PropertyID, int Value
 }
 
 HRESULT WINAPI InternalAimpDataFilter::GetValueAsObject(int PropertyID, REFIID IID, void** Value) {
-    if (PropertyID == AIMPML_FILTER_SORTBY) {
-        IAIMPString* str = AimpConverter::ToAimpString(_managedInstance->SortBy);
-        *Value = str;
-        str->Release();
-        str = nullptr;
-    }
+    // TODO
+    //if (PropertyID == AIMPML_FILTER_SORTBY) {
+    //    IAIMPString* str = AimpConverter::ToAimpString(_managedInstance->SortBy);
+    //    *Value = str;
+    //    str->Release();
+    //    str = nullptr;
+    //}
 
     if (PropertyID == AIMPML_FILTER_SEARCHSTRING) {
         IAIMPString* str = AimpConverter::ToAimpString(_managedInstance->SearchString);
@@ -86,8 +81,9 @@ HRESULT WINAPI InternalAimpDataFilter::GetValueAsObject(int PropertyID, REFIID I
 }
 
 HRESULT WINAPI InternalAimpDataFilter::SetValueAsObject(int PropertyID, IUnknown* Value) {
-    if (PropertyID == AIMPML_FILTER_SORTBY)
-        _managedInstance->SortBy = AimpConverter::ToManagedString(static_cast<IAIMPString*>(Value));
+    // TODO
+    //if (PropertyID == AIMPML_FILTER_SORTBY)
+    //    _managedInstance->SortBy = AimpConverter::ToManagedString(static_cast<IAIMPString*>(Value));
 
     if (PropertyID == AIMPML_FILTER_SEARCHSTRING)
         _managedInstance->SearchString = AimpConverter::ToManagedString(static_cast<IAIMPString*>(Value));

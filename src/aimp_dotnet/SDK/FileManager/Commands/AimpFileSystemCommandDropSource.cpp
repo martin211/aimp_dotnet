@@ -9,7 +9,6 @@
 #include "AimpFileSystemCommandDropSource.h"
 
 using namespace AIMP::SDK;
-using namespace Objects;
 
 AimpFileSystemCommandDropSource::
 AimpFileSystemCommandDropSource(IAIMPFileSystemCommandDropSource* aimpObject) : AimpObject(aimpObject) {

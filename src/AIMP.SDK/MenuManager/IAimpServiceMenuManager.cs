@@ -119,7 +119,7 @@ namespace AIMP.SDK.MenuManager
         /// <summary>
         /// The ml main funtions
         /// </summary>
-        MlMainFuntions = 61,
+        MlMainFunctions = 61,
 
         /// <summary>
         /// The ml main open

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DemoPlugin</RootNamespace>
     <AssemblyName>dotnet_demo</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -132,9 +132,6 @@
     <EmbeddedResource Include="UI\PlayListEditor.resx">
       <DependentUpon>PlayListEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="..\..\..\tools\CopyPlugin.ps1">
-      <Link>CopyPlugin.ps1</Link>
-    </None>
     <None Include="commands.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

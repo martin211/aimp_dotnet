@@ -10,6 +10,7 @@
 // ----------------------------------------------------
 
 using System;
+using AIMP.SDK;
 using AIMP.SDK.Options;
 using AIMP.SDK.Player;
 

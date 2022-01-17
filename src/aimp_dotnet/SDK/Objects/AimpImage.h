@@ -31,7 +31,7 @@ namespace AIMP {
             // IAIMPImage2
             virtual AimpActionResult^ LoadFromResource();
             virtual AimpActionResult^ LoadFromBitmap(IntPtr bitmap);
-            virtual AimpActionResult^ LoadFromBits(Objects::RGBQUAD bits, int width, int height);
+            virtual AimpActionResult^ LoadFromBits(RGBQuad bits, int width, int height);
             virtual AimpActionResult^ CopyToClipboard();
             virtual AimpActionResult^ CanPasteFromClipboard();
             virtual AimpActionResult^ PasteFromClipboard();

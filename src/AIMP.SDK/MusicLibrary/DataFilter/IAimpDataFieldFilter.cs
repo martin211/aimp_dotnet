@@ -64,7 +64,9 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
         /// <summary>
         /// The ends with
         /// </summary>
-        EndsWith = 9
+        EndsWith = 9,
+
+        IsLastXDays = 10,
     }
 
     /// <summary>

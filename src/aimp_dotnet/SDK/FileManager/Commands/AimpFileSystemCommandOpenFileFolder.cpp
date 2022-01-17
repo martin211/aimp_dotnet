@@ -9,7 +9,6 @@
 #include "AimpFileSystemCommandOpenFileFolder.h"
 
 using namespace AIMP::SDK;
-using namespace Objects;
 
 AimpFileSystemCommandOpenFileFolder::AimpFileSystemCommandOpenFileFolder(
     IAIMPFileSystemCommandOpenFileFolder* aimpObject) : AimpObject(aimpObject) {

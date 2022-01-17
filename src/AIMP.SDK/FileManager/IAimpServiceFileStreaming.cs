@@ -10,6 +10,7 @@
 // ----------------------------------------------------
 
 using System;
+using AIMP.SDK.FileManager.Primitives;
 
 namespace AIMP.SDK.FileManager
 {

@@ -19,7 +19,7 @@ namespace AIMP.SDK.Playlist
     public interface IAimpPlaylistPreimageFolders : IAimpPlaylistPreimage
     {
         /// <summary>
-        /// Itemses the add.
+        /// Adds a new items.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="recursive">if set to <c>true</c> [recursive].</param>
@@ -27,14 +27,14 @@ namespace AIMP.SDK.Playlist
         AimpActionResult ItemsAdd(string path, bool recursive);
 
         /// <summary>
-        /// Itemses the delete.
+        /// Delete item by index.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns>AimpActionResult.</returns>
         AimpActionResult ItemsDelete(int index);
 
         /// <summary>
-        /// Itemses the delete all.
+        /// Delete all items.
         /// </summary>
         /// <returns>AimpActionResult.</returns>
         AimpActionResult ItemsDeleteAll();
@@ -47,7 +47,7 @@ namespace AIMP.SDK.Playlist
         AimpActionResult<string, bool> ItemsGet(int index);
 
         /// <summary>
-        /// Itemses the get count.
+        /// Get count of items at playlist.
         /// </summary>
         /// <returns>System.Int32.</returns>
         int ItemsGetCount();

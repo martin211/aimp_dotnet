@@ -30,20 +30,13 @@ void AimpDataFilter::Limit::set(int value) {
     PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_LIMIT, value);
 }
 
-String^ AimpDataFilter::SortBy::get() {
-    return PropertyListExtension::GetString(InternalAimpObject, AIMPML_FILTER_SORTBY);
+IAimpObjectList^ AimpDataFilter::SortByList::get() {
+    return nullptr;
+    //return PropertyListExtension::GetString(InternalAimpObject, AIMPML_FILTER_SORTBYLIST);
 }
 
-void AimpDataFilter::SortBy::set(String^ value) {
-    PropertyListExtension::SetString(InternalAimpObject, AIMPML_FILTER_SORTBY, value);
-}
-
-SortDirectionType AimpDataFilter::SortDirection::get() {
-    return SortDirectionType(PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_SORTDIRECTION));
-}
-
-void AimpDataFilter::SortDirection::set(SortDirectionType value) {
-    PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_SORTDIRECTION, int(value));
+void AimpDataFilter::SortByList::set(IAimpObjectList^ value) {
+    //PropertyListExtension::SetString(InternalAimpObject, AIMPML_FILTER_SORTBYLIST, value);
 }
 
 String^ AimpDataFilter::SearchString::get() {
