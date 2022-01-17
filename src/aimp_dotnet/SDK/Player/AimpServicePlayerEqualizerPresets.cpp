@@ -2,7 +2,7 @@
 #include "AimpServicePlayerEqualizerPresets.h"
 #include "AimpEqualizerPreset.h"
 
-AimpActionResult<Player::IAimpEqualizerPreset^>^ AimpServicePlayerEqualizerPresets::Add(String^ name) {
+AimpActionResult<IAimpEqualizerPreset^>^ AimpServicePlayerEqualizerPresets::Add(String^ name) {
     const auto service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
     IAIMPString* str = nullptr;
@@ -13,7 +13,7 @@ AimpActionResult<Player::IAimpEqualizerPreset^>^ AimpServicePlayerEqualizerPrese
             str = AimpConverter::ToAimpString(name);
             result = CheckResult(service->Add(str, IID_IAIMPEqualizerPreset,reinterpret_cast<void**>(&preset)));
             if (result == ActionResultType::OK) {
-                return gcnew AimpActionResult<Player::IAimpEqualizerPreset^>(result, gcnew AimpEqualizerPreset(preset));
+                return gcnew AimpActionResult<IAimpEqualizerPreset^>(result, gcnew AimpEqualizerPreset(preset));
             }
         }
     }
@@ -22,10 +22,10 @@ AimpActionResult<Player::IAimpEqualizerPreset^>^ AimpServicePlayerEqualizerPrese
         ReleaseObject(str);
     }
 
-    return gcnew AimpActionResult<Player::IAimpEqualizerPreset^>(result);
+    return gcnew AimpActionResult<IAimpEqualizerPreset^>(result);
 }
 
-AimpActionResult<Player::IAimpEqualizerPreset^>^ AimpServicePlayerEqualizerPresets::FindByName(String^ name) {
+AimpActionResult<IAimpEqualizerPreset^>^ AimpServicePlayerEqualizerPresets::FindByName(String^ name) {
     const auto service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
     IAIMPString* str = nullptr;
@@ -36,7 +36,7 @@ AimpActionResult<Player::IAimpEqualizerPreset^>^ AimpServicePlayerEqualizerPrese
             str = AimpConverter::ToAimpString(name);
             result = CheckResult(service->FindByName(str, IID_IAIMPEqualizerPreset, reinterpret_cast<void**>(&preset)));
             if (result == ActionResultType::OK) {
-                return gcnew AimpActionResult<Player::IAimpEqualizerPreset^>(result, gcnew AimpEqualizerPreset(preset));
+                return gcnew AimpActionResult<IAimpEqualizerPreset^>(result, gcnew AimpEqualizerPreset(preset));
             }
         }
     }
@@ -45,10 +45,10 @@ AimpActionResult<Player::IAimpEqualizerPreset^>^ AimpServicePlayerEqualizerPrese
         ReleaseObject(str);
     }
 
-    return gcnew AimpActionResult<Player::IAimpEqualizerPreset^>(result);
+    return gcnew AimpActionResult<IAimpEqualizerPreset^>(result);
 }
 
-AimpActionResult^ AimpServicePlayerEqualizerPresets::Delete(Player::IAimpEqualizerPreset^ preset) {
+AimpActionResult^ AimpServicePlayerEqualizerPresets::Delete(IAimpEqualizerPreset^ preset) {
     const auto service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
 
@@ -80,7 +80,7 @@ AimpActionResult^ AimpServicePlayerEqualizerPresets::Delete(int index) {
     return ACTION_RESULT(result);
 }
 
-AimpActionResult<Player::IAimpEqualizerPreset^>^ AimpServicePlayerEqualizerPresets::GetPreset(int index) {
+AimpActionResult<IAimpEqualizerPreset^>^ AimpServicePlayerEqualizerPresets::GetPreset(int index) {
     const auto service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
     IAIMPEqualizerPreset* preset = nullptr;
@@ -89,7 +89,7 @@ AimpActionResult<Player::IAimpEqualizerPreset^>^ AimpServicePlayerEqualizerPrese
         if (service != nullptr) {
             result = CheckResult(service->GetPreset(index, IID_IAIMPEqualizerPreset, reinterpret_cast<void**>(&preset)));
             if (result == ActionResultType::OK) {
-                return gcnew AimpActionResult<Player::IAimpEqualizerPreset^>(result, gcnew AimpEqualizerPreset(preset));
+                return gcnew AimpActionResult<IAimpEqualizerPreset^>(result, gcnew AimpEqualizerPreset(preset));
             }
         }
     }
@@ -97,7 +97,7 @@ AimpActionResult<Player::IAimpEqualizerPreset^>^ AimpServicePlayerEqualizerPrese
         ReleaseObject(service);
     }
 
-    return gcnew AimpActionResult<Player::IAimpEqualizerPreset^>(result);
+    return gcnew AimpActionResult<IAimpEqualizerPreset^>(result);
 }
 
 int AimpServicePlayerEqualizerPresets::GetPresetCount() {

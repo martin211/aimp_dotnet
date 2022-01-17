@@ -13,7 +13,7 @@ namespace AIMP {
         using namespace Drawing;
         using namespace Runtime::InteropServices;
         using namespace MenuManager;
-        using namespace ActionManager;
+        using namespace Actions;
 
         public ref class AimpMenuItem : public AimpObject<IAIMPMenuItem>, public IAimpMenuItem {
         private:

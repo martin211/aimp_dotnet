@@ -11,7 +11,7 @@
 
 using System;
 using System.Drawing;
-using AIMP.SDK.ActionManager;
+using AIMP.SDK.Actions;
 
 namespace AIMP.SDK.MenuManager
 {
@@ -38,10 +38,10 @@ namespace AIMP.SDK.MenuManager
 
     /// <summary>
     /// AIMP menu item interface.
-    /// Implements the <see cref="AIMP.SDK.ActionManager.IAimpActionEvent" />
+    /// Implements the <see cref="IAimpActionEvent" />
     /// Implements the <see cref="AIMP.SDK.IAimpObject" />
     /// </summary>
-    /// <seealso cref="AIMP.SDK.ActionManager.IAimpActionEvent" />
+    /// <seealso cref="IAimpActionEvent" />
     /// <seealso cref="AIMP.SDK.IAimpObject" />
     public interface IAimpMenuItem : IAimpActionEvent, IAimpObject
     {

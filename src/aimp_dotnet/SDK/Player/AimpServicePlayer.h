@@ -3,9 +3,12 @@
 
 namespace AIMP {
     namespace SDK {
+        using namespace AIMP::SDK::Player::Services;
+        using namespace AIMP::SDK::Player::Primitives;
+
         public ref class AimpServicePlayer :
             public BaseAimpService<IAIMPServicePlayer2>,
-            public Player::IAimpServicePlayer {
+            public IAimpServicePlayer {
         public:
             explicit AimpServicePlayer(ManagedAimpCore^ core);
 
@@ -26,10 +29,10 @@ namespace AIMP {
             property bool IsMute { virtual bool get(); virtual void set(bool value); }
             property IAimpFileInfo^ CurrentFileInfo { virtual IAimpFileInfo^ get(); }
             property IAimpPlaylistItem^ CurrentPlaylistItem { virtual IAimpPlaylistItem^ get(); }
-            property Player::ActionOnTrackEnd ActionOnEndOfTrack
+            property ActionOnTrackEnd ActionOnEndOfTrack
             {
-                virtual Player::ActionOnTrackEnd get();
-                virtual void set(Player::ActionOnTrackEnd value);
+                virtual ActionOnTrackEnd get();
+                virtual void set(ActionOnTrackEnd value);
             }
             property bool AutoJumpToNextTrack {
                 virtual bool get();
@@ -74,13 +77,13 @@ namespace AIMP {
                 virtual void set(int value);
             }
 
-            virtual AimpActionResult^ Play(Playback::IAimpPlaybackQueueItem^ item, int offset, Player::PlayFlags flags);
+            virtual AimpActionResult^ Play(IAimpPlaybackQueueItem^ item, int offset, Player::PlayFlags flags);
 
             virtual AimpActionResult^ Play(IAimpPlaylistItem^ item, int offset, Player::PlayFlags flags);
 
             virtual AimpActionResult^ Play(String^ fileUri, int offset, Player::PlayFlags flags);
 
-            virtual AimpActionResult^ Play(Playback::IAimpPlaybackQueueItem^ queueItem);
+            virtual AimpActionResult^ Play(IAimpPlaybackQueueItem^ queueItem);
 
             virtual AimpActionResult^ Play(IAimpPlaylistItem^ playlistItem);
 

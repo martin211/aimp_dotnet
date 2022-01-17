@@ -12,7 +12,7 @@ namespace AIMP {
     namespace SDK {
         using namespace Windows::Input;
         using namespace SDK;
-        using namespace ActionManager;
+        using namespace Actions;
 
         [System::Serializable]
         public ref class AimpServiceActionManager :

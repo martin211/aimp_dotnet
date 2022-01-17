@@ -12,7 +12,7 @@
 #include "SDK/PlayList/AimpPlayList.h"
 #include "SDK/PlayList/AimpPlayListItem.h"
 
-AimpExtensionPlaybackQueue::AimpExtensionPlaybackQueue(gcroot<Playback::IAimpExtensionPlaybackQueue^> extension) {
+AimpExtensionPlaybackQueue::AimpExtensionPlaybackQueue(gcroot<IAimpExtensionPlaybackQueue^> extension) {
     _managed = extension;
 }
 
@@ -42,11 +42,11 @@ HRESULT AimpExtensionPlaybackQueue::GetNext(IUnknown* current, DWORD flags, IAIM
     case AIMP_PLAYBACKQUEUE_FLAGS_START_FROM_BEGINNING:
     case AIMP_PLAYBACKQUEUE_FLAGS_START_FROM_CURSOR:
         return static_cast<HRESULT>(_managed->GetNext(gcnew AimpPlayList(static_cast<IAIMPPlaylist*>(current)),
-                                                      static_cast<Playback::PlaybackQueueFlags>(flags),
+                                                      static_cast<PlaybackQueueFlags>(flags),
                                                       nullptr)->ResultType);
     case AIMP_PLAYBACKQUEUE_FLAGS_START_FROM_ITEM:
         return static_cast<HRESULT>(_managed->GetNext(gcnew AimpPlaylistItem(static_cast<IAIMPPlaylistItem*>(current)),
-                                                   static_cast<Playback::PlaybackQueueFlags>(flags),
+                                                   static_cast<PlaybackQueueFlags>(flags),
                                                    gcnew AimpPlaybackQueueItem(queueItem))->ResultType);
     }
 
@@ -58,11 +58,11 @@ HRESULT AimpExtensionPlaybackQueue::GetPrev(IUnknown* current, DWORD flags, IAIM
     case AIMP_PLAYBACKQUEUE_FLAGS_START_FROM_BEGINNING:
     case AIMP_PLAYBACKQUEUE_FLAGS_START_FROM_CURSOR:
         return static_cast<HRESULT>(_managed->GetPrev(gcnew AimpPlayList(static_cast<IAIMPPlaylist*>(current)),
-                                                   static_cast<Playback::PlaybackQueueFlags>(flags),
+                                                   static_cast<PlaybackQueueFlags>(flags),
                                                    nullptr)->ResultType);
     case AIMP_PLAYBACKQUEUE_FLAGS_START_FROM_ITEM:
         return static_cast<HRESULT>(_managed->GetPrev(gcnew AimpPlaylistItem(static_cast<IAIMPPlaylistItem*>(current)),
-                                                   static_cast<Playback::PlaybackQueueFlags>(flags),
+                                                   static_cast<PlaybackQueueFlags>(flags),
                                                    gcnew AimpPlaybackQueueItem(queueItem))->ResultType);
     }
 

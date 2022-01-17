@@ -44,6 +44,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "..\build\_build.c
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{DABC64E2-6F5D-4E43-AF76-2B177C5E2353}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documentation", "documentation", "{89A24E88-861C-4ED0-AD54-F46BFAD29891}"
+	ProjectSection(SolutionItems) = preProject
+		..\docfx_project\.gitignore = ..\docfx_project\.gitignore
+		..\docfx_project\docfx.json = ..\docfx_project\docfx.json
+		..\docfx_project\docfx.template.json = ..\docfx_project\docfx.template.json
+		..\docfx_project\index.md = ..\docfx_project\index.md
+		..\docfx_project\projects.yml = ..\docfx_project\projects.yml
+		..\docfx_project\toc.template.yml = ..\docfx_project\toc.template.yml
+		..\docfx_project\toc.yml = ..\docfx_project\toc.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -211,6 +222,7 @@ Global
 		{7AD77F60-D0F1-4241-A67D-0733EF4A5DEE} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
 		{35DC3E20-FF8D-42B4-991A-85296A243FA1} = {F16C4DCE-5A69-45D5-8C04-4DCFA76CD643}
 		{1D813DFE-338B-4C36-AAB0-98D7C6A949CC} = {DABC64E2-6F5D-4E43-AF76-2B177C5E2353}
+		{89A24E88-861C-4ED0-AD54-F46BFAD29891} = {DABC64E2-6F5D-4E43-AF76-2B177C5E2353}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F89DDEBD-4CC1-4C55-811B-096227CFE66C}

@@ -7,7 +7,6 @@
 
 #include "stdafx.h"
 #include "AimpPlayer.h"
-#include "Playback/AimpPlaybackQueueItem.h"
 #include "Lyrics/AimpServiceLyrics.h"
 #include "SDK/Action/AimpServiceActionManager.h"
 #include "AlbumArt/AimpServiceAlbumArtCache.h"
@@ -54,7 +53,7 @@ AimpPlayer::~AimpPlayer() {
     delete _serviceFileTagEditor;
 }
 
-Player::IAimpServicePlayerEqualizer^ AimpPlayer::ServicePlayerEqualizer::get() {
+IAimpServicePlayerEqualizer^ AimpPlayer::ServicePlayerEqualizer::get() {
     if (_servicePlayerEqualizer == nullptr) {
         _servicePlayerEqualizer = gcnew AimpServicePlayerEqualizer(_managedAimpCore);
     }
@@ -62,7 +61,7 @@ Player::IAimpServicePlayerEqualizer^ AimpPlayer::ServicePlayerEqualizer::get() {
     return _servicePlayerEqualizer;
 }
 
-Player::IAimpServicePlayerEqualizerPresets^ AimpPlayer::ServicePlayerEqualizerPresets::get() {
+IAimpServicePlayerEqualizerPresets^ AimpPlayer::ServicePlayerEqualizerPresets::get() {
     if (_servicePlayerEqualizerPresets == nullptr) {
         _servicePlayerEqualizerPresets = gcnew AimpServicePlayerEqualizerPresets(_managedAimpCore);
     }
@@ -124,7 +123,7 @@ IAimpServicePlaybackQueue^ AimpPlayer::ServicePlaybackQueue::get() {
     return _playbackQueueManager;
 }
 
-Player::IAimpServicePlayer^ AimpPlayer::ServicePlayer::get() {
+IAimpServicePlayer^ AimpPlayer::ServicePlayer::get() {
     if (_servicePlayer == nullptr) {
         _servicePlayer = gcnew AimpServicePlayer(_managedAimpCore);
     }

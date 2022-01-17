@@ -10,6 +10,7 @@
 #include "../Action/AimpActionEvent.h"
 
 using namespace AIMP::SDK;
+using namespace  Actions;
 
 AimpAction::AimpAction(IAIMPAction* action) : AimpObject(action) {
     _onExecuteEvent = nullptr;

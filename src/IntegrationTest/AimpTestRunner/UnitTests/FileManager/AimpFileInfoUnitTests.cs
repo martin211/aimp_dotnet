@@ -11,6 +11,7 @@
 
 using AIMP.SDK;
 using AIMP.SDK.FileManager;
+using AIMP.SDK.FileManager.Primitives;
 using AIMP.SDK.Playlist;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;

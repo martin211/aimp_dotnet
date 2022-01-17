@@ -48,22 +48,18 @@
         ]
       }
     ],
-    "dest": "_site",
+    "dest": "../_site",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
       "statictoc",
-	  "template"
+	    "template"
     ],
     "postProcessors": [],
     "markdownEngineName": "markdig",
     "noLangKeyword": false,
     "keepFileLink": false,
     "cleanupCacheHistory": false,
-    "disableGitFeatures": false,
-	    "template": [
-		"statictoc",
-		"template"
-    ]
+    "disableGitFeatures": false
   }
 }

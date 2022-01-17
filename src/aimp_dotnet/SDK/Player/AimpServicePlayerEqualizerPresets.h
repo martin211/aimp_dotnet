@@ -3,18 +3,21 @@
 
 namespace AIMP {
     namespace SDK {
+        using namespace  Player::Primitives;
+        using namespace  Player::Services;
+
         public ref class AimpServicePlayerEqualizerPresets :
             public BaseAimpService<IAIMPServicePlayerEqualizerPresets>,
-            public Player::IAimpServicePlayerEqualizerPresets {
+            public IAimpServicePlayerEqualizerPresets {
         public:
             explicit AimpServicePlayerEqualizerPresets(ManagedAimpCore^ core)
                 : BaseAimpService<IAIMPServicePlayerEqualizerPresets>(core) {
             }
-            virtual AimpActionResult<Player::IAimpEqualizerPreset^>^ Add(String^ name);
-            virtual AimpActionResult<Player::IAimpEqualizerPreset^>^ FindByName(String^ name);
-            virtual AimpActionResult^ Delete(Player::IAimpEqualizerPreset^ preset);
+            virtual AimpActionResult<IAimpEqualizerPreset^>^ Add(String^ name);
+            virtual AimpActionResult<IAimpEqualizerPreset^>^ FindByName(String^ name);
+            virtual AimpActionResult^ Delete(IAimpEqualizerPreset^ preset);
             virtual AimpActionResult^ Delete(int index);
-            virtual AimpActionResult<Player::IAimpEqualizerPreset^>^ GetPreset(int index);
+            virtual AimpActionResult<IAimpEqualizerPreset^>^ GetPreset(int index);
             virtual int GetPresetCount();
         protected:
             IAIMPServicePlayerEqualizerPresets* GetAimpService() override;

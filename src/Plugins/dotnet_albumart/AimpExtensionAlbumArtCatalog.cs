@@ -9,13 +9,14 @@
 // 
 // ----------------------------------------------------
 
+using AIMP.SDK.AlbumArt.Extensions;
 using AIMP.SDK.FileManager;
+using AIMP.SDK.FileManager.Primitives;
 
 namespace dotnet_albumart
 {
     using System.Drawing;
     using AIMP.SDK;
-    using AIMP.SDK.AlbumArtManager;
 
     public class AimpExtensionAlbumArtCatalog : IAimpExtensionAlbumArtCatalog
     {

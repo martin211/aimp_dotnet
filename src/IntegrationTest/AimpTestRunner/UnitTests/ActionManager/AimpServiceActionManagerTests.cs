@@ -11,7 +11,7 @@
 
 using System;
 using AIMP.SDK;
-using AIMP.SDK.ActionManager;
+using AIMP.SDK.Actions;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 

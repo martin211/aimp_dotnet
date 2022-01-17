@@ -8,11 +8,13 @@
 #pragma once
 #include "AimpSdk.h"
 
+using namespace Actions;
+
 namespace AIMP {
     namespace SDK {
-        public delegate void AimpActionEventDelegate(gcroot<ActionManager::IAimpActionEvent^> sender, IUnknown* data);
+        public delegate void AimpActionEventDelegate(gcroot<IAimpActionEvent^> sender, IUnknown* data);
 
-        typedef void (__stdcall *AimpActionEventCallback)(gcroot<ActionManager::IAimpActionEvent^> sender,
+        typedef void (__stdcall *AimpActionEventCallback)(gcroot<IAimpActionEvent^> sender,
                                                           IUnknown* data);
     }
 }
@@ -26,8 +28,7 @@ public:
     /// </summary>
     /// <param name="managedInstance">The managed instance. Will be returned as a sender to main context.</param>
     /// <param name="executeCallback">The execute callback.</param>
-    AimpActionEvent(gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> managedInstance,
-                    AIMP::SDK::AimpActionEventCallback callback);
+    AimpActionEvent(gcroot<IAimpActionEvent^> managedInstance, AimpActionEventCallback callback);
 
     virtual void WINAPI OnExecute(IUnknown* Data);
 
@@ -37,6 +38,6 @@ public:
 
     virtual ULONG WINAPI Release(void);
 private:
-    gcroot<AIMP::SDK::ActionManager::IAimpActionEvent^> _managedInstance;
-    AIMP::SDK::AimpActionEventCallback _cb;
+    gcroot<IAimpActionEvent^> _managedInstance;
+    AimpActionEventCallback _cb;
 };

@@ -1,24 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Xml.Linq;
 using Nuke.Common;
 using Nuke.Common.IO;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DocFX;
 using Nuke.Common.Utilities.Collections;
+using Serilog;
 using static CustomTocWriter;
 using static Nuke.Common.IO.PathConstruction;
+using static Nuke.Common.IO.FileSystemTasks;
 
 partial class Build
 {
+    [Parameter] string DocumentationOutputPath;
+    [Parameter] string DocumentationRepositoryUrl;
+
     AbsolutePath DocumentationRoot => RootDirectory / "docfx_project";
-
-    AbsolutePath RepositoriesDirectory => DocumentationRoot / "repos";
-
-    AbsolutePath GenerationDirectory => TemporaryDirectory / "packages";
-    AbsolutePath ApiDirectory => DocumentationRoot / "api";
-
-    string DocFxFile => DocumentationRoot / "docfx.json";
+    AbsolutePath DocumentationRepositoriesDirectory => DocumentationRoot / "repos";
+    AbsolutePath DocumentationApiDirectory => DocumentationRoot / "api";
+    AbsolutePath DocumentationBuildOutput => RootDirectory / "_site";
+    string DocumentationDocFxFile => DocumentationRoot / "docfx.json";
 
     IEnumerable<ApiProject> Projects =>
         SerializationTasks.YamlDeserializeFromFile<List<ApiProject>>(DocumentationRoot / "projects.yml");
@@ -29,18 +30,6 @@ partial class Build
             //SourceDirectory.GlobDirectories("**/_site").ForEach(DeleteDirectory);
         });
 
-    Target Clone => _ => _
-        .Before(Restore)
-        .Executes(() =>
-        {
-            //Projects.Select(x => x.Repository)
-            //    .ForEachLazy(x => Logger.Info($"Cloning repository '{x.HttpsUrl}'..."))
-            //    .ForEach(x => ProcessTasks.StartProcess(
-            //            ToolPathResolver.GetPathExecutable("git"),
-            //            $"clone {x.HttpsUrl.Replace("{auth}@", string.Empty)} {RepositoriesDirectory / x.Identifier}")
-            //        .AssertZeroExitCode());
-        });
-
     Target Metadata => _ => _
         //.DependsOn(CustomDocFx)
         .WhenSkipped(DependencyBehavior.Skip)
@@ -48,7 +37,7 @@ partial class Build
         {
             DocFXTasks.DocFXMetadata(s => s
                 .SetProcessWorkingDirectory(DocumentationRoot)
-                .SetProjects(DocFxFile)
+                .SetProjects(DocumentationDocFxFile)
                 .SetLogLevel(DocFXLogLevel.Verbose));
         });
 
@@ -56,18 +45,43 @@ partial class Build
         .After(Metadata)
         .Executes(() =>
         {
-            GlobFiles(ApiDirectory, "**/toc.yml").ForEach(File.Delete);
-            WriteCustomTocs(ApiDirectory, DocumentationRoot, GlobFiles(SourceDirectory / Configuration, "AIMP.SDK.dll"));
+            GlobFiles(DocumentationApiDirectory, "**/toc.yml").ForEach(File.Delete);
+            WriteCustomTocs(DocumentationApiDirectory, DocumentationRoot, GlobFiles(SourceDirectory / Configuration, "AIMP.SDK.dll"));
         });
 
-    Target BuildSite => _ => _
+    Target BuildDocumentation => _ => _
         .DependsOn(CleanDocumentation, Metadata, CustomToc)
         .Executes(() =>
         {
+            PrintParameters("Documentation");
+
             DocFXTasks.DocFXBuild(s => s
                 .SetProcessWorkingDirectory(DocumentationRoot)
-                .SetConfigFile(DocFxFile)
+                .SetConfigFile(DocumentationDocFxFile)
                 .SetLogLevel(DocFXLogLevel.Verbose)
-                .SetServe(true));
+                .SetServe(false));
+        });
+
+    Target PublishDocumentation => _ => _
+        .Requires(() => DocumentationOutputPath)
+        .Executes(() =>
+        {
+            CopyDirectoryRecursively(DocumentationBuildOutput, DocumentationOutputPath, DirectoryExistsPolicy.Merge, FileExistsPolicy.OverwriteIfNewer);
+        });
+
+    Target PushDocumentation => _ => _
+        .Requires(() => DocumentationRepositoryUrl)
+        .Executes(() =>
+        {
+            Log.Information("Cloning documentation repository {repository} to {output}", DocumentationRepositoryUrl, DocumentationRepositoriesDirectory);
+
+            ProcessTasks.StartProcess(
+                ToolPathResolver.GetPathExecutable("git"),
+                $"clone {DocumentationRepositoryUrl.Replace("{auth}@", string.Empty)} {DocumentationRepositoriesDirectory}")
+                .AssertZeroExitCode();
+        }, () =>
+        {
+            Log.Information("Copy new documentation to repository");
+            CopyDirectoryRecursively(DocumentationBuildOutput, DocumentationRepositoriesDirectory, DirectoryExistsPolicy.Merge, FileExistsPolicy.Overwrite);
         });
 }

@@ -132,9 +132,6 @@
     <EmbeddedResource Include="UI\PlayListEditor.resx">
       <DependentUpon>PlayListEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="..\..\..\tools\CopyPlugin.ps1">
-      <Link>CopyPlugin.ps1</Link>
-    </None>
     <None Include="commands.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

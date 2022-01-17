@@ -10,8 +10,9 @@
 // ----------------------------------------------------
 
 using AIMP.SDK;
-using AIMP.SDK.ActionManager;
+using AIMP.SDK.Actions;
 using AIMP.SDK.FileManager;
+using AIMP.SDK.FileManager.Primitives;
 using AIMP.SDK.Lyrics;
 using AIMP.SDK.MenuManager;
 using Aimp.TestRunner.TestFramework;
