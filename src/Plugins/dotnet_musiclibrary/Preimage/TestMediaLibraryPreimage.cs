@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using AIMP.SDK;
 using AIMP.SDK.MusicLibrary;
 using AIMP.SDK.MusicLibrary.DataStorage;
+using AIMP.SDK.Objects;
 using AIMP.SDK.Playlist;
 using AIMP.SDK.Threading;
 

@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{154C60CF-2DAE-4227-AD2C-CCE7C63CDE5A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AIMP</RootNamespace>
+    <AssemblyName>AIMP.SDK</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\AIMP.SDK.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\AIMP.SDK.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Loader\AimpDotNetPlugin.cs" />
+    <Compile Include="Loader\AssemblyScanPluginLoadStrategy.cs" />
+    <Compile Include="Loader\CustomAssemblyResolver.cs" />
+    <Compile Include="Loader\DotNetPluginInfo.cs" />
+    <Compile Include="Loader\PluginInfoLoader.cs" />
+    <Compile Include="Loader\PluginInformation.cs" />
+    <Compile Include="Loader\PluginLoadingStrategy.cs" />
+    <Compile Include="Loader\PluginShortInfoForLoad.cs" />
+    <Compile Include="SDK\Actions\Objects\IAimpAction.cs" />
+    <Compile Include="SDK\Actions\Objects\IAimpActionEvent.cs" />
+    <Compile Include="SDK\Actions\IAimpServiceActionManager.cs" />
+    <Compile Include="SDK\AimpActionException.cs" />
+    <Compile Include="AimpInternalLogger.cs" />
+    <Compile Include="SDK\AlbumArt\Services\IAimpServiceAlbumArtCache.cs" />
+    <Compile Include="SDK\Core\IAimpServiceShutdown.cs" />
+    <Compile Include="SDK\Core\IAimpServiceVersionInfo.cs" />
+    <Compile Include="SDK\Extensions.cs" />
+    <Compile Include="SDK\IAimpDPIAware.cs" />
+    <Compile Include="SDK\IAimpErrorInfo.cs" />
+    <Compile Include="SDK\Objects\IAimpFileStream.cs" />
+    <Compile Include="SDK\Objects\IAimpImage.cs" />
+    <Compile Include="IAimpLogger.cs" />
+    <Compile Include="SDK\IAimpProgressCallback.cs" />
+    <Compile Include="SDK\IAimpService.cs" />
+    <Compile Include="SDK\Lyrics\Extensions\IAimpExtensionLyricsProvider.cs" />
+    <Compile Include="SDK\MessageDispatcher\AimpMessages.cs" />
+    <Compile Include="SDK\AlbumArt\IAimpAlbumArtSearchOptions.cs" />
+    <Compile Include="SDK\AlbumArt\Extensions\IAimpExtensionAlbumArtCatalog.cs" />
+    <Compile Include="SDK\AlbumArt\Extensions\IAimpExtensionAlbumArtCatalog2.cs" />
+    <Compile Include="SDK\AlbumArt\Extensions\IAimpExtensionAlbumArtProvider.cs" />
+    <Compile Include="SDK\AlbumArt\Extensions\IAimpExtensionAlbumArtProvider2.cs" />
+    <Compile Include="SDK\FileManager\Commands\IAimpFileSystemCommand.cs" />
+    <Compile Include="SDK\FileManager\Commands\IAimpFileSystemCommandCopyToClipboard.cs" />
+    <Compile Include="SDK\FileManager\Commands\IAimpFileSystemCommandDelete.cs" />
+    <Compile Include="SDK\FileManager\Commands\IAimpFileSystemCommandDropSource.cs" />
+    <Compile Include="SDK\FileManager\Commands\IAimpFileSystemCommandFileInfo.cs" />
+    <Compile Include="SDK\FileManager\Commands\IAimpFileSystemCommandOpenFileFolder.cs" />
+    <Compile Include="SDK\FileManager\Commands\IAimpFileSystemCommandStreaming.cs" />
+    <Compile Include="SDK\FileManager\Commands\IAimpFileSystemCustomFileCommand.cs" />
+    <Compile Include="SDK\FileManager\Extensions\IAimpExtensionFileExpander.cs" />
+    <Compile Include="SDK\FileManager\Extensions\IAimpExtensionFileFormat.cs" />
+    <Compile Include="SDK\FileManager\Extensions\IAimpExtensionFileInfoProvider.cs" />
+    <Compile Include="SDK\FileManager\Extensions\IAimpExtensionFileSystem.cs" />
+    <Compile Include="SDK\FileManager\FileCommandType.cs" />
+    <Compile Include="SDK\FileManager\IAimpServiceFileFormats.cs" />
+    <Compile Include="SDK\FileManager\IAimpServiceFileInfo.cs" />
+    <Compile Include="SDK\FileManager\IAimpServiceFileInfoFormatter.cs" />
+    <Compile Include="SDK\FileManager\IAimpServiceFileInfoFormatterUtils.cs" />
+    <Compile Include="SDK\FileManager\IAimpServiceFileManager.cs" />
+    <Compile Include="SDK\FileManager\IAimpServiceFileStreaming.cs" />
+    <Compile Include="SDK\FileManager\IAimpServiceFileSystems.cs" />
+    <Compile Include="SDK\FileManager\Objects\IAimpVirtualFile.cs" />
+    <Compile Include="SDK\FileManager\AimpFileAttributes.cs" />
+    <Compile Include="SDK\IAimpConfig.cs" />
+    <Compile Include="SDK\IAimpExternalSettingsDialog.cs" />
+    <Compile Include="SDK\IAimpObject.cs" />
+    <Compile Include="SDK\IAimpObjectList.cs" />
+    <Compile Include="SDK\Objects\IAimpMemoryStream.cs" />
+    <Compile Include="SDK\Objects\IAimpStream.cs" />
+    <Compile Include="SDK\Lyrics\Objects\IAimpLyrics.cs" />
+    <Compile Include="SDK\Lyrics\IAimpServiceLyrics.cs" />
+    <Compile Include="SDK\MessageDispatcher\IAimpMessageHook.cs" />
+    <Compile Include="SDK\MessageDispatcher\IAimpServiceMessageDispatcher.cs" />
+    <Compile Include="SDK\MessageDispatcher\PointerExtension.cs" />
+    <Compile Include="SDK\MusicLibrary\DataStorage\AimpDataField.cs" />
+    <Compile Include="SDK\Objects\IAimpImage2.cs" />
+    <Compile Include="SDK\Objects\IAimpString.cs" />
+    <Compile Include="SDK\MusicLibrary\DataFilter\IAimpDataFieldFilter.cs" />
+    <Compile Include="SDK\MusicLibrary\DataFilter\IAimpDataFieldFilterByArray.cs" />
+    <Compile Include="SDK\MusicLibrary\DataFilter\IAimpDataFilterGroup.cs" />
+    <Compile Include="SDK\MusicLibrary\DataStorage\IAimpDataField.cs" />
+    <Compile Include="SDK\MusicLibrary\DataStorage\IAimpDataFieldDisplayValue.cs" />
+    <Compile Include="SDK\MusicLibrary\DataStorage\IAimpDataStorage.cs" />
+    <Compile Include="SDK\MusicLibrary\DataStorage\IAimpGroupingTreeDataProvider.cs" />
+    <Compile Include="SDK\MusicLibrary\DataStorage\IAimpGroupingTreeDataProviderSelection.cs" />
+    <Compile Include="SDK\MusicLibrary\DataStorage\IAimpGroupingTreeSelection.cs" />
+    <Compile Include="SDK\MusicLibrary\Extension\Command\IAimpDataStorageCommandAddFiles.cs" />
+    <Compile Include="SDK\MusicLibrary\Extension\Command\IAimpDataStorageCommandAddFilesDialog.cs" />
+    <Compile Include="SDK\MusicLibrary\Extension\Command\IAimpDataStorageCommandDeleteFiles.cs" />
+    <Compile Include="SDK\MusicLibrary\Extension\Command\IAimpDataStorageCommandDropData.cs" />
+    <Compile Include="SDK\MusicLibrary\Extension\Command\IAimpDataStorageCommandReloadTags.cs" />
+    <Compile Include="SDK\MusicLibrary\Extension\Command\IAimpDataStorageCommandReportDialog.cs" />
+    <Compile Include="SDK\MusicLibrary\Extension\Command\IAimpDataStorageCommandUserMark.cs" />
+    <Compile Include="SDK\MusicLibrary\IAimpDataFilter.cs" />
+    <Compile Include="SDK\MusicLibrary\DataStorage\IAimpDataProvider.cs" />
+    <Compile Include="SDK\MusicLibrary\IAimpDataProviderSelection.cs" />
+    <Compile Include="SDK\MusicLibrary\IAimpDataStorageManager.cs" />
+    <Compile Include="SDK\MusicLibrary\Extension\IAimpExtensionDataStorage.cs" />
+    <Compile Include="SDK\MusicLibrary\IAimpFileList.cs" />
+    <Compile Include="SDK\MusicLibrary\IAimpMusicLibraryPlaylistPreimage.cs" />
+    <Compile Include="SDK\MusicLibrary\Presets\IAimpGroupingPreset.cs" />
+    <Compile Include="SDK\MusicLibrary\Presets\IAimpGroupingPresets.cs" />
+    <Compile Include="SDK\MusicLibrary\IAimpServiceMusicLibrary.cs" />
+    <Compile Include="SDK\MusicLibrary\IAimpServiceMusicLibraryUI.cs" />
+    <Compile Include="SDK\MusicLibrary\Presets\IAimpGroupingPresetStandard.cs" />
+    <Compile Include="SDK\Player\Extensions\IAimpExtensionPlaybackQueue.cs" />
+    <Compile Include="SDK\Player\IAimpServicePlaybackQueue2.cs" />
+    <Compile Include="SDK\Player\Objects\IAimpEqualizerBands.cs" />
+    <Compile Include="SDK\Player\Objects\IAimpEqualizerPreset.cs" />
+    <Compile Include="SDK\Player\IAimpServicePlayer.cs" />
+    <Compile Include="SDK\Player\IAimpServicePlayer2.cs" />
+    <Compile Include="SDK\Player\IAimpServicePlayerEqualizer.cs" />
+    <Compile Include="SDK\Player\IAimpServicePlayerEqualizerPresets.cs" />
+    <Compile Include="SDK\Player\PlayFlags.cs" />
+    <Compile Include="SDK\Playlist\Constants.cs" />
+    <Compile Include="SDK\Playlist\Extensions\IAimpExtensionPlaylistPreimageFactory.cs" />
+    <Compile Include="SDK\Playlist\IAimpPlaylistListener.cs" />
+    <Compile Include="SDK\Playlist\IAimpPlaylistManager2.cs" />
+    <Compile Include="SDK\Player\IAimpServiceWaveform.cs" />
+    <Compile Include="SDK\Playlist\Objects\IAimpPlaylistPreimage.cs" />
+    <Compile Include="SDK\Playlist\IAimpPlaylistPreimageDataProvider.cs" />
+    <Compile Include="SDK\Playlist\IAimpPlaylistPreimageFolders.cs" />
+    <Compile Include="SDK\Playlist\IAimpPlaylistPreimageListener.cs" />
+    <Compile Include="SDK\Playlist\IAimpPlaylistQueueListener.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="SDK\Playlist\Extensions\IAimpExtensionPlaylistManagerListener.cs" />
+    <Compile Include="SDK\AimpActionResult.cs" />
+    <Compile Include="SDK\IAimpExtension.cs" />
+    <Compile Include="SDK\Options\IAimpOptionsDialogFrameKeyboardHelper.cs" />
+    <Compile Include="SDK\Options\IAimpServiceOptionsDialog.cs" />
+    <Compile Include="SDK\Player\IAimpPlaybackQueueService.cs" />
+    <Compile Include="SDK\Player\Extensions\IAimpExtensionPlayerHook.cs" />
+    <Compile Include="SDK\Player\Objects\IAimpPlaybackQueueItem.cs" />
+    <Compile Include="SDK\Playlist\IAimpPlaylistQueue.cs" />
+    <Compile Include="SDK\Playlist\AimpPlayListEventArgs.cs" />
+    <Compile Include="SDK\TagEditor\IAimpFileTag.cs" />
+    <Compile Include="SDK\TagEditor\IAimpFileTagEditor.cs" />
+    <Compile Include="SDK\TagEditor\IAimpServiceFileTagEditor.cs" />
+    <Compile Include="SDK\Threading\IAimpServiceThreads.cs" />
+    <Compile Include="SDK\Threading\IAimpTask.cs" />
+    <Compile Include="SDK\Threading\IAimpTaskOwner.cs" />
+    <Compile Include="SDK\Threading\IAimpServiceSynchronizer.cs" />
+    <Compile Include="SDK\Threading\IAimpServiceThreadPool.cs" />
+    <Compile Include="SDK\Threading\IAimpTaskPriority.cs" />
+    <Compile Include="AIMPPluginAttribute.cs" />
+    <Compile Include="SDK\Enums.cs" />
+    <Compile Include="SDK\IAimpCore.cs" />
+    <Compile Include="SDK\Options\IAimpOptionsDialogFrame.cs" />
+    <Compile Include="SDK\IAimpPlayer.cs" />
+    <Compile Include="AimpPlugin.cs" />
+    <Compile Include="Properties\PluginAssemblyInfo.cs" />
+    <Compile Include="SDK\AlbumArt\AimpFindCovertArtType.cs" />
+    <Compile Include="SDK\AlbumArt\AimpGetAlbumArtEventArgs.cs" />
+    <Compile Include="SDK\AlbumArt\Services\IAimpServiceAlbumArt.cs" />
+    <Compile Include="SDK\Configuration\IAimpServiceConfig.cs" />
+    <Compile Include="SDK\MenuManager\Objects\IAimpMenuItem.cs" />
+    <Compile Include="SDK\MenuManager\IAimpServiceMenuManager.cs" />
+    <Compile Include="SDK\MUIManager\IAimpMUIManager.cs" />
+    <Compile Include="SDK\FileManager\Objects\IAimpFileInfo.cs" />
+    <Compile Include="SDK\Playlist\Objects\IAimpPlaylist.cs" />
+    <Compile Include="SDK\Playlist\Objects\IAimpPlaylistGroup.cs" />
+    <Compile Include="SDK\Playlist\Objects\IAimpPlaylistItem.cs" />
+    <Compile Include="SDK\Playlist\IAimpPlaylistManager.cs" />
+    <Compile Include="SDK\Visuals\AimpVisualData.cs" />
+    <Compile Include="SDK\Visuals\AimpVisualFlags.cs" />
+    <Compile Include="SDK\Visuals\IAimpExtensionCustomVisualization.cs" />
+    <Compile Include="SDK\Visuals\IAimpExtensionEmbeddedVisualization.cs" />
+    <Compile Include="SDK\Visuals\IAimpServiceVisualizations.cs" />
+    <Compile Include="Win32\IWin32Manager.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

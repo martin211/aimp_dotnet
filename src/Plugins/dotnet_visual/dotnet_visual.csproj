@@ -51,7 +51,7 @@
     <Compile Include="..\..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AimpVisualPlugin.cs" />
+    <Compile Include="Plugin.cs" />
     <Compile Include="EmbeddedVisualization.cs" />
     <Compile Include="CustomVisualization.cs" />
     <Compile Include="Properties\PluginAssemblyInfo.cs" />
@@ -64,11 +64,11 @@
     <None Include="commands.json" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AIMP.SDK\AIMP.SDK.csproj">
-      <Project>{154c60cf-2dae-4227-ad2c-cce7c63cde5a}</Project>
+    <ProjectReference Include="..\..\SDK\AIMP.SDK\AIMP.SDK.csproj">
+      <Project>{154C60CF-2DAE-4227-AD2C-CCE7C63CDE5A}</Project>
       <Name>AIMP.SDK</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\aimp_dotnet\Aimp_DotNetPlugin.vcxproj">
+    <ProjectReference Include="..\..\SDK\aimp_dotnet\Aimp_DotNetPlugin.vcxproj">
       <Project>{8d30d1f5-1925-4926-83f2-f0b21b45646f}</Project>
       <Name>aimp_dotnet</Name>
     </ProjectReference>

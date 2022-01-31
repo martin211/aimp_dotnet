@@ -17,7 +17,7 @@
   namespace: AIMP.SDK.FileManager
   items:
     - name: Primitives
-      namespace: AIMP.SDK.FileManager.Primitives
+      namespace: AIMP.SDK.FileManager.Objects
     - name: Commands
       namespace: AIMP.SDK.FileManager.Commands
     - name: Extensions
@@ -54,7 +54,7 @@
     - name: Extensions
       namespace: AIMP.SDK.Player.Extensions
     - name: Primitives
-      namespace: AIMP.SDK.Player.Primitives
+      namespace: AIMP.SDK.Player.Objects
 - name: Playlists
   namespace: AIMP.SDK.Player
 - name: Tag Editor

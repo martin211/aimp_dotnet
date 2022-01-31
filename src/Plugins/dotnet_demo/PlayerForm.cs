@@ -14,10 +14,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using AIMP;
 using AIMP.SDK;
 using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.Player;
 using AIMP.SDK.Playlist;
+using AIMP.SDK.Playlist.Objects;
 using DemoPlugin.UI;
 using TestPlugin;
 
@@ -216,7 +218,7 @@ namespace DemoPlugin
 
             if (result.ResultType == ActionResultType.OK)
             {
-                result.Result.Sort("test", (item, playlistItem, arg3) => PlaylistSortComapreResult.TheSame);
+                result.Result.Sort("test", (item, playlistItem, arg3) => PlaylistSortCompareResult.TheSame);
             }
         }
 

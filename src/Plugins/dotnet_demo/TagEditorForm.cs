@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using AIMP.SDK;
 using AIMP.SDK.Player;
 using AIMP.SDK.Playlist;
+using AIMP.SDK.Playlist.Objects;
 
 namespace DemoPlugin
 {

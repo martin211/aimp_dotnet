@@ -236,13 +236,6 @@ partial class Build : NukeBuild
 
             NuGetTasks.NuGetPack(config
                 .SetTargetPath(nugetFolder / "AimpSDK.nuspec"));
-
-            NuGetTasks.NuGetPack(config
-                .SetTargetPath(nugetFolder / "AimpSDK.symbols.nuspec")
-                .AddProperty("Symbols", string.Empty));
-
-            NuGetTasks.NuGetPack(config
-                .SetTargetPath(nugetFolder / "AimpSDK.sources.nuspec"));
         });
 
     Target Publish => _ => _
