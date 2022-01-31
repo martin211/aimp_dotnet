@@ -12,7 +12,7 @@
 using AIMP.SDK.AlbumArt;
 using AIMP.SDK.AlbumArt.Extensions;
 using AIMP.SDK.FileManager;
-using AIMP.SDK.FileManager.Primitives;
+using AIMP.SDK.FileManager.Objects;
 
 namespace dotnet_albumart
 {

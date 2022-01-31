@@ -46,23 +46,23 @@
     </Compile>
     <Compile Include="TestTask.cs" />
     <Compile Include="Properties\PluginAssemblyInfo.cs" />
-    <Compile Include="ThreadingPlugin.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\AIMP.SDK\AIMP.SDK.csproj">
-      <Project>{154c60cf-2dae-4227-ad2c-cce7c63cde5a}</Project>
-      <Name>AIMP.SDK</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\aimp_dotnet\Aimp_DotNetPlugin.vcxproj">
-      <Project>{8d30d1f5-1925-4926-83f2-f0b21b45646f}</Project>
-      <Name>aimp_dotnet</Name>
-    </ProjectReference>
+    <Compile Include="Plugin.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\tools\CopyPlugin.ps1">
       <Link>CopyPlugin.ps1</Link>
     </None>
     <None Include="commands.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SDK\AIMP.SDK\AIMP.SDK.csproj">
+      <Project>{154C60CF-2DAE-4227-AD2C-CCE7C63CDE5A}</Project>
+      <Name>AIMP.SDK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SDK\aimp_dotnet\Aimp_DotNetPlugin.vcxproj">
+      <Project>{8d30d1f5-1925-4926-83f2-f0b21b45646f}</Project>
+      <Name>aimp_dotnet</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

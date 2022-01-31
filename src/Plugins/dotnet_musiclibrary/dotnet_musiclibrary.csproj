@@ -53,23 +53,13 @@
     <Compile Include="ExplorerMusicProvider\CustomAimpGroupingTreeDataProvider.cs" />
     <Compile Include="ExplorerMusicProvider\CustomAimpGroupingTreeDataProviderSelection.cs" />
     <Compile Include="DemoMusicLibrary.cs" />
-    <Compile Include="MusicLibraryDemoPlugin.cs" />
+    <Compile Include="Plugin.cs" />
     <Compile Include="MyExtensionFileInfoProvider.cs" />
     <Compile Include="Preimage\MediaLibraryPreimageFactory.cs" />
     <Compile Include="Preimage\PlaylistManagerListener.cs" />
     <Compile Include="Preimage\TestMediaLibraryPreimage.cs" />
     <Compile Include="Properties\PluginAssemblyInfo.cs" />
     <Compile Include="ExplorerMusicProvider\TDemoExplorerViewAbstractDataProviderSelection.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\AIMP.SDK\AIMP.SDK.csproj">
-      <Project>{154c60cf-2dae-4227-ad2c-cce7c63cde5a}</Project>
-      <Name>AIMP.SDK</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\aimp_dotnet\Aimp_DotNetPlugin.vcxproj">
-      <Project>{8d30d1f5-1925-4926-83f2-f0b21b45646f}</Project>
-      <Name>aimp_dotnet</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\tools\CopyPlugin.ps1">
@@ -79,6 +69,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FileManager\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SDK\AIMP.SDK\AIMP.SDK.csproj">
+      <Project>{154C60CF-2DAE-4227-AD2C-CCE7C63CDE5A}</Project>
+      <Name>AIMP.SDK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SDK\aimp_dotnet\Aimp_DotNetPlugin.vcxproj">
+      <Project>{8d30d1f5-1925-4926-83f2-f0b21b45646f}</Project>
+      <Name>aimp_dotnet</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

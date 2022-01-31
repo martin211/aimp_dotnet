@@ -11,6 +11,8 @@
 
 using AIMP.SDK;
 using AIMP.SDK.Playlist;
+using AIMP.SDK.Playlist.Extensions;
+using AIMP.SDK.Playlist.Objects;
 
 namespace AIMP.DotNet.MusicLibrary.Preimage
 {
