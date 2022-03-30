@@ -122,7 +122,7 @@ partial class Build : NukeBuild
         });
 
     Target Compile => _ => _
-        .DependsOn(PrintBuildParameters, Restore)
+        .DependsOn(PrintBuildParameters, Restore, Version)
         .Executes(() =>
         {
             MSBuild(s => s
