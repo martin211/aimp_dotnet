@@ -57,4 +57,13 @@ public class AimpServiceFileTagEditorTests : AimpIntegrationTest
             AimpAssert.Null(() => result.Result);
         });
     }
+
+    [Test]
+    public void FindAlbums_()
+    {
+        ExecuteInMainThread(() =>
+        {
+            
+        });
+    }
 }

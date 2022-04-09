@@ -70,6 +70,8 @@ public abstract class AimpIntegrationTest
 
     internal string TrackUrl1 { get; }
 
+    internal string ImagePath1 { get; }
+
     internal IList<IMemberAssert> Asserts { get; set; }
 
     protected IAimpPlayer Player { get; }
@@ -88,6 +90,7 @@ public abstract class AimpIntegrationTest
         TrackPath2 = Path.Combine(RootPath, "resources", "02_loop-mix.mp3");
         TrackPath3 = Path.Combine(RootPath, "resources", "03_atmosphere.mp3");
         TrackPath4 = Path.Combine(RootPath, "resources", "04_loop-mix.mp3");
+        ImagePath1 = Path.Combine(RootPath, "resources", "img1.jpg");
         TrackUrl1 = "https://freesound.org/data/previews/514/514101_4397472-lq.mp3";
         TmpPath = Path.Combine(RootPath, "tmp");
 

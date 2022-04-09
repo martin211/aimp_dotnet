@@ -10,7 +10,6 @@
 // ----------------------------------------------------
 
 using System;
-using AIMP.SDK.FileManager;
 using AIMP.SDK.FileManager.Objects;
 
 namespace AIMP.SDK.TagEditor

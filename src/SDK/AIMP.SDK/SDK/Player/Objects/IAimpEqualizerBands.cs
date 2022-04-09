@@ -3,7 +3,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public interface IAimpEqualizerBands
+    public interface IAimpEqualizerBands : IAimpObject
     {
         /// <summary>
         /// Gets the band count.

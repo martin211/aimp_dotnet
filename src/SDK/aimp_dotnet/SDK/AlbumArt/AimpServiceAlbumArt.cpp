@@ -25,7 +25,7 @@ bool AimpServiceAlbumArt::FindInFiles::get() {
         if (service != nullptr) {
             service->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&prop));
             int val = 0;
-            prop->GetValueAsInt32(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES, &val);
+            prop->GetValueAsInt32(AIMP_ALBUMART_REQUEST_PROPID_FIND_IN_FILES, &val);
             return val != 0;
         }
     }
@@ -44,7 +44,7 @@ void AimpServiceAlbumArt::FindInFiles::set(bool value) {
     try {
         if (service != nullptr) {
             service->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&prop));
-            prop->SetValueAsInt32(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES, value);
+            prop->SetValueAsInt32(AIMP_ALBUMART_REQUEST_PROPID_FIND_IN_FILES, value);
         }
     }
     finally {
@@ -61,7 +61,7 @@ bool AimpServiceAlbumArt::FindInInternet::get() {
         if (service != nullptr) {
             service->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&prop));
             int val = 0;
-            prop->GetValueAsInt32(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_INTERNET, &val);
+            prop->GetValueAsInt32(AIMP_ALBUMART_REQUEST_PROPID_FIND_IN_INTERNET, &val);
             return val != 0;
         }
     }
@@ -80,7 +80,7 @@ void AimpServiceAlbumArt::FindInInternet::set(bool value) {
     try {
         if (service != nullptr) {
             service->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&prop));
-            prop->SetValueAsInt32(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_INTERNET, value ? 1 : 0);
+            prop->SetValueAsInt32(AIMP_ALBUMART_REQUEST_PROPID_FIND_IN_INTERNET, value ? 1 : 0);
         }
     }
     finally {
@@ -97,7 +97,7 @@ array<String^>^ AimpServiceAlbumArt::FileMasks::get() {
         if (service != nullptr) {
             service->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&prop));
             IAIMPString* str;
-            prop->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, IID_IAIMPString,
+            prop->GetValueAsObject(AIMP_ALBUMART_REQUEST_PROPID_FIND_IN_FILES_MASKS, IID_IAIMPString,
                                    reinterpret_cast<void**>(&str));
             String^ result = gcnew String(str->GetData());
             ReleaseObject(str);
@@ -125,7 +125,7 @@ void AimpServiceAlbumArt::FileMasks::set(array<String^>^ val) {
             }
 
             auto s = AimpConverter::ToAimpString(str);
-            prop->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_MASKS, s);
+            prop->SetValueAsObject(AIMP_ALBUMART_REQUEST_PROPID_FIND_IN_FILES_MASKS, s);
             ReleaseObject(s);
         }
     }
@@ -143,7 +143,7 @@ array<String^>^ AimpServiceAlbumArt::FileExtensions::get() {
         if (service != nullptr) {
             service->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&prop));
             IAIMPString* str;
-            prop->GetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, IID_IAIMPString,
+            prop->GetValueAsObject(AIMP_ALBUMART_REQUEST_PROPID_FIND_IN_FILES_EXTS, IID_IAIMPString,
                                    reinterpret_cast<void**>(&str));
             auto result = gcnew String(str->GetData());
             ReleaseObject(str);
@@ -171,7 +171,7 @@ void AimpServiceAlbumArt::FileExtensions::set(array<System::String^>^ val) {
             }
 
             auto s = AimpConverter::ToAimpString(str);
-            prop->SetValueAsObject(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_FILES_EXTS, s);
+            prop->SetValueAsObject(AIMP_ALBUMART_REQUEST_PROPID_FIND_IN_FILES_EXTS, s);
             ReleaseObject(s);
         }
     }
@@ -189,7 +189,7 @@ int AimpServiceAlbumArt::MaxFileSize::get() {
         if (service != nullptr) {
             service->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&prop));
             int val = 0;
-            prop->GetValueAsInt32(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_INTERNET_MAX_FILE_SIZE, &val);
+            prop->GetValueAsInt32(AIMP_ALBUMART_REQUEST_PROPID_FIND_IN_INTERNET_MAX_FILE_SIZE, &val);
             return val > 0;
         }
     }
@@ -208,7 +208,7 @@ void AimpServiceAlbumArt::MaxFileSize::set(int value) {
     try {
         if (service != nullptr) {
             service->QueryInterface(IID_IAIMPPropertyList, reinterpret_cast<void**>(&prop));
-            prop->SetValueAsInt32(AIMP_SERVICE_ALBUMART_PROPID_FIND_IN_INTERNET, value);
+            prop->SetValueAsInt32(AIMP_ALBUMART_REQUEST_PROPID_FIND_IN_INTERNET_MAX_FILE_SIZE, value);
         }
     }
     finally {

@@ -51,7 +51,7 @@
             "VSCode"
           ]
         },
-        "JsJUnit": {
+        "IsJUnit": {
           "type": "boolean"
         },
         "MsBuildPath": {
@@ -117,6 +117,7 @@
               "Publish",
               "PublishDocumentation",
               "PushDocumentation",
+              "PvsStudio",
               "Restore",
               "SonarQube",
               "Version"
@@ -164,6 +165,7 @@
               "Publish",
               "PublishDocumentation",
               "PushDocumentation",
+              "PvsStudio",
               "Restore",
               "SonarQube",
               "Version"

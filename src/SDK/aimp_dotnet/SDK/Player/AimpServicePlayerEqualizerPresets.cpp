@@ -54,7 +54,8 @@ AimpActionResult^ AimpServicePlayerEqualizerPresets::Delete(IAimpEqualizerPreset
 
     try {
         if (service != nullptr) {
-            result = CheckResult(service->Delete(static_cast<AimpEqualizerPreset^>(preset)->InternalAimpObject));
+            const auto managedObj = static_cast<AimpEqualizerPreset^>(preset);
+            result = CheckResult(service->Delete(managedObj->ComObject));
         }
     }
     finally {

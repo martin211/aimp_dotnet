@@ -62,6 +62,13 @@ namespace AIMP.SDK
     public class AimpActionResult
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="AimpActionResult"/> class.
+        /// </summary>
+        public AimpActionResult() : this(ActionResultType.Fail)
+        {
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AimpActionResult" /> class.
         /// </summary>
         /// <param name="resultType">Type of the result.</param>
@@ -86,6 +93,13 @@ namespace AIMP.SDK
     [DebuggerDisplay("{ResultType, Result}")]
     public class AimpActionResult<TObject> : AimpActionResult
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AimpActionResult{TObject}" /> class.
+        /// </summary>
+        /// <param name="resultType">Type of the result.</param>
+        public AimpActionResult() : base(ActionResultType.Fail)
+        { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AimpActionResult{TObject}" /> class.
         /// </summary>

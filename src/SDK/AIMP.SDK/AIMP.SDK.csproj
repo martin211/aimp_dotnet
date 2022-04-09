@@ -115,6 +115,7 @@
     <Compile Include="SDK\IAimpExternalSettingsDialog.cs" />
     <Compile Include="SDK\IAimpObject.cs" />
     <Compile Include="SDK\IAimpObjectList.cs" />
+    <Compile Include="SDK\Objects\IAimpImageContainer.cs" />
     <Compile Include="SDK\Objects\IAimpMemoryStream.cs" />
     <Compile Include="SDK\Objects\IAimpStream.cs" />
     <Compile Include="SDK\Lyrics\Objects\IAimpLyrics.cs" />
@@ -183,9 +184,11 @@
     <Compile Include="SDK\Player\Objects\IAimpPlaybackQueueItem.cs" />
     <Compile Include="SDK\Playlist\IAimpPlaylistQueue.cs" />
     <Compile Include="SDK\Playlist\AimpPlayListEventArgs.cs" />
+    <Compile Include="SDK\TagEditor\Extensions\IAimpExtensionTagsProvider.cs" />
     <Compile Include="SDK\TagEditor\IAimpFileTag.cs" />
     <Compile Include="SDK\TagEditor\IAimpFileTagEditor.cs" />
     <Compile Include="SDK\TagEditor\IAimpServiceFileTagEditor.cs" />
+    <Compile Include="SDK\TagEditor\IAimpServiceFindTagsOnline.cs" />
     <Compile Include="SDK\Threading\IAimpServiceThreads.cs" />
     <Compile Include="SDK\Threading\IAimpTask.cs" />
     <Compile Include="SDK\Threading\IAimpTaskOwner.cs" />

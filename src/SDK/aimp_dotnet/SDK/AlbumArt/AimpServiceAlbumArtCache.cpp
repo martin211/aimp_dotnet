@@ -8,31 +8,20 @@
 #include "Stdafx.h"
 #include "AimpServiceAlbumArtCache.h"
 
+#include "SDK/Objects/AimpImageContainer.h"
+
 using namespace AIMP::SDK;
 
-AimpServiceAlbumArtCache::AimpServiceAlbumArtCache(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceAlbumArtCache>(
-    core) {
+AimpServiceAlbumArtCache::AimpServiceAlbumArtCache(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceAlbumArtCache>(core) {
 }
 
-AimpActionResult^ AimpServiceAlbumArtCache::Flush(String^ album, String^ artist) {
-    if (String::IsNullOrEmpty(album)) {
-        ARGUMENT_NULL("album", "Parameter album cannot be empty");
-    }
-
-    if (String::IsNullOrEmpty(artist)) {
-        ARGUMENT_NULL("artist", "Parameter artist cannot be empty");
-    }
-
+AimpActionResult^ AimpServiceAlbumArtCache::Flush() {
     auto service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
 
     try {
         if (service != nullptr) {
-            auto al = AimpConverter::ToAimpString(album);
-            auto ar = AimpConverter::ToAimpString(artist);
-            result = CheckResult(service->Flush(al, ar));
-            ReleaseObject(al);
-            ReleaseObject(ar);
+            result = CheckResult(service->Flush());
         }
     }
     finally {
@@ -42,42 +31,86 @@ AimpActionResult^ AimpServiceAlbumArtCache::Flush(String^ album, String^ artist)
     return GetResult(result);
 }
 
-AimpActionResult^ AimpServiceAlbumArtCache::Flush2(String^ fileUri) {
-    if (String::IsNullOrEmpty(fileUri)) {
-        ARGUMENT_NULL("fileUri", "Parameter fileUri cannot be empty");
-    }
-
+AimpActionResult<IAimpImageContainer^>^ AimpServiceAlbumArtCache::Get(String^ key) {
     auto service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
+    auto str = AimpConverter::ToAimpString(key);
+    IAIMPImageContainer* container = nullptr;
 
     try {
         if (service != nullptr) {
-            auto uri = AimpConverter::ToAimpString(fileUri);
-            result = CheckResult(service->Flush2(uri));
-            ReleaseObject(uri);
+            result = CheckResult(service->Get(str, &container));
+            if (result == ActionResultType::OK && container != nullptr) {
+                return gcnew AimpActionResult<IAimpImageContainer^>(result, gcnew AimpImageContainer(container));
+            }
         }
     }
     finally {
         ReleaseObject(service);
+        ReleaseObject(str);
     }
 
-    return GetResult(result);
+    return gcnew AimpActionResult<IAimpImageContainer^>();
 }
 
-AimpActionResult^ AimpServiceAlbumArtCache::FlushAll() {
+AimpActionResult^ AimpServiceAlbumArtCache::Put(String^ key, IAimpImageContainer^ image) {
+    auto service = GetAimpService();
+    ActionResultType result = ActionResultType::Fail;
+    auto str = AimpConverter::ToAimpString(key);
+
+    try {
+        if (service != nullptr) {
+            auto container = safe_cast<AimpImageContainer^>(image)->InternalAimpObject;
+            result = CheckResult(service->Put(str, &container));
+            return gcnew AimpActionResult(result);
+        }
+    }
+    finally {
+        ReleaseObject(service);
+        ReleaseObject(str);
+    }
+
+    return gcnew AimpActionResult(result);
+}
+
+AimpActionResult^ AimpServiceAlbumArtCache::Remove(String^ key) {
+    auto service = GetAimpService();
+    ActionResultType result = ActionResultType::Fail;
+    auto str = AimpConverter::ToAimpString(key);
+
+    try {
+        if (service != nullptr) {
+            result = CheckResult(service->Remove(str));
+            return gcnew AimpActionResult(result);
+        }
+    }
+    finally {
+        ReleaseObject(service);
+        ReleaseObject(str);
+    }
+
+    return gcnew AimpActionResult(result);
+}
+
+AimpActionResult<Tuple<int, int>^>^ AimpServiceAlbumArtCache::Stat() {
     auto service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
 
     try {
         if (service != nullptr) {
-            result = CheckResult(service->FlushAll());
+            INT64 size = 0;
+            DWORD count = 0;
+
+            result = CheckResult(service->Stat(&size, &count));
+
+            return gcnew AimpActionResult<Tuple<int, int>^>(result, gcnew Tuple<int, int>(size, count));
         }
     }
     finally {
         ReleaseObject(service);
     }
 
-    return GetResult(result);
+    return gcnew AimpActionResult<Tuple<int, int>^>(result);
 }
 
 IAIMPServiceAlbumArtCache* AimpServiceAlbumArtCache::GetAimpService() {

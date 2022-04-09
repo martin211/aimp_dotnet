@@ -12,6 +12,7 @@
 #include "Menu/AimpMenuItem.h"
 #include "Objects/AimpFileStream.h"
 #include "Objects/AimpImage.h"
+#include "Objects/AimpImageContainer.h"
 #include "Objects/AimpMemoryStream.h"
 
 namespace AIMP {
@@ -185,7 +186,19 @@ namespace AIMP {
                     return gcnew AimpActionResult<IAimpObject^>(res, obj);
                 }
 
-                return nullptr;
+                if (t == IAimpImageContainer::typeid) {
+                    IAIMPImageContainer* container = nullptr;
+                    IAimpImageContainer^ obj = nullptr;
+
+                    const auto res = Utils::CheckResult(core->CreateObject(IID_IAIMPImageContainer, reinterpret_cast<void**>(&container)));
+                    if (res == ActionResultType::OK) {
+                        obj = gcnew AimpImageContainer(container);
+                    }
+
+                    return gcnew AimpActionResult<IAimpObject^>(res, obj);
+                }
+
+                return gcnew AimpActionResult<IAimpObject^>(ActionResultType::NotImplemented);
             }
         };
     }
