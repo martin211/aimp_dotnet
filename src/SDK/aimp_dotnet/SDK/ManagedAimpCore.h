@@ -20,6 +20,7 @@
 #include "SDK\FileManager\Extensions\InternalAimpExtensionFileSystem.h"
 #include "SDK\PlayList\Internal\InternalAimpExtensionPlaylistPreimageFactory.h"
 #include "SDK\Lyrics\AimpExtensionLyricsProvider.h"
+#include "TagEditor/InternalExtensionTagsProvider.h"
 
 class InternalAimpExtensionFileExpander;
 
@@ -122,6 +123,7 @@ namespace AIMP {
             AimpExtensionLyricsProvider* _extensionLyricsProvider = nullptr;
             AimpExtensionPlaybackQueue* _extensionPlaybackQueue = nullptr;
             AimpExtensionPlayerHook* _extensionPlayerHook;
+            InternalExtensionTagsProvider* _extensionTagsProvider;
 
             PlayListHandler^ _playlistAdded;
             PlayListHandler^ _playlistRemoved;

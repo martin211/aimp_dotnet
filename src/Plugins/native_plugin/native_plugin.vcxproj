@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -9,10 +9,20 @@
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{7D283154-7CF9-434E-BA5A-5FB3D03AC271}</ProjectGuid>
-    <RootNamespace>native_plugin</RootNamespace>
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{45b8e4b0-8013-4d42-999d-319960ba1fdc}</ProjectGuid>
+    <RootNamespace>nativeplugin</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -20,15 +30,27 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -37,77 +59,119 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="AIMP.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <ModuleDefinitionFile>AIMP_Exports.def</ModuleDefinitionFile>
+      <SubSystem>NotSet</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ModuleDefinitionFile>AIMPExports.def</ModuleDefinitionFile>
     </Link>
-    <PostBuildEvent>
-      <Command>
-      </Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <ModuleDefinitionFile>AIMP_Exports.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>AIMPExports.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AIMP400\apiActions.h" />
-    <ClInclude Include="AIMP400\apiAlbumArt.h" />
-    <ClInclude Include="AIMP400\apiCore.h" />
-    <ClInclude Include="AIMP400\apiDecoders.h" />
-    <ClInclude Include="AIMP400\apiFileManager.h" />
-    <ClInclude Include="AIMP400\apiGUI.h" />
-    <ClInclude Include="AIMP400\apiInternet.h" />
-    <ClInclude Include="AIMP400\apiMenu.h" />
-    <ClInclude Include="AIMP400\apiMessages.h" />
-    <ClInclude Include="AIMP400\apiMUI.h" />
-    <ClInclude Include="AIMP400\apimusiclibrary.h" />
-    <ClInclude Include="AIMP400\apiObjects.h" />
-    <ClInclude Include="AIMP400\apiOptions.h" />
-    <ClInclude Include="AIMP400\apiPlayer.h" />
-    <ClInclude Include="AIMP400\apiPlaylists.h" />
-    <ClInclude Include="AIMP400\apiPlugin.h" />
-    <ClInclude Include="AIMP400\apiRemote.h" />
-    <ClInclude Include="AIMP400\apiScheduler.h" />
-    <ClInclude Include="AIMP400\apiSkins.h" />
-    <ClInclude Include="AIMP400\apiTagEditor.h" />
-    <ClInclude Include="AIMP400\apiThreading.h" />
-    <ClInclude Include="AIMP400\apiVisuals.h" />
-    <ClInclude Include="AimpSDK.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiActions.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiAlbumArt.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiCore.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiDecoders.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiDepricated.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiFileManager.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiGUI.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiInternet.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiLyrics.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiMenu.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiMessages.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiMUI.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiMusicLibrary.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiObjects.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiOptions.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiPlayer.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiPlaylists.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiPlugin.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiRemote.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiScheduler.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiSkins.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiTagEditor.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiThreading.h" />
+    <ClInclude Include="AIMPSDK\AIMP400\apiVisuals.h" />
+    <ClInclude Include="AIMPSDK\AIMPSDK.h" />
     <ClInclude Include="IUnknownInterfaceImpl.h" />
-    <ClInclude Include="native_plugin.h" />
-    <ClInclude Include="TDemoExplorerViewDataStorage.h" />
-    <ClInclude Include="TMyMusicFileSystem.h" />
+    <ClInclude Include="plugin.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\tools\copyplugin.ps1" />
-    <None Include="..\..\commands.json" />
-    <None Include="AIMP_Exports.def" />
+    <None Include="AIMPExports.def" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AimpDotnetPlugin.cpp" />

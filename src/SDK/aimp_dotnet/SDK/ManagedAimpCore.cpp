@@ -191,6 +191,12 @@ namespace AIMP {
 
             UnregisterFileManagerExtensions();
 
+            if (_extensionTagsProvider != nullptr) {
+                _core->UnregisterExtension(static_cast<InternalExtensionTagsProvider::Base*>(_extensionTagsProvider));
+                _extensionTagsProvider->Release();
+                _extensionTagsProvider = nullptr;
+            }
+
             _core->Release();
             _core = nullptr;
         }
@@ -348,8 +354,7 @@ namespace AIMP {
                 );
             }
 
-            auto extensionPlayerHook = dynamic_cast<IAimpExtensionPlayerHook^>(
-                extension);
+            auto extensionPlayerHook = dynamic_cast<IAimpExtensionPlayerHook^>(extension);
             if (extensionPlayerHook != nullptr) {
                 if (_extensionPlayerHook != nullptr) {
                     return E_FAIL;
@@ -359,6 +364,18 @@ namespace AIMP {
                 _extensionPlayerHook = ext;
                 return _core->RegisterExtension(IID_IAIMPServicePlayer,
                                                 static_cast<AimpExtensionPlayerHook::Base*>(ext));
+            }
+
+            auto extensionTagsProvider = dynamic_cast<TagEditor::Extensions::IAimpExtensionTagsProvider^>(extension);
+            if (extensionTagsProvider != nullptr) {
+                if (_extensionTagsProvider != nullptr) {
+                    return E_FAIL;
+                }
+
+                InternalExtensionTagsProvider* ext = new InternalExtensionTagsProvider(extensionTagsProvider);
+                _extensionTagsProvider = ext;
+                return _core->RegisterExtension(IID_IAIMPServiceFindTagsOnline,
+                    static_cast<InternalExtensionTagsProvider::Base*>(ext));
             }
 
             HRESULT result = RegisterFileManagerExtensions(extension);
@@ -462,6 +479,14 @@ namespace AIMP {
                     static_cast<InternalAimpExtensionFileExpander::Base*>(_extensionFileExpander));
                 _extensionFileExpander->Release();
                 delete _extensionFileExpander;
+                return r;
+            }
+
+            auto extensionTagsProvider = dynamic_cast<TagEditor::Extensions::IAimpExtensionTagsProvider^>(extension);
+            if (extensionTagsProvider != nullptr) {
+                HRESULT r = _core->UnregisterExtension(static_cast<InternalExtensionTagsProvider::Base*>(_extensionTagsProvider));
+                _extensionTagsProvider->Release();
+                delete _extensionTagsProvider;
                 return r;
             }
 

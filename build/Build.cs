@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using Aimp.DotNet.Build;
 using Nuke.Common;
+using Nuke.Common.CI.TeamCity;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
@@ -18,6 +19,8 @@ using Nuke.Common.Tools.NuGet;
 using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
+//using Nuke.PvsStudio;
+using Serilog;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
@@ -25,7 +28,7 @@ using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
 [CheckBuildProjectConfigurations]
 partial class Build : NukeBuild
 {
-    public static int Main() => Execute<Build>(x => x.Compile);
+    public static int Main() => Execute<Build>(x => x.PrepareIntegrationTests);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
@@ -55,9 +58,13 @@ partial class Build : NukeBuild
 
     #endregion
 
+    bool IsTeamCity => TeamCity.Instance != null;
+
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath TestsDirectory => RootDirectory / "tests";
     AbsolutePath OutputDirectory => RootDirectory / "output";
+
+    AbsolutePath PvsReportPath => OutputDirectory / "aimpDotNet.plog";
 
     readonly string MasterBranch = "master";
     readonly string DevelopBranch = "develop";
@@ -73,6 +80,7 @@ partial class Build : NukeBuild
             PrintParameters("Sonar");
             PrintParameters("Nuget");
             PrintParameters("Request");
+            PrintParameters("IntegrationTest");
         });
 
     Target Clean => _ => _
@@ -119,10 +127,15 @@ partial class Build : NukeBuild
                 fileContent = fileContent.Replace("1,0,0,1", _version.Replace(".", ",")).Replace("1.0.0.1", _version);
                 File.WriteAllText(rcFile, fileContent);
             }
+
+            if (TeamCity.Instance != null)
+            {
+                TeamCity.Instance.SetBuildNumber(_version);
+            }
         });
 
     Target Compile => _ => _
-        .DependsOn(PrintBuildParameters, Restore)
+        .DependsOn(PrintBuildParameters, Restore, Version)
         .Executes(() =>
         {
             MSBuild(s => s
@@ -156,6 +169,11 @@ partial class Build : NukeBuild
                     .SetBranchName(GitRepository.Branch)
                     .SetFramework(framework)
                     .EnableVerbose();
+
+                if (File.Exists(PvsReportPath))
+                {
+                    configuration = configuration.SetPvsStudioReportPath(PvsReportPath);
+                }
 
                 if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
                 {
@@ -209,6 +227,15 @@ partial class Build : NukeBuild
 
                 DotNetTasks.DotNet(arguments);
             });
+
+    Target PvsStudio => _ => _
+        .Executes(() =>
+        {
+            //PvsStudioTasks.PvsStudioRun(c => c
+            //    .SetConfiguration(Configuration)
+            //    .SetTarget(Solution)
+            //    .SetOutput(PvsReportPath));
+        });
 
     Target Pack => _ => _
         .DependsOn(Version)
@@ -338,6 +365,16 @@ partial class Build : NukeBuild
             Assert.True(isValid, "Artifacts not valid");
             Serilog.Log.Information("Compress artifacts");
             ZipFile.CreateFromDirectory(OutputDirectory / "Artifacts", OutputDirectory / "aimp.sdk.zip");
+
+            if (IsTeamCity)
+            {
+                if (!isValid)
+                {
+                    TeamCity.Instance.AddBuildProblem("Unable to create artifacts");
+                }
+
+                TeamCity.Instance.PublishArtifacts(OutputDirectory / "aimp.sdk.zip");
+            }
         });
 
     void PrintParameters(string prefix)

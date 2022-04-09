@@ -133,6 +133,8 @@
     <ClCompile Include="SDK\Player\AimpEqualizerPreset.cpp" />
     <ClCompile Include="SDK\Player\AimpServicePlayerEqualizerPresets.cpp" />
     <ClCompile Include="SDK\Player\AimpServiceWaveform.cpp" />
+    <ClCompile Include="SDK\TagEditor\InternalExtensionTagsProvider.cpp" />
+    <ClCompile Include="SDK\Objects\AimpImageContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimpMemoryManager.h" />
@@ -302,6 +304,8 @@
     <ClInclude Include="SDK\Player\AimpEqualizerBands.h" />
     <ClInclude Include="SDK\Player\AimpServicePlayerEqualizerPresets.h" />
     <ClInclude Include="SDK\Player\AimpServiceWaveform.h" />
+    <ClInclude Include="SDK\TagEditor\InternalExtensionTagsProvider.h" />
+    <ClInclude Include="SDK\Objects\AimpImageContainer.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc" />

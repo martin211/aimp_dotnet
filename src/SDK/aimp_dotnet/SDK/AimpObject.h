@@ -8,7 +8,7 @@
 #pragma once
 
 template <class TAimpObject>
-public ref class AimpObject {
+public ref class AimpObject : public IAimpObject {
 protected:
     AimpObject() {
     }
@@ -52,7 +52,13 @@ protected:
         AimpMemoryManager::getInstance().Release(this->GetHashCode());
     }
 
-internal:
+public:
+    property IUnknown* ComObject {
+        IUnknown* get() {
+            return safe_cast<IUnknown*>(InternalAimpObject);
+        }
+    }
+
     property TAimpObject* InternalAimpObject
     {
         TAimpObject* get() {

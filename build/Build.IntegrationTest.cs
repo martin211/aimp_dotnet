@@ -27,7 +27,7 @@ partial class Build
     AbsolutePath IntegrationTestPluginPath => (AbsolutePath) Path.Combine(IntegrationTestAimpPath, "Plugins", "AimpTestRunner");
 
     AbsolutePath IntegrationTestOutput => (AbsolutePath) Path.Combine(@"c:\tmp\aimp\sdk\tests\");
-    [Parameter] string TestResultPath;
+    [Parameter(Name = "TestResultPath")] string IntegrationTestTestResultPath;
 
     Target PrepareTestConfiguration => _ => _
         .Executes(() =>
@@ -72,8 +72,6 @@ partial class Build
         .Requires(() => IntegrationTestAimpPath)
         .Executes(() =>
         {
-            PrintParameters("IntegrationTest");
-
             DeleteDirectory(IntegrationTestPluginPath);
             EnsureCleanDirectory(IntegrationTestPluginPath);
 
@@ -143,7 +141,7 @@ partial class Build
 
     Target ExecuteIntegrationTests => _ => _
         .Requires(() => IntegrationTestAimpPath)
-        .DependsOn(PrepareIntegrationTests, PrepareTestConfiguration)
+        .DependsOn(PrintBuildParameters, PrepareIntegrationTests, PrepareTestConfiguration)
         .Executes(() =>
         {
             var testResultFile = IntegrationTestPluginPath / "integration.tests.xml";
@@ -228,10 +226,11 @@ partial class Build
         });
 
     Target CopyTestResults => _ => _
-        .Requires(() => TestResultPath)
+        .Requires(() => IntegrationTestTestResultPath)
         .Executes(() =>
         {
-            CopyDirectoryRecursively(IntegrationTestOutput, TestResultPath, DirectoryExistsPolicy.Merge, FileExistsPolicy.OverwriteIfNewer);
+            Log.Information("Copy test results from {from} to {to}", IntegrationTestOutput, IntegrationTestTestResultPath);
+            CopyDirectoryRecursively(IntegrationTestOutput, IntegrationTestTestResultPath, DirectoryExistsPolicy.Merge, FileExistsPolicy.OverwriteIfNewer);
         });
 
     void LogError(string message)

@@ -40,8 +40,7 @@ namespace AIMP.SDK.AlbumArt.Services
         /// <param name="flags">Optional. The <see cref="AimpFindCovertArtType" />.</param>
         /// <param name="userData">The user data.</param>
         /// <returns>AimpActionResult&lt;System.Int32&gt;.</returns>
-        AimpActionResult<int> Get(string fileUrl, string artist, string album, AimpFindCovertArtType flags,
-            object userData);
+        AimpActionResult<int> Get(string fileUrl, string artist, string album, AimpFindCovertArtType flags, object userData);
 
         /// <summary>
         /// Gets the image.

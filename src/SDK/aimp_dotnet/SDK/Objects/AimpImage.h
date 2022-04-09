@@ -17,6 +17,7 @@ namespace AIMP {
         private:
             ManagedAimpCore^ _core;
         public:
+            explicit AimpImage(IAIMPImage2* obj);
             explicit AimpImage(IAIMPImage2* obj, ManagedAimpCore^ core);
             property AimpImageFormat FormatId { virtual AimpImageFormat get(); }
             property Drawing::PointF Size { virtual Drawing::PointF get(); }

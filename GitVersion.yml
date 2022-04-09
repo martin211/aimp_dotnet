@@ -23,10 +23,18 @@ branches:
   feature:
     regex: ^feature?[/]
     mode: ContinuousDeployment
-    tag: preview
+    tag: beta
     increment: None
     prevent-increment-of-merged-branch-version: false
     track-merge-target: false
     tracks-release-branches: false
     is-release-branch: false
     source-branches: ['develop']
+  release:
+    regex: ^release?[/]
+    mode: ContinuousDeployment
+    tag: preview
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: false

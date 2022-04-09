@@ -91,8 +91,7 @@ Visuals::AimpVisualData^ AimpConverter::PAIMPVisualDataToManaged(PAIMPVisualData
 Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImageContainer* imageContainer) {
     IAIMPImage* image = nullptr;
     try {
-        if (Utils::CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, (void**)&image)) !=
-            ActionResultType::OK) {
+        if (Utils::CheckResult(ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPImage, reinterpret_cast<void**>(&image))) != ActionResultType::OK) {
             return nullptr;
         }
 
