@@ -8,9 +8,9 @@
 #pragma once
 #include "AimpErrorInfo.h"
 #include "Action/AimpAction.h"
+#include "AlbumArt/AimpAlbumArtRequest.h"
 #include "Lyrics/AimpLyrics.h"
 #include "Menu/AimpMenuItem.h"
-#include "Objects/AimpFileStream.h"
 #include "Objects/AimpImage.h"
 #include "Objects/AimpImageContainer.h"
 #include "Objects/AimpMemoryStream.h"
@@ -193,6 +193,18 @@ namespace AIMP {
                     const auto res = Utils::CheckResult(core->CreateObject(IID_IAIMPImageContainer, reinterpret_cast<void**>(&container)));
                     if (res == ActionResultType::OK) {
                         obj = gcnew AimpImageContainer(container);
+                    }
+
+                    return gcnew AimpActionResult<IAimpObject^>(res, obj);
+                }
+
+                if (t == IAimpAlbumArtRequest::typeid) {
+                    IAIMPAlbumArtRequest* request = nullptr;
+                    AimpAlbumArtRequest^ obj = nullptr;
+
+                    const auto res = Utils::CheckResult(core->CreateObject(IID_IAIMPAlbumArtRequest, reinterpret_cast<void**>(&request)));
+                    if (res == ActionResultType::OK) {
+                        obj = gcnew AimpAlbumArtRequest(request);
                     }
 
                     return gcnew AimpActionResult<IAimpObject^>(res, obj);

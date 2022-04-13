@@ -93,6 +93,11 @@ namespace AIMP.SDK
     [DebuggerDisplay("{ResultType, Result}")]
     public class AimpActionResult<TObject> : AimpActionResult
     {
+        public AimpActionResult(TObject result) : base(ActionResultType.OK)
+        {
+            Result = result;
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AimpActionResult{TObject}" /> class.
         /// </summary>
