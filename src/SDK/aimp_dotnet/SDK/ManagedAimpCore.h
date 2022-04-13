@@ -6,6 +6,7 @@
 // ----------------------------------------------------
 
 #pragma once
+#include "AlbumArt/AimpExtensionAlbumArtProvider3.h"
 #include "FileManager/Extensions/InternalAimpExtensionFileFormat.h"
 #include "MusicLibrary/Extension/AimpExtensionDataStorage.h"
 #include "Playback/AimpExtensionPlaybackQueue.h"
@@ -111,6 +112,7 @@ namespace AIMP {
             OptionsDialogFrameExtension* _optionsFrame = nullptr;
             AimpExtensionAlbumArtCatalog* _albumArtCatalogExtension = nullptr;
             AimpExtensionAlbumArtProvider* _albumArtProviderExtension = nullptr;
+            AimpExtensionAlbumArtProvider3* _albumArtProviderExtension3 = nullptr;
             AimpExtensionEmbeddedVisualization* _embeddedVisualization = nullptr;
             AimpExtensionCustomVisualization* _customVisualization = nullptr;
             AimpExtensionPlaylistManagerListener* _playlistManagerListener = nullptr;

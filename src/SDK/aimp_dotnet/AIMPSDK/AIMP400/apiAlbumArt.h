@@ -56,7 +56,7 @@ class IAIMPAlbumArtRequest: public IAIMPPropertyList
 {
 	public:
 		virtual HRESULT WINAPI CacheGet(IAIMPString *Key, IAIMPImageContainer** Image) = 0;
-		virtual HRESULT WINAPI CachePut(IAIMPString *Key, IAIMPImageContainer** Image) = 0;
+		virtual HRESULT WINAPI CachePut(IAIMPString *Key, IAIMPImageContainer* Image) = 0;
 		virtual HRESULT WINAPI Download(IAIMPString *URL, IAIMPImageContainer** Image) = 0;
 		virtual BOOL WINAPI IsCanceled() = 0;
 };

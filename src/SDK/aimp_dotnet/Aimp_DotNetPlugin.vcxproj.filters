@@ -135,6 +135,8 @@
     <ClCompile Include="SDK\Player\AimpServiceWaveform.cpp" />
     <ClCompile Include="SDK\TagEditor\InternalExtensionTagsProvider.cpp" />
     <ClCompile Include="SDK\Objects\AimpImageContainer.cpp" />
+    <ClCompile Include="SDK\AlbumArt\AimpAlbumArtRequest.cpp" />
+    <ClCompile Include="SDK\AlbumArt\AimpExtensionAlbumArtProvider3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimpMemoryManager.h" />
@@ -306,6 +308,8 @@
     <ClInclude Include="SDK\Player\AimpServiceWaveform.h" />
     <ClInclude Include="SDK\TagEditor\InternalExtensionTagsProvider.h" />
     <ClInclude Include="SDK\Objects\AimpImageContainer.h" />
+    <ClInclude Include="SDK\AlbumArt\AimpAlbumArtRequest.h" />
+    <ClInclude Include="SDK\AlbumArt\AimpExtensionAlbumArtProvider3.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc" />

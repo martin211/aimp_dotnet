@@ -270,6 +270,8 @@ partial class Build : NukeBuild
         .Requires(() => NugetApiKey)
         .Executes(() =>
         {
+            PrintParameters("Nuget");
+
             Serilog.Log.Information("Deploying Nuget packages");
             var packages = GlobFiles(OutputDirectory, "*.nupkg")
                 .Where(c => !c.EndsWith("symbols.nupkg")).ToList();

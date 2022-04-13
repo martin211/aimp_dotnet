@@ -66,6 +66,7 @@
       <Link>CopyPlugin.ps1</Link>
     </None>
     <None Include="commands.json" />
+    <None Include="Directory.Build.targets" />
     <None Include="Resources\1451438429_lastfm.png" />
   </ItemGroup>
   <ItemGroup>

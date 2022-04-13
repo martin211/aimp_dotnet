@@ -10,9 +10,8 @@
 
 using namespace AIMP::SDK;
 
-AimpAlbumArtSearchOptions::AimpAlbumArtSearchOptions(IAIMPPropertyList* properties, IAIMPCore* core) {
+AimpAlbumArtSearchOptions::AimpAlbumArtSearchOptions(IAIMPPropertyList* properties) {
     _properties = properties;
-    _core = core;
     _findInFiles = false;
 }
 
