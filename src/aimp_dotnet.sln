@@ -18,9 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{E560656D-14CC-48E6-A94E-9992D99B5BA0}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitlab-ci.yml = ..\.gitlab-ci.yml
-		..\AimpSDK.nuspec = ..\AimpSDK.nuspec
-		..\AimpSDK.sources.nuspec = ..\AimpSDK.sources.nuspec
-		..\AimpSDK.symbols.nuspec = ..\AimpSDK.symbols.nuspec
+		..\Nuget\AimpSDK.nuspec = ..\Nuget\AimpSDK.nuspec
 		AssemblyInfo.cs = AssemblyInfo.cs
 		..\tools\CopyPlugin.ps1 = ..\tools\CopyPlugin.ps1
 		..\GitVersion.yml = ..\GitVersion.yml
