@@ -9,8 +9,11 @@
 // 
 // ----------------------------------------------------
 
-using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using AIMP.SDK;
+using AIMP.SDK.Objects;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
@@ -18,66 +21,82 @@ namespace Aimp.TestRunner.UnitTests.AlbumArtManager;
 
 public class AimpServiceAlbumArtCacheTests : AimpIntegrationTest
 {
-    [Test]
-    public void Flush_EmptyAlbum_ShouldThrowException()
+    [Test(Description = "Create and put image to cache")]
+    [Order(1)]
+    public void Put_OK()
     {
         ExecuteInMainThread(() =>
         {
-            var ex = AimpAssert.Throw<ArgumentNullException>(() =>
-                Player.ServiceAlbumArtCache.Flush(string.Empty, string.Empty));
-            AimpAssert.IsTrue(ex.Message.Contains("Parameter album cannot be empty"));
+            var imageContainer = Player.Core.CreateAimpObject<IAimpImageContainer>();
+
+            var img = new Bitmap(ImagePath1);
+            using (var stream = new MemoryStream())
+            {
+                img.Save(stream, ImageFormat.Jpeg);
+                imageContainer.Result.SetDataSize(stream.Length);
+                var containerData = imageContainer.Result.GetData();
+                stream.Read(containerData.Result, 0, (int)stream.Length);
+            }
+
+            // TODO: For some reason CreateImage always return unexpected result. Need to contact with AIMP team.
+            //var image = imageContainer.Result.CreateImage();
+            //var res = image.Result.LoadFromFile(ImagePath1);
+            //AimpAssert.AreEqual(ActionResultType.OK, res.ResultType, "Unable to load image to container");
+
+            var putResult = Player.ServiceAlbumArtCache.Put("key1", imageContainer.Result);
+            AimpAssert.AreEqual(ActionResultType.OK, putResult.ResultType);
+        });
+    }
+
+    [Test(Description = "Get cached image")]
+    [Order(2)]
+    public void Get_OK()
+    {
+        ExecuteInMainThread(() =>
+        {
+            var res = Player.ServiceAlbumArtCache.Get("key1");
+            AimpAssert.AreEqual(ActionResultType.OK, res.ResultType, "Unable to get image from cache");
+            AimpAssert.NotNull(res.Result);
+            AimpAssert.IsTrue(res.Result.GetDataSize() > 0);
+        });
+    }
+
+    [Test(Description = "Gte cache statistic")]
+    [Order(3)]
+    public void Stat_OK()
+    {
+        ExecuteInMainThread(() =>
+        {
+            var res = Player.ServiceAlbumArtCache.Stat();
+            AimpAssert.AreEqual(ActionResultType.OK, res.ResultType, "Unable to get image from cache");
+            AimpAssert.NotNull(res.Result);
+            AimpAssert.IsTrue(res.Result.Item1 > 0);
+            AimpAssert.IsTrue(res.Result.Item2 > 0);
+        });
+    }
+
+    [Test(Description = "Remove item from cache by key")]
+    [Order(4)]
+    public void Remove_OK()
+    {
+        ExecuteInMainThread(() =>
+        {
+            var res = Player.ServiceAlbumArtCache.Get("key1");
+            AimpAssert.AreEqual(ActionResultType.OK, res.ResultType, "Unable to get image from cache");
+            
+            var removeResult = Player.ServiceAlbumArtCache.Remove("key1");
+            AimpAssert.AreEqual(ActionResultType.OK, removeResult.ResultType);
         });
     }
 
     [Test]
-    public void Flush_EmptyArtist_ShouldThrowException()
+    [Order(5)]
+    public void Flush_OK()
     {
         ExecuteInMainThread(() =>
         {
-            var ex = AimpAssert.Throw<ArgumentNullException>(() =>
-                Player.ServiceAlbumArtCache.Flush("album", string.Empty));
-            AimpAssert.IsTrue(ex.Message.Contains("Parameter artist cannot be empty"));
-        });
-    }
-
-    [Test]
-    public void Flush_ShouldReturnOK()
-    {
-        ExecuteInMainThread(() =>
-        {
-            var res = Player.ServiceAlbumArtCache.Flush("album", "artist");
+            var res = Player.ServiceAlbumArtCache.Flush();
             AssertOKResult(res);
-        });
-    }
-
-    [Test]
-    public void Flush2_EmptyUri_ShouldThrowException()
-    {
-        ExecuteInMainThread(() =>
-        {
-            var ex = AimpAssert.Throw<ArgumentNullException>(() =>
-                Player.ServiceAlbumArtCache.Flush2(string.Empty));
-            AimpAssert.IsTrue(ex.Message.Contains("Parameter fileUri cannot be empty"));
-        });
-    }
-
-    [Test]
-    public void Flush2_ShouldReturnOK()
-    {
-        ExecuteInMainThread(() =>
-        {
-            var res = Player.ServiceAlbumArtCache.Flush2("some_uri");
-            AimpAssert.AreEqual(ActionResultType.OK, res.ResultType);
-        });
-    }
-
-    [Test]
-    public void FlushAll_ShouldReturnOK()
-    {
-        ExecuteInMainThread(() =>
-        {
-            var res = Player.ServiceAlbumArtCache.FlushAll();
-            AimpAssert.AreEqual(ActionResultType.OK, res.ResultType);
         });
     }
 }

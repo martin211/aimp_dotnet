@@ -10,6 +10,9 @@
 
 #include "SDK/ManagedAimpCore.h"
 
+AimpImage::AimpImage(IAIMPImage2* obj) : AimpObject<IAIMPImage2>(obj) {
+}
+
 AimpImage::AimpImage(IAIMPImage2* obj, ManagedAimpCore^ core) : AimpObject<IAIMPImage2>(obj) {
     _core = core;
 }

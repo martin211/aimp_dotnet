@@ -116,7 +116,7 @@ bool AimpServicePlayer::IsMute::get() {
         service = GetService();
     }
 
-    bool value = false;
+    BOOL value = false;
     try {
         if (CheckResult(static_cast<IAIMPServicePlayer*>(service)->GetMute(&value)) == ActionResultType::OK) {
             return value;

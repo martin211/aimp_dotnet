@@ -13,6 +13,8 @@
   <ItemGroup>
     <ClCompile Include="AimpMemoryManager.cpp" />
     <ClCompile Include="SDK\AimpDPIAware.cpp" />
+    <ClCompile Include="SDK\AlbumArt\AimpAlbumArtRequest.cpp" />
+    <ClCompile Include="SDK\AlbumArt\AimpExtensionAlbumArtProvider3.cpp" />
     <ClCompile Include="SDK\Objects\AimpFileStream.cpp" />
     <ClCompile Include="SDK\Objects\AimpImage.cpp" />
     <ClCompile Include="SDK\AimpProgressCallback.cpp" />
@@ -37,6 +39,7 @@
     <ClCompile Include="SDK\Action\AimpAction.cpp" />
     <ClCompile Include="SDK\Action\AimpActionEvent.cpp" />
     <ClCompile Include="SDK\AimpObjectList.cpp" />
+    <ClCompile Include="SDK\Objects\AimpImageContainer.cpp" />
     <ClCompile Include="SDK\Objects\AimpMemoryStream.cpp" />
     <ClCompile Include="SDK\Objects\AimpStream.cpp" />
     <ClCompile Include="SDK\AimpString.cpp" />
@@ -120,6 +123,7 @@
     <ClCompile Include="SDK\TagEditor\AimpFileTag.cpp" />
     <ClCompile Include="SDK\TagEditor\AimpFileTagEditor.cpp" />
     <ClCompile Include="SDK\TagEditor\AimpServiceFileTagEditor.cpp" />
+    <ClCompile Include="SDK\TagEditor\InternalExtensionTagsProvider.cpp" />
     <ClCompile Include="SDK\Threading\AimpServiceSynchronizer.cpp" />
     <ClCompile Include="SDK\Threading\AimpServiceThreadPool.cpp" />
     <ClCompile Include="SDK\Threading\AimpServiceThreads.cpp" />
@@ -148,6 +152,8 @@
     <ClInclude Include="AimpMemoryManager.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiDepricated.h" />
     <ClInclude Include="SDK\AimpDPIAware.h" />
+    <ClInclude Include="SDK\AlbumArt\AimpAlbumArtRequest.h" />
+    <ClInclude Include="SDK\AlbumArt\AimpExtensionAlbumArtProvider3.h" />
     <ClInclude Include="SDK\Objects\AimpFileStream.h" />
     <ClInclude Include="SDK\Objects\AimpImage.h" />
     <ClInclude Include="SDK\AimpProgressCallback.h" />
@@ -169,6 +175,7 @@
     <ClInclude Include="SDK\Lyrics\AimpServiceLyrics.h" />
     <ClInclude Include="SDK\MessageDispatcher\InternalAimpMessageHook.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiLyrics.h" />
+    <ClInclude Include="SDK\Objects\AimpImageContainer.h" />
     <ClInclude Include="SDK\Objects\AimpMemoryStream.h" />
     <ClInclude Include="SDK\Objects\AimpStream.h" />
     <ClInclude Include="SDK\AimpString.h" />
@@ -249,6 +256,7 @@
     <ClInclude Include="SDK\TagEditor\AimpFileTag.h" />
     <ClInclude Include="SDK\TagEditor\AimpFileTagEditor.h" />
     <ClInclude Include="SDK\TagEditor\AimpServiceFileTagEditor.h" />
+    <ClInclude Include="SDK\TagEditor\InternalExtensionTagsProvider.h" />
     <ClInclude Include="SDK\Threading\AimpServiceThreadPool.h" />
     <ClInclude Include="SDK\Threading\AimpServiceThreads.h" />
     <ClInclude Include="SDK\Threading\AimpTaskOwner.h" />

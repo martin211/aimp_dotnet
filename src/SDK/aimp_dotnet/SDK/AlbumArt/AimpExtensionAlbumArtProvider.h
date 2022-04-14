@@ -17,9 +17,8 @@ private:
     gcroot<IAimpExtensionAlbumArtProvider^> _managedinstance;
     IAIMPCore* _aimpCore;
 public:
-    AimpExtensionAlbumArtProvider(IAIMPCore* aimpCore, gcroot<IAimpExtensionAlbumArtProvider^> instance) {
+    AimpExtensionAlbumArtProvider(gcroot<IAimpExtensionAlbumArtProvider^> instance) {
         _managedinstance = instance;
-        _aimpCore = aimpCore;
     }
 
     typedef IUnknownInterfaceImpl<IAIMPExtensionAlbumArtProvider> Base;

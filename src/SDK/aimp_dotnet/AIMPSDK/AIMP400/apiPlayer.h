@@ -1,10 +1,10 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v5.00 build 2300               */
+/*               v5.02 build 2360               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2021                 */
+/*                (C) 2006-2022                 */
 /*                 www.aimp.ru                  */
 /*               support@aimp.ru                */
 /*                                              */
@@ -149,8 +149,8 @@ class IAIMPServicePlayer: public IUnknown // + IAIMPPropertyList
 		virtual HRESULT WINAPI GetDuration(double* Seconds) = 0;
 		virtual HRESULT WINAPI GetPosition(double* Seconds) = 0;
 		virtual HRESULT WINAPI SetPosition(const double Seconds) = 0;
-		virtual HRESULT WINAPI GetMute(bool *Value) = 0;
-		virtual HRESULT WINAPI SetMute(const bool Value) = 0;
+		virtual HRESULT WINAPI GetMute(BOOL *Value) = 0;
+		virtual HRESULT WINAPI SetMute(const BOOL Value) = 0;
 		virtual HRESULT WINAPI GetVolume(float *Level) = 0;
 		virtual HRESULT WINAPI SetVolume(const float Level) = 0;
 		virtual HRESULT WINAPI GetInfo(IAIMPFileInfo** FileInfo) = 0;
@@ -190,7 +190,7 @@ class IAIMPServicePlayerEqualizer: public IAIMPEqualizerBands
 
 /* IAIMPServicePlayerEqualizerPresets */
 
-class IAIMPServicePlayerEqualizerPresets: public IUnknown 
+class IAIMPServicePlayerEqualizerPresets: public IUnknown
 {
 	public:
 		virtual HRESULT WINAPI Add(IAIMPString* Name, REFIID IID, void **Obj) = 0;

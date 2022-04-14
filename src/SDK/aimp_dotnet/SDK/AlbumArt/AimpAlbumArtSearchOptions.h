@@ -15,10 +15,9 @@ namespace AIMP {
         private:
             bool _findInFiles;
             IAIMPPropertyList* _properties;
-            IAIMPCore* _core;
 
         public:
-            AimpAlbumArtSearchOptions(IAIMPPropertyList* properties, IAIMPCore* core);
+            AimpAlbumArtSearchOptions(IAIMPPropertyList* properties);
 
             virtual property bool FindInFiles
             {

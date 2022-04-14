@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using Microsoft.Build.Framework;
 using Nuke.Common.Tooling;
 
 namespace Aimp.DotNet.Build
@@ -12,6 +11,14 @@ namespace Aimp.DotNet.Build
         {
             toolSettings = toolSettings.NewInstance();
             toolSettings.ProjectBaseDir = projectBaseDir;
+            return toolSettings;
+        }
+
+        [Pure]
+        public static SonarBeginSettings SetPvsStudioReportPath(this SonarBeginSettings toolSettings, string pvsStudioReportPath)
+        {
+            toolSettings = toolSettings.NewInstance();
+            toolSettings.PvsStudioReportPath = pvsStudioReportPath;
             return toolSettings;
         }
     }

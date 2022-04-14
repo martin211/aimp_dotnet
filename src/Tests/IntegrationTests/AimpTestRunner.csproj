@@ -109,6 +109,7 @@
     <Compile Include="TestFramework\IntegrationTestExtension.cs" />
     <Compile Include="UnitTests\AlbumArtManager\AimpServiceAlbumArtCacheTests.cs" />
     <Compile Include="UnitTests\AlbumArtManager\AimpServiceAlbumArtTests.cs" />
+    <Compile Include="UnitTests\AlbumArtManager\Extension\AimpExtensionAlbumArtProviderTests.cs" />
     <Compile Include="UnitTests\Core\AimpServiceVersionInfoTests.cs" />
     <Compile Include="UnitTests\FileManager\AimpFileInfoUnitTests.cs" />
     <Compile Include="UnitTests\FileManager\AimpServiceFileStreamingUnitTests.cs" />

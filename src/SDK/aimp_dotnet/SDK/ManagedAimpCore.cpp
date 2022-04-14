@@ -114,8 +114,6 @@ namespace AIMP {
         }
 
         ManagedAimpCore::~ManagedAimpCore() {
-            System::Diagnostics::Debug::WriteLine("Dispose ManagedAimpCore");
-
             if (_optionsFrame != nullptr) {
                 _core->UnregisterExtension(static_cast<IAIMPOptionsDialogFrame*>(_optionsFrame));
                 _optionsFrame->Release();
@@ -129,10 +127,15 @@ namespace AIMP {
             }
 
             if (_albumArtProviderExtension != nullptr) {
-                _core->UnregisterExtension(
-                    static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
+                _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtProvider::Base*>(_albumArtProviderExtension));
                 _albumArtProviderExtension->Release();
                 _albumArtProviderExtension = nullptr;
+            }
+
+            if (_albumArtProviderExtension3 != nullptr) {
+                _core->UnregisterExtension(static_cast<AimpExtensionAlbumArtProvider3::Base*>(_albumArtProviderExtension3));
+                _albumArtProviderExtension3->Release();
+                _albumArtProviderExtension3 = nullptr;
             }
 
             if (_embeddedVisualization != nullptr) {
@@ -190,6 +193,12 @@ namespace AIMP {
             }
 
             UnregisterFileManagerExtensions();
+
+            if (_extensionTagsProvider != nullptr) {
+                _core->UnregisterExtension(static_cast<InternalExtensionTagsProvider::Base*>(_extensionTagsProvider));
+                _extensionTagsProvider->Release();
+                _extensionTagsProvider = nullptr;
+            }
 
             _core->Release();
             _core = nullptr;
@@ -250,11 +259,20 @@ namespace AIMP {
                     return E_FAIL;
                 }
 
-                AimpExtensionAlbumArtProvider* ext = new AimpExtensionAlbumArtProvider(
-                    this->GetAimpCore(), albumArtProviderExtension);
+                AimpExtensionAlbumArtProvider* ext = new AimpExtensionAlbumArtProvider(albumArtProviderExtension);
                 _albumArtProviderExtension = ext;
-                return _core->RegisterExtension(IID_IAIMPServiceAlbumArt,
-                                                static_cast<AimpExtensionAlbumArtProvider::Base*>(ext));
+                return _core->RegisterExtension(IID_IAIMPServiceAlbumArt, static_cast<AimpExtensionAlbumArtProvider::Base*>(ext));
+            }
+
+            IAimpExtensionAlbumArtProvider3^ albumArtProviderExtension3 = dynamic_cast<IAimpExtensionAlbumArtProvider3^>(extension);
+            if (albumArtProviderExtension3 != nullptr) {
+                if (_albumArtProviderExtension3 != nullptr) {
+                    return E_FAIL;
+                }
+
+                AimpExtensionAlbumArtProvider3* ext = new AimpExtensionAlbumArtProvider3(albumArtProviderExtension3);
+                _albumArtProviderExtension3 = ext;
+                return _core->RegisterExtension(IID_IAIMPServiceAlbumArt, static_cast<AimpExtensionAlbumArtProvider3::Base*>(ext));
             }
 
             const auto embeddedVisualization = dynamic_cast<Visuals::IAimpExtensionEmbeddedVisualization^>(extension);
@@ -330,8 +348,7 @@ namespace AIMP {
 
                 AimpExtensionLyricsProvider* ext = new AimpExtensionLyricsProvider(lyricsProviderExtension);
                 _extensionLyricsProvider = ext;
-                return _core->RegisterExtension(IID_IAIMPExtensionLyricsProvider,
-                                                static_cast<AimpExtensionLyricsProvider::Base*>(ext));
+                return _core->RegisterExtension(IID_IAIMPExtensionLyricsProvider, static_cast<AimpExtensionLyricsProvider::Base*>(ext));
             }
 
             Player::Extensions::IAimpExtensionPlaybackQueue^ extensionPlaybackQueue = dynamic_cast<
@@ -343,13 +360,11 @@ namespace AIMP {
 
                 AimpExtensionPlaybackQueue* ext = new AimpExtensionPlaybackQueue(extensionPlaybackQueue);
                 _extensionPlaybackQueue = ext;
-                return _core->RegisterExtension(IID_IAIMPServicePlaybackQueue,
-                                                static_cast<AimpExtensionPlaybackQueue::Base*>(ext)
+                return _core->RegisterExtension(IID_IAIMPServicePlaybackQueue, static_cast<AimpExtensionPlaybackQueue::Base*>(ext)
                 );
             }
 
-            auto extensionPlayerHook = dynamic_cast<IAimpExtensionPlayerHook^>(
-                extension);
+            auto extensionPlayerHook = dynamic_cast<IAimpExtensionPlayerHook^>(extension);
             if (extensionPlayerHook != nullptr) {
                 if (_extensionPlayerHook != nullptr) {
                     return E_FAIL;
@@ -359,6 +374,18 @@ namespace AIMP {
                 _extensionPlayerHook = ext;
                 return _core->RegisterExtension(IID_IAIMPServicePlayer,
                                                 static_cast<AimpExtensionPlayerHook::Base*>(ext));
+            }
+
+            auto extensionTagsProvider = dynamic_cast<TagEditor::Extensions::IAimpExtensionTagsProvider^>(extension);
+            if (extensionTagsProvider != nullptr) {
+                if (_extensionTagsProvider != nullptr) {
+                    return E_FAIL;
+                }
+
+                InternalExtensionTagsProvider* ext = new InternalExtensionTagsProvider(extensionTagsProvider);
+                _extensionTagsProvider = ext;
+                return _core->RegisterExtension(IID_IAIMPServiceFindTagsOnline,
+                    static_cast<InternalExtensionTagsProvider::Base*>(ext));
             }
 
             HRESULT result = RegisterFileManagerExtensions(extension);
@@ -462,6 +489,14 @@ namespace AIMP {
                     static_cast<InternalAimpExtensionFileExpander::Base*>(_extensionFileExpander));
                 _extensionFileExpander->Release();
                 delete _extensionFileExpander;
+                return r;
+            }
+
+            auto extensionTagsProvider = dynamic_cast<TagEditor::Extensions::IAimpExtensionTagsProvider^>(extension);
+            if (extensionTagsProvider != nullptr) {
+                HRESULT r = _core->UnregisterExtension(static_cast<InternalExtensionTagsProvider::Base*>(_extensionTagsProvider));
+                _extensionTagsProvider->Release();
+                delete _extensionTagsProvider;
                 return r;
             }
 

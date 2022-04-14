@@ -14,32 +14,11 @@ using System.Drawing;
 namespace AIMP.SDK.AlbumArt.Extensions
 {
     /// <summary>
-    /// Enum AimpAlbumArtProviderCategory
-    /// </summary>
-    public enum AimpAlbumArtProviderCategory
-    {
-        /// <summary>
-        /// The aimp albumart provider category tags
-        /// </summary>
-        AIMP_ALBUMART_PROVIDER_CATEGORY_TAGS,
-
-        /// <summary>
-        /// The aimp albumart provider category file
-        /// </summary>
-        AIMP_ALBUMART_PROVIDER_CATEGORY_FILE,
-
-        /// <summary>
-        /// The aimp albumart provider category internet
-        /// </summary>
-        AIMP_ALBUMART_PROVIDER_CATEGORY_INTERNET
-    }
-
-    /// <summary>
     /// Interface allows for the plugin to register custom album art provider.
     /// </summary>
     /// <seealso cref="IAimpExtensionAlbumArtProvider2" />
     /// <seealso cref="AIMP.SDK.IAimpExtension" />
-    public interface IAimpExtensionAlbumArtProvider : IAimpExtensionAlbumArtProvider2, IAimpExtension
+    public interface IAimpExtensionAlbumArtProvider : IAimpExtension, IAimpExtensionAlbumArtProvider2
     {
         /// <summary>
         /// Gets the album art image.

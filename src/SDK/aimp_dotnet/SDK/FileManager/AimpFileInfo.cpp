@@ -214,33 +214,33 @@ void AimpFileInfo::URL::set(String^ value) {
 
 
 double AimpFileInfo::AddedDate::get() {
-    return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_ADDINGDATE);
+    return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ML_ADDINGDATE);
 }
 
 
 double AimpFileInfo::LastPlayedDate::get() {
-    return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_LASTPLAYDATE);
+    return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ML_LASTPLAYDATE);
 }
 
 
 double AimpFileInfo::StatDisplayingMark::get() {
-    return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_DISPLAYING_MARK);
+    return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ML_DISPLAYING_MARK);
 }
 
 void AimpFileInfo::StatDisplayingMark::set(double value) {
-    PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_DISPLAYING_MARK, value);
+    PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ML_DISPLAYING_MARK, value);
 }
 
 
 double AimpFileInfo::StatRating::get() {
-    return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_RATING);
+    return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ML_RATING);
 }
 
 
 double AimpFileInfo::StatMark::get() {
     try
     {
-        return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_MARK);
+        return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ML_MARK);
     }
     catch (...)
     {
@@ -250,13 +250,13 @@ double AimpFileInfo::StatMark::get() {
 }
 
 void AimpFileInfo::StatMark::set(double value) {
-    PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_MARK, value);
+    PropertyListExtension::SetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ML_MARK, value);
 }
 
 int AimpFileInfo::StatPlayCount::get() {
     try
     {
-        return PropertyListExtension::GetInt32(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_PLAYCOUNT);
+        return PropertyListExtension::GetInt32(InternalAimpObject, AIMP_FILEINFO_PROPID_ML_PLAYCOUNT);
     }
     catch (...)
     {
@@ -366,7 +366,7 @@ void AimpFileInfo::SampleRate::set(int value) {
 
 
 int AimpFileInfo::PlayCount::get() {
-    return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_PLAYCOUNT);
+    return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ML_PLAYCOUNT);
 }
 
 
@@ -441,12 +441,12 @@ IAimpFileInfo^ AimpFileInfo::Clone() {
 }
 
 DateTime AimpFileInfo::StatAddingDate::get() {
-    double val = PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_ADDINGDATE);
+    double val = PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ML_ADDINGDATE);
     return DateTime::FromOADate(val);
 }
 
 DateTime AimpFileInfo::StatLastPlayDate::get() {
-    double val = PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_STAT_LASTPLAYDATE);
+    double val = PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ML_LASTPLAYDATE);
     return DateTime::FromOADate(val);
 }
 

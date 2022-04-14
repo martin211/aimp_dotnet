@@ -14,13 +14,14 @@ using AIMP.SDK.AlbumArt.Extensions;
 
 namespace dotnet_albumart
 {
-    [AimpPlugin("AlbumArtDemoPlugin", "Evgeniy Bogdan", "1.0.0.0", AimpPluginType = AimpPluginType.Addons,
+    [AimpPlugin("AlbumArtDemoPlugin", "Evgeniy Bogdan", AdditionalInfo.Version, AimpPluginType = AimpPluginType.Addons,
         FullDescription = "Album art catalog extension demo")]
     public class Plugin : AimpPlugin
     {
         private IAimpExtensionAlbumArtCatalog _catalog;
 
         private IAimpExtensionAlbumArtProvider _provider;
+        private IAimpExtensionAlbumArtProvider3 _provider3;
 
         #region Overrides of AimpPlugin
 
@@ -30,9 +31,10 @@ namespace dotnet_albumart
         public override void Initialize()
         {
             _catalog = new AimpExtensionAlbumArtCatalog();
-            _provider = new AimpExtensionAlbumArtProvider();
+            //_provider = new AimpExtensionAlbumArtProvider();
+            _provider3 = new AimpExtensionAlbumArtProvider3(Player.Core);
             Player.Core.RegisterExtension(_catalog);
-            Player.Core.RegisterExtension(_provider);
+            Player.Core.RegisterExtension(_provider3);
         }
 
         /// <summary>
@@ -41,7 +43,7 @@ namespace dotnet_albumart
         public override void Dispose()
         {
             Player.Core.UnregisterExtension(_catalog);
-            Player.Core.UnregisterExtension(_provider);
+            Player.Core.UnregisterExtension(_provider3);
         }
 
         #endregion

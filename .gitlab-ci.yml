@@ -86,6 +86,14 @@ deploy_release:
     - powershell -File $CI_PROJECT_DIR\build.ps1 Publish --Source $NUGET_SOURCE --NugetApiKey $NUGET_KEY
   when: manual
 
+deploy_local:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: "none"
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 Publish --Source $LOCAL_SOURCE --NugetApiKey $LOCAL_KEY
+  when: manual
+
 buildDocumentation:
   stage: documentation
   only: 

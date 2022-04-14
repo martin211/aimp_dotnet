@@ -19,11 +19,16 @@ namespace AIMP {
         public:
             explicit AimpServiceAlbumArtCache(ManagedAimpCore^ core);
 
-            virtual AimpActionResult^ Flush(String^ album, String^ artist);
+            virtual AimpActionResult^ Flush();
 
-            virtual AimpActionResult^ Flush2(String^ fileUri);
+            virtual AimpActionResult<IAimpImageContainer^>^ Get(String^ key);
 
-            virtual AimpActionResult^ FlushAll();
+            virtual AimpActionResult^ Put(String^ key, IAimpImageContainer^ image);
+
+            virtual AimpActionResult^ Remove(String^ key);
+
+            virtual AimpActionResult<Tuple<int, int>^>^ Stat();
+
         protected:
             IAIMPServiceAlbumArtCache* GetAimpService() override;
         };
