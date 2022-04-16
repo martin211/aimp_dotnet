@@ -69,7 +69,8 @@ pack:
   variables:
     GIT_STRATEGY: "none"
   dependencies:
-    - build
+    - build-X86
+    - build-X64
   script:
     - powershell -File $CI_PROJECT_DIR\build.ps1 Pack --Configuation $Configuration
 
@@ -78,7 +79,8 @@ artifacts:
   variables:
     GIT_STRATEGY: "none"
   dependencies:
-    - build
+    - build-X86
+    - build-X64
   script:
     - powershell -File $CI_PROJECT_DIR\build.ps1 Artifacts
   artifacts:
