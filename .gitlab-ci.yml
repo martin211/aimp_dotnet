@@ -48,7 +48,8 @@ integrationTests:
   script:
     - powershell -File $CI_PROJECT_DIR\build.ps1 ExecuteIntegrationTests --AimpPath $AimpPath --IsJUnit true --TestResultPath $TEST_RESULTS --Configuation $Configuration
   dependencies:
-    - build
+    - build-X86
+    - build-X64
   artifacts:
     when: always
     reports:
