@@ -15,14 +15,22 @@ variables:
 before_script:
   - cd $build_path
 
-build:
+build-X86:
   stage: build
   script:
     - powershell -File $CI_PROJECT_DIR\build.ps1 Compile --Configuation $Configuration
   cache:
     key: ${CI_COMMIT_SHORT_SHA}
     paths:
-      - src/$Configuration/
+      - src/**/bin/$Configuration/
+
+build-X64:
+  stage: build
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 CompileX64 --Configuation $Configuration
+  cache:
+    key: ${CI_COMMIT_SHORT_SHA}
+    paths:
       - src/**/bin/$Configuration/
 
 sonarqube:

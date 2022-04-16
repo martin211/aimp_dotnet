@@ -108,11 +108,11 @@ partial class Build : NukeBuild
                 ? GitRepository.Branch.Split("/")[1]
                 : GitVersion.AssemblySemVer;
 
-            Serilog.Log.Information("Version: {_version}", _version);
+            Log.Information("Version: {_version}", _version);
             var assemblyInfo = SourceDirectory / "AssemblyInfo.cs";
             if (File.Exists(assemblyInfo))
             {
-                Serilog.Log.Information("Update version for '{assemblyInfo}'", assemblyInfo);
+                Log.Information("Update version for '{assemblyInfo}'", assemblyInfo);
                 var fileContent = File.ReadAllText(assemblyInfo);
                 fileContent = fileContent.Replace("1.0.0.0", _version);
                 File.WriteAllText(assemblyInfo, fileContent);
@@ -121,8 +121,8 @@ partial class Build : NukeBuild
             var rcFile = SourceDirectory / "aimp_dotnet" / "aimp_dotnet.rc";
             if (File.Exists(rcFile))
             {
-                Serilog.Log.Information("Update version for '{rcFile}'", rcFile);
-                Serilog.Log.Information("Assembly version: {AssemblySemVer}", GitVersion.AssemblySemVer);
+                Log.Information("Update version for '{rcFile}'", rcFile);
+                Log.Information("Assembly version: {AssemblySemVer}", GitVersion.AssemblySemVer);
                 var fileContent = File.ReadAllText(rcFile);
                 fileContent = fileContent.Replace("1,0,0,1", _version.Replace(".", ",")).Replace("1.0.0.1", _version);
                 File.WriteAllText(rcFile, fileContent);
@@ -147,7 +147,25 @@ partial class Build : NukeBuild
                 .SetFileVersion(_version)
                 .SetInformationalVersion($"{_version}-{GitRepository.Commit}")
                 .SetMaxCpuCount(Environment.ProcessorCount)
-                .SetNodeReuse(IsLocalBuild));
+                .SetNodeReuse(IsLocalBuild)
+                .SetTargetPlatform(MSBuildTargetPlatform.x86));
+        });
+
+    Target CompileX64 => _ => _
+        .DependsOn(PrintBuildParameters, Restore, Version)
+        .Executes(() =>
+        {
+            MSBuild(s => s
+                .SetProcessToolPath(MsBuildPath)
+                .SetTargetPath(Solution)
+                .SetTargets("Rebuild")
+                .SetConfiguration(Configuration)
+                .SetAssemblyVersion(_version)
+                .SetFileVersion(_version)
+                .SetInformationalVersion($"{_version}-{GitRepository.Commit}")
+                .SetMaxCpuCount(Environment.ProcessorCount)
+                .SetNodeReuse(IsLocalBuild)
+                .SetTargetPlatform(MSBuildTargetPlatform.x64));
         });
 
     Target SonarQube => _ => _
@@ -241,7 +259,7 @@ partial class Build : NukeBuild
         .DependsOn(Version)
         .Executes(() =>
         {
-            Serilog.Log.Information("Start build Nuget packages");
+            Log.Information("Start build Nuget packages");
 
             var nugetFolder = RootDirectory / "Nuget";
 
@@ -272,7 +290,7 @@ partial class Build : NukeBuild
         {
             PrintParameters("Nuget");
 
-            Serilog.Log.Information("Deploying Nuget packages");
+            Log.Information("Deploying Nuget packages");
             var packages = GlobFiles(OutputDirectory, "*.nupkg")
                 .Where(c => !c.EndsWith("symbols.nupkg")).ToList();
 
@@ -289,83 +307,99 @@ partial class Build : NukeBuild
         .Executes(() =>
         {
             List<string> plugins = new List<string>();
+
+            var targetPlatforms = new List<string>
+            {
+                "x86",
+                "x64"
+            };
+
             EnsureCleanDirectory(OutputDirectory / "Artifacts");
-            Directory.CreateDirectory(OutputDirectory / "Artifacts");
-
-            Serilog.Log.Information("Copy plugins to artifacts folder");
-
-            var directories = GlobDirectories(SourceDirectory / "Plugins", $"**/bin/{Configuration}");
-            foreach (var directory in directories)
-            {
-                var di = new DirectoryInfo(directory);
-                var pluginName = di.Parent?.Parent?.Name;
-                plugins.Add(pluginName);
-
-                Directory.CreateDirectory(OutputDirectory / "Artifacts" / "Plugins" / pluginName);
-                Serilog.Log.Information(pluginName);
-                var files = di.GetFiles("*.dll");
-                foreach (var file in files)
-                {
-                    string outFile = string.Empty;
-
-                    if (file.Name.StartsWith(pluginName))
-                    {
-                        outFile = OutputDirectory / "Artifacts" / "Plugins" / pluginName /
-                                  $"{Path.GetFileNameWithoutExtension(file.Name)}_plugin.dll";
-                    }
-                    else
-                    {
-                        outFile = OutputDirectory / "Artifacts" / "Plugins" / pluginName / file.Name;
-                    }
-
-                    if (file.Name.StartsWith("aimp_dotnet"))
-                    {
-                        outFile = OutputDirectory / "Artifacts" / "Plugins" / pluginName / $"{pluginName}.dll";
-                    }
-
-                    Serilog.Log.Information($"Copy '{file.FullName}' to '{outFile}'");
-                    file.CopyTo(outFile, true);
-                }
-            }
-
-            Serilog.Log.Information("Copy SDK files to artifacts folder");
-            var sdkFolder = new DirectoryInfo(SourceDirectory / $"{Configuration}");
-            Directory.CreateDirectory(OutputDirectory / "Artifacts" / "SDK");
-            var sdkFiles = sdkFolder.GetFiles("*.dll");
-            foreach (var file in sdkFiles)
-            {
-                var outFile = OutputDirectory / "Artifacts" / "SDK" / file.Name;
-                file.CopyTo(outFile, true);
-            }
-
-            Serilog.Log.Information("Validate output");
-
-            bool validatePluginFolder(string plugin, IEnumerable<FileInfo> files)
-            {
-                var isValid = true;
-
-                isValid &= files.Any(c => c.Name.StartsWith("AIMP.SDK"));
-                isValid &= files.Any(c => c.Name == $"{plugin}.dll");
-                isValid &= files.Any(c => c.Name == $"{plugin}_plugin.dll");
-
-                return isValid;
-            }
 
             var isValid = true;
-            foreach (var plugin in plugins)
+
+            foreach (var targetPlatform in targetPlatforms)
             {
-                var pluginFolder = OutputDirectory / "Artifacts" / "Plugins" / plugin;
-                var di = new DirectoryInfo(pluginFolder);
-                var files = di.GetFiles("*.dll");
-                if (!validatePluginFolder(plugin, files))
+                Log.Information("Target platform {platform}", targetPlatform);
+                var artifactsFolder = OutputDirectory / $"{targetPlatform}/Artifacts";
+
+                Directory.CreateDirectory(artifactsFolder);
+
+                Log.Information("Copy plugins to artifacts folder");
+
+                var directories = GlobDirectories(SourceDirectory / "Plugins", $"**/bin/{targetPlatform}/{Configuration}");
+                foreach (var directory in directories)
                 {
-                    Serilog.Log.Error($"Plugin {plugin} not valid.");
-                    isValid = false;
+                    var pluginDirectory = new DirectoryInfo(directory);
+                    var pluginName = pluginDirectory.Parent?.Parent?.Name;
+                    plugins.Add(pluginName);
+
+                    Directory.CreateDirectory(artifactsFolder / "Plugins" / pluginName);
+                    Log.Information(pluginName);
+                    var files = pluginDirectory.GetFiles("*.dll");
+                    foreach (var file in files)
+                    {
+                        string outFile = string.Empty;
+
+                        if (file.Name.StartsWith(pluginName))
+                        {
+                            outFile = artifactsFolder / "Plugins" / pluginName / $"{Path.GetFileNameWithoutExtension(file.Name)}_plugin.dll";
+                        }
+                        else
+                        {
+                            outFile = artifactsFolder / "Plugins" / pluginName / file.Name;
+                        }
+
+                        if (file.Name.StartsWith("aimp_dotnet"))
+                        {
+                            outFile = artifactsFolder / "Plugins" / pluginName / $"{pluginName}.dll";
+                        }
+
+                        Log.Information($"Copy '{file.FullName}' to '{outFile}'");
+                        file.CopyTo(outFile, true);
+                    }
                 }
+
+                Log.Information("Copy SDK files to artifacts folder");
+
+                var sdkFolder = new DirectoryInfo(SourceDirectory / $"SDK/aimp_dotnet/bin/{targetPlatform}/{Configuration}");
+                Directory.CreateDirectory(OutputDirectory / "Artifacts" / "SDK");
+                var sdkFiles = sdkFolder.GetFiles("*.dll");
+                foreach (var file in sdkFiles)
+                {
+                    var outFile = artifactsFolder / "SDK" / file.Name;
+                    file.CopyTo(outFile, true);
+                }
+
+                Log.Information("Validate output");
+
+                bool validatePluginFolder(string plugin, IEnumerable<FileInfo> files)
+                {
+                    var isValid = true;
+
+                    isValid &= files.Any(c => c.Name.StartsWith("AIMP.SDK"));
+                    isValid &= files.Any(c => c.Name == $"{plugin}.dll");
+                    isValid &= files.Any(c => c.Name == $"{plugin}_plugin.dll");
+
+                    return isValid;
+                }
+
+                foreach (var plugin in plugins)
+                {
+                    var pluginFolder = artifactsFolder / "Plugins" / plugin;
+                    var di = new DirectoryInfo(pluginFolder);
+                    var files = di.GetFiles("*.dll");
+                    if (!validatePluginFolder(plugin, files))
+                    {
+                        Log.Error($"Plugin {plugin} not valid.");
+                        isValid = false;
+                    }
+                }
+
+                Assert.True(isValid, $"Artifacts not valid. Platform {targetPlatform}");
             }
 
-            Assert.True(isValid, "Artifacts not valid");
-            Serilog.Log.Information("Compress artifacts");
+            Log.Information("Compress artifacts");
             ZipFile.CreateFromDirectory(OutputDirectory / "Artifacts", OutputDirectory / "aimp.sdk.zip");
 
             if (IsTeamCity)
@@ -387,7 +421,7 @@ partial class Build : NukeBuild
             .NotNull()
             .ForEach(info =>
             {
-                Serilog.Log.Information(ParameterOutputPattern, info.Name, info.GetValue(this));
+                Log.Information(ParameterOutputPattern, info.Name, info.GetValue(this));
             });
     }
 }
