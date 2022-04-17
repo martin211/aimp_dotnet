@@ -19,7 +19,5 @@
     <file src="src\SDK\aimp_dotnet\bin\x64\$configuration$\AIMP.SDK.dll" target="lib\net48\AIMP.SDK.dll" />
     <file src="src\SDK\aimp_dotnet\bin\x64\$configuration$\aimp_dotnet.dll" target="lib\net48\aimp_dotnet.dll" />
     <file src="src\SDK\aimp_dotnet\bin\x64\$configuration$\AIMP.SDK.xml" target="lib\net48\AIMP.SDK.xml" />
-	<file src="src\SDK\aimp_dotnet\bin\x64\$configuration$\AIMP.SDK.pdb" target="lib\net48\AIMP.SDK.pdb" />
-	<file src="src\SDK\aimp_dotnet\bin\x64\$configuration$\aimp_dotnet.pdb" target="lib\net48\aimp_dotnet.pdb" />
   </files>
 </package>
