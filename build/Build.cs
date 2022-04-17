@@ -66,6 +66,8 @@ partial class Build : NukeBuild
 
     AbsolutePath PvsReportPath => OutputDirectory / "aimpDotNet.plog";
 
+    AbsolutePath SDKBinFolder => SourceDirectory / "SDK/aimp_dotnet/bin/";
+
     readonly string MasterBranch = "master";
     readonly string DevelopBranch = "develop";
     readonly string ReleaseBranchPrefix = "release";

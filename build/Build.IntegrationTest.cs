@@ -23,6 +23,7 @@ partial class Build
     [Parameter(Name = "TimeOut")] readonly int IntegrationTestTimeout = 5; // 5 minutes
     [Parameter(Name = "IsJUnit")] readonly bool IntegrationTestIsJUnit;
     [Parameter(Name = "TestResultPath")] string IntegrationTestTestResultPath;
+    [Parameter(Name = "Platform")] string IntegrationTestTestPlatform = "x86";
 
     AbsolutePath IntegrationTestBinPath => SourceDirectory / "Tests" / "IntegrationTests";
     AbsolutePath IntegrationTestPluginPath => (AbsolutePath) Path.Combine(IntegrationTestAimpPath, "Plugins", "AimpTestRunner");
@@ -67,7 +68,7 @@ partial class Build
         });
 
     Target PrepareIntegrationTests => _ => _
-        .Requires(() => IntegrationTestAimpPath)
+        .Requires(() => IntegrationTestAimpPath, () => IntegrationTestTestPlatform)
         .Executes(() =>
         {
             DeleteDirectory(IntegrationTestPluginPath);
@@ -77,9 +78,10 @@ partial class Build
             EnsureExistingDirectory(IntegrationTestPluginPath);
 
             var testBinPath = IntegrationTestBinPath;
-            var testPattern = $"**/bin/{Configuration}";
+            var testPattern = $"**/bin/{IntegrationTestTestPlatform}/{Configuration}";
 
-            Log.Information($"Test bin files path: {testBinPath}");
+            Log.Information("Test bin files path: '{testBinPath}'", testBinPath);
+            Log.Information($"Test bin files path: '{testBinPath}'");
             Log.Information($"Search pattern: {testPattern}");
 
             void copyFilesFromFolder(string folder)
@@ -117,14 +119,14 @@ partial class Build
                     });
             }
 
-            testBinPath.GlobDirectories($"**/bin/x86/{Configuration}").ForEach(d =>
+            testBinPath.GlobDirectories($"**/bin/{IntegrationTestTestPlatform}/{Configuration}").ForEach(d =>
             {
                 copyFilesFromFolder(d);
                 Log.Debug($"Copy {d}/nunit.engine.addins to {IntegrationTestPluginPath}");
                 CopyFileToDirectory(d / "nunit.engine.addins", IntegrationTestPluginPath);
             });
 
-            var sdkFolder = new DirectoryInfo(SourceDirectory / $"{Configuration}");
+            var sdkFolder = new DirectoryInfo(SDKBinFolder / $"{IntegrationTestTestPlatform}/{Configuration}");
             var sdkFiles = sdkFolder.GetFiles("*.dll");
             foreach (var file in sdkFiles)
             {
