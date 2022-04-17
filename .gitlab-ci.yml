@@ -22,7 +22,7 @@ build-X86:
   cache:
     key: ${CI_COMMIT_SHORT_SHA}
     paths:
-      - src/**/bin/$Configuration/
+      - src/**/bin/**/$Configuration/
 
 build-X64:
   stage: build
@@ -31,7 +31,7 @@ build-X64:
   cache:
     key: ${CI_COMMIT_SHORT_SHA}
     paths:
-      - src/**/bin/$Configuration/
+      - src/**/bin/**/$Configuration/
 
 sonarqube:
   stage: analyze
