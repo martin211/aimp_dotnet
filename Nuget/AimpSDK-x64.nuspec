@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata minClientVersion="2.12">
-    <id>AimpSDK</id>
+    <id>AimpSDK-X64</id>
     <version>$version$</version>
     <title>Aimp DotNet SDK x64</title>
     <authors>Evgeniy Bogdan</authors>
