@@ -28,7 +28,7 @@ using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
 [CheckBuildProjectConfigurations]
 partial class Build : NukeBuild
 {
-    public static int Main() => Execute<Build>(x => x.PrepareIntegrationTests);
+    public static int Main() => Execute<Build>(x => x.Compile);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
@@ -281,8 +281,8 @@ partial class Build : NukeBuild
                 config = config.SetSuffix("debug");
             }
 
-            NuGetTasks.NuGetPack(config
-                .SetTargetPath(nugetFolder / "AimpSDK.nuspec"));
+            NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK.nuspec"));
+            NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK-x64.nuspec"));
         });
 
     Target Publish => _ => _
@@ -316,14 +316,14 @@ partial class Build : NukeBuild
                 "x64"
             };
 
-            EnsureCleanDirectory(OutputDirectory / "Artifacts");
-
             var isValid = true;
 
             foreach (var targetPlatform in targetPlatforms)
             {
+                EnsureCleanDirectory(OutputDirectory / targetPlatform);
+
                 Log.Information("Target platform {platform}", targetPlatform);
-                var artifactsFolder = OutputDirectory / $"{targetPlatform}/Artifacts";
+                var artifactsFolder = OutputDirectory / targetPlatform;
 
                 Directory.CreateDirectory(artifactsFolder);
 
@@ -333,7 +333,7 @@ partial class Build : NukeBuild
                 foreach (var directory in directories)
                 {
                     var pluginDirectory = new DirectoryInfo(directory);
-                    var pluginName = pluginDirectory.Parent?.Parent?.Name;
+                    var pluginName = pluginDirectory.Parent?.Parent?.Parent?.Name;
                     plugins.Add(pluginName);
 
                     Directory.CreateDirectory(artifactsFolder / "Plugins" / pluginName);
@@ -364,8 +364,8 @@ partial class Build : NukeBuild
 
                 Log.Information("Copy SDK files to artifacts folder");
 
-                var sdkFolder = new DirectoryInfo(SourceDirectory / $"SDK/aimp_dotnet/bin/{targetPlatform}/{Configuration}");
-                Directory.CreateDirectory(OutputDirectory / "Artifacts" / "SDK");
+                var sdkFolder = new DirectoryInfo(SDKBinFolder / $"{targetPlatform}/{Configuration}");
+                Directory.CreateDirectory(artifactsFolder / "SDK");
                 var sdkFiles = sdkFolder.GetFiles("*.dll");
                 foreach (var file in sdkFiles)
                 {
@@ -399,10 +399,10 @@ partial class Build : NukeBuild
                 }
 
                 Assert.True(isValid, $"Artifacts not valid. Platform {targetPlatform}");
-            }
 
-            Log.Information("Compress artifacts");
-            ZipFile.CreateFromDirectory(OutputDirectory / "Artifacts", OutputDirectory / "aimp.sdk.zip");
+                Log.Information("Compress artifacts");
+                ZipFile.CreateFromDirectory(artifactsFolder, OutputDirectory / $"aimp.sdk-{targetPlatform}.zip");
+            }
 
             if (IsTeamCity)
             {
@@ -411,7 +411,8 @@ partial class Build : NukeBuild
                     TeamCity.Instance.AddBuildProblem("Unable to create artifacts");
                 }
 
-                TeamCity.Instance.PublishArtifacts(OutputDirectory / "aimp.sdk.zip");
+                TeamCity.Instance.PublishArtifacts(OutputDirectory / "aimp.sdk-x86.zip");
+                TeamCity.Instance.PublishArtifacts(OutputDirectory / "aimp.sdk-x64.zip");
             }
         });
 

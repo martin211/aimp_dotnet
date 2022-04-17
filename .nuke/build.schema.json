@@ -75,6 +75,9 @@
           "type": "boolean",
           "description": "Shows the execution plan (HTML)"
         },
+        "Platform": {
+          "type": "string"
+        },
         "Profile": {
           "type": "array",
           "description": "Defines the profiles to load",
