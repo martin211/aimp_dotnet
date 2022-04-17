@@ -22,13 +22,11 @@ partial class Build
     [Parameter(Name = "AimpPath")] readonly string IntegrationTestAimpPath = @"z:\code\aimp\AIMP5.00.2344\";
     [Parameter(Name = "TimeOut")] readonly int IntegrationTestTimeout = 5; // 5 minutes
     [Parameter(Name = "IsJUnit")] readonly bool IntegrationTestIsJUnit;
+    [Parameter(Name = "TestResultPath")] string IntegrationTestTestResultPath;
 
     AbsolutePath IntegrationTestBinPath => SourceDirectory / "Tests" / "IntegrationTests";
     AbsolutePath IntegrationTestPluginPath => (AbsolutePath) Path.Combine(IntegrationTestAimpPath, "Plugins", "AimpTestRunner");
-
     AbsolutePath IntegrationTestOutput => (AbsolutePath) Path.Combine(@"c:\tmp\aimp\sdk\tests\");
-    [Parameter(Name = "TestResultPath")] string IntegrationTestTestResultPath;
-
     Target PrepareTestConfiguration => _ => _
         .Executes(() =>
         {
@@ -119,7 +117,7 @@ partial class Build
                     });
             }
 
-            testBinPath.GlobDirectories($"**/bin/{Configuration}").ForEach(d =>
+            testBinPath.GlobDirectories($"**/bin/x86/{Configuration}").ForEach(d =>
             {
                 copyFilesFromFolder(d);
                 Log.Debug($"Copy {d}/nunit.engine.addins to {IntegrationTestPluginPath}");
