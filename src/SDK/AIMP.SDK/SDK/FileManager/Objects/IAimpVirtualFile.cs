@@ -9,13 +9,10 @@
 // 
 // ----------------------------------------------------
 
-<<<<<<<< HEAD:src/SDK/AIMP.SDK/SDK/FileManager/Primitives/IAimpVirtualFile.cs
-namespace AIMP.SDK.FileManager.Primitives
-========
+
 using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.FileManager.Objects
->>>>>>>> release/5.02.2365.1:src/SDK/AIMP.SDK/SDK/FileManager/Objects/IAimpVirtualFile.cs
 {
     /// <summary>
     /// Interface provides information about virtual file.

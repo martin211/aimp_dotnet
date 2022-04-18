@@ -9,6 +9,8 @@
 // 
 // ----------------------------------------------------
 
+using AIMP.SDK.Objects;
+
 namespace AIMP.SDK
 {
     /// <summary>

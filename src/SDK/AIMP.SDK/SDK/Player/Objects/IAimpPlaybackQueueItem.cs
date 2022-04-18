@@ -9,14 +9,9 @@
 // 
 // ----------------------------------------------------
 
-using AIMP.SDK.Playlist;
 using AIMP.SDK.Playlist.Objects;
 
-<<<<<<<< HEAD:src/SDK/AIMP.SDK/SDK/Primitives/IAimpPlaybackQueueItem.cs
-namespace AIMP.SDK.Player.Primitives
-========
 namespace AIMP.SDK.Player.Objects
->>>>>>>> release/5.02.2365.1:src/SDK/AIMP.SDK/SDK/Player/Objects/IAimpPlaybackQueueItem.cs
 {
     /// <summary>
     /// Interface IAimpPlaybackQueueItem

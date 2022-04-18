@@ -12,11 +12,7 @@
 using System;
 using System.Drawing;
 
-<<<<<<<< HEAD:src/SDK/AIMP.SDK/SDK/FileManager/Primitives/IAimpFileInfo.cs
-namespace AIMP.SDK.FileManager.Primitives
-========
 namespace AIMP.SDK.FileManager.Objects
->>>>>>>> release/5.02.2365.1:src/SDK/AIMP.SDK/SDK/FileManager/Objects/IAimpFileInfo.cs
 {
     /// <summary>
     /// Storage for extended information about the file.

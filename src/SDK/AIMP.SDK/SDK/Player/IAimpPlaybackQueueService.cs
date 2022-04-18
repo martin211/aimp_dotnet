@@ -9,15 +9,10 @@
 // 
 // ----------------------------------------------------
 
-<<<<<<<< HEAD:src/SDK/AIMP.SDK/SDK/Services/IAimpPlaybackQueueService.cs
-using AIMP.SDK.Player.Primitives;
 
-namespace AIMP.SDK.Player.Services
-========
 using AIMP.SDK.Player.Objects;
 
 namespace AIMP.SDK.Player
->>>>>>>> release/5.02.2365.1:src/SDK/AIMP.SDK/SDK/Player/IAimpPlaybackQueueService.cs
 {
     /// <summary>
     /// Interface IAimpServicePlaybackQueue

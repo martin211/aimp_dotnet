@@ -9,11 +9,7 @@
 // 
 // ----------------------------------------------------
 
-<<<<<<<< HEAD:src/SDK/AIMP.SDK/SDK/Actions/IAimpAction.cs
-namespace AIMP.SDK.Actions
-========
 namespace AIMP.SDK.Actions.Objects
->>>>>>>> release/5.02.2365.1:src/SDK/AIMP.SDK/SDK/Actions/Objects/IAimpAction.cs
 {
     /// <summary>
     /// Main feature of Action is an ability to display it in hotkey list, and provide an ability to customize it hotkey.

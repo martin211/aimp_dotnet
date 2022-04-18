@@ -9,12 +9,7 @@
 // 
 // ----------------------------------------------------
 
-<<<<<<<< HEAD:src/SDK/AIMP.SDK/SDK/Extensions/IAimpExtensionPlaybackQueue.cs
-using AIMP.SDK.Player.Primitives;
-========
 using AIMP.SDK.Player.Objects;
->>>>>>>> release/5.02.2365.1:src/SDK/AIMP.SDK/SDK/Player/Extensions/IAimpExtensionPlaybackQueue.cs
-using AIMP.SDK.Playlist;
 using AIMP.SDK.Playlist.Objects;
 
 namespace AIMP.SDK.Player.Extensions

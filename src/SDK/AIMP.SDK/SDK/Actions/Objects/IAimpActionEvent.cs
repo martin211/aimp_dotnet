@@ -11,11 +11,7 @@
 
 using System;
 
-<<<<<<<< HEAD:src/SDK/AIMP.SDK/SDK/Actions/IAimpActionEvent.cs
-namespace AIMP.SDK.Actions
-========
 namespace AIMP.SDK.Actions.Objects
->>>>>>>> release/5.02.2365.1:src/SDK/AIMP.SDK/SDK/Actions/Objects/IAimpActionEvent.cs
 {
     /// <summary>
     /// This interface is simple event handler.
