@@ -14,7 +14,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using AIMP.SDK;
+using AIMP.SDK.Objects;
 using AIMP.SDK.Playlist;
+using AIMP.SDK.Playlist.Objects;
 using AIMP.SDK.Threading;
 
 namespace Aimp.DotNet.SmartPlaylist

@@ -10,14 +10,12 @@
 // ----------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using AIMP.Loader;
 using AIMP.SDK;
 using AIMP.SDK.MUIManager;
 using AIMP.SDK.Options;
-using AIMP.SDK.Player;
 
 namespace dotnet_ExtendDialogWindow
 {

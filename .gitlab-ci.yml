@@ -4,6 +4,7 @@ stages:
   - test
   - pack
   - deploy
+  - documentation
 
 variables:
   build_path: "$CI_PROJECT_DIR/src/"
@@ -14,43 +15,62 @@ variables:
 before_script:
   - cd $build_path
 
-build:
+build-X86:
   stage: build
   script:
     - powershell -File $CI_PROJECT_DIR\build.ps1 Compile --Configuation $Configuration
   cache:
     key: ${CI_COMMIT_SHORT_SHA}
     paths:
-      - src/$Configuration/
-      - src/**/bin/$Configuration/
+      - src/**/bin/**/$Configuration/
+
+build-X64:
+  stage: build
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 CompileX64 --Configuation $Configuration
+  cache:
+    key: ${CI_COMMIT_SHORT_SHA}
+    paths:
+      - src/**/bin/**/$Configuration/
 
 sonarqube:
   stage: analyze
   variables:
     GIT_STRATEGY: "none"
   script:
-    - powershell -File $CI_PROJECT_DIR\build.ps1 SonarQube --Configuation $Configuration --SonarUrl $SONAR_URL --SonarUser $SONAR_USER --SonarProjectKey $SONAR_PROJECT_KEY --SonarProjectName $SONAR_PROJECT_NAME --RequestSourceBranch $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME --RequestTargetBranch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME --RequestId $CI_MERGE_REQUEST_IID
+    - powershell -File $CI_PROJECT_DIR\build.ps1 SonarQube --Configuation $Configuration --SonarUrl $SONAR_URL --SonarUser $SONAR_TOKEN --SonarProjectKey $SONAR_PROJECT_KEY --SonarProjectName $SONAR_PROJECT_NAME --RequestSourceBranch $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME --RequestTargetBranch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME --RequestId $CI_MERGE_REQUEST_IID
 
 integrationTests:
   stage: test
   variables:
     GIT_STRATEGY: "none"
+  allow_failure: true
   script:
-    - powershell -File $CI_PROJECT_DIR\build.ps1 ExecuteIntegrationTests --AimpPath $AimpPath --IsJUnit true
+    - powershell -File $CI_PROJECT_DIR\build.ps1 ExecuteIntegrationTests --AimpPath $AimpPath --IsJUnit true --TestResultPath $TEST_RESULTS --Configuation $Configuration
   dependencies:
-    - build
+    - build-X86
+    - build-X64
   artifacts:
     when: always
     reports:
        junit:
          - output/junit-integration.tests.xml
 
+copyTestResults:
+  stage: test
+  variables:
+    GIT_STRATEGY: "none"
+  allow_failure: true
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 CopyTestResults --TestResultPath $TEST_RESULTS
+
 pack:
   stage: pack
   variables:
     GIT_STRATEGY: "none"
   dependencies:
-    - build
+    - build-X86
+    - build-X64
   script:
     - powershell -File $CI_PROJECT_DIR\build.ps1 Pack --Configuation $Configuration
 
@@ -59,7 +79,8 @@ artifacts:
   variables:
     GIT_STRATEGY: "none"
   dependencies:
-    - build
+    - build-X86
+    - build-X64
   script:
     - powershell -File $CI_PROJECT_DIR\build.ps1 Artifacts
   artifacts:
@@ -73,5 +94,33 @@ deploy_release:
   variables:
     GIT_STRATEGY: "none"
   script:
-    - powershell -File $CI_PROJECT_DIR\build.ps1 Publish --Source $NUGET_URL --NugetApiKey $NUGET_API_KEY
+    - powershell -File $CI_PROJECT_DIR\build.ps1 Publish --Source $NUGET_SOURCE --NugetApiKey $NUGET_KEY
   when: manual
+
+deploy_local:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: "none"
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 Publish --Source $LOCAL_SOURCE --NugetApiKey $LOCAL_KEY
+  when: manual
+
+buildDocumentation:
+  stage: documentation
+  only: 
+    - /^release\/.*$/
+  variables:
+    GIT_STRATEGY: "none"
+  allow_failure: true
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 BuildDocumentation --DocumentationOutputPath $OUTPUT_DOCUMENTATION
+
+publishDocumentation:
+  stage: documentation
+  only:
+    - /^release\/.*$/
+  variables:
+    GIT_STRATEGY: "none"
+  allow_failure: true
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 PublishDocumentation --DocumentationOutputPath $OUTPUT_DOCUMENTATION

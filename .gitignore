@@ -60,3 +60,4 @@ packages
 build/api/*
 tests/*
 /output/
+/GitExtensions.*
