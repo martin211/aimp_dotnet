@@ -16,30 +16,32 @@ using Serilog;
 
 partial class Build
 {
-    AbsolutePath ResourcesPath => RootDirectory / "resources";
-    AbsolutePath TestOutput => RootDirectory / "tests";
+    AbsolutePath ResourcesPath => SourceDirectory / "Tests" / "Resources";
+    AbsolutePath TestOutput => RootDirectory / "Tests";
 
     [Parameter(Name = "AimpPath")] readonly string IntegrationTestAimpPath = @"z:\code\aimp\AIMP5.00.2344\";
     [Parameter(Name = "TimeOut")] readonly int IntegrationTestTimeout = 5; // 5 minutes
-    [Parameter(Name = "JsJUnit")] readonly bool IntegrationTestIsJUnit;
+    [Parameter(Name = "IsJUnit")] readonly bool IntegrationTestIsJUnit;
+    [Parameter(Name = "TestResultPath")] string IntegrationTestTestResultPath;
+    [Parameter(Name = "Platform")] string IntegrationTestTestPlatform = "x86";
 
-    AbsolutePath IntegrationTestBinPath => SourceDirectory / "IntegrationTest";
-    AbsolutePath IntegrationTestPluginPath => (AbsolutePath) Path.Combine(IntegrationTestAimpPath, "plugins", "AimpTestRunner");
-
+    AbsolutePath IntegrationTestBinPath => SourceDirectory / "Tests" / "IntegrationTests";
+    AbsolutePath IntegrationTestPluginPath => (AbsolutePath) Path.Combine(IntegrationTestAimpPath, "Plugins", "AimpTestRunner");
     AbsolutePath IntegrationTestOutput => (AbsolutePath) Path.Combine(@"c:\tmp\aimp\sdk\tests\");
-    [Parameter] string TestResultPath;
-
-    bool IsTeamCity => TeamCity.Instance != null;
-
     Target PrepareTestConfiguration => _ => _
         .Executes(() =>
         {
+            var outPath = Configuration == Configuration.Release ? IntegrationTestOutput : TestOutput;
+
             Log.Debug("Preparing test settings");
+            DeleteDirectory(outPath);
+            EnsureCleanDirectory(outPath);
+            Directory.CreateDirectory(outPath);
 
             var setting = new DefaultSettings();
             setting.Default = new GhprSettings
             {
-                OutputPath = Configuration == Configuration.Release ? IntegrationTestOutput : TestOutput,
+                OutputPath = outPath,
                 DataServiceFile = "Ghpr.LocalFileSystem.dll",
                 ReportName = "AIMP SDK Test Result",
                 ProjectName = "AIMP DotNet SDK",
@@ -66,24 +68,21 @@ partial class Build
         });
 
     Target PrepareIntegrationTests => _ => _
-        .Requires(() => IntegrationTestAimpPath)
+        .Requires(() => IntegrationTestAimpPath, () => IntegrationTestTestPlatform)
         .Executes(() =>
         {
-            PrintParameters("IntegrationTest");
-
-            Log.Debug($"Delete directory {IntegrationTestPluginPath}");
             DeleteDirectory(IntegrationTestPluginPath);
             EnsureCleanDirectory(IntegrationTestPluginPath);
 
-            Log.Debug($"Create directory {IntegrationTestPluginPath}");
             Directory.CreateDirectory(IntegrationTestPluginPath);
             EnsureExistingDirectory(IntegrationTestPluginPath);
 
-            var testBinPath = IsTeamCity ? OutputDirectory / "integrationTests" : IntegrationTestBinPath;
-            var testPattern = IsTeamCity ? "*" : $"**/bin/{Configuration}";
+            var testBinPath = IntegrationTestBinPath;
+            var testPattern = $"**/bin/{IntegrationTestTestPlatform}/{Configuration}";
 
-            Log.Debug($"Test bin files path: {testBinPath}");
-            Log.Debug($"Search pattern: {testPattern}");
+            Log.Information("Test bin files path: '{testBinPath}'", testBinPath);
+            Log.Information($"Test bin files path: '{testBinPath}'");
+            Log.Information($"Search pattern: {testPattern}");
 
             void copyFilesFromFolder(string folder)
             {
@@ -120,38 +119,29 @@ partial class Build
                     });
             }
 
-            if (IsTeamCity)
+            testBinPath.GlobDirectories($"**/bin/{IntegrationTestTestPlatform}/{Configuration}").ForEach(d =>
             {
-                copyFilesFromFolder(testBinPath);
-                Log.Debug($"Copy {testBinPath}/nunit.engine.addins to {IntegrationTestPluginPath}");
-                CopyFileToDirectory(testBinPath / "nunit.engine.addins", IntegrationTestPluginPath);
-            }
-            else
-            {
-                testBinPath.GlobDirectories($"**/bin/{Configuration}").ForEach(d =>
-                {
-                    copyFilesFromFolder(d);
-                    Log.Debug($"Copy {d}/nunit.engine.addins to {IntegrationTestPluginPath}");
-                    CopyFileToDirectory(d / "nunit.engine.addins", IntegrationTestPluginPath);
-                });
+                copyFilesFromFolder(d);
+                Log.Debug($"Copy {d}/nunit.engine.addins to {IntegrationTestPluginPath}");
+                CopyFileToDirectory(d / "nunit.engine.addins", IntegrationTestPluginPath);
+            });
 
-                var sdkFolder = new DirectoryInfo(SourceDirectory / $"{Configuration}");
-                var sdkFiles = sdkFolder.GetFiles("*.dll");
-                foreach (var file in sdkFiles)
+            var sdkFolder = new DirectoryInfo(SDKBinFolder / $"{IntegrationTestTestPlatform}/{Configuration}");
+            var sdkFiles = sdkFolder.GetFiles("*.dll");
+            foreach (var file in sdkFiles)
+            {
+                if (file.FullName.EndsWith("aimp_dotnet.dll"))
                 {
-                    if (file.FullName.EndsWith("aimp_dotnet.dll"))
-                    {
-                        file.CopyTo(IntegrationTestPluginPath / "AimpTestRunner.dll", true);
-                    }
+                    file.CopyTo(IntegrationTestPluginPath / "AimpTestRunner.dll", true);
                 }
             }
 
-            CopyDirectoryRecursively(ResourcesPath / "integrationTests", IntegrationTestPluginPath / "resources");
+            CopyDirectoryRecursively(ResourcesPath / "integrationTests", IntegrationTestPluginPath / "Resources");
         });
 
     Target ExecuteIntegrationTests => _ => _
         .Requires(() => IntegrationTestAimpPath)
-        .DependsOn(PrepareIntegrationTests, PrepareTestConfiguration)
+        .DependsOn(PrintBuildParameters, PrepareIntegrationTests, PrepareTestConfiguration)
         .Executes(() =>
         {
             var testResultFile = IntegrationTestPluginPath / "integration.tests.xml";
@@ -236,10 +226,11 @@ partial class Build
         });
 
     Target CopyTestResults => _ => _
-        .Requires(() => TestResultPath)
+        .Requires(() => IntegrationTestTestResultPath)
         .Executes(() =>
         {
-            CopyDirectoryRecursively(IntegrationTestOutput, TestResultPath, DirectoryExistsPolicy.Merge, FileExistsPolicy.OverwriteIfNewer);
+            Log.Information("Copy test results from {from} to {to}", IntegrationTestOutput, IntegrationTestTestResultPath);
+            CopyDirectoryRecursively(IntegrationTestOutput, IntegrationTestTestResultPath, DirectoryExistsPolicy.Merge, FileExistsPolicy.OverwriteIfNewer);
         });
 
     void LogError(string message)

@@ -9,10 +9,12 @@
 // 
 // ----------------------------------------------------
 
+using System.Drawing.Imaging;
+using System.IO;
 using AIMP.SDK.AlbumArt;
 using AIMP.SDK.AlbumArt.Extensions;
-using AIMP.SDK.FileManager;
-using AIMP.SDK.FileManager.Primitives;
+using AIMP.SDK.FileManager.Objects;
+using AIMP.SDK.Objects;
 
 namespace dotnet_albumart
 {
@@ -36,7 +38,39 @@ namespace dotnet_albumart
 
         public AimpAlbumArtProviderCategory GetCategory()
         {
-            return AimpAlbumArtProviderCategory.AIMP_ALBUMART_PROVIDER_CATEGORY_INTERNET;
+            return AimpAlbumArtProviderCategory.Internet;
+        }
+    }
+
+    internal class AimpExtensionAlbumArtProvider3 : IAimpExtensionAlbumArtProvider3
+    {
+        private readonly IAimpCore _core;
+
+        public AimpExtensionAlbumArtProvider3(IAimpCore core)
+        {
+            _core = core;
+        }
+
+        public AimpActionResult<IAimpImageContainer> Get(IAimpFileInfo file, IAimpAlbumArtRequest requestOption)
+        {
+            var containerResult = _core.CreateAimpObject<IAimpImageContainer>();
+            var container = containerResult.Result;
+
+            var image = Properties.Resources.front;
+            using (var stream = new MemoryStream())
+            {
+                image.Save(stream, ImageFormat.Jpeg);
+                container.SetDataSize(stream.Length);
+                var containerData = container.GetData();
+                stream.Read(containerData.Result, 0, (int)stream.Length);
+            }
+
+            return new AimpActionResult<IAimpImageContainer>(ActionResultType.OK, container);
+        }
+
+        public AimpAlbumArtProviderCategory GetCategory()
+        {
+            return AimpAlbumArtProviderCategory.Internet;
         }
     }
 }

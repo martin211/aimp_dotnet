@@ -12,6 +12,8 @@
 using System.Collections.Generic;
 using AIMP.SDK;
 using AIMP.SDK.Playlist;
+using AIMP.SDK.Playlist.Extensions;
+using AIMP.SDK.Playlist.Objects;
 
 namespace Aimp.DotNet.SmartPlaylist
 {

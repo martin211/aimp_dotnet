@@ -17,6 +17,8 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using AIMP.SDK;
 using AIMP.SDK.Playlist;
+using AIMP.SDK.Playlist.Extensions;
+using AIMP.SDK.Playlist.Objects;
 
 namespace Aimp.DotNet.SmartPlaylist
 {

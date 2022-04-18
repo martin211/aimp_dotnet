@@ -12,7 +12,8 @@
 using AIMP.SDK;
 using AIMP.SDK.FileManager;
 using AIMP.SDK.FileManager.Extensions;
-using AIMP.SDK.FileManager.Primitives;
+using AIMP.SDK.FileManager.Objects;
+using AIMP.SDK.Objects;
 
 namespace AIMP.DotNet.MusicLibrary
 {

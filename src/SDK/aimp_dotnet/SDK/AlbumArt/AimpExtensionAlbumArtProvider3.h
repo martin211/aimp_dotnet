@@ -1,0 +1,43 @@
+﻿#pragma once
+
+using namespace AlbumArt;
+using namespace AlbumArt::Extensions;
+
+private class AimpExtensionAlbumArtProvider3 :
+    public IUnknownInterfaceImpl<IAIMPExtensionAlbumArtProvider3>,
+    public IAIMPExtensionAlbumArtProvider3 {
+private:
+    gcroot<IAimpExtensionAlbumArtProvider3^> _managed;
+
+public:
+    typedef IUnknownInterfaceImpl<IAIMPExtensionAlbumArtProvider3> Base;
+
+    AimpExtensionAlbumArtProvider3(gcroot<IAimpExtensionAlbumArtProvider3^> managed);
+
+    virtual HRESULT WINAPI Get(IAIMPFileInfo* FileURI, IAIMPAlbumArtRequest* Request, IAIMPImageContainer** Image);
+
+    virtual DWORD WINAPI GetCategory();
+
+    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject) {
+        if (!ppvObject) {
+            return E_POINTER;
+        }
+
+        if (riid == IID_IAIMPExtensionAlbumArtProvider3) {
+        //if (riid == IID_IAIMPServiceAlbumArt) {
+            *ppvObject = this;
+            AddRef();
+            return S_OK;
+        }
+
+        return E_NOINTERFACE;
+    }
+
+    virtual ULONG WINAPI AddRef(void) {
+        return Base::AddRef();
+    }
+
+    virtual ULONG WINAPI Release(void) {
+        return Base::Release();
+    }
+};

@@ -8,10 +8,12 @@
     <NukeRootDirectory>..</NukeRootDirectory>
     <NukeScriptDirectory>..</NukeScriptDirectory>
     <NukeTelemetryVersion>1</NukeTelemetryVersion>
+    <PlatformTarget>x64</PlatformTarget>
+    <Platforms>AnyCPU;x64;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="docfx.console" Version="2.58.9">
+    <PackageReference Include="docfx.console" Version="2.59.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -20,7 +22,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Nuke.Common" Version="6.0.0" />
+    <PackageReference Include="Nuke.Common" Version="6.0.1" />
+    <PackageReference Include="Nuke.PvsStudio" Version="0.1.0-ci0012" />
     <PackageDownload Include="dotnet-sonarscanner" Version="[5.4.1]" />
     <PackageDownload Include="GitVersion.Tool" Version="[5.8.1]" />
   </ItemGroup>
