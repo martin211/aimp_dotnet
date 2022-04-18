@@ -8,7 +8,7 @@
     <owners>Evgeniy Bogdan</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectUrl>https://github.com/martin211/aimp_dotnet</projectUrl>
-    <description>Aimp DotNet allows you to create a plugin for AIMP media player on .Net</description>
+    <description>Aimp DotNet allows you to create a plugin for AIMP media player on .Net. To develop plugins for AIMP x64 use AimpSDK-x64 package instead.</description>
     <tags>AIMP SDK DotNet</tags>
 	<license type="file">LICENSE.md</license>
   </metadata>
