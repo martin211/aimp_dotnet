@@ -1,6 +1,6 @@
 ﻿<Project>
     <PropertyGroup>
-        <CopyScriptPath>$(SolutionDir)..\tools\CopyPlugin.ps1</CopyScriptPath>
+        <CopyScriptPath>$(SolutionDir)..\nuget\tools\CopyPlugin.ps1</CopyScriptPath>
         <AimpVersion>AIMP5.02.2369</AimpVersion>
     </PropertyGroup>
 
