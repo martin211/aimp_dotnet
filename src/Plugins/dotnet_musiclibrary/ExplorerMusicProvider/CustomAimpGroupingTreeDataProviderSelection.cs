@@ -36,7 +36,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
             return new AimpActionResult<string, object>(ActionResultType.OK, "fn", 1);
         }
 
-        public bool NextRow()
+        public bool NextRecord()
         {
             return true;
         }

@@ -109,6 +109,6 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         /// Jumps to the next record. Returns False if current node is last.
         /// </summary>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        bool NextRow();
+        bool NextRecord();
     }
 }

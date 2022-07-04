@@ -68,7 +68,7 @@ namespace AIMP {
 
             static VARIANT ToNativeVariant(Object^ objectValue);
 
-            static Object^ FromVaiant(VARIANT* variant);
+            static Object^ FromVariant(VARIANT* variant);
 
             static IAIMPObjectList* GetAimpObjectList();
 

@@ -17,16 +17,13 @@ namespace AIMP {
                                                       public AimpObject<IAIMPMLDataFieldFilterByArray> {
         public:
             explicit AimpDataFieldFilterByArray(IAIMPMLDataFieldFilterByArray* aimpObject);
-
             virtual property String^ Field
             {
                 String^ get();
                 void set(String^ value);
             }
-
-            virtual ActionResult GetData(IList<Object^>^ values);
-
             virtual ActionResult SetData(IList<Object^>^ values);
+            virtual AimpActionResult<IList<Object^>^>^ GetData();
         };
     }
 }

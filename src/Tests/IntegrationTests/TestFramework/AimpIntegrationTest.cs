@@ -24,7 +24,6 @@ using NUnit.Framework.Internal;
 
 namespace Aimp.TestRunner.TestFramework;
 
-[TestFixture]
 public abstract class AimpIntegrationTest
 {
     [OneTimeSetUp]
@@ -202,6 +201,7 @@ public abstract class AimpIntegrationTest
     {
         AimpAssert.AreEqual(ActionResultType.OK, result.ResultType, "Wrong ActionResultType");
         AimpAssert.NotNull(result.Result, "Result is empty");
+        AimpAssert.IsTrue(result.Result is TResult);
     }
 
     private void ClearAimpBeforeTests()

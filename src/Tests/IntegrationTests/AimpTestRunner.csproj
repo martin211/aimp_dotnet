@@ -42,6 +42,42 @@
     <WarningLevel>4</WarningLevel>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ghpr.Core, Version=0.9.12.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Ghpr.Core.0.9.12\lib\net48\Ghpr.Core.dll</HintPath>
@@ -120,8 +156,11 @@
     <Compile Include="UnitTests\MenuManager\AimpMenuItemTests.cs" />
     <Compile Include="UnitTests\MenuManager\AimpServiceMenuManagerTests.cs" />
     <Compile Include="UnitTests\MessageDispatcher\AimpServiceMessageDispatcherTests.cs" />
+    <Compile Include="UnitTests\MusicLibrary\AimpServiceMusicLibraryTests.cs" />
     <Compile Include="UnitTests\Objects\AimpFileStreamUnitTests.cs" />
+    <Compile Include="UnitTests\Objects\AimpOrderedListTests.cs" />
     <Compile Include="UnitTests\Objects\AimpStreamUnitTests.cs" />
+    <Compile Include="UnitTests\Objects\AimpStringUnitTests.cs" />
     <Compile Include="UnitTests\Playback\AimpPlaybackQueueServiceTests.cs" />
     <Compile Include="UnitTests\Playback\PlayerHookTests.cs" />
     <Compile Include="UnitTests\Player\AimpEqualizerPresetTests.cs" />

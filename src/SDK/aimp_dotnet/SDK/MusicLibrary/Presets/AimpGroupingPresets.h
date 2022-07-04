@@ -42,13 +42,10 @@ namespace AIMP {
 
             virtual int GetCount(void);
 
-            virtual TYPED_RESULT(IAimpGroupingPreset) GetPreset(int index);
-
-            virtual TYPED_RESULT(IAimpGroupingPresetStandard) GetStandardPreset(int index);
-
-            virtual TYPED_RESULT(IAimpGroupingPreset) GetPresetById(String^ id);
-
-            virtual TYPED_RESULT(IAimpGroupingPresetStandard) GetStandardPresetById(String^ id);
+            generic <class TAimpGroupingPreset>
+            virtual AimpActionResult<TAimpGroupingPreset>^ Get(int index);
+            generic <class TAimpGroupingPreset>
+            virtual AimpActionResult<TAimpGroupingPreset>^ GetById(String^ id);
         };
     }
 }

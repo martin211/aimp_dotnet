@@ -108,7 +108,7 @@ AimpActionResult<Object^>^ AimpFileList::GetId(int index) {
         result = CheckResult(InternalAimpObject->GetID(index, &idVar));
 
         if (result == ActionResultType::OK) {
-            id = AimpConverter::FromVaiant(idVar);
+            id = AimpConverter::FromVariant(idVar);
         }
     }
     finally {

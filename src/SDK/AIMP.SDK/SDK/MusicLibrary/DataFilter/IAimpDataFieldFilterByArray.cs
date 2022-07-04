@@ -16,7 +16,7 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
     /// <summary>
     /// Interface IAimpDataFieldFilterByArray
     /// </summary>
-    public interface IAimpDataFieldFilterByArray
+    public interface IAimpDataFieldFilterByArray : IAimpFilter
     {
         /// <summary>
         /// Gets or sets the filter field.
@@ -29,7 +29,7 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
         /// </summary>
         /// <param name="values">The values.</param>
         /// <returns>AimpActionResult.</returns>
-        AimpActionResult GetData(IList<object> values);
+        AimpActionResult<IList<object>> GetData();
 
         /// <summary>
         /// Sets the data.

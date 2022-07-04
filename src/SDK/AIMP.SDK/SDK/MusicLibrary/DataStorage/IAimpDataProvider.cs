@@ -18,6 +18,7 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
     /// Provides an access to data in data storage.
     /// Must be implemented by plugin on same level as the
     /// <see cref="AIMP.SDK.MusicLibrary.Extension.IAimpExtensionDataStorage" /> interface.
+    /// You must use the <see cref="IAimpDataProvider2"/> instead of this interface if you data storage uses the page-by-page access method.
     /// Interface implementation must support asynchronous access.
     /// </summary>
     public interface IAimpDataProvider

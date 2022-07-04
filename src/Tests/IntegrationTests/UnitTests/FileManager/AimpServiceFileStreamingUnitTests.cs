@@ -16,7 +16,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.FileManager;
 
-[TestFixture]
+[TestFixture(Category = "ServiceFileStreaming")]
 public class AimpServiceFileStreamingUnitTests : AimpIntegrationTest
 {
     [Test]

@@ -9,6 +9,8 @@
 // 
 // ----------------------------------------------------
 
+using AIMP.SDK.Objects;
+
 namespace AIMP.SDK.MusicLibrary.DataFilter
 {
     /// <summary>
@@ -40,7 +42,7 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
     /// <summary>
     /// Provides an ability to group few filters.
     /// </summary>
-    public interface IAimpDataFilterGroup
+    public interface IAimpDataFilterGroup : IAimpPropertyList2, IAimpFilter
     {
         /// <summary>
         /// Gets or sets the rule processing results from subsidiaries filters.
@@ -56,8 +58,7 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
         /// <param name="value2">The value2.</param>
         /// <param name="operation">The rule processing results from subsidiaries filters.</param>
         /// <returns>AimpActionResult&lt;IAimpDataFieldFilter&gt;.</returns>
-        AimpActionResult<IAimpDataFieldFilter> Add(string field, object value1, object value2,
-            FieldFilterOperationType operation);
+        AimpActionResult<IAimpDataFieldFilter> Add(string field, object value1, object value2, FieldFilterOperationType operation);
 
         /// <summary>
         /// Adds the specified field.
@@ -87,34 +88,12 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
         /// <returns>AimpActionResult.</returns>
         AimpActionResult Delete(int index);
 
-        /// <summary>
-        /// Gets the child group by index.
-        /// </summary>
-        /// <param name="index">The index.</param>
-        /// <returns>AimpActionResult&lt;IAimpDataFilterGroup&gt;.</returns>
-        AimpActionResult<IAimpDataFilterGroup> GetFilterGroup(int index);
-
-        /// <summary>
-        /// Gets the child field filter by index.
-        /// </summary>
-        /// <param name="index">The index.</param>
-        /// <returns>AimpActionResult&lt;IAimpDataFieldFilter&gt;.</returns>
-        AimpActionResult<IAimpDataFieldFilter> GetFieldFilter(int index);
+        AimpActionResult<TFilter> GetChild<TFilter>(int index) where TFilter : IAimpFilter;
 
         /// <summary>
         /// Gets the child count.
         /// </summary>
         /// <returns>System.Int32.</returns>
         int GetChildCount();
-
-        /// <summary>
-        /// Begins the update.
-        /// </summary>
-        void BeginUpdate();
-
-        /// <summary>
-        /// Ends the update.
-        /// </summary>
-        void EndUpdate();
     }
 }

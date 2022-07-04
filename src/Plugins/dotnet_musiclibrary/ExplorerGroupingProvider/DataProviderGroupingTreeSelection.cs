@@ -58,7 +58,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                 _data[_index].Value);
         }
 
-        public bool NextRow()
+        public bool NextRecord()
         {
             _index++;
             return _index < _data.Count;

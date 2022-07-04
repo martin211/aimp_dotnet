@@ -27,7 +27,7 @@ public class AimpExtensionFileExpander : IAimpExtensionFileExpander
     }
 }
 
-[TestFixture]
+[TestFixture(Category = "ExtensionFileExpander")]
 public class AimpExtensionFileExpanderUnitTests : AimpIntegrationTest
 {
     private AimpExtensionFileExpander _extension;

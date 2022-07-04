@@ -12,7 +12,6 @@ DotNetPlugin::DotNetPlugin()
 {
     _optionsLoaded = false;
     auto path = Path::GetDirectoryName(Reflection::Assembly::GetExecutingAssembly()->Location);
-    //InternalAssemblyResolver::Initialize(path);
     Loader::CustomAssemblyResolver::Initialize(path);
     _dotNetPlugin = Loader::PluginInfoLoader::LoadPlugin(path);
 }
@@ -79,13 +78,7 @@ DWORD WINAPI DotNetPlugin::InfoGetCategories()
 
 HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
 {
-    System::Diagnostics::Debug::WriteLine("BEGIN: Initialize DotNet plugin");
-
-    //#ifdef _DEBUG
-    //    _CrtSetBreakAlloc(230);
-    //#endif
-
-    if (System::Object::ReferenceEquals(_dotNetPlugin, nullptr))
+    if (Object::ReferenceEquals(_dotNetPlugin, nullptr))
     {
         return S_OK;
     }
@@ -102,8 +95,6 @@ HRESULT WINAPI DotNetPlugin::Initialize(IAIMPCore* core)
         _externalSettingsDialog = new AimpExternalSettingsDialog(externalSettingsDialog);
     }
 
-    System::Diagnostics::Debug::WriteLine("END: Initialize DotNet plugin");
-
     return S_OK;
 }
 
@@ -115,15 +106,13 @@ HRESULT WINAPI DotNetPlugin::Finalize()
     }
 
     _dotNetPlugin->PluginInformation->Unload();
-    _dotNetPlugin->PluginInformation->PluginLoadEvent -= gcnew Loader::PluginLoadUnloadEvent(
-        _managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
-    _dotNetPlugin->PluginInformation->PluginUnloadEvent -= gcnew Loader::PluginLoadUnloadEvent(
-        _managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
+    _dotNetPlugin->PluginInformation->PluginLoadEvent -= gcnew Loader::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginLoadEventReaction);
+    _dotNetPlugin->PluginInformation->PluginUnloadEvent -= gcnew Loader::PluginLoadUnloadEvent(_managedExtension, &ManagedFunctionality::PluginUnloadEventReaction);
 
     delete _managedExtension;
 
     Loader::CustomAssemblyResolver::Deinitialize();
-    System::GC::Collect();
+    GC::Collect();
     AimpMemoryManager::getInstance().ReleaseAll();
 
 #ifdef _DEBUG
@@ -139,9 +128,7 @@ void WINAPI DotNetPlugin::SystemNotification(int NotifyID, IUnknown* Data)
 
 HRESULT WINAPI DotNetPlugin::QueryInterface(REFIID riid, LPVOID* ppvObj)
 {
-    System::Diagnostics::Debug::WriteLine("DotNetPlugin: QueryInterface");
-
-    if (System::Object::ReferenceEquals(_dotNetPlugin, nullptr))
+    if (Object::ReferenceEquals(_dotNetPlugin, nullptr))
     {
         return E_NOINTERFACE;
     }
@@ -171,6 +158,6 @@ ULONG WINAPI DotNetPlugin::Release(void)
 
 void WINAPI DotNetPlugin::Show(HWND ParentWindow)
 {
-    System::IntPtr parent = System::IntPtr(ParentWindow);
+    IntPtr parent = IntPtr(ParentWindow);
     _dotNetPlugin->PluginInformation->ShowSettingDialog(parent);
 }

@@ -17,6 +17,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.MessageDispatcher;
 
+[TestFixture(Category = "ServiceMessageDispatcher")]
 public class AimpServiceMessageDispatcherTests : AimpIntegrationTest
 {
     public override void RunBeforeAnyTests()

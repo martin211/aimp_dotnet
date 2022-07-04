@@ -9,6 +9,7 @@
 // 
 // ----------------------------------------------------
 
+
 using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.FileManager.Objects

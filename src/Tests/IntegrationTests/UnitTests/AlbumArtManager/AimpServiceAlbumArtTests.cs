@@ -18,6 +18,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.AlbumArtManager;
 
+[TestFixture(Category = "ServiceAlbumArt")]
 public class AimpServiceAlbumArtTests : AimpIntegrationTest
 {
     [Test]

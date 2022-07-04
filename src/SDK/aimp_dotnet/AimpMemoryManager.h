@@ -7,6 +7,7 @@
 
 #pragma once
 #include <map>
+#include <string>
 
 class AimpMemoryManager
 {
@@ -15,6 +16,7 @@ public:
     {
         void* object;
         bool disposed;
+        std::string name;
     };
 private:
     static AimpMemoryManager* instance;
@@ -24,7 +26,7 @@ public:
     std::map<int, ObjectInfo*> objects;
     static AimpMemoryManager& getInstance();
 
-    void AddObject(int key, void* obj);
+    void AddObject(int key, void* obj, std::string name);
 
     void Release(int key);
 

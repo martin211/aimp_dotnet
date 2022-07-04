@@ -19,6 +19,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests;
 
+[TestFixture(Category = "ImageUnit")]
 public class AimpImageUnitTests : AimpIntegrationTest
 {
     public override void RunBeforeAnyTests()

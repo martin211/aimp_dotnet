@@ -18,6 +18,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.MenuManager;
 
+[TestFixture(Category = "ServiceMenuManager")]
 public class AimpServiceMenuManagerTests : AimpIntegrationTest
 {
     [Test]

@@ -15,15 +15,23 @@ variables:
 before_script:
   - cd $build_path
 
-build:
+build-X86:
   stage: build
   script:
     - powershell -File $CI_PROJECT_DIR\build.ps1 Compile --Configuation $Configuration
   cache:
     key: ${CI_COMMIT_SHORT_SHA}
     paths:
-      - src/$Configuration/
-      - src/**/bin/$Configuration/
+      - src/**/bin/**/$Configuration/
+
+build-X64:
+  stage: build
+  script:
+    - powershell -File $CI_PROJECT_DIR\build.ps1 CompileX64 --Configuation $Configuration
+  cache:
+    key: ${CI_COMMIT_SHORT_SHA}
+    paths:
+      - src/**/bin/**/$Configuration/
 
 sonarqube:
   stage: analyze
@@ -40,7 +48,8 @@ integrationTests:
   script:
     - powershell -File $CI_PROJECT_DIR\build.ps1 ExecuteIntegrationTests --AimpPath $AimpPath --IsJUnit true --TestResultPath $TEST_RESULTS --Configuation $Configuration
   dependencies:
-    - build
+    - build-X86
+    - build-X64
   artifacts:
     when: always
     reports:
@@ -60,7 +69,8 @@ pack:
   variables:
     GIT_STRATEGY: "none"
   dependencies:
-    - build
+    - build-X86
+    - build-X64
   script:
     - powershell -File $CI_PROJECT_DIR\build.ps1 Pack --Configuation $Configuration
 
@@ -69,7 +79,8 @@ artifacts:
   variables:
     GIT_STRATEGY: "none"
   dependencies:
-    - build
+    - build-X86
+    - build-X64
   script:
     - powershell -File $CI_PROJECT_DIR\build.ps1 Artifacts
   artifacts:

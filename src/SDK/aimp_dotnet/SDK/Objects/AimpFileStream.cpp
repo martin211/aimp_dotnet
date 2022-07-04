@@ -7,7 +7,7 @@
 
 #include "Stdafx.h"
 #include "AimpFileStream.h"
-#include "SDK/AimpString.h"
+#include "AimpString.h"
 
 AimpFileStream::AimpFileStream(IAIMPFileStream* aimpObject) : AimpStream(aimpObject) {
 }

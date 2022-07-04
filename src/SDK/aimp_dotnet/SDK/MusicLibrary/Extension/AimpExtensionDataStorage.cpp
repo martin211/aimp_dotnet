@@ -33,7 +33,7 @@ AimpDataProvider::AimpDataProvider(gcroot<IAimpExtensionDataStorage^> instance) 
 HRESULT WINAPI AimpDataProvider::GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* Filter, IUnknown** Data) {
     Object^ obj = _instance;
 
-    DataStorage::IAimpDataProvider^ provider = dynamic_cast<DataStorage::IAimpDataProvider^>(obj);
+    IAimpDataProvider^ provider = dynamic_cast<IAimpDataProvider^>(obj);
     if (provider != nullptr) {
         const auto result = provider->GetData(AimpConverter::ToStringCollection(Fields), gcnew AimpDataFilter(Filter));
 
@@ -47,9 +47,11 @@ HRESULT WINAPI AimpDataProvider::GetData(IAIMPObjectList* Fields, IAIMPMLDataFil
                 *Data = AimpConverter::ToAimpString(result->Result->ToString());
             }
         }
+
+        return static_cast<HRESULT>(result->ResultType);
     }
 
-    return S_OK;
+    return E_FAIL;
 }
 
 ULONG WINAPI AimpDataProvider::AddRef(void) {
@@ -62,10 +64,60 @@ ULONG WINAPI AimpDataProvider::Release(void) {
 
 #pragma endregion
 
+#pragma region AimpDataProvider2
+
+AimpDataProvider2::AimpDataProvider2(gcroot<IAimpExtensionDataStorage^> instance) {
+    _instance = instance;
+}
+
+HRESULT AimpDataProvider2::GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* Filter, IUnknown* Reserved, IUnknown** PageID, IUnknown** Data) {
+    Object^ obj = _instance;
+
+    IAimpDataProvider2^ provider = dynamic_cast<IAimpDataProvider2^>(obj);
+    if (provider != nullptr) {
+        String^ page = nullptr;
+
+        if (*PageID != nullptr) {
+            page = AimpConverter::ToManagedString(static_cast<IAIMPString*>(*PageID));
+        }
+
+        const auto result = provider->GetData(
+            AimpConverter::ToStringCollection(Fields),
+            gcnew AimpDataFilter(Filter),
+            page);
+
+        if (result->ResultType == ActionResultType::OK) {
+            IAimpDataProviderSelection^ selection = dynamic_cast<IAimpDataProviderSelection^>(result->Result->Data);
+
+            if (selection != nullptr) {
+                *Data = new InternalAimpDataProviderSelection(static_cast<IAimpDataProviderSelection^>(result->Result->Data));
+            }
+            else {
+                *Data = AimpConverter::ToAimpString(result->Result->ToString());
+            }
+
+            *PageID = AimpConverter::ToAimpString(result->Result->PageId);
+        }
+
+        return static_cast<HRESULT>(result->ResultType);
+    }
+
+    return E_FAIL;
+}
+
+ULONG AimpDataProvider2::AddRef() {
+    return Base::AddRef();
+}
+
+ULONG AimpDataProvider2::Release() {
+    return Base::Release();
+}
+
+#pragma endregion
+
 
 #pragma region AimpExtensionDataStorage
-AimpExtensionDataStorage::AimpExtensionDataStorage(IAIMPCore* aimpCore,
-                                                   gcroot<Extension::IAimpExtensionDataStorage^> instance) {
+AimpExtensionDataStorage::AimpExtensionDataStorage(IAIMPCore* aimpCore, gcroot<IAimpExtensionDataStorage^> instance) {
     _managedInstance = instance;
     _aimpCore = aimpCore;
 
@@ -76,8 +128,10 @@ AimpExtensionDataStorage::AimpExtensionDataStorage(IAIMPCore* aimpCore,
     const auto deleteFilesCommand = dynamic_cast<IAimpDataStorageCommandDeleteFiles^>(obj);
     const auto dropDataCommand = dynamic_cast<IAimpDataStorageCommandDropData^>(obj);
     const auto reloadTagsCommand = dynamic_cast<IAimpDataStorageCommandReloadTags^>(obj);
-    const auto reportDialogCommand = dynamic_cast<IAimpDataStorageCommandReportDialog^>(obj);
     const auto userMarkCommand = dynamic_cast<IAimpDataStorageCommandUserMark^>(obj);
+    const auto reportDialogCommand = dynamic_cast<IAimpDataStorageCommandReportDialog^>(obj);
+    const auto deleteFilesCommand2 = dynamic_cast<IAimpDataStorageCommandDeleteFiles2^>(obj);
+    const auto findInLibraryCommand = dynamic_cast<IAimpDataStorageCommandFindInLibrary^>(obj);
 
     if (addFilesDialogCommand != nullptr) {
         _addFilesDialogCommand = new AimpDataStorageCommandAddFilesDialog(addFilesDialogCommand);
@@ -107,11 +161,29 @@ AimpExtensionDataStorage::AimpExtensionDataStorage(IAIMPCore* aimpCore,
         _userMarkCommand = new AimpDataStorageCommandUserMark(userMarkCommand);
     }
 
-    _aimpDataProvider = new AimpDataProvider(instance);
+    if (deleteFilesCommand2 != nullptr) {
+        _deleteFilesCommand2 = new AimpDataStorageCommandDeleteFiles2(deleteFilesCommand2);
+    }
+
+    if (findInLibraryCommand != nullptr) {
+        _findInLibraryCommand = new AimpDataStorageCommandFindInLibrary(findInLibraryCommand);
+    }
+
+    const auto provider2 = dynamic_cast<IAimpDataProvider2^>(obj);
+
+    if (provider2 != nullptr) {
+        _aimpDataProvider2 = new AimpDataProvider2(instance);
+    } else {
+        _aimpDataProvider = new AimpDataProvider(instance);
+    }
 }
 
 void WINAPI AimpExtensionDataStorage::Finalize() {
-    _managedInstance->Terminate();
+    if (static_cast<IAimpExtensionDataStorage^>(_managedInstance) != nullptr) {
+        _managedInstance->Terminate();
+        _managedInstance = nullptr;
+    }
+    
     _aimpDataProvider->Release();
     _aimpDataProvider = nullptr;
 
@@ -135,8 +207,6 @@ void WINAPI AimpExtensionDataStorage::Finalize() {
 
     if (_userMarkCommand != nullptr)
         _userMarkCommand->Release();
-
-    _managedInstance = nullptr;
 }
 
 void WINAPI AimpExtensionDataStorage::Initialize(IAIMPMLDataStorageManager* Manager) {
@@ -278,6 +348,12 @@ HRESULT WINAPI AimpExtensionDataStorage::QueryInterface(REFIID riid, LPVOID* ppv
         return S_OK;
     }
 
+    if (riid == IID_IAIMPMLDataProvider2) {
+        *ppvObject = _aimpDataProvider2;
+        _aimpDataProvider2->AddRef();
+        return S_OK;
+    }
+
     if (riid == IID_IAIMPMLExtensionDataStorage) {
         *ppvObject = this;
         AddRef();
@@ -310,6 +386,14 @@ HRESULT WINAPI AimpExtensionDataStorage::QueryInterface(REFIID riid, LPVOID* ppv
 
     if (riid == IID_IAIMPMLDataStorageCommandReportDialog && _reportDialogCommand != nullptr) {
         return _reportDialogCommand->QueryInterface(riid, ppvObject);
+    }
+
+    if (riid == IID_IAIMPMLDataStorageCommandDeleteFiles2 && _deleteFilesCommand2 != nullptr) {
+        return _deleteFilesCommand2->QueryInterface(riid, ppvObject);
+    }
+
+    if (riid == IID_IAIMPMLDataStorageCommandFindInLibrary && _findInLibraryCommand != nullptr) {
+        return _findInLibraryCommand->QueryInterface(riid, ppvObject);
     }
 
     if (riid == IID_IAIMPMLGroupingTreeDataProvider) {

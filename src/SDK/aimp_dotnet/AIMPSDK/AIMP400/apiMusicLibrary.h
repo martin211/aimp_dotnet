@@ -396,7 +396,7 @@ class IAIMPMLGroupingTreeDataProviderSelection : public IUnknown
 		virtual DWORD WINAPI GetFlags() = 0;
 		virtual HRESULT WINAPI GetImageIndex(int* Index) = 0;
 		virtual HRESULT WINAPI GetValue(IAIMPString** FieldName, VARIANT* Value) = 0;
-		virtual BOOL WINAPI NextRow() = 0;
+		virtual BOOL WINAPI NextRecord() = 0;
 };
 
 /* IAIMPMLGroupingTreeDataProvider */

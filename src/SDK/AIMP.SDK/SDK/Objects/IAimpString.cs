@@ -19,11 +19,6 @@ namespace AIMP.SDK.Objects
     public enum AimpStringCase
     {
         /// <summary>
-        /// The default
-        /// </summary>
-        Default = 0,
-
-        /// <summary>
         /// The lower
         /// </summary>
         Lower = 1,
@@ -34,14 +29,14 @@ namespace AIMP.SDK.Objects
         Upper = 2,
 
         /// <summary>
-        /// All words with capical letter
+        /// All words with capital letter
         /// </summary>
-        AllWordsWithCapicalLetter = 3,
+        AllWordsWithCapitalLetter = 3,
 
         /// <summary>
         /// The first word with capical letter
         /// </summary>
-        FirstWordWithCapicalLetter = 4
+        FirstWordWithCapitalLetter = 4
     }
 
     /// <summary>
@@ -70,9 +65,9 @@ namespace AIMP.SDK.Objects
         /// Gets the character.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <param name="c">The c.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType GetChar(int index, out char c);
+        [Obsolete("Method not working, use GetData()[index] instead.")]
+        AimpActionResult<char> GetChar(int index);
 
         /// <summary>
         /// Gets the data.
@@ -98,7 +93,7 @@ namespace AIMP.SDK.Objects
         /// <param name="index">The index.</param>
         /// <param name="c">The c.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType SetChar(int index, char c);
+        AimpActionResult SetChar(int index, char c);
 
         /// <summary>
         /// Sets the data.
@@ -106,14 +101,14 @@ namespace AIMP.SDK.Objects
         /// <param name="chars">The chars.</param>
         /// <param name="charsCount">The chars count.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType SetData(string chars, int charsCount);
+        AimpActionResult SetData(string chars, int charsCount);
 
         /// <summary>
         /// Adds the specified string.
         /// </summary>
         /// <param name="str">The string.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType Add(IAimpString str);
+        AimpActionResult Add(IAimpString str);
 
         /// <summary>
         /// Adds the specified chars.
@@ -121,40 +116,36 @@ namespace AIMP.SDK.Objects
         /// <param name="chars">The chars.</param>
         /// <param name="charsCount">The chars count.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType Add(string chars, int charsCount);
+        AimpActionResult Add(string chars, int charsCount);
 
         /// <summary>
         /// Changes the case.
         /// </summary>
         /// <param name="mode">The mode.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType ChangeCase(AimpStringCase mode);
+        AimpActionResult ChangeCase(AimpStringCase mode);
 
         /// <summary>
         /// Clones the specified string.
         /// </summary>
-        /// <param name="str">The string.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType Clone(out IAimpString str);
+        AimpActionResult<IAimpString> Clone();
 
         /// <summary>
         /// Compares the specified string.
         /// </summary>
         /// <param name="str">The string.</param>
-        /// <param name="compareResult">The compare result.</param>
         /// <param name="ignoreCase">if set to <c>true</c> [ignore case].</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType Compare(IAimpString str, out int compareResult, bool ignoreCase);
+        AimpActionResult<int> Compare(IAimpString str, bool ignoreCase);
 
         /// <summary>
         /// Compares the specified chars.
         /// </summary>
         /// <param name="chars">The chars.</param>
-        /// <param name="charsCount">The chars count.</param>
-        /// <param name="compareResult">The compare result.</param>
         /// <param name="ignoreCase">if set to <c>true</c> [ignore case].</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType Compare(string chars, int charsCount, out int compareResult, bool ignoreCase);
+        AimpActionResult<int> Compare(string chars, bool ignoreCase);
 
         /// <summary>
         /// Deletes the specified index.
@@ -162,29 +153,25 @@ namespace AIMP.SDK.Objects
         /// <param name="index">The index.</param>
         /// <param name="count">The count.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType Delete(int index, int count);
+        AimpActionResult Delete(int index, int count);
 
         /// <summary>
         /// Finds the specified string.
         /// </summary>
         /// <param name="str">The string.</param>
-        /// <param name="index">The index.</param>
         /// <param name="flags">The flags.</param>
         /// <param name="startFromIndex">The start from index.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType Find(IAimpString str, out int index, AimpStringFindFlags flags, int startFromIndex);
+        AimpActionResult<int> Find(IAimpString str, AimpStringFindFlags flags, int startFromIndex);
 
         /// <summary>
         /// Finds the specified chars.
         /// </summary>
         /// <param name="chars">The chars.</param>
-        /// <param name="charsCount">The chars count.</param>
-        /// <param name="index">The index.</param>
         /// <param name="flags">The flags.</param>
         /// <param name="startFromIndex">The start from index.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType Find(string chars, int charsCount, out int index, AimpStringFindFlags flags,
-            int startFromIndex);
+        AimpActionResult<int> Find(string chars, AimpStringFindFlags flags, int startFromIndex);
 
         /// <summary>
         /// Inserts the specified index.
@@ -192,16 +179,15 @@ namespace AIMP.SDK.Objects
         /// <param name="index">The index.</param>
         /// <param name="str">The string.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType Insert(int index, IAimpString str);
+        AimpActionResult Insert(int index, IAimpString str);
 
         /// <summary>
         /// Inserts the specified index.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="chars">The chars.</param>
-        /// <param name="charsCount">The chars count.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType Insert(int index, string chars, int charsCount);
+        AimpActionResult Insert(int index, string chars);
 
         /// <summary>
         /// Replaces the specified old pattern.
@@ -210,19 +196,16 @@ namespace AIMP.SDK.Objects
         /// <param name="newPattern">The new pattern.</param>
         /// <param name="flags">The flags.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType Replace(IAimpString oldPattern, IAimpString newPattern, int flags);
+        AimpActionResult Replace(IAimpString oldPattern, IAimpString newPattern, AimpStringFindFlags flags);
 
         /// <summary>
         /// Replaces the specified old pattern chars.
         /// </summary>
         /// <param name="oldPatternChars">The old pattern chars.</param>
-        /// <param name="oldPatternCharsCount">The old pattern chars count.</param>
         /// <param name="newPatternChars">The new pattern chars.</param>
-        /// <param name="newPatternCharsCount">The new pattern chars count.</param>
         /// <param name="flags">The flags.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType Replace(string oldPatternChars, int oldPatternCharsCount, string newPatternChars,
-            int newPatternCharsCount, int flags);
+        AimpActionResult Replace(string oldPatternChars, string newPatternChars, AimpStringFindFlags flags);
 
         /// <summary>
         /// Subs the string.
@@ -231,7 +214,7 @@ namespace AIMP.SDK.Objects
         /// <param name="count">The count.</param>
         /// <param name="str">The string.</param>
         /// <returns>ActionResultType.</returns>
-        ActionResultType SubString(int index, int count, out IAimpString str);
+        AimpActionResult<IAimpString> SubString(int index, int count);
 
         void Release();
     }

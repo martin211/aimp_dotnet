@@ -13,8 +13,7 @@ private:
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandDeleteFiles> Base;
 
-    AimpDataStorageCommandDeleteFiles(
-        gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandDeleteFiles^> instance);
+    AimpDataStorageCommandDeleteFiles(gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandDeleteFiles^> instance);
 
     virtual BOOL WINAPI CanDelete(BOOL Physically);
 

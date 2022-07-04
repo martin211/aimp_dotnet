@@ -33,11 +33,14 @@ namespace AIMP {
 
             virtual TYPED_RESULT(IAimpGroupingPresets) GetGroupingPresets(int index);
 
-            virtual TYPED_RESULT(IAimpDataStorage) GetStorageById(String^ id);
+            //virtual TYPED_RESULT(IAimpDataStorage) GetStorageById(String^ id);
 
             virtual TYPED_RESULT(IAimpGroupingPresets) GetGroupingPresetsById(String^ id);
 
             virtual int GetStorageCount();
+
+            generic <class TAimpDataStorage>
+            virtual AimpActionResult<TAimpDataStorage>^ GetStorageById(String^ id);
         protected:
             IAIMPServiceMusicLibrary* GetAimpService() override;
         };

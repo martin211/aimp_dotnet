@@ -31,16 +31,14 @@ public:
     {
         _managedCore = gcnew ManagedAimpCore(_core);
 
-        AIMP::AimpPlayer^ instance = nullptr;
+        AimpPlayer^ instance = nullptr;
         if (sender->PluginAppDomainInfo != nullptr)
         {
-            instance = gcnew AIMP::AimpPlayer(_managedCore, sender->LoadedPlugin->PluginId,
-                                              sender->PluginAppDomainInfo->Id, true);
+            instance = gcnew AimpPlayer(_managedCore, sender->LoadedPlugin->PluginId, sender->PluginAppDomainInfo->Id, true);
         }
         else
         {
-            instance = gcnew AIMP::AimpPlayer(_managedCore, sender->LoadedPlugin->PluginId,
-                                              AppDomain::CurrentDomain->Id, false);
+            instance = gcnew AimpPlayer(_managedCore, sender->LoadedPlugin->PluginId, AppDomain::CurrentDomain->Id, false);
         }
 
         sender->Initialize(instance);

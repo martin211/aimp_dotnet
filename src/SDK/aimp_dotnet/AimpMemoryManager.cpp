@@ -21,13 +21,14 @@ AimpMemoryManager& AimpMemoryManager::getInstance()
     return *instance;
 }
 
-void AimpMemoryManager::AddObject(int key, void* obj)
+void AimpMemoryManager::AddObject(int key, void* obj, std::string name)
 {
     const auto info = new ObjectInfo();
     info->object = obj;
     info->disposed = false;
+    info->name = name;
     instance->objects[key] = info;
-    //static_cast<IUnknown*>(obj)->AddRef();
+    static_cast<IUnknown*>(obj)->AddRef();
 }
 
 void AimpMemoryManager::Release(int key)
@@ -40,9 +41,9 @@ void AimpMemoryManager::Release(int key)
             if (obj->object != nullptr) {
                 try {
                     const auto o = static_cast<IUnknown*>(obj->object);
- //                   o->Release();
+                    o->Release();
                 }
-                catch (...) {
+                catch (std::exception ex) {
                 }
             }
             obj->disposed = true;

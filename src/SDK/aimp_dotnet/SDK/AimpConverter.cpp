@@ -200,9 +200,8 @@ VARIANT AimpConverter::ToNativeVariant(Object^ objectValue) {
     return varTag;
 }
 
-Object^ AimpConverter::FromVaiant(VARIANT* variant) {
-    void* p = variant;
-    return InteropServices::Marshal::GetObjectForNativeVariant(IntPtr(p));
+Object^ AimpConverter::FromVariant(VARIANT* variant) {
+    return InteropServices::Marshal::GetObjectForNativeVariant(IntPtr(variant));
 }
 
 IAIMPObjectList* AimpConverter::GetAimpObjectList() {

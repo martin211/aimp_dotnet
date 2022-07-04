@@ -14,10 +14,11 @@
 #include "Command/AimpDataStorageCommandReportDialog.h"
 #include "Command/AimpDataStorageCommandUserMark.h"
 #include "Command/AimpDataStorageCommandAddFiles.h"
+#include "Command/AimpDataStorageCommandDeleteFiles2.h"
+#include "Command/AimpDataStorageCommandFindInLibrary.h"
 #include "SDK/MusicLibrary/Presets/AimpGroupingPresets.h"
 
 class AimpDataProvider : public IUnknownInterfaceImpl<IAIMPMLDataProvider> {
-private:
     gcroot<MusicLibrary::Extension::IAimpExtensionDataStorage^> _instance;
 
 public:
@@ -32,24 +33,42 @@ public:
     virtual ULONG WINAPI Release(void);
 };
 
+class AimpDataProvider2 : public IUnknownInterfaceImpl<IAIMPMLDataProvider2> {
+    gcroot<MusicLibrary::Extension::IAimpExtensionDataStorage^> _instance;
+public:
+    typedef IUnknownInterfaceImpl<IAIMPMLDataProvider2> Base;
+
+    AimpDataProvider2(gcroot<MusicLibrary::Extension::IAimpExtensionDataStorage^> instance);
+
+    virtual HRESULT WINAPI GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* Filter, IUnknown* Reserved, IUnknown** PageID, IUnknown** Data);
+
+    virtual ULONG WINAPI AddRef(void);
+
+    virtual ULONG WINAPI Release(void);
+};
+
 class AimpExtensionDataStorage :
     public IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage> {
 private:
     AimpDataProvider* _aimpDataProvider;
+    AimpDataProvider2* _aimpDataProvider2;
     AimpDataStorageCommandAddFiles* _addFilesCommand = nullptr;
     AimpDataStorageCommandAddFilesDialog* _addFilesDialogCommand = nullptr;
     AimpDataStorageCommandDeleteFiles* _deleteFilesCommand = nullptr;
+    AimpDataStorageCommandDeleteFiles2* _deleteFilesCommand2 = nullptr;
     AimpDataStorageCommandDropData* _dropDataCommand = nullptr;
     AimpDataStorageCommandReloadTags* _reloadTagsCommand = nullptr;
     AimpDataStorageCommandReportDialog* _reportDialogCommand = nullptr;
     AimpDataStorageCommandUserMark* _userMarkCommand = nullptr;
+    AimpDataStorageCommandFindInLibrary* _findInLibraryCommand = nullptr;
+
     gcroot<AimpGroupingPresets^> _managedPresets;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage> Base;
 
     AimpExtensionDataStorage(IAIMPCore* aimpCore,
-                             gcroot<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^> instance);
+                             gcroot<MusicLibrary::Extension::IAimpExtensionDataStorage^> instance);
 
     virtual void WINAPI Finalize();
 
@@ -95,6 +114,6 @@ public:
     virtual ULONG WINAPI Release(void);
 
 private:
-    gcroot<AIMP::SDK::MusicLibrary::Extension::IAimpExtensionDataStorage^> _managedInstance;
+    gcroot<MusicLibrary::Extension::IAimpExtensionDataStorage^> _managedInstance;
     IAIMPCore* _aimpCore;
 };

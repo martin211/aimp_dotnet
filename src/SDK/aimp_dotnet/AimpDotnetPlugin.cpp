@@ -9,23 +9,21 @@
 #include "DotNetPlugin.h"
 
 
-System::Reflection::Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ args);
+Reflection::Assembly^ OnAssemblyResolve(Object^ sender, ResolveEventArgs^ args);
 
 BOOL WINAPI AIMPPluginGetHeader(IAIMPPlugin** Header)
 {
-    System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
+    AppDomain::CurrentDomain->AssemblyResolve += gcnew ResolveEventHandler(&OnAssemblyResolve);
 
     *Header = new DotNetPlugin();
     return true;
 }
 
-System::Reflection::Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ args)
+Reflection::Assembly^ OnAssemblyResolve(Object^ sender, ResolveEventArgs^ args)
 {
-    System::String^ path = System::IO::Path::GetDirectoryName(
-        System::Reflection::Assembly::GetExecutingAssembly()->Location);
-    System::String^ dllFileName = (gcnew System::Reflection::AssemblyName(args->Name))->Name + ".dll";
-    System::Collections::Generic::List<System::String^> assembly = System::IO::Directory::EnumerateFiles(
-        path, dllFileName, System::IO::SearchOption::TopDirectoryOnly);
+    String^ path = Path::GetDirectoryName(Reflection::Assembly::GetExecutingAssembly()->Location);
+    String^ dllFileName = (gcnew Reflection::AssemblyName(args->Name))->Name + ".dll";
+    List<String^> assembly = Directory::EnumerateFiles(path, dllFileName, SearchOption::TopDirectoryOnly);
 
     if (assembly.Count == 0)
     {

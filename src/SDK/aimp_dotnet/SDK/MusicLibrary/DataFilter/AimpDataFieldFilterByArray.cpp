@@ -22,13 +22,38 @@ void AimpDataFieldFilterByArray::Field::set(String^ value) {
     PropertyListExtension::SetString(InternalAimpObject, AIMPML_FIELDFILTERBYARRAY_FIELD, value);
 }
 
-ActionResult AimpDataFieldFilterByArray::GetData(IList<Object^>^ values) {
+AimpActionResult<IList<Object^>^>^ AimpDataFieldFilterByArray::GetData() {
     // TODO: Complete it
-    values = nullptr;
-    return ACTION_RESULT(ActionResultType::NotImplemented);
+    int count = 0;
+    auto res = CheckResult(InternalAimpObject->GetData(nullptr, &count));
+
+    if (res == ActionResultType::OK && count > 0) {
+        const auto result = gcnew List<Object^>(count);
+        VARIANT* val = nullptr;
+        res = CheckResult(InternalAimpObject->GetData(val, nullptr));
+        if (res == ActionResultType::OK) {
+            for (int i = 0; i < count-1; i++) {
+                Object^ v = AimpConverter::FromVariant(&val[0]);
+                result->Add(v);
+            }
+        }
+
+        return gcnew AimpActionResult<IList<Object^>^>(result);
+    }
+
+    return gcnew AimpActionResult<IList<Object^>^>(res);
 }
 
 ActionResult AimpDataFieldFilterByArray::SetData(IList<Object^>^ values) {
-    // TODO: Complete it
-    return ACTION_RESULT(ActionResultType::NotImplemented);
+    ActionResultType res = ActionResultType::Fail;
+    if (values->Count > 0) {
+        VARIANT* arr = new VARIANT[values->Count];
+        for (int i = 0; i < values->Count; i++) {
+            arr[i] = AimpConverter::ToNativeVariant(values[i]);
+        }
+
+        res = CheckResult(InternalAimpObject->SetData(arr, values->Count));
+    }
+
+    return ACTION_RESULT(res);
 }

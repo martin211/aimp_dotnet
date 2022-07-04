@@ -17,7 +17,7 @@ IAIMPObjectList* AimpObjectList<T>::AimpObject::get() {
 
 generic <typename T>
 AimpObjectList<T>::AimpObjectList(IAIMPObjectList* nativeObject) {
-    _nativeObject = nativeObject;
+    RegisterAtMemoryManager();
 }
 
 generic <typename T>
