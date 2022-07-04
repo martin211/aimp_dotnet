@@ -18,6 +18,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Playlist;
 
+[TestFixture(Category = "PlaylistQueue")]
 public class AimpPlaylistQueueTests : AimpIntegrationTest
 {
     public override void SetUp()

@@ -14,13 +14,13 @@ using System.Threading;
 using AIMP.SDK;
 using AIMP.SDK.Player.Extensions;
 using AIMP.SDK.Player.Objects;
-using AIMP.SDK.Playlist;
 using AIMP.SDK.Playlist.Objects;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Playback;
 
+[TestFixture(Category = "Hook")]
 public class PlayerHookTests : AimpIntegrationTest
 {
     private class AimpExtensionPlayerHook : IAimpExtensionPlayerHook

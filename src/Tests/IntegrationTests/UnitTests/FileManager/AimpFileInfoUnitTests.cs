@@ -10,15 +10,14 @@
 // ----------------------------------------------------
 
 using AIMP.SDK;
-using AIMP.SDK.FileManager;
 using AIMP.SDK.FileManager.Objects;
-using AIMP.SDK.Playlist;
 using AIMP.SDK.Playlist.Objects;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.FileManager;
 
+[TestFixture(Category = "FileInfoUnit")]
 public class AimpFileInfoUnitTests : AimpIntegrationTest
 {
     public override void SetUp()

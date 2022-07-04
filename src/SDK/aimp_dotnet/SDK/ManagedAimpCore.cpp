@@ -321,8 +321,7 @@ namespace AIMP {
 
                 InternalAimpExtensionPlaylistPreimageFactory* ext = new InternalAimpExtensionPlaylistPreimageFactory(
                     extensionPlaylistPreImageFactory);
-                return _core->RegisterExtension(IID_IAIMPServicePlaylistManager,
-                                                static_cast<InternalAimpExtensionPlaylistPreimageFactory::Base*>(ext));
+                return _core->RegisterExtension(IID_IAIMPServicePlaylistManager, static_cast<InternalAimpExtensionPlaylistPreimageFactory::Base*>(ext));
             }
 
             IAimpExtensionPlaylistManagerListener^ playlistManagerListener = dynamic_cast<
@@ -332,8 +331,7 @@ namespace AIMP {
                     return E_FAIL;
                 }
 
-                AimpExtensionPlaylistManagerListener* ext = new AimpExtensionPlaylistManagerListener(
-                    (IAimpExtensionPlaylistManagerListener^)extension);
+                AimpExtensionPlaylistManagerListener* ext = new AimpExtensionPlaylistManagerListener((IAimpExtensionPlaylistManagerListener^)extension);
                 _playlistManagerListener = ext;
                 return _core->RegisterExtension(IID_IAIMPServicePlaylistManager, _playlistManagerListener);
             }
@@ -351,8 +349,7 @@ namespace AIMP {
                 return _core->RegisterExtension(IID_IAIMPExtensionLyricsProvider, static_cast<AimpExtensionLyricsProvider::Base*>(ext));
             }
 
-            Player::Extensions::IAimpExtensionPlaybackQueue^ extensionPlaybackQueue = dynamic_cast<
-                Player::Extensions::IAimpExtensionPlaybackQueue^>(extension);
+            IAimpExtensionPlaybackQueue^ extensionPlaybackQueue = dynamic_cast<IAimpExtensionPlaybackQueue^>(extension);
             if (extensionPlaybackQueue != nullptr) {
                 if (_extensionPlaybackQueue != nullptr) {
                     return E_FAIL;
@@ -372,8 +369,7 @@ namespace AIMP {
 
                 AimpExtensionPlayerHook* ext = new AimpExtensionPlayerHook(extensionPlayerHook);
                 _extensionPlayerHook = ext;
-                return _core->RegisterExtension(IID_IAIMPServicePlayer,
-                                                static_cast<AimpExtensionPlayerHook::Base*>(ext));
+                return _core->RegisterExtension(IID_IAIMPServicePlayer, static_cast<AimpExtensionPlayerHook::Base*>(ext));
             }
 
             auto extensionTagsProvider = dynamic_cast<TagEditor::Extensions::IAimpExtensionTagsProvider^>(extension);
@@ -384,8 +380,7 @@ namespace AIMP {
 
                 InternalExtensionTagsProvider* ext = new InternalExtensionTagsProvider(extensionTagsProvider);
                 _extensionTagsProvider = ext;
-                return _core->RegisterExtension(IID_IAIMPServiceFindTagsOnline,
-                    static_cast<InternalExtensionTagsProvider::Base*>(ext));
+                return _core->RegisterExtension(IID_IAIMPServiceFindTagsOnline, static_cast<InternalExtensionTagsProvider::Base*>(ext));
             }
 
             HRESULT result = RegisterFileManagerExtensions(extension);
@@ -662,6 +657,17 @@ namespace AIMP {
                 const auto ext = new InternalAimpExtensionFileExpander(extensionFileExpander);
                 _extensionFileExpander = ext;
                 return _core->RegisterExtension(IID_IAIMPExtensionFileExpander, static_cast<IAIMPExtensionFileExpander*>(ext));
+            }
+
+            MusicLibrary::Extension::IAimpAlbumArtProvider2^ aimpAlbumArtProvider2 = dynamic_cast<MusicLibrary::Extension::IAimpAlbumArtProvider2^>(extension);
+            if (aimpAlbumArtProvider2 != nullptr) {
+                if (_extensionMLAlbumArtProvider != nullptr) {
+                    return E_FAIL;
+                }
+
+                const auto ext = new InternalAimpAlbumArtProvider2(aimpAlbumArtProvider2);
+                _extensionMLAlbumArtProvider = ext;
+                return _core->RegisterExtension(IID_IAIMPExtensionFileExpander, static_cast<IAIMPMLAlbumArtProvider2*>(ext));
             }
 
             return E_UNEXPECTED;

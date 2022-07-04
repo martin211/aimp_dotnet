@@ -10,14 +10,15 @@
 // ----------------------------------------------------
 
 using System;
+using AIMP.SDK;
 
 namespace AIMP.Loader;
 
 /// <summary>
 /// Struct PluginShortInfoForLoad
-/// Implements the <see cref="System.IEquatable{AIMP.SDK.PluginShortInfoForLoad}" />
+/// Implements the <see cref="PluginShortInfoForLoad" />
 /// </summary>
-/// <seealso cref="System.IEquatable{AIMP.SDK.PluginShortInfoForLoad}" />
+/// <seealso cref="PluginShortInfoForLoad" />
 [Serializable]
 public struct PluginShortInfoForLoad : IEquatable<PluginShortInfoForLoad>
 {

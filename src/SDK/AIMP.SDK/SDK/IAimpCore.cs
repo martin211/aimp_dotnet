@@ -76,5 +76,7 @@ namespace AIMP.SDK
         /// <typeparam name="TAimpObject">The type of the t aimp object.</typeparam>
         /// <returns>AimpActionResult&lt;IAimpObject&gt;.</returns>
         AimpActionResult<IAimpObject> CreateObject<TAimpObject>() where TAimpObject : IAimpObject;
+
+        AimpActionResult<IAimpObject> CreateObject(AimpObjectType objectType);
     }
 }

@@ -13,8 +13,9 @@ namespace AIMP {
 
         generic <class TObject>
         public ref class AimpObjectList :
+            public AimpObject<IAIMPObjectList>,
             public IAimpObjectList<TObject> {
-        private:
+        protected:
             IAIMPObjectList* _nativeObject;
 
         public:
@@ -22,7 +23,7 @@ namespace AIMP {
                 IAIMPObjectList* get();
             }
 
-            AimpObjectList(IAIMPObjectList* nativeObject);
+            explicit AimpObjectList(IAIMPObjectList* nativeObject);
 
             virtual ActionResult Add(TObject entry);
 

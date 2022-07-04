@@ -15,6 +15,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.AimpServiceConfig;
 
+[TestFixture(Category = "ServiceConfig")]
 public class AimpServiceConfigTests : AimpIntegrationTest
 {
     private const string FloatSetting = @"integrationTest\Float";

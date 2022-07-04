@@ -16,6 +16,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Core;
 
+[TestFixture(Category = "ServiceVersionInfo")]
 public class AimpServiceVersionInfoTests : AimpIntegrationTest
 {
     [Test]

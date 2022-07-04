@@ -11,14 +11,13 @@
 
 using System;
 using AIMP.SDK;
-using AIMP.SDK.Playlist;
 using AIMP.SDK.Playlist.Objects;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Playlist;
 
-[TestFixture]
+[TestFixture(Category = "PlaylistManager")]
 public class AimpPlaylistManagerTests : AimpIntegrationTest
 {
     public override void RunBeforeAnyTests()

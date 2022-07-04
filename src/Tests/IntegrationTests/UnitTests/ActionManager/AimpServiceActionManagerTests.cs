@@ -11,14 +11,13 @@
 
 using System;
 using AIMP.SDK;
-using AIMP.SDK.Actions;
 using AIMP.SDK.Actions.Objects;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.ActionManager;
 
-[TestFixture]
+[TestFixture(Category = "ServiceActionManager")]
 public class AimpServiceActionManagerTests : AimpIntegrationTest
 {
     [Test]

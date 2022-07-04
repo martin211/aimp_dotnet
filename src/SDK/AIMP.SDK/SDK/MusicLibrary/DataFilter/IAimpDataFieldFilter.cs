@@ -69,10 +69,15 @@ namespace AIMP.SDK.MusicLibrary.DataFilter
         IsLastXDays = 10,
     }
 
+    public interface IAimpFilter
+    {
+
+    }
+
     /// <summary>
     /// Interface IAimpDataFieldFilter
     /// </summary>
-    public interface IAimpDataFieldFilter
+    public interface IAimpDataFieldFilter : IAimpFilter
     {
         /// <summary>
         /// Gets or sets the filter field.

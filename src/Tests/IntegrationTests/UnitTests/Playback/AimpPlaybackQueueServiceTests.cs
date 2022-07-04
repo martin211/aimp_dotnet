@@ -9,13 +9,13 @@
 // 
 // ----------------------------------------------------
 
-using AIMP.SDK.Playlist;
 using AIMP.SDK.Playlist.Objects;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Playback;
 
+[TestFixture(Category = "PlaybackQueueService")]
 public class AimpPlaybackQueueServiceTests : AimpIntegrationTest
 {
     [Test]

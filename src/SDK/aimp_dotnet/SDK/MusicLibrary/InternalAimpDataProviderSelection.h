@@ -23,7 +23,5 @@ public:
 
     virtual BOOL WINAPI NextRow();
 
-    virtual BOOL WINAPI HasNextPage();
-
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
 };

@@ -17,6 +17,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Player;
 
+[TestFixture(Category = "ServicePlayer")]
 public class AimpServicePlayerTests : AimpIntegrationTest
 {
     public override void RunBeforeAnyTests()

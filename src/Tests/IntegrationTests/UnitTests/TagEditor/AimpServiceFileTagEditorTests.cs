@@ -16,6 +16,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.TagEditor;
 
+[TestFixture(Category = "ServiceFileTagEditor")]
 public class AimpServiceFileTagEditorTests : AimpIntegrationTest
 {
     [Test]

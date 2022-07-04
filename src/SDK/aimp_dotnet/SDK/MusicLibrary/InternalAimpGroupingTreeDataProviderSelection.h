@@ -35,7 +35,7 @@ namespace AIMP {
 
             virtual HRESULT WINAPI GetValue(IAIMPString** FieldName, VARIANT* Value);
 
-            virtual BOOL WINAPI NextRow();
+            virtual BOOL WINAPI NextRecord();
 
             virtual ULONG WINAPI AddRef(void);
 

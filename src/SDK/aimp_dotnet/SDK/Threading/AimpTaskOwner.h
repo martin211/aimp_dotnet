@@ -16,7 +16,10 @@ namespace AIMP {
         public ref class AimpTaskOwner : public AimpObject<IAIMPTaskOwner>, public IAimpTaskOwner {
         public:
             explicit AimpTaskOwner(IAIMPTaskOwner* taskOwner);
-
+        protected:
+            void RegisterAtMemoryManager() override;
+            void ReleaseFromMemoryManager() override;
+        public:
             virtual property bool IsCanceled
             {
                 bool get();

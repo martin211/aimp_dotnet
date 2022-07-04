@@ -26,6 +26,7 @@
     <DocumentationFile>bin\Debug\AIMP.SDK.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
     <LangVersion>latest</LangVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -40,6 +41,46 @@
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\x86\Debug\AIMP.SDK.xml</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\x86\Release\AIMP.SDK.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\x64\Debug\AIMP.SDK.xml</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\x64\Release\AIMP.SDK.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -71,6 +112,7 @@
     <Compile Include="SDK\Actions\IAimpServiceActionManager.cs" />
     <Compile Include="SDK\AimpActionException.cs" />
     <Compile Include="AimpInternalLogger.cs" />
+    <Compile Include="SDK\AimpObjectType.cs" />
     <Compile Include="SDK\AlbumArt\Extensions\AimpAlbumArtProviderCategory.cs" />
     <Compile Include="SDK\AlbumArt\Extensions\IAimpExtensionAlbumArtProvider3.cs" />
     <Compile Include="SDK\AlbumArt\IAimpAlbumArtRequest.cs" />
@@ -80,9 +122,16 @@
     <Compile Include="SDK\Extensions.cs" />
     <Compile Include="SDK\IAimpDPIAware.cs" />
     <Compile Include="SDK\IAimpErrorInfo.cs" />
+    <Compile Include="SDK\MusicLibrary\DataStorage\IAimpDataProvider2.cs" />
+    <Compile Include="SDK\MusicLibrary\DataStorage\IAimpDataStorage2.cs" />
+    <Compile Include="SDK\MusicLibrary\Extension\Command\IAimpDataStorageCommandDeleteFiles2.cs" />
+    <Compile Include="SDK\MusicLibrary\Extension\Command\IAimpDataStorageCommandFindInLibrary.cs" />
+    <Compile Include="SDK\MusicLibrary\Extension\IAimpAlbumArtProvider2.cs" />
+    <Compile Include="SDK\MusicLibrary\IAimpLocalDataStorage.cs" />
+    <Compile Include="SDK\MusicLibrary\IAimpSortDirection.cs" />
+    <Compile Include="SDK\MusicLibrary\SortDirectionType.cs" />
     <Compile Include="SDK\Objects\IAimpFileStream.cs" />
     <Compile Include="SDK\Objects\IAimpImage.cs" />
-    <Compile Include="IAimpLogger.cs" />
     <Compile Include="SDK\IAimpProgressCallback.cs" />
     <Compile Include="SDK\IAimpService.cs" />
     <Compile Include="SDK\Lyrics\Extensions\IAimpExtensionLyricsProvider.cs" />
@@ -120,6 +169,7 @@
     <Compile Include="SDK\IAimpObjectList.cs" />
     <Compile Include="SDK\Objects\IAimpImageContainer.cs" />
     <Compile Include="SDK\Objects\IAimpMemoryStream.cs" />
+    <Compile Include="SDK\Objects\IAimpPropertyList2.cs" />
     <Compile Include="SDK\Objects\IAimpStream.cs" />
     <Compile Include="SDK\Lyrics\Objects\IAimpLyrics.cs" />
     <Compile Include="SDK\Lyrics\IAimpServiceLyrics.cs" />

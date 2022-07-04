@@ -30,6 +30,7 @@ public class CustomAlbumArtProvider : IAimpExtensionAlbumArtProvider3
     }
 }
 
+[TestFixture(Category = "ExtensionAlbumArtProvider")]
 public class AimpExtensionAlbumArtProviderTests : AimpIntegrationTest
 {
     [Test]

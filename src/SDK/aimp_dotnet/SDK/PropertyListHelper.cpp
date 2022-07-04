@@ -155,7 +155,7 @@ ActionResultType PropertyListExtension::GetVariant(IAIMPPropertyList2* propertyL
     VARIANT* val = nullptr;
     const auto result = Utils::CheckResult(propertyList->GetValueAsVariant(propertyId, val));
     VALIDATE_RESULT(result, "Unable to get a Variant property.")
-    value = AimpConverter::FromVaiant(val);
+    value = AimpConverter::FromVariant(val);
     return result;
 }
 

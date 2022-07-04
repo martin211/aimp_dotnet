@@ -14,6 +14,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Player;
 
+[TestFixture(Category = "EqualizerPreset")]
 public class AimpEqualizerPresetTests : AimpIntegrationTest
 {
     public override void TearDown()
@@ -47,7 +48,8 @@ public class AimpEqualizerPresetTests : AimpIntegrationTest
             AssertOKResult(r);
             AimpAssert.AreEqual("IntegrationTest", r.Result.GetData());
 
-            r.Result.Clone(out var newString);
+            var res = r.Result.Clone();
+            var newString = res.Result;
             newString.SetData("EditedIntegrationTest", "EditedIntegrationTest".Length);
             var r2 = result.Result.SetName(newString);
             AssertOKResult(r2);

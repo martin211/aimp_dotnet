@@ -11,13 +11,13 @@
 
 using AIMP.SDK;
 using AIMP.SDK.Lyrics;
-using AIMP.SDK.Playlist;
 using AIMP.SDK.Playlist.Objects;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Lyrics;
 
+[TestFixture(Category = "ServiceLyrics")]
 public class AimpServiceLyricsTests : AimpIntegrationTest
 {
     [Test]

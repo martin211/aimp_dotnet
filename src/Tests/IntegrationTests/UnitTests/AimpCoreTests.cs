@@ -10,13 +10,9 @@
 // ----------------------------------------------------
 
 using AIMP.SDK;
-using AIMP.SDK.Actions;
 using AIMP.SDK.Actions.Objects;
-using AIMP.SDK.FileManager;
 using AIMP.SDK.FileManager.Objects;
-using AIMP.SDK.Lyrics;
 using AIMP.SDK.Lyrics.Objects;
-using AIMP.SDK.MenuManager;
 using AIMP.SDK.MenuManager.Objects;
 using AIMP.SDK.Objects;
 using Aimp.TestRunner.TestFramework;
@@ -24,6 +20,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests;
 
+[TestFixture(Category = "Core")]
 public class AimpCoreTests : AimpIntegrationTest
 {
     [Test]

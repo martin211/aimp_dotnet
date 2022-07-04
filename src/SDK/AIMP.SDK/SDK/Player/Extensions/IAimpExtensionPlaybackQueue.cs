@@ -10,7 +10,6 @@
 // ----------------------------------------------------
 
 using AIMP.SDK.Player.Objects;
-using AIMP.SDK.Playlist;
 using AIMP.SDK.Playlist.Objects;
 
 namespace AIMP.SDK.Player.Extensions

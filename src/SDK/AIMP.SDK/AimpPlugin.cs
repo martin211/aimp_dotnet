@@ -11,9 +11,8 @@
 
 using System;
 using System.IO;
-using AIMP.SDK;
 
-namespace AIMP
+namespace AIMP.SDK
 {
     /// <summary>
     /// AIMP plugin interface.

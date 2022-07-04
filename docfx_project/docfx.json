@@ -3,9 +3,9 @@
     {
       "src": [
         {
-          "files": ["AIMP.SDK.csproj"],
-		  "exclude": [ "**/bin/**", "**/obj/**" ],
-		  "src": "../src/AIMP.SDK"
+            "files": [ "AIMP.SDK.csproj" ],
+            "exclude": [ "**/bin/**", "**/obj/**" ],
+            "src": "../src/SDK/AIMP.SDK"
         }
       ],
       "dest": "api",

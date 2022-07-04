@@ -128,7 +128,11 @@ StreamResult AimpServiceConfig::GetValueAsStream(String^ keyPath) {
             result = CheckResult(service->GetValueAsStream(str, &stream));
         }
 
-        return gcnew AimpActionResult<IAimpStream^>(result, gcnew AimpStream(stream));
+        if (result == ActionResultType::OK) {
+            return gcnew AimpActionResult<IAimpStream^>(result, gcnew AimpStream(stream));
+        }
+
+        return gcnew AimpActionResult<IAimpStream^>(result);
     }
     finally {
         ReleaseObject(str);

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata minClientVersion="2.12">
+    <id>AimpSDK-X64</id>
+    <version>$version$</version>
+    <title>Aimp DotNet SDK x64</title>
+    <authors>Evgeniy Bogdan</authors>
+    <owners>Evgeniy Bogdan</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/martin211/aimp_dotnet</projectUrl>
+    <description>Aimp DotNet allows you to create a plugin for AIMP media player on .Net. Use this package to develop x64 plugins.</description>
+    <tags>AIMP SDK DotNet</tags>
+	<license type="file">LICENSE.md</license>
+  </metadata>
+  <files>
+    <file src="LICENSE.md" target="" />
+    <file src="nuget\Tools\CopyPlugin.ps1" target="content\CopyPlugin.ps1" />
+    <file src="nuget\Tools\commands.json" target="content\commands.json" />
+    <file src="src\SDK\aimp_dotnet\bin\x64\$configuration$\AIMP.SDK.dll" target="lib\net48\AIMP.SDK.dll" />
+    <file src="src\SDK\aimp_dotnet\bin\x64\$configuration$\aimp_dotnet.dll" target="lib\net48\aimp_dotnet.dll" />
+    <file src="src\SDK\aimp_dotnet\bin\x64\$configuration$\AIMP.SDK.xml" target="lib\net48\AIMP.SDK.xml" />
+  </files>
+</package>

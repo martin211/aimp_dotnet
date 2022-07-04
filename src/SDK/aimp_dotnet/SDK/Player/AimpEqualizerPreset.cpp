@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 #include "AimpEqualizerPreset.h"
-#include "SDK/AimpString.h"
+#include "SDK/Objects/AimpString.h"
 
 AimpEqualizerPreset::AimpEqualizerPreset(IAIMPEqualizerPreset* obj) : AimpEqualizerBands(obj) {
     _aimpObject = obj;

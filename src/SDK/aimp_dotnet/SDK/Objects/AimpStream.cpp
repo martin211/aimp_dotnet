@@ -21,6 +21,7 @@ AimpStream::~AimpStream() {
 AimpStream::!AimpStream() {
     if (InternalAimpObject != nullptr) {
         try {
+            // TODO: check it
             //InternalAimpObject->Release();
         }
         catch (const std::exception& e) {
