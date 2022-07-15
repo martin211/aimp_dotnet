@@ -31,7 +31,7 @@ namespace AIMP {
             {
                 virtual void add(AimpServiceLyricsReceive^ handler);
                 virtual void remove(AimpServiceLyricsReceive^ handler);
-                void raise(IAimpLyrics^ lyrics, Object^ userData);
+                void raise(IAimpLyrics^ lyrics, String^ userData);
             }
         private:
             delegate void OnAimpServiceLyricsReceiveCallback(IAIMPLyrics* lyrics, void* userData);

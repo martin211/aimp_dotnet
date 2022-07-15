@@ -81,7 +81,7 @@ ActionResult AimpServiceLyrics::Cancel(IntPtr taskId, LyricsFlags flags) {
     }
 }
 
-void AimpServiceLyrics::LyricsReceive::raise(IAimpLyrics^ lyrics, Object^ userData) {
+void AimpServiceLyrics::LyricsReceive::raise(IAimpLyrics^ lyrics, String^ userData) {
     if (_eventCallBack != nullptr) {
         _eventCallBack(lyrics, userData);
     }
