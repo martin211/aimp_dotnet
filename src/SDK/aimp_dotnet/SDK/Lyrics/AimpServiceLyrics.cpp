@@ -29,23 +29,27 @@ AimpServiceLyrics::~AimpServiceLyrics() {
     delete _callBack;
 }
 
-AimpActionResult<IntPtr>^ AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Object^ userData) {
+AimpActionResult<IntPtr>^ AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, String^ userData) {
     IAIMPServiceLyrics* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
     IntPtr taskId = IntPtr(0);
+    IAIMPString* data = nullptr;
 
     try {
         if (service != nullptr) {
-            _callBack = gcnew OnAimpServiceLyricsReceiveCallback(
-                this, &AIMP::AimpServiceLyrics::OnAimpServiceLyricsReceive);
-            IntPtr procPtr = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_callBack);
+            if (String::IsNullOrWhiteSpace(userData)) {
+                data = AimpConverter::ToAimpString(userData);
+            }
+
+            _callBack = gcnew OnAimpServiceLyricsReceiveCallback(this, &AimpServiceLyrics::OnAimpServiceLyricsReceive);
+            IntPtr procPtr = InteropServices::Marshal::GetFunctionPointerForDelegate(_callBack);
             void** task = nullptr;
 
             result = CheckResult(service->Get(
                 static_cast<AimpFileInfo^>(fileInfo)->InternalAimpObject,
                 static_cast<DWORD>(flags),
-                static_cast<TAIMPServiceLyricsReceiveProc(_stdcall *)>(procPtr.ToPointer()),
-                reinterpret_cast<void*>(&userData),
+                static_cast<TAIMPServiceLyricsReceiveProc(_stdcall*)>(procPtr.ToPointer()),
+                data,
                 task
             ));
 
@@ -67,7 +71,7 @@ ActionResult AimpServiceLyrics::Cancel(IntPtr taskId, LyricsFlags flags) {
 
     try {
         if (service != nullptr) {
-            result = CheckResult(service->Cancel(static_cast<void**>(taskId.ToPointer()), static_cast<DWORD>(flags)));
+            result = CheckResult(service->Cancel(taskId.ToPointer(), static_cast<DWORD>(flags)));
         }
 
         return ACTION_RESULT(result);

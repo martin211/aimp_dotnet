@@ -62,10 +62,7 @@ namespace AIMP {
             }
 
             void ReleaseObject(IUnknown* object) {
-                if (object != nullptr) {
-                    object->Release();
-                    object = nullptr;
-                }
+                RELEASE(object)
             }
 
             virtual TAimpService* GetAimpService() = 0;

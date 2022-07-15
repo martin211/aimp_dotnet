@@ -23,7 +23,7 @@ namespace AIMP {
 
             ~AimpServiceLyrics();
 
-            virtual AimpActionResult<IntPtr>^ Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Object^ userData);
+            virtual AimpActionResult<IntPtr>^ Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, String^ userData);
 
             virtual ActionResult Cancel(IntPtr taskId, LyricsFlags flags);
 

@@ -43,7 +43,7 @@ namespace AIMP.SDK.Lyrics
     /// </summary>
     /// <param name="lyrics">The lyrics.</param>
     /// <param name="userData">The user data.</param>
-    public delegate void AimpServiceLyricsReceive(IAimpLyrics lyrics, object userData);
+    public delegate void AimpServiceLyricsReceive(IAimpLyrics lyrics, string userData);
 
     /// <summary>
     /// Allowed access to the song text.
@@ -59,7 +59,7 @@ namespace AIMP.SDK.Lyrics
         /// <param name="flags">The lyrics flags <see cref="LyricsFlags" />.</param>
         /// <param name="userData">A user data passed to function.</param>
         /// <returns>Return the <see cref="AimpActionResult" /> with async task id.</returns>
-        AimpActionResult<IntPtr> Get(IAimpFileInfo fileInfo, LyricsFlags flags, object userData);
+        AimpActionResult<IntPtr> Get(IAimpFileInfo fileInfo, LyricsFlags flags, string userData);
 
         /// <summary>
         /// Aborts a current active task.
