@@ -14,12 +14,17 @@ using namespace AIMP::SDK;
 
 void AimpServiceLyrics::OnAimpServiceLyricsReceive(IAIMPLyrics* lyrics, void* userData) {
     AimpLyrics^ l = nullptr;
+    String^ ud = nullptr;
+
     if (lyrics != nullptr) {
         l = gcnew AimpLyrics(lyrics);
     }
 
-    // TODO add user data
-    LyricsReceive(l, nullptr);
+    if (userData != nullptr) {
+        ud = AimpConverter::ToManagedString(static_cast<IAIMPString*>(userData));
+    }
+
+    LyricsReceive(l, ud);
 }
 
 AimpServiceLyrics::AimpServiceLyrics(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceLyrics>(core) {
@@ -37,7 +42,7 @@ AimpActionResult<IntPtr>^ AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, Lyrics
 
     try {
         if (service != nullptr) {
-            if (String::IsNullOrWhiteSpace(userData)) {
+            if (!String::IsNullOrWhiteSpace(userData)) {
                 data = AimpConverter::ToAimpString(userData);
             }
 
