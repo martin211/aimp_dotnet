@@ -15,8 +15,7 @@ namespace AIMP {
     namespace SDK {
         public delegate void AimpActionEventDelegate(gcroot<IAimpActionEvent^> sender, IUnknown* data);
 
-        typedef void (__stdcall *AimpActionEventCallback)(gcroot<IAimpActionEvent^> sender,
-                                                          IUnknown* data);
+        typedef void (__stdcall *AimpActionEventCallback)(gcroot<IAimpActionEvent^> sender, IUnknown* data);
     }
 }
 
@@ -30,6 +29,8 @@ public:
     /// <param name="managedInstance">The managed instance. Will be returned as a sender to main context.</param>
     /// <param name="executeCallback">The execute callback.</param>
     AimpActionEvent(gcroot<IAimpActionEvent^> managedInstance, AimpActionEventCallback callback);
+
+    explicit AimpActionEvent(gcroot<IAimpActionEvent^> managedInstance);
 
     virtual void WINAPI OnExecute(IUnknown* Data);
 

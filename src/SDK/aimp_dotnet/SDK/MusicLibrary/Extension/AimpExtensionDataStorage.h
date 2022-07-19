@@ -67,8 +67,7 @@ private:
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLExtensionDataStorage> Base;
 
-    AimpExtensionDataStorage(IAIMPCore* aimpCore,
-                             gcroot<MusicLibrary::Extension::IAimpExtensionDataStorage^> instance);
+    AimpExtensionDataStorage(IAIMPCore* aimpCore, gcroot<MusicLibrary::Extension::IAimpExtensionDataStorage^> instance);
 
     virtual void WINAPI Finalize();
 

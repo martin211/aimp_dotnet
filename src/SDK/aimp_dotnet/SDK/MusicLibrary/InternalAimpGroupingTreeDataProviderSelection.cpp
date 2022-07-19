@@ -8,8 +8,6 @@
 #include "Stdafx.h"
 #include "InternalAimpGroupingTreeDataProviderSelection.h"
 
-#include <string>
-
 using namespace AIMP::SDK;
 
 InternalAimpGroupingTreeDataProviderSelection::InternalAimpGroupingTreeDataProviderSelection(

@@ -151,7 +151,7 @@ namespace AIMP.SDK.MusicLibrary.Extension
         /// Method calls before the finalization of plugin.
         /// Plugin must dispose all external links.
         /// </summary>
-        void Terminate(); // TODO Rename
+        void Terminate();
 
         /// <summary>
         /// Method calls when user executes the "refresh" command via hotkey or context menu.
