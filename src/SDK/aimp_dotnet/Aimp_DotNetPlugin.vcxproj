@@ -38,6 +38,7 @@
     <ClCompile Include="SDK\FileManager\AimpServiceFileFormats.cpp" />
     <ClCompile Include="SDK\FileManager\AimpServiceFileInfo.cpp" />
     <ClCompile Include="SDK\FileManager\AimpServiceFileInfoFormatter.cpp" />
+    <ClCompile Include="SDK\FileManager\AimpServiceFileInfoFormatterUtils.cpp" />
     <ClCompile Include="SDK\FileManager\AimpServiceFileStreaming.cpp" />
     <ClCompile Include="SDK\FileManager\AimpServiceFileSystems.cpp" />
     <ClCompile Include="SDK\FileManager\AimpVirtualFile.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="SDK\FileManager\AimpServiceFileFormats.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileInfo.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileInfoFormatter.h" />
+    <ClInclude Include="SDK\FileManager\AimpServiceFileInfoFormatterUtils.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileStreaming.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileSystems.h" />
     <ClInclude Include="SDK\FileManager\AimpVirtualFile.h" />
