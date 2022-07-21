@@ -59,7 +59,7 @@ namespace AIMP.SDK.Objects
     /// <summary>
     /// Interface IAimpString
     /// </summary>
-    public interface IAimpString : IAimpObject
+    public interface IAimpString : IAimpObject, IAimpHashCode
     {
         /// <summary>
         /// Gets the character.
@@ -80,12 +80,6 @@ namespace AIMP.SDK.Objects
         /// </summary>
         /// <returns>System.Int32.</returns>
         int GetLength();
-
-        /// <summary>
-        /// Returns a hash code for this instance.
-        /// </summary>
-        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
-        int GetHashCode();
 
         /// <summary>
         /// Sets the character.

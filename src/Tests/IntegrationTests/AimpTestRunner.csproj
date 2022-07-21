@@ -137,7 +137,7 @@
     <Compile Include="UnitTests\ActionManager\AimpServiceActionManagerTests.cs" />
     <Compile Include="UnitTests\AimpCoreTests.cs" />
     <Compile Include="UnitTests\AimpErrorInfoTests.cs" />
-    <Compile Include="UnitTests\AimpImageUnitTests.cs" />
+    <Compile Include="UnitTests\Objects\AimpImageUnitTests.cs" />
     <Compile Include="UnitTests\AimpServiceConfig\AimpServiceConfigTests.cs" />
     <Compile Include="UnitTests\AimpTestContext.cs" />
     <Compile Include="AimpTestRunner.cs" />

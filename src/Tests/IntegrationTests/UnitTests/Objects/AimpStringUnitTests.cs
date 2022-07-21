@@ -297,6 +297,32 @@ public class AimpStringUnitTests : AimpIntegrationTest
         });
     }
 
+    [Test]
+    public void GetAimpHashCode_OK()
+    {
+        ExecuteInMainThread(() =>
+        {
+            var aimpString = CreateAndFill("string");
+            var hash = aimpString.GetAimpHashCode();
+            AimpAssert.IsTrue(hash != 0);
+        });
+    }
+
+    [Test]
+    public void Recalculate_OK()
+    {
+        ExecuteInMainThread(() =>
+        {
+            var aimpString = CreateAndFill("string");
+            var hash = aimpString.GetAimpHashCode();
+            AimpAssert.IsTrue(hash != 0);
+
+            aimpString.Recalculate();
+            hash = aimpString.GetAimpHashCode();
+            AimpAssert.IsTrue(hash != 0);
+        });
+    }
+
     private IAimpString CreateAndFill(string data)
     {
         var stringResult = Player.Core.CreateAimpObject<IAimpString>(AimpObjectType.AimpString);
