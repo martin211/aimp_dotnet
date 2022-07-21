@@ -177,3 +177,11 @@ AimpActionResult<IAimpString^>^ AimpString::SubString(int index, int count) {
 void AimpString::Release() {
     InternalAimpObject->Release();
 }
+
+int AimpString::GetAimpHashCode() {
+    return reinterpret_cast<IAIMPHashCode*>(InternalAimpObject)->GetHashCode();
+}
+
+void AimpString::Recalculate() {
+    return reinterpret_cast<IAIMPHashCode*>(InternalAimpObject)->Recalculate();
+}

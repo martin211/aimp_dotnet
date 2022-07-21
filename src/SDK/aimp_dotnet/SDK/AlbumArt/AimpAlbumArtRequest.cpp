@@ -40,7 +40,7 @@ array<String^>^ AimpAlbumArtRequest::FindInFileMasks::get() {
     _aimpObject->GetValueAsObject(AIMP_ALBUMART_REQUEST_PROPID_FIND_IN_FILES_MASKS, IID_IAIMPString,
                                   reinterpret_cast<void**>(&str));
     String^ result = gcnew String(str->GetData());
-    str->Release();
+    RELEASE(str)
     return result->Split(gcnew array<WCHAR>{';'}, StringSplitOptions::RemoveEmptyEntries);
 }
 
@@ -57,8 +57,7 @@ array<String^>^ AimpAlbumArtRequest::FindInFileExtensions::get() {
     _aimpObject->GetValueAsObject(AIMP_ALBUMART_REQUEST_PROPID_FIND_IN_FILES_EXTS, IID_IAIMPString,
                                   reinterpret_cast<void**>(&str));
     auto result = gcnew String(str->GetData());
-    str->Release();
-    str = nullptr;
+    RELEASE(str)
     return result->Split(gcnew array<WCHAR>{';'}, StringSplitOptions::RemoveEmptyEntries);
 }
 
@@ -69,8 +68,7 @@ void AimpAlbumArtRequest::FindInFileExtensions::set(array<String^>^ value) {
     }
     auto s = AimpConverter::ToAimpString(str);
     _aimpObject->SetValueAsObject(AIMP_ALBUMART_REQUEST_PROPID_FIND_IN_FILES_EXTS, s);
-    s->Release();
-    s = nullptr;
+    RELEASE(s)
 }
 
 int AimpAlbumArtRequest::FindInInternetMaxFileSize::get() {
@@ -109,10 +107,7 @@ AimpActionResult<IAimpImageContainer^>^ AimpAlbumArtRequest::CacheGet(String^ ke
         }
     }
     finally {
-        if (str != nullptr) {
-            str->Release();
-            str = nullptr;
-        }
+        RELEASE(str)
     }
 
     return gcnew AimpActionResult<IAimpImageContainer^>(res);
@@ -126,10 +121,7 @@ AimpActionResult^ AimpAlbumArtRequest::CachePut(String^ key, IAimpImageContainer
         res = Utils::CheckResult(_aimpObject->CachePut(str, safe_cast<AimpImageContainer^>(image)->InternalAimpObject));
     }
     finally {
-        if (str != nullptr) {
-            str->Release();
-            str = nullptr;
-        }
+        RELEASE(str)
     }
 
     return gcnew AimpActionResult(res);
@@ -147,10 +139,7 @@ AimpActionResult<IAimpImageContainer^>^ AimpAlbumArtRequest::Download(String^ ur
         }
     }
     finally {
-        if (str != nullptr) {
-            str->Release();
-            str = nullptr;
-        }
+        RELEASE(str)
     }
 
     return gcnew AimpActionResult<IAimpImageContainer^>(res);

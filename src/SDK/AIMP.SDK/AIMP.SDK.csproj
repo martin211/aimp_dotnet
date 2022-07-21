@@ -131,6 +131,7 @@
     <Compile Include="SDK\MusicLibrary\IAimpSortDirection.cs" />
     <Compile Include="SDK\MusicLibrary\SortDirectionType.cs" />
     <Compile Include="SDK\Objects\IAimpFileStream.cs" />
+    <Compile Include="SDK\Objects\IAimpHashCode.cs" />
     <Compile Include="SDK\Objects\IAimpImage.cs" />
     <Compile Include="SDK\IAimpProgressCallback.cs" />
     <Compile Include="SDK\IAimpService.cs" />

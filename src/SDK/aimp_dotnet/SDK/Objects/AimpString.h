@@ -58,6 +58,10 @@ namespace AIMP {
             virtual AimpActionResult<IAimpString^>^ SubString(int index, int count);
 
             virtual void Release();
+
+            virtual int GetAimpHashCode();
+
+            virtual void Recalculate();
         };
     }
 }
