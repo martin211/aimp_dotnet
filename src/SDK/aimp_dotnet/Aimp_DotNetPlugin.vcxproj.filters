@@ -146,6 +146,8 @@
     <ClCompile Include="SDK\MusicLibrary\AimpLocalDataStorage.cpp" />
     <ClCompile Include="SDK\MusicLibrary\InternalDataFieldFilter.cpp" />
     <ClCompile Include="SDK\FileManager\AimpServiceFileInfoFormatterUtils.cpp" />
+    <ClCompile Include="SDK\FileManager\Services\AimpServiceFileURI.cpp" />
+    <ClCompile Include="SDK\FileManager\Services\AimpServiceFileURI2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimpMemoryManager.h" />
@@ -333,6 +335,8 @@
     <ClInclude Include="SDK\MusicLibrary\InternalDataFieldFilter.h" />
     <ClInclude Include="SDK\MusicLibrary\DataFilter\InternalAimpDataFieldFilterByArray.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileInfoFormatterUtils.h" />
+    <ClInclude Include="SDK\FileManager\Services\AimpServiceFileURI.h" />
+    <ClInclude Include="SDK\FileManager\Services\AimpServiceFileURI2.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc" />

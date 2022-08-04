@@ -86,6 +86,9 @@ namespace AIMP {
         IAimpServicePlayerEqualizer^ _servicePlayerEqualizer;
         IAimpServicePlayerEqualizerPresets^ _servicePlayerEqualizerPresets;
         IAimpServiceWaveform^ _serviceWaveForm;
+        IAimpServiceFileInfoFormatterUtils^ _serviceFileInfoFormatterUtils;
+        IAimpServiceFileURI^ _serviceFileURI;
+        IAimpServiceFileURI2^ _serviceFileURI2;
     public:
         /// <summary>
         /// Initializes a new instance of the <see cref="AIMP3Controller{TConvAlloc}" /> class.
@@ -97,6 +100,19 @@ namespace AIMP {
         AimpPlayer(ManagedAimpCore^ core, int pluginId, int applicationDomainId, bool isCrossDomain);
 
         ~AimpPlayer();
+
+        property IAimpServiceFileInfoFormatterUtils^ ServiceFileInfoFormatterUtils
+        {
+            virtual IAimpServiceFileInfoFormatterUtils^ get();
+        }
+        property IAimpServiceFileURI^ ServiceFileUri
+        {
+            virtual IAimpServiceFileURI^ get();
+        }
+        property IAimpServiceFileURI2^ ServiceFileUri2
+        {
+            virtual IAimpServiceFileURI2^ get();
+        }
 
         property IAimpServiceWaveform^ ServiceWaveform {
             virtual IAimpServiceWaveform^ get();
