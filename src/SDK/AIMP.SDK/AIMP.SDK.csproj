@@ -120,6 +120,8 @@
     <Compile Include="SDK\Core\IAimpServiceShutdown.cs" />
     <Compile Include="SDK\Core\IAimpServiceVersionInfo.cs" />
     <Compile Include="SDK\Extensions.cs" />
+    <Compile Include="SDK\FileManager\IAimpServiceFileURI.cs" />
+    <Compile Include="SDK\FileManager\IAimpServiceFileURI2.cs" />
     <Compile Include="SDK\IAimpDPIAware.cs" />
     <Compile Include="SDK\IAimpErrorInfo.cs" />
     <Compile Include="SDK\MusicLibrary\DataStorage\IAimpDataProvider2.cs" />

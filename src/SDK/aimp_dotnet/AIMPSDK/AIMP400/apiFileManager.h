@@ -337,7 +337,7 @@ class IAIMPServiceFileURI: public IUnknown
 
 		virtual HRESULT WINAPI ChangeFileExt(IAIMPString** FileURI, IAIMPString* NewExt, DWORD Flags) = 0;
 		virtual HRESULT WINAPI ExtractFileExt(IAIMPString* FileURI, IAIMPString** S, DWORD Flags) = 0;
-		virtual HRESULT WINAPI ExtractFileName(IAIMPString* FileURI, IAIMPString* S) = 0;
+		virtual HRESULT WINAPI ExtractFileName(IAIMPString* FileURI, IAIMPString** S) = 0;
 		virtual HRESULT WINAPI ExtractFileParentDirName(IAIMPString* FileURI, IAIMPString** S) = 0;
 		virtual HRESULT WINAPI ExtractFileParentName(IAIMPString* FileURI, IAIMPString** S) = 0;
 		virtual HRESULT WINAPI ExtractFilePath(IAIMPString* FileURI, IAIMPString** S) = 0;

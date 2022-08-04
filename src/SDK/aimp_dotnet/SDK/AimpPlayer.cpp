@@ -13,6 +13,9 @@
 #include "Core/AimpServiceShutdown.h"
 #include "Core/AimpServiceVersionInfo.h"
 #include "FileManager/AimpServiceFileInfoFormatter.h"
+#include "FileManager/AimpServiceFileInfoFormatterUtils.h"
+#include "FileManager/Services/AimpServiceFileURI.h"
+#include "FileManager/Services/AimpServiceFileURI2.h"
 #include "MUI/AimpServiceMUI.h"
 #include "Menu/AimpServiceMenuManager.h"
 #include "Player/AimpServicePlayer.h"
@@ -52,6 +55,30 @@ AimpPlayer::~AimpPlayer() {
     delete _serviceThreads;
     delete _serviceLyrics;
     delete _serviceFileTagEditor;
+}
+
+IAimpServiceFileInfoFormatterUtils^ AimpPlayer::ServiceFileInfoFormatterUtils::get() {
+    if (_serviceFileInfoFormatterUtils == nullptr) {
+        _serviceFileInfoFormatterUtils = gcnew AimpServiceFileInfoFormatterUtils(_managedAimpCore);
+    }
+
+    return _serviceFileInfoFormatterUtils;
+}
+
+IAimpServiceFileURI^ AimpPlayer::ServiceFileUri::get() {
+    if (_serviceFileURI == nullptr) {
+        _serviceFileURI = gcnew AimpServiceFileURI(_managedAimpCore);
+    }
+
+    return _serviceFileURI;
+}
+
+IAimpServiceFileURI2^ AimpPlayer::ServiceFileUri2::get() {
+    if (_serviceFileURI2 == nullptr) {
+        _serviceFileURI2 = gcnew AimpServiceFileURI2(_managedAimpCore);
+    }
+
+    return _serviceFileURI2;
 }
 
 IAimpServiceWaveform^ AimpPlayer::ServiceWaveform::get() {

@@ -205,5 +205,14 @@ namespace AIMP.SDK
         /// Gets the waveform service.
         /// </summary>
         IAimpServiceWaveform ServiceWaveform { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        IAimpServiceFileInfoFormatterUtils ServiceFileInfoFormatterUtils { get; }
+
+        IAimpServiceFileURI ServiceFileUri { get; }
+
+        IAimpServiceFileURI2 ServiceFileUri2 { get; }
     }
 }

@@ -10,7 +10,6 @@
 // ----------------------------------------------------
 
 using System.Drawing;
-using System.Windows;
 using AIMP.SDK.Actions.Objects;
 
 namespace AIMP.SDK.FileManager

@@ -59,6 +59,8 @@
     <ClCompile Include="SDK\FileManager\Extensions\InternalAimpExtensionFileFormat.cpp" />
     <ClCompile Include="SDK\FileManager\Extensions\InternalAimpExtensionFileInfoProvider.cpp" />
     <ClCompile Include="SDK\FileManager\Extensions\InternalAimpExtensionFileSystem.cpp" />
+    <ClCompile Include="SDK\FileManager\Services\AimpServiceFileURI.cpp" />
+    <ClCompile Include="SDK\FileManager\Services\AimpServiceFileURI2.cpp" />
     <ClCompile Include="SDK\Lyrics\AimpExtensionLyricsProvider.cpp" />
     <ClCompile Include="SDK\Lyrics\AimpLyrics.cpp" />
     <ClCompile Include="SDK\Lyrics\AimpServiceLyrics.cpp" />
@@ -211,6 +213,8 @@
     <ClInclude Include="SDK\FileManager\Extensions\InternalAimpExtensionFileFormat.h" />
     <ClInclude Include="SDK\FileManager\Extensions\InternalAimpExtensionFileInfoProvider.h" />
     <ClInclude Include="SDK\FileManager\Extensions\InternalAimpExtensionFileSystem.h" />
+    <ClInclude Include="SDK\FileManager\Services\AimpServiceFileURI.h" />
+    <ClInclude Include="SDK\FileManager\Services\AimpServiceFileURI2.h" />
     <ClInclude Include="SDK\Lyrics\AimpExtensionLyricsProvider.h" />
     <ClInclude Include="SDK\Lyrics\AimpLyrics.h" />
     <ClInclude Include="SDK\Lyrics\AimpServiceLyrics.h" />
