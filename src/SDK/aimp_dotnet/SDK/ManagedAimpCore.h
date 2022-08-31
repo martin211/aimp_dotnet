@@ -10,8 +10,9 @@
 #include "FileManager/Extensions/InternalAimpExtensionFileFormat.h"
 #include "MusicLibrary/Extension/AimpExtensionDataStorage.h"
 #include "MusicLibrary/Extension/InternalAimpAlbumArtProvider2.h"
-#include "Playback/AimpExtensionPlaybackQueue.h"
 #include "Playback/AimpExtensionPlayerHook.h"
+#include "Player/Extensions/AimpExtensionPlaybackQueue2.h"
+#include "Player/Extensions/InternalAimpExtensionWaveformProvider.h"
 #include "SDK\Options\OptionsDialogFrameExtension.h"
 #include "SDK\AlbumArt\AimpExtensionAlbumArtCatalog.h"
 #include "SDK\AlbumArt\AimpExtensionAlbumArtProvider.h"
@@ -125,9 +126,11 @@ namespace AIMP {
             InternalAimpExtensionFileExpander* _extensionFileExpander = nullptr;
             AimpExtensionLyricsProvider* _extensionLyricsProvider = nullptr;
             AimpExtensionPlaybackQueue* _extensionPlaybackQueue = nullptr;
-            AimpExtensionPlayerHook* _extensionPlayerHook;
-            InternalExtensionTagsProvider* _extensionTagsProvider;
-            InternalAimpAlbumArtProvider2* _extensionMLAlbumArtProvider;
+            AimpExtensionPlaybackQueue2* _extensionPlaybackQueue2 = nullptr;
+            AimpExtensionPlayerHook* _extensionPlayerHook = nullptr;;
+            InternalExtensionTagsProvider* _extensionTagsProvider = nullptr;
+            InternalAimpAlbumArtProvider2* _extensionMLAlbumArtProvider = nullptr;
+            InternalAimpExtensionWaveFormProvider* _extensionWaveFormProvider = nullptr;
 
             PlayListHandler^ _playlistAdded;
             PlayListHandler^ _playlistRemoved;

@@ -42,12 +42,12 @@ int AimpServiceActionManager::MakeHotkey(ModifierKeys modifiers, unsigned int ke
     IAIMPServiceActionManager* service = GetAimpService();
 
     try {
-        if (modifiers == ModifierKeys::Alt) {
-            modifiers = ModifierKeys::Control;
-        }
-        else if (modifiers == ModifierKeys::Control) {
-            modifiers = ModifierKeys::Alt;
-        }
+        //if (modifiers == ModifierKeys::Alt) {
+        //    modifiers = ModifierKeys::Control;
+        //}
+        //else if (modifiers == ModifierKeys::Control) {
+        //    modifiers = ModifierKeys::Alt;
+        //}
 
         if (service != nullptr) {
             return service->MakeHotkey(DWORD(modifiers), key);

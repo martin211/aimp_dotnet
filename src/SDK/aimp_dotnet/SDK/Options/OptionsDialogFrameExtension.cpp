@@ -10,8 +10,7 @@
 
 using namespace AIMP::SDK;
 
-OptionsDialogFrameExtension::OptionsDialogFrameExtension(IAIMPCore* aimpCore,
-                                                         gcroot<Options::IAimpOptionsDialogFrame^> managedFrame) :
+OptionsDialogFrameExtension::OptionsDialogFrameExtension(IAIMPCore* aimpCore, gcroot<Options::IAimpOptionsDialogFrame^> managedFrame) :
     AimpExtension(aimpCore) {
     _managedFrame = managedFrame;
 }
@@ -28,8 +27,15 @@ HRESULT WINAPI OptionsDialogFrameExtension::QueryInterface(REFIID riid, LPVOID* 
         AddRef();
         return S_OK;
     }
+
     if (riid == IID_IAIMPOptionsDialogFrameKeyboardHelper) {
-        *ppvObject = static_cast<IAIMPOptionsDialogFrameKeyboardHelper*>(this);
+        *ppvObject = dynamic_cast<IAIMPOptionsDialogFrameKeyboardHelper*>(this);
+        AddRef();
+        return S_OK;
+    }
+
+    if (riid == IID_IAIMPOptionsDialogFrameKeyboardHelper2) {
+        *ppvObject = static_cast<IAIMPOptionsDialogFrameKeyboardHelper2*>(this);
         AddRef();
         return S_OK;
     }
@@ -47,13 +53,8 @@ ULONG WINAPI OptionsDialogFrameExtension::Release(void) {
 }
 
 HRESULT WINAPI OptionsDialogFrameExtension::GetName(IAIMPString** S) {
-    IAIMPString* strObject = nullptr;
     String^ str = _managedFrame->GetName();
-    pin_ptr<const WCHAR> strDate = PtrToStringChars(str);
-    _aimpCore->CreateObject(IID_IAIMPString, reinterpret_cast<void**>(&strObject));
-    strObject->SetData(PWCHAR(strDate), str->Length);
-    *S = strObject;
-    //strObject->Release();
+    *S = AimpConverter::ToAimpString(str);
     return S_OK;
 }
 
@@ -71,18 +72,44 @@ void WINAPI OptionsDialogFrameExtension::Notification(int ID) {
     _managedFrame->Notification(static_cast<Options::OptionsDialogFrameNotificationType>(ID));
 }
 
-BOOL WINAPI OptionsDialogFrameExtension::DialogChar(WCHAR CharCode, int Unused) {
-    return true;
-}
+BOOL WINAPI OptionsDialogFrameExtension::DialogKey(WORD charCode, int unused) {
+    Object^ obj = _managedFrame;
+    Options::IAimpOptionsDialogFrameKeyboardHelper2^ helper = dynamic_cast<Options::IAimpOptionsDialogFrameKeyboardHelper2^>(obj);
+    if (helper != nullptr) {
+        return helper->DialogKey(charCode);
+    }
 
-BOOL WINAPI OptionsDialogFrameExtension::DialogKey(WORD CharCode, int Unused) {
-    return true;
+    return false;
 }
 
 BOOL WINAPI OptionsDialogFrameExtension::SelectFirstControl() {
-    return true;
+    Object^ obj = _managedFrame;
+    Options::IAimpOptionsDialogFrameKeyboardHelper2^ helper = dynamic_cast<Options::IAimpOptionsDialogFrameKeyboardHelper2^>(obj);
+    if (helper != nullptr) {
+        return helper->SelectFirstControl();
+    }
+
+    return false;
 }
 
-BOOL WINAPI OptionsDialogFrameExtension::SelectNextControl(BOOL FindForward, BOOL CheckTabStop) {
-    return true;
+BOOL WINAPI OptionsDialogFrameExtension::SelectNextControl(BOOL findForward, BOOL checkTabStop) {
+    Object^ obj = _managedFrame;
+    Options::IAimpOptionsDialogFrameKeyboardHelper2^ helper = dynamic_cast<Options::IAimpOptionsDialogFrameKeyboardHelper2^>(obj);
+
+    if (helper != nullptr) {
+        return helper->SelectNextControl(findForward, checkTabStop);
+    }
+
+    return false;
+}
+
+BOOL OptionsDialogFrameExtension::SelectLastControl() {
+    Object^ obj = _managedFrame;
+    Options::IAimpOptionsDialogFrameKeyboardHelper2^ helper = dynamic_cast<Options::IAimpOptionsDialogFrameKeyboardHelper2^>(obj);
+
+    if (helper != nullptr) {
+        return helper->SelectLastControl();
+    }
+
+    return false;
 }

@@ -8,7 +8,7 @@
 #include "Stdafx.h"
 #include "AimpExtensionPlaybackQueue.h"
 
-#include "AimpPlaybackQueueItem.h"
+#include "SDK/Playback/AimpPlaybackQueueItem.h"
 #include "SDK/PlayList/AimpPlayList.h"
 #include "SDK/PlayList/AimpPlayListItem.h"
 

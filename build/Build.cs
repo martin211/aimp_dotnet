@@ -401,6 +401,12 @@ partial class Build : NukeBuild
                 Assert.True(isValid, $"Artifacts not valid. Platform {targetPlatform}");
 
                 Log.Information("Compress artifacts");
+
+                if (File.Exists(OutputDirectory / $"aimp.sdk-{targetPlatform}.zip"))
+                {
+                    File.Delete(OutputDirectory / $"aimp.sdk-{targetPlatform}.zip");
+                }
+
                 ZipFile.CreateFromDirectory(artifactsFolder, OutputDirectory / $"aimp.sdk-{targetPlatform}.zip");
             }
 
