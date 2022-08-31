@@ -11,10 +11,9 @@
     <ClCompile Include="SDK\Objects\AimpString.cpp" />
     <ClCompile Include="SDK\AimpConverter.cpp" />
     <ClCompile Include="AimpDotnetPlugin.cpp" />
-    <ClCompile Include="SDK\Options\AimpOptionsDialogFrame.cpp" />
     <ClCompile Include="SDK\Options\AimpServiceOptionsDialog.cpp" />
     <ClCompile Include="SDK\Options\OptionsDialogFrameExtension.cpp" />
-    <ClCompile Include="SDK\Playback\AimpExtensionPlaybackQueue.cpp" />
+    <ClCompile Include="SDK\Player\Extensions\AimpExtensionPlaybackQueue.cpp" />
     <ClCompile Include="SDK\Playback\AimpExtensionPlayerHook.cpp" />
     <ClCompile Include="SDK\Playback\AimpPlaybackQueueItem.cpp" />
     <ClCompile Include="SDK\Playback\AimpServicePlaybackQueue.cpp" />
@@ -148,6 +147,8 @@
     <ClCompile Include="SDK\FileManager\AimpServiceFileInfoFormatterUtils.cpp" />
     <ClCompile Include="SDK\FileManager\Services\AimpServiceFileURI.cpp" />
     <ClCompile Include="SDK\FileManager\Services\AimpServiceFileURI2.cpp" />
+    <ClCompile Include="SDK\Player\Extensions\AimpExtensionPlaybackQueue2.cpp" />
+    <ClCompile Include="SDK\Player\Extensions\InternalAimpExtensionWaveFormProvider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimpMemoryManager.h" />
@@ -163,7 +164,7 @@
     <ClInclude Include="SDK\AimpConverter.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiGUI.h" />
     <ClInclude Include="AIMPSDK\AIMPSDK.h" />
-    <ClInclude Include="SDK\Playback\AimpExtensionPlaybackQueue.h" />
+    <ClInclude Include="SDK\Player\Extensions\AimpExtensionPlaybackQueue.h" />
     <ClInclude Include="SDK\Playback\AimpExtensionPlayerHook.h" />
     <ClInclude Include="SDK\PlayList\AimpExtensionPlaylistManagerListener.h" />
     <ClInclude Include="SDK\PlayList\AimpExtensionPlaylistPreimageFactory.h" />
@@ -215,7 +216,6 @@
     <ClInclude Include="SDK\AimpPlayer.h" />
     <ClInclude Include="SDK\BaseAimpService.h" />
     <ClInclude Include="SDK\ManagedAimpCore.h" />
-    <ClInclude Include="SDK\Options\AimpOptionsDialogFrame.h" />
     <ClInclude Include="SDK\Options\AimpServiceOptionsDialog.h" />
     <ClInclude Include="SDK\Playback\AimpPlaybackQueueItem.h" />
     <ClInclude Include="SDK\Playback\AimpServicePlaybackQueue.h" />
@@ -337,6 +337,9 @@
     <ClInclude Include="SDK\FileManager\AimpServiceFileInfoFormatterUtils.h" />
     <ClInclude Include="SDK\FileManager\Services\AimpServiceFileURI.h" />
     <ClInclude Include="SDK\FileManager\Services\AimpServiceFileURI2.h" />
+    <ClInclude Include="SDK\Player\Extensions\AimpExtensionPlaybackQueue2.h" />
+    <ClInclude Include="SDK\Player\Primitives\AimpWaveformPeakInfo.h" />
+    <ClInclude Include="SDK\Player\Extensions\InternalAimpExtensionWaveFormProvider.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc" />

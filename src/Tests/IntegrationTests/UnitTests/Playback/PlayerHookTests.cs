@@ -38,23 +38,6 @@ public class PlayerHookTests : AimpIntegrationTest
         }
     }
 
-    private class AimpExtensionPlaybackQueue : IAimpExtensionPlaybackQueue
-    {
-        public AimpActionResult GetNext(object current, PlaybackQueueFlags flags, IAimpPlaybackQueueItem queueItem)
-        {
-            return new AimpActionResult(ActionResultType.OK);
-        }
-
-        public AimpActionResult GetPrev(object current, PlaybackQueueFlags flags, IAimpPlaybackQueueItem queueItem)
-        {
-            return new AimpActionResult(ActionResultType.OK);
-        }
-
-        public void OnSelect(IAimpPlaylistItem item, IAimpPlaybackQueueItem queueItem)
-        {
-        }
-    }
-
     [Test]
     public void RegisterUnregister_IAimpExtensionPlayerHook_OK()
     {
@@ -108,19 +91,5 @@ public class PlayerHookTests : AimpIntegrationTest
         });
 
         ExecuteInMainThread(() => { playList?.Close(PlaylistCloseFlag.ForceRemove); });
-    }
-
-    [Test]
-    public void RegisterUnregister_IAimpExtensionPlaybackQueue_OK()
-    {
-        ExecuteInMainThread(() =>
-        {
-            var extension = new AimpExtensionPlaybackQueue();
-            var result = Player.Core.RegisterExtension(extension);
-            AssertOKResult(result, "Unable to register a AimpExtensionPlaybackQueue");
-
-            result = Player.Core.UnregisterExtension(extension);
-            AssertOKResult(result, "Unable to unregister a AimpExtensionPlaybackQueue");
-        });
     }
 }

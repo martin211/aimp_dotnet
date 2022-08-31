@@ -35,6 +35,6 @@ namespace AIMP.SDK.Options
         /// <param name="findForward">The find forward.</param>
         /// <param name="isTabKeyAction">The is tab key action.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        bool SelectNextControl(int findForward, int isTabKeyAction);
+        bool SelectNextControl(bool findForward, bool isTabKeyAction);
     }
 }

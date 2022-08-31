@@ -124,9 +124,9 @@ class IAIMPExtensionPlaybackQueue2: public IAIMPExtensionPlaybackQueue
 		virtual HRESULT WINAPI GetInfo(IUnknown* Current, /*out*/ int* position, /*out*/ int* size) = 0;
 };
 
-/* IAIMPExtensionWaveformProvider */
+/* IAIMPExtensionWaveFormProvider */
 
-class IAIMPExtensionWaveformProvider : public IUnknown 
+class IAIMPExtensionWaveFormProvider : public IUnknown 
 {
 	public:
 		virtual HRESULT WINAPI Calculate(IAIMPString* FileURI, IAIMPTaskOwner* TaskOwner, PAIMPWaveformPeakInfo Peaks, int PeakCount) = 0;

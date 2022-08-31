@@ -166,6 +166,9 @@
     <Compile Include="UnitTests\Playback\AimpPlaybackQueueServiceTests.cs" />
     <Compile Include="UnitTests\Playback\PlayerHookTests.cs" />
     <Compile Include="UnitTests\Player\AimpEqualizerPresetTests.cs" />
+    <Compile Include="UnitTests\Player\AimpExtensionPlaybackQueue2Tests.cs" />
+    <Compile Include="UnitTests\Player\AimpExtensionPlaybackQueueTests.cs" />
+    <Compile Include="UnitTests\Player\AimpExtensionWaveFormProviderTests.cs" />
     <Compile Include="UnitTests\Player\AimpPlayerTests.cs" />
     <Compile Include="UnitTests\Player\AimpServicePlayerEqualizerPresetsTests.cs" />
     <Compile Include="UnitTests\Player\AimpServicePlayerEqualizerTests.cs" />

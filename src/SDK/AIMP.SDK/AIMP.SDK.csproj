@@ -124,6 +124,7 @@
     <Compile Include="SDK\FileManager\IAimpServiceFileURI2.cs" />
     <Compile Include="SDK\IAimpDPIAware.cs" />
     <Compile Include="SDK\IAimpErrorInfo.cs" />
+    <Compile Include="SDK\MessageDispatcher\AimpQuickFileInfoParams.cs" />
     <Compile Include="SDK\MusicLibrary\DataStorage\IAimpDataProvider2.cs" />
     <Compile Include="SDK\MusicLibrary\DataStorage\IAimpDataStorage2.cs" />
     <Compile Include="SDK\MusicLibrary\Extension\Command\IAimpDataStorageCommandDeleteFiles2.cs" />
@@ -210,7 +211,10 @@
     <Compile Include="SDK\MusicLibrary\IAimpServiceMusicLibrary.cs" />
     <Compile Include="SDK\MusicLibrary\IAimpServiceMusicLibraryUI.cs" />
     <Compile Include="SDK\MusicLibrary\Presets\IAimpGroupingPresetStandard.cs" />
+    <Compile Include="SDK\Options\IAimpOptionsDialogFrameKeyboardHelper2.cs" />
     <Compile Include="SDK\Player\Extensions\IAimpExtensionPlaybackQueue.cs" />
+    <Compile Include="SDK\Player\Extensions\IAimpExtensionPlaybackQueue2.cs" />
+    <Compile Include="SDK\Player\Extensions\IAimpExtensionWaveFormProvider.cs" />
     <Compile Include="SDK\Player\IAimpServicePlaybackQueue2.cs" />
     <Compile Include="SDK\Player\Objects\IAimpEqualizerBands.cs" />
     <Compile Include="SDK\Player\Objects\IAimpEqualizerPreset.cs" />
@@ -218,6 +222,7 @@
     <Compile Include="SDK\Player\IAimpServicePlayer2.cs" />
     <Compile Include="SDK\Player\IAimpServicePlayerEqualizer.cs" />
     <Compile Include="SDK\Player\IAimpServicePlayerEqualizerPresets.cs" />
+    <Compile Include="SDK\Player\Objects\IAimpWaveformPeakInfo.cs" />
     <Compile Include="SDK\Player\PlayFlags.cs" />
     <Compile Include="SDK\Playlist\Constants.cs" />
     <Compile Include="SDK\Playlist\Extensions\IAimpExtensionPlaylistPreimageFactory.cs" />

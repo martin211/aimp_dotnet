@@ -18,7 +18,6 @@
 #include "SDK\Playback\AimpServicePlaybackQueue.h"
 #include "SDK\Threading\AimpServiceSynchronizer.h"
 #include "AimpCore.h"
-#include "SDK\Options\AimpOptionsDialogFrame.h"
 #include "SDK\Options\AimpServiceOptionsDialog.h"
 #include "SDK\Threading\AimpServiceSynchronizer.h"
 #include "SDK\Threading\AimpServiceThreadPool.h"
