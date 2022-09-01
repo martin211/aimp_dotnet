@@ -6,9 +6,11 @@
 // ----------------------------------------------------
 
 #include "Stdafx.h"
-#include "AimpOptionsDialogFrame.h"
+#include "AimpDataStorage.h"
+#include "BaseAimpDataStorage.h"
 
 using namespace AIMP::SDK;
 
-AimpOptionsDialogFrame::AimpOptionsDialogFrame(IAIMPOptionsDialogFrame* aimpObject) : AimpObject(aimpObject) {
+AimpDataStorage::AimpDataStorage(IAIMPMLDataStorage* aimpDataStorage) : BaseAimpDataStorage(aimpDataStorage) {
 }
+

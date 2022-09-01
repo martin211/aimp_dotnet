@@ -1,6 +1,5 @@
 #include "Stdafx.h"
 #include "AimpImageContainer.h"
-#include "AimpImage.h"
 
 AimpImageContainer::AimpImageContainer(IAIMPImageContainer* container) : AimpObject<IAIMPImageContainer>(container, true) {
 }
@@ -17,7 +16,7 @@ AimpActionResult<IAimpImage^>^ AimpImageContainer::CreateImage() {
     return gcnew AimpActionResult<IAimpImage^>(result);
 }
 
-AimpActionResult<Tuple<Size, int>^>^ AimpImageContainer::GetInfo() {
+AimpActionResult<Tuple<Size, AimpImageFormat>^>^ AimpImageContainer::GetInfo() {
     SIZE* s = new SIZE();
     int* format = 0;
 
@@ -26,10 +25,10 @@ AimpActionResult<Tuple<Size, int>^>^ AimpImageContainer::GetInfo() {
     if (result == ActionResultType::OK) {
         Size size = Size(s->cx, s->cy);
         delete s;
-        return gcnew AimpActionResult<Tuple<Size, int>^>(result, gcnew Tuple<Size, int>(size, *format));
+        return gcnew AimpActionResult<Tuple<Size, AimpImageFormat>^>(result, gcnew Tuple<Size, AimpImageFormat>(size, static_cast<AimpImageFormat>(*format)));
     }
 
-    return gcnew AimpActionResult<Tuple<Size, int>^>(result);
+    return gcnew AimpActionResult<Tuple<Size, AimpImageFormat>^>(result);
 }
 
 AimpActionResult<array<unsigned char>^>^ AimpImageContainer::GetData() {
@@ -57,4 +56,12 @@ unsigned AimpImageContainer::GetDataSize() {
 AimpActionResult^ AimpImageContainer::SetDataSize(long long value) {
     auto const result = CheckResult(InternalAimpObject->SetDataSize(value));
     return gcnew AimpActionResult(result);
+}
+
+int AimpImageContainer::GetAimpHashCode() {
+    return reinterpret_cast<IAIMPHashCode*>(InternalAimpObject)->GetHashCode();
+}
+
+void AimpImageContainer::Recalculate() {
+    return reinterpret_cast<IAIMPHashCode*>(InternalAimpObject)->Recalculate();
 }

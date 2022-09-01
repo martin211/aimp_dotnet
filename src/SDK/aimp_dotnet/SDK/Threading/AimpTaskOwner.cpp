@@ -13,6 +13,12 @@ using namespace AIMP::SDK;
 AimpTaskOwner::AimpTaskOwner(IAIMPTaskOwner* taskOwner) : AimpObject(taskOwner) {
 }
 
+void AimpTaskOwner::RegisterAtMemoryManager() {
+}
+
+void AimpTaskOwner::ReleaseFromMemoryManager() {
+}
+
 bool AimpTaskOwner::IsCanceled::get() {
     return InternalAimpObject->IsCanceled();
 }

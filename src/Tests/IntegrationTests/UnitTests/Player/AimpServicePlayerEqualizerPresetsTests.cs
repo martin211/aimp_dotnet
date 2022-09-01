@@ -14,6 +14,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Player;
 
+[TestFixture(Category = "ServicePlayerEqualizerPresets")]
 public class AimpServicePlayerEqualizerPresetsTests : AimpIntegrationTest
 {
     [Test]

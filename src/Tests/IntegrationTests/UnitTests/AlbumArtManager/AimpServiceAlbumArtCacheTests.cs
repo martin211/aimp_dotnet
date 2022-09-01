@@ -19,6 +19,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.AlbumArtManager;
 
+[TestFixture(Category = "ServiceAlbumArtCache")]
 public class AimpServiceAlbumArtCacheTests : AimpIntegrationTest
 {
     [Test(Description = "Create and put image to cache")]

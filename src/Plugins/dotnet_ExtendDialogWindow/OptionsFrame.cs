@@ -12,11 +12,10 @@
 using System;
 using AIMP.SDK;
 using AIMP.SDK.Options;
-using AIMP.SDK.Player;
 
 namespace dotnet_ExtendDialogWindow
 {
-    public class OptionsFrame : IAimpOptionsDialogFrame, IAimpOptionsDialogFrameKeyboardHelper, IDisposable
+    public class OptionsFrame : IAimpOptionsDialogFrame, IAimpOptionsDialogFrameKeyboardHelper2, IDisposable
     {
         private IAimpPlayer _player;
         private SettingsForm _settingsForm;
@@ -58,9 +57,14 @@ namespace dotnet_ExtendDialogWindow
             return true;
         }
 
-        public bool SelectNextControl(int findForward, int isTabKeyAction)
+        public bool SelectNextControl(bool findForward, bool isTabKeyAction)
         {
-            return true;
+            throw new NotImplementedException();
+        }
+
+        public bool SelectLastControl()
+        {
+            throw new NotImplementedException();
         }
 
         public void Dispose()

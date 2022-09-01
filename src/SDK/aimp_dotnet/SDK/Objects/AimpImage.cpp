@@ -74,7 +74,7 @@ AimpActionResult<IAimpImage^>^ AimpImage::Clone() {
     return gcnew AimpActionResult<IAimpImage^>(ActionResultType::NotImplemented);
 }
 
-AimpActionResult^ AimpImage::Draw(IntPtr dc, Drawing::RectangleF rect) {
+AimpActionResult^ AimpImage::Draw(IntPtr dc, RectangleF rect) {
     RECT r = RECT();
     r.top = rect.Top;
     r.bottom = rect.Bottom;

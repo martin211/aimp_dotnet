@@ -9,13 +9,13 @@
 // 
 // ----------------------------------------------------
 
-using AIMP;
 using AIMP.SDK;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Player;
 
+[TestFixture(Category = "Player")]
 public class AimpPlayerTests : AimpIntegrationTest
 {
     //[Test, Order(1)]

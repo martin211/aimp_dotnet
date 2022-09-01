@@ -13,9 +13,9 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace AIMP
+namespace AIMP.SDK
 {
-    public class AimpInternalLogger : IAimpLogger, IDisposable
+    public class AimpInternalLogger : IDisposable
     {
         private StreamWriter _streamWriter;
         private static AimpInternalLogger _instance;

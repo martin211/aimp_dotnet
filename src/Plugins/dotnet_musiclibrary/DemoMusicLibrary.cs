@@ -28,6 +28,7 @@ namespace AIMP.DotNet.MusicLibrary
     public class DemoMusicLibrary :
         IAimpExtensionDataStorage,
         IAimpDataProvider,
+        IAimpDataProvider2,
         IAimpExtension,
         IAimpDataStorageCommandAddFiles,
         IAimpDataStorageCommandAddFilesDialog,
@@ -61,6 +62,36 @@ namespace AIMP.DotNet.MusicLibrary
         public DemoMusicLibrary(IAimpPlayer aimpPlayer)
         {
             _aimpPlayer = aimpPlayer;
+        }
+
+        AimpActionResult<PaggedData> IAimpDataProvider2.GetData(IList<string> fields, IAimpDataFilter filter, string pageId)
+        {
+            PaggedData data = null;
+            string s;
+            if (fields.Count == 1 && fields[0] == EVDS_Fake)
+            {
+                if (GetRootPath(filter, out s))
+                {
+                    data = new PaggedData(new TDemoExplorerViewGroupingTreeFoldersProvider(s), "1");
+                }
+                else
+                {
+                    data = new PaggedData(new TDemoExplorerViewGroupingTreeDrivesProvider(), "1");
+                }
+            }
+            else
+            {
+                if (GetRootPath(filter, out s))
+                {
+                    data = new PaggedData(new TDemoExplorerViewDataProviderSelection(s, fields), "1");
+                }
+                else
+                {
+                    data = new PaggedData("No data", "1");
+                }
+            }
+
+            return new AimpActionResult<PaggedData>(ActionResultType.OK, data);
         }
 
         AimpActionResult<object> IAimpDataProvider.GetData(IList<string> fields, IAimpDataFilter filter)
@@ -283,8 +314,8 @@ namespace AIMP.DotNet.MusicLibrary
             {
                 for (var i = 0; i < filter.GetChildCount(); i++)
                 {
-                    var getGroup = filter.GetFilterGroup(i);
-                    var getField = filter.GetFieldFilter(i);
+                    var getGroup = filter.GetChild<IAimpDataFilterGroup>(i);
+                    var getField = filter.GetChild<IAimpDataFieldFilter>(i);
 
                     if (getGroup.ResultType == ActionResultType.OK && getGroup.Result != null)
                     {

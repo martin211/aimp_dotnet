@@ -15,6 +15,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests;
 
+[TestFixture(Category = "ErrorInfo")]
 public class AimpErrorInfoTests : AimpIntegrationTest
 {
     [Test]

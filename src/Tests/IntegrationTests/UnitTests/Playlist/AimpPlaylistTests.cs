@@ -12,13 +12,13 @@
 using System;
 using System.Collections.Generic;
 using AIMP.SDK;
-using AIMP.SDK.Playlist;
 using AIMP.SDK.Playlist.Objects;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Playlist;
 
+[TestFixture(Category = "Playlist")]
 public class AimpPlaylistTests : AimpIntegrationTest
 {
     public override void TearDown()

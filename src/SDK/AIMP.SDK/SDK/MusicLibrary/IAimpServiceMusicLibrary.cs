@@ -66,7 +66,7 @@ namespace AIMP.SDK.MusicLibrary
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>AimpActionResult&lt;IAimpDataStorage&gt;.</returns>
-        AimpActionResult<IAimpDataStorage> GetStorageById(string id);
+        AimpActionResult<TAimpDataStorage> GetStorageById<TAimpDataStorage>(string? id = null) where TAimpDataStorage: IAimpDataStorage;
 
         /// <summary>
         /// Gets the grouping preset by identifier.

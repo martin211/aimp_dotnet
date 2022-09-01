@@ -14,7 +14,7 @@ AimpDataStorageCommandUserMark::AimpDataStorageCommandUserMark(
 }
 
 HRESULT WINAPI AimpDataStorageCommandUserMark::SetMark(VARIANT* ID, const DOUBLE Value) {
-    return HRESULT(_instance->SetMark(AimpConverter::FromVaiant(ID), Value)->ResultType);
+    return HRESULT(_instance->SetMark(AimpConverter::FromVariant(ID), Value)->ResultType);
 }
 
 HRESULT WINAPI AimpDataStorageCommandUserMark::QueryInterface(REFIID riid, LPVOID* ppvObject) {

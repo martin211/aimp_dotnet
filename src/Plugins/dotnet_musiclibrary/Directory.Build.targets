@@ -1,0 +1,19 @@
+﻿<Project>
+    <PropertyGroup>
+        <CopyScriptPath>$(SolutionDir)..\nuget\tools\CopyPlugin.ps1</CopyScriptPath>
+        <AimpVersion>AIMP5.02.2369</AimpVersion>
+    </PropertyGroup>
+
+    <Target Name="CopyPlugin" AfterTargets="Build" Condition="'$(Configuration)'=='DEBUG'">
+        <Message Text="AimpVersion: $(AimpVersion)" Importance="high" />
+        <Error Condition="!Exists($(CopyScriptPath))" Text="Path to CopyPlugin script is wrong. Current value '$(CopyScriptPath)'." />
+        <Exec Condition="Exists($(CopyScriptPath))" Command="pwsh.exe -ExecutionPolicy Unrestricted $(CopyScriptPath) -Action copy -ConfigurationName $(ConfigurationName) -TargetName $(TargetName) -TargetDir $(TargetDir) -SolutionDir $(SolutionDir) -ProjectDir $(ProjectDir) -AimpVersion $(AimpVersion)" />
+    </Target>
+
+    <Target Name="CleanPlugin" AfterTargets="Clean" Condition="'$(Configuration)'=='DEBUG'">
+        <Message Text="AimpVersion: $(AimpVersion)" Importance="high" />
+        <Message Text="Clean Plugin folder" />
+        <Error Condition="!Exists($(CopyScriptPath))" Text="Path to CopyPlugin script is wrong. Current value '$(CopyScriptPath)'." />
+        <Exec Condition="Exists($(CopyScriptPath))" Command="pwsh.exe -ExecutionPolicy Unrestricted $(CopyScriptPath) -Action clean -ConfigurationName $(ConfigurationName) -TargetName $(TargetName) -TargetDir $(TargetDir) -SolutionDir $(SolutionDir) -ProjectDir $(ProjectDir) -AimpVersion $(AimpVersion)" />
+    </Target>
+</Project>

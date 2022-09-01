@@ -9,13 +9,16 @@
 // 
 // ----------------------------------------------------
 
+using AIMP.SDK.MusicLibrary;
+using AIMP.SDK.Objects;
+
 namespace AIMP.SDK
 {
     /// <summary>
     /// This is a list of general purpose, it can contains any interfaces.
     /// </summary>
     /// <typeparam name="TObject">The type of elements in the list.</typeparam>
-    public interface IAimpObjectList<TObject>
+    public interface IAimpObjectList<TObject> : IAimpObject
     {
         /// <summary>
         /// Gets the count.
@@ -71,7 +74,7 @@ namespace AIMP.SDK
     /// <summary>
     /// Interface IAimpObjectList
     /// </summary>
-    public interface IAimpObjectList
+    public interface IAimpObjectList : IAimpObject
     {
         /// <summary>
         /// Gets the count.
@@ -122,5 +125,17 @@ namespace AIMP.SDK
         /// <param name="item">The item to set.</param>
         /// <returns>AimpActionResult.</returns>
         AimpActionResult SetObject(int index, object item);
+    }
+
+    public interface IAimpOrderedObjectList : IAimpObjectList<IAimpOrderedItem>
+    {
+        IAimpOrderedItem Create(string name, SortDirectionType sortDirection);
+    }
+
+    public interface IAimpOrderedItem
+    {
+        IAimpString Name { get; }
+
+        SortDirectionType Value { get; set; }
     }
 }

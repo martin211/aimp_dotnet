@@ -9,6 +9,8 @@
 // 
 // ----------------------------------------------------
 
+using System;
+
 namespace AIMP.SDK.MusicLibrary
 {
     /// <summary>
@@ -44,14 +46,6 @@ namespace AIMP.SDK.MusicLibrary
         /// <param name="fieldIndex">Index of the field.</param>
         /// <returns>System.String.</returns>
         string GetValueAsString(int fieldIndex);
-
-        /// <summary>
-        /// Return the True value to notify the Music library the page-by-page access method is used to access to the data.
-        /// Value specifies that next page of data is available.
-        /// Note that this mode automatically disable for end users the Group Details and the Album Thumbnails views.
-        /// </summary>
-        /// <returns><c>true</c> if [has next page]; otherwise, <c>false</c>.</returns>
-        bool HasNextPage();
 
         /// <summary>
         /// Jumps to next row. Returns False if current row is last.

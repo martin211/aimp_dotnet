@@ -9,7 +9,7 @@
 // 
 // ----------------------------------------------------
 
-using AIMP;
+using AIMP.SDK;
 using AIMP.SDK.AlbumArt.Extensions;
 
 namespace dotnet_albumart

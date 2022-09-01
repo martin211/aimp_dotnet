@@ -25,7 +25,7 @@ public class AimpExtensionFileFormat : IAimpExtensionFileFormat
         FileFormatsCategoryTypes.Audio | FileFormatsCategoryTypes.Playlists);
 }
 
-[TestFixture]
+[TestFixture(Category = "ExtensionFileFormat")]
 public class AimpExtensionFileFormatUnitTests : AimpIntegrationTest
 {
     private AimpExtensionFileFormat _extension;

@@ -16,6 +16,9 @@ private:
 public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionPlaybackQueue> Base;
 
+    explicit AimpExtensionPlaybackQueue() {
+    }
+
     explicit AimpExtensionPlaybackQueue(gcroot<IAimpExtensionPlaybackQueue^> extension);
 
     virtual HRESULT WINAPI GetNext(IUnknown* current, DWORD flags, IAIMPPlaybackQueueItem* queueItem);

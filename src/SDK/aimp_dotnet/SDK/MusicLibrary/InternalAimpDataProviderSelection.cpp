@@ -36,10 +36,6 @@ BOOL WINAPI InternalAimpDataProviderSelection::NextRow() {
     return _instance->NextRow();
 }
 
-BOOL WINAPI InternalAimpDataProviderSelection::HasNextPage() {
-    return _instance->HasNextPage();
-}
-
 HRESULT WINAPI InternalAimpDataProviderSelection::QueryInterface(REFIID riid, LPVOID* ppvObject) {
     if (riid == IID_IAIMPMLDataProviderSelection) {
         *ppvObject = this;

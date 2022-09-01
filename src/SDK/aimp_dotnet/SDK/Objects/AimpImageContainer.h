@@ -19,13 +19,17 @@ namespace AIMP {
 
             virtual AimpActionResult<IAimpImage^>^ CreateImage();
 
-            virtual AimpActionResult<Tuple<Size, int>^>^ GetInfo();
+            virtual AimpActionResult<Tuple<Size, AimpImageFormat>^>^ GetInfo();
 
             virtual AimpActionResult<array<unsigned char>^>^ GetData();
 
             virtual unsigned GetDataSize();
 
             virtual AimpActionResult^ SetDataSize(long long value);
+
+            virtual int GetAimpHashCode();
+
+            virtual void Recalculate();
         };
     }
 }

@@ -6,18 +6,17 @@
 // ----------------------------------------------------
 
 #pragma once
-#include "SDK/AimpPropertyList.h"
 #include "InternalAimpDataFilterGroup.h"
 
 class InternalAimpDataFilter :
     public IUnknownInterfaceImpl<IAIMPMLDataFilter>,
     public InternalAimpDataFilterGroup {
 private:
-    gcroot<AIMP::SDK::MusicLibrary::IAimpDataFilter^> _managedInstance;
+    gcroot<MusicLibrary::IAimpDataFilter^> _managedInstance;
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLDataFilter> Base;
 
-    InternalAimpDataFilter(gcroot<AIMP::SDK::MusicLibrary::IAimpDataFilter^> managedInstance);
+    InternalAimpDataFilter(gcroot<MusicLibrary::IAimpDataFilter^> managedInstance);
 
     virtual HRESULT WINAPI Assign(IAIMPMLDataFilter* Source);
     virtual HRESULT WINAPI Clone(void** Filter);

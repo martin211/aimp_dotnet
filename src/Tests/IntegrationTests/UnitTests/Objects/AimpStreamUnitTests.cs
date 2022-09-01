@@ -17,6 +17,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Objects;
 
+[TestFixture(Category = "Stream")]
 public class AimpStreamUnitTests : AimpIntegrationTest
 {
     [Test]

@@ -11,7 +11,7 @@
 
 using System;
 
-namespace AIMP
+namespace AIMP.SDK
 {
     /// <summary>
     /// Enum AimpPluginType

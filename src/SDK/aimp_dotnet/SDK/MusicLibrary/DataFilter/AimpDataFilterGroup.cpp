@@ -114,34 +114,49 @@ int AimpDataFilterGroup::GetChildCount() {
     return InternalAimpObject->GetChildCount();
 }
 
-AimpActionResult<IAimpDataFilterGroup^>^ AimpDataFilterGroup::GetFilterGroup(int index) {
-    IAimpDataFilterGroup^ group = nullptr;
-    IAIMPMLDataFilterGroup* child = nullptr;
-    const auto result = CheckResult(
-        InternalAimpObject->GetChild(index, IID_IAIMPMLDataFilterGroup, reinterpret_cast<void**>(&child)));
-    if (result == ActionResultType::OK && child != nullptr) {
-        group = gcnew AimpDataFilterGroup(child);
-    }
-
-    return gcnew AimpActionResult<IAimpDataFilterGroup^>(result, group);
-}
-
-AimpActionResult<IAimpDataFieldFilter^>^ AimpDataFilterGroup::GetFieldFilter(int index) {
-    IAimpDataFieldFilter^ fieldFilter = nullptr;
-    IAIMPMLDataFieldFilter* child = nullptr;
-    const auto result = CheckResult(
-        InternalAimpObject->GetChild(index, IID_IAIMPMLDataFieldFilter, reinterpret_cast<void**>(&child)));
-    if (result == ActionResultType::OK && child != nullptr) {
-        fieldFilter = gcnew AimpDataFieldFilter(child);
-    }
-
-    return gcnew AimpActionResult<IAimpDataFieldFilter^>(result, fieldFilter);
-}
-
 void AimpDataFilterGroup::BeginUpdate() {
     InternalAimpObject->BeginUpdate();
 }
 
 void AimpDataFilterGroup::EndUpdate() {
     InternalAimpObject->EndUpdate();
+}
+
+generic <class TFilter>
+AimpActionResult<TFilter>^ AimpDataFilterGroup::GetChild(int index) {
+    const auto t = TFilter::typeid;
+
+    if (t == IAimpDataFilterGroup::typeid) {
+        IAimpDataFilterGroup^ group = nullptr;
+        IAIMPMLDataFilterGroup* child = nullptr;
+        const auto result = CheckResult(InternalAimpObject->GetChild(index, IID_IAIMPMLDataFilterGroup, reinterpret_cast<void**>(&child)));
+        if (result == ActionResultType::OK && child != nullptr) {
+            group = gcnew AimpDataFilterGroup(child);
+        }
+
+        return gcnew AimpActionResult<TFilter>(result, safe_cast<TFilter>(group));
+    }
+
+    if (t == IAimpDataFieldFilter::typeid) {
+        IAimpDataFieldFilter^ filter = nullptr;
+        IAIMPMLDataFieldFilter* child = nullptr;
+        const auto result = CheckResult(InternalAimpObject->GetChild(index, IID_IAIMPMLDataFieldFilter, reinterpret_cast<void**>(&child)));
+        if (result == ActionResultType::OK && child != nullptr) {
+            filter = gcnew AimpDataFieldFilter(child);
+        }
+
+        return gcnew AimpActionResult<TFilter>(result, safe_cast<TFilter>(filter));
+    }
+
+    if (t == IAimpDataFieldFilterByArray::typeid) {
+        IAimpDataFieldFilterByArray^ filter = nullptr;
+        IAIMPMLDataFieldFilterByArray* child = nullptr;
+        const auto result = CheckResult(InternalAimpObject->GetChild(index, IID_IAIMPMLDataFieldFilterByArray, reinterpret_cast<void**>(&child)));
+
+        if (result == ActionResultType::OK && child != nullptr) {
+            filter = gcnew AimpDataFieldFilterByArray(child);
+        }
+
+        return gcnew AimpActionResult<TFilter>(result, safe_cast<TFilter>(filter));
+    }
 }

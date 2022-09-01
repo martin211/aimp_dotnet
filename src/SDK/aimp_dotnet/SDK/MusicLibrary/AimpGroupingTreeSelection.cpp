@@ -33,7 +33,7 @@ AimpActionResult<String^, Object^>^ AimpGroupingTreeSelection::GetValue(int inde
                 fieldName = AimpConverter::ToManagedString(str);
             }
 
-            value = AimpConverter::FromVaiant(&val);
+            value = AimpConverter::FromVariant(&val);
         }
     }
     finally {

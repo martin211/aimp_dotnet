@@ -18,6 +18,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Threading;
 
+[TestFixture(Category = "ServiceThreads")]
 public class AimpServiceThreadsTests : AimpIntegrationTest
 {
     private class IntegrationTask : IAimpTask

@@ -10,7 +10,7 @@
 // ----------------------------------------------------
 
 using System;
-using AIMP;
+using AIMP.SDK;
 
 namespace dotnet_threading
 {

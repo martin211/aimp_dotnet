@@ -6,6 +6,7 @@
 // ----------------------------------------------------
 
 #pragma once
+#include <msclr\marshal_cppstd.h>
 
 template <class TAimpObject>
 public ref class AimpObject : public IAimpObject {
@@ -45,7 +46,9 @@ protected:
     }
 
     virtual void RegisterAtMemoryManager() {
-        AimpMemoryManager::getInstance().AddObject(this->GetHashCode(), InternalAimpObject);
+        if (InternalAimpObject != nullptr) {
+            AimpMemoryManager::getInstance().AddObject(this->GetHashCode(), InternalAimpObject, msclr::interop::marshal_as<std::string>(this->ToString()));
+        }
     }
 
     virtual void ReleaseFromMemoryManager() {
