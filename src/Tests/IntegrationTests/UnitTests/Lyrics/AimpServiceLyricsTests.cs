@@ -1,23 +1,21 @@
-﻿// ----------------------------------------------------
+﻿//  ----------------------------------------------------
+//  AIMP DotNet SDK
 // 
-// AIMP DotNet SDK
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
 // 
-// Copyright (c) 2014 - 2022 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// 
-// Mail: mail4evgeniy@gmail.com
-// 
-// ----------------------------------------------------
+//  Mail: mail4evgeniy@gmail.com
+//  ----------------------------------------------------
 
 using AIMP.SDK;
 using AIMP.SDK.Lyrics;
-using AIMP.SDK.Playlist;
 using AIMP.SDK.Playlist.Objects;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Lyrics;
 
+[TestFixture(Category = "ServiceLyrics")]
 public class AimpServiceLyricsTests : AimpIntegrationTest
 {
     [Test]
@@ -26,8 +24,13 @@ public class AimpServiceLyricsTests : AimpIntegrationTest
         ExecuteInMainThread(() =>
         {
             var lyricsReceive = false;
+            var callBackUserData = string.Empty;
 
-            Player.ServiceLyrics.LyricsReceive += (lyrics, data) => { lyricsReceive = true; };
+            Player.ServiceLyrics.LyricsReceive += (lyrics, data) =>
+            {
+                lyricsReceive = true;
+                callBackUserData = data;
+            };
 
             var createPlaylistResult = Player.ServicePlaylistManager.CreatePlaylistFromFile(PlaylistPath, true);
             var file1 = createPlaylistResult.Result.GetItem(0);
@@ -36,6 +39,7 @@ public class AimpServiceLyricsTests : AimpIntegrationTest
 
             AimpAssert.AreEqual(ActionResultType.OK, result.ResultType, "Unable to get lyric data for file");
             AimpAssert.IsTrue(lyricsReceive);
+            AimpAssert.AreEqual("UserData", callBackUserData);
 
             createPlaylistResult.Result.Close(PlaylistCloseFlag.ForceRemove);
         });

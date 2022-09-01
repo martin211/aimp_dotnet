@@ -1,16 +1,20 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #pragma once
 #include "AlbumArt/AimpExtensionAlbumArtProvider3.h"
 #include "FileManager/Extensions/InternalAimpExtensionFileFormat.h"
 #include "MusicLibrary/Extension/AimpExtensionDataStorage.h"
-#include "Playback/AimpExtensionPlaybackQueue.h"
+#include "MusicLibrary/Extension/InternalAimpAlbumArtProvider2.h"
 #include "Playback/AimpExtensionPlayerHook.h"
+#include "Player/Extensions/AimpExtensionPlaybackQueue2.h"
+#include "Player/Extensions/InternalAimpExtensionWaveformProvider.h"
 #include "SDK\Options\OptionsDialogFrameExtension.h"
 #include "SDK\AlbumArt\AimpExtensionAlbumArtCatalog.h"
 #include "SDK\AlbumArt\AimpExtensionAlbumArtProvider.h"
@@ -124,8 +128,11 @@ namespace AIMP {
             InternalAimpExtensionFileExpander* _extensionFileExpander = nullptr;
             AimpExtensionLyricsProvider* _extensionLyricsProvider = nullptr;
             AimpExtensionPlaybackQueue* _extensionPlaybackQueue = nullptr;
-            AimpExtensionPlayerHook* _extensionPlayerHook;
-            InternalExtensionTagsProvider* _extensionTagsProvider;
+            AimpExtensionPlaybackQueue2* _extensionPlaybackQueue2 = nullptr;
+            AimpExtensionPlayerHook* _extensionPlayerHook = nullptr;;
+            InternalExtensionTagsProvider* _extensionTagsProvider = nullptr;
+            InternalAimpAlbumArtProvider2* _extensionMLAlbumArtProvider = nullptr;
+            InternalAimpExtensionWaveFormProvider* _extensionWaveFormProvider = nullptr;
 
             PlayListHandler^ _playlistAdded;
             PlayListHandler^ _playlistRemoved;

@@ -1,3 +1,12 @@
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+// 
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+// 
+//  Mail: mail4evgeniy@gmail.com
+//  ----------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -401,6 +410,12 @@ partial class Build : NukeBuild
                 Assert.True(isValid, $"Artifacts not valid. Platform {targetPlatform}");
 
                 Log.Information("Compress artifacts");
+
+                if (File.Exists(OutputDirectory / $"aimp.sdk-{targetPlatform}.zip"))
+                {
+                    File.Delete(OutputDirectory / $"aimp.sdk-{targetPlatform}.zip");
+                }
+
                 ZipFile.CreateFromDirectory(artifactsFolder, OutputDirectory / $"aimp.sdk-{targetPlatform}.zip");
             }
 

@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #include "Stdafx.h"
 #include "InternalAimpDataProviderSelection.h"
@@ -34,10 +36,6 @@ WCHAR* WINAPI InternalAimpDataProviderSelection::GetValueAsString(int FieldIndex
 
 BOOL WINAPI InternalAimpDataProviderSelection::NextRow() {
     return _instance->NextRow();
-}
-
-BOOL WINAPI InternalAimpDataProviderSelection::HasNextPage() {
-    return _instance->HasNextPage();
 }
 
 HRESULT WINAPI InternalAimpDataProviderSelection::QueryInterface(REFIID riid, LPVOID* ppvObject) {

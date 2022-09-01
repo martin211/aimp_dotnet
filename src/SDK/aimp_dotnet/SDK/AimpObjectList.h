@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #pragma once
 
@@ -13,8 +15,9 @@ namespace AIMP {
 
         generic <class TObject>
         public ref class AimpObjectList :
+            public AimpObject<IAIMPObjectList>,
             public IAimpObjectList<TObject> {
-        private:
+        protected:
             IAIMPObjectList* _nativeObject;
 
         public:
@@ -22,7 +25,7 @@ namespace AIMP {
                 IAIMPObjectList* get();
             }
 
-            AimpObjectList(IAIMPObjectList* nativeObject);
+            explicit AimpObjectList(IAIMPObjectList* nativeObject);
 
             virtual ActionResult Add(TObject entry);
 

@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #pragma once
 
@@ -23,7 +25,7 @@ namespace AIMP {
 
             ~AimpServiceLyrics();
 
-            virtual AimpActionResult<IntPtr>^ Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Object^ userData);
+            virtual AimpActionResult<IntPtr>^ Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, String^ userData);
 
             virtual ActionResult Cancel(IntPtr taskId, LyricsFlags flags);
 
@@ -31,7 +33,7 @@ namespace AIMP {
             {
                 virtual void add(AimpServiceLyricsReceive^ handler);
                 virtual void remove(AimpServiceLyricsReceive^ handler);
-                void raise(IAimpLyrics^ lyrics, Object^ userData);
+                void raise(IAimpLyrics^ lyrics, String^ userData);
             }
         private:
             delegate void OnAimpServiceLyricsReceiveCallback(IAIMPLyrics* lyrics, void* userData);

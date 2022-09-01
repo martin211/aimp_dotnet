@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #include "Stdafx.h"
 #include "AimpMemoryManager.h"
@@ -21,13 +23,14 @@ AimpMemoryManager& AimpMemoryManager::getInstance()
     return *instance;
 }
 
-void AimpMemoryManager::AddObject(int key, void* obj)
+void AimpMemoryManager::AddObject(int key, void* obj, std::string name)
 {
     const auto info = new ObjectInfo();
     info->object = obj;
     info->disposed = false;
+    info->name = name;
     instance->objects[key] = info;
-    //static_cast<IUnknown*>(obj)->AddRef();
+    static_cast<IUnknown*>(obj)->AddRef();
 }
 
 void AimpMemoryManager::Release(int key)
@@ -40,9 +43,9 @@ void AimpMemoryManager::Release(int key)
             if (obj->object != nullptr) {
                 try {
                     const auto o = static_cast<IUnknown*>(obj->object);
- //                   o->Release();
+                    o->Release();
                 }
-                catch (...) {
+                catch (std::exception ex) {
                 }
             }
             obj->disposed = true;

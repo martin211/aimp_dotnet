@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #pragma once
 
@@ -18,16 +20,15 @@ public:
 
 class OptionsDialogFrameExtension :
     public IUnknownInterfaceImpl<IAIMPOptionsDialogFrame>,
-    public IAIMPOptionsDialogFrameKeyboardHelper,
+    public IAIMPOptionsDialogFrameKeyboardHelper2,
     public AimpExtension {
 public:
     typedef IUnknownInterfaceImpl<IAIMPOptionsDialogFrame> Base;
 
 private:
-    gcroot<AIMP::SDK::Options::IAimpOptionsDialogFrame^> _managedFrame;
+    gcroot<Options::IAimpOptionsDialogFrame^> _managedFrame;
 public:
-    explicit OptionsDialogFrameExtension(IAIMPCore* aimpCore,
-                                         gcroot<AIMP::SDK::Options::IAimpOptionsDialogFrame^> managedFrame);
+    explicit OptionsDialogFrameExtension(IAIMPCore* aimpCore, gcroot<Options::IAimpOptionsDialogFrame^> managedFrame);
 
     GUID ExtensionId();
 
@@ -45,11 +46,11 @@ public:
 
     virtual void WINAPI Notification(int ID);
 
-    virtual BOOL WINAPI DialogChar(WCHAR CharCode, int Unused);
-
-    virtual BOOL WINAPI DialogKey(WORD CharCode, int Unused);
+    virtual BOOL WINAPI DialogKey(WORD charCode, int unused);
 
     virtual BOOL WINAPI SelectFirstControl();
 
-    virtual BOOL WINAPI SelectNextControl(BOOL FindForward, BOOL CheckTabStop);
+    virtual BOOL WINAPI SelectNextControl(BOOL findForward, BOOL checkTabStop);
+
+    virtual BOOL WINAPI SelectLastControl();
 };

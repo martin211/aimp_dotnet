@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #include "Stdafx.h"
 #include "AimpConfigurationManager.h"
@@ -128,7 +130,11 @@ StreamResult AimpServiceConfig::GetValueAsStream(String^ keyPath) {
             result = CheckResult(service->GetValueAsStream(str, &stream));
         }
 
-        return gcnew AimpActionResult<IAimpStream^>(result, gcnew AimpStream(stream));
+        if (result == ActionResultType::OK) {
+            return gcnew AimpActionResult<IAimpStream^>(result, gcnew AimpStream(stream));
+        }
+
+        return gcnew AimpActionResult<IAimpStream^>(result);
     }
     finally {
         ReleaseObject(str);

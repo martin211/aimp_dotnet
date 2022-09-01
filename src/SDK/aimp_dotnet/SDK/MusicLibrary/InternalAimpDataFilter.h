@@ -1,23 +1,24 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #pragma once
-#include "SDK/AimpPropertyList.h"
 #include "InternalAimpDataFilterGroup.h"
 
 class InternalAimpDataFilter :
     public IUnknownInterfaceImpl<IAIMPMLDataFilter>,
     public InternalAimpDataFilterGroup {
 private:
-    gcroot<AIMP::SDK::MusicLibrary::IAimpDataFilter^> _managedInstance;
+    gcroot<MusicLibrary::IAimpDataFilter^> _managedInstance;
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLDataFilter> Base;
 
-    InternalAimpDataFilter(gcroot<AIMP::SDK::MusicLibrary::IAimpDataFilter^> managedInstance);
+    InternalAimpDataFilter(gcroot<MusicLibrary::IAimpDataFilter^> managedInstance);
 
     virtual HRESULT WINAPI Assign(IAIMPMLDataFilter* Source);
     virtual HRESULT WINAPI Clone(void** Filter);

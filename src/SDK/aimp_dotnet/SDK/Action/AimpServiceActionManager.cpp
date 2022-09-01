@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #include "stdafx.h"
 #include "AimpAction.h"
@@ -42,12 +44,12 @@ int AimpServiceActionManager::MakeHotkey(ModifierKeys modifiers, unsigned int ke
     IAIMPServiceActionManager* service = GetAimpService();
 
     try {
-        if (modifiers == ModifierKeys::Alt) {
-            modifiers = ModifierKeys::Control;
-        }
-        else if (modifiers == ModifierKeys::Control) {
-            modifiers = ModifierKeys::Alt;
-        }
+        //if (modifiers == ModifierKeys::Alt) {
+        //    modifiers = ModifierKeys::Control;
+        //}
+        //else if (modifiers == ModifierKeys::Control) {
+        //    modifiers = ModifierKeys::Alt;
+        //}
 
         if (service != nullptr) {
             return service->MakeHotkey(DWORD(modifiers), key);

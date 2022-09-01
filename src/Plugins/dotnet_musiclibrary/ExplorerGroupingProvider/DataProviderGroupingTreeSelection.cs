@@ -1,13 +1,11 @@
-﻿// ----------------------------------------------------
+﻿//  ----------------------------------------------------
+//  AIMP DotNet SDK
 // 
-// AIMP DotNet SDK
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
 // 
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// 
-// Mail: mail4evgeniy@gmail.com
-// 
-// ----------------------------------------------------
+//  Mail: mail4evgeniy@gmail.com
+//  ----------------------------------------------------
 
 using AIMP.SDK;
 using AIMP.SDK.MusicLibrary.DataStorage;
@@ -58,7 +56,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
                 _data[_index].Value);
         }
 
-        public bool NextRow()
+        public bool NextRecord()
         {
             _index++;
             return _index < _data.Count;

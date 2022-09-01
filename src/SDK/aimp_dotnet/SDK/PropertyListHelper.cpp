@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #include "Stdafx.h"
 #include "PropertyListHelper.h"
@@ -155,7 +157,7 @@ ActionResultType PropertyListExtension::GetVariant(IAIMPPropertyList2* propertyL
     VARIANT* val = nullptr;
     const auto result = Utils::CheckResult(propertyList->GetValueAsVariant(propertyId, val));
     VALIDATE_RESULT(result, "Unable to get a Variant property.")
-    value = AimpConverter::FromVaiant(val);
+    value = AimpConverter::FromVariant(val);
     return result;
 }
 

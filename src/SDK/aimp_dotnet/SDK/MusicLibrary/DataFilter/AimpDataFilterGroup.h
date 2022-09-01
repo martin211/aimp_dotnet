@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #pragma once
 #include "SDK\AimpObject.h"
@@ -25,8 +27,7 @@ namespace AIMP {
                 void set(FilterGroupOperationType value);
             }
 
-            virtual TYPED_RESULT(IAimpDataFieldFilter) Add(String^ field, Object^ value1, Object^ value2,
-                                                           FieldFilterOperationType operation);
+            virtual TYPED_RESULT(IAimpDataFieldFilter) Add(String^ field, Object^ value1, Object^ value2, FieldFilterOperationType operation);
 
             virtual TYPED_RESULT(IAimpDataFieldFilterByArray) Add(String^ field, array<Object^>^ values, int count);
 
@@ -36,11 +37,10 @@ namespace AIMP {
 
             virtual ActionResult Delete(int index);
 
-            virtual TYPED_RESULT(IAimpDataFilterGroup) GetFilterGroup(int index);
-
-            virtual TYPED_RESULT(IAimpDataFieldFilter) GetFieldFilter(int index);
-
             virtual int GetChildCount();
+
+            generic <class TFilter>
+            virtual AimpActionResult<TFilter>^ GetChild(int index);
 
             virtual void BeginUpdate();
 

@@ -1,13 +1,11 @@
-﻿// ----------------------------------------------------
+﻿//  ----------------------------------------------------
+//  AIMP DotNet SDK
 // 
-// AIMP DotNet SDK
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
 // 
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// 
-// Mail: mail4evgeniy@gmail.com
-// 
-// ----------------------------------------------------
+//  Mail: mail4evgeniy@gmail.com
+//  ----------------------------------------------------
 
 using AIMP.DotNet.MusicLibrary.Preimage;
 using AIMP.SDK;
@@ -15,8 +13,7 @@ using AIMP.SDK.MenuManager;
 
 namespace AIMP.DotNet.MusicLibrary
 {
-    [AimpPlugin("MusicLibraryDemoPlugin", "Martin", "1.0.0.0", AimpPluginType = AimpPluginType.Addons,
-        FullDescription = "MusicLibrary demo plugin")]
+    [AimpPlugin("MusicLibraryDemoPlugin", "Martin", "1.0.0.0", AimpPluginType = AimpPluginType.Addons, FullDescription = "MusicLibrary demo plugin")]
     public class Plugin : AimpPlugin
     {
         public override void Initialize()

@@ -1,4 +1,13 @@
-﻿using System.Collections;
+﻿//  ----------------------------------------------------
+//  AIMP DotNet SDK
+// 
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+// 
+//  Mail: mail4evgeniy@gmail.com
+//  ----------------------------------------------------
+
+using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 

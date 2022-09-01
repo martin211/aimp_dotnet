@@ -1,5 +1,7 @@
-- name: SDK
+- name: Core
   namespace: AIMP.SDK
+- name: Objects
+  namespace: AIMP.SDK.Objects
 - name: Actions
   namespace: AIMP.SDK.Actions
 - name: AlbumArt
@@ -11,8 +13,6 @@
       namespace: AIMP.SDK.AlbumArt.Extensions
 - name: Configuration
   namespace: AIMP.SDK.Configuration
-- name: Core
-  namespace: AIMP.SDK
 - name: File Manager
   namespace: AIMP.SDK.FileManager
   items:
@@ -56,9 +56,17 @@
     - name: Primitives
       namespace: AIMP.SDK.Player.Objects
 - name: Playlists
-  namespace: AIMP.SDK.Player
+  namespace: AIMP.SDK.Playlist
+  items:
+    - name: Extensions
+      namespace: AIMP.SDK.Playlist.Extensions
+    - name: Objects
+      namespace: AIMP.SDK.Player.Objects
 - name: Tag Editor
   namespace: AIMP.SDK.TagEditor
+  items:
+    - name: Extensions
+      namespace: AIMP.SDK.TagEditor.Extensions
 - name: Threading
   namespace: AIMP.SDK.Threading
 - name: Visuals

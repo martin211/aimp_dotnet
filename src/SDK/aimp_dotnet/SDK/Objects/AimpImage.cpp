@@ -1,9 +1,11 @@
-﻿// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+﻿//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #include "Stdafx.h"
 #include "AimpImage.h"
@@ -74,7 +76,7 @@ AimpActionResult<IAimpImage^>^ AimpImage::Clone() {
     return gcnew AimpActionResult<IAimpImage^>(ActionResultType::NotImplemented);
 }
 
-AimpActionResult^ AimpImage::Draw(IntPtr dc, Drawing::RectangleF rect) {
+AimpActionResult^ AimpImage::Draw(IntPtr dc, RectangleF rect) {
     RECT r = RECT();
     r.top = rect.Top;
     r.bottom = rect.Bottom;

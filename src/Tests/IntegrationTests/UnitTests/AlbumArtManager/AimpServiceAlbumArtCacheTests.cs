@@ -1,13 +1,11 @@
-﻿// ----------------------------------------------------
+﻿//  ----------------------------------------------------
+//  AIMP DotNet SDK
 // 
-// AIMP DotNet SDK
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
 // 
-// Copyright (c) 2014 - 2022 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// 
-// Mail: mail4evgeniy@gmail.com
-// 
-// ----------------------------------------------------
+//  Mail: mail4evgeniy@gmail.com
+//  ----------------------------------------------------
 
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -19,6 +17,7 @@ using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.AlbumArtManager;
 
+[TestFixture(Category = "ServiceAlbumArtCache")]
 public class AimpServiceAlbumArtCacheTests : AimpIntegrationTest
 {
     [Test(Description = "Create and put image to cache")]

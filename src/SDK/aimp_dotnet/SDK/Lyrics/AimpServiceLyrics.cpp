@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #include "Stdafx.h"
 #include "AimpServiceLyrics.h"
@@ -14,12 +16,17 @@ using namespace AIMP::SDK;
 
 void AimpServiceLyrics::OnAimpServiceLyricsReceive(IAIMPLyrics* lyrics, void* userData) {
     AimpLyrics^ l = nullptr;
+    String^ ud = nullptr;
+
     if (lyrics != nullptr) {
         l = gcnew AimpLyrics(lyrics);
     }
 
-    // TODO add user data
-    LyricsReceive(l, nullptr);
+    if (userData != nullptr) {
+        ud = AimpConverter::ToManagedString(static_cast<IAIMPString*>(userData));
+    }
+
+    LyricsReceive(l, ud);
 }
 
 AimpServiceLyrics::AimpServiceLyrics(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceLyrics>(core) {
@@ -29,23 +36,27 @@ AimpServiceLyrics::~AimpServiceLyrics() {
     delete _callBack;
 }
 
-AimpActionResult<IntPtr>^ AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, Object^ userData) {
+AimpActionResult<IntPtr>^ AimpServiceLyrics::Get(IAimpFileInfo^ fileInfo, LyricsFlags flags, String^ userData) {
     IAIMPServiceLyrics* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
     IntPtr taskId = IntPtr(0);
+    IAIMPString* data = nullptr;
 
     try {
         if (service != nullptr) {
-            _callBack = gcnew OnAimpServiceLyricsReceiveCallback(
-                this, &AIMP::AimpServiceLyrics::OnAimpServiceLyricsReceive);
-            IntPtr procPtr = System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(_callBack);
+            if (!String::IsNullOrWhiteSpace(userData)) {
+                data = AimpConverter::ToAimpString(userData);
+            }
+
+            _callBack = gcnew OnAimpServiceLyricsReceiveCallback(this, &AimpServiceLyrics::OnAimpServiceLyricsReceive);
+            IntPtr procPtr = InteropServices::Marshal::GetFunctionPointerForDelegate(_callBack);
             void** task = nullptr;
 
             result = CheckResult(service->Get(
                 static_cast<AimpFileInfo^>(fileInfo)->InternalAimpObject,
                 static_cast<DWORD>(flags),
-                static_cast<TAIMPServiceLyricsReceiveProc(_stdcall *)>(procPtr.ToPointer()),
-                reinterpret_cast<void*>(&userData),
+                static_cast<TAIMPServiceLyricsReceiveProc(_stdcall*)>(procPtr.ToPointer()),
+                data,
                 task
             ));
 
@@ -67,7 +78,7 @@ ActionResult AimpServiceLyrics::Cancel(IntPtr taskId, LyricsFlags flags) {
 
     try {
         if (service != nullptr) {
-            result = CheckResult(service->Cancel(static_cast<void**>(taskId.ToPointer()), static_cast<DWORD>(flags)));
+            result = CheckResult(service->Cancel(taskId.ToPointer(), static_cast<DWORD>(flags)));
         }
 
         return ACTION_RESULT(result);
@@ -77,7 +88,7 @@ ActionResult AimpServiceLyrics::Cancel(IntPtr taskId, LyricsFlags flags) {
     }
 }
 
-void AimpServiceLyrics::LyricsReceive::raise(IAimpLyrics^ lyrics, Object^ userData) {
+void AimpServiceLyrics::LyricsReceive::raise(IAimpLyrics^ lyrics, String^ userData) {
     if (_eventCallBack != nullptr) {
         _eventCallBack(lyrics, userData);
     }

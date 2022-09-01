@@ -1,13 +1,13 @@
-﻿// ----------------------------------------------------
+﻿//  ----------------------------------------------------
+//  AIMP DotNet SDK
 // 
-// AIMP DotNet SDK
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
 // 
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// 
-// Mail: mail4evgeniy@gmail.com
-// 
-// ----------------------------------------------------
+//  Mail: mail4evgeniy@gmail.com
+//  ----------------------------------------------------
+
+using System;
 
 namespace AIMP.SDK.MusicLibrary
 {
@@ -44,14 +44,6 @@ namespace AIMP.SDK.MusicLibrary
         /// <param name="fieldIndex">Index of the field.</param>
         /// <returns>System.String.</returns>
         string GetValueAsString(int fieldIndex);
-
-        /// <summary>
-        /// Return the True value to notify the Music library the page-by-page access method is used to access to the data.
-        /// Value specifies that next page of data is available.
-        /// Note that this mode automatically disable for end users the Group Details and the Album Thumbnails views.
-        /// </summary>
-        /// <returns><c>true</c> if [has next page]; otherwise, <c>false</c>.</returns>
-        bool HasNextPage();
 
         /// <summary>
         /// Jumps to next row. Returns False if current row is last.

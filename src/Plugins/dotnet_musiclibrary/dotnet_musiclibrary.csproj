@@ -102,6 +102,7 @@
       <Link>CopyPlugin.ps1</Link>
     </None>
     <None Include="commands.json" />
+    <None Include="Directory.Build.targets" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FileManager\" />

@@ -1,13 +1,11 @@
-﻿// ----------------------------------------------------
+﻿//  ----------------------------------------------------
+//  AIMP DotNet SDK
 // 
-// AIMP DotNet SDK
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
 // 
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// 
-// Mail: mail4evgeniy@gmail.com
-// 
-// ----------------------------------------------------
+//  Mail: mail4evgeniy@gmail.com
+//  ----------------------------------------------------
 
 using System.Collections.Generic;
 using AIMP.SDK.MusicLibrary.DataStorage;
@@ -69,28 +67,14 @@ namespace AIMP.SDK.MusicLibrary.Presets
         /// </summary>
         /// <param name="index">Index.</param>
         /// <returns>AimpActionResult&lt;IAimpGroupingPreset&gt;.</returns>
-        AimpActionResult<IAimpGroupingPreset> GetPreset(int index);
-
-        /// <summary>
-        /// Gets the standard grouping preset by index.
-        /// </summary>
-        /// <param name="index">Index.</param>
-        /// <returns>AimpActionResult&lt;IAimpGroupingPresetStandard&gt;.</returns>
-        AimpActionResult<IAimpGroupingPresetStandard> GetStandardPreset(int index);
+        AimpActionResult<TAimpGroupingPreset> Get<TAimpGroupingPreset>(int index) where TAimpGroupingPreset : IAimpGroupingPreset;
 
         /// <summary>
         /// Gets the grouping preset by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>AimpActionResult&lt;IAimpGroupingPreset&gt;.</returns>
-        AimpActionResult<IAimpGroupingPreset> GetPresetById(string id);
-
-        /// <summary>
-        /// Gets the standard grouping preset by identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>AimpActionResult&lt;IAimpGroupingPresetStandard&gt;.</returns>
-        AimpActionResult<IAimpGroupingPresetStandard> GetStandardPresetById(string id);
+        AimpActionResult<TAimpGroupingPreset> GetById<TAimpGroupingPreset>(string id) where TAimpGroupingPreset : IAimpGroupingPreset;
 
         /// <summary>
         /// Gets the count of presets.

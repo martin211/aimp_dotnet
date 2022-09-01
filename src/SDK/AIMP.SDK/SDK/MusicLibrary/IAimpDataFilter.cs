@@ -1,36 +1,17 @@
-﻿// ----------------------------------------------------
+﻿//  ----------------------------------------------------
+//  AIMP DotNet SDK
 // 
-// AIMP DotNet SDK
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
 // 
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// 
-// Mail: mail4evgeniy@gmail.com
-// 
-// ----------------------------------------------------
+//  Mail: mail4evgeniy@gmail.com
+//  ----------------------------------------------------
 
 using AIMP.SDK.MusicLibrary.DataFilter;
+using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.MusicLibrary
 {
-    /// <summary>
-    /// Enum SortDirectionType
-    /// </summary>
-    public enum SortDirectionType
-    {
-        Undefined = 0,
-
-        /// <summary>
-        /// The ascending
-        /// </summary>
-        Ascending = 1,
-
-        /// <summary>
-        /// The descending
-        /// </summary>
-        Descending = 2
-    }
-
     public enum FilterType
     {
         Limit = 11,
@@ -38,6 +19,11 @@ namespace AIMP.SDK.MusicLibrary
         SortByList = 15,
         SearchString = 20,
         AlphabeticIndex = 21
+    }
+
+    public interface IAimpSortItem : IAimpString, IAimpSortDirection
+    {
+
     }
 
     /// <summary>

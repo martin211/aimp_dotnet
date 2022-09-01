@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #pragma once
 
@@ -18,7 +20,6 @@
 #include "SDK\Playback\AimpServicePlaybackQueue.h"
 #include "SDK\Threading\AimpServiceSynchronizer.h"
 #include "AimpCore.h"
-#include "SDK\Options\AimpOptionsDialogFrame.h"
 #include "SDK\Options\AimpServiceOptionsDialog.h"
 #include "SDK\Threading\AimpServiceSynchronizer.h"
 #include "SDK\Threading\AimpServiceThreadPool.h"
@@ -86,6 +87,9 @@ namespace AIMP {
         IAimpServicePlayerEqualizer^ _servicePlayerEqualizer;
         IAimpServicePlayerEqualizerPresets^ _servicePlayerEqualizerPresets;
         IAimpServiceWaveform^ _serviceWaveForm;
+        IAimpServiceFileInfoFormatterUtils^ _serviceFileInfoFormatterUtils;
+        IAimpServiceFileURI^ _serviceFileURI;
+        IAimpServiceFileURI2^ _serviceFileURI2;
     public:
         /// <summary>
         /// Initializes a new instance of the <see cref="AIMP3Controller{TConvAlloc}" /> class.
@@ -97,6 +101,19 @@ namespace AIMP {
         AimpPlayer(ManagedAimpCore^ core, int pluginId, int applicationDomainId, bool isCrossDomain);
 
         ~AimpPlayer();
+
+        property IAimpServiceFileInfoFormatterUtils^ ServiceFileInfoFormatterUtils
+        {
+            virtual IAimpServiceFileInfoFormatterUtils^ get();
+        }
+        property IAimpServiceFileURI^ ServiceFileUri
+        {
+            virtual IAimpServiceFileURI^ get();
+        }
+        property IAimpServiceFileURI2^ ServiceFileUri2
+        {
+            virtual IAimpServiceFileURI2^ get();
+        }
 
         property IAimpServiceWaveform^ ServiceWaveform {
             virtual IAimpServiceWaveform^ get();

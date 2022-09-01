@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #pragma once
 #include "AIMPSDK\AIMPSDK.h"
@@ -68,7 +70,7 @@ namespace AIMP {
 
             static VARIANT ToNativeVariant(Object^ objectValue);
 
-            static Object^ FromVaiant(VARIANT* variant);
+            static Object^ FromVariant(VARIANT* variant);
 
             static IAIMPObjectList* GetAimpObjectList();
 

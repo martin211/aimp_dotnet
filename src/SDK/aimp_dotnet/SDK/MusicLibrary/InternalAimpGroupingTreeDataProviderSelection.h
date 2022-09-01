@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #pragma once
 #include <vcclr.h>
@@ -15,8 +17,8 @@ namespace AIMP {
         using namespace MusicLibrary::DataFilter;
         using namespace MusicLibrary::DataStorage;
 
-        class InternalAimpGroupingTreeDataProviderSelection : public IUnknownInterfaceImpl<
-                IAIMPMLGroupingTreeDataProviderSelection> {
+        class InternalAimpGroupingTreeDataProviderSelection :
+            public IUnknownInterfaceImpl<IAIMPMLGroupingTreeDataProviderSelection> {
         private:
             ULONG _LinkCounter = 1;
             gcroot<IAimpGroupingTreeDataProviderSelection^> _managedInstance;
@@ -35,7 +37,7 @@ namespace AIMP {
 
             virtual HRESULT WINAPI GetValue(IAIMPString** FieldName, VARIANT* Value);
 
-            virtual BOOL WINAPI NextRow();
+            virtual BOOL WINAPI NextRecord();
 
             virtual ULONG WINAPI AddRef(void);
 

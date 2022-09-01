@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #pragma once
 
@@ -36,6 +38,9 @@ typedef AimpActionResult<MenuManager::Objects::IAimpMenuItem^>^ MenuItemResult;
 #define TYPED_RESULT_2(type1, type2) AimpActionResult<type1^, type2^>^
 #define RETURN_TYPED_RESULT(type, value1, value2) gcnew AimpActionResult<type^>(value1, value2)
 
+#define GET_IUNKNOWN(type1, object) static_cast<type1^>(object)->InternalAimpObject
+
+#define RELEASE(obj) if (obj != nullptr) { obj->Release(); obj = nullptr; }
 
 #include <windows.h>
 #include "AimpSdk.h"

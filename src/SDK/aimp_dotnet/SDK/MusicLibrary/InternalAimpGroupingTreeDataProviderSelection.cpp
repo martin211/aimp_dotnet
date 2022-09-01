@@ -1,14 +1,14 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #include "Stdafx.h"
 #include "InternalAimpGroupingTreeDataProviderSelection.h"
-
-#include <string>
 
 using namespace AIMP::SDK;
 
@@ -53,8 +53,8 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetValue(IAIMPStri
     return HRESULT(result->ResultType);
 }
 
-BOOL WINAPI InternalAimpGroupingTreeDataProviderSelection::NextRow() {
-    return BOOL(_managedInstance->NextRow());
+BOOL WINAPI InternalAimpGroupingTreeDataProviderSelection::NextRecord() {
+    return BOOL(_managedInstance->NextRecord());
 }
 
 ULONG WINAPI InternalAimpGroupingTreeDataProviderSelection::AddRef(void) {

@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #include "Stdafx.h"
 #include "AimpDataStorageCommandUserMark.h"
@@ -14,7 +16,7 @@ AimpDataStorageCommandUserMark::AimpDataStorageCommandUserMark(
 }
 
 HRESULT WINAPI AimpDataStorageCommandUserMark::SetMark(VARIANT* ID, const DOUBLE Value) {
-    return HRESULT(_instance->SetMark(AimpConverter::FromVaiant(ID), Value)->ResultType);
+    return HRESULT(_instance->SetMark(AimpConverter::FromVariant(ID), Value)->ResultType);
 }
 
 HRESULT WINAPI AimpDataStorageCommandUserMark::QueryInterface(REFIID riid, LPVOID* ppvObject) {

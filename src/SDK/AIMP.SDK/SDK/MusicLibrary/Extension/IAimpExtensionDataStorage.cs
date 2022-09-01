@@ -1,13 +1,11 @@
-﻿// ----------------------------------------------------
+﻿//  ----------------------------------------------------
+//  AIMP DotNet SDK
 // 
-// AIMP DotNet SDK
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
 // 
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// 
-// Mail: mail4evgeniy@gmail.com
-// 
-// ----------------------------------------------------
+//  Mail: mail4evgeniy@gmail.com
+//  ----------------------------------------------------
 
 using System;
 using System.Collections;
@@ -151,7 +149,7 @@ namespace AIMP.SDK.MusicLibrary.Extension
         /// Method calls before the finalization of plugin.
         /// Plugin must dispose all external links.
         /// </summary>
-        void Terminate(); // TODO Rename
+        void Terminate();
 
         /// <summary>
         /// Method calls when user executes the "refresh" command via hotkey or context menu.

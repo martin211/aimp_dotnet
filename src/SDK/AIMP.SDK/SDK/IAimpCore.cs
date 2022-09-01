@@ -1,13 +1,11 @@
-﻿// ----------------------------------------------------
+﻿//  ----------------------------------------------------
+//  AIMP DotNet SDK
 // 
-// AIMP DotNet SDK
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
 // 
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// 
-// Mail: mail4evgeniy@gmail.com
-// 
-// ----------------------------------------------------
+//  Mail: mail4evgeniy@gmail.com
+//  ----------------------------------------------------
 
 using System;
 using AIMP.SDK.MessageDispatcher;
@@ -76,5 +74,7 @@ namespace AIMP.SDK
         /// <typeparam name="TAimpObject">The type of the t aimp object.</typeparam>
         /// <returns>AimpActionResult&lt;IAimpObject&gt;.</returns>
         AimpActionResult<IAimpObject> CreateObject<TAimpObject>() where TAimpObject : IAimpObject;
+
+        AimpActionResult<IAimpObject> CreateObject(AimpObjectType objectType);
     }
 }

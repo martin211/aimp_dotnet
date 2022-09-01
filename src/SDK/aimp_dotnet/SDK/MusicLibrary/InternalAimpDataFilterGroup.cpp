@@ -1,12 +1,17 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #include "Stdafx.h"
 #include "InternalAimpDataFilterGroup.h"
+
+#include "InternalDataFieldFilter.h"
+#include "DataFilter/InternalAimpDataFieldFilterByArray.h"
 
 using namespace AIMP::SDK;
 using namespace MusicLibrary;
@@ -20,7 +25,7 @@ HRESULT WINAPI InternalAimpDataFilterGroup::Add(IUnknown* Field, VARIANT* Value1
                                                 IAIMPMLDataFieldFilter** Filter) {
     IAimpDataFieldFilter^ filter = nullptr;
     auto result = _managed->Add(AimpConverter::ToManagedString(static_cast<IAIMPString*>(Field)),
-                                AimpConverter::FromVaiant(Value1), AimpConverter::FromVaiant(Value2),
+                                AimpConverter::FromVariant(Value1), AimpConverter::FromVariant(Value2),
                                 FieldFilterOperationType(Operation));
 
     if (result->ResultType == ActionResultType::OK) {
@@ -62,11 +67,11 @@ HRESULT WINAPI InternalAimpDataFilterGroup::Delete(int Index) {
 
 HRESULT WINAPI InternalAimpDataFilterGroup::GetChild(int Index, REFIID IID, void** Obj) {
     ActionResultType res = ActionResultType::Fail;
-    if (IID == IID_IAIMPMLDataFilterGroup) {
-        const auto result = _managed->GetFilterGroup(Index);
+    if (IID == IID_IAIMPMLDataFieldFilter) {
+        const auto result = _managed->GetChild<IAimpDataFieldFilter^>(Index);
 
         if (result->ResultType == ActionResultType::OK) {
-            *Obj = new InternalAimpDataFilterGroup(result->Result);
+            *Obj = new InternalDataFieldFilter(result->Result);
         }
 
         res = result->ResultType;
@@ -74,11 +79,10 @@ HRESULT WINAPI InternalAimpDataFilterGroup::GetChild(int Index, REFIID IID, void
 
     if (IID == IID_IAIMPMLDataFieldFilter) {
         IAimpDataFieldFilter^ filter = nullptr;
-        const auto result = _managed->GetFilterGroup(Index);
+        const auto result = _managed->GetChild<IAimpDataFieldFilterByArray^>(Index);
 
         if (result->ResultType == ActionResultType::OK) {
-            // TODO complete it
-            //*Obj = new Interna
+            *Obj = new InternalAimpDataFieldFilterByArray(result->Result);
         }
 
         res = result->ResultType;

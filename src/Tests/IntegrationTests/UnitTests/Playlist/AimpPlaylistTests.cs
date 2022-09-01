@@ -1,24 +1,22 @@
-﻿// ----------------------------------------------------
+﻿//  ----------------------------------------------------
+//  AIMP DotNet SDK
 // 
-// AIMP DotNet SDK
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
 // 
-// Copyright (c) 2014 - 2022 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// 
-// Mail: mail4evgeniy@gmail.com
-// 
-// ----------------------------------------------------
+//  Mail: mail4evgeniy@gmail.com
+//  ----------------------------------------------------
 
 using System;
 using System.Collections.Generic;
 using AIMP.SDK;
-using AIMP.SDK.Playlist;
 using AIMP.SDK.Playlist.Objects;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
 
 namespace Aimp.TestRunner.UnitTests.Playlist;
 
+[TestFixture(Category = "Playlist")]
 public class AimpPlaylistTests : AimpIntegrationTest
 {
     public override void TearDown()

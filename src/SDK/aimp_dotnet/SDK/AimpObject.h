@@ -1,11 +1,14 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #pragma once
+#include <msclr\marshal_cppstd.h>
 
 template <class TAimpObject>
 public ref class AimpObject : public IAimpObject {
@@ -45,7 +48,9 @@ protected:
     }
 
     virtual void RegisterAtMemoryManager() {
-        AimpMemoryManager::getInstance().AddObject(this->GetHashCode(), InternalAimpObject);
+        if (InternalAimpObject != nullptr) {
+            AimpMemoryManager::getInstance().AddObject(this->GetHashCode(), InternalAimpObject, msclr::interop::marshal_as<std::string>(this->ToString()));
+        }
     }
 
     virtual void ReleaseFromMemoryManager() {

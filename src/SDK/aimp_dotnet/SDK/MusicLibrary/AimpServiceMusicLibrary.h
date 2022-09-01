@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #pragma once
 #include "SDK\BaseAimpService.h"
@@ -33,11 +35,14 @@ namespace AIMP {
 
             virtual TYPED_RESULT(IAimpGroupingPresets) GetGroupingPresets(int index);
 
-            virtual TYPED_RESULT(IAimpDataStorage) GetStorageById(String^ id);
+            //virtual TYPED_RESULT(IAimpDataStorage) GetStorageById(String^ id);
 
             virtual TYPED_RESULT(IAimpGroupingPresets) GetGroupingPresetsById(String^ id);
 
             virtual int GetStorageCount();
+
+            generic <class TAimpDataStorage>
+            virtual AimpActionResult<TAimpDataStorage>^ GetStorageById(String^ id);
         protected:
             IAIMPServiceMusicLibrary* GetAimpService() override;
         };

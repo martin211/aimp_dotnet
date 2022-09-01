@@ -1,13 +1,11 @@
-﻿// ----------------------------------------------------
+﻿//  ----------------------------------------------------
+//  AIMP DotNet SDK
 // 
-// AIMP DotNet SDK
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
 // 
-// Copyright (c) 2014 - 2022 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// 
-// Mail: mail4evgeniy@gmail.com
-// 
-// ----------------------------------------------------
+//  Mail: mail4evgeniy@gmail.com
+//  ----------------------------------------------------
 
 using System;
 using System.Collections.Generic;
@@ -24,7 +22,6 @@ using NUnit.Framework.Internal;
 
 namespace Aimp.TestRunner.TestFramework;
 
-[TestFixture]
 public abstract class AimpIntegrationTest
 {
     [OneTimeSetUp]
@@ -202,6 +199,7 @@ public abstract class AimpIntegrationTest
     {
         AimpAssert.AreEqual(ActionResultType.OK, result.ResultType, "Wrong ActionResultType");
         AimpAssert.NotNull(result.Result, "Result is empty");
+        AimpAssert.IsTrue(result.Result is TResult);
     }
 
     private void ClearAimpBeforeTests()

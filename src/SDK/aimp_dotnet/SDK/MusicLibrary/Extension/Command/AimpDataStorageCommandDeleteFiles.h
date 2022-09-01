@@ -1,9 +1,11 @@
-// ----------------------------------------------------
-// AIMP DotNet SDK
-// Copyright (c) 2014 - 2020 Evgeniy Bogdan
-// https://github.com/martin211/aimp_dotnet
-// Mail: mail4evgeniy@gmail.com
-// ----------------------------------------------------
+//  ----------------------------------------------------
+//  AIMP DotNet SDK
+//  
+//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  https://github.com/martin211/aimp_dotnet
+//  
+//  Mail: mail4evgeniy@gmail.com 
+//  ----------------------------------------------------
 
 #pragma once
 
@@ -13,8 +15,7 @@ private:
 public:
     typedef IUnknownInterfaceImpl<IAIMPMLDataStorageCommandDeleteFiles> Base;
 
-    AimpDataStorageCommandDeleteFiles(
-        gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandDeleteFiles^> instance);
+    AimpDataStorageCommandDeleteFiles(gcroot<MusicLibrary::Extension::Command::IAimpDataStorageCommandDeleteFiles^> instance);
 
     virtual BOOL WINAPI CanDelete(BOOL Physically);
 
