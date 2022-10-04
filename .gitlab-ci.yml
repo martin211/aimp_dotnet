@@ -35,6 +35,9 @@ build-X64:
 
 sonarqube:
   stage: analyze
+  only: 
+    - /^release\/.*$/
+    - master
   variables:
     GIT_STRATEGY: "none"
   script:
