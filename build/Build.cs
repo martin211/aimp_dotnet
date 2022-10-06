@@ -60,7 +60,7 @@ partial class Build : NukeBuild
     [Parameter] readonly string RequestSourceBranch;
     [Parameter] readonly string RequestTargetBranch;
     [Parameter] readonly string RequestId;
-    [Parameter] readonly int TargetPlatform = MSBuildTargetPlatform.x86;
+    [Parameter] readonly int TargetPlatform = (int)MSBuildTargetPlatform.x86;
 
     [Parameter]
     readonly string MsBuildPath =
@@ -320,12 +320,6 @@ partial class Build : NukeBuild
         .Executes(() =>
         {
             List<string> plugins = new List<string>();
-
-            var targetPlatforms = new List<string>
-            {
-                "x86",
-                "x64"
-            };
 
             var isValid = true;
 
