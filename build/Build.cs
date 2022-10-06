@@ -60,7 +60,7 @@ partial class Build : NukeBuild
     [Parameter] readonly string RequestSourceBranch;
     [Parameter] readonly string RequestTargetBranch;
     [Parameter] readonly string RequestId;
-    [Parameter] readonly int TargetPlatform = (int)MSBuildTargetPlatform.x86;
+    [Parameter] readonly MSBuildTargetPlatform TargetPlatform = MSBuildTargetPlatform.x86;
 
     [Parameter]
     readonly string MsBuildPath =
@@ -323,7 +323,7 @@ partial class Build : NukeBuild
 
             var isValid = true;
 
-            var targetPlatform = ((MSBuildTargetPlatform)TargetPlatform).ToString();
+            var targetPlatform = TargetPlatform.ToString();
 
             EnsureCleanDirectory(OutputDirectory / targetPlatform);
 

@@ -85,7 +85,7 @@ artifacts-x86:
     - build-X86
     - build-X64
   script:
-    - powershell -File $CI_PROJECT_DIR\build.ps1 Artifacts --TargetPlatform 1
+    - powershell -File $CI_PROJECT_DIR\build.ps1 Artifacts --TargetPlatform x86
   artifacts:
     paths:
       - output/
@@ -100,7 +100,7 @@ artifacts-x64:
     - build-X86
     - build-X64
   script:
-    - powershell -File $CI_PROJECT_DIR\build.ps1 Artifacts --TargetPlatform 2
+    - powershell -File $CI_PROJECT_DIR\build.ps1 Artifacts --TargetPlatform x64
   artifacts:
     paths:
       - output/
