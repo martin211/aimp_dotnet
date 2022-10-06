@@ -60,6 +60,7 @@ partial class Build : NukeBuild
     [Parameter] readonly string RequestSourceBranch;
     [Parameter] readonly string RequestTargetBranch;
     [Parameter] readonly string RequestId;
+    [Parameter] readonly int TargetPlatform = MSBuildTargetPlatform.x86;
 
     [Parameter]
     readonly string MsBuildPath =
@@ -315,6 +316,7 @@ partial class Build : NukeBuild
         });
 
     Target Artifacts => _ => _
+        .Requires(() => TargetPlatform)
         .Executes(() =>
         {
             List<string> plugins = new List<string>();
@@ -327,97 +329,96 @@ partial class Build : NukeBuild
 
             var isValid = true;
 
-            foreach (var targetPlatform in targetPlatforms)
+            var targetPlatform = ((MSBuildTargetPlatform)TargetPlatform).ToString();
+
+            EnsureCleanDirectory(OutputDirectory / targetPlatform);
+
+            Log.Information("Target platform {platform}", targetPlatform);
+            var artifactsFolder = OutputDirectory / targetPlatform;
+
+            Directory.CreateDirectory(artifactsFolder);
+
+            Log.Information("Copy plugins to artifacts folder");
+
+            var directories = GlobDirectories(SourceDirectory / "Plugins", $"**/bin/{targetPlatform}/{Configuration}");
+            foreach (var directory in directories)
             {
-                EnsureCleanDirectory(OutputDirectory / targetPlatform);
+                var pluginDirectory = new DirectoryInfo(directory);
+                var pluginName = pluginDirectory.Parent?.Parent?.Parent?.Name;
+                plugins.Add(pluginName);
 
-                Log.Information("Target platform {platform}", targetPlatform);
-                var artifactsFolder = OutputDirectory / targetPlatform;
-
-                Directory.CreateDirectory(artifactsFolder);
-
-                Log.Information("Copy plugins to artifacts folder");
-
-                var directories = GlobDirectories(SourceDirectory / "Plugins", $"**/bin/{targetPlatform}/{Configuration}");
-                foreach (var directory in directories)
+                Directory.CreateDirectory(artifactsFolder / "Plugins" / pluginName);
+                Log.Information(pluginName);
+                var files = pluginDirectory.GetFiles("*.dll");
+                foreach (var file in files)
                 {
-                    var pluginDirectory = new DirectoryInfo(directory);
-                    var pluginName = pluginDirectory.Parent?.Parent?.Parent?.Name;
-                    plugins.Add(pluginName);
+                    string outFile = string.Empty;
 
-                    Directory.CreateDirectory(artifactsFolder / "Plugins" / pluginName);
-                    Log.Information(pluginName);
-                    var files = pluginDirectory.GetFiles("*.dll");
-                    foreach (var file in files)
+                    if (file.Name.StartsWith(pluginName))
                     {
-                        string outFile = string.Empty;
-
-                        if (file.Name.StartsWith(pluginName))
-                        {
-                            outFile = artifactsFolder / "Plugins" / pluginName / $"{Path.GetFileNameWithoutExtension(file.Name)}_plugin.dll";
-                        }
-                        else
-                        {
-                            outFile = artifactsFolder / "Plugins" / pluginName / file.Name;
-                        }
-
-                        if (file.Name.StartsWith("aimp_dotnet"))
-                        {
-                            outFile = artifactsFolder / "Plugins" / pluginName / $"{pluginName}.dll";
-                        }
-
-                        Log.Information($"Copy '{file.FullName}' to '{outFile}'");
-                        file.CopyTo(outFile, true);
+                        outFile = artifactsFolder / "Plugins" / pluginName / $"{Path.GetFileNameWithoutExtension(file.Name)}_plugin.dll";
                     }
-                }
+                    else
+                    {
+                        outFile = artifactsFolder / "Plugins" / pluginName / file.Name;
+                    }
 
-                Log.Information("Copy SDK files to artifacts folder");
+                    if (file.Name.StartsWith("aimp_dotnet"))
+                    {
+                        outFile = artifactsFolder / "Plugins" / pluginName / $"{pluginName}.dll";
+                    }
 
-                var sdkFolder = new DirectoryInfo(SDKBinFolder / $"{targetPlatform}/{Configuration}");
-                Directory.CreateDirectory(artifactsFolder / "SDK");
-                var sdkFiles = sdkFolder.GetFiles("*.dll");
-                foreach (var file in sdkFiles)
-                {
-                    var outFile = artifactsFolder / "SDK" / file.Name;
+                    Log.Information($"Copy '{file.FullName}' to '{outFile}'");
                     file.CopyTo(outFile, true);
                 }
-
-                Log.Information("Validate output");
-
-                bool validatePluginFolder(string plugin, IEnumerable<FileInfo> files)
-                {
-                    var isValid = true;
-
-                    isValid &= files.Any(c => c.Name.StartsWith("AIMP.SDK"));
-                    isValid &= files.Any(c => c.Name == $"{plugin}.dll");
-                    isValid &= files.Any(c => c.Name == $"{plugin}_plugin.dll");
-
-                    return isValid;
-                }
-
-                foreach (var plugin in plugins)
-                {
-                    var pluginFolder = artifactsFolder / "Plugins" / plugin;
-                    var di = new DirectoryInfo(pluginFolder);
-                    var files = di.GetFiles("*.dll");
-                    if (!validatePluginFolder(plugin, files))
-                    {
-                        Log.Error($"Plugin {plugin} not valid.");
-                        isValid = false;
-                    }
-                }
-
-                Assert.True(isValid, $"Artifacts not valid. Platform {targetPlatform}");
-
-                Log.Information("Compress artifacts");
-
-                if (File.Exists(OutputDirectory / $"aimp.sdk-{targetPlatform}.zip"))
-                {
-                    File.Delete(OutputDirectory / $"aimp.sdk-{targetPlatform}.zip");
-                }
-
-                ZipFile.CreateFromDirectory(artifactsFolder, OutputDirectory / $"aimp.sdk-{targetPlatform}.zip");
             }
+
+            Log.Information("Copy SDK files to artifacts folder");
+
+            var sdkFolder = new DirectoryInfo(SDKBinFolder / $"{targetPlatform}/{Configuration}");
+            Directory.CreateDirectory(artifactsFolder / "SDK");
+            var sdkFiles = sdkFolder.GetFiles("*.dll");
+            foreach (var file in sdkFiles)
+            {
+                var outFile = artifactsFolder / "SDK" / file.Name;
+                file.CopyTo(outFile, true);
+            }
+
+            Log.Information("Validate output");
+
+            bool validatePluginFolder(string plugin, IEnumerable<FileInfo> files)
+            {
+                var isValid = true;
+
+                isValid &= files.Any(c => c.Name.StartsWith("AIMP.SDK"));
+                isValid &= files.Any(c => c.Name == $"{plugin}.dll");
+                isValid &= files.Any(c => c.Name == $"{plugin}_plugin.dll");
+
+                return isValid;
+            }
+
+            foreach (var plugin in plugins)
+            {
+                var pluginFolder = artifactsFolder / "Plugins" / plugin;
+                var di = new DirectoryInfo(pluginFolder);
+                var files = di.GetFiles("*.dll");
+                if (!validatePluginFolder(plugin, files))
+                {
+                    Log.Error($"Plugin {plugin} not valid.");
+                    isValid = false;
+                }
+            }
+
+            Assert.True(isValid, $"Artifacts not valid. Platform {targetPlatform}");
+
+            Log.Information("Compress artifacts");
+
+            if (File.Exists(OutputDirectory / $"aimp.sdk-{targetPlatform}.zip"))
+            {
+                File.Delete(OutputDirectory / $"aimp.sdk-{targetPlatform}.zip");
+            }
+
+            ZipFile.CreateFromDirectory(artifactsFolder, OutputDirectory / $"aimp.sdk-{targetPlatform}.zip");
 
             if (IsTeamCity)
             {
