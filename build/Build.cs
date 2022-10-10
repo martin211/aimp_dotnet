@@ -131,9 +131,7 @@ partial class Build : NukeBuild
     Target Version => _ => _
         .Executes(() =>
         {
-            _version = GitRepository.Branch.StartsWith(ReleaseBranchPrefix)
-                ? GitRepository.Branch.Split("/")[1]
-                : GitVersion.AssemblySemVer;
+            _version = GetVersion();
 
             Log.Information("Version: {_version}", _version);
             var assemblyInfo = SourceDirectory / "AssemblyInfo.cs";
@@ -347,7 +345,7 @@ partial class Build : NukeBuild
             if (IsTeamCity)
             {
                 TeamCity.Instance.PublishArtifacts(OutputDirectory / outputSkdFile);
-                TeamCity.Instance.SetBuildNumber(_version);
+                TeamCity.Instance.SetBuildNumber(GetVersion());
             }
         });
 
@@ -361,5 +359,12 @@ partial class Build : NukeBuild
             {
                 Log.Information(ParameterOutputPattern, info.Name, info.GetValue(this));
             });
+    }
+
+    string GetVersion()
+    {
+        return GitRepository.Branch.StartsWith(ReleaseBranchPrefix)
+            ? GitRepository.Branch.Split("/")[1]
+            : GitVersion.AssemblySemVer;
     }
 }
