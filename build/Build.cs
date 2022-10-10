@@ -81,7 +81,7 @@ partial class Build : NukeBuild
 
     string ParameterOutputPattern = "Parameter {parameter}: {value}";
 
-    public static int Main() => Execute<Build>(x => x.PrintDefaultBuildParameters);
+    public static int Main() => Execute<Build>(x => x.Compile);
 
     Target PrintBuildParameters => _ => _
         .Executes(() =>
