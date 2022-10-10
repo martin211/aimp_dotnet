@@ -13,7 +13,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
-using Aimp.DotNet.Build;
 using Nuke.Common;
 using Nuke.Common.CI.TeamCity;
 using Nuke.Common.Execution;
@@ -21,11 +20,9 @@ using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
-using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
-using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
 //using Nuke.PvsStudio;
@@ -180,93 +177,6 @@ partial class Build : NukeBuild
                 .SetTargetPlatform(MSBuildTargetPlatform.x64));
         });
 
-    Target SonarQube => _ => _
-        .Requires(() => SonarUrl, () => SonarUser, () => SonarProjectKey, () => SonarProjectName)
-        .DependsOn(Restore)
-        .Executes(() =>
-            {
-                var framework = "net5.0";
-                var configuration = new SonarBeginSettings()
-                    .SetProjectKey(SonarProjectKey)
-                    .SetIssueTrackerUrl(SonarUrl)
-                    .SetServer(SonarUrl)
-                    .SetVersion(_version)
-                    //.SetHomepage(SonarUrl)
-                    .SetLogin(SonarUser)
-                    .SetPassword(SonarPassword)
-                    .SetName(SonarProjectName)
-                    //.SetWorkingDirectory(SourceDirectory)
-                    .SetBranchName(GitRepository.Branch)
-                    .SetFramework(framework)
-                    .EnableVerbose();
-
-                if (File.Exists(PvsReportPath))
-                {
-                    configuration = configuration.SetPvsStudioReportPath(PvsReportPath);
-                }
-
-                if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
-                {
-                    configuration = configuration.SetVersion(GitVersion.SemVer);
-                }
-
-                configuration = configuration.SetProjectBaseDir(SourceDirectory);
-
-                if (!string.IsNullOrWhiteSpace(RequestSourceBranch) && !string.IsNullOrWhiteSpace(RequestTargetBranch))
-                {
-                    configuration = configuration
-                        .SetPullRequestBase(RequestSourceBranch)
-                        .SetPullRequestBranch(RequestTargetBranch)
-                        .SetPullRequestKey(RequestId);
-                }
-
-                var path = ToolPathResolver.GetPackageExecutable(
-                    packageId: "dotnet-sonarscanner",
-                    packageExecutable: "SonarScanner.MSBuild.dll",
-                    framework: framework);
-
-                configuration = configuration.SetProcessToolPath(path);
-
-                var arguments = $"{path} {configuration.GetProcessArguments().RenderForExecution()}";
-
-                DotNetTasks.DotNet(arguments);
-            }, () =>
-            {
-                MSBuild(c => c
-                    .SetConfiguration(Configuration)
-                    .SetProcessToolPath(MsBuildPath)
-                    .SetTargets("Rebuild")
-                    .SetSolutionFile(Solution)
-                    .EnableNodeReuse());
-            },
-            () =>
-            {
-                var framework = "net5.0";
-                var path = ToolPathResolver.GetPackageExecutable(
-                    packageId: "dotnet-sonarscanner",
-                    packageExecutable: "SonarScanner.MSBuild.dll",
-                    framework: framework);
-
-                var configuration = new SonarScannerEndSettings()
-                    .SetLogin(SonarUser)
-                    .SetPassword(SonarPassword)
-                    .SetFramework(framework)
-                    .EnableProcessLogOutput();
-
-                var arguments = $"{path} {configuration.GetProcessArguments().RenderForExecution()}";
-
-                DotNetTasks.DotNet(arguments);
-            });
-
-    Target PvsStudio => _ => _
-        .Executes(() =>
-        {
-            //PvsStudioTasks.PvsStudioRun(c => c
-            //    .SetConfiguration(Configuration)
-            //    .SetTarget(Solution)
-            //    .SetOutput(PvsReportPath));
-        });
-
     Target Pack => _ => _
         .DependsOn(Version)
         .Executes(() =>
@@ -367,9 +277,9 @@ partial class Build : NukeBuild
                 }
             }
 
-            Log.Information("Copy SDK files to artifacts folder");
-
             var sdkFolder = new DirectoryInfo(SDKBinFolder / $"{targetPlatform}/{Configuration}");
+            Log.Information($"Copy SDK files to artifacts folder '{sdkFolder}'");
+
             Directory.CreateDirectory(artifactsFolder / "SDK");
             var sdkFiles = sdkFolder.GetFiles("*.dll");
             foreach (var file in sdkFiles)
@@ -403,26 +313,22 @@ partial class Build : NukeBuild
                 }
             }
 
-            Assert.True(isValid, $"Artifacts not valid. Platform {targetPlatform}");
+            Assert.True(isValid, $"Artifacts not valid. Platform '{targetPlatform}'");
 
-            Log.Information("Compress artifacts");
+            var outputSkdFile = $"aimp.sdk-{targetPlatform}.zip";
 
-            if (File.Exists(OutputDirectory / $"aimp.sdk-{targetPlatform}.zip"))
+            Log.Information($"Compress artifacts to '{outputSkdFile}'");
+
+            if (File.Exists(OutputDirectory / outputSkdFile))
             {
-                File.Delete(OutputDirectory / $"aimp.sdk-{targetPlatform}.zip");
+                File.Delete(OutputDirectory / outputSkdFile);
             }
 
-            ZipFile.CreateFromDirectory(artifactsFolder, OutputDirectory / $"aimp.sdk-{targetPlatform}.zip");
+            ZipFile.CreateFromDirectory(artifactsFolder, OutputDirectory / outputSkdFile);
 
             if (IsTeamCity)
             {
-                if (!isValid)
-                {
-                    TeamCity.Instance.AddBuildProblem("Unable to create artifacts");
-                }
-
-                TeamCity.Instance.PublishArtifacts(OutputDirectory / "aimp.sdk-x86.zip");
-                TeamCity.Instance.PublishArtifacts(OutputDirectory / "aimp.sdk-x64.zip");
+                TeamCity.Instance.PublishArtifacts(OutputDirectory / outputSkdFile);
             }
         });
 
