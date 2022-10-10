@@ -34,8 +34,6 @@ using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
 [CheckBuildProjectConfigurations]
 partial class Build : NukeBuild
 {
-    public static int Main() => Execute<Build>(x => x.Compile);
-
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
@@ -83,6 +81,8 @@ partial class Build : NukeBuild
 
     string ParameterOutputPattern = "Parameter {parameter}: {value}";
 
+    public static int Main() => Execute<Build>(x => x.PrintDefaultBuildParameters);
+
     Target PrintBuildParameters => _ => _
         .Executes(() =>
         {
@@ -101,11 +101,12 @@ partial class Build : NukeBuild
 
             Log.Information("Git version");
             var type = GitVersion.GetType();
-            ((TypeInfo) type).DeclaredMembers.Where(c => c.MemberType == MemberTypes.Field)
+
+            ((TypeInfo)type).DeclaredProperties.Where(c => c.MemberType == MemberTypes.Property)
                 .NotNull()
                 .ForEach(info =>
                 {
-                    Log.Information(ParameterOutputPattern, info.Name, info.GetValue(this));
+                    Log.Information(ParameterOutputPattern, info.Name, info.GetValue(GitVersion));
                 });
         });
 
