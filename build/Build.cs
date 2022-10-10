@@ -347,6 +347,7 @@ partial class Build : NukeBuild
             if (IsTeamCity)
             {
                 TeamCity.Instance.PublishArtifacts(OutputDirectory / outputSkdFile);
+                TeamCity.Instance.SetBuildNumber(_version);
             }
         });
 
