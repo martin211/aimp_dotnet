@@ -178,6 +178,16 @@
             ]
           }
         },
+        "TargetPlatform": {
+          "type": "string",
+          "enum": [
+            "arm",
+            "MSIL",
+            "Win32",
+            "x64",
+            "x86"
+          ]
+        },
         "TestResultPath": {
           "type": "string"
         },

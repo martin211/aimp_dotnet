@@ -92,6 +92,23 @@ partial class Build : NukeBuild
             PrintParameters("IntegrationTest");
         });
 
+    Target PrintDefaultBuildParameters => _ => _
+        .Executes(() =>
+        {
+            Log.Information("Git information");
+            Log.Information("Git Branch: {Branch}", GitRepository.Branch);
+            Log.Information("Git Commit: {Commit}", GitRepository.Commit);
+
+            Log.Information("Git version");
+            var type = GitVersion.GetType();
+            ((TypeInfo) type).DeclaredMembers.Where(c => c.MemberType == MemberTypes.Field)
+                .NotNull()
+                .ForEach(info =>
+                {
+                    Log.Information(ParameterOutputPattern, info.Name, info.GetValue(this));
+                });
+        });
+
     Target Clean => _ => _
         .Before(Restore)
         .Executes(() =>
@@ -144,7 +161,7 @@ partial class Build : NukeBuild
         });
 
     Target Compile => _ => _
-        .DependsOn(PrintBuildParameters, Restore, Version)
+        .DependsOn(PrintBuildParameters, PrintDefaultBuildParameters, Restore, Version)
         .Executes(() =>
         {
             MSBuild(s => s
