@@ -110,7 +110,6 @@
               "Clean",
               "CleanDocumentation",
               "Compile",
-              "CompileX64",
               "CopyTestResults",
               "CustomToc",
               "ExecuteIntegrationTests",
@@ -126,6 +125,7 @@
               "PvsStudio",
               "Restore",
               "SonarQube",
+              "UpdateBuildNumber",
               "Version"
             ]
           }
@@ -160,7 +160,6 @@
               "Clean",
               "CleanDocumentation",
               "Compile",
-              "CompileX64",
               "CopyTestResults",
               "CustomToc",
               "ExecuteIntegrationTests",
@@ -176,6 +175,7 @@
               "PvsStudio",
               "Restore",
               "SonarQube",
+              "UpdateBuildNumber",
               "Version"
             ]
           }

@@ -89,16 +89,21 @@ HRESULT AimpDataProvider2::GetData(IAIMPObjectList* Fields, IAIMPMLDataFilter* F
             page);
 
         if (result->ResultType == ActionResultType::OK) {
-            IAimpDataProviderSelection^ selection = dynamic_cast<IAimpDataProviderSelection^>(result->Result->Data);
-
-            if (selection != nullptr) {
-                *Data = new InternalAimpDataProviderSelection(static_cast<IAimpDataProviderSelection^>(result->Result->Data));
-            }
-            else {
-                *Data = AimpConverter::ToAimpString(result->Result->ToString());
+            if (result->Result->PageId != nullptr) {
+                *PageID = AimpConverter::ToAimpString(result->Result->PageId);
             }
 
-            *PageID = AimpConverter::ToAimpString(result->Result->PageId);
+            if (result->Result->IsEmpty) {
+                *Data = AimpConverter::ToAimpString(result->Result->NoData);
+            } else {
+                IAimpDataProviderSelection^ selection = dynamic_cast<IAimpDataProviderSelection^>(result->Result->Data);
+
+                if (selection != nullptr) {
+                    *Data = new InternalAimpDataProviderSelection(static_cast<IAimpDataProviderSelection^>(result->Result->Data));
+                } else {
+                    return E_FAIL;
+                }
+            }
         }
 
         return static_cast<HRESULT>(result->ResultType);
@@ -134,6 +139,8 @@ AimpExtensionDataStorage::AimpExtensionDataStorage(IAIMPCore* aimpCore, gcroot<I
     const auto reportDialogCommand = dynamic_cast<IAimpDataStorageCommandReportDialog^>(obj);
     const auto deleteFilesCommand2 = dynamic_cast<IAimpDataStorageCommandDeleteFiles2^>(obj);
     const auto findInLibraryCommand = dynamic_cast<IAimpDataStorageCommandFindInLibrary^>(obj);
+    const auto albumArtProvider = dynamic_cast<IAimpAlbumArtProvider^>(obj);
+    const auto albumArtProvider2 = dynamic_cast<IAimpAlbumArtProvider2^>(obj);
 
     if (addFilesDialogCommand != nullptr) {
         _addFilesDialogCommand = new AimpDataStorageCommandAddFilesDialog(addFilesDialogCommand);
@@ -178,16 +185,31 @@ AimpExtensionDataStorage::AimpExtensionDataStorage(IAIMPCore* aimpCore, gcroot<I
     } else {
         _aimpDataProvider = new AimpDataProvider(instance);
     }
+
+    if (albumArtProvider != nullptr) {
+        _albumArtProvider = new InternalAimpAlbumArtProvider(albumArtProvider);
+    }
+
+    if (albumArtProvider2 != nullptr) {
+        _albumArtProvider2 = new InternalAimpAlbumArtProvider2(albumArtProvider2);
+    }
 }
 
 void WINAPI AimpExtensionDataStorage::Finalize() {
+    if (_disposed) {
+        return;
+    }
+
     if (static_cast<IAimpExtensionDataStorage^>(_managedInstance) != nullptr) {
         _managedInstance->Terminate();
         _managedInstance = nullptr;
     }
-    
-    _aimpDataProvider->Release();
-    _aimpDataProvider = nullptr;
+
+    if (_aimpDataProvider != nullptr)
+        _aimpDataProvider->Release();
+
+    if (_aimpDataProvider2 != nullptr)
+        _aimpDataProvider2->Release();
 
     if (_addFilesCommand != nullptr)
         _addFilesCommand->Release();
@@ -209,6 +231,14 @@ void WINAPI AimpExtensionDataStorage::Finalize() {
 
     if (_userMarkCommand != nullptr)
         _userMarkCommand->Release();
+
+    if (_albumArtProvider != nullptr)
+        _albumArtProvider->Release();
+
+    if (_albumArtProvider2 != nullptr)
+        _albumArtProvider2->Release();
+
+    _disposed = true;
 }
 
 void WINAPI AimpExtensionDataStorage::Initialize(IAIMPMLDataStorageManager* Manager) {
@@ -350,7 +380,7 @@ HRESULT WINAPI AimpExtensionDataStorage::QueryInterface(REFIID riid, LPVOID* ppv
         return S_OK;
     }
 
-    if (riid == IID_IAIMPMLDataProvider2) {
+    if (riid == IID_IAIMPMLDataProvider2 && _aimpDataProvider2 != nullptr) {
         *ppvObject = _aimpDataProvider2;
         _aimpDataProvider2->AddRef();
         return S_OK;
@@ -402,6 +432,14 @@ HRESULT WINAPI AimpExtensionDataStorage::QueryInterface(REFIID riid, LPVOID* ppv
         *ppvObject = this;
         AddRef();
         return S_OK;
+    }
+
+    if (riid == IID_IAIMPMLAlbumArtProvider && _albumArtProvider != nullptr) {
+        return _albumArtProvider->QueryInterface(riid, ppvObject);
+    }
+
+    if (riid == IID_IAIMPMLAlbumArtProvider2 && _albumArtProvider2 != nullptr) {
+        return _albumArtProvider2->QueryInterface(riid, ppvObject);
     }
 
     return E_NOINTERFACE;

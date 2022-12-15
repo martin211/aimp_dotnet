@@ -106,6 +106,7 @@ const int AIMPML_FIELDTYPE_INT32       = 1;
 const int AIMPML_FIELDTYPE_INT64       = 2;
 const int AIMPML_FIELDTYPE_FLOAT       = 3;
 const int AIMPML_FIELDTYPE_STRING      = 4;
+const int AIMPML_FIELDTYPE_STRINGSET   = 5;
 const int AIMPML_FIELDTYPE_DATETIME    = 10;
 const int AIMPML_FIELDTYPE_DURATION    = 11;
 const int AIMPML_FIELDTYPE_FILESIZE    = 12;
@@ -126,7 +127,7 @@ static const WCHAR* AIMPML_RESERVED_FIELD_USERMARK = L"UserMark"; // integer, 0.
 
 // Property ID for IAIMPMLGroupingPreset
 const int AIMPML_GROUPINGPRESET_PROPID_CUSTOM   = 0;
-const int AIMPML_GROUPINGPRESET_PROPID_ID	    = 1;
+const int AIMPML_GROUPINGPRESET_PROPID_ID	= 1;
 const int AIMPML_GROUPINGPRESET_PROPID_NAME     = 2;
 
 // Property ID for IAIMPMLGroupingPresetStandard

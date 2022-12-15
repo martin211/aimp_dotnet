@@ -11,6 +11,7 @@
 #include "InternalAimpAlbumArtProvider2.h"
 #include "SDK/AimpObjectList.h"
 #include "SDK/AlbumArt/AimpAlbumArtRequest.h"
+#include "SDK/Objects/AimpImageContainer.h"
 
 InternalAimpAlbumArtProvider2::InternalAimpAlbumArtProvider2(gcroot<MusicLibrary::Extension::IAimpAlbumArtProvider2^> instance) {
     _instance = instance;
@@ -20,15 +21,20 @@ HRESULT InternalAimpAlbumArtProvider2::Get(IAIMPObjectList* Fields, VARIANT* Val
     const auto filedList = gcnew AimpObjectList<String^>(Fields);
 
     array<Object^>^ values = gcnew array<Object^>(Fields->GetCount());
-    VARIANT* val = static_cast<VARIANT*>(Values);
-    VARIANT* varArr = Values;
 
     for (int i = 0; i < values->Length; i++)
     {
-        values[i] = AimpConverter::FromVariant(Values[i].pvarVal);
+        values[i] = AimpConverter::FromVariant(&Values[i]);
     }
 
-    return static_cast<HRESULT>(_instance->Get(filedList, values, gcnew AimpAlbumArtRequest(Request))->ResultType);
+    const auto result = _instance->Get(filedList, values, gcnew AimpAlbumArtRequest(Request));
+
+    if (result->ResultType == ActionResultType::OK) {
+        IAIMPImageContainer* aimpContainer = ((AimpImageContainer^)result->Result)->InternalAimpObject;
+        *Image = aimpContainer;
+    }
+
+    return static_cast<HRESULT>(result->ResultType);
 }
 
 ULONG InternalAimpAlbumArtProvider2::AddRef() {
@@ -40,5 +46,11 @@ ULONG InternalAimpAlbumArtProvider2::Release() {
 }
 
 HRESULT InternalAimpAlbumArtProvider2::QueryInterface(const IID& riid, LPVOID* ppvObject) {
-    return IUnknownInterfaceImpl<IAIMPMLAlbumArtProvider2>::QueryInterface(riid, ppvObject);
+    if (riid == IID_IAIMPMLAlbumArtProvider2) {
+        *ppvObject = this;
+        this->AddRef();
+        return S_OK;
+    }
+
+    return Base::QueryInterface(riid, ppvObject);
 }

@@ -104,7 +104,7 @@ AimpActionResult<IAimpImageContainer^>^ AimpAlbumArtRequest::CacheGet(String^ ke
 
     try {
         res = Utils::CheckResult(_aimpObject->CacheGet(str, &container));
-        if (res == ActionResultType::OK) {
+        if (res == ActionResultType::OK && container != nullptr) {
             return gcnew AimpActionResult<IAimpImageContainer^>(res, gcnew AimpImageContainer(container));
         }
     }
@@ -120,7 +120,8 @@ AimpActionResult^ AimpAlbumArtRequest::CachePut(String^ key, IAimpImageContainer
     IAIMPString* str = AimpConverter::ToAimpString(key);
 
     try {
-        res = Utils::CheckResult(_aimpObject->CachePut(str, safe_cast<AimpImageContainer^>(image)->InternalAimpObject));
+        IAIMPImageContainer* aimpObject = static_cast<AimpImageContainer^>(image)->InternalAimpObject;
+        res = Utils::CheckResult(_aimpObject->CachePut(str, &aimpObject));
     }
     finally {
         RELEASE(str)
@@ -149,4 +150,22 @@ AimpActionResult<IAimpImageContainer^>^ AimpAlbumArtRequest::Download(String^ ur
 
 bool AimpAlbumArtRequest::IsCanceled() {
     return _aimpObject->IsCanceled();
+}
+
+AimpActionResult<Bitmap^>^ AimpAlbumArtRequest::CacheGetAsBitmap(String^ key) {
+    IAIMPString* str = AimpConverter::ToAimpString(key);
+    IAIMPImageContainer* container = nullptr;
+    auto res = ActionResultType::Fail;
+
+    try {
+        res = Utils::CheckResult(_aimpObject->CacheGet(str, &container));
+        if (res == ActionResultType::OK) {
+            return gcnew AimpActionResult<Bitmap^>(AimpConverter::ToManagedBitmap(container));
+        }
+    }
+    finally {
+        RELEASE(str)
+    }
+
+    return gcnew AimpActionResult<Bitmap^>(res);
 }

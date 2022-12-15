@@ -14,6 +14,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using Nuke.Common;
+using Nuke.Common.CI.GitLab;
 using Nuke.Common.CI.TeamCity;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
@@ -25,7 +26,6 @@ using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
-//using Nuke.PvsStudio;
 using Serilog;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
@@ -39,7 +39,8 @@ partial class Build : NukeBuild
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
-    [GitVersion(NoFetch = true, UpdateAssemblyInfo = false)] readonly GitVersion GitVersion;
+    [GitVersion(NoFetch = true, UpdateAssemblyInfo = false, UpdateBuildNumber = false)]
+    readonly GitVersion GitVersion;
 
     #region Parameters
 
@@ -65,6 +66,26 @@ partial class Build : NukeBuild
 
     bool IsTeamCity => TeamCity.Instance != null;
 
+    bool IsGItLab => GitLab.Instance != null;
+
+    string BuildNumber
+    {
+        get
+        {
+            if (IsTeamCity)
+            {
+                return TeamCity.Instance.BuildNumber;
+            }
+
+            if (IsGItLab)
+            {
+                return GitLab.Instance.JobId.ToString();
+            }
+
+            return string.Empty;
+        }
+    }
+
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath TestsDirectory => RootDirectory / "tests";
     AbsolutePath OutputDirectory => RootDirectory / "output";
@@ -77,9 +98,13 @@ partial class Build : NukeBuild
     readonly string DevelopBranch = "develop";
     readonly string ReleaseBranchPrefix = "release";
     readonly string HotfixBranchPrefix = "hotfix";
+    readonly string MailstoneBranch = "mailstone";
     string _version = "1.0.0.0";
+    string _buildNumber = "1.0.0.0";
 
     string ParameterOutputPattern = "Parameter {parameter}: {value}";
+
+    bool IsReleaseBuild => GitRepository.Branch.StartsWith(ReleaseBranchPrefix);
 
     public static int Main() => Execute<Build>(x => x.Compile);
 
@@ -90,11 +115,7 @@ partial class Build : NukeBuild
             PrintParameters("Nuget");
             PrintParameters("Request");
             PrintParameters("IntegrationTest");
-        });
 
-    Target PrintDefaultBuildParameters => _ => _
-        .Executes(() =>
-        {
             Log.Information("Git information");
             Log.Information("Git Branch: {Branch}", GitRepository.Branch);
             Log.Information("Git Commit: {Commit}", GitRepository.Commit);
@@ -129,9 +150,10 @@ partial class Build : NukeBuild
         });
 
     Target Version => _ => _
+        .Triggers(UpdateBuildNumber)
         .Executes(() =>
         {
-            _version = GetVersion();
+            GetVersion();
 
             Log.Information("Version: {_version}", _version);
             var assemblyInfo = SourceDirectory / "AssemblyInfo.cs";
@@ -147,37 +169,15 @@ partial class Build : NukeBuild
             if (File.Exists(rcFile))
             {
                 Log.Information("Update version for '{rcFile}'", rcFile);
-                Log.Information("Assembly version: {AssemblySemVer}", GitVersion.AssemblySemVer);
                 var fileContent = File.ReadAllText(rcFile);
                 fileContent = fileContent.Replace("1,0,0,1", _version.Replace(".", ",")).Replace("1.0.0.1", _version);
                 File.WriteAllText(rcFile, fileContent);
             }
-
-            if (TeamCity.Instance != null)
-            {
-                TeamCity.Instance.SetBuildNumber(_version);
-            }
         });
 
     Target Compile => _ => _
-        .DependsOn(PrintBuildParameters, PrintDefaultBuildParameters, Restore, Version)
-        .Executes(() =>
-        {
-            MSBuild(s => s
-                .SetProcessToolPath(MsBuildPath)
-                .SetTargetPath(Solution)
-                .SetTargets("Rebuild")
-                .SetConfiguration(Configuration)
-                .SetAssemblyVersion(_version)
-                .SetFileVersion(_version)
-                .SetInformationalVersion($"{_version}-{GitRepository.Commit}")
-                .SetMaxCpuCount(Environment.ProcessorCount)
-                .SetNodeReuse(IsLocalBuild)
-                .SetTargetPlatform(MSBuildTargetPlatform.x86));
-        });
-
-    Target CompileX64 => _ => _
         .DependsOn(PrintBuildParameters, Restore, Version)
+        .Triggers(UpdateBuildNumber)
         .Executes(() =>
         {
             MSBuild(s => s
@@ -190,7 +190,7 @@ partial class Build : NukeBuild
                 .SetInformationalVersion($"{_version}-{GitRepository.Commit}")
                 .SetMaxCpuCount(Environment.ProcessorCount)
                 .SetNodeReuse(IsLocalBuild)
-                .SetTargetPlatform(MSBuildTargetPlatform.x64));
+                .SetTargetPlatform(TargetPlatform));
         });
 
     Target Pack => _ => _
@@ -209,16 +209,39 @@ partial class Build : NukeBuild
 
             if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
             {
-                config = config.SetSuffix("preview");
+                config = config.SetSuffix($"preview.{GitVersion.BuildMetaData}");
             }
 
             if (Configuration == Configuration.Debug)
             {
-                config = config.SetSuffix("debug");
+                config = config.SetSuffix($"debug.{GitVersion.BuildMetaData}");
             }
 
-            NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK.nuspec"));
-            NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK-x64.nuspec"));
+            if (TargetPlatform == MSBuildTargetPlatform.x86)
+            {
+                Log.Information("Pack X86 package");
+                NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK.nuspec"));
+                NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK.nuspec").EnableSymbols());
+                //NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK.symbols.nuspec"));
+                NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK.sources.nuspec"));
+            }
+
+            if (TargetPlatform == MSBuildTargetPlatform.x64)
+            {
+
+                Log.Information("Pack X64 package");
+                NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK-x64.nuspec"));
+            }
+
+            if (IsTeamCity)
+            {
+                var dir = new DirectoryInfo(OutputDirectory);
+
+                foreach (var fileInfo in dir.GetFiles("*.nupkg"))
+                {
+                    TeamCity.Instance.PublishArtifacts(fileInfo.FullName);
+                }
+            }
         });
 
     Target Publish => _ => _
@@ -345,7 +368,6 @@ partial class Build : NukeBuild
             if (IsTeamCity)
             {
                 TeamCity.Instance.PublishArtifacts(OutputDirectory / outputSkdFile);
-                TeamCity.Instance.SetBuildNumber(GetVersion());
             }
         });
 
@@ -361,10 +383,44 @@ partial class Build : NukeBuild
             });
     }
 
-    string GetVersion()
+    void GetVersion()
     {
-        return GitRepository.Branch.StartsWith(ReleaseBranchPrefix)
-            ? GitRepository.Branch.Split("/")[1]
-            : GitVersion.AssemblySemVer;
+        if (GitRepository.Branch.StartsWith(MailstoneBranch))
+        {
+            _version = GitRepository.Branch
+                .Replace($"{MailstoneBranch}_", string.Empty)
+                .Replace("_", ".");
+        }
+        else if (GitRepository.Branch.StartsWith(ReleaseBranchPrefix))
+        {
+            _version = GitRepository.Branch.Split("/")[1];
+        }
+        else
+        {
+            var tag = GitRepository.Tags.LastOrDefault();
+
+            if (tag != null)
+            {
+                _buildNumber = $"{tag}.{GitVersion.BuildMetaData}";
+                _version = tag;
+            }
+            else
+            {
+                _version = BuildNumber;
+            }
+        }
+
+        _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
     }
+
+    Target UpdateBuildNumber => _ => _
+        .Executes(() =>
+        {
+            if (IsTeamCity)
+            {
+                Log.Information("Set build version: {version}", _buildNumber);
+                TeamCity.Instance.SetBuildNumber(_buildNumber);
+                TeamCity.Instance.SetEnvironmentVariable("BUILD_NUMBER", _buildNumber);
+            }
+        });
 }

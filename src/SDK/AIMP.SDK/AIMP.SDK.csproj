@@ -129,6 +129,7 @@
     <Compile Include="SDK\MusicLibrary\DataStorage\IAimpDataStorage2.cs" />
     <Compile Include="SDK\MusicLibrary\Extension\Command\IAimpDataStorageCommandDeleteFiles2.cs" />
     <Compile Include="SDK\MusicLibrary\Extension\Command\IAimpDataStorageCommandFindInLibrary.cs" />
+    <Compile Include="SDK\MusicLibrary\Extension\IAimpAlbumArtProvider.cs" />
     <Compile Include="SDK\MusicLibrary\Extension\IAimpAlbumArtProvider2.cs" />
     <Compile Include="SDK\MusicLibrary\IAimpLocalDataStorage.cs" />
     <Compile Include="SDK\MusicLibrary\IAimpSortDirection.cs" />
@@ -282,7 +283,6 @@
     <Compile Include="SDK\Visuals\IAimpServiceVisualizations.cs" />
     <Compile Include="Win32\IWin32Manager.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

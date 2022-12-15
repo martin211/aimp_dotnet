@@ -1,7 +1,7 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v5.02 build 2360               */
+/*               v5.10 build 2400               */
 /*                                              */
 /*                Artem Izmaylov                */
 /*                (C) 2006-2022                 */
@@ -22,10 +22,11 @@ static const GUID IID_IAIMPOptionsDialogFrame = {0x41494D50, 0x4F70, 0x7444, 0x6
 static const GUID IID_IAIMPOptionsDialogFrameKeyboardHelper  = {0x41494D50, 0x4F70, 0x7444, 0x6C, 0x67, 0x46, 0x72, 0x6D, 0x4B, 0x48, 0x70};
 static const GUID IID_IAIMPOptionsDialogFrameKeyboardHelper2 = {0x41494D50, 0x4F70, 0x7444, 0x6C, 0x67, 0x46, 0x72, 0x6D, 0x4B, 0x48, 0x32};
 
-const int AIMP_SERVICE_OPTIONSDIALOG_NOTIFICATION_LOAD = 0x1;
+const int AIMP_SERVICE_OPTIONSDIALOG_NOTIFICATION_LOAD         = 0x1;
 const int AIMP_SERVICE_OPTIONSDIALOG_NOTIFICATION_LOCALIZATION = 0x2;
-const int AIMP_SERVICE_OPTIONSDIALOG_NOTIFICATION_SAVE = 0x3;
-const int AIMP_SERVICE_OPTIONSDIALOG_NOTIFICATION_CAN_SAVE = 0x4;
+const int AIMP_SERVICE_OPTIONSDIALOG_NOTIFICATION_SAVE         = 0x3;
+const int AIMP_SERVICE_OPTIONSDIALOG_NOTIFICATION_CAN_SAVE     = 0x4;
+const int AIMP_SERVICE_OPTIONSDIALOG_NOTIFICATION_RESET        = 0x5;
 
 /* IAIMPOptionsDialogFrame */
 

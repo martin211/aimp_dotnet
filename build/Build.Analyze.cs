@@ -20,7 +20,7 @@ partial class Build
 {
     Target SonarQube => _ => _
         .Requires(() => SonarUrl, () => SonarUser, () => SonarProjectKey, () => SonarProjectName)
-        .DependsOn(Restore)
+        .DependsOn(Restore, Version)
         .Executes(() =>
             {
                 var framework = "net5.0";
@@ -43,7 +43,7 @@ partial class Build
 
                 if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
                 {
-                    configuration = configuration.SetVersion(GitVersion.SemVer);
+                    configuration = configuration.SetVersion(_version);
                 }
 
                 configuration = configuration.SetProjectBaseDir(SourceDirectory);

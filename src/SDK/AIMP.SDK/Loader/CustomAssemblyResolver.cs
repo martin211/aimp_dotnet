@@ -60,7 +60,6 @@ namespace AIMP.Loader
         /// <returns>Assembly.</returns>
         public static Assembly CurrentDomainAssemblyResolve(object sender, ResolveEventArgs args)
         {
-            System.Diagnostics.Debugger.Launch();
             var projectDir = Path.GetDirectoryName(curPath);
 
             var i = args.Name.IndexOf(',');

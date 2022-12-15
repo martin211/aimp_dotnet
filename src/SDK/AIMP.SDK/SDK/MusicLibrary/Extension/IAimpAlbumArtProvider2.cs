@@ -20,10 +20,9 @@ namespace AIMP.SDK.MusicLibrary.Extension;
 public interface IAimpAlbumArtProvider2
 {
     /// <summary>
-    /// Gets the specified fields.
+    /// Gets the <see cref="IAimpImageContainer"/>.
     /// </summary>
     /// <param name="fields">List of field names presented as string that contains a Required flag in the Flags property value. </param>
     /// <param name="values">Array o values. Size of array is same value of the Fields.GetCount method result. Contains values for the Fields based on first file in group</param>
-    /// <returns></returns>
     AimpActionResult<IAimpImageContainer> Get(IAimpObjectList<string> fields, object[] values, IAimpAlbumArtRequest request);
 }

@@ -50,7 +50,12 @@ namespace AIMP.SDK
         /// <summary>
         /// Unspecified failure.
         /// </summary>
-        Fail = 0x80004005
+        Fail = 0x80004005,
+
+        /// <summary>
+        /// No such interface supported.
+        /// </summary>
+        NoInterface = 0x80004002
     }
 
     /// <summary>

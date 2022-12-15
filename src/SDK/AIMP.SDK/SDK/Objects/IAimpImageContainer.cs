@@ -36,6 +36,9 @@ public interface IAimpImageContainer : IAimpObject, IAimpHashCode
     /// </summary>
     AimpActionResult<byte[]> GetData();
 
+
+    AimpActionResult SetData(byte[] data);
+
     /// <summary>
     /// Gets the size of the data.
     /// </summary>
