@@ -10,7 +10,7 @@
 #include "Stdafx.h"
 #include "AimpImageContainer.h"
 
-AimpImageContainer::AimpImageContainer(IAIMPImageContainer* container) : AimpObject<IAIMPImageContainer>(container, true) {
+AimpImageContainer::AimpImageContainer(IAIMPImageContainer* container) : AimpObject<IAIMPImageContainer>(container) {
 }
 
 AimpActionResult<IAimpImage^>^ AimpImageContainer::CreateImage() {
@@ -56,6 +56,20 @@ AimpActionResult<array<unsigned char>^>^ AimpImageContainer::GetData() {
     }
 
     return gcnew AimpActionResult<array<unsigned char>^>(ActionResultType::OK);
+}
+
+AimpActionResult^ AimpImageContainer::SetData(array<unsigned char>^ data) {
+    const auto result = CheckResult(InternalAimpObject->SetDataSize(data->Length));
+
+    if (result == ActionResultType::OK) {
+        byte* b = InternalAimpObject->GetData();
+
+        for (int i = 0; i < data->Length - 1; i++) {
+            b[i] = data[i];
+        }
+    }
+
+    return gcnew AimpActionResult(result);
 }
 
 unsigned AimpImageContainer::GetDataSize() {

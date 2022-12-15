@@ -70,6 +70,8 @@ namespace AIMP {
             virtual AimpActionResult<IAimpImageContainer^>^ Download(String^ url);
 
             virtual bool IsCanceled();
+
+            virtual AimpActionResult<Bitmap^>^ CacheGetAsBitmap(String^ key);
         };
     }
 }

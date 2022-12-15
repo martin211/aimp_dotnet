@@ -7,8 +7,8 @@
 //  Mail: mail4evgeniy@gmail.com
 //  ----------------------------------------------------
 
+using System.Collections;
 using AIMP.SDK.MusicLibrary;
-using AIMP.SDK.Objects;
 
 namespace AIMP.SDK
 {

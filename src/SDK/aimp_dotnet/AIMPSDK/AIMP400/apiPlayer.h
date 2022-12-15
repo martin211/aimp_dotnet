@@ -124,7 +124,7 @@ class IAIMPExtensionPlaybackQueue2: public IAIMPExtensionPlaybackQueue
 		virtual HRESULT WINAPI GetInfo(IUnknown* Current, /*out*/ int* position, /*out*/ int* size) = 0;
 };
 
-/* IAIMPExtensionWaveFormProvider */
+/* IAIMPExtensionWaveformProvider */
 
 class IAIMPExtensionWaveFormProvider : public IUnknown 
 {
@@ -195,7 +195,6 @@ class IAIMPServicePlayerEqualizerPresets: public IUnknown
 	public:
 		virtual HRESULT WINAPI Add(IAIMPString* Name, REFIID IID, void **Obj) = 0;
 		virtual HRESULT WINAPI FindByName(IAIMPString* Name, REFIID IID, void **Obj) = 0;
-		//virtual HRESULT WINAPI Delete(IAIMPEqualizerPreset *Preset) = 0;
 		virtual HRESULT WINAPI Delete(IUnknown *Preset) = 0;
 		virtual HRESULT WINAPI Delete2(int Index) = 0;
 

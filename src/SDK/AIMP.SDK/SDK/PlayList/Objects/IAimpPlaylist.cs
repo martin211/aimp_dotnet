@@ -64,39 +64,54 @@ namespace AIMP.SDK.Playlist.Objects
     }
 
     /// <summary>
-    /// Enum PlaylistSort
+    /// Playlist sort types.
     /// </summary>
     public enum PlaylistSort
     {
         /// <summary>
-        /// The title
+        /// By title.
         /// </summary>
         Title = 1,
 
         /// <summary>
-        /// The file name
+        /// By file name.
         /// </summary>
         FileName = 2,
 
         /// <summary>
-        /// The duration
+        /// By duration.
         /// </summary>
         Duration = 3,
 
         /// <summary>
-        /// The artist
+        /// By artist
         /// </summary>
         Artist = 4,
 
         /// <summary>
-        /// The inverse
+        /// Inverse.
         /// </summary>
         Inverse = 5,
 
         /// <summary>
-        /// The randomize
+        /// Randomize.
         /// </summary>
-        Randomize = 6
+        Randomize = 6,
+
+        /// <summary>
+        /// Randomize by group.
+        /// </summary>
+        RandomizeGroup = 7,
+
+        /// <summary>
+        /// Randomize by group items.
+        /// </summary>
+        RandomizeGroupItems = 8,
+
+        /// <summary>
+        /// Randomize by group and group items.
+        /// </summary>
+        RandomizeGroupsAndItems = 9
     }
 
     /// <summary>

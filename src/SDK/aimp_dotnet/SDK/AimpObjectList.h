@@ -43,6 +43,8 @@ namespace AIMP {
             virtual ActionResult GetObject(int index, TObject% item);
 
             virtual ActionResult SetObject(int index, TObject item);
+
+            virtual Collections::IEnumerator^ GetEnumerator();
         };
 
         public ref class AimpObjectList2 : public IAimpObjectList, public AimpObject<IAIMPObjectList> {
