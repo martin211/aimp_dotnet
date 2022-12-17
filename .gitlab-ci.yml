@@ -37,7 +37,6 @@ sonarqube:
   stage: analyze
   only: 
     - /^release\/.*$/
-    - master
   variables:
     GIT_STRATEGY: "none"
   script:
@@ -76,6 +75,8 @@ pack:
     - build-X64
   script:
     - powershell -File $CI_PROJECT_DIR\build.ps1 Pack --Configuation $Configuration
+  only: 
+    - /^release\/.*$/
 
 artifacts-x86:
   stage: pack
