@@ -7,7 +7,7 @@
     <Target Name="CopyPlugin" AfterTargets="Build" Condition="'$(Configuration)'=='DEBUG'">
         <ItemGroup>
             <ResourceFiles Include="$(SolutionDir)Tests\Resources\integrationTests\**\*.*" />
-            <TestFiles Include="$(ProjectDir)nunit.engine.addins;Ghpr.Core.Settings.json;Ghpr.NUnit.Settings.json" />
+            <TestFiles Include="$(ProjectDir)nunit.engine.addins;" />
         </ItemGroup>
 
         <Message Text="AimpVersion: $(AimpVersion)" Importance="high" />
