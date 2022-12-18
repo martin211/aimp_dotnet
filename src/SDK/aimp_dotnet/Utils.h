@@ -16,6 +16,8 @@ internal:
     {
         switch (result)
         {
+        case S_OK:
+            return ActionResultType::OK;
         case E_ACCESSDENIED:
             return ActionResultType::AccessDenied;
         case E_HANDLE:
@@ -28,8 +30,10 @@ internal:
             return ActionResultType::Unexpected;
         case E_FAIL:
             return ActionResultType::Fail;
+        case E_NOINTERFACE:
+            return ActionResultType::NoInterface;
         default:
-            return ActionResultType::OK;
+            return ActionResultType::Unexpected;
         }
     }
 };

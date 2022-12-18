@@ -110,7 +110,6 @@
               "Clean",
               "CleanDocumentation",
               "Compile",
-              "CompileX64",
               "CopyTestResults",
               "CustomToc",
               "ExecuteIntegrationTests",
@@ -119,12 +118,14 @@
               "PrepareIntegrationTests",
               "PrepareTestConfiguration",
               "PrintBuildParameters",
+              "PrintDefaultBuildParameters",
               "Publish",
               "PublishDocumentation",
               "PushDocumentation",
               "PvsStudio",
               "Restore",
               "SonarQube",
+              "UpdateBuildNumber",
               "Version"
             ]
           }
@@ -159,7 +160,6 @@
               "Clean",
               "CleanDocumentation",
               "Compile",
-              "CompileX64",
               "CopyTestResults",
               "CustomToc",
               "ExecuteIntegrationTests",
@@ -168,15 +168,27 @@
               "PrepareIntegrationTests",
               "PrepareTestConfiguration",
               "PrintBuildParameters",
+              "PrintDefaultBuildParameters",
               "Publish",
               "PublishDocumentation",
               "PushDocumentation",
               "PvsStudio",
               "Restore",
               "SonarQube",
+              "UpdateBuildNumber",
               "Version"
             ]
           }
+        },
+        "TargetPlatform": {
+          "type": "string",
+          "enum": [
+            "arm",
+            "MSIL",
+            "Win32",
+            "x64",
+            "x86"
+          ]
         },
         "TestResultPath": {
           "type": "string"

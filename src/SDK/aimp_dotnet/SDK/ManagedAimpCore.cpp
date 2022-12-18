@@ -42,66 +42,6 @@ namespace AIMP {
             gcroot<ManagedAimpCore^> _managedCore;
         };
 
-        //class AimpExtensionPlayerHook : public IUnknownInterfaceImpl<IAIMPExtensionPlayerHook>
-        //{
-        //public:
-        //    typedef IUnknownInterfaceImpl<IAIMPExtensionPlayerHook> Base;
-
-        //    explicit AimpExtensionPlayerHook(gcroot<ManagedAimpCore^> managedCore) : _managedCore(managedCore)
-        //    {
-        //    }
-
-        //    virtual HRESULT WINAPI OnCheckURL(IAIMPString* URL, BOOL* Handled)
-        //    {
-        //        String^ url = AimpConverter::ToManagedString(URL);
-        //        bool handled = _managedCore->OnCheckUrl(*&url);
-
-        //        if (handled)
-        //        {
-        //            // TODO: Optimize it
-        //            *Handled = 1;
-        //            IAIMPString* str = AimpConverter::ToAimpString(url);
-        //            URL->SetData(str->GetData(), str->GetLength());
-        //            str->Release();
-        //            str = nullptr;
-        //        }
-        //        else
-        //            *Handled = 0;
-
-        //        return S_OK;
-        //    }
-
-        //    virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObj)
-        //    {
-        //        if (!ppvObj)
-        //        {
-        //            return E_POINTER;
-        //        }
-
-        //        if (riid == IID_IAIMPExtensionPlayerHook)
-        //        {
-        //            *ppvObj = this;
-        //            AddRef();
-        //            return S_OK;
-        //        }
-
-        //        return E_NOINTERFACE;
-        //    }
-
-        //    virtual ULONG WINAPI AddRef(void)
-        //    {
-        //        return Base::AddRef();
-        //    }
-
-        //    virtual ULONG WINAPI Release(void)
-        //    {
-        //        return Base::Release();
-        //    }
-
-        //private:
-        //    gcroot<ManagedAimpCore^> _managedCore;
-        //};
-
         ManagedAimpCore::ManagedAimpCore(IAIMPCore* core) {
             _core = core;
             //AimpExtensionPlayerHook* playerHook = new AimpExtensionPlayerHook(this);
@@ -345,7 +285,7 @@ namespace AIMP {
                 _playlistManagerListener = ext;
                 return _core->RegisterExtension(IID_IAIMPServicePlaylistManager, _playlistManagerListener);
             }
-            #pragma endregion PlaylistExtension
+            #pragma endregion
 
             IAimpExtensionLyricsProvider^ lyricsProviderExtension = dynamic_cast<
                 IAimpExtensionLyricsProvider^>(extension);
@@ -413,7 +353,18 @@ namespace AIMP {
 
                 const auto ext = new InternalAimpExtensionWaveFormProvider(waveFormProvider);
                 _extensionWaveFormProvider = ext;
-                return _core->RegisterExtension(IID_IAIMPExtensionWaveformProvider, ext);
+                return _core->RegisterExtension(IID_IAIMPServiceWaveform, ext);
+            }
+
+            auto aimpAlbumArtProvider = dynamic_cast<MusicLibrary::Extension::IAimpAlbumArtProvider^>(extension);
+            if (aimpAlbumArtProvider != nullptr) {
+                if (_internalAimpAlbumArtProvider != nullptr) {
+                    return E_FAIL;
+                }
+
+                const auto ext = new InternalAimpAlbumArtProvider(aimpAlbumArtProvider);
+                _internalAimpAlbumArtProvider = ext;
+                return _core->RegisterExtension(IID_IAIMPMLAlbumArtProvider, ext);
             }
 
             HRESULT result = RegisterFileManagerExtensions(extension);
@@ -657,18 +608,15 @@ namespace AIMP {
         }
 
         HRESULT ManagedAimpCore::RegisterFileManagerExtensions(IAimpExtension^ extension) {
-            FileManager::Extensions::IAimpExtensionFileInfoProvider^ fileInfoProviderExtension = dynamic_cast<
-                FileManager::Extensions::IAimpExtensionFileInfoProvider^>(extension);
+            FileManager::Extensions::IAimpExtensionFileInfoProvider^ fileInfoProviderExtension = dynamic_cast<FileManager::Extensions::IAimpExtensionFileInfoProvider^>(extension);
             if (fileInfoProviderExtension != nullptr) {
                 if (_fileInfoExtensionProvider != nullptr) {
                     return E_FAIL;
                 }
 
-                InternalAimpExtensionFileInfoProvider* ext = new InternalAimpExtensionFileInfoProvider(
-                    fileInfoProviderExtension);
+                InternalAimpExtensionFileInfoProvider* ext = new InternalAimpExtensionFileInfoProvider(fileInfoProviderExtension);
                 _fileInfoExtensionProvider = ext;
-                return _core->RegisterExtension(IID_IAIMPServiceFileInfo,
-                    static_cast<InternalAimpExtensionFileInfoProvider::Base*>(ext));
+                return _core->RegisterExtension(IID_IAIMPServiceFileInfo, static_cast<InternalAimpExtensionFileInfoProvider::Base*>(ext));
             }
 
             FileManager::Extensions::IAimpExtensionFileSystem^ extensionFileSystem = dynamic_cast<FileManager::Extensions::IAimpExtensionFileSystem^>(extension);
@@ -679,8 +627,7 @@ namespace AIMP {
 
                 InternalAimpExtensionFileSystem* ext = new InternalAimpExtensionFileSystem(extensionFileSystem, _core);
                 _extensionFileSystem = ext;
-                return _core->RegisterExtension(IID_IAIMPServiceFileSystems,
-                    static_cast<IAIMPExtensionFileSystem*>(ext));
+                return _core->RegisterExtension(IID_IAIMPServiceFileSystems, static_cast<IAIMPExtensionFileSystem*>(ext));
             }
 
             FileManager::Extensions::IAimpExtensionFileFormat^ extensionFileFormat = dynamic_cast<FileManager::Extensions::IAimpExtensionFileFormat^>(extension);
@@ -691,7 +638,7 @@ namespace AIMP {
 
                 const auto ext = new InternalAimpExtensionFileFormat(extensionFileFormat);
                 _extensionFileFormat = ext;
-                return _core->RegisterExtension(IID_IAIMPExtensionFileFormat, static_cast<IAIMPExtensionFileFormat*>(ext));
+                return _core->RegisterExtension(IID_IAIMPServiceFileFormats, static_cast<IAIMPExtensionFileFormat*>(ext));
             }
 
             FileManager::Extensions::IAimpExtensionFileExpander^ extensionFileExpander = dynamic_cast<FileManager::Extensions::IAimpExtensionFileExpander^>(extension);
@@ -702,7 +649,7 @@ namespace AIMP {
 
                 const auto ext = new InternalAimpExtensionFileExpander(extensionFileExpander);
                 _extensionFileExpander = ext;
-                return _core->RegisterExtension(IID_IAIMPExtensionFileExpander, static_cast<IAIMPExtensionFileExpander*>(ext));
+                return _core->RegisterExtension(IID_IAIMPServiceFileManager, static_cast<IAIMPExtensionFileExpander*>(ext));
             }
 
             MusicLibrary::Extension::IAimpAlbumArtProvider2^ aimpAlbumArtProvider2 = dynamic_cast<MusicLibrary::Extension::IAimpAlbumArtProvider2^>(extension);

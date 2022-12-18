@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata minClientVersion="2.12">
-    <id>AimpSDK</id>
+    <id>AimpSDK.Symbols</id>
     <version>$version$</version>
     <title>Aimp DotNet SDK</title>
     <authors>Evgeniy Bogdan</authors>
@@ -13,13 +13,9 @@
 	<license type="file">LICENSE.md</license>
   </metadata>
   <files>
-    <file src="LICENSE.md" target="" />
-    <file src="nuget\Tools\CopyPlugin.ps1" target="content\CopyPlugin.ps1" />
-    <file src="nuget\Tools\commands.json" target="content\commands.json" />
-    <file src="src\SDK\aimp_dotnet\bin\x86\$configuration$\AIMP.SDK.dll" target="lib\net48\AIMP.SDK.dll" />
-    <file src="src\SDK\aimp_dotnet\bin\x86\$configuration$\aimp_dotnet.dll" target="lib\net48\aimp_dotnet.dll" />
+	<file src="LICENSE.md" target="" />
+    <file src="src\SDK\aimp_dotnet\bin\x86\$configuration$\AIMP.SDK.pdb" target="lib\net462\AIMP.SDK.pdb" />
+    <file src="src\SDK\aimp_dotnet\bin\x86\$configuration$\aimp_dotnet.pdb" target="lib\net462\aimp_dotnet.pdb" />
     <file src="src\SDK\aimp_dotnet\bin\x86\$configuration$\AIMP.SDK.xml" target="lib\net48\AIMP.SDK.xml" />
-	<file src="src\SDK\aimp_dotnet\bin\x86\$configuration$\AIMP.SDK.pdb" target="lib\net48\AIMP.SDK.pdb" />
-    <file src="src\SDK\aimp_dotnet\bin\x86\$configuration$\aimp_dotnet.pdb" target="lib\net48\aimp_dotnet.pdb" />
   </files>
 </package>

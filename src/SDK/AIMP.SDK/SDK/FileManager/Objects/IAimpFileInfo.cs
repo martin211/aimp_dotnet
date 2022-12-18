@@ -170,7 +170,7 @@ namespace AIMP.SDK.FileManager.Objects
         /// <summary>
         /// Gets or sets the track total.
         /// </summary>
-       string TrackTotal { get; set; }
+        string TrackTotal { get; set; }
 
         /// <summary>
         /// Gets or sets the URL.

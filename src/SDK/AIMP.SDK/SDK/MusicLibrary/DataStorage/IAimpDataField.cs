@@ -42,6 +42,11 @@ namespace AIMP.SDK.MusicLibrary.DataStorage
         String = 4,
 
         /// <summary>
+        /// Set of string values divided by ";" character.
+        /// </summary>
+        StringSet = 5,
+
+        /// <summary>
         /// Display value is formatted data time value (format string is depended from the context).
         /// </summary>
         DateTime = 10,

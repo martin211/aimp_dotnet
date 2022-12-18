@@ -32,6 +32,8 @@ namespace AIMP {
             virtual int GetAimpHashCode();
 
             virtual void Recalculate();
+
+            virtual AimpActionResult^ SetData(array<unsigned char>^ data);
         };
     }
 }

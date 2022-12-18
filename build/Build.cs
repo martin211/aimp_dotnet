@@ -13,22 +13,19 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
-using Aimp.DotNet.Build;
 using Nuke.Common;
+using Nuke.Common.CI.GitLab;
 using Nuke.Common.CI.TeamCity;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
-using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
-using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
-//using Nuke.PvsStudio;
 using Serilog;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
@@ -37,14 +34,13 @@ using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
 [CheckBuildProjectConfigurations]
 partial class Build : NukeBuild
 {
-    public static int Main() => Execute<Build>(x => x.Compile);
-
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
-    [GitVersion(NoFetch = true, UpdateAssemblyInfo = false)] readonly GitVersion GitVersion;
+    [GitVersion(NoFetch = true, UpdateAssemblyInfo = false, UpdateBuildNumber = false)]
+    readonly GitVersion GitVersion;
 
     #region Parameters
 
@@ -60,6 +56,7 @@ partial class Build : NukeBuild
     [Parameter] readonly string RequestSourceBranch;
     [Parameter] readonly string RequestTargetBranch;
     [Parameter] readonly string RequestId;
+    [Parameter] readonly MSBuildTargetPlatform TargetPlatform = MSBuildTargetPlatform.x86;
 
     [Parameter]
     readonly string MsBuildPath =
@@ -68,6 +65,26 @@ partial class Build : NukeBuild
     #endregion
 
     bool IsTeamCity => TeamCity.Instance != null;
+
+    bool IsGItLab => GitLab.Instance != null;
+
+    string BuildNumber
+    {
+        get
+        {
+            if (IsTeamCity)
+            {
+                return TeamCity.Instance.BuildNumber;
+            }
+
+            if (IsGItLab)
+            {
+                return GitLab.Instance.JobId.ToString();
+            }
+
+            return string.Empty;
+        }
+    }
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath TestsDirectory => RootDirectory / "tests";
@@ -81,9 +98,15 @@ partial class Build : NukeBuild
     readonly string DevelopBranch = "develop";
     readonly string ReleaseBranchPrefix = "release";
     readonly string HotfixBranchPrefix = "hotfix";
+    readonly string MailstoneBranch = "mailstone";
     string _version = "1.0.0.0";
+    string _buildNumber = "1.0.0.0";
 
     string ParameterOutputPattern = "Parameter {parameter}: {value}";
+
+    bool IsReleaseBuild => GitRepository.Branch.StartsWith(ReleaseBranchPrefix);
+
+    public static int Main() => Execute<Build>(x => x.Compile);
 
     Target PrintBuildParameters => _ => _
         .Executes(() =>
@@ -92,6 +115,20 @@ partial class Build : NukeBuild
             PrintParameters("Nuget");
             PrintParameters("Request");
             PrintParameters("IntegrationTest");
+
+            Log.Information("Git information");
+            Log.Information("Git Branch: {Branch}", GitRepository.Branch);
+            Log.Information("Git Commit: {Commit}", GitRepository.Commit);
+
+            Log.Information("Git version");
+            var type = GitVersion.GetType();
+
+            ((TypeInfo)type).DeclaredProperties.Where(c => c.MemberType == MemberTypes.Property)
+                .NotNull()
+                .ForEach(info =>
+                {
+                    Log.Information(ParameterOutputPattern, info.Name, info.GetValue(GitVersion));
+                });
         });
 
     Target Clean => _ => _
@@ -113,11 +150,10 @@ partial class Build : NukeBuild
         });
 
     Target Version => _ => _
+        .Triggers(UpdateBuildNumber)
         .Executes(() =>
         {
-            _version = GitRepository.Branch.StartsWith(ReleaseBranchPrefix)
-                ? GitRepository.Branch.Split("/")[1]
-                : GitVersion.AssemblySemVer;
+            GetVersion();
 
             Log.Information("Version: {_version}", _version);
             var assemblyInfo = SourceDirectory / "AssemblyInfo.cs";
@@ -133,20 +169,15 @@ partial class Build : NukeBuild
             if (File.Exists(rcFile))
             {
                 Log.Information("Update version for '{rcFile}'", rcFile);
-                Log.Information("Assembly version: {AssemblySemVer}", GitVersion.AssemblySemVer);
                 var fileContent = File.ReadAllText(rcFile);
                 fileContent = fileContent.Replace("1,0,0,1", _version.Replace(".", ",")).Replace("1.0.0.1", _version);
                 File.WriteAllText(rcFile, fileContent);
-            }
-
-            if (TeamCity.Instance != null)
-            {
-                TeamCity.Instance.SetBuildNumber(_version);
             }
         });
 
     Target Compile => _ => _
         .DependsOn(PrintBuildParameters, Restore, Version)
+        .Triggers(UpdateBuildNumber)
         .Executes(() =>
         {
             MSBuild(s => s
@@ -159,111 +190,7 @@ partial class Build : NukeBuild
                 .SetInformationalVersion($"{_version}-{GitRepository.Commit}")
                 .SetMaxCpuCount(Environment.ProcessorCount)
                 .SetNodeReuse(IsLocalBuild)
-                .SetTargetPlatform(MSBuildTargetPlatform.x86));
-        });
-
-    Target CompileX64 => _ => _
-        .DependsOn(PrintBuildParameters, Restore, Version)
-        .Executes(() =>
-        {
-            MSBuild(s => s
-                .SetProcessToolPath(MsBuildPath)
-                .SetTargetPath(Solution)
-                .SetTargets("Rebuild")
-                .SetConfiguration(Configuration)
-                .SetAssemblyVersion(_version)
-                .SetFileVersion(_version)
-                .SetInformationalVersion($"{_version}-{GitRepository.Commit}")
-                .SetMaxCpuCount(Environment.ProcessorCount)
-                .SetNodeReuse(IsLocalBuild)
-                .SetTargetPlatform(MSBuildTargetPlatform.x64));
-        });
-
-    Target SonarQube => _ => _
-        .Requires(() => SonarUrl, () => SonarUser, () => SonarProjectKey, () => SonarProjectName)
-        .DependsOn(Restore)
-        .Executes(() =>
-            {
-                var framework = "net5.0";
-                var configuration = new SonarBeginSettings()
-                    .SetProjectKey(SonarProjectKey)
-                    .SetIssueTrackerUrl(SonarUrl)
-                    .SetServer(SonarUrl)
-                    .SetVersion(_version)
-                    //.SetHomepage(SonarUrl)
-                    .SetLogin(SonarUser)
-                    .SetPassword(SonarPassword)
-                    .SetName(SonarProjectName)
-                    //.SetWorkingDirectory(SourceDirectory)
-                    .SetBranchName(GitRepository.Branch)
-                    .SetFramework(framework)
-                    .EnableVerbose();
-
-                if (File.Exists(PvsReportPath))
-                {
-                    configuration = configuration.SetPvsStudioReportPath(PvsReportPath);
-                }
-
-                if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
-                {
-                    configuration = configuration.SetVersion(GitVersion.SemVer);
-                }
-
-                configuration = configuration.SetProjectBaseDir(SourceDirectory);
-
-                if (!string.IsNullOrWhiteSpace(RequestSourceBranch) && !string.IsNullOrWhiteSpace(RequestTargetBranch))
-                {
-                    configuration = configuration
-                        .SetPullRequestBase(RequestSourceBranch)
-                        .SetPullRequestBranch(RequestTargetBranch)
-                        .SetPullRequestKey(RequestId);
-                }
-
-                var path = ToolPathResolver.GetPackageExecutable(
-                    packageId: "dotnet-sonarscanner",
-                    packageExecutable: "SonarScanner.MSBuild.dll",
-                    framework: framework);
-
-                configuration = configuration.SetProcessToolPath(path);
-
-                var arguments = $"{path} {configuration.GetProcessArguments().RenderForExecution()}";
-
-                DotNetTasks.DotNet(arguments);
-            }, () =>
-            {
-                MSBuild(c => c
-                    .SetConfiguration(Configuration)
-                    .SetProcessToolPath(MsBuildPath)
-                    .SetTargets("Rebuild")
-                    .SetSolutionFile(Solution)
-                    .EnableNodeReuse());
-            },
-            () =>
-            {
-                var framework = "net5.0";
-                var path = ToolPathResolver.GetPackageExecutable(
-                    packageId: "dotnet-sonarscanner",
-                    packageExecutable: "SonarScanner.MSBuild.dll",
-                    framework: framework);
-
-                var configuration = new SonarScannerEndSettings()
-                    .SetLogin(SonarUser)
-                    .SetPassword(SonarPassword)
-                    .SetFramework(framework)
-                    .EnableProcessLogOutput();
-
-                var arguments = $"{path} {configuration.GetProcessArguments().RenderForExecution()}";
-
-                DotNetTasks.DotNet(arguments);
-            });
-
-    Target PvsStudio => _ => _
-        .Executes(() =>
-        {
-            //PvsStudioTasks.PvsStudioRun(c => c
-            //    .SetConfiguration(Configuration)
-            //    .SetTarget(Solution)
-            //    .SetOutput(PvsReportPath));
+                .SetTargetPlatform(TargetPlatform));
         });
 
     Target Pack => _ => _
@@ -282,16 +209,39 @@ partial class Build : NukeBuild
 
             if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
             {
-                config = config.SetSuffix("preview");
+                config = config.SetSuffix($"preview.{GitVersion.BuildMetaData}");
             }
 
             if (Configuration == Configuration.Debug)
             {
-                config = config.SetSuffix("debug");
+                config = config.SetSuffix($"debug.{GitVersion.BuildMetaData}");
             }
 
-            NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK.nuspec"));
-            NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK-x64.nuspec"));
+            if (TargetPlatform == MSBuildTargetPlatform.x86)
+            {
+                Log.Information("Pack X86 package");
+                NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK.nuspec"));
+                NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK.nuspec").EnableSymbols());
+                //NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK.symbols.nuspec"));
+                NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK.sources.nuspec"));
+            }
+
+            if (TargetPlatform == MSBuildTargetPlatform.x64)
+            {
+
+                Log.Information("Pack X64 package");
+                NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK-x64.nuspec"));
+            }
+
+            if (IsTeamCity)
+            {
+                var dir = new DirectoryInfo(OutputDirectory);
+
+                foreach (var fileInfo in dir.GetFiles("*.nupkg"))
+                {
+                    TeamCity.Instance.PublishArtifacts(fileInfo.FullName);
+                }
+            }
         });
 
     Target Publish => _ => _
@@ -315,119 +265,109 @@ partial class Build : NukeBuild
         });
 
     Target Artifacts => _ => _
+        .Requires(() => TargetPlatform)
         .Executes(() =>
         {
             List<string> plugins = new List<string>();
 
-            var targetPlatforms = new List<string>
-            {
-                "x86",
-                "x64"
-            };
-
             var isValid = true;
 
-            foreach (var targetPlatform in targetPlatforms)
+            var targetPlatform = TargetPlatform.ToString();
+
+            EnsureCleanDirectory(OutputDirectory / targetPlatform);
+
+            Log.Information("Target platform {platform}", targetPlatform);
+            var artifactsFolder = OutputDirectory / targetPlatform;
+
+            Directory.CreateDirectory(artifactsFolder);
+
+            Log.Information("Copy plugins to artifacts folder");
+
+            var directories = GlobDirectories(SourceDirectory / "Plugins", $"**/bin/{targetPlatform}/{Configuration}");
+            foreach (var directory in directories)
             {
-                EnsureCleanDirectory(OutputDirectory / targetPlatform);
+                var pluginDirectory = new DirectoryInfo(directory);
+                var pluginName = pluginDirectory.Parent?.Parent?.Parent?.Name;
+                plugins.Add(pluginName);
 
-                Log.Information("Target platform {platform}", targetPlatform);
-                var artifactsFolder = OutputDirectory / targetPlatform;
-
-                Directory.CreateDirectory(artifactsFolder);
-
-                Log.Information("Copy plugins to artifacts folder");
-
-                var directories = GlobDirectories(SourceDirectory / "Plugins", $"**/bin/{targetPlatform}/{Configuration}");
-                foreach (var directory in directories)
+                Directory.CreateDirectory(artifactsFolder / "Plugins" / pluginName);
+                Log.Information(pluginName);
+                var files = pluginDirectory.GetFiles("*.dll");
+                foreach (var file in files)
                 {
-                    var pluginDirectory = new DirectoryInfo(directory);
-                    var pluginName = pluginDirectory.Parent?.Parent?.Parent?.Name;
-                    plugins.Add(pluginName);
+                    string outFile = string.Empty;
 
-                    Directory.CreateDirectory(artifactsFolder / "Plugins" / pluginName);
-                    Log.Information(pluginName);
-                    var files = pluginDirectory.GetFiles("*.dll");
-                    foreach (var file in files)
+                    if (file.Name.StartsWith(pluginName))
                     {
-                        string outFile = string.Empty;
-
-                        if (file.Name.StartsWith(pluginName))
-                        {
-                            outFile = artifactsFolder / "Plugins" / pluginName / $"{Path.GetFileNameWithoutExtension(file.Name)}_plugin.dll";
-                        }
-                        else
-                        {
-                            outFile = artifactsFolder / "Plugins" / pluginName / file.Name;
-                        }
-
-                        if (file.Name.StartsWith("aimp_dotnet"))
-                        {
-                            outFile = artifactsFolder / "Plugins" / pluginName / $"{pluginName}.dll";
-                        }
-
-                        Log.Information($"Copy '{file.FullName}' to '{outFile}'");
-                        file.CopyTo(outFile, true);
+                        outFile = artifactsFolder / "Plugins" / pluginName / $"{Path.GetFileNameWithoutExtension(file.Name)}_plugin.dll";
                     }
-                }
+                    else
+                    {
+                        outFile = artifactsFolder / "Plugins" / pluginName / file.Name;
+                    }
 
-                Log.Information("Copy SDK files to artifacts folder");
+                    if (file.Name.StartsWith("aimp_dotnet"))
+                    {
+                        outFile = artifactsFolder / "Plugins" / pluginName / $"{pluginName}.dll";
+                    }
 
-                var sdkFolder = new DirectoryInfo(SDKBinFolder / $"{targetPlatform}/{Configuration}");
-                Directory.CreateDirectory(artifactsFolder / "SDK");
-                var sdkFiles = sdkFolder.GetFiles("*.dll");
-                foreach (var file in sdkFiles)
-                {
-                    var outFile = artifactsFolder / "SDK" / file.Name;
+                    Log.Information($"Copy '{file.FullName}' to '{outFile}'");
                     file.CopyTo(outFile, true);
                 }
-
-                Log.Information("Validate output");
-
-                bool validatePluginFolder(string plugin, IEnumerable<FileInfo> files)
-                {
-                    var isValid = true;
-
-                    isValid &= files.Any(c => c.Name.StartsWith("AIMP.SDK"));
-                    isValid &= files.Any(c => c.Name == $"{plugin}.dll");
-                    isValid &= files.Any(c => c.Name == $"{plugin}_plugin.dll");
-
-                    return isValid;
-                }
-
-                foreach (var plugin in plugins)
-                {
-                    var pluginFolder = artifactsFolder / "Plugins" / plugin;
-                    var di = new DirectoryInfo(pluginFolder);
-                    var files = di.GetFiles("*.dll");
-                    if (!validatePluginFolder(plugin, files))
-                    {
-                        Log.Error($"Plugin {plugin} not valid.");
-                        isValid = false;
-                    }
-                }
-
-                Assert.True(isValid, $"Artifacts not valid. Platform {targetPlatform}");
-
-                Log.Information("Compress artifacts");
-
-                if (File.Exists(OutputDirectory / $"aimp.sdk-{targetPlatform}.zip"))
-                {
-                    File.Delete(OutputDirectory / $"aimp.sdk-{targetPlatform}.zip");
-                }
-
-                ZipFile.CreateFromDirectory(artifactsFolder, OutputDirectory / $"aimp.sdk-{targetPlatform}.zip");
             }
+
+            var sdkFolder = new DirectoryInfo(SDKBinFolder / $"{targetPlatform}/{Configuration}");
+            Log.Information($"Copy SDK files to artifacts folder '{sdkFolder}'");
+
+            Directory.CreateDirectory(artifactsFolder / "SDK");
+            var sdkFiles = sdkFolder.GetFiles("*.dll");
+            foreach (var file in sdkFiles)
+            {
+                var outFile = artifactsFolder / "SDK" / file.Name;
+                file.CopyTo(outFile, true);
+            }
+
+            Log.Information("Validate output");
+
+            bool validatePluginFolder(string plugin, IEnumerable<FileInfo> files)
+            {
+                var isValid = true;
+
+                isValid &= files.Any(c => c.Name.StartsWith("AIMP.SDK"));
+                isValid &= files.Any(c => c.Name == $"{plugin}.dll");
+                isValid &= files.Any(c => c.Name == $"{plugin}_plugin.dll");
+
+                return isValid;
+            }
+
+            foreach (var plugin in plugins)
+            {
+                var pluginFolder = artifactsFolder / "Plugins" / plugin;
+                var di = new DirectoryInfo(pluginFolder);
+                var files = di.GetFiles("*.dll");
+                if (!validatePluginFolder(plugin, files))
+                {
+                    Log.Error($"Plugin {plugin} not valid.");
+                    isValid = false;
+                }
+            }
+
+            Assert.True(isValid, $"Artifacts not valid. Platform '{targetPlatform}'");
+
+            var outputSkdFile = $"aimp.sdk-{targetPlatform}.zip";
+
+            Log.Information($"Compress artifacts to '{outputSkdFile}'");
+
+            if (File.Exists(OutputDirectory / outputSkdFile))
+            {
+                File.Delete(OutputDirectory / outputSkdFile);
+            }
+
+            ZipFile.CreateFromDirectory(artifactsFolder, OutputDirectory / outputSkdFile);
 
             if (IsTeamCity)
             {
-                if (!isValid)
-                {
-                    TeamCity.Instance.AddBuildProblem("Unable to create artifacts");
-                }
-
-                TeamCity.Instance.PublishArtifacts(OutputDirectory / "aimp.sdk-x86.zip");
-                TeamCity.Instance.PublishArtifacts(OutputDirectory / "aimp.sdk-x64.zip");
+                TeamCity.Instance.PublishArtifacts(OutputDirectory / outputSkdFile);
             }
         });
 
@@ -442,4 +382,45 @@ partial class Build : NukeBuild
                 Log.Information(ParameterOutputPattern, info.Name, info.GetValue(this));
             });
     }
+
+    void GetVersion()
+    {
+        if (GitRepository.Branch.StartsWith(MailstoneBranch))
+        {
+            _version = GitRepository.Branch
+                .Replace($"{MailstoneBranch}_", string.Empty)
+                .Replace("_", ".");
+        }
+        else if (GitRepository.Branch.StartsWith(ReleaseBranchPrefix))
+        {
+            _version = GitRepository.Branch.Split("/")[1];
+        }
+        else
+        {
+            var tag = GitRepository.Tags.LastOrDefault();
+
+            if (tag != null)
+            {
+                _buildNumber = $"{tag}.{GitVersion.BuildMetaData}";
+                _version = tag;
+            }
+            else
+            {
+                _version = BuildNumber;
+            }
+        }
+
+        _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
+    }
+
+    Target UpdateBuildNumber => _ => _
+        .Executes(() =>
+        {
+            if (IsTeamCity)
+            {
+                Log.Information("Set build version: {version}", _buildNumber);
+                TeamCity.Instance.SetBuildNumber(_buildNumber);
+                TeamCity.Instance.SetEnvironmentVariable("BUILD_NUMBER", _buildNumber);
+            }
+        });
 }
