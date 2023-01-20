@@ -9,7 +9,7 @@ Param(
     [string] $TargetDir,
     [string] $SolutionDir,
     [string] $ProjectDir,
-    [string] $AimpVersion = "AIMP5.00.2344"
+    [string] $AimpVersion = "AIMP5.03.2398"
 )
 
 Write-Output "Windows PowerShell $($Host.Version)"

@@ -4,6 +4,11 @@
 
 ## What is it?
 *AIMP DotNet* allows you to create a plugin for [AIMP](http://www.aimp.ru) media player on .Net
+Supports x86 and x64 version.
+
+### Documentation
+
+https://martin211.github.io/aimp_dotnet_docs/api/AIMP.SDK.html
 
 ### Description
 AIMP DotNet SDK this is a proxy plugin written on C++ CLI and C++. It provide ability to call AIMP methods directly from C# code.
@@ -22,9 +27,8 @@ For more information you can use demo plugins.
 
 ## How to build
 ### Prerequisites
-1. [Visual Studio 2017](https://www.visualstudio.com/downloads/) or MsBuild tools 2017
+1. [Visual Studio 2022](https://www.visualstudio.com/downloads/) or MsBuild tools 2022
 2. Following components should be installed: 
-	- VS++ 2017 v141
 	- Visual C++ ATL support
 	- C++/CLI support
     - Windows SDK Version: 10.0.17763.0

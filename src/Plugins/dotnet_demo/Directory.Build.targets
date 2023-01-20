@@ -5,17 +5,9 @@
     </PropertyGroup>
 
     <Target Name="CopyPlugin" AfterTargets="Build" Condition="'$(Configuration)'=='DEBUG'">
-        <ItemGroup>
-            <ResourceFiles Include="$(SolutionDir)Tests\Resources\integrationTests\**\*.*" />
-            <TestFiles Include="$(ProjectDir)nunit.engine.addins;" />
-        </ItemGroup>
-
         <Message Text="AimpVersion: $(AimpVersion)" Importance="high" />
         <Error Condition="!Exists($(CopyScriptPath))" Text="Path to CopyPlugin script is wrong. Current value '$(CopyScriptPath)'." />
         <Exec Condition="Exists($(CopyScriptPath))" Command="pwsh.exe -ExecutionPolicy Unrestricted $(CopyScriptPath) -Action copy -ConfigurationName $(ConfigurationName) -TargetName $(TargetName) -TargetDir $(TargetDir) -SolutionDir $(SolutionDir) -ProjectDir $(ProjectDir) -AimpVersion $(AimpVersion)" />
-        <RemoveDir Directories="$(SolutionDir)..\..\$(AimpVersion)\Plugins\AimpTestRunner\resources\" />
-        <Copy SourceFiles="@(ResourceFiles)" DestinationFolder="$(SolutionDir)..\..\$(AimpVersion)\Plugins\AimpTestRunner\resources\" />
-        <Copy SourceFiles="@(TestFiles)" DestinationFolder="$(SolutionDir)..\..\$(AimpVersion)\Plugins\AimpTestRunner\" />
     </Target>
 
     <Target Name="CleanPlugin" AfterTargets="Clean" Condition="'$(Configuration)'=='DEBUG'">

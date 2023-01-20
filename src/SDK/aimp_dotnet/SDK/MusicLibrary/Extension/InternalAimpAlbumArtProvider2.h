@@ -8,7 +8,6 @@
 //  ----------------------------------------------------
 
 #pragma once
-#include "Stdafx.h"
 
 class InternalAimpAlbumArtProvider2 : public IUnknownInterfaceImpl<IAIMPMLAlbumArtProvider2> {
 private:

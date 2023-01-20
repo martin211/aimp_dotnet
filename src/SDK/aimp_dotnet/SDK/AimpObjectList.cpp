@@ -19,6 +19,7 @@ IAIMPObjectList* AimpObjectList<T>::AimpObject::get() {
 
 generic <typename T>
 AimpObjectList<T>::AimpObjectList(IAIMPObjectList* nativeObject) {
+    _nativeObject = nativeObject;
     RegisterAtMemoryManager();
 }
 
@@ -66,4 +67,9 @@ generic <typename T>
 ActionResult AimpObjectList<T>::SetObject(int index, T item) {
     return ACTION_RESULT(
         Utils::CheckResult(_nativeObject->SetObject(index, AimpConverter::ToAimpString((String^)item))));
+}
+
+generic <class TObject>
+Collections::IEnumerator^ AimpObjectList<TObject>::GetEnumerator() {
+    return nullptr;
 }

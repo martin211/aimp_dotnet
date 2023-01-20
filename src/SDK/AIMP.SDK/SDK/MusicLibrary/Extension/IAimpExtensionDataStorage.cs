@@ -9,7 +9,9 @@
 
 using System;
 using System.Collections;
+using AIMP.SDK.MusicLibrary.DataStorage;
 using AIMP.SDK.MusicLibrary.Presets;
+using AIMP.SDK.Playlist.Extensions;
 
 namespace AIMP.SDK.MusicLibrary.Extension
 {
@@ -20,19 +22,33 @@ namespace AIMP.SDK.MusicLibrary.Extension
     public enum CapabilitiesType
     {
         /// <summary>
-        /// The filtering
+        /// The storage implements data filtering by itself.
+        /// Otherwise - data filtering will be processed by Music Library engine.
         /// </summary>
         Filtering = 1,
 
         /// <summary>
-        /// The preimages
+        /// Allows to user to create smart-playlist based on this data storage (this option has no effect to the <see cref="IAimpExtensionPlaylistPreimageFactory"/> implementation).
         /// </summary>
         Preimages = 2,
 
         /// <summary>
         /// The grouping presets
         /// </summary>
-        GroupingPresets = 4
+        GroupingPresets = 4,
+
+        /// <summary>
+        /// Allows to user customize list of fields that used for grouping and group details.
+        /// </summary>
+        CustomizeGroups = 8,
+
+        AutoExpandFields = 16,
+
+        /// <summary>
+        /// Switching off saving / restoring of grouping tree selection.
+        /// May be useful if restoring the selection takes too much time.
+        /// </summary>
+        NoBookMarks = 32
     }
 
     /// <summary>

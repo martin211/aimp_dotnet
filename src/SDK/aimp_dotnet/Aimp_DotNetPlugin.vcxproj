@@ -91,6 +91,7 @@
     <ClCompile Include="SDK\MusicLibrary\Extension\Command\AimpDataStorageCommandReloadTags.cpp" />
     <ClCompile Include="SDK\MusicLibrary\Extension\Command\AimpDataStorageCommandReportDialog.cpp" />
     <ClCompile Include="SDK\MusicLibrary\Extension\Command\AimpDataStorageCommandUserMark.cpp" />
+    <ClCompile Include="SDK\MusicLibrary\Extension\InternalAimpAlbumArtProvider.cpp" />
     <ClCompile Include="SDK\MusicLibrary\Extension\InternalAimpAlbumArtProvider2.cpp" />
     <ClCompile Include="SDK\MusicLibrary\InternalAimpDataFilter.cpp" />
     <ClCompile Include="SDK\MusicLibrary\InternalAimpDataFilterGroup.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="SDK\MusicLibrary\Extension\Command\AimpDataStorageCommandReloadTags.h" />
     <ClInclude Include="SDK\MusicLibrary\Extension\Command\AimpDataStorageCommandReportDialog.h" />
     <ClInclude Include="SDK\MusicLibrary\Extension\Command\AimpDataStorageCommandUserMark.h" />
+    <ClInclude Include="SDK\MusicLibrary\Extension\InternalAimpAlbumArtProvider.h" />
     <ClInclude Include="SDK\MusicLibrary\Extension\InternalAimpAlbumArtProvider2.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpDataFilter.h" />
     <ClInclude Include="SDK\MusicLibrary\InternalAimpDataFilterGroup.h" />

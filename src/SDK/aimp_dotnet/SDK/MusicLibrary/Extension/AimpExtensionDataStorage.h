@@ -9,6 +9,8 @@
 
 #pragma once
 
+#include "InternalAimpAlbumArtProvider.h"
+#include "InternalAimpAlbumArtProvider2.h"
 #include "Command/AimpDataStorageCommandAddFilesDialog.h"
 #include "Command/AimpDataStorageCommandDeleteFiles.h"
 #include "Command/AimpDataStorageCommandDropData.h"
@@ -63,6 +65,8 @@ private:
     AimpDataStorageCommandReportDialog* _reportDialogCommand = nullptr;
     AimpDataStorageCommandUserMark* _userMarkCommand = nullptr;
     AimpDataStorageCommandFindInLibrary* _findInLibraryCommand = nullptr;
+    InternalAimpAlbumArtProvider* _albumArtProvider = nullptr;
+    InternalAimpAlbumArtProvider2* _albumArtProvider2 = nullptr;
 
     gcroot<AimpGroupingPresets^> _managedPresets;
 
@@ -117,4 +121,5 @@ public:
 private:
     gcroot<MusicLibrary::Extension::IAimpExtensionDataStorage^> _managedInstance;
     IAIMPCore* _aimpCore;
+    bool _disposed = false;
 };

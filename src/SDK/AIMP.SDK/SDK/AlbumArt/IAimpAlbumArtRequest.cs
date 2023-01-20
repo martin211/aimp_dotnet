@@ -7,6 +7,7 @@
 //  Mail: mail4evgeniy@gmail.com
 //  ----------------------------------------------------
 
+using System.Drawing;
 using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.AlbumArt;
@@ -65,6 +66,12 @@ public interface IAimpAlbumArtRequest
     /// <param name="key"></param>
     /// <returns></returns>
     AimpActionResult<IAimpImageContainer> CacheGet(string key);
+
+    /// <summary>
+    /// Caches the get as bitmap.
+    /// </summary>
+    /// <param name="key">The key.</param>
+    AimpActionResult<Bitmap> CacheGetAsBitmap(string key);
 
     /// <summary>
     /// Put image to cache.
