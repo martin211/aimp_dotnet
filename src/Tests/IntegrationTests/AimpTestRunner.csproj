@@ -79,17 +79,14 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.engine, Version=3.15.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.15.2\lib\net20\nunit.engine.dll</HintPath>
+    <Reference Include="nunit.engine, Version=3.16.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.Engine.3.16.2\lib\net462\nunit.engine.dll</HintPath>
     </Reference>
     <Reference Include="nunit.engine.api, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.15.2\lib\net20\nunit.engine.api.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.Engine.3.16.2\lib\net462\nunit.engine.api.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.engine.core, Version=3.15.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.15.2\lib\net20\nunit.engine.core.dll</HintPath>
+    <Reference Include="nunit.engine.core, Version=3.16.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.Engine.3.16.2\lib\net462\nunit.engine.core.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=3.13.3.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -101,7 +98,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="testcentric.engine.metadata, Version=1.7.1.0, Culture=neutral, PublicKeyToken=6fe0a02d2036aa1d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.15.2\lib\net20\testcentric.engine.metadata.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.Engine.3.16.2\lib\net462\testcentric.engine.metadata.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
