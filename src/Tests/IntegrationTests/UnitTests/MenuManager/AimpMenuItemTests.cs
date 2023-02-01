@@ -28,17 +28,45 @@ public class AimpMenuItemTests : AimpIntegrationTest
             parent.Id = Guid.NewGuid().ToString();
             parent.Name = "Parent item";
 
+            var result = Player.ServiceMenuManager.Add(ParentMenuType.CommonUtilities, parent);
+
+            AimpAssert.AreEqual(ActionResultType.OK, result.ResultType, "Add item to menu");
+
             var child = Player.Core.CreateAimpObject<IAimpMenuItem>().Result;
             child.Id = Guid.NewGuid().ToString();
             child.Name = "Child item";
             child.Parent = parent;
 
-            var result = Player.ServiceMenuManager.Add(ParentMenuType.CommonUtilities, parent);
-
-            AimpAssert.AreEqual(ActionResultType.OK, result.ResultType, "Add item to menu");
-
             result = parent.DeleteChildren();
             AimpAssert.AreEqual(ActionResultType.OK, result.ResultType, "Delete child items");
+        });
+    }
+
+    [Test]
+    public void Enabled_True_ShouldBeCorrect()
+    {
+        ExecuteInMainThread(() =>
+        {
+            var item = Player.Core.CreateAimpObject<IAimpMenuItem>().Result;
+            item.Id = Guid.NewGuid().ToString();
+            item.Name = "Parent item";
+
+            item.Enabled = true;
+            AimpAssert.IsTrue(item.Enabled);
+        });
+    }
+
+    [Test]
+    public void Enabled_False_ShouldBeCorrect()
+    {
+        ExecuteInMainThread(() =>
+        {
+            var item = Player.Core.CreateAimpObject<IAimpMenuItem>().Result;
+            item.Id = Guid.NewGuid().ToString();
+            item.Name = "Parent item";
+
+            item.Enabled = false;
+            AimpAssert.IsFalse(item.Enabled);
         });
     }
 }

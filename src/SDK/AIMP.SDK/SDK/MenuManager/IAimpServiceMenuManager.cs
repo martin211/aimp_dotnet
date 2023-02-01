@@ -117,7 +117,7 @@ namespace AIMP.SDK.MenuManager
         MlMainDB = 60,
 
         /// <summary>
-        /// The ml main funtions
+        /// The ml main functions
         /// </summary>
         MlMainFunctions = 61,
 
