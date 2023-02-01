@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "AIMP5.10.2414": {
+      "commandName": "Executable",
+      "executablePath": "F:\\code\\aimp\\AIMP5.10.2414\\AIMP.exe",
+      "workingDirectory": "F:\\code\\aimp\\AIMP5.10.2414\\"
+    }
+  }
+}
