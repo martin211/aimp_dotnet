@@ -119,7 +119,7 @@ ActionResultType PropertyListExtension::GetBool(IAIMPPropertyList* propertyList,
     int val = 0;
     const auto result = Utils::CheckResult(propertyList->GetValueAsInt32(propertyId, &val));
     VALIDATE_RESULT(result, "Unable to get a Bool property.")
-    value = val > 0;
+    value = val != 0;
     return result;
 }
 
