@@ -212,12 +212,7 @@ partial class Build : NukeBuild
 
             if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
             {
-                config = config.SetSuffix($"preview.{GitVersion.BuildMetaData}");
-            }
-
-            if (Configuration == Configuration.Debug)
-            {
-                config = config.SetSuffix($"debug.{GitVersion.BuildMetaData}");
+                config = config.SetSuffix(GitVersion.PreReleaseTagWithDash);
             }
 
             if (TargetPlatform == MSBuildTargetPlatform.x86)
@@ -231,7 +226,6 @@ partial class Build : NukeBuild
 
             if (TargetPlatform == MSBuildTargetPlatform.x64)
             {
-
                 Log.Information("Pack X64 package");
                 NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK-x64.nuspec"));
             }
