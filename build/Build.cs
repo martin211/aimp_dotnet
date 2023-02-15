@@ -22,6 +22,7 @@ using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
+using Nuke.Common.Tools.Git;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
@@ -387,8 +388,6 @@ partial class Build : NukeBuild
 
     void GetVersion()
     {
-        Log.Information("Current branch: {Branch}", GitRepository.Branch);
-
         if (GitRepository.Branch.StartsWith(MailstoneBranch))
         {
             _version = GitRepository.Branch
@@ -406,26 +405,27 @@ partial class Build : NukeBuild
         {
             string tag = string.Empty;
 
-            var localBranch = GitRepository.FromLocalDirectory(GitRepository.LocalDirectory);
-            var tagsDirectory = (AbsolutePath)localBranch.LocalDirectory / ".git" / "refs" / "tags";
-            var localTags = tagsDirectory
-                .GlobFiles("**/*")
-                .Select(x => tagsDirectory.GetUnixRelativePathTo(x).ToString());
+            var process = ProcessTasks.StartProcess("git", "ls-remote --tags --sort=-committerdate ./.");
+            process.WaitForExit();
+            var output = process.Output;
 
-            tag = localTags.LastOrDefault();
-
-            if (tag != null)
+            if (output.Count > 0)
             {
-                _version = tag.Substring(0, tag.LastIndexOf("."));
+                var outText = output.First().Text;
+                tag = outText.Substring(outText.LastIndexOf("/") + 1, outText.Length - outText.LastIndexOf("/") - 1);
+            }
+
+            if (!string.IsNullOrWhiteSpace(tag))
+            {
+                var patchVersion = int.Parse(tag.Split(".").Last()) + 1;
+                _version = tag.Substring(0, tag.LastIndexOf(".")) + $".{patchVersion}";
                 _buildNumber = $"{_version}{GitVersion.PreReleaseTagWithDash}";
             }
             else
             {
-                _version = BuildNumber;
                 _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
+                _version = BuildNumber;
             }
-
-            Log.Information("Version: {version}", _version);
         }
     }
 
