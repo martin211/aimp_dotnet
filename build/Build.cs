@@ -202,6 +202,8 @@ partial class Build : NukeBuild
         {
             Log.Information("Start build Nuget packages");
 
+            EnsureCleanDirectory(OutputDirectory);
+
             var nugetFolder = RootDirectory / "Nuget";
 
             var config = new NuGetPackSettings()
