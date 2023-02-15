@@ -387,40 +387,53 @@ partial class Build : NukeBuild
 
     void GetVersion()
     {
+        Log.Information("Current branch: {Branch}", GitRepository.Branch);
+
         if (GitRepository.Branch.StartsWith(MailstoneBranch))
         {
             _version = GitRepository.Branch
                 .Replace($"{MailstoneBranch}_", string.Empty)
                 .Replace("_", ".");
+
+            _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
         }
         else if (GitRepository.Branch.StartsWith(ReleaseBranchPrefix))
         {
             _version = GitRepository.Branch.Split("/")[1];
+            _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
         }
         else
         {
-            var localBranch = GitRepository.FromLocalDirectory(GitRepository.LocalDirectory);
-            var tagsDirectory = (AbsolutePath)localBranch.LocalDirectory / ".git" / "refs" / "tags";
-            var localTags = tagsDirectory
-            .GlobFiles("**/*")
-                .Select(x => tagsDirectory.GetUnixRelativePathTo(x).ToString());
+            string tag = string.Empty;
 
-            var tag = localTags.LastOrDefault();
+            if (IsLocalBuild)
+            {
+                var localBranch = GitRepository.FromLocalDirectory(GitRepository.LocalDirectory);
+                var tagsDirectory = (AbsolutePath)localBranch.LocalDirectory / ".git" / "refs" / "tags";
+                var localTags = tagsDirectory
+                    .GlobFiles("**/*")
+                    .Select(x => tagsDirectory.GetUnixRelativePathTo(x).ToString());
+
+                tag = localTags.LastOrDefault();
+            }
+            else
+            {
+                tag = GitRepository.Tags.LastOrDefault();
+            }
 
             if (tag != null)
             {
-                _version = tag.Substring(0, tag.LastIndexOf(".") - 1);
+                _version = tag.Substring(0, tag.LastIndexOf("."));
                 _buildNumber = $"{_version}{GitVersion.PreReleaseTagWithDash}";
             }
             else
             {
                 _version = BuildNumber;
+                _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
             }
 
-            return;
+            Log.Information("Version: {version}", _version);
         }
-
-        _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
     }
 
     Target UpdateBuildNumber => _ => _
