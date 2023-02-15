@@ -14,7 +14,7 @@ using AIMP.SDK;
 
 namespace dotnet_ExtendDialogWindow
 {
-    [AimpPlugin("dotnet_ExtendDialogWindow", "AIMP DOTNET", "1.0.0.0", AimpPluginType = AimpPluginType.Addons)]
+    [AimpPlugin("dotnet_ExtendDialogWindow", "Evgeniy Bogdan", AdditionalInfo.Version, AimpPluginType = AimpPluginType.Addons)]
     public class Plugin : AimpPlugin, IAimpExternalSettingsDialog
     {
         public void Show(IntPtr parentWindow)

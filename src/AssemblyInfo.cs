@@ -9,16 +9,19 @@
 
 using System.Reflection;
 
-[assembly: AssemblyVersion(AdditionalInfo.Version)]
-[assembly: AssemblyFileVersion(AdditionalInfo.Version)]
+[assembly: AssemblyVersion(AIMP.SDK.AdditionalInfo.Version)]
+[assembly: AssemblyFileVersion(AIMP.SDK.AdditionalInfo.Version)]
 [assembly: AssemblyInformationalVersion("")]
 
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright © Evgeniy Bogdan 2022")]
+[assembly: AssemblyCopyright("Copyright © Evgeniy Bogdan 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-internal static class AdditionalInfo
+namespace AIMP.SDK
 {
-    public const string Version = "1.0.0.0";
+    internal static class AdditionalInfo
+    {
+        public const string Version = "1.0.0.0";
+    }
 }

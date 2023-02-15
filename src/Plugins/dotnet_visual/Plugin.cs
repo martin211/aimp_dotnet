@@ -13,7 +13,7 @@ using AIMP.SDK.Visuals;
 
 namespace dotnet_visual
 {
-    [AimpPlugin("dotnet_visual", "Evgeniy Bogdan", "1.0.0.0", AimpPluginType = AimpPluginType.Visuals)]
+    [AimpPlugin("dotnet_visual", "Evgeniy Bogdan", AdditionalInfo.Version, AimpPluginType = AimpPluginType.Visuals)]
     public class Plugin : AimpPlugin
     {
         private IAimpExtensionCustomVisualization _customVisualization;

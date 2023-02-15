@@ -13,7 +13,7 @@ using AIMP.SDK;
 
 namespace Aimp.DotNet.SmartPlaylist
 {
-    [AimpPlugin("SmartPlaylistDemoPlugin", "Martin", "1.0.0.0", AimpPluginType = AimpPluginType.Addons,
+    [AimpPlugin("SmartPlaylistDemoPlugin", "Evgeniy Bogdan", AdditionalInfo.Version, AimpPluginType = AimpPluginType.Addons,
         FullDescription = "Smart Playlist demo plugin")]
     public class Plugin : AimpPlugin
     {

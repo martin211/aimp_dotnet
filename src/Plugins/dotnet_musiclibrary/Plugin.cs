@@ -7,9 +7,13 @@
 //  Mail: mail4evgeniy@gmail.com
 //  ----------------------------------------------------
 
+using System;
+
 using AIMP.DotNet.MusicLibrary.Preimage;
 using AIMP.SDK;
 using AIMP.SDK.MenuManager;
+using AIMP.SDK.MenuManager.Objects;
+using AIMP.SDK.MusicLibrary;
 
 namespace AIMP.DotNet.MusicLibrary
 {
@@ -31,6 +35,30 @@ namespace AIMP.DotNet.MusicLibrary
 
             CheckActionResult(Player.Core.RegisterExtension(plListner).ResultType);
             CheckActionResult(Player.Core.RegisterExtension(preimageFactory).ResultType);
+
+            var menu = Player.Core.CreateAimpObject<IAimpMenuItem>();
+            menu.Result.Name = "Test";
+
+            menu.Result.OnShow += (sender, args) =>
+            {
+                var storage = Player.ServiceMusicLibrary.GetActiveStorage();
+                var name = storage.Result.Caption;
+                var p = storage.Result.GroupingPreset;
+                var id = storage.Result.Id;
+
+                var focusedFiles = Player.ServiceMusicLibraryUi.GetFiles(FilesType.Focused);
+            };
+
+            Player.ServiceMenuManager.Add(ParentMenuType.MlTreeContextFunctions, menu.Result);
+
+            var tableMenu = Player.Core.CreateAimpObject<IAimpMenuItem>();
+            menu.Result.Name = "Library Demo plugin";
+            menu.Result.Id = Guid.NewGuid().ToString();
+            menu.Result.OnExecute += (sender, args) =>
+            {
+                var focusedFiles = Player.ServiceMusicLibraryUi.GetFiles(FilesType.Focused);
+            };
+            Player.ServiceMenuManager.Add(ParentMenuType.MlTableContextFunctions, tableMenu.Result);
         }
 
         public override void Dispose()
