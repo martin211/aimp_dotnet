@@ -406,20 +406,13 @@ partial class Build : NukeBuild
         {
             string tag = string.Empty;
 
-            if (IsLocalBuild)
-            {
-                var localBranch = GitRepository.FromLocalDirectory(GitRepository.LocalDirectory);
-                var tagsDirectory = (AbsolutePath)localBranch.LocalDirectory / ".git" / "refs" / "tags";
-                var localTags = tagsDirectory
-                    .GlobFiles("**/*")
-                    .Select(x => tagsDirectory.GetUnixRelativePathTo(x).ToString());
+            var localBranch = GitRepository.FromLocalDirectory(GitRepository.LocalDirectory);
+            var tagsDirectory = (AbsolutePath)localBranch.LocalDirectory / ".git" / "refs" / "tags";
+            var localTags = tagsDirectory
+                .GlobFiles("**/*")
+                .Select(x => tagsDirectory.GetUnixRelativePathTo(x).ToString());
 
-                tag = localTags.LastOrDefault();
-            }
-            else
-            {
-                tag = GitRepository.Tags.LastOrDefault();
-            }
+            tag = localTags.LastOrDefault();
 
             if (tag != null)
             {
