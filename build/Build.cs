@@ -212,7 +212,7 @@ partial class Build : NukeBuild
 
             if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
             {
-                config = config.SetSuffix(GitVersion.PreReleaseTagWithDash);
+                config = config.SetSuffix(GitVersion.PreReleaseLabel);
             }
 
             if (TargetPlatform == MSBuildTargetPlatform.x86)
