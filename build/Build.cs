@@ -13,6 +13,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
+using Microsoft.Build.Tasks;
 using Nuke.Common;
 using Nuke.Common.CI.GitLab;
 using Nuke.Common.CI.TeamCity;
@@ -26,6 +27,7 @@ using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
+using Octokit;
 using Serilog;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
@@ -397,17 +399,25 @@ partial class Build : NukeBuild
         }
         else
         {
-            var tag = GitRepository.Tags.LastOrDefault();
+            var localBranch = GitRepository.FromLocalDirectory(GitRepository.LocalDirectory);
+            var tagsDirectory = (AbsolutePath)localBranch.LocalDirectory / ".git" / "refs" / "tags";
+            var localTags = tagsDirectory
+            .GlobFiles("**/*")
+                .Select(x => tagsDirectory.GetUnixRelativePathTo(x).ToString());
+
+            var tag = localTags.LastOrDefault();
 
             if (tag != null)
             {
-                _buildNumber = $"{tag}.{GitVersion.BuildMetaData}";
-                _version = tag;
+                _version = tag.Substring(0, tag.LastIndexOf(".") - 1);
+                _buildNumber = $"{_version}{GitVersion.PreReleaseTagWithDash}";
             }
             else
             {
                 _version = BuildNumber;
             }
+
+            return;
         }
 
         _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
