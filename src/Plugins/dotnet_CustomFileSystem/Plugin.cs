@@ -1,7 +1,7 @@
 ﻿//  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 // 
 //  Mail: mail4evgeniy@gmail.com
@@ -16,8 +16,7 @@ using AIMP.SDK.Playlist.Objects;
 
 namespace AIMP.SDK.CustomFileSystem
 {
-    [AimpPlugin("dotnet_CustomFileSystem", "AIMP DOTNET", "1.0.0.0", AimpPluginType = AimpPluginType.Addons,
-        RequireAppDomain = false)]
+    [AimpPlugin("dotnet_CustomFileSystem", "Evgeniy Bogdan", AdditionalInfo.Version, AimpPluginType = AimpPluginType.Addons)]
     [Serializable]
     // ReSharper disable UnusedMember.Global
     public class Plugin : AimpPlugin

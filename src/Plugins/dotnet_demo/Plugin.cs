@@ -1,21 +1,17 @@
 ﻿//  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 // 
 //  Mail: mail4evgeniy@gmail.com
 //  ----------------------------------------------------
 
 using System;
-using System.Diagnostics;
 using System.Windows.Input;
-using AIMP;
-using AIMP.SDK.Actions;
 using AIMP.SDK.Actions.Objects;
 using AIMP.SDK.MenuManager.Objects;
 using AIMP.SDK.MessageDispatcher;
-using AIMP.SDK.Playlist;
 using AIMP.SDK.Playlist.Extensions;
 using AIMP.SDK.Playlist.Objects;
 using DemoPlugin;
@@ -58,7 +54,7 @@ namespace TestPlugin
         }
     }
 
-    [AimpPlugin("dotnet_demo", "Evgeniy Bogdan", "1.0.0.0", AimpPluginType = AimpPluginType.Addons)]
+    [AimpPlugin("dotnet_demo", "Evgeniy Bogdan", AdditionalInfo.Version, AimpPluginType = AimpPluginType.Addons)]
     public class Plugin : AimpPlugin
     {
         private bool _checked;

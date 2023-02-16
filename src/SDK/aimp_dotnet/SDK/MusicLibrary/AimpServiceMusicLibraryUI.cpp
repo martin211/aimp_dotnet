@@ -1,7 +1,7 @@
 //  ----------------------------------------------------
 //  AIMP DotNet SDK
 //  
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 //  
 //  Mail: mail4evgeniy@gmail.com 
@@ -26,7 +26,7 @@ AimpActionResult<IAimpFileList^>^ AimpServiceMusicLibraryUI::GetFiles(FilesType 
     try {
         if (service != nullptr) {
             IAIMPMLFileList* l = nullptr;
-            result = CheckResult(service->GetFiles(static_cast<int>(flags), l));
+            result = CheckResult(service->GetFiles(static_cast<int>(flags), &l));
 
             if (result == ActionResultType::OK && l != nullptr) {
                 list = gcnew AimpFileList(l);
