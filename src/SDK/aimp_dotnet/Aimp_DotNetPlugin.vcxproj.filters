@@ -342,6 +342,7 @@
     <ClInclude Include="SDK\Player\Primitives\AimpWaveformPeakInfo.h" />
     <ClInclude Include="SDK\Player\Extensions\InternalAimpExtensionWaveFormProvider.h" />
     <ClInclude Include="SDK\MusicLibrary\Extension\InternalAimpAlbumArtProvider.h" />
+    <ClInclude Include="SDK\CustomUserData.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc" />
