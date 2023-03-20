@@ -48,7 +48,7 @@ const int AIMP_SERVICE_ALBUMART_FLAGS_ORIGINAL = 2;
 const int AIMP_SERVICE_ALBUMART_FLAGS_WAITFOR  = 4;
 const int AIMP_SERVICE_ALBUMART_FLAGS_OFFLINE  = 8;
 
-typedef void (CALLBACK TAIMPServiceAlbumArtReceiveProc)(IAIMPImage *image, IAIMPImageContainer *imageContainer, void *UserData);
+typedef void (CALLBACK TAIMPServiceAlbumArtReceiveProc)(IAIMPImage2 *image, IAIMPImageContainer *imageContainer, void *UserData);
 
 /* IAIMPAlbumArtRequest */
 

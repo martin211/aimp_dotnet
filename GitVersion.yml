@@ -2,10 +2,10 @@ assembly-versioning-scheme: MajorMinorPatchTag
 assembly-file-versioning-scheme: MajorMinorPatchTag
 continuous-delivery-fallback-tag: ''
 branches:
-  master:
-    regex: ^master
+  develop:
+    regex: ^develop
     mode: ContinuousDeployment
-    tag: ''
+    tag: 'preview'
     increment: None
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false

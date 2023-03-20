@@ -13,6 +13,7 @@ using AIMP.SDK.AlbumArt.Services;
 using AIMP.SDK.Configuration;
 using AIMP.SDK.Core;
 using AIMP.SDK.FileManager;
+using AIMP.SDK.Internet;
 using AIMP.SDK.Lyrics;
 using AIMP.SDK.MenuManager;
 using AIMP.SDK.MessageDispatcher;
@@ -212,5 +213,10 @@ namespace AIMP.SDK
         IAimpServiceFileURI ServiceFileUri { get; }
 
         IAimpServiceFileURI2 ServiceFileUri2 { get; }
+
+        /// <summary>
+        /// Gets the service connection settings.
+        /// </summary>
+        IAimpServiceConnectionSettings ServiceConnectionSettings { get; }
     }
 }

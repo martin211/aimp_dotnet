@@ -10,6 +10,10 @@
 #include "Stdafx.h"
 #include "AimpServiceAlbumArt.h"
 
+#include "SDK/CustomUserData.h"
+#include "SDK/Objects/AimpImage.h"
+#include "SDK/Objects/AimpImageContainer.h"
+
 using namespace AIMP::SDK;
 
 AimpServiceAlbumArt::AimpServiceAlbumArt(ManagedAimpCore^ core) : BaseAimpService<IAIMPServiceAlbumArt>(core) {
@@ -219,25 +223,31 @@ void AimpServiceAlbumArt::MaxFileSize::set(int value) {
     }
 }
 
-void AimpServiceAlbumArt::OnAlbumArtReceive(IAIMPImage* image, IAIMPImageContainer* image_container, void* user_data) {
-    AimpGetAlbumArtEventArgs^ args = gcnew AimpGetAlbumArtEventArgs();
-    if (image == nullptr && image_container == nullptr) {
-        Completed(this, args);
-        return;
+void AimpServiceAlbumArt::OnAlbumArtReceive(IAIMPImage2* image, IAIMPImageContainer* image_container, void* user_data) {
+    IAimpImage^ img = nullptr;
+    IAimpImageContainer^ container = nullptr;
+    Object^ userData = nullptr;
+
+    if (image != nullptr) {
+        img = gcnew AimpImage(image);
     }
 
-    if (image_container != nullptr && image == nullptr) {
-        args->CoverImage = AimpConverter::ToManagedBitmap(image_container);
+    if (image_container != nullptr) {
+        container = gcnew AimpImageContainer(image_container);
     }
-    else if (image != nullptr) {
-        args->CoverImage = AimpConverter::ToManagedBitmap(image);
+
+    if (user_data != nullptr) {
+        auto customData = static_cast<CustomUserData*>(user_data);
+        userData = customData->CustomObject();
+        customData->Release();
     }
+
+    AimpGetAlbumArtEventArgs^ args = gcnew AimpGetAlbumArtEventArgs(img, container, userData);
 
     Completed(this, args);
 }
 
-IntResult AimpServiceAlbumArt::Get(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags,
-                                   Object^ userData) {
+IntResult AimpServiceAlbumArt::Get(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags, Object^ userData) {
     if (String::IsNullOrEmpty(fileUrl)) {
         ARGUMENT_NULL("fileUrl", "Parameter fileUrl cannot be empty")
     }
@@ -253,13 +263,20 @@ IntResult AimpServiceAlbumArt::Get(String^ fileUrl, String^ artist, String^ albu
     IAIMPServiceAlbumArt* service = GetAimpService();
     try {
         if (service != nullptr) {
+
+            CustomUserData* customData = nullptr;
+
+            if (userData != nullptr) {
+                customData = new CustomUserData(userData);
+            }
+
             result = CheckResult(service->Get(
                 sFileUrl,
                 sArtist,
                 sAlbum,
                 DWORD(flags),
                 static_cast<TAIMPServiceAlbumArtReceiveProc(_stdcall *)>(thunk.ToPointer()),
-                reinterpret_cast<void*>(&userData), &taskId));
+                customData, &taskId));
         }
     }
     finally {
@@ -270,7 +287,6 @@ IntResult AimpServiceAlbumArt::Get(String^ fileUrl, String^ artist, String^ albu
     }
 
     return INT_RESULT(result, reinterpret_cast<int>(taskId));
-    //return INT_RESULT(result, IntPtr(taskId).ToInt32());
 }
 
 IntResult AimpServiceAlbumArt::Get2(IAimpFileInfo^ fileInfo, AimpFindCovertArtType flags, Object^ userData) {
