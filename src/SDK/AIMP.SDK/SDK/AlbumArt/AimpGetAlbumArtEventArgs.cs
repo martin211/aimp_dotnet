@@ -10,6 +10,8 @@
 using System;
 using System.Drawing;
 
+using AIMP.SDK.Objects;
+
 namespace AIMP.SDK.AlbumArt
 {
     /// <summary>
@@ -19,10 +21,32 @@ namespace AIMP.SDK.AlbumArt
     /// <seealso cref="System.EventArgs" />
     public class AimpGetAlbumArtEventArgs : EventArgs
     {
+        public AimpGetAlbumArtEventArgs(IAimpImage image, object userData = null)
+        {
+            UserData = userData;
+            Image = image;
+        }
+
+        public AimpGetAlbumArtEventArgs(IAimpImage image, IAimpImageContainer imageContainer, object userData = null)
+        {
+            UserData = userData;
+            Image = image;
+            ImageContainer = imageContainer;
+        }
+
         /// <summary>
-        /// Gets or sets the cover image.
+        /// Gets or sets the user data.
         /// </summary>
-        /// <value>The cover image.</value>
-        public Bitmap CoverImage { get; set; }
+        public object UserData { get; }
+
+        /// <summary>
+        /// Gets or sets the image.
+        /// </summary>
+        public IAimpImage Image { get; }
+
+        /// <summary>
+        /// Gets or sets the image container.
+        /// </summary>
+        public IAimpImageContainer ImageContainer { get; }
     }
 }

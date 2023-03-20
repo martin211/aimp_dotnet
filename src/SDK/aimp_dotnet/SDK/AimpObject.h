@@ -27,6 +27,7 @@ public:
 
     AimpObject(TAimpObject* aimpObject) : _aimpObject(aimpObject) {
         RegisterAtMemoryManager();
+        //ComObject->AddRef();
     }
 
     !AimpObject() {
@@ -55,6 +56,9 @@ protected:
 
     virtual void ReleaseFromMemoryManager() {
         AimpMemoryManager::getInstance().Release(this->GetHashCode());
+        if (InternalAimpObject != nullptr) {
+            InternalAimpObject->Release();
+        }
     }
 
 public:

@@ -13,6 +13,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
+using Microsoft.Build.Tasks;
 using Nuke.Common;
 using Nuke.Common.CI.GitLab;
 using Nuke.Common.CI.TeamCity;
@@ -21,11 +22,13 @@ using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
+using Nuke.Common.Tools.Git;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
+using Octokit;
 using Serilog;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
@@ -199,6 +202,8 @@ partial class Build : NukeBuild
         {
             Log.Information("Start build Nuget packages");
 
+            EnsureCleanDirectory(OutputDirectory);
+
             var nugetFolder = RootDirectory / "Nuget";
 
             var config = new NuGetPackSettings()
@@ -209,12 +214,7 @@ partial class Build : NukeBuild
 
             if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
             {
-                config = config.SetSuffix($"preview.{GitVersion.BuildMetaData}");
-            }
-
-            if (Configuration == Configuration.Debug)
-            {
-                config = config.SetSuffix($"debug.{GitVersion.BuildMetaData}");
+                config = config.SetSuffix(GitVersion.PreReleaseTag);
             }
 
             if (TargetPlatform == MSBuildTargetPlatform.x86)
@@ -228,7 +228,6 @@ partial class Build : NukeBuild
 
             if (TargetPlatform == MSBuildTargetPlatform.x64)
             {
-
                 Log.Information("Pack X64 package");
                 NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK-x64.nuspec"));
             }
@@ -390,27 +389,40 @@ partial class Build : NukeBuild
             _version = GitRepository.Branch
                 .Replace($"{MailstoneBranch}_", string.Empty)
                 .Replace("_", ".");
+
+            _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
         }
         else if (GitRepository.Branch.StartsWith(ReleaseBranchPrefix))
         {
             _version = GitRepository.Branch.Split("/")[1];
+            _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
         }
         else
         {
-            var tag = GitRepository.Tags.LastOrDefault();
+            string tag = string.Empty;
 
-            if (tag != null)
+            var process = ProcessTasks.StartProcess("git", "ls-remote --tags --sort=-committerdate ./.");
+            process.WaitForExit();
+            var output = process.Output;
+
+            if (output.Count > 0)
             {
-                _buildNumber = $"{tag}.{GitVersion.BuildMetaData}";
-                _version = tag;
+                var outText = output.First().Text;
+                tag = outText.Substring(outText.LastIndexOf("/") + 1, outText.Length - outText.LastIndexOf("/") - 1);
+            }
+
+            if (!string.IsNullOrWhiteSpace(tag))
+            {
+                var patchVersion = int.Parse(tag.Split(".").Last()) + 1;
+                _version = tag.Substring(0, tag.LastIndexOf(".")) + $".{patchVersion}";
+                _buildNumber = $"{_version}{GitVersion.PreReleaseTagWithDash}";
             }
             else
             {
+                _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
                 _version = BuildNumber;
             }
         }
-
-        _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
     }
 
     Target UpdateBuildNumber => _ => _
