@@ -127,6 +127,7 @@
     <Compile Include="UnitTests\AimpErrorInfoTests.cs" />
     <Compile Include="UnitTests\FileManager\IAimpServiceFileURI2UnitTests.cs" />
     <Compile Include="UnitTests\FileManager\IAimpServiceFileURIUnitTests.cs" />
+    <Compile Include="UnitTests\Internet\IAimpServiceConnectionSettingsUnitTests.cs" />
     <Compile Include="UnitTests\Objects\AimpImageUnitTests.cs" />
     <Compile Include="UnitTests\AimpServiceConfig\AimpServiceConfigTests.cs" />
     <Compile Include="UnitTests\AimpTestContext.cs" />
