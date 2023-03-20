@@ -90,6 +90,7 @@ namespace AIMP {
         IAimpServiceFileInfoFormatterUtils^ _serviceFileInfoFormatterUtils;
         IAimpServiceFileURI^ _serviceFileURI;
         IAimpServiceFileURI2^ _serviceFileURI2;
+        Internet::IAimpServiceConnectionSettings^ _serviceConnectionSettings;
     public:
         /// <summary>
         /// Initializes a new instance of the <see cref="AIMP3Controller{TConvAlloc}" /> class.
@@ -101,6 +102,10 @@ namespace AIMP {
         AimpPlayer(ManagedAimpCore^ core, int pluginId, int applicationDomainId, bool isCrossDomain);
 
         ~AimpPlayer();
+        property Internet::IAimpServiceConnectionSettings^ ServiceConnectionSettings
+        {
+            virtual Internet::IAimpServiceConnectionSettings^ get();
+        }
 
         property IAimpServiceFileInfoFormatterUtils^ ServiceFileInfoFormatterUtils
         {

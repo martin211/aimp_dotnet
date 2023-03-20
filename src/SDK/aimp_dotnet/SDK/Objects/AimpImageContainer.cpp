@@ -11,6 +11,7 @@
 #include "AimpImageContainer.h"
 
 AimpImageContainer::AimpImageContainer(IAIMPImageContainer* container) : AimpObject<IAIMPImageContainer>(container) {
+    container->AddRef();
 }
 
 AimpActionResult<IAimpImage^>^ AimpImageContainer::CreateImage() {

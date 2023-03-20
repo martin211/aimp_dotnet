@@ -124,6 +124,7 @@
     <Compile Include="SDK\FileManager\IAimpServiceFileURI2.cs" />
     <Compile Include="SDK\IAimpDPIAware.cs" />
     <Compile Include="SDK\IAimpErrorInfo.cs" />
+    <Compile Include="SDK\Internet\IAimpServiceConnectionSettings.cs" />
     <Compile Include="SDK\MessageDispatcher\AimpQuickFileInfoParams.cs" />
     <Compile Include="SDK\MusicLibrary\DataStorage\IAimpDataProvider2.cs" />
     <Compile Include="SDK\MusicLibrary\DataStorage\IAimpDataStorage2.cs" />
@@ -283,6 +284,7 @@
     <Compile Include="SDK\Visuals\IAimpServiceVisualizations.cs" />
     <Compile Include="Win32\IWin32Manager.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

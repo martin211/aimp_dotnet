@@ -244,13 +244,6 @@ void AimpServiceAlbumArt::OnAlbumArtReceive(IAIMPImage2* image, IAIMPImageContai
 
     AimpGetAlbumArtEventArgs^ args = gcnew AimpGetAlbumArtEventArgs(img, container, userData);
 
-    //if (image_container != nullptr && image == nullptr) {
-    //    args->CoverImage = AimpConverter::ToManagedBitmap(image_container);
-    //}
-    //else if (image != nullptr) {
-    //    args->CoverImage = AimpConverter::ToManagedBitmap(image);
-    //}
-
     Completed(this, args);
 }
 
