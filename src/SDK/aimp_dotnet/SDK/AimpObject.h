@@ -27,7 +27,6 @@ public:
 
     AimpObject(TAimpObject* aimpObject) : _aimpObject(aimpObject) {
         RegisterAtMemoryManager();
-        //ComObject->AddRef();
     }
 
     !AimpObject() {

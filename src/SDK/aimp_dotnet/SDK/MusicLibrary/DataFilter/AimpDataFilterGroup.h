@@ -45,6 +45,10 @@ namespace AIMP {
             virtual void BeginUpdate();
 
             virtual void EndUpdate();
+
+        protected:
+            void RegisterAtMemoryManager() override;
+            void ReleaseFromMemoryManager() override;
         };
     }
 }

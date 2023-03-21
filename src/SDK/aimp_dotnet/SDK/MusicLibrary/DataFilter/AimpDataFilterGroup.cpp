@@ -124,6 +124,12 @@ void AimpDataFilterGroup::EndUpdate() {
     InternalAimpObject->EndUpdate();
 }
 
+void AimpDataFilterGroup::RegisterAtMemoryManager() {
+}
+
+void AimpDataFilterGroup::ReleaseFromMemoryManager() {
+}
+
 generic <class TFilter>
 AimpActionResult<TFilter>^ AimpDataFilterGroup::GetChild(int index) {
     const auto t = TFilter::typeid;
