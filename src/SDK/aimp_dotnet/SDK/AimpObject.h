@@ -27,7 +27,6 @@ public:
 
     AimpObject(TAimpObject* aimpObject) : _aimpObject(aimpObject) {
         RegisterAtMemoryManager();
-        //ComObject->AddRef();
     }
 
     !AimpObject() {
@@ -51,14 +50,14 @@ protected:
     virtual void RegisterAtMemoryManager() {
         if (InternalAimpObject != nullptr) {
             AimpMemoryManager::getInstance().AddObject(this->GetHashCode(), InternalAimpObject, msclr::interop::marshal_as<std::string>(this->ToString()));
-            InternalAimpObject->AddRef();
+            ComObject->AddRef();
         }
     }
 
     virtual void ReleaseFromMemoryManager() {
         AimpMemoryManager::getInstance().Release(this->GetHashCode());
         if (InternalAimpObject != nullptr) {
-            InternalAimpObject->Release();
+            ComObject->Release();
         }
     }
 
