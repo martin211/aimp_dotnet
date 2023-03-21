@@ -51,6 +51,7 @@ protected:
     virtual void RegisterAtMemoryManager() {
         if (InternalAimpObject != nullptr) {
             AimpMemoryManager::getInstance().AddObject(this->GetHashCode(), InternalAimpObject, msclr::interop::marshal_as<std::string>(this->ToString()));
+            InternalAimpObject->AddRef();
         }
     }
 
