@@ -9,7 +9,6 @@
 
 #pragma once
 #include "SDK\AimpObject.h"
-#include "SDK\ManagedAimpCore.h"
 
 namespace AIMP {
     namespace SDK {
