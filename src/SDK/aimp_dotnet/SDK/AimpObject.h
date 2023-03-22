@@ -12,6 +12,8 @@
 
 template <class TAimpObject>
 public ref class AimpObject : public IAimpObject {
+private:
+    bool _isDisposable;
 protected:
     AimpObject() {
     }
@@ -20,12 +22,13 @@ protected:
     TAimpObject* _aimpObject;
 public:
     AimpObject(TAimpObject* aimpObject, bool registerAtMemoryManager) : _aimpObject(aimpObject) {
+        _isDisposable = registerAtMemoryManager;
         if (registerAtMemoryManager) {
             RegisterAtMemoryManager();
         }
     }
 
-    AimpObject(TAimpObject* aimpObject) : _aimpObject(aimpObject) {
+    AimpObject(TAimpObject* aimpObject) : AimpObject(aimpObject, false) {
         RegisterAtMemoryManager();
     }
 
