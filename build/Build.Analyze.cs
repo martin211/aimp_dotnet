@@ -69,7 +69,7 @@ partial class Build
             }, () =>
             {
                 MSBuild(c => c
-                    .SetConfiguration(Configuration)
+                    .SetConfiguration(GetConfiguration())
                     .SetProcessToolPath(MsBuildPath)
                     .SetTargets("Rebuild")
                     .SetSolutionFile(Solution)

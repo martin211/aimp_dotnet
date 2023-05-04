@@ -40,7 +40,7 @@ partial class Build
     Target PrepareTestConfiguration => _ => _
         .Executes(() =>
         {
-            var outPath = Configuration == Configuration.Release ? IntegrationTestOutput : TestOutput;
+            var outPath = GetConfiguration() == Configuration.Release ? IntegrationTestOutput : TestOutput;
 
             Log.Debug("Preparing test settings");
             DeleteDirectory(outPath);
@@ -87,7 +87,7 @@ partial class Build
             EnsureExistingDirectory(IntegrationTestPluginPath);
 
             var testBinPath = IntegrationTestBinPath;
-            var testPattern = $"**/bin/{IntegrationTestTestPlatform}/{Configuration}";
+            var testPattern = $"**/bin/{IntegrationTestTestPlatform}/{GetConfiguration()}";
 
             Log.Information("Test bin files path: '{testBinPath}'", testBinPath);
             Log.Information($"Test bin files path: '{testBinPath}'");
@@ -128,14 +128,14 @@ partial class Build
                     });
             }
 
-            testBinPath.GlobDirectories($"**/bin/{IntegrationTestTestPlatform}/{Configuration}").ForEach(d =>
+            testBinPath.GlobDirectories($"**/bin/{IntegrationTestTestPlatform}/{GetConfiguration()}").ForEach(d =>
             {
                 copyFilesFromFolder(d);
                 Log.Debug($"Copy {d}/nunit.engine.addins to {IntegrationTestPluginPath}");
                 CopyFileToDirectory(d / "nunit.engine.addins", IntegrationTestPluginPath);
             });
 
-            var sdkFolder = new DirectoryInfo(SDKBinFolder / $"{IntegrationTestTestPlatform}/{Configuration}");
+            var sdkFolder = new DirectoryInfo(SDKBinFolder / $"{IntegrationTestTestPlatform}/{GetConfiguration()}");
             var sdkFiles = sdkFolder.GetFiles("*.dll");
             foreach (var file in sdkFiles)
             {

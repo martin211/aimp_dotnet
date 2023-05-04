@@ -14,7 +14,7 @@ branches:
   feature:
     regex: ^feature?[/]
     mode: ContinuousDeployment
-    tag: beta
+    tag: 'debug'
     increment: None
     prevent-increment-of-merged-branch-version: false
     track-merge-target: false
