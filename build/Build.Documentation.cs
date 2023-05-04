@@ -55,7 +55,7 @@ partial class Build
         .Executes(() =>
         {
             GlobFiles(DocumentationApiDirectory, "**/toc.yml").ForEach(File.Delete);
-            WriteCustomTocs(DocumentationApiDirectory, DocumentationRoot, GlobFiles(SDKBinFolder / "x86" / Configuration, "AIMP.SDK.dll"));
+            WriteCustomTocs(DocumentationApiDirectory, DocumentationRoot, GlobFiles(SDKBinFolder / "x86" / GetConfiguration(), "AIMP.SDK.dll"));
         });
 
     Target BuildDocumentation => _ => _

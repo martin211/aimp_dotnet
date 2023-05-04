@@ -102,6 +102,8 @@ partial class Build : NukeBuild
     readonly string ReleaseBranchPrefix = "release";
     readonly string HotfixBranchPrefix = "hotfix";
     readonly string MailstoneBranch = "mailstone";
+    readonly string FeatureBranchPreffix = "feature";
+
     string _version = "1.0.0.0";
     string _buildNumber = "1.0.0.0";
 
@@ -187,7 +189,7 @@ partial class Build : NukeBuild
                 .SetProcessToolPath(MsBuildPath)
                 .SetTargetPath(Solution)
                 .SetTargets("Rebuild")
-                .SetConfiguration(Configuration)
+                .SetConfiguration(GetConfiguration())
                 .SetAssemblyVersion(_version)
                 .SetFileVersion(_version)
                 .SetInformationalVersion($"{_version}-{GitRepository.Commit}")
@@ -195,6 +197,21 @@ partial class Build : NukeBuild
                 .SetNodeReuse(IsLocalBuild)
                 .SetTargetPlatform(TargetPlatform));
         });
+
+    private Configuration GetConfiguration()
+    {
+        if (GitRepository.Branch.StartsWith(FeatureBranchPreffix))
+        {
+            if (IsTeamCity)
+            {
+                TeamCity.Instance.SetConfigurationParameter("Configuration", Configuration.Debug);
+            }
+
+            return Configuration.Debug;
+        }
+
+        return Configuration;
+    }
 
     Target Pack => _ => _
         .DependsOn(Version)
@@ -208,7 +225,7 @@ partial class Build : NukeBuild
 
             var config = new NuGetPackSettings()
                 .SetBasePath(RootDirectory)
-                .SetConfiguration(Configuration)
+                .SetConfiguration(GetConfiguration())
                 .SetVersion(_version)
                 .SetOutputDirectory(OutputDirectory);
 
@@ -244,7 +261,6 @@ partial class Build : NukeBuild
         });
 
     Target Publish => _ => _
-        .Requires(() => Configuration.Equals(Configuration.Release))
         .Requires(() => NugetApiKey)
         .Executes(() =>
         {
@@ -282,7 +298,7 @@ partial class Build : NukeBuild
 
             Log.Information("Copy plugins to artifacts folder");
 
-            var directories = GlobDirectories(SourceDirectory / "Plugins", $"**/bin/{targetPlatform}/{Configuration}");
+            var directories = GlobDirectories(SourceDirectory / "Plugins", $"**/bin/{targetPlatform}/{GetConfiguration()}");
             foreach (var directory in directories)
             {
                 var pluginDirectory = new DirectoryInfo(directory);
@@ -315,7 +331,7 @@ partial class Build : NukeBuild
                 }
             }
 
-            var sdkFolder = new DirectoryInfo(SDKBinFolder / $"{targetPlatform}/{Configuration}");
+            var sdkFolder = new DirectoryInfo(SDKBinFolder / $"{targetPlatform}/{GetConfiguration()}");
             Log.Information($"Copy SDK files to artifacts folder '{sdkFolder}'");
 
             Directory.CreateDirectory(artifactsFolder / "SDK");
