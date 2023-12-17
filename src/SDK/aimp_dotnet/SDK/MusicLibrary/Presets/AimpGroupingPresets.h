@@ -8,7 +8,6 @@
 //  ----------------------------------------------------
 
 #pragma once
-#include "SDK\AimpObject.h"
 #include "AIMPSDK\AIMPSDK.h"
 #include "SDK/MusicLibrary/InternalAimpGroupingTreeDataProvider.h"
 

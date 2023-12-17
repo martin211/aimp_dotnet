@@ -173,6 +173,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AimpLogger.h" />
     <ClInclude Include="AimpMemoryManager.h" />
     <ClInclude Include="AIMPSDK\AIMP400\apiDepricated.h" />
     <ClInclude Include="SDK\Action\AimpAction.h" />

@@ -45,3 +45,4 @@ typedef AimpActionResult<MenuManager::Objects::IAimpMenuItem^>^ MenuItemResult;
 #include <windows.h>
 #include "AimpSdk.h"
 #include "vcclr.h"
+#include "AimpLogger.h"
