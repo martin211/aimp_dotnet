@@ -103,7 +103,6 @@ namespace AIMP {
             virtual void OnPlaylistAdded(IAIMPPlaylist* playlist);
 
             virtual void OnPlaylistRemoved(IAIMPPlaylist* playlist);
-
         private:
             static IAIMPCore* _core = nullptr;
             IAIMPExtensionPlayerHook* _playerHook = nullptr;

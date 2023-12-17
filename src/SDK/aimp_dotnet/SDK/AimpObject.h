@@ -10,6 +10,10 @@
 #pragma once
 #include <msclr\marshal_cppstd.h>
 
+#include "AimpLogger.h"
+#include <windows.h>
+#include <iostream>
+
 template <class TAimpObject>
 public ref class AimpObject : public IAimpObject {
 private:
@@ -49,19 +53,40 @@ protected:
     }
 
     virtual void RegisterAtMemoryManager() {
+        ComObject->AddRef();
         if (_isDisposable && InternalAimpObject != nullptr) {
             AimpMemoryManager::getInstance().AddObject(this->GetHashCode(), InternalAimpObject, msclr::interop::marshal_as<std::string>(this->ToString()));
-            ComObject->AddRef();
         }
+        AimpLogger::Logger->Debug(String::Format("Register object: {0}. Type: {1}. Register at MM: {2}", this->GetHashCode(), this->ToString(), _isDisposable));
+        AimpLogger::Logger->Verbose(System::Environment::StackTrace);
+    }
+
+    static int Filter(unsigned int code) {
+        if (code == EXCEPTION_ACCESS_VIOLATION) {
+            AimpLogger::Logger->Error("Access violation exception");
+            AimpLogger::Logger->Error(System::Environment::StackTrace);
+            return EXCEPTION_EXECUTE_HANDLER;
+        }
+
+        return EXCEPTION_CONTINUE_SEARCH;
     }
 
     virtual void ReleaseFromMemoryManager() {
+        AimpLogger::Logger->Debug(String::Format("Release object: {0}", this->GetHashCode()));
+        if (InternalAimpObject != nullptr) {
+            ComObject->Release();
+        }
+
         if (_isDisposable) {
-            AimpMemoryManager::getInstance().Release(this->GetHashCode());
-            if (InternalAimpObject != nullptr) {
-                ComObject->Release();
+            __try {
+                AimpMemoryManager::getInstance().Release(this->GetHashCode());
+            }
+            __except (Filter(GetExceptionCode())) {
+                AimpLogger::Logger->Error("Error to Release object " + this->GetHashCode());
+                AimpLogger::Logger->Error(System::Environment::StackTrace);
             }
         }
+        AimpLogger::Logger->Verbose(System::Environment::StackTrace);
     }
 
 public:

@@ -92,6 +92,9 @@ namespace AIMP {
         IAimpServiceFileURI2^ _serviceFileURI2;
         Internet::IAimpServiceConnectionSettings^ _serviceConnectionSettings;
     public:
+        static Logger::IAimpLogger^ Logger;
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AIMP3Controller{TConvAlloc}" /> class.
         /// </summary>
