@@ -8,6 +8,7 @@
 //  ----------------------------------------------------
 
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -171,9 +172,24 @@ partial class Build
                 return;
             }
 
+
             Log.Information("Start AIMP process");
-            var p = ProcessTasks.StartProcess(aimpExe, "/DEBUG", IntegrationTestAimpPath, timeout: IntegrationTestTimeout * 60000);
-            var res = p.WaitForExit();
+            var stopWatch = new Stopwatch();
+            bool res = false;
+
+            try
+            {
+                var p = ProcessTasks.StartProcess(aimpExe, "/DEBUG", IntegrationTestAimpPath, timeout: IntegrationTestTimeout * 60000);
+                stopWatch.Start();
+                res = p.WaitForExit();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(ex, string.Empty);
+            }
+            stopWatch.Stop();
+
+            Log.Information($"Execution time: {stopWatch.Elapsed}");
 
             if (res)
             {
