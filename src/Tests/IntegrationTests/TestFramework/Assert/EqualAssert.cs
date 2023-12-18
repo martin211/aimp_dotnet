@@ -7,6 +7,8 @@
 //  Mail: mail4evgeniy@gmail.com
 //  ----------------------------------------------------
 
+using NUnit.Framework;
+
 namespace Aimp.TestRunner.TestFramework.Assert;
 
 public class EqualAssert : MemberAssert
@@ -22,7 +24,7 @@ public class EqualAssert : MemberAssert
     public override void Validate()
     {
         Validate(() =>
-            NUnit.Framework.Assert.AreEqual(Expected, Value,
+            NUnit.Framework.Assert.That(Value, Is.EqualTo(Expected),
                 Message ?? $"Expected '{Expected}' but was '{Value}'"));
     }
 }

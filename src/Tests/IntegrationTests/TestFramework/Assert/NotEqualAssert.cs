@@ -7,6 +7,8 @@
 //  Mail: mail4evgeniy@gmail.com
 //  ----------------------------------------------------
 
+using NUnit.Framework;
+
 namespace Aimp.TestRunner.TestFramework.Assert;
 
 public class NotEqualAssert : MemberAssert
@@ -22,6 +24,6 @@ public class NotEqualAssert : MemberAssert
     public override void Validate()
     {
         Validate(() =>
-            NUnit.Framework.Assert.AreNotEqual(Expected, Value, Message ?? $"Expected '{Expected}' but was '{Value}'"));
+            NUnit.Framework.Assert.That(Value, Is.Not.EqualTo(Expected), Message ?? $"Expected '{Expected}' but was '{Value}'"));
     }
 }

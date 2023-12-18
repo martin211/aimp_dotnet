@@ -53,6 +53,9 @@ protected:
     }
 
     virtual void RegisterAtMemoryManager() {
+        if (ComObject == nullptr)
+            return;
+
         ComObject->AddRef();
         if (_isDisposable && InternalAimpObject != nullptr) {
             AimpMemoryManager::getInstance().AddObject(this->GetHashCode(), InternalAimpObject, msclr::interop::marshal_as<std::string>(this->ToString()));

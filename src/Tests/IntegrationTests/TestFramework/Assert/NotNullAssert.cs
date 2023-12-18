@@ -7,6 +7,8 @@
 //  Mail: mail4evgeniy@gmail.com
 //  ----------------------------------------------------
 
+using NUnit.Framework;
+
 namespace Aimp.TestRunner.TestFramework.Assert;
 
 public class NotNullAssert : MemberAssert
@@ -17,6 +19,6 @@ public class NotNullAssert : MemberAssert
 
     public override void Validate()
     {
-        Validate(() => NUnit.Framework.Assert.NotNull(Value, FieldName));
+        Validate(() => NUnit.Framework.Assert.That(Value, Is.Not.Null));
     }
 }

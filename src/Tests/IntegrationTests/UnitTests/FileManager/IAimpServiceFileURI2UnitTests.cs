@@ -22,8 +22,8 @@ public class IAimpServiceFileURI2UnitTests : AimpIntegrationTest
         ExecuteInMainThread(() =>
         {
             var result = Player.ServiceFileUri2.GetScheme("test://file.mp3");
-            Assert.AreEqual(ActionResultType.OK, result.ResultType);
-            Assert.AreEqual("test", result.Result);
+            AimpAssert.AreEqual(ActionResultType.OK, result.ResultType);
+            AimpAssert.AreEqual("test", result.Result);
         });
     }
 }

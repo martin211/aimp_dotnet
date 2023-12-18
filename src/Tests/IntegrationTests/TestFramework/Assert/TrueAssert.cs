@@ -7,6 +7,8 @@
 //  Mail: mail4evgeniy@gmail.com
 //  ----------------------------------------------------
 
+using NUnit.Framework;
+
 namespace Aimp.TestRunner.TestFramework.Assert;
 
 public class TrueAssert : MemberAssert<bool>
@@ -20,6 +22,6 @@ public class TrueAssert : MemberAssert<bool>
 
     public override void Validate()
     {
-        Validate(() => NUnit.Framework.Assert.IsTrue(Value.ToString().Equals(true.ToString())));
+        Validate(() => NUnit.Framework.Assert.That(Value, Is.True));
     }
 }

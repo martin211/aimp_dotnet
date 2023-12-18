@@ -115,7 +115,7 @@ public class AimpFileInfoUnitTests : AimpIntegrationTest
 
             var newFileInfo = Player.Core.CreateAimpObject<IAimpFileInfo>();
 
-            Assert.AreEqual(ActionResultType.OK, newFileInfo.ResultType);
+            AimpAssert.AreEqual(ActionResultType.OK, newFileInfo.ResultType);
 
             var clone = newFileInfo.Result;
             clone.Assign(original);

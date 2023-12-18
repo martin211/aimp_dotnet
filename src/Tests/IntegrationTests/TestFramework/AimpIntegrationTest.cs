@@ -27,7 +27,7 @@ public abstract class AimpIntegrationTest
     [OneTimeSetUp]
     public virtual void RunBeforeAnyTests()
     {
-        NUnit.Framework.Assert.NotNull(Player);
+        NUnit.Framework.Assert.That(Player, Is.Not.Null);
         Asserts = new List<IMemberAssert>();
         ClearAimpBeforeTests();
     }
