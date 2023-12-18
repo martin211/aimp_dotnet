@@ -34,7 +34,6 @@ using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
 
-[CheckBuildProjectConfigurations]
 partial class Build : NukeBuild
 {
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
@@ -267,8 +266,8 @@ partial class Build : NukeBuild
             PrintParameters("Nuget");
 
             Log.Information("Deploying Nuget packages");
-            var packages = GlobFiles(OutputDirectory, "*.nupkg")
-                .Where(c => !c.EndsWith("symbols.nupkg")).ToList();
+            var packages = OutputDirectory.GlobFiles("*.nupkg")
+                .Where(c => !c.Name.EndsWith("symbols.nupkg")).ToList();
 
             Assert.NotEmpty(packages);
 
@@ -298,7 +297,7 @@ partial class Build : NukeBuild
 
             Log.Information("Copy plugins to artifacts folder");
 
-            var directories = GlobDirectories(SourceDirectory / "Plugins", $"**/bin/{targetPlatform}/{GetConfiguration()}");
+            var directories = SourceDirectory.GlobDirectories("Plugins", $"**/bin/{targetPlatform}/{GetConfiguration()}");
             foreach (var directory in directories)
             {
                 var pluginDirectory = new DirectoryInfo(directory);

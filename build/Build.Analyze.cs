@@ -56,7 +56,7 @@ partial class Build
                         .SetPullRequestKey(RequestId);
                 }
 
-                var path = ToolPathResolver.GetPackageExecutable(
+                var path = NuGetToolPathResolver.GetPackageExecutable(
                     packageId: "dotnet-sonarscanner",
                     packageExecutable: "SonarScanner.MSBuild.dll",
                     framework: framework);
@@ -78,7 +78,7 @@ partial class Build
             () =>
             {
                 var framework = "net5.0";
-                var path = ToolPathResolver.GetPackageExecutable(
+                var path = NuGetToolPathResolver.GetPackageExecutable(
                     packageId: "dotnet-sonarscanner",
                     packageExecutable: "SonarScanner.MSBuild.dll",
                     framework: framework);
