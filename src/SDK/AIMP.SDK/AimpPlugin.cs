@@ -10,6 +10,8 @@
 using System;
 using System.IO;
 
+using AIMP.SDK.Logger;
+
 namespace AIMP.SDK
 {
     /// <summary>
@@ -32,6 +34,11 @@ namespace AIMP.SDK
     /// <seealso cref="IAimpPlugin" />
     public abstract class AimpPlugin : IAimpPlugin
     {
+        /// <summary>
+        /// Gets or sets the logger.
+        /// </summary>
+        public IAimpLogger Logger { get; private set; }
+
         /// <summary>
         /// Gets or sets the aimp player.
         /// </summary>
@@ -61,6 +68,15 @@ namespace AIMP.SDK
         public abstract void Dispose();
 
         /// <summary>
+        /// Initializes the logger.
+        /// </summary>
+        /// <returns></returns>
+        public virtual IAimpLogger InitializeLogger()
+        {
+            return new InternalLogger();
+        }
+
+        /// <summary>
         /// Called when [dispose].
         /// </summary>
         public void OnDispose()
@@ -74,6 +90,15 @@ namespace AIMP.SDK
         }
 
         /// <summary>
+        /// Called when [pre initialize].
+        /// </summary>
+        /// <param name="player">The player.</param>
+        public virtual void OnPreInitialize(IAimpPlayer player)
+        {
+            AimpPlayer = player;
+        }
+
+        /// <summary>
         /// Called when [initialize].
         /// </summary>
         /// <param name="player">The player.</param>
@@ -81,10 +106,12 @@ namespace AIMP.SDK
         public void OnInitialize(IAimpPlayer player, int unId)
         {
             PluginId = unId;
-            AimpPlayer = player;
             var path = Path.GetDirectoryName(GetType().Assembly.Location);
             AppDomain.CurrentDomain.SetData("APPBASE", path);
             Environment.CurrentDirectory = path;
+
+            Logger = InitializeLogger();
+
             Initialize();
         }
     }

@@ -86,7 +86,6 @@ namespace TestPlugin
                 demoFormItem.OnShow += (sender, args) =>
                 {
                     var item = sender as IAimpMenuItem;
-                    Logger.Instance.AddInfoMessage($"Event: [Show] {item.Id}");
                 };
 
                 Player.ServiceMenuManager.Add(ParentMenuType.CommonUtilities, demoFormItem);
@@ -111,7 +110,6 @@ namespace TestPlugin
                 _demoForm = new PlayerForm(Player, _hook);
 
             var item = sender as IAimpMenuItem;
-            Logger.Instance.AddInfoMessage($"Event: [Execute] {item.Id}");
 
             _demoForm.Show();
         }
@@ -138,7 +136,6 @@ namespace TestPlugin
                 action.OnExecute += (sender, args) =>
                 {
                     var item = sender as IAimpAction;
-                    Logger.Instance.AddInfoMessage($"Event: [Execute] {item.Id}");
                 };
                 Player.ServiceActionManager.Register(action);
 

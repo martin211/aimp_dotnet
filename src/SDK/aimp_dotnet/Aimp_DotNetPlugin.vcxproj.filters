@@ -345,6 +345,7 @@
     <ClInclude Include="SDK\MusicLibrary\Extension\InternalAimpAlbumArtProvider.h" />
     <ClInclude Include="SDK\CustomUserData.h" />
     <ClInclude Include="SDK\Internet\AimpServiceConnectionSettings.h" />
+    <ClInclude Include="AimpLogger.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc" />

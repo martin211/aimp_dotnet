@@ -8,6 +8,7 @@
 //  ----------------------------------------------------
 
 #pragma once
+#include "IUnknownInterfaceImpl.h"
 
 using namespace AlbumArt;
 using namespace AlbumArt::Extensions;

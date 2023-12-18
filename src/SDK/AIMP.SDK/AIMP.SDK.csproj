@@ -107,6 +107,8 @@
     <Compile Include="Loader\PluginInformation.cs" />
     <Compile Include="Loader\PluginLoadingStrategy.cs" />
     <Compile Include="Loader\PluginShortInfoForLoad.cs" />
+    <Compile Include="Logger\IAimpLogger.cs" />
+    <Compile Include="Logger\InternalLogger.cs" />
     <Compile Include="SDK\Actions\Objects\IAimpAction.cs" />
     <Compile Include="SDK\Actions\Objects\IAimpActionEvent.cs" />
     <Compile Include="SDK\Actions\IAimpServiceActionManager.cs" />

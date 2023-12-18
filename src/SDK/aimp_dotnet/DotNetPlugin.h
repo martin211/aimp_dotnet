@@ -43,6 +43,10 @@ public:
             instance = gcnew AimpPlayer(_managedCore, sender->LoadedPlugin->PluginId, AppDomain::CurrentDomain->Id, false);
         }
 
+        sender->OnPreInitialize(instance);
+
+        AimpLogger::Logger = sender->InitializeLogger();
+
         sender->Initialize(instance);
     }
 
