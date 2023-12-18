@@ -189,7 +189,7 @@ partial class Build
             }
             stopWatch.Stop();
 
-            Log.Information($"Execution time: {stopWatch.Elapsed}");
+            Log.Information($"Execution time: {stopWatch.Elapsed}. Result: {res}");
 
             if (res)
             {
