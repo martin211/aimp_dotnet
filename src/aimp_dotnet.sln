@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		..\Nuget\AimpSDK.nuspec = ..\Nuget\AimpSDK.nuspec
 		AssemblyInfo.cs = AssemblyInfo.cs
 		..\tools\CopyPlugin.ps1 = ..\tools\CopyPlugin.ps1
+		Tests\IntegrationTests\Directory.Build.targets = Tests\IntegrationTests\Directory.Build.targets
 		..\GitVersion.yml = ..\GitVersion.yml
 	EndProjectSection
 EndProject
