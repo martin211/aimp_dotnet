@@ -275,7 +275,8 @@ partial class Build : NukeBuild
                 .ForEach(c => NuGetTasks.NuGetPush(s => s
                     .SetTargetPath(c)
                     .SetApiKey(NugetApiKey)
-                    .SetSource(NugetSource)));
+                    .SetSource(NugetSource)
+                    .SetVerbosity(NuGetVerbosity.Detailed)));
         });
 
     Target Artifacts => _ => _
@@ -361,7 +362,7 @@ partial class Build : NukeBuild
                 var files = di.GetFiles("*.dll");
                 if (!validatePluginFolder(plugin, files))
                 {
-                    Log.Error($"Plugin {plugin} not valid.");
+                    Log.Error($"Plugin '{plugin}' not valid. '{di}'");
                     isValid = false;
                 }
             }
