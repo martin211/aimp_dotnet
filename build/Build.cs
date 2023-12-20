@@ -326,7 +326,7 @@ partial class Build : NukeBuild
                         outFile = artifactsFolder / "Plugins" / pluginName / $"{pluginName}.dll";
                     }
 
-                    Log.Information($"Copy '{file.FullName}' to '{outFile}'");
+                    Log.Information("Copy '{targetFile}' to '{outFile}'", file.FullName, outFile);
                     file.CopyTo(outFile, true);
                 }
             }
@@ -371,7 +371,7 @@ partial class Build : NukeBuild
 
             var outputSkdFile = $"aimp.sdk-{targetPlatform}.zip";
 
-            Log.Information($"Compress artifacts to '{outputSkdFile}'");
+            Log.Information("Compress artifacts to '{outputSkdFile}'", outputSkdFile);
 
             if (File.Exists(OutputDirectory / outputSkdFile))
             {

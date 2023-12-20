@@ -10,16 +10,16 @@
     <projectUrl>https://github.com/martin211/aimp_dotnet</projectUrl>
     <description>Aimp DotNet allows you to create a plugin for AIMP media player on .Net. To develop plugins for AIMP x64 use AimpSDK-x64 package instead.</description>
     <tags>AIMP SDK DotNet</tags>
-	<license type="file">LICENSE.md</license>
+  	<license type="expression">MIT</license>
+    <repository type="git" url="https://github.com/martin211/aimp_dotnet" branch="master" />
   </metadata>
   <files>
-    <file src="LICENSE.md" target="" />
     <file src="nuget\Tools\CopyPlugin.ps1" target="content\CopyPlugin.ps1" />
     <file src="nuget\Tools\commands.json" target="content\commands.json" />
     <file src="src\SDK\aimp_dotnet\bin\x86\$configuration$\AIMP.SDK.dll" target="lib\net48\AIMP.SDK.dll" />
     <file src="src\SDK\aimp_dotnet\bin\x86\$configuration$\aimp_dotnet.dll" target="lib\net48\aimp_dotnet.dll" />
     <file src="src\SDK\aimp_dotnet\bin\x86\$configuration$\AIMP.SDK.xml" target="lib\net48\AIMP.SDK.xml" />
-	<file src="src\SDK\aimp_dotnet\bin\x86\$configuration$\AIMP.SDK.pdb" target="lib\net48\AIMP.SDK.pdb" />
+    <file src="src\SDK\aimp_dotnet\bin\x86\$configuration$\AIMP.SDK.pdb" target="lib\net48\AIMP.SDK.pdb" />
     <file src="src\SDK\aimp_dotnet\bin\x86\$configuration$\aimp_dotnet.pdb" target="lib\net48\aimp_dotnet.pdb" />
   </files>
 </package>
