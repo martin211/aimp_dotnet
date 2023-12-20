@@ -298,7 +298,7 @@ partial class Build : NukeBuild
 
             Log.Information("Copy plugins to artifacts folder");
 
-            var directories = SourceDirectory.GlobDirectories("Plugins", $"**/bin/{targetPlatform}/{GetConfiguration()}");
+            var directories = SourceDirectory.GlobDirectories($"Plugins/**/bin/{targetPlatform}/{GetConfiguration()}");
             foreach (var directory in directories)
             {
                 var pluginDirectory = new DirectoryInfo(directory);
