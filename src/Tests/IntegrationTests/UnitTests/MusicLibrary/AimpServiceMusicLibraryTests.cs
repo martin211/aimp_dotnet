@@ -25,7 +25,7 @@ public class AimpServiceMusicLibraryTests : AimpIntegrationTest
             var storageResult = Player.ServiceMusicLibrary.GetStorageById<IAimpLocalDataStorage>();
             AssertOKResult(storageResult);
             AimpAssert.AreEqual("Local files", storageResult.Result.Caption);
-            AimpAssert.AreEqual(string.Empty, storageResult.Result.Id);
+            AimpAssert.AreEqual("TAIMPMLLocalDataStorage", storageResult.Result.Id);
             AimpAssert.Null(() => storageResult.Result.GroupingPreset);
         });
     }
