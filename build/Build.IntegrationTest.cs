@@ -1,13 +1,14 @@
 ﻿//  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 // 
 //  Mail: mail4evgeniy@gmail.com
 //  ----------------------------------------------------
 
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -40,7 +41,7 @@ partial class Build
     Target PrepareTestConfiguration => _ => _
         .Executes(() =>
         {
-            var outPath = Configuration == Configuration.Release ? IntegrationTestOutput : TestOutput;
+            var outPath = GetConfiguration() == Configuration.Release ? IntegrationTestOutput : TestOutput;
 
             Log.Debug("Preparing test settings");
             DeleteDirectory(outPath);
@@ -87,7 +88,7 @@ partial class Build
             EnsureExistingDirectory(IntegrationTestPluginPath);
 
             var testBinPath = IntegrationTestBinPath;
-            var testPattern = $"**/bin/{IntegrationTestTestPlatform}/{Configuration}";
+            var testPattern = $"**/bin/{IntegrationTestTestPlatform}/{GetConfiguration()}";
 
             Log.Information("Test bin files path: '{testBinPath}'", testBinPath);
             Log.Information($"Test bin files path: '{testBinPath}'");
@@ -128,14 +129,14 @@ partial class Build
                     });
             }
 
-            testBinPath.GlobDirectories($"**/bin/{IntegrationTestTestPlatform}/{Configuration}").ForEach(d =>
+            testBinPath.GlobDirectories($"**/bin/{IntegrationTestTestPlatform}/{GetConfiguration()}").ForEach(d =>
             {
                 copyFilesFromFolder(d);
                 Log.Debug($"Copy {d}/nunit.engine.addins to {IntegrationTestPluginPath}");
                 CopyFileToDirectory(d / "nunit.engine.addins", IntegrationTestPluginPath);
             });
 
-            var sdkFolder = new DirectoryInfo(SDKBinFolder / $"{IntegrationTestTestPlatform}/{Configuration}");
+            var sdkFolder = new DirectoryInfo(SDKBinFolder / $"{IntegrationTestTestPlatform}/{GetConfiguration()}");
             var sdkFiles = sdkFolder.GetFiles("*.dll");
             foreach (var file in sdkFiles)
             {
@@ -154,13 +155,14 @@ partial class Build
         .Executes(() =>
         {
             var testResultFile = IntegrationTestPluginPath / "integration.tests.xml";
+#if DEBUG
             var testResultLogFile = IntegrationTestPluginPath / "integration.tests.log";
+            if (File.Exists(testResultLogFile))
+                File.Delete(testResultLogFile);
+#endif
 
             if (File.Exists(testResultFile))
                 File.Delete(testResultFile);
-
-            if (File.Exists(testResultLogFile))
-                File.Delete(testResultLogFile);
 
             var aimpExe = Path.Combine(IntegrationTestAimpPath, "AIMP.exe");
             if (!File.Exists(aimpExe))
@@ -172,59 +174,85 @@ partial class Build
             }
 
             Log.Information("Start AIMP process");
-            var p = ProcessTasks.StartProcess(aimpExe, "/DEBUG", IntegrationTestAimpPath, timeout: IntegrationTestTimeout * 60000);
-            var res = p.WaitForExit();
+            var stopWatch = new Stopwatch();
+            bool res = false;
+
+            try
+            {
+                var p = ProcessTasks.StartProcess(aimpExe, "/DEBUG", IntegrationTestAimpPath, timeout: IntegrationTestTimeout * 60000);
+                stopWatch.Start();
+                res = p.WaitForExit();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(ex, string.Empty);
+            }
+            stopWatch.Stop();
+
+            Log.Information($"Execution time: {stopWatch.Elapsed}. Result: {res}");
 
             if (res)
             {
-                if (!File.Exists(testResultFile) || !File.Exists(testResultLogFile) || new FileInfo(testResultLogFile).Length == 0)
+                if (!File.Exists(testResultFile))
                 {
                     LogError("Unable to run integration tests.");
                     TeamCity.Instance?.WriteFailure($"Unable to run integration tests. {testResultFile} NOT FOUND");
                     Assert.Fail("Unable to run test.");
+
+                    return;
                 }
-                else
+
+                var isValid = true;
+
+#if DEBUG
+                if (!File.Exists(testResultLogFile) || new FileInfo(testResultLogFile).Length == 0)
                 {
-                    var isValid = true;
+                    LogError("Result file is empty");
+                    TeamCity.Instance?.WriteFailure($"Result file {testResultLogFile} is empty");
+                    Assert.Fail("Unable to run test.");
 
-                    CopyFileToDirectory(testResultFile, OutputDirectory, FileExistsPolicy.Overwrite);
-                    CopyFileToDirectory(testResultLogFile, OutputDirectory, FileExistsPolicy.Overwrite);
+                    return;
+                }
 
-                    var content = File.ReadAllText(testResultLogFile);
-                    var r = new Regex(@"Failed:\s(\d*)");
-                    var matches = r.Matches(content);
+                CopyFileToDirectory(testResultLogFile, OutputDirectory, FileExistsPolicy.Overwrite);
 
-                    if (matches.Count > 0 && matches[0].Groups.Count >= 1)
+                var content = File.ReadAllText(testResultLogFile);
+                var r = new Regex(@"Failed:\s(\d*)");
+                var matches = r.Matches(content);
+
+                if (matches.Count > 0 && matches[0].Groups.Count >= 1)
+                {
+                    if (int.TryParse(matches[0].Groups[1].Value, out var failed))
                     {
-                        if (int.TryParse(matches[0].Groups[1].Value, out var failed))
+                        if (failed > 0)
                         {
-                            if (failed > 0)
-                            {
-                                isValid = false;
-                            }
+                            isValid = false;
                         }
                     }
+                }
 
-                    Log.Debug(content);
+                Log.Debug(content);
+#endif
 
-                    if (IntegrationTestIsJUnit)
+                CopyFileToDirectory(testResultFile, OutputDirectory, FileExistsPolicy.Overwrite);
+
+                if (IntegrationTestIsJUnit)
+                {
+                    var junitReport = OutputDirectory / "junit-integration.tests.xml";
+
+                    var xslt = new XslTransform();
+                    xslt.Load(RootDirectory / "nunit3-junit.xslt");
+                    var doc = new XPathDocument(testResultFile);
+                    using var writer = new XmlTextWriter(junitReport, Encoding.UTF8)
                     {
-                        var junitReport = OutputDirectory / "junit-integration.tests.xml";
+                        Formatting = Formatting.Indented
+                    };
+                    xslt.Transform(doc, null, writer, null);
+                }
 
-                        var xslt = new XslTransform();
-                        xslt.Load(RootDirectory / "nunit3-junit.xslt");
-                        var doc = new XPathDocument(testResultFile);
-                        using var writer = new XmlTextWriter(junitReport, Encoding.UTF8)
-                        {
-                            Formatting = Formatting.Indented
-                        };
-                        xslt.Transform(doc, null, writer, null);
-                    }
-
-                    if (!isValid)
-                    {
-                        Assert.Fail("Test is failed.");
-                    }
+                if (!isValid)
+                {
+                    Assert.Fail("Test is failed.");
                 }
             }
             else

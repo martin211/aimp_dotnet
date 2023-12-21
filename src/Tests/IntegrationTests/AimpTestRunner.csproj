@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\NUnit.3.13.2\build\NUnit.props" Condition="Exists('..\..\packages\NUnit.3.13.2\build\NUnit.props')" />
   <Import Project="..\..\packages\NUnit.4.0.0-alpha-1\build\NUnit.props" Condition="Exists('..\..\packages\NUnit.4.0.0-alpha-1\build\NUnit.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -79,18 +78,18 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.engine, Version=3.16.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.16.2\lib\net462\nunit.engine.dll</HintPath>
+    <Reference Include="nunit.engine, Version=3.16.3.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.Engine.3.16.3\lib\net462\nunit.engine.dll</HintPath>
     </Reference>
     <Reference Include="nunit.engine.api, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.16.2\lib\net462\nunit.engine.api.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.Engine.3.16.3\lib\net462\nunit.engine.api.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.engine.core, Version=3.16.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.16.2\lib\net462\nunit.engine.core.dll</HintPath>
+    <Reference Include="nunit.engine.core, Version=3.16.3.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.Engine.3.16.3\lib\net462\nunit.engine.core.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=3.13.3.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+    <Reference Include="nunit.framework, Version=4.0.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\nunit\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\nunit\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -98,7 +97,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="testcentric.engine.metadata, Version=1.7.1.0, Culture=neutral, PublicKeyToken=6fe0a02d2036aa1d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.16.2\lib\net462\testcentric.engine.metadata.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.Engine.3.16.3\lib\net462\testcentric.engine.metadata.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -122,17 +121,14 @@
     <Compile Include="Engine\AimpNUnit3FrameworkDriver.cs" />
     <Compile Include="Engine\AimpNUnitFrameworkDriver.cs" />
     <Compile Include="TestFramework\AimpIntegrationTest.cs" />
-    <Compile Include="UnitTests\ActionManager\AimpServiceActionManagerTests.cs" />
-    <Compile Include="UnitTests\AimpCoreTests.cs" />
-    <Compile Include="UnitTests\AimpErrorInfoTests.cs" />
-    <Compile Include="UnitTests\FileManager\IAimpServiceFileURI2UnitTests.cs" />
-    <Compile Include="UnitTests\FileManager\IAimpServiceFileURIUnitTests.cs" />
-    <Compile Include="UnitTests\Objects\AimpImageUnitTests.cs" />
-    <Compile Include="UnitTests\AimpServiceConfig\AimpServiceConfigTests.cs" />
-    <Compile Include="UnitTests\AimpTestContext.cs" />
     <Compile Include="AimpTestRunner.cs" />
     <Compile Include="Properties\PluginAssemblyInfo.cs" />
     <Compile Include="TestFramework\IntegrationTestExtension.cs" />
+    <Compile Include="UnitTests\ActionManager\AimpServiceActionManagerTests.cs" />
+    <Compile Include="UnitTests\AimpCoreTests.cs" />
+    <Compile Include="UnitTests\AimpErrorInfoTests.cs" />
+    <Compile Include="UnitTests\AimpServiceConfig\AimpServiceConfigTests.cs" />
+    <Compile Include="UnitTests\AimpTestContext.cs" />
     <Compile Include="UnitTests\AlbumArtManager\AimpServiceAlbumArtCacheTests.cs" />
     <Compile Include="UnitTests\AlbumArtManager\AimpServiceAlbumArtTests.cs" />
     <Compile Include="UnitTests\AlbumArtManager\Extension\AimpExtensionAlbumArtProviderTests.cs" />
@@ -141,6 +137,9 @@
     <Compile Include="UnitTests\FileManager\AimpServiceFileStreamingUnitTests.cs" />
     <Compile Include="UnitTests\FileManager\Extensions\AimpExtensionFileExpanderUnitTests.cs" />
     <Compile Include="UnitTests\FileManager\Extensions\AimpExtensionFileFormatUnitTests.cs" />
+    <Compile Include="UnitTests\FileManager\IAimpServiceFileURI2UnitTests.cs" />
+    <Compile Include="UnitTests\FileManager\IAimpServiceFileURIUnitTests.cs" />
+    <Compile Include="UnitTests\Internet\IAimpServiceConnectionSettingsUnitTests.cs" />
     <Compile Include="UnitTests\Lyrics\AimpLyricsTests.cs" />
     <Compile Include="UnitTests\Lyrics\AimpServiceLyricsTests.cs" />
     <Compile Include="UnitTests\MenuManager\AimpMenuItemTests.cs" />
@@ -148,6 +147,7 @@
     <Compile Include="UnitTests\MessageDispatcher\AimpServiceMessageDispatcherTests.cs" />
     <Compile Include="UnitTests\MusicLibrary\AimpServiceMusicLibraryTests.cs" />
     <Compile Include="UnitTests\Objects\AimpFileStreamUnitTests.cs" />
+    <Compile Include="UnitTests\Objects\AimpImageUnitTests.cs" />
     <Compile Include="UnitTests\Objects\AimpOrderedListTests.cs" />
     <Compile Include="UnitTests\Objects\AimpStreamUnitTests.cs" />
     <Compile Include="UnitTests\Objects\AimpStringUnitTests.cs" />
@@ -189,10 +189,4 @@
   <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\NUnit.3.13.2\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NUnit.3.13.2\build\NUnit.props'))" />
-  </Target>
 </Project>

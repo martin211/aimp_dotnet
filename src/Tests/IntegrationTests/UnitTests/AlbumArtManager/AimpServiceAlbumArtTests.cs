@@ -1,7 +1,7 @@
 ﻿//  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 // 
 //  Mail: mail4evgeniy@gmail.com
@@ -28,7 +28,8 @@ public class AimpServiceAlbumArtTests : AimpIntegrationTest
                 AimpFindCovertArtType.AIMP_SERVICE_ALBUMART_FLAGS_IGNORECACHE |
                 AimpFindCovertArtType.AIMP_SERVICE_ALBUMART_FLAGS_WAITFOR, "userData");
         });
-        Assert.IsTrue(ex.Message.Contains("Parameter fileUrl cannot be empty"));
+
+        AimpAssert.IsTrue(ex.Message.Contains("Parameter fileUrl cannot be empty"));
     }
 
     [Test]
@@ -39,10 +40,9 @@ public class AimpServiceAlbumArtTests : AimpIntegrationTest
         var result = Player.ServiceAlbumArt.Get("url", string.Empty, string.Empty,
             AimpFindCovertArtType.AIMP_SERVICE_ALBUMART_FLAGS_IGNORECACHE, "userData");
 
-        Assert.AreEqual(ActionResultType.OK, result.ResultType);
-        Assert.IsTrue(result.Result > 0);
+        AimpAssert.AreEqual(ActionResultType.OK, result.ResultType);
+        AimpAssert.IsTrue(result.Result > 0);
         Thread.Sleep(1000);
-        //Assert.IsTrue(completed);
     }
 
     [Test]
@@ -60,26 +60,27 @@ public class AimpServiceAlbumArtTests : AimpIntegrationTest
 
 
         var fi = Player.ServicePlayer.CurrentFileInfo;
-        Assert.NotNull(fi);
-        var result = Player.ServiceAlbumArt.Get2(fi, AimpFindCovertArtType.AIMP_SERVICE_ALBUMART_FLAGS_IGNORECACHE,
-            "userData");
 
-        Assert.AreEqual(ActionResultType.OK, result.ResultType);
-        Assert.IsTrue(result.Result > 0);
+        AimpAssert.NotNull(fi);
+
+        var result = Player.ServiceAlbumArt.Get2(fi, AimpFindCovertArtType.AIMP_SERVICE_ALBUMART_FLAGS_IGNORECACHE, "userData");
+
+        AimpAssert.AreEqual(ActionResultType.OK, result.ResultType);
+        AimpAssert.IsTrue(result.Result > 0);
+
         Thread.Sleep(1000);
-        Assert.IsTrue(completed);
+        AimpAssert.IsTrue(completed);
     }
 
     [Test]
     public void Cancel_ShouldCancelGetTask()
     {
-        var result = Player.ServiceAlbumArt.Get("url", string.Empty, string.Empty,
-            AimpFindCovertArtType.AIMP_SERVICE_ALBUMART_FLAGS_IGNORECACHE, "userData");
+        var result = Player.ServiceAlbumArt.Get("url", string.Empty, string.Empty, AimpFindCovertArtType.AIMP_SERVICE_ALBUMART_FLAGS_IGNORECACHE, "userData");
 
-        Assert.AreEqual(ActionResultType.OK, result.ResultType);
-        Assert.IsTrue(result.Result > 0);
+        AimpAssert.AreEqual(ActionResultType.OK, result.ResultType);
+        AimpAssert.IsTrue(result.Result > 0);
         var result2 = Player.ServiceAlbumArt.Cancel(result.Result,
             AimpFindCovertArtType.AIMP_SERVICE_ALBUMART_FLAGS_IGNORECACHE);
-        Assert.AreEqual(ActionResultType.OK, result2.ResultType);
+        AimpAssert.AreEqual(ActionResultType.OK, result2.ResultType);
     }
 }

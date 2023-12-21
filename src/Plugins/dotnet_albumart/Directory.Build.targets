@@ -1,7 +1,7 @@
 ﻿<Project>
     <PropertyGroup>
         <CopyScriptPath>$(SolutionDir)..\nuget\tools\CopyPlugin.ps1</CopyScriptPath>
-        <AimpVersion>AIMP5.02.2369</AimpVersion>
+        <AimpVersion>AIMP5.11.2421</AimpVersion>
     </PropertyGroup>
 
     <Target Name="CopyPlugin" AfterTargets="Build" Condition="'$(Configuration)'=='DEBUG'">

@@ -1,7 +1,7 @@
 //  ----------------------------------------------------
 //  AIMP DotNet SDK
 //  
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 //  
 //  Mail: mail4evgeniy@gmail.com 
@@ -90,7 +90,11 @@ namespace AIMP {
         IAimpServiceFileInfoFormatterUtils^ _serviceFileInfoFormatterUtils;
         IAimpServiceFileURI^ _serviceFileURI;
         IAimpServiceFileURI2^ _serviceFileURI2;
+        Internet::IAimpServiceConnectionSettings^ _serviceConnectionSettings;
     public:
+        static Logger::IAimpLogger^ Logger;
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AIMP3Controller{TConvAlloc}" /> class.
         /// </summary>
@@ -101,6 +105,10 @@ namespace AIMP {
         AimpPlayer(ManagedAimpCore^ core, int pluginId, int applicationDomainId, bool isCrossDomain);
 
         ~AimpPlayer();
+        property Internet::IAimpServiceConnectionSettings^ ServiceConnectionSettings
+        {
+            virtual Internet::IAimpServiceConnectionSettings^ get();
+        }
 
         property IAimpServiceFileInfoFormatterUtils^ ServiceFileInfoFormatterUtils
         {

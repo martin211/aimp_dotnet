@@ -1,7 +1,7 @@
 ﻿//  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 // 
 //  Mail: mail4evgeniy@gmail.com
@@ -56,7 +56,7 @@ partial class Build
                         .SetPullRequestKey(RequestId);
                 }
 
-                var path = ToolPathResolver.GetPackageExecutable(
+                var path = NuGetToolPathResolver.GetPackageExecutable(
                     packageId: "dotnet-sonarscanner",
                     packageExecutable: "SonarScanner.MSBuild.dll",
                     framework: framework);
@@ -69,7 +69,7 @@ partial class Build
             }, () =>
             {
                 MSBuild(c => c
-                    .SetConfiguration(Configuration)
+                    .SetConfiguration(GetConfiguration())
                     .SetProcessToolPath(MsBuildPath)
                     .SetTargets("Rebuild")
                     .SetSolutionFile(Solution)
@@ -78,7 +78,7 @@ partial class Build
             () =>
             {
                 var framework = "net5.0";
-                var path = ToolPathResolver.GetPackageExecutable(
+                var path = NuGetToolPathResolver.GetPackageExecutable(
                     packageId: "dotnet-sonarscanner",
                     packageExecutable: "SonarScanner.MSBuild.dll",
                     framework: framework);

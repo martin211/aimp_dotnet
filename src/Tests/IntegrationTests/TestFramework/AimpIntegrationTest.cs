@@ -1,7 +1,7 @@
 ﻿//  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 // 
 //  Mail: mail4evgeniy@gmail.com
@@ -27,7 +27,7 @@ public abstract class AimpIntegrationTest
     [OneTimeSetUp]
     public virtual void RunBeforeAnyTests()
     {
-        NUnit.Framework.Assert.NotNull(Player);
+        NUnit.Framework.Assert.That(Player, Is.Not.Null);
         Asserts = new List<IMemberAssert>();
         ClearAimpBeforeTests();
     }

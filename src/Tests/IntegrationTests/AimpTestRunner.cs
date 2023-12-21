@@ -1,7 +1,7 @@
 ﻿//  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 // 
 //  Mail: mail4evgeniy@gmail.com
@@ -80,8 +80,12 @@ public class AimpTestRunnerPlugin : AimpPlugin, ITestEventListener
 
                         var testResult = runner.Run(this, TestFilter.Empty);
                         _resultWriter.WriteResultFile(testResult, _testResultFile);
+
+#if DEBUG
+// here is a stackoverflow exception in release mode. Need to rewrite the report generator.
                         var reporter = new ResultReporter(testResult, new ExtendedTextWrapper(_logWriter));
                         reporter.ReportResults();
+#endif
                     }
                     catch (Exception e)
                     {

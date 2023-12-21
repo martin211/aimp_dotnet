@@ -1,7 +1,7 @@
 ﻿//  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 // 
 //  Mail: mail4evgeniy@gmail.com
@@ -9,6 +9,8 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+
 using Nuke.Common;
 using Nuke.Common.IO;
 using Nuke.Common.Tooling;
@@ -54,8 +56,11 @@ partial class Build
         .After(Metadata)
         .Executes(() =>
         {
-            GlobFiles(DocumentationApiDirectory, "**/toc.yml").ForEach(File.Delete);
-            WriteCustomTocs(DocumentationApiDirectory, DocumentationRoot, GlobFiles(SDKBinFolder / "x86" / Configuration, "AIMP.SDK.dll"));
+            DocumentationApiDirectory.GlobFiles("**/toc.yml").ForEach(c => File.Delete(c));
+
+            var f = SDKBinFolder / "x86" / GetConfiguration();
+
+            WriteCustomTocs(DocumentationApiDirectory, DocumentationRoot, f.GlobFiles("AIMP.SDK.dll").Cast<string>());
         });
 
     Target BuildDocumentation => _ => _

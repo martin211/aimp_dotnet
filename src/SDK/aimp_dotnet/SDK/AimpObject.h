@@ -1,7 +1,7 @@
 //  ----------------------------------------------------
 //  AIMP DotNet SDK
 //  
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 //  
 //  Mail: mail4evgeniy@gmail.com 
@@ -10,8 +10,14 @@
 #pragma once
 #include <msclr\marshal_cppstd.h>
 
+#include "AimpLogger.h"
+#include <windows.h>
+#include <iostream>
+
 template <class TAimpObject>
 public ref class AimpObject : public IAimpObject {
+private:
+    bool _isDisposable;
 protected:
     AimpObject() {
     }
@@ -20,12 +26,11 @@ protected:
     TAimpObject* _aimpObject;
 public:
     AimpObject(TAimpObject* aimpObject, bool registerAtMemoryManager) : _aimpObject(aimpObject) {
-        if (registerAtMemoryManager) {
-            RegisterAtMemoryManager();
-        }
+        _isDisposable = registerAtMemoryManager;
+        RegisterAtMemoryManager();
     }
 
-    AimpObject(TAimpObject* aimpObject) : _aimpObject(aimpObject) {
+    AimpObject(TAimpObject* aimpObject) : AimpObject(aimpObject, false) {
         RegisterAtMemoryManager();
     }
 
@@ -48,13 +53,43 @@ protected:
     }
 
     virtual void RegisterAtMemoryManager() {
-        if (InternalAimpObject != nullptr) {
+        if (ComObject == nullptr)
+            return;
+
+        ComObject->AddRef();
+        if (_isDisposable && InternalAimpObject != nullptr) {
             AimpMemoryManager::getInstance().AddObject(this->GetHashCode(), InternalAimpObject, msclr::interop::marshal_as<std::string>(this->ToString()));
         }
+        AimpLogger::Logger->Debug(String::Format("Register object: {0}. Type: {1}. Register at MM: {2}", this->GetHashCode(), this->ToString(), _isDisposable));
+        AimpLogger::Logger->Verbose(System::Environment::StackTrace);
+    }
+
+    static int Filter(unsigned int code) {
+        if (code == EXCEPTION_ACCESS_VIOLATION) {
+            AimpLogger::Logger->Error("Access violation exception");
+            AimpLogger::Logger->Error(System::Environment::StackTrace);
+            return EXCEPTION_EXECUTE_HANDLER;
+        }
+
+        return EXCEPTION_CONTINUE_SEARCH;
     }
 
     virtual void ReleaseFromMemoryManager() {
-        AimpMemoryManager::getInstance().Release(this->GetHashCode());
+        AimpLogger::Logger->Debug(String::Format("Release object: {0}", this->GetHashCode()));
+        if (InternalAimpObject != nullptr) {
+            ComObject->Release();
+        }
+
+        if (_isDisposable) {
+            __try {
+                AimpMemoryManager::getInstance().Release(this->GetHashCode());
+            }
+            __except (Filter(GetExceptionCode())) {
+                AimpLogger::Logger->Error("Error to Release object " + this->GetHashCode());
+                AimpLogger::Logger->Error(System::Environment::StackTrace);
+            }
+        }
+        AimpLogger::Logger->Verbose(System::Environment::StackTrace);
     }
 
 public:

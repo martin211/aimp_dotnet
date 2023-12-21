@@ -1,7 +1,7 @@
 //  ----------------------------------------------------
 //  AIMP DotNet SDK
 //  
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 //  
 //  Mail: mail4evgeniy@gmail.com 
@@ -18,6 +18,7 @@
 #include "FileManager/AimpServiceFileInfoFormatterUtils.h"
 #include "FileManager/Services/AimpServiceFileURI.h"
 #include "FileManager/Services/AimpServiceFileURI2.h"
+#include "Internet/AimpServiceConnectionSettings.h"
 #include "MUI/AimpServiceMUI.h"
 #include "Menu/AimpServiceMenuManager.h"
 #include "Player/AimpServicePlayer.h"
@@ -57,6 +58,14 @@ AimpPlayer::~AimpPlayer() {
     delete _serviceThreads;
     delete _serviceLyrics;
     delete _serviceFileTagEditor;
+}
+
+Internet::IAimpServiceConnectionSettings^ AimpPlayer::ServiceConnectionSettings::get() {
+    if (_serviceConnectionSettings == nullptr) {
+        _serviceConnectionSettings = gcnew AimpServiceConnectionSettings(_managedAimpCore);
+    }
+
+    return _serviceConnectionSettings;
 }
 
 IAimpServiceFileInfoFormatterUtils^ AimpPlayer::ServiceFileInfoFormatterUtils::get() {

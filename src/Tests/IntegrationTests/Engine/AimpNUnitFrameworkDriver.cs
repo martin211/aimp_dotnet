@@ -1,7 +1,7 @@
 ﻿//  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 // 
 //  Mail: mail4evgeniy@gmail.com
@@ -26,7 +26,7 @@ public class AimpNUnitFrameworkDriver : IDriverFactory
     public bool IsSupportedTestFramework(AssemblyName reference)
     {
         return NUNIT_FRAMEWORK.Equals(reference.Name, StringComparison.OrdinalIgnoreCase) &&
-               reference.Version.Major == 3;
+               reference.Version.Major == 4;
     }
 
     public IFrameworkDriver GetDriver(AppDomain domain, AssemblyName reference)

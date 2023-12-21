@@ -1,7 +1,7 @@
 //  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 // 
 //  Mail: mail4evgeniy@gmail.com
@@ -13,6 +13,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
+using Microsoft.Build.Tasks;
 using Nuke.Common;
 using Nuke.Common.CI.GitLab;
 using Nuke.Common.CI.TeamCity;
@@ -21,17 +22,18 @@ using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
+using Nuke.Common.Tools.Git;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
+using Octokit;
 using Serilog;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
 
-[CheckBuildProjectConfigurations]
 partial class Build : NukeBuild
 {
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
@@ -99,6 +101,8 @@ partial class Build : NukeBuild
     readonly string ReleaseBranchPrefix = "release";
     readonly string HotfixBranchPrefix = "hotfix";
     readonly string MailstoneBranch = "mailstone";
+    readonly string FeatureBranchPreffix = "feature";
+
     string _version = "1.0.0.0";
     string _buildNumber = "1.0.0.0";
 
@@ -184,7 +188,7 @@ partial class Build : NukeBuild
                 .SetProcessToolPath(MsBuildPath)
                 .SetTargetPath(Solution)
                 .SetTargets("Rebuild")
-                .SetConfiguration(Configuration)
+                .SetConfiguration(GetConfiguration())
                 .SetAssemblyVersion(_version)
                 .SetFileVersion(_version)
                 .SetInformationalVersion($"{_version}-{GitRepository.Commit}")
@@ -193,28 +197,40 @@ partial class Build : NukeBuild
                 .SetTargetPlatform(TargetPlatform));
         });
 
+    private Configuration GetConfiguration()
+    {
+        if (GitRepository.Branch.StartsWith(FeatureBranchPreffix))
+        {
+            if (IsTeamCity)
+            {
+                TeamCity.Instance.SetConfigurationParameter("Configuration", Configuration.Debug);
+            }
+
+            return Configuration.Debug;
+        }
+
+        return Configuration;
+    }
+
     Target Pack => _ => _
         .DependsOn(Version)
         .Executes(() =>
         {
             Log.Information("Start build Nuget packages");
 
+            EnsureCleanDirectory(OutputDirectory);
+
             var nugetFolder = RootDirectory / "Nuget";
 
             var config = new NuGetPackSettings()
                 .SetBasePath(RootDirectory)
-                .SetConfiguration(Configuration)
+                .SetConfiguration(GetConfiguration())
                 .SetVersion(_version)
                 .SetOutputDirectory(OutputDirectory);
 
             if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
             {
-                config = config.SetSuffix($"preview.{GitVersion.BuildMetaData}");
-            }
-
-            if (Configuration == Configuration.Debug)
-            {
-                config = config.SetSuffix($"debug.{GitVersion.BuildMetaData}");
+                config = config.SetSuffix(GitVersion.PreReleaseTag);
             }
 
             if (TargetPlatform == MSBuildTargetPlatform.x86)
@@ -228,7 +244,6 @@ partial class Build : NukeBuild
 
             if (TargetPlatform == MSBuildTargetPlatform.x64)
             {
-
                 Log.Information("Pack X64 package");
                 NuGetTasks.NuGetPack(config.SetTargetPath(nugetFolder / "AimpSDK-x64.nuspec"));
             }
@@ -245,15 +260,14 @@ partial class Build : NukeBuild
         });
 
     Target Publish => _ => _
-        .Requires(() => Configuration.Equals(Configuration.Release))
         .Requires(() => NugetApiKey)
         .Executes(() =>
         {
             PrintParameters("Nuget");
 
             Log.Information("Deploying Nuget packages");
-            var packages = GlobFiles(OutputDirectory, "*.nupkg")
-                .Where(c => !c.EndsWith("symbols.nupkg")).ToList();
+            var packages = OutputDirectory.GlobFiles("*.nupkg")
+                .Where(c => !c.Name.EndsWith("symbols.nupkg")).ToList();
 
             Assert.NotEmpty(packages);
 
@@ -261,7 +275,8 @@ partial class Build : NukeBuild
                 .ForEach(c => NuGetTasks.NuGetPush(s => s
                     .SetTargetPath(c)
                     .SetApiKey(NugetApiKey)
-                    .SetSource(NugetSource)));
+                    .SetSource(NugetSource)
+                    .SetVerbosity(NuGetVerbosity.Detailed)));
         });
 
     Target Artifacts => _ => _
@@ -283,7 +298,7 @@ partial class Build : NukeBuild
 
             Log.Information("Copy plugins to artifacts folder");
 
-            var directories = GlobDirectories(SourceDirectory / "Plugins", $"**/bin/{targetPlatform}/{Configuration}");
+            var directories = SourceDirectory.GlobDirectories($"Plugins/**/bin/{targetPlatform}/{GetConfiguration()}");
             foreach (var directory in directories)
             {
                 var pluginDirectory = new DirectoryInfo(directory);
@@ -311,12 +326,12 @@ partial class Build : NukeBuild
                         outFile = artifactsFolder / "Plugins" / pluginName / $"{pluginName}.dll";
                     }
 
-                    Log.Information($"Copy '{file.FullName}' to '{outFile}'");
+                    Log.Information("Copy '{targetFile}' to '{outFile}'", file.FullName, outFile);
                     file.CopyTo(outFile, true);
                 }
             }
 
-            var sdkFolder = new DirectoryInfo(SDKBinFolder / $"{targetPlatform}/{Configuration}");
+            var sdkFolder = new DirectoryInfo(SDKBinFolder / $"{targetPlatform}/{GetConfiguration()}");
             Log.Information($"Copy SDK files to artifacts folder '{sdkFolder}'");
 
             Directory.CreateDirectory(artifactsFolder / "SDK");
@@ -347,7 +362,7 @@ partial class Build : NukeBuild
                 var files = di.GetFiles("*.dll");
                 if (!validatePluginFolder(plugin, files))
                 {
-                    Log.Error($"Plugin {plugin} not valid.");
+                    Log.Error($"Plugin '{plugin}' not valid. '{di}'");
                     isValid = false;
                 }
             }
@@ -356,7 +371,7 @@ partial class Build : NukeBuild
 
             var outputSkdFile = $"aimp.sdk-{targetPlatform}.zip";
 
-            Log.Information($"Compress artifacts to '{outputSkdFile}'");
+            Log.Information("Compress artifacts to '{outputSkdFile}'", outputSkdFile);
 
             if (File.Exists(OutputDirectory / outputSkdFile))
             {
@@ -390,27 +405,40 @@ partial class Build : NukeBuild
             _version = GitRepository.Branch
                 .Replace($"{MailstoneBranch}_", string.Empty)
                 .Replace("_", ".");
+
+            _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
         }
         else if (GitRepository.Branch.StartsWith(ReleaseBranchPrefix))
         {
             _version = GitRepository.Branch.Split("/")[1];
+            _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
         }
         else
         {
-            var tag = GitRepository.Tags.LastOrDefault();
+            string tag = string.Empty;
 
-            if (tag != null)
+            var process = ProcessTasks.StartProcess("git", "ls-remote --tags --sort=-committerdate ./.");
+            process.WaitForExit();
+            var output = process.Output;
+
+            if (output.Count > 0)
             {
-                _buildNumber = $"{tag}.{GitVersion.BuildMetaData}";
-                _version = tag;
+                var outText = output.First().Text;
+                tag = outText.Substring(outText.LastIndexOf("/") + 1, outText.Length - outText.LastIndexOf("/") - 1);
+            }
+
+            if (!string.IsNullOrWhiteSpace(tag))
+            {
+                var patchVersion = int.Parse(tag.Split(".").Last()) + 1;
+                _version = tag.Substring(0, tag.LastIndexOf(".")) + $".{patchVersion}";
+                _buildNumber = $"{_version}{GitVersion.PreReleaseTagWithDash}";
             }
             else
             {
+                _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
                 _version = BuildNumber;
             }
         }
-
-        _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
     }
 
     Target UpdateBuildNumber => _ => _

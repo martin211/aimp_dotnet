@@ -1,7 +1,7 @@
 //  ----------------------------------------------------
 //  AIMP DotNet SDK
 //  
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 //  
 //  Mail: mail4evgeniy@gmail.com 
@@ -77,10 +77,9 @@ namespace AIMP {
                 void set(int val);
             }
 
-            void OnAlbumArtReceive(IAIMPImage* image, IAIMPImageContainer* image_container, void* user_data);
+            void OnAlbumArtReceive(IAIMPImage2* image, IAIMPImageContainer* image_container, void* user_data);
 
-            virtual IntResult Get(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags,
-                                  Object^ userData);
+            virtual IntResult Get(String^ fileUrl, String^ artist, String^ album, AimpFindCovertArtType flags, Object^ userData);
 
             virtual IntResult Get2(IAimpFileInfo^ fileInfo, AimpFindCovertArtType flags, Object^ userData);
 
@@ -88,7 +87,7 @@ namespace AIMP {
         protected:
             IAIMPServiceAlbumArt* GetAimpService() override;
         private:
-            delegate void OnFindCoverCallback(IAIMPImage* image, IAIMPImageContainer* imageContainer, void* UserData);
+            delegate void OnFindCoverCallback(IAIMPImage2* image, IAIMPImageContainer* imageContainer, void* UserData);
             OnFindCoverCallback^ _findCallback;
             EventHandler<AimpGetAlbumArtEventArgs^>^ _onComplete;
         };

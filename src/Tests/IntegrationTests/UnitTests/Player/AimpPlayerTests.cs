@@ -1,7 +1,7 @@
 ﻿//  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 // 
 //  Mail: mail4evgeniy@gmail.com
@@ -30,7 +30,7 @@ public class AimpPlayerTests : AimpIntegrationTest
             AimpAssert.AreEqual(ActionResultType.OK, result.ResultType);
         });
 
-        Assert.AreEqual(AimpPlayerState.Playing, Player.ServicePlayer.State);
+        AimpAssert.AreEqual(AimpPlayerState.Playing, Player.ServicePlayer.State);
     }
 
     //[Test, Order(2)]
@@ -51,11 +51,11 @@ public class AimpPlayerTests : AimpIntegrationTest
         ExecuteInThread(() =>
         {
             var result = Player.ServicePlayer.Resume();
-            Assert.AreEqual(ActionResultType.OK, result.ResultType);
+            AimpAssert.AreEqual(ActionResultType.OK, result.ResultType);
             return new AimpActionResult(result.ResultType);
         });
 
-        Assert.AreEqual(AimpPlayerState.Playing, Player.ServicePlayer.State);
+        AimpAssert.AreEqual(AimpPlayerState.Playing, Player.ServicePlayer.State);
     }
 
     //[Test, Order(4)]
@@ -64,17 +64,17 @@ public class AimpPlayerTests : AimpIntegrationTest
         ExecuteInThread(() =>
         {
             var result = Player.ServicePlayer.Stop();
-            Assert.AreEqual(ActionResultType.OK, result.ResultType);
+            AimpAssert.AreEqual(ActionResultType.OK, result.ResultType);
             return new AimpActionResult(result.ResultType);
         });
 
-        Assert.AreEqual(AimpPlayerState.Stopped, Player.ServicePlayer.State);
+        AimpAssert.AreEqual(AimpPlayerState.Stopped, Player.ServicePlayer.State);
     }
 
     //[Test]
     public void StopAfterTrack_ShouldReturnOK()
     {
         var result = Player.ServicePlayer.StopAfterTrack();
-        Assert.AreEqual(ActionResultType.OK, result.ResultType);
+        AimpAssert.AreEqual(ActionResultType.OK, result.ResultType);
     }
 }

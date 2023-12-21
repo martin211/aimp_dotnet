@@ -1,7 +1,7 @@
 ﻿//  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
-//  Copyright (c) 2014 - 2022 Evgeniy Bogdan
+//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
 //  https://github.com/martin211/aimp_dotnet
 // 
 //  Mail: mail4evgeniy@gmail.com
@@ -14,6 +14,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using AIMP.SDK;
+using AIMP.SDK.Logger;
 
 namespace AIMP.Loader
 {
@@ -317,6 +318,11 @@ namespace AIMP.Loader
             plugin?.Show(parentWindow);
         }
 
+        public void OnPreInitialize(IAimpPlayer player)
+        {
+            LoadedPlugin.OnPreInitialize(player);
+        }
+
         /// <summary>
         /// Initializes the specified plugin.
         /// </summary>
@@ -327,6 +333,16 @@ namespace AIMP.Loader
             {
                 LoadedPlugin.OnInitialize(player, LoadedPlugin.PluginId);
             }
+        }
+
+        public IAimpLogger InitializeLogger()
+        {
+            if (IsLoaded)
+            {
+                return LoadedPlugin.InitializeLogger();
+            }
+
+            return new InternalLogger();
         }
     }
 }
