@@ -16,6 +16,10 @@ using namespace AIMP::SDK;
 AimpVirtualFile::AimpVirtualFile(IAIMPVirtualFile* aimpObject) : AimpObject(aimpObject) {
 }
 
+AimpVirtualFile::AimpVirtualFile() {
+    
+}
+
 int AimpVirtualFile::IndexInSet::get() {
     return PropertyListExtension::GetInt32(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_INDEXINSET);
 }

@@ -23,6 +23,8 @@ namespace AIMP {
             public:
             AimpVirtualFile(IAIMPVirtualFile* aimpObject);
 
+            AimpVirtualFile();
+
             virtual property int IndexInSet
             {
                 int get();

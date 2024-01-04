@@ -358,11 +358,12 @@ namespace AIMP {
                     break;
                 }
                 case AimpObjectType::AimpVirtualFile:{
-                    IAIMPVirtualFile* obj = nullptr;
-                    const auto res = Utils::CheckResult(core->CreateObject(IID_IAIMPVirtualFile, reinterpret_cast<void**>(&obj)));
-                    if (res == ActionResultType::OK && obj != nullptr) {
-                        return gcnew AimpActionResult<IAimpObject^>(res, gcnew AimpVirtualFile(obj));
-                    }
+                    return gcnew AimpVirtualFile();
+                    //IAIMPVirtualFile* obj = nullptr;
+                    //const auto res = Utils::CheckResult(core->CreateObject(IID_IAIMPVirtualFile, reinterpret_cast<void**>(&obj)));
+                    //if (res == ActionResultType::OK && obj != nullptr) {
+                    //    return gcnew AimpActionResult<IAimpObject^>(res, gcnew AimpVirtualFile(obj));
+                    //}
                 }
                 }
 
