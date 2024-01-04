@@ -5,11 +5,11 @@ branches:
   develop:
     regex: ^develop
     mode: ContinuousDeployment
-    tag: 'preview'
+    tag: 'alpha'
     increment: None
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
-    tracks-release-branches: false
+    tracks-release-branches: true
     is-release-branch: false
   feature:
     regex: ^feature?[/]
@@ -28,4 +28,4 @@ branches:
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
     tracks-release-branches: false
-    is-release-branch: false
+    is-release-branch: true

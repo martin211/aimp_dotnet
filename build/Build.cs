@@ -147,10 +147,16 @@ partial class Build : NukeBuild
         .Executes(() =>
         {
             NuGetTasks.NuGetRestore(c => c.SetTargetPath(Solution));
-            MSBuild(s => s
-                .SetProcessToolPath(MsBuildPath)
+
+            var settings = new MSBuildSettings();
+            if (!string.IsNullOrWhiteSpace(MsBuildPath))
+                settings = settings.SetProcessToolPath(MsBuildPath);
+
+            settings = settings
                 .SetTargetPath(Solution)
-                .SetTargets("Restore"));
+                .SetTargets("Restore");
+
+            MSBuild(settings);
         });
 
     Target Version => _ => _
@@ -184,8 +190,12 @@ partial class Build : NukeBuild
         .Triggers(UpdateBuildNumber)
         .Executes(() =>
         {
-            MSBuild(s => s
-                .SetProcessToolPath(MsBuildPath)
+            var settings = new MSBuildSettings();
+
+            if (!string.IsNullOrWhiteSpace(MsBuildPath))
+                settings = settings.SetProcessToolPath(MsBuildPath);
+
+            settings = settings
                 .SetTargetPath(Solution)
                 .SetTargets("Rebuild")
                 .SetConfiguration(GetConfiguration())
@@ -194,7 +204,9 @@ partial class Build : NukeBuild
                 .SetInformationalVersion($"{_version}-{GitRepository.Commit}")
                 .SetMaxCpuCount(Environment.ProcessorCount)
                 .SetNodeReuse(IsLocalBuild)
-                .SetTargetPlatform(TargetPlatform));
+                .SetTargetPlatform(TargetPlatform);
+
+            MSBuild(settings);
         });
 
     private Configuration GetConfiguration()
