@@ -229,16 +229,17 @@ namespace AIMP {
                 }
 
                 if (t == IAimpVirtualFile::typeid) {
-                    IAIMPVirtualFile* obj = nullptr;
-                    IAimpVirtualFile^ managed = nullptr;
-                    const auto result = Utils::CheckResult(
-                        core->CreateObject(IID_IAIMPVirtualFile, reinterpret_cast<void**>(&obj)));
+                    //IAIMPVirtualFile* obj = nullptr;
+                    //IAimpVirtualFile^ managed = nullptr;
+                    //const auto result = Utils::CheckResult(
+                    //    core->CreateObject(IID_IAIMPVirtualFile, reinterpret_cast<void**>(&obj)));
 
-                    if (result == ActionResultType::OK) {
-                        managed = gcnew AimpVirtualFile(obj);
-                    }
+                    //if (result == ActionResultType::OK) {
+                    //    managed = gcnew AimpVirtualFile(obj);
+                    //}
 
-                    return gcnew AimpActionResult<IAimpObject^>(result, managed);
+                    //return gcnew AimpActionResult<IAimpObject^>(result, managed);
+                    return gcnew AimpActionResult<IAimpObject^>(ActionResultType::OK, gcnew AimpVirtualFile());
                 }
 
                 return gcnew AimpActionResult<IAimpObject^>(ActionResultType::NotImplemented);
@@ -358,7 +359,7 @@ namespace AIMP {
                     break;
                 }
                 case AimpObjectType::AimpVirtualFile:{
-                    return gcnew AimpVirtualFile();
+                    return gcnew AimpActionResult<IAimpObject^>(ActionResultType::OK, gcnew AimpVirtualFile());
                     //IAIMPVirtualFile* obj = nullptr;
                     //const auto res = Utils::CheckResult(core->CreateObject(IID_IAIMPVirtualFile, reinterpret_cast<void**>(&obj)));
                     //if (res == ActionResultType::OK && obj != nullptr) {
