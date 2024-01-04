@@ -17,7 +17,10 @@ namespace AIMP {
         using namespace FileManager;
 
         public ref class AimpVirtualFile : public AimpObject<IAIMPVirtualFile>, public IAimpVirtualFile {
-        public:
+        private:
+            bool _isEndless = true;
+
+            public:
             AimpVirtualFile(IAIMPVirtualFile* aimpObject);
 
             virtual property int IndexInSet

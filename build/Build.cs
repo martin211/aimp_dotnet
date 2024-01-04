@@ -166,6 +166,7 @@ partial class Build : NukeBuild
             GetVersion();
 
             Log.Information("Version: {_version}", _version);
+			Log.Information("Build number: {ver}", _buildNumber);
             var assemblyInfo = SourceDirectory / "AssemblyInfo.cs";
             if (File.Exists(assemblyInfo))
             {

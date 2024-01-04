@@ -9,7 +9,7 @@ branches:
     increment: None
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
-    tracks-release-branches: true
+    tracks-release-branches: false
     is-release-branch: false
   feature:
     regex: ^feature?[/]

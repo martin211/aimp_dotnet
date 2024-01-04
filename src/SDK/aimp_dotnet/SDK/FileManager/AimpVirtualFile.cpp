@@ -25,19 +25,31 @@ void AimpVirtualFile::IndexInSet::set(int value) {
 }
 
 double AimpVirtualFile::ClipStart::get() {
+    if (_isEndless)
+        return E_NOTIMPL;
+
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_CLIPSTART);
 }
 
 void AimpVirtualFile::ClipStart::set(double value) {
-    PropertyListExtension::SetFloat(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_CLIPSTART, value);
+    if (value > 0) {
+        PropertyListExtension::SetFloat(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_CLIPSTART, value);
+        _isEndless = false;
+    }
 }
 
 double AimpVirtualFile::ClipFinish::get() {
+    if (_isEndless)
+        return E_NOTIMPL;
+
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_CLIPFINISH);
 }
 
 void AimpVirtualFile::ClipFinish::set(double value) {
-    PropertyListExtension::SetFloat(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_CLIPFINISH, value);
+    if (value > 0) {
+        PropertyListExtension::SetFloat(InternalAimpObject, AIMP_VIRTUALFILE_PROPID_CLIPFINISH, value);
+        _isEndless = false;
+    }
 }
 
 String^ AimpVirtualFile::AudioSourceFile::get() {
