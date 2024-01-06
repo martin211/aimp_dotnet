@@ -59,6 +59,7 @@
     <ClCompile Include="SDK\FileManager\Extensions\InternalAimpExtensionFileFormat.cpp" />
     <ClCompile Include="SDK\FileManager\Extensions\InternalAimpExtensionFileInfoProvider.cpp" />
     <ClCompile Include="SDK\FileManager\Extensions\InternalAimpExtensionFileSystem.cpp" />
+    <ClCompile Include="SDK\FileManager\InternalAimpVirtualFile.cpp" />
     <ClCompile Include="SDK\FileManager\Services\AimpServiceFileURI.cpp" />
     <ClCompile Include="SDK\FileManager\Services\AimpServiceFileURI2.cpp" />
     <ClCompile Include="SDK\Internet\AimpServiceConnectionSettings.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="SDK\FileManager\AimpServiceFileStreaming.h" />
     <ClInclude Include="SDK\FileManager\AimpServiceFileSystems.h" />
     <ClInclude Include="SDK\FileManager\AimpVirtualFile.h" />
+    <ClInclude Include="SDK\FileManager\InternalAimpVirtualFile.h" />
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandCopyToClipboard.h" />
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandDelete.h" />
     <ClInclude Include="SDK\FileManager\Commands\AimpFileSystemCommandDropSource.h" />

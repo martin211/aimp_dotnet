@@ -92,18 +92,6 @@ StreamResult AimpVirtualFile::CreateStream() {
     return gcnew AimpActionResult<IAimpStream^>(result, stream);
 }
 
-FileInfoResult AimpVirtualFile::GetFileInfo() {
-    IAIMPFileInfo* fi = nullptr;
-    IAimpFileInfo^ fileInfo = nullptr;
-    const auto result = CheckResult(InternalAimpObject->GetFileInfo(fi));
-
-    if (result == ActionResultType::OK && fi != nullptr) {
-        fileInfo = gcnew AimpFileInfo(fi);
-    }
-
-    return gcnew AimpActionResult<IAimpFileInfo^>(result, fileInfo);
-}
-
 bool AimpVirtualFile::IsExists() {
     return InternalAimpObject->IsExists();
 }
@@ -116,4 +104,16 @@ ActionResult AimpVirtualFile::IsInSameStream(IAimpVirtualFile^ virtualFile) {
 
 ActionResult AimpVirtualFile::Synchronize() {
     return ACTION_RESULT(CheckResult(InternalAimpObject->Synchronize()));
+}
+
+AimpActionResult^ AimpVirtualFile::GetFileInfo(IAimpFileInfo^ fileInfo) {
+    IAIMPFileInfo* fi = nullptr;
+    IAimpFileInfo^ mfi = nullptr;
+    const auto result = CheckResult(InternalAimpObject->GetFileInfo(fi));
+
+    if (result == ActionResultType::OK && fi != nullptr) {
+        mfi = gcnew AimpFileInfo(fi);
+    }
+
+    return gcnew AimpActionResult<IAimpFileInfo^>(result, mfi);
 }

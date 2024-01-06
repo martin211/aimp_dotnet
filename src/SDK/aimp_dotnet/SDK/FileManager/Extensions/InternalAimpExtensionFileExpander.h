@@ -12,11 +12,12 @@
 class InternalAimpExtensionFileExpander : public IUnknownInterfaceImpl<IAIMPExtensionFileExpander>, IAIMPExtensionFileExpander {
 private:
     gcroot<FileManager::Extensions::IAimpExtensionFileExpander^> _managedInstance;
+    IAIMPCore* _core;
 
 public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionFileExpander> Base;
 
-    InternalAimpExtensionFileExpander(gcroot<FileManager::Extensions::IAimpExtensionFileExpander^> managedInstance);
+    InternalAimpExtensionFileExpander(gcroot<FileManager::Extensions::IAimpExtensionFileExpander^> managedInstance, IAIMPCore* core);
 
     virtual HRESULT WINAPI Expand(IAIMPString* fileName, IAIMPObjectList** list, IAIMPProgressCallback* progressCallback);
     virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);

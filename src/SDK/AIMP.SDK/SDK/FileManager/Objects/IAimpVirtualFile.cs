@@ -65,7 +65,7 @@ namespace AIMP.SDK.FileManager.Objects
         /// Gets the file info.
         /// </summary>
         /// <returns>AimpActionResult&lt;IAimpFileInfo&gt;.</returns>
-        AimpActionResult<IAimpFileInfo> GetFileInfo();
+        AimpActionResult GetFileInfo(IAimpFileInfo fileInfo);
 
         /// <summary>
         /// Check is the source exists.

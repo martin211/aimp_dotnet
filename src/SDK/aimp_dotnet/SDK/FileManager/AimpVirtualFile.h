@@ -62,14 +62,10 @@ namespace AIMP {
             }
 
             virtual StreamResult CreateStream();
-
-            virtual FileInfoResult GetFileInfo();
-
             virtual bool IsExists();
-
             virtual ActionResult IsInSameStream(IAimpVirtualFile^ virtualFile);
-
             virtual ActionResult Synchronize();
+            virtual AimpActionResult^ GetFileInfo(IAimpFileInfo^ fileInfo);
         };
     }
 }

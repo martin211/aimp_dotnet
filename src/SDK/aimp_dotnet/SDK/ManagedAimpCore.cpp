@@ -647,7 +647,7 @@ namespace AIMP {
                     return E_FAIL;
                 }
 
-                const auto ext = new InternalAimpExtensionFileExpander(extensionFileExpander);
+                const auto ext = new InternalAimpExtensionFileExpander(extensionFileExpander, _core);
                 _extensionFileExpander = ext;
                 return _core->RegisterExtension(IID_IAIMPServiceFileManager, static_cast<IAIMPExtensionFileExpander*>(ext));
             }
