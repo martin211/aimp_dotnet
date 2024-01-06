@@ -68,8 +68,13 @@ HRESULT InternalAimpVirtualFile::SetValueAsObject(int PropertyID, IUnknown* Valu
 }
 
 HRESULT InternalAimpVirtualFile::GetValueAsObject(int PropertyID, const IID& IID, void** Value) {
-    if (PropertyID == AIMP_VIRTUALFILE_PROPID_AUDIOSOURCEFILE)
+    if (PropertyID == AIMP_VIRTUALFILE_PROPID_AUDIOSOURCEFILE) {
+        if (String::IsNullOrWhiteSpace(_managed->AudioSourceFile)) {
+            return E_NOTIMPL;
+        }
+
         *Value = AimpConverter::ToAimpString(_managed->AudioSourceFile);
+    }
 
     if (PropertyID == AIMP_VIRTUALFILE_PROPID_FILEURI)
         *Value = AimpConverter::ToAimpString(_managed->FileUri);

@@ -228,20 +228,6 @@ namespace AIMP {
                     return gcnew AimpActionResult<IAimpObject^>(res, obj);
                 }
 
-                if (t == IAimpVirtualFile::typeid) {
-                    //IAIMPVirtualFile* obj = nullptr;
-                    //IAimpVirtualFile^ managed = nullptr;
-                    //const auto result = Utils::CheckResult(
-                    //    core->CreateObject(IID_IAIMPVirtualFile, reinterpret_cast<void**>(&obj)));
-
-                    //if (result == ActionResultType::OK) {
-                    //    managed = gcnew AimpVirtualFile(obj);
-                    //}
-
-                    //return gcnew AimpActionResult<IAimpObject^>(result, managed);
-                    return gcnew AimpActionResult<IAimpObject^>(ActionResultType::OK, gcnew AimpVirtualFile());
-                }
-
                 return gcnew AimpActionResult<IAimpObject^>(ActionResultType::NotImplemented);
             }
 
@@ -357,14 +343,6 @@ namespace AIMP {
                         return gcnew AimpActionResult<IAimpObject^>(res, gcnew Collections::AimpOrderedObjectList(obj));
                     }
                     break;
-                }
-                case AimpObjectType::AimpVirtualFile:{
-                    return gcnew AimpActionResult<IAimpObject^>(ActionResultType::OK, gcnew AimpVirtualFile());
-                    //IAIMPVirtualFile* obj = nullptr;
-                    //const auto res = Utils::CheckResult(core->CreateObject(IID_IAIMPVirtualFile, reinterpret_cast<void**>(&obj)));
-                    //if (res == ActionResultType::OK && obj != nullptr) {
-                    //    return gcnew AimpActionResult<IAimpObject^>(res, gcnew AimpVirtualFile(obj));
-                    //}
                 }
                 }
 

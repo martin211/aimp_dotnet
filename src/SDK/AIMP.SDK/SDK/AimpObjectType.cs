@@ -22,6 +22,5 @@ public enum AimpObjectType
     AimpMemoryStream,
     AimpImageContainer,
     AimpAlbumArtRequest,
-    AimpOrderedList,
-    AimpVirtualFile
+    AimpOrderedList
 }
