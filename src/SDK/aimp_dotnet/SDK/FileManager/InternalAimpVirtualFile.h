@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "SDK/AimpPropertyList.h"
 
-class InternalAimpVirtualFile : public IUnknownInterfaceImpl<IAIMPVirtualFile>, public AimpPropertyList, public IUnknown
+class InternalAimpVirtualFile : public IUnknownInterfaceImpl<IAIMPVirtualFile>, public AimpPropertyList
 {
 private:
     gcroot<IAimpVirtualFile^> _managed;
