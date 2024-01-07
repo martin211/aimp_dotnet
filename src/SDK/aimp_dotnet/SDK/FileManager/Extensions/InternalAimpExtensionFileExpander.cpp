@@ -27,8 +27,8 @@ HRESULT InternalAimpExtensionFileExpander::Expand(IAIMPString* fileName, IAIMPOb
         IAIMPObjectList* objectList = nullptr;
         _core->CreateObject(IID_IAIMPObjectList, reinterpret_cast<void**>(&objectList));
         for (int i = 0; i < result->Result->Count - 1; ++i) {
-            IUnknown* virtualFile = new InternalAimpVirtualFile(result->Result[i]);
-            objectList->Add(virtualFile);
+            const auto virtualFile = new InternalAimpVirtualFile(result->Result[i]);
+            objectList->Add(reinterpret_cast<IUnknown*>(virtualFile));
         }
     }
 
