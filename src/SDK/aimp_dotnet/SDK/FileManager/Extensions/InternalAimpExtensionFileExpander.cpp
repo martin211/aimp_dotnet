@@ -30,6 +30,8 @@ HRESULT InternalAimpExtensionFileExpander::Expand(IAIMPString* fileName, IAIMPOb
             const auto virtualFile = new InternalAimpVirtualFile(result->Result[i]);
             objectList->Add(reinterpret_cast<IUnknown*>(virtualFile));
         }
+
+        *list = objectList;
     }
 
     return static_cast<HRESULT>(result->ResultType);
