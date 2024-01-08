@@ -32,9 +32,43 @@ ActionResult AimpServiceMessageDispatcher::Send(AimpCoreMessageType message, int
 
     try {
         if (service != nullptr) {
-            //result = CheckResult(service->Send(static_cast<DWORD>(message), static_cast<int>(param1), param2.ToPointer()));
-            result = CheckResult(service->Send(static_cast<DWORD>(message), static_cast<int>(param1), &pointer));
-            param2 = IntPtr(pointer);
+            result = CheckResult(service->Send(static_cast<DWORD>(message), param1, param2.ToPointer()));
+        }
+    }
+    finally {
+        ReleaseObject(service);
+    }
+
+    return ACTION_RESULT(result);
+}
+
+AimpActionResult^ AimpServiceMessageDispatcher::Send(AimpCoreMessageType message) {
+    IAIMPServiceMessageDispatcher* service = GetAimpService();
+    ActionResultType result = ActionResultType::Fail;
+
+    int pointer = 0;
+
+    try {
+        if (service != nullptr) {
+            result = CheckResult(service->Send(static_cast<DWORD>(message), 0, &pointer));
+        }
+    }
+    finally {
+        ReleaseObject(service);
+    }
+
+    return ACTION_RESULT(result);
+}
+
+AimpActionResult^ AimpServiceMessageDispatcher::Send(AimpCoreMessageType message, int param1) {
+    IAIMPServiceMessageDispatcher* service = GetAimpService();
+    ActionResultType result = ActionResultType::Fail;
+
+    int pointer = 0;
+
+    try {
+        if (service != nullptr) {
+            result = CheckResult(service->Send(static_cast<DWORD>(message), param1, &pointer));
         }
     }
     finally {
