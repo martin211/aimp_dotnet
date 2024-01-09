@@ -15,6 +15,7 @@
 #include "FileManager/Extensions/InternalAimpExtensionFileFormat.h"
 #include "FileManager/Extensions/InternalAimpExtensionFileInfoProvider.h"
 #include "FileManager/Extensions/InternalAimpExtensionFileSystem.h"
+#include "Player/Extensions/AimpExtensionPlaybackQueue.h"
 #include "SDK\Options\OptionsDialogFrameExtension.h"
 #include "SDK\AlbumArt\AimpExtensionAlbumArtCatalog.h"
 #include "SDK\PlayList\AimpExtensionPlaylistManagerListener.h"
@@ -121,15 +122,13 @@ namespace AIMP {
             }
 
             if (_extensionPlaybackQueue != nullptr) {
-                _core->UnregisterExtension(static_cast<AimpExtensionPlaybackQueue::Base*>(_extensionPlaybackQueue)
-                );
+                _core->UnregisterExtension(_extensionPlaybackQueue);
                 _extensionPlaybackQueue->Release();
                 delete _extensionPlaybackQueue;
             }
 
             if (_extensionPlaybackQueue2 != nullptr) {
-                _core->UnregisterExtension(static_cast<AimpExtensionPlaybackQueue2::Base2*>(_extensionPlaybackQueue2)
-                );
+                _core->UnregisterExtension(static_cast<AimpExtensionPlaybackQueue2::Base*>(_extensionPlaybackQueue2));
                 _extensionPlaybackQueue2->Release();
                 delete _extensionPlaybackQueue2;
             }
@@ -296,19 +295,7 @@ namespace AIMP {
 
                 AimpExtensionLyricsProvider* ext = new AimpExtensionLyricsProvider(lyricsProviderExtension);
                 _extensionLyricsProvider = ext;
-                return _core->RegisterExtension(IID_IAIMPExtensionLyricsProvider, static_cast<AimpExtensionLyricsProvider::Base*>(ext));
-            }
-
-            IAimpExtensionPlaybackQueue^ extensionPlaybackQueue = dynamic_cast<IAimpExtensionPlaybackQueue^>(extension);
-            if (extensionPlaybackQueue != nullptr) {
-                if (_extensionPlaybackQueue != nullptr) {
-                    return E_FAIL;
-                }
-
-                AimpExtensionPlaybackQueue* ext = new AimpExtensionPlaybackQueue(extensionPlaybackQueue);
-                _extensionPlaybackQueue = ext;
-                return _core->RegisterExtension(IID_IAIMPServicePlaybackQueue, static_cast<AimpExtensionPlaybackQueue::Base*>(ext)
-                );
+                return _core->RegisterExtension(IID_IAIMPExtensionLyricsProvider, ext);
             }
 
             IAimpExtensionPlaybackQueue2^ extensionPlaybackQueue2 = dynamic_cast<IAimpExtensionPlaybackQueue2^>(extension);
@@ -319,8 +306,18 @@ namespace AIMP {
 
                 AimpExtensionPlaybackQueue2* ext = new AimpExtensionPlaybackQueue2(extensionPlaybackQueue2);
                 _extensionPlaybackQueue2 = ext;
-                return _core->RegisterExtension(IID_IAIMPServicePlaybackQueue2, static_cast<AimpExtensionPlaybackQueue2::Base2*>(ext)
-                );
+                return _core->RegisterExtension(IID_IAIMPServicePlaybackQueue2, static_cast<AimpExtensionPlaybackQueue2::Base*>(ext));
+            }
+
+            IAimpExtensionPlaybackQueue^ extensionPlaybackQueue = dynamic_cast<IAimpExtensionPlaybackQueue^>(extension);
+            if (extensionPlaybackQueue != nullptr) {
+                if (_extensionPlaybackQueue != nullptr) {
+                    return E_FAIL;
+                }
+
+                AimpExtensionPlaybackQueue* ext = new AimpExtensionPlaybackQueue(extensionPlaybackQueue);
+                _extensionPlaybackQueue = ext;
+                return _core->RegisterExtension(IID_IAIMPServicePlaybackQueue, ext);
             }
 
             auto extensionPlayerHook = dynamic_cast<IAimpExtensionPlayerHook^>(extension);
@@ -444,7 +441,7 @@ namespace AIMP {
 
             const auto extensionPlaybackQueue = dynamic_cast<IAimpExtensionPlaybackQueue^>(extension);
             if (extensionPlaybackQueue != nullptr) {
-                HRESULT r = _core->UnregisterExtension(static_cast<AimpExtensionPlaybackQueue::Base*>(_extensionPlaybackQueue));
+                HRESULT r = _core->UnregisterExtension(_extensionPlaybackQueue);
                 _extensionPlaybackQueue->Release();
                 _extensionPlaybackQueue = nullptr;
                 return r;
@@ -452,7 +449,7 @@ namespace AIMP {
 
             const auto extensionPlaybackQueue2 = dynamic_cast<IAimpExtensionPlaybackQueue2^>(extension);
             if (extensionPlaybackQueue2 != nullptr) {
-                HRESULT r = _core->UnregisterExtension(static_cast<AimpExtensionPlaybackQueue2::Base2*>(_extensionPlaybackQueue2));
+                HRESULT r = _core->UnregisterExtension(static_cast<AimpExtensionPlaybackQueue2::Base*>(_extensionPlaybackQueue2));
                 _extensionPlaybackQueue2->Release();
                 _extensionPlaybackQueue2 = nullptr;
                 return r;

@@ -28,8 +28,6 @@ ActionResult AimpServiceMessageDispatcher::Send(AimpCoreMessageType message, int
     IAIMPServiceMessageDispatcher* service = GetAimpService();
     ActionResultType result = ActionResultType::Fail;
 
-    int pointer = 0;
-
     try {
         if (service != nullptr) {
             result = CheckResult(service->Send(static_cast<DWORD>(message), param1, param2.ToPointer()));

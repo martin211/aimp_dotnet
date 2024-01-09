@@ -40,7 +40,7 @@ namespace DemoPlugin
 
             coreMessage.OnCoreMessage += (message, param1, param2) =>
             {
-                System.Diagnostics.Debug.WriteLine($"message: {message}, param1: {(AimpCoreMessageType)param1}, param2: {param2}");
+                //System.Diagnostics.Debug.WriteLine($"message: {message}, param1: {(AimpCoreMessageType)param1}, param2: {param2}");
 
                 if (message == AimpCoreMessageType.EventPlayingFileInfo)
                 {

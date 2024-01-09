@@ -219,6 +219,8 @@
     <Compile Include="SDK\Player\Extensions\IAimpExtensionPlaybackQueue.cs" />
     <Compile Include="SDK\Player\Extensions\IAimpExtensionPlaybackQueue2.cs" />
     <Compile Include="SDK\Player\Extensions\IAimpExtensionWaveFormProvider.cs" />
+    <Compile Include="SDK\Player\Extensions\PlaybackQueueFlags.cs" />
+    <Compile Include="SDK\Player\Extensions\PlaybackQueueInfo.cs" />
     <Compile Include="SDK\Player\IAimpServicePlaybackQueue2.cs" />
     <Compile Include="SDK\Player\Objects\IAimpEqualizerBands.cs" />
     <Compile Include="SDK\Player\Objects\IAimpEqualizerPreset.cs" />

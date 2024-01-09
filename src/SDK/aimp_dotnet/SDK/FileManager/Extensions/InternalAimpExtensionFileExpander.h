@@ -9,7 +9,7 @@
 
 #pragma once
 
-class InternalAimpExtensionFileExpander : public IUnknownInterfaceImpl<IAIMPExtensionFileExpander>, IAIMPExtensionFileExpander {
+class InternalAimpExtensionFileExpander : public IUnknownInterfaceImpl<IAIMPExtensionFileExpander> {
 private:
     gcroot<FileManager::Extensions::IAimpExtensionFileExpander^> _managedInstance;
     IAIMPCore* _core;
