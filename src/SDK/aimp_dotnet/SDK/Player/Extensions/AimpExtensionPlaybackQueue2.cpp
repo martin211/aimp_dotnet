@@ -28,7 +28,7 @@ HRESULT AimpExtensionPlaybackQueue2::GetInfo(IUnknown* Current, int* position, i
 HRESULT AimpExtensionPlaybackQueue2::QueryInterface(const IID& riid, LPVOID* ppvObject) {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPExtensionPlaybackQueue) {
+    if (riid == IID_IAIMPExtensionPlaybackQueue2) {
         *ppvObject = this;
         AddRef();
         return S_OK;
