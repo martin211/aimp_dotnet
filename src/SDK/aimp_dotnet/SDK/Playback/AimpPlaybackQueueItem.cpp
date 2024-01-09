@@ -16,10 +16,30 @@ using namespace AIMP::SDK;
 AimpPlaybackQueueItem::AimpPlaybackQueueItem(IAIMPPlaybackQueueItem* aimpItem) : AimpObject(aimpItem) {
 }
 
+double AimpPlaybackQueueItem::Offset::get() {
+    double val = 0;
+    const auto res = Utils::CheckResult(InternalAimpObject->GetValueAsFloat(AIMP_PLAYBACKQUEUEITEM_PROPID_OFFSET, &val));
+
+    if (res == ActionResultType::OK)
+        return val;
+
+    return val;
+}
+
+void AimpPlaybackQueueItem::Offset::set(double offset) {
+    const auto res = Utils::CheckResult(InternalAimpObject->SetValueAsFloat(AIMP_PLAYBACKQUEUEITEM_PROPID_OFFSET, offset));
+
+    if (res != ActionResultType::OK)
+        throw gcnew AimpActionException(res, "Unable to set Offset value");
+}
+
 Object^ AimpPlaybackQueueItem::UserData::get() {
     IUnknown* item = nullptr;
-    InternalAimpObject->GetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_CUSTOM, IID_IUnknown,
-                                         reinterpret_cast<void**>(&item));
+    const auto res = Utils::CheckResult(InternalAimpObject->GetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_CUSTOM, IID_IUnknown, reinterpret_cast<void**>(&item)));
+
+    if (res != ActionResultType::OK)
+        throw gcnew AimpActionException(res, "Unable to get User data");
+
     return Runtime::InteropServices::Marshal::GetObjectForIUnknown(IntPtr(item));
 }
 
@@ -30,12 +50,17 @@ void AimpPlaybackQueueItem::UserData::set(Object^ value) {
 
 IAimpPlaylistItem^ AimpPlaybackQueueItem::PlaylistItem::get() {
     IAIMPPlaylistItem* item = nullptr;
-    InternalAimpObject->GetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, IID_IAIMPPlaylistItem,
-                                         reinterpret_cast<void**>(&item));
+    const auto res = Utils::CheckResult(InternalAimpObject->GetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, IID_IAIMPPlaylistItem, reinterpret_cast<void**>(&item)));
+
+    if (res != ActionResultType::OK)
+        throw gcnew AimpActionException(res, "Unable to get PlaylistItem");
+
     return gcnew AimpPlaylistItem(item);
 }
 
 void AimpPlaybackQueueItem::PlaylistItem::set(IAimpPlaylistItem^ value) {
-    InternalAimpObject->SetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM,
-                                         static_cast<AimpPlaylistItem^>(value)->InternalAimpObject);
+    const auto res = Utils::CheckResult(InternalAimpObject->SetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, static_cast<AimpPlaylistItem^>(value)->InternalAimpObject));
+
+    if (res != ActionResultType::OK)
+        throw gcnew AimpActionException(res, "Unable to set PlaylistItem");
 }
