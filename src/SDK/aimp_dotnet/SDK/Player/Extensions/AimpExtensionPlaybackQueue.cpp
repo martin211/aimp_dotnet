@@ -21,7 +21,7 @@ AimpExtensionPlaybackQueue::AimpExtensionPlaybackQueue(gcroot<IAimpExtensionPlay
 HRESULT AimpExtensionPlaybackQueue::QueryInterface(const IID& riid, LPVOID* ppvObject) {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPExtensionPlaybackQueue2) {
+    if (riid == IID_IAIMPExtensionPlaybackQueue) {
         *ppvObject = this;
         AddRef();
         return S_OK;
