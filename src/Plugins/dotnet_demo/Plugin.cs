@@ -71,7 +71,7 @@ namespace TestPlugin
             TestWriteConfig();
 
             var listner = new ExtensionPlaylistManagerListener();
-            var ext = new ExtensionPlaybackQueue();
+            var ext = new ExtensionPlaybackQueue(Player);
 
             RegisterExtension(listner);
             RegisterExtension(ext);

@@ -38,7 +38,7 @@ Object^ AimpPlaybackQueueItem::UserData::get() {
     const auto res = Utils::CheckResult(InternalAimpObject->GetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_CUSTOM, IID_IUnknown, reinterpret_cast<void**>(&item)));
 
     if (res != ActionResultType::OK)
-        throw gcnew AimpActionException(res, "Unable to get User data");
+        return nullptr;
 
     return Runtime::InteropServices::Marshal::GetObjectForIUnknown(IntPtr(item));
 }
@@ -50,10 +50,11 @@ void AimpPlaybackQueueItem::UserData::set(Object^ value) {
 
 IAimpPlaylistItem^ AimpPlaybackQueueItem::PlaylistItem::get() {
     IAIMPPlaylistItem* item = nullptr;
+    IAIMPPropertyList* prop = nullptr;
     const auto res = Utils::CheckResult(InternalAimpObject->GetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, IID_IAIMPPlaylistItem, reinterpret_cast<void**>(&item)));
 
     if (res != ActionResultType::OK)
-        throw gcnew AimpActionException(res, "Unable to get PlaylistItem");
+        return nullptr;
 
     return gcnew AimpPlaylistItem(item);
 }
