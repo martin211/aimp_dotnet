@@ -152,8 +152,6 @@ IAimpPlaylistItem^ AimpPlayList::FocusedItem::get() {
         if (res == ActionResultType::OK && group != nullptr) {
             item = gcnew AimpPlaylistItem(group);
         }
-
-        return nullptr;
     }
     finally {
         if (properties != nullptr) {
@@ -196,8 +194,6 @@ IAimpPlaylistGroup^ AimpPlayList::FocusedGroup::get() {
         if (res == ActionResultType::OK && group != nullptr) {
             item = gcnew AimpPlayListGroup(group);
         }
-
-        return nullptr;
     }
     finally {
         if (properties != nullptr) {
