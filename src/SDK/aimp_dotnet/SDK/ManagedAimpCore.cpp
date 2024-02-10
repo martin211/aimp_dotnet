@@ -439,19 +439,19 @@ namespace AIMP {
                 return r;
             }
 
-            const auto extensionPlaybackQueue = dynamic_cast<IAimpExtensionPlaybackQueue^>(extension);
-            if (extensionPlaybackQueue != nullptr) {
-                HRESULT r = _core->UnregisterExtension(_extensionPlaybackQueue);
-                _extensionPlaybackQueue->Release();
-                _extensionPlaybackQueue = nullptr;
-                return r;
-            }
-
             const auto extensionPlaybackQueue2 = dynamic_cast<IAimpExtensionPlaybackQueue2^>(extension);
             if (extensionPlaybackQueue2 != nullptr) {
                 HRESULT r = _core->UnregisterExtension(static_cast<AimpExtensionPlaybackQueue2::Base*>(_extensionPlaybackQueue2));
                 _extensionPlaybackQueue2->Release();
                 _extensionPlaybackQueue2 = nullptr;
+                return r;
+            }
+
+            const auto extensionPlaybackQueue = dynamic_cast<IAimpExtensionPlaybackQueue^>(extension);
+            if (extensionPlaybackQueue != nullptr) {
+                HRESULT r = _core->UnregisterExtension(_extensionPlaybackQueue);
+                _extensionPlaybackQueue->Release();
+                _extensionPlaybackQueue = nullptr;
                 return r;
             }
 
