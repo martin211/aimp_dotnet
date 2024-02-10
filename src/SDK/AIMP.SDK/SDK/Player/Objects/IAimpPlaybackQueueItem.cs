@@ -27,5 +27,7 @@ namespace AIMP.SDK.Player.Objects
         /// </summary>
         /// <value>The playlist item.</value>
         IAimpPlaylistItem PlaylistItem { get; set; }
+
+        double Offset { get; set; }
     }
 }

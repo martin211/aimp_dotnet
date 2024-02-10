@@ -8,6 +8,8 @@
 //  ----------------------------------------------------
 
 using System;
+using System.Collections.Generic;
+
 using AIMP.SDK;
 using AIMP.SDK.FileManager.Extensions;
 using AIMP.SDK.FileManager.Objects;
@@ -18,7 +20,7 @@ namespace Aimp.TestRunner.UnitTests.FileManager.Extensions;
 
 public class AimpExtensionFileExpander : IAimpExtensionFileExpander
 {
-    public AimpActionResult<IAimpObjectList<IAimpVirtualFile>> Expand(string fileName,
+    public AimpActionResult<IList<IAimpVirtualFile>> Expand(string fileName,
         IAimpProgressCallback progressCallback)
     {
         throw new NotImplementedException();

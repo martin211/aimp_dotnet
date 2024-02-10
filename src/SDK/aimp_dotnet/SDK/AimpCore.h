@@ -9,8 +9,10 @@
 
 #pragma once
 #include "AimpErrorInfo.h"
+#include "AimpObjectList.h"
 #include "Action/AimpAction.h"
 #include "AlbumArt/AimpAlbumArtRequest.h"
+#include "FileManager/AimpVirtualFile.h"
 #include "Lyrics/AimpLyrics.h"
 #include "Menu/AimpMenuItem.h"
 #include "Objects/AimpImage.h"
@@ -87,6 +89,18 @@ namespace AIMP {
                 const auto t = TAimpObject::typeid;
 
                 const auto core = _aimpCore->GetAimpCore();
+
+                if (t == IAimpObjectList::typeid) {
+                    IAIMPObjectList* obj = nullptr;
+                    IAimpObjectList^ managed = nullptr;
+
+                    const auto result = Utils::CheckResult(core->CreateObject(IID_IAIMPObjectList, reinterpret_cast<void**>(&obj)));
+                    if (result == ActionResultType::OK) {
+                        managed = gcnew AimpObjectList2(obj);
+                    }
+
+                    return gcnew AimpActionResult<IAimpObject^>(result, managed);
+                }
 
                 if (t == IAimpStream::typeid) {
                     IAIMPStream* obj = nullptr;

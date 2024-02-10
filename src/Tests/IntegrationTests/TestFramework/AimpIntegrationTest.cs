@@ -30,11 +30,14 @@ public abstract class AimpIntegrationTest
         NUnit.Framework.Assert.That(Player, Is.Not.Null);
         Asserts = new List<IMemberAssert>();
         ClearAimpBeforeTests();
+
+        OneTimeSetUp();
     }
 
     [OneTimeTearDown]
     public virtual void AfterAllTests()
     {
+        OneTimeTearDown();
     }
 
     [SetUp]
@@ -202,6 +205,12 @@ public abstract class AimpIntegrationTest
         AimpAssert.IsTrue(result.Result is TResult);
     }
 
+    protected virtual void OneTimeSetUp()
+    {}
+
+    protected virtual void OneTimeTearDown()
+    {}
+
     private void ClearAimpBeforeTests()
     {
         TestContext.WriteLine("Clear existing playlist");
@@ -216,7 +225,7 @@ public abstract class AimpIntegrationTest
         result.RecordAssertion(AssertionStatus.Failed, msg, exception?.StackTrace ?? Environment.StackTrace);
         result.RecordTestCompletion();
     }
-
+    
     private class AimpTask : IAimpTask
     {
         private readonly Action _action;

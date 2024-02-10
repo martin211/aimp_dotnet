@@ -13,10 +13,6 @@
 #include "SDK/PlayList/AimpPlayListItem.h"
 
 
-AimpExtensionPlaybackQueue2::AimpExtensionPlaybackQueue2(gcroot<IAimpExtensionPlaybackQueue2^> extension) {
-    _managed = extension;
-}
-
 HRESULT AimpExtensionPlaybackQueue2::GetInfo(IUnknown* Current, int* position, int* size) {
     const auto item = gcnew AimpPlaylistItem(dynamic_cast<IAIMPPlaylistItem*>(Current));
     const auto result = _managed->GetInfo(item);
@@ -32,7 +28,7 @@ HRESULT AimpExtensionPlaybackQueue2::GetInfo(IUnknown* Current, int* position, i
 HRESULT AimpExtensionPlaybackQueue2::QueryInterface(const IID& riid, LPVOID* ppvObject) {
     HRESULT res = Base::QueryInterface(riid, ppvObject);
 
-    if (riid == IID_IAIMPServicePlaybackQueue2) {
+    if (riid == IID_IAIMPExtensionPlaybackQueue) {
         *ppvObject = this;
         AddRef();
         return S_OK;

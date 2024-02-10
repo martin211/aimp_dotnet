@@ -44,6 +44,21 @@ namespace AIMP.SDK.MessageDispatcher
         AimpActionResult Send(AimpCoreMessageType message, int param1, ref IntPtr param2);
 
         /// <summary>
+        /// Sends the specified message.
+        /// </summary>
+        /// <param name="message">The message <see cref="AimpCoreMessageType" />.</param>
+        /// <returns>AimpActionResult.</returns>
+        AimpActionResult Send(AimpCoreMessageType message);
+
+        /// <summary>
+        /// Sends the specified message.
+        /// </summary>
+        /// <param name="message">The message <see cref="AimpCoreMessageType" />.</param>
+        /// <param name="param1">The message direction <see cref="MessageDirectionType" />.</param>
+        /// <returns>AimpActionResult.</returns>
+        AimpActionResult Send(AimpCoreMessageType message, int param1);
+
+        /// <summary>
         /// Registers the specified message.
         /// </summary>
         /// <param name="message">The message.</param>

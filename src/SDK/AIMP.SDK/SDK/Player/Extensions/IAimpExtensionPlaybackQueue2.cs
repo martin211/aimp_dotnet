@@ -11,13 +11,6 @@ using AIMP.SDK.Playlist.Objects;
 
 namespace AIMP.SDK.Player.Extensions;
 
-public class PlaybackQueueInfo
-{
-    public int Position { get; }
-
-    public int Size { get; }
-}
-
 /// <summary>
 /// Extends an abilities of the <see cref="IAimpExtensionPlaybackQueue"/>.
 /// </summary>

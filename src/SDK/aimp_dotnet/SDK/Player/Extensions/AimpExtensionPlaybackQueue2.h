@@ -12,15 +12,17 @@
 
 using namespace Player::Extensions;
 
-class AimpExtensionPlaybackQueue2 :
-    public AimpExtensionPlaybackQueue,
-    public IUnknownInterfaceImpl<IAIMPExtensionPlaybackQueue2> {
+class AimpExtensionPlaybackQueue2 :public IUnknownInterfaceImpl<IAIMPExtensionPlaybackQueue2>, AimpExtensionPlaybackQueue {
 private:
     gcroot<IAimpExtensionPlaybackQueue2^> _managed;
 public:
-    typedef AimpExtensionPlaybackQueue Base;
-    typedef IUnknownInterfaceImpl<IAIMPExtensionPlaybackQueue2> Base2;
-    explicit AimpExtensionPlaybackQueue2(gcroot<IAimpExtensionPlaybackQueue2^> extension);
+    typedef IUnknownInterfaceImpl<IAIMPExtensionPlaybackQueue2> Base;
+    typedef AimpExtensionPlaybackQueue BaseType;
+
+    explicit AimpExtensionPlaybackQueue2(const gcroot<IAimpExtensionPlaybackQueue2^> extension)
+        : AimpExtensionPlaybackQueue(static_cast<IAimpExtensionPlaybackQueue^>(extension)) {
+        _managed = extension;
+    }
 
     HRESULT WINAPI GetInfo(IUnknown* Current, int* position, int* size) override;
 
@@ -31,14 +33,14 @@ public:
     ULONG WINAPI Release(void) override;
 
     HRESULT WINAPI GetNext(IUnknown* Current, DWORD Flags, IAIMPPlaybackQueueItem* QueueItem) override {
-        return Base::GetNext(Current, Flags, QueueItem);
+        return BaseType::GetNext(Current, Flags, QueueItem);
     }
 
     HRESULT WINAPI GetPrev(IUnknown* Current, DWORD Flags, IAIMPPlaybackQueueItem* QueueItem) override {
-        return Base::GetPrev(Current, Flags, QueueItem);
+        return BaseType::GetPrev(Current, Flags, QueueItem);
     }
 
     void WINAPI OnSelect(IAIMPPlaylistItem* Item, IAIMPPlaybackQueueItem* QueueItem) override {
-        return Base::OnSelect(Item, QueueItem);
+        return BaseType::OnSelect(Item, QueueItem);
     }
 };

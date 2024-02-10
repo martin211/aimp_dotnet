@@ -96,6 +96,7 @@
     <Compile Include="..\..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Extension\ExtensionPlaybackQueue.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="LoggerForm.cs">
       <SubType>Form</SubType>
@@ -193,6 +194,7 @@
       <Name>aimp_dotnet</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

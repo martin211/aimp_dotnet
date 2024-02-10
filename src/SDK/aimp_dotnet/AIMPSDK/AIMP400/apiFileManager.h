@@ -139,7 +139,7 @@ class IAIMPVirtualFile: public IAIMPPropertyList
 	public:
 		virtual HRESULT WINAPI CreateStream(IAIMPStream **Stream) = 0;
 		virtual HRESULT WINAPI GetFileInfo(IAIMPFileInfo *Info) = 0;
-		virtual HRESULT WINAPI IsExists() = 0;
+		virtual boolean WINAPI IsExists() = 0;
 		virtual HRESULT WINAPI IsInSameStream(IAIMPVirtualFile *VirtualFile) = 0;
 		virtual HRESULT WINAPI Synchronize() = 0;
 };

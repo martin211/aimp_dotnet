@@ -14,12 +14,9 @@ using namespace Player::Extensions;
 class AimpExtensionPlaybackQueue :
     public IUnknownInterfaceImpl<IAIMPExtensionPlaybackQueue> {
 private:
-    gcroot<IAimpExtensionPlaybackQueue^> _managed;
+    gcroot<IAimpExtensionPlaybackQueue^> _managed = nullptr;
 public:
     typedef IUnknownInterfaceImpl<IAIMPExtensionPlaybackQueue> Base;
-
-    explicit AimpExtensionPlaybackQueue() {
-    }
 
     explicit AimpExtensionPlaybackQueue(gcroot<IAimpExtensionPlaybackQueue^> extension);
 

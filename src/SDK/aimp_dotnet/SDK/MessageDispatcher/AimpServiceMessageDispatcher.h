@@ -25,6 +25,8 @@ namespace AIMP {
             ~AimpServiceMessageDispatcher();
 
             virtual ActionResult Send(AimpCoreMessageType message, int param1, IntPtr% param2);
+            virtual AimpActionResult^ Send(AimpCoreMessageType message);
+            virtual AimpActionResult^ Send(AimpCoreMessageType message, int param1);
             virtual int Register(String^ message);
             virtual ActionResult Hook(IAimpMessageHook^ hook);
             virtual ActionResult Unhook(IAimpMessageHook^ hook);

@@ -10,8 +10,7 @@
 #pragma once
 
 class InternalAimpExtensionFileFormat :
-    public IUnknownInterfaceImpl<IAIMPExtensionFileFormat>,
-    IAIMPExtensionFileFormat {
+    public IUnknownInterfaceImpl<IAIMPExtensionFileFormat> {
 private:
     gcroot<FileManager::Extensions::IAimpExtensionFileFormat^> _managedInstance;
 
