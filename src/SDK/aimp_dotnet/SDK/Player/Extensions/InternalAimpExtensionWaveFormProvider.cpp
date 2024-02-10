@@ -42,7 +42,7 @@ HRESULT InternalAimpExtensionWaveFormProvider::Calculate(IAIMPString* fileURI, I
         peakList->Add(gcnew AimpWaveformPeakInfo(p));
     }
 
-    const auto res = _managed->Calculate(AimpConverter::ToManagedString(fileURI), gcnew AimpTaskOwner(taskOwner), nullptr);
+    const auto res = _managed->Calculate(AimpConverter::ToManagedString(fileURI), gcnew AimpTaskOwner(taskOwner), peakList);
 
     return static_cast<HRESULT>(res->ResultType);
 }

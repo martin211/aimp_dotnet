@@ -12,9 +12,11 @@
 
 #include "SDK/AimpObjectList.h"
 #include "SDK/AimpProgressCallback.h"
+#include "SDK/FileManager/InternalAimpVirtualFile.h"
 
-InternalAimpExtensionFileExpander::InternalAimpExtensionFileExpander(gcroot<FileManager::Extensions::IAimpExtensionFileExpander^> managedInstance) {
+InternalAimpExtensionFileExpander::InternalAimpExtensionFileExpander(gcroot<FileManager::Extensions::IAimpExtensionFileExpander^> managedInstance, IAIMPCore* core) {
     _managedInstance = managedInstance;
+    _core = core;
 }
 
 HRESULT InternalAimpExtensionFileExpander::Expand(IAIMPString* fileName, IAIMPObjectList** list, IAIMPProgressCallback* progressCallback) {
@@ -22,7 +24,14 @@ HRESULT InternalAimpExtensionFileExpander::Expand(IAIMPString* fileName, IAIMPOb
     AimpProgressCallback^ callBack = gcnew AimpProgressCallback(progressCallback);
     const auto result = _managedInstance->Expand(fn, callBack);
     if (result->ResultType == ActionResultType::OK) {
-        *list = safe_cast<AimpObjectList<IAimpVirtualFile^>^>(result->Result)->AimpObject;
+        IAIMPObjectList* objectList = nullptr;
+        _core->CreateObject(IID_IAIMPObjectList, reinterpret_cast<void**>(&objectList));
+        for (int i = 0; i < result->Result->Count - 1; ++i) {
+            const auto virtualFile = new InternalAimpVirtualFile(result->Result[i]);
+            objectList->Add(reinterpret_cast<IUnknown*>(virtualFile));
+        }
+
+        *list = objectList;
     }
 
     return static_cast<HRESULT>(result->ResultType);

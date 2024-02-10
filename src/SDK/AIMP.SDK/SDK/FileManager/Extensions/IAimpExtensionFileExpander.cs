@@ -29,6 +29,6 @@ namespace AIMP.SDK.FileManager.Extensions
         /// <param name="fileName">The real file name</param>
         /// <param name="progressCallback">Progress callback <see cref="IAimpProgressCallback"/>.</param>
         /// <returns>AimpActionResult&lt;IList&lt;IAimpVirtualFile&gt;&gt;.</returns>
-        AimpActionResult<IAimpObjectList<IAimpVirtualFile>> Expand(string fileName, IAimpProgressCallback progressCallback);
+        AimpActionResult<IList<IAimpVirtualFile>> Expand(string fileName, IAimpProgressCallback progressCallback);
     }
 }

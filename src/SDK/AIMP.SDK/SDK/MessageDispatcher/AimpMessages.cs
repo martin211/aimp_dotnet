@@ -10,6 +10,8 @@
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedMember.Global
 
+using System;
+
 namespace AIMP.SDK.MessageDispatcher
 {
     /// <summary>
@@ -929,6 +931,7 @@ namespace AIMP.SDK.MessageDispatcher
         #endregion
     }
 
+    [Flags]
     public enum AimpMessage
     {
         EndOfQueue = 1,

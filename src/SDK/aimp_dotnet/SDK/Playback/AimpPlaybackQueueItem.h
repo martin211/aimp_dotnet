@@ -20,6 +20,11 @@ namespace AIMP {
         public:
             explicit AimpPlaybackQueueItem(IAIMPPlaybackQueueItem* aimpItem);
 
+            property double Offset {
+                virtual double get();
+                virtual void set(double offset);
+            }
+
             virtual property Object^ UserData
             {
                 Object^ get();

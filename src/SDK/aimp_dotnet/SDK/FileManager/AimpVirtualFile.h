@@ -17,8 +17,13 @@ namespace AIMP {
         using namespace FileManager;
 
         public ref class AimpVirtualFile : public AimpObject<IAIMPVirtualFile>, public IAimpVirtualFile {
-        public:
+        private:
+            bool _isEndless = true;
+
+            public:
             AimpVirtualFile(IAIMPVirtualFile* aimpObject);
+
+            AimpVirtualFile();
 
             virtual property int IndexInSet
             {
@@ -57,14 +62,10 @@ namespace AIMP {
             }
 
             virtual StreamResult CreateStream();
-
-            virtual FileInfoResult GetFileInfo();
-
             virtual bool IsExists();
-
             virtual ActionResult IsInSameStream(IAimpVirtualFile^ virtualFile);
-
             virtual ActionResult Synchronize();
+            virtual AimpActionResult^ GetFileInfo(IAimpFileInfo^ fileInfo);
         };
     }
 }

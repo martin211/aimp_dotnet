@@ -87,14 +87,14 @@ void PropertyListExtension::GetString(IAIMPString* aimpString, String^% value) {
 ActionResultType PropertyListExtension::GetObject(IAIMPPropertyList* propertyList, int propertyId, REFIID objectId,
                                                   void** value) {
     const auto result = Utils::CheckResult(propertyList->GetValueAsObject(propertyId, objectId, value));
-    VALIDATE_RESULT(result, "Unable to get a object property.")
+    //VALIDATE_RESULT(result, "Unable to get a object property.")
     return result;
 }
 
 ActionResultType PropertyListExtension::GetInt32(IAIMPPropertyList* propertyList, int propertyId, int% value) {
     int val = 0;
     const auto result = Utils::CheckResult(propertyList->GetValueAsInt32(propertyId, &val));
-    VALIDATE_RESULT(result, "Unable to get a Int32 property.")
+    //VALIDATE_RESULT(result, "Unable to get a Int32 property.")
     value = val;
     return result;
 }
@@ -102,7 +102,7 @@ ActionResultType PropertyListExtension::GetInt32(IAIMPPropertyList* propertyList
 ActionResultType PropertyListExtension::GetInt64(IAIMPPropertyList* propertyList, int propertyId, Int64% value) {
     Int64 val = 0;
     const auto result = Utils::CheckResult(propertyList->GetValueAsInt64(propertyId, &val));
-    VALIDATE_RESULT(result, "Unable to get a Int64 property.")
+    //VALIDATE_RESULT(result, "Unable to get a Int64 property.")
     value = val;
     return result;
 }
@@ -118,7 +118,7 @@ ActionResultType PropertyListExtension::GetFloat(IAIMPPropertyList* propertyList
 ActionResultType PropertyListExtension::GetBool(IAIMPPropertyList* propertyList, int propertyId, bool% value) {
     int val = 0;
     const auto result = Utils::CheckResult(propertyList->GetValueAsInt32(propertyId, &val));
-    VALIDATE_RESULT(result, "Unable to get a Bool property.")
+    //VALIDATE_RESULT(result, "Unable to get a Bool property.")
     value = val != 0;
     return result;
 }
@@ -156,7 +156,7 @@ bool PropertyListExtension::GetBool(IAIMPPropertyList* propertyList, int propert
 ActionResultType PropertyListExtension::GetVariant(IAIMPPropertyList2* propertyList, int propertyId, Object^% value) {
     VARIANT* val = nullptr;
     const auto result = Utils::CheckResult(propertyList->GetValueAsVariant(propertyId, val));
-    VALIDATE_RESULT(result, "Unable to get a Variant property.")
+    //VALIDATE_RESULT(result, "Unable to get a Variant property.")
     value = AimpConverter::FromVariant(val);
     return result;
 }

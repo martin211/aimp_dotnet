@@ -22,6 +22,7 @@ namespace TestPlugin
     using AIMP.SDK;
     using AIMP.SDK.MenuManager;
     using AIMP.SDK.Options;
+    using DemoPlugin.Extension;
 
     public delegate ActionResultType HookMessage(AimpCoreMessageType message, int param1, IntPtr param2);
 
@@ -70,7 +71,11 @@ namespace TestPlugin
             TestWriteConfig();
 
             var listner = new ExtensionPlaylistManagerListener();
-            Player.Core.RegisterExtension(listner);
+            var ext = new ExtensionPlaybackQueue(Player);
+
+            RegisterExtension(listner);
+            RegisterExtension(ext);
+
 
             var result = Player.Core.CreateObject<IAimpMenuItem>();
 
@@ -187,6 +192,16 @@ namespace TestPlugin
                 var buf = new byte[count];
                 streamValue.Read(buf, (int) count);
                 var strData = System.Text.Encoding.Default.GetString(buf);
+            }
+        }
+
+        private void RegisterExtension(IAimpExtension extension)
+        {
+            var res = Player.Core.RegisterExtension(extension);
+
+            if (res.ResultType != ActionResultType.OK)
+            {
+                System.Diagnostics.Debugger.Break();
             }
         }
     }

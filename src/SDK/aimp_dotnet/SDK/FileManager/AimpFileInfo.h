@@ -296,6 +296,14 @@ namespace AIMP {
             {
                 double get();
             }
+
+        protected:
+            void RegisterAtMemoryManager() override {
+                
+            }
+            void ReleaseFromMemoryManager() override {
+                
+            }
         };
     }
 }

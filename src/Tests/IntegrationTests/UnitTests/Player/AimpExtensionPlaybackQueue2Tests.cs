@@ -43,15 +43,24 @@ public class AimpExtensionPlaybackQueue2Tests : AimpIntegrationTest
 
     private AimpExtensionPlaybackQueue2 _target;
 
+
+    protected override void OneTimeSetUp()
+    {
+        _target = new AimpExtensionPlaybackQueue2();
+    }
+
+    protected override void OneTimeTearDown()
+    {
+        _target = null;
+    }
+
     [Test]
     [Order(1)]
     public void ShouldRegisterExtension()
     {
         ExecuteInMainThread(() =>
         {
-            _target = new AimpExtensionPlaybackQueue2();
             var res = Player.Core.RegisterExtension(_target);
-
             AimpAssert.AreEqual(ActionResultType.OK, res.ResultType);
         });
     }

@@ -151,6 +151,7 @@
     <ClCompile Include="SDK\Player\Extensions\InternalAimpExtensionWaveFormProvider.cpp" />
     <ClCompile Include="SDK\MusicLibrary\Extension\InternalAimpAlbumArtProvider.cpp" />
     <ClCompile Include="SDK\Internet\AimpServiceConnectionSettings.cpp" />
+    <ClCompile Include="SDK\FileManager\InternalAimpVirtualFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimpMemoryManager.h" />
@@ -346,6 +347,7 @@
     <ClInclude Include="SDK\CustomUserData.h" />
     <ClInclude Include="SDK\Internet\AimpServiceConnectionSettings.h" />
     <ClInclude Include="AimpLogger.h" />
+    <ClInclude Include="SDK\FileManager\InternalAimpVirtualFile.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="aimp_dotnet.rc" />

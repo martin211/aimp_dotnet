@@ -148,9 +148,8 @@ IAimpPlaylistItem^ AimpPlayList::FocusedItem::get() {
     try {
         IAIMPPlaylistItem* group = nullptr;
         GetProperties(&properties);
-        PropertyListExtension::GetObject(properties, AIMP_PLAYLIST_PROPID_FOCUSED_OBJECT, IID_IAIMPPlaylistItem,
-                                         reinterpret_cast<void**>(&group));
-        if (group != nullptr) {
+        const auto res = PropertyListExtension::GetObject(properties, AIMP_PLAYLIST_PROPID_FOCUSED_OBJECT, IID_IAIMPPlaylistItem, reinterpret_cast<void**>(&group));
+        if (res == ActionResultType::OK && group != nullptr) {
             item = gcnew AimpPlaylistItem(group);
         }
     }
@@ -191,9 +190,8 @@ IAimpPlaylistGroup^ AimpPlayList::FocusedGroup::get() {
     try {
         IAIMPPlaylistGroup* group = nullptr;
         GetProperties(&properties);
-        PropertyListExtension::GetObject(properties, AIMP_PLAYLIST_PROPID_FOCUSED_OBJECT, IID_IAIMPPlaylistGroup,
-                                         reinterpret_cast<void**>(&group));
-        if (group != nullptr) {
+        const auto res = PropertyListExtension::GetObject(properties, AIMP_PLAYLIST_PROPID_FOCUSED_OBJECT, IID_IAIMPPlaylistGroup, reinterpret_cast<void**>(&group));
+        if (res == ActionResultType::OK && group != nullptr) {
             item = gcnew AimpPlayListGroup(group);
         }
     }

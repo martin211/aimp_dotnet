@@ -14,7 +14,7 @@ namespace AIMP.SDK.FileManager.Objects
     /// <summary>
     /// Interface provides information about virtual file.
     /// </summary>
-    public interface IAimpVirtualFile
+    public interface IAimpVirtualFile : IAimpObject
     {
         /// <summary>
         /// Gets or sets the index of virtual track in the set (if presented).
@@ -65,7 +65,7 @@ namespace AIMP.SDK.FileManager.Objects
         /// Gets the file info.
         /// </summary>
         /// <returns>AimpActionResult&lt;IAimpFileInfo&gt;.</returns>
-        AimpActionResult<IAimpFileInfo> GetFileInfo();
+        AimpActionResult GetFileInfo(IAimpFileInfo fileInfo);
 
         /// <summary>
         /// Check is the source exists.
