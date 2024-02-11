@@ -34,7 +34,7 @@ partial class Build
                     //.SetName(SonarProjectName)
                     .SetBranchName(GitRepository.Branch)
                     .SetFramework(framework)
-                    .EnableVerbose();
+                    .DisableVerbose();
 
                 if (File.Exists(PvsReportPath))
                 {
@@ -46,7 +46,7 @@ partial class Build
                     configuration = configuration.SetVersion(_version);
                 }
 
-                configuration = configuration.SetProjectBaseDir(SourceDirectory);
+                //configuration = configuration.SetProjectBaseDir(SourceDirectory);
 
                 if (!string.IsNullOrWhiteSpace(RequestSourceBranch) && !string.IsNullOrWhiteSpace(RequestTargetBranch))
                 {
