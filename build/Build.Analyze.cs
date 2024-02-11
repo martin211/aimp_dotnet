@@ -31,7 +31,7 @@ partial class Build
                     .SetVersion(_version)
                     .SetLogin(SonarUser)
                     .SetPassword(SonarPassword)
-                    .SetName(SonarProjectName)
+                    //.SetName(SonarProjectName)
                     .SetBranchName(GitRepository.Branch)
                     .SetFramework(framework)
                     .EnableVerbose();
