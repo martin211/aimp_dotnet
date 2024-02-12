@@ -23,7 +23,6 @@ partial class Build
         .DependsOn(Restore, Version)
         .Executes(() =>
             {
-                var framework = "net5.0";
                 var configuration = new SonarBeginSettings()
                     .SetProjectKey(SonarProjectKey)
                     .SetIssueTrackerUrl(SonarUrl)
@@ -31,9 +30,7 @@ partial class Build
                     .SetVersion(_version)
                     .SetLogin(SonarUser)
                     .SetPassword(SonarPassword)
-                    //.SetName(SonarProjectName)
                     .SetBranchName(GitRepository.Branch)
-                    .SetFramework(framework)
                     .DisableVerbose();
 
                 if (File.Exists(PvsReportPath))
@@ -46,8 +43,6 @@ partial class Build
                     configuration = configuration.SetVersion(_version);
                 }
 
-                //configuration = configuration.SetProjectBaseDir(SourceDirectory);
-
                 if (!string.IsNullOrWhiteSpace(RequestSourceBranch) && !string.IsNullOrWhiteSpace(RequestTargetBranch))
                 {
                     configuration = configuration
@@ -55,13 +50,6 @@ partial class Build
                         .SetPullRequestBranch(RequestTargetBranch)
                         .SetPullRequestKey(RequestId);
                 }
-
-                //var path = NuGetToolPathResolver.GetPackageExecutable(
-                //    packageId: "dotnet-sonarscanner",
-                //    packageExecutable: "SonarScanner.MSBuild.dll",
-                //    framework: framework);
-
-                //configuration = configuration.SetProcessToolPath(path);
 
                 var arguments = $"sonarscanner {configuration.GetProcessArguments().RenderForExecution()}";
 
@@ -77,16 +65,9 @@ partial class Build
             },
             () =>
             {
-                //var framework = "net5.0";
-                //var path = NuGetToolPathResolver.GetPackageExecutable(
-                //    packageId: "dotnet-sonarscanner",
-                //    packageExecutable: "SonarScanner.MSBuild.dll",
-                //    framework: framework);
-
                 var configuration = new SonarScannerEndSettings()
                     .SetLogin(SonarUser)
                     .SetPassword(SonarPassword)
-                    //.SetFramework(framework)
                     .EnableProcessLogOutput();
 
                 var arguments = $"sonarscanner {configuration.GetProcessArguments().RenderForExecution()}";
