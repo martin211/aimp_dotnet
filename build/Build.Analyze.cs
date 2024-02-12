@@ -63,9 +63,9 @@ partial class Build
 
                 //configuration = configuration.SetProcessToolPath(path);
 
-                //var arguments = $"{path} {configuration.GetProcessArguments().RenderForExecution()}";
+                var arguments = $"sonarscanner {configuration.GetProcessArguments().RenderForExecution()}";
 
-                DotNetTasks.DotNet($"sonarscanner {configuration.GetProcessArguments().RenderForExecution()}");
+                DotNetTasks.DotNet(arguments);
             }, () =>
             {
                 MSBuild(c => c
@@ -89,9 +89,9 @@ partial class Build
                     //.SetFramework(framework)
                     .EnableProcessLogOutput();
 
-                //var arguments = $"{path} {configuration.GetProcessArguments().RenderForExecution()}";
+                var arguments = $"sonarscanner {configuration.GetProcessArguments().RenderForExecution()}";
 
-                DotNetTasks.DotNet($"sonarscanner {configuration.GetProcessArguments().RenderForExecution()}");
+                DotNetTasks.DotNet(arguments);
             });
 
     Target PvsStudio => _ => _
