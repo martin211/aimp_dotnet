@@ -56,16 +56,16 @@ partial class Build
                         .SetPullRequestKey(RequestId);
                 }
 
-                var path = NuGetToolPathResolver.GetPackageExecutable(
-                    packageId: "dotnet-sonarscanner",
-                    packageExecutable: "SonarScanner.MSBuild.dll",
-                    framework: framework);
+                //var path = NuGetToolPathResolver.GetPackageExecutable(
+                //    packageId: "dotnet-sonarscanner",
+                //    packageExecutable: "SonarScanner.MSBuild.dll",
+                //    framework: framework);
 
-                configuration = configuration.SetProcessToolPath(path);
+                //configuration = configuration.SetProcessToolPath(path);
 
-                var arguments = $"{path} {configuration.GetProcessArguments().RenderForExecution()}";
+                //var arguments = $"{path} {configuration.GetProcessArguments().RenderForExecution()}";
 
-                DotNetTasks.DotNet(arguments);
+                DotNetTasks.DotNet($"sonarscanner {configuration.GetProcessArguments().RenderForExecution()}");
             }, () =>
             {
                 MSBuild(c => c
@@ -77,21 +77,21 @@ partial class Build
             },
             () =>
             {
-                var framework = "net5.0";
-                var path = NuGetToolPathResolver.GetPackageExecutable(
-                    packageId: "dotnet-sonarscanner",
-                    packageExecutable: "SonarScanner.MSBuild.dll",
-                    framework: framework);
+                //var framework = "net5.0";
+                //var path = NuGetToolPathResolver.GetPackageExecutable(
+                //    packageId: "dotnet-sonarscanner",
+                //    packageExecutable: "SonarScanner.MSBuild.dll",
+                //    framework: framework);
 
                 var configuration = new SonarScannerEndSettings()
                     .SetLogin(SonarUser)
                     .SetPassword(SonarPassword)
-                    .SetFramework(framework)
+                    //.SetFramework(framework)
                     .EnableProcessLogOutput();
 
-                var arguments = $"{path} {configuration.GetProcessArguments().RenderForExecution()}";
+                //var arguments = $"{path} {configuration.GetProcessArguments().RenderForExecution()}";
 
-                DotNetTasks.DotNet(arguments);
+                DotNetTasks.DotNet($"sonarscanner {configuration.GetProcessArguments().RenderForExecution()}");
             });
 
     Target PvsStudio => _ => _
