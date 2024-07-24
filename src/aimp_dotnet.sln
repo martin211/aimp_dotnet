@@ -57,6 +57,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aimp_dotnet", "SDK\aimp_dot
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AimpTestRunner", "Tests\IntegrationTests\AimpTestRunner.csproj", "{35DC3E20-FF8D-42B4-991A-85296A243FA1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "native_test", "Plugins\native_test\native_test.vcxproj", "{45B8E4B0-8013-4D42-999D-319960BA1FDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -205,6 +207,18 @@ Global
 		{35DC3E20-FF8D-42B4-991A-85296A243FA1}.Release|x64.Build.0 = Release|x64
 		{35DC3E20-FF8D-42B4-991A-85296A243FA1}.Release|x86.ActiveCfg = Release|x86
 		{35DC3E20-FF8D-42B4-991A-85296A243FA1}.Release|x86.Build.0 = Release|x86
+		{45B8E4B0-8013-4D42-999D-319960BA1FDC}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{45B8E4B0-8013-4D42-999D-319960BA1FDC}.Debug|Any CPU.Build.0 = Debug|Win32
+		{45B8E4B0-8013-4D42-999D-319960BA1FDC}.Debug|x64.ActiveCfg = Debug|x64
+		{45B8E4B0-8013-4D42-999D-319960BA1FDC}.Debug|x64.Build.0 = Debug|x64
+		{45B8E4B0-8013-4D42-999D-319960BA1FDC}.Debug|x86.ActiveCfg = Debug|Win32
+		{45B8E4B0-8013-4D42-999D-319960BA1FDC}.Debug|x86.Build.0 = Debug|Win32
+		{45B8E4B0-8013-4D42-999D-319960BA1FDC}.Release|Any CPU.ActiveCfg = Release|Win32
+		{45B8E4B0-8013-4D42-999D-319960BA1FDC}.Release|Any CPU.Build.0 = Release|Win32
+		{45B8E4B0-8013-4D42-999D-319960BA1FDC}.Release|x64.ActiveCfg = Release|x64
+		{45B8E4B0-8013-4D42-999D-319960BA1FDC}.Release|x64.Build.0 = Release|x64
+		{45B8E4B0-8013-4D42-999D-319960BA1FDC}.Release|x86.ActiveCfg = Release|Win32
+		{45B8E4B0-8013-4D42-999D-319960BA1FDC}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -221,6 +235,7 @@ Global
 		{1D813DFE-338B-4C36-AAB0-98D7C6A949CC} = {DABC64E2-6F5D-4E43-AF76-2B177C5E2353}
 		{89A24E88-861C-4ED0-AD54-F46BFAD29891} = {DABC64E2-6F5D-4E43-AF76-2B177C5E2353}
 		{35DC3E20-FF8D-42B4-991A-85296A243FA1} = {F16C4DCE-5A69-45D5-8C04-4DCFA76CD643}
+		{45B8E4B0-8013-4D42-999D-319960BA1FDC} = {56B57E6A-FD0A-4479-B8D9-149BBD6F9C73}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F89DDEBD-4CC1-4C55-811B-096227CFE66C}

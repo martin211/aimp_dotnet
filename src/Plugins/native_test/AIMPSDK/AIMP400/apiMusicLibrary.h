@@ -601,7 +601,7 @@ class IAIMPServiceMusicLibrary : public IUnknown
 class IAIMPServiceMusicLibraryUI : public IUnknown
 {
 	public:
-		virtual HRESULT WINAPI GetFiles(DWORD Flags, IAIMPMLFileList* List) = 0;
+		virtual HRESULT WINAPI GetFiles(DWORD Flags, IAIMPMLFileList** List) = 0;
 		virtual HRESULT WINAPI GetGroupingFilter(IAIMPMLDataFilter** Filter) = 0;
 		virtual HRESULT WINAPI GetGroupingFilterPath(IAIMPString** Path) = 0;
 		virtual HRESULT WINAPI SetGroupingFilterPath(IAIMPString* Path) = 0;

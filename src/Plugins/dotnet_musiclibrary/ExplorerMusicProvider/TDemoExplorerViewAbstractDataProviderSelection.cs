@@ -218,6 +218,11 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
             if (string.IsNullOrWhiteSpace(CurrentItem))
                 return 0;
 
+            if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_ID))
+            {
+                return 0;
+            }
+
             return new FileInfo(CurrentItem).Length;
         }
 
@@ -241,7 +246,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 
             if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_ID))
             {
-                return string.Empty;
+                return fi.Name.GetHashCode().ToString();
             }
 
             return string.Empty;
