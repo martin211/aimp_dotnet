@@ -105,7 +105,7 @@ partial class Build : NukeBuild
 
     bool IsReleaseBuild => GitRepository.Branch.StartsWith(ReleaseBranchPrefix);
 
-    public static int Main() => Execute<Build>(x => x.Compile);
+    public static int Main() => Execute<Build>(x => x.Version);
 
     Target PrintBuildParameters => _ => _
         .Executes(() =>
@@ -410,6 +410,7 @@ partial class Build : NukeBuild
     {
         if (GitRepository.Branch.StartsWith(MailstoneBranch))
         {
+            Log.Information("Mailstone branch {MailstoneBranch}", GitRepository.Branch);
             _version = GitRepository.Branch
                 .Replace($"{MailstoneBranch}_", string.Empty)
                 .Replace("_", ".");
@@ -418,6 +419,7 @@ partial class Build : NukeBuild
         }
         else if (GitRepository.Branch.StartsWith(ReleaseBranchPrefix))
         {
+            Log.Information("Release branch {MailstoneBranch}", GitRepository.Branch);
             _version = GitRepository.Branch.Split("/")[1];
             _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
         }
@@ -425,7 +427,7 @@ partial class Build : NukeBuild
         {
             string tag = string.Empty;
 
-            var process = ProcessTasks.StartProcess("git", "ls-remote --tags --sort=-committerdate ./.");
+            var process = ProcessTasks.StartProcess("git", $"ls-remote {GitRepository.HttpsUrl.Replace("https:", "http:")} refs/tags/* --sort=-committerdate");
             process.WaitForExit();
             var output = process.Output;
 
@@ -437,9 +439,10 @@ partial class Build : NukeBuild
 
             if (!string.IsNullOrWhiteSpace(tag))
             {
-                var patchVersion = int.Parse(tag.Split(".").Last()) + 1;
-                _version = tag.Substring(0, tag.LastIndexOf(".")) + $".{patchVersion}";
-                _buildNumber = $"{_version}{GitVersion.PreReleaseTagWithDash}";
+                //var patchVersion = int.Parse(tag.Split(".").Last()) + 1;
+                //_version = tag.Substring(0, tag.LastIndexOf(".")) + $".{patchVersion}";
+                _version = $"{tag}.{GitVersion.BuildMetaData}";
+                _buildNumber = $"{_version}{GitVersion.PreReleaseLabelWithDash}";
             }
             else
             {
