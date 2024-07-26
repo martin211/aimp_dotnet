@@ -439,9 +439,9 @@ partial class Build : NukeBuild
 
             if (!string.IsNullOrWhiteSpace(tag))
             {
-                //var patchVersion = int.Parse(tag.Split(".").Last()) + 1;
-                //_version = tag.Substring(0, tag.LastIndexOf(".")) + $".{patchVersion}";
-                _version = $"{tag}.{GitVersion.BuildMetaData}";
+                var patchVersion = int.Parse(tag.Split(".").Last()) + 1;
+                _version = tag.Substring(0, tag.LastIndexOf(".")) + $".{patchVersion}";
+                //_version = $"{tag}.{GitVersion.BuildMetaData}";
                 _buildNumber = $"{_version}{GitVersion.PreReleaseLabelWithDash}";
             }
             else
