@@ -105,7 +105,7 @@ partial class Build : NukeBuild
 
     bool IsReleaseBuild => GitRepository.Branch.StartsWith(ReleaseBranchPrefix);
 
-    public static int Main() => Execute<Build>(x => x.Version);
+    public static int Main() => Execute<Build>(x => x.Compile);
 
     Target PrintBuildParameters => _ => _
         .Executes(() =>
@@ -167,7 +167,9 @@ partial class Build : NukeBuild
             {
                 Log.Information("Update version for '{assemblyInfo}'", assemblyInfo);
                 var fileContent = File.ReadAllText(assemblyInfo);
-                fileContent = fileContent.Replace("1.0.0.0", _version);
+                fileContent = fileContent
+                    .Replace("1.0.0.0", _version)
+                    .Replace("-InformationalVersion-", $"{_version}.{GitVersion.PreReleaseLabelWithDash}-{GitVersion.FullBuildMetaData}");
                 File.WriteAllText(assemblyInfo, fileContent);
             }
 
@@ -441,8 +443,7 @@ partial class Build : NukeBuild
             {
                 var patchVersion = int.Parse(tag.Split(".").Last()) + 1;
                 _version = tag.Substring(0, tag.LastIndexOf(".")) + $".{patchVersion}";
-                //_version = $"{tag}.{GitVersion.BuildMetaData}";
-                _buildNumber = $"{_version}{GitVersion.PreReleaseLabelWithDash}";
+                _buildNumber = $"{_version}{GitVersion.PreReleaseLabelWithDash}.{GitVersion.BuildMetaData}";
             }
             else
             {
