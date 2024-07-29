@@ -20,7 +20,7 @@
     </PackageReference>
     <PackageReference Include="Nuke.Common" Version="8.0.0" />
     <PackageReference Include="System.IO.Compression" Version="4.3.0" />
-    <PackageDownload Include="dotnet-sonarscanner" Version="[5.4.1]" />
+    <PackageDownload Include="dotnet-sonarscanner" Version="[7.1.1]" />
     <PackageDownload Include="GitVersion.Tool" Version="[5.11.1]" />
   </ItemGroup>
 

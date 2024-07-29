@@ -61,3 +61,4 @@ build/api/*
 tests/*
 /output/
 /GitExtensions.*
+.idea/
