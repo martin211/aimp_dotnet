@@ -1,7 +1,7 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v5.30 build 2500               */
+/*               v5.10 build 2400               */
 /*                                              */
 /*                Artem Izmaylov                */
 /*                (C) 2006-2023                 */
@@ -52,8 +52,7 @@ const int AIMP_MSG_CMD_ABOUT = AIMP_MSG_CMD_BASE + 6;
 const int AIMP_MSG_CMD_OPTIONS = AIMP_MSG_CMD_BASE + 7;
 
 // Show the "Options" Dialog with active "plugins" sheet
-// AParam1: page index (starts from 1), 0 is for previous user choice (default)
-// AParam2: unused
+// AParam1, AParam2: unused
 const int AIMP_MSG_CMD_PLUGINS = AIMP_MSG_CMD_BASE + 8;
 
 // Close the App
@@ -248,10 +247,6 @@ const int AIMP_MSG_CMD_PLS_RESCAN_SELECTED  = AIMP_MSG_CMD_BASE + 59;
 // Extended control of "Quick File Info" card that displaying information about playing file
 // AParam2: pointer to TAIMPQuickFileInfoParams
 const int AIMP_MSG_CMD_QFI = AIMP_MSG_CMD_BASE + 60;
-
-// Delete selected items with folders from active playlist and disk
-// AParam1, AParam2: unused
-const int AIMP_MSG_CMD_PLS_DELETE_SELECTED_FROM_HDD_W_FOLDERS = AIMP_MSG_CMD_BASE + 61;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Properties
@@ -557,14 +552,6 @@ const int AIMP_MSG_EVENT_EQUALIZER_PRESET_NAME = AIMP_MSG_EVENT_BASE + 22;
 // AParam1: Unused
 // AParam2: Unused
 const int AIMP_MSG_EVENT_PLAYBACK_QUEUE = AIMP_MSG_EVENT_BASE + 23;
-
-// Callen, when list of DSP/VST plugins is changed
-// AParam1: Unused
-// AParam2: Unused
-const int AIMP_MSG_EVENT_DSP = AIMP_MSG_EVENT_BASE + 24;
-
-  // Called, after chaning the accent color or night/day mode
-const int AIMP_MSG_EVENT_UI_MODE = AIMP_MSG_EVENT_BASE + 25;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Quick File Info

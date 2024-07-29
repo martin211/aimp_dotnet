@@ -1,10 +1,10 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v5.30 build 2500               */
+/*               v5.02 build 2360               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2023                 */
+/*                (C) 2006-2022                 */
 /*                 www.aimp.ru                  */
 /*               support@aimp.ru                */
 /*                                              */
@@ -397,7 +397,7 @@ class IAIMPMLGroupingTreeDataProviderSelection : public IUnknown
 		virtual DWORD WINAPI GetFlags() = 0;
 		virtual HRESULT WINAPI GetImageIndex(int* Index) = 0;
 		virtual HRESULT WINAPI GetValue(IAIMPString** FieldName, VARIANT* Value) = 0;
-		virtual BOOL WINAPI NextRow() = 0;
+		virtual BOOL WINAPI NextRecord() = 0;
 };
 
 /* IAIMPMLGroupingTreeDataProvider */

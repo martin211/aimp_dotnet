@@ -1,10 +1,10 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v5.30 build 2500               */
+/*               v5.02 build 2360               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2023                 */
+/*                (C) 2006-2022                 */
 /*                 www.aimp.ru                  */
 /*               support@aimp.ru                */
 /*                                              */
@@ -68,7 +68,7 @@ class IAIMPExtensionTagsProvider: public IUnknown
 {
 	public:
 		virtual HRESULT WINAPI GetName(IAIMPString **Source) = 0;
-		virtual HRESULT WINAPI GetSupportedFields(int* *Fields, int* Count) = 0;
+		virtual HRESULT WINAPI GetSupportedFields(int* Fields, int* Count) = 0;
 		// Commands
 		virtual HRESULT WINAPI FindAlbums(IAIMPString *Query, IAIMPTaskOwner* Owner, IAIMPErrorInfo* ErrorInfo,
 			TAIMPServiceFindTagsOnlineAlbumInfoReceiveProc* ReceiveProc, void *ReceiveProcData) = 0;

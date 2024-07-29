@@ -1,10 +1,10 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v5.30 build 2500               */
+/*               v5.02 build 2360               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2023                 */
+/*                (C) 2006-2022                 */
 /*                 www.aimp.ru                  */
 /*               support@aimp.ru                */
 /*                                              */
@@ -89,7 +89,6 @@ const int AIMP_FILEINFO_PROPID_ML_PLAYCOUNT       = 43; // Int32
 const int AIMP_FILEINFO_PROPID_ML_RATING          = 44; // Float
 const int AIMP_FILEINFO_PROPID_ML_DISPLAYING_MARK = 22; // Float
 const int AIMP_FILEINFO_PROPID_ML_LABELS		  = 45; // IAIMPString, values divided by ";"
-const int AIMP_FILEINFO_PROPID_KEY                = 46; // IAIMPString
 
 // PropertyID for the IAIMPVirtualFile
 const int AIMP_VIRTUALFILE_PROPID_FILEURI          = 0;
@@ -120,10 +119,6 @@ const int AIMP_SERVICE_FILEURI_FLAG_PART_EXT    = 2;
 const int AIMP_FILESYSTEM_PROPID_SCHEME = 1;
 const int AIMP_FILESYSTEM_PROPID_READONLY = 2;
 
-// Factory IDs for IAIMPServiceFileInfoFormatter and IAIMPServiceFileInfoFormatterUtils
-const int AIMP_FILEINFO_FORMATTER_ID_BASIC   = 0;
-const int AIMP_FILEINFO_FORMATTER_ID_PLAYING = 1;
-
 //----------------------------------------------------------------------------------------------------------------------
 // Common
 //----------------------------------------------------------------------------------------------------------------------
@@ -144,7 +139,7 @@ class IAIMPVirtualFile: public IAIMPPropertyList
 	public:
 		virtual HRESULT WINAPI CreateStream(IAIMPStream **Stream) = 0;
 		virtual HRESULT WINAPI GetFileInfo(IAIMPFileInfo *Info) = 0;
-		virtual HRESULT WINAPI IsExists() = 0;
+		virtual boolean WINAPI IsExists() = 0;
 		virtual HRESULT WINAPI IsInSameStream(IAIMPVirtualFile *VirtualFile) = 0;
 		virtual HRESULT WINAPI Synchronize() = 0;
 };
@@ -303,7 +298,7 @@ class IAIMPServiceFileInfo: public IUnknown
 class IAIMPServiceFileInfoFormatter: public IUnknown
 {
 	public:
-		virtual HRESULT WINAPI Format(IAIMPString *Template, IAIMPFileInfo *FileInfo, int ID, IUnknown *AdditionalInfo, IAIMPString **FormattedResult) = 0;
+		virtual HRESULT WINAPI Format(IAIMPString *Template, IAIMPFileInfo *FileInfo, int Reserved, IUnknown *AdditionalInfo, IAIMPString **FormattedResult) = 0;
 };
 
 /* IAIMPServiceFileInfoFormatterUtils */
@@ -311,7 +306,7 @@ class IAIMPServiceFileInfoFormatter: public IUnknown
 class IAIMPServiceFileInfoFormatterUtils: public IUnknown
 {
 	public:
-		virtual HRESULT WINAPI ShowMacrosLegend(RECT ScreenTarget, int ID, IUnknown *EventsHandler) = 0;
+		virtual HRESULT WINAPI ShowMacrosLegend(RECT ScreenTarget, int Reserved, IUnknown *EventsHandler) = 0;
 };
 
 /* IAIMPServiceFileStreaming */

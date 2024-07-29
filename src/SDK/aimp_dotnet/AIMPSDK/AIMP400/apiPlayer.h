@@ -1,10 +1,10 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v5.30 build 2500               */
+/*               v5.02 build 2360               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2023                 */
+/*                (C) 2006-2022                 */
 /*                 www.aimp.ru                  */
 /*               support@aimp.ru                */
 /*                                              */
@@ -62,7 +62,6 @@ const int AIMP_PLAYER_PROPID_MANUALSWITCHING                      = 20;
 const int AIMP_PLAYER_PROPID_MANUALSWITCHING_CROSSFADE            = 21; // msec
 const int AIMP_PLAYER_PROPID_MANUALSWITCHING_FADEIN               = 22; // msec
 const int AIMP_PLAYER_PROPID_MANUALSWITCHING_FADEOUT              = 23; // msec
-const int AIMP_PLAYER_PROPID_OUTPUT				 				  = 30; // IAIMPString or IAIMPObjectList
 
 #pragma pack(push, 1)
 struct TAIMPWaveformPeakInfo
@@ -127,7 +126,7 @@ class IAIMPExtensionPlaybackQueue2: public IAIMPExtensionPlaybackQueue
 
 /* IAIMPExtensionWaveformProvider */
 
-class IAIMPExtensionWaveformProvider : public IUnknown 
+class IAIMPExtensionWaveFormProvider : public IUnknown 
 {
 	public:
 		virtual HRESULT WINAPI Calculate(IAIMPString* FileURI, IAIMPTaskOwner* TaskOwner, PAIMPWaveformPeakInfo Peaks, int PeakCount) = 0;
@@ -196,7 +195,7 @@ class IAIMPServicePlayerEqualizerPresets: public IUnknown
 	public:
 		virtual HRESULT WINAPI Add(IAIMPString* Name, REFIID IID, void **Obj) = 0;
 		virtual HRESULT WINAPI FindByName(IAIMPString* Name, REFIID IID, void **Obj) = 0;
-		virtual HRESULT WINAPI Delete(IAIMPEqualizerPreset *Preset) = 0;
+		virtual HRESULT WINAPI Delete(IUnknown *Preset) = 0;
 		virtual HRESULT WINAPI Delete2(int Index) = 0;
 
 		virtual HRESULT WINAPI GetPreset(int Index, REFIID IID, void **Obj) = 0;
