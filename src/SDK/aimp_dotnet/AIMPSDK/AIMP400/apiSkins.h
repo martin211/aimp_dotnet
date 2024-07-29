@@ -1,10 +1,10 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v5.02 build 2360               */
+/*               v5.30 build 2500               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2022                 */
+/*                (C) 2006-2023                 */
 /*                 www.aimp.ru                  */
 /*               support@aimp.ru                */
 /*                                              */
