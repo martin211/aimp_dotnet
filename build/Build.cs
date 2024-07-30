@@ -41,12 +41,6 @@ partial class Build : NukeBuild
 
     #region Parameters
 
-    [Parameter] readonly string SonarUrl;
-    [Parameter] readonly string SonarUser;
-    [Parameter] readonly string SonarPassword;
-    [Parameter] readonly string SonarProjectKey;
-    [Parameter] readonly string SonarProjectName;
-
     [Parameter] readonly string NugetSource;
     [Parameter] readonly string NugetApiKey;
 

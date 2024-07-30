@@ -18,6 +18,13 @@ using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
 
 partial class Build
 {
+    [Parameter] readonly bool SonarVerbose;
+    [Parameter] readonly string SonarUrl;
+    [Parameter] readonly string SonarUser;
+    [Parameter] readonly string SonarPassword;
+    [Parameter] readonly string SonarProjectKey;
+    [Parameter] readonly string SonarProjectName;
+
     Target SonarQube => _ => _
         .Requires(() => SonarUrl, () => SonarUser, () => SonarProjectKey, () => SonarProjectName)
         .DependsOn(Restore, Version)
@@ -33,8 +40,11 @@ partial class Build
                     .SetPassword(SonarPassword)
                     .SetName(SonarProjectName)
                     .SetBranchName(GitRepository.Branch)
-                    .SetFramework(framework)
-                    .EnableVerbose();
+                    .SetFramework(framework);
+
+                if (SonarVerbose)
+                    configuration = configuration
+                        .EnableVerbose();
 
                 if (File.Exists(PvsReportPath))
                 {
