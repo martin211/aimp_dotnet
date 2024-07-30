@@ -46,7 +46,7 @@ partial class Build
                     configuration = configuration.SetVersion(_version);
                 }
 
-                configuration = configuration.SetProjectBaseDir(SourceDirectory);
+                //configuration = configuration.SetProjectBaseDir(SourceDirectory);
 
                 if (!string.IsNullOrWhiteSpace(RequestSourceBranch) && !string.IsNullOrWhiteSpace(RequestTargetBranch))
                 {
@@ -87,6 +87,7 @@ partial class Build
                     .SetLogin(SonarUser)
                     .SetPassword(SonarPassword)
                     .SetFramework(framework)
+                    //.SetProjectBaseDir(SourceDirectory)
                     .EnableProcessLogOutput();
 
                 var arguments = $"{path} {configuration.GetProcessArguments().RenderForExecution()}";
