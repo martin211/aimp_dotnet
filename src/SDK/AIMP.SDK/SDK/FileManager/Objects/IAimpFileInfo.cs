@@ -248,7 +248,6 @@ namespace AIMP.SDK.FileManager.Objects
         /// <value>The state rating.</value>
         double StatRating { get; }
 
-
         /// <summary>
         /// Gets or sets the mark that displayed for user (0..5).
         /// Mark can be equal to rating value (depended from settings of Audio Library).
@@ -261,6 +260,11 @@ namespace AIMP.SDK.FileManager.Objects
         /// </summary>
         /// <value>The album art.</value>
         Bitmap AlbumArt { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the Key.
+        /// </summary>
+        string Key { get; set; }
 
         /// <summary>
         /// Copies all properties from source.

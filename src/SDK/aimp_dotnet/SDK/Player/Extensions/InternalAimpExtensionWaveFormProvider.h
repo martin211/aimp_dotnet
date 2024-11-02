@@ -28,11 +28,11 @@ public:
 };
 
 
-class InternalAimpExtensionWaveFormProvider : public IUnknownInterfaceImpl<IAIMPExtensionWaveFormProvider> {
+class InternalAimpExtensionWaveFormProvider : public IUnknownInterfaceImpl<IAIMPExtensionWaveformProvider> {
 private:
     gcroot<IAimpExtensionWaveFormProvider^> _managed;
 public:
-    typedef IUnknownInterfaceImpl<IAIMPExtensionWaveFormProvider> Base;
+    typedef IUnknownInterfaceImpl<IAIMPExtensionWaveformProvider> Base;
 
     InternalAimpExtensionWaveFormProvider(gcroot<IAimpExtensionWaveFormProvider^> managed);
 
