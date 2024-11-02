@@ -196,7 +196,7 @@ class IAIMPServicePlayerEqualizerPresets: public IUnknown
 	public:
 		virtual HRESULT WINAPI Add(IAIMPString* Name, REFIID IID, void **Obj) = 0;
 		virtual HRESULT WINAPI FindByName(IAIMPString* Name, REFIID IID, void **Obj) = 0;
-		virtual HRESULT WINAPI Delete(IAIMPEqualizerPreset *Preset) = 0;
+		virtual HRESULT WINAPI Delete(IUnknown *Preset) = 0;
 		virtual HRESULT WINAPI Delete2(int Index) = 0;
 
 		virtual HRESULT WINAPI GetPreset(int Index, REFIID IID, void **Obj) = 0;

@@ -68,7 +68,7 @@ class IAIMPExtensionTagsProvider: public IUnknown
 {
 	public:
 		virtual HRESULT WINAPI GetName(IAIMPString **Source) = 0;
-		virtual HRESULT WINAPI GetSupportedFields(int* *Fields, int* Count) = 0;
+		virtual HRESULT WINAPI GetSupportedFields(int* Fields, int* Count) = 0;
 		// Commands
 		virtual HRESULT WINAPI FindAlbums(IAIMPString *Query, IAIMPTaskOwner* Owner, IAIMPErrorInfo* ErrorInfo,
 			TAIMPServiceFindTagsOnlineAlbumInfoReceiveProc* ReceiveProc, void *ReceiveProcData) = 0;

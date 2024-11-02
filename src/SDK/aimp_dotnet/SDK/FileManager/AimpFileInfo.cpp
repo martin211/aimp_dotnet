@@ -238,6 +238,14 @@ double AimpFileInfo::StatRating::get() {
     return PropertyListExtension::GetFloat(InternalAimpObject, AIMP_FILEINFO_PROPID_ML_RATING);
 }
 
+String^ AimpFileInfo::Key::get() {
+    return PropertyListExtension::GetString(InternalAimpObject, AIMP_FILEINFO_PROPID_KEY);
+}
+
+void AimpFileInfo::Key::set(String^ value) {
+    PropertyListExtension::SetString(InternalAimpObject, AIMP_FILEINFO_PROPID_KEY, value);
+}
+
 
 double AimpFileInfo::StatMark::get() {
     try
