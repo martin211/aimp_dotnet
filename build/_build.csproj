@@ -13,18 +13,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="docfx.console" Version="2.59.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Mono.Cecil" Version="0.11.5" />
-    <PackageReference Include="NuGet.CommandLine" Version="6.8.0">
+    <PackageReference Include="NuGet.CommandLine" Version="6.11.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Nuke.Common" Version="7.0.6" />
+    <PackageReference Include="Nuke.Common" Version="8.0.0" />
     <PackageReference Include="System.IO.Compression" Version="4.3.0" />
-    <PackageDownload Include="dotnet-sonarscanner" Version="[5.4.1]" />
+    <PackageDownload Include="dotnet-sonarscanner" Version="[7.1.1]" />
     <PackageDownload Include="GitVersion.Tool" Version="[5.11.1]" />
   </ItemGroup>
 

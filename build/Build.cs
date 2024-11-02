@@ -13,25 +13,20 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
-using Microsoft.Build.Tasks;
 using Nuke.Common;
 using Nuke.Common.CI.GitLab;
 using Nuke.Common.CI.TeamCity;
-using Nuke.Common.Execution;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
-using Nuke.Common.Tools.Git;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
-using Octokit;
 using Serilog;
 using static Nuke.Common.IO.FileSystemTasks;
-using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
 
 partial class Build : NukeBuild
@@ -45,12 +40,6 @@ partial class Build : NukeBuild
     readonly GitVersion GitVersion;
 
     #region Parameters
-
-    [Parameter] readonly string SonarUrl;
-    [Parameter] readonly string SonarUser;
-    [Parameter] readonly string SonarPassword;
-    [Parameter] readonly string SonarProjectKey;
-    [Parameter] readonly string SonarProjectName;
 
     [Parameter] readonly string NugetSource;
     [Parameter] readonly string NugetApiKey;
@@ -172,7 +161,9 @@ partial class Build : NukeBuild
             {
                 Log.Information("Update version for '{assemblyInfo}'", assemblyInfo);
                 var fileContent = File.ReadAllText(assemblyInfo);
-                fileContent = fileContent.Replace("1.0.0.0", _version);
+                fileContent = fileContent
+                    .Replace("1.0.0.0", _version)
+                    .Replace("-InformationalVersion-", $"{_version}.{GitVersion.PreReleaseLabelWithDash}-{GitVersion.FullBuildMetaData}");
                 File.WriteAllText(assemblyInfo, fileContent);
             }
 
@@ -415,6 +406,7 @@ partial class Build : NukeBuild
     {
         if (GitRepository.Branch.StartsWith(MailstoneBranch))
         {
+            Log.Information("Mailstone branch {MailstoneBranch}", GitRepository.Branch);
             _version = GitRepository.Branch
                 .Replace($"{MailstoneBranch}_", string.Empty)
                 .Replace("_", ".");
@@ -423,6 +415,7 @@ partial class Build : NukeBuild
         }
         else if (GitRepository.Branch.StartsWith(ReleaseBranchPrefix))
         {
+            Log.Information("Release branch {MailstoneBranch}", GitRepository.Branch);
             _version = GitRepository.Branch.Split("/")[1];
             _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
         }
@@ -430,7 +423,7 @@ partial class Build : NukeBuild
         {
             string tag = string.Empty;
 
-            var process = ProcessTasks.StartProcess("git", "ls-remote --tags --sort=-committerdate ./.");
+            var process = ProcessTasks.StartProcess("git", $"ls-remote {GitRepository.HttpsUrl.Replace("https:", "http:")} refs/tags/* --sort=-committerdate");
             process.WaitForExit();
             var output = process.Output;
 
@@ -444,7 +437,7 @@ partial class Build : NukeBuild
             {
                 var patchVersion = int.Parse(tag.Split(".").Last()) + 1;
                 _version = tag.Substring(0, tag.LastIndexOf(".")) + $".{patchVersion}";
-                _buildNumber = $"{_version}{GitVersion.PreReleaseTagWithDash}";
+                _buildNumber = $"{_version}{GitVersion.PreReleaseLabelWithDash}.{GitVersion.BuildMetaData}";
             }
             else
             {

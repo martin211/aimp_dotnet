@@ -53,7 +53,7 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProviderSelection::GetValue(IAIMPStri
     return HRESULT(result->ResultType);
 }
 
-BOOL WINAPI InternalAimpGroupingTreeDataProviderSelection::NextRecord() {
+BOOL WINAPI InternalAimpGroupingTreeDataProviderSelection::NextRow() {
     return BOOL(_managedInstance->NextRecord());
 }
 

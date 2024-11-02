@@ -11,10 +11,10 @@ using System.Reflection;
 
 [assembly: AssemblyVersion(AIMP.SDK.AdditionalInfo.Version)]
 [assembly: AssemblyFileVersion(AIMP.SDK.AdditionalInfo.Version)]
-[assembly: AssemblyInformationalVersion("")]
+[assembly: AssemblyInformationalVersion(AIMP.SDK.AdditionalInfo.InformationalVersion)]
 
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright © Evgeniy Bogdan 2023")]
+[assembly: AssemblyCopyright("Copyright © Evgeniy Bogdan 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -23,5 +23,6 @@ namespace AIMP.SDK
     internal static class AdditionalInfo
     {
         public const string Version = "1.0.0.0";
+        public const string InformationalVersion = "-InformationalVersion-";
     }
 }
