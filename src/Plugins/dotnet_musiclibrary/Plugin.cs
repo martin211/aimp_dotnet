@@ -20,6 +20,7 @@ namespace AIMP.DotNet.MusicLibrary
     [AimpPlugin("MusicLibraryDemoPlugin", "Martin", "1.0.0.0", AimpPluginType = AimpPluginType.Addons, FullDescription = "MusicLibrary demo plugin")]
     public class Plugin : AimpPlugin
     {
+        private bool _t;
         public override void Initialize()
         {
             var demoLibrary = new DemoMusicLibrary(Player);
@@ -46,7 +47,25 @@ namespace AIMP.DotNet.MusicLibrary
                 var p = storage.Result.GroupingPreset;
                 var id = storage.Result.Id;
 
-                var focusedFiles = Player.ServiceMusicLibraryUi.GetFiles(FilesType.Focused);
+                var focusedFiles = Player.ServiceMusicLibraryUi.GetFiles(FilesType.Selected);
+
+                if (focusedFiles.Result.GetCount() > 0)
+                {
+                    int index = 1;
+                    if (!_t)
+                    {
+                        focusedFiles.Result.SetId(0, "12345456");
+                        _t = true;
+                    }
+                    else
+                    {
+                        var r = focusedFiles.Result.GetId(0);
+                    } 
+                    //
+                    // var setRes = focusedFiles.Result.SetId(index, 1234);
+                    // var ids = focusedFiles.Result.GetId(index);
+                    // var file = focusedFiles.Result.GetFileName(index);
+                }
             };
 
             Player.ServiceMenuManager.Add(ParentMenuType.MlTreeContextFunctions, menu.Result);

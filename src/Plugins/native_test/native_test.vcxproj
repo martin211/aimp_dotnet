@@ -172,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AIMPExports.def" />
+    <None Include="Directory.Build.targets" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AimpDotnetPlugin.cpp" />
