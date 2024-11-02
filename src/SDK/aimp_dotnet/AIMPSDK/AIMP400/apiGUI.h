@@ -1,10 +1,10 @@
 /************************************************/
 /*                                              */
 /*          AIMP Programming Interface          */
-/*               v5.02 build 2360               */
+/*               v5.30 build 2500               */
 /*                                              */
 /*                Artem Izmaylov                */
-/*                (C) 2006-2022                 */
+/*                (C) 2006-2023                 */
 /*                 www.aimp.ru                  */
 /*               support@aimp.ru                */
 /*                                              */
@@ -55,6 +55,7 @@ static const GUID IID_IAIMPUILabel = {0x6175694C, 0x6162, 0x656C, 0x00, 0x00, 0x
 static const GUID IID_IAIMPUIMemo = {0x6175694D, 0x656D, 0x6F00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 static const GUID IID_IAIMPUIMenuItem = {0x6175694D, 0x656E, 0x7549, 0x74, 0x65, 0x6D, 0x00, 0x00, 0x00, 0x00, 0x00};
 static const GUID IID_IAIMPUIMessageDialog = {0x6175694D, 0x7367, 0x446C, 0x67, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+static const GUID IID_IAIMPUIMode = {0x61756955, 0x494D, 0x6F64, 0x65, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 static const GUID IID_IAIMPUIMouseEvents = {0x61756945, 0x766E, 0x744D, 0x6F, 0x75, 0x73, 0x65, 0x00, 0x00, 0x00, 0x00};
 static const GUID IID_IAIMPUIMouseWheelEvents = {0x61756945, 0x766E, 0x744D, 0x6F, 0x75, 0x73, 0x65, 0x57, 0x68, 0x6C, 0x00};
 static const GUID IID_IAIMPUIPageControl = {0x61756950, 0x6167, 0x6543, 0x74, 0x72, 0x6C, 0x00, 0x00, 0x00, 0x00, 0x00};
@@ -423,6 +424,42 @@ static const GUID IID_IAIMPUIWndProcEvents = {0x61756957, 0x6E64, 0x5072, 0x6F, 
   const int AIMPUI_PROGRESSDLG_PROPID_MESSAGE                  = 2;
   const int AIMPUI_PROGRESSDLG_PROPID_SHOW_PROGRESS_ON_TASKBAR = 3;
 
+  // PropID for IAIMPUIMode
+  const int AIMPUI_MODE_PROPID_ACCENT = 1;
+  const int AIMPUI_MODE_PROPID_DPI    = 2;
+  const int AIMPUI_MODE_PROPID_STYLE  = 3;
+
+/*----------------------------------------------------------------------------------------------------------------------*/
+/* Basic Interfaces																								   */
+/*----------------------------------------------------------------------------------------------------------------------*/
+
+  /* IAIMPUIDPIAwareness */
+
+  class IAIMPUIDPIAwareness: public IUnknown
+  {
+		public:
+			virtual BOOL WINAPI IsDPIAware() = 0;
+			virtual HRESULT WINAPI SetDPIAware(BOOL Value) = 0;
+  };
+
+  /* IAIMPUIColorSchema */
+
+  class IAIMPUIColorSchema: public IAIMPPropertyList
+  {
+		public:
+			virtual void WINAPI ApplyToARGB(DWORD* ARGB) = 0;
+			virtual void WINAPI ApplyToColor(DWORD* Color) = 0;
+			virtual void WINAPI ApplyToColors(RGBQUAD* Colors, int numbersOfColors) = 0;
+			virtual void WINAPI ApplyToImage(IAIMPImage* Image) = 0;
+  };
+
+  /* IAIMPUIMode */
+
+  class IAIMPUIMode: public IAIMPPropertyList
+  {
+	  // + refer to AIMP_MSG_EVENT_UI_MODE
+  };
+
 /*----------------------------------------------------------------------------------------------------------------------*/
 /* Basic Events Interfaces																								   */
 /*----------------------------------------------------------------------------------------------------------------------*/
@@ -446,26 +483,6 @@ static const GUID IID_IAIMPUIWndProcEvents = {0x61756957, 0x6E64, 0x5072, 0x6F, 
 		umbLeft = 0, 
 		umbRight = 1, 
 		umbMiddle = 2
-  };
-
-  /* IAIMPUIDPIAwareness */
-
-  class IAIMPUIDPIAwareness: public IUnknown
-  {
-		public:
-			virtual BOOL WINAPI IsDPIAware() = 0;
-			virtual HRESULT WINAPI SetDPIAware(BOOL Value) = 0;
-  };
-
-  /* IAIMPUIColorSchema */
-
-  class IAIMPUIColorSchema: public IAIMPPropertyList
-  {
-		public:
-			virtual void WINAPI ApplyToARGB(DWORD* ARGB) = 0;
-			virtual void WINAPI ApplyToColor(DWORD* Color) = 0;
-			virtual void WINAPI ApplyToColors(RGBQUAD* Colors, int numbersOfColors) = 0;
-			virtual void WINAPI ApplyToImage(IAIMPImage* Image) = 0;
   };
 
   /* IAIMPUIChangeEvents */
