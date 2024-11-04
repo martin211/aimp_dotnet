@@ -23,7 +23,6 @@ InternalAimpDataFilterGroup::InternalAimpDataFilterGroup(gcroot<IAimpDataFilterG
 
 HRESULT WINAPI InternalAimpDataFilterGroup::Add(IUnknown* Field, VARIANT* Value1, VARIANT* Value2, int Operation,
                                                 IAIMPMLDataFieldFilter** Filter) {
-    IAimpDataFieldFilter^ filter = nullptr;
     auto result = _managed->Add(AimpConverter::ToManagedString(static_cast<IAIMPString*>(Field)),
                                 AimpConverter::FromVariant(Value1), AimpConverter::FromVariant(Value2),
                                 FieldFilterOperationType(Operation));
@@ -38,7 +37,6 @@ HRESULT WINAPI InternalAimpDataFilterGroup::Add(IUnknown* Field, VARIANT* Value1
 HRESULT WINAPI InternalAimpDataFilterGroup::Add2(IUnknown* Field, VARIANT* Values, int Count,
                                                  IAIMPMLDataFieldFilterByArray** Filter) {
     array<Object^>^ values = gcnew array<Object^>(Count);
-    IAimpDataFieldFilterByArray^ filter;
     auto result = _managed->Add(AimpConverter::ToManagedString(static_cast<IAIMPString*>(Field)), values, Count);
 
     if (result->ResultType == ActionResultType::OK) {
@@ -78,7 +76,6 @@ HRESULT WINAPI InternalAimpDataFilterGroup::GetChild(int Index, REFIID IID, void
     }
 
     if (IID == IID_IAIMPMLDataFieldFilter) {
-        IAimpDataFieldFilter^ filter = nullptr;
         const auto result = _managed->GetChild<IAimpDataFieldFilterByArray^>(Index);
 
         if (result->ResultType == ActionResultType::OK) {

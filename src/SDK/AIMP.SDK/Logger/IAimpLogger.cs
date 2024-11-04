@@ -9,7 +9,7 @@
 
 using System;
 
-namespace AIMP.SDK.Logger;
+namespace AIMP.Logger;
 
 public interface IAimpLogger
 {

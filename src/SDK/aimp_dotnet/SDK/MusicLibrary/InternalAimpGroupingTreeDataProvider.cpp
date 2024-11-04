@@ -87,5 +87,5 @@ HRESULT WINAPI InternalAimpGroupingTreeDataProvider::QueryInterface(REFIID riid,
     }
 
     ppvObject = nullptr;
-    return E_NOINTERFACE;
+    return res;
 }

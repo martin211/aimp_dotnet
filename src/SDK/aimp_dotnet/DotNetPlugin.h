@@ -33,7 +33,7 @@ public:
     {
         _managedCore = gcnew ManagedAimpCore(_core);
 
-        AimpPlayer^ instance = nullptr;
+        AimpPlayer^ instance;
         if (sender->PluginAppDomainInfo != nullptr)
         {
             instance = gcnew AimpPlayer(_managedCore, sender->LoadedPlugin->PluginId, sender->PluginAppDomainInfo->Id, true);
@@ -125,9 +125,6 @@ public:
     virtual ULONG WINAPI Release(void);
 
     virtual void WINAPI Show(HWND ParentWindow);
-
-private:
-    HRESULT LoadExtensions(IAIMPCore* core);
 
 private:
     bool inSetFormIntited;

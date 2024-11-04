@@ -17,11 +17,10 @@ AimpServiceVersionInfo::AimpServiceVersionInfo(ManagedAimpCore^ core) : BaseAimp
 String^ AimpServiceVersionInfo::FormatInfo::get() {
     auto service = GetAimpService();
     IAIMPString* s = nullptr;
-    ActionResultType res = ActionResultType::Fail;
 
     try {
         if (service != nullptr) {
-            res = CheckResult(service->FormatInfo(&s));
+            ActionResultType res = CheckResult(service->FormatInfo(&s));
             if (res == ActionResultType::OK && s != nullptr) {
                 return AimpConverter::ToManagedString(s);
             }

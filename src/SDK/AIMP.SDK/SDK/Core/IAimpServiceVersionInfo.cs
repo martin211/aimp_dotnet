@@ -1,4 +1,4 @@
-﻿//  ----------------------------------------------------
+//  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
 //  Copyright (c) 2014 - 2023 Evgeniy Bogdan
@@ -11,11 +11,26 @@ using System;
 
 namespace AIMP.SDK.Core
 {
+    /// <summary>
+    /// The build state type enum
+    /// </summary>
     public enum BuildStateType
     {
+        /// <summary>
+        /// Relese
+        /// </summary>
         Relese = 0,
+        /// <summary>
+        /// Release candidate
+        /// </summary>
         ReleaseCandidate = 1,
+        /// <summary>
+        /// Beta
+        /// </summary>
         Beta = 2,
+        /// <summary>
+        /// Alpha
+        /// </summary>
         Alpha = 3
     }
 
@@ -26,7 +41,7 @@ namespace AIMP.SDK.Core
     {
         /// <summary>
         /// Gets the information about version.
-        /// Format is v<major>.<minor>.<build>, build <buildNumber> (build date)
+        /// Format is v'Major'.'Minor'.'Build', build 'BuildNumber' (build date)
         /// </summary>
         string FormatInfo { get; }
 

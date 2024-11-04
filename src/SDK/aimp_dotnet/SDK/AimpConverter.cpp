@@ -14,7 +14,7 @@
 
 IUnknown* AimpConverter::MakeObject(REFIID objectId) {
     IUnknown* obj = nullptr;
-    HRESULT r = ManagedAimpCore::GetAimpCore()->CreateObject(objectId, reinterpret_cast<void**>(&obj));
+    ManagedAimpCore::GetAimpCore()->CreateObject(objectId, reinterpret_cast<void**>(&obj));
     return obj;
 }
 
@@ -109,8 +109,6 @@ Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImageContainer* imageContainer) {
             image = nullptr;
         }
     }
-
-    return nullptr;
 }
 
 Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImage* image) {
@@ -132,21 +130,20 @@ Bitmap^ AimpConverter::ToManagedBitmap(IAIMPImage* image) {
 
         image->SaveToStream(stream, AIMP_IMAGE_FORMAT_PNG);
         if (stream->GetSize() > 0) {
-            Int64 size = stream->GetSize();
-            unsigned char* buf = new unsigned char[(int)size];
-            HRESULT r = stream->Seek(0, AIMP_STREAM_SEEKMODE_FROM_BEGINNING);
-            r = stream->Read(buf, (int)size);
+            Int64 streamSize = stream->GetSize();
+            unsigned char* buf = new unsigned char[streamSize];
+            stream->Seek(0, AIMP_STREAM_SEEKMODE_FROM_BEGINNING);
+            stream->Read(buf, streamSize);
 
             auto strm = gcnew MemoryStream();
             try {
-                for (int i = 0; i < size; i++) {
+                for (int i = 0; i < streamSize; i++) {
                     strm->WriteByte(buf[i]);
                 }
                 bmp = gcnew Bitmap(strm);
             }
             finally {
                 strm->Close();
-                strm = nullptr;
 
                 delete[] buf;
                 stream->Release();
@@ -219,7 +216,7 @@ IAIMPMLDataField* AimpConverter::GetAimpDataField() {
 template <typename TObject>
 TObject* AimpConverter::CreateAimpObject(REFIID objectId) {
     TObject* obj = nullptr;
-    HRESULT r = ManagedAimpCore::GetAimpCore()->CreateObject(objectId, reinterpret_cast<void**>(&obj));
+    ManagedAimpCore::GetAimpCore()->CreateObject(objectId, reinterpret_cast<void**>(&obj));
     return obj;
 }
 

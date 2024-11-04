@@ -1,4 +1,4 @@
-﻿//  ----------------------------------------------------
+//  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
 //  Copyright (c) 2014 - 2023 Evgeniy Bogdan
@@ -86,5 +86,8 @@ public interface IAimpAlbumArtRequest
     /// <param name="url">The file URL.</param>
     AimpActionResult<IAimpImageContainer> Download(string url);
 
+    /// <summary>
+    /// Is request canceled.
+    /// </summary>
     bool IsCanceled();
 }

@@ -45,8 +45,6 @@ void OrderedListItem::Value::set(SortDirectionType value) {
 }
 
 IAimpString^ OrderedListItem::Name::get() {
-    IAIMPString* obj = nullptr;
-
     //_item->QueryInterface(IID_IAIMPString, reinterpret_cast<void**>(obj));
     return gcnew AimpString(_item);
 }

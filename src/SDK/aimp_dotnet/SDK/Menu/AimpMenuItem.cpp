@@ -146,7 +146,7 @@ void AimpMenuItem::Parent::set(IAimpMenuItem^ value) {
 
 MenuItemStyle AimpMenuItem::Style::get() {
     int val = 0;
-    const auto result = CheckResult(InternalAimpObject->GetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, &val));
+    CheckResult(InternalAimpObject->GetValueAsInt32(AIMP_MENUITEM_PROPID_STYLE, &val));
     //PropertyListExtension::GetInt32(InternalAimpObject, AIMP_MENUITEM_PROPID_STYLE, val);
     return static_cast<MenuItemStyle>(val);
 }

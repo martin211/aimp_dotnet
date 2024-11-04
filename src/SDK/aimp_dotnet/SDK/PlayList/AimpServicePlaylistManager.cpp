@@ -263,7 +263,6 @@ PlaylistResult AimpServicePlaylistManager::GetLoadedPlaylistByName(String^ name)
 
 int AimpServicePlaylistManager::GetLoadedPlaylistCount() {
     IAIMPServicePlaylistManager2* service = GetAimpService();
-    ActionResultType res = ActionResultType::Fail;
 
     try {
         if (service != nullptr) {
@@ -374,7 +373,6 @@ TYPED_RESULT(IAimpExtensionPlaylistPreimageFactory) AimpServicePlaylistManager::
 
 int AimpServicePlaylistManager::GetPreimageFactoryCount() {
     IAIMPServicePlaylistManager2* service = GetAimpService();
-    ActionResultType res = ActionResultType::Fail;
 
     try {
         if (service != nullptr) {

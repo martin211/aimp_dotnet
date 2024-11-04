@@ -9,6 +9,9 @@
 
 namespace AIMP.SDK.Objects
 {
+    /// <summary>
+    /// Clipping bound.
+    /// </summary>
     public class Clipping
     {
         public Clipping(int offset, int size)

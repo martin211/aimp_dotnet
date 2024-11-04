@@ -12,10 +12,9 @@ using AIMP.SDK.Player.Objects;
 namespace AIMP.SDK.Player
 {
     /// <summary>
-    /// Interface IAimpServicePlaybackQueue
-    /// Implements the <see cref="AIMP.SDK.IAimpService" />
+    /// Service provides an access to internal playback queue (do not confuse with <see cref="AIMP.SDK.Playlist.IAimpPlaylistQueue"/>).
+    /// Internal playback queue based (by default) on content of playlist and state of the "Shuffle" mode, but can be overridden by plugin via an extension for the IAIMPServicePlaybackQueue service.
     /// </summary>
-    /// <seealso cref="AIMP.SDK.IAimpService" />
     public interface IAimpServicePlaybackQueue : IAimpServicePlaybackQueue2, IAimpService
     {
         /// <summary>

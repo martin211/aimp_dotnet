@@ -8,7 +8,6 @@
 //  ----------------------------------------------------
 
 using System.Drawing;
-using AIMP.SDK.FileManager;
 using AIMP.SDK.FileManager.Objects;
 
 namespace AIMP.SDK.AlbumArt.Extensions

@@ -50,7 +50,6 @@ void AimpPlaybackQueueItem::UserData::set(Object^ value) {
 
 IAimpPlaylistItem^ AimpPlaybackQueueItem::PlaylistItem::get() {
     IAIMPPlaylistItem* item = nullptr;
-    IAIMPPropertyList* prop = nullptr;
     const auto res = Utils::CheckResult(InternalAimpObject->GetValueAsObject(AIMP_PLAYBACKQUEUEITEM_PROPID_PLAYLISTITEM, IID_IAIMPPlaylistItem, reinterpret_cast<void**>(&item)));
 
     if (res != ActionResultType::OK)

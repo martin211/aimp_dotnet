@@ -757,7 +757,7 @@ AimpActionResult^ AimpServicePlayer::StopAfterTrack() {
 
 IAIMPServicePlayer2* AimpServicePlayer::GetAimpService() {
     IAIMPServicePlayer2* service = nullptr;
-    const auto result = GetService(IID_IAIMPServicePlayer2, &service);
+    GetService(IID_IAIMPServicePlayer2, &service);
     return service;
 }
 

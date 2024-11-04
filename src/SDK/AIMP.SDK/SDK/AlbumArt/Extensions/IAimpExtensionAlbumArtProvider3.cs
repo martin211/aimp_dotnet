@@ -1,4 +1,4 @@
-﻿//  ----------------------------------------------------
+//  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
 //  Copyright (c) 2014 - 2023 Evgeniy Bogdan
@@ -25,5 +25,8 @@ public interface IAimpExtensionAlbumArtProvider3 : IAimpExtension
     /// <param name="requestOption">The request option.</param>
     AimpActionResult<IAimpImageContainer> Get(IAimpFileInfo file, IAimpAlbumArtRequest requestOption);
 
+    /// <summary>
+    /// Gets the category.
+    /// </summary>
     AimpAlbumArtProviderCategory GetCategory();
 }

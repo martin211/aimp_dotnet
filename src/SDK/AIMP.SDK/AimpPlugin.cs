@@ -9,8 +9,7 @@
 
 using System;
 using System.IO;
-
-using AIMP.SDK.Logger;
+using AIMP.Logger;
 
 namespace AIMP.SDK
 {

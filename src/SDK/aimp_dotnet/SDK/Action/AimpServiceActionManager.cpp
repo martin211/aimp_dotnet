@@ -19,7 +19,6 @@ AimpActionResult<IAimpAction^>^ AimpServiceActionManager::GetById(String^ id) {
     auto res = ActionResultType::Fail;
     IAIMPServiceActionManager* service = GetAimpService();
     IAimpAction^ action = nullptr;
-    AimpActionResult<IAimpAction^>^ result = nullptr;
 
     try {
         if (service != nullptr) {

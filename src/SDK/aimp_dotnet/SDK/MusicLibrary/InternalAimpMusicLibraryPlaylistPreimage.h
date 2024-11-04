@@ -30,11 +30,11 @@ namespace AIMP {
 
             virtual HRESULT WINAPI GetStorage(IUnknown** Storage);
 
-            virtual ULONG WINAPI AddRef(void);
-
-            virtual ULONG WINAPI Release(void);
-
-            virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
+            // virtual ULONG WINAPI AddRef(void);
+            //
+            // virtual ULONG WINAPI Release(void);
+            //
+            // virtual HRESULT WINAPI QueryInterface(REFIID riid, LPVOID* ppvObject);
         };
     }
 }

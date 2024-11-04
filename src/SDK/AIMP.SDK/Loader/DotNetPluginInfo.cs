@@ -9,6 +9,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using AIMP.Properties;
 
 namespace AIMP.Loader
 {
@@ -58,7 +59,7 @@ namespace AIMP.Loader
         /// Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1" />.
         /// </summary>
         /// <param name="item">The object to add to the <see cref="T:System.Collections.Generic.ICollection`1" />.</param>
-        public void Add(PluginInformation item)
+        public void Add([NotNull] PluginInformation item)
         {
             _inPluginsList.Add(item);
             item.PluginLoadEvent += item_PluginLoadEvent;
@@ -121,7 +122,7 @@ namespace AIMP.Loader
         /// <returns>true if <paramref name="item" /> was successfully removed from the
         /// <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, false. This method also returns false if
         /// <paramref name="item" /> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1" />.</returns>
-        public bool Remove(PluginInformation item)
+        public bool Remove( [NotNull] PluginInformation item)
         {
             var res = _inPluginsList.Remove(item);
             if (res)

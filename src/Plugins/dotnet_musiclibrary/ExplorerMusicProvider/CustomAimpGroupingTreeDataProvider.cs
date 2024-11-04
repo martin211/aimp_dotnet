@@ -27,8 +27,6 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 
         public AimpActionResult<IAimpGroupingTreeDataProviderSelection> GetData(IAimpGroupingTreeSelection selection)
         {
-            IAimpGroupingTreeDataProviderSelection data = null;
-
             var count = selection.GetCount();
 
             if (count > 0)
@@ -36,11 +34,11 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
                 var r = selection.GetValue(0);
                 if (r.ResultType == ActionResultType.OK)
                 {
-                    return new AimpActionResult<IAimpGroupingTreeDataProviderSelection>(ActionResultType.OK, data);
+                    return new AimpActionResult<IAimpGroupingTreeDataProviderSelection>(ActionResultType.OK);
                 }
             }
 
-            data = new CustomAimpGroupingTreeDataProviderSelection();
+            IAimpGroupingTreeDataProviderSelection data = new CustomAimpGroupingTreeDataProviderSelection();
 
             return new AimpActionResult<IAimpGroupingTreeDataProviderSelection>(ActionResultType.OK, data);
         }

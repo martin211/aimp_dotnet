@@ -15,6 +15,7 @@ HRESULT WINAPI InternalAimpExtensionFileInfoProvider::GetFileInfo(IAIMPString* f
     IAimpFileInfo^ aimpFileInfo = gcnew AimpFileInfo(info);
     //IAimpString^ str = gcnew AimpString(fileURI);
     auto result = _managedInstance->GetFileInfo(AimpConverter::ToManagedString(fileURI), aimpFileInfo);
+    // TODO check
     info = static_cast<AimpFileInfo^>(aimpFileInfo)->InternalAimpObject;
     return HRESULT(result->ResultType);
 }
@@ -22,6 +23,7 @@ HRESULT WINAPI InternalAimpExtensionFileInfoProvider::GetFileInfo(IAIMPString* f
 HRESULT WINAPI InternalAimpExtensionFileInfoProvider::GetFileInfo(IAIMPStream* stream, IAIMPFileInfo* info) {
     IAimpFileInfo^ aimpFileInfo = gcnew AimpFileInfo(info);
     const auto result = _managedInstance->GetFileInfo(gcnew AimpStream(stream), aimpFileInfo);
+    // TODO check
     info = static_cast<AimpFileInfo^>(aimpFileInfo)->InternalAimpObject;
     return HRESULT(result->ResultType);
 }

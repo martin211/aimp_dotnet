@@ -32,7 +32,6 @@ HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileAttrs(IAIMPString* 
 }
 
 HRESULT WINAPI InternalAimpFileSystemCommandFileInfo::GetFileSize(IAIMPString* fileName, INT64* size) {
-    long long sizeValur = 0;
     const auto result = _instance->GetFileSize(AimpConverter::ToManagedString(fileName));
     *size = result->Result;
     return HRESULT(result->ResultType);

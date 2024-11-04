@@ -27,6 +27,8 @@ AimpActionResult^ Core::AimpServiceShutdown::Restart(String^ arguments) {
         ReleaseObject(s);
         ReleaseObject(service);
     }
+
+    return gcnew AimpActionResult(ActionResultType::Fail);
 }
 
 AimpActionResult^ Core::AimpServiceShutdown::Shutdown(ShutdownType shutdownType) {
@@ -39,6 +41,8 @@ AimpActionResult^ Core::AimpServiceShutdown::Shutdown(ShutdownType shutdownType)
     finally {
         ReleaseObject(service);
     }
+
+    return gcnew AimpActionResult(ActionResultType::Fail);
 }
 
 IAIMPServiceShutdown* Core::AimpServiceShutdown::GetAimpService() {

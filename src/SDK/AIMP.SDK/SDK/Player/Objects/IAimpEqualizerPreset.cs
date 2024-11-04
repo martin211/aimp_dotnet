@@ -7,8 +7,6 @@
 //  Mail: mail4evgeniy@gmail.com
 //  ----------------------------------------------------
 
-using AIMP.SDK.Objects;
-
 namespace AIMP.SDK.Player.Objects
 {
     /// <summary>

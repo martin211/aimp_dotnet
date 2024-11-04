@@ -8,7 +8,6 @@
 //  ----------------------------------------------------
 
 using AIMP.SDK.MusicLibrary.DataFilter;
-using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.MusicLibrary
 {

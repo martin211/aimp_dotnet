@@ -167,4 +167,6 @@ AimpActionResult<TFilter>^ AimpDataFilterGroup::GetChild(int index) {
 
         return gcnew AimpActionResult<TFilter>(result, safe_cast<TFilter>(filter));
     }
+
+    return gcnew AimpActionResult<TFilter>(ActionResultType::InvalidArguments);
 }

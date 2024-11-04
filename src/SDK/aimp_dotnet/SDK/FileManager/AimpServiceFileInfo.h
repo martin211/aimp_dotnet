@@ -20,7 +20,7 @@ namespace AIMP {
         public ref class
             AimpServiceFileInfo : public BaseAimpService<IAIMPServiceFileInfo>, public IAimpServiceFileInfo {
         public:
-            AimpServiceFileInfo(ManagedAimpCore^ core);
+            explicit AimpServiceFileInfo(ManagedAimpCore^ core);
 
             virtual FileInfoResult GetFileInfoFromFileUri(String^ fileUri, ServiceFileInfoFlags fileInfoFlags);
 

@@ -33,6 +33,9 @@ namespace AIMP {
                 _initialized = false;
             }
 
+            virtual ~BaseAimpService() {                
+            }
+
         protected:
             ActionResultType CheckResult(HRESULT result) {
                 const ActionResultType res = Utils::CheckResult(result);

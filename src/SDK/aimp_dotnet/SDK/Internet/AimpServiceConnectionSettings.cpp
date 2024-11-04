@@ -23,6 +23,8 @@ Internet::ConnectionType AimpServiceConnectionSettings::ConnectionType::get() {
         ReleaseObject(prop);
         ReleaseObject(service);
     }
+
+    return Internet::ConnectionType::SystemDefaults;
 }
 
 void AimpServiceConnectionSettings::ConnectionType::set(Internet::ConnectionType value) {
@@ -55,6 +57,8 @@ String^ AimpServiceConnectionSettings::ProxyServer::get() {
         ReleaseObject(prop);
         ReleaseObject(service);
     }
+
+    return String::Empty;
 }
 
 void AimpServiceConnectionSettings::ProxyServer::set(String^ value) {
@@ -87,6 +91,8 @@ String^ AimpServiceConnectionSettings::ProxyPort::get() {
         ReleaseObject(prop);
         ReleaseObject(service);
     }
+
+    return String::Empty;
 }
 
 void AimpServiceConnectionSettings::ProxyPort::set(String^ value) {
@@ -119,6 +125,8 @@ String^ AimpServiceConnectionSettings::ProxyUserName::get() {
         ReleaseObject(prop);
         ReleaseObject(service);
     }
+
+    return String::Empty;
 }
 
 void AimpServiceConnectionSettings::ProxyUserName::set(String^ value) {
@@ -151,6 +159,8 @@ String^ AimpServiceConnectionSettings::ProxyUserPass::get() {
         ReleaseObject(prop);
         ReleaseObject(service);
     }
+
+    return String::Empty;
 }
 
 void AimpServiceConnectionSettings::ProxyUserPass::set(String^ value) {
@@ -183,6 +193,8 @@ int AimpServiceConnectionSettings::TimeOut::get() {
         ReleaseObject(prop);
         ReleaseObject(service);
     }
+
+    return 0;
 }
 
 void AimpServiceConnectionSettings::TimeOut::set(int value) {
@@ -215,6 +227,8 @@ String^ AimpServiceConnectionSettings::UserAgent::get() {
         ReleaseObject(prop);
         ReleaseObject(service);
     }
+
+    return String::Empty;
 }
 
 void AimpServiceConnectionSettings::UserAgent::set(String^ value) {

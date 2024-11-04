@@ -52,5 +52,5 @@ HRESULT WINAPI AimpPlaylistPreimageFactory::QueryInterface(REFIID riid, LPVOID* 
     }
 
     *ppvObject = nullptr;
-    return E_NOINTERFACE;
+    return res;
 }

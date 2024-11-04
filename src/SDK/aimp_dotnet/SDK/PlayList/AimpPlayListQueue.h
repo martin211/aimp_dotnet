@@ -63,11 +63,11 @@ namespace AIMP {
                 void raise(IAimpPlaylistQueue^ sender);
             }
 
-            void OnContentChanged() override {
+            virtual void OnContentChanged() {
                 ContentChanged(this);
             }
 
-            void OnStateChanged() override {
+            virtual void OnStateChanged() {
                 StateChanged(this);
             }
 

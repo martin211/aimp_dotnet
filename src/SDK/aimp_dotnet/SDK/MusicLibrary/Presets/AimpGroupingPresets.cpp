@@ -132,6 +132,8 @@ AimpActionResult<TAimpGroupingPreset>^ AimpGroupingPresets::Get(int index) {
 
         return gcnew AimpActionResult<TAimpGroupingPreset>(result, safe_cast<TAimpGroupingPreset>(preset));
     }
+
+    return gcnew AimpActionResult<TAimpGroupingPreset>(ActionResultType::InvalidArguments);
 }
 
 generic <class TAimpGroupingPreset>
@@ -166,4 +168,6 @@ AimpActionResult<TAimpGroupingPreset>^ AimpGroupingPresets::GetById(String^ id) 
 
         return gcnew AimpActionResult<TAimpGroupingPreset>(result, safe_cast<TAimpGroupingPreset>(preset));
     }
+
+    return gcnew AimpActionResult<TAimpGroupingPreset>(ActionResultType::InvalidArguments);
 }

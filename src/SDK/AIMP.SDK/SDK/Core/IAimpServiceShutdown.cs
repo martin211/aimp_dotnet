@@ -1,4 +1,4 @@
-﻿//  ----------------------------------------------------
+//  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
 //  Copyright (c) 2014 - 2023 Evgeniy Bogdan
@@ -11,15 +11,45 @@ using System;
 
 namespace AIMP.SDK.Core
 {
+    /// <summary>
+    /// The shutdown type enum
+    /// </summary>
     [Flags]
     public enum ShutdownType : uint
     {
+        /// <summary>
+        /// Hibernate
+        /// </summary>
         Hibernate = 0x1,
+
+        /// <summary>
+        /// Power off
+        /// </summary>
         PowerOff = 0x2,
+
+        /// <summary>
+        /// Sleep
+        /// </summary>
         Sleep = 0x3,
+
+        /// <summary>
+        /// Reboot
+        /// </summary>
         Reboot = 0x4,
+
+        /// <summary>
+        /// Log off
+        /// </summary>
         LogOff = 0x5,
+
+        /// <summary>
+        /// Close app
+        /// </summary>
         CloseApp = 0x10,
+
+        /// <summary>
+        /// No confirm
+        /// </summary>
         NoConfirm = 0x20
     }
 

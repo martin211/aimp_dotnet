@@ -358,15 +358,15 @@ HRESULT WINAPI AimpExtensionDataStorage::SetValueAsObject(int PropertyID, IUnkno
     // TODO complete it
     return S_OK;
 
-    if (PropertyID == AIMPML_DATASTORAGE_PROPID_ID) {
-        AIMP::SDK::PropertyListExtension::SetString(this, AIMPML_DATASTORAGE_PROPID_ID, _managedInstance->Id);
-    }
-
-    if (PropertyID == AIMPML_DATASTORAGE_PROPID_CAPTION) {
-        AIMP::SDK::PropertyListExtension::SetString(this, AIMPML_DATASTORAGE_PROPID_CAPTION, _managedInstance->Caption);
-    }
-
-    return S_OK;
+    // if (PropertyID == AIMPML_DATASTORAGE_PROPID_ID) {
+    //     AIMP::SDK::PropertyListExtension::SetString(this, AIMPML_DATASTORAGE_PROPID_ID, _managedInstance->Id);
+    // }
+    //
+    // if (PropertyID == AIMPML_DATASTORAGE_PROPID_CAPTION) {
+    //     AIMP::SDK::PropertyListExtension::SetString(this, AIMPML_DATASTORAGE_PROPID_CAPTION, _managedInstance->Caption);
+    // }
+    //
+    // return S_OK;
 }
 
 HRESULT WINAPI AimpExtensionDataStorage::QueryInterface(REFIID riid, LPVOID* ppvObject) {

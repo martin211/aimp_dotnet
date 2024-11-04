@@ -41,7 +41,6 @@ IAimpObjectList<String^>^ AimpGroupingPresetStandard::Fields::get() {
 }
 
 void AimpGroupingPresetStandard::Fields::set(IAimpObjectList<String^>^ value) {
-    Generic::IList<String^>^ result;
     IAIMPObjectList* fields = AimpConverter::CreateAimpObject<IAIMPObjectList>(IID_IAIMPObjectList);
     int count = value->Count;
 

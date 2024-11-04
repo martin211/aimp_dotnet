@@ -1,4 +1,4 @@
-﻿//  ----------------------------------------------------
+//  ----------------------------------------------------
 //  AIMP DotNet SDK
 // 
 //  Copyright (c) 2014 - 2023 Evgeniy Bogdan
@@ -13,8 +13,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using AIMP.Logger;
 using AIMP.SDK;
-using AIMP.SDK.Logger;
 
 namespace AIMP.Loader
 {
@@ -170,7 +170,7 @@ namespace AIMP.Loader
 
                         LoadedPlugin = (AimpPlugin) PluginAppDomainInfo.CreateInstanceFromAndUnwrap(_inPathToAssembly.FullName, PluginClassName);
 
-                        PluginAppDomainInfo.AssemblyResolve += (sender, args) =>
+                        PluginAppDomainInfo.AssemblyResolve += (_, args) =>
                         {
                             var projectDir = Path.GetDirectoryName(_inPathToAssembly.DirectoryName);
 
@@ -323,10 +323,6 @@ namespace AIMP.Loader
             LoadedPlugin.OnPreInitialize(player);
         }
 
-        /// <summary>
-        /// Initializes the specified plugin.
-        /// </summary>
-        /// <param name="player">The player.</param>
         public void Initialize(IAimpPlayer player)
         {
             if (IsLoaded)
@@ -335,6 +331,10 @@ namespace AIMP.Loader
             }
         }
 
+        /// <summary>
+        /// Initializes the logger
+        /// </summary>
+        /// <returns>The aimp logger</returns>
         public IAimpLogger InitializeLogger()
         {
             if (IsLoaded)

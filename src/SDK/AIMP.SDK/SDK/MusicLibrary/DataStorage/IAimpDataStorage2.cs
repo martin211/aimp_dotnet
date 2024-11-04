@@ -9,6 +9,9 @@
 
 namespace AIMP.SDK.MusicLibrary.DataStorage;
 
+/// <summary>
+/// Extended version of the <see cref="IAimpDataStorage"/> interface that provides an ability to create data storage based objects.
+/// </summary>
 public interface IAimpDataStorage2 : IAimpDataStorage
 {
     /// <summary>

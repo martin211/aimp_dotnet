@@ -35,13 +35,12 @@ AimpActionResult^ AimpServiceAlbumArtCache::Flush() {
 
 AimpActionResult<IAimpImageContainer^>^ AimpServiceAlbumArtCache::Get(String^ key) {
     auto service = GetAimpService();
-    ActionResultType result = ActionResultType::Fail;
     auto str = AimpConverter::ToAimpString(key);
     IAIMPImageContainer* container = nullptr;
 
     try {
         if (service != nullptr) {
-            result = CheckResult(service->Get(str, &container));
+            ActionResultType result = CheckResult(service->Get(str, &container));
             if (result == ActionResultType::OK && container != nullptr) {
                 return gcnew AimpActionResult<IAimpImageContainer^>(result, gcnew AimpImageContainer(container));
             }

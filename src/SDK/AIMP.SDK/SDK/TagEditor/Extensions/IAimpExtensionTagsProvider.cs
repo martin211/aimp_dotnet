@@ -13,8 +13,15 @@ using AIMP.SDK.Threading;
 
 namespace AIMP.SDK.TagEditor.Extensions;
 
+/// <summary>
+/// AimpServiceFindTagsOnlineAlbumInfoReceiveProc is a callback function that returns found album to tag editor.
+/// Plugin able to call this function few times depended how much results are found. 
+/// </summary>
 public delegate void AimpServiceFindTagsOnlineAlbumInfoReceiveProc(IAimpFileInfo fileInfo, object userData);
 
+/// <summary>
+/// Extension for the IAimpServiceFindTagsOnline service, provides an ability to implement custom tags provider for the "autotagging via online-services" feature that available in advanced tag editor.
+/// </summary>
 public interface IAimpExtensionTagsProvider
 {
     /// <summary>

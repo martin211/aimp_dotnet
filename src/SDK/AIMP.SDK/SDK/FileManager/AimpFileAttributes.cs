@@ -14,10 +14,7 @@ namespace AIMP.SDK.FileManager
 {
     /// <summary>
     /// Struct AimpFileAttributes
-    /// Implements the <see cref="System.IEquatable{AIMP.SDK.FileManager.AimpFileAttributes}" />
-    /// Implements the <see cref="System.IEquatable{AIMP.SDK.FileManager.AimpFileAttributes}" />
     /// </summary>
-    /// <seealso cref="System.IEquatable{AIMP.SDK.FileManager.AimpFileAttributes}" />
     public struct AimpFileAttributes : IEquatable<AimpFileAttributes>
     {
         /// <summary>

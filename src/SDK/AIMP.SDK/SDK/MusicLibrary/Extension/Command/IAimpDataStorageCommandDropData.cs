@@ -10,7 +10,8 @@
 namespace AIMP.SDK.MusicLibrary.Extension.Command
 {
     /// <summary>
-    /// Interface IAimpDataStorageCommandDropData
+    /// Command removes all data from data storage.
+    /// The confirmation dialog must be implemented on data storage side.
     /// </summary>
     public interface IAimpDataStorageCommandDropData
     {

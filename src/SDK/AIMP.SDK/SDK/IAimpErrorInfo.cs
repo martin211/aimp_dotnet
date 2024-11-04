@@ -7,8 +7,6 @@
 //  Mail: mail4evgeniy@gmail.com
 //  ----------------------------------------------------
 
-using System;
-
 namespace AIMP.SDK
 {
     public class ErrorInfo

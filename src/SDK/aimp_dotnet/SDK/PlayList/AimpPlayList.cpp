@@ -880,17 +880,14 @@ void AimpPlayList::PreImage::set(IAimpPlaylistPreimage^ value) {
                 if (folders != nullptr) {
                     IAIMPPlaylistPreimageFolders* f = static_cast<IAIMPPlaylistPreimageFolders*>(folders->
                         InternalAimpObject);
-                    ActionResultType res = Utils::CheckResult(
-                        properties->SetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, f));
+                    properties->SetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, f);
                 }
                 else {
                     preImage = static_cast<AimpPlaylistPreimage^>(value)->InternalAimpObject;
-                    ActionResultType res = Utils::CheckResult(
-                        properties->SetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, preImage));
+                    properties->SetValueAsObject(AIMP_PLAYLIST_PROPID_PREIMAGE, preImage);
                 }
             }
             else {
-                IAIMPPlaylistPreimage* preImage = nullptr;
                 ActionResultType res = Utils::CheckResult(properties->GetValueAsObject(
                     AIMP_PLAYLIST_PROPID_PREIMAGE, IID_IAIMPPlaylistPreimage, reinterpret_cast<void**>(&preImage)));
                 if (res == ActionResultType::OK && preImage != nullptr) {
