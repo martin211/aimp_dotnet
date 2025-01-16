@@ -11,6 +11,8 @@
 #include "AimpGroupingPreset.h"
 #include "AIMPSDK\AIMPSDK.h"
 
+using namespace MusicLibrary;
+
 namespace AIMP {
     namespace SDK {
         using namespace MusicLibrary::Presets;
@@ -25,11 +27,11 @@ namespace AIMP {
         public:
             AimpGroupingPresetStandard(IAIMPMLGroupingPresetStandard* aimpObject);
 
-            virtual property IAimpObjectList<String^>^ Fields
+            virtual property IAimpObjectList<IAimpSortItem^>^ Fields
             {
-                IAimpObjectList<String^>^ get();
+                IAimpObjectList<IAimpSortItem^>^ get();
 
-                void set(IAimpObjectList<String^>^ value);
+                void set(IAimpObjectList<IAimpSortItem^>^ value);
             }
 
             virtual TYPED_RESULT(IAimpDataFilterGroup) GetFilter();

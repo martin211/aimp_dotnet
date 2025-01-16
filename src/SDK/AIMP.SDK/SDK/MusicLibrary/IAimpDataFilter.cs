@@ -7,24 +7,11 @@
 //  Mail: mail4evgeniy@gmail.com
 //  ----------------------------------------------------
 
+using System.Collections.Generic;
 using AIMP.SDK.MusicLibrary.DataFilter;
 
 namespace AIMP.SDK.MusicLibrary
 {
-    public enum FilterType
-    {
-        Limit = 11,
-        Offset = 12,
-        SortByList = 15,
-        SearchString = 20,
-        AlphabeticIndex = 21
-    }
-
-    public interface IAimpSortItem : IAimpString, IAimpSortDirection
-    {
-
-    }
-
     /// <summary>
     /// Interface IAimpDataFilter
     /// Implements the <see cref="AIMP.SDK.MusicLibrary.DataFilter.IAimpDataFilterGroup" />
@@ -48,7 +35,8 @@ namespace AIMP.SDK.MusicLibrary
         /// Gets or sets the field name for sorting. Can be null.
         /// </summary>
         /// <value>The sort by.</value>
-        IAimpObjectList SortByList { get; set; }
+        //IList<IAimpSortItem> SortByList { get; set; }
+        List<IAimpSortItem> SortByList { get; set; }
 
         /// <summary>
         /// Gets or sets the search string. Can be null.

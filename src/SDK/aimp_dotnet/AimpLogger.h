@@ -10,5 +10,5 @@
 #pragma once
 public ref class AimpLogger {
 public:
-    static Logger::IAimpLogger^ Logger;
+    static AIMP::Logger::IAimpLogger^ Logger;
 };

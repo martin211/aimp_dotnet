@@ -9,7 +9,10 @@
 
 #include "Stdafx.h"
 #include "InternalAimpDataFilter.h"
-#include "DataFilter/AimpDataFilter.h"
+
+#include "InternalAimpSortItem.h"
+#include "SDK/AimpObjectList.h"
+#include "SDK/MusicLibrary/DataFilter/AimpDataFilter.h"
 
 using namespace AIMP::SDK;
 using namespace MusicLibrary;
@@ -65,12 +68,16 @@ HRESULT WINAPI InternalAimpDataFilter::SetValueAsInt32(int PropertyID, int Value
 
 HRESULT WINAPI InternalAimpDataFilter::GetValueAsObject(int PropertyID, REFIID IID, void** Value) {
     // TODO
-    //if (PropertyID == AIMPML_FILTER_SORTBY) {
-    //    IAIMPString* str = AimpConverter::ToAimpString(_managedInstance->SortBy);
-    //    *Value = str;
-    //    str->Release();
-    //    str = nullptr;
-    //}
+    if (PropertyID == AIMPML_FILTER_SORTBYLIST) {
+        IAIMPObjectList* list = AimpConverter::GetAimpObjectList();
+
+        for (int i = 0; i < _managedInstance->SortByList->Count; i++) {
+            InternalAimpSortItem* item = new InternalAimpSortItem(_managedInstance->SortByList[i]);
+            list->Add(reinterpret_cast<IUnknown*>(item));
+        }
+
+        *Value = list;
+    }
 
     if (PropertyID == AIMPML_FILTER_SEARCHSTRING) {
         IAIMPString* str = AimpConverter::ToAimpString(_managedInstance->SearchString);

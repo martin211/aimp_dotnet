@@ -15,6 +15,7 @@
 #include "FileManager/AimpVirtualFile.h"
 #include "Lyrics/AimpLyrics.h"
 #include "Menu/AimpMenuItem.h"
+#include "MusicLibrary/DataFilter/AimpSortItem.h"
 #include "Objects/AimpImage.h"
 #include "Objects/AimpImageContainer.h"
 #include "Objects/AimpMemoryStream.h"

@@ -33,7 +33,7 @@ namespace AIMP.SDK.MusicLibrary.Presets
         /// <param name="name">Template name.</param>
         /// <param name="fieldNames">The list of fields</param>
         /// <returns>AimpActionResult&lt;IAimpGroupingPresetStandard&gt;.</returns>
-        AimpActionResult<IAimpGroupingPresetStandard> Add(string id, string name, IList<string> fieldNames);
+        AimpActionResult<IAimpGroupingPresetStandard> Add(string id, string name, IList<IAimpSortItem> fieldNames);
 
         /// <summary>
         /// Adds new grouping template with default data provider.

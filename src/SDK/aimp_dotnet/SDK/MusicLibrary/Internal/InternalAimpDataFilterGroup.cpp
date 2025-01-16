@@ -10,8 +10,8 @@
 #include "Stdafx.h"
 #include "InternalAimpDataFilterGroup.h"
 
-#include "InternalDataFieldFilter.h"
-#include "DataFilter/InternalAimpDataFieldFilterByArray.h"
+#include "SDK/MusicLibrary/InternalDataFieldFilter.h"
+#include "SDK/MusicLibrary/DataFilter/InternalAimpDataFieldFilterByArray.h"
 
 using namespace AIMP::SDK;
 using namespace MusicLibrary;

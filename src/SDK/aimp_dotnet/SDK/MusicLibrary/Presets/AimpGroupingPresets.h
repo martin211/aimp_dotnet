@@ -9,7 +9,7 @@
 
 #pragma once
 #include "AIMPSDK\AIMPSDK.h"
-#include "SDK/MusicLibrary/InternalAimpGroupingTreeDataProvider.h"
+#include "SDK/MusicLibrary/Internal/InternalAimpGroupingTreeDataProvider.h"
 
 namespace AIMP {
     namespace SDK {
@@ -19,6 +19,7 @@ namespace AIMP {
         using namespace SDK;
         using namespace MusicLibrary::DataStorage;
         using namespace MusicLibrary::Presets;
+        using namespace MusicLibrary;
 
         public ref class AimpGroupingPresets : public AimpObject<IAIMPMLGroupingPresets>, public IAimpGroupingPresets {
         private:
@@ -30,8 +31,7 @@ namespace AIMP {
             virtual TYPED_RESULT(IAimpGroupingPreset) Add(String^ id, String^ name,
                                                           IAimpGroupingTreeDataProvider^ provider);
 
-            virtual TYPED_RESULT(IAimpGroupingPresetStandard) Add(String^ id, String^ name,
-                                                                  Generic::IList<String^>^ fieldNames);
+            virtual TYPED_RESULT(IAimpGroupingPresetStandard) Add(String^ id, String^ name, Generic::IList<IAimpSortItem^>^ fieldNames);
 
             virtual TYPED_RESULT(IAimpGroupingPresetStandard) Add(String^ id, String^ name, String^ fieldName);
 

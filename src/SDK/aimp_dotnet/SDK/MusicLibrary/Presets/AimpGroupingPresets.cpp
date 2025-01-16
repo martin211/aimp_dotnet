@@ -10,7 +10,7 @@
 #include "Stdafx.h"
 #include "AimpGroupingPresets.h"
 #include "AimpGroupingPresetStandard.h"
-#include "SDK/MusicLibrary/InternalAimpGroupingTreeDataProvider.h"
+#include "SDK/MusicLibrary/Internal/InternalAimpSortItem.h"
 
 using namespace AIMP::SDK;
 
@@ -62,15 +62,12 @@ AimpActionResult<IAimpGroupingPreset^>^ AimpGroupingPresets::Add(String^ id, Str
     return gcnew AimpActionResult<IAimpGroupingPreset^>(result, preset);
 }
 
-AimpActionResult<IAimpGroupingPresetStandard^>^ AimpGroupingPresets::Add(
-    String^ id, String^ name, Generic::IList<String^>^ fieldNames) {
+AimpActionResult<IAimpGroupingPresetStandard^>^ AimpGroupingPresets::Add(String^ id, String^ name, Generic::IList<IAimpSortItem^>^ fieldNames) {
     IAIMPObjectList* fields = AimpConverter::CreateAimpObject<IAIMPObjectList>(IID_IAIMPObjectList);
 
     for (int i = 0; i < fieldNames->Count; i++) {
-        IAIMPString* s = AimpConverter::ToAimpString(fieldNames[i]);
-        fields->Add(s);
-        //AimpObjectDisposer::AddToBack(s);
-        s->Release();
+        auto item = new InternalAimpSortItem(fieldNames[i]);
+        fields->Add(reinterpret_cast<IUnknown*>(item));
     }
 
     IAIMPMLGroupingPresetStandard* standardPreset = nullptr;

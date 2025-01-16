@@ -10,8 +10,8 @@
 #include "Stdafx.h"
 #include "InternalAimpExtensionPlaylistPreimageFactory.h"
 #include "InternalAimpPlaylistPreimage.h"
+#include "SDK/MusicLibrary/Internal/InternalAimpMLPlaylistPreimage.h"
 #include "SDK/Threading/AimpTaskOwner.h"
-#include "InternalAimpMLPlaylistPreimage.h"
 
 using namespace AIMP::SDK;
 

@@ -22,7 +22,7 @@ namespace AIMP.SDK.MusicLibrary.Presets
         /// Gets or sets the fields that used for grouping at filter.
         /// </summary>
         /// <value>The fields.</value>
-        IAimpObjectList<string> Fields { get; set; }
+        IAimpObjectList<IAimpSortItem> Fields { get; set; }
 
         /// <summary>
         /// Gets the used filter.

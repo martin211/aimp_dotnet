@@ -10,66 +10,110 @@
 #include "Stdafx.h"
 #include "AimpDataFilter.h"
 
+#include "AimpSortItem.h"
+#include "SDK/ManagedAimpCore.h"
+#include "SDK/MusicLibrary/Internal/InternalAimpSortItem.h"
+
 using namespace AIMP::SDK;
 
-AimpDataFilter::AimpDataFilter(IAIMPMLDataFilter* native) : AimpDataFilterGroup(native) {
-    InternalDataFilter = native;
+AimpDataFilter::AimpDataFilter(IAIMPMLDataFilter* native) : AimpDataFilterGroup(native)
+{
+	InternalDataFilter = native;
 }
 
-int AimpDataFilter::Offset::get() {
-    return PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_OFFSET);
+int AimpDataFilter::Offset::get()
+{
+	return PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_OFFSET);
 }
 
-void AimpDataFilter::Offset::set(int value) {
-    PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_OFFSET, value);
+void AimpDataFilter::Offset::set(int value)
+{
+	PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_OFFSET, value);
 }
 
-int AimpDataFilter::Limit::get() {
-    return PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_LIMIT);
+int AimpDataFilter::Limit::get()
+{
+	return PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_LIMIT);
 }
 
-void AimpDataFilter::Limit::set(int value) {
-    PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_LIMIT, value);
+void AimpDataFilter::Limit::set(int value)
+{
+	PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_LIMIT, value);
 }
 
-IAimpObjectList^ AimpDataFilter::SortByList::get() {
-    return nullptr;
-    //return PropertyListExtension::GetString(InternalAimpObject, AIMPML_FILTER_SORTBYLIST);
+List<IAimpSortItem^>^ AimpDataFilter::SortByList::get()
+{
+	// TODO: The list is always an empty. Need to contact with owner
+	IAIMPObjectList* list = nullptr;
+	auto res = PropertyListExtension::GetObject(InternalAimpObject, AIMPML_FILTER_SORTBYLIST, IID_IAIMPObjectList, reinterpret_cast<void**>(&list));
+
+	if (res != ActionResultType::OK)
+	{
+		return nullptr;
+	};
+
+	auto result = gcnew List<IAimpSortItem^>(list->GetCount());
+	for (int i = 0; i < list->GetCount(); i++)
+	{
+		IAIMPString* itm = nullptr;
+		IAIMPMLSortDirection* direction = nullptr;
+		list->GetObject(i, IID_IAIMPString, reinterpret_cast<void**>(itm));
+		list->GetObject(i, IID_IAIMPMLSortDirection, reinterpret_cast<void**>(direction));
+		auto item = gcnew AimpSortItem(itm);
+		result->Add(item);
+	}
 }
 
-void AimpDataFilter::SortByList::set(IAimpObjectList^ value) {
-    //PropertyListExtension::SetString(InternalAimpObject, AIMPML_FILTER_SORTBYLIST, value);
+void AimpDataFilter::SortByList::set(List<IAimpSortItem^>^ value)
+{
+	IAIMPObjectList* list = nullptr;
+	ManagedAimpCore::GetAimpCore()->CreateObject(IID_IAIMPObjectList, reinterpret_cast<void**>(list));
+
+	for (int i = 0; i < value->Count; i++)
+	{
+		auto item = new InternalAimpSortItem(value[i]);
+		list->Add(item);
+	}
+
+	InternalAimpObject->SetValueAsObject(AIMPML_FILTER_SORTBYLIST, list);
 }
 
-String^ AimpDataFilter::SearchString::get() {
-    return PropertyListExtension::GetString(InternalAimpObject, AIMPML_FILTER_SEARCHSTRING);
+String^ AimpDataFilter::SearchString::get()
+{
+	return PropertyListExtension::GetString(InternalAimpObject, AIMPML_FILTER_SEARCHSTRING);
 }
 
-void AimpDataFilter::SearchString::set(String^ value) {
-    PropertyListExtension::SetString(InternalAimpObject, AIMPML_FILTER_SEARCHSTRING, value);
+void AimpDataFilter::SearchString::set(String^ value)
+{
+	PropertyListExtension::SetString(InternalAimpObject, AIMPML_FILTER_SEARCHSTRING, value);
 }
 
-int AimpDataFilter::AlphaBeticIndex::get() {
-    return PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_ALPHABETICINDEX);
+int AimpDataFilter::AlphaBeticIndex::get()
+{
+	return PropertyListExtension::GetInt32(InternalAimpObject, AIMPML_FILTER_ALPHABETICINDEX);
 }
 
-void AimpDataFilter::AlphaBeticIndex::set(int value) {
-    PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_ALPHABETICINDEX, value);
+void AimpDataFilter::AlphaBeticIndex::set(int value)
+{
+	PropertyListExtension::SetInt32(InternalAimpObject, AIMPML_FILTER_ALPHABETICINDEX, value);
 }
 
-ActionResult AimpDataFilter::Assign(IAimpDataFilter^ source) {
-    IAIMPMLDataFilter* filter = static_cast<AimpDataFilter^>(source)->InternalDataFilter;
-    return ACTION_RESULT(Utils::CheckResult(InternalDataFilter->Assign(filter)));
+ActionResult AimpDataFilter::Assign(IAimpDataFilter^ source)
+{
+	IAIMPMLDataFilter* filter = static_cast<AimpDataFilter^>(source)->InternalDataFilter;
+	return ACTION_RESULT(Utils::CheckResult(InternalDataFilter->Assign(filter)));
 }
 
-AimpActionResult<IAimpDataFilter^>^ AimpDataFilter::Clone() {
-    IAimpDataFilter^ source = nullptr;
-    IAIMPMLDataFilter* clone = nullptr;
+AimpActionResult<IAimpDataFilter^>^ AimpDataFilter::Clone()
+{
+	IAimpDataFilter^ source = nullptr;
+	IAIMPMLDataFilter* clone = nullptr;
 
-    const ActionResultType result = Utils::CheckResult(InternalDataFilter->Clone(reinterpret_cast<void**>(&clone)));
-    if (result == ActionResultType::OK && clone != nullptr) {
-        source = gcnew AimpDataFilter(clone);
-    }
+	const ActionResultType result = Utils::CheckResult(InternalDataFilter->Clone(reinterpret_cast<void**>(&clone)));
+	if (result == ActionResultType::OK && clone != nullptr)
+	{
+		source = gcnew AimpDataFilter(clone);
+	}
 
-    return gcnew AimpActionResult<IAimpDataFilter^>(result, source);
+	return gcnew AimpActionResult<IAimpDataFilter^>(result, source);
 }

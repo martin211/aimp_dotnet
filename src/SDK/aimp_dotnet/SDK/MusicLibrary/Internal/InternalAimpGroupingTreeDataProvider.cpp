@@ -9,8 +9,13 @@
 
 #include "Stdafx.h"
 #include "InternalAimpGroupingTreeDataProvider.h"
-#include "AimpGroupingTreeSelection.h"
-#include "DataFilter/AimpDataFilterGroup.h"
+
+#include "SDK/MusicLibrary/AimpGroupingTreeSelection.h"
+#include "SDK/MusicLibrary/DataFilter/AimpDataFilterGroup.h"
+
+namespace AIMP::SDK {
+    ref class AimpDataFilterGroup;
+}
 
 using namespace AIMP::SDK;
 

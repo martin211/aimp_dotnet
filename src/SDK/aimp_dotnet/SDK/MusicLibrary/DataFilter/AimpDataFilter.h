@@ -9,6 +9,7 @@
 
 #pragma once
 #include "AimpDataFilterGroup.h"
+using namespace System::Collections::Generic;
 
 namespace AIMP {
     namespace SDK {
@@ -50,11 +51,11 @@ namespace AIMP {
             virtual ActionResult Assign(IAimpDataFilter^ source);
 
             virtual TYPED_RESULT(IAimpDataFilter) Clone();
-
-            property IAimpObjectList^ SortByList
+            
+            virtual property List<IAimpSortItem^>^ SortByList
             {
-                virtual IAimpObjectList^ get();
-                virtual void set(IAimpObjectList^ value);
+                List<IAimpSortItem^>^ get();
+                void set(List<IAimpSortItem^>^ sort_by_list);
             }
         };
     }

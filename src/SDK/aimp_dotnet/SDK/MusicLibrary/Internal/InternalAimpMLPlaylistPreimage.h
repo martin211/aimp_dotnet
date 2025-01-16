@@ -8,7 +8,6 @@
 //  ----------------------------------------------------
 
 #pragma once
-#include "InternalAimpPlaylistPreimage.h"
 
 namespace AIMP {
     namespace SDK {

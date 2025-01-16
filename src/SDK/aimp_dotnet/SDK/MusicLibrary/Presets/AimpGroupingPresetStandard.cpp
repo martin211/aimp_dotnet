@@ -18,12 +18,12 @@ AimpGroupingPresetStandard::
 AimpGroupingPresetStandard(IAIMPMLGroupingPresetStandard* aimpObject) : AimpGroupingPreset(aimpObject) {
 }
 
-IAimpObjectList<String^>^ AimpGroupingPresetStandard::Fields::get() {
+IAimpObjectList<IAimpSortItem^>^ AimpGroupingPresetStandard::Fields::get() {
     IAIMPObjectList* fields = nullptr;
 
     if (CheckResult(InternalAimpObject->GetValueAsObject(AIMPML_GROUPINGPRESETSTD_PROPID_FIELDS, IID_IAIMPObjectList,
                                                          reinterpret_cast<void**>(&fields))) == ActionResultType::OK) {
-        return gcnew AimpObjectList<String^>(fields);
+        return gcnew AimpObjectList<IAimpSortItem^>(fields);
     }
 
     // TODO: Check GetObject
@@ -40,7 +40,7 @@ IAimpObjectList<String^>^ AimpGroupingPresetStandard::Fields::get() {
     return nullptr;
 }
 
-void AimpGroupingPresetStandard::Fields::set(IAimpObjectList<String^>^ value) {
+void AimpGroupingPresetStandard::Fields::set(IAimpObjectList<IAimpSortItem^>^ value) {
     IAIMPObjectList* fields = AimpConverter::CreateAimpObject<IAIMPObjectList>(IID_IAIMPObjectList);
     int count = value->Count;
 

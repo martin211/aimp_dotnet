@@ -66,6 +66,8 @@ namespace AIMP.DotNet.MusicLibrary
         {
             PaggedData data = null;
             string s;
+            var count = filter.SortByList?.Count;
+
             if (fields.Count == 1 && fields[0] == EVDS_Fake)
             {
                 if (GetRootPath(filter, out s))
@@ -187,8 +189,11 @@ namespace AIMP.DotNet.MusicLibrary
 
         public string Caption => "Explorer media library";
 
-        public CapabilitiesType Capabilities => CapabilitiesType.Filtering | CapabilitiesType.GroupingPresets |
-                                                CapabilitiesType.Preimages | CapabilitiesType.Filtering;
+        public CapabilitiesType Capabilities => CapabilitiesType.Filtering;
+                                                //CapabilitiesType.Preimages |
+                                                //CapabilitiesType.GroupingPresets |
+                                                //CapabilitiesType.CustomizeGroups |
+                                                //CapabilitiesType.AutoExpandFields;
 
         void IAimpExtensionDataStorage.Initialize(IAimpDataStorageManager manager)
         {
@@ -222,21 +227,21 @@ namespace AIMP.DotNet.MusicLibrary
                 case SchemaType.All:
                     list = new List<IAimpDataField>
                     {
-                        new AimpDataField(EVDS_ID, AimpDataFieldType.String,
-                            AimpDataFieldFlagsType.Internal | AimpDataFieldFlagsType.Filtering),
-                        new AimpDataField(EVDS_FileName, AimpDataFieldType.None, AimpDataFieldFlagsType.Filtering),
-                        new AimpDataField(EVDS_FileFormat, AimpDataFieldType.String, AimpDataFieldFlagsType.Filtering),
-                        new AimpDataField(EVDS_FileSize, AimpDataFieldType.FileSize, AimpDataFieldFlagsType.Filtering),
-                        new AimpDataField(EVDS_FileAccessTime, AimpDataFieldType.DateTime,
-                            AimpDataFieldFlagsType.Filtering),
-                        new AimpDataField(EVDS_FileCreationTime, AimpDataFieldType.DateTime,
-                            AimpDataFieldFlagsType.Filtering),
-                        new AimpDataField(EVDS_Fake, AimpDataFieldType.FileName,
-                            AimpDataFieldFlagsType.Internal | AimpDataFieldFlagsType.Grouping),
+                        new AimpDataField(EVDS_ID, AimpDataFieldType.String, AimpDataFieldFlagsType.Internal | AimpDataFieldFlagsType.Filtering),
+                        new AimpDataField(EVDS_FileName, AimpDataFieldType.String, AimpDataFieldFlagsType.Filtering | AimpDataFieldFlagsType.Grouping),
+                        new AimpDataField(EVDS_FileFormat, AimpDataFieldType.String, AimpDataFieldFlagsType.Filtering | AimpDataFieldFlagsType.Grouping),
+                        new AimpDataField(EVDS_FileSize, AimpDataFieldType.FileSize, AimpDataFieldFlagsType.Filtering | AimpDataFieldFlagsType.Grouping),
+                        new AimpDataField(EVDS_FileAccessTime, AimpDataFieldType.DateTime, AimpDataFieldFlagsType.Filtering),
+                        new AimpDataField(EVDS_FileCreationTime, AimpDataFieldType.DateTime, AimpDataFieldFlagsType.Filtering),
+                        new AimpDataField(EVDS_Fake, AimpDataFieldType.FileName,AimpDataFieldFlagsType.Internal | AimpDataFieldFlagsType.Grouping),
                         new AimpDataField(FieldNode, AimpDataFieldType.String, AimpDataFieldFlagsType.Internal)
                         {
                             Image = ImageType.Note
-                        }
+                        },
+                        new AimpDataField(AIMPML_RESERVED_FIELD_DURATION, AimpDataFieldType.Duration, AimpDataFieldFlagsType.Grouping | AimpDataFieldFlagsType.Filtering),
+                        new AimpDataField(AIMPML_RESERVED_FIELD_USERMARK, AimpDataFieldType.Duration, AimpDataFieldFlagsType.Grouping | AimpDataFieldFlagsType.Filtering),
+                        new AimpDataField("Test", AimpDataFieldType.Duration, AimpDataFieldFlagsType.Grouping | AimpDataFieldFlagsType.Filtering)
+
                     };
 
                     return new AimpActionResult<IList>(ActionResultType.OK, list);
@@ -250,7 +255,9 @@ namespace AIMP.DotNet.MusicLibrary
                         EVDS_FileName,
                         EVDS_FileSize,
                         EVDS_FileAccessTime,
-                        EVDS_FileCreationTime
+                        EVDS_FileCreationTime,
+                        AIMPML_RESERVED_FIELD_DURATION,
+                        AIMPML_RESERVED_FIELD_USERMARK
                     };
                     return new AimpActionResult<IList>(ActionResultType.OK, list);
 
@@ -262,8 +269,7 @@ namespace AIMP.DotNet.MusicLibrary
             return new AimpActionResult<IList>(ActionResultType.OK, list);
         }
 
-        AimpActionResult IAimpExtensionDataStorage.GetGroupingPresets(GroupingPresetsSchemaType schema,
-            IAimpGroupingPresets presets)
+        AimpActionResult IAimpExtensionDataStorage.GetGroupingPresets(GroupingPresetsSchemaType schema, IAimpGroupingPresets presets)
         {
             if (schema == GroupingPresetsSchemaType.BuiltIn)
             {
@@ -275,6 +281,24 @@ namespace AIMP.DotNet.MusicLibrary
             {
                 var result = presets.Add("Demo.ExplorerView.GroupingPreset.Default", "Demo preset", EVDS_Fake);
                 _groupingPresetStandard = result.Result;
+                presets.Add("TEST1", "By size", new List<IAimpSortItem>()
+                {
+                    new AimpSortItem()
+                    {
+                        SortDirection = SortDirectionType.Undefined,
+                        FieldName = EVDS_FileSize
+                    },
+                    new AimpSortItem()
+                    {
+                        SortDirection = SortDirectionType.Undefined,
+                        FieldName = EVDS_FileFormat
+                    },
+                    new AimpSortItem()
+                    {
+                        SortDirection = SortDirectionType.Ascending,
+                        FieldName = "Test"
+                    }
+                });
             }
 
             return new AimpActionResult(ActionResultType.OK);

@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="AimpExtensionFileInfoProvider.cs" />
     <Compile Include="DemoExtensionFileSystem.cs" />
+    <Compile Include="ExplorerGroupingProvider\AimpSortItem.cs" />
     <Compile Include="ExplorerGroupingProvider\DataProviderGroupingTree.cs" />
     <Compile Include="ExplorerGroupingProvider\DataProviderGroupingTreeData.cs" />
     <Compile Include="ExplorerGroupingProvider\DataProviderGroupingTreeSelection.cs" />

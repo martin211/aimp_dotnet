@@ -18,7 +18,7 @@
 #include "Command/AimpDataStorageCommandReportDialog.h"
 #include "Command/AimpDataStorageCommandUserMark.h"
 #include "SDK/MusicLibrary/AimpDataStorageManager.h"
-#include "SDK/MusicLibrary/InternalAimpDataProviderSelection.h"
+#include "SDK/MusicLibrary/Internal/InternalAimpDataProviderSelection.h"
 #include "SDK/MusicLibrary/DataFilter/AimpDataFilter.h"
 
 using namespace AIMP::SDK;

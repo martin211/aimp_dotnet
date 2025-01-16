@@ -136,6 +136,7 @@
     <Compile Include="SDK\MusicLibrary\Extension\IAimpAlbumArtProvider2.cs" />
     <Compile Include="SDK\MusicLibrary\IAimpLocalDataStorage.cs" />
     <Compile Include="SDK\MusicLibrary\IAimpSortDirection.cs" />
+    <Compile Include="SDK\MusicLibrary\IAimpSortItem.cs" />
     <Compile Include="SDK\MusicLibrary\SortDirectionType.cs" />
     <Compile Include="SDK\Objects\IAimpFileStream.cs" />
     <Compile Include="SDK\Objects\IAimpHashCode.cs" />

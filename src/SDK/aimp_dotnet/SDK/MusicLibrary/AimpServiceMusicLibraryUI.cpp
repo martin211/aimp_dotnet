@@ -46,6 +46,7 @@ AimpActionResult<IAimpDataFilter^>^ AimpServiceMusicLibraryUI::GetGroupingFilter
     IAIMPServiceMusicLibraryUI* service = GetAimpService();
 
     try {
+        System::Diagnostics::Debugger::Launch();
         if (service != nullptr) {
             IAIMPMLDataFilter* f = nullptr;
             result = CheckResult(service->GetGroupingFilter(&f));

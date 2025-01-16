@@ -9,9 +9,10 @@
 
 #include "Stdafx.h"
 #include "InternalAimpMLPlaylistPreimage.h"
-#include "../AimpPlaylistPreimageListener.h"
+
+#include "InternalAimpDataFilter.h"
+#include "SDK/PlayList/AimpPlaylistPreimageListener.h"
 #include "SDK/Threading/AimpTaskOwner.h"
-#include "SDK/MusicLibrary/InternalAimpDataFilter.h"
 
 using namespace AIMP::SDK;
 
@@ -24,7 +25,7 @@ HRESULT WINAPI InternalAimpMLPlaylistPreimage::GetFilter(IAIMPMLDataFilter** Fil
     Object^ obj = _managedInstance;
     auto preimage = dynamic_cast<MusicLibrary::IAimpMusicLibraryPlaylistPreimage^>(obj);
     if (preimage != nullptr) {
-        IAimpDataFieldFilter^ f = nullptr;
+        MusicLibrary::DataFilter::IAimpDataFieldFilter^ f = nullptr;
         const auto result = preimage->GetFilter();
 
         if (result->ResultType == ActionResultType::OK && result->Result != nullptr) {
