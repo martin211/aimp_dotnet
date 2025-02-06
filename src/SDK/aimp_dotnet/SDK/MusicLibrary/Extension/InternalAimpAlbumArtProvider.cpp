@@ -12,7 +12,7 @@
 
 #include "SDK/AimpObjectList.h"
 #include "SDK/Objects/AimpImageContainer.h"
-
+#pragma warning(disable : 4996)
 InternalAimpAlbumArtProvider::InternalAimpAlbumArtProvider(gcroot<MusicLibrary::Extension::IAimpAlbumArtProvider^> instance) {
     _instance = instance;
 }

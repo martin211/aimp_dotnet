@@ -36,7 +36,7 @@ namespace AIMP.SDK
         /// <summary>
         /// Gets or sets the logger.
         /// </summary>
-        public IAimpLogger Logger { get; private set; }
+        public IAimpLogger Logger { get; set; }
 
         /// <summary>
         /// Gets or sets the aimp player.

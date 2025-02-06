@@ -11,7 +11,7 @@ using System;
 
 namespace AIMP.Logger;
 
-public class InternalLogger : IAimpLogger
+public class InternalLogger : MarshalByRefObject, IAimpLogger
 {
     public void Verbose(string message)
     {

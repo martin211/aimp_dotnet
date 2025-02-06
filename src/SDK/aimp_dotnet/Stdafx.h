@@ -8,6 +8,7 @@
 //  ----------------------------------------------------
 
 #pragma once
+#pragma warning(disable : 4996)
 
 using namespace AIMP::SDK;
 using namespace AIMP::SDK::Objects;

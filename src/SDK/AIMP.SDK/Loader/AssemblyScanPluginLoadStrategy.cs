@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using AIMP.Logger;
 using AIMP.SDK;
 
 namespace AIMP.Loader;
@@ -79,7 +80,7 @@ public class AssemblyScanPluginLoadStrategy : PluginLoadingStrategy
     /// </summary>
     /// <param name="path">The path.</param>
     /// <returns>PluginShortInfoForLoad.</returns>
-    public override PluginShortInfoForLoad Load(string path)
+    public override PluginShortInfoForLoad Load(string path, IAimpLogger logger)
     {
         _probePath = path;
         var dir = new DirectoryInfo(path);
@@ -98,7 +99,7 @@ public class AssemblyScanPluginLoadStrategy : PluginLoadingStrategy
                 try
                 {
                     var curAsmbl = Assembly.LoadFrom(fileInfo.FullName);
-                    if (curAsmbl.FullName == Assembly.GetExecutingAssembly().FullName || curAsmbl.FullName.Equals("aimp_dotnet"))
+                    if (curAsmbl.FullName == Assembly.GetExecutingAssembly().FullName || curAsmbl.FullName.Contains("aimp_dotnet"))
                     {
                         continue;
                     }
@@ -112,7 +113,7 @@ public class AssemblyScanPluginLoadStrategy : PluginLoadingStrategy
                     if (plgType != null)
                     {
                         var curAttr = (AimpPluginAttribute) plgType.GetCustomAttributes(attribForPlugin, false)[0];
-                        Debug.WriteLine("Load plugin: " + curAsmbl.FullName);
+                        logger.Information("Load plugin: " + curAsmbl.FullName);
                         curAttr.IsExternalSettingsDialog = externalSettingsDialog.IsAssignableFrom(plgType);
 
                         resPlugInfolst = new PluginShortInfoForLoad
@@ -120,16 +121,13 @@ public class AssemblyScanPluginLoadStrategy : PluginLoadingStrategy
                             AssemblyFileName = fileInfo.FullName,
                             AssemblyFullName = curAsmbl.FullName,
                             ClassName = plgType.FullName,
-                            PluginLocInfo = curAttr
+                            PluginLocInfo = curAttr,
                         };
                     }
                 }
                 catch (Exception e)
                 {
-                    AimpInternalLogger.Instance.LogMessage(e.ToString());
-#if DEBUG
-                    MessageBox.Show(e.Message);
-#endif
+                    logger.Error(e, "Error loading plugin: " + fileInfo.FullName);
                 }
             }
         }
@@ -139,5 +137,44 @@ public class AssemblyScanPluginLoadStrategy : PluginLoadingStrategy
         }
 
         return resPlugInfolst;
+    }
+
+    public override IAimpLogger InitLogger(string path)
+    {
+        var logger = typeof(InternalLogger);
+        var dir = new DirectoryInfo(path);
+
+        foreach (var fileInfo in ScanFiles(dir, 0))
+        {
+            var curAsmbl = Assembly.LoadFrom(fileInfo.FullName);
+            if (curAsmbl.FullName == Assembly.GetExecutingAssembly().FullName || curAsmbl.FullName.Contains("aimp_dotnet"))
+            {
+                continue;
+            }
+
+            var assemblyTypes = curAsmbl.GetTypes();
+            logger = assemblyTypes.FirstOrDefault(c => typeof(IAimpLogger).IsAssignableFrom(c));
+
+            if (logger != null)
+                break;
+        }
+
+        if (logger != null)
+        {
+            var asm= AppDomain.CurrentDomain
+                .GetAssemblies()
+                .FirstOrDefault(c => c.FullName == logger.Assembly.Location);
+
+            if (asm == null)
+            {
+                asm = Assembly.LoadFrom(logger.Assembly.Location);
+                var loggerInstType = asm.GetType(logger.FullName);
+                
+                if (loggerInstType != null)
+                    return (IAimpLogger) Activator.CreateInstance(loggerInstType);
+            }
+        }
+
+        return new InternalLogger();
     }
 }

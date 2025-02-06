@@ -41,10 +41,10 @@ namespace AIMP.Loader
                 };
 
                 loadDomain = AppDomain.CreateDomain("PluginLoadDomain" + new Guid().ToString().GetHashCode().ToString("x"), null, domainSet);
-
                 var strat = (PluginLoadingStrategy) loadDomain.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName, LoadStrategyType.FullName);
 
-                var plugin = strat.Load(path);
+                var logger = strat.InitLogger(path);
+                var plugin = strat.Load(path, logger);
                 if (plugin.PluginLocInfo == null)
                 {
                     return null;
@@ -52,7 +52,7 @@ namespace AIMP.Loader
 
                 return new AimpDotNetPlugin
                 {
-                    PluginInformation = new PluginInformation(plugin.AssemblyFileName, plugin.AssemblyFullName, plugin.ClassName, plugin.PluginLocInfo),
+                    PluginInformation = new PluginInformation(plugin, logger),
                     Author = plugin.PluginLocInfo.Author,
                     Description = plugin.PluginLocInfo.Description,
                     FullDescription = plugin.PluginLocInfo.FullDescription,
@@ -70,10 +70,10 @@ namespace AIMP.Loader
             }
             finally
             {
-                if (loadDomain != null)
-                {
-                    AppDomain.Unload(loadDomain);
-                }
+                // if (loadDomain != null)
+                // {
+                //     AppDomain.Unload(loadDomain);
+                // }
             }
 
             return null;

@@ -8,7 +8,6 @@
 //  ----------------------------------------------------
 
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -49,29 +48,19 @@ namespace AIMP.Loader
         /// <param name="assemblyName">Name of the assembly.</param>
         /// <param name="className">Name of the class.</param>
         /// <param name="pluginAttribute">The plugin attribute.</param>
-        public PluginInformation(FileInfo assemblyPath, string assemblyName, string className, AimpPluginAttribute pluginAttribute)
-        {
-            _inPathToAssembly = assemblyPath;
-            PluginClassName = className;
-            PluginAssemblyName = assemblyName;
-            PluginInfo = pluginAttribute;
-            LoadedPlugin = null;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AIMP.Loader.PluginInformation" /> class.
-        /// </summary>
-        /// <param name="assemblyPath">The assembly path.</param>
-        /// <param name="assemblyName">Name of the assembly.</param>
-        /// <param name="className">Name of the class.</param>
-        /// <param name="pluginAttribute">The plugin attribute.</param>
-        public PluginInformation(string assemblyPath, string assemblyName, string className, AimpPluginAttribute pluginAttribute)
+        public PluginInformation(string assemblyPath, string assemblyName, string className, AimpPluginAttribute pluginAttribute, IAimpLogger logger)
         {
             _inPathToAssembly = new FileInfo(assemblyPath);
             PluginClassName = className;
             PluginAssemblyName = assemblyName;
             PluginInfo = pluginAttribute;
             LoadedPlugin = null;
+            Logger = logger;
+        }
+
+        public PluginInformation(PluginShortInfoForLoad info, IAimpLogger logger) 
+            : this(info.AssemblyFileName, info.AssemblyFullName, info.ClassName, info.PluginLocInfo, logger)
+        {
         }
 
         /// <summary>
@@ -91,6 +80,8 @@ namespace AIMP.Loader
         /// </summary>
         /// <value>The name of the plugin class.</value>
         public string PluginClassName { get; private set; }
+        
+        public IAimpLogger Logger { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether this plugin is loaded.
@@ -214,36 +205,21 @@ namespace AIMP.Loader
                 }
                 else
                 {
-                    Assembly asm = null;
-                    try
-                    {
-                        asm = AppDomain.CurrentDomain.GetAssemblies()
-                            .FirstOrDefault(o => o.FullName == PluginAssemblyName);
-                    }
-                    catch (Exception ex)
-                    {
-                    }
-
-                    if (asm == null)
-                    {
-                        try
-                        {
-                            asm = Assembly.LoadFrom(_inPathToAssembly.FullName);
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                    }
+                    var asm = FindAssembly();
 
                     if (asm != null)
                     {
                         try
                         {
+                            Logger.Verbose($"Create instance of {PluginClassName}");
                             var instType = asm.GetType(PluginClassName);
                             LoadedPlugin = (AimpPlugin) Activator.CreateInstance(instType);
+                            Logger.Verbose($"Created instance of {PluginClassName}");
+                            LoadedPlugin.Logger = Logger;
                         }
                         catch (Exception ex)
                         {
+                            Logger.Error(ex, $"Unable to load the plugin: {PluginClassName}");
                         }
                     }
                 }
@@ -262,15 +238,43 @@ namespace AIMP.Loader
                     {
                         PluginLoadEvent(this);
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
-                        Debugger.Break();
+                        Logger.Error(ex, $"Unable to load the plugin: {PluginClassName}");
                         Unload();
                     }
                 }
             }
 
             return IsLoaded;
+
+            Assembly FindAssembly()
+            {
+                Assembly asm = null;
+                try
+                {
+                    asm = AppDomain.CurrentDomain.GetAssemblies()
+                        .FirstOrDefault(o => o.FullName == PluginAssemblyName);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex, $"Unable to load the plugin assembly: {PluginAssemblyName}");
+                }
+
+                if (asm == null)
+                {
+                    try
+                    {
+                        asm = Assembly.LoadFrom(_inPathToAssembly.FullName);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error(ex, $"Unable to load the plugin assembly: {_inPathToAssembly.FullName}");
+                    }
+                }
+
+                return asm;
+            }
         }
 
         /// <summary>

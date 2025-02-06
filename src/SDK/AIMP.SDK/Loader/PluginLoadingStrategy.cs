@@ -8,6 +8,7 @@
 //  ----------------------------------------------------
 
 using System;
+using AIMP.Logger;
 
 namespace AIMP.Loader;
 
@@ -23,5 +24,7 @@ public abstract class PluginLoadingStrategy : MarshalByRefObject
     /// </summary>
     /// <param name="path">The path.</param>
     /// <returns>PluginShortInfoForLoad.</returns>
-    public abstract PluginShortInfoForLoad Load(string path);
+    public abstract PluginShortInfoForLoad Load(string path, IAimpLogger logger);
+    
+    public abstract IAimpLogger InitLogger(string path);
 }

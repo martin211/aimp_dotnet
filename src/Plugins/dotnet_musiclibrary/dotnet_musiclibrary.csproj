@@ -90,6 +90,7 @@
     <Compile Include="ExplorerMusicProvider\CustomAimpGroupingTreeDataProvider.cs" />
     <Compile Include="ExplorerMusicProvider\CustomAimpGroupingTreeDataProviderSelection.cs" />
     <Compile Include="DemoMusicLibrary.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="MyExtensionFileInfoProvider.cs" />
     <Compile Include="Preimage\MediaLibraryPreimageFactory.cs" />
