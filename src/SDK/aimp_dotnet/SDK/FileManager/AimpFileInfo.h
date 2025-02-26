@@ -297,6 +297,11 @@ namespace AIMP {
                 double get();
             }
 
+            virtual property String^ Key {
+                String^ get();
+                void set(String^ value);
+            }
+
         protected:
             void RegisterAtMemoryManager() override {
                 
