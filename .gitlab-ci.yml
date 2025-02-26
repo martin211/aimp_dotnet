@@ -58,14 +58,6 @@ integrationTests:
        junit:
          - output/junit-integration.tests.xml
 
-copyTestResults:
-  stage: test
-  variables:
-    GIT_STRATEGY: "none"
-  allow_failure: true
-  script:
-    - powershell -File $CI_PROJECT_DIR\build.ps1 CopyTestResults --TestResultPath $TEST_RESULTS
-
 pack:
   stage: pack
   variables:

@@ -18,12 +18,18 @@ using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
 
 partial class Build
 {
+    [Parameter] readonly bool SonarVerbose;
+    [Parameter] readonly string SonarUrl;
+    [Parameter] readonly string SonarUser;
+    [Parameter] readonly string SonarPassword;
+    [Parameter] readonly string SonarProjectKey;
+    [Parameter] readonly string SonarProjectName;
+
     Target SonarQube => _ => _
         .Requires(() => SonarUrl, () => SonarUser, () => SonarProjectKey, () => SonarProjectName)
         .DependsOn(Restore, Version)
         .Executes(() =>
             {
-                var framework = "net5.0";
                 var configuration = new SonarBeginSettings()
                     .SetProjectKey(SonarProjectKey)
                     .SetIssueTrackerUrl(SonarUrl)
@@ -31,10 +37,12 @@ partial class Build
                     .SetVersion(_version)
                     .SetLogin(SonarUser)
                     .SetPassword(SonarPassword)
-                    .SetName(SonarProjectName)
                     .SetBranchName(GitRepository.Branch)
-                    .SetFramework(framework)
-                    .EnableVerbose();
+                    .DisableVerbose();
+
+                if (SonarVerbose)
+                    configuration = configuration
+                        .EnableVerbose();
 
                 if (File.Exists(PvsReportPath))
                 {
@@ -46,8 +54,7 @@ partial class Build
                     configuration = configuration.SetVersion(_version);
                 }
 
-                configuration = configuration.SetProjectBaseDir(SourceDirectory);
-
+                //configuration = configuration.SetProjectBaseDir(SourceDirectory);
                 if (!string.IsNullOrWhiteSpace(RequestSourceBranch) && !string.IsNullOrWhiteSpace(RequestTargetBranch))
                 {
                     configuration = configuration
@@ -56,14 +63,7 @@ partial class Build
                         .SetPullRequestKey(RequestId);
                 }
 
-                var path = NuGetToolPathResolver.GetPackageExecutable(
-                    packageId: "dotnet-sonarscanner",
-                    packageExecutable: "SonarScanner.MSBuild.dll",
-                    framework: framework);
-
-                configuration = configuration.SetProcessToolPath(path);
-
-                var arguments = $"{path} {configuration.GetProcessArguments().RenderForExecution()}";
+                var arguments = $"sonarscanner {configuration.GetProcessArguments().RenderForExecution()}";
 
                 DotNetTasks.DotNet(arguments);
             }, () =>
@@ -77,19 +77,14 @@ partial class Build
             },
             () =>
             {
-                var framework = "net5.0";
-                var path = NuGetToolPathResolver.GetPackageExecutable(
-                    packageId: "dotnet-sonarscanner",
-                    packageExecutable: "SonarScanner.MSBuild.dll",
-                    framework: framework);
-
                 var configuration = new SonarScannerEndSettings()
                     .SetLogin(SonarUser)
                     .SetPassword(SonarPassword)
-                    .SetFramework(framework)
+                    //.SetProjectBaseDir(SourceDirectory)
+                    //.SetProjectBaseDir(SourceDirectory)
                     .EnableProcessLogOutput();
 
-                var arguments = $"{path} {configuration.GetProcessArguments().RenderForExecution()}";
+                var arguments = $"sonarscanner {configuration.GetProcessArguments().RenderForExecution()}";
 
                 DotNetTasks.DotNet(arguments);
             });

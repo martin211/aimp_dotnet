@@ -148,6 +148,9 @@
         "SonarUser": {
           "type": "string"
         },
+        "SonarVerbose": {
+          "type": "boolean"
+        },
         "Target": {
           "type": "array",
           "description": "List of targets to be invoked. Default is '{default_target}'",

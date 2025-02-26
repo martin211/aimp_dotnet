@@ -13,25 +13,20 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
-using Microsoft.Build.Tasks;
 using Nuke.Common;
 using Nuke.Common.CI.GitLab;
 using Nuke.Common.CI.TeamCity;
-using Nuke.Common.Execution;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
-using Nuke.Common.Tools.Git;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.MSBuild;
 using Nuke.Common.Tools.NuGet;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
-using Octokit;
 using Serilog;
 using static Nuke.Common.IO.FileSystemTasks;
-using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
 
 partial class Build : NukeBuild
@@ -46,12 +41,6 @@ partial class Build : NukeBuild
 
     #region Parameters
 
-    [Parameter] readonly string SonarUrl;
-    [Parameter] readonly string SonarUser;
-    [Parameter] readonly string SonarPassword;
-    [Parameter] readonly string SonarProjectKey;
-    [Parameter] readonly string SonarProjectName;
-
     [Parameter] readonly string NugetSource;
     [Parameter] readonly string NugetApiKey;
 
@@ -60,9 +49,8 @@ partial class Build : NukeBuild
     [Parameter] readonly string RequestId;
     [Parameter] readonly MSBuildTargetPlatform TargetPlatform = MSBuildTargetPlatform.x86;
 
-    [Parameter]
-    readonly string MsBuildPath =
-        @"c:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MsBuild.exe";
+    [Parameter] readonly string MsBuildPath = string.Empty;
+        //@"c:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MsBuild.exe";
 
     #endregion
 
@@ -166,13 +154,15 @@ partial class Build : NukeBuild
             GetVersion();
 
             Log.Information("Version: {_version}", _version);
-			Log.Information("Build number: {ver}", _buildNumber);
+            Log.Information("Build number: {ver}", _buildNumber);
             var assemblyInfo = SourceDirectory / "AssemblyInfo.cs";
             if (File.Exists(assemblyInfo))
             {
                 Log.Information("Update version for '{assemblyInfo}'", assemblyInfo);
                 var fileContent = File.ReadAllText(assemblyInfo);
-                fileContent = fileContent.Replace("1.0.0.0", _version);
+                fileContent = fileContent
+                    .Replace("1.0.0.0", _version)
+                    .Replace("-InformationalVersion-", $"{_version}.{GitVersion.PreReleaseLabelWithDash}-{GitVersion.FullBuildMetaData}");
                 File.WriteAllText(assemblyInfo, fileContent);
             }
 
@@ -239,7 +229,7 @@ partial class Build : NukeBuild
                 .SetBasePath(RootDirectory)
                 .SetConfiguration(GetConfiguration())
                 .SetVersion(_version)
-                .SetOutputDirectory(OutputDirectory);
+                .SetOutputDirectory(OutputDirectory / TargetPlatform);
 
             if (GitRepository.Branch != null && !GitRepository.Branch.Contains(ReleaseBranchPrefix))
             {
@@ -415,6 +405,7 @@ partial class Build : NukeBuild
     {
         if (GitRepository.Branch.StartsWith(MailstoneBranch))
         {
+            Log.Information("Mailstone branch {MailstoneBranch}", GitRepository.Branch);
             _version = GitRepository.Branch
                 .Replace($"{MailstoneBranch}_", string.Empty)
                 .Replace("_", ".");
@@ -423,6 +414,7 @@ partial class Build : NukeBuild
         }
         else if (GitRepository.Branch.StartsWith(ReleaseBranchPrefix))
         {
+            Log.Information("Release branch {MailstoneBranch}", GitRepository.Branch);
             _version = GitRepository.Branch.Split("/")[1];
             _buildNumber = $"{_version}{(!string.IsNullOrWhiteSpace(GitVersion.BuildMetaData) ? "." : string.Empty)}{GitVersion.BuildMetaData}";
         }
@@ -430,21 +422,26 @@ partial class Build : NukeBuild
         {
             string tag = string.Empty;
 
-            var process = ProcessTasks.StartProcess("git", "ls-remote --tags --sort=-committerdate ./.");
+            var process = ProcessTasks.StartProcess("git", $"ls-remote {GitRepository.HttpsUrl.Replace("https:", "http:")} refs/tags/* --sort=committerdate");
             process.WaitForExit();
             var output = process.Output;
 
             if (output.Count > 0)
             {
-                var outText = output.First().Text;
-                tag = outText.Substring(outText.LastIndexOf("/") + 1, outText.Length - outText.LastIndexOf("/") - 1);
+                var tags = output.Select(c =>
+                    c.Text.Substring(c.Text.LastIndexOf("/") + 1, c.Text.Length - c.Text.LastIndexOf("/") - 1))
+                    .OrderByDescending(c => c);
+
+                // var outText = output.First().Text;
+                // tag = outText.Substring(outText.LastIndexOf("/") + 1, outText.Length - outText.LastIndexOf("/") - 1);
+                tag = tags.FirstOrDefault();
             }
 
             if (!string.IsNullOrWhiteSpace(tag))
             {
                 var patchVersion = int.Parse(tag.Split(".").Last()) + 1;
                 _version = tag.Substring(0, tag.LastIndexOf(".")) + $".{patchVersion}";
-                _buildNumber = $"{_version}{GitVersion.PreReleaseTagWithDash}";
+                _buildNumber = $"{_version}{GitVersion.PreReleaseLabelWithDash}.{GitVersion.BuildMetaData}";
             }
             else
             {
