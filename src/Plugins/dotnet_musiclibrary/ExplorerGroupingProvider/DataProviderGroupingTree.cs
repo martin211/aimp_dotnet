@@ -1,13 +1,4 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,7 +6,7 @@ using AIMP.SDK;
 using AIMP.SDK.MusicLibrary.DataFilter;
 using AIMP.SDK.MusicLibrary.DataStorage;
 
-namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
+namespace Aimp.MusicLibraryPlugin.ExplorerGroupingProvider
 {
     public enum DataStorageCategoryType
     {

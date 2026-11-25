@@ -1,48 +1,31 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
+﻿using AIMP.SDK.PlayList.Objects;
 
-using AIMP.SDK.Playlist.Objects;
+namespace AIMP.SDK.PlayList.Extensions;
 
-namespace AIMP.SDK.Playlist.Extensions
+/// <summary>
+/// This is extension for <see cref="IAimpServicePlaylistManager" /> service, provides an ability to receive notifications
+/// about the changes in manager.
+/// </summary>
+public interface IAimpExtensionPlaylistManagerListener
 {
     /// <summary>
-    /// Delegate for playlist events.
+    /// Occurs when playlist activated.
     /// </summary>
-    /// <param name="playlistName">Name of the playlist.</param>
-    /// <param name="playlistId">The playlist identifier.</param>
-    public delegate void PlayListHandler(string playlistName, string playlistId);
+    /// <param name="playlist">The playlist.</param>
+    /// <returns>ActionResultType.</returns>
+    AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist);
 
     /// <summary>
-    /// This is extension for <see cref="IAimpServicePlaylistManager" /> service, provides an ability to receive notifications
-    /// about the changes in manager.
+    /// Occurs when playlist added.
     /// </summary>
-    public interface IAimpExtensionPlaylistManagerListener
-    {
-        /// <summary>
-        /// Occurs when playlist activated.
-        /// </summary>
-        /// <param name="playlist">The playlist.</param>
-        /// <returns>ActionResultType.</returns>
-        AimpActionResult OnPlaylistActivated(IAimpPlaylist playlist);
+    /// <param name="playlist">The playlist.</param>
+    /// <returns>ActionResultType.</returns>
+    AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist);
 
-        /// <summary>
-        /// Occurs when playlist added.
-        /// </summary>
-        /// <param name="playlist">The playlist.</param>
-        /// <returns>ActionResultType.</returns>
-        AimpActionResult OnPlaylistAdded(IAimpPlaylist playlist);
-
-        /// <summary>
-        /// Occurs when playlist removed.
-        /// </summary>
-        /// <param name="playlist">The playlist.</param>
-        /// <returns>ActionResultType.</returns>
-        AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist);
-    }
+    /// <summary>
+    /// Occurs when playlist removed.
+    /// </summary>
+    /// <param name="playlist">The playlist.</param>
+    /// <returns>ActionResultType.</returns>
+    AimpActionResult OnPlaylistRemoved(IAimpPlaylist playlist);
 }

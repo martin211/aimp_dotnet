@@ -48,6 +48,11 @@ include/boost/*
 *.plog
 *.properties
 .vs
+.idea
+# Per-checkout AIMP installation path (see src/AimpSettings.props.example).
+src/AimpSettings.props
+# Generated from AimpDir by Directory.Build.targets.
+src/.run/*.run.xml
 bower_components
 apidoc
 node_modules
@@ -61,3 +66,4 @@ build/api/*
 tests/*
 /output/
 /GitExtensions.*
+.idea/

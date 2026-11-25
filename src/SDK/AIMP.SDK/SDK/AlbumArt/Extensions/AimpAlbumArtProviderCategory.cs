@@ -1,13 +1,4 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-namespace AIMP.SDK.AlbumArt.Extensions;
+﻿namespace AIMP.SDK.AlbumArt.Extensions;
 
 /// <summary>
 /// Enum AimpAlbumArtProviderCategory
@@ -27,5 +18,10 @@ public enum AimpAlbumArtProviderCategory
     /// <summary>
     /// The aimp albumart provider category internet
     /// </summary>
-    Internet
+    Internet,
+
+    /// <summary>
+    /// The aimp albumart provider category internet search
+    /// </summary>
+    InternetSearch = 3
 }

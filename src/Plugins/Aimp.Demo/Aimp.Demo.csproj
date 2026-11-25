@@ -1,0 +1,68 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <AssemblyName>dotnet_demo</AssemblyName>
+        <RootNamespace>Aimp.Demo</RootNamespace>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <OutputPath>$(MSBuildThisFileDirectory)\bin\</OutputPath>
+        <Deterministic>true</Deterministic>
+        <Nullable>disable</Nullable>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <!-- Generate "<plugin> (AIMP)" / "Deploy <plugin>" Rider run configurations.
+             Shared settings (AimpDir, AimpPlatform, paths) live in
+             src\Directory.Build.targets; AimpPluginName defaults to AssemblyName. -->
+        <AimpGenerateRunConfigurations>true</AimpGenerateRunConfigurations>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="System.Configuration" />
+        <Reference Include="System.Drawing" />
+        <Reference Include="System.Windows.Forms" />
+        <Reference Include="PresentationCore" />
+        <Reference Include="PresentationFramework" />
+        <Reference Include="System.Xaml" />
+        <Reference Include="WindowsBase" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\SDK\AIMP.SDK\AIMP.SDK.csproj" />
+        <!-- Built only so its output can be deployed next to the plugin. -->
+        <ProjectReference Include="..\..\SDK\AIMP.Host\AIMP.Host.csproj" ReferenceOutputAssembly="false" />
+    </ItemGroup>
+
+    <!--
+      This project keeps a hand-written AssemblyInfo (GenerateAssemblyInfo=false),
+      so emit the version attributes from the shared MSBuild properties.
+    -->
+    <Target Name="GenerateAimpDemoVersion" BeforeTargets="CoreCompile">
+        <PropertyGroup>
+            <_AimpDemoAssemblyVersion Condition="'$(AssemblyVersion)' != ''">$(AssemblyVersion)</_AimpDemoAssemblyVersion>
+            <_AimpDemoAssemblyVersion Condition="'$(_AimpDemoAssemblyVersion)' == ''">1.0.0.0</_AimpDemoAssemblyVersion>
+            <_AimpDemoFileVersion Condition="'$(FileVersion)' != ''">$(FileVersion)</_AimpDemoFileVersion>
+            <_AimpDemoFileVersion Condition="'$(_AimpDemoFileVersion)' == ''">1.0.0.0</_AimpDemoFileVersion>
+            <_AimpDemoInformationalVersion Condition="'$(InformationalVersion)' != ''">$(InformationalVersion)</_AimpDemoInformationalVersion>
+            <_AimpDemoInformationalVersion Condition="'$(_AimpDemoInformationalVersion)' == ''">$(_AimpDemoFileVersion)</_AimpDemoInformationalVersion>
+        </PropertyGroup>
+
+        <MakeDir Directories="$(IntermediateOutputPath)" />
+        <ItemGroup>
+            <_AimpDemoVersionLines Include="using System.Reflection%3B" />
+            <_AimpDemoVersionLines Include="[assembly: AssemblyVersion(&quot;$(_AimpDemoAssemblyVersion)&quot;)]" />
+            <_AimpDemoVersionLines Include="[assembly: AssemblyFileVersion(&quot;$(_AimpDemoFileVersion)&quot;)]" />
+            <_AimpDemoVersionLines Include="[assembly: AssemblyInformationalVersion(&quot;$(_AimpDemoInformationalVersion)&quot;)]" />
+        </ItemGroup>
+        <WriteLinesToFile File="$(IntermediateOutputPath)Aimp.Demo.Version.cs"
+                          Lines="@(_AimpDemoVersionLines)"
+                          Overwrite="true"
+                          WriteOnlyWhenDifferent="true" />
+        <ItemGroup>
+            <Compile Include="$(IntermediateOutputPath)Aimp.Demo.Version.cs" />
+        </ItemGroup>
+    </Target>
+
+</Project>

@@ -1,44 +1,6 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AIMP.SDK.MusicLibrary.DataStorage;
-
-public class PaggedData
-{
-    public PaggedData(object data, string pageId)
-    {
-        Data = data;
-        PageId = pageId;
-    }
-
-    /// <summary>
-    /// Gets or sets the page data.
-    /// </summary>
-    public object Data { get; set; }
-    
-    /// <summary>
-    /// Gets or sets the page identifier.
-    /// </summary>
-    public string PageId { get; set; }
-
-    /// <summary>
-    /// Gets or sets the no data text.
-    /// </summary>
-    public string NoData { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public bool IsEmpty => !string.IsNullOrWhiteSpace(NoData);
-}
 
 /// <summary>
 /// Provides an access to data in data storage.

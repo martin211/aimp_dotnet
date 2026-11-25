@@ -1,28 +1,19 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
+﻿using System;
 using System.Drawing;
-using AIMP.SDK.FileManager;
 using AIMP.SDK.FileManager.Objects;
 
-namespace AIMP.SDK.AlbumArt.Extensions
+namespace AIMP.SDK.AlbumArt.Extensions;
+
+/// <summary>
+/// It is the second edition of the <see cref="IAimpExtensionAlbumArtCatalog" /> interface.
+/// </summary>
+[Obsolete("Deprecated in AIMP 6.0; use IAimpExtensionAlbumArtProvider3 or IAimpExtensionExternalCatalog.")]
+public interface IAimpExtensionAlbumArtCatalog2
 {
     /// <summary>
-    /// It is the second edition of the <see cref="IAimpExtensionAlbumArtCatalog" /> interface.
+    /// This method will be called on menu item click.
     /// </summary>
-    public interface IAimpExtensionAlbumArtCatalog2
-    {
-        /// <summary>
-        /// This method will be called on menu item click.
-        /// </summary>
-        /// <param name="fileInfo">The file information.</param>
-        /// <returns>AimpActionResult&lt;Bitmap&gt;.</returns>
-        AimpActionResult<Bitmap> Show(IAimpFileInfo fileInfo);
-    }
+    /// <param name="fileInfo">The file information.</param>
+    /// <returns>AimpActionResult&lt;Bitmap&gt;.</returns>
+    AimpActionResult<Bitmap> Show(IAimpFileInfo fileInfo);
 }

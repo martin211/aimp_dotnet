@@ -1,0 +1,26 @@
+<Project>
+
+    <!--
+      Per-checkout AIMP settings shared by every project under src/.
+  
+      Copy AimpSettings.props.example to AimpSettings.props (the file is ignored
+      by git) and set AimpDir / AimpPlatform there.  The defaults from
+      Directory.Build.targets are used when the file is missing.
+    -->
+    <Import Project="$(MSBuildThisFileDirectory)AimpSettings.props"
+            Condition="Exists('$(MSBuildThisFileDirectory)AimpSettings.props')"/>
+
+    <!--
+      Default version for local builds.  CI overrides these values with the
+      GitVersion outputs; the first three components are the AIMP SDK version.
+    -->
+    <PropertyGroup>
+        <Version Condition="'$(Version)' == ''">6.0.3100</Version>
+        <AssemblyVersion Condition="'$(AssemblyVersion)' == ''">6.0.3100.0</AssemblyVersion>
+        <FileVersion Condition="'$(FileVersion)' == ''">6.0.3100.0</FileVersion>
+        <InformationalVersion Condition="'$(InformationalVersion)' == ''">6.0.3100</InformationalVersion>
+        <!-- GitVersion already includes the commit metadata when it is available. -->
+        <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    </PropertyGroup>
+
+</Project>

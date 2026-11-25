@@ -1,38 +1,10 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
+﻿namespace AIMP.SDK;
 
-using System;
-
-namespace AIMP.SDK
+public interface IAimpErrorInfo : IAimpObject
 {
-    public class ErrorInfo
-    {
-        public ErrorInfo(int errorCode, string message, string details)
-        {
-            ErrorCode = errorCode;
-            Message = message;
-            Details = details;
-        }
+    AimpActionResult<ErrorInfo> GetInfo();
 
-        public int ErrorCode { get; set; }
+    AimpActionResult<string> GetInfoFormatted();
 
-        public string Message { get; set; }
-
-        public string Details { get; set; }
-    }
-
-    public interface IAimpErrorInfo : IAimpObject
-    {
-        AimpActionResult<ErrorInfo> GetInfo();
-
-        AimpActionResult<string> GetInfoFormatted();
-
-        void SetInfo(int errorCode, string message, string details);
-    }
+    void SetInfo(int errorCode, string message, string details);
 }

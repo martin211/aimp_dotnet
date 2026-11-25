@@ -1,2 +1,6 @@
 - name: Introduction
   href: intro.md
+- name: Adding a service (EN)
+  href: adding-a-service.md
+- name: Добавление сервиса (RU)
+  href: adding-a-service.ru.md

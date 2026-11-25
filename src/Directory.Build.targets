@@ -1,0 +1,169 @@
+<Project>
+
+    <!--
+      Shared AIMP deploy/debug settings for every managed plugin under src/.
+  
+      Nothing is copied into AIMP by an ordinary build.  A plugin that wants
+      IDE debugging support opts in with
+  
+        <AimpGenerateRunConfigurations>true</AimpGenerateRunConfigurations>
+  
+      which generates two Rider run configurations from AimpDir:
+  
+        <plugin> (AIMP)   launches AIMP.exe with mixed-mode debugging;
+        Deploy <plugin>   builds only this plugin and copies it into AIMP.
+  
+      The AIMP configuration runs the deploy configuration as a before-launch
+      step, so F5 copies only the plugin being debugged.  deploy-plugin.ps1 is
+      also usable directly for Visual Studio and command-line debugging.
+  
+      Manual deploy on build is still possible with:
+        /p:AimpDeployOnBuild=true
+  
+      Optional overrides, in order of precedence: a project property,
+      AimpSettings.props next to this file (ignored by git) or the
+      AIMP_DIR / AIMP_PLATFORM environment variables:
+  
+        AimpPluginName     plugin folder and shim name (default: AssemblyName)
+        AimpDir            AIMP installation directory
+        AimpPlatform       x86 or x64, selects the native shim
+        AimpShimSourceName native shim file name (default: aimp_dotnet.dll)
+    -->
+    <PropertyGroup>
+        <AimpDir Condition="'$(AimpDir)' == '' and '$(AIMP_DIR)' != ''">$(AIMP_DIR)</AimpDir>
+        <AimpDir Condition="'$(AimpDir)' == ''">F:\code\aimp\AIMP5.40.2655</AimpDir>
+        <AimpExePath Condition="'$(AimpExePath)' == ''">$([System.IO.Path]::Combine('$(AimpDir)', 'AIMP.exe'))</AimpExePath>
+
+        <AimpPlatform Condition="'$(AimpPlatform)' == '' and '$(AIMP_PLATFORM)' != ''">$(AIMP_PLATFORM)</AimpPlatform>
+        <AimpPlatform Condition="'$(AimpPlatform)' == ''">x86</AimpPlatform>
+        <AimpNativePlatform Condition="'$(AimpNativePlatform)' == '' and '$(AimpPlatform)' == 'x64'">x64</AimpNativePlatform>
+        <AimpNativePlatform Condition="'$(AimpNativePlatform)' == ''">Win32</AimpNativePlatform>
+
+        <!-- Deployment on build is off by default; run configurations use it explicitly. -->
+        <AimpDeployOnBuild Condition="'$(AimpDeployOnBuild)' == ''">false</AimpDeployOnBuild>
+        <AimpGenerateRunConfigurations Condition="'$(AimpGenerateRunConfigurations)' == ''">false</AimpGenerateRunConfigurations>
+
+        <!-- The test runner has its own deploy layout and disables the shared one. -->
+        <AimpDisableDefaultDeploy Condition="'$(AimpDisableDefaultDeploy)' == ''">false</AimpDisableDefaultDeploy>
+        <AimpIsPlugin Condition="'$(AimpIsPlugin)' == '' and '$(AimpGenerateRunConfigurations)' == 'true'">true</AimpIsPlugin>
+        <AimpIsPlugin Condition="'$(AimpIsPlugin)' == ''">false</AimpIsPlugin>
+        <AimpPluginDeployTarget Condition="'$(AimpPluginDeployTarget)' == ''">DeployToAimpCore</AimpPluginDeployTarget>
+
+        <AimpPluginName Condition="'$(AimpPluginName)' == '' and '$(AssemblyName)' != ''">$(AssemblyName)</AimpPluginName>
+        <AimpPluginName Condition="'$(AimpPluginName)' == ''">$(MSBuildProjectName)</AimpPluginName>
+        <AimpPluginDirectory>$(AimpDir)\Plugins\$(AimpPluginName)</AimpPluginDirectory>
+
+        <AimpManagedDirectory>$(MSBuildThisFileDirectory)bin\managed</AimpManagedDirectory>
+        <AimpShimProject>$(MSBuildThisFileDirectory)SDK\aimp_dotnet\Aimp.Shim.vcxproj</AimpShimProject>
+        <AimpShimDirectory>$(MSBuildThisFileDirectory)SDK\bin\$(AimpPlatform)\$(Configuration)</AimpShimDirectory>
+        <AimpShimSourceName Condition="'$(AimpShimSourceName)' == ''">aimp_dotnet.dll</AimpShimSourceName>
+
+        <AimpDeployScript>$(MSBuildThisFileDirectory)deploy-plugin.ps1</AimpDeployScript>
+        <AimpPowerShellExe Condition="'$(AimpPowerShellExe)' == ''">$(SystemRoot)\System32\WindowsPowerShell\v1.0\powershell.exe</AimpPowerShellExe>
+        <AimpRunConfigurationTemplate>$(MSBuildThisFileDirectory)run-configurations\Aimp.template.xml</AimpRunConfigurationTemplate>
+        <AimpDeployConfigurationTemplate>$(MSBuildThisFileDirectory)run-configurations\AimpDeploy.template.xml</AimpDeployConfigurationTemplate>
+
+        <!-- Manual /p:AimpDeployOnBuild=true still starts AIMP from F5 in Visual Studio. -->
+        <StartAction Condition="'$(AimpDeployOnBuild)' == 'true'">Program</StartAction>
+        <StartProgram Condition="'$(AimpDeployOnBuild)' == 'true'">$(AimpExePath)</StartProgram>
+        <StartWorkingDirectory Condition="'$(AimpDeployOnBuild)' == 'true'">$(AimpDir)</StartWorkingDirectory>
+    </PropertyGroup>
+
+    <!--
+      Generates <solution>/.run/<plugin>.run.xml and <plugin>.Deploy.run.xml.
+      Rider watches the .run folder and reloads shared configurations.
+    -->
+    <Target Name="GenerateAimpRunConfigurations"
+            BeforeTargets="Build"
+            Condition="'$(AimpGenerateRunConfigurations)' == 'true' and '$(Configuration)' == 'Debug' and Exists('$(AimpExePath)')">
+        <PropertyGroup>
+            <_AimpRunDirectory>$(MSBuildThisFileDirectory).run</_AimpRunDirectory>
+            <_AimpDisplayName>$(AimpPluginName) (AIMP)</_AimpDisplayName>
+            <_AimpDeployName>Deploy $(AimpPluginName)</_AimpDeployName>
+            <_AimpRunFile>$(_AimpRunDirectory)\$(AimpPluginName).run.xml</_AimpRunFile>
+            <_AimpDeployFile>$(_AimpRunDirectory)\$(AimpPluginName).Deploy.run.xml</_AimpDeployFile>
+            <_AimpDeployArguments>-NoProfile -ExecutionPolicy Bypass -File "$(AimpDeployScript)" -Project "$(MSBuildProjectFullPath)" -Configuration $(Configuration) -Platform $(AimpPlatform) -AimpDirectory "$(AimpDir)"</_AimpDeployArguments>
+        </PropertyGroup>
+
+        <MakeDir Directories="$(_AimpRunDirectory)"/>
+
+        <Copy SourceFiles="$(AimpDeployConfigurationTemplate)"
+              DestinationFiles="$(_AimpDeployFile)"
+              Condition="!Exists('$(_AimpDeployFile)')"/>
+        <XmlPoke XmlInputPath="$(_AimpDeployFile)"
+                 Query="/component/configuration/@name"
+                 Value="$(_AimpDeployName)"/>
+        <XmlPoke XmlInputPath="$(_AimpDeployFile)"
+                 Query="/component/configuration/option[@name='EXE_PATH']/@value"
+                 Value="$(AimpPowerShellExe)"/>
+        <XmlPoke XmlInputPath="$(_AimpDeployFile)"
+                 Query="/component/configuration/option[@name='PROGRAM_PARAMETERS']/@value"
+                 Value="$(_AimpDeployArguments)"/>
+        <XmlPoke XmlInputPath="$(_AimpDeployFile)"
+                 Query="/component/configuration/option[@name='WORKING_DIRECTORY']/@value"
+                 Value="$(MSBuildThisFileDirectory)"/>
+
+        <Copy SourceFiles="$(AimpRunConfigurationTemplate)"
+              DestinationFiles="$(_AimpRunFile)"
+              Condition="!Exists('$(_AimpRunFile)')"/>
+        <XmlPoke XmlInputPath="$(_AimpRunFile)"
+                 Query="/component/configuration/@name"
+                 Value="$(_AimpDisplayName)"/>
+        <XmlPoke XmlInputPath="$(_AimpRunFile)"
+                 Query="/component/configuration/option[@name='EXE_PATH']/@value"
+                 Value="$(AimpExePath)"/>
+        <XmlPoke XmlInputPath="$(_AimpRunFile)"
+                 Query="/component/configuration/option[@name='WORKING_DIRECTORY']/@value"
+                 Value="$(AimpDir)"/>
+        <XmlPoke XmlInputPath="$(_AimpRunFile)"
+                 Query="/component/configuration/method/option[@name='RunConfigurationTask']/@run_configuration_name"
+                 Value="$(_AimpDeployName)"/>
+    </Target>
+
+    <!--
+      Explicit deploy entry point used by deploy-plugin.ps1 / the generated
+      "Deploy <plugin>" run configuration.  Only the top-level project runs it,
+      so project references (SDK, host) are never deployed by accident.
+    -->
+    <Target Name="DeployPlugin" DependsOnTargets="Build;$(AimpPluginDeployTarget)"/>
+
+    <Target Name="DeployToAimp"
+            AfterTargets="Build"
+            Condition="'$(AimpIsPlugin)' == 'true' and '$(AimpDeployOnBuild)' == 'true' and '$(AimpDisableDefaultDeploy)' != 'true' and Exists('$(AimpExePath)')"
+            DependsOnTargets="DeployToAimpCore"/>
+
+    <Target Name="DeployToAimpCore">
+        <Message Importance="high" Text="Deploying $(AimpPluginName) to $(AimpPluginDirectory)"/>
+
+        <MakeDir Directories="$(AimpPluginDirectory)"/>
+
+        <!-- The native shim is not part of a C# build; build it on demand. -->
+        <MSBuild Condition="!Exists('$(AimpShimDirectory)\$(AimpShimSourceName)')"
+                 Projects="$(AimpShimProject)"
+                 Targets="Build"
+                 Properties="Configuration=$(Configuration);Platform=$(AimpNativePlatform)"/>
+
+        <Copy SourceFiles="$(TargetPath)"
+              DestinationFiles="$(AimpPluginDirectory)\$(AimpPluginName)_plugin.dll"/>
+        <Copy SourceFiles="$(TargetDir)$(TargetName).pdb"
+              DestinationFolder="$(AimpPluginDirectory)"
+              SkipUnchangedFiles="true"
+              Condition="Exists('$(TargetDir)$(TargetName).pdb')"/>
+
+        <Copy SourceFiles="$(AimpShimDirectory)\$(AimpShimSourceName)"
+              DestinationFiles="$(AimpPluginDirectory)\$(AimpPluginName).dll"/>
+        <Copy SourceFiles="$(AimpShimDirectory)\aimp_dotnet.pdb"
+              DestinationFolder="$(AimpPluginDirectory)"
+              SkipUnchangedFiles="true"
+              Condition="Exists('$(AimpShimDirectory)\aimp_dotnet.pdb')"/>
+
+        <Copy SourceFiles="$(AimpManagedDirectory)\AIMP.Host.dll;$(AimpManagedDirectory)\AIMP.SDK.dll"
+              DestinationFolder="$(AimpPluginDirectory)"
+              SkipUnchangedFiles="true"/>
+        <Copy SourceFiles="$(AimpManagedDirectory)\AIMP.Host.pdb;$(AimpManagedDirectory)\AIMP.SDK.pdb"
+              DestinationFolder="$(AimpPluginDirectory)"
+              SkipUnchangedFiles="true"
+              Condition="Exists('$(AimpManagedDirectory)\AIMP.Host.pdb') and Exists('$(AimpManagedDirectory)\AIMP.SDK.pdb')"/>
+    </Target>
+
+</Project>

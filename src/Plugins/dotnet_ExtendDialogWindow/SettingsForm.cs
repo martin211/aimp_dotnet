@@ -1,16 +1,6 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using AIMP.Loader;
 using AIMP.SDK;
 using AIMP.SDK.MUIManager;
 using AIMP.SDK.Options;
@@ -69,24 +59,6 @@ namespace dotnet_ExtendDialogWindow
         private void button1_Click(object sender, EventArgs e)
         {
             _player.ServiceOptionsDialog.FrameModified(_parentFrame);
-        }
-
-        internal class DisplayableForPlugins
-        {
-            public DisplayableForPlugins(PluginInformation pi)
-            {
-                plugInfo = pi;
-            }
-
-            public PluginInformation plugInfo { get; set; }
-
-            public override string ToString()
-            {
-                return plugInfo.PluginInfo.Name + " v" + plugInfo.PluginInfo.Version +
-                       " (" + plugInfo.PluginInfo.Author + ")\n" +
-                       "[" + plugInfo.AssemblyFileName + "] " + plugInfo.PluginInfo.Description;
-                ;
-            }
         }
     }
 }

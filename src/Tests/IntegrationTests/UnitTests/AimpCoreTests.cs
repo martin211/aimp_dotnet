@@ -1,12 +1,4 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
+﻿using System;
 using AIMP.SDK;
 using AIMP.SDK.Actions.Objects;
 using AIMP.SDK.FileManager.Objects;
@@ -63,6 +55,30 @@ public class AimpCoreTests : AimpIntegrationTest
         AssertOKResult(result);
     }
 
+    [Test]
+    public void Version_ShouldBeDetected()
+    {
+        var version = Player.Version;
+
+        AimpAssert.IsTrue(version.IsKnown);
+        AimpAssert.IsTrue(version.Major >= 5);
+        AimpAssert.NotNull(version.ToString());
+    }
+
+    [Test]
+    public void UnsupportedApi_OnOldAimp_ShouldThrow()
+    {
+        if (Player.Version.IsAtLeast(6, 0))
+        {
+            Assert.Ignore("AIMP 6 and newer support IAimpServiceLog.");
+        }
+
+        AimpAssert.Throw<AimpUnsupportedApiException>(() =>
+        {
+            var service = Player.ServiceLog;
+        });
+    }
+
     [TestCase("ServiceMenuManager")]
     [TestCase("ServiceActionManager")]
     [TestCase("ServiceMui")]
@@ -86,9 +102,24 @@ public class AimpCoreTests : AimpIntegrationTest
     [TestCase("ServiceLyrics")]
     public void Service_IsExists_AllServicesShouldExists(string service)
     {
-        var t = Player.GetType();
-        var m = t.GetProperty(service);
-        if (m == null) Assert.Fail($"Service {service} was not found at Player.");
-        AimpAssert.IsTrue(((IAimpService)m.GetValue(Player)).IsExists);
+        ExecuteInMainThread(() =>
+        {
+            var t = Player.GetType();
+            var m = t.GetProperty(service);
+            if (m == null) Assert.Fail($"Service {service} was not found at Player.");
+
+            IAimpService value;
+            try
+            {
+                value = (IAimpService)m.GetValue(Player);
+            }
+            catch (InvalidCastException)
+            {
+                Assert.Ignore($"Service {service} is not available in this AIMP build.");
+                return;
+            }
+
+            AimpAssert.IsTrue(value.IsExists);
+        });
     }
 }

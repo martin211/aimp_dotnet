@@ -1,3 +1,0 @@
-LIBRARY "native_plugin"
-EXPORTS
-AIMPPluginGetHeader

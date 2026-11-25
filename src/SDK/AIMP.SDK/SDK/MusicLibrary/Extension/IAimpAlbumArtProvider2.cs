@@ -1,13 +1,4 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using AIMP.SDK.AlbumArt;
+﻿using AIMP.SDK.AlbumArt;
 using AIMP.SDK.Objects;
 
 namespace AIMP.SDK.MusicLibrary.Extension;
@@ -24,5 +15,6 @@ public interface IAimpAlbumArtProvider2
     /// </summary>
     /// <param name="fields">List of field names presented as string that contains a Required flag in the Flags property value. </param>
     /// <param name="values">Array o values. Size of array is same value of the Fields.GetCount method result. Contains values for the Fields based on first file in group</param>
-    AimpActionResult<IAimpImageContainer> Get(IAimpObjectList<string> fields, object[] values, IAimpAlbumArtRequest request);
+    AimpActionResult<IAimpImageContainer> Get(IAimpObjectList<string> fields, object[] values,
+        IAimpAlbumArtRequest request);
 }

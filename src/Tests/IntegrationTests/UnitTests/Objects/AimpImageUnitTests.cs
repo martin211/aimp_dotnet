@@ -1,13 +1,4 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using System;
+﻿using System;
 using System.Drawing;
 using System.IO;
 using AIMP.SDK;
@@ -23,7 +14,7 @@ public class AimpImageUnitTests : AimpIntegrationTest
     public override void RunBeforeAnyTests()
     {
         base.RunBeforeAnyTests();
-        Image1 = Path.Combine(RootPath, "resources", "img1.jpg");
+        Image1 = Path.Combine(RootPath, "Resources", "integrationTests", "img1.jpg");
     }
 
     private string Image1;

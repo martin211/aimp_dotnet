@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>dotnet_musiclibrary</AssemblyName>
+    <RootNamespace>Aimp.MusicLibraryPlugin</RootNamespace>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)\bin\</OutputPath>
+    <Deterministic>true</Deterministic>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Generate "<plugin> (AIMP)" / "Deploy <plugin>" Rider run configurations.
+         Shared settings (AimpDir, AimpPlatform, paths) live in
+         src\Directory.Build.targets; AimpPluginName defaults to AssemblyName. -->
+    <AimpGenerateRunConfigurations>true</AimpGenerateRunConfigurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SDK\AIMP.SDK\AIMP.SDK.csproj" />
+    <!-- Built only so its output can be deployed next to the plugin. -->
+    <ProjectReference Include="..\..\SDK\AIMP.Host\AIMP.Host.csproj" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+</Project>

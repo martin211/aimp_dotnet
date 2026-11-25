@@ -1,17 +1,8 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using AIMP.SDK;
+﻿using AIMP.SDK;
 using AIMP.SDK.MusicLibrary.DataFilter;
 using AIMP.SDK.MusicLibrary.DataStorage;
 
-namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
+namespace Aimp.MusicLibraryPlugin.ExplorerMusicProvider
 {
     public class CustomAimpGroupingTreeDataProvider : IAimpGroupingTreeDataProvider
     {
@@ -27,8 +18,6 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 
         public AimpActionResult<IAimpGroupingTreeDataProviderSelection> GetData(IAimpGroupingTreeSelection selection)
         {
-            IAimpGroupingTreeDataProviderSelection data = null;
-
             var count = selection.GetCount();
 
             if (count > 0)
@@ -36,11 +25,11 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
                 var r = selection.GetValue(0);
                 if (r.ResultType == ActionResultType.OK)
                 {
-                    return new AimpActionResult<IAimpGroupingTreeDataProviderSelection>(ActionResultType.OK, data);
+                    return new AimpActionResult<IAimpGroupingTreeDataProviderSelection>(ActionResultType.OK);
                 }
             }
 
-            data = new CustomAimpGroupingTreeDataProviderSelection();
+            IAimpGroupingTreeDataProviderSelection data = new CustomAimpGroupingTreeDataProviderSelection();
 
             return new AimpActionResult<IAimpGroupingTreeDataProviderSelection>(ActionResultType.OK, data);
         }
