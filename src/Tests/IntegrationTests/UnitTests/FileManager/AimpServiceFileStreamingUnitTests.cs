@@ -1,13 +1,4 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using AIMP.SDK;
+﻿using AIMP.SDK;
 using AIMP.SDK.FileManager;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
@@ -20,10 +11,13 @@ public class AimpServiceFileStreamingUnitTests : AimpIntegrationTest
     [Test]
     public void CreateStreamForFile_OK()
     {
-        var createStream =
-            Player.ServiceFileStreaming.CreateStreamForFile(TrackPath1, FileStreamingType.Read, -1, -1);
-        AssertOKResult(createStream);
-        createStream.Result.Dispose();
+        ExecuteInMainThread(() =>
+        {
+            var createStream =
+                Player.ServiceFileStreaming.CreateStreamForFile(TrackPath1, FileStreamingType.Read, -1, -1);
+            AssertOKResult(createStream);
+            createStream.Result.Dispose();
+        });
     }
 
     [Test]

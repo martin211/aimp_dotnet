@@ -1,19 +1,10 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using AIMP.SDK.MusicLibrary;
 
-namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
+namespace Aimp.MusicLibraryPlugin.ExplorerMusicProvider
 {
     public abstract class TDemoExplorerViewAbstractDataProviderSelection : IAimpDataProviderSelection
     {
@@ -218,6 +209,11 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
             if (string.IsNullOrWhiteSpace(CurrentItem))
                 return 0;
 
+            if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_ID))
+            {
+                return 0;
+            }
+
             return new FileInfo(CurrentItem).Length;
         }
 
@@ -241,7 +237,7 @@ namespace AIMP.DotNet.MusicLibrary.ExplorerMusicProvider
 
             if (fieldIndex == GetIndex(DemoMusicLibrary.EVDS_ID))
             {
-                return string.Empty;
+                return fi.Name.GetHashCode().ToString();
             }
 
             return string.Empty;

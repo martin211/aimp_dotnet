@@ -1,19 +1,8 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using AIMP.SDK;
 using AIMP.SDK.MessageDispatcher;
 using AIMP.SDK.Threading;
-using Aimp.TestRunner.TestFramework.Assert;
 using Aimp.TestRunner.UnitTests;
 using NUnit.Engine;
 using NUnit.Framework;
@@ -28,9 +17,6 @@ public abstract class AimpIntegrationTest
     public virtual void RunBeforeAnyTests()
     {
         NUnit.Framework.Assert.That(Player, Is.Not.Null);
-        Asserts = new List<IMemberAssert>();
-        ClearAimpBeforeTests();
-
         OneTimeSetUp();
     }
 
@@ -43,13 +29,11 @@ public abstract class AimpIntegrationTest
     [SetUp]
     public virtual void SetUp()
     {
-        Asserts.Clear();
     }
 
     [TearDown]
     public virtual void TearDown()
     {
-        if (Asserts != null && Asserts.Count > 0) Validate(this);
     }
 
     public bool IsValid { get; set; } = true;
@@ -72,8 +56,6 @@ public abstract class AimpIntegrationTest
 
     internal string ImagePath1 { get; }
 
-    internal IList<IMemberAssert> Asserts { get; set; }
-
     protected IAimpPlayer Player { get; }
 
     protected AimpIntegrationTest()
@@ -85,12 +67,14 @@ public abstract class AimpIntegrationTest
                 "Unable to run unit tests. Check that file 'nunit.engine.addins' exists in plugin folder.");
 
         RootPath = Path.Combine(Player.Core.GetPath(AimpCorePathType.Plugins), "AimpTestRunner");
-        PlaylistPath = Path.Combine(RootPath, "resources", "IntegrationTests.aimppl4");
-        TrackPath1 = Path.Combine(RootPath, "resources", "01_atmosphere.mp3");
-        TrackPath2 = Path.Combine(RootPath, "resources", "02_loop-mix.mp3");
-        TrackPath3 = Path.Combine(RootPath, "resources", "03_atmosphere.mp3");
-        TrackPath4 = Path.Combine(RootPath, "resources", "04_loop-mix.mp3");
-        ImagePath1 = Path.Combine(RootPath, "resources", "img1.jpg");
+
+        var resourcesPath = Path.Combine(RootPath, "Resources", "integrationTests");
+        PlaylistPath = Path.Combine(resourcesPath, "IntegrationTests.aimppl4");
+        TrackPath1 = Path.Combine(resourcesPath, "01_atmosphere.mp3");
+        TrackPath2 = Path.Combine(resourcesPath, "02_loop-mix.mp3");
+        TrackPath3 = Path.Combine(resourcesPath, "03_atmosphere.mp3");
+        TrackPath4 = Path.Combine(resourcesPath, "04_loop-mix.mp3");
+        ImagePath1 = Path.Combine(resourcesPath, "img1.jpg");
         TrackUrl1 = "https://freesound.org/data/previews/514/514101_4397472-lq.mp3";
         TmpPath = Path.Combine(RootPath, "tmp");
 
@@ -108,7 +92,6 @@ public abstract class AimpIntegrationTest
         }
 
         Directory.CreateDirectory(TmpPath);
-        Asserts = new List<IMemberAssert>(5);
     }
 
     protected AimpActionResult ExecuteInMainThreadAndWait(Action action)
@@ -188,21 +171,19 @@ public abstract class AimpIntegrationTest
         return res;
     }
 
-    internal void Validate(AimpIntegrationTest testClass)
-    {
-        foreach (var fieldValidator in Asserts) fieldValidator.Validate();
-    }
-
     protected void AssertOKResult(AimpActionResult result, string message = null)
     {
-        AimpAssert.AreEqual(ActionResultType.OK, result.ResultType, "Wrong ActionResultType");
+        AimpAssert.NotNull(result, message ?? "Result is null");
+        AimpAssert.AreEqual(ActionResultType.OK, result.ResultType,
+            message ?? "Expected ActionResultType.OK");
     }
 
-    protected void AssertOKResult<TResult>(AimpActionResult<TResult> result)
+    protected void AssertOKResult<TResult>(AimpActionResult<TResult> result, string message = null)
     {
-        AimpAssert.AreEqual(ActionResultType.OK, result.ResultType, "Wrong ActionResultType");
-        AimpAssert.NotNull(result.Result, "Result is empty");
-        AimpAssert.IsTrue(result.Result is TResult);
+        AimpAssert.NotNull(result, message ?? "Result is null");
+        AimpAssert.AreEqual(ActionResultType.OK, result.ResultType,
+            message ?? "Expected ActionResultType.OK");
+        AimpAssert.NotNull(result.Result, message ?? "Result is empty");
     }
 
     protected virtual void OneTimeSetUp()
@@ -210,13 +191,6 @@ public abstract class AimpIntegrationTest
 
     protected virtual void OneTimeTearDown()
     {}
-
-    private void ClearAimpBeforeTests()
-    {
-        TestContext.WriteLine("Clear existing playlist");
-        var playlistPath = Player.Core.GetPath(AimpCorePathType.Playlists);
-        foreach (var file in new DirectoryInfo(playlistPath).GetFiles()) file.Delete();
-    }
 
     private static void AddFailedResult(string message = null, Exception exception = null)
     {

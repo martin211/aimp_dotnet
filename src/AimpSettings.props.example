@@ -1,0 +1,16 @@
+<Project>
+
+  <!--
+    Copy this file to AimpSettings.props and adjust the paths for your machine.
+    AimpSettings.props is ignored by git, so every checkout can use its own
+    AIMP installation.
+
+    AimpDir       AIMP installation directory (the folder with AIMP.exe)
+    AimpPlatform  x86 or x64; selects the native shim and the managed platform
+  -->
+  <PropertyGroup>
+    <AimpDir>F:\code\aimp\AIMP5.40.2655</AimpDir>
+    <AimpPlatform>x86</AimpPlatform>
+  </PropertyGroup>
+
+</Project>

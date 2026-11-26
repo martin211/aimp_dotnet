@@ -1,13 +1,4 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using AIMP.SDK;
+﻿using AIMP.SDK;
 using AIMP.SDK.MusicLibrary;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
@@ -15,6 +6,7 @@ using NUnit.Framework;
 namespace Aimp.TestRunner.UnitTests.Objects;
 
 [TestFixture(Category = "OrderedList")]
+[Ignore("Legacy IAIMPOrderedList is not available in AIMP 5.40 / 6.0.")]
 public class AimpOrderedListTests : AimpIntegrationTest
 {
     [Test]

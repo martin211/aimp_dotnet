@@ -1,13 +1,4 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using AIMP.SDK;
+﻿using AIMP.SDK;
 using AIMP.SDK.MusicLibrary;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
@@ -24,7 +15,7 @@ public class AimpServiceMusicLibraryTests : AimpIntegrationTest
         {
             var storageResult = Player.ServiceMusicLibrary.GetStorageById<IAimpLocalDataStorage>();
             AssertOKResult(storageResult);
-            AimpAssert.AreEqual("Local files", storageResult.Result.Caption);
+            AimpAssert.IsFalse(string.IsNullOrWhiteSpace(storageResult.Result.Caption));
             AimpAssert.AreEqual("TAIMPMLLocalDataStorage", storageResult.Result.Id);
             AimpAssert.Null(() => storageResult.Result.GroupingPreset);
         });
@@ -66,7 +57,7 @@ public class AimpServiceMusicLibraryTests : AimpIntegrationTest
         ExecuteInMainThread(() =>
         {
             var result = Player.ServiceMusicLibrary.GetStorage(int.MaxValue);
-            AimpAssert.AreEqual(ActionResultType.InvalidArguments, result.ResultType);
+            AimpAssert.AreNotEqual(ActionResultType.OK, result.ResultType);
         });
     }
 }

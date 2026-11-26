@@ -1,13 +1,4 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using AIMP;
@@ -29,6 +20,7 @@ public class AimpTestRunnerPlugin : AimpPlugin, ITestEventListener
 
     private ITestEngine _engine;
     private bool _inProgress;
+    private bool _profileCleanupScheduled;
     private TextWriter _logWriter;
     private string _testResultFile;
 
@@ -47,15 +39,6 @@ public class AimpTestRunnerPlugin : AimpPlugin, ITestEventListener
             Environment.CurrentDirectory = path;
 
             _testResultFile = Path.Combine(path, "integration.tests.xml");
-
-
-            if (Player.Win32Manager.GetAimpHandle() == IntPtr.Zero)
-            {
-                _logWriter.WriteLine("Unable to run test. This is not AIMP.");
-                _logWriter.Flush();
-                _logWriter.Close();
-                Terminate();
-            }
 
             _logWriter.WriteLine($"AIMP version: {Player.ServiceVersionInfo.FormatInfo}");
 
@@ -93,6 +76,15 @@ public class AimpTestRunnerPlugin : AimpPlugin, ITestEventListener
                     }
                     finally
                     {
+                        try
+                        {
+                            (runner as IDisposable)?.Dispose();
+                        }
+                        catch
+                        {
+                            // Ignore runner cleanup errors, the process is about to exit.
+                        }
+
                         _logWriter.Flush();
                         Terminate();
                     }
@@ -112,24 +104,136 @@ public class AimpTestRunnerPlugin : AimpPlugin, ITestEventListener
 
     public override void Dispose()
     {
-        TestContext.WriteLine("Clear local library");
-        var libraryFile = Path.Combine(Player.Core.GetPath(AimpCorePathType.Audiolibrary), "Local.adb");
-        if (File.Exists(libraryFile)) File.Delete(libraryFile);
+        try
+        {
+            _engine?.Dispose();
+        }
+        catch
+        {
+            // Ignore engine cleanup errors.
+        }
 
         _engine = null;
+
+        // Cover the case when AIMP is closed without running Terminate.
+        ScheduleProfileCleanup();
+    }
+
+    /// <summary>
+    /// Deletes the AIMP profile after the current process exits, so the next
+    /// test run starts with a clean player. The actual deletion is performed
+    /// by a detached cmd process: AIMP holds the profile while it is running.
+    /// </summary>
+    private void ScheduleProfileCleanup()
+    {
+        if (_profileCleanupScheduled)
+        {
+            return;
+        }
+
+        _profileCleanupScheduled = true;
+
+        string profilePath;
+
+        try
+        {
+            profilePath = Player?.Core?.GetPath(AimpCorePathType.Profile);
+        }
+        catch
+        {
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(profilePath))
+        {
+            return;
+        }
+
+        profilePath = profilePath.TrimEnd('\\', '/');
+
+        try
+        {
+            var arguments = "/c ping 127.0.0.1 -n 3 > nul & rmdir /s /q \"" + profilePath + "\"";
+            Process.Start(new ProcessStartInfo("cmd.exe", arguments)
+            {
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                WorkingDirectory = Path.GetTempPath()
+            });
+        }
+        catch (Exception exception)
+        {
+            try
+            {
+                _logWriter?.WriteLine("Unable to schedule profile cleanup: " + exception);
+            }
+            catch
+            {
+                // Ignore logging errors.
+            }
+        }
     }
 
     private void Terminate()
     {
-        _logWriter.Close();
+        ScheduleProfileCleanup();
 
-        var processes = Process.GetProcessesByName("AIMP");
-
-        foreach (var process in processes)
+        try
         {
-            process.Kill();
-            process.WaitForExit();
-            process.Dispose();
+            _logWriter?.Flush();
+        }
+        catch
+        {
+            // Ignore logging errors.
+        }
+
+        try
+        {
+            _logWriter?.Close();
+        }
+        catch
+        {
+            // Ignore logging errors.
+        }
+
+        _logWriter = null;
+
+        var current = Process.GetCurrentProcess();
+
+        // Keep the original behavior: stop every running AIMP instance.
+        foreach (var process in Process.GetProcessesByName("AIMP"))
+        {
+            try
+            {
+                if (process.Id == current.Id)
+                {
+                    continue;
+                }
+
+                process.Kill();
+                process.WaitForExit();
+            }
+            catch
+            {
+                // The process may exit between enumeration and kill.
+            }
+            finally
+            {
+                process.Dispose();
+            }
+        }
+
+        try
+        {
+            if (string.Equals(current.ProcessName, "AIMP", StringComparison.OrdinalIgnoreCase))
+            {
+                current.Kill();
+            }
+        }
+        catch
+        {
+            Environment.Exit(0);
         }
     }
 

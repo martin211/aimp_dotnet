@@ -1,60 +1,50 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
+﻿using AIMP.SDK.Player.Objects;
 
-using AIMP.SDK.Player.Objects;
+namespace AIMP.SDK.Player;
 
-namespace AIMP.SDK.Player
+/// <summary>
+/// Provide access to presets library.
+/// </summary>
+public interface IAimpServicePlayerEqualizerPresets
 {
     /// <summary>
-    /// Provide access to presets library.
+    /// Adds the new preset.
     /// </summary>
-    public interface IAimpServicePlayerEqualizerPresets
-    {
-        /// <summary>
-        /// Adds the new preset.
-        /// </summary>
-        /// <param name="name">The preset name.</param>
-        /// <returns></returns>
-        AimpActionResult<IAimpEqualizerPreset> Add(string name);
+    /// <param name="name">The preset name.</param>
+    /// <returns></returns>
+    AimpActionResult<IAimpEqualizerPreset> Add(string name);
 
-        /// <summary>
-        /// Finds the preet by name.
-        /// </summary>
-        /// <param name="name">The preset name.</param>
-        /// <returns></returns>
-        AimpActionResult<IAimpEqualizerPreset> FindByName(string name);
+    /// <summary>
+    /// Finds the preet by name.
+    /// </summary>
+    /// <param name="name">The preset name.</param>
+    /// <returns></returns>
+    AimpActionResult<IAimpEqualizerPreset> FindByName(string name);
 
-        /// <summary>
-        /// Deletes the specified preset.
-        /// </summary>
-        /// <param name="preset">The preset.</param>
-        /// <returns></returns>
-        AimpActionResult Delete(IAimpEqualizerPreset preset);
+    /// <summary>
+    /// Deletes the specified preset.
+    /// </summary>
+    /// <param name="preset">The preset.</param>
+    /// <returns></returns>
+    AimpActionResult Delete(IAimpEqualizerPreset preset);
 
-        /// <summary>
-        /// Deletes the preset by index.
-        /// </summary>
-        /// <param name="index">The preset index.</param>
-        /// <returns></returns>
-        AimpActionResult Delete(int index);
+    /// <summary>
+    /// Deletes the preset by index.
+    /// </summary>
+    /// <param name="index">The preset index.</param>
+    /// <returns></returns>
+    AimpActionResult Delete(int index);
 
-        /// <summary>
-        /// Gets the preset by index.
-        /// </summary>
-        /// <param name="index">The preset index.</param>
-        /// <returns></returns>
-        AimpActionResult<IAimpEqualizerPreset> GetPreset(int index);
+    /// <summary>
+    /// Gets the preset by index.
+    /// </summary>
+    /// <param name="index">The preset index.</param>
+    /// <returns></returns>
+    AimpActionResult<IAimpEqualizerPreset> GetPreset(int index);
 
-        /// <summary>
-        /// Gets the preset count.
-        /// </summary>
-        /// <returns></returns>
-        int GetPresetCount();
-    }
+    /// <summary>
+    /// Gets the preset count.
+    /// </summary>
+    /// <returns></returns>
+    int GetPresetCount();
 }

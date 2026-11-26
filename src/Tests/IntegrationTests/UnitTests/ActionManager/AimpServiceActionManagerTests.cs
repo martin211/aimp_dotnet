@@ -1,13 +1,4 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using System;
+﻿using System;
 using AIMP.SDK;
 using AIMP.SDK.Actions.Objects;
 using Aimp.TestRunner.TestFramework;
@@ -42,6 +33,8 @@ public class AimpServiceActionManagerTests : AimpIntegrationTest
             var action = actionResult.Result as IAimpAction;
             AimpAssert.NotNull(action);
 
+            action.Id = "integration.action.empty-name";
+            action.Name = string.Empty;
             var exception = AimpAssert.Throw<ArgumentNullException>(() => Player.ServiceActionManager.Register(action));
             AimpAssert.IsTrue(exception.Message.Contains("Action name cannot be empty"));
         });

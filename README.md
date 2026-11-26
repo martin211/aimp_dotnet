@@ -1,37 +1,39 @@
 ## AIMP DotNet SDK
-[![Github All Releases](https://img.shields.io/github/downloads/martin211/aimp_dotnet/latest/aimp.sdk.zip.svg)](https://github.com/martin211/aimp_dotnet/releases/latest)
-[![test](https://img.shields.io/github/tag/martin211/aimp_dotnet.svg)](https://img.shields.io/github/tag/martin211/aimp_dotnet.svg)
 
-## What is it?
-*AIMP DotNet* allows you to create a plugin for [AIMP](http://www.aimp.ru) media player on .Net
-Supports x86 and x64 version.
+*AIMP DotNet* lets you write a plugin for the [AIMP](http://www.aimp.ru) media player
+in **pure C#** - no C++/CLI wrapper, no native proxy layer. Both x86 and x64 builds
+of the player are supported.
 
-### Documentation
+## How it works
 
-https://martin211.github.io/aimp_dotnet_docs/api/AIMP.SDK.html
+A tiny native DLL (`aimp_dotnet.dll`) is the only thing AIMP loads. It starts the
+CLR, asks the managed host for the plugin object and hands the resulting COM
+callable wrapper (CCW) back to the player. From that point every `IAIMPPlugin`
+vtable call goes straight into managed code; services such as `IAIMPCore` are
+called back through ordinary COM interop.
 
-### Description
-AIMP DotNet SDK this is a proxy plugin written on C++ CLI and C++. It provide ability to call AIMP methods directly from C# code.
-SDK contain two parts:
-1. AIMP.SDK library.
-   Contains a definitions for SDK interfaces.
-2. aimp_dotnet library
-   Contains implementations of interfaces from AIMP.SDK library. All code written on C++ CLI and some native parts on C++
+```
+AIMP -> aimp_dotnet.dll (native, no /clr)
+     -> AIMP.Host.dll (stable): AppDomain per plugin -> loads that plugin's AIMP.SDK.dll
+     -> AIMP.SDK.dll (net48): PluginHost -> NativePluginBridge -> CCW
+     -> AIMP calls IAIMPPlugin vtable directly in C#
+```
 
-For more information you can use demo plugins.
+See [src/README.md](src/README.md) for the architecture, the public API and the
+plugin authoring guide.
 
-### How to write plugin
-1. Use [NuGet package](https://www.nuget.org/packages/AimpSDK/)
-2. Optional. Install [Command Task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.CommandTaskRunner) extension for Visual Studio
-3. Remember that a aimp_dotnet.dll this is a entry point for AIMP plugin. And it shuld be called as your plugin. You can use CopyPlugin.ps1 script to get correct plugin structure.
+## Build
 
-## How to build
-### Prerequisites
-1. [Visual Studio 2022](https://www.visualstudio.com/downloads/) or MsBuild tools 2022
-2. Following components should be installed: 
-	- Visual C++ ATL support
-	- C++/CLI support
-    - Windows SDK Version: 10.0.17763.0
+Requires Visual Studio 2022+ with the C++ and .NET desktop workloads
+(MSVC and .NET Framework 4.8 targeting pack).
+
+```powershell
+cd src
+pwsh -File .\build.ps1
+```
+
+The ready-to-install folders appear in `src/bin/out/x86` and `src/bin/out/x64`.
 
 ## License
+
 *AIMP DotNet* is licensed under the [Apache 2.0](LICENSE).

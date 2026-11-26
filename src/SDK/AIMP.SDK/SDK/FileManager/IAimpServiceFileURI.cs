@@ -1,29 +1,6 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using System;
-using AIMP.SDK.Objects;
+﻿using System;
 
 namespace AIMP.SDK.FileManager;
-
-public enum FileUriFlag
-{
-    /// <summary>
-    /// Double extensions will be replaced with NewExt. If flag is not set - only last extension will be replaced.
-    /// </summary>
-    DoubleExt,
-
-    /// <summary>
-    /// if flag is set - function will change the extension of sub track instead of container's file name.
-    /// </summary>
-    PartExt
-}
 
 /// <summary>
 /// The IAimpServiceFileURI service provides few methods to work with FileURI of real and virtual files.

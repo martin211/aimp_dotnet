@@ -1,13 +1,4 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -45,11 +36,9 @@ public class AimpNUnit3FrameworkDriver : IFrameworkDriver
     private AssemblyName _reference;
 
     private string _testAssemblyPath;
-    private AppDomain _testDomain;
 
     public AimpNUnit3FrameworkDriver(AppDomain testDomain, AssemblyName reference)
     {
-        _testDomain = testDomain;
         _reference = reference;
     }
 
@@ -57,8 +46,6 @@ public class AimpNUnit3FrameworkDriver : IFrameworkDriver
 
     public string Load(string testAssemblyPath, IDictionary<string, object> settings)
     {
-        _testDomain = AppDomain.CreateDomain("testDomain");
-
         var idPrefix = string.IsNullOrEmpty(ID) ? "" : ID + "-";
         _testAssemblyPath = testAssemblyPath;
         try

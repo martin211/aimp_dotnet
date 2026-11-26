@@ -1,19 +1,9 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using AIMP.SDK;
-using AIMP.SDK.FileManager;
+﻿using AIMP.SDK;
 using AIMP.SDK.FileManager.Extensions;
 using AIMP.SDK.FileManager.Objects;
 using AIMP.SDK.Objects;
 
-namespace AIMP.DotNet.MusicLibrary
+namespace Aimp.MusicLibraryPlugin
 {
     public class AimpExtensionFileInfoProvider : IAimpExtensionFileInfoProvider, IAimpExtension
     {

@@ -1,20 +1,11 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using System;
+﻿using System;
 using System.Windows.Forms;
 using AIMP;
 using AIMP.SDK;
 
 namespace dotnet_ExtendDialogWindow
 {
-    [AimpPlugin("dotnet_ExtendDialogWindow", "Evgeniy Bogdan", AdditionalInfo.Version, AimpPluginType = AimpPluginType.Addons)]
+    [AimpPlugin("dotnet_ExtendDialogWindow", "Evgeniy Bogdan", "1.0.0.0", AimpPluginType = AimpPluginType.Addons)]
     public class Plugin : AimpPlugin, IAimpExternalSettingsDialog
     {
         public void Show(IntPtr parentWindow)

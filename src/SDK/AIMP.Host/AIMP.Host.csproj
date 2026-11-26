@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk"
+         TreatAsLocalProperty="Version;AssemblyVersion;FileVersion;InformationalVersion">
+
+  <PropertyGroup>
+    <!--
+      AIMP.Host is a thin bootstrap that rarely changes, so it is versioned
+      independently of the AIMP SDK.  TreatAsLocalProperty keeps the values
+      passed on the build command line from overriding them.
+    -->
+    <Version>1.0.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <InformationalVersion>1.0.0.0</InformationalVersion>
+
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>AIMP.Host</AssemblyName>
+    <RootNamespace>AIMP.Host</RootNamespace>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)..\..\bin\managed\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Deterministic>true</Deterministic>
+    <Nullable>disable</Nullable>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+</Project>

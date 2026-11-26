@@ -1,66 +1,40 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
+﻿using AIMP.SDK.PlayList.Objects;
 
-using AIMP.SDK.Playlist.Objects;
+namespace AIMP.SDK.PlayList.Extensions;
 
-namespace AIMP.SDK.Playlist.Extensions
+/// <summary>
+/// Provides an ability to register custom preimage (data provider) factory for smart-playlists.
+/// </summary>
+public interface IAimpExtensionPlaylistPreimageFactory
 {
     /// <summary>
-    /// Enum PreimageFactoryFlags
+    /// Creates a new instance of <see cref="IAimpPlaylistPreimage" />.
     /// </summary>
-    public enum PreimageFactoryFlags
-    {
-        /// <summary>
-        /// The none
-        /// </summary>
-        None = 0,
-
-        /// <summary>
-        /// The context dependent
-        /// </summary>
-        ContextDependent = 1
-    }
+    /// <returns>AimpActionResult&lt;IAimpPlaylistPreimage&gt;.</returns>
+    AimpActionResult<IAimpPlaylistPreimage> CreatePreimage();
 
     /// <summary>
-    /// Provides an ability to register custom preimage (data provider) factory for smart-playlists.
+    /// Unique ID of factory. You must not change the ID during life time of the plugin, because ID will be stored to file
+    /// of smart-playlist.
     /// </summary>
-    public interface IAimpExtensionPlaylistPreimageFactory
-    {
-        /// <summary>
-        /// Creates a new instance of <see cref="IAimpPlaylistPreimage" />.
-        /// </summary>
-        /// <returns>AimpActionResult&lt;IAimpPlaylistPreimage&gt;.</returns>
-        AimpActionResult<IAimpPlaylistPreimage> CreatePreimage();
+    /// <returns>AimpActionResult&lt;System.String&gt;.</returns>
+    AimpActionResult<string> GetId();
 
-        /// <summary>
-        /// Unique ID of factory. You must not change the ID during life time of the plugin, because ID will be stored to file
-        /// of smart-playlist.
-        /// </summary>
-        /// <returns>AimpActionResult&lt;System.String&gt;.</returns>
-        AimpActionResult<string> GetId();
+    /// <summary>
+    /// Gets the name.
+    /// </summary>
+    /// <returns>AimpActionResult&lt;System.String&gt;.</returns>
+    AimpActionResult<string> GetName();
 
-        /// <summary>
-        /// Gets the name.
-        /// </summary>
-        /// <returns>AimpActionResult&lt;System.String&gt;.</returns>
-        AimpActionResult<string> GetName();
+    /// <summary>
+    /// Gets the flags.
+    /// </summary>
+    /// <returns>PreimageFactoryFlags.</returns>
+    PreimageFactoryFlags GetFlags();
 
-        /// <summary>
-        /// Gets the flags.
-        /// </summary>
-        /// <returns>PreimageFactoryFlags.</returns>
-        PreimageFactoryFlags GetFlags();
+    //string Name { get; }
 
-        //string Name { get; }
+    //string Id { get; }
 
-        //string Id { get; }
-
-        //PreimageFactoryFlags Flags { get; }
-    }
+    //PreimageFactoryFlags Flags { get; }
 }

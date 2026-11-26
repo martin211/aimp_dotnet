@@ -16,8 +16,11 @@
   <files>
     <file src="nuget\Tools\CopyPlugin.ps1" target="content\CopyPlugin.ps1" />
     <file src="nuget\Tools\commands.json" target="content\commands.json" />
-    <file src="src\SDK\aimp_dotnet\bin\x64\$configuration$\AIMP.SDK.dll" target="lib\net48\AIMP.SDK.dll" />
-    <file src="src\SDK\aimp_dotnet\bin\x64\$configuration$\aimp_dotnet.dll" target="lib\net48\aimp_dotnet.dll" />
-    <file src="src\SDK\aimp_dotnet\bin\x64\$configuration$\AIMP.SDK.xml" target="lib\net48\AIMP.SDK.xml" />
+    <file src="src\bin\managed\AIMP.SDK.dll" target="lib\net48\AIMP.SDK.dll" />
+    <file src="src\bin\managed\AIMP.SDK.pdb" target="lib\net48\AIMP.SDK.pdb" />
+    <file src="src\bin\managed\AIMP.Host.dll" target="tools\AIMP.Host.dll" />
+    <file src="src\bin\managed\AIMP.Host.pdb" target="tools\AIMP.Host.pdb" />
+    <file src="src\SDK\bin\x64\$configuration$\aimp_dotnet.dll" target="tools\aimp_dotnet.dll" />
+    <file src="src\SDK\bin\x64\$configuration$\aimp_dotnet.pdb" target="tools\aimp_dotnet.pdb" />
   </files>
 </package>

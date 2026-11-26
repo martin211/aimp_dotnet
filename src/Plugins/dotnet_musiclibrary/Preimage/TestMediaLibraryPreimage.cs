@@ -1,23 +1,14 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using AIMP.SDK;
 using AIMP.SDK.MusicLibrary;
 using AIMP.SDK.MusicLibrary.DataStorage;
 using AIMP.SDK.Objects;
-using AIMP.SDK.Playlist;
+using AIMP.SDK.PlayList;
 using AIMP.SDK.Threading;
 
-namespace AIMP.DotNet.MusicLibrary.Preimage
+namespace Aimp.MusicLibraryPlugin.Preimage
 {
     public class TestMediaLibraryPreimage : IAimpPlaylistPreimageDataProvider, IAimpMusicLibraryPlaylistPreimage
     {

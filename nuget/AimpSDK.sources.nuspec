@@ -8,18 +8,19 @@
     <owners>Evgeniy Bogdan</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectUrl>https://github.com/martin211/aimp_dotnet</projectUrl>
-    <description>Aimp DotNet allows you to create a plugin for AIMP media player on .Net. To develop plugins for AIMP x64 use AimpSDK-x64 package instead.</description>
+    <description>Aimp DotNet SDK source code and native host sources.</description>
     <tags>AIMP SDK DotNet</tags>
     <license type="expression">MIT</license>
     <repository type="git" url="https://github.com/martin211/aimp_dotnet" branch="master" />
   </metadata>
   <files>
-    <file src="src\SDK\AIMP.SDK\**\*.cs" target="src\AIMP.SDK" />
-    <file src="src\SDK\AIMP.SDK\**\*.csproj" target="src\AIMP.SDK" />
-    <file src="src\SDK\aimp_dotnet\**\*.h" target="src\aimp_dotnet" />
-    <file src="src\SDK\aimp_dotnet\**\*.cpp" target="src\aimp_dotnet" />
-    <file src="src\SDK\aimp_dotnet\**\*.def" target="src\aimp_dotnet" />
-    <file src="src\SDK\aimp_dotnet\**\*.filters" target="src\aimp_dotnet" />
-    <file src="src\SDK\aimp_dotnet\**\*.vcxproj" target="src\aimp_dotnet" />
+    <file src="src\SDK\AIMP.SDK\**\*.cs" exclude="**\obj\**;**\bin\**" target="src\AIMP.SDK" />
+    <file src="src\SDK\AIMP.SDK\**\*.csproj" exclude="**\obj\**;**\bin\**" target="src\AIMP.SDK" />
+    <file src="src\SDK\AIMP.Host\**\*.cs" exclude="**\obj\**;**\bin\**" target="src\AIMP.Host" />
+    <file src="src\SDK\AIMP.Host\**\*.csproj" exclude="**\obj\**;**\bin\**" target="src\AIMP.Host" />
+    <file src="src\SDK\aimp_dotnet\**\*.cpp" exclude="**\obj\**;**\bin\**" target="src\aimp_dotnet" />
+    <file src="src\SDK\aimp_dotnet\**\*.rc" exclude="**\obj\**;**\bin\**" target="src\aimp_dotnet" />
+    <file src="src\SDK\aimp_dotnet\**\*.def" exclude="**\obj\**;**\bin\**" target="src\aimp_dotnet" />
+    <file src="src\SDK\aimp_dotnet\**\*.vcxproj" exclude="**\obj\**;**\bin\**" target="src\aimp_dotnet" />
   </files>
 </package>

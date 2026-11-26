@@ -1,0 +1,244 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: [msbuild]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare pull-request branch
+        if: github.event_name == 'pull_request'
+        shell: pwsh
+        run: |
+          $branch = if ($env:GITHUB_REF -match '^refs/pull/(\d+)/') {
+            "pull/$($Matches[1])/merge"
+          } elseif (-not [string]::IsNullOrWhiteSpace($env:GITHUB_HEAD_REF)) {
+            $env:GITHUB_HEAD_REF
+          } else {
+            'pr/0'
+          }
+          git checkout -B "$branch"
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v4.1.0
+        with:
+          versionSpec: '6.7.x'
+
+      - name: Determine Version
+        id: version_step
+        uses: gittools/actions/gitversion/execute@v4.1.0
+
+      - name: Show version
+        shell: pwsh
+        run: |
+          Write-Host "SemVer:              ${{ steps.version_step.outputs.semVer }}"
+          Write-Host "AssemblySemVer:      ${{ steps.version_step.outputs.assemblySemVer }}"
+          Write-Host "AssemblySemFileVer:  ${{ steps.version_step.outputs.assemblySemFileVer }}"
+          Write-Host "InformationalVersion:${{ steps.version_step.outputs.informationalVersion }}"
+
+      - name: Validate version policy
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+
+          $ref = $env:GITHUB_REF
+          $event = $env:GITHUB_EVENT_NAME
+          $semver = "${{ steps.version_step.outputs.semVer }}"
+          $label = "${{ steps.version_step.outputs.preReleaseLabel }}"
+          $majorMinorPatch = "${{ steps.version_step.outputs.majorMinorPatch }}"
+          $isTag = $ref -like 'refs/tags/*'
+
+          if ($isTag) {
+            $tag = $ref.Substring('refs/tags/'.Length)
+
+            git fetch origin '+refs/heads/master:refs/remotes/origin/master' --quiet
+            if ($LASTEXITCODE -ne 0) {
+              throw 'Cannot fetch origin/master.'
+            }
+
+            $tagCommit = (git rev-parse "$tag^{commit}").Trim()
+            if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($tagCommit)) {
+              throw "Cannot resolve tag '$tag' to a commit."
+            }
+
+            git merge-base --is-ancestor $tagCommit origin/master
+            if ($LASTEXITCODE -ne 0) {
+              throw "Release tag '$tag' must point to a commit reachable from master."
+            }
+
+            if (-not [string]::IsNullOrWhiteSpace($label)) {
+              throw "Stable releases must be tagged with a plain version, got '$semver'."
+            }
+
+            if ($semver -ne $majorMinorPatch) {
+              throw "Stable release version '$semver' must equal '$majorMinorPatch'."
+            }
+
+            if ($tag -notmatch ('^v?' + [regex]::Escape($majorMinorPatch) + '$')) {
+              throw "Tag '$tag' must match v$majorMinorPatch."
+            }
+          } else {
+            if ([string]::IsNullOrWhiteSpace($label)) {
+              throw "Non-tag builds must be prerelease, got '$semver'."
+            }
+
+            if ($ref -eq 'refs/heads/master' -and $label -ne 'rc') {
+              throw "Master builds must use the 'rc' label, got '$label'."
+            }
+
+            if ($event -eq 'pull_request' -and $label -ne 'beta') {
+              throw "Pull request builds must use the 'beta' label, got '$label'."
+            }
+          }
+
+          Write-Host "Version policy OK: $semver"
+
+      - name: Build solution and plugins
+        shell: pwsh
+        run: |
+          # build.ps1 builds all projects from src/aimp_dotnet.sln (AIMP.SDK,
+          # AIMP.Host, demo/sample plugins, integration test plugin), both native
+          # shims, runs smoke tests and assembles src/bin/out/<platform>.
+          ./src/build.ps1 `
+            -Configuration Release `
+            -Version "${{ steps.version_step.outputs.semVer }}" `
+            -AssemblyVersion "${{ steps.version_step.outputs.assemblySemVer }}" `
+            -FileVersion "${{ steps.version_step.outputs.assemblySemFileVer }}" `
+            -InformationalVersion "${{ steps.version_step.outputs.informationalVersion }}"
+
+      - name: Pack NuGet packages
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+
+          $version = "${{ steps.version_step.outputs.semVer }}"
+          if ([string]::IsNullOrWhiteSpace($version)) {
+            $version = '1.0.0'
+          }
+
+          New-Item -ItemType Directory -Force output | Out-Null
+
+          $nuget = (Get-Command nuget.exe -ErrorAction SilentlyContinue | Select-Object -First 1).Source
+          if (-not $nuget) {
+            $nuget = (Get-Command nuget -ErrorAction SilentlyContinue | Select-Object -First 1).Source
+          }
+          if (-not $nuget) {
+            $temp = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
+            $nuget = Join-Path $temp 'nuget.exe'
+            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+            Invoke-WebRequest -Uri 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile $nuget
+          }
+
+          $packCommon = @(
+            '-Version', $version,
+            '-BasePath', '.',
+            '-Properties', 'configuration=Release',
+            '-OutputDirectory', 'output',
+            '-NoPackageAnalysis'
+          )
+
+          & $nuget pack 'nuget\AimpSDK.nuspec' @packCommon
+          if ($LASTEXITCODE -ne 0) { throw 'NuGet pack failed: AimpSDK.nuspec' }
+
+          & $nuget pack 'nuget\AimpSDK-x64.nuspec' @packCommon
+          if ($LASTEXITCODE -ne 0) { throw 'NuGet pack failed: AimpSDK-x64.nuspec' }
+
+          & $nuget pack 'nuget\AimpSDK.sources.nuspec' @packCommon
+          if ($LASTEXITCODE -ne 0) { throw 'NuGet pack failed: AimpSDK.sources.nuspec' }
+
+          & $nuget pack 'nuget\AimpSDK.symbols.nuspec' @packCommon
+          if ($LASTEXITCODE -ne 0) { throw 'NuGet pack failed: AimpSDK.symbols.nuspec' }
+
+      - name: Create SDK and demo plugin zips
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+
+          $version = "${{ steps.version_step.outputs.semVer }}"
+          if ([string]::IsNullOrWhiteSpace($version)) {
+            $version = '1.0.0'
+          }
+          $version = $version -replace '[^0-9A-Za-z\.\-]', '-'
+
+          function Copy-Extras([string] $target) {
+            foreach ($extra in @('README.md', 'LICENSE')) {
+              if (Test-Path $extra) {
+                Copy-Item $extra $target
+              }
+            }
+          }
+
+          # SDK-only archive: x86/ and x64/ contain the SDK payload files,
+          # next to the readme.
+          $sdkFiles = @('AIMP.Host.dll', 'AIMP.SDK.dll', 'aimp_dotnet.dll')
+
+          $sdkStaging = Join-Path $PWD 'output\staging-sdk'
+          Remove-Item $sdkStaging -Recurse -Force -ErrorAction SilentlyContinue
+          New-Item -ItemType Directory -Force $sdkStaging | Out-Null
+
+          foreach ($platform in @('x86', 'x64')) {
+            $platformDirectory = Join-Path $sdkStaging $platform
+            New-Item -ItemType Directory -Force $platformDirectory | Out-Null
+
+            foreach ($file in $sdkFiles) {
+              $source = Join-Path "src\bin\out\$platform\sdk" $file
+              if (-not (Test-Path $source)) {
+                throw "SDK file not found: $source"
+              }
+
+              Copy-Item $source (Join-Path $platformDirectory $file)
+            }
+          }
+
+          Copy-Item 'README.md' $sdkStaging
+
+          $sdkZip = "output\aimp.sdk-$version.zip"
+          Compress-Archive -Path (Join-Path $sdkStaging '*') -DestinationPath $sdkZip -Force
+          Write-Host "Created $sdkZip"
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $archive = [System.IO.Compression.ZipFile]::OpenRead((Resolve-Path $sdkZip))
+          try {
+            $archive.Entries | ForEach-Object { Write-Host "  $($_.FullName)" }
+          }
+          finally {
+            $archive.Dispose()
+          }
+
+          # Demo plugins archive: x86/<plugin>/..., x64/<plugin>/...
+          $pluginsStaging = Join-Path $PWD 'output\staging-plugins'
+          Remove-Item $pluginsStaging -Recurse -Force -ErrorAction SilentlyContinue
+          New-Item -ItemType Directory -Force (Join-Path $pluginsStaging 'x86') | Out-Null
+          New-Item -ItemType Directory -Force (Join-Path $pluginsStaging 'x64') | Out-Null
+
+          Copy-Item 'src\bin\out\x86\plugins\*' (Join-Path $pluginsStaging 'x86') -Recurse
+          Copy-Item 'src\bin\out\x64\plugins\*' (Join-Path $pluginsStaging 'x64') -Recurse
+          Copy-Extras $pluginsStaging
+
+          $pluginsZip = "output\aimp.demo-plugins-$version.zip"
+          Compress-Archive -Path (Join-Path $pluginsStaging '*') -DestinationPath $pluginsZip -Force
+          Write-Host "Created $pluginsZip"
+
+          Get-ChildItem output | ForEach-Object { Write-Host "  $($_.Name)" }
+
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: aimp-sdk-${{ steps.version_step.outputs.semVer }}
+          path: |
+            output/*.nupkg
+            output/*.zip
+          if-no-files-found: error

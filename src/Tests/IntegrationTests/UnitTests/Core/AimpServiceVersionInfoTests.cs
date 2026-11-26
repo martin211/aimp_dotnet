@@ -1,13 +1,5 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using System;
+﻿using System;
+using AIMP.SDK;
 using AIMP.SDK.Core;
 using Aimp.TestRunner.TestFramework;
 using NUnit.Framework;
@@ -20,24 +12,24 @@ public class AimpServiceVersionInfoTests : AimpIntegrationTest
     [Test]
     public void FormatInfo_ShouldReturnCorrectInformation()
     {
-        var currentVersion = Player.ServiceVersionInfo.FormatInfo;
-        AimpAssert.NotNull(currentVersion);
-        AimpAssert.IsFalse(string.IsNullOrWhiteSpace(currentVersion));
-        TestContext.WriteLine($"Current version: {currentVersion}");
+        var version = Player.Version;
+        TestContext.WriteLine($"Current version: {version}");
+        AimpAssert.IsTrue(version.IsKnown);
+        AimpAssert.IsFalse(string.IsNullOrWhiteSpace(version.ToString()));
     }
 
     [Test]
     public void BuildDate_ShouldNotBeMinValue()
     {
-        var date = Player.ServiceVersionInfo.BuildDate;
+        var date = Player.Version.BuildDate;
         TestContext.WriteLine($"Build date: {date}");
-        AimpAssert.IsTrue(date != DateTime.MaxValue);
+        AimpAssert.IsTrue(date != DateTime.MinValue);
     }
 
     [Test]
     public void BuildState_ShouldReturnCorrectValue()
     {
-        var build = Player.ServiceVersionInfo.BuildState;
+        var build = Player.Version.BuildState;
         TestContext.WriteLine($"Build state: {build}");
         AimpAssert.AreEqual(BuildStateType.Relese, build);
     }
@@ -45,7 +37,7 @@ public class AimpServiceVersionInfoTests : AimpIntegrationTest
     [Test]
     public void BuildNumber_ShouldReturnCorrectValue()
     {
-        var number = Player.ServiceVersionInfo.BuildNumber;
+        var number = Player.Version.Build;
         TestContext.WriteLine($"Build number: {number}");
         AimpAssert.IsTrue(number > 0);
     }
@@ -53,7 +45,7 @@ public class AimpServiceVersionInfoTests : AimpIntegrationTest
     [Test]
     public void VersionId_ShouldReturnCorrectValue()
     {
-        var versionId = Player.ServiceVersionInfo.VersionId;
+        var versionId = Player.Version.VersionId;
         TestContext.WriteLine($"Version Id: {versionId}");
         AimpAssert.IsTrue(versionId > 0);
     }

@@ -1,31 +1,59 @@
-assembly-versioning-scheme: MajorMinorPatchTag
+#  AIMP SDK versioning.
+#
+#  The first three components are owned by the AIMP SDK: `next-version` must
+#  match the AIMP SDK build (currently 6.00.3100).  Our own revision is added
+#  as the prerelease label and as the fourth AssemblyFileVersion component:
+#
+#    stable tag v6.0.3100  -> SemVer 6.0.3100      (6.0.3100.0)
+#    master after the tag  -> SemVer 6.0.3100-rc.N (6.0.3100.N)
+#    pull requests         -> SemVer 6.0.3100-beta.N
+#
+#  A stable version is produced only when the current commit is tagged with
+#  `v6.0.3100` (or a later plain version).  The release workflow additionally
+#  verifies that the tag is reachable from master.
+
+next-version: 6.0.3100
+tag-prefix: '[vV]?'
+continuous-delivery-fallback-tag: beta
+
+assembly-versioning-scheme: MajorMinorPatch
 assembly-file-versioning-scheme: MajorMinorPatchTag
-continuous-delivery-fallback-tag: ''
+
 branches:
-  develop:
-    regex: ^develop
-    mode: ContinuousDeployment
-    tag: 'alpha'
+  main:
+    regex: ^master$|^main$
+    mode: ContinuousDelivery
+    label: rc
     increment: None
-    prevent-increment-of-merged-branch-version: true
+    prevent-increment:
+      of-merged-branch: true
+      when-current-commit-tagged: true
+    track-merge-target: false
+    track-merge-message: true
+    tracks-release-branches: false
+    is-release-branch: false
+    is-main-branch: true
+
+  pull-request:
+    regex: ^(pull|pull\-requests|pr)[/-]
+    mode: ContinuousDelivery
+    label: beta
+    increment: None
+    prevent-increment:
+      when-current-commit-tagged: true
     track-merge-target: false
     tracks-release-branches: false
     is-release-branch: false
+    source-branches: ['main']
+
   feature:
-    regex: ^feature?[/]
-    mode: ContinuousDeployment
-    tag: 'debug'
+    regex: ^(feature|feat)[/-]
+    mode: ContinuousDelivery
+    label: beta
     increment: None
-    prevent-increment-of-merged-branch-version: false
+    prevent-increment:
+      when-current-commit-tagged: true
     track-merge-target: false
     tracks-release-branches: false
     is-release-branch: false
-    source-branches: ['develop']
-  release:
-    regex: ^release?[/]
-    mode: ContinuousDeployment
-    tag: ''
-    prevent-increment-of-merged-branch-version: true
-    track-merge-target: false
-    tracks-release-branches: false
-    is-release-branch: true
+    source-branches: ['main']

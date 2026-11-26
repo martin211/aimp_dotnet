@@ -1,60 +1,57 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
+﻿using System;
 using AIMP.SDK.Player.Objects;
 
-namespace AIMP.SDK.Player
+namespace AIMP.SDK.Player;
+
+/// <summary>
+/// Service provides an access to equalizer.
+/// </summary>
+public interface IAimpServicePlayerEqualizer : IAimpEqualizerBands
 {
     /// <summary>
-    /// Service provides an access to equalizer.
+    /// Get equalizer state (on/off).
     /// </summary>
-    public interface IAimpServicePlayerEqualizer : IAimpEqualizerBands
-    {
-        /// <summary>
-        /// Get equalizer state (on/off).
-        /// </summary>
-        /// <returns>Equalizer state.</returns>
-        bool GetActive();
+    /// <returns>Equalizer state.</returns>
+    /// <summary>
+    /// Gets a value indicating whether the equalizer is active.
+    /// Since AIMP 6.0 the native method is broken in 32-bit code; use
+    /// <see cref="AIMP.SDK.MessageDispatcher.AimpCoreMessageType.PropertyEqualizer"/> instead.
+    /// </summary>
+    [Obsolete("Use AIMP_MSG_PROPERTY_EQUALIZER message instead.")]
+    bool GetActive();
 
-        /// <summary>
-        /// Set equalizer state (on/off).
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns>AimpActionResult.</returns>
-        AimpActionResult SetActive(bool value);
+    /// <summary>
+    /// Set equalizer state (on/off).
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns>AimpActionResult.</returns>
+    AimpActionResult SetActive(bool value);
 
-        /// <summary>
-        /// Get preamp value.
-        /// Equalizer should be enabled.
-        /// </summary>
-        /// <returns>Preamp value in range of -15.0 to +15.0 dB.</returns>
-        AimpActionResult<double> GetPreamp();
+    /// <summary>
+    /// Get preamp value.
+    /// Equalizer should be enabled.
+    /// </summary>
+    /// <returns>Preamp value in range of -15.0 to +15.0 dB.</returns>
+    AimpActionResult<double> GetPreamp();
 
-        /// <summary>
-        /// Set preamp.
-        /// Equalizer should be enabled.
-        /// </summary>
-        /// <param name="value">Preamp value in range of -15.0 to +15.0 dB.</param>
-        /// <returns>AimpActionResult.</returns>
-        AimpActionResult SetPreamp(double value);
+    /// <summary>
+    /// Set preamp.
+    /// Equalizer should be enabled.
+    /// </summary>
+    /// <param name="value">Preamp value in range of -15.0 to +15.0 dB.</param>
+    /// <returns>AimpActionResult.</returns>
+    AimpActionResult SetPreamp(double value);
 
-        /// <summary>
-        /// Get preset,
-        /// </summary>
-        /// <returns>AimpActionResult</returns>
-        AimpActionResult<IAimpEqualizerPreset> GetPreset();
+    /// <summary>
+    /// Get preset,
+    /// </summary>
+    /// <returns>AimpActionResult</returns>
+    AimpActionResult<IAimpEqualizerPreset> GetPreset();
 
-        /// <summary>
-        /// Set preset.
-        /// </summary>
-        /// <param name="value">Preset <see cref="IAimpEqualizerPreset"/></param>
-        /// <returns>AimpActionResult.</returns>
-        AimpActionResult SetPreset(IAimpEqualizerPreset value);
-    }
+    /// <summary>
+    /// Set preset.
+    /// </summary>
+    /// <param name="value">Preset <see cref="IAimpEqualizerPreset"/></param>
+    /// <returns>AimpActionResult.</returns>
+    AimpActionResult SetPreset(IAimpEqualizerPreset value);
 }

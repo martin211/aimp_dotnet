@@ -1,16 +1,7 @@
-﻿//  ----------------------------------------------------
-//  AIMP DotNet SDK
-// 
-//  Copyright (c) 2014 - 2023 Evgeniy Bogdan
-//  https://github.com/martin211/aimp_dotnet
-// 
-//  Mail: mail4evgeniy@gmail.com
-//  ----------------------------------------------------
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AIMP.SDK.MusicLibrary;
 
-namespace AIMP.DotNet.MusicLibrary.ExplorerGroupingProvider
+namespace Aimp.MusicLibraryPlugin.ExplorerGroupingProvider
 {
     public class RootDataProviderSelection : IAimpDataProviderSelection
     {
